@@ -11,8 +11,6 @@ async function _start() {
 
 	//prep ui
 	d3.select('#bNextMove').text('NEXT MOVE').on('click', interaction);
-	if (!SHOW_SERVERDATA) hide('SERVERDATA');
-	if (!SHOW_SPEC) hide('SPEC');
 	//mMinSize(mBy('table'),300,200);
 	gameStep();
 }
@@ -23,6 +21,7 @@ async function gameStep() {
 	
 	console.log('SPEC',SPEC);
 
+	a00(SPEC,sData);
 
 
 
@@ -35,18 +34,6 @@ async function gameStep() {
 }
 
 
-
-function old_gameStepCode(){
-	//showViewer(1);
-
-	// testLayout01(); return;
-	//hide('test1'); hide('test2'); hide('test3');
-
-	//console.log(sData);
-	//let g0 = G.table = createRoot('table', SPEC); //ok
-	//parseStaticSpec(g0);
-	//parseDynamicSpec(g0);
-}
 
 //#region interaction restartGame prelims (von gameStep)
 async function interaction() {
@@ -78,5 +65,10 @@ async function prelims(){
 	PROTO={};
 	POOLS={augData:makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
 	sData = POOLS.augData; 
+
+	let d = mBy('SERVERDATA');
+	if (d && SHOW_SERVERDATA) { d.innerHTML = '<pre>' + jsonToYaml(sData) + '</pre>'; }
+	else {hide('contSERVERDATA');}
+
 }
 

@@ -92,6 +92,8 @@ async function loadSpec(path) {
 
 	//merge default and userSpec
 	SPEC = deepmerge(defaultSpec, userSpec, { arrayMerge: overwriteMerge });
+	DEFS = SPEC.defaults;
+	delete SPEC.defaults;
 
 	//need to correct areas because it should NOT be merged!!!
 	if (userSpec.layout_alias) { SPEC.areas = userSpec.layout_alias; }
@@ -101,7 +103,10 @@ async function loadSpec(path) {
 
 	let d = mBy('SPEC');
 	if (d && SHOW_SPEC) { d.innerHTML = '<pre>' + jsonToYaml(SPEC) + '</pre>'; }
-	//else consOutput('SPEC',SPEC);
+	else {hide('contSPEC');}
+	d = mBy('DEFS');
+	if (d && SHOW_DEFS) { d.innerHTML = '<pre>' + jsonToYaml(DEFS) + '</pre>'; }
+	else {hide('contDEFS');}
 
 }
 async function loadCode() {

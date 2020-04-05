@@ -3,11 +3,15 @@ var GAME = 'ttt'; // catan | aristocracy | ttt | game01
 var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
 
+//TODO: should these be in assets? should I make a globals?
+var SPEC = null; //merged userSpec and defaultSpec
+var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
+
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 const TEST_VERSION = 'a00'; // | null to use genauere
 const TEST_PATH = '/minitests/';
 
-const DSPEC_PATH = '/assets/zdata/defaultSpec4';
+const DSPEC_PATH = '/minitests/'+TEST_VERSION+'/defaultSpec';
 const SPEC_PATH = '/minitests/'+TEST_VERSION+'/spec';
 const SERVERDATA_PATH = '/minitests/'+TEST_VERSION+'/serverData';
 
@@ -23,6 +27,7 @@ const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
 const SHOW_SERVERDATA = false; // true | false
 const SHOW_SPEC = true; // true | false
+const SHOW_DEFS = true; // true | false
 
 // testing vars
 var timit;
@@ -57,7 +62,6 @@ const USE_ALL_GAMES_ROUTE = false; // true | false //false means directly loadin
 
 
 // important vars
-var SPEC = null; //merged userSpec and defaultSpec
 var GAMEPLID = null; //game player id
 var PGAMEPLID = null; //prev game player id
 
