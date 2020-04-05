@@ -1,0 +1,15 @@
+#a00 soll root mit 2 panels machen!
+
+ROOT:
+  name: A
+  panels:
+    _id: A
+
+p1:
+  name: B
+  _ref: A
+
+p2:
+  name: C
+  _ref: A
+
