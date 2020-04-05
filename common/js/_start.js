@@ -76,7 +76,7 @@ async function prelims(){
 	isTraceOn = SHOW_TRACE;
 	G={};
 	PROTO={};
-	POOLS={augData=makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
+	POOLS={augData:makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
 	sData = POOLS.augData; 
 }
 

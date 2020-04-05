@@ -22,7 +22,7 @@ const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
 const SHOW_SERVERDATA = false; // true | false
-const SHOW_SPEC = false; // true | false
+const SHOW_SPEC = true; // true | false
 
 // testing vars
 var timit;
