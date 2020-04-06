@@ -19,7 +19,7 @@ async function gameStep() {
 	
 	// G, PROTO, POOLS, SPEC, sData(=POOLS[augData]) in place for parsing spec!
 	
-	console.log('SPEC',SPEC);
+	//console.log('SPEC',SPEC);
 
 	a00(SPEC,sData);
 

@@ -1,0 +1,20 @@
+ROOT:
+  name: A
+  panels:
+    _id: A
+  prop1:
+    p2:
+      p3:
+        _id: Q
+  prop2:
+    p2:
+      _id: E
+      p3:
+        _id: T
+
+
+
+
+
+
+

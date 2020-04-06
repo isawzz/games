@@ -21,6 +21,16 @@ div{
 	justify-content: center;
   align-items: center;
 }
+#div3{
+	width:100%;
+	background-color: blue;
+	/* display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: stretch; */
+  /* justify-items: stretch;
+  align-items: stretch; */
+}
 #rsg{
 	display:flex;
 	flex:1;
@@ -45,12 +55,14 @@ div{
 }
 .flexWrap>div {
 	/* flex-grow: 1; */
-	background-color: rgba(0,0,0,0.2);
+	background-color: blue;
+	/* background-color: rgba(0,0,0,0.2); */
 	margin: 10px;
 	border-radius: 8px;
 	/* padding: 4px; */
 	color:silver;
 	text-align:center;
+	font-size: 22px;
 }
 /* #endregion flexWrap */
 
@@ -204,7 +216,8 @@ label{
 button{
 	margin: 4px;
 	font-size: 90%;
-	min-width: 100px;
+	width: 70px;
+	/* min-width: 100px; */
 	padding: 2px 2px 3px 2px;
   color: black;
 	background-color: rgba(255,255,255,0.5);

@@ -68,6 +68,7 @@ function mMinBounds(d) {
 function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
 function mStyle(elem, styles, unit = 'px') { for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } }
 function mTextDiv(text, dParent = null) { let d = mCreate('div'); d.innerHTML = text; return d; }
+function mYaml(d,js){	d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
 //#region SVG/g 1 liners A list shapes
