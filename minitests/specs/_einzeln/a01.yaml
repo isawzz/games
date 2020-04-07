@@ -1,5 +1,3 @@
-#a00 soll root mit 2 panels machen!
-
 ROOT:
   type: p3
   name: A
@@ -20,3 +18,4 @@ p3:
   type: p2
   params:
     color: blue
+

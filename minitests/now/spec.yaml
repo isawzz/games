@@ -18,9 +18,3 @@ ROOT:
   prop4:
     panels:
       - _id: Z #only 1 _ref allowed! will be overwritten
-
-
-
-
-
-

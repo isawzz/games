@@ -1,4 +1,3 @@
-#should complain in backwardMerge _ref A
 ROOT:
   type: p3
   panels:

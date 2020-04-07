@@ -1,0 +1,133 @@
+a00: #soll root mit 2 panels machen!
+  spec:
+    ROOT:
+      name: A
+      panels:
+        _id: A
+    p1:
+      name: B
+      _ref: A
+    p2:
+      name: C
+      _ref: A
+  
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          name: C
+        
+a01: #panel mit 2 panels, parent and 2nd params aus p2
+  spec:
+    ROOT:
+      type: p3
+      name: A
+      panels:
+        - _id: A #only 1
+        - type: p2
+
+    p1:
+      name: B
+      _ref: A
+
+    p2:
+      params:
+        orientation: h
+        color: yellow
+
+    p3:
+      type: p2
+      params:
+        color: blue
+
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          params:
+            orientation: h
+            color: yellow
+      params:
+        orientation: h
+        color: yellow
+
+a02: #should complain in backwardMerge _ref A
+  spec:
+    ROOT:
+      type: p3
+      panels:
+        - _id: A #only 1
+
+    p1:
+      name: B
+      _ref: A
+
+    p2:
+      name: C
+      _ref: A
+
+    p3:
+      type: p2
+      color: blue
+
+  solution: #ERROR
+
+a03: #test if finds all places correctly
+  spec:
+    ROOT:
+      name: A
+      panels:
+        - _id: A
+        - _id: X
+      prop1:
+        p2:
+          p3:
+            _id: A
+      prop2:
+        p2:
+          _id: E
+          p3:
+            _id: T
+      prop3:
+        panels:
+          _id: O #multiple _ref allowed
+      prop4:
+        panels:
+          - _id: Z #only 1 _ref allowed! will be overwritten
+
+  solution:
+    places:
+      A:
+        - specKey: ROOT
+          propList: self.panels.0
+        - specKey: ROOT
+          propList: self.prop1.p2.p3
+      X:
+        - specKey: ROOT
+          propList: self.panels.1
+      E:
+        - specKey: ROOT
+          propList: self.prop2.p2
+      T:
+        - specKey: ROOT
+          propList: self.prop2.p2.p3
+      O:
+        - specKey: ROOT
+          propList: self.prop3.panels
+      Z:
+        - specKey: ROOT
+    propList: self.prop4.panels.0    
+
+
+
+
+
+
