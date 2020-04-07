@@ -68,7 +68,7 @@ function mMinBounds(d) {
 function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
 function mStyle(elem, styles, unit = 'px') { for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } }
 function mTextDiv(text, dParent = null) { let d = mCreate('div'); d.innerHTML = text; return d; }
-function mYaml(d,js){	d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>'; }
+function mYaml(d, js) { d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
 //#region SVG/g 1 liners A list shapes
@@ -2015,6 +2015,9 @@ function deepmerge(target, source, optionsArgument) {
 		return mergeObject(target, source, optionsArgument)
 	}
 }
+function deepmergeOverride(base, drueber) {
+	return deepmerge(base, drueber, { arrayMerge: overwriteMerge });
+}
 function dict2list(d, keyName = 'id') { return dict2olist(d, keyName); }
 function dict2olist(d, keyName = 'id') {
 	//renamed from dict2list
@@ -2182,6 +2185,65 @@ function lookupSet(dict, keys, val) {
 	}
 	return d;
 }
+function lookupSetOverride(dict, keys, val) {
+	let d = dict;
+	let ilast = keys.length - 1;
+	let i = 0;
+	for (const k of keys) {
+
+		if (i == ilast) {
+			if (nundef(k)) {
+				//letzter key den ich eigentlich setzen will ist undef!
+				alert('lookupAddToList: last key indefined!' + keys.join(' '));
+				return null;
+			} else {
+				d[k] = val;
+			}
+			return d[k];
+		}
+
+		if (nundef(k)) continue; //skip undef or null values
+
+		if (d[k] === undefined) d[k] = {};
+
+		d = d[k];
+		i += 1;
+	}
+	return d;
+}
+function lookupAddToList(dict, keys, val) {
+	//usage: lookupAddToList({a:{b:[2]}}, [a,b], 3) => {a:{b:[2,3]}}
+	//usage: lookupAddToList({a:{b:[2]}}, [a,c], 3) => {a:{b:[2],c:[3]}}
+	//usage: lookupAddToList({a:[0, [2], {b:[]}]}, [a,1], 3) => { a:[ 0, [2,3], {b:[]} ] }
+	let d = dict;
+	let ilast = keys.length - 1;
+	let i = 0;
+	for (const k of keys) {
+
+		if (i == ilast) {
+			if (nundef(k)) {
+				//letzter key den ich eigentlich setzen will ist undef!
+				alert('lookupAddToList: last key indefined!' + keys.join(' '));
+				return null;
+			} else if (isList(d[k])) {
+				d[k].push(val);
+			} else {
+				d[k] = [val];
+			}
+			return d[k];
+		}
+
+		if (nundef(k)) continue; //skip undef or null values
+
+		// if (i ==ilast && d[k]) d[k]=val;
+
+		if (d[k] === undefined) d[k] = {};
+
+		d = d[k];
+		i += 1;
+	}
+	return d;
+}
 
 function parseDictionaryName(s) {
 	if (nundef(s)) return null;
@@ -2304,6 +2366,23 @@ function union(lst1, lst2) {
 
 
 //#endregion
+
+//#region recursion
+function recFindProp(o, prop, path, akku) {
+	//find all incidences of key==prop in object or list o, and collects their path & value
+	//console.log(o);
+	if (!isDict(o) && !Array.isArray(o)) { return; }
+	if (isDict(o)) {
+		// if (o[prop]) { akku[path] = o; }
+		if (o[prop]) { akku[path] = o[prop]; }
+		for (const k in o) { this.recFindProp(o[k], prop, path + '.' + k, akku); }
+	} else if (isList(o)) {
+		for (let i = 0; i < o.length; i++) {
+			this.recFindProp(o[i], prop, path + '.' + i, akku);
+		}
+	}
+}
+
 
 //#region random
 function chooseRandom(arr, condFunc = null) {
@@ -2499,16 +2578,7 @@ function getTypeOf(param) {
 }
 function isdef(x) { return x !== null && x !== undefined; }
 function isDictOrList(d) { return typeof (d) == 'object'; }
-function isDict(d) {  //TODO MUSS isList ausschliessen!!!! koennte isDictOrList function dazugeben!!!
-	let res = (typeof (d) == 'object') && !isList(d);
-	if (isList(d)) {
-		let funcName = getFunctionsNameThatCalledThisFunction();
-		// if (!(['transformToString','getColorHint'].includes(funcName))){
-		// 	console.log('>>>',getFunctionsNameThatCalledThisFunction(), d,res); //typeof (d) == 'object' && !isList(d));
-		// }
-	}
-	return res; //typeof (d) == 'object'; // && !isList(d); 
-}
+function isDict(d) { let res = (typeof (d) == 'object') && !isList(d); return res; }
 function isEvent(param) { return getTypeOf(param) == 'event'; }
 function isLiteral(x) { return isString(x) || isNumber(x); }
 function isList(arr) { return Array.isArray(arr); }

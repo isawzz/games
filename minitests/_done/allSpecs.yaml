@@ -1,0 +1,69 @@
+a00: #a00 soll root mit 2 panels machen!
+  spec:
+    ROOT:
+      name: A
+      panels:
+        _id: A
+    p1:
+      name: B
+      _ref: A
+    p2:
+      name: C
+      _ref: A
+  
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          name: C
+        
+a01: #panel mit 2 panels, parent and 2nd params aus p2
+  spec:
+    ROOT:
+      type: p3
+      name: A
+      panels:
+        - _id: A #only 1
+        - type: p2
+
+    p1:
+      name: B
+      _ref: A
+
+    p2:
+      params:
+        orientation: h
+        color: yellow
+
+    p3:
+      type: p2
+      params:
+        color: blue
+
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          params:
+            orientation: h
+            color: yellow
+      params:
+        orientation: h
+        color: yellow
+
+
+
+
+
+
+
+
+

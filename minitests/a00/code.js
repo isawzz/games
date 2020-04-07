@@ -1,16 +1,18 @@
 var buildingProcess = null;
 var autoplay = false;
 async function a00(sp, data) {
+	//testLookupSetOverride(sp);
 
-	//prelim: select active nodes: for now all nodes are selected
-	//using meta info
+	buildingProcess = new mBuildingProcess(sp, data, DEFS, 'message','processed','dicts','forward', 'viewer', 'table1');
 
-	//start at ROOT node
-
-	buildingProcess = new mBuildingProcess(sp, data, DEFS, 'message','processed','dicts', 'viewer', 'table1');
-
-	await onClickStep();
-	await onClickStep();
+	let stage=0;
+	while(stage != STAGES.static){
+		stage = await onClickStep();
+		//console.log(stage);
+		if (!stage) break;
+	}
+	console.log('stage',stage);
+	//await onClickStep();
 
 	autoplay = false;
 	while (autoplay) {

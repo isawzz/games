@@ -1,3 +1,31 @@
+function testLookupAddToList(sp){
+	let x=sp.ROOT;
+	let q1=lookupAddToList(x,['panels',1,0],3);
+	console.log(x,q1);
+	return;
+
+}
+
+function testLookupSetOverride(sp){
+	let x=sp.ROOT;
+	let q1=lookupSetOverride(x,['panels',1,'_id'],3);
+	console.log(x,q1);
+	return;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //#region parse spec tests
 function test00() {
 	let gg = parseSpecRoot('table', SPEC, ['staticSpec', 'root00']);

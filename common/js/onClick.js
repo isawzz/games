@@ -3,9 +3,9 @@ function onClickSizeSmall() { let d = mBy('table'); mSize(d, 400, 300); mColor(d
 async function onClickStep(){
 	//console.log('click')
 	if (buildingProcess) {
-		let didSomething = await buildingProcess.step();
+		let state = await buildingProcess.step();
 		//console.log('.');
-		return didSomething;
+		return state;
 	}
 	return false;
 }
