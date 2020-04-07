@@ -8,6 +8,7 @@
 	<title>happy!</title>
 	<script src="/_extlibs/js-yaml.min.js"></script>
 	<script src="/_extlibs/d3.min.js"></script>
+	<script src="/_extlibs/prettyprint.js"></script>
 	<link href="/common/mainSimple.css" rel="stylesheet">
 </head>
 
@@ -41,9 +42,13 @@
 	</div>
 
 	<div id='lower'>
+		<div id='contTree' class='grey'>
+			<b>tree:</b>
+			<div id='tree' class='flexWrap'> </div>
+		</div>
 		<div id='contProcessed' class='grey'>
 			<b>processed nodes:</b>
-			<div id='processed' class='flexWrap'> </div>
+			<div id='protos' class='flexWrap'> </div>
 		</div>
 		<div id='contDicts' class='grey'>
 			<b>dictionaries:</b>
@@ -53,9 +58,9 @@
 			<b>forward:</b>
 			<div id='forward' class='flexWrap'> </div>
 		</div>
-		<div id='contViewer' class='grey'>
-			<b>viewer:</b>
-			<div id='viewer' class='flexWrap'> </div>
+		<div id='contBackward' class='grey'>
+			<b>backward:</b>
+			<div id='backward' class='flexWrap'> </div>
 		</div>
 		<div id='contResults' class='grey'>
 			<b>results:</b>
@@ -79,9 +84,9 @@
 	<script src="/common/js/onClick.js"></script>
 	<script src="/common/js/viewer.js"></script>
 
-	<script src="/common/js/classes/mBuildingProcess.js"></script>
 	<script src="/common/js/classes/mPanel.js"></script>
 	<script src="/common/js/classes/mList.js"></script>
+	<script src="/common/js/classes/mBuildingProcess.js"></script>
 	<script src="/common/js/_work.js"></script>
 
 	<script src="/common/js/_start.js"></script>

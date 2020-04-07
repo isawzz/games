@@ -1,20 +1,11 @@
 ROOT:
   name: A
   panels:
-    - _id: A
-    - _id: X
-  prop1:
-    p2:
-      p3:
-        _id: A
-  prop2:
-    p2:
-      _id: E
-      p3:
-        _id: T
-  prop3:
-    panels:
-      _id: O #multiple _ref allowed
-  prop4:
-    panels:
-      - _id: Z #only 1 _ref allowed! will be overwritten
+    - type: p2
+p1:
+  name: B
+  _id: B
+p2:
+  name: C
+  _ref: B
+  color: blue

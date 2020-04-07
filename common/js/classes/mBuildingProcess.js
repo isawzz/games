@@ -1,11 +1,17 @@
-const STAGES = { none: -1, ready: 1, protos: 2, static: 3, dynamic: 4, uiDone: 5 };
+const STAGES = { select: -1, protos: 1, forward: 2, backward: 3, dynamic: 4, uiDone: 5 };
+const TYPECLASS = {
+	panel: new mPanel(),
+	list: new mList(),
+}
 class mBuildingProcess {
-	constructor(spec, data, defaults, messagePlace, processedPlace, dictsPlace, forwardPlace, treePlace, resultPlace) {
+	constructor(spec, data, defaults, messagePlace, protoPlace, 
+		dictsPlace, forwardPlace, backwardPlace,treePlace, resultPlace) {
 		this.stepCounter = 0;
 		this.dMessage = mBy(messagePlace);
-		this.dProcess = mBy(processedPlace);
+		this.dProtos = mBy(protoPlace);
 		this.dDicts = mBy(dictsPlace);
 		this.dForward = mBy(forwardPlace);
+		this.dBackward = mBy(backwardPlace);
 		this.dTree = mBy(treePlace);
 		this.dResult = mBy(resultPlace);
 
@@ -16,64 +22,84 @@ class mBuildingProcess {
 		this.todo = null;
 		this.activeNodes = null;//list [] ids of spec nodes that are active this round
 		this.protoNodes = {};
+		this.forwardNodes = {};
+		this.backwardNodes = {};
 		this.current = null;
+		this.currentKey = null;
 		this.tree = null;
 		//sicher muessen hier noch paar dictionaries initialized werden!!!!!
 		//weiss aber noch nicht welche
-
-		// _ids fuer _ref entries
-		this._ids = { static: {} };
-		this.places = {};//static ids are in _ids.static, others by oid
-		this.places1 = {};//test recFindProp in helpers!!!
+		
+		this.places = {};// _ids fuer _ref entries
 
 		//stages in process
-		this.stage = STAGES.none;
+		this.stage = STAGES.select;
 
 	}
 	//main: construction of tree one step at a time
 	async step() {
 		let key;
+		//console.log('stage is',this.stage);
+		//console.log(this);
+		//return;
 		switch (this.stage) {
-			case STAGES.none:
+			case STAGES.select:
 				//state: this.activeNodes==null
 				console.assert(!this.activeNodes, 'stage none but activeNodes non-null!!!');
 				this.setActiveNodes();
 				this.clear();
-				this.stage = STAGES.ready;
+				this.stage = STAGES.protos;
 				this.currentKey = 'ROOT';
-				break;
-			case STAGES.ready: //todo can't b empty here bcause there must be ROOT!
-				key = this.currentKey;
-				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
-				this.current = this.makePrototypes(key);
-				this.visualizeProtoNode();
-				if (isEmpty(this.todo)) {
-					//prep static
-					this.stage = STAGES.protos;
-					this.todo = Object.keys(this.protoNodes);
-					this.currentKey = 'ROOT';
-				} else {
-					this.currentKey = this.todo[0];
-				}
 				break;
 			case STAGES.protos: //todo can't b empty here bcause there must be ROOT!
 				key = this.currentKey;
 				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
-				this.current = this.forwardMerge(key);
-				console.log(this.current);
-				this.visForwardNode();
+				this.protoNodes[key] = this.current = this.makePrototype(key);
+				if (key == 'ROOT') this.tree = this.current;
+				//also filled places dict!
+				this.visualizeProtoNode();
 				if (isEmpty(this.todo)) {
 					//prep static
-					this.stage = STAGES.static;
+					this.stage = STAGES.forward;
 					this.todo = Object.keys(this.protoNodes);
 					this.currentKey = 'ROOT';
 				} else {
 					this.currentKey = this.todo[0];
 				}
 				break;
-
-			//again starting at root, do forward and backward merges
-			//take current node, 
+			case STAGES.forward: //todo can't b empty here bcause there must be ROOT!
+				key = this.currentKey;
+				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
+				this.forwardNodes[key] = this.current = this.forwardMerge(key);
+				if (key == 'ROOT') this.tree = this.current; //update tree!
+				console.log(this.current);
+				this.visForwardNode();
+				if (isEmpty(this.todo)) {
+					//prep static
+					this.stage = false; //STAGES.backward;
+					this.todo = Object.keys(this.forwardNodes);
+					this.currentKey = 'ROOT';
+				} else {
+					this.currentKey = this.todo[0];
+				}
+				break;
+			case STAGES.backward:
+				// this.stage = false;
+				key = this.currentKey;
+				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
+				this.backwardNodes[key] = this.current = this.backwardMerge(key);
+				if (key == 'ROOT') this.tree = this.current; //update tree!
+				console.log(this.current);
+				this.visBackwardNode();
+				if (isEmpty(this.todo)) {
+					//prep static
+					this.stage = false; //STAGES.dynamic;
+					this.todo = Object.keys(this.backwardNodes);
+					this.currentKey = 'ROOT';
+				} else {
+					this.currentKey = this.todo[0];
+				}
+				break;
 
 
 
@@ -83,7 +109,7 @@ class mBuildingProcess {
 		this.messageStage();
 		return this.stage;
 	}
-	//stage none: select active nodes (=spec nodes used in this building process)
+	//#region stage select: select active nodes (=spec nodes used in this building process)
 	setActiveNodes() {
 		//for now all spec nodes
 		let keys = Object.keys(this.spec);
@@ -91,21 +117,21 @@ class mBuildingProcess {
 		this.activeNodes = keys;
 		this.todo = jsCopy(keys);
 	}
-	//stage ready: each spec node becomes a prototype, _id => places
-	makePrototypes(key) {
+	//#endregion
+	
+	//#region stage protos: each spec node becomes a prototype, _id => places
+	makePrototype(key) {
 		let nodeProto = this.createNode(key);
-		this.protoNodes[key] = nodeProto;
-		this.check_id(nodeProto); 
-		if (key == 'ROOT') this.tree = jsCopy(nodeProto);
+		this.check_id(key,nodeProto);
 		return nodeProto;
 	}
 	createNode(key) {
 		let node = jsCopy(this.spec[key]);
 		node = this.setDefaultType(node);
-		node.specKey = key;
+		//node.specKey = key; //for now! TODO: think ob ich das brauche?!?!?
 		return node;
 	}
-	setDefaultType(node){
+	setDefaultType(node) {
 		node.type = this.formatToListAndSetDefault(node, 'type', this.defaults.type);
 		if (isList(node.panels)) {
 			node.panels = node.panels.map(x => this.setDefaultType(x));
@@ -113,55 +139,74 @@ class mBuildingProcess {
 
 		return node;
 	}
-	check_id(node) {
+	check_id(specKey,node) {
 		let akku = {};
 		recFindProp(node, '_id', 'self', akku);
 		//console.log(node.specKey, node, akku);
-		for (const k in akku) { this.addToPlaces(node.specKey, akku[k], k); }
+		for (const k in akku) { this.addToPlaces(specKey, akku[k], k); }
 		//console.log('places', this.places)
 	}
 	addToPlaces(specKey, idName, propList) {
 		if (nundef(this.places[idName])) this.places[idName] = [];
 		this.places[idName].push({ specKey: specKey, propList: propList });
 	}
-	//stage protos: root expanded forward recursively (type merging)
+	//#endregion
+	
+	//#region stage forward: root expanded forward recursively (type merging)
 	forwardMerge(key) {
 		let node = jsCopy(this.protoNodes[key]);
 		if (key == 'ROOT') this.tree = node;
 		node = this.recForwardMerge(node);
 		return node;
 	}
-	fMerge(node, key) {
-		//merge node with proto[key]
-		if (this.protoNodes[key]) node = deepmergeOverride(node, this.forwardMerge(key));
-		return node;
-	}
+
 	recForwardMerge(node) {
 		console.log(node)
 		if (!isDict(node)) return node;
 
 		if (node.type) {
 			let types = node.type;
-			//wenn es wirklich mehrere sind und am ende : brauch da beispiele!!!!!!
-			//console.log('type list (muss es geben!)', types);
 			types.map(x => node = this.fMerge(node, x));
 		}
 
-		//jeder node weiss selbst wo ueberall nodes eingehaengt werden koennen
-		//erstmal nur fuer panels!
-		//console.log(node.type);
-		//return node;
-		if (node.type.includes('panel') && isdef(node.panels)) {
-			node.panels = node.panels.map(x => this.recForwardMerge(x));
-		}
+		//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
+		node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
+
 		return node;
 	}
-	
 
+	fMerge(node, key) {
+		//merge node with proto[key]
+		if (this.protoNodes[key]) node = deepmergeOverride(node, this.forwardMerge(key));
+		return node;
+	}
+	//#endregion
+	
+	//#region stage backward merge: aufloesen von _ref
+	backwardMerge(key) {
+		let node = jsCopy(this.forwardNodes[key]);
+		if (key == 'ROOT') this.tree = node;
+		node = this.recBackwardMerge(node);
+		return node;
+	}
+	recForwardMerge(node) {
+		//console.log(node)
+		if (!isDict(node)) return node;
+
+		if (node.type) {
+			let types = node.type;
+			types.map(x => node = this.fMerge(node, x));
+		}
+
+		//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
+		node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
+
+		return node;
+	}
 
 	//#region helpers
 	clear() {
-		clearElement(this.dProcess);
+		clearElement(this.dProtos);
 		clearElement(this.dDicts);
 		clearElement(this.dForward);
 		clearElement(this.dTree);
@@ -172,28 +217,68 @@ class mBuildingProcess {
 		if (!isList(o[prop])) o[prop] = [o[prop]];
 		return o[prop];
 	}
-	messageStage() { this.message('P' + this.stage + ': ' + this.todo.join(' ')); }
+	
+	isa(node, type) { return node.type.includes(type); }
+	messageStage() { 
+		this.message(findKey(STAGES,this.stage) + ': ' + this.todo.join(' ')); 
+		this.visTree();
+	}
 	message(msg) {
 		this.stepCounter += 1;
 		//msg = 'step ' + this.stepCounter + ': ' + msg;
 		this.dMessage.innerHTML = msg;
 	}
-	visNode(n, dCont) {
+	visNodeYaml(n, dCont) {
 		let d = mCreate('div');
-		mClass(d, 'node');
+		mClass(d, 'nodeYaml');
 		mYaml(d, n);
 		mAppend(dCont, d)
+		return d;
+	}
+	visNodeManual(n, dCont) {
+		let d = mCreate('div');
+		mClass(d, 'nodeYaml');
+		let n2 = jsCopy(n);
+		recModTypeToString(n2);
+		mYaml(d, n2);
+		mAppend(dCont, d);
+		return d;
+	}
+	visNodePP(n, dCont) {
+		let d = mCreate('div');
+		mClass(d, 'nodePP');
+		let tbl = prettyPrint(n, {
+			// Config
+			maxArray: 20, // Set max for array display (default: infinity)
+			expanded: true, // Expanded view (boolean) (default: true),
+			maxDepth: 15 // Max member depth (when displaying objects) (default: 3)
+		})
+		mAppend(d, tbl);
+		console.table(n);
+		//all type properies and all _id and _ref properties should become
+		// [A,B,C] instead of yaml rep
+
+		mAppend(dCont, d)
+		return d;
+	}
+	visNode(n, d) { return this.visNodeManual(n, d); }
+	visTree(){
+		if (this.tree){
+			clearElement(this.dTree);
+			this.visNode(this.tree,this.dTree);
+		}
 	}
 	visualizeProtoNode() {
-		this.visNode(this.current, this.dProcess);
+		this.visNode(this.current, this.dProtos);
 		clearElement(this.dDicts);
 		this.visNode(this.places, this.dDicts);
 		//console.log(this.current);
 	}
 	visForwardNode() {
-		this.visNode(this.current, this.dForward);
+		let d = this.visNode(this.current, this.dForward);
+		
 	}
-
+	//#endregion
 
 
 	//#region not used
@@ -221,7 +306,7 @@ class mBuildingProcess {
 			let key = !this.tree ? 'ROOT' : this.activeNodes[0];
 			removeInPlace(this.activeNodes, key); // for now just always assume there is a node named ROOT in spec
 
-			this.current = this.makePrototypes(key);
+			this.current = this.makePrototype(key);
 
 			this.visualizeProtoNode();
 		}
@@ -229,6 +314,7 @@ class mBuildingProcess {
 		else { this.message(this.activeNodes.join(', ')); return true; }
 	}
 
+	//#endregion
 
 
 }

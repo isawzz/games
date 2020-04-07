@@ -29,7 +29,7 @@ button{width:70px;}
 	justify-content:center;
 }
 
-.node{
+.nodeYaml, .node{
 	font-size: 12pt;
 	background-color:white;
 	color:black;
@@ -37,6 +37,12 @@ button{width:70px;}
 	margin: 10px;
 	padding: 2px 14px 2px 8px;
 	border-radius: 8px;
+}
+.nodePP{
+	font-size: 12pt;
+	text-align: left;
+	margin: 4px;
+	padding: 2px 14px 2px 8px;
 }
 
 /* .flexWrap>div {

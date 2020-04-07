@@ -21,7 +21,7 @@ async function gameStep() {
 	
 	//console.log('SPEC',SPEC);
 
-	a00(SPEC,sData);
+	run00(SPEC,sData);
 
 
 
