@@ -36,6 +36,7 @@ function mFlexChildSplit(d, split) {
 }
 function mFlexWrap(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; }
 function mFlexWrapGrow(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; d.style.flex = 1; }
+function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) {
 	//choice a) fontsize nach length berechnen
 	//b) 

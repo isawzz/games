@@ -4,8 +4,8 @@ const TYPECLASS = {
 	list: new mList(),
 }
 class mBuildingProcess {
-	constructor(spec, data, defaults, messagePlace, protoPlace, 
-		dictsPlace, forwardPlace, backwardPlace,treePlace, resultPlace) {
+	constructor(spec, data, defaults, messagePlace, protoPlace,
+		dictsPlace, forwardPlace, backwardPlace, treePlace, resultPlace) {
 		this.stepCounter = 0;
 		this.dMessage = mBy(messagePlace);
 		this.dProtos = mBy(protoPlace);
@@ -29,7 +29,7 @@ class mBuildingProcess {
 		this.tree = null;
 		//sicher muessen hier noch paar dictionaries initialized werden!!!!!
 		//weiss aber noch nicht welche
-		
+
 		this.places = {};// _ids fuer _ref entries
 
 		//stages in process
@@ -42,6 +42,7 @@ class mBuildingProcess {
 		//console.log('stage is',this.stage);
 		//console.log(this);
 		//return;
+		console.log('________________')
 		switch (this.stage) {
 			case STAGES.select:
 				//state: this.activeNodes==null
@@ -70,13 +71,14 @@ class mBuildingProcess {
 			case STAGES.forward: //todo can't b empty here bcause there must be ROOT!
 				key = this.currentKey;
 				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
-				this.forwardNodes[key] = this.current = this.forwardMerge(key);
+				this.current = this.forwardMerge(key);
 				if (key == 'ROOT') this.tree = this.current; //update tree!
-				console.log(this.current);
+				//console.log(this.current);
 				this.visForwardNode();
 				if (isEmpty(this.todo)) {
 					//prep static
-					this.stage = false; //STAGES.backward;
+					console.log('todo is empty!!!')
+					this.stage = STAGES.backward;
 					this.todo = Object.keys(this.forwardNodes);
 					this.currentKey = 'ROOT';
 				} else {
@@ -87,10 +89,10 @@ class mBuildingProcess {
 				// this.stage = false;
 				key = this.currentKey;
 				removeInPlace(this.todo, key); // for now just always assume there is a node named ROOT in spec
-				this.backwardNodes[key] = this.current = this.backwardMerge(key);
+				this.current = this.backwardMerge(key);
 				if (key == 'ROOT') this.tree = this.current; //update tree!
-				console.log(this.current);
-				this.visBackwardNode();
+				//console.log(this.current);
+				this.visNode(this.current, this.dBackward);
 				if (isEmpty(this.todo)) {
 					//prep static
 					this.stage = false; //STAGES.dynamic;
@@ -100,11 +102,6 @@ class mBuildingProcess {
 					this.currentKey = this.todo[0];
 				}
 				break;
-
-
-
-
-
 		}
 		this.messageStage();
 		return this.stage;
@@ -118,11 +115,11 @@ class mBuildingProcess {
 		this.todo = jsCopy(keys);
 	}
 	//#endregion
-	
+
 	//#region stage protos: each spec node becomes a prototype, _id => places
 	makePrototype(key) {
 		let nodeProto = this.createNode(key);
-		this.check_id(key,nodeProto);
+		this.check_id(key, nodeProto);
 		return nodeProto;
 	}
 	createNode(key) {
@@ -139,7 +136,7 @@ class mBuildingProcess {
 
 		return node;
 	}
-	check_id(specKey,node) {
+	check_id(specKey, node) {
 		let akku = {};
 		recFindProp(node, '_id', 'self', akku);
 		//console.log(node.specKey, node, akku);
@@ -151,58 +148,150 @@ class mBuildingProcess {
 		this.places[idName].push({ specKey: specKey, propList: propList });
 	}
 	//#endregion
-	
+
 	//#region stage forward: root expanded forward recursively (type merging)
 	forwardMerge(key) {
-		let node = jsCopy(this.protoNodes[key]);
-		if (key == 'ROOT') this.tree = node;
-		node = this.recForwardMerge(node);
+		let node = this.forwardNodes[key];
+		if (isdef(node)) return node;
+
+		//console.log('>>>new forwardMerge', key)
+		node = jsCopy(this.protoNodes[key]);
+		this.forwardNodes[key] = node; if (key == 'ROOT') this.tree = node;
+
+		node = this.recForwardMerge(node, key);
 		return node;
 	}
 
-	recForwardMerge(node) {
-		console.log(node)
-		if (!isDict(node)) return node;
+	recForwardMerge(node, key) {
+		//console.log('recForwardMerge', key, node);
+		//if (!isDict(node)) return node;
 
-		if (node.type) {
+
+		if (isDict(node) && node.type) {
 			let types = node.type;
-			types.map(x => node = this.fMerge(node, x));
+			//console.log('checking for foreign type', types)
+			for (const t of types) {
+				//if this type is a proto and has not been forward merged yet,
+				//forward merge that proto first and then do the merge
+				//console.log('t',t)
+				let proto = this.protoNodes[t];
+				if (isdef(proto)) {
+					this.forwardNodes[t] = proto = this.forwardMerge(t);
+					//console.log('...fw merged proto', t, this.forwardNodes[t]);
+					node = deepmergeOverride(node, proto);
+					//console.log('......einhaengen:', key);
+					//console.log(this.forwardNodes[key]);
+					//console.log('wird');
+					//console.log(node);
+				} else {
+					//console.log('no proto named', t);
+				}
+			}
 		}
 
-		//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
-		node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
+		if (isList(node.panels)) {
+			node.panels = node.panels.map(x => this.recForwardMerge(x, key));
+		}
 
 		return node;
 	}
 
-	fMerge(node, key) {
-		//merge node with proto[key]
-		if (this.protoNodes[key]) node = deepmergeOverride(node, this.forwardMerge(key));
-		return node;
-	}
+	// fMerge(node, key) {
+	// 	//merge node with proto[key]
+	// 	if (this.protoNodes[key]) node = deepmergeOverride(node, this.forwardMerge(key));
+	// 	return node;
+	// }
 	//#endregion
-	
+
 	//#region stage backward merge: aufloesen von _ref
 	backwardMerge(key) {
+		// let node = this.forwardNodes[key];
+		// if (isdef(node)) return node;
+
+		console.log('>>>new backwardMerge', key);
+		console.log(this.forwardNodes,this.forwardNodes[key]);
+		
 		let node = jsCopy(this.forwardNodes[key]);
-		if (key == 'ROOT') this.tree = node;
-		node = this.recBackwardMerge(node);
+		console.log(node)
+		this.backwardNodes[key] = node; if (key == 'ROOT') this.tree = node;
+
+		node = this.recBackwardMerge(node, key);
 		return node;
 	}
-	recForwardMerge(node) {
-		//console.log(node)
-		if (!isDict(node)) return node;
 
-		if (node.type) {
-			let types = node.type;
-			types.map(x => node = this.fMerge(node, x));
+	recBackwardMerge(node, key) {
+		//console.log('recForwardMerge', key, node);
+		if (isDict(node) && node._ref) {
+			let places = [node._ref]; //can be a list
+			console.log('places',places)
+			//console.log('checking for foreign type', types)
+			for (const t of places) {
+				console.log(t)
+				//if this type is a proto and has not been forward merged yet,
+				//forward merge that proto first and then do the merge
+				//console.log('t',t)
+				let place = this.places[t][0];
+				console.log('place',place)
+				//place comes w/ specKey und propList of form: self.props...
+				//in dem fall koennte es auch sein: self.panels.0.panels.1.panels
+				//irgendwo hab ich schon mal so einen path geparsed!
+				if (isdef(place)) {
+					console.log(place,place.propList)
+					let path = place.propList;
+					let specKey = place.specKey;
+					console.log('path',path,'specKey',specKey);
+					let parts = path.split('.');
+					console.log('parts',parts);
+					parts = parts.slice(1);
+
+					console.log('nach slice',parts);
+					let minusLast = parts.slice(0, parts.length - 1);
+					let last = stringAfterLast(path, '.');
+					let oPlace = lookup(this.tree, minusLast);
+					console.log('last', last, 'minusLast', minusLast);
+
+					if (isdef(oPlace)) {
+						//place = this.recBackwardMerge(t);
+						//console.log('...fw merged proto', t, this.forwardNodes[t]);
+						oPlace[last] = deepmergeOverride(oPlace[last], node);
+						console.log('......einhaengen:', key);
+						console.log(this.forwardNodes[key]);
+						console.log('wird');
+						console.log(node);
+					} else {
+						console.log('no place for path',specKey, path);
+					}
+				}
+			}
 		}
 
-		//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
-		node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
+		// if (isList(node.panels)) {
+		// 	node.panels = node.panels.map(x => this.recBackwardMerge(x, key));
+		// }
 
 		return node;
 	}
+
+	// backwardMerge(key) {
+	// 	let node = jsCopy(this.forwardNodes[key]);
+	// 	if (key == 'ROOT') this.tree = node;
+	// 	node = this.recBackwardMerge(node);
+	// 	return node;
+	// }
+	// recForwardMerge(node) {
+	// 	//console.log(node)
+	// 	if (!isDict(node)) return node;
+
+	// 	if (node.type) {
+	// 		let types = node.type;
+	// 		types.map(x => node = this.fMerge(node, x));
+	// 	}
+
+	// 	//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
+	// 	node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
+
+	// 	return node;
+	// }
 
 	//#region helpers
 	clear() {
@@ -217,11 +306,15 @@ class mBuildingProcess {
 		if (!isList(o[prop])) o[prop] = [o[prop]];
 		return o[prop];
 	}
-	
+
 	isa(node, type) { return node.type.includes(type); }
-	messageStage() { 
-		this.message(findKey(STAGES,this.stage) + ': ' + this.todo.join(' ')); 
-		this.visTree();
+	messageStage() {
+		if (!this.stage) {
+			this.message('changed state to' + ': ' + this.stage);
+		} else {
+			this.message(findKey(STAGES, this.stage) + ': ' + this.todo.join(' '));
+			this.visTree();
+		}
 	}
 	message(msg) {
 		this.stepCounter += 1;
@@ -262,21 +355,24 @@ class mBuildingProcess {
 		return d;
 	}
 	visNode(n, d) { return this.visNodeManual(n, d); }
-	visTree(){
-		if (this.tree){
+	visTitledNode(n, title, d) { let d1 = this.visNode(n, d); mInsert(d1, mTextDiv(title)); }
+	visTree() {
+		if (this.tree) {
 			clearElement(this.dTree);
-			this.visNode(this.tree,this.dTree);
+			this.visTitledNode(this.tree, 'ROOT', this.dTree);
+			this.visTitledNode(this.places, 'places', this.dTree);
 		}
 	}
 	visualizeProtoNode() {
 		this.visNode(this.current, this.dProtos);
-		clearElement(this.dDicts);
-		this.visNode(this.places, this.dDicts);
+		//hide(this.dDicts);
+		//clearElement(this.dDicts);
+		//this.visNode(this.places, this.dDicts);
 		//console.log(this.current);
 	}
 	visForwardNode() {
 		let d = this.visNode(this.current, this.dForward);
-		
+		mInsert(d, mTextDiv(this.currentKey));
 	}
 	//#endregion
 
