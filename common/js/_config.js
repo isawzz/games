@@ -11,7 +11,7 @@ const TESTING = true; // true | false //uses files from tests, DOES NOT send rou
 const TEST_VERSION = 'b00'; // | null to use genauere
 const TEST_PATH = '/minitests/';
 
-const DSPEC_PATH = '/minitests/now/defaultSpec';
+const DSPEC_PATH = '/minitests/global/defaultSpec';
 const SPEC_PATH = '/minitests/'+TEST_VERSION+'/spec';
 const SERVERDATA_PATH = '/minitests/'+TEST_VERSION+'/serverData';
 

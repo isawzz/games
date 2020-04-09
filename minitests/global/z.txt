@@ -1,0 +1,109 @@
+1. data can be literal,list,object,path
+
+2. type, _id, _ref, _source can be string or list of string
+
+3. cond ist always object
+	key: eval function,
+	value: data
+
+4. RHS path .[prop.]*prop refers to serverData object
+
+5. LHS path prop[.prop]* refers to rsg object (=node)
+
+6. node 
+	- has a type (default:panel), 
+	- can be named (spec nodes)
+	- has a parent (node)
+	- has a relative address within parent
+	- may have absolute address (just a of path from ROOT)
+	- has a component: pool referring to all oids for which this node is instantiated
+		(static object pool=null or undefined)
+		pool inherited from parent or set
+	- has a data component
+	- may have params: all visual directives as needed/processable per type
+
+7. address can be 
+	key (if parent is object) or 
+	index (if parent is list)
+
+8. oid is serverData object ID
+
+9. type
+	can be standard type (panel, list, info for now)
+	or node name (named spec node)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_id
+
+_ref
+
+cond
+- eval against data =>attach a _pool property,to each object attach a _rsg property
+
+_source
+- _source: all_cards => use condNode[all_cards].pool
+
+prototype
+
+meta
+
+spec node evolution:
+1. orig node
+2. default type added, _id > places ==> nProto
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

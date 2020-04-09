@@ -9,7 +9,7 @@
 	<script src="/_extlibs/js-yaml.min.js"></script>
 	<script src="/_extlibs/d3.min.js"></script>
 	<script src="/_extlibs/prettyprint.js"></script>
-	<link href="/common/mainSimple.css" rel="stylesheet">
+	<link href="/common/index.css" rel="stylesheet">
 </head>
 
 <body>
@@ -68,26 +68,28 @@
 		</div>
 	</div>
 
-	<!-- #region loading -->
+	<!-- #region loading: order matters! -->
+	<script src="/common/js/helpers.js"></script>
 	<script src="/common/js/_config.js"></script>
 
-	<script src="/common/js/helpers.js"></script>
-	<script src="/common/js/rsgTypes/rsgTypes.js"></script>
-	<script src="/common/js/rsgTypes/dom.js"></script>
-	<script src="/common/js/rsgTypes/grids.js"></script>
-	<script src="/common/js/rsgTypes/panel.js"></script>
+	<script src="/common/_old/rsgTypes/rsgTypes.js"></script>
+	<script src="/common/_old/rsgTypes/dom.js"></script>
+	<script src="/common/_old/rsgTypes/grids.js"></script>
+	<script src="/common/_old/rsgTypes/panel.js"></script>
+	<script src="/common/_old/classes/mPanel.js"></script>
+	<script src="/common/_old/classes/mList.js"></script>
+	<script src="/common/_old/classes/mBuildingProcess.js"></script>
+	<script src="/common/_old/factory.js"></script>
+	<script src="/common/_old/felix.js"></script>
+	<script src="/common/_old/felixHelpers.js"></script>
+	<script src="/common/_old/fparse00.js"></script>
+	<script src="/common/_old/onClick.js"></script>
+	<script src="/common/_old/viewer.js"></script>
+
+	<script src="/common/js/__work.js"></script>
 	<script src="/common/js/_test.js"></script>
 	<script src="/common/js/assets.js"></script>
-	<script src="/common/js/factory.js"></script>
-	<script src="/common/js/felix.js"></script>
-	<script src="/common/js/felixHelpers.js"></script>
-	<script src="/common/js/onClick.js"></script>
-	<script src="/common/js/viewer.js"></script>
-
-	<script src="/common/js/classes/mPanel.js"></script>
-	<script src="/common/js/classes/mList.js"></script>
-	<script src="/common/js/classes/mBuildingProcess.js"></script>
-	<script src="/common/js/_work.js"></script>
+	<script src="/common/index.js"></script>
 
 	<script src="/common/js/_start.js"></script>
 

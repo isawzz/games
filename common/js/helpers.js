@@ -66,7 +66,7 @@ function mNode(o,dParent,listOfProps,className){
 	let oCopy = jsCopy(o);
 	if (isdef(listOfProps)) recConvertToList(oCopy, listOfProps);
 	mYaml(d, oCopy);
-	mAppend(dParent, d);
+	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
 function mTitledNode(o, title, dParent, listOfProps = ['type'], className = 'node') {
@@ -2375,6 +2375,16 @@ function union(lst1, lst2) {
 //#endregion
 
 //#region recursion
+function recConvertToList(n, listOfProps) {
+	//console.log(n)
+	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
+	else if (isDict(n) && isList(listOfProps)) {
+		for (const prop of listOfProps) {
+			if (isdef(n[prop])) { n[prop] = n[prop].join(' '); }
+		}
+		for (const k in n) { recConvertToList(n[k], listOfProps); }
+	}
+}
 function recFindProp(o, prop, path, akku) {
 	//find all incidences of key==prop in object or list o, and collects their path & value
 	//console.log(o);
@@ -2627,16 +2637,6 @@ function getValueArray(o, elKey = 'obj', arrKey = '_set') {
 		raw = raw.map(x => x[elKey]);
 	}
 	return raw;
-}
-function recConvertToList(n, listOfProps) {
-	console.log(n)
-	if (isList(n)) { n.map(x => recConvertToList(x)); }
-	else if (isDict(n)) {
-		for (const prop of listOfProps) {
-			if (isdef(n[prop])) { n[prop] = n[prop].join(' '); }
-		}
-		for (const k in n) { recConvertToList(n[k]); }
-	}
 }
 function _setToList(oval) { if (typeof oval == 'object' && '_set' in oval) return oval._set; else return oval; }
 

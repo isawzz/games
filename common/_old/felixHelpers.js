@@ -103,33 +103,6 @@ function addPanelForOid(ggg, areaName, oid) {
 	ggg.areas[areaName].panels.push(oSpec);
 
 }
-function makeDefaultPool(fromData) {
-	let data = jsCopy(fromData.table);
-	for (const k in fromData.players) {
-		data[k] = jsCopy(fromData.players[k]);
-	}
-	return data;
-
-}
-function makePool(node) {
-	let kpool = node._source ? node._source : 'augData';
-	//console.log(kpool);
-	if (nundef(POOLS[kpool])) {
-		//_source has not been made!
-		let pool = POOLS.augData;
-		POOLS[kpool] = {};
-		let node1 = SPEC.dynamicSpec[kpool];
-		//console.log(node1);
-		for (const oid in pool) {
-			let o = pool[oid];
-			//console.log('checking',oid)
-			if (!evalCond(o, node1)) continue;
-			//console.log('passed', oid);
-			POOLS[kpool][oid] = o;
-		}
-	}
-	return POOLS[kpool];
-}
 
 //#region parse composite path LHS and RHS: parse dynamic spec
 function parseIfContainer(k, info) {

@@ -1,21 +1,3 @@
 ROOT:
-  panels:
-    - panels:
-        type: card
-    - panels:
-        _id: players
-
-card:
-  cond:
-    obj_type: card
-    prop: rank
   type: info
-  data: .rank
-
-player:
-  cond:
-    obj_type: _player
-  _ref: players
-  type: info
-  data: .name
-
+  data: hallo welt

@@ -67,9 +67,7 @@ async function prelims(){
 	POOLS={augData:makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
 	sData = POOLS.augData; 
 
-	let d = mBy('SERVERDATA');
-	if (d && SHOW_SERVERDATA) { d.innerHTML = '<pre>' + jsonToYaml(sData) + '</pre>'; }
-	else {hide('contSERVERDATA');}
+	presentSpecDataDefsAsInConfig(SPEC,sData,DEFS);
 
 }
 

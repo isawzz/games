@@ -101,13 +101,6 @@ async function loadSpec(path) {
 	delete SPEC.layout_alias;
 	delete SPEC.asText;
 
-	let d = mBy('SPEC');
-	if (d && SHOW_SPEC) { d.innerHTML = '<pre>' + jsonToYaml(SPEC) + '</pre>'; }
-	else {hide('contSPEC');}
-	d = mBy('DEFS');
-	if (d && SHOW_DEFS) { d.innerHTML = '<pre>' + jsonToYaml(DEFS) + '</pre>'; }
-	else {hide('contDEFS');}
-
 }
 async function loadCode() {
 	// let url = TEST_PATH + GAME + '/code' + CODE_VERSION + '.js';

@@ -1,8 +1,9 @@
 var B;
 var autoplay = false;
+
 async function run01(sp, defaults, data) {
-	
-	
+
+
 
 
 	// B = new mBuildingProcess(sp, data, defaults,
@@ -42,13 +43,32 @@ function evalCondAnnotate(sp, defaultPool) {
 		}
 	}
 }
-
-
-function recModifyTypelistToString(n) {
-	console.log(n)
-	if (isList(n)) { n.map(x => recModifyTypelistToString(x)); }
-	else if (isDict(n)) {
-		if (isdef(n.type)) { n.type = n.type.join(' '); }
-		for (const k in n) { recModifyTypelistToString(n[k]); }
+function makeDefaultPool(fromData) {
+	let data = jsCopy(fromData.table);
+	for (const k in fromData.players) {
+		data[k] = jsCopy(fromData.players[k]);
 	}
+	return data;
+
 }
+function makePool(node) {
+	let kpool = node._source ? node._source : 'augData';
+	//console.log(kpool);
+	if (nundef(POOLS[kpool])) {
+		//_source has not been made!
+		let pool = POOLS.augData;
+		POOLS[kpool] = {};
+		let node1 = SPEC.dynamicSpec[kpool];
+		//console.log(node1);
+		for (const oid in pool) {
+			let o = pool[oid];
+			//console.log('checking',oid)
+			if (!evalCond(o, node1)) continue;
+			//console.log('passed', oid);
+			POOLS[kpool][oid] = o;
+		}
+	}
+	return POOLS[kpool];
+}
+
+

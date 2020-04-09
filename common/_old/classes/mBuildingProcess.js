@@ -507,48 +507,11 @@ class mBuildingProcess {
 		//msg = 'step ' + this.stepCounter + ': ' + msg;
 		this.dMessage.innerHTML = msg;
 	}
-	visNodeYaml(n, dCont) {
-		let d = mCreate('div');
-		mClass(d, 'nodeYaml');
-		mYaml(d, n);
-		mAppend(dCont, d)
-		return d;
-	}
-	visNodeManual(n, dCont) {
-		let d = mCreate('div');
-		mClass(d, 'nodeYaml');
-		let n2 = jsCopy(n);
-		recModifyTypelistToString(n2);
-		mYaml(d, n2);
-		mAppend(dCont, d);
-		return d;
-	}
-	visNodePP(n, dCont) {
-		let d = mCreate('div');
-		mClass(d, 'nodePP');
-		let tbl = prettyPrint(n, {
-			// Config
-			maxArray: 20, // Set max for array display (default: infinity)
-			expanded: true, // Expanded view (boolean) (default: true),
-			maxDepth: 15 // Max member depth (when displaying objects) (default: 3)
-		})
-		mAppend(d, tbl);
-		console.table(n);
-		//all type properies and all _id and _ref properties should become
-		// [A,B,C] instead of yaml rep
-
-		mAppend(dCont, d)
-		return d;
-	}
 	visNode(n, d) { return mNode(n, d,['type'],'node'); }
 	visTitledNode(n, title, d) {
+		// console.log('ttttttttttttttree:',this.tree)
 		if (nundef(n)) return;
-		let d1=visNode(n,d);
-		mInsert(d1, mTextDiv(title));
-		return d1;
-		mTitledNode(n,title,d,['type'],'node');
-		//console.log(n,n,title,title)
-		let d1 = this.visNode(n, d); mInsert(d1, mTextDiv(title));
+		return mTitledNode(n,title,d,['type'],'node');
 	}
 	visTree() {
 		//console.log('ttttttttttttttree:',this.tree)
