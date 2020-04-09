@@ -17,12 +17,11 @@ async function _start() {
 async function gameStep() {
 	await prelims(); 
 	
-	// G, PROTO, POOLS, SPEC, DEFS, sData(=POOLS[augData]) in place for parsing spec!
+	// G, PROTO, POOLS, SPEC, sData(=POOLS[augData]) in place for parsing spec!
 	
-	console.log('SPEC',SPEC);
-	console.log('DEFS',DEFS);
+	//console.log('SPEC',SPEC);
 
-	run01(SPEC,DEFS,sData);
+	run00(SPEC,sData);
 
 
 

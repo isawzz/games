@@ -1,0 +1,109 @@
+#only core: meta,params omitted for clarity
+
+p_elm: 
+  panels:
+    - panels:
+        - _id: stand_loc
+        - _id: bld_loc
+    - panels:
+        - _id: hand_loc
+        - _id: info_loc
+
+ROOT:
+  panels:
+    - panels:
+        - _id: market_loc #set single panel (panels isList)
+          type: list
+        - _id: me_loc
+    - panels:
+        _id: all_opps #set multiple panels (panels isDict)
+        type: p_elm
+
+global_market:
+  _ref: market_loc
+  panels:
+    - _id: neutral_loc
+    - _id: discard_loc
+
+market_info:
+  cond:
+    obj_type: market
+  _ref: neutral_loc
+  type: list
+  elm:
+    data: .neutral
+
+#discard_info, all_cards..., opp_info omitted, =>analogous
+
+self_info:
+  cond:
+    obj_type: _me
+  _ref: me_loc
+
+player_panel:
+  cond:
+    instanceof: _player
+  type: p_elm
+
+player_stand:
+  cond:
+    instanceof: _player
+  _ref: stand_loc
+  type: list
+  elm:
+    data: .market #hier erhalte list of obj_type card =>
+    #each of these objects has an rsg component that already contains ui spec
+  # elm: .market koennte shortcut sein, wenn default property==data
+
+all_cards:
+  cond:
+    obj_type: card
+  type: info # leaf component
+
+all_viz_cards:
+  _source: all_cards # override default (all gameobjects/players) to the gameobjects/players in specified set
+  cond:
+    prop: short_name # prop exists
+  params:
+    bg: white
+    font:
+      color: black
+      bold: True
+      size: medium
+  data: .short_name
+
+player_buildings:
+  cond:
+    instanceof: _player
+  _ref: bld_loc
+  type: list
+  elm:
+    type: bld_info #type for each element
+    data: .buildings
+
+bld_info:
+  cond:
+    instanceof: building
+  panels:
+    - type: info
+      data: 
+        - key: .obj_type
+          value: .address
+    - type: list
+      elm: .storage
+    
+discard_info:
+  cond:
+    obj_type: discard_pile
+  _ref: discard_loc
+  data: .next
+
+
+
+all_hidden_cards:
+  _source: all_cards
+  cond:
+    no_prop: short_name # prop doesn't exist
+  params:
+    bg:
+      image: card_bg.jpg # some texture file

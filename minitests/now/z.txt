@@ -1,0 +1,53 @@
+mTitledNode(o,title,d,className='node')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_id
+
+_ref
+
+cond
+- eval against data =>attach a _pool property,to each object attach a _rsg property
+
+_source
+- _source: all_cards => use condNode[all_cards].pool
+
+prototype
+
+meta
+
+spec node evolution:
+1. orig node
+2. default type added, _id > places ==> nProto
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

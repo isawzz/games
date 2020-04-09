@@ -8,12 +8,12 @@ var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
-const TEST_VERSION = 'b00'; // | null to use genauere
+const TEST_VERSION = 'a00'; // | null to use genauere
 const TEST_PATH = '/minitests/';
 
 const DSPEC_PATH = '/minitests/now/defaultSpec';
-const SPEC_PATH = '/minitests/'+TEST_VERSION+'/spec';
-const SERVERDATA_PATH = '/minitests/'+TEST_VERSION+'/serverData';
+const SPEC_PATH = '/minitests/now/spec';
+const SERVERDATA_PATH = '/minitests/now/serverData';
 
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false
@@ -25,7 +25,7 @@ const VERBOSE = true; // true | false
 const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
-const SHOW_SERVERDATA = true; // true | false
+const SHOW_SERVERDATA = false; // true | false
 const SHOW_SPEC = true; // true | false
 const SHOW_DEFS = true; // true | false
 

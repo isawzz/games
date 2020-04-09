@@ -540,13 +540,9 @@ class mBuildingProcess {
 		mAppend(dCont, d)
 		return d;
 	}
-	visNode(n, d) { return mNode(n, d,['type'],'node'); }
+	visNode(n, d) { return this.visNodeManual(n, d); }
 	visTitledNode(n, title, d) {
 		if (nundef(n)) return;
-		let d1=visNode(n,d);
-		mInsert(d1, mTextDiv(title));
-		return d1;
-		mTitledNode(n,title,d,['type'],'node');
 		//console.log(n,n,title,title)
 		let d1 = this.visNode(n, d); mInsert(d1, mTextDiv(title));
 	}

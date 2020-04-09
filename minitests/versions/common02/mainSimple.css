@@ -4,34 +4,23 @@ html,body{
 	padding:0;
 	margin:0;
 }
+
 div{ text-align:center;}
+
 button{width:70px;}
 
 #upper{
 	display: grid;
 	justify-items: center;
-	grid-template-columns: 100px auto auto auto;
+	grid-template-columns: 100px auto auto;
 }
+
 .grey{
 	border-radius: 8px;
 	background-color: silver;
 	margin: 4px;
 	padding: 4px;
 }
-.node{
-	font-size: 12pt;
-	background-color:white;
-	color:black;
-	text-align: left;
-	margin: 10px;
-	padding: 2px 14px 2px 8px;
-	border-radius: 8px;
-}
-
-
-
-
-
 
 .flexWrap{
 	display:flex;
@@ -40,7 +29,7 @@ button{width:70px;}
 	justify-content:center;
 }
 
-.nodeYaml{
+.nodeYaml, .node{
 	font-size: 12pt;
 	background-color:white;
 	color:black;

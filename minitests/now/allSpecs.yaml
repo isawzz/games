@@ -1,12 +1,10 @@
 b00: #root card player
   ROOT:
     panels:
-      - type: list
-        elm:
+      - panels:
           type: card
-      - type: list
-        elm:
-          _id: all_opps
+      - panels:
+          _id: players
 
   card:
     cond:
@@ -17,10 +15,11 @@ b00: #root card player
 
   player:
     cond:
-      obj_type: _opponent
-    _ref: all_opps
+      obj_type: _player
+    _ref: players
     type: info
     data: .name
+
 
 
 

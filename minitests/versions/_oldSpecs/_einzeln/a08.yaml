@@ -1,0 +1,45 @@
+ROOT:
+  panels:
+    - name: opps
+      _id: opps
+    - name: me
+      _id: me
+
+pl_info:
+  panels:
+    - _id: stats
+    - _id: hand
+
+self:
+  cond:
+    obj_type: _me
+  _ref: me
+  type: pl_info
+
+opp:
+  cond:
+    obj_type: _opp
+  _ref: opps
+  type: pl_info
+
+vis_cards:
+  cond:
+    obj_type: card
+    prop: rank
+  type: info 
+  data: .rank
+
+hand:
+  cond:
+    obj_type: _player
+  type: list
+  _ref: hand
+  data: .hand
+
+stats:
+  cond:
+    obj_type: _player
+  type: info
+  _ref: stats
+  data:
+    vsp: .vsp

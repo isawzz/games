@@ -1,22 +1,22 @@
+var buildingProcess = null;
 var B;
 var autoplay = false;
-async function run01(sp, defaults, data) {
-	
-	
+async function run00(sp, data) {
+	//testLookupSetOverride(sp);
 
-
-	// B = new mBuildingProcess(sp, data, defaults,
-	// 	'message', 'protos', 'dicts', 'forward', 'backward', 'tree', 'table1');
-	// let stage = 0;
-	// while (true) { // != STAGES.backward && B.currentKey != 'p1') {
-	// 	stage = await onClickStep();
-	// 	//console.log(stage);
-	// 	if (!stage || stage == STAGES.backward) break;// && B.currentKey=='p1') break;
-	// }
-	// console.log('stage', findKey(STAGES, stage));
+	B = buildingProcess = new mBuildingProcess(sp, data, DEFS,
+		'message', 'protos', 'dicts', 'forward', 'backward', 'tree', 'table1');
+	//return;
+	let stage = 0;
+	while (true){ // != STAGES.backward && B.currentKey != 'p1') {
+		stage = await onClickStep();
+		//console.log(stage);
+		if (!stage || stage == STAGES.backward);// && B.currentKey=='p1') break;
+	}
+	console.log('stage', findKey(STAGES, stage));
 }
 
-function evalCondAnnotate(sp, defaultPool) {
+function evalCondAnnotate(sp,defaultPool) {
 	//test	let x=makePool(sp.all_viz_cards);	return;
 
 	for (const k in sp) {

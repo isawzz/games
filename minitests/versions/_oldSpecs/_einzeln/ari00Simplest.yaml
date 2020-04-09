@@ -1,0 +1,103 @@
+p_elm: 
+  panels:
+    - _id: info_loc
+    - _id: hand_loc
+
+ROOT:
+  panels:
+    - name: market_loc
+      _id: market_loc #set single panel (panels isList)
+      type: list
+    - name: all_opps
+      panels:
+        _id: all_opps #set multiple panels (panels isDict)
+
+global_market:
+  cond:
+    obj_type: market
+  _ref: market_loc
+  type: list
+  elm:
+    data: .neutral
+
+opp_info:
+  cond:
+    obj_type: _opponent
+  _ref: all_opps
+
+player_panel:
+  cond:
+    instanceof: _player
+  type: p_elm
+
+player_hand:
+  cond:
+    instanceof: _player
+  _ref: hand_loc
+  type: list
+  elm:
+    data: .hand
+
+player_info:
+  cond:
+    instanceof: _player
+  _ref: info_loc
+  type: dict
+  data:
+    vps: .vps
+    money: .money
+    herald: .herald
+
+all_cards:
+  cond:
+    obj_type: card
+  type: info # leaf component
+
+all_viz_cards:
+  _source: all_cards # override default (all gameobjects/players) to the gameobjects/players in specified set
+  cond:
+    prop: short_name # prop exists
+  params:
+    bg: white
+    font:
+      color: black
+      bold: True
+      size: medium
+  data: .short_name
+
+
+#rest not used
+
+player_buildings:
+  cond:
+    instanceof: _player
+  _ref: bld_loc
+  type: list
+  elm:
+    type: bld_info #type for each element
+    data: .buildings
+
+bld_info:
+  cond:
+    instanceof: building
+  panels:
+    - type: info
+      data: 
+        - key: .obj_type
+          value: .address
+    - type: list
+      elm: .storage
+    
+discard_info:
+  cond:
+    obj_type: discard_pile
+  _ref: discard_loc
+  data: .next
+
+all_hidden_cards:
+  _source: all_cards
+  cond:
+    no_prop: short_name # prop doesn't exist
+  params:
+    bg:
+      image: card_bg.jpg # some texture file

@@ -37,7 +37,16 @@ function mFlexChildSplit(d, split) {
 function mFlexWrap(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; }
 function mFlexWrapGrow(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; d.style.flex = 1; }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
-function mLabel(label) { return mTextDiv(label); }
+function mLabel(label) {
+	//choice a) fontsize nach length berechnen
+	//b) 
+	let ch = iconChars[key];
+	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let text = String.fromCharCode('0x' + ch);
+	let d = mTextDiv(text);
+	d.style.setProperty('font-family', family);
+	return d;
+}
 function mPic(key) {
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
@@ -60,20 +69,6 @@ function mMinBounds(d) {
 function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
 function mStyle(elem, styles, unit = 'px') { for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } }
 function mTextDiv(text, dParent = null) { let d = mCreate('div'); d.innerHTML = text; return d; }
-function mNode(o,dParent,listOfProps,className){
-	let d = mCreate('div');
-	if (isdef(className)) mClass(d, className);
-	let oCopy = jsCopy(o);
-	if (isdef(listOfProps)) recConvertToList(oCopy, listOfProps);
-	mYaml(d, oCopy);
-	mAppend(dParent, d);
-	return d;
-}
-function mTitledNode(o, title, dParent, listOfProps = ['type'], className = 'node') {
-	let d = mNode(o,dParent,listOfProps,className);
-	mInsert(d, mTextDiv(title));
-	return d;
-}
 function mYaml(d, js) { d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
@@ -2627,16 +2622,6 @@ function getValueArray(o, elKey = 'obj', arrKey = '_set') {
 		raw = raw.map(x => x[elKey]);
 	}
 	return raw;
-}
-function recConvertToList(n, listOfProps) {
-	console.log(n)
-	if (isList(n)) { n.map(x => recConvertToList(x)); }
-	else if (isDict(n)) {
-		for (const prop of listOfProps) {
-			if (isdef(n[prop])) { n[prop] = n[prop].join(' '); }
-		}
-		for (const k in n) { recConvertToList(n[k]); }
-	}
 }
 function _setToList(oval) { if (typeof oval == 'object' && '_set' in oval) return oval._set; else return oval; }
 
