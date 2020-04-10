@@ -1,0 +1,323 @@
+b00: #root card player
+  ROOT:
+    panels:
+      - panels:
+          type: card
+      - panels:
+          _id: players
+
+  card:
+    cond:
+      obj_type: card
+      prop: rank
+    type: info
+    data: .rank
+
+  player:
+    cond:
+      obj_type: _player
+    _ref: players
+    type: info
+    data: .name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# *** trial 1 ***
+
+a00: #soll root mit 2 panels machen!
+  spec:
+    ROOT:
+      name: A
+      panels:
+        _id: A
+    p1:
+      name: B
+      _ref: A
+    p2:
+      name: C
+      _ref: A
+  
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          name: C
+        
+a01: #panel mit 2 panels, parent and 2nd params aus p2
+  spec:
+    ROOT:
+      type: p3
+      name: A
+      panels:
+        - _id: A #only 1
+        - type: p2
+
+    p1:
+      name: B
+      _ref: A
+
+    p2:
+      params:
+        orientation: h
+        color: yellow
+
+    p3:
+      type: p2
+      params:
+        color: blue
+
+  solution: 
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - type: panel
+          name: B
+        - type: panel
+          params:
+            orientation: h
+            color: yellow
+      params:
+        orientation: h
+        color: yellow
+
+a02: #should complain in backwardMerge _ref A
+  spec:
+    ROOT:
+      type: p3
+      panels:
+        - _id: A #only 1
+
+    p1:
+      name: B
+      _ref: A
+
+    p2:
+      name: C
+      _ref: A
+
+    p3:
+      type: p2
+      color: blue
+
+  solution: #ERROR
+
+a03: #test if finds all places correctly
+  spec:
+    ROOT:
+      name: A
+      panels:
+        - _id: A
+        - _id: X
+      prop1:
+        p2:
+          p3:
+            _id: A
+      prop2:
+        p2:
+          _id: E
+          p3:
+            _id: T
+      prop3:
+        panels:
+          _id: O #multiple _ref allowed
+      prop4:
+        panels:
+          - _id: Z #only 1 _ref allowed! will be overwritten
+
+  solution:
+    places:
+      A:
+        - specKey: ROOT
+          propList: self.panels.0
+        - specKey: ROOT
+          propList: self.prop1.p2.p3
+      X:
+        - specKey: ROOT
+          propList: self.panels.1
+      E:
+        - specKey: ROOT
+          propList: self.prop2.p2
+      T:
+        - specKey: ROOT
+          propList: self.prop2.p2.p3
+      O:
+        - specKey: ROOT
+          propList: self.prop3.panels
+      Z:
+        - specKey: ROOT
+    propList: self.prop4.panels.0    
+
+a04: #double forward merge
+  spec:
+    ROOT:
+      panels:
+        - type: p1
+
+    p1:
+      panels:
+        - type: p2
+
+    p2:
+      params:
+        orientation: h
+        color: yellow
+
+  solution:
+    ROOT:
+      type: panel
+      panels:
+        - type: panel
+          panels:
+            - type: panel
+              params:
+                orientation: h
+                color: yellow
+
+a05: #forward merge, _ref in rot
+  spec:
+    ROOT:
+      name: A
+      panels:
+        - type: p2
+    p1:
+      name: B
+      _id: B
+    p2:
+      name: C
+      _ref: B
+      color: blue  
+  solution:
+    ROOT:
+      name: A
+      panels:
+        - type: panel
+          name: C
+          _ref: B
+          color: blue  
+    p1:
+      name: B
+      _id: B
+      type: panel
+    p2:
+      name: C
+      _ref: B
+      color: blue  
+      type: panel
+
+a06: #multiply level forward merges, resulting in _ref error in root!
+  spec:
+    ROOT:
+      type: p3
+      name: A
+      panels:
+        - _id: A #only 1
+        - type: p2
+        - type: p1
+
+    p1:
+      name: B
+      _ref: A
+      panels:
+        - type: p2
+        - type: p3
+
+    p2:
+      params:
+        orientation: h
+
+    p3:
+      type: p2
+      params:
+        color: blue
+
+  solution:
+    ROOT:
+      type: panel
+      name: A
+      panels:
+        - _id: A
+          type: panel
+        - type: panel
+          params:
+            orientation: h
+        - type: panel
+          name: B
+          _ref: A #should raise an error
+          panels:
+            - type: panel
+              params:
+                orientation: h
+            - type: panel
+              params:
+                color: blue
+                orientation: h
+      params:
+        color: blue
+        orientation: h
+    p1:
+      type: panel      
+      name: B
+      _ref: A
+      panels:
+        - type: panel
+          params:
+            orientation: h
+        - type: panel
+          params:
+            color: blue
+            orientation: h
+    p2:
+      type: panel      
+      params:
+        orientation: h
+    p3:            
+      type: panel
+      params:
+        color: blue
+        orientation: h
+
+a07: #_ref und _id in same node: >need to resolve _ids first
+  spec:
+    ROOT:
+      name: A
+      panels:
+        _id: A
+    p1:
+      _ref: A
+      name: B
+      panels:
+        - color: green
+          _id: B
+    p2:
+      name: C
+      _ref: B
+
+  solution:
+
+
+
+
+
+
+
+
+
+
+
+

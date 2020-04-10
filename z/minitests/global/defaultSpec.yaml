@@ -1,0 +1,10 @@
+defaults:
+  type: panel
+  panel:
+    params:
+      orientation: v
+      split: equal
+  list:
+    params:
+      orientation: h
+      split: equal

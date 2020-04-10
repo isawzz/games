@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/facebook/65/game-die_1f3b2.png">
+	<title>happy!</title>
+	<script src="/_extlibs/js-yaml.min.js"></script>
+	<script src="/_extlibs/d3.min.js"></script>
+	<script src="/_extlibs/prettyprint.js"></script>
+	<link href="/CODE/index.css" rel="stylesheet">
+</head>
+
+<body>
+	<!-- #region html-->
+	<div>
+		<h2 id='message'>press step to start...</h2>
+	</div>
+
+	<div id='table'></div>
+
+	<div id='upper'>
+		<div id='buttons'>
+			<br /><br />
+			<button style='padding:8px;' onclick='onClickStep()'>next example</button>
+			<br /><br />
+			<button style='padding:8px;' onclick='onClickStep()'>STEP</button>
+			<br /><br />
+		</div>
+
+		<div id='contSPEC' class='grey'>
+			<b>spec</b>
+			<div id='SPEC' class='node'></div>
+		</div>
+		<div id='contSERVERDATA' class='grey'>
+			<b>serverData</b>
+			<div id='SERVERDATA' class='node'></div>
+		</div>
+		<div id='contDEFS' class='grey'>
+			<b>defaults</b>
+			<div id='DEFS' class='node'></div>
+		</div>
+	</div>
+
+	<div id='lower'>
+		<div id='contTree' class='grey'>
+			<b>tree:</b>
+			<div id='tree' class='flexWrap'> </div>
+		</div>
+		<div id='contResults' class='grey'>
+			<b>results:</b>
+			<div id='results' class='flexWrap'></div>
+		</div>
+		<div id='contBackward' class='grey'>
+			<b>backward:</b>
+			<div id='backward' class='flexWrap'> </div>
+		</div>
+		<div id='contForward' class='grey'>
+			<b>forward:</b>
+			<div id='forward' class='flexWrap'> </div>
+		</div>
+		<div id='contProcessed' class='grey'>
+			<b>prototypes:</b>
+			<div id='protos' class='flexWrap'> </div>
+		</div>
+		<div id='contDicts' class='grey' style='display:none'>
+			<b>dictionaries:</b>
+			<div id='dicts' class='flexWrap'> </div>
+		</div>
+	</div>
+
+	<!-- #region loading: order matters! -->
+	<script src="/CODE/js/helpers.js"></script>
+	<script src="/CODE/js/_config.js"></script>
+
+	<script src="/CODE/lib/rsgTypes.js"></script>
+
+
+	<script src="/CODE/_legacy/rsgTypes/rsgTypes.js"></script>
+	<script src="/CODE/_legacy/rsgTypes/dom.js"></script>
+	<script src="/CODE/_legacy/rsgTypes/grids.js"></script>
+	<script src="/CODE/_legacy/rsgTypes/panel.js"></script>
+	<script src="/CODE/_legacy/classes/mPanel.js"></script>
+	<script src="/CODE/_legacy/classes/mList.js"></script>
+	<script src="/CODE/_legacy/classes/mBuildingProcess.js"></script>
+	<script src="/CODE/_legacy/factory.js"></script>
+	<script src="/CODE/_legacy/felix.js"></script>
+	<script src="/CODE/_legacy/felixHelpers.js"></script>
+	<script src="/CODE/_legacy/fparse00.js"></script>
+	<script src="/CODE/_legacy/onClick.js"></script>
+	<script src="/CODE/_legacy/viewer.js"></script>
+
+	<script src="/CODE/js/__work.js"></script>
+	<script src="/CODE/js/_test.js"></script>
+	<script src="/CODE/js/assets.js"></script>
+	<script src="/CODE/index.js"></script>
+
+	<script src="/CODE/js/_start.js"></script>
+
+	<!-- #endregion loading -->
+</body>
+
+</html>

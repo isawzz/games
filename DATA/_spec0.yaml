@@ -1,0 +1,13 @@
+ROOT:
+  _source: cards1
+  cond: 
+    prop: rank
+  type: info
+  data: hallo
+
+cards1:
+  _source: cards
+
+cards:
+  cond:
+    obj_type: card
