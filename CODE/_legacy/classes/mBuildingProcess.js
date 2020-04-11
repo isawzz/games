@@ -511,7 +511,7 @@ class mBuildingProcess {
 	visTitledNode(n, title, d) {
 		// console.log('ttttttttttttttree:',this.tree)
 		if (nundef(n)) return;
-		return mTitledNode(n,title,d,['type'],'node');
+		return mTitledNode_dep(n,title,d,['type'],'node');
 	}
 	visTree() {
 		//console.log('ttttttttttttttree:',this.tree)

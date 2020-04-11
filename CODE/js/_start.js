@@ -73,3 +73,10 @@ async function prelims(){
 
 }
 
+function makeDefaultPool(fromData) {
+	let data = jsCopy(fromData.table);
+	for (const k in fromData.players) {
+		data[k] = jsCopy(fromData.players[k]);
+	}
+	return data;
+}

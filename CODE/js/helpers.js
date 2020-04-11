@@ -60,19 +60,36 @@ function mMinBounds(d) {
 function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
 function mStyle(elem, styles, unit = 'px') { for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
-function mNode(o,dParent,listOfProps,className='node'){
+
+function mNode(o,{dParent, title, listOfProps, className = 'node',omitEmpty=false}={}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
+	// console.log(className)
 	let oCopy = jsCopy(o);
-	console.log(oCopy)
-	if (isdef(listOfProps)) recConvertToList(oCopy, listOfProps);
+	//console.log(oCopy)
+	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
+	if (omitEmpty) oCopy = recDeleteEmptyObjects(oCopy);
+	//console.log(oCopy);
+	mYaml(d, oCopy);
+	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(dParent)) mAppend(dParent, d);
+	return d;
+}
+function mNode_dep(o, dParent, listOfProps, className = 'node') {
+	let d = mCreate('div');
+	if (isdef(className)) mClass(d, className);
+	// console.log(className)
+	let oCopy = jsCopy(o);
+	//console.log(oCopy)
+	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
+	console.log(recDeleteEmptyObjects(oCopy));
 	mYaml(d, oCopy);
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-function mTitledNode(o, title, dParent, listOfProps = ['type'], className = 'node') {
-	console.log(o)
-	let d = mNode(o,dParent,listOfProps,className);
+function mTitledNode_dep(o, title, dParent, listOfProps = ['type'], className = 'node') {
+	//console.log('________________',o,title,dParent,className)
+	let d = mNode(o, dParent, listOfProps, className);
 	mInsert(d, mTextDiv(title));
 	return d;
 }
@@ -2387,7 +2404,7 @@ function recConvertToList(n, listOfProps) {
 		for (const prop of listOfProps) {
 			//console.log('prop',prop);
 			//console.log('n',n)
-			let lst=n[prop];
+			let lst = n[prop];
 			if (isList(lst) && !isEmpty(lst)) { n[prop] = lst.join(' '); }
 			// if (!isList(lst)) continue;
 			// //console.log(n,prop,n[prop]);
@@ -2396,6 +2413,35 @@ function recConvertToList(n, listOfProps) {
 		}
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
+}
+function recConvertToSimpleList(n, listOfProps) {
+	//console.log(n)
+	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
+	else if (isDict(n) && isList(listOfProps)) {
+		for (const prop of listOfProps) {
+			//console.log('prop',prop);
+			//console.log('n',n)
+			let lst = n[prop];
+			if (isList(lst) && !isEmpty(lst)) { n[prop] = lst.join(' '); }
+			else if (isDict(lst)) { n[prop] = Object.keys(lst).join(' '); }
+			// if (!isList(lst)) continue;
+			// //console.log(n,prop,n[prop]);
+			// if (!isList(lst)) continue;
+			// if (isList(n[prop]) && !isEmpty()) { n[prop] = n[prop].join(' '); }
+		}
+		for (const k in n) { recConvertToList(n[k], listOfProps); }
+	}
+}
+function isEmptyDict(x){return isDict(x) && isEmpty(Object.keys(x));}
+function recDeleteEmptyObjects(o){
+	if (isLiteral(o)) return o;
+	let onew={};
+	for(const k in o){
+		if (!isEmpty(o[k])) {
+			onew[k]=recDeleteEmptyObjects(jsCopy(o[k]));
+		}
+	}
+	return onew;
 }
 function recFindProp(o, prop, path, akku) {
 	//find all incidences of key==prop in object or list o, and collects their path & value
@@ -2607,7 +2653,7 @@ function getTypeOf(param) {
 }
 function isdef(x) { return x !== null && x !== undefined; }
 function isDictOrList(d) { return typeof (d) == 'object'; }
-function isDict(d) { let res = (d!==null) && (typeof (d) == 'object') && !isList(d); return res; }
+function isDict(d) { let res = (d !== null) && (typeof (d) == 'object') && !isList(d); return res; }
 function isEvent(param) { return getTypeOf(param) == 'event'; }
 function isLiteral(x) { return isString(x) || isNumber(x); }
 function isList(arr) { return Array.isArray(arr); }
@@ -2627,7 +2673,7 @@ function isString(param) { return typeof param == 'string'; }
 function isSvg(elem) { return startsWith(elem.constructor.name, 'SVG'); }
 function nundef(x) { return x === null || x === undefined; }
 
-function toList(x){return isList(x)?x:[x];}
+function toList(x) { return isList(x) ? x : [x]; }
 
 //faster version of getValueArray
 function getElements(o, elKey = '_obj', arrKey = '_set') {
