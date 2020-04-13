@@ -1,3 +1,47 @@
+c00:
+  ROOT:
+    type: info
+    data: hallo welt
+c01:
+  ROOT:
+    type: info
+    cond:
+      obj_type: card
+    data: .rank
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 b00: #root card player
   ROOT:
     panels:

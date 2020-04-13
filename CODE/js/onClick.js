@@ -1,0 +1,6 @@
+function onClickNextExample(){
+
+}
+function onClickStep(){
+	
+}

@@ -1,0 +1,12 @@
+ROOT:
+  type: list
+  cond:
+    obj_type: market
+  elm: .neutral
+
+cards:
+  type: info
+  cond:
+    prop: rank
+  data: .rank
+

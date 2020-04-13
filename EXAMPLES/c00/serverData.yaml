@@ -18,10 +18,9 @@ table:
     rank: Q
   c3:
     obj_type: card
-
-
-
-
-
-
+  m:
+    obj_type: market
+    neutral:
+      - c1
+      - c2
 

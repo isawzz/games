@@ -1,13 +1,24 @@
+# ROOT:
+#   type: info
+#   data: hallo welt
+
+# ROOT:
+#   type: info
+#   cond:
+#     prop: rank
+#   data: .rank
+
 ROOT:
-  _source: cards1
-  cond: 
-    prop: rank
-  type: info
-  data: hallo
+  type: list
+  elm:
+    cond:
+      prop: rank
+    type: info
+    data: .rank
 
-cards1:
-  _source: cards
 
-cards:
-  cond:
-    obj_type: card
+
+
+
+
+

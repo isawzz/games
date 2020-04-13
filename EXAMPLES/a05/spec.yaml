@@ -1,0 +1,11 @@
+ROOT:
+  name: A
+  panels:
+    - type: p2
+p1:
+  name: B
+  _id: B
+p2:
+  name: C
+  _ref: B
+  color: blue

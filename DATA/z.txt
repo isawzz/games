@@ -1,8 +1,10 @@
+__________________________________
 1. data can be literal,list,object,path
 
 2. type, _id, _ref, _source can be string or list of string
 
 3. cond ist always object
+	=>this node is replicated for each oid qualifying
 	key: eval function,
 	value: data
 
@@ -11,8 +13,8 @@
 5. LHS path prop[.prop]* refers to rsg object (=node)
 
 6. node 
+	- must have a type (default:panel), 
 	- has meta (ignored for now)
-	- has a type (default:panel), 
 	- can be named (spec nodes)
 	- has a parent (node)
 	- has children (nodes) =>koennen multiple types of children sein, but for now it is just panels for panel und elm for list
@@ -96,6 +98,88 @@ dann bekomme aber ca 20K objects
 max:200K key-value pairs easily!
 100x10x10=10K-100K kann es schon werden
 
+...wenn ROOT fertig ist:
+
+if pool non empty:
+  foreach oid in pool
+		createUI(ROOT,oid)
+
+each building is a panel with 2 panels
+
+type: list
+_id: a
+
++
+
+cond:
+	obj_type: market
+_ref: a
+data: .neutral
+
+=
+
+cond:
+	obj_type: market
+type: list
+data: .neutral
+
+.prop ist object,list, or id
+wenn es list ist: 
+foreach o aus list:
+  take o._rsg
+
+all_cards:
+  cond:
+    obj_type: card
+  type: info # leaf component
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________
+ROOT:
+  type: info
+  data: hallo welt
+
+nur 1 node: create info object in parentArea, data is literal
+
+ROOT:
+  type: info
+  data: hallo welt
+	parentArea: result
+
+present:
+	params = {}
+	n.ui = mInfo('hallo welt',params, mBy('results'))
+
+1 final node:
+
+ROOT:
+  type: info
+  data: hallo welt
+  content: hallo welt
+	parentArea: result
+	parent: null
+	address: . #address relative to ROOT
+	params: #defaults for info
+	n.ui: mInfo('hallo welt',params, mBy('results'))
 
 
 
@@ -121,6 +205,7 @@ max:200K key-value pairs easily!
 
 
 
+__________________________________
 
 
 
@@ -133,38 +218,6 @@ max:200K key-value pairs easily!
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-_id
-
-_ref
-
-cond
-- eval against data =>attach a _pool property,to each object attach a _rsg property
-
-_source
-- _source: all_cards => use condNode[all_cards].pool
-
-prototype
-
-meta
-
-spec node evolution:
-1. orig node
-2. default type added, _id > places ==> nProto
-
- 
 
 
 

@@ -1,0 +1,12 @@
+ROOT:
+  panels:
+    - type: p1
+
+p1:
+  panels:
+    - type: p2
+
+p2:
+  params:
+    orientation: h
+    color: yellow

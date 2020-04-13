@@ -17,14 +17,7 @@ function presentGeneration(sp, area) {
 		mNode(v, { title: k, dParent: d, listOfProps: ['type', 'source', 'pool']});
 	}
 }
-function presentAddedData(sAdded, area) {
-	let d = mBy(area);
-	clearElement(d);
-	//console.log(d)
-	for (const [k, v] of Object.entries(sAdded)) {
-		mNode(v._rsg, { title: k + '._rsg', dParent: d, omitEmpty: true });
-	}
-}
+
 function presentServerData(sdata, area) {
 	let d = mBy(area);
 	clearElement(d);

@@ -6,6 +6,22 @@ html,body{
 }
 div{ text-align:center;}
 button{width:70px;}
+pre{
+	display: block;
+	white-space:pre;
+	margin: 0px;
+	/* font-family: monospace;
+	padding: 9.5px;
+	margin: 0 0 10px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #333;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px; */
+}
 
 #upper{
 	display: grid;
@@ -36,4 +52,32 @@ button{width:70px;}
 	flex-wrap:wrap;
 	justify-content:center;
 }
+
+/* #region fonts */
+
+@font-face{
+	font-family: 'pictoFa';
+	src: url('/CODE/css/Font Awesome 5 Free-Solid-900.otf') format("truetype");
+}
+@font-face {
+	font-family: 'pictoGame';
+	src: url('/CODE/css/game-icons.ttf') format("truetype");
+}
+@font-face {
+	font-family: 'AlgerianRegular';
+	src: url('/CODE/css/ALGER.ttf') format("truetype");
+}
+
+/* #endregion fonts */
+
+
+
+
+
+
+
+
+
+
+
 

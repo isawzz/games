@@ -58,10 +58,18 @@ function mMinBounds(d) {
 	mStyle(d, { 'min-width': b.width, 'min-height': b.height }, 'px');
 }
 function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
-function mStyle(elem, styles, unit = 'px') { for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } }
+function mStyle(elem, styles, unit = 'px') {
+	//console.log(':::::::::styles',styles)
+	for (const k in styles) {
+		//if (k=='font-family') continue;
+		//console.log('setting',k,'to',styles[k]);
+		elem.style.setProperty(k, makeUnitString(styles[k], unit));
+	}
+
+}
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
-function mNode(o,{dParent, title, listOfProps, className = 'node',omitEmpty=false}={}) {
+function mNode(o, { dParent, title, listOfProps, className = 'node', omitEmpty = false } = {}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
 	// console.log(className)
@@ -71,9 +79,11 @@ function mNode(o,{dParent, title, listOfProps, className = 'node',omitEmpty=fals
 	if (omitEmpty) oCopy = recDeleteEmptyObjects(oCopy);
 	//console.log(oCopy);
 	mYaml(d, oCopy);
+	let pre=d.getElementsByTagName('pre')[0];
+	pre.style.fontFamily = 'inherit';
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
-	return d;
+	return d;// {div:d,pre:pre};
 }
 function mNode_dep(o, dParent, listOfProps, className = 'node') {
 	let d = mCreate('div');
@@ -93,7 +103,7 @@ function mTitledNode_dep(o, title, dParent, listOfProps = ['type'], className = 
 	mInsert(d, mTextDiv(title));
 	return d;
 }
-function mYaml(d, js) { d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>'; }
+function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
 //#region SVG/g 1 liners A list shapes
@@ -2414,31 +2424,58 @@ function recConvertToList(n, listOfProps) {
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
+function listToString(lst) {
+	return isEmpty(lst) ? lst : lst.join(' ');
+}
+function dictToKeyList(x) {
+
+}
+function dictToValueList(x) {
+
+}
+function dictOrListToString(x, ifDict = 'keys') {
+	let lst = x;
+	if (isList(lst) && !isEmpty(lst)) { return lst.join(' '); }
+	else if (isDict(lst)) {
+		return ifDict == 'keys' ? Object.keys(lst).join(' ')
+			: ifDict == 'values' ? Object.keys(lst).join(' ')
+				: Object.entries(lst).join(' ');
+	}
+	else return null;
+
+	// if (isList(x)) return listToString(x);
+	// if (isDict(x)) {
+
+	// 	switch (ifDict) {
+	// 		case 'keys': x = Object.keys(x);
+	// 		case 'values': x = Object.values(x);
+	// 		default: x = Object.entries(x);
+	// 	}
+	// }
+	// return isList(x) ? listToString(x) : x;
+}
 function recConvertToSimpleList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
 	else if (isDict(n) && isList(listOfProps)) {
 		for (const prop of listOfProps) {
-			//console.log('prop',prop);
-			//console.log('n',n)
-			let lst = n[prop];
-			if (isList(lst) && !isEmpty(lst)) { n[prop] = lst.join(' '); }
-			else if (isDict(lst)) { n[prop] = Object.keys(lst).join(' '); }
-			// if (!isList(lst)) continue;
-			// //console.log(n,prop,n[prop]);
-			// if (!isList(lst)) continue;
-			// if (isList(n[prop]) && !isEmpty()) { n[prop] = n[prop].join(' '); }
+			let conv = dictOrListToString(n[prop]);
+			if (conv) n[prop] = conv;
+			// let lst = n[prop];
+			// if (isList(lst) && !isEmpty(lst)) { n[prop] = lst.join(' '); }
+			// else if (isDict(lst)) { n[prop] = Object.keys(lst).join(' '); }
 		}
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
-function isEmptyDict(x){return isDict(x) && isEmpty(Object.keys(x));}
-function recDeleteEmptyObjects(o){
+function isEmptyDict(x) { return isDict(x) && isEmpty(Object.keys(x)); }
+function recDeleteEmptyObjects(o) {
 	if (isLiteral(o)) return o;
-	let onew={};
-	for(const k in o){
+	else if (isList(o)) return o.map(x => recDeleteEmptyObjects(x));
+	let onew = {};
+	for (const k in o) {
 		if (!isEmpty(o[k])) {
-			onew[k]=recDeleteEmptyObjects(jsCopy(o[k]));
+			onew[k] = recDeleteEmptyObjects(jsCopy(o[k]));
 		}
 	}
 	return onew;
