@@ -2,12 +2,12 @@ players:
   p1:
     obj_type: _me
     name: dave
-    hand: c1
+    hand: [c1, c2]
     vps: 3
   p2:
     obj_type: _opponent
     name: anna
-    hand: c2
+    hand: [c2, c3]
     vps: 1
 table:
   c1:
@@ -18,7 +18,9 @@ table:
     rank: Q
   c3:
     obj_type: card
-
+  market:
+    obj_type: market
+    neutral: [c1,c2]
 
 
 

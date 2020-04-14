@@ -28,40 +28,34 @@ class RSG {
 	gen20(area) {
 		let spec = jsCopy(this.lastGen());
 
-		R.ROOT = createLC(spec.ROOT, null, area, R);
+		//mTextDiv('haaaaaaaaaaaaaaaaalo',mBy('tree'))
+		R.ROOT=createLC(spec.ROOT, null, area, R);
+		console.log('UIS',R.UIS)
+		return;
+
+		//createUI(n, dParent, this.sData, this.defs);
+
+		// R.root = createNode(n, 'ROOT', '.', area, null, R);
+		// console.log(R.ROOT);
+
+		//besser:
+		let n = spec.ROOT; //this IS already a new copy!!!
+		R.root = createRoot(n, area, R);
+		console.log('----- THE END -----')
+		console.log('root', R.root)
 		console.log('UIS', R.UIS);
-		console.log('ROOT', R.ROOT);
 	}
 	lastGen() { return last(this.gens); }
 
-}
-
-function showNodeInfo(n,title) {
-	console.log(title,
-		isdef(n.type) ? ' type:' + n.type : '',
-		isdef(n.uid) ? 'uid:' + n.uid : '',
-		isdef(n.pool) ? 'pool:' + n.pool.map(x => x) : '',
-		isdef(n.content) ? 'content:' + (isList(n.content) ? n.content.map(x => x) : n.content) : '',
-		isdef(n.oid) ? 'oid:' + n.oid : '');
 }
 
 function createLC(n, content, area, R) {
 	// n ist already a copy of the node to be created
 
 	R.registerNode(n);
-	console.log('_____________________ createLC');
-	showNodeInfo(n,'n');
-	//console.log(' content', content);
+	console.log('createLC', n.uid, n.type, isdef(n.pool) ? n.pool.map(x => x) : 'no_pool', n.oid);
 	if (isContainerType(n.type)) { //replace by isContainerType
 		n.ui = mDiv(mBy(area));
-		//console.log('::pool', isdef(n.pool) ? n.pool.map(x => x) : 'no_pool')
-		if (isdef(content) && isList(content)) {
-			//pass as pool to container content
-			let prop = RCONTAINERPROP[n.type];
-			let n1 = n[prop];
-			n1.pool = content;
-			console.log('JETZT!!!', n.pool)
-		}
 		R.setUid(n);
 		n.children = createChi(n, R);
 	} else {
@@ -71,38 +65,20 @@ function createLC(n, content, area, R) {
 	return n;
 }
 
-//das muss doch irgendwie einfacher gehen!!!
 function createChi(nCont, R) {
 	let prop = RCONTAINERPROP[nCont.type];
 	//console.log('prop is', prop);
 	let n = nCont[prop];
 	//console.log('createChildren', n.uid,n.pool,n.oid);
 
+	//console.log(isList(n),n);
+	if (isList(n)) { n.map(x => createLC(x, null, nCont.uid, R)); return; }
 
-	console.log('_____________________ createChildren of', nCont.uid)
-	showNodeInfo(nCont,'container');
-	if (!isList(n)) showNodeInfo(n,'children'); else console.log('liste!!!')
-	//, n.type, isdef(n.pool) ? n.pool.map(x => x) : 'no_pool', n.oid);
+	console.log('createChildren', n.uid, n.type, isdef(n.pool) ? n.pool.map(x => x) : 'no_pool', n.oid);
 
-	let chNodes = [];
-	//cases 0: n is a list
-	if (isList(n)) {
-		console.log('...case 0');
-		for(const x of n){
-			let n1 = jsCopy(x);
-			let content = null;
-			if (isdef(nCont.oid) && nundef(n1.oid)) {
-				n1.oid=nCont.oid;
-				content = calcContent(R.sData[n1.oid],n1.data);
-			}
-			createLC(n1, content, nCont.uid, R);
-			chNodes.push(n1);
-		}
-		//chNodes = n.map(x => createLC(jsCopy(x), null, nCont.uid, R));
-	}
-	//cases 1-4: n is a dict
 	//case 1: wenn n ein pool besitzt muss fuer jedes el im pool 1 child gemacht werden
-	else if (isdef(n.pool)) {
+	let chNodes = [];
+	if (isdef(n.pool)) {
 		console.log('...case 1')
 		for (let i = 0; i < n.pool.length; i++) {
 			let n1 = jsCopy(n);
@@ -138,34 +114,8 @@ function createChi(nCont, R) {
 		createLC(n1, n1.content, nCont.uid, R);
 		chNodes.push(n1);
 	}
-	//case 5: n.data, n NOT container, nCont.pool + nCont.data, NO nCont.oid, 
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool) && isdef(nCont.data)) {
-		console.log('...case 5');
-		//dieses pool darf nur 1 element haben!!!
-		nCont.oid = nCont.pool[0];
-		//die data muessen in diesem fall eine liste (of objects!)
-		//erstmal brauch ich die data
-		let data = calcContent(R.sData[nCont.oid], nCont.data);
-		console.log('::::::::data', data);
-		//let n1 = jsCopy(n);
-		n.pool = data;
-		console.log('have to create info foreach of pool of', n);
-		chNodes = createChi(nCont, R);
-	}
-	//case 6: n.data, n NOT container, nCont.pool, NO nCont.oid, NO nCont.data
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool) && isdef(nCont.data)) {
-		console.log('...case 6');
-		//dieses pool darf nur 1 element haben!!!
-		nCont.oid = nCont.pool[0];
-		//die data muessen in diesem fall eine liste sein
-		let n1 = jsCopy(n);
-		n1.content = n.data;
-		createLC(n1, n1.content, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 10: n.data, n NOT container, NO nCont.pool, NO nCont.oid, NO nCont.data
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && nundef(nCont.pool)) {
-		console.log('...case 10')
+	//case 5: wenn n data hat, nicht containerType ist, aber kein oid in sicht muss 1 static content child gemacht werden
+	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid)) {
 		let n1 = jsCopy(n);
 		n1.content = n.data;
 		createLC(n1, n1.content, nCont.uid, R);

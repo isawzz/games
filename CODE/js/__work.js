@@ -3,13 +3,14 @@ function run02(sp, defaults, sdata) {
 
 	R = new RSG(sp, defaults, sdata);
 
-	R.gen10();
+	// R.gen10();
+	// presentGeneration(R.lastGen(), 'results');
+	// presentServerData(R.sData, 'sData');
 
-	presentGeneration(R.lastGen(), 'results');
-	presentServerData(R.sData, 'sData');
+	R.gen20('table');
+	presentRoot(R.ROOT,'results');
 
-	R.gen20('tree');
-
+	// mBy('sData').innerHTML='WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW';
 	//first, sources are made for each sp object
 	//let stepEngine=new Engine();
 

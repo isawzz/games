@@ -8,17 +8,180 @@
 #     prop: rank
 #   data: .rank
 
+
+# *** phase 2 trees ***
+# ROOT:
+#   type: list
+#   elm:
+#     pool: [c1, c2]
+#     type: info
+#     data: .rank
+
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [c1, c2]
+#     type: info
+#     data: .rank
+
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: panel 
+#       panels:
+#         pool: [c1, c2]
+#         type: info
+#         data: .rank
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: panel 
+#       panels:
+#         - type: panel 
+#           panels:
+#             pool: [c1, c2]
+#             type: info
+#             data: .rank
+#         - type: list 
+#           elm:
+#             pool: [p1, p2]
+#             type: info
+#             data: .name
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: panel
+#     panels:
+#       type: info
+#       data: .name
+
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: list
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+#     - type: list
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+# ROOT:
+#   pool: [market]
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: info
+#     data: .rank
+
 ROOT:
-  type: list
-  elm:
-    cond:
-      prop: rank
-    type: info
-    data: .rank
+  type: panel
+  panels:
+    pool: [p1, p2]
+    type: list
+    data: .hand
+    elm:
+      type: info
+      data: .rank
+
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: panel
+#     panels:
+#       - type: info
+#         data: .name
+#       - type: list
+#         data: .hand
+#         elm:
+#           type: info
+#           data: .rank
+
+# r1:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: list
+#     data: .hand
+#     elm:
+#       type: info
+#       data: .rank
+
+# r2:
+# r3:
+# r4:
 
 
 
 
 
 
+
+
+
+
+
+
+
+# ROOT:
+#   source: [c1, c2, c3, p1, p2]
+#   pool: []
+#   type: list
+#   elm:
+#     source: [c1, c2, c3, p1, p2]
+#     pool: [c1, c2]
+#     cond:
+#       prop: rank
+#     type: info
+#     data: .rank
+
+# ROOT:
+#   source: [c1, c2, c3, p1, p2]
+#   pool: []
+#   type: panel
+#   panels:
+#     type: panel
+#     panels:
+#       data: .name
+#       type: info
+#       pool: [p1, p2]
+
+# ROOT:
+#   source: [c1, c2, c3, p1, p2]
+#   pool: []
+#   type: panel
+#   panels:
+#     - type: list
+#       elm:
+#         source: [c1, c2, c3, p1, p2]
+#         pool: [c1, c2]
+#         cond:
+#           prop: rank
+#         type: info
+#         data: .rank
+#     - type: list
+#       elm:
+#         source: [c1, c2, c3, p1, p2]
+#         pool: [c1, c2, c3]
+#         cond:
+#           obj_type: card
+#         type: info
+#         data: .obj_type
 

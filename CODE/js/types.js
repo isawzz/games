@@ -7,9 +7,13 @@ const RCREATE = {
 const RSTYLE = {
 	info: (ui, params) => mStyle(ui, paramsToCss(params)),
 	list: (ui, params) => mStyle(ui, paramsToCss(params)),
-	panels: (ui, params) => mStyle(ui, paramsToCss(params)),
+	panel: (ui, params) => mStyle(ui, paramsToCss(params)),
 }
 
+const RCONTAINERPROP ={
+	list:'elm',
+	panel:'panels',
+}
 
 function mInfo(content, dParent = null) {
 	let ui = mNode(content, { dParent: dParent });
