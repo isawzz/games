@@ -165,13 +165,7 @@ function getContent(path, o) {
 
 
 //#region FUNCTIONS fuer cond eval: parse dynamic spec
-var FUNCTIONS = {
-	instanceof: 'instanceOf',
-	obj_type: (o, v) => o.obj_type == v,
-	prop: (o, v) => isdef(o[v]),
-	no_prop: (o, v) => nundef(o[v]),
 
-}
 function evalCond(o, node) {
 	let qualifies = true;
 	//console.log('o',o,'node',node)
@@ -188,14 +182,6 @@ function evalCond(o, node) {
 	return qualifies;
 
 }
-function instanceOf(o, className) {
-	let otype = o.obj_type;
-	switch (className) {
-		case '_player': return otype == 'GamePlayer' || otype == 'opponent'; break;
-		case 'building': return otype == 'farm' || otype == 'estate' || otype == 'chateau' || otype == 'settlement' || otype == 'city' || otype == 'road'; break;
-	}
-}
-
 
 
 

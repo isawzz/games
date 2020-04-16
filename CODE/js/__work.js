@@ -3,8 +3,13 @@ function run02(sp, defaults, sdata) {
 
 	R = new RSG(sp, defaults, sdata);
 
-	// R.gen10();
-	// presentGeneration(R.lastGen(), 'results');
+	R.gen10();
+	console.log(R.lastSpec.ROOT);
+
+	R.gen11();
+	//console.log('ROOT before transformation:',R.lastSpec.ROOT);
+	//console.log(' *** transformation *** ');
+	// presentGeneration(R.lastSpec, 'results');
 	// presentServerData(R.sData, 'sData');
 
 	R.gen20('table');

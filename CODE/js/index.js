@@ -1,8 +1,9 @@
 function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
-	let lst = ['type', '_id', '_ref', '_source', 'pool','source','content'];
+	let lst = ['type', '_id', '_ref', '_source', 'pool','neutral','source','content', 'storage', 'buildings','hand'];
+	let lstOmit = ['source'];
 
 	let d = mBy('SPEC');
-	if (d && SHOW_SPEC) { mNode(SPEC, { dParent: d, listOfProps: lst }); } else { hide('contSPEC'); }
+	if (d && SHOW_SPEC) { mNode(SPEC, { dParent: d, listOfProps: lst, omitProps: lstOmit }); } else { hide('contSPEC'); }
 
 	d = mBy('SERVERDATA');
 	if (d && SHOW_SERVERDATA) { mNode(sData, { dParent: d, listOfProps: lst }); } else { hide('contSERVERDATA'); }
@@ -13,6 +14,7 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 
 function presentRoot(n,area) {
 	let lst = ['type', '_id', '_ref', '_source', 'pool','source','content'];
+	let lstOmit = ['source'];
 	//show('contROOT');
 	d = mBy(area);
 	let level=0;
@@ -25,15 +27,15 @@ function presentRoot(n,area) {
 
 	}
 
-	maxLevel=recPresent(n,0,dLevel,lst);
-	console.log('tree has depth',maxLevel);
+	maxLevel=1+recPresent(n,0,dLevel,lst);
+	//console.log('tree has depth',maxLevel);
 
-	console.log()
-	mNode(n,{dParent:mBy('buttons'),listOfProps:lst});
+	//console.log()
+	mNode(n,{dParent:mBy('buttons'),listOfProps:lst,omitProps:lstOmit});
 
 }
 function recPresent(n,level,dLevel,lst){
-	let max=level;
+	
 	let n1={};
 	let d=dLevel[level];
 	for(const k of ['type','pool','oid','data','content']){
@@ -42,13 +44,13 @@ function recPresent(n,level,dLevel,lst){
 		}
 	}
 	mNode(n1,{dParent:dLevel[level],listOfProps:lst});
-	if (nundef(n.children)) return max;
-	let newMax=0;
+	if (nundef(n.children)) return level;
+	let max=0;
 	for(const x of n.children){
-		let newNewMax = max+recPresent(x,level+1,dLevel,lst);
-		if (newNewMax>newMax) newMax=newNewMax;
+		let newMax = recPresent(x,level+1,dLevel,lst);
+		if (newMax>max) max=newMax;
 	}
-	return newMax;
+	return max;
 }
 
 function presentGeneration(sp, area) {

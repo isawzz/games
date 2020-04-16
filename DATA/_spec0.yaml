@@ -1,15 +1,328 @@
+# *** phase 0 forests ***
+
+#OK forest 19
+ROOT:
+  type: panel
+  panels:
+    - type: panel
+      panels:
+        type: market
+    - type: panel
+      panels:
+        type: player
+  
+market:
+  cond:
+    obj_type: market
+  type: panel
+  panels:
+    type: list
+    elm: .neutral
+
+player:
+  cond:
+    instanceof: player
+  type: info
+  data: .name
+
+
+#OK forest 18
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: panel
+#     panels:
+#       - type: list
+#         data: .hand
+#         elm:
+#           type: info
+#           data: .rank
+#       - type: info
+#         data: .name
+
+
+#OK forest 17
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: cards
+#     data: .rank
+# cards:
+#   cond:
+#     obj_type: card
+#   type: info
+#   data: .rank
+
+#OK forest 16
+# ROOT:
+#   cond:
+#     obj_type: _me
+#   type: panel
+#   panels:
+#     type: list
+#     elm: .buildings
+
+#OK common to forests ab 8
+p_elm:
+  type: panel
+  panels:
+    - type: info
+      data: .name
+    - type: info
+      data: .vps
+    - type: cardHand
+cardHand:
+    type: list
+    elm: .hand
+viscards:
+  cond:
+    prop: rank
+  type: info
+  data: .rank
+nonviscards:
+  cond:
+    no_prop: rank
+    obj_type: card
+  type: info
+  data: felix!
+building:
+  cond:
+    obj_type: building
+  type: list
+  elm: .storage
+
+
+#OK forest 14
+# ROOT:
+#   cond:
+#     instanceof: player
+#   type: panel
+#   panels:
+#     - type: info
+#       data: .hand
+#     - type: list
+#       elm: .hand
+#     - type: info
+#       data: .name
+
+#OK forest 13
+# ROOT:
+#   cond:
+#     instanceof: player
+#   type: panel
+#   panels:
+#     - type: panel
+#       panels:
+#         - type: info
+#           data: .name
+#         - type: info
+#           data: BITTE!!!
+#     - type: info
+#       data: .name
+#     - type: list
+#       elm: .hand
+
+#OK forest 12
+# ROOT:
+#   cond:
+#     instanceof: player
+#   type: panel
+#   panels:
+#     - type: panel
+#       panels:
+#         - type: info
+#           data: .name
+#         - type: info
+#           data: BITTE!!!
+#     - type: info
+#       data: .name
+
+#OK forest 11
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: panel
+#       panels:
+#         - type: info
+#           data: hallo
+#         - type: info
+#           data: BITTE!!!
+#     - type: info
+#       data: felix
+
+#OK forest 10
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: info
+#       data: hallo
+#     - type: info
+#       data: felix
+
+# #OK forest 9
+# ROOT:
+#   cond:
+#     instanceof: player
+#   type: p_elm
+
+#OK forest 8
+# ROOT:
+#   cond:
+#     instanceof: player
+#   type: panel
+#   panels:
+#     type: cardHand
+
+
+
+#OK forest 7
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: panel
+#   panels:
+#     type: list
+#     elm: .neutral
+# viscards:
+#   cond:
+#     prop: rank
+#   type: info
+#   data: .rank
+# nonviscards:
+#   cond:
+#     no_prop: rank
+#     obj_type: card
+#   type: info
+#   data: felix!
+
+
+#OK forest 4b
 # ROOT:
 #   type: info
-#   data: hallo welt
+#   cond:
+#     obj_type: player
+#   data: .name
 
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   elm: .neutral
+# viscards:
+#   cond:
+#     prop: rank
+#   type: info
+#   data: .rank
+# nonviscards:
+#   cond:
+#     no_prop: rank
+#     obj_type: card
+#   type: info
+#   data: felix!
+
+
+#OK forest 1
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: cards
+#     data: .rank
+# cards:
+#   cond:
+#     obj_type: card
+#   type: info
+#   data: .rank
+
+  
+#OK forest 2
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: special
+# special:
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: cards
+#     data: .rank
+# cards:
+#   cond:
+#     obj_type: card
+#   type: info
+#   data: .rank
+
+#OK forest 3
+# ROOT:
+#   type: info
+#   data: hallo felix!
+
+#OK forest 4
 # ROOT:
 #   type: info
 #   cond:
 #     prop: rank
 #   data: .rank
 
+#OK forest 5
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   elm: .neutral
+# viscards:
+#   cond:
+#     prop: rank
+#   type: info
+#   data: .rank
+# nonviscards:
+#   cond:
+#     no_prop: rank
+#     obj_type: card
+#   type: info
+#   data: felix!
+
+# *** phase 1 trees ***
+
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: info
+#     data: .rank
+
+# cards:
+#   cond:
+#     obj_type: card
+#   type: info
+#   data: .rank
 
 # *** phase 2 trees ***
+# cards:
+#   pool: [c1,c2,c3]
+#   type: info
+#   data: .rank
+
+#OK
+# ROOT:
+#   pool: [market]
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: info
+#     data: .rank
+
+
+
+#OK
 # ROOT:
 #   type: list
 #   elm:
@@ -17,6 +330,7 @@
 #     type: info
 #     data: .rank
 
+#OK
 # ROOT:
 #   type: panel
 #   panels:
@@ -24,6 +338,7 @@
 #     type: info
 #     data: .rank
 
+#OK
 # ROOT:
 #   type: panel
 #   panels:
@@ -38,6 +353,7 @@
 #         type: info
 #         data: .name
 
+#OK
 # ROOT:
 #   type: panel
 #   panels:
@@ -59,6 +375,7 @@
 #         type: info
 #         data: .name
 
+#OK
 # ROOT:
 #   type: panel
 #   panels:
@@ -68,6 +385,7 @@
 #       type: info
 #       data: .name
 
+#OK
 # ROOT:
 #   type: panel
 #   panels:
@@ -82,39 +400,8 @@
 #         type: info
 #         data: .name
 
+#OK
 # ROOT:
-#   pool: [market]
-#   type: list
-#   data: .neutral
-#   elm:
-#     type: info
-#     data: .rank
-
-ROOT:
-  type: panel
-  panels:
-    pool: [p1, p2]
-    type: list
-    data: .hand
-    elm:
-      type: info
-      data: .rank
-
-# ROOT:
-#   type: panel
-#   panels:
-#     pool: [p1, p2]
-#     type: panel
-#     panels:
-#       - type: info
-#         data: .name
-#       - type: list
-#         data: .hand
-#         elm:
-#           type: info
-#           data: .rank
-
-# r1:
 #   type: panel
 #   panels:
 #     pool: [p1, p2]
@@ -124,64 +411,74 @@ ROOT:
 #       type: info
 #       data: .rank
 
-# r2:
-# r3:
-# r4:
-
-
-
-
-
-
-
-
-
-
-
-
-
+#OK
 # ROOT:
-#   source: [c1, c2, c3, p1, p2]
-#   pool: []
-#   type: list
-#   elm:
-#     source: [c1, c2, c3, p1, p2]
-#     pool: [c1, c2]
-#     cond:
-#       prop: rank
-#     type: info
-#     data: .rank
-
-# ROOT:
-#   source: [c1, c2, c3, p1, p2]
-#   pool: []
 #   type: panel
 #   panels:
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+#     - type: panel 
+#       panels:
+#         - type: panel 
+#           panels:
+#             - type: panel 
+#               panels:
+#                 pool: [c1, c2]
+#                 type: info
+#                 data: .rank
+#             - type: list 
+#               elm:
+#                 pool: [p1, p2]
+#                 type: info
+#                 data: .name
+#         - type: panel 
+#           panels:
+#             pool: [c1, c2]
+#             type: info
+#             data: .rank
+#         - type: list 
+#           elm:
+#             pool: [p1, p2]
+#             type: info
+#             data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
 #     type: panel
 #     panels:
-#       data: .name
-#       type: info
-#       pool: [p1, p2]
+#       - type: list
+#         data: .hand
+#         elm:
+#           type: info
+#           data: .rank
+#       - type: info
+#         data: .name
 
+#OK
 # ROOT:
-#   source: [c1, c2, c3, p1, p2]
-#   pool: []
 #   type: panel
 #   panels:
-#     - type: list
-#       elm:
-#         source: [c1, c2, c3, p1, p2]
-#         pool: [c1, c2]
-#         cond:
-#           prop: rank
-#         type: info
-#         data: .rank
-#     - type: list
-#       elm:
-#         source: [c1, c2, c3, p1, p2]
-#         pool: [c1, c2, c3]
-#         cond:
-#           obj_type: card
-#         type: info
-#         data: .obj_type
+#     pool: [market]
+#     type: list
+#     data: .neutral
+#     elm:
+#       type: cards
+#       data: .rank
+
+# cards:
+#   pool: [c1, c2, c3]
+#   type: info
+#   data: .rank
+
+
+
+
+
+
 

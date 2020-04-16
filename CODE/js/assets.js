@@ -168,11 +168,13 @@ async function sendAction(boat, username) {
 }
 
 // serverData helpers
+//ACHTUNG!!! die player obj_types sind variable!!!
 function preProcessData(data) {
 	//console.log('preprocess:',data.players, 'plidSentStatus',plidSentStatus);
 	if (nundef(data)) data = serverData;
 	for (const plid in data.players) {
 		let pl = data.players[plid];
+		if (isdef(pl.obj_type)) continue; //**** ACHTUNG!!!!!!!!! */
 		pl.obj_type = plid == plidSentStatus ? 'GamePlayer' : 'opponent';
 	}
 	if (data.options) {
@@ -329,7 +331,7 @@ async function route_userSpec(game, fname) {
 		let spec = jsyaml.load(text);
 		spec.asText = text;
 		return spec;
-	} catch{
+	} catch(error){
 		return { asText: '' }; //empty spec!
 	}
 }
@@ -339,7 +341,7 @@ async function route_test_userSpec(url) {
 		let spec = jsyaml.load(text);
 		spec.asText = text;
 		return spec;
-	} catch{
+	} catch(error){
 		return { asText: '' }; //empty spec!
 	}
 }
@@ -350,7 +352,7 @@ async function route_userCode(game, fname) {
 		let text = await route_server_text(url);
 
 		return { asText: text };
-	} catch{ return {}; }
+	} catch(error){ return {}; }
 
 }
 async function route_initGame(game, gc, username, seed = SEED) {

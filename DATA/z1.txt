@@ -1,14 +1,19 @@
-2 choices:
-1:
-- create whatever it tells you to create,
-(can be multiple nodes)
-	find out how many
-	loop through pool or just create 1
-- if parent is there, parent.layout
-(otherwise: just append to area)
-- then create for each child
+1. cond eval for all spec nodes
+	gen10
+2. replace ROOT by safe ROOT
+	gen11
+3. process ROOT
+	gen20
 
-2:
+
+
+
+
+
+
+
+
+
 
 
 

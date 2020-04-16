@@ -69,14 +69,16 @@ function mStyle(elem, styles, unit = 'px') {
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
-function mNode(o, { dParent, title, listOfProps, className = 'node', omitEmpty = false } = {}) {
+function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
 	// console.log(className)
 	let oCopy = jsCopy(o);
 	//console.log(oCopy)
 	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
-	if (omitEmpty) oCopy = recDeleteEmptyObjects(oCopy);
+	if (nundef(omitProps)) omitProps = [];
+	//console.log(omitProps,omitEmpty)
+	if (omitEmpty||!isEmpty(omitProps)) oCopy = recDeleteKeys(oCopy,omitEmpty,omitProps);
 	//console.log(oCopy);
 	mYaml(d, oCopy);
 	let pre=d.getElementsByTagName('pre')[0];
@@ -2476,6 +2478,20 @@ function recDeleteEmptyObjects(o) {
 	for (const k in o) {
 		if (!isEmpty(o[k])) {
 			onew[k] = recDeleteEmptyObjects(jsCopy(o[k]));
+		}
+	}
+	return onew;
+}
+function recDeleteKeys(o,deleteEmpty=true,omitProps) {
+	//console.log('hallllllllllllllllllll')
+	if (isLiteral(o)) return o;
+	else if (isList(o)) return o.map(x => recDeleteKeys(x,deleteEmpty,omitProps));
+	let onew = {};
+	for (const k in o) {
+		if (omitProps.includes(k)) continue;
+		//console.log(k)
+		if (!isEmpty(o[k])) {
+			onew[k] = recDeleteKeys(jsCopy(o[k]),deleteEmpty,omitProps);
 		}
 	}
 	return onew;

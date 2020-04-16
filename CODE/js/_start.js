@@ -9,6 +9,11 @@ async function _start() {
 	//await loadCode();
 	await loadInitialServerData();
 
+	// console.log(serverData)
+	// for(const k in serverData.players){
+	// 	console.log('====>',k,serverData.players[k])
+	// }
+
 	//prep ui
 	d3.select('#bNextMove').text('NEXT MOVE').on('click', interaction);
 	//mMinSize(mBy('table'),300,200);
@@ -55,7 +60,9 @@ async function prelims(){
 
 	//worldMap('OPPS'); 
 
+	
 	preProcessData();
+	
 	//have serverData (processed), SPEC, DEFS, [tupleGroups, boats only if serverData.options!]
 
 	// TODO: here I could insert computing diffed serverData
@@ -78,5 +85,6 @@ function makeDefaultPool(fromData) {
 	for (const k in fromData.players) {
 		data[k] = jsCopy(fromData.players[k]);
 	}
+	//console.log('data',data)
 	return data;
 }
