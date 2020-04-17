@@ -2125,6 +2125,11 @@ function firstCond(arr, func) {
 	}
 	return null;
 }
+function firstCondDictKV(dict,func){
+	//return first elem that fulfills condition
+	for (const k in dict) { if (func(k,dict[k])) return k; }
+	return null;
+}
 function firstCondDict(dict, func) {
 	//return first elem that fulfills condition
 	for (const k in dict) { if (func(dict[k])) return k; }
@@ -2152,6 +2157,8 @@ function getItemWithMax(d, propName) {
 	}
 	return [kmax, d[kmax], max];
 }
+function getFirstKey(o) { return Object.keys(o)[0]; }
+
 function getKeys(dict) { return Object.keys(dict); }
 function intersection(arr1, arr2) {
 	//each el in result will be unique

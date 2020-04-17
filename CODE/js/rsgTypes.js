@@ -30,13 +30,18 @@ class RSG {
 		let [gen, pools] = addSourcesAndPools(this);
 		this.gens.push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
+		this.ROOT = gen.ROOT;
 		this.POOLS = pools; //not sure if need this.POOLS at all!!!
 	}
 	gen11() {
+		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
+		if (this.ROOT.type == 'panel') return;
 		let gen = jsCopy(this.lastSpec);
 		gen.ROOT = { type: 'panel', panels: gen.ROOT };
 		this.gens.push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
+		this.ROOT = gen.ROOT;
+
 	}
 	gen12() {
 		//add a specKey to each spec node
@@ -59,6 +64,22 @@ class RSG {
 		console.log('____________________ places', this.places);
 		console.log('____________________ refs', this.refs);
 
+		this.lastSpec = gen; //besser als immer lastGen aufzurufen
+		this.ROOT = gen.ROOT;
+
+	}
+	gen13() {
+		//merge _ref nodes into _id
+		let gen = jsCopy(this.lastSpec);
+
+		for (const k in gen) {
+			let n=gen[k];
+			safeRecurse(n, mergeChildrenWithRefs, this, true);
+		}
+		this.lastSpec = gen;
+		this.ROOT = gen.ROOT;
+
+
 	}
 	gen20(area) {
 		let gen = jsCopy(this.lastSpec);
@@ -69,132 +90,32 @@ class RSG {
 		//console.log('UIS', R.UIS);
 		//console.log('ROOT', R.ROOT);
 	}
-	gen21() {
-		//match refs and ids
-		let gen = jsCopy(this.lastSpec);
+	// gen21() {
+	// 	//match refs and ids
+	// 	let gen = jsCopy(this.lastSpec);
 
-		console.log('ROOT:', gen.ROOT)
-		safeRecurse(gen.ROOT, mergeChildrenWithRefs, this, true);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-		//console.log(gen);	
-	}
+	// 	console.log('ROOT:', gen.ROOT)
+	// 	safeRecurse(gen.ROOT, mergeChildrenWithRefs, this, true);
+	// 	this.lastSpec = gen;
+	// 	this.ROOT = gen.ROOT;
+	// 	//console.log(gen);	
+	// }
 	// lastGen() { return last(this.gens); }
 
 }
-function mergeChildrenWithRefs(o, R) {
-	for (const k in o) {
-		let ch = o[k];
-		if (nundef(ch._id)) continue;
-		let loc = ch._id;
-		let refs = R.refs[loc];
-		if (nundef(refs)) continue;
-		// console.log('sollte', o, 'o[' + k + '] mit', refs, 'mergen');
-		// console.log('refs', refs);
-		// console.log('refs', Object.keys(refs));
-		let spKey = Object.keys(refs)[0];
-		let nSpec = R.lastSpec[spKey];
-		console.log('nSpec', nSpec);
-		// console.log(refs[loc]);
-		// console.log(R);
-		// console.log(R);
-		let oNew = deepmerge(o[k], nSpec);
-		console.log('neues child', oNew);
-		o[k]=oNew;
 
-	}
+
+
+function calcContent(o, path) {
+
+	if (path[0] != '.') return path;
+
+	let props = path.split('.').slice(1);
+	// console.log(props, 'props');
+	let content = isEmpty(props) ? o : lookup(o, props);
+	return content;
+
 }
-function hasId(o) { console.log('HALLLLLLLLLLLLLLLO'); return isdef(o._id); }
-
-function createLC(n, area, R) {
-	// n ist already a copy of the node to be created
-
-	R.registerNode(n);
-	//console.log('_____________________ createLC');
-	//showNodeInfo(n, 'n');
-	let content = n.content;
-
-	//inner node
-	if (isContainerType(n.type)) {
-
-		n.ui = mDiv(mBy(area));
-
-		if (isdef(content) && isList(content)) {
-			//pass as pool to container content
-			let prop = RCONTAINERPROP[n.type];
-			let n1 = n[prop];
-			n1.pool = content; //intersect!
-			console.log('JETZT!!!', n.pool)
-		}
-		R.setUid(n);
-
-		//replace children by spec nodes
-		//also: process case where container prop is a path .neutral zB
-		//try to do it in createChi first!
-		let prop = RCONTAINERPROP[n.type];
-		let nOrList = n[prop];
-		if (isList(nOrList)) {
-			//each list element can only result in <= 1 binding!!!
-			//so if it's type is a list, simply merge all the types in it
-			for (let i = 0; i < nOrList.length; i++) {
-				let nch = nOrList[i];
-				//#region merge multiple types NOT IMPLEMENTED!!!
-				if (isList(nch.type)) {
-					let types = nch.type.filter(x => isSpecType(x));
-					let standardTypes = nch.type.filter(x => !isSpecType(x));
-					let newel = nch;
-					for (const t of types) {
-						newel = mergeWithSpecType(newel, t, R);
-					}
-					nOrList[i] = newel;
-					//console.log('^^^newel has type', newel.type);
-				}
-				//#endregion
-
-				if (isSpecType(nch.type)) {
-					nOrList[i] = mergeWithSpecType(nch, nch.type, R);
-				}
-			}
-		} else if (isDict(nOrList)) {
-			let nch = nOrList;
-			//#region merge multiple types NOT IMPLEMENTED!!!
-			if (isList(nch.type) && nch.type.length == 1) {
-				nch.type = nch.type[0];
-			} else if (isList(nch.type) && nch.type.length > 1) {
-				let specTypes = nch.type.filter(x => isSpecType(x));
-
-				let standardTypes = nch.type.filter(x => !isSpecType(x));
-				let newel = nch;
-				//console.log('specTypes', specTypes);
-				let newNProp = [];
-				//first make 1 list element for each different 
-				for (const t of specTypes) {
-
-					newel = mergeWithSpecType(newel, t, R);
-				}
-				n[prop] = newel;
-				//console.log('^^^newel has type', newel.type);
-			}
-			//#endregion
-
-			if (isSpecType(nOrList.type)) {
-				n[prop] = mergeWithSpecType(nOrList, nOrList.type, R);
-			}
-		} else {
-			//console.log('hhhhhhhhhhhhhh')
-		}
-
-		n.children = createChi(n, R);
-	}
-
-	//leaf
-	else {
-		n.ui = mInfo(content, mBy(area));
-		R.setUid(n);
-	}
-	return n;
-}
-
 function check_id(specKey, node, R) {
 	let akku = {};
 	recFindProp(node, '_id', 'self', akku);
@@ -209,176 +130,15 @@ function check_ref(specKey, node, R) {
 	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
 	//console.log('places', this.places)
 }
-
-function createChi(nCont, R) {
-	let prop = RCONTAINERPROP[nCont.type];
-	let n = nCont[prop];
-
-	//showNodeInfo(nCont, 'container');
-	//if (!isList(n)) showNodeInfo(n, 'children'); else consOutput('liste!!!');
-	let verbose = (isString(n) && n[0] == '.');
-
-	let chNodes = [];
-
-	//case a: n is a string eg., .neutral
-	//geht wahrsceinlich nicht fuer multiple levels, must study this!!!!!
-	if (isString(n)) {
-		//zuerst muss dataset finden
-		if (verbose) showNodeInfo(nCont, 'beispiel');
-
-		//replace this by calcContent
-		let ownerId = nCont.oid;
-		let owner = R.sData[ownerId];
-		let olist = calcContent(owner, n);
-		for (const oid of olist) {
-			//each of these is becoming 1 child the type of which is unknown!!!
-			let o = R.sData[oid];
-			let stypes = o._rsg;
-			if (verbose) consOutput(oid, stypes);
-
-			//if no type is found, this child is not presented!
-			if (isEmpty(stypes)) continue;
-
-			let nrep = {};
-			for (const t of stypes) {
-				nrep = deepmergeOverride(nrep, R.lastSpec[t]);
-			}
-			delete nrep.source;
-			delete nrep.pool;
-			// for(const t of stypes){
-			// 	//console.log('hhhhhhhhhhhhhhhhhhhhhhhh')
-			// 	console.log('should still have source and pool',R.lastSpec[t]);
-			// }
-
-			if (verbose) consOutput('YES', oid, stypes, nrep);
-
-			if (verbose) consOutput('need to make a child for', oid, n, nrep);
-			let n1 = nrep;
-			n1.oid = oid;
-			n1.content = nrep.data ? calcContent(R.sData[oid], nrep.data) : null;
-			createLC(n1, nCont.uid, R);
-			chNodes.push(n1);
-
-		}
-	}
-	//cases 0: n is a list
-	else if (isList(n)) {
-		//console.log('...case 0');
-		for (const x of n) {
-			let n1 = jsCopy(x);
-			let content = null;
-			if (isdef(x.data) && isdef(nCont.oid) && nundef(n1.oid)) {
-				n1.oid = nCont.oid;
-				content = calcContent(R.sData[n1.oid], n1.data);
-			} else if (isdef(x.data)) {
-				content = x.data;
-			} else if (isdef(nCont.oid) && nundef(n1.oid)) { n1.oid = nCont.oid; }
-			n1.content = content;
-			createLC(n1, nCont.uid, R);
-			chNodes.push(n1);
-		}
-	}
-	//cases 1-4: n is a dict
-	//case 1: wenn n ein pool besitzt muss fuer jedes el im pool 1 child gemacht werden
-	else if (!isEmpty(n.pool)) {
-		//console.log('...case 1')
-		for (let i = 0; i < n.pool.length; i++) {
-			let n1 = jsCopy(n);
-			n1.oid = n.pool[i];
-			n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
-			createLC(n1, nCont.uid, R);
-			chNodes.push(n1);
-		}
-	}
-	//case 2: wenn n ein oid besitzt muss fuer dieses 1 child gemacht werden
-	else if (isdef(n.oid)) {
-		//console.log('...case 2')
-		let n1 = jsCopy(n);
-		n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 3: wenn n ein data besitzt muss fuer dieses 1 child gemacht werden
-	else if (isdef(n.data) && n.data[0] == '.' && isdef(nCont.oid)) {
-		//console.log('...case 3')
-		let n1 = jsCopy(n);
-		n1.oid = nCont.oid;
-		n1.content = calcContent(R.sData[n1.oid], n.data);
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 4: wenn n containerType ist und parent container ein oid hat muss fuer dieses 1 child gemacht werden
-	else if (isContainerType(n.type) && isdef(nCont.oid)) {
-		//console.log('...case 4')
-		let n1 = jsCopy(n);
-		n1.oid = nCont.oid;
-		n1.content = null;
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 5: n.data, n NOT container, nCont.pool + nCont.data, NO nCont.oid, 
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool) && isdef(nCont.data)) {
-		//console.log('...case 5');
-		//dieses pool darf nur 1 element haben!!!
-		nCont.oid = nCont.pool[0];
-		//die data muessen in diesem fall eine liste (of objects!)
-		//erstmal brauch ich die data
-		let data = calcContent(R.sData[nCont.oid], nCont.data);
-		//console.log('::::::::data', data);
-		//let n1 = jsCopy(n);
-		n.pool = data;
-		//console.log('have to create info foreach of pool of', n);
-		chNodes = createChi(nCont, R);
-	}
-	//case 6: n.data, n NOT container, nCont.pool, NO nCont.oid, NO nCont.data
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool) && isdef(nCont.data)) {
-		//console.log('...case 6');
-		//dieses pool darf nur 1 element haben!!!
-		nCont.oid = nCont.pool[0];
-		//die data muessen in diesem fall eine liste sein
-		let n1 = jsCopy(n);
-		n1.content = n.data;
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 10: n.data, n NOT container, NO nCont.pool, NO nCont.oid, NO nCont.data
-	else if (isdef(n.data) && !isContainerType(n.type) && nundef(nCont.oid) && nundef(nCont.pool)) {
-		//console.log('...case 10')
-		let n1 = jsCopy(n);
-		n1.content = n.data;
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 11
-	else if (isContainerType(n.type) && nundef(nCont.oid) && nundef(nCont.pool)) {
-		//console.log('...case 11')
-		let n1 = jsCopy(n);
-		n1.content = n.data;
-		createLC(n1, nCont.uid, R);
-		chNodes.push(n1);
-	}
-	//case 12
-	else if (isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool)) {
-		//instantiate this node n foreach element in nCont.pool
-		console.log('...case 12!!!!!!!!!!!!!!!!!!!');
-		n.pool = nCont.pool;
-		return createChi(nCont, R);
-		// for (let i = 0; i < n.pool.length; i++) {
-		// 	let n1 = jsCopy(n);
-		// 	n1.oid = n.pool[i];
-		// 	n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
-		// 	createLC(n1, nCont.uid, R);
-		// 	chNodes.push(n1);
-		// }
-
-	}
-	return chNodes;
-
+function defaultPresentationNode(oid, o) {
+	let litProp = firstCondDictKV(o, (k, v) => k != 'obj_type' && isLiteral(v));
+	let content = litProp ? o[litProp] : o.obj_type + ' ' + oid;
+	let nrep = { type: 'info', data: content };
+	return nrep;
 }
-
-
-
-
+function hasId(o) { console.log('HALLLLLLLLLLLLLLLO'); return isdef(o._id); }
+function isSpecType(t) { return isdef(R.lastSpec[t]); }
+function isContainerType(t) { return t == 'panel' || t == 'list'; }
 function mergeWithSpecType(n, t, R) {
 	//console.log('......mergine nodes!');
 	let pool = n.pool;
@@ -395,7 +155,6 @@ function mergeWithSpecType(n, t, R) {
 	//console.log('new node', n, n.pool);
 	return n;
 }
-
 function showNodeInfo(n, title) {
 	console.log(title,
 		isdef(n.type) ? ' type:' + n.type : '',
@@ -404,11 +163,8 @@ function showNodeInfo(n, title) {
 		isdef(n.content) ? 'content:' + (isList(n.content) ? n.content.map(x => x) : n.content) : '',
 		isdef(n.oid) ? 'oid:' + n.oid : '');
 }
-function isSpecType(t) { return isdef(R.lastSpec[t]); }
-function isContainerType(t) { return t == 'panel' || t == 'list'; }
-function childrenPath(path, i) {
-	return path + (path[path.length - 1] == '.' ? '' : '.') + 'children.' + i;
-}
+
+//#region params
 const PARAMCSS = {
 	bg: 'background-color',
 	fg: 'color',

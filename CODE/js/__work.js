@@ -1,62 +1,49 @@
+function mergeChildrenWithRefs(o, R) {
+	for (const k in o) {
+		let ch = o[k];
+		if (nundef(ch._id)) continue;
+		let loc = ch._id;
+		let refs = R.refs[loc];
+		if (nundef(refs)) continue;
+		// console.log('sollte', o, 'o[' + k + '] mit', refs, 'mergen');
+		// console.log('refs', refs);
+		// console.log('refs', Object.keys(refs));
+		let spKey = Object.keys(refs)[0];
+		let nSpec = R.lastSpec[spKey];
+		console.log('nSpec', nSpec);
+		// console.log(refs[loc]);
+		// console.log(R);
+		// console.log(R);
+		let oNew = deepmerge(o[k], nSpec);
+		console.log('neues child', oNew);
+		o[k]=oNew;
+
+
+	}
+}
+
+
 var R = null;
-function run02(sp, defaults, sdata) {
+function run03(sp, defaults, sdata) {
 
 	R = new RSG(sp, defaults, sdata);
 
 	R.gen10(); //addSourcesAndPools, need cond to add _rsg to objects!
-	//console.log(R.lastSpec.ROOT);
+	console.log(R.lastSpec.ROOT);
 
-	//R.gen11(); //only adds a top level panel to root, nothing else!
-	//R.gen12();
-	
-	//console.log('ROOT before transformation:',R.lastSpec.ROOT);
-	//console.log(' *** transformation *** ');
-	// presentGeneration(R.lastSpec, 'results');
-	// presentServerData(R.sData, 'sData');
+	R.gen11(); // add top level panel to root if root.type != panel, nothing else!
+	R.gen12(); // creates places & refs and adds a specKey prop to each spec Node
+	R.gen13(); // merges _ref nodes into _id nodes
+	console.log(R.lastSpec.ROOT);
 
-	R.gen20('table');
-
-	//R.gen21();
+	R.gen20('table'); // expands root, creates 1 node for each ui and uis
 
 	presentRoot(R.lastSpec.ROOT,'results');
-
-	// mBy('sData').innerHTML='WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW';
-	//first, sources are made for each sp object
-	//let stepEngine=new Engine();
-
-
 }
 
-function getFirstKey(o) { return Object.keys(o)[0]; }
 
 
-function calcContent(o,path){
 
-	if (path[0] != '.') return path;
-
-	let props = path.split('.').slice(1);
-	// console.log(props, 'props');
-	let content = isEmpty(props) ? o : lookup(o, props);
-	return content;
-
-}
-function infoCalcData_dep(n, R) {
-	if (nundef(n.data)) return 'empty';
-	if (n.data[0] != '.') return n.data;
-
-	// path! starts with '.'
-	//n.oid should already be there!!!!!!!!!!!
-	if (nundef(n.oid)) { n.oid = getFirstKey(n.pool); }
-	let o = n.pool[oid];
-
-	let path = n.data;
-	let props = path.split('.').slice(1);
-
-	console.log(props, 'props');
-
-	let content = isEmpty(props) ? o : lookup(o, props);
-	return content;
-}
 
 
 

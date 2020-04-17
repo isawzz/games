@@ -28,7 +28,7 @@ async function gameStep() {
 	//console.log('DEFS',DEFS);
 	//console.log('sData',sData);
 
-	run02(SPEC,DEFS,sData);
+	run03(SPEC,DEFS,sData);
 
 
 
