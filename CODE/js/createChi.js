@@ -23,31 +23,14 @@ function createChi(nCont, R) {
 
 		// console.log('string case olist=',owner,n,olist);
 		//if owner does not have corresponding property, nothing is created!
-		if (!olist) return [];
+		if (!olist || !isList(olist)) {
+			console.log(ownerId,'does not have',n,'or prop',n,'of',ownerId,'is not a list!!!')
+			return [];
+		}
 		
 		for (const oid of olist) {
 			//each of these is becoming 1 child the type of which is unknown!!!
-			let o = R.sData[oid];
-			let stypes = o._rsg;
-			if (verbose) consOutput(oid, stypes);
-
-			//if (isEmpty(stypes)) continue;
-			//if no type is found, use default presentation! this child is not presented!
-
-			let nrep = {};
-			if (isEmpty(stypes)) { nrep = defaultPresentationNode(oid, o); }
-			else {
-				for (const t of stypes) { nrep = deepmergeOverride(nrep, R.lastSpec[t]); }
-				delete nrep.source;
-				delete nrep.pool;
-			}
-
-			if (verbose) consOutput('YES', oid, stypes, nrep);
-
-			if (verbose) consOutput('need to make a child for', oid, n, nrep);
-			let n1 = nrep;
-			n1.oid = oid;
-			n1.content = nrep.data ? calcContent(R.sData[oid], nrep.data) : null;
+			let n1=createPresentationNodeForOid(oid,R);
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
 

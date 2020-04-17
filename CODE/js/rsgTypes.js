@@ -130,12 +130,6 @@ function check_ref(specKey, node, R) {
 	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
 	//console.log('places', this.places)
 }
-function defaultPresentationNode(oid, o) {
-	let litProp = firstCondDictKV(o, (k, v) => k != 'obj_type' && isLiteral(v));
-	let content = litProp ? o[litProp] : o.obj_type + ' ' + oid;
-	let nrep = { type: 'info', data: content };
-	return nrep;
-}
 function hasId(o) { console.log('HALLLLLLLLLLLLLLLO'); return isdef(o._id); }
 function isSpecType(t) { return isdef(R.lastSpec[t]); }
 function isContainerType(t) { return t == 'panel' || t == 'list'; }

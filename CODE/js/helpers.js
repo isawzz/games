@@ -2125,9 +2125,14 @@ function firstCond(arr, func) {
 	}
 	return null;
 }
-function firstCondDictKV(dict,func){
+function allCondDictKV(d, func) {
+	let res = [];
+	for (const k in d) { if (func(k, d[k])) res.push(k); }
+	return res;
+}
+function firstCondDictKV(dict, func) {
 	//return first elem that fulfills condition
-	for (const k in dict) { if (func(k,dict[k])) return k; }
+	for (const k in dict) { if (func(k, dict[k])) return k; }
 	return null;
 }
 function firstCondDict(dict, func) {
@@ -2429,11 +2434,11 @@ function safeRecurse(o, func, params, doBefore) {
 function recAllNodes(n, f, p, doBefore) {
 	//console.log(n,isList(n),isDict(n));
 	___enteredRecursion += 1; if (___enteredRecursion > 200) return;
-	if (isList(n)) { 
+	if (isList(n)) {
 		if (doBefore) f(n, p);
-		n.map(x => recAllNodes(x, f, p, doBefore)); 
+		n.map(x => recAllNodes(x, f, p, doBefore));
 		if (!doBefore) f(n, p);
-	}	else if (isDict(n)) {
+	} else if (isDict(n)) {
 		if (doBefore) f(n, p);
 		for (const k in n) { recAllNodes(n[k], f, p, doBefore); }
 		if (!doBefore) f(n, p);
@@ -2776,6 +2781,18 @@ function getElements(o, elKey = '_obj', arrKey = '_set') {
 	let res = o[arrKey] ? o[arrKey] : o;
 	if (isList(res) && res.length > 0) return res[0][elKey] ? res.map(x => x[elKey]) : res;
 	else return [];
+}
+function getElementLists(o, elKey = '_obj', arrKey = '_set') {
+	// for each prop of o with a val like {_set:[{_obj:1},{_obj:2},...]} ==> {prop:[1,2,..]} if added to res 
+	let res = {};
+	if (!o) return [];
+	for (const k in o) {
+		let o1 = o[k];
+		if (isLiteral(o1)) continue;
+		let els = getElements(o1, elKey, arrKey);
+		if (!isEmpty(els)) res[k] = els;
+	}
+	return res;
 }
 function getValueArray(o, elKey = 'obj', arrKey = '_set') {
 	//for {_set:[{_obj:111},{_obj:222}]} returns [111,222]
