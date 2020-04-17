@@ -7,20 +7,6 @@ class RSG {
 		this.defs = defs;
 		this.sData = sdata;
 		this.UIS = {};
-		this.places = {};
-		this.refs = {};
-	}
-	addToPlaces(specKey, placeName, propList) {
-		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	}
-	getPlaces(placeName) {
-		return (placeName in this.places) ? this.places[placeName] : {};
-	}
-	addToRefs(specKey, placeName, propList) {
-		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	}
-	getRefs(placeName) {
-		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 	registerNode(n) { n.uid = getUID(); this.UIS[n.uid] = n; }
 	//TODO: delete ui also if exists and all its links!
@@ -38,73 +24,17 @@ class RSG {
 		this.gens.push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 	}
-	gen12() {
-		//add a specKey to each spec node
-		//check_id recursively => fill this.places
-		//check_ref recursively => fill this.refs
-		this.places = {};
-		let gen = jsCopy(this.lastSpec);
-		for (const k in gen) {
-			let n = gen[k];
-			n.specKey = k;
-		}
-		for (const k in gen) {
-			let n = gen[k];
-			check_id(k, n, this);
-		}
-		for (const k in gen) {
-			let n = gen[k];
-			check_ref(k, n, this);
-		}
-		console.log('____________________ places', this.places);
-		console.log('____________________ refs', this.refs);
-
-	}
 	gen20(area) {
-		let gen = jsCopy(this.lastSpec);
+		let spec = jsCopy(this.lastSpec);
 
-		this.ROOT = createLC(gen.ROOT, area, this);
-
-		this.lastSpec = gen;
+		this.ROOT = createLC(spec.ROOT, area, this);
+		this.PLACES = {};
 		//console.log('UIS', R.UIS);
 		//console.log('ROOT', R.ROOT);
-	}
-	gen21() {
-		//match refs and ids
-		let gen = jsCopy(this.lastSpec);
-
-		console.log('ROOT:', gen.ROOT)
-		safeRecurse(gen.ROOT, mergeChildrenWithRefs, this, true);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-		//console.log(gen);	
 	}
 	// lastGen() { return last(this.gens); }
 
 }
-function mergeChildrenWithRefs(o, R) {
-	for (const k in o) {
-		let ch = o[k];
-		if (nundef(ch._id)) continue;
-		let loc = ch._id;
-		let refs = R.refs[loc];
-		if (nundef(refs)) continue;
-		// console.log('sollte', o, 'o[' + k + '] mit', refs, 'mergen');
-		// console.log('refs', refs);
-		// console.log('refs', Object.keys(refs));
-		let spKey = Object.keys(refs)[0];
-		let nSpec = R.lastSpec[spKey];
-		console.log('nSpec', nSpec);
-		// console.log(refs[loc]);
-		// console.log(R);
-		// console.log(R);
-		let oNew = deepmerge(o[k], nSpec);
-		console.log('neues child', oNew);
-		o[k]=oNew;
-
-	}
-}
-function hasId(o) { console.log('HALLLLLLLLLLLLLLLO'); return isdef(o._id); }
 
 function createLC(n, area, R) {
 	// n ist already a copy of the node to be created
@@ -195,21 +125,8 @@ function createLC(n, area, R) {
 	return n;
 }
 
-function check_id(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_id', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToPlaces(specKey, akku[k], k); }
-	//console.log('places', this.places)
-}
-function check_ref(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_ref', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
-	//console.log('places', this.places)
-}
-
+//das muss doch irgendwie einfacher gehen!!!
+function findDataSet() { }
 function createChi(nCont, R) {
 	let prop = RCONTAINERPROP[nCont.type];
 	let n = nCont[prop];
@@ -270,9 +187,9 @@ function createChi(nCont, R) {
 			if (isdef(x.data) && isdef(nCont.oid) && nundef(n1.oid)) {
 				n1.oid = nCont.oid;
 				content = calcContent(R.sData[n1.oid], n1.data);
-			} else if (isdef(x.data)) {
+			}else if (isdef(x.data)){
 				content = x.data;
-			} else if (isdef(nCont.oid) && nundef(n1.oid)) { n1.oid = nCont.oid; }
+			}else if (isdef(nCont.oid) && nundef(n1.oid)) {n1.oid=nCont.oid;}
 			n1.content = content;
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
@@ -361,8 +278,8 @@ function createChi(nCont, R) {
 	else if (isContainerType(n.type) && nundef(nCont.oid) && isdef(nCont.pool)) {
 		//instantiate this node n foreach element in nCont.pool
 		console.log('...case 12!!!!!!!!!!!!!!!!!!!');
-		n.pool = nCont.pool;
-		return createChi(nCont, R);
+		n.pool=nCont.pool;
+		return createChi(nCont,R);
 		// for (let i = 0; i < n.pool.length; i++) {
 		// 	let n1 = jsCopy(n);
 		// 	n1.oid = n.pool[i];

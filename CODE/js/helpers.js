@@ -78,10 +78,10 @@ function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', 
 	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
 	if (nundef(omitProps)) omitProps = [];
 	//console.log(omitProps,omitEmpty)
-	if (omitEmpty||!isEmpty(omitProps)) oCopy = recDeleteKeys(oCopy,omitEmpty,omitProps);
+	if (omitEmpty || !isEmpty(omitProps)) oCopy = recDeleteKeys(oCopy, omitEmpty, omitProps);
 	//console.log(oCopy);
 	mYaml(d, oCopy);
-	let pre=d.getElementsByTagName('pre')[0];
+	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
@@ -2409,6 +2409,40 @@ function union(lst1, lst2) {
 //#endregion
 
 //#region recursion
+var ___enteredRecursion = 0;
+function safeRecurse(o, func, params, doBefore) {
+	___enteredRecursion = 0;
+	let arr = Array.from(arguments);
+	arr = arr.slice(1);
+	//console.log('arr',arr)
+	//console.log('arguments',arguments,typeof arguments)
+	recAllNodes(o, func, params, doBefore);
+	return ___enteredRecursion;
+}
+function recAllNodes(n, f, p, doBefore) {
+	//console.log(n,isList(n),isDict(n));
+	___enteredRecursion += 1; if (___enteredRecursion > 200) return;
+	if (isList(n)) { 
+		if (doBefore) f(n, p);
+		n.map(x => recAllNodes(x, f, p, doBefore)); 
+		if (!doBefore) f(n, p);
+	}	else if (isDict(n)) {
+		if (doBefore) f(n, p);
+		for (const k in n) { recAllNodes(n[k], f, p, doBefore); }
+		if (!doBefore) f(n, p);
+	}
+}
+// function recReplacePropVal(n, cond, doif) {
+// 	//console.log(n,cond,doif)
+
+// 	___enteredRecursion+=1;if(___enteredRecursion>200)return;
+// 	if (isList(n)) { n.map(x => recReplacePropVal(x, cond, doif)); }
+// 	else if (isDict(n)) {
+// 		for (const k in n) { recReplacePropVal(n[k], cond, doif); }
+// 		if (cond(n)) doif(n);
+// 	}
+// }
+
 function recConvertToList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
@@ -2482,16 +2516,16 @@ function recDeleteEmptyObjects(o) {
 	}
 	return onew;
 }
-function recDeleteKeys(o,deleteEmpty=true,omitProps) {
+function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 	//console.log('hallllllllllllllllllll')
 	if (isLiteral(o)) return o;
-	else if (isList(o)) return o.map(x => recDeleteKeys(x,deleteEmpty,omitProps));
+	else if (isList(o)) return o.map(x => recDeleteKeys(x, deleteEmpty, omitProps));
 	let onew = {};
 	for (const k in o) {
 		if (omitProps.includes(k)) continue;
 		//console.log(k)
 		if (!isEmpty(o[k])) {
-			onew[k] = recDeleteKeys(jsCopy(o[k]),deleteEmpty,omitProps);
+			onew[k] = recDeleteKeys(jsCopy(o[k]), deleteEmpty, omitProps);
 		}
 	}
 	return onew;

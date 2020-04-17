@@ -447,27 +447,6 @@ class mBuildingProcess {
 	}
 
 
-	// backwardMerge(key) {
-	// 	let node = jsCopy(this.forwardNodes[key]);
-	// 	if (key == 'ROOT') this.tree = node;
-	// 	node = this.recBackwardMerge(node);
-	// 	return node;
-	// }
-	// recForwardMerge(node) {
-	// 	//console.log(node)
-	// 	if (!isDict(node)) return node;
-
-	// 	if (node.type) {
-	// 		let types = node.type;
-	// 		types.map(x => node = this.fMerge(node, x));
-	// 	}
-
-	// 	//jeder type weiss selbst wo ueberall nodes eingehaengt werden koennen
-	// 	node.type.map(x => TYPECLASS[x].do(node, this.recForwardMerge.bind(this)));
-
-	// 	return node;
-	// }
-
 	//#region helpers
 	addToPlaces(specKey, idName, propList) {
 		if (nundef(this.places[idName])) this.places[idName] = {};

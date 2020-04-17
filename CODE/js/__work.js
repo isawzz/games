@@ -3,17 +3,22 @@ function run02(sp, defaults, sdata) {
 
 	R = new RSG(sp, defaults, sdata);
 
-	R.gen10();
-	console.log(R.lastSpec.ROOT);
+	R.gen10(); //addSourcesAndPools, need cond to add _rsg to objects!
+	//console.log(R.lastSpec.ROOT);
 
-	R.gen11();
+	//R.gen11(); //only adds a top level panel to root, nothing else!
+	//R.gen12();
+	
 	//console.log('ROOT before transformation:',R.lastSpec.ROOT);
 	//console.log(' *** transformation *** ');
 	// presentGeneration(R.lastSpec, 'results');
 	// presentServerData(R.sData, 'sData');
 
 	R.gen20('table');
-	presentRoot(R.ROOT,'results');
+
+	//R.gen21();
+
+	presentRoot(R.lastSpec.ROOT,'results');
 
 	// mBy('sData').innerHTML='WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW';
 	//first, sources are made for each sp object

@@ -13,7 +13,7 @@ players:
 table:
   c1:
     obj_type: card
-    rank: K
+    short_name: K
   c2:
     obj_type: card
     rank: Q
