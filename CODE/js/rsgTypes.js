@@ -35,7 +35,7 @@ class RSG {
 	}
 	gen11() {
 		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
-		if (this.ROOT.type == 'panel') return;
+		if (this.ROOT.type == 'panel' && this.ROOT.pool.length<=1) return;
 		let gen = jsCopy(this.lastSpec);
 		gen.ROOT = { type: 'panel', panels: gen.ROOT };
 		this.gens.push(gen);

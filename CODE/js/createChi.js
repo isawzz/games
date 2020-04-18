@@ -47,7 +47,17 @@ function createChi(nCont, R) {
 				content = calcContent(R.sData[n1.oid], n1.data);
 			} else if (isdef(x.data)) {
 				content = x.data;
-			} else if (isdef(nCont.oid) && nundef(n1.oid)) { n1.oid = nCont.oid; }
+			} else if (isdef(nCont.oid) && nundef(n1.oid)) { 
+				n1.oid = nCont.oid; 
+			} else if (!isEmpty(n1.pool)){
+				console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
+			} else if (!isEmpty(nCont.pool)){
+				//multiple nodes are created for each child!!!
+				//just distribute pool to multiple copies of n
+				console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
+
+				//... and recurse
+			}
 			n1.content = content;
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);

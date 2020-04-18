@@ -22,9 +22,9 @@ table:
   market:
     obj_type: market
     neutral: [c1,c3]
-  market2:
-    obj_type: market
-    neutral: [c2,c3]
+  # market2:
+  #   obj_type: market
+  #   neutral: [c2,c3]
   farm:
     obj_type: building
     storage: [c1,c2]

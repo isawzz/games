@@ -2,23 +2,21 @@ function createLC(n, area, R) {
 	// n ist already a copy of the node to be created
 
 	R.registerNode(n);
-	//console.log('_____________________ createLC');
-	//showNodeInfo(n, 'n');
+
 	let content = n.content;
 
 	//inner node
 	if (isContainerType(n.type)) {
 
-		n.ui = mDiv(mBy(area));
+		createUi(n, area, R);
 
 		if (isdef(content) && isList(content)) {
 			//pass as pool to container content
 			let prop = RCONTAINERPROP[n.type];
 			let n1 = n[prop];
 			n1.pool = content; //intersect!
-			console.log('JETZT!!!', n.pool)
+			//console.log('JETZT!!!', n.pool)
 		}
-		R.setUid(n);
 
 		//replace children by spec nodes
 		//also: process case where container prop is a path .neutral zB
@@ -77,12 +75,22 @@ function createLC(n, area, R) {
 		}
 
 		n.children = createChi(n, R);
+
+		adjustLayout(n,R);
 	}
 
 	//leaf
 	else {
-		n.ui = mInfo(content, mBy(area));
-		R.setUid(n);
+
+		createUi(n, area, R);
+
 	}
 	return n;
 }
+
+
+
+
+
+
+

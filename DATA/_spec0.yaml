@@ -1,41 +1,72 @@
-#OK forest 32
 ROOT:
   type: panel
-  cond:
-    instanceof: player
   panels:
-    _id: A
-  
-p1:
-  _ref: A
+    - name: market_loc
+      _id: market_loc #set single panel (panels isList)
+      type: list
+    - name: all_opps
+      type: panel
+      panels:
+        _id: all_opps #set multiple panels (panels isDict)
+
+p_elm:
+  panels:
+    - _id: info_loc
+    - _id: hand_loc
+
+global_market:
+  name: global_market
+  cond:
+    obj_type: market
+  _ref: market_loc
   type: list
-  elm: .buildings
+  elm:
+    data: .neutral
 
-# ROOTresult:
-#   type: panel
-#   cond:
-#     instanceof: player
-#   panels:
-#     type: list
-#     elm: .buildings
-#     specKey: p1
-#   pool: p1 p2
-#   specKey: ROOT
+opp_info:
+  name: opp_info
+  _ref: all_opps
+  cond:
+    obj_type: _opponent
 
-#OK forest 31
-# ROOT:
-#   type: panel
-#   cond:
-#     instanceof: player
-#   panels:
-#     type: list
-#     elm: .buildings
+player_panel:
+  name: player_panel
+  cond:
+    instanceof: _player
+  type: p_elm
 
-#OK forest 30
-# ROOT:
-#   type: panel
-#   cond:
-#     obj_type: market
-#   panels:
-#     type: list
-#     elm: .neutral
+player_hand:
+  name: player_hand
+  cond:
+    instanceof: _player
+  _ref: hand_loc
+  type: list
+  elm:
+    data: .hand
+
+player_info:
+  cond:
+    instanceof: _player
+  _ref: info_loc
+  type: dict
+  data:
+    vps: .vps
+    money: .money
+    herald: .herald
+
+all_cards:
+  cond:
+    obj_type: card
+  type: info # leaf component
+
+all_viz_cards:
+  _source: all_cards # override default (all gameobjects/players) to the gameobjects/players in specified set
+  cond:
+    prop: short_name # prop exists
+  params:
+    bg: white
+    font:
+      color: black
+      bold: True
+      size: medium
+  data: .short_name

@@ -27,11 +27,12 @@ function defaultPresentationNode(oid, o, R) {
 
 	//if o is a list of oids: again, look for spec nodes!
 	let nrep = {};
-	console.log('def rep:', oid, o);
+	//console.log('def rep:', oid, o);
+
 	//if o has one or more properties that are lists of oids
 	//can present this in a better way!!!
 	let objLists = getElementLists(o);
-	console.log('-------', objLists);
+	//console.log('-------', objLists);
 	if (isEmpty(objLists)) {
 		let litProp = firstCondDictKV(o, (k, v) => k != 'obj_type' && isLiteral(v));
 		let content = litProp ? o[litProp] : o.obj_type + ' ' + oid;
@@ -42,7 +43,7 @@ function defaultPresentationNode(oid, o, R) {
 		//erstmal nur 1. list
 		let key1 = Object.keys(objLists)[0];
 		let list1 = Object.values(objLists)[0];
-		console.log('first list is:', key1,list1);
+		console.log('defaultPresentationNode: first list is:', key1,list1);
 		//let content = list1.join(' ');
 		//in wirklichkeit such ich hier nach available spec node fuer jedes el von list1
 		nrep = { type: 'list', pool: list1, elm: '.'+key1};
@@ -66,17 +67,11 @@ function mergeChildrenWithRefs(o, R) {
 		let loc = ch._id;
 		let refs = R.refs[loc];
 		if (nundef(refs)) continue;
-		// console.log('sollte', o, 'o[' + k + '] mit', refs, 'mergen');
-		// console.log('refs', refs);
-		// console.log('refs', Object.keys(refs));
 		let spKey = Object.keys(refs)[0];
 		let nSpec = R.lastSpec[spKey];
-		console.log('nSpec', nSpec);
-		// console.log(refs[loc]);
-		// console.log(R);
-		// console.log(R);
+		//console.log('nSpec', nSpec);
 		let oNew = deepmerge(o[k], nSpec);
-		console.log('neues child', oNew);
+		//console.log('neues child', oNew);
 		o[k] = oNew;
 
 
@@ -90,12 +85,12 @@ function run03(sp, defaults, sdata) {
 	R = new RSG(sp, defaults, sdata);
 
 	R.gen10(); //addSourcesAndPools, need cond to add _rsg to objects!
-	console.log(R.lastSpec.ROOT);
+	//console.log(R.lastSpec.ROOT);
 
-	R.gen11(); // add top level panel to root if root.type != panel, nothing else!
+	R.gen11(); // add top level panel to root unless is single(!) panel
 	R.gen12(); // creates places & refs and adds a specKey prop to each spec Node
 	R.gen13(); // merges _ref nodes into _id nodes
-	console.log(R.lastSpec.ROOT);
+	//console.log('ROOT vor synthesis:\n',R.lastSpec.ROOT);
 
 	R.gen20('table'); // expands root, creates 1 node for each ui and uis
 

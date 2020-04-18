@@ -3,28 +3,32 @@ var FUNCTIONS = {
 	obj_type: (o, v) => o.obj_type == v,
 	prop: (o, v) => isdef(o[v]),
 	no_prop: (o, v) => nundef(o[v]),
-
 }
-
 const RCREATE = {
 	info: mInfo,
-	list: mInfo,
-	panel: mInfo,
+	list: mList,
+	panel: mPanel,
+}
+const RCONTAINERPROP = {
+	list: 'elm',
+	panel: 'panels',
 }
 
-const RSTYLE = {
-	info: (ui, params) => mStyle(ui, paramsToCss(params)),
-	list: (ui, params) => mStyle(ui, paramsToCss(params)),
-	panel: (ui, params) => mStyle(ui, paramsToCss(params)),
+function mPanel(n, dParent, R) {
+	let ui = mDiv(dParent);
+	mStyle(ui, paramsToCss(n.params));
+	mColor(ui, randomColor());
+	return ui;
 }
-
-const RCONTAINERPROP ={
-	list:'elm',
-	panel:'panels',
+function mList(n, dParent, R) {
+	let ui = mDiv(dParent);
+	mStyle(ui, paramsToCss(n.params));
+	mColor(ui, randomColor());
+	return ui;
 }
-
-function mInfo(content, dParent = null) {
-	let ui = mNode(content, { dParent: dParent });
+function mInfo(n, dParent, R) {
+	let ui = mNode(n.content, { dParent: dParent });
+	mStyle(ui, paramsToCss(n.params));
 	return ui;
 }
 
@@ -32,24 +36,48 @@ function instanceOf(o, className) {
 	let otype = o.obj_type;
 	switch (className) {
 		case '_player':
-		case 'player': return ['me','_me','player','_player','opp','opponent','_opponent'].includes(otype); break;
+		case 'player': return ['me', '_me', 'player', '_player', 'opp', 'opponent', '_opponent'].includes(otype); break;
 		// case '_player': return otype == 'GamePlayer' || otype == 'opponent'; break;
 		case 'building': return otype == 'farm' || otype == 'estate' || otype == 'chateau' || otype == 'settlement' || otype == 'city' || otype == 'road'; break;
 	}
 }
 
+function createUi(n, area, R) {
+	let defs = R.defs[n.type].params;
 
+	if (nundef(n.params)) n.params = jsCopy(defs);
+	else n.params = deepmergeOverride(defs, n.params);
 
-function mInfo_dep(content, params, dParent = null) {
-	//console.log('__________',params)
-	let ui = mNode(content, { dParent: dParent });
-	let cssParams = paramsToCss(params);
-	// console.log(cssParams);
-	// ui.style.fontSize='40px';
-	//mClass(ui,'info');
-	//ui.style.fontFamily='Work Sans';//"'Work Sans', sans-serif";//"//'Arial, Helvetica, sans-serif';
-	mStyle(ui, cssParams);
-	//	ui.style.fontFamily='AlgerianRegular';
+	n.ui = RCREATE[n.type](n, mBy(area), R);
 
-	return ui;
+	// //console.log(n.params)
+	// RSTYLE[n.type](n.ui, n.params);
+
+	R.setUid(n);
+
+}
+
+function adjustLayout(n, R) {
+	console.log('==>', n)
+	let params = n.params;
+	let num = n.children.length;
+
+	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
+
+	console.log(params, num, or);
+
+	let reverseSplit = false;
+	let split = params.split ? params.split : DEF_SPLIT;
+
+	if (split == 'equal') split = (1 / num);
+	else if (isNumber(split)) reverseSplit = true;
+
+	mFlex(n.ui, or);
+
+	// for (let i = 0; i < num; i++) {
+	// 	let d = n.children[i].ui;
+	// 	mFlexChildSplit(d, split);
+
+	// 	if (reverseSplit) { split = 1 - split; }
+	// }
 }
