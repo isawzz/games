@@ -1,3 +1,22 @@
+var R = null;
+function run03(sp, defaults, sdata) {
+
+	R = new RSG(sp, defaults, sdata);
+
+	R.gen10(); //addSourcesAndPools, need cond to add _rsg to objects!
+	//console.log(R.lastSpec.ROOT);
+
+	R.gen11(); // add top level panel to root unless is single(!) panel
+	R.gen12(); // creates places & refs and adds a specKey prop to each spec Node
+	R.gen13(); // merges _ref nodes into _id nodes (_id & _ref) disappear?
+	//R.gen14(); // merges type nodes into spec nodes =>type names disappear!
+	//console.log('ROOT vor synthesis:\n',R.lastSpec.ROOT);
+
+	R.gen20('table'); // expands root, creates 1 node for each ui and uis
+
+	presentRoot(R.lastSpec.ROOT, 'results');
+}
+
 
 function createPresentationNodeForOid(oid, R) {
 	let o = R.sData[oid];
@@ -55,11 +74,6 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
-
-
-
-
-
 function mergeChildrenWithRefs(o, R) {
 	for (const k in o) {
 		let ch = o[k];
@@ -78,23 +92,23 @@ function mergeChildrenWithRefs(o, R) {
 	}
 }
 
+function mergeSpecTypes(o, R) {
+	for (const k in o) {
+		let ch = o[k];
+		//if (ch.type == )
+		if (nundef(ch._id)) continue;
+		let loc = ch._id;
+		let refs = R.refs[loc];
+		if (nundef(refs)) continue;
+		let spKey = Object.keys(refs)[0];
+		let nSpec = R.lastSpec[spKey];
+		//console.log('nSpec', nSpec);
+		let oNew = deepmerge(o[k], nSpec);
+		//console.log('neues child', oNew);
+		o[k] = oNew;
 
-var R = null;
-function run03(sp, defaults, sdata) {
 
-	R = new RSG(sp, defaults, sdata);
-
-	R.gen10(); //addSourcesAndPools, need cond to add _rsg to objects!
-	//console.log(R.lastSpec.ROOT);
-
-	R.gen11(); // add top level panel to root unless is single(!) panel
-	R.gen12(); // creates places & refs and adds a specKey prop to each spec Node
-	R.gen13(); // merges _ref nodes into _id nodes
-	//console.log('ROOT vor synthesis:\n',R.lastSpec.ROOT);
-
-	R.gen20('table'); // expands root, creates 1 node for each ui and uis
-
-	presentRoot(R.lastSpec.ROOT, 'results');
+	}
 }
 
 

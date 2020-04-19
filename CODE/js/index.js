@@ -24,7 +24,7 @@ function presentRoot(n, area) {
 	let dLevel = [];
 	for (let i = 0; i < depth; i++) {
 		let d1 = dLevel[i] = mDiv(d);
-		mColor(d1, randomColor());
+		mColor(d1, colorTrans('black',.3));// randomColor());
 
 	}
 
@@ -32,8 +32,8 @@ function presentRoot(n, area) {
 	//console.log('tree has depth',maxLevel);
 
 	//console.log()
-	mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
-
+	let longRoot = mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
+	//mFont(longRoot,10);
 }
 function filterByKey(o, desiredKeys) {
 	let o1 = {};

@@ -35,7 +35,7 @@ class RSG {
 	}
 	gen11() {
 		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
-		if (this.ROOT.type == 'panel' && this.ROOT.pool.length<=1) return;
+		if (this.ROOT.type == 'panel' && this.ROOT.pool.length <= 1) return;
 		let gen = jsCopy(this.lastSpec);
 		gen.ROOT = { type: 'panel', panels: gen.ROOT };
 		this.gens.push(gen);
@@ -61,8 +61,8 @@ class RSG {
 			let n = gen[k];
 			check_ref(k, n, this);
 		}
-		console.log('____________________ places', this.places);
-		console.log('____________________ refs', this.refs);
+		//console.log('____________________ places', this.places);
+		//console.log('____________________ refs', this.refs);
 
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
@@ -73,8 +73,21 @@ class RSG {
 		let gen = jsCopy(this.lastSpec);
 
 		for (const k in gen) {
-			let n=gen[k];
+			let n = gen[k];
 			safeRecurse(n, mergeChildrenWithRefs, this, true);
+		}
+		this.lastSpec = gen;
+		this.ROOT = gen.ROOT;
+
+
+	}
+	gen14() {
+		//merge _ref nodes into _id
+		let gen = jsCopy(this.lastSpec);
+
+		for (const k in gen) {
+			let n = gen[k];
+			safeRecurse(n, mergeSpecTypes, this, true);
 		}
 		this.lastSpec = gen;
 		this.ROOT = gen.ROOT;
@@ -108,12 +121,21 @@ class RSG {
 
 function calcContent(o, path) {
 
-	if (path[0] != '.') return path;
+	if (isString(path)) {
+		if (path[0] != '.') return path;
 
-	let props = path.split('.').slice(1);
-	// console.log(props, 'props');
-	let content = isEmpty(props) ? o : lookup(o, props);
-	return content;
+		let props = path.split('.').slice(1);
+		// console.log(props, 'props');
+		let content = isEmpty(props) ? o : lookup(o, props);
+		return content;
+	}else if (isDict(path)){
+		let content = {};
+		for(const k in path){
+			let c=calcContent(o,path[k]);
+			if (c) content[k]=c;
+		}
+		return content;
+	}
 
 }
 function check_id(specKey, node, R) {
@@ -133,6 +155,9 @@ function check_ref(specKey, node, R) {
 function hasId(o) { console.log('HALLLLLLLLLLLLLLLO'); return isdef(o._id); }
 function isSpecType(t) { return isdef(R.lastSpec[t]); }
 function isContainerType(t) { return t == 'panel' || t == 'list'; }
+function isLeafType(t) { return t == 'info'; }
+function isPositionedType(t) { return t == 'boardElement'; }
+function isGridType(t) { return t == 'grid'; }
 function mergeWithSpecType(n, t, R) {
 	//console.log('......mergine nodes!');
 	let pool = n.pool;

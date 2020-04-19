@@ -10,8 +10,8 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 
 var DSPEC_PATH = '/DATA/defaultSpec';
-var SPEC_PATH = '/DATA/_spec0';
-var SERVERDATA_PATH = '/DATA/_serverData';
+var SPEC_PATH = '/DATA/specttt';
+var SERVERDATA_PATH = '/DATA/serverttt';
 
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false

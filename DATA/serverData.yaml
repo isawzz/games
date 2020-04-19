@@ -5,6 +5,8 @@ players:
     hand: [c1, c2]
     buildings: [farm, farm2]
     vps: 3
+    herald: true
+    money: 4
   p2:
     obj_type: _opponent
     name: anna
@@ -14,11 +16,15 @@ table:
   c1:
     obj_type: card
     short_name: K
+    rank: K
   c2:
     obj_type: card
+    short_name: Q
     rank: Q
   c3:
     obj_type: card
+    short_name: J
+    rank: J
   market:
     obj_type: market
     neutral: [c1,c3]

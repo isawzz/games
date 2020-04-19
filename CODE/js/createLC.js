@@ -5,7 +5,6 @@ function createLC(n, area, R) {
 
 	let content = n.content;
 
-	//inner node
 	if (isContainerType(n.type)) {
 
 		createUi(n, area, R);
@@ -79,8 +78,24 @@ function createLC(n, area, R) {
 		adjustLayout(n,R);
 	}
 
+	//das wird spaeter generalisiert auf alle types
+	else if (isGridType(n.type)){
+		//weiss ich den context von n?
+		//ja, alle nodes haben pool bzw oid
+		//or, detect board id from sData
+		console.log('grid',n.pool,'oid:'+n.oid);
+		
+
+
+	}
+
+	//verwend ich mal erst fuer svgs mit pos transforms, eg., board elements
+	else if (isPositionedType(n.type)){
+
+	}
+
 	//leaf
-	else {
+	else if (isLeafType(n.type)){
 
 		createUi(n, area, R);
 

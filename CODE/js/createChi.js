@@ -3,11 +3,19 @@ function createChi(nCont, R) {
 	let prop = RCONTAINERPROP[nCont.type];
 	let n = nCont[prop];
 
+	//console.log('_________________ nCont',nCont);
+	//console.log('n',n);
+
+	
 	//showNodeInfo(nCont, 'container');
 	//if (!isList(n)) showNodeInfo(n, 'children'); else consOutput('liste!!!');
 	let verbose = false;// (isString(n) && n[0] == '.');
 
 	let chNodes = [];
+
+	// if (nCont.oid == 'p2'){
+	// 	console.log('player 2 panel!!!')
+	// }
 
 	//case a: n is a string eg., .neutral
 	//geht wahrsceinlich nicht fuer multiple levels, must study this!!!!!
@@ -49,12 +57,13 @@ function createChi(nCont, R) {
 				content = x.data;
 			} else if (isdef(nCont.oid) && nundef(n1.oid)) { 
 				n1.oid = nCont.oid; 
-			} else if (!isEmpty(n1.pool)){
-				console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
+			} else if (!isEmpty(n1.pool) && n1.pool.length==1){
+				n1.oid = n1.pool[0];
+				//console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
 			} else if (!isEmpty(nCont.pool)){
 				//multiple nodes are created for each child!!!
 				//just distribute pool to multiple copies of n
-				console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
+				//console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
 
 				//... and recurse
 			}

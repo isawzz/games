@@ -1,0 +1,16 @@
+ROOT:
+  cond:
+    obj_type: Board
+  type: grid
+
+tick:
+  cond:
+    obj_type: tick
+  type: info
+  data: 
+    r: .row
+    c: .col
+
+
+
+

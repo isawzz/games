@@ -15,15 +15,27 @@ const RCONTAINERPROP = {
 }
 
 function mPanel(n, dParent, R) {
-	let ui = mDiv(dParent);
+
+	let ui;
+	if (n.oid) {
+		let outer = mDiv(dParent);
+		//mStyle(outer,{border:'solid 1px silver'});
+		let d=mTextDiv(n.oid,outer);
+		mStyle(d,{'text-align':'left','margin-left':4})
+		ui = mDiv(outer);
+	}else{
+		ui = mDiv(dParent);
+	}
+
 	mStyle(ui, paramsToCss(n.params));
-	mColor(ui, randomColor());
+	//mColor(ui, randomColor());
 	return ui;
 }
 function mList(n, dParent, R) {
+
 	let ui = mDiv(dParent);
 	mStyle(ui, paramsToCss(n.params));
-	mColor(ui, randomColor());
+	//mColor(ui, randomColor());
 	return ui;
 }
 function mInfo(n, dParent, R) {
@@ -58,13 +70,13 @@ function createUi(n, area, R) {
 }
 
 function adjustLayout(n, R) {
-	console.log('==>', n)
+	//console.log('==>', n)
 	let params = n.params;
 	let num = n.children.length;
 
 	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
 
-	console.log(params, num, or);
+	//console.log(params, num, or);
 
 	let reverseSplit = false;
 	let split = params.split ? params.split : DEF_SPLIT;

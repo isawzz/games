@@ -1,15 +1,33 @@
-ROOT:
+ROOT: 
   type: panel
+  params:
+    orientation: h
+    bg: green
   panels:
-    - name: market_loc
-      _id: market_loc #set single panel (panels isList)
-      type: list
+    - type: panel
+      panels:
+        - name: market_loc
+          _id: market_loc #set single panel (panels isList)
+          type: list
+        - _id: main_player
     - name: all_opps
       type: panel
       panels:
         _id: all_opps #set multiple panels (panels isDict)
 
+# ROOT: #OK
+#   type: panel
+#   panels:
+#     - name: market_loc
+#       _id: market_loc #set single panel (panels isList)
+#       type: list
+#     - name: all_opps
+#       type: panel
+#       panels:
+#         _id: all_opps #set multiple panels (panels isDict)
+
 p_elm:
+  type: panel
   panels:
     - _id: info_loc
     - _id: hand_loc
@@ -20,19 +38,20 @@ global_market:
     obj_type: market
   _ref: market_loc
   type: list
-  elm:
-    data: .neutral
+  elm: .neutral
 
 opp_info:
   name: opp_info
   _ref: all_opps
   cond:
     obj_type: _opponent
+  type: p_elm
 
-player_panel:
+me_info:
   name: player_panel
+  _ref: main_player
   cond:
-    instanceof: _player
+    obj_type: _me
   type: p_elm
 
 player_hand:
@@ -41,32 +60,33 @@ player_hand:
     instanceof: _player
   _ref: hand_loc
   type: list
-  elm:
-    data: .hand
+  elm: .hand
 
 player_info:
   cond:
     instanceof: _player
   _ref: info_loc
-  type: dict
+  type: info
   data:
     vps: .vps
     money: .money
     herald: .herald
 
-all_cards:
-  cond:
-    obj_type: card
-  type: info # leaf component
+# all_cards:
+#   cond:
+#     obj_type: card
+#   type: info # leaf component
 
 all_viz_cards:
-  _source: all_cards # override default (all gameobjects/players) to the gameobjects/players in specified set
+  type: info # leaf component
+  # _source: all_cards # override default (all gameobjects/players) to the gameobjects/players in specified set
   cond:
     prop: short_name # prop exists
   params:
     bg: white
-    font:
-      color: black
-      bold: True
-      size: medium
+    fg: black
+    font-weight: bold
+    font-size: medium
+    border-radius: 4px
+    border: solid 1px black
   data: .short_name

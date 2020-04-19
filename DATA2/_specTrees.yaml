@@ -1,0 +1,194 @@
+# *** phase 1 trees ***
+
+# ROOT:
+#   cond:
+#     obj_type: market
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: info
+#     data: .rank
+
+# cards:
+#   cond:
+#     obj_type: card
+#   type: info
+#   data: .rank
+
+# *** phase 2 trees ***
+# cards:
+#   pool: [c1,c2,c3]
+#   type: info
+#   data: .rank
+
+#OK
+# ROOT:
+#   pool: [market]
+#   type: list
+#   data: .neutral
+#   elm:
+#     type: info
+#     data: .rank
+
+
+
+#OK
+# ROOT:
+#   type: list
+#   elm:
+#     pool: [c1, c2]
+#     type: info
+#     data: .rank
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [c1, c2]
+#     type: info
+#     data: .rank
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: panel 
+#       panels:
+#         pool: [c1, c2]
+#         type: info
+#         data: .rank
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: panel 
+#       panels:
+#         - type: panel 
+#           panels:
+#             pool: [c1, c2]
+#             type: info
+#             data: .rank
+#         - type: list 
+#           elm:
+#             pool: [p1, p2]
+#             type: info
+#             data: .name
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: panel
+#     panels:
+#       type: info
+#       data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: list
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+#     - type: list
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: list
+#     data: .hand
+#     elm:
+#       type: info
+#       data: .rank
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     - type: list 
+#       elm:
+#         pool: [p1, p2]
+#         type: info
+#         data: .name
+#     - type: panel 
+#       panels:
+#         - type: panel 
+#           panels:
+#             - type: panel 
+#               panels:
+#                 pool: [c1, c2]
+#                 type: info
+#                 data: .rank
+#             - type: list 
+#               elm:
+#                 pool: [p1, p2]
+#                 type: info
+#                 data: .name
+#         - type: panel 
+#           panels:
+#             pool: [c1, c2]
+#             type: info
+#             data: .rank
+#         - type: list 
+#           elm:
+#             pool: [p1, p2]
+#             type: info
+#             data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [p1, p2]
+#     type: panel
+#     panels:
+#       - type: list
+#         data: .hand
+#         elm:
+#           type: info
+#           data: .rank
+#       - type: info
+#         data: .name
+
+#OK
+# ROOT:
+#   type: panel
+#   panels:
+#     pool: [market]
+#     type: list
+#     data: .neutral
+#     elm:
+#       type: cards
+#       data: .rank
+
+# cards:
+#   pool: [c1, c2, c3]
+#   type: info
+#   data: .rank
+
+
+
+
+
+
+
