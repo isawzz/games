@@ -1,4 +1,4 @@
-var recSafetyCheck=null;
+var recSafetyCheck = null;
 function createChi(nCont, R) {
 	let prop = RCONTAINERPROP[nCont.type];
 	let n = nCont[prop];
@@ -6,7 +6,6 @@ function createChi(nCont, R) {
 	//console.log('_________________ nCont',nCont);
 	//console.log('n',n);
 
-	
 	//showNodeInfo(nCont, 'container');
 	//if (!isList(n)) showNodeInfo(n, 'children'); else consOutput('liste!!!');
 	let verbose = false;// (isString(n) && n[0] == '.');
@@ -32,13 +31,13 @@ function createChi(nCont, R) {
 		// console.log('string case olist=',owner,n,olist);
 		//if owner does not have corresponding property, nothing is created!
 		if (!olist || !isList(olist)) {
-			console.log(ownerId,'does not have',n,'or prop',n,'of',ownerId,'is not a list!!!')
+			console.log(ownerId, 'does not have', n, 'or prop', n, 'of', ownerId, 'is not a list!!!')
 			return [];
 		}
-		
+
 		for (const oid of olist) {
 			//each of these is becoming 1 child the type of which is unknown!!!
-			let n1=createPresentationNodeForOid(oid,R);
+			let n1 = createPresentationNodeForOid(oid, R);
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
 
@@ -55,12 +54,12 @@ function createChi(nCont, R) {
 				content = calcContent(R.sData[n1.oid], n1.data);
 			} else if (isdef(x.data)) {
 				content = x.data;
-			} else if (isdef(nCont.oid) && nundef(n1.oid)) { 
-				n1.oid = nCont.oid; 
-			} else if (!isEmpty(n1.pool) && n1.pool.length==1){
+			} else if (isdef(nCont.oid) && nundef(n1.oid)) {
+				n1.oid = nCont.oid;
+			} else if (!isEmpty(n1.pool) && n1.pool.length == 1) {
 				n1.oid = n1.pool[0];
 				//console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
-			} else if (!isEmpty(nCont.pool)){
+			} else if (!isEmpty(nCont.pool)) {
 				//multiple nodes are created for each child!!!
 				//just distribute pool to multiple copies of n
 				//console.log('STRANGE CASE!!!!!!!!!!!!!!!!!!!!!!',nCont,n,x);
@@ -93,7 +92,7 @@ function createChi(nCont, R) {
 		chNodes.push(n1);
 	}
 	//case 3: wenn n ein data besitzt muss fuer dieses 1 child gemacht werden
-	else if (isdef(n.data) && n.data[0] == '.' && isdef(nCont.oid)) {
+	else if (isdef(n.data) && isdef(nCont.oid)) { //&& n.data[0] == '.' 
 		console.log('...case 3')
 		let n1 = jsCopy(n);
 		n1.oid = nCont.oid;
@@ -160,14 +159,14 @@ function createChi(nCont, R) {
 
 		n.pool = nCont.pool;
 		if (!recSafetyCheck) {
-			recSafetyCheck=true;
+			recSafetyCheck = true;
 			return createChi(nCont, R);
-		}else {
-			recSafetyCheck=false;
+		} else {
+			recSafetyCheck = false;
 			console.log('...case 12: prevented endlosrecursion!!!!!!!!!!!');
-			console.log('nCont',nCont)
-			console.log('n',n);
-		}	
+			console.log('nCont', nCont)
+			console.log('n', n);
+		}
 		// for (let i = 0; i < n.pool.length; i++) {
 		// 	let n1 = jsCopy(n);
 		// 	n1.oid = n.pool[i];
@@ -177,10 +176,31 @@ function createChi(nCont, R) {
 		// }
 
 	}
-	else{
+	//case 14: grid
+	else if (isGridType(n.type)) {
+		console.log('...case 14: grid', nCont);
+		if (isdef(n.oid)) { }
+		else if (isdef(n.pool) || isdef(nCont.pool)) {
+			if (nundef(n.pool)) n.pool = nCont.pool;
+			for (const oid of n.pool) {
+				let n1 = jsCopy(n);
+				n1.oid = oid;
+				createLC(n1, nCont.uid, R);
+				chNodes.push(n1);
+			}
+		} else if (isdef(nCont.oid)) {
+			let n1 = jsCopy(n);
+			n1.oid = nCont.oid;
+			createLC(n1, nCont.uid, R);
+			chNodes.push(n1);
+		}
+	}
+
+	//case 13
+	else {
 		console.log('...case 13!!!!!!! dont know what to do with:')
-		console.log('nCont',nCont)
-		console.log('n',n);
+		console.log('nCont', nCont)
+		console.log('n', n);
 	}
 	return chNodes;
 

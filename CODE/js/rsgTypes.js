@@ -82,7 +82,7 @@ class RSG {
 
 	}
 	gen14() {
-		//merge _ref nodes into _id
+		//merge spec types into places (forward merge)
 		let gen = jsCopy(this.lastSpec);
 
 		for (const k in gen) {
@@ -91,8 +91,6 @@ class RSG {
 		}
 		this.lastSpec = gen;
 		this.ROOT = gen.ROOT;
-
-
 	}
 	gen20(area) {
 		let gen = jsCopy(this.lastSpec);

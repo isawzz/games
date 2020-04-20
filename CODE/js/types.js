@@ -69,7 +69,7 @@ function createUi(n, area, R) {
 
 }
 
-function adjustLayout(n, R) {
+function adjustContainerLayout(n, R) {
 	//console.log('==>', n)
 	let params = n.params;
 	let num = n.children.length;
@@ -93,3 +93,25 @@ function adjustLayout(n, R) {
 	// 	if (reverseSplit) { split = 1 - split; }
 	// }
 }
+function adjustBoardLayout(n, R) {
+	
+}
+
+//#region small helpers
+function detectBoardObject(data){	return firstCondDictKeys(data,x=>isdef(data[x].map));}
+function detectBoardType(oBoard,data){
+	//console.log(oBoard)
+	let fid0 = getElements(oBoard.fields)[0];
+	//console.log(fid0)
+	let nei=data[fid0].neighbors;
+	//console.log('nei',nei);
+	let len = nei.length;
+	return len==6?'hexGrid':'quadGrid'; //for now!
+}
+
+
+
+
+
+
+

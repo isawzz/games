@@ -1,5 +1,26 @@
 defaults:
   type: panel
+
+  grid: #common to all grids
+    params:
+      field:
+        bg: '#c0c0c01A'
+        size: 80 #ideally divisible by 4
+      corner:
+        bg: '#c0c0c080'
+        size: 30%
+      edge:
+        bg: dimgray
+        width: 10
+      gap: 4
+  quadGrid: #overrides grid
+    params:
+      field:
+        shape: rect
+  hexGrid:
+    params:
+      field:
+        shape: hex
   panel:
     params:
       #bg: green

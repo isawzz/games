@@ -1,16 +1,24 @@
+#nur 1 beispiel das laufen muss!!!
+# ROOT:
+#   type: panel
+#   panels:
+#     type: tick
+
+#board!!!
 ROOT:
+  type: panel
   cond:
     obj_type: Board
-  type: grid
+  panels:
+    - type: grid
+      boardType: quadGrid #can be detected!
+
 
 tick:
+  _ref: A
   cond:
-    obj_type: tick
+    obj_type: Tick
   type: info
-  data: 
+  data:
     r: .row
     c: .col
-
-
-
-
