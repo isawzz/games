@@ -156,11 +156,6 @@ function getContent(path, o) {
 		return lookup(o, props);
 
 	}
-	// if (!info.settings) info.settings = {};
-	// let k = path.join('_');
-	// info.settings[k] = [oInfo];
-	// info.settings[k].push(last1);
-	// if (isString(prop)) info.settings[k].push(getObject(info.oid)[prop]);
 }
 
 

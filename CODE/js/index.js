@@ -32,7 +32,7 @@ function presentRoot(n, area) {
 	//console.log('tree has depth',maxLevel);
 
 	//console.log()
-	let longRoot = mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
+	//let longRoot = mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
 	//mFont(longRoot,10);
 }
 function filterByKey(o, desiredKeys) {

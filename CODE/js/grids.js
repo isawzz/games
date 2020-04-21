@@ -32,19 +32,16 @@ function quadGrid(o, pool) {
 		info.poly = getQuadPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
-	let grid = gridSkeleton(o, pool, boardInfo, fieldInfo);
+	return gridSkeleton(o, pool, boardInfo, fieldInfo);
 
-	//olist normally contains ids,
-	//board also contains boardInfo
-	//hier koennte returnen:
-	//layoutInfo,olist,
-	let olist = [];
-	for(const id in grid.fields){olist.push(id);}
-	for(const id in grid.corners){olist.push(id);}
-	for(const id in grid.edges){olist.push(id);}
-	let layoutInfo = grid;
+	// let layoutInfo = gridSkeleton(o, pool, boardInfo, fieldInfo);
 
-	return {olist:olist,layoutInfo:layoutInfo};
+	// let olist = [];
+	// for (const id in layoutInfo.fields) { olist.push(id); }
+	// for (const id in layoutInfo.corners) { olist.push(id); }
+	// for (const id in layoutInfo.edges) { olist.push(id); }
+
+	// return { olist: olist, layoutInfo: layoutInfo };
 }
 
 function hexGrid(o, pool) {
@@ -80,8 +77,15 @@ function hexGrid(o, pool) {
 		info.poly = getHexPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
-	let grid = gridSkeleton(o, pool, boardInfo, fieldInfo);
-	return grid;
+	return gridSkeleton(o, pool, boardInfo, fieldInfo);
+	// let layoutInfo = gridSkeleton(o, pool, boardInfo, fieldInfo);
+
+	// let olist = [];
+	// for (const id in layoutInfo.fields) { olist.push(id); }
+	// for (const id in layoutInfo.corners) { olist.push(id); }
+	// for (const id in layoutInfo.edges) { olist.push(id); }
+
+	// return { olist: olist, layoutInfo: layoutInfo };
 }
 
 function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
@@ -137,97 +141,111 @@ function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
 
 }
 
-function generalGrid(board, fields, corners, edges, loc, fieldFunc) {
-	console.log('generalGrid',loc);
-	//hab hiermit board,fields,corners,edges dicts mit {o,oid,info}
+function generalGrid(n, area, R) {
+
+	//n.bi ist  { board: board, fields: fields, corners: corners, edges: edges };
+	// 1 dictionary mit 4 dictionaries
+
+	//n.params ist { fields:..., edges:..., corners:... , gap:...}
 
 	// *** stage 0: sizing info ***
-	let size = 100;//FIELD_SZ;//sollte multiple of 4 sein! weil wdef=4
-	let gap = 4;
+	let bpa = n.params;
+	let board = n.bi.board;
+	let fSpacing = bpa.fieldSpacing = bpa.fields.size;
+	let maxSize = fSpacing - bpa.gap;
+	let [fw, fh] = [fSpacing / board.info.wdef, fSpacing / board.info.hdef];
+	let [wBoard, hBoard] = [fw * board.info.w + bpa.corners.size, fh * board.info.h + bpa.corners.size];
 
-	let [fw, fh, wField, hField] = [size / board.info.wdef, size / board.info.hdef, size - gap, size - gap];
-	let szCorner = Math.max(wField / 4, 20);
-	let [wBoard, hBoard] = [fw * board.info.w + szCorner, fh * board.info.h + szCorner];
+	//bei fields wird gap taken into account!
+	for (const [oid, f] of Object.entries(n.bi.fields)) {
+		let o = f.o;
+		let bFieldParams = bpa.fields;
+		let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
+		//console.log(tNode)
+		if (nundef(tNode.params)) tNode.params = {};
+		tNode.params = deepmerge(bFieldParams, tNode.params);
+		let fNew = deepmerge(tNode, f);
+		//console.log(fNew)
+		fNew.params = mapValues(o, fNew.params, bFieldParams, R.lastSpec);
+		if (fNew.params.size > maxSize) { fNew.params.size = maxSize; }//*** */
+		n.bi.fields[oid] = fNew;
+	}
+	for (const name of ['edges', 'corners']) {
+		for (const [oid, f] of Object.entries(n.bi[name])) {
+			let o = f.o;
+			let bMemberParams = bpa[name];
+			let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
+			if (nundef(tNode.params)) tNode.params = {};
+			tNode.params = deepmerge(bMemberParams, tNode.params);
+			let fNew = deepmerge(tNode, f);
+			fNew.params = mapValues(o, fNew.params, bMemberParams, R.lastSpec);
+			n.bi[name][oid] = fNew;
+		}
+	}
 
 	// *** stage 1: convert objects into uis ***
 
-	let pal = getTransPalette('blue');//silver');
-	//[fieldColor, nodeColor, edgeColor] = ['red','blue','green']; //[pal[1], 'dimgray', pal[5]];
-	[fieldColor, nodeColor, edgeColor] = [pal[1], 'dimgray', pal[5]];
-	//let mk = registerObject(board, 'm', loc, RSGTYPES.board);
+	for (const name of ['fields', 'edges', 'corners']) {
+		let group = n.bi[name];
+		//console.log(group)
+		for (const oid in group) {
 
-	for (const oid in fields) { let o = fields[oid]; let el = gG(); fieldFunc(el, wField, hField); gBg(el, fieldColor); o.ui = el; }//registerObject(o, 'm', mk.id, RSGTYPES.field); }
-	for (const oid in edges) { let o = edges[oid]; let el = gG(); gFg(el, edgeColor, 10); o.ui = el; }//registerObject(o, 'm', mk.id, RSGTYPES.edge); }
-	for (const oid in corners) { let o = corners[oid]; let el = gG(); agCircle(el, szCorner); gBg(el, nodeColor); o.ui = el; }//registerObject(o, 'm', mk.id, RSGTYPES.corner); }
+			let f = group[oid];
+			let pf = f.params;
+			//console.log('size',pf.size);
 
-	//uis sind board,fields,corners,edges .map(x=>x.ui)
-	timit.showTime('stage 1 done');
-
-	//area is div element treated as always (flexWrap)
-	//container=board is a div (posRel) with svg and g inside =>3 containers!
-	//fields,edges,corners are g elements within board g
-
+			f.ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
+		}
+		// mergeEachBoardMemberWithItsSpecNodeN(n.bi.boardMembers[i],n.bi.boardMemberBaseParams[i],R);
+	}
 
 	// *** stage 2: prep area div (loc 'areaTable') as flexWrap ***
-	//let area = mBy(loc);// 
-	let area = stage2_prepArea(loc);
+	let d = stage2_prepArea(area);
 
-	timit.showTime('stage 2 done');
 	// *** stage 3: prep container div/svg/g (board) as posRel, size wBoard,hBoard ***
-	let container = stage3_prepContainer(area); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
+	let container = stage3_prepContainer(d); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
 
 	let svgContainer = gSvg();
-	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;border-radius:${gap}px;`;
+	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;border-radius:${bpa.gap}px;`;
 	svgContainer.setAttribute('style', style);
 	container.appendChild(svgContainer);
 
 	let gContainer = gG();
 	svgContainer.appendChild(gContainer);
 
-	board.ui = board.div = container;
-	board.svg = svgContainer;
-	board.g = gContainer; gContainer.id = board.id; //this counts as loc for board elements
-	// registerUiFor(mk, container);
+	n.bi.boardDiv = container;
+	mColor(container, 'blue');
+	container.id = n.uid + '_div';
+	n.bi.boardSvg = svgContainer;
+	n.ui = n.bi.boardG = gContainer;
 
+
+	R.setUid(n);
+	console.log('board object', n);
+	console.log('id of board G element', gContainer);
+
+	let gap = bpa.gap;
 	let [wTotal, hTotal] = [wBoard + 2 * gap, hBoard + 2 * gap];
 	mStyle(container, { width: wTotal, height: hTotal, 'border-radius': gap });
 	gContainer.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
-	//console.log(wTotal, hTotal);
 
-	timit.showTime('stage 3 done');
 	// *** stage 4: layout! means append & positioning = transforms... ***
-	layoutGridInfo(board.g, fields, corners, edges, fw, fh);
 
-
-}
-
-function layoutGridInfo(gContainer,fields,corners,edges,fw,fh){
-	for (const [id, f] of Object.entries(fields)) {
+	for (const f of Object.values(n.bi.fields)) {
 		gContainer.appendChild(f.ui);
 		gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
-	for (const [id, f] of Object.entries(edges)) {
-		agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+	for (const f of Object.values(n.bi.edges)) {
 		gContainer.appendChild(f.ui);
+		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
-	for (const [id, f] of Object.entries(corners)) {
+	for (const f of Object.values(n.bi.corners)) {
 		gContainer.appendChild(f.ui);
 		gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

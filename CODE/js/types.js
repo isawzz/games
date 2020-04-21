@@ -28,7 +28,7 @@ function mPanel(n, dParent, R) {
 	}
 
 	mStyle(ui, paramsToCss(n.params));
-	//mColor(ui, randomColor());
+	mColor(ui, randomColor());
 	return ui;
 }
 function mList(n, dParent, R) {

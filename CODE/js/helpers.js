@@ -113,6 +113,7 @@ function gCreate(tag) { return document.createElementNS('http://www.w3.org/2000/
 function gPos(g, x, y) { g.style.transform = `translate(${x}px, ${y}px)`; }
 function gBg(g, color) { g.setAttribute('fill', color); }
 function gFg(g, color, thickness) { g.setAttribute('stroke', color); if (thickness) g.setAttribute('stroke-width', thickness); }
+function gStroke(g, color, thickness) { g.setAttribute('stroke', color); if (thickness) g.setAttribute('stroke-width', thickness); }
 function gSvg() { return gCreate('svg'); } //document.createElementNS('http://www.w3.org/2000/svg', 'svg'); }
 function gG() { return gCreate('g'); }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }
 function gHex(w, h) { let pts = size2hex(w, h); return gPoly(pts); }
@@ -127,6 +128,7 @@ function agHex(g, w, h) { let pts = size2hex(w, h); return agPoly(g, pts); }
 function agPoly(g, pts) { let r = gPoly(pts); g.appendChild(r); return r; }
 function agRect(g, w, h) { let r = gRect(w, h); g.appendChild(r); return r; }
 function agLine(g, x1, y1, x2, y2) { let r = gLine(x1, y1, x2, y2); g.appendChild(r); return r; }
+
 
 //endregion
 

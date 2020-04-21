@@ -62,10 +62,10 @@ function defaultPresentationNode(oid, o, R) {
 		//erstmal nur 1. list
 		let key1 = Object.keys(objLists)[0];
 		let list1 = Object.values(objLists)[0];
-		console.log('defaultPresentationNode: first list is:', key1,list1);
+		console.log('defaultPresentationNode: first list is:', key1, list1);
 		//let content = list1.join(' ');
 		//in wirklichkeit such ich hier nach available spec node fuer jedes el von list1
-		nrep = { type: 'list', pool: list1, elm: '.'+key1};
+		nrep = { type: 'list', pool: list1, elm: '.' + key1 };
 
 		//createPresentationNodeForOid(oid, R)
 	}
@@ -109,7 +109,7 @@ function mergeSpecTypes(o, R) {
 
 	}
 }
-function replaceChildrenBySpecNodes(n,R){
+function replaceChildrenBySpecNodes(n, R) {
 	//replace children by spec nodes
 	let prop = RCONTAINERPROP[n.type];
 	let nOrList = n[prop];
@@ -189,33 +189,94 @@ function stage4_layout(uis, container, w, h, gap, layoutFunc) {
 }
 //#endregion
 
-function makeBoardUi(n,area,R){
-	let d = stage2_prepArea(area);
 
-	timit.showTime('stage 2 done');
-	// *** stage 3: prep container div/svg/g (board) as posRel, size wBoard,hBoard ***
-	let container = stage3_prepContainer(d); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
-
-	let svgContainer = gSvg();
-	let gap = 4;
-	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;border-radius:${gap}px;`;
-	svgContainer.setAttribute('style', style);
-	container.appendChild(svgContainer);
-
-	let gContainer = gG();
-	svgContainer.appendChild(gContainer);
-
-	//TODO have to make some provisions for in case board needs to be removed!!!
-	//since board is registered, UIS[n.uid] is n, so can easily remove ALL uis 
-	//==> provide a type-based remove function!!!!
-	n.ui = n.div = container;
-	n.svg = svgContainer;
-	n.g = gContainer; gContainer.id = n.uid; //this counts as loc for board elements
+const SHAPEFUNCS = {
+	'circle': agCircle,
+	'hex': agHex,
+	'rect': agRect,
+}
+function agColoredShape(g, shape, w, h, color) {
+	//console.log(shape)
+	SHAPEFUNCS[shape](g, w, h);
+	gBg(g, color);
 
 }
+function gShape(shape, w, h, color) {
+	//console.log(shape)
+	let el = gG();
+	if (shape != 'line') agColoredShape(el, shape, w, h, color);
+	else gStroke(el, color, w); //agColoredLine(el, w, color);
+	return el;
+}
 
+//same as _legacy/felixHelpers/getContent
+function decodePropertyPath(o, path) {
+	if (isString(path) && path[0] == '.') {
+		let props = path.split('.').slice(1);
+		return lookup(o, props);
 
+	}
+}
+function mapValues(o,p, pdef, spec) {
+	//console.log('__________ mapValues',p,pdef,spec);
+	let oNew = {};//newParams = jsCopy(baseParams);
+	for (const k in p) {
+		if (nundef(p[k]._map)) { oNew[k] = p[k]; continue; }
+		//console.log('o is',p);
 
+		let p1=p[k];
+		//console.log('k is',k);
+		//console.log('o1 is',p1);
+		let m = p1._map;
+		//console.log('m is',m);
+		let mapName = m.map;
+		//console.log('mapName is',mapName);
+		let _map = spec[mapName];
+		//console.log('_map is',_map);
+		let propPath = m.key;
+		//console.log('propPath is',propPath);
+		//console.log(mapName,propPath,'_map',_map);
+		let _key = decodePropertyPath(o, propPath);
+		//console.log('_key is',_key);
+		//console.log('o1',o1,'',_key,_key);
+		let val = _map[_key];
+		//console.log('val is',val);
+		if (isdef(val) && isdef(val[k])) { oNew[k] = val[k]; }
+		else if (isdef(pdef[k])) { oNew[k] = pdef[k]; }
+		//console.log('oNew[k] is',oNew[k]);
+		//console.log('change!!! old',params[p],'new',newParams[p])
+	}
+	return oNew;
+}
+function createBoard(n, area, R) {
+	n.bi = window[n.boardType](R.sData[n.oid], R.sData);
+	generalGrid(n, area, R); 
+}
+function detectBoardOidAndType(n, R) {
+	//detect n.oid if not set!
+	let sd = R.sData;//TODO!!! eigentlich muss ich hier _source nehmen!!!
+	if (!n.oid) n.oid = detectBoardObject(sd);
+
+	let oBoard = sd[n.oid];
+	//console.log('board server object',oBoard);
+	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
+	//console.log(R.sData);
+	// console.log('first board oid is',detectBoardObject(R.sData));
+	//n.boardType = detectBoardType(oBoard,sd);
+	//console.log('board is of type',n.boardType)
+	return [sd, oBoard]; //TODO cleanup!!!
+}
+function detectBoardParams(n, R) {
+	//set params for board!
+	//let boardDefs = R.defs.grid;
+	//console.log(R.defs.grid, R.defs[n.boardType])
+	let boardDefs = deepmerge(R.defs.grid, R.defs[n.boardType]);
+	//console.log(boardDefs);
+	if (isdef(n.params)) boardDefs = deepmerge(boardDefs, n.params);
+	n.params = boardDefs.params;
+	//console.log('board params:',n.params);
+	return n.params;
+}
 
 
 

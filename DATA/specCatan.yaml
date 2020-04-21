@@ -1,0 +1,79 @@
+#nur 1 beispiel das laufen muss!!!
+# ROOT:
+#   type: panel
+#   panels:
+#     type: tick
+
+#board!!!
+ROOT:
+  type: panel
+  cond:
+    obj_type: Board
+  panels:
+    - type: grid
+      params:
+        gap: 20
+      #boardType: hexGrid #can be detected!
+
+fields:
+  cond:
+    obj_type: Field
+  type: info
+  params:
+    size: 60
+    shape: circle #default waer hier hex gesetzt von board!
+    key: None
+    font: italic small-caps bold 20px Georgia, serif
+    fg:
+      _map:
+        map: num_map
+        key: .num
+    bg:
+      _map:
+        map: fields_map
+        key: .res
+  data: .num # type "info".data can be a list, dict, or single element
+
+edges:
+  cond:
+    obj_type: Edge
+  params:
+    size: 10
+    shape: rect
+    bg: pink
+
+corners:
+  cond:
+    obj_type: Corner
+  params:
+    size: 10
+    shape: rect #default waer hier hex gesetzt von board!
+    bg: green
+
+num_map:
+  6:
+    fg: red
+  8:
+    fg: red
+    
+fields_map:
+  wood:
+    texture: grain
+    bg: maroon 
+  brick:
+    texture: rect
+    bg: salmon
+  wheat:
+    texture: grain
+    bg: yellow
+  sheep:
+    bg: green
+  ore:
+    texture: grain
+    bg: dimgray
+
+# hex:
+#   cond:
+#     obj_type: Field
+#   type: info
+#   data: .num

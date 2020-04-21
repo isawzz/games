@@ -3,23 +3,26 @@ defaults:
 
   grid: #common to all grids
     params:
-      field:
-        bg: '#c0c0c01A'
+      fields:
+        bg: 'beige'
+        fg: 'white'
         size: 80 #ideally divisible by 4
-      corner:
-        bg: '#c0c0c080'
-        size: 30%
-      edge:
+      corners:
         bg: dimgray
-        width: 10
-      gap: 4
+        size: 20
+        shape: circle
+      edges:
+        bg: '#c0c0c080'
+        size: 8
+        shape: line
+      gap: 8
   quadGrid: #overrides grid
     params:
-      field:
+      fields:
         shape: rect
   hexGrid:
     params:
-      field:
+      fields:
         shape: hex
   panel:
     params:

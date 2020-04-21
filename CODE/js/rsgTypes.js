@@ -134,6 +134,7 @@ function calcContent(o, path) {
 		}
 		return content;
 	}
+	return null;
 
 }
 function check_id(specKey, node, R) {
