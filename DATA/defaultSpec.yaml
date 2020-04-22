@@ -6,7 +6,7 @@ defaults:
       fields:
         bg: 'beige'
         fg: 'white'
-        size: 80 #ideally divisible by 4
+        size: 60 #ideally divisible by 4
       corners:
         bg: dimgray
         size: 20
@@ -15,7 +15,8 @@ defaults:
         bg: '#c0c0c080'
         size: 8
         shape: line
-      gap: 8
+      margin: 8
+      field_spacing: 60
   quadGrid: #overrides grid
     params:
       fields:

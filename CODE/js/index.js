@@ -24,8 +24,7 @@ function presentRoot(n, area) {
 	let dLevel = [];
 	for (let i = 0; i < depth; i++) {
 		let d1 = dLevel[i] = mDiv(d);
-		mColor(d1, colorTrans('black',.3));// randomColor());
-
+		mColor(d1, colorTrans('black',.3));
 	}
 
 	maxLevel = 1 + recPresent(n, 0, dLevel, lstFlatten, lstShow);

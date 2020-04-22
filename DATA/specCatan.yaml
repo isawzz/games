@@ -12,7 +12,8 @@ ROOT:
   panels:
     - type: grid
       params:
-        gap: 20
+        margin: 10
+        field_spacing: 60
       #boardType: hexGrid #can be detected!
 
 fields:
@@ -20,9 +21,7 @@ fields:
     obj_type: Field
   type: info
   params:
-    size: 60
-    shape: circle #default waer hier hex gesetzt von board!
-    key: None
+    size: 50
     font: italic small-caps bold 20px Georgia, serif
     fg:
       _map:
@@ -38,15 +37,15 @@ edges:
   cond:
     obj_type: Edge
   params:
-    size: 10
-    shape: rect
+    size: 8
     bg: pink
+    alpha: .5
 
 corners:
   cond:
     obj_type: Corner
   params:
-    size: 10
+    size: 15
     shape: rect #default waer hier hex gesetzt von board!
     bg: green
 

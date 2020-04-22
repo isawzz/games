@@ -17,7 +17,6 @@ function run03(sp, defaults, sdata) {
 	presentRoot(R.lastSpec.ROOT, 'results');
 }
 
-
 function createPresentationNodeForOid(oid, R) {
 	let o = R.sData[oid];
 	let stypes = o._rsg;
@@ -209,7 +208,6 @@ function gShape(shape, w, h, color) {
 	return el;
 }
 
-//same as _legacy/felixHelpers/getContent
 function decodePropertyPath(o, path) {
 	if (isString(path) && path[0] == '.') {
 		let props = path.split('.').slice(1);
@@ -217,14 +215,14 @@ function decodePropertyPath(o, path) {
 
 	}
 }
-function mapValues(o,p, pdef, spec) {
+function mapValues(o, p, pdef, spec) {
 	//console.log('__________ mapValues',p,pdef,spec);
 	let oNew = {};//newParams = jsCopy(baseParams);
 	for (const k in p) {
 		if (nundef(p[k]._map)) { oNew[k] = p[k]; continue; }
 		//console.log('o is',p);
 
-		let p1=p[k];
+		let p1 = p[k];
 		//console.log('k is',k);
 		//console.log('o1 is',p1);
 		let m = p1._map;
@@ -248,36 +246,6 @@ function mapValues(o,p, pdef, spec) {
 	}
 	return oNew;
 }
-function createBoard(n, area, R) {
-	n.bi = window[n.boardType](R.sData[n.oid], R.sData);
-	generalGrid(n, area, R); 
-}
-function detectBoardOidAndType(n, R) {
-	//detect n.oid if not set!
-	let sd = R.sData;//TODO!!! eigentlich muss ich hier _source nehmen!!!
-	if (!n.oid) n.oid = detectBoardObject(sd);
-
-	let oBoard = sd[n.oid];
-	//console.log('board server object',oBoard);
-	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
-	//console.log(R.sData);
-	// console.log('first board oid is',detectBoardObject(R.sData));
-	//n.boardType = detectBoardType(oBoard,sd);
-	//console.log('board is of type',n.boardType)
-	return [sd, oBoard]; //TODO cleanup!!!
-}
-function detectBoardParams(n, R) {
-	//set params for board!
-	//let boardDefs = R.defs.grid;
-	//console.log(R.defs.grid, R.defs[n.boardType])
-	let boardDefs = deepmerge(R.defs.grid, R.defs[n.boardType]);
-	//console.log(boardDefs);
-	if (isdef(n.params)) boardDefs = deepmerge(boardDefs, n.params);
-	n.params = boardDefs.params;
-	//console.log('board params:',n.params);
-	return n.params;
-}
-
 
 
 

@@ -27,9 +27,11 @@ function createLC(n, area, R) {
 	//das wird spaeter generalisiert auf alle types
 	else if (isGridType(n.type)) {
 
+		//console.log('board',jsCopy(n));
 		detectBoardOidAndType(n, R);
 		detectBoardParams(n, R);
 		createBoard(n, area, R); // *** calling hexGrid or quadGrid!!!!!!!!!!!!!! ***
+		//console.log('board',jsCopy(n));
 		n.children = [];
 		console.log('_______________');
 		for (const name of ['fields', 'edges', 'corners']) {

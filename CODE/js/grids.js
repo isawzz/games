@@ -1,3 +1,11 @@
+function createBoard(n, area, R) {
+	console.log('createBoard anfang:', jsCopy(n).params)
+	n.bi = window[n.boardType](R.sData[n.oid], R.sData);
+	generalGrid(n, area, R);
+}
+
+
+
 function quadGrid(o, pool) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
@@ -148,13 +156,7 @@ function generalGrid(n, area, R) {
 
 	//n.params ist { fields:..., edges:..., corners:... , gap:...}
 
-	// *** stage 0: sizing info ***
-	let bpa = n.params;
-	let board = n.bi.board;
-	let fSpacing = bpa.fieldSpacing = bpa.fields.size;
-	let maxSize = fSpacing - bpa.gap;
-	let [fw, fh] = [fSpacing / board.info.wdef, fSpacing / board.info.hdef];
-	let [wBoard, hBoard] = [fw * board.info.w + bpa.corners.size, fh * board.info.h + bpa.corners.size];
+	let bpa = n.params; 
 
 	//bei fields wird gap taken into account!
 	for (const [oid, f] of Object.entries(n.bi.fields)) {
@@ -167,7 +169,7 @@ function generalGrid(n, area, R) {
 		let fNew = deepmerge(tNode, f);
 		//console.log(fNew)
 		fNew.params = mapValues(o, fNew.params, bFieldParams, R.lastSpec);
-		if (fNew.params.size > maxSize) { fNew.params.size = maxSize; }//*** */
+		//if (fNew.params.size > maxSize) { fNew.params.size = maxSize; }//*** */
 		n.bi.fields[oid] = fNew;
 	}
 	for (const name of ['edges', 'corners']) {
@@ -203,50 +205,82 @@ function generalGrid(n, area, R) {
 	let d = stage2_prepArea(area);
 
 	// *** stage 3: prep container div/svg/g (board) as posRel, size wBoard,hBoard ***
-	let container = stage3_prepContainer(d); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
 
-	let svgContainer = gSvg();
-	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;border-radius:${bpa.gap}px;`;
-	svgContainer.setAttribute('style', style);
-	container.appendChild(svgContainer);
 
-	let gContainer = gG();
-	svgContainer.appendChild(gContainer);
+	let boardDiv = stage3_prepContainer(d); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
 
-	n.bi.boardDiv = container;
-	mColor(container, 'blue');
-	container.id = n.uid + '_div';
-	n.bi.boardSvg = svgContainer;
-	n.ui = n.bi.boardG = gContainer;
+	let boardSvg = gSvg();
+	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`//border-radius:${bpa.margin}px;`;
+	boardSvg.setAttribute('style', style);
+	boardDiv.appendChild(boardSvg);
+
+	let boardG = gG();
+	boardSvg.appendChild(boardG);
+
+	n.bi.boardDiv = boardDiv;
+	mColor(boardDiv, 'blue');
+	boardDiv.id = n.uid + '_div';
+	n.bi.boardSvg = boardSvg;
+	n.ui = n.bi.boardG = boardG;
 
 
 	R.setUid(n);
-	console.log('board object', n);
-	console.log('id of board G element', gContainer);
-
-	let gap = bpa.gap;
-	let [wTotal, hTotal] = [wBoard + 2 * gap, hBoard + 2 * gap];
-	mStyle(container, { width: wTotal, height: hTotal, 'border-radius': gap });
-	gContainer.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
+	// console.log('board object', n);
+	// console.log('id of board G element', boardG);
 
 	// *** stage 4: layout! means append & positioning = transforms... ***
+	let boardInfo = n.bi.board.info;
+	let fSpacing = bpa.field_spacing;// = bpa.fields.size+bpa.gap;
+	let margin = bpa.margin;
+	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
+	let [wBoard, hBoard] = [fw * boardInfo.w + bpa.corners.size, fh * boardInfo.h + bpa.corners.size];
+	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
+
+	mStyle(boardDiv, { width: wTotal, height: hTotal, 'border-radius': margin,margin:4 });
+	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
 
 	for (const f of Object.values(n.bi.fields)) {
-		gContainer.appendChild(f.ui);
+		boardG.appendChild(f.ui);
 		gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
 	for (const f of Object.values(n.bi.edges)) {
-		gContainer.appendChild(f.ui);
+		boardG.appendChild(f.ui);
 		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
 		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
 	for (const f of Object.values(n.bi.corners)) {
-		gContainer.appendChild(f.ui);
+		boardG.appendChild(f.ui);
 		gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
 
 }
 
+function detectBoardOidAndType(n, R) {
+	//detect n.oid if not set!
+	let sd = R.sData;//TODO!!! eigentlich muss ich hier _source nehmen!!!
+	if (!n.oid) n.oid = detectBoardObject(sd);
+
+	let oBoard = sd[n.oid];
+	//console.log('board server object',oBoard);
+	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
+	//console.log(R.sData);
+	// console.log('first board oid is',detectBoardObject(R.sData));
+	//n.boardType = detectBoardType(oBoard,sd);
+	//console.log('board is of type',n.boardType)
+	return [sd, oBoard]; //TODO cleanup!!!
+}
+function detectBoardParams(n, R) {
+	//set params for board!
+	//let boardDefs = R.defs.grid;
+	//console.log(R.defs.grid, R.defs[n.boardType])
+	let boardDefs = deepmerge(R.defs.grid, R.defs[n.boardType]);
+	//console.log('boardDefs',boardDefs.params);
+	//console.log('n.params',n.params);
+	if (isdef(n.params)) n.params = deepmerge(boardDefs.params, n.params);
+	else n.params = boardDefs.params;
+	//console.log('board params:',n.params);
+	return n.params;
+}
 
 
 
