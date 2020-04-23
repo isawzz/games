@@ -18,21 +18,21 @@ function layoutHand(n){
 	if (isdef(n.params.overlap) && n.children.length > 1){
 		let cards = n.children.map(x=>x.ui);
 		let clast = last(cards);
-		console.log('card',clast);
+		//console.log('card',clast);
 		let b=getBounds(clast);
-		console.log('bounds',b);
+		//console.log('bounds',b);
 		let wIs = b.width;
 		let overlap = firstNumber(n.params.overlap);
 		let sOverlap = ''+overlap;
 		let unit=stringAfter(n.params.overlap,sOverlap);
-		console.log('num',overlap,'unit',unit)
+		//console.log('num',overlap,'unit',unit)
 		let wSoll = 0;
 		if (unit == '%'){
 			overlap /= 100;
 			wSoll = wIs - wIs*overlap;
 			
 		}else{ wSoll = wIs - overlap;}
-		console.log('wSoll ...', wSoll);
+		//console.log('wSoll ...', wSoll);
 		let wTotal = wIs + wSoll * (cards.length-1);
 		n.ui.style.maxWidth = '' + (wTotal+2) + 'px';
 	}
@@ -42,7 +42,6 @@ function adjustContainerLayout(n, R) {
 
 	if (n.type == 'hand') {layoutHand(n);return;}
 	//if (n.type == 'hand') { sortCards(n); return; }
-
 
 	//console.log('==>', n)
 	let params = n.params;
@@ -60,12 +59,13 @@ function adjustContainerLayout(n, R) {
 
 	mFlex(n.ui, or);
 
-	// for (let i = 0; i < num; i++) {
-	// 	let d = n.children[i].ui;
-	// 	mFlexChildSplit(d, split);
+	for (let i = 0; i < num; i++) {
+		if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
+		let d = n.children[i].ui;
+		mFlexChildSplit(d, split);
 
-	// 	if (reverseSplit) { split = 1 - split; }
-	// }
+		if (reverseSplit) { split = 1 - split; }
+	}
 }
 function calcContent(o, path) {
 

@@ -10,18 +10,12 @@ function run03(sp, defaults, sdata) {
 	R.gen12(); // creates places & refs and adds a specKey prop to each spec Node
 	R.gen13(); // merges _ref nodes into _id nodes (_id & _ref) disappear?
 	//R.gen14(); // merges type nodes into spec nodes =>type names disappear!
-	//console.log('ROOT vor synthesis:\n',R.lastSpec.ROOT);
 
 	R.gen20('table'); // expands root, creates 1 node for each ui and uis
+	R.gen30();
 
 	presentRoot(R.lastSpec.ROOT, 'results');
 
-	//console.log(R.ROOT)
-	//showString(R.ROOT);
-	//showNodeInfo(R.ROOT, 'ROOT');
-	//console.log(anyString3(R.ROOT));
-	//recrec(R.ROOT,['row']);
-	//showString(R.UIS)
 }
 
 

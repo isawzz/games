@@ -200,13 +200,11 @@ function generalGrid(n, area, R) {
 	// *** stage 2: prep area div (loc 'areaTable') as flexWrap ***
 	let d = stage2_prepArea(area);
 
-	// *** stage 3: prep container div/svg/g (board) as posRel, size wBoard,hBoard ***
-
-
-	let boardDiv = stage3_prepContainer(d); //mColor(container, 'transparent'); //container is appended to area!!!!!!!
+	// *** stage 3: prep container div/svg/g (board) as posRel ***
+	let boardDiv = stage3_prepContainer(d); 
 
 	let boardSvg = gSvg();
-	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`//border-radius:${bpa.margin}px;`;
+	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
 	boardSvg.setAttribute('style', style);
 	boardDiv.appendChild(boardSvg);
 
@@ -214,15 +212,11 @@ function generalGrid(n, area, R) {
 	boardSvg.appendChild(boardG);
 
 	n.bi.boardDiv = boardDiv;
-	mColor(boardDiv, 'blue');
+	mColor(boardDiv, 'blue'); //apply stylings?
 	boardDiv.id = n.uid + '_div';
 	n.bi.boardSvg = boardSvg;
 	n.ui = n.bi.boardG = boardG;
-
-
 	R.setUid(n);
-	// console.log('board object', n);
-	// console.log('id of board G element', boardG);
 
 	// *** stage 4: layout! means append & positioning = transforms... ***
 	let boardInfo = n.bi.board.info;

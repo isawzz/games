@@ -9,6 +9,9 @@ class RSG {
 		this.UIS = {};
 		this.places = {};
 		this.refs = {};
+
+		this.uid2oids={};
+		this.oid2uids={};
 	}
 	addToPlaces(specKey, placeName, propList) {
 		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
@@ -22,7 +25,14 @@ class RSG {
 	getRefs(placeName) {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
-	registerNode(n) { n.uid = getUID(); this.UIS[n.uid] = n; }
+	registerNode(n) { 
+		let uid = n.uid = getUID(); 
+		this.UIS[n.uid] = n; 
+		if (n.oid){
+			lookupAddToList(this.uid2oids,[uid],n.oid);
+			lookupAddToList(this.oid2uids,[n.oid],uid);
+		}
+	}
 
 	//TODO: delete ui also if exists and all its links!
 	unregisterNode(n) { delete this.UIS[n.uid]; }
@@ -101,6 +111,41 @@ class RSG {
 		this.lastSpec = gen;
 		//console.log('UIS', R.UIS);
 		//console.log('ROOT', R.ROOT);
+	}
+	gen30(){
+		//present positioned objects
+		console.log('hallo!!!!!!!!!')
+		for(const k in this.lastSpec){
+			let n=this.lastSpec[k];
+			//console.log(n)
+			if (nundef(n.position)) continue;
+			if (isdef(n.position)){
+				console.log('positioned element:',n);
+			}
+			for(const oid of n.pool){
+				let o=this.sData[oid];
+				let val = decodePropertyPath(o,n.position);
+				console.log('val ==>',val, typeof val)
+				let oidloc = isString(val)? val : val._obj;
+				console.log(oidloc)
+				let oloc = this.sData[oidloc];
+				let replist = this.oid2uids[oidloc];
+				console.log('rep',replist)
+				let uiloc = this.UIS[replist[0]].ui;
+				//let pos = getBounds(oloc.ui);
+				console.log('o',o);
+				console.log('oloc',oloc);
+				console.log('uiloc',uiloc);
+
+
+
+				//ok um das zu machen brauch ich jetzt die position von diesem oid!!!
+				//jedes oid brauch einen pointer wo es ueberall ist
+				//das wird bei register gemacht!
+				//console.log('pos',pos);
+
+			}
+		}
 	}
 }
 

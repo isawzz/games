@@ -72,7 +72,7 @@ function mInfo(n, dParent, R) {
 function isSpecType(t) { return isdef(R.lastSpec[t]); }
 function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
 function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card'; }
-function isPositionedType(t) { return t == 'boardElement'; }
+//function isPositionedType(t) { return t == 'boardElement'; }
 function isGridType(t) { return t == 'grid'; }
 
 

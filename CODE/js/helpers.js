@@ -87,24 +87,6 @@ function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', 
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;// {div:d,pre:pre};
 }
-function mNode_dep(o, dParent, listOfProps, className = 'node') {
-	let d = mCreate('div');
-	if (isdef(className)) mClass(d, className);
-	// console.log(className)
-	let oCopy = jsCopy(o);
-	//console.log(oCopy)
-	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
-	console.log(recDeleteEmptyObjects(oCopy));
-	mYaml(d, oCopy);
-	if (isdef(dParent)) mAppend(dParent, d);
-	return d;
-}
-function mTitledNode_dep(o, title, dParent, listOfProps = ['type'], className = 'node') {
-	//console.log('________________',o,title,dParent,className)
-	let d = mNode(o, dParent, listOfProps, className);
-	mInsert(d, mTextDiv(title));
-	return d;
-}
 function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
@@ -2849,6 +2831,7 @@ function getElements(o, elKey = '_obj', arrKey = '_set') {
 	// {_set:[{_obj:1},{_obj:2},...]} ==> [1,2,..]
 	if (!o) return [];
 	let res = o[arrKey] ? o[arrKey] : o;
+	//console.log('[[[[[[[[[[[[',res)
 	if (isList(res) && res.length > 0) return res[0][elKey] ? res.map(x => x[elKey]) : res;
 	else return [];
 }

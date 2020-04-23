@@ -27,9 +27,12 @@ players:
     vps: 1
     color: gold
 table:
+  robber:
+    obj_type: robber
+    loc: '7'
   c1:
     obj_type: card
-    short_name: K
+    # short_name: K
     rank: K
   c2:
     obj_type: card
@@ -41,7 +44,7 @@ table:
     rank: J
   c4:
     obj_type: card
-    short_name: 2
+    #short_name: 2
     rank: 2
   c5:
     obj_type: card

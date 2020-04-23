@@ -167,16 +167,8 @@ function createChi(nCont, R) {
 			console.log('nCont', nCont)
 			console.log('n', n);
 		}
-		// for (let i = 0; i < n.pool.length; i++) {
-		// 	let n1 = jsCopy(n);
-		// 	n1.oid = n.pool[i];
-		// 	n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
-		// 	createLC(n1, nCont.uid, R);
-		// 	chNodes.push(n1);
-		// }
-
 	}
-	//case 14: grid
+	//case 14: grid: pass down pool
 	else if (isGridType(n.type)) {
 		console.log('...case 14: grid', nCont);
 		if (isdef(n.oid)) { }
