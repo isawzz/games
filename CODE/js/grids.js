@@ -1,10 +1,8 @@
 function createBoard(n, area, R) {
-	console.log('createBoard anfang:', jsCopy(n).params)
+	//console.log('createBoard anfang:', jsCopy(n).params)
 	n.bi = window[n.boardType](R.sData[n.oid], R.sData);
 	generalGrid(n, area, R);
 }
-
-
 
 function quadGrid(o, pool) {
 	function boardInfo(rows, cols) {
@@ -51,7 +49,6 @@ function quadGrid(o, pool) {
 
 	// return { olist: olist, layoutInfo: layoutInfo };
 }
-
 function hexGrid(o, pool) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
@@ -148,7 +145,6 @@ function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
 	return { board: board, fields: fields, corners: corners, edges: edges };
 
 }
-
 function generalGrid(n, area, R) {
 
 	//n.bi ist  { board: board, fields: fields, corners: corners, edges: edges };
@@ -156,7 +152,7 @@ function generalGrid(n, area, R) {
 
 	//n.params ist { fields:..., edges:..., corners:... , gap:...}
 
-	let bpa = n.params; 
+	let bpa = n.params;
 
 	//bei fields wird gap taken into account!
 	for (const [oid, f] of Object.entries(n.bi.fields)) {
@@ -233,10 +229,13 @@ function generalGrid(n, area, R) {
 	let fSpacing = bpa.field_spacing;// = bpa.fields.size+bpa.gap;
 	let margin = bpa.margin;
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
-	let [wBoard, hBoard] = [fw * boardInfo.w + bpa.corners.size, fh * boardInfo.h + bpa.corners.size];
+
+	let cornerSize = isEmpty(n.bi.corners)?0:bpa.corners.size;
+
+	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
 	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
 
-	mStyle(boardDiv, { width: wTotal, height: hTotal, 'border-radius': margin,margin:4 });
+	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal, 'border-radius': margin, margin: 'auto 4px' });
 	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
 
 	for (const f of Object.values(n.bi.fields)) {
@@ -263,11 +262,6 @@ function detectBoardOidAndType(n, R) {
 	let oBoard = sd[n.oid];
 	//console.log('board server object',oBoard);
 	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
-	//console.log(R.sData);
-	// console.log('first board oid is',detectBoardObject(R.sData));
-	//n.boardType = detectBoardType(oBoard,sd);
-	//console.log('board is of type',n.boardType)
-	return [sd, oBoard]; //TODO cleanup!!!
 }
 function detectBoardParams(n, R) {
 	//set params for board!
@@ -280,6 +274,16 @@ function detectBoardParams(n, R) {
 	else n.params = boardDefs.params;
 	//console.log('board params:',n.params);
 	return n.params;
+}
+function detectBoardObject(data) { return firstCondDictKeys(data, x => isdef(data[x].map)); }
+function detectBoardType(oBoard, data) {
+	//console.log(oBoard)
+	let fid0 = getElements(oBoard.fields)[0];
+	//console.log(fid0)
+	let nei = data[fid0].neighbors;
+	//console.log('nei',nei);
+	let len = nei.length;
+	return len == 6 ? 'hexGrid' : 'quadGrid'; //for now!
 }
 
 

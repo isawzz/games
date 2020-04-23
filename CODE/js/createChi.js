@@ -19,9 +19,9 @@ function createChi(nCont, R) {
 	//case a: n is a string eg., .neutral
 	//geht wahrsceinlich nicht fuer multiple levels, must study this!!!!!
 	if (isString(n)) {
-		console.log('case .aaaa')
+		//console.log('case .aaaa')
 		//zuerst muss dataset finden
-		if (verbose) showNodeInfo(nCont, 'beispiel');
+		if (verbose) showNodeInfo(nCont, 'beispiel', ['type', 'pool', 'oid', 'data', 'content']);
 
 		//replace this by calcContent
 		let ownerId = nCont.oid;
@@ -45,7 +45,7 @@ function createChi(nCont, R) {
 	}
 	//cases 0: n is a list
 	else if (isList(n)) {
-		console.log('...case 0');
+		//console.log('...case 0');
 		for (const x of n) {
 			let n1 = jsCopy(x);
 			let content = null;
@@ -74,7 +74,7 @@ function createChi(nCont, R) {
 	//cases 1-4: n is a dict
 	//case 1: wenn n ein pool besitzt muss fuer jedes el im pool 1 child gemacht werden
 	else if (!isEmpty(n.pool)) {
-		console.log('...case 1')
+		//console.log('...case 1')
 		for (let i = 0; i < n.pool.length; i++) {
 			let n1 = jsCopy(n);
 			n1.oid = n.pool[i];
@@ -85,7 +85,7 @@ function createChi(nCont, R) {
 	}
 	//case 2: wenn n ein oid besitzt muss fuer dieses 1 child gemacht werden
 	else if (isdef(n.oid)) {
-		console.log('...case 2')
+		//console.log('...case 2')
 		let n1 = jsCopy(n);
 		n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
 		createLC(n1, nCont.uid, R);
@@ -93,7 +93,7 @@ function createChi(nCont, R) {
 	}
 	//case 3: wenn n ein data besitzt muss fuer dieses 1 child gemacht werden
 	else if (isdef(n.data) && isdef(nCont.oid)) { //&& n.data[0] == '.' 
-		console.log('...case 3')
+		//console.log('...case 3')
 		let n1 = jsCopy(n);
 		n1.oid = nCont.oid;
 		n1.content = calcContent(R.sData[n1.oid], n.data);
@@ -102,7 +102,7 @@ function createChi(nCont, R) {
 	}
 	//case 4: wenn n containerType ist und parent container ein oid hat muss fuer dieses 1 child gemacht werden
 	else if (isContainerType(n.type) && isdef(nCont.oid)) {
-		console.log('...case 4')
+		//console.log('...case 4')
 		let n1 = jsCopy(n);
 		n1.oid = nCont.oid;
 		n1.content = null;

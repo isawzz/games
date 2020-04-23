@@ -6,17 +6,17 @@ defaults:
       fields:
         bg: 'beige'
         fg: 'white'
-        size: 60 #ideally divisible by 4
+        size: 72 #ideally divisible by 4
       corners:
         bg: dimgray
         size: 20
         shape: circle
       edges:
-        bg: '#c0c0c080'
+        bg: 'silver'
         size: 8
         shape: line
       margin: 8
-      field_spacing: 60
+      field_spacing: 80
   quadGrid: #overrides grid
     params:
       fields:
@@ -31,6 +31,8 @@ defaults:
       fg: white
       orientation: v
       split: equal
+      border-radius: 10
+      margin: 2
   list:
     params:
       #bg: yellow
@@ -48,3 +50,25 @@ defaults:
       # font-family: AlgerianRegular
       # font-size: 20px
       # font: italic small-caps bold 12px/30px Georgia, serif
+  title:
+    params:
+      font: 16px AlgerianRegular
+      text-align: left
+      margin: 4px 8px
+  card:
+    params:
+      font: 16px Comic Sans MS
+
+  hand:
+    params:
+      font: 16px Comic Sans MS
+      #max-width: 160
+      overlap: 20%
+
+
+
+
+
+
+
+

@@ -1871,9 +1871,36 @@ function extendedObjectString(o, indent, simple, plus, minus) {
 	}
 	return s;
 }
-function showFullObject(o, indent = 0) {
+function showString(x, proplist, include = true) {
+	console.log(anyString3(x, 0, proplist, include));
+}
+
+function showNodeInfo(n, title, lst) {
+	let args = [];
+	if (isList(lst)) {
+		for (const prop of lst) {
+			if (isdef(n[prop])) args.push(prop + ': ' + anyString3(n[prop]));
+		}
+	} else {
+		for (const prop in n) {
+			args.push(prop + ': ' + anyString3(n[prop]));
+		}
+	}
+	console.log(title, ...args);
+	// console.log(title,
+	// 	isdef(n.type) ? ' type:' + n.type : '',
+	// 	isdef(n.uid) ? 'uid:' + n.uid : '',
+	// 	isdef(n.pool) ? 'pool:' + n.pool.map(x => x) : '',
+	// 	isdef(n.content) ? 'content:' + (isList(n.content) ? n.content.map(x => x) : n.content) : '',
+	// 	isdef(n.oid) ? 'oid:' + n.oid : '');
+
+}
+
+
+function showFullObject(o, indent = 0, onlySimple = false) {
 	for (const k in o) {
 		if (isSimple(o[k])) console.log(' '.repeat(indent), k, o[k]);
+		else if (!onlySimple) console.log(' '.repeat(indent), k, anyToString(o[k]));
 		else {
 			console.log(' '.repeat(indent), k);
 			showFullObject(o[k], indent + 2);
@@ -2424,65 +2451,115 @@ function union(lst1, lst2) {
 
 //#region recursion
 var ___enteredRecursion = 0;
-function safeRecurse(o, func, params, doBefore) {
+const MAX_RECURSIONS = 200;
+function safeRecurse(o, func, params, tailrec) {
 	___enteredRecursion = 0;
 	let arr = Array.from(arguments);
 	arr = arr.slice(1);
 	//console.log('arr',arr)
 	//console.log('arguments',arguments,typeof arguments)
-	recAllNodes(o, func, params, doBefore);
+	recAllNodes(o, func, params, tailrec, true);
 	return ___enteredRecursion;
 }
-function recAllNodes(n, f, p, doBefore) {
+function recAllNodes(n, f, p, tailrec, safe = false) {
 	//console.log(n,isList(n),isDict(n));
-	___enteredRecursion += 1; if (___enteredRecursion > 200) return;
+	if (safe) { ___enteredRecursion += 1; if (___enteredRecursion > MAX_RECURSIONS) { error('MAX_RECURSIONS reached!!!' + f.name); return; } }
 	if (isList(n)) {
-		if (doBefore) f(n, p);
-		n.map(x => recAllNodes(x, f, p, doBefore));
-		if (!doBefore) f(n, p);
+		if (tailrec) f(n, p);
+		n.map(x => recAllNodes(x, f, p, tailrec));
+		if (!tailrec) f(n, p);
 	} else if (isDict(n)) {
-		if (doBefore) f(n, p);
-		for (const k in n) { recAllNodes(n[k], f, p, doBefore); }
-		if (!doBefore) f(n, p);
+		if (tailrec) f(n, p);
+		for (const k in n) { recAllNodes(n[k], f, p, tailrec); }
+		if (!tailrec) f(n, p);
 	}
 }
-// function recReplacePropVal(n, cond, doif) {
-// 	//console.log(n,cond,doif)
-
-// 	___enteredRecursion+=1;if(___enteredRecursion>200)return;
-// 	if (isList(n)) { n.map(x => recReplacePropVal(x, cond, doif)); }
-// 	else if (isDict(n)) {
-// 		for (const k in n) { recReplacePropVal(n[k], cond, doif); }
-// 		if (cond(n)) doif(n);
-// 	}
-// }
-
 function recConvertToList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
 	else if (isDict(n) && isList(listOfProps)) {
 		for (const prop of listOfProps) {
-			//console.log('prop',prop);
-			//console.log('n',n)
 			let lst = n[prop];
 			if (isList(lst) && !isEmpty(lst)) { n[prop] = lst.join(' '); }
-			// if (!isList(lst)) continue;
-			// //console.log(n,prop,n[prop]);
-			// if (!isList(lst)) continue;
-			// if (isList(n[prop]) && !isEmpty()) { n[prop] = n[prop].join(' '); }
 		}
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
-function listToString(lst) {
-	return isEmpty(lst) ? lst : lst.join(' ');
+function anyString3(x, indent = 0, proplist=null, include = true, guard=['specKey','label','pool','el','panels','elm','cond','info','o','ui','source','bi']) {
+	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
+	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
+	else if (isEmpty(x)) return x;
+	else if (isList(x)) {
+		return x.map(el => anyString3(el, indent + 1, proplist, include)).join(' ');
+	}
+	else if (isDict(x)) {
+		let s = '';
+		for (const k in x) {
+			if (guard.includes(k)) continue;
+			if (isdef(proplist) && !include && proplist.includes(k)) continue;
+			else if (isdef(proplist) && include && !proplist.includes(k)) continue;
+			s += '\n' + ' '.repeat(indent) + k + ': ' + anyString3(x[k], indent + 1, proplist, include);
+			// s+='\n' + ' '.repeat(indent)+' '.repeat(indent)+k+':'+anyString3(x[k], indent + 1, proplist, include);
+		}
+		return s;
+	}
 }
-function dictToKeyList(x) {
+function anyString2(x, indent = 0, proplist, include = true, toplevelOnly = false) {
+	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
+	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
+	else if (isEmpty(x)) return x;
+	else if (isList(x)) {
+		if (toplevelOnly) proplist = null;
+		return x.map(el => anyString2(el, indent + 1, proplist, include)).join(' ');
+	}
+	else if (isDict(x)) {
+		let plist = proplist;
+		if (toplevelOnly) proplist = null;
+		//console.log('dict!',plist,include,x);
+		let s = '';
+		if (isdef(plist)) {
+			if (include) {
+				for (const k of plist) {
+					if (nundef(x[k])) { console.log('continue', x, k); continue; }
+					s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include);
+				}
+			} else {
+				for (const k of plist) {
+					if (isdef(x[k])) continue;
+					s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include);
+				}
+			}
+		} else {
+			for (const k in x) { s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include); }
+		}
+		return s;
+	}
+}
 
+function anyString(x, indent = 0, ifDict = 'entries') {
+	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
+	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
+	else if (isEmpty(x)) return x;
+	else if (isList(x)) { return x.map(el => anyString(el, indent + 1, ifDict)).join(' '); }
+	else if (isDict(x)) {
+		let s = '';
+		for (const k in x) { s += '\n' + ' '.repeat(indent) + k + ': ' + anyString(x[k], indent + 1, ifDict); }
+		return s;
+	}
 }
-function dictToValueList(x) {
-
+function anyToString1(x, indent = 0, ifDict = 'entries') {
+	if (isList(x) && !isEmpty(x)) { return x.join(' '); }
+	else if (isDict(x)) {
+		return ifDict == 'keys' ? Object.keys(x).join(' ')
+			: ifDict == 'entries' ? Object.entries(x).map(([k, v]) => k + ': ' + dictOrListToString(v, 'ifDict', indent + 2)).join('\n')
+				: Object.entries(x).join(' ');
+	}
+	else return x;
 }
+function listToString(lst) { return isEmpty(lst) ? lst : lst.join(' '); }
+function dictToKeyList(x) { return Object.keys(lst).join(' '); }
+function dictToValueList(x) { return Object.values(lst).join(' '); }
+function dictToKVList(x) { return Object.entries(lst).join(' '); }
 function dictOrListToString(x, ifDict = 'keys') {
 	let lst = x;
 	if (isList(lst) && !isEmpty(lst)) { return lst.join(' '); }
@@ -2492,18 +2569,8 @@ function dictOrListToString(x, ifDict = 'keys') {
 				: Object.entries(lst).join(' ');
 	}
 	else return null;
-
-	// if (isList(x)) return listToString(x);
-	// if (isDict(x)) {
-
-	// 	switch (ifDict) {
-	// 		case 'keys': x = Object.keys(x);
-	// 		case 'values': x = Object.values(x);
-	// 		default: x = Object.entries(x);
-	// 	}
-	// }
-	// return isList(x) ? listToString(x) : x;
 }
+
 function recConvertToSimpleList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
@@ -2761,7 +2828,8 @@ function isList(arr) { return Array.isArray(arr); }
 function isListOfLiterals(lst) {
 	if (!isList(lst)) return false;
 	for (const el of lst) {
-		if (isList(el)) return false;
+		if (!isLiteral(el)) return false;
+		// if (isList(el)) return false;
 	}
 	return true;
 }

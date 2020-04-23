@@ -33,7 +33,7 @@ function createLC(n, area, R) {
 		createBoard(n, area, R); // *** calling hexGrid or quadGrid!!!!!!!!!!!!!! ***
 		//console.log('board',jsCopy(n));
 		n.children = [];
-		console.log('_______________');
+		//console.log('_______________');
 		for (const name of ['fields', 'edges', 'corners']) {
 			let group = n.bi[name];
 			for (const fid in group) {

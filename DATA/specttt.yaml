@@ -1,24 +1,34 @@
 #nur 1 beispiel das laufen muss!!!
-# ROOT:
-#   type: panel
-#   panels:
-#     type: tick
-
-#board!!!
 ROOT:
   type: panel
-  cond:
-    obj_type: Board
+  params:
+    orientation: h
   panels:
-    - type: grid
-      boardType: quadGrid #can be detected!
+    type: tick
 
+
+# ROOT:
+#   cond:
+#     obj_type: Board
+#   type: grid
+#   params:
+#     field_spacing: 61
+#     margin: 0
+
+#board!!!
+# ROOT:
+#   type: panel
+#   cond:
+#     obj_type: Board
+#   panels:
+#     - type: grid
+#       boardType: quadGrid #can be detected!
 
 tick:
   _ref: A
   cond:
     obj_type: Tick
   type: info
-  data:
-    r: .row
-    c: .col
+  data: .col
+  params:
+    fg: red

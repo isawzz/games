@@ -1,113 +1,80 @@
-var FUNCTIONS = {
-	instanceof: 'instanceOf',
-	obj_type: (o, v) => o.obj_type == v,
-	prop: (o, v) => isdef(o[v]),
-	no_prop: (o, v) => nundef(o[v]),
-}
 const RCREATE = {
 	info: mInfo,
 	list: mList,
+	card: mCard,
+	hand: mHand,
 	panel: mPanel,
+	title: mTitle,
 }
 const RCONTAINERPROP = {
 	list: 'elm',
+	hand: 'elm',
 	panel: 'panels',
 }
 
 function mPanel(n, dParent, R) {
-
 	let ui;
-	if (n.oid) {
-		let outer = mDiv(dParent);
-		//mStyle(outer,{border:'solid 1px silver'});
-		let d=mTextDiv(n.oid,outer);
-		mStyle(d,{'text-align':'left','margin-left':4})
-		ui = mDiv(outer);
-	}else{
-		ui = mDiv(dParent);
-	}
-
-	mStyle(ui, paramsToCss(n.params));
-	mColor(ui, randomColor());
+	ui = mDiv(dParent);
+	let params = decodeParams(n,{},R);
+	mStyle(ui,params);
 	return ui;
 }
 function mList(n, dParent, R) {
 
 	let ui = mDiv(dParent);
-	mStyle(ui, paramsToCss(n.params));
+	let params = decodeParams(n,{},R);
+	mStyle(ui, params);
 	//mColor(ui, randomColor());
 	return ui;
 }
+
+function mHand(n, dParent, R) {
+
+	let ui = mDiv(dParent);
+	addClass(ui,'hand');
+	let params = decodeParams(n,{},R);
+	mStyle(ui, params);
+	//mColor(ui, randomColor());
+	return ui;
+}
+function mCard(n, dParent, R) {
+
+	//fuer solution 2:
+	let uiWrapper = mDiv(dParent);
+	addClass(uiWrapper,'cardWrapper');
+	let ui=mTextDiv(n.content, uiWrapper);
+	addClass(ui,'card'); 
+
+	// let ui = mTextDiv(n.content, dParent);
+	// addClass(ui,'card'); 
+
+	let params = decodeParams(n,{},R);
+	mStyle(ui, params);
+
+	return ui;
+}
+
+
+function mTitle(n,dParent,R){
+	//console.log(n,dParent)
+	let ui = mTextDiv(n.content, dParent);
+	mStyle(ui, paramsToCss(n.params));
+	return ui;
+}
+
 function mInfo(n, dParent, R) {
+	//console.log(n.content)
 	let ui = mNode(n.content, { dParent: dParent });
 	mStyle(ui, paramsToCss(n.params));
 	return ui;
 }
 
-function instanceOf(o, className) {
-	let otype = o.obj_type;
-	switch (className) {
-		case '_player':
-		case 'player': return ['me', '_me', 'player', '_player', 'opp', 'opponent', '_opponent'].includes(otype); break;
-		// case '_player': return otype == 'GamePlayer' || otype == 'opponent'; break;
-		case 'building': return otype == 'farm' || otype == 'estate' || otype == 'chateau' || otype == 'settlement' || otype == 'city' || otype == 'road'; break;
-	}
-}
+function isSpecType(t) { return isdef(R.lastSpec[t]); }
+function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
+function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card'; }
+function isPositionedType(t) { return t == 'boardElement'; }
+function isGridType(t) { return t == 'grid'; }
 
-function createUi(n, area, R) {
-	let defs = R.defs[n.type].params;
-
-	if (nundef(n.params)) n.params = jsCopy(defs);
-	else n.params = deepmergeOverride(defs, n.params);
-
-	n.ui = RCREATE[n.type](n, mBy(area), R);
-
-	// //console.log(n.params)
-	// RSTYLE[n.type](n.ui, n.params);
-
-	R.setUid(n);
-
-}
-
-function adjustContainerLayout(n, R) {
-	//console.log('==>', n)
-	let params = n.params;
-	let num = n.children.length;
-
-	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
-
-	//console.log(params, num, or);
-
-	let reverseSplit = false;
-	let split = params.split ? params.split : DEF_SPLIT;
-
-	if (split == 'equal') split = (1 / num);
-	else if (isNumber(split)) reverseSplit = true;
-
-	mFlex(n.ui, or);
-
-	// for (let i = 0; i < num; i++) {
-	// 	let d = n.children[i].ui;
-	// 	mFlexChildSplit(d, split);
-
-	// 	if (reverseSplit) { split = 1 - split; }
-	// }
-}
-function adjustBoardLayout(n, R) {
-	
-}
-
-//#region small helpers
-function detectBoardObject(data){	return firstCondDictKeys(data,x=>isdef(data[x].map));}
-function detectBoardType(oBoard,data){
-	//console.log(oBoard)
-	let fid0 = getElements(oBoard.fields)[0];
-	//console.log(fid0)
-	let nei=data[fid0].neighbors;
-	//console.log('nei',nei);
-	let len = nei.length;
-	return len==6?'hexGrid':'quadGrid'; //for now!
-}
 
 
 

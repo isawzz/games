@@ -14,8 +14,8 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 
 function presentRoot(n, area) {
 	let lstFlatten = ['type', 'pool', 'source', 'data', 'content'];
-	let lstShow = ['type', 'pool', 'oid', 'data', 'content'];
-	let lstOmit = ['source', '_id', '_ref', '_source', 'uid'];
+	let lstShow = ['type', 'oid', 'data', 'content'];
+	let lstOmit = ['source', 'pool', '_id', '_ref', '_source', 'uid'];
 	//show('contROOT');
 	d = mBy(area);
 	let level = 0;

@@ -10,8 +10,8 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 
 var DSPEC_PATH = '/DATA/defaultSpec';
-var SPEC_PATH = '/DATA/specCatan'; // specttt | _spec0 | specCatan
-var SERVERDATA_PATH = '/DATA/serverCatan'; // serverttt | serverData | serverCatan 
+var SPEC_PATH = '/DATA/__spec0'; //  __spec0 | specttt | specCatan | specAristo
+var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | serverttt_real | serverttt | serverCatan | serverAristo
 
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false
@@ -23,9 +23,9 @@ const VERBOSE = true; // true | false
 const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
-const SHOW_SERVERDATA = true; // true | false
-const SHOW_SPEC = true; // true | false
-const SHOW_DEFS = true; // true | false
+const SHOW_SERVERDATA = false; // true | false
+const SHOW_SPEC = false; // true | false
+const SHOW_DEFS = false; // true | false
 
 // testing vars
 var timit;
