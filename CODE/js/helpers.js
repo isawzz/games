@@ -1879,10 +1879,11 @@ function showNodeInfo(n, title, lst) {
 }
 
 
+
 function showFullObject(o, indent = 0, onlySimple = false) {
 	for (const k in o) {
 		if (isSimple(o[k])) console.log(' '.repeat(indent), k, o[k]);
-		else if (!onlySimple) console.log(' '.repeat(indent), k, anyToString(o[k]));
+		else if (!onlySimple) console.log(' '.repeat(indent), k, anyString3(o[k]));
 		else {
 			console.log(' '.repeat(indent), k);
 			showFullObject(o[k], indent + 2);
@@ -2517,7 +2518,6 @@ function anyString2(x, indent = 0, proplist, include = true, toplevelOnly = fals
 		return s;
 	}
 }
-
 function anyString(x, indent = 0, ifDict = 'entries') {
 	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
 	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');

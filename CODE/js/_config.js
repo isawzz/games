@@ -9,8 +9,8 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 
-var DSPEC_PATH = '/DATA/defaultSpec';
-var SPEC_PATH = '/DATA/__spec0'; //  __spec0 | specttt | specCatan | specAristo
+var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
+var SPEC_PATH = '/DATA/__spec0'; // __simple |  __spec0_noParams | __spec0 | specttt | specCatan | specAristo
 var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | serverttt_real | serverttt | serverCatan | serverAristo
 
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!

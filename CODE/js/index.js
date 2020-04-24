@@ -34,6 +34,14 @@ function presentRoot(n, area) {
 	//let longRoot = mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
 	//mFont(longRoot,10);
 }
+function filterByNoKey(o, undesiredKeys) {
+	let o1 = {};
+	for (const k in o) {
+		if (undesiredKeys.includes(k))  continue;
+		o1[k] = o[k];
+	}
+	return o1;
+}
 function filterByKey(o, desiredKeys) {
 	let o1 = {};
 	for (const k of desiredKeys) {
@@ -45,13 +53,6 @@ function filterByKey(o, desiredKeys) {
 }
 function recPresent(n, level, dLevel, lstFlatten, lstShow) {
 	let n1 = filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
-	// let n1={};
-	// for(const k of ['type','pool','oid','data','content']){
-	// 	if (isdef(n[k])){
-	// 		n1[k]=n[k];
-	// 	}
-	// }
-	//let d=dLevel[level];
 	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
 	if (nundef(n.children)) return level;
 	let max = 0;
@@ -66,7 +67,8 @@ function presentGeneration(sp, area) {
 	let d = mBy(area);
 	//console.log(d)
 	for (const [k, v] of Object.entries(sp)) {
-		mNode(v, { title: k, dParent: d, listOfProps: ['type', 'source', 'pool'] });
+		let v1=recDeleteKeys(v,true,['source','pool','specKey'])
+		mNode(v1, { title: k, dParent: d, listOfProps: ['type', 'source', 'pool'] });
 	}
 }
 

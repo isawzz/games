@@ -2,6 +2,9 @@ function createLC(n, area, R) {
 	// n ist already a copy of the node to be created
 
 	R.registerNode(n);
+	//if (nundef(n.params)) n.params = {};
+
+	//if (n.name=='hallo') console.log(n);
 
 	let content = n.content;
 
@@ -17,7 +20,9 @@ function createLC(n, area, R) {
 			//console.log('JETZT!!!', n.pool)
 		}
 
-		replaceChildrenBySpecNodes(n, R); //why expand here? sollte das nicht gemacht sein?
+		//EXPERIMENTAL FIX!!!!!!!!!!!!!!!
+		//replaceChildrenBySpecNodes(n, R); //why expand here? sollte das nicht gemacht sein?
+		//return;
 
 		n.children = createChi(n, R);
 

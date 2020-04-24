@@ -395,7 +395,7 @@ function createLabel(n1, R) {
 		if (isdef(fill)) {transPa.fill = fill;} 
 		else if (isdef(pa.bg)) {transPa.fill = colorIdealText(pa.bg);} 
 		else {
-			console.log('should set default for fg to white')
+			//console.log('should set default for fg to white')
 			transPa.fill = 'white';
 		}
 

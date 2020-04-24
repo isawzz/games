@@ -61,7 +61,10 @@ defaults:
       font: 10pt Comic Sans MS
       #max-width: 160
       overlap: 20%
-
+  picto:
+    params:
+      size: 24
+      shape: round
 
 
 

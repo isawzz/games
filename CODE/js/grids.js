@@ -153,31 +153,48 @@ function generalGrid(n, area, R) {
 	//n.params ist { fields:..., edges:..., corners:... , gap:...}
 
 	let bpa = n.params;
+	//console.log('board params composed:', n.params)
 
 	//bei fields wird gap taken into account!
+	let bFieldParams = bpa.fields;
+	if (nundef(bFieldParams)) bFieldParams = {};
 	for (const [oid, f] of Object.entries(n.bi.fields)) {
 		let o = f.o;
-		let bFieldParams = bpa.fields;
+		// if (nundef(bFieldParams)) bFieldParams = {};
 		let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
 		//console.log(tNode)
 		if (nundef(tNode.params)) tNode.params = {};
-		tNode.params = deepmerge(bFieldParams, tNode.params);
+		if (!isEmpty(bFieldParams)) tNode.params = deepmerge(bFieldParams, tNode.params);
+
 		let fNew = deepmerge(tNode, f);
 		//console.log(fNew)
-		fNew.params = mapValues(o, fNew.params, bFieldParams, R.lastSpec);
+		//fNew.params = mapValues(o, fNew.params, bFieldParams, R.lastSpec);
 		//if (fNew.params.size > maxSize) { fNew.params.size = maxSize; }//*** */
 		n.bi.fields[oid] = fNew;
 	}
 	for (const name of ['edges', 'corners']) {
+		let bMemberParams = bpa[name];
+		if (nundef(bMemberParams)) bMemberParams = {};
 		for (const [oid, f] of Object.entries(n.bi[name])) {
 			let o = f.o;
-			let bMemberParams = bpa[name];
 			let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
+
 			if (nundef(tNode.params)) tNode.params = {};
 			tNode.params = deepmerge(bMemberParams, tNode.params);
 			let fNew = deepmerge(tNode, f);
-			fNew.params = mapValues(o, fNew.params, bMemberParams, R.lastSpec);
+			//console.log(jsCopy(fNew));
+			//fNew.params = mapValues(o, fNew.params, bMemberParams, R.lastSpec);
 			n.bi[name][oid] = fNew;
+		}
+	}
+
+	//mach param decoding extra!
+	for (const name of ['fields', 'edges', 'corners']) {
+		let bMemberParams = bpa[name];
+		if (nundef(bMemberParams)) bMemberParams = {};
+		for (const [oid, f] of Object.entries(n.bi[name])) {
+			f.params = decodeParams(f,bMemberParams,R);
+			//console.log('params for board el',bMemberParams,f.params.css)
 		}
 	}
 
@@ -190,6 +207,7 @@ function generalGrid(n, area, R) {
 
 			let f = group[oid];
 			let pf = f.params;
+			//console.log(pf);
 			//console.log('size',pf.size);
 
 			f.ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
@@ -201,7 +219,7 @@ function generalGrid(n, area, R) {
 	let d = stage2_prepArea(area);
 
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
-	let boardDiv = stage3_prepContainer(d); 
+	let boardDiv = stage3_prepContainer(d);
 
 	let boardSvg = gSvg();
 	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
@@ -221,13 +239,18 @@ function generalGrid(n, area, R) {
 	// *** stage 4: layout! means append & positioning = transforms... ***
 	let boardInfo = n.bi.board.info;
 	let fSpacing = bpa.field_spacing;// = bpa.fields.size+bpa.gap;
+	if (nundef(fSpacing)) fSpacing = 60;
 	let margin = bpa.margin;
+	if (nundef(margin)) margin = 8;
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
 
-	let cornerSize = isEmpty(n.bi.corners)?0:bpa.corners.size;
+	let cornerSize = isEmpty(n.bi.corners) ? 0 : isdef(bpa.corners) ? bpa.corners.size : 15;
+	// console.log('cornerSize',cornerSize)
 
 	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
 	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
+
+	//console.log(wBoard,hBoard)
 
 	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal, 'border-radius': margin, margin: 'auto 4px' });
 	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
@@ -257,16 +280,26 @@ function detectBoardOidAndType(n, R) {
 	//console.log('board server object',oBoard);
 	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
 }
+var countDetectBoardParamsCalls=0;//TODO: remove!
 function detectBoardParams(n, R) {
+
+	countDetectBoardParamsCalls+=1;//TODO: remove!
+
 	//set params for board!
-	//let boardDefs = R.defs.grid;
-	//console.log(R.defs.grid, R.defs[n.boardType])
-	let boardDefs = deepmerge(R.defs.grid, R.defs[n.boardType]);
-	//console.log('boardDefs',boardDefs.params);
-	//console.log('n.params',n.params);
-	if (isdef(n.params)) n.params = deepmerge(boardDefs.params, n.params);
-	else n.params = boardDefs.params;
-	//console.log('board params:',n.params);
+	//console.log('......... detectBoardParams1')
+	//console.log(R.defs1.grid, R.defs1[n.boardType])
+	//console.log('n.params',jsCopy(n.params));
+	let boardDefs = R.defs.grid;
+	if (isdef(boardDefs)) {
+		let specific = R.defs[n.boardType];
+		if (isdef(specific)) boardDefs = deepmerge(boardDefs, specific);
+		if (isdef(boardDefs.params)) {
+			if (isdef(n.params)) n.params = deepmerge(boardDefs.params, n.params);
+			else n.params = boardDefs.params;
+		}
+	}
+
+	//console.log('......... RESULT',n.params);
 	return n.params;
 }
 function detectBoardObject(data) { return firstCondDictKeys(data, x => isdef(data[x].map)); }

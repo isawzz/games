@@ -1,19 +1,21 @@
 #nur 1 beispiel das laufen muss!!!
-ROOT:
-  type: panel
-  params:
-    orientation: h
-  panels:
-    type: tick
 
-
+#OK mach nur fields, nicht board!!!
 # ROOT:
-#   cond:
-#     obj_type: Board
-#   type: grid
+#   type: panel
 #   params:
-#     field_spacing: 61
-#     margin: 0
+#     orientation: h
+#   panels:
+#     type: tick
+
+#macht 2 boards!
+ROOT:
+  cond:
+    obj_type: Board
+  type: grid
+  params:
+    field_spacing: 61
+    margin: 0
 
 #board!!!
 # ROOT:

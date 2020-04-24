@@ -1,23 +1,13 @@
 ROOT: 
   type: panel
-  params:
-    orientation: h
-    bg: green
   panels:
     - type: panel
       name: hallo
-      params:
-        split: min
       panels:
         _id: A
     - type: panel
-      # params:
-      #   justify-content: center
       panels:
         - type: panel
-          params: 
-            bg: '#ffffff80'
-            flex: 1 0 auto
           panels:
             - type: title
               data: market
@@ -26,8 +16,6 @@ ROOT:
               type: list
         - _id: main_player
     - type: grid
-      params: 
-        flex: 1 0 auto
     - name: all_opps
       type: panel
       panels:
@@ -37,16 +25,6 @@ fields:
   cond:
     obj_type: Field
   type: info
-  params:
-    font: italic small-caps bold 10pt Georgia, serif
-    fg:
-      _map:
-        map: num_map
-        key: .num
-    bg:
-      _map:
-        map: fields_map
-        key: .res
   data: .num # type "info".data can be a list, dict, or single element
 
 num_map:
@@ -78,8 +56,6 @@ p_elm:
       data: .name
     - _id: info_loc
     - _id: hand_loc
-  params:
-    bg: .color
 
 global_market:
   name: global_market
@@ -102,8 +78,6 @@ me_info:
   cond:
     obj_type: _me
   type: p_elm
-  params:
-    orientation: v
 
 player_hand:
   name: player_hand
@@ -112,9 +86,6 @@ player_hand:
   _ref: hand_loc
   type: hand
   elm: .hand
-  # params:
-  #   align-items: center
-  #   justify-content: space-evenly
 
 player_info:
   cond:
@@ -131,11 +102,6 @@ all_viz_cards:
   _source: all_cards
   cond:
     prop: short_name
-  params:
-    bg: white
-    fg: black
-    font-size: 10pt
-    font-weight: bold
   data: .short_name
 
 all_non_viz_cards:
@@ -143,9 +109,6 @@ all_non_viz_cards:
   _source: all_cards
   cond:
     no_prop: short_name
-  params:
-    bg: '#c3c3c380'
-    fg: black
   data: .short_name
 
 all_cards:
@@ -158,8 +121,6 @@ robber:
   type: picto
   _ref: A
   data: crow
-  params:
-    bg: red
   #position: .loc
 
 

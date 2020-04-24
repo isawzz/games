@@ -1,4 +1,116 @@
-function sortCards(n) {
+//todo: multiple types!!!!!!!!!
+function recMergeSpecTypes(n, spec, defType, counter) {
+	counter += 1;
+	if (counter > 200) { error('rec overflow: recMergeSpecTypes'); return n; }
+
+	let testN = jsCopy(n);
+	let nNew = n;
+	let COUNTERMAX = 20;
+	while (counter < 20) {
+		counter += 1;
+
+		let t = nNew.type;
+		//console.log('type is', t);
+		nNew = correctType(nNew, spec, defType);
+		let newType = nNew.type;
+		//console.log('type is NOW', newType);
+		if (t == newType) break;
+	}
+
+	if (counter >= COUNTERMAX) { error('OVERFLOW!!!!!!!!'); return; }
+
+	//der type von n ist jetzt ein standard type!
+	//merge n auch noch mit defaults here!
+	//dann hab ich fuer jeden type der vorkommt alle defaults zusammen!
+	let type = nNew.type;
+	if (type == 'grid') {
+		console.log('param merging and paramsToCss *** NOT *** done for grid type!');
+		//console.log('GRID ENCOUNTER in gen14!!!! hier koennt was machen!', n);
+		//NEIN NOCH NICHTdetectBoardParams(nNew,R);
+		//return;
+	} else if (nundef(type)) {
+		return nNew;
+	} else {
+
+		//alle uebrigen types koennte hier bereits defs mergen!!!
+		let ndefs = R.defs[type];
+		if (isdef(ndefs)) {
+			nNew = deepmerge(ndefs, nNew);
+			//console.log('...type', type)
+			//console.log('merged defs in:', type, nNew.params)
+		} else {
+			console.log('***************no defs for type', type, testN);
+		}
+		nNew.DParams =  paramsToCss(nNew.params);
+		
+	}
+
+	//else console.log('GOTT SEI DANK!!!');
+
+	if (isContainerType(nNew.type)) {
+
+		let prop = RCONTAINERPROP[nNew.type];
+		let n1 = nNew[prop];
+
+		//console.log(nNew);
+		//console.log('nNew[',prop,'] will be evaluated');
+		//console.log('...before rec:','nNew',nNew,'n1',n1, isList(n1),isDict(n1));
+
+		if (isList(n1)) {
+			let newList = [];
+			for (const nChi of n1) {
+				newList.push(recMergeSpecTypes(nChi, spec, defType, counter));
+			}
+			nNew[prop] = newList;
+
+		} else if (isDict(n1)) {
+			nNew[prop] = recMergeSpecTypes(n1, spec, defType, counter);
+		} else {
+			//	console.log('have to eval',nNew[prop]);
+		}
+		//console.log('...after rec',nNew[prop])
+	}
+
+	return nNew;
+
+}
+function correctType(n, spec, defType) {
+
+	let type = n.type;
+	if (nundef(type)) {
+
+		let t = detectType(n, defType);
+		if (t) {
+			n.type = t;
+			console.log('type missing ersetzt durch', n, n.type);
+		}
+		return n;
+	}
+
+	let nSpec = spec[type];
+	if (isdef(nSpec)) {
+		//console.log('merging', type, 'and', nSpec.type);
+		return deepmerge(n, nSpec);
+	}
+
+	//console.log('no change', type)
+	return n;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function sortCards_dep(n) {
 	console.log('jaaaaaaaaaaaaaaaaaaaaaa', n);
 	let parentEl = n.ui;
 
@@ -14,33 +126,9 @@ function sortCards(n) {
 	}
 }
 
-function layoutHand(n){
-	if (isdef(n.params.overlap) && n.children.length > 1){
-		let cards = n.children.map(x=>x.ui);
-		let clast = last(cards);
-		//console.log('card',clast);
-		let b=getBounds(clast);
-		//console.log('bounds',b);
-		let wIs = b.width;
-		let overlap = firstNumber(n.params.overlap);
-		let sOverlap = ''+overlap;
-		let unit=stringAfter(n.params.overlap,sOverlap);
-		//console.log('num',overlap,'unit',unit)
-		let wSoll = 0;
-		if (unit == '%'){
-			overlap /= 100;
-			wSoll = wIs - wIs*overlap;
-			
-		}else{ wSoll = wIs - overlap;}
-		//console.log('wSoll ...', wSoll);
-		let wTotal = wIs + wSoll * (cards.length-1);
-		n.ui.style.maxWidth = '' + (wTotal+2) + 'px';
-	}
-}
-
 function adjustContainerLayout(n, R) {
 
-	if (n.type == 'hand') {layoutHand(n);return;}
+	if (n.type == 'hand') { layoutHand(n); return; }
 	//if (n.type == 'hand') { sortCards(n); return; }
 
 	//console.log('==>', n)
@@ -48,16 +136,19 @@ function adjustContainerLayout(n, R) {
 	let num = n.children.length;
 
 	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
+	mFlex(n.ui, or);
 
 	//console.log(params, num, or);
 
-	let reverseSplit = false;
+
+	//setting split
 	let split = params.split ? params.split : DEF_SPLIT;
+	if (split == 'min') return;
+
+	let reverseSplit = false;
 
 	if (split == 'equal') split = (1 / num);
 	else if (isNumber(split)) reverseSplit = true;
-
-	mFlex(n.ui, or);
 
 	for (let i = 0; i < num; i++) {
 		if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
@@ -127,11 +218,12 @@ function createPresentationNodeForOid(oid, R) {
 }
 function createUi(n, area, R) {
 	//if (n.type == 'title') console.log(n,area,R)
-	let defs = R.defs[n.type].params;
+	let defs = lookup(R, ['defs', n.type, 'params']);
 	//if (n.type == 'title') console.log(defs)
-
-	if (nundef(n.params)) n.params = jsCopy(defs);
-	else n.params = deepmergeOverride(defs, n.params);
+	if (defs) {
+		if (nundef(n.params)) n.params = jsCopy(defs);
+		else n.params = deepmergeOverride(defs, n.params);
+	}
 
 	n.ui = RCREATE[n.type](n, mBy(area), R);
 
@@ -198,24 +290,7 @@ function mergeChildrenWithRefs(o, R) {
 
 	}
 }
-function mergeSpecTypes(o, R) {
-	for (const k in o) {
-		let ch = o[k];
-		//if (ch.type == )
-		if (nundef(ch._id)) continue;
-		let loc = ch._id;
-		let refs = R.refs[loc];
-		if (nundef(refs)) continue;
-		let spKey = Object.keys(refs)[0];
-		let nSpec = R.lastSpec[spKey];
-		//console.log('nSpec', nSpec);
-		let oNew = deepmerge(o[k], nSpec);
-		//console.log('neues child', oNew);
-		o[k] = oNew;
 
-
-	}
-}
 function mergeWithSpecType(n, t, R) {
 	//console.log('......mergine nodes!');
 	let pool = n.pool;
@@ -255,6 +330,7 @@ function replaceChildrenBySpecNodes(n, R) {
 			//#endregion
 
 			if (isSpecType(nch.type)) {
+				error('NEIIIIIIIIIIIIIN');
 				nOrList[i] = mergeWithSpecType(nch, nch.type, R);
 			}
 		}
@@ -281,6 +357,8 @@ function replaceChildrenBySpecNodes(n, R) {
 		//#endregion
 
 		if (isSpecType(nOrList.type)) {
+			error('NEIIIIIIIIIIIIIN');
+
 			n[prop] = mergeWithSpecType(nOrList, nOrList.type, R);
 		}
 	} else {
@@ -390,14 +468,26 @@ const PARAMCSS = {
 	bg: 'background-color',
 	fg: 'color',
 
-}
+};
+const PARAMRSG_T = {
+	// true heisst: type handles this param
+	overlap: true,
+	orientation: true, // TODO: false
+	split: true, // TODO: false
+	shape: true,
+};
 function decodeParams(n, defParams, R) {
+
+	//console.log('__________ decodeParams')
+	//console.log('n.params', n.params);
+	//console.log('def params', defParams);
+
 	let o = isdef(n.oid) ? R.sData[n.oid] : null;
 	let pNew = {};
 	if (o) pNew = mapValues(o, n.params, defParams, R.lastSpec);
 
-	//console.log('pNew nach mapValues',pNew)
-	//console.log('o',o)
+	//console.log('pNew nach mapValues', jsCopy(pNew));
+	//console.log('o', o)
 
 	if (o) {
 		//todo: muss recursive werden!!!
@@ -413,12 +503,32 @@ function decodeParams(n, defParams, R) {
 		}
 	}
 
+	//console.log('pNew nach decode prop vals', jsCopy(pNew));
+
 	if (!o) pNew = n.params;
 
 	return paramsToCss(pNew);
 
 }
 function paramsToCss(params) {
+	let res = { css: {}, std: {}, typ: {} };
+	for (const k in params) {
+		//console.log('k', k, params[k])
+		let rsgParam = PARAMRSG_T[k];
+		if (isdef(rsgParam)) if (rsgParam) res.typ[k] = params[k]; else res.std[k] = params[k];
+		else {
+			let name = PARAMCSS[k];
+			if (isdef(name)) {
+				res.css[name] = params[k];
+			} else {
+				res.css[k] = params[k];
+			}
+		}
+	}
+	//console.log('params:', res.css, '\n', res.typ, '\n', res.std)
+	return res;
+}
+function paramsToCss_dep(params) {
 	let res = {};
 	for (const k in params) {
 		let name = PARAMCSS[k];
@@ -476,9 +586,10 @@ function agColoredShape(g, shape, w, h, color) {
 	gBg(g, color);
 
 }
-function gShape(shape, w, h, color) {
+function gShape(shape, w = 20, h = 20, color = 'green') {
 	//console.log(shape)
 	let el = gG();
+	if (nundef(shape)) shape = 'rect'
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
 	return el;

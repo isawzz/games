@@ -27,9 +27,9 @@ players:
     vps: 1
     color: gold
 table:
-  robber:
-    obj_type: robber
-    loc: '7'
+  # robber:
+  #   obj_type: robber
+  #   loc: '7'
   c1:
     obj_type: card
     # short_name: K
@@ -2676,7 +2676,6 @@ table:
       - _player: White
       - _player: Red
       - _player: Blue
-
 
 
 
