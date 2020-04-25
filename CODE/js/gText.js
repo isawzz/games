@@ -375,6 +375,10 @@ class gText {
 
 
 }
+
+function agText(g,txt,color,font){
+	let res = new gText({txt:txt,fill:color,font:font});
+}
 function createLabel(n1, R) {
 	//add content area 
 	let g = n1.ui;

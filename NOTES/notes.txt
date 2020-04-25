@@ -1,0 +1,38 @@
+
+
+1. nodes ohne cond haben empty pool
+=> no contribution to any o._rsg
+
+2. o._rsg empty heisst: dieses object kommt in keinem pool vor!
+=> wo kann diese object presented werden?
+=> ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

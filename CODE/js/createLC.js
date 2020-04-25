@@ -1,7 +1,7 @@
 function createLC(n, area, R) {
 	// n ist already a copy of the node to be created
 
-	R.registerNode(n);
+	// R.registerNode(n);
 	//if (nundef(n.params)) n.params = {};
 
 	//if (n.name=='hallo') console.log(n);
@@ -20,12 +20,13 @@ function createLC(n, area, R) {
 			//console.log('JETZT!!!', n.pool)
 		}
 
-		//EXPERIMENTAL FIX!!!!!!!!!!!!!!!
+		//EXPERIMENTAL FIX!!!!!!!!!!!!!!! ==> wird jetzt in gen14 gemacht!!!
 		//replaceChildrenBySpecNodes(n, R); //why expand here? sollte das nicht gemacht sein?
 		//return;
 
 		n.children = createChi(n, R);
 
+		console.log(n)
 		adjustContainerLayout(n, R);
 	}
 
@@ -34,23 +35,11 @@ function createLC(n, area, R) {
 
 		//console.log('board',jsCopy(n));
 		detectBoardOidAndType(n, R);
-		detectBoardParams(n, R);
+		//detectBoardParams(n, R); // ==> wird jetzt in generalGrid gemacht!
+
+		//createBoard ist statt createUI, und damit muss board+alle members selbst decodeParams machen!!!
 		createBoard(n, area, R); // *** calling hexGrid or quadGrid!!!!!!!!!!!!!! ***
-		//console.log('board',jsCopy(n));
-		n.children = [];
-		//console.log('_______________');
-		for (const name of ['fields', 'edges', 'corners']) {
-			let group = n.bi[name];
-			for (const fid in group) {
-				let n1 = group[fid]; //ist bereits mit indiv params gemerged!!!
-				n1.uiType = 'g';
-				R.registerNode(n1);
-				R.setUid(n1);
-				n.children.push(n1);
-				n1.content = calcContent(n1.o, n1.data);
-				if (n1.type == 'info') { createLabel(n1, R); }
-			}
-		}
+		
 	}
 
 	//leaf

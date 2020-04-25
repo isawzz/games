@@ -1,0 +1,21 @@
+ROOT:
+  type: list
+  elm:
+    type: cardSpec
+
+cardSpec:
+  cond:
+    obj_type: card
+  params:
+    fg:
+      _map:
+        map: card_map
+        key: .suit
+
+card_map:
+  spades: black
+  clubs: green
+  heart: red
+  diamond: gold
+
+  

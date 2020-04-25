@@ -145,131 +145,6 @@ function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
 	return { board: board, fields: fields, corners: corners, edges: edges };
 
 }
-function generalGrid(n, area, R) {
-
-	//n.bi ist  { board: board, fields: fields, corners: corners, edges: edges };
-	// 1 dictionary mit 4 dictionaries
-
-	//n.params ist { fields:..., edges:..., corners:... , gap:...}
-
-	let bpa = n.params;
-	//console.log('board params composed:', n.params)
-
-	//bei fields wird gap taken into account!
-	let bFieldParams = bpa.fields;
-	if (nundef(bFieldParams)) bFieldParams = {};
-	for (const [oid, f] of Object.entries(n.bi.fields)) {
-		let o = f.o;
-		// if (nundef(bFieldParams)) bFieldParams = {};
-		let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
-		//console.log(tNode)
-		if (nundef(tNode.params)) tNode.params = {};
-		if (!isEmpty(bFieldParams)) tNode.params = deepmerge(bFieldParams, tNode.params);
-
-		let fNew = deepmerge(tNode, f);
-		//console.log(fNew)
-		//fNew.params = mapValues(o, fNew.params, bFieldParams, R.lastSpec);
-		//if (fNew.params.size > maxSize) { fNew.params.size = maxSize; }//*** */
-		n.bi.fields[oid] = fNew;
-	}
-	for (const name of ['edges', 'corners']) {
-		let bMemberParams = bpa[name];
-		if (nundef(bMemberParams)) bMemberParams = {};
-		for (const [oid, f] of Object.entries(n.bi[name])) {
-			let o = f.o;
-			let tNode = isEmpty(o._rsg) ? {} : jsCopy(R.lastSpec[o._rsg[0]]);
-
-			if (nundef(tNode.params)) tNode.params = {};
-			tNode.params = deepmerge(bMemberParams, tNode.params);
-			let fNew = deepmerge(tNode, f);
-			//console.log(jsCopy(fNew));
-			//fNew.params = mapValues(o, fNew.params, bMemberParams, R.lastSpec);
-			n.bi[name][oid] = fNew;
-		}
-	}
-
-	//mach param decoding extra!
-	for (const name of ['fields', 'edges', 'corners']) {
-		let bMemberParams = bpa[name];
-		if (nundef(bMemberParams)) bMemberParams = {};
-		for (const [oid, f] of Object.entries(n.bi[name])) {
-			f.params = decodeParams(f,bMemberParams,R);
-			//console.log('params for board el',bMemberParams,f.params.css)
-		}
-	}
-
-	// *** stage 1: convert objects into uis ***
-
-	for (const name of ['fields', 'edges', 'corners']) {
-		let group = n.bi[name];
-		//console.log(group)
-		for (const oid in group) {
-
-			let f = group[oid];
-			let pf = f.params;
-			//console.log(pf);
-			//console.log('size',pf.size);
-
-			f.ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
-		}
-		// mergeEachBoardMemberWithItsSpecNodeN(n.bi.boardMembers[i],n.bi.boardMemberBaseParams[i],R);
-	}
-
-	// *** stage 2: prep area div (loc 'areaTable') as flexWrap ***
-	let d = stage2_prepArea(area);
-
-	// *** stage 3: prep container div/svg/g (board) as posRel ***
-	let boardDiv = stage3_prepContainer(d);
-
-	let boardSvg = gSvg();
-	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
-	boardSvg.setAttribute('style', style);
-	boardDiv.appendChild(boardSvg);
-
-	let boardG = gG();
-	boardSvg.appendChild(boardG);
-
-	n.bi.boardDiv = boardDiv;
-	mColor(boardDiv, 'blue'); //apply stylings?
-	boardDiv.id = n.uid + '_div';
-	n.bi.boardSvg = boardSvg;
-	n.ui = n.bi.boardG = boardG;
-	R.setUid(n);
-
-	// *** stage 4: layout! means append & positioning = transforms... ***
-	let boardInfo = n.bi.board.info;
-	let fSpacing = bpa.field_spacing;// = bpa.fields.size+bpa.gap;
-	if (nundef(fSpacing)) fSpacing = 60;
-	let margin = bpa.margin;
-	if (nundef(margin)) margin = 8;
-	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
-
-	let cornerSize = isEmpty(n.bi.corners) ? 0 : isdef(bpa.corners) ? bpa.corners.size : 15;
-	// console.log('cornerSize',cornerSize)
-
-	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
-	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
-
-	//console.log(wBoard,hBoard)
-
-	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal, 'border-radius': margin, margin: 'auto 4px' });
-	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
-
-	for (const f of Object.values(n.bi.fields)) {
-		boardG.appendChild(f.ui);
-		gPos(f.ui, fw * f.info.x, fh * f.info.y);
-	}
-	for (const f of Object.values(n.bi.edges)) {
-		boardG.appendChild(f.ui);
-		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
-		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
-	}
-	for (const f of Object.values(n.bi.corners)) {
-		boardG.appendChild(f.ui);
-		gPos(f.ui, fw * f.info.x, fh * f.info.y);
-	}
-
-}
 
 function detectBoardOidAndType(n, R) {
 	//detect n.oid if not set!
@@ -280,27 +155,36 @@ function detectBoardOidAndType(n, R) {
 	//console.log('board server object',oBoard);
 	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
 }
-var countDetectBoardParamsCalls=0;//TODO: remove!
-function detectBoardParams(n, R) {
 
+
+var countDetectBoardParamsCalls=0;//TODO: remove!
+
+
+function detectBoardParams(n, R) {
 	countDetectBoardParamsCalls+=1;//TODO: remove!
 
-	//set params for board!
-	//console.log('......... detectBoardParams1')
-	//console.log(R.defs1.grid, R.defs1[n.boardType])
-	//console.log('n.params',jsCopy(n.params));
+	//console.log('board node before detectBoardParams!',jsCopy(n));
+
+	// *** 1 *** merge of node params and default params for grid and n.boardType
+	let allParams={};
 	let boardDefs = R.defs.grid;
 	if (isdef(boardDefs)) {
 		let specific = R.defs[n.boardType];
 		if (isdef(specific)) boardDefs = deepmerge(boardDefs, specific);
 		if (isdef(boardDefs.params)) {
-			if (isdef(n.params)) n.params = deepmerge(boardDefs.params, n.params);
-			else n.params = boardDefs.params;
+			if (isdef(n.params)) allParams = deepmerge(boardDefs.params, n.params);
+			else allParams = boardDefs.params;
 		}
 	}
 
-	//console.log('......... RESULT',n.params);
-	return n.params;
+	n.bi.params = {fields:{},corners:{},edges:{}};
+	let justBoardParams = jsCopy(allParams);
+	for(const name of ['fields','corners','edges']){
+		n.bi.params[name] = justBoardParams[name];
+		delete justBoardParams[name];
+	}
+	return justBoardParams;
+	
 }
 function detectBoardObject(data) { return firstCondDictKeys(data, x => isdef(data[x].map)); }
 function detectBoardType(oBoard, data) {

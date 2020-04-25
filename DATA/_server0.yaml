@@ -2,7 +2,7 @@ players:
   p1:
     obj_type: _me
     name: felix
-    hand: [c1, c2, c3, c4, c5, c6]
+    hand: [c1, c2]
     buildings: [farm, farm2]
     vps: 3
     herald: true
@@ -30,22 +30,33 @@ table:
   # robber:
   #   obj_type: robber
   #   loc: '7'
-  c1:
+  ck:
     obj_type: card
-    # short_name: K
+    short_name: K
     rank: K
-  c2:
+    rel: [c1,c2]
+  cq:
     obj_type: card
     short_name: Q
     rank: Q
+    rel: [c2,c3]
+  c1:
+    obj_type: card
+    short_name: A
+    rank: A
+    rel: [c2,c3]
+  c2:
+    obj_type: card
+    short_name: 2
+    rank: 2
   c3:
     obj_type: card
-    short_name: J
-    rank: J
+    short_name: 3
+    rank: 3
   c4:
     obj_type: card
-    #short_name: 2
-    rank: 2
+    short_name: 4
+    rank: 4
   c5:
     obj_type: card
     short_name: 5

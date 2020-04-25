@@ -25,13 +25,19 @@ ROOT:
               _id: market_loc 
               type: list
         - _id: main_player
-    - type: grid
+    - type: main_board
       params: 
+        bg: yellow
         flex: 1 0 auto
     - name: all_opps
       type: panel
       panels:
         _id: all_opps #set multiple panels (panels isDict)
+
+main_board: #for now!
+  cond:
+    obj_type: Board
+  type: grid
 
 fields:
   cond:
@@ -66,7 +72,7 @@ fields_map:
     texture: grain
     bg: yellow
   sheep:
-    bg: green
+    bg: lime
   ore:
     texture: grain
     bg: dimgray
@@ -113,7 +119,7 @@ player_hand:
   type: hand
   elm: .hand
   # params:
-  #   align-items: center
+  #   align-typeitems: center
   #   justify-content: space-evenly
 
 player_info:

@@ -1,130 +1,3 @@
-//todo: multiple types!!!!!!!!!
-function recMergeSpecTypes(n, spec, defType, counter) {
-	counter += 1;
-	if (counter > 200) { error('rec overflow: recMergeSpecTypes'); return n; }
-
-	let testN = jsCopy(n);
-	let nNew = n;
-	let COUNTERMAX = 20;
-	while (counter < 20) {
-		counter += 1;
-
-		let t = nNew.type;
-		//console.log('type is', t);
-		nNew = correctType(nNew, spec, defType);
-		let newType = nNew.type;
-		//console.log('type is NOW', newType);
-		if (t == newType) break;
-	}
-
-	if (counter >= COUNTERMAX) { error('OVERFLOW!!!!!!!!'); return; }
-
-	//der type von n ist jetzt ein standard type!
-	//merge n auch noch mit defaults here!
-	//dann hab ich fuer jeden type der vorkommt alle defaults zusammen!
-	let type = nNew.type;
-	if (type == 'grid') {
-		console.log('param merging and paramsToCss *** NOT *** done for grid type!');
-		//console.log('GRID ENCOUNTER in gen14!!!! hier koennt was machen!', n);
-		//NEIN NOCH NICHTdetectBoardParams(nNew,R);
-		//return;
-	} else if (nundef(type)) {
-		return nNew;
-	} else {
-
-		//alle uebrigen types koennte hier bereits defs mergen!!!
-		let ndefs = R.defs[type];
-		if (isdef(ndefs)) {
-			nNew = deepmerge(ndefs, nNew);
-			//console.log('...type', type)
-			//console.log('merged defs in:', type, nNew.params)
-		} else {
-			console.log('***************no defs for type', type, testN);
-		}
-		nNew.DParams =  paramsToCss(nNew.params);
-		
-	}
-
-	//else console.log('GOTT SEI DANK!!!');
-
-	if (isContainerType(nNew.type)) {
-
-		let prop = RCONTAINERPROP[nNew.type];
-		let n1 = nNew[prop];
-
-		//console.log(nNew);
-		//console.log('nNew[',prop,'] will be evaluated');
-		//console.log('...before rec:','nNew',nNew,'n1',n1, isList(n1),isDict(n1));
-
-		if (isList(n1)) {
-			let newList = [];
-			for (const nChi of n1) {
-				newList.push(recMergeSpecTypes(nChi, spec, defType, counter));
-			}
-			nNew[prop] = newList;
-
-		} else if (isDict(n1)) {
-			nNew[prop] = recMergeSpecTypes(n1, spec, defType, counter);
-		} else {
-			//	console.log('have to eval',nNew[prop]);
-		}
-		//console.log('...after rec',nNew[prop])
-	}
-
-	return nNew;
-
-}
-function correctType(n, spec, defType) {
-
-	let type = n.type;
-	if (nundef(type)) {
-
-		let t = detectType(n, defType);
-		if (t) {
-			n.type = t;
-			console.log('type missing ersetzt durch', n, n.type);
-		}
-		return n;
-	}
-
-	let nSpec = spec[type];
-	if (isdef(nSpec)) {
-		//console.log('merging', type, 'and', nSpec.type);
-		return deepmerge(n, nSpec);
-	}
-
-	//console.log('no change', type)
-	return n;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function sortCards_dep(n) {
-	console.log('jaaaaaaaaaaaaaaaaaaaaaa', n);
-	let parentEl = n.ui;
-
-	if (n.children.length > 1) {
-		var cards = n.children.map(x => x.ui),
-			cw = parentEl.clientWidth,
-			sw = parentEl.scrollWidth,
-			diff = sw - cw,
-			offset = diff / (cards.length - 1);
-		for (var i = 1; i < cards.length; i++) {
-			cards[i].style.transform = "translateX(-" + offset * i + "px)";
-		}
-	}
-}
 
 function adjustContainerLayout(n, R) {
 
@@ -178,20 +51,6 @@ function calcContent(o, path) {
 	return null;
 
 }
-function check_id(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_id', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToPlaces(specKey, akku[k], k); }
-	//console.log('places', this.places)
-}
-function check_ref(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_ref', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
-	//console.log('places', this.places)
-}
 function createPresentationNodeForOid(oid, R) {
 	let o = R.sData[oid];
 	let stypes = o._rsg;
@@ -217,18 +76,17 @@ function createPresentationNodeForOid(oid, R) {
 	return n1;
 }
 function createUi(n, area, R) {
-	//if (n.type == 'title') console.log(n,area,R)
-	let defs = lookup(R, ['defs', n.type, 'params']);
-	//if (n.type == 'title') console.log(defs)
-	if (defs) {
-		if (nundef(n.params)) n.params = jsCopy(defs);
-		else n.params = deepmergeOverride(defs, n.params);
-	}
+
+	R.registerNode(n);
+
+	decodeParams(n, R);
 
 	n.ui = RCREATE[n.type](n, mBy(area), R);
 
-	// //console.log(n.params)
-	// RSTYLE[n.type](n.ui, n.params);
+	if (n.type != 'grid') { applyCssStyles(n.ui, n.cssParams); }
+
+	//TODO: hier muss noch die rsg std params setzen (same for all types!)
+	if (!isEmpty(n.stdParams)) { console.log('rsg std params!!!', n.stdParams); }
 
 	R.setUid(n);
 
@@ -260,12 +118,11 @@ function defaultPresentationNode(oid, o, R) {
 		//erstmal nur 1. list
 		let key1 = Object.keys(objLists)[0];
 		let list1 = Object.values(objLists)[0];
-		console.log('defaultPresentationNode: first list is:', key1, list1);
+		console.log('defaultPresentationNode1: first list is:', key1, list1);
 		//let content = list1.join(' ');
 		//in wirklichkeit such ich hier nach available spec node fuer jedes el von list1
 		nrep = { type: 'list', pool: list1, elm: '.' + key1 };
 
-		//createPresentationNodeForOid(oid, R)
 	}
 
 	return nrep;
@@ -273,6 +130,40 @@ function defaultPresentationNode(oid, o, R) {
 
 }
 function hasId(o) { return isdef(o._id); }
+
+function mergeInBasicSpecNodesForOid(oid, n, R) {
+	let o = R.sData[oid];
+	if (isEmpty(o._rsg)) return n;
+	else {
+		rlist = o._rsg;
+		for (const specNodeName of rlist) { 
+			//how to combine multiple nodes?
+			//could do this more intelligently!!!
+			//right now they will simply override each other!
+			let nCand = jsCopy(R.lastSpec[specNodeName]);
+			//if (nundef(nCand._ref)) //nein falsch!!!
+			//gibt es irgendwelche conditions die einen node ausschliessen?
+			n = deepmergeOverride(n, nCand); 
+		}
+		return n;
+	}
+}
+
+//#region merging types, _id, _ref helpers
+function check_id(specKey, node, R) {
+	let akku = {};
+	recFindProp(node, '_id', 'self', akku);
+	//console.log(node.specKey, node, akku);
+	for (const k in akku) { R.addToPlaces(specKey, akku[k], k); }
+	//console.log('places', this.places)
+}
+function check_ref(specKey, node, R) {
+	let akku = {};
+	recFindProp(node, '_ref', 'self', akku);
+	//console.log(node.specKey, node, akku);
+	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
+	//console.log('places', this.places)
+}
 function mergeChildrenWithRefs(o, R) {
 	for (const k in o) {
 		let ch = o[k];
@@ -291,81 +182,183 @@ function mergeChildrenWithRefs(o, R) {
 	}
 }
 
-function mergeWithSpecType(n, t, R) {
-	//console.log('......mergine nodes!');
-	let pool = n.pool;
-	let nt = R.lastSpec[t];
+function mergeCorrectType(n, spec, defType) {
 
-	//console.log('n', n.pool, 'nt', nt.pool)
-	//TODO!!!! da muss noch sehr viel geschehen bez cards vis,all,non-vis!!!!
-	if (!isEmpty(nt.pool) && !isEmpty(n.pool)) { pool = intersection(pool, nt.pool); }
+	let type = n.type;
+	if (nundef(type)) {
 
-	n = deepmergeOverride(n, nt);
-	//intersect pools!!! nein nicht wenn specType empty pool hat!!!
-
-	if (isdef(pool)) n.pool = pool; // intersection(n.pool,pool);
-	//console.log('new node', n, n.pool);
-	return n;
-}
-function replaceChildrenBySpecNodes(n, R) {
-	//replace children by spec nodes
-	let prop = RCONTAINERPROP[n.type];
-	let nOrList = n[prop];
-	if (isList(nOrList)) {
-		//each list element can only result in <= 1 binding!!!
-		//so if it's type is a list, simply merge all the types in it
-		for (let i = 0; i < nOrList.length; i++) {
-			let nch = nOrList[i];
-			//#region merge multiple types NOT IMPLEMENTED!!!
-			if (isList(nch.type)) {
-				let types = nch.type.filter(x => isSpecType(x));
-				let standardTypes = nch.type.filter(x => !isSpecType(x));
-				let newel = nch;
-				for (const t of types) {
-					newel = mergeWithSpecType(newel, t, R);
-				}
-				nOrList[i] = newel;
-				//console.log('^^^newel has type', newel.type);
-			}
-			//#endregion
-
-			if (isSpecType(nch.type)) {
-				error('NEIIIIIIIIIIIIIN');
-				nOrList[i] = mergeWithSpecType(nch, nch.type, R);
-			}
+		let t = detectType(n, defType);
+		if (t) {
+			n.type = t;
+			console.log('type missing ersetzt durch', n, n.type);
 		}
-	} else if (isDict(nOrList)) {
-		let nch = nOrList;
-		//#region merge multiple types NOT IMPLEMENTED!!!
-		if (isList(nch.type) && nch.type.length == 1) {
-			nch.type = nch.type[0];
-		} else if (isList(nch.type) && nch.type.length > 1) {
-			let specTypes = nch.type.filter(x => isSpecType(x));
-
-			let standardTypes = nch.type.filter(x => !isSpecType(x));
-			let newel = nch;
-			//console.log('specTypes', specTypes);
-			let newNProp = [];
-			//first make 1 list element for each different 
-			for (const t of specTypes) {
-
-				newel = mergeWithSpecType(newel, t, R);
-			}
-			n[prop] = newel;
-			//console.log('^^^newel has type', newel.type);
-		}
-		//#endregion
-
-		if (isSpecType(nOrList.type)) {
-			error('NEIIIIIIIIIIIIIN');
-
-			n[prop] = mergeWithSpecType(nOrList, nOrList.type, R);
-		}
-	} else {
-		//console.log('hhhhhhhhhhhhhh')
+		return n;
 	}
 
+	let nSpec = spec[type];
+	if (isdef(nSpec)) {
+
+		//console.log('merging', type, 'and', nSpec.type);
+
+		if (!isEmpty(nSpec.pool) && !isEmpty(n.pool)) {
+			console.log('building pool intersection !!!!!')
+			pool = intersection(pool, nt.pool);
+		}
+
+		return deepmerge(n, nSpec);
+	}
+
+	//console.log('no change', type)
+	return n;
 }
+function mergeCorrectTypeList_BROKEN(n, spec, defType) {
+
+	let type = n.type;
+	if (nundef(type)) {
+
+		let t = detectType(n, defType);
+		if (t) {
+			n.type = t;
+			console.log('type missing ersetzt durch', n, n.type);
+		}
+		return n;
+	}
+
+	if (!isList(n.type) && nundef(spec[n.type])) {
+		//console.log('no type change...', n)
+		return n;
+	}
+
+	console.log('______________________ VOR list merging =====>',n.type);
+	if (isList(n.pool)) console.log('==> new pool',jsCopy(n.pool));
+	if (isList(n.type)) console.log('==> new type',jsCopy(n.type));
+	if (isDict(n)) console.log('==> start n',jsCopy(n));
+
+	let typelst = isList(type) ? type : [type];
+	let specTypes = typelst.filter(x => isdef(spec[x]));
+	let standardTypes = typelst.filter(x => nundef(spec[x]));
+
+	console.log('type list:', typelst);
+	console.log('spec types:', specTypes);
+	console.log('standard types:', standardTypes);
+
+	let merged = n;
+	merged.type = [];
+	let pool = n.pool;
+
+	for (const t of specTypes) {
+		let nSpec = spec[t];
+
+		//console.log('merging in type', t);
+
+		if (!isEmpty(nSpec.pool) && !isEmpty(pool)) {
+			console.log('building pool intersection !!!!!')
+			pool = intersection(pool, nt.pool);
+		}
+
+		merged = deepmerge(merged, nSpec);
+		//was macht deepmerge mit lists???
+	}
+
+	n = merged;
+
+	n.pool = pool;
+
+	console.log('nach list merging:');
+	if (isList(n.pool)) console.log('==> new pool',jsCopy(n.pool));
+	if (isList(n.type)) console.log('==> new type',jsCopy(n.type));
+	if (isDict(n)) console.log('==> FINAL n',n);
+	//will nur noch 1 type haben hier!!!
+
+
+	if (isList(n.type)) n.type = n.type[0];
+	console.log('types at the end of merging:', n.type);
+	return n;
+}
+function recMergeSpecTypes(n, spec, defType, counter) {
+	counter += 1;
+	if (counter > 200) { error('rec overflow: recMergeSpecTypes'); return n; }
+
+	let testN = jsCopy(n);
+	let nNew = n;
+	let COUNTERMAX = 20;
+	while (counter < 20) {
+		counter += 1;
+
+		let t = nNew.type;
+		//console.log('type is', t);
+
+		// nNew = mergeCorrectType(nNew, spec, defType);
+		nNew = mergeCorrectType(nNew, spec, defType);
+
+		let newType = nNew.type;
+		//console.log('type is NOW', newType);
+		if (t == newType) break;
+	}
+
+	if (counter >= COUNTERMAX) { error('OVERFLOW!!!!!!!!'); return; }
+
+	//der type von n ist jetzt ein standard type!
+	//merge n auch noch mit defaults here!
+	//dann hab ich fuer jeden type der vorkommt alle defaults zusammen!
+	let type = nNew.type;
+
+	//#region param merging DOCH NICHT JETZT!!!
+
+	// if (type == 'grid') {
+	// 	console.log('param merging and paramsToCss *** NOT *** done for grid type!');
+	// 	//console.log('GRID ENCOUNTER in gen14!!!! hier koennt was machen!', n);
+	// 	//NEIN NOCH NICHTdetectBoardParams(nNew,R);
+	// 	//return;
+	// } else if (nundef(type)) {
+	// 	return nNew;
+	// } else {
+
+	// 	//alle uebrigen types koennte hier bereits defs mergen!!!
+
+	// 	let ndefs = R.defs[type];
+	// 	if (isdef(ndefs)) {
+	// 		nNew = deepmerge(ndefs, nNew);
+	// 		//console.log('...type', type)
+	// 		//console.log('merged defs in:', type, nNew.params)
+	// 	} else {
+	// 		console.log('***************no defs for type', type, testN);
+	// 	}
+	// 	nNew.DParams =  paramsToCss(nNew.params);
+
+	// }
+	//#endregion
+
+	//else console.log('GOTT SEI DANK!!!');
+
+	if (isContainerType(nNew.type)) {
+
+		let prop = RCONTAINERPROP[nNew.type];
+		let n1 = nNew[prop];
+
+		//console.log(nNew);
+		//console.log('nNew[',prop,'] will be evaluated');
+		//console.log('...before rec:','nNew',nNew,'n1',n1, isList(n1),isDict(n1));
+
+		if (isList(n1)) {
+			let newList = [];
+			for (const nChi of n1) {
+				newList.push(recMergeSpecTypes(nChi, spec, defType, counter));
+			}
+			nNew[prop] = newList;
+
+		} else if (isDict(n1)) {
+			nNew[prop] = recMergeSpecTypes(n1, spec, defType, counter);
+		} else {
+			//	console.log('have to eval',nNew[prop]);
+		}
+		//console.log('...after rec',nNew[prop])
+	}
+
+	return nNew;
+
+}
+//#endregion
 
 //#region source, pool, cond, eval
 function addSourcesAndPools(R) {
@@ -475,12 +468,22 @@ const PARAMRSG_T = {
 	orientation: true, // TODO: false
 	split: true, // TODO: false
 	shape: true,
+	field_spacing: true,
+	size: true,
 };
-function decodeParams(n, defParams, R) {
+function decodeParams(n, R) {
 
 	//console.log('__________ decodeParams')
 	//console.log('n.params', n.params);
 	//console.log('def params', defParams);
+
+	//if (n.type == 'grid') console.log(n.params)
+
+	let defParams = lookup(R, ['defs', n.type, 'params']);
+	if (n.type != 'grid' && defParams) {
+		if (nundef(n.params)) n.params = jsCopy(defParams);
+		else n.params = deepmergeOverride(defParams, n.params);
+	}
 
 	let o = isdef(n.oid) ? R.sData[n.oid] : null;
 	let pNew = {};
@@ -507,13 +510,43 @@ function decodeParams(n, defParams, R) {
 
 	if (!o) pNew = n.params;
 
-	return paramsToCss(pNew);
+	let params = paramsToCss(pNew);
+	n.params = pNew;
+	n.typParams = params.typ;
+	n.cssParams = params.css;
+	n.stdParams = params.std;
 
 }
+function getFontString(params) {
+	let f = params.font;
+	if (nundef(f)) return null;
+	if (isString(f)) return f;
+	else {
+		let fz = f.size; if (isNumber(fz)) fz = '' + fz + 'px';
+		let ff = f.family;
+		let fv = f.variant;
+		let fw = isdef(f.bold) ? 'bold' : isdef(f.light) ? 'light' : f.weight;
+		let fs = isdef(f.italic) ? 'italic' : f.style;
+		if (nundef(fz) || nundef(ff)) return null;
+		let s = fz + ' ' + ff;
+		if (isdef(fw)) s = fw + ' ' + s;
+		if (isdef(fv)) s = fv + ' ' + s;
+		if (isdef(fs)) s = fs + ' ' + s;
+		return s;
+
+	}
+}
 function paramsToCss(params) {
+	//console.log('phase is',phase)
 	let res = { css: {}, std: {}, typ: {} };
+
 	for (const k in params) {
 		//console.log('k', k, params[k])
+		if (k == 'font') {
+			//special treatment wegen composition of font!
+			let f = getFontString(params.font);
+			if (f) res.css.font = f;
+		}
 		let rsgParam = PARAMRSG_T[k];
 		if (isdef(rsgParam)) if (rsgParam) res.typ[k] = params[k]; else res.std[k] = params[k];
 		else {
@@ -526,15 +559,6 @@ function paramsToCss(params) {
 		}
 	}
 	//console.log('params:', res.css, '\n', res.typ, '\n', res.std)
-	return res;
-}
-function paramsToCss_dep(params) {
-	let res = {};
-	for (const k in params) {
-		let name = PARAMCSS[k];
-		if (nundef(name)) name = k;
-		res[name] = params[k];
-	}
 	return res;
 }
 function justIds(o) {
@@ -573,29 +597,7 @@ function mapValues(o, p, pdef, spec) {
 }
 //endregion
 
-//#region presentation
-
-const SHAPEFUNCS = {
-	'circle': agCircle,
-	'hex': agHex,
-	'rect': agRect,
-}
-function agColoredShape(g, shape, w, h, color) {
-	//console.log(shape)
-	SHAPEFUNCS[shape](g, w, h);
-	gBg(g, color);
-
-}
-function gShape(shape, w = 20, h = 20, color = 'green') {
-	//console.log(shape)
-	let el = gG();
-	if (nundef(shape)) shape = 'rect'
-	if (shape != 'line') agColoredShape(el, shape, w, h, color);
-	else gStroke(el, color, w); //agColoredLine(el, w, color);
-	return el;
-}
-
-//stages
+//#region stages
 function stage1_makeUis(omap, objectPool, w, h, gap, domelFunc) {
 	// *** stage 1: convert objects into uis ***
 	let olist = mapOMap(omap, objectPool);

@@ -1,4 +1,31 @@
+//#region DOM constants, shape functions
+const SHAPEFUNCS = {
+	'circle': agCircle,
+	'hex': agHex,
+	'rect': agRect,
+}
+function agColoredShape(g, shape, w, h, color) {
+	//console.log(shape)
+	SHAPEFUNCS[shape](g, w, h);
+	gBg(g, color);
+}
+function gShape(shape, w = 20, h = 20, color = 'green') {
+	//console.log(shape)
+	let el = gG();
+	if (nundef(shape)) shape = 'rect'
+	if (shape != 'line') agColoredShape(el, shape, w, h, color);
+	else gStroke(el, color, w); //agColoredLine(el, w, color);
+	return el;
+}
+//#endregion
+
 //#region DOM 1 liners A list divs
+function applyCssStyles(ui, params) {
+	let domType = getTypeOf(ui); 
+	if (domType == 'g') {
+		//must apply styles differently or not at all!!!!!
+	} else { mStyle(ui, params); }
+}
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
