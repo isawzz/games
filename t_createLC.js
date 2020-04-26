@@ -1,4 +1,4 @@
-function createLC(n, area, R) {
+function createLC_dep(n, area, R) {
 	// n ist already a copy of the node to be created
 
 	// R.registerNode(n);
@@ -50,9 +50,3 @@ function createLC(n, area, R) {
 	}
 	return n;
 }
-
-
-
-
-
-

@@ -1,5 +1,8 @@
+//#region globals, _start, gameStep
 window.onload = () => _start();
 var timit, G, PROTO, POOLS, sData;
+var R = null;
+var phase = 0;
 
 async function _start() {
 	timit = new TimeIt('*timer', TIMIT_SHOW);
@@ -39,6 +42,91 @@ async function gameStep() {
 
 
 }
+//#endregion
+function showPanels(n){
+	console.log('panels:')
+	if (nundef(n.panels)){
+		console.log('NO PANELS!!!',n)
+	}else if (isList(n.panels)){
+		n.panels.map(x=>console.log(x));
+	}else{
+		console.log(n.panels);
+	}
+}
+function showChildren(n){
+	console.log('children:')
+	if (nundef(n.children)){
+		console.log('NO Children!!!',n)
+	}else if (isList(n.children)){
+		n.children.map(x=>console.log(x));
+	}else{
+		console.log(n.children);
+	}
+}
+
+function run03(sp, defaults, sdata) {
+
+	R = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
+
+	phase = 1013;
+	R.gen10(); //addSourcesAndPools // =>R.gens[1]...spec w/ pool,source, o._rsg
+	//console.log(R.lastSpec.ROOT);
+
+	R.gen11(); // make ROOT single(!) panel =>R.gens[2]... ROOT well-defined
+
+	R.gen12(); // creates places & refs, adds specKey ==>R.gens[3]...specKey
+
+	R.gen13(); // merges _ref, _id nodes (_id & _ref) disappear? =>R.gens[4]...merged!
+	//console.log(jsCopy(R.lastSpec));
+	console.log('______ ROOT panels nach id/ref merging:');
+	console.log(R);
+	//R.gens[4].ROOT.panels.map(x=>console.log(x));
+
+	phase = 14;
+	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens[5]...merged!
+	//NO, REVERTED!!! also: DParams added to each node (except grid type!), params merged w/ defs!s
+	showPanels(R.gens[5].ROOT);
+	showChildren(R.gens[5].ROOT);
+
+	//gen15 GEHT SO NICHT!!!!!!!!!!!!!!!!!!!!!
+	// phase = 15;
+	// //ne, das ist alles mist!!!!!!!!!!!! kann nicht einfach mergen!!!!
+	// R.gen15();
+	// console.log(R.oidNodes)
+
+	phase = 20;
+	R.gen20('table'); // expands root, creates 1 node for each ui and uis
+	console.log('______ final ROOT panels:')
+	showPanels(R.ROOT);
+	showChildren(R.ROOT);
+	console.log(R);
+	// R.gens[6].ROOT.panels.map(x=>console.log(x));
+
+	//console.log('detectBoardParams1 has been called', countDetectBoardParamsCalls,'times!!!!!')
+
+	//R.gen30(); //NOT IMPLEMENTED!!!
+
+	//presentGeneration(R.lastSpec, 'results')
+	//presentRoot(R.lastSpec.ROOT, 'results');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

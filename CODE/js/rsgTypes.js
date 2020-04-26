@@ -52,9 +52,12 @@ class RSG {
 	//type lists: nix
 	gen11() {
 		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
-		if (this.ROOT.type == 'panel' && this.ROOT.pool.length <= 1) return;
 		let gen = jsCopy(this.lastSpec);
-		gen.ROOT = { type: 'panel', panels: gen.ROOT };
+		if (this.ROOT.type == 'panel' && this.ROOT.pool.length <= 1) {
+			//console.log('ROOT is already single panel! gens[2] same as gens[1]')
+		}else{
+			gen.ROOT = { type: 'panel', panels: gen.ROOT };
+		}
 		this.gens.push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
@@ -87,6 +90,7 @@ class RSG {
 		//console.log('____________________ places', this.places);
 		//console.log('____________________ refs', this.refs);
 
+		this.gens.push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
 
@@ -100,8 +104,30 @@ class RSG {
 
 		for (const k in gen) {
 			let n = gen[k];
+			safeRecurse(n, mergeChildrenWithRefs, this, false); //do merge AFTER processing children damit leaf nodes first!!!
+			if (n._id){
+				//case a) _id at top level! mergeAllRefsToIdIntoNode(n)
+				n=mergeAllRefsToIdIntoNode(n,R);
+			}
+		}
+		this.gens.push(gen);
+		this.lastSpec = gen;
+		this.ROOT = gen.ROOT;
+
+
+	}
+	gen13_dep() {
+		//merge _ref nodes into _id
+		let gen = jsCopy(this.lastSpec);
+
+		for (const k in gen) {
+			let n = gen[k];
+			if (n._id){
+				//case a) _id at top level!
+			}
 			safeRecurse(n, mergeChildrenWithRefs, this, true);
 		}
+		this.gens.push(gen);
 		this.lastSpec = gen;
 		this.ROOT = gen.ROOT;
 
@@ -127,6 +153,7 @@ class RSG {
 			//console.log('_____ node',k,isdef(n.type));
 			gen[k]=recMergeSpecTypes(n,gen,this.defType,0);
 		}
+		this.gens.push(gen);
 		this.lastSpec = gen;
 		this.ROOT = gen.ROOT;
 		//console.log(gen)
@@ -161,6 +188,7 @@ class RSG {
 
 		this.ROOT = createLC(gen.ROOT, area, this);
 
+		this.gens.push(gen);
 		this.lastSpec = gen;
 		//console.log('UIS', R.UIS);
 		//console.log('ROOT', R.ROOT);
@@ -179,6 +207,7 @@ class RSG {
 			}
 			for(const oid of n.pool){
 				let o=this.sData[oid];
+				//geht nicht wenn path zu anderem o fuehrt!!!!
 				let val = decodePropertyPath(o,n.position);
 				console.log('val ==>',val, typeof val);
 				let oidloc = isString(val)? val : val._obj;

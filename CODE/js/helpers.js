@@ -2621,13 +2621,14 @@ function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 	return onew;
 }
 function recFindProp(o, prop, path, akku) {
+	//usage: recFindProp(node, '_id', 'self', akku);
 	//find all incidences of key==prop in object or list o, and collects their path & value
 	//console.log(o);
 	if (!isDict(o) && !Array.isArray(o)) { return; }
 	if (isDict(o)) {
 		// if (o[prop]) { akku[path] = o; }
 		if (o[prop]) { akku[path] = o[prop]; }
-		for (const k in o) { this.recFindProp(o[k], prop, path + '.' + k, akku); }
+		for (const k in o) { recFindProp(o[k], prop, path + '.' + k, akku); }
 	} else if (isList(o)) {
 		for (let i = 0; i < o.length; i++) {
 			this.recFindProp(o[i], prop, path + '.' + i, akku);
@@ -2863,7 +2864,7 @@ function getElements(o, elKey = '_obj', arrKey = '_set') {
 	else return [];
 }
 function getElementLists(o, elKey = '_obj', arrKey = '_set') {
-	// for each prop of o with a val like {_set:[{_obj:1},{_obj:2},...]} ==> {prop:[1,2,..]} if added to res 
+	// for each prop of o with a val like {_set:[{_obj:1},{_obj:2},...]} ==> {prop:[1,2,..]} is added to res 
 	let res = {};
 	if (!o) return [];
 	for (const k in o) {

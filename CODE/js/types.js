@@ -104,9 +104,9 @@ function mTitle(n, dParent, R) {
 	return ui;
 }
 
-
 function mInfo(n, dParent, R) {
 	//console.log(dParent)
+	console.log('--->info content',n.content)
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {

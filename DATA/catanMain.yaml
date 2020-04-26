@@ -1,111 +1,164 @@
+---
+options:
+  pass:
+    actions:
+      _set:
+      - _tuple:
+        - val: pass
+          type: fixed
+    desc:
+      line:
+      - End your turn
+  build-road:
+    actions:
+      _set:
+      - _tuple:
+        - _set:
+          - ID: '40'
+            val: Edge[40]
+            type: obj
+          - ID: '20'
+            val: Edge[20]
+            type: obj
+          - ID: '21'
+            val: Edge[21]
+            type: obj
+          - ID: '56'
+            val: Edge[56]
+            type: obj
+          - ID: '57'
+            val: Edge[57]
+            type: obj
+          - ID: '74'
+            val: Edge[74]
+            type: obj
+          - ID: '69'
+            val: Edge[69]
+            type: obj
+    desc:
+      line:
+      - Build a road
+  domestic-trade:
+    actions:
+      _set:
+      - _tuple:
+        - val: demand
+          type: fixed
+        - _set:
+          - val: wood
+            type: fixed
+          - val: brick
+            type: fixed
+          - val: sheep
+            type: fixed
+          - val: ore
+            type: fixed
+          - val: wheat
+            type: fixed
+      - _tuple:
+        - val: offer
+          type: fixed
+        - _set:
+          - val: wood
+            type: fixed
+          - val: brick
+            type: fixed
+          - val: ore
+            type: fixed
+    desc:
+      line:
+      - Domestic Trade (with players)
+status:
+  line:
+  - 'You rolled: 8. Take your turn.'
+key: c4647159c324c985
 players:
-  p1:
-    obj_type: _me
-    name: felix
-    hand: [c1, c2]
+  White:
+    color: White
+    name: White
+    reserve:
+      road: 13
+      settlement: 3
+      city: 4
     buildings:
       road:
-        _set: []
+        _set:
+        - _obj: '149'
+        - _obj: '159'
       settlement:
         _set:
         - _obj: '148'
+        - _obj: '158'
       city:
         _set: []
-    abuildings: [farm, farm2]
-    vps: 3
-    herald: true
-    money: 4
-    color: crimson
-  p2:
-    obj_type: _opponent
-    name: amanda
-    hand: [c1, c3, c2, c4, c6, c7, c8]
+    resources:
+      wood: 1
+      brick: 2
+      sheep: 0
+      ore: 1
+      wheat: 0
+    num_res: 4
+    devcards:
+      _set: []
+    past_devcards:
+      _set: []
+    vps: 2
+    ports:
+      _set: []
+    obj_type: GamePlayer
+  Red:
+    color: Red
+    name: Red
+    reserve:
+      road: 13
+      settlement: 3
+      city: 4
     buildings:
       road:
-        _set: []
+        _set:
+        - _obj: '151'
+        - _obj: '157'
       settlement:
         _set:
-        - _obj: '149'
+        - _obj: '150'
+        - _obj: '156'
       city:
         _set: []
-    vps: 1
-    color: skyblue
-  p3:
-    obj_type: _opponent
-    name: lauren
-    hand: [c2, c3, c8, c1]
-    vps: 1
-    color: seagreen
-  p4:
-    obj_type: _opponent
-    name: anuj
-    hand: [c2]
-    vps: 1
-    color: gold
+    num_res: 3
+    devcards:
+      _set: []
+    past_devcards:
+      _set: []
+    ports:
+      _set: []
+    obj_type: opponent
+  Blue:
+    color: Blue
+    name: Blue
+    reserve:
+      road: 13
+      settlement: 3
+      city: 4
+    buildings:
+      road:
+        _set:
+        - _obj: '153'
+        - _obj: '155'
+      settlement:
+        _set:
+        - _obj: '152'
+        - _obj: '154'
+      city:
+        _set: []
+    num_res: 3
+    devcards:
+      _set: []
+    past_devcards:
+      _set: []
+    ports:
+      _set: []
+    obj_type: opponent
 table:
-  # robber:
-  #   obj_type: robber
-  #   loc: '7'
-  ck:
-    obj_type: card
-    short_name: K
-    rank: K
-    rel: [c1,c2]
-  cq:
-    obj_type: card
-    short_name: Q
-    rank: Q
-    rel: [c2,c3]
-  c1:
-    obj_type: card
-    short_name: A
-    rank: A
-    rel: [c2,c3]
-  c2:
-    obj_type: card
-    short_name: 2
-    rank: 2
-  c3:
-    obj_type: card
-    short_name: 3
-    rank: 3
-  c4:
-    obj_type: card
-    short_name: 4
-    rank: 4
-  c5:
-    obj_type: card
-    short_name: 5
-    rank: 5
-  c6:
-    obj_type: card
-    short_name: 6
-    rank: 6
-  c7:
-    obj_type: card
-    short_name: 7
-    rank: 7
-  c8:
-    obj_type: card
-    short_name: 8
-    rank: 8
-  c9:
-    obj_type: card
-    short_name: 9
-    rank: 9
-  market:
-    obj_type: market
-    neutral: [c9, c8, c7]
-  # market2:
-  #   obj_type: market
-  #   neutral: [c2,c3]
-  farm:
-    obj_type: building
-    storage: [c1,c2]
-  farm2:
-    obj_type: building
-    storage: [c1,c3]
-
   '0':
     row: 0
     col: 2
@@ -116,12 +169,12 @@ table:
     - _obj: '3'
     - 
     - 
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '19'
     - _obj: '20'
@@ -148,12 +201,12 @@ table:
     - _obj: '4'
     - _obj: '0'
     - 
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '25'
     - _obj: '26'
@@ -180,12 +233,12 @@ table:
     - _obj: '5'
     - _obj: '1'
     - 
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '30'
     - _obj: '31'
@@ -212,12 +265,12 @@ table:
     - _obj: '7'
     - 
     - 
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '22'
     - _obj: '35'
@@ -245,12 +298,12 @@ table:
     - _obj: '8'
     - _obj: '3'
     - _obj: '0'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '28'
     - _obj: '40'
@@ -277,12 +330,12 @@ table:
     - _obj: '9'
     - _obj: '4'
     - _obj: '1'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '33'
     - _obj: '43'
@@ -309,12 +362,12 @@ table:
     - _obj: '10'
     - _obj: '5'
     - _obj: '2'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '46'
     - _obj: '47'
@@ -341,12 +394,12 @@ table:
     - 
     - 
     - 
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '37'
     - _obj: '50'
@@ -373,12 +426,12 @@ table:
     - _obj: '12'
     - _obj: '7'
     - _obj: '3'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '42'
     - _obj: '55'
@@ -405,12 +458,12 @@ table:
     - _obj: '13'
     - _obj: '8'
     - _obj: '4'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '45'
     - _obj: '58'
@@ -437,12 +490,12 @@ table:
     - _obj: '14'
     - _obj: '9'
     - _obj: '5'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '49'
     - _obj: '61'
@@ -469,12 +522,12 @@ table:
     - _obj: '15'
     - _obj: '10'
     - _obj: '6'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '64'
     - _obj: '65'
@@ -501,12 +554,12 @@ table:
     - 
     - 
     - _obj: '7'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '57'
     - _obj: '68'
@@ -533,12 +586,12 @@ table:
     - _obj: '16'
     - _obj: '12'
     - _obj: '8'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '60'
     - _obj: '72'
@@ -565,12 +618,12 @@ table:
     - _obj: '17'
     - _obj: '13'
     - _obj: '9'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '63'
     - _obj: '75'
@@ -597,12 +650,12 @@ table:
     - _obj: '18'
     - _obj: '14'
     - _obj: '10'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '67'
     - _obj: '78'
@@ -629,12 +682,12 @@ table:
     - 
     - 
     - _obj: '12'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '74'
     - _obj: '81'
@@ -661,12 +714,12 @@ table:
     - 
     - _obj: '16'
     - _obj: '13'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '77'
     - _obj: '85'
@@ -693,12 +746,12 @@ table:
     - 
     - _obj: '17'
     - _obj: '14'
-    obj_type: Field
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Field
     edges:
     - _obj: '80'
     - _obj: '88'
@@ -719,12 +772,12 @@ table:
     fields:
     - 
     - _obj: '0'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '92'
     - _obj: '91'
@@ -732,12 +785,12 @@ table:
     fields:
     - _obj: '1'
     - _obj: '0'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '92'
     - _obj: '93'
@@ -745,12 +798,12 @@ table:
     fields:
     - _obj: '4'
     - _obj: '0'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '93'
     - _obj: '94'
@@ -758,12 +811,12 @@ table:
     fields:
     - _obj: '0'
     - _obj: '3'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '94'
     - _obj: '95'
@@ -771,12 +824,12 @@ table:
     fields:
     - _obj: '0'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '96'
     - _obj: '95'
@@ -784,12 +837,12 @@ table:
     fields:
     - _obj: '0'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '91'
     - _obj: '96'
@@ -797,12 +850,12 @@ table:
     fields:
     - 
     - _obj: '1'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '98'
     - _obj: '97'
@@ -810,12 +863,12 @@ table:
     fields:
     - _obj: '2'
     - _obj: '1'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '98'
     - _obj: '99'
@@ -823,38 +876,42 @@ table:
     fields:
     - _obj: '5'
     - _obj: '1'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '99'
     - _obj: '100'
+    building:
+      _obj: '151'
   '28':
     fields:
     - _obj: '1'
     - _obj: '4'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '100'
     - _obj: '93'
+    building:
+      _obj: '149'
   '29':
     fields:
     - _obj: '1'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '97'
     - _obj: '92'
@@ -862,12 +919,12 @@ table:
     fields:
     - 
     - _obj: '2'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '102'
     - _obj: '101'
@@ -875,12 +932,12 @@ table:
     fields:
     - 
     - _obj: '2'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '102'
     - _obj: '103'
@@ -888,12 +945,12 @@ table:
     fields:
     - _obj: '6'
     - _obj: '2'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '103'
     - _obj: '104'
@@ -901,12 +958,12 @@ table:
     fields:
     - _obj: '2'
     - _obj: '5'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '104'
     - _obj: '99'
@@ -914,12 +971,12 @@ table:
     fields:
     - _obj: '2'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '101'
     - _obj: '98'
@@ -927,12 +984,12 @@ table:
     fields:
     - _obj: '4'
     - _obj: '3'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '94'
     - _obj: '105'
@@ -940,12 +997,12 @@ table:
     fields:
     - _obj: '8'
     - _obj: '3'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '105'
     - _obj: '106'
@@ -953,25 +1010,27 @@ table:
     fields:
     - _obj: '3'
     - _obj: '7'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '106'
     - _obj: '107'
+    building:
+      _obj: '153'
   '38':
     fields:
     - _obj: '3'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '108'
     - _obj: '107'
@@ -979,12 +1038,12 @@ table:
     fields:
     - _obj: '3'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '95'
     - _obj: '108'
@@ -992,12 +1051,12 @@ table:
     fields:
     - _obj: '5'
     - _obj: '4'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '100'
     - _obj: '109'
@@ -1005,12 +1064,12 @@ table:
     fields:
     - _obj: '9'
     - _obj: '4'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '109'
     - _obj: '110'
@@ -1018,12 +1077,12 @@ table:
     fields:
     - _obj: '4'
     - _obj: '8'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '110'
     - _obj: '105'
@@ -1031,12 +1090,12 @@ table:
     fields:
     - _obj: '6'
     - _obj: '5'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '104'
     - _obj: '111'
@@ -1044,12 +1103,12 @@ table:
     fields:
     - _obj: '10'
     - _obj: '5'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '111'
     - _obj: '112'
@@ -1057,25 +1116,27 @@ table:
     fields:
     - _obj: '5'
     - _obj: '9'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '112'
     - _obj: '109'
+    building:
+      _obj: '155'
   '46':
     fields:
     - 
     - _obj: '6'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '113'
     - _obj: '103'
@@ -1083,12 +1144,12 @@ table:
     fields:
     - 
     - _obj: '6'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '113'
     - _obj: '114'
@@ -1096,12 +1157,12 @@ table:
     fields:
     - _obj: '11'
     - _obj: '6'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '114'
     - _obj: '115'
@@ -1109,25 +1170,27 @@ table:
     fields:
     - _obj: '6'
     - _obj: '10'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '115'
     - _obj: '111'
+    building:
+      _obj: '157'
   '50':
     fields:
     - _obj: '8'
     - _obj: '7'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '106'
     - _obj: '116'
@@ -1135,12 +1198,12 @@ table:
     fields:
     - _obj: '12'
     - _obj: '7'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '116'
     - _obj: '117'
@@ -1148,12 +1211,12 @@ table:
     fields:
     - _obj: '7'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '117'
     - _obj: '118'
@@ -1161,12 +1224,12 @@ table:
     fields:
     - _obj: '7'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '119'
     - _obj: '118'
@@ -1174,12 +1237,12 @@ table:
     fields:
     - _obj: '7'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '107'
     - _obj: '119'
@@ -1187,12 +1250,12 @@ table:
     fields:
     - _obj: '9'
     - _obj: '8'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '110'
     - _obj: '120'
@@ -1200,12 +1263,12 @@ table:
     fields:
     - _obj: '13'
     - _obj: '8'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '120'
     - _obj: '121'
@@ -1213,12 +1276,12 @@ table:
     fields:
     - _obj: '8'
     - _obj: '12'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '121'
     - _obj: '116'
@@ -1226,12 +1289,12 @@ table:
     fields:
     - _obj: '10'
     - _obj: '9'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '112'
     - _obj: '122'
@@ -1239,12 +1302,12 @@ table:
     fields:
     - _obj: '14'
     - _obj: '9'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '122'
     - _obj: '123'
@@ -1252,12 +1315,12 @@ table:
     fields:
     - _obj: '9'
     - _obj: '13'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '123'
     - _obj: '120'
@@ -1265,12 +1328,12 @@ table:
     fields:
     - _obj: '11'
     - _obj: '10'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '115'
     - _obj: '124'
@@ -1278,12 +1341,12 @@ table:
     fields:
     - _obj: '15'
     - _obj: '10'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '124'
     - _obj: '125'
@@ -1291,12 +1354,12 @@ table:
     fields:
     - _obj: '10'
     - _obj: '14'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '125'
     - _obj: '122'
@@ -1304,12 +1367,12 @@ table:
     fields:
     - 
     - _obj: '11'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '126'
     - _obj: '114'
@@ -1317,12 +1380,12 @@ table:
     fields:
     - 
     - _obj: '11'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '126'
     - _obj: '127'
@@ -1330,12 +1393,12 @@ table:
     fields:
     - 
     - _obj: '11'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '127'
     - _obj: '128'
@@ -1343,12 +1406,12 @@ table:
     fields:
     - _obj: '11'
     - _obj: '15'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '128'
     - _obj: '124'
@@ -1356,25 +1419,27 @@ table:
     fields:
     - _obj: '13'
     - _obj: '12'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '121'
     - _obj: '129'
+    building:
+      _obj: '159'
   '69':
     fields:
     - _obj: '16'
     - _obj: '12'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '129'
     - _obj: '130'
@@ -1382,12 +1447,12 @@ table:
     fields:
     - _obj: '12'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '130'
     - _obj: '131'
@@ -1395,12 +1460,12 @@ table:
     fields:
     - _obj: '12'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '117'
     - _obj: '131'
@@ -1408,12 +1473,12 @@ table:
     fields:
     - _obj: '14'
     - _obj: '13'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '123'
     - _obj: '132'
@@ -1421,12 +1486,12 @@ table:
     fields:
     - _obj: '17'
     - _obj: '13'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '132'
     - _obj: '133'
@@ -1434,12 +1499,12 @@ table:
     fields:
     - _obj: '13'
     - _obj: '16'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '133'
     - _obj: '129'
@@ -1447,12 +1512,12 @@ table:
     fields:
     - _obj: '15'
     - _obj: '14'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '125'
     - _obj: '134'
@@ -1460,12 +1525,12 @@ table:
     fields:
     - _obj: '18'
     - _obj: '14'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '134'
     - _obj: '135'
@@ -1473,12 +1538,12 @@ table:
     fields:
     - _obj: '14'
     - _obj: '17'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '135'
     - _obj: '132'
@@ -1486,12 +1551,12 @@ table:
     fields:
     - 
     - _obj: '15'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '128'
     - _obj: '136'
@@ -1499,12 +1564,12 @@ table:
     fields:
     - 
     - _obj: '15'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '136'
     - _obj: '137'
@@ -1512,12 +1577,12 @@ table:
     fields:
     - _obj: '15'
     - _obj: '18'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '137'
     - _obj: '134'
@@ -1525,12 +1590,12 @@ table:
     fields:
     - _obj: '17'
     - _obj: '16'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '133'
     - _obj: '138'
@@ -1538,12 +1603,12 @@ table:
     fields:
     - 
     - _obj: '16'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '138'
     - _obj: '139'
@@ -1551,12 +1616,12 @@ table:
     fields:
     - _obj: '16'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '139'
     - _obj: '140'
@@ -1564,12 +1629,12 @@ table:
     fields:
     - _obj: '16'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '130'
     - _obj: '140'
@@ -1577,12 +1642,12 @@ table:
     fields:
     - _obj: '18'
     - _obj: '17'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '135'
     - _obj: '141'
@@ -1590,12 +1655,12 @@ table:
     fields:
     - 
     - _obj: '17'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '141'
     - _obj: '142'
@@ -1603,12 +1668,12 @@ table:
     fields:
     - _obj: '17'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '142'
     - _obj: '138'
@@ -1616,12 +1681,12 @@ table:
     fields:
     - 
     - _obj: '18'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '137'
     - _obj: '143'
@@ -1629,12 +1694,12 @@ table:
     fields:
     - 
     - _obj: '18'
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '143'
     - _obj: '144'
@@ -1642,12 +1707,12 @@ table:
     fields:
     - _obj: '18'
     - 
-    obj_type: Edge
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Edge
     corners:
     - _obj: '144'
     - _obj: '141'
@@ -1656,12 +1721,12 @@ table:
     - 
     - _obj: '0'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '19'
@@ -1672,12 +1737,12 @@ table:
     - 
     - _obj: '1'
     - _obj: '0'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '29'
     - _obj: '20'
@@ -1687,12 +1752,12 @@ table:
     - _obj: '1'
     - _obj: '4'
     - _obj: '0'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '20'
     - _obj: '28'
@@ -1704,29 +1769,27 @@ table:
     - _obj: '0'
     - _obj: '4'
     - _obj: '3'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '21'
     - _obj: '35'
     - _obj: '22'
-    building:
-      _obj: '149'
   '95':
     fields:
     - _obj: '0'
     - _obj: '3'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '23'
     - _obj: '22'
@@ -1736,12 +1799,12 @@ table:
     - 
     - _obj: '0'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '24'
     - _obj: '23'
@@ -1752,12 +1815,12 @@ table:
     - 
     - _obj: '1'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '25'
@@ -1768,12 +1831,12 @@ table:
     - 
     - _obj: '2'
     - _obj: '1'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '34'
     - _obj: '26'
@@ -1784,27 +1847,29 @@ table:
     - _obj: '2'
     - _obj: '5'
     - _obj: '1'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '26'
     - _obj: '33'
     - _obj: '27'
+    building:
+      _obj: '150'
   '100':
     fields:
     - _obj: '1'
     - _obj: '5'
     - _obj: '4'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '27'
     - _obj: '40'
@@ -1814,12 +1879,12 @@ table:
     - 
     - _obj: '2'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '30'
@@ -1829,12 +1894,12 @@ table:
     - 
     - 
     - _obj: '2'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '31'
@@ -1844,12 +1909,12 @@ table:
     - 
     - _obj: '6'
     - _obj: '2'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '31'
     - _obj: '46'
@@ -1860,12 +1925,12 @@ table:
     - _obj: '2'
     - _obj: '6'
     - _obj: '5'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '32'
     - _obj: '43'
@@ -1875,12 +1940,12 @@ table:
     - _obj: '4'
     - _obj: '8'
     - _obj: '3'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '35'
     - _obj: '42'
@@ -1890,27 +1955,29 @@ table:
     - _obj: '3'
     - _obj: '8'
     - _obj: '7'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '36'
     - _obj: '50'
     - _obj: '37'
+    building:
+      _obj: '152'
   '107':
     fields:
     - _obj: '3'
     - _obj: '7'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '38'
     - _obj: '37'
@@ -1921,12 +1988,12 @@ table:
     - 
     - _obj: '3'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '39'
     - _obj: '38'
@@ -1937,27 +2004,29 @@ table:
     - _obj: '5'
     - _obj: '9'
     - _obj: '4'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '40'
     - _obj: '45'
     - _obj: '41'
+    building:
+      _obj: '154'
   '110':
     fields:
     - _obj: '4'
     - _obj: '9'
     - _obj: '8'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '41'
     - _obj: '55'
@@ -1967,27 +2036,29 @@ table:
     - _obj: '6'
     - _obj: '10'
     - _obj: '5'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '43'
     - _obj: '49'
     - _obj: '44'
+    building:
+      _obj: '156'
   '112':
     fields:
     - _obj: '5'
     - _obj: '10'
     - _obj: '9'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '44'
     - _obj: '58'
@@ -1997,12 +2068,12 @@ table:
     - 
     - 
     - _obj: '6'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '47'
@@ -2013,12 +2084,12 @@ table:
     - 
     - _obj: '11'
     - _obj: '6'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '47'
     - _obj: '64'
@@ -2028,12 +2099,12 @@ table:
     - _obj: '6'
     - _obj: '11'
     - _obj: '10'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '48'
     - _obj: '61'
@@ -2043,12 +2114,12 @@ table:
     - _obj: '8'
     - _obj: '12'
     - _obj: '7'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '50'
     - _obj: '57'
@@ -2058,12 +2129,12 @@ table:
     - _obj: '7'
     - _obj: '12'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '51'
     - _obj: '71'
@@ -2074,12 +2145,12 @@ table:
     - _obj: '7'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '53'
     - _obj: '52'
@@ -2089,12 +2160,12 @@ table:
     - 
     - _obj: '7'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '54'
     - _obj: '53'
@@ -2104,12 +2175,12 @@ table:
     - _obj: '9'
     - _obj: '13'
     - _obj: '8'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '55'
     - _obj: '60'
@@ -2119,27 +2190,29 @@ table:
     - _obj: '8'
     - _obj: '13'
     - _obj: '12'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '56'
     - _obj: '68'
     - _obj: '57'
+    building:
+      _obj: '158'
   '122':
     fields:
     - _obj: '10'
     - _obj: '14'
     - _obj: '9'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '58'
     - _obj: '63'
@@ -2149,12 +2222,12 @@ table:
     - _obj: '9'
     - _obj: '14'
     - _obj: '13'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '59'
     - _obj: '72'
@@ -2164,12 +2237,12 @@ table:
     - _obj: '11'
     - _obj: '15'
     - _obj: '10'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '61'
     - _obj: '67'
@@ -2179,12 +2252,12 @@ table:
     - _obj: '10'
     - _obj: '15'
     - _obj: '14'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '62'
     - _obj: '75'
@@ -2194,12 +2267,12 @@ table:
     - 
     - 
     - _obj: '11'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - 
     - _obj: '65'
@@ -2210,12 +2283,12 @@ table:
     - 
     - 
     - _obj: '11'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '65'
     - 
@@ -2226,12 +2299,12 @@ table:
     - _obj: '11'
     - 
     - _obj: '15'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '66'
     - _obj: '78'
@@ -2241,12 +2314,12 @@ table:
     - _obj: '13'
     - _obj: '16'
     - _obj: '12'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '68'
     - _obj: '74'
@@ -2256,12 +2329,12 @@ table:
     - _obj: '12'
     - _obj: '16'
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '69'
     - _obj: '84'
@@ -2271,12 +2344,12 @@ table:
     - _obj: '12'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '71'
     - _obj: '70'
@@ -2287,12 +2360,12 @@ table:
     - _obj: '14'
     - _obj: '17'
     - _obj: '13'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '72'
     - _obj: '77'
@@ -2302,12 +2375,12 @@ table:
     - _obj: '13'
     - _obj: '17'
     - _obj: '16'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '73'
     - _obj: '81'
@@ -2317,12 +2390,12 @@ table:
     - _obj: '15'
     - _obj: '18'
     - _obj: '14'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '75'
     - _obj: '80'
@@ -2332,12 +2405,12 @@ table:
     - _obj: '14'
     - _obj: '18'
     - _obj: '17'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '76'
     - _obj: '85'
@@ -2347,12 +2420,12 @@ table:
     - 
     - 
     - _obj: '15'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '78'
     - 
@@ -2363,12 +2436,12 @@ table:
     - _obj: '15'
     - 
     - _obj: '18'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '79'
     - _obj: '88'
@@ -2379,12 +2452,12 @@ table:
     - _obj: '17'
     - 
     - _obj: '16'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '81'
     - _obj: '87'
@@ -2394,12 +2467,12 @@ table:
     - _obj: '16'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '82'
     - 
@@ -2410,12 +2483,12 @@ table:
     - _obj: '16'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '84'
     - _obj: '83'
@@ -2426,12 +2499,12 @@ table:
     - _obj: '18'
     - 
     - _obj: '17'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '85'
     - _obj: '90'
@@ -2442,12 +2515,12 @@ table:
     - _obj: '17'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '86'
     - 
@@ -2458,12 +2531,12 @@ table:
     - 
     - 
     - _obj: '18'
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '88'
     - 
@@ -2473,12 +2546,12 @@ table:
     - _obj: '18'
     - 
     - 
-    obj_type: Corner
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Corner
     edges:
     - _obj: '89'
     - 
@@ -2507,12 +2580,12 @@ table:
       - _obj: '18'
     rows: 5
     cols: 9
-    obj_type: Board
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Grid
     map:
       _ndarray:
       - - _obj: '3'
@@ -2694,41 +2767,185 @@ table:
   '146':
     loc:
       _obj: '3'
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
     obj_type: robber
-    visible:
-      _set:
-      - _player: White
-      - _player: Red
-      - _player: Blue
   '147':
-    obj_type: devdeck
     visible:
       _set:
       - _player: White
       - _player: Red
       - _player: Blue
+    obj_type: Deck
   '148':
     loc:
       _obj: '93'
     player:
-      _player: p1
+      _player: White
     visible:
       _set:
-      - _player: p1
-      - _player: p2
-      - _player: p3
+      - _player: White
+      - _player: Red
+      - _player: Blue
     obj_type: settlement
   '149':
     loc:
-      _obj: '94'
+      _obj: '28'
     player:
-      _player: p2
+      _player: White
     visible:
       _set:
-      - _player: p1
-      - _player: p2
-      - _player: p3
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+  '150':
+    loc:
+      _obj: '99'
+    player:
+      _player: Red
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
     obj_type: settlement
-
-
-
+  '151':
+    loc:
+      _obj: '27'
+    player:
+      _player: Red
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+  '152':
+    loc:
+      _obj: '106'
+    player:
+      _player: Blue
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: settlement
+  '153':
+    loc:
+      _obj: '37'
+    player:
+      _player: Blue
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+  '154':
+    loc:
+      _obj: '109'
+    player:
+      _player: Blue
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: settlement
+  '155':
+    loc:
+      _obj: '45'
+    player:
+      _player: Blue
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+  '156':
+    loc:
+      _obj: '111'
+    player:
+      _player: Red
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: settlement
+  '157':
+    loc:
+      _obj: '49'
+    player:
+      _player: Red
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+  '158':
+    loc:
+      _obj: '121'
+    player:
+      _player: White
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: settlement
+  '159':
+    loc:
+      _obj: '68'
+    player:
+      _player: White
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
+    obj_type: road
+phase: main
+log:
+  - line:
+    - ''
+    - obj_type: CatanPlayer
+      type: player
+      val: White
+    - " builds a "
+    - obj_type: road
+      ID: '159'
+      type: obj
+      val: road[159]
+    - ''
+    - ''
+    - "\n"
+  - line:
+    - ''
+    - obj_type: CatanPlayer
+      type: player
+      val: White
+    - " rolled: "
+    - 8
+    - "."
+    - "\n"
+  - line:
+    - ''
+    - obj_type: CatanPlayer
+      type: player
+      val: White
+    - " "
+    - " gains "
+    - " "
+    - 1
+    - " "
+    - wood
+    - "."
+    - "\n"

@@ -5,11 +5,9 @@ ROOT:
     bg: green
   panels:
     - type: panel
-      name: hallo
-      params:
-        split: min
       panels:
-        _id: A
+        - _id: A
+        - _id: B
     - type: panel
       # params:
       #   justify-content: center
@@ -54,6 +52,15 @@ fields:
         map: fields_map
         key: .res
   data: .num # type "info".data can be a list, dict, or single element
+
+settlements:
+  _ref: B
+  cond:
+    obj_type: settlement
+  type: picto
+  data: barn
+  params:
+    bg: blue
 
 num_map:
   6:

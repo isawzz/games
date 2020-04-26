@@ -6,52 +6,63 @@ function createChi(nCont, R) {
 	//console.log('_________________ nCont',nCont);
 	//console.log('n',n);
 
-	//showNodeInfo(nCont, 'container');
-	//if (!isList(n)) showNodeInfo(n, 'children'); else consOutput('liste!!!');
-	let verbose = false;// (isString(n) && n[0] == '.');
-
 	let chNodes = [];
 
-	// if (nCont.oid == 'p2'){
-	// 	console.log('player 2 panel!!!')
-	// }
-
 	//case a: n is a string eg., .neutral
+	// eg., panels: .buildings
 	//geht wahrsceinlich nicht fuer multiple levels, must study this!!!!!
 	if (isString(n)) {
-		//console.log('case .aaaa')
-		//zuerst muss dataset finden
-		if (verbose) showNodeInfo(nCont, 'beispiel', ['type', 'pool', 'oid', 'data', 'content']);
+		console.log('********************case .aaaa')
 
-		//replace this by calcContent
 		let ownerId = nCont.oid;
 		let owner = R.sData[ownerId];
-		let olist = calcContent(owner, n);
+
+		let olist = calcContentFromData(ownerId,owner, n, R);
 
 		// console.log('string case olist=',owner,n,olist);
 		//if owner does not have corresponding property, nothing is created!
-		if (!olist || !isList(olist)) {
+		if (!olist) {
 			console.log(ownerId, 'does not have', n, 'or prop', n, 'of', ownerId, 'is not a list!!!')
 			return [];
 		}
+		if (!isList(olist)) olist=[olist];
 
-		for (const oid of olist) {
+		//this does NOT need to be an oid!!! can be any kind of elements!
+		for (const el of olist) {
 			//each of these is becoming 1 child the type of which is unknown!!!
-			let n1 = createPresentationNodeForOid(oid, R);
+			//test if el is an object ID
+			let n1;
+			if (isLiteral(el) && isdef(R.sData[el])){
+				//ref to another object is eval and looking for appropriate spec node to represent this object (eg., a card)
+				n1 = createPresentationNodeForOid(el, R);
+			}else if (!isList(el)){
+				n1 = {type:'info',data:el,oid:ownerId,pool:nCont.pool};
+				//have an element that is NOT an object id
+				//type inference!!!
+				//choose type info or type list
+
+			}else{
+				n1 = {type:'list',elm:el,oid:ownerId,pool:nCont.pool};
+
+			}
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
 
 		}
 	}
 	//cases 0: n is a list
+	// eg. panels: [1,2,3]
 	else if (isList(n)) {
-		//console.log('...case 0');
+		console.log('................case 0');
 		for (const x of n) {
+			//again, each list element can be string,list, or object!
+			//object could be node or object
+			//string could be pp or literal
 			let n1 = jsCopy(x);
 			let content = null;
 			if (isdef(x.data) && isdef(nCont.oid) && nundef(n1.oid)) {
 				n1.oid = nCont.oid;
-				content = calcContent(R.sData[n1.oid], n1.data);
+				content = calcContent(n1.oid,R.sData[n1.oid], n1.data);
 			} else if (isdef(x.data)) {
 				content = x.data;
 			} else if (isdef(nCont.oid) && nundef(n1.oid)) {
@@ -78,7 +89,7 @@ function createChi(nCont, R) {
 		for (let i = 0; i < n.pool.length; i++) {
 			let n1 = jsCopy(n);
 			n1.oid = n.pool[i];
-			n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
+			n1.content = n.data ? calcContent(n1.oid,R.sData[n1.oid], n.data) : null;
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
 		}
@@ -87,7 +98,7 @@ function createChi(nCont, R) {
 	else if (isdef(n.oid)) {
 		//console.log('...case 2')
 		let n1 = jsCopy(n);
-		n1.content = n.data ? calcContent(R.sData[n1.oid], n.data) : null;
+		n1.content = n.data ? calcContent(n1.oid,R.sData[n1.oid], n.data) : null;
 		createLC(n1, nCont.uid, R);
 		chNodes.push(n1);
 	}
@@ -96,7 +107,7 @@ function createChi(nCont, R) {
 		//console.log('...case 3')
 		let n1 = jsCopy(n);
 		n1.oid = nCont.oid;
-		n1.content = calcContent(R.sData[n1.oid], n.data);
+		n1.content = calcContent(n1.oid,R.sData[n1.oid], n.data);
 		createLC(n1, nCont.uid, R);
 		chNodes.push(n1);
 	}
@@ -116,7 +127,7 @@ function createChi(nCont, R) {
 		nCont.oid = nCont.pool[0];
 		//die data muessen in diesem fall eine liste (of objects!)
 		//erstmal brauch ich die data
-		let data = calcContent(R.sData[nCont.oid], nCont.data);
+		let data = calcContent(nCont.oid,R.sData[nCont.oid], nCont.data);
 		//console.log('::::::::data', data);
 		//let n1 = jsCopy(n);
 		n.pool = data;

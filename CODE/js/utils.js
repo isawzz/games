@@ -31,19 +31,34 @@ function adjustContainerLayout(n, R) {
 		if (reverseSplit) { split = 1 - split; }
 	}
 }
-function calcContent(o, path) {
+function recEvalPath(oid, o, plist, R) {
+	if (isEmpty(plist)) return { key: oid, val: o, obj: R.sData };
+	else if (plist.length == 1) {
+		return { key: plist[0], val: o[plist[0]], obj: o };
+	} else {
+		let o1 = o[plist[0]];
+		//if (isLiteral)
+	}
+	if (isString(pp)) {
+		let p1 = stringBefore()
+	}
+}
+
+function calcContent(oid, o, path) {
 
 	if (isString(path)) {
 		if (path[0] != '.') return path;
 
+		console.log('PATH:', path, 'oid', oid, 'o', o);
 		let props = path.split('.').slice(1);
-		// console.log(props, 'props');
-		let content = isEmpty(props) ? o : lookup(o, props);
+		console.log('props', props, isEmpty(props));
+
+		let content = isEmpty(props) ? o.obj_type : lookup(o, props);
 		return content;
 	} else if (isDict(path)) {
 		let content = {};
 		for (const k in path) {
-			let c = calcContent(o, path[k]);
+			let c = calcContent(oid, o, path[k]);
 			if (c) content[k] = c;
 		}
 		return content;
@@ -71,7 +86,7 @@ function createPresentationNodeForOid(oid, R) {
 	// if (verbose) consOutput('need to make a child for', oid, n, nrep);
 	let n1 = nrep;
 	n1.oid = oid;
-	n1.content = nrep.data ? calcContent(R.sData[oid], nrep.data) : null;
+	n1.content = nrep.data ? calcContentFromData(oid, R.sData[oid], nrep.data,R) : null;
 
 	return n1;
 }
@@ -91,6 +106,55 @@ function createUi(n, area, R) {
 	R.setUid(n);
 
 }
+
+function calcContentFromData(oid, o, data, R) {
+
+	// ex: data: .player.name
+	if (isString(data)) {
+		if (data[0] != '.') return data;
+
+		console.log('PATH:', data, 'oid', oid, 'o', o);
+		let props = data.split('.').slice(1);
+		console.log('props', props, isEmpty(props));
+		//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
+
+		if (props.length == 1 && isEmpty(props[0])) return o;
+
+		else return dPP(o, props, R);
+
+	} else if (isDict(data)) {
+		//beispiel? data is dictionary {vsp:.vsp,money:.money}
+		let content = {};
+		for (const k in data) {
+			let c = calcContentFromData(oid, o, data[k], R);
+			if (c) content[k] = c;
+		}
+		return content;
+	} else if (isList(data)) {
+		//ex: data:[.vps, .money]
+		let content = data.map(x => calcContentFromData(x));
+		return content;
+	}
+	return null;
+
+}
+function dPP(o, plist, pool) {
+	//plist is a list of properties
+	//pool is a dictionary that contains all objects that might be involved
+	if (isEmpty(plist)) return o;
+	if (isList(o) && isNumber(plist[0])) {let i=Number(plist[0]);return dPP(o[i]);}
+	if (!isDict(o)) {error('!!!!!!!');return null;}
+
+	let k1=plist[0];
+	let o1=o[k1];
+	let plist1=plist.slice(1);
+	if (o1._set){o1=o1._set;return o1.map(x=>dPP(x,plist1,R));}
+	if (o1._player){		o1=pool[o1._player];	}
+	else if (o1._obj){o1=pool[o1._obj];}
+	return dPP(o1,plist1,pool);
+}
+
+
 function decodePropertyPath(o, path) {
 	if (isString(path) && path[0] == '.') {
 		let props = path.split('.').slice(1);
@@ -98,6 +162,8 @@ function decodePropertyPath(o, path) {
 
 	}
 }
+
+
 function defaultPresentationNode(oid, o, R) {
 
 	//if o is a list of oids: again, look for spec nodes!
@@ -129,6 +195,13 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
+function detectType(n, defType) {
+	for (const [k, v] of Object.entries(RCONTAINERPROP)) {
+		if (isdef(n[v])) return k; //n.type = k;
+	}
+	if (n.data) return 'info';
+	return null;
+}
 function hasId(o) { return isdef(o._id); }
 
 function mergeInBasicSpecNodesForOid(oid, n, R) {
@@ -136,14 +209,14 @@ function mergeInBasicSpecNodesForOid(oid, n, R) {
 	if (isEmpty(o._rsg)) return n;
 	else {
 		rlist = o._rsg;
-		for (const specNodeName of rlist) { 
+		for (const specNodeName of rlist) {
 			//how to combine multiple nodes?
 			//could do this more intelligently!!!
 			//right now they will simply override each other!
 			let nCand = jsCopy(R.lastSpec[specNodeName]);
 			//if (nundef(nCand._ref)) //nein falsch!!!
 			//gibt es irgendwelche conditions die einen node ausschliessen?
-			n = deepmergeOverride(n, nCand); 
+			n = deepmergeOverride(n, nCand);
 		}
 		return n;
 	}
@@ -164,19 +237,78 @@ function check_ref(specKey, node, R) {
 	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
 	//console.log('places', this.places)
 }
-function mergeChildrenWithRefs(o, R) {
-	for (const k in o) {
-		let ch = o[k];
+function mergeIdRefs_b(n, R) { }
+function mergeIdRefs_ac(n, R) { }
+function mergeAllRefsToIdIntoNode(n, R) {
+	//n has prop _id
+	let loc = n._id;
+	let refDictBySpecNodeName = R.refs[loc];
+	let nNew = jsCopy(n); //returns new copy of n TODO=>copy check when optimizing(=nie?)
+	for (const spNodeName in refDictBySpecNodeName) {
+		let reflist = refDictBySpecNodeName[spNodeName];
+		for (const ref of reflist) {
+			nNew = deepmergeOverride(nNew, ref);
+		}
+	}
+	return nNew;
+	//console.log(refDictBySpecNodeName);
+}
+function mergeChildrenWithRefs(n, R) {
+	for (const k in n) {
+		//muss eigentlich hier nur die containerProp checken!
+		let ch = n[k];
 		if (nundef(ch._id)) continue;
+
 		let loc = ch._id;
+		console.log('node w/ id', loc, ch);
+		console.log('parent of node w/ id', loc, jsCopy(n));
+
+		//frage is container node n[containerProp] ein object (b) oder eine list (c)?
+		//oder ist _id at top level (n._id) =>caught in caller
+
+
 		let refs = R.refs[loc];
 		if (nundef(refs)) continue;
+
+		//have refs and ids to 1 _id location loc (A)
+		console.log('refs for', loc, refs);
+
+		//parent node is 
+
+
 		let spKey = Object.keys(refs)[0];
 		let nSpec = R.lastSpec[spKey];
 		//console.log('nSpec', nSpec);
-		let oNew = deepmerge(o[k], nSpec);
+		let oNew = deepmerge(n[k], nSpec);
 		//console.log('neues child', oNew);
-		o[k] = oNew;
+		n[k] = oNew;
+
+
+	}
+}
+
+function mergeChildrenWithRefs_dep(n, R) {
+	for (const k in n) {
+		let ch = n[k];
+		if (nundef(ch._id)) continue;
+
+		let loc = ch._id;
+		console.log('node w/ id', loc, ch);
+		console.log('parent of node w/ id', loc, jsCopy(n));
+
+		let refs = R.refs[loc];
+		if (nundef(refs)) continue;
+
+		//have refs and ids to 1 _id location loc (A)
+		console.log('refs for', loc, refs);
+
+
+		let spKey = Object.keys(refs)[0];
+		let nSpec = R.lastSpec[spKey];
+		//console.log('nSpec', nSpec);
+		let oNew = deepmerge(n[k], nSpec);
+		//console.log('neues child', oNew);
+		n[k] = oNew;
 
 
 	}
@@ -229,10 +361,10 @@ function mergeCorrectTypeList_BROKEN(n, spec, defType) {
 		return n;
 	}
 
-	console.log('______________________ VOR list merging =====>',n.type);
-	if (isList(n.pool)) console.log('==> new pool',jsCopy(n.pool));
-	if (isList(n.type)) console.log('==> new type',jsCopy(n.type));
-	if (isDict(n)) console.log('==> start n',jsCopy(n));
+	console.log('______________________ VOR list merging =====>', n.type);
+	if (isList(n.pool)) console.log('==> new pool', jsCopy(n.pool));
+	if (isList(n.type)) console.log('==> new type', jsCopy(n.type));
+	if (isDict(n)) console.log('==> start n', jsCopy(n));
 
 	let typelst = isList(type) ? type : [type];
 	let specTypes = typelst.filter(x => isdef(spec[x]));
@@ -265,9 +397,9 @@ function mergeCorrectTypeList_BROKEN(n, spec, defType) {
 	n.pool = pool;
 
 	console.log('nach list merging:');
-	if (isList(n.pool)) console.log('==> new pool',jsCopy(n.pool));
-	if (isList(n.type)) console.log('==> new type',jsCopy(n.type));
-	if (isDict(n)) console.log('==> FINAL n',n);
+	if (isList(n.pool)) console.log('==> new pool', jsCopy(n.pool));
+	if (isList(n.type)) console.log('==> new type', jsCopy(n.type));
+	if (isDict(n)) console.log('==> FINAL n', n);
 	//will nur noch 1 type haben hier!!!
 
 
