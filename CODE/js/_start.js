@@ -78,15 +78,15 @@ function run03(sp, defaults, sdata) {
 
 	R.gen13(); // merges _ref, _id nodes (_id & _ref) disappear? =>R.gens[4]...merged!
 	//console.log(jsCopy(R.lastSpec));
-	console.log('______ ROOT panels nach id/ref merging:');
-	console.log(R);
+	//console.log('______ ROOT panels nach id/ref merging:');
+	//console.log(R);
 	//R.gens[4].ROOT.panels.map(x=>console.log(x));
 
 	phase = 14;
 	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens[5]...merged!
 	//NO, REVERTED!!! also: DParams added to each node (except grid type!), params merged w/ defs!s
-	showPanels(R.gens[5].ROOT);
-	showChildren(R.gens[5].ROOT);
+	//showPanels(R.gens[5].ROOT);
+	//showChildren(R.gens[5].ROOT);
 
 	//gen15 GEHT SO NICHT!!!!!!!!!!!!!!!!!!!!!
 	// phase = 15;
@@ -96,18 +96,19 @@ function run03(sp, defaults, sdata) {
 
 	phase = 20;
 	R.gen20('table'); // expands root, creates 1 node for each ui and uis
-	console.log('______ final ROOT panels:')
-	showPanels(R.ROOT);
-	showChildren(R.ROOT);
-	console.log(R);
-	// R.gens[6].ROOT.panels.map(x=>console.log(x));
-
+	// console.log('______ final ROOT panels:')
+	// showPanels(R.ROOT);
+	// showChildren(R.ROOT);
+	// console.log(R);
 	//console.log('detectBoardParams1 has been called', countDetectBoardParamsCalls,'times!!!!!')
 
 	//R.gen30(); //NOT IMPLEMENTED!!!
 
-	//presentGeneration(R.lastSpec, 'results')
-	//presentRoot(R.lastSpec.ROOT, 'results');
+	presentRoot(R.lastSpec.ROOT, 'tree');
+	presentGenerations([0,4,5,6],'results',R);
+
+	//presentGeneration(R.gens[0], 'results')
+	
 
 }
 

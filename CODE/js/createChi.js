@@ -53,12 +53,15 @@ function createChi(nCont, R) {
 	//cases 0: n is a list
 	// eg. panels: [1,2,3]
 	else if (isList(n)) {
-		console.log('................case 0');
+		console.log('................case 0',n);
+		nCont.case=0;
 		for (const x of n) {
+
 			//again, each list element can be string,list, or object!
 			//object could be node or object
 			//string could be pp or literal
 			let n1 = jsCopy(x);
+			n1.case=0;
 			let content = null;
 			if (isdef(x.data) && isdef(nCont.oid) && nundef(n1.oid)) {
 				n1.oid = nCont.oid;

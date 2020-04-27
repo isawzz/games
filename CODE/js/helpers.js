@@ -21,7 +21,7 @@ function gShape(shape, w = 20, h = 20, color = 'green') {
 
 //#region DOM 1 liners A list divs
 function applyCssStyles(ui, params) {
-	let domType = getTypeOf(ui); 
+	let domType = getTypeOf(ui);
 	if (domType == 'g') {
 		//must apply styles differently or not at all!!!!!
 	} else { mStyle(ui, params); }
@@ -96,6 +96,24 @@ function mStyle(elem, styles, unit = 'px') {
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
+function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
+
+	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopy(o);
+
+	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
+
+	if (nundef(lstOmit)) lstOmit = [];
+	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
+
+	let d = mCreate('div');
+	if (isdef(className)) mClass(d, className);
+	mYaml(d, oCopy);
+	let pre = d.getElementsByTagName('pre')[0];
+	pre.style.fontFamily = 'inherit';
+	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(dParent)) mAppend(dParent, d);
+	return d;
+}
 function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
@@ -1824,57 +1842,20 @@ function getUID(pref = '') {
 var isTraceOn = true; // true | false
 function trace() { if (isTraceOn) console.log('___ ', getFunctionsNameThatCalledThisFunction(), ...arguments); }
 
-function consExpand(o, keys, indent = 0) {
-	console.log('.'.repeat(indent), o);
-	for (const k in o) {
-		if (!keys.includes(k)) continue;
-		let oNew = o[k];
-		console.log('.'.repeat(indent), k + ':')
-		if (isList(oNew)) {
-			for (const el of oNew) {
-				consExpand(el, keys, indent + 2);
-			}
-		} else if (isDict(oNew)) {
-			consExpand(oNew, keys, indent + 2);
-		}
-	}
-
-}
 function consOutput() { console.log(...arguments); }
 function error(msg) {
 	let fname = getFunctionsNameThatCalledThisFunction();
 	console.log(fname, 'ERROR!!!!! ', msg);
 }
-function compactObjectString(o) {
-	let s = '';
-	for (const k in o) {
-		if (isSimple(o[k]) && !isComplexColor(o[k])) {
-			if (isDict(o[k])) {
-				console.log('!!!!!!!!!!!!!!!!isDict', o[k]);
-			}
-			s += k + ':' + o[k] + ' ';
-
-			// s += k + ':' + (isDict(o[k])?compactObjectString(o[k]):o[k]) + ' ';
-		}
-	}
-	return s;
-}
-function extendedObjectString(o, indent, simple, plus, minus) {
-	//console.log('indent',indent)
+function extendedObjectString(o, indent, simple, lstShow, lstOmit) {
 	let s = ' '.repeat(indent) + (o.id ? o.id + ': ' : ' _ : ');
-
-	//console.log('plus',plus)
 	for (const k in o) {
-		//console.log(k,plus && plus.includes(k))
-
 		if (k == 'id') continue;
-		if (plus && plus.includes(k)
-			|| minus && !minus.includes(k)
+		if (lstShow && lstShow.includes(k)
+			|| lstOmit && !lstOmit.includes(k)
 			|| simple && isSimple(o[k]) && !isComplexColor(o[k])) {
 			if (isDict(o[k])) {
-				//console.log('???????!!!!!!!!!!!!!!!!isDict',o[k]);
-				// s+=compactObjectString(o[k]);
-				s += '(' + extendedObjectString(o[k], indent, simple, plus, minus) + ') ';
+				s += '(' + extendedObjectString(o[k], indent, simple, lstShow, lstOmit) + ') ';
 			} else s += k + ':' + o[k] + ' ';
 		}
 	}
@@ -1883,8 +1864,8 @@ function extendedObjectString(o, indent, simple, plus, minus) {
 function showString(x, proplist, include = true) {
 	console.log(anyString3(x, 0, proplist, include));
 }
-
-function showNodeInfo(n, title, lst) {
+function showNodeInfo(n, title, lst, lstOmit) {
+	if (nundef(title)) title='node';
 	let args = [];
 	if (isList(lst)) {
 		for (const prop of lst) {
@@ -1892,62 +1873,18 @@ function showNodeInfo(n, title, lst) {
 		}
 	} else {
 		for (const prop in n) {
+			if (lstOmit.includes(prop)) continue;
 			args.push(prop + ': ' + anyString3(n[prop]));
 		}
 	}
-	console.log(title, ...args);
-	// console.log(title,
-	// 	isdef(n.type) ? ' type:' + n.type : '',
-	// 	isdef(n.uid) ? 'uid:' + n.uid : '',
-	// 	isdef(n.pool) ? 'pool:' + n.pool.map(x => x) : '',
-	// 	isdef(n.content) ? 'content:' + (isList(n.content) ? n.content.map(x => x) : n.content) : '',
-	// 	isdef(n.oid) ? 'oid:' + n.oid : '');
-
-}
-
-
-
-function showFullObject(o, indent = 0, onlySimple = false) {
-	for (const k in o) {
-		if (isSimple(o[k])) console.log(' '.repeat(indent), k, o[k]);
-		else if (!onlySimple) console.log(' '.repeat(indent), k, anyString3(o[k]));
-		else {
-			console.log(' '.repeat(indent), k);
-			showFullObject(o[k], indent + 2);
-		}
-	}
-}
-
-
-function showObject(o, indent = 0, simple = true, plus = null, minus = null) {
-	let s = extendedObjectString(o, indent, simple, plus, minus);
+	let s=title+'\n'+args.join('\n');
 	console.log(s);
-}
-function showTree(o, childrenKeys = ['panels', 'elm'], plus, minus) {
-	recShowTree(o, 0, childrenKeys, plus, minus);
+	//console.log(title, ...args);
 
 }
-function findFirstListKey(o, childrenKeys) {
-	for (const k in o) {
-		let val = o[k];
-		if (childrenKeys && childrenKeys.includes(k) || isList(val)) {
-			return k;
-		}
-	}
-	return null;
-}
-function recShowTree(o, indent, childrenKeys, plus, minus) {
-	showObject(o, indent, true, plus, minus);
-	let chkey = findFirstListKey(o, childrenKeys);
-	//console.log(chkey,o[chkey])
-	if (chkey) {
-		console.log(' '.repeat(indent + 2) + chkey + ':');
-		for (const ch of o[chkey]) {
-			recShowTree(ch, indent + 4, childrenKeys, plus, minus);
-		}
-	}
 
-}
+
+
 
 
 //#endregion
@@ -2139,6 +2076,27 @@ const fieldSorter = fields => (a, b) =>
 function first(arr) {
 	return arr.length > 0 ? arr[0] : null;
 }
+
+function filterByNoKey(o, undesiredKeys) {
+	//create shallow copy of o without undesiredKeys
+	let o1 = {};
+	for (const k in o) {
+		if (undesiredKeys.includes(k)) continue;
+		o1[k] = o[k];
+	}
+	return o1;
+}
+function filterByKey(o, desiredKeys) {
+	//create shallow copy of o with only desiredKeys
+	let o1 = {};
+	for (const k of desiredKeys) {
+		if (isdef(o[k])) {
+			o1[k] = o[k];
+		}
+	}
+	return o1;
+}
+
 function fisherYates(array) {
 	var rnd, temp;
 
@@ -2484,6 +2442,28 @@ function recAllNodes(n, f, p, tailrec, safe = false) {
 		if (!tailrec) f(n, p);
 	}
 }
+function recPresentFilter(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
+	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+	if (nundef(n.children)) return level;
+	let max = 0;
+	for (const x of n.children) {
+		let newMax = recPresentFilter(x, level + 1, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		if (newMax > max) max = newMax;
+	}
+	return max;
+}
+function recPresent(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
+	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
+	n1 = filterByNoKey(n, lstOmit);
+	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
+	if (nundef(n.children)) return level;
+	let max = 0;
+	for (const x of n.children) {
+		let newMax = recPresent(x, level + 1, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		if (newMax > max) max = newMax;
+	}
+	return max;
+}
 function recConvertToList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }
@@ -2495,7 +2475,10 @@ function recConvertToList(n, listOfProps) {
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
-function anyString3(x, indent = 0, proplist=null, include = true, guard=['specKey','label','pool','el','panels','elm','cond','info','o','ui','source','bi']) {
+
+
+
+function anyString3(x, indent = 0, proplist = null, include = true, guard = ['specKey', 'label', 'pool', 'el', 'panels', 'elm', 'cond', 'info', 'o', 'ui', 'source', 'bi']) {
 	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
 	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
 	else if (isEmpty(x)) return x;
@@ -2514,57 +2497,6 @@ function anyString3(x, indent = 0, proplist=null, include = true, guard=['specKe
 		return s;
 	}
 }
-function anyString2(x, indent = 0, proplist, include = true, toplevelOnly = false) {
-	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
-	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
-	else if (isEmpty(x)) return x;
-	else if (isList(x)) {
-		if (toplevelOnly) proplist = null;
-		return x.map(el => anyString2(el, indent + 1, proplist, include)).join(' ');
-	}
-	else if (isDict(x)) {
-		let plist = proplist;
-		if (toplevelOnly) proplist = null;
-		//console.log('dict!',plist,include,x);
-		let s = '';
-		if (isdef(plist)) {
-			if (include) {
-				for (const k of plist) {
-					if (nundef(x[k])) { console.log('continue', x, k); continue; }
-					s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include);
-				}
-			} else {
-				for (const k of plist) {
-					if (isdef(x[k])) continue;
-					s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include);
-				}
-			}
-		} else {
-			for (const k in x) { s += '\n' + ' '.repeat(indent) + k + ': ' + anyString2(x[k], indent + 1, proplist, include); }
-		}
-		return s;
-	}
-}
-function anyString(x, indent = 0, ifDict = 'entries') {
-	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
-	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
-	else if (isEmpty(x)) return x;
-	else if (isList(x)) { return x.map(el => anyString(el, indent + 1, ifDict)).join(' '); }
-	else if (isDict(x)) {
-		let s = '';
-		for (const k in x) { s += '\n' + ' '.repeat(indent) + k + ': ' + anyString(x[k], indent + 1, ifDict); }
-		return s;
-	}
-}
-function anyToString1(x, indent = 0, ifDict = 'entries') {
-	if (isList(x) && !isEmpty(x)) { return x.join(' '); }
-	else if (isDict(x)) {
-		return ifDict == 'keys' ? Object.keys(x).join(' ')
-			: ifDict == 'entries' ? Object.entries(x).map(([k, v]) => k + ': ' + dictOrListToString(v, 'ifDict', indent + 2)).join('\n')
-				: Object.entries(x).join(' ');
-	}
-	else return x;
-}
 function listToString(lst) { return isEmpty(lst) ? lst : lst.join(' '); }
 function dictToKeyList(x) { return Object.keys(lst).join(' '); }
 function dictToValueList(x) { return Object.values(lst).join(' '); }
@@ -2579,7 +2511,6 @@ function dictOrListToString(x, ifDict = 'keys') {
 	}
 	else return null;
 }
-
 function recConvertToSimpleList(n, listOfProps) {
 	//console.log(n)
 	if (isList(n)) { n.map(x => recConvertToList(x, listOfProps)); }

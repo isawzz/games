@@ -1,10 +1,7 @@
 function createLC(n, area, R) {
 	// n ist already a copy of the node to be created
 
-	// R.registerNode(n);
-	//if (nundef(n.params)) n.params = {};
-
-	//if (n.name=='hallo') console.log(n);
+	if (n.specKey=='A') console.log(n);
 
 	let content = n.content;
 

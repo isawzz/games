@@ -40,6 +40,7 @@ function detectBoardParams(n, R) {
 	return justBoardParams;
 	
 }
+//the following only detects the first board object!
 function detectBoardObject(data) { return firstCondDictKeys(data, x => isdef(data[x].map)); }
 function detectBoardType(oBoard, data) {
 	//console.log(oBoard)

@@ -1,0 +1,24 @@
+ROOT: 
+  type: panel
+  panels:
+  - _id: A
+
+
+# ROOT: 
+#   type: panel
+#   panels:
+#     - type: panel
+#       panels:
+#         _id: A
+A:
+  _ref: A
+  cond:
+    obj_type: settlement
+  type: info
+  data: .player.name
+
+
+
+
+
+

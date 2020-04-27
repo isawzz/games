@@ -49,9 +49,9 @@ function calcContent(oid, o, path) {
 	if (isString(path)) {
 		if (path[0] != '.') return path;
 
-		console.log('PATH:', path, 'oid', oid, 'o', o);
+		//console.log('PATH:', path, 'oid', oid, 'o', o);
 		let props = path.split('.').slice(1);
-		console.log('props', props, isEmpty(props));
+		//console.log('props', props, isEmpty(props));
 
 		let content = isEmpty(props) ? o.obj_type : lookup(o, props);
 		return content;
@@ -113,9 +113,9 @@ function calcContentFromData(oid, o, data, R) {
 	if (isString(data)) {
 		if (data[0] != '.') return data;
 
-		console.log('PATH:', data, 'oid', oid, 'o', o);
+		//console.log('PATH:', data, 'oid', oid, 'o', o);
 		let props = data.split('.').slice(1);
-		console.log('props', props, isEmpty(props));
+		//console.log('props', props, isEmpty(props));
 		//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
 
 		if (props.length == 1 && isEmpty(props[0])) return o;
@@ -260,8 +260,8 @@ function mergeChildrenWithRefs(n, R) {
 		if (nundef(ch._id)) continue;
 
 		let loc = ch._id;
-		console.log('node w/ id', loc, ch);
-		console.log('parent of node w/ id', loc, jsCopy(n));
+		//console.log('node w/ id', loc, ch);
+		//console.log('parent of node w/ id', loc, jsCopy(n));
 
 		//frage is container node n[containerProp] ein object (b) oder eine list (c)?
 		//oder ist _id at top level (n._id) =>caught in caller
@@ -271,7 +271,7 @@ function mergeChildrenWithRefs(n, R) {
 		if (nundef(refs)) continue;
 
 		//have refs and ids to 1 _id location loc (A)
-		console.log('refs for', loc, refs);
+		//console.log('refs for', loc, refs);
 
 		//parent node is 
 

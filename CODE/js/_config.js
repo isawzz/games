@@ -11,7 +11,7 @@ const TESTING = true; // true | false //uses files from tests, DOES NOT send rou
 
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-// __hybrid | _hand1 | nRefs1Id
+// __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01
 var SPEC_PATH = '/DATA/__spec0'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
 var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | __cardSuitData | serverttt_real | serverttt | serverCatan | serverAristo
 
