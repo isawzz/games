@@ -30,7 +30,7 @@ function presentRoot(n, area) {
 	//console.log('tree has depth',maxLevel);
 
 	removeInPlace(lstOmit,'children');
-	showNodeInfo(R.ROOT,'root',null,lstOmit);
+	//showNodeInfo(R.ROOT,'root',null,lstOmit);
 
 	//console.log()
 	//let longRoot = mNode(n, { dParent: mBy('buttons'), listOfProps: lstFlatten, omitProps: lstOmit });
@@ -62,7 +62,7 @@ function presentGeneration(n, area) {
 	let lstOmit = ['bi', '_ref', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'ui'];
 	let d = isString(area)? mBy(area):area;
 
-	console.log(n)
+	//console.log(n)
 	for (const k in n){
 		mNodeFilter(n[k],{dParent:d,title:k,lstFlatten:lstFlatten,lstShow:lstShow,lstOmit:lstOmit});
 	}

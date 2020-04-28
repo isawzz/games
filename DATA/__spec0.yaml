@@ -8,50 +8,34 @@ ROOT:
       panels:
         - _id: A
         - _id: B
-    - type: panel
-      # params:
-      #   justify-content: center
-      panels:
-        - type: panel
-          params: 
-            bg: '#ffffff80'
-            flex: 1 0 auto
-          panels:
-            - type: title
-              data: market
-            - name: market_loc
-              _id: market_loc 
-              type: list
-        - _id: main_player
+    # - type: panel
+    #   # params:
+    #   #   justify-content: center
+    #   panels:
+    #     - type: panel
+    #       params: 
+    #         bg: '#ffffff80'
+    #         flex: 1 0 auto
+    #       panels:
+    #         - type: title
+    #           data: market
+    #         - name: market_loc
+    #           _id: market_loc 
+    #           type: list
+    #     - _id: main_player
     - type: main_board
       params: 
         bg: yellow
         flex: 1 0 auto
-    - name: all_opps
-      type: panel
-      panels:
-        _id: all_opps #set multiple panels (panels isDict)
+    # - name: all_opps
+    #   type: panel
+    #   panels:
+    #     _id: all_opps #set multiple panels (panels isDict)
 
 main_board: #for now!
   cond:
     obj_type: Board
   type: grid
-
-fields:
-  cond:
-    obj_type: Field
-  type: info
-  params:
-    font: italic small-caps bold 10pt Georgia, serif
-    fg:
-      _map:
-        map: num_map
-        key: .num
-    bg:
-      _map:
-        map: fields_map
-        key: .res
-  data: .num # type "info".data can be a list, dict, or single element
 
 settlements:
   _ref: B
@@ -61,6 +45,22 @@ settlements:
   data: barn
   params:
     bg: blue
+
+fields:
+  cond:
+    obj_type: Field
+  type: info
+  params:
+    font: italic small-caps bold 10pt Georgia, serif
+    fg: #white
+      _map:
+        map: num_map
+        key: .num
+    bg:
+      _map:
+        map: fields_map
+        key: .res
+  data: .num # type "info".data can be a list, dict, or single element
 
 num_map:
   6:
@@ -172,7 +172,7 @@ robber:
   _ref: A
   data: crow
   params:
-    bg: red
+    fg: white
   #position: .loc
 
 

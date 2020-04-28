@@ -1,12 +1,8 @@
 
 data: .player.name
 
-=>lookup 'player' in o
 
-es ist wie das uebliche lookup, aber hat ein pool
-sodass wenn eine prop eval eine obj id ergibt (oder eine list of ids), es die ensprechenden refs evaluaten kann
 
-pureEval macht nichts als isObjKey
 
 
 

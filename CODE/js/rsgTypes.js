@@ -1,14 +1,23 @@
 
 class RSG {
-	constructor(sp, defs, sdata) {
+	constructor(sp, defs, sdata){ 
 		this.gens = [sp];
 		this.sp = sp;
 		this.lastSpec = sp;
 		this.defs = defs;
-		this.sData = sdata;
+		this._sd={};
+		for(const oid in sdata){
+			this._sd[oid]={oid:oid,o:sdata[oid],rsg:[]};
+		}
+		this.defSource=Object.keys(sdata);
 		this.UIS = {};
 		this.places = {};
 		this.refs = {};
+
+		this.oidNodes = {};
+		this.NODES = {};
+		this.rTree={};
+		this.gTree={};
 
 		this.uid2oids={};
 		this.oid2uids={};
@@ -16,11 +25,17 @@ class RSG {
 	addToPlaces(specKey, placeName, propList) {
 		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
 	}
-	getPlaces(placeName) {
-		return (placeName in this.places) ? this.places[placeName] : {};
-	}
 	addToRefs(specKey, placeName, propList) {
 		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
+	}
+	getO(oid){return this._sd[oid].o;}
+	addR(oid,k){ addIf(this.getR(oid), k); }
+	getR(oid){return this._sd[oid].rsg;}
+	
+	getSpec(spKey=null){return spKey? this.lastSpec[spKey]:this.lastSpec;}
+
+	getPlaces(placeName) {
+		return (placeName in this.places) ? this.places[placeName] : {};
 	}
 	getRefs(placeName) {
 		return (placeName in this.places) ? this.refs[placeName] : {};
@@ -116,24 +131,6 @@ class RSG {
 
 
 	}
-	gen13_dep() {
-		//merge _ref nodes into _id
-		let gen = jsCopy(this.lastSpec);
-
-		for (const k in gen) {
-			let n = gen[k];
-			if (n._id){
-				//case a) _id at top level!
-			}
-			safeRecurse(n, mergeChildrenWithRefs, this, true);
-		}
-		this.gens.push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-
-
-	}
-
 	//gen14 merge spec types into places (forward merge) and merges in def types
 	//NOOOOO doch nicht!!!!!!!!!!! for all types except grid! (grid done in detectBoardParams, see createLC)
 	//type list: hier muesst ich type lists aufloesen!!! 
@@ -206,13 +203,13 @@ class RSG {
 				console.log('positioned element:',n);
 			}
 			for(const oid of n.pool){
-				let o=this.sData[oid];
+				let o=this.getO(oid);
 				//geht nicht wenn path zu anderem o fuehrt!!!!
 				let val = decodePropertyPath(o,n.position);
 				console.log('val ==>',val, typeof val);
 				let oidloc = isString(val)? val : val._obj;
 				console.log(oidloc);
-				let oloc = this.sData[oidloc];
+				let oloc = this.getO(oidloc);
 				let replist = this.oid2uids[oidloc];
 				console.log('rep',replist);
 				let uiloc = this.UIS[replist[0]].ui;
@@ -233,6 +230,36 @@ class RSG {
 	}
 }
 
+function createUi(n, area, R) {
+
+	R.registerNode(n);
+
+	decodeParams(n, R);
+
+	if (nundef(n.type)) n.type = isdef?n.params.defaultType:detectType(n);
+	
+	n.ui = RCREATE[n.type](n, mBy(area), R);
+
+	if (n.type != 'grid') { applyCssStyles(n.ui, n.cssParams); }
+	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
+
+	//TODO: hier muss noch die rsg std params setzen (same for all types!)
+	if (!isEmpty(n.stdParams)) { 
+		//console.log('rsg std params!!!', n.stdParams);
+		switch(n.stdParams.display){
+			case 'if_content': if (!n.content) hide(n.ui); break;
+			case 'hidden': hide(n.ui); break;
+			default: break;
+		}
+	}
+
+	R.setUid(n);
+
+}
+
+function createNode(n,R){
+
+}
 
 
 

@@ -43,27 +43,6 @@ async function gameStep() {
 
 }
 //#endregion
-function showPanels(n){
-	console.log('panels:')
-	if (nundef(n.panels)){
-		console.log('NO PANELS!!!',n)
-	}else if (isList(n.panels)){
-		n.panels.map(x=>console.log(x));
-	}else{
-		console.log(n.panels);
-	}
-}
-function showChildren(n){
-	console.log('children:')
-	if (nundef(n.children)){
-		console.log('NO Children!!!',n)
-	}else if (isList(n.children)){
-		n.children.map(x=>console.log(x));
-	}else{
-		console.log(n.children);
-	}
-}
-
 function run03(sp, defaults, sdata) {
 
 	R = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
@@ -128,6 +107,28 @@ function run03(sp, defaults, sdata) {
 
 
 
+//#region showPanel, showChildren
+function showPanels(n){
+	console.log('panels:')
+	if (nundef(n.panels)){
+		console.log('NO PANELS!!!',n)
+	}else if (isList(n.panels)){
+		n.panels.map(x=>console.log(x));
+	}else{
+		console.log(n.panels);
+	}
+}
+function showChildren(n){
+	console.log('children:')
+	if (nundef(n.children)){
+		console.log('NO Children!!!',n)
+	}else if (isList(n.children)){
+		n.children.map(x=>console.log(x));
+	}else{
+		console.log(n.children);
+	}
+}
+
 
 
 
@@ -163,6 +164,8 @@ async function prelims(){
 	G={};
 	PROTO={};
 	POOLS={augData:makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
+	
+	//sData is a deep copy of serverData => confirm that!!!
 	sData = POOLS.augData; 
 
 	presentSpecDataDefsAsInConfig(SPEC,sData,DEFS);

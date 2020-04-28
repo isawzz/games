@@ -5,19 +5,25 @@ defaults:
   grid: #common to all grids
     params:
       fields:
+        defaultType: 'info'
         bg: 'beige'
         #fg: 'white'
         size: 56 #ideally divisible by 4
       corners:
+        display: if_content
+        defaultType: 'info'
         bg: dimgray
         size: 20
         shape: circle
       edges:
+        display: if_content
+        defaultType: 'info'
         bg: 'silver'
         size: 6
         shape: line
       margin: 6
       field_spacing: 64
+      bg: yellow
   quadGrid: #overrides grid
     params:
       fields:
@@ -28,7 +34,10 @@ defaults:
         shape: hex
   panel:
     params:
-      fg: white
+      bg: green
+      fg: red
+      font-size: 24
+      padding: 10
       orientation: v
       split: equal
       border-radius: 10

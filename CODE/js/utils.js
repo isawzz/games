@@ -31,18 +31,6 @@ function adjustContainerLayout(n, R) {
 		if (reverseSplit) { split = 1 - split; }
 	}
 }
-function recEvalPath(oid, o, plist, R) {
-	if (isEmpty(plist)) return { key: oid, val: o, obj: R.sData };
-	else if (plist.length == 1) {
-		return { key: plist[0], val: o[plist[0]], obj: o };
-	} else {
-		let o1 = o[plist[0]];
-		//if (isLiteral)
-	}
-	if (isString(pp)) {
-		let p1 = stringBefore()
-	}
-}
 
 function calcContent(oid, o, path) {
 
@@ -67,8 +55,8 @@ function calcContent(oid, o, path) {
 
 }
 function createPresentationNodeForOid(oid, R) {
-	let o = R.sData[oid];
-	let stypes = o._rsg;
+	let stypes = R.getR(oid);
+	let o = R.getO(oid);
 	// if (verbose) consOutput(oid, stypes);
 	//if (isEmpty(stypes)) continue;
 	//if no type is found, use default presentation! this child is not presented!
@@ -77,7 +65,7 @@ function createPresentationNodeForOid(oid, R) {
 	if (isEmpty(stypes)) {
 		nrep = defaultPresentationNode(oid, o, R);
 	} else {
-		for (const t of stypes) { nrep = deepmergeOverride(nrep, R.lastSpec[t]); }
+		for (const t of stypes) { nrep = deepmergeOverride(nrep, R.getSpec(t)); }
 		delete nrep.source;
 		delete nrep.pool;
 	}
@@ -86,27 +74,10 @@ function createPresentationNodeForOid(oid, R) {
 	// if (verbose) consOutput('need to make a child for', oid, n, nrep);
 	let n1 = nrep;
 	n1.oid = oid;
-	n1.content = nrep.data ? calcContentFromData(oid, R.sData[oid], nrep.data,R) : null;
+	n1.content = nrep.data ? calcContentFromData(oid, o, nrep.data, R) : null;
 
 	return n1;
 }
-function createUi(n, area, R) {
-
-	R.registerNode(n);
-
-	decodeParams(n, R);
-
-	n.ui = RCREATE[n.type](n, mBy(area), R);
-
-	if (n.type != 'grid') { applyCssStyles(n.ui, n.cssParams); }
-
-	//TODO: hier muss noch die rsg std params setzen (same for all types!)
-	if (!isEmpty(n.stdParams)) { console.log('rsg std params!!!', n.stdParams); }
-
-	R.setUid(n);
-
-}
-
 function calcContentFromData(oid, o, data, R) {
 
 	// ex: data: .player.name
@@ -138,20 +109,20 @@ function calcContentFromData(oid, o, data, R) {
 	return null;
 
 }
-function dPP(o, plist, pool) {
+function dPP(o, plist, R) {
 	//plist is a list of properties
 	//pool is a dictionary that contains all objects that might be involved
 	if (isEmpty(plist)) return o;
-	if (isList(o) && isNumber(plist[0])) {let i=Number(plist[0]);return dPP(o[i]);}
-	if (!isDict(o)) {error('!!!!!!!');return null;}
+	if (isList(o) && isNumber(plist[0])) { let i = Number(plist[0]); return dPP(o[i]); }
+	if (!isDict(o)) { error('!!!!!!!'); return null; }
 
-	let k1=plist[0];
-	let o1=o[k1];
-	let plist1=plist.slice(1);
-	if (o1._set){o1=o1._set;return o1.map(x=>dPP(x,plist1,R));}
-	if (o1._player){		o1=pool[o1._player];	}
-	else if (o1._obj){o1=pool[o1._obj];}
-	return dPP(o1,plist1,pool);
+	let k1 = plist[0];
+	let o1 = o[k1];
+	let plist1 = plist.slice(1);
+	if (o1._set) { o1 = o1._set; return o1.map(x => dPP(x, plist1, R)); }
+	if (o1._player) { o1 = R.getO(o1._player); }
+	else if (o1._obj) { o1 = R.getO(o1._obj); }
+	return dPP(o1, plist1, R);
 }
 
 
@@ -205,17 +176,12 @@ function detectType(n, defType) {
 function hasId(o) { return isdef(o._id); }
 
 function mergeInBasicSpecNodesForOid(oid, n, R) {
-	let o = R.sData[oid];
-	if (isEmpty(o._rsg)) return n;
+	let r = R.getR(oid);
+	if (isEmpty(r)) return n;
 	else {
-		rlist = o._rsg;
+		rlist = r;
 		for (const specNodeName of rlist) {
-			//how to combine multiple nodes?
-			//could do this more intelligently!!!
-			//right now they will simply override each other!
-			let nCand = jsCopy(R.lastSpec[specNodeName]);
-			//if (nundef(nCand._ref)) //nein falsch!!!
-			//gibt es irgendwelche conditions die einen node ausschliessen?
+			let nCand = R.getSpec(specNodeName); //TODO??? removed jsCopy
 			n = deepmergeOverride(n, nCand);
 		}
 		return n;
@@ -492,7 +458,7 @@ function recMergeSpecTypes(n, spec, defType, counter) {
 }
 //#endregion
 
-//#region source, pool, cond, eval
+//#region source, pool
 function addSourcesAndPools(R) {
 	//source and cond can only occur at top level!
 
@@ -505,10 +471,10 @@ function addSourcesAndPools(R) {
 		let n = sp[k];
 		//console.log('node is', k, n)
 		if (nundef(n._source)) {
-			n.source = justIds(R.sData);
+			n.source = R.defSource;
 			pools[k] = n.pool = makePool(n.cond, n.source, R);
 
-			n.pool.map(x => lookupAddToList(R.sData[x], ['_rsg'], k));
+			n.pool.map(x => R.addR(x, k));
 			//console.log(n.source, n.pool);
 		} else missing.push(k);
 	}
@@ -529,7 +495,7 @@ function addSourcesAndPools(R) {
 			n.source = sourceNode.pool;
 			pools[k] = n.pool = makePool(n.cond, n.source, R);
 
-			n.pool.map(x => lookupAddToList(R.sData[x], ['_rsg'], k));
+			n.pool.map(x => R.addR(x, k));
 
 			done = k;
 			break;
@@ -548,7 +514,7 @@ function makePool(cond, source, R) {
 	let pool = [];
 	for (const oid of source) {
 
-		let o = R.sData[oid];
+		let o = R.getO(oid);
 		// //console.log('o', o)
 		if (!evalConds(o, cond)) continue;
 
@@ -557,8 +523,9 @@ function makePool(cond, source, R) {
 	return pool;
 
 }
+//#endregion
 
-//cond, eval, eval FUNCTIONS
+//#region cond, eval, eval FUNCTIONS
 var FUNCTIONS = {
 	instanceof: 'instanceOf',
 	obj_type: (o, v) => o.obj_type == v,
@@ -577,7 +544,7 @@ function instanceOf(o, className) {
 function evalCond(o, condKey, condVal) {
 	let func = FUNCTIONS[condKey];
 	if (isString(func)) func = window[func];
-	if (nundef(func)) return false;
+	if (nundef(func)) return isdef(o[condKey]) ? o[condKey] == condVal : null;
 	return func(o, condVal);
 }
 function evalConds(o, conds) {
@@ -596,6 +563,8 @@ const PARAMCSS = {
 };
 const PARAMRSG_T = {
 	// true heisst: type handles this param
+	defaultType: false,
+	display: false,
 	overlap: true,
 	orientation: true, // TODO: false
 	split: true, // TODO: false
@@ -605,21 +574,28 @@ const PARAMRSG_T = {
 };
 function decodeParams(n, R) {
 
-	//console.log('__________ decodeParams')
 	//console.log('n.params', n.params);
 	//console.log('def params', defParams);
 
 	//if (n.type == 'grid') console.log(n.params)
+	let defParams;
 
-	let defParams = lookup(R, ['defs', n.type, 'params']);
-	if (n.type != 'grid' && defParams) {
-		if (nundef(n.params)) n.params = jsCopy(defParams);
-		else n.params = deepmergeOverride(defParams, n.params);
+	if (isdef(n.defParams)) {
+		defParams = n.defParams;
+	} else {
+		defParams = lookup(R, ['defs', n.type, 'params']);
+		if (n.type != 'grid' && defParams) {
+			if (nundef(n.params)) n.params = jsCopy(defParams);
+			else n.params = deepmergeOverride(defParams, n.params);
+		}
 	}
 
-	let o = isdef(n.oid) ? R.sData[n.oid] : null;
+	let o = isdef(n.oid) ? R.getO(n.oid) : null;
+
+	//console.log('__________ decodeParams', n.params, defParams)
+
 	let pNew = {};
-	if (o) pNew = mapValues(o, n.params, defParams, R.lastSpec);
+	if (o) pNew = mapValues(o, n.params, defParams, R.getSpec());
 
 	//console.log('pNew nach mapValues', jsCopy(pNew));
 	//console.log('o', o)

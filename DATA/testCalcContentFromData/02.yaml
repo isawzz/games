@@ -1,0 +1,75 @@
+ROOT: 
+  type: panel
+  data: X
+  panels:
+    _id: main_player
+
+player:
+  _ref: main_player
+  cond:
+    name: lauren
+    instanceof: _player
+    # obj_type: _me
+  type: info
+  params:
+    fg: .color
+  data:
+    name: .name
+    vps: .vps
+    money: .money
+    herald: .herald
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# p_elm:
+#   type: panel
+#   data: O
+#   params:
+#     bg: .color
+#   panels:
+#     - type: title
+#       data: .name
+#     - _id: info_loc
+# player_info:
+#   cond:
+#     instanceof: _player
+#   _ref: info_loc
+#   type: info
+#   data:
+#     vps: .vps
+#     money: .money
+#     herald: .herald
+# main_board: #for now!
+#   cond:
+#     obj_type: Board
+#   type: grid
+# fields:
+#   cond:
+#     obj_type: Field
+#     res: wood
+#   type: info
+#   params:
+#     bg: blue
+

@@ -20,7 +20,7 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	boardDiv.id = n.uid + '_div';
 	n.bi.boardSvg = boardSvg;
 	let ui = n.bi.boardG = boardG;
-
+	n.uiType = 'h';
 
 	//do your own styling!or WHAT??????????
 
@@ -112,13 +112,13 @@ function mInfo(n, dParent, R) {
 	if (getTypeOf(dParent) == 'g') {
 
 		let pf = n.params;
-		//console.log('params of board member', n.oid, pf)
+
+		//if (n.oid=='1') console.log('params of board member', n.oid, jsCopy(pf))
 		ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
 		if (n.content) {
-			//hier das createLabel!
-			// createLabel(n, R);
-			let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
-			n.label = agText(ui, n.content, color, pf.font)
+			createLabel_dep(n,ui, R);
+			// let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
+			// n.label = agText(ui, n.content, color, pf.font);
 		}
 
 	} else {

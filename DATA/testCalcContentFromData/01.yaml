@@ -15,7 +15,7 @@ A:
   cond:
     obj_type: settlement
   type: info
-  data: .player.name
+  data: .obj_type
 
 
 

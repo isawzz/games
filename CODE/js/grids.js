@@ -2,17 +2,16 @@ var countDetectBoardParamsCalls=0;//TODO: remove!
 
 function createBoard(n, area, R) {
 	//console.log('createBoard anfang:', jsCopy(n).params)
-	n.bi = window[n.boardType](R.sData[n.oid], R.sData);
+	n.bi = window[n.boardType](R.getO(n.oid), R); 
 	generalGrid(n, area, R);
 }
 function detectBoardOidAndType(n, R) {
 	//detect n.oid if not set!
-	let sd = R.sData;//TODO!!! eigentlich muss ich hier _source nehmen!!!
-	if (!n.oid) n.oid = detectBoardObject(sd);
+	if (!n.oid) n.oid = detectFirstBoardObject(R);
 
-	let oBoard = sd[n.oid];
+	let oBoard = R.getO(n.oid);
 	//console.log('board server object',oBoard);
-	if (!n.boardType) n.boardType = detectBoardType(oBoard, sd);
+	if (!n.boardType) n.boardType = detectBoardType(oBoard, R);
 }
 function detectBoardParams(n, R) {
 	countDetectBoardParamsCalls+=1;//TODO: remove!
@@ -40,26 +39,30 @@ function detectBoardParams(n, R) {
 	return justBoardParams;
 	
 }
-//the following only detects the first board object!
-function detectBoardObject(data) { return firstCondDictKeys(data, x => isdef(data[x].map)); }
-function detectBoardType(oBoard, data) {
+function detectFirstBoardObject(R) { 
+	for (const oid of R.defSource){
+		let o = R.getO(oid);
+		if (isdef(o.map) && isdef(o.fields)) return oid; 
+	}
+}
+function detectBoardType(oBoard, R) {
 	//console.log(oBoard)
 	let fid0 = getElements(oBoard.fields)[0];
 	//console.log(fid0)
-	let nei = data[fid0].neighbors;
+	let nei = R.getO(fid0).neighbors;
 	//console.log('nei',nei);
 	let len = nei.length;
 	return len == 6 ? 'hexGrid' : 'quadGrid'; //for now!
 }
 
-function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
+function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 	//calc pos skeleton of board
 	let board = { o: omap, info: gridInfoFunc(omap.rows, omap.cols) };
 
 	let fields = {};
 	for (const fid of getElements(omap.fields)) {
-		let o = pool[fid];
-		fields[fid] = { oid: fid, o: pool[fid], info: fieldInfoFunc(board.info, o.row, o.col) };
+		let o = R.getO(fid);
+		fields[fid] = { oid: fid, o: o, info: fieldInfoFunc(board.info, o.row, o.col) };
 	}
 	// console.log('fields', fields);
 
@@ -74,7 +77,7 @@ function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
 		for (const cid of getElements(f.o.corners)) {
 			if (cid && nundef(dhelp[cid])) {
 				let pt = f.info.poly[i];
-				corners[cid] = { oid: cid, o: pool[cid], info: { shape: 'circle', memType: 'corner', x: pt.x, y: pt.y, w: 1, h: 1 } };
+				corners[cid] = { oid: cid, o: R.getO(cid), info: { shape: 'circle', memType: 'corner', x: pt.x, y: pt.y, w: 1, h: 1 } };
 				dhelp[cid] = true;
 			}
 			i += 1;
@@ -89,7 +92,7 @@ function gridSkeleton(omap, pool, gridInfoFunc, fieldInfoFunc) {
 		let f = fields[fid];
 		for (const eid of getElements(f.o.edges)) {
 			if (eid && nundef(dhelp[eid])) {
-				let el = pool[eid];
+				let el = R.getO(eid);
 				let n1 = corners[el.corners[0]._obj];
 				let n2 = corners[el.corners[1]._obj];
 				let [x1, y1, x2, y2] = [n1.info.x, n1.info.y, n2.info.x, n2.info.y];
@@ -118,23 +121,11 @@ function generalGrid(n, area, R) {
 		let group = n.bi[name];
 		for (const oid in group) {
 			let n1 = group[oid];
-			n1.params = jsCopy(bMemberParams);
+			n1.params = n1.defParams = jsCopy(bMemberParams);
 
 			n1 = mergeInBasicSpecNodesForOid(oid, n1, R); //implicit merging! 
-
-			if (nundef(n1.type)) {
-				//create pos element damit als loc verwenden kann!!!
-				n1.ui = null;
-				n1.uiType = null;
-				//das wird kein proper child, sondern ein pseudo-child (no ui!)
-				//trotzdem kommt dieses als node in children!
-				//container itself has to position that element!
-				//
-				continue; //no creation when no type: (if n1 does not have a type it will NOT BE PRESENTED!!!!!!!)
-			}
-
 			n1.uiType = 'g';
-			n1.content = calcContent(oid,n1.o, n1.data);
+			n1.content = calcContent(oid, n1.o, n1.data);
 
 			//if (n1.type == 'info') { createLabel(n1, R); }
 
@@ -175,7 +166,7 @@ function generalGrid(n, area, R) {
 	}
 }
 
-function quadGrid(o, pool) {
+function quadGrid(o, R) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
 		let info = {
@@ -209,18 +200,10 @@ function quadGrid(o, pool) {
 		info.poly = getQuadPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
-	return gridSkeleton(o, pool, boardInfo, fieldInfo);
+	return gridSkeleton(o, R, boardInfo, fieldInfo);
 
-	// let layoutInfo = gridSkeleton(o, pool, boardInfo, fieldInfo);
-
-	// let olist = [];
-	// for (const id in layoutInfo.fields) { olist.push(id); }
-	// for (const id in layoutInfo.corners) { olist.push(id); }
-	// for (const id in layoutInfo.edges) { olist.push(id); }
-
-	// return { olist: olist, layoutInfo: layoutInfo };
 }
-function hexGrid(o, pool) {
+function hexGrid(o, R) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
 		[dx, dy] = [wdef / 2, (hdef * 3) / 4];
@@ -253,18 +236,8 @@ function hexGrid(o, pool) {
 		info.poly = getHexPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
-	return gridSkeleton(o, pool, boardInfo, fieldInfo);
-	// let layoutInfo = gridSkeleton(o, pool, boardInfo, fieldInfo);
-
-	// let olist = [];
-	// for (const id in layoutInfo.fields) { olist.push(id); }
-	// for (const id in layoutInfo.corners) { olist.push(id); }
-	// for (const id in layoutInfo.edges) { olist.push(id); }
-
-	// return { olist: olist, layoutInfo: layoutInfo };
+	return gridSkeleton(o, R, boardInfo, fieldInfo);
 }
-
-
 
 
 

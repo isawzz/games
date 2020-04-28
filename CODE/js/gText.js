@@ -202,12 +202,12 @@ class gText {
 		let r = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 		if (isFirstChild) { this.ground = r; }
 
-		if (isdef(font))	{	r.style.font=font;} //('font', font);}
-		else{
-		r.setAttribute('font-family', family);
-		r.setAttribute('font-weight', weight);
-		r.setAttribute('font-size', '' + fz + 'px');
-	}
+		if (isdef(font)) { r.style.font = font; } //('font', font);}
+		else {
+			r.setAttribute('font-family', family);
+			r.setAttribute('font-weight', weight);
+			r.setAttribute('font-size', '' + fz + 'px');
+		}
 
 
 		// CSS classes
@@ -222,7 +222,7 @@ class gText {
 		// 	this.fgs.ground = fill;
 		// }
 		//console.log('text: textBg='+textBg)
-		let wText = isdef(font)? getTextWidth(txt,font):this.calcTextWidth(txt, fz, family, weight);
+		let wText = isdef(font) ? getTextWidth(txt, font) : this.calcTextWidth(txt, fz, family, weight);
 
 		if (this.isLine && !isMultiText) {
 			x += this.x;
@@ -237,7 +237,7 @@ class gText {
 			this.textBackground.setAttribute('ry', 6);
 		}
 		r.setAttribute('x', x);
-		if (isdef(font)) fz=firstNumber(font); //assuming font in px
+		if (isdef(font)) fz = firstNumber(font); //assuming font in px
 		//console.log('fz',fz)
 		r.setAttribute('y', y + fz / 2.8);
 		r.setAttribute('text-anchor', 'middle');
@@ -376,50 +376,28 @@ class gText {
 
 }
 
-function agText(g,txt,color,font){
-	let res = new gText({txt:txt,fill:color,font:font});
+function agText(g, txt, color, font) {
+	let res = new gText(g);
+	res.text({ txt: txt, fill: color, font: font });
+	return res;
 }
-function createLabel(n1, R) {
-	//add content area 
-	let g = n1.ui;
-
-	//this code only necessary if persistence!
-	// if (nundef(n1.label)) n1.label = new gText(g);
-	// let gt = n1.label;
-	// gt.text();
+function createLabel_dep(n1, ui, R) {
+	//adds n1.label (type: gText)
+	let g = ui;
 	if (n1.content) {
-
 		let pa = n1.params;
-		//console.log(pa);
-
-		//let fill = lookup(pa, ['font', 'color']);
-		//if (!fill) fill = lookup(pa, ['fg']);
 		let transPa = { txt: n1.content };
-		let fill = pa.fg; 
-		if (isdef(fill)) {transPa.fill = fill;} 
-		else if (isdef(pa.bg)) {transPa.fill = colorIdealText(pa.bg);} 
+		let fill = pa.fg;
+		if (isdef(fill)) { transPa.fill = fill; }
+		else if (isdef(pa.bg)) { transPa.fill = colorIdealText(pa.bg); }
 		else {
 			//console.log('should set default for fg to white')
 			transPa.fill = 'white';
 		}
 
 		let font = pa.font; if (isdef(font)) transPa.font = font;
-		// let font = pa.font; if (isdef(font)) transPa.font = font;
-		// let font = pa.font; if (isdef(font)) transPa.font = font;
-		// let font = pa.font; if (isdef(font)) transPa.font = font;
-
-
-		//console.log('transPa',transPa);
-
-		// fill = lookup(pa,['font','size']);
-		// if (!fill) fill = lookup(pa,['fg']);
-		// transPa={txt:n1.content};
-		// if (fill) transPa.fill = fill;
-
-
-		let gt = n1.label = new gText(g).text(transPa);
-
+		let gt = n1.label = new gText(g);
+		gt.text(transPa);
 	}
-
 }
 

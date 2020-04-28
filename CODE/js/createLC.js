@@ -1,19 +1,24 @@
 function createLC(n, area, R) {
-	// n ist already a copy of the node to be created
+	// n is prototype from which to create new NODE or refer to existing node, depending on n
+	// if (n.specKey=='A') console.log(n);
 
-	if (n.specKey=='A') console.log(n);
+	// if (n.type == 'panel'){
+	// 	//when will I create a new node?
+	// 	createPanel(n,area,R);
+	// 	return n;
+	// }
 
-	let content = n.content;
 
+	//!!!!!!!!!!!!! nothing below this line works !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (isContainerType(n.type)) {
 
 		createUi(n, area, R);
 
 		//pass n.content as pool to container content
-		if (isdef(content) && isList(content)) {
+		if (isdef(n.content) && isList(n.content)) {
 			let prop = RCONTAINERPROP[n.type];
 			let n1 = n[prop];
-			n1.pool = content; //intersect!
+			n1.pool = n.content; //intersect!
 			//console.log('JETZT!!!', n.pool)
 		}
 
