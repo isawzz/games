@@ -4,10 +4,10 @@ ROOT:
     orientation: h
     bg: green
   panels:
-    - type: panel
-      panels:
-        - _id: A
-        - _id: B
+    # - type: panel
+    #   panels:
+    #     - _id: A
+    #     - _id: B
     # - type: panel
     #   # params:
     #   #   justify-content: center

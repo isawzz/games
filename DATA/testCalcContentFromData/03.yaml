@@ -1,11 +1,26 @@
 ROOT: 
   type: panel
-  mark: X
+  mark: x
   panels:
   - type: info
-    data: hallo
+    mark: u
+    data: static
+  - _id: A
+    mark: v
+    params:
+      bg: red
+  - _id: A
+    mark: w
+    params:
+      bg: blue
 
+p2:
+  _ref: B
+  data: B
 
+p1:
+  _ref: A
+  data: A
 # ROOT: 
 #   type: panel
 #   data: X

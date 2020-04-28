@@ -6,15 +6,17 @@ var SEED = 1;
 //TODO: should these be in assets? should I make a globals?
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
-
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-// __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01
+var SPEC_PATH = '/DATA/testBinding/01'; //
+var SERVERDATA_PATH = '/DATA/testBinding/d0'; //
+
+
+// // __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01
 // var SPEC_PATH = '/DATA/testCalcContentFromData/03'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
-var SPEC_PATH = '/DATA/__spec0'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
-var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | __cardSuitData | serverttt_real | serverttt | serverCatan | serverAristo
+// //var SPEC_PATH = '/DATA/__spec0'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
+// var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | __cardSuitData | serverttt_real | serverttt | serverCatan | serverAristo
 
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false

@@ -1,13 +1,6 @@
+
+
 function createLC(n, area, R) {
-	// n is prototype from which to create new NODE or refer to existing node, depending on n
-	// if (n.specKey=='A') console.log(n);
-
-	// if (n.type == 'panel'){
-	// 	//when will I create a new node?
-	// 	createPanel(n,area,R);
-	// 	return n;
-	// }
-
 
 	//!!!!!!!!!!!!! nothing below this line works !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (isContainerType(n.type)) {
@@ -41,7 +34,7 @@ function createLC(n, area, R) {
 
 		//createBoard ist statt createUI, und damit muss board+alle members selbst decodeParams machen!!!
 		createBoard(n, area, R); // *** calling hexGrid or quadGrid!!!!!!!!!!!!!! ***
-		
+
 	}
 
 	//leaf

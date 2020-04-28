@@ -33,7 +33,7 @@ async function gameStep() {
 
 	run03(SPEC,DEFS,sData);
 
-
+	setTimeout(onClickDO,500);
 
 
 
@@ -73,8 +73,13 @@ function run03(sp, defaults, sdata) {
 	// R.gen15();
 	// console.log(R.oidNodes)
 
-	phase = 20;
-	R.gen20('table'); // expands root, creates 1 node for each ui and uis
+	//phase = 20;
+	//R.gen20(); //expand static roow
+	
+	phase = 21;
+	
+	R.gen21('table');// expands dyn root, creates 1 node for each ui and uis
+	
 	// console.log('______ final ROOT panels:')
 	// showPanels(R.ROOT);
 	// showChildren(R.ROOT);
@@ -83,8 +88,8 @@ function run03(sp, defaults, sdata) {
 
 	//R.gen30(); //NOT IMPLEMENTED!!!
 
-	presentRoot(R.lastSpec.ROOT, 'tree');
-	presentGenerations([0,4,5,6],'results',R);
+	presentRoot(R.getSpec().ROOT, 'tree');
+	//presentGenerations([0,4,5,6],'results',R);
 
 	//presentGeneration(R.gens[0], 'results')
 	

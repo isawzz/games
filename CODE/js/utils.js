@@ -288,7 +288,7 @@ function mergeCorrectType(n, spec, defType) {
 		let t = detectType(n, defType);
 		if (t) {
 			n.type = t;
-			console.log('type missing ersetzt durch', n, n.type);
+			//console.log('type missing ersetzt durch', n, n.type);
 		}
 		return n;
 	}
@@ -510,6 +510,8 @@ function addSourcesAndPools(R) {
 }
 function makePool(cond, source, R) {
 	if (nundef(cond)) return [];
+	else if (cond == 'all') return source;
+	
 	// //console.log('cond', cond, 'source', source);
 	let pool = [];
 	for (const oid of source) {

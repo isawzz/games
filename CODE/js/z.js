@@ -1,3 +1,26 @@
+//#region createSTree gen20 FAIL!!!!
+function createSTree(n,idParent, R) {
+	n=createNode(n,idParent,R);
+
+	if (isContainerType(n.type)){
+		let prop = RCONTAINERPROP[n.type];
+
+		//daraus mach jetzt liste von einzelnen els von verlangtem type
+		//geht eigentlich nicht weil kann ja .hand oder so sein! und was mach ich dann????
+	}
+
+}
+function createNode(sp,idParent,R){
+	let n=jsCopy(sp);
+	n.idParent = idParent;
+	let id =n.nid=getUid();
+	n.fullPath=R.NODES[idParent].fullPath + '.' + id;
+	return n;
+}
+
+
+
+
 //#region io
 function consExpand(o, keys, indent = 0) {
 	console.log('.'.repeat(indent), o);

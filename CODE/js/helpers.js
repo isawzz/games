@@ -132,6 +132,11 @@ function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', 
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;// {div:d,pre:pre};
 }
+function mNodeChangeContent(ui,content){
+	let domel=	ui.getElementsByTagName('pre')[0];
+	domel.innerHTML=jsonToYaml(content);
+
+}
 function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; }
 //#endregion
 
@@ -2428,6 +2433,16 @@ function safeRecurse(o, func, params, tailrec) {
 	//console.log('arguments',arguments,typeof arguments)
 	recAllNodes(o, func, params, tailrec, true);
 	return ___enteredRecursion;
+}
+function recCollect(n, cond, akku, safe=false) {
+	console.log(n,isList(n),isDict(n));
+	console.log(cond)
+	if (safe) { ___enteredRecursion += 1; if (___enteredRecursion > MAX_RECURSIONS) { error('MAX_RECURSIONS reached!!!' + f.name); return; } }
+	if (cond(n)) akku.push(n);
+	if (nundef(n.children)) return;
+	for(const ch of n.children){
+		recCollect(ch,cond,akku,safe);
+	}
 }
 function recAllNodes(n, f, p, tailrec, safe = false) {
 	//console.log(n,isList(n),isDict(n));

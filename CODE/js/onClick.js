@@ -1,6 +1,4 @@
-function onClickNextExample(){
+function onClickDO(){binding01();}
 
-}
-function onClickStep(){
-	
-}
+function onClickNextExample(){}
+function onClickStep(){}

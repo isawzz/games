@@ -14,10 +14,10 @@ class RSG {
 		this.places = {};
 		this.refs = {};
 
-		this.oidNodes = {};
-		this.NODES = {};
-		this.rTree={};
-		this.gTree={};
+		// this.oidNodes = {};
+		// this.NODES = {};
+		// this.rTree={};
+		// this.gTree={};
 
 		this.uid2oids={};
 		this.oid2uids={};
@@ -53,8 +53,7 @@ class RSG {
 	unregisterNode(n) { delete this.UIS[n.uid]; }
 	setUid(n) { n.ui.id = n.uid; }
 
-	//gen10 adds source and pool to each spec node, _rsg to each object
-	//type lists: nix
+	//gen10 adds source and pool to each spec node, _rsg to each object	//type lists: nix
 	gen10() {
 		let [gen, pools] = addSourcesAndPools(this);
 		this.gens.push(gen);
@@ -63,8 +62,7 @@ class RSG {
 		this.POOLS = pools; //not sure if need this.POOLS at all!!!
 	}
 
-	//gen11 adds top panel if is not unique top panel
-	//type lists: nix
+	//gen11 adds top panel if is not unique top panel	//type lists: nix
 	gen11() {
 		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
 		let gen = jsCopy(this.lastSpec);
@@ -79,8 +77,7 @@ class RSG {
 
 	}
 
-	//gen12 fills places ad refs, adds specKey to each node
-	//type lists: nix
+	//gen12 fills places ad refs, adds specKey to each node	//type lists: nix
 	gen12() {
 		//add a specKey to each spec node
 		//check_id recursively => fill this.places
@@ -111,8 +108,7 @@ class RSG {
 
 	}
 	// *** 12 + 13 *** hier muesst _id,_ref lists aufloesen!!!!!!!!!!!!!!!!
-	//gen13 merges _ids and _refs
-	//type lists: nix
+	//gen13 merges _ids and _refs	//type lists: nix
 	gen13() {
 		//merge _ref nodes into _id
 		let gen = jsCopy(this.lastSpec);
@@ -179,8 +175,25 @@ class RSG {
 	// }
 	//#endregion
 
-	//gen20 forms tree
-	gen20(area) {
+	//#region gen20 rausgeschmissen weil mist
+	//gen20 forms tree: MAKES ABSOLUTELY NO SENSE!!!
+	gen20() {
+		let gen = jsCopy(this.lastSpec);
+
+		this.NODES={};
+		let id=getUid();
+		this.NODES[id]=this.starter={nid:id,fullPath:id};
+
+		this.ROOT = createSTree(gen.ROOT,this.starter.nid, this);
+
+		this.gens.push(gen);
+		this.lastSpec = gen;
+		//console.log('UIS', R.UIS);
+		//console.log('ROOT', R.ROOT);
+	}
+	//#endregion
+
+	gen21(area) {
 		let gen = jsCopy(this.lastSpec);
 
 		this.ROOT = createLC(gen.ROOT, area, this);
@@ -191,6 +204,7 @@ class RSG {
 		//console.log('ROOT', R.ROOT);
 	}
 
+	
 	// *** NOT IMPLEMENTED!!! ==> present loose objects ***
 	gen30(){
 		//present positioned objects
@@ -254,10 +268,6 @@ function createUi(n, area, R) {
 	}
 
 	R.setUid(n);
-
-}
-
-function createNode(n,R){
 
 }
 

@@ -1,0 +1,22 @@
+ROOT:
+  type: panel
+  panels: 
+    _id: A
+
+A:
+  _ref: A
+  cond: all
+  type: info
+  data: .name
+
+
+
+
+
+
+
+
+
+
+
+
