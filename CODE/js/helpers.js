@@ -2198,9 +2198,13 @@ function intersection(arr1, arr2) {
 	return res;
 }
 function isEmpty(arr) {
-	return arr === undefined || !arr || (isString(arr) && (arr == 'undefined' || arr == '')) || (Array.isArray(arr) && arr.length == 0) || Object.entries(arr).length === 0;
+	return arr === undefined || !arr 
+	|| (isString(arr) && (arr == 'undefined' || arr == '')) 
+	|| (Array.isArray(arr) && arr.length == 0) 
+	|| Object.entries(arr).length === 0;
 }
 function jsCopy(o) {
+	//console.log(o)
 	return JSON.parse(JSON.stringify(o)); //macht deep copy
 }
 function arrlast(arr) {
@@ -2511,7 +2515,7 @@ function recConvertToList(n, listOfProps) {
 	}
 }
 function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, lstOmit } = {}) {
-	//console.log(n);
+	//console.log('recPresentTreeFilter',n);
 	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 	if (nundef(n.children)) return level;
 	let max = 0;
@@ -2519,6 +2523,7 @@ function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, ls
 	for (const x of n.children) {
 		//console.log('x',x,'nDict',nDict,'nDict[x]',nDict[x])
 		let nx=nDict[x];
+		//console.log('nx',nx)
 		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 		if (newMax > max) max = newMax;
 	}

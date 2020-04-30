@@ -8,7 +8,7 @@ ROOT:
       panels:
         - type: A
         - type: B
-
+    - type: A
 A:
   cond:
     obj_type: settlement

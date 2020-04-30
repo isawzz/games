@@ -12,9 +12,9 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 	if (d && SHOW_DEFS) { mNode(DEFS, { dParent: d, listOfProps: lst }); } else { hide('contDEFS'); }
 }
 
-function presentTree(n, area,R, lf, ls, lo) {
+function presentTree(n, area, R, lf, ls, lo) {
 	d = mBy(area);
-	
+
 	let depth = 10;
 	let dLevel = [];
 	for (let i = 0; i < depth; i++) {
@@ -24,6 +24,8 @@ function presentTree(n, area,R, lf, ls, lo) {
 
 	let nDict = R.NodesByUid;
 	//console.log('nDict',nDict)
+	//console.log('n',n)
+	//console.log('nDict',nDict);
 	maxLevel = 1 + recPresentTreeFilter(n, 0, dLevel, nDict, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
 }
 
@@ -83,21 +85,21 @@ function presentGenerations(indices, area, R, genKey = 'G') {
 }
 function presentGeneration(sp, area, lf, ls, lo) {
 	for (const k in sp) {
-		presentAddNode(sp[k],area, lf, ls, lo);
+		presentAddNode(sp[k], k, area, lf, ls, lo);
 	}
 }
-function presentOidNodes(R,area, lf, ls, lo){
-	for(const oid in R.NO){
-		for(const k in R.NO[oid]){
-			presentAddNode(R.NO[oid][k],area, lf, ls, lo);
+function presentOidNodes(R, area, lf, ls, lo) {
+	for (const oid in R.oidNodes) {
+		for (const k in R.oidNodes[oid]) {
+			presentAddNode(R.oidNodes[oid][k], oid, area, lf, ls, lo);
 		}
 	}
 }
-function presentAddNode(n, area, lf, ls, lo) {
+function presentAddNode(n, title, area, lf, ls, lo) {
 	let lstFlatten = ['type', 'pool', 'source', 'data', 'content'];
 	let lstShow = ['type', 'cond', 'oid', 'data', 'content', 'pool', 'panels', '_id', 'uid'];
 	let lstOmit = ['bi', '_ref', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'ui'];
 	let d = isString(area) ? mBy(area) : area;
 
-	mNodeFilter(n, { dParent: d, title: n.oid, lstFlatten: lf, lstShow: ls, lstOmit: lo });
+	mNodeFilter(n, { dParent: d, title: title, lstFlatten: lf, lstShow: ls, lstOmit: lo });
 }

@@ -51,7 +51,7 @@ function run05(sp, defaults, sdata) {
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	R.geninc13();
 	R.clearObjects();
-	R.NO={};
+	R.oidNodes={};
 
 	for (const oid in sdata) {
 		let o=sdata[oid];
@@ -60,18 +60,27 @@ function run05(sp, defaults, sdata) {
 
 	let num = R.gens.G.length;
 	//console.log('#generations',num);
+
+	updateOutput(R);
+
+	setTimeout(()=>testRemoveOidLoc(R),1500);
+
+}
+
+function updateOutput(R){
+	for(const area of ['spec','oidNodes','tree','dicts']){
+		clearElement(area);
+	}
+
 	presentGeneration(R.lastSpec,'spec');
 	presentOidNodes(R,'oidNodes');
 
 	presentTree(R.tree,'tree',R);
-	//for(const path in R.TREENODES) presentAddNode(R.TREENODES[path],'tree',['children'])
+	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
 
-	mDictionary(R.LOCATIONS,{dParent:mBy('dicts'),title:'locations'});
-
+	mDictionary(R.LocToUid,{dParent:mBy('dicts'),title:'locations'});
 
 }
-
-
 
 
 

@@ -18,6 +18,8 @@ class RSG {
 		// this.defSource = Object.keys(sdata);
 		// console.log(sdata,this.defSource)
 
+		this.oidNodes = null;
+
 		//this.bySpecKey = {};
 		// this.oidNodes = {};
 		// this.NODES = {};
