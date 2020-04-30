@@ -12,7 +12,33 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 	if (d && SHOW_DEFS) { mNode(DEFS, { dParent: d, listOfProps: lst }); } else { hide('contDEFS'); }
 }
 
-function presentRoot(n, area) {
+function presentTree(n, area,R, lf, ls, lo) {
+	d = mBy(area);
+	
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+	}
+
+	let nDict = R.NodesByUid;
+	//console.log('nDict',nDict)
+	maxLevel = 1 + recPresentTreeFilter(n, 0, dLevel, nDict, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
+}
+
+function presentRoot(n, area, lf, ls, lo) {
+	d = mBy(area);
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+	}
+
+	maxLevel = 1 + recPresentFilter(n, 0, dLevel, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
+}
+function presentRootPresetLists(n, area) {
 	let lstFlatten = ['type', 'pool', 'source', 'data', 'content'];
 	let lstShow = ['type', 'oid', 'data', 'content', 'pool'];
 	let lstOmit = ['bi', 'panels', '_id', '_ref', 'children', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'uid', 'ui'];
@@ -29,7 +55,7 @@ function presentRoot(n, area) {
 	maxLevel = 1 + recPresentFilter(n, 0, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 	//console.log('tree has depth',maxLevel);
 
-	removeInPlace(lstOmit,'children');
+	removeInPlace(lstOmit, 'children');
 	//showNodeInfo(R.ROOT,'root',null,lstOmit);
 
 	//console.log()
@@ -37,37 +63,41 @@ function presentRoot(n, area) {
 	//mFont(longRoot,10);
 }
 
-function presentGenerations(indices,area,R){
+function presentGenerations(indices, area, R, genKey = 'G') {
 	d = mBy(area);
 	let level = 0;
 	let depth = 10;
 	let dLevel = [];
 	for (let i = 0; i < depth; i++) {
 		let d1 = dLevel[i] = mDiv(d);
-		mSize(d1,'100%','auto');
+		mSize(d1, '100%', 'auto');
 		mFlexWrap(d1)
 		mColor(d1, colorTrans('black', i * .1));
 	}
 
-	let di=0;
-	for(const i of indices){
-		let div = dLevel[di];di++;
-		presentGeneration(R.gens[i],div);
+	let di = 0;
+	for (const i of indices) {
+		let div = dLevel[di]; di++;
+		presentGeneration(R.gens[genKey][i], div);
 	}
 }
-
-function presentGeneration(n, area) {
+function presentGeneration(sp, area, lf, ls, lo) {
+	for (const k in sp) {
+		presentAddNode(sp[k],area, lf, ls, lo);
+	}
+}
+function presentOidNodes(R,area, lf, ls, lo){
+	for(const oid in R.NO){
+		for(const k in R.NO[oid]){
+			presentAddNode(R.NO[oid][k],area, lf, ls, lo);
+		}
+	}
+}
+function presentAddNode(n, area, lf, ls, lo) {
 	let lstFlatten = ['type', 'pool', 'source', 'data', 'content'];
-	let lstShow = ['type','cond', 'oid', 'data', 'content', 'pool', 'panels','_id','uid'];
+	let lstShow = ['type', 'cond', 'oid', 'data', 'content', 'pool', 'panels', '_id', 'uid'];
 	let lstOmit = ['bi', '_ref', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'ui'];
-	let d = isString(area)? mBy(area):area;
+	let d = isString(area) ? mBy(area) : area;
 
-	//console.log(n)
-	for (const k in n){
-		mNodeFilter(n[k],{dParent:d,title:k,lstFlatten:lstFlatten,lstShow:lstShow,lstOmit:lstOmit});
-	}
-	// for (const [k, v] of Object.entries(n)) {
-	// 	maxLevel = 1 + recPresentFilter(n, 0, d, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
-	// }
+	mNodeFilter(n, { dParent: d, title: n.oid, lstFlatten: lf, lstShow: ls, lstOmit: lo });
 }
-

@@ -1,7 +1,9 @@
 //#region globals, _start, gameStep
 window.onload = () => _start();
 var timit, G, PROTO, POOLS, sData;
-var R = null;
+var WR = {};
+//var R=null; //just testing
+//var NO={};
 var phase = 0;
 
 async function _start() {
@@ -31,9 +33,11 @@ async function gameStep() {
 	//console.log('DEFS',DEFS);
 	//console.log('sData',sData);
 
-	run03(SPEC,DEFS,sData);
+	// run03(SPEC,DEFS,sData); //macht gens.G
+	// setTimeout(onClickDO,500);
 
-	setTimeout(onClickDO,500);
+	run05(SPEC,DEFS,sData); //macht gens.G
+
 
 
 
@@ -43,29 +47,89 @@ async function gameStep() {
 
 }
 //#endregion
+function run05(sp, defaults, sdata) {
+	WR.inc = R = new RSG(sp, defaults, sdata);
+	R.geninc13();
+	R.clearObjects();
+	R.NO={};
+
+	for (const oid in sdata) {
+		let o=sdata[oid];
+		addObjectToRoot(oid,o,R);
+	}
+
+	let num = R.gens.G.length;
+	//console.log('#generations',num);
+	presentGeneration(R.lastSpec,'spec');
+	presentOidNodes(R,'oidNodes');
+
+	presentTree(R.tree,'tree',R);
+	//for(const path in R.TREENODES) presentAddNode(R.TREENODES[path],'tree',['children'])
+
+	mDictionary(R.LOCATIONS,{dParent:mBy('dicts'),title:'locations'});
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function run04(sp, defaults, sdata) {
+	WR.G = R1 = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
+	genG('table',R1);
+	setTimeout(()=>binding01(WR.G),500);
+}
+function genG(area,R){
+	console.log('before gen10 habe',R.gens.G.length,R.getSpec());
+	R.gen10(); // sources pools
+	R.gen11(); // make ROOT single(!) panel
+	R.gen12(); // creates places & refs, adds specKey
+	R.gen13(); // merges _ref, _id nodes
+	R.gen14(); // merges spec types 
+	R.gen21(area);// expands dyn root, creates 1 node for each ui and uis
+
+	presentRoot(R.getSpec().ROOT, 'tree');
+	//presentGenerations([0,4,5,6],'results',R);
+	//presentGeneration(R.gens.G[0], 'results')
+}
 function run03(sp, defaults, sdata) {
 
+	//console.log(sdata)
 	R = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
 
+	console.log('before gen10 habe',R.gens.G.length,R.getSpec());
+
 	phase = 1013;
-	R.gen10(); //addSourcesAndPools // =>R.gens[1]...spec w/ pool,source, o._rsg
+
+	R.gen10(); //addSourcesAndPools // =>R.gens.G[1]...spec w/ pool,source, o._rsg
 	//console.log(R.lastSpec.ROOT);
 
-	R.gen11(); // make ROOT single(!) panel =>R.gens[2]... ROOT well-defined
+	R.gen11(); // make ROOT single(!) panel =>R.gens.G[2]... ROOT well-defined
 
-	R.gen12(); // creates places & refs, adds specKey ==>R.gens[3]...specKey
+	R.gen12(); // creates places & refs, adds specKey ==>R.gens.G[3]...specKey
 
-	R.gen13(); // merges _ref, _id nodes (_id & _ref) disappear? =>R.gens[4]...merged!
+	R.gen13(); // merges _ref, _id nodes (_id & _ref) disappear? =>R.gens.G[4]...merged!
 	//console.log(jsCopy(R.lastSpec));
 	//console.log('______ ROOT panels nach id/ref merging:');
 	//console.log(R);
-	//R.gens[4].ROOT.panels.map(x=>console.log(x));
+	//R.gens.G[4].ROOT.panels.map(x=>console.log(x));
 
 	phase = 14;
-	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens[5]...merged!
+	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens.G[5]...merged!
 	//NO, REVERTED!!! also: DParams added to each node (except grid type!), params merged w/ defs!s
-	//showPanels(R.gens[5].ROOT);
-	//showChildren(R.gens[5].ROOT);
+	//showPanels(R.gens.G[5].ROOT);
+	//showChildren(R.gens.G[5].ROOT);
 
 	//gen15 GEHT SO NICHT!!!!!!!!!!!!!!!!!!!!!
 	// phase = 15;
@@ -91,7 +155,7 @@ function run03(sp, defaults, sdata) {
 	presentRoot(R.getSpec().ROOT, 'tree');
 	//presentGenerations([0,4,5,6],'results',R);
 
-	//presentGeneration(R.gens[0], 'results')
+	//presentGeneration(R.gens.G[0], 'results')
 	
 
 }

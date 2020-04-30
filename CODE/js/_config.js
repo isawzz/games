@@ -9,7 +9,7 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-var SPEC_PATH = '/DATA/testBinding/01'; //
+var SPEC_PATH = '/DATA/testBinding/02'; //
 var SERVERDATA_PATH = '/DATA/testBinding/d0'; //
 
 

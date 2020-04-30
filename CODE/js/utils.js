@@ -459,11 +459,8 @@ function recMergeSpecTypes(n, spec, defType, counter) {
 //#endregion
 
 //#region source, pool
-function addSourcesAndPools(R) {
-	//source and cond can only occur at top level!
-
-	let sp = jsCopy(R.lastSpec);
-	let pools = {}; //cache pools koennt ma auch an R anhaengen!!!
+function addNewObjectToSourcesAndPools(o,R) {
+	let sp = R.getSpec();
 
 	//to each sp node add pool if does not have _source
 	let missing = [];
@@ -474,6 +471,55 @@ function addSourcesAndPools(R) {
 			n.source = R.defSource;
 			pools[k] = n.pool = makePool(n.cond, n.source, R);
 
+			n.pool.map(x => R.addR(x, k));
+			//console.log(n.source, n.pool);
+		} else missing.push(k);
+	}
+
+	//console.log('missing', missing);
+	//let safe = 10;
+	while (missing.length > 0) { // || safe < 0) {
+		//safe -= 1;
+
+		//find key in missing for which 
+		let done = null;
+		for (const k of missing) {
+			let n = sp[k];
+			let sourceNode = sp[n._source];
+			//console.log('search', k, node._source);
+			if (nundef(sourceNode.pool)) continue;
+
+			n.source = sourceNode.pool;
+			pools[k] = n.pool = makePool(n.cond, n.source, R);
+
+			n.pool.map(x => R.addR(x, k));
+
+			done = k;
+			break;
+
+		}
+		removeInPlace(missing, done);
+		//console.log('missing', missing);
+	}
+
+	//console.log('POOLS', pools);
+	return [sp, pools];
+}
+
+function addSourcesAndPools(R) {
+	//source and cond can only occur at top level!
+
+	let sp = jsCopy(R.getSpec());
+	let pools = {}; //cache pools koennt ma auch an R anhaengen!!!
+
+	//to each sp node add pool if does not have _source
+	let missing = [];
+	for (const k in sp) {
+		let n = sp[k];
+		//console.log('node is', k, n)
+		if (nundef(n._source)) {
+			n.source = R.defSource;
+			pools[k] = n.pool = makePool(n.cond, n.source, R);
 			n.pool.map(x => R.addR(x, k));
 			//console.log(n.source, n.pool);
 		} else missing.push(k);

@@ -88,13 +88,13 @@ function createChi(nCont, R) {
 	//cases 1-4: n is a dict
 	//case 1: wenn n ein pool besitzt muss fuer jedes el im pool 1 child gemacht werden
 	else if (!isEmpty(n.pool)) {
-		console.log('...case 1',n)
+		//console.log('...case 1',n)
 		for (let i = 0; i < n.pool.length; i++) {
 			let n1 = jsCopy(n);
 			n1.oid = n.pool[i];
 
 			n1.content = n.data ? calcContentFromData(n1.oid,R.getO(n1.oid), n.data,R) : null;
-			console.log(n1.content)
+			//console.log(n1.content)
 			createLC(n1, nCont.uid, R);
 			chNodes.push(n1);
 		}

@@ -96,6 +96,25 @@ function mStyle(elem, styles, unit = 'px') {
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
+function mDictionary(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
+
+	let oCopy = jsCopy(o);
+	if (flattenLists) {
+		for (const k in oCopy) {
+			let cand = oCopy[k];
+			if (isList(cand)) oCopy[k] = cand.join(' ');
+		}
+	}
+
+	let d = mCreate('div');
+	if (isdef(className)) mClass(d, className);
+	mYaml(d, oCopy);
+	let pre = d.getElementsByTagName('pre')[0];
+	pre.style.fontFamily = 'inherit';
+	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(dParent)) mAppend(dParent, d);
+	return d;
+}
 function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopy(o);
@@ -114,6 +133,7 @@ function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, classNam
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
+
 function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
@@ -132,9 +152,9 @@ function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', 
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;// {div:d,pre:pre};
 }
-function mNodeChangeContent(ui,content){
-	let domel=	ui.getElementsByTagName('pre')[0];
-	domel.innerHTML=jsonToYaml(content);
+function mNodeChangeContent(ui, content) {
+	let domel = ui.getElementsByTagName('pre')[0];
+	domel.innerHTML = jsonToYaml(content);
 
 }
 function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; }
@@ -1870,7 +1890,7 @@ function showString(x, proplist, include = true) {
 	console.log(anyString3(x, 0, proplist, include));
 }
 function showNodeInfo(n, title, lst, lstOmit) {
-	if (nundef(title)) title='node';
+	if (nundef(title)) title = 'node';
 	let args = [];
 	if (isList(lst)) {
 		for (const prop of lst) {
@@ -1882,7 +1902,7 @@ function showNodeInfo(n, title, lst, lstOmit) {
 			args.push(prop + ': ' + anyString3(n[prop]));
 		}
 	}
-	let s=title+'\n'+args.join('\n');
+	let s = title + '\n' + args.join('\n');
 	console.log(s);
 	//console.log(title, ...args);
 
@@ -2434,14 +2454,14 @@ function safeRecurse(o, func, params, tailrec) {
 	recAllNodes(o, func, params, tailrec, true);
 	return ___enteredRecursion;
 }
-function recCollect(n, cond, akku, safe=false) {
-	console.log(n,isList(n),isDict(n));
-	console.log(cond)
+function recCollect(n, cond, akku, safe = false) {
+	//console.log(n,isList(n),isDict(n));
+	//console.log(cond)
 	if (safe) { ___enteredRecursion += 1; if (___enteredRecursion > MAX_RECURSIONS) { error('MAX_RECURSIONS reached!!!' + f.name); return; } }
 	if (cond(n)) akku.push(n);
 	if (nundef(n.children)) return;
-	for(const ch of n.children){
-		recCollect(ch,cond,akku,safe);
+	for (const ch of n.children) {
+		recCollect(ch, cond, akku, safe);
 	}
 }
 function recAllNodes(n, f, p, tailrec, safe = false) {
@@ -2489,6 +2509,20 @@ function recConvertToList(n, listOfProps) {
 		}
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
+}
+function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, lstOmit } = {}) {
+	//console.log(n);
+	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+	if (nundef(n.children)) return level;
+	let max = 0;
+	//console.log('n',n,'n.children',n.children);
+	for (const x of n.children) {
+		//console.log('x',x,'nDict',nDict,'nDict[x]',nDict[x])
+		let nx=nDict[x];
+		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		if (newMax > max) max = newMax;
+	}
+	return max;
 }
 
 

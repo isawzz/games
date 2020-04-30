@@ -1,0 +1,23 @@
+ROOT: 
+  type: panel
+  params:
+    orientation: h
+    bg: green
+  panels:
+    - type: panel
+      panels:
+        - type: A
+        - type: B
+
+A:
+  cond:
+    obj_type: settlement
+  type: picto
+  data: barn
+  params:
+    bg: blue
+B:
+  cond:
+    obj_type: robber
+  type: picto
+  data: crow

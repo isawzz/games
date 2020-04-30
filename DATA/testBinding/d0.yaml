@@ -1,11 +1,30 @@
 player:
   p1:
     name: p1
+    age: 320
+  p2:
+    name: p2
+    age: 32
 table:
   o1:
     name: max
+    age: 78
   o2:
     name: peter
+    age: 30
+  'ro':
+    obj_type: robber
+  'dd':
+    obj_type: devdeck
+  'se1':
+    player:
+      _player: p1
+    obj_type: settlement
+  'se2':
+    player:
+      _player: p2
+    obj_type: settlement
+
     
 
 

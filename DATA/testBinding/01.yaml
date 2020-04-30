@@ -1,22 +1,18 @@
 ROOT:
-  type: panel
-  panels: 
-    _id: A
+  data: hallo
+  ch:
+    - p: A
+    - p: B
+    - ch:
+      - p: A
 
 A:
-  _ref: A
   cond: all
-  type: info
   data: .name
 
-
-
-
-
-
-
-
-
-
-
-
+B: 
+  cond:
+    oid: o1
+  data: .age
+  params:
+    fg: red
