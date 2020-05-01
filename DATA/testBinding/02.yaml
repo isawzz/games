@@ -7,7 +7,7 @@ ROOT:
     - type: panel
       panels:
         - type: A
-        - type: B
+        - type: H
     - type: A
 A:
   cond:
@@ -21,3 +21,14 @@ B:
     obj_type: robber
   type: picto
   data: crow
+H:
+  cond:
+    oid: o1
+  type: list
+  elm: .hand
+C:
+  cond:
+    obj_type: card
+    prop: short_name
+  type: info
+  data: .short_name

@@ -41,12 +41,14 @@ class RSG {
 		this._sd = {};
 
 	}
+
 	getO(oid) { return this._sd[oid].o; }
 	addObject(oid, o) {
 		let o1=jsCopy(o);
 		o1.oid=oid;
 		this._sd[oid] = { oid: oid, o: o1, rsg: [] };
 	}
+	deleteObject(oid){delete this._sd[oid];}
 
 	addR(oid, k) { addIf(this.getR(oid), k); }
 	getR(oid) { return this._sd[oid].rsg; }

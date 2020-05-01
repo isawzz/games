@@ -96,15 +96,23 @@ function mStyle(elem, styles, unit = 'px') {
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
+function recFlattenLists(o){
+	for (const k in o) {
+		let cand = o[k];
+		if (isList(cand)) o[k] = cand.join(' ');
+		else if (isDict(cand)) recFlattenLists(cand);
+	}
+}
+
 function mDictionary(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = jsCopy(o);
-	if (flattenLists) {
-		for (const k in oCopy) {
-			let cand = oCopy[k];
-			if (isList(cand)) oCopy[k] = cand.join(' ');
-		}
-	}
+	if (flattenLists) { recFlattenLists(oCopy);}
+	// 	for (const k in oCopy) {
+	// 		let cand = oCopy[k];
+	// 		if (isList(cand)) oCopy[k] = cand.join(' ');
+	// 	}
+	// }
 
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);

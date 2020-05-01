@@ -53,17 +53,24 @@ function run05(sp, defaults, sdata) {
 	R.clearObjects();
 	R.oidNodes={};
 
+	let locOids = [];
 	for (const oid in sdata) {
 		let o=sdata[oid];
-		addObjectToRoot(oid,o,R);
+		if (isdef(o.loc)) {locOids.push(oid);continue;}
+		addNewServerObjectToRsg(oid,o,R);
 	}
+	for(const oid of locOids){
+		let o = sdata[oid];
+		addNewServerObjectToRsg(oid,o,R);
+	}
+
 
 	let num = R.gens.G.length;
 	//console.log('#generations',num);
 
 	updateOutput(R);
 
-	setTimeout(()=>testRemoveOidLoc(R),1500);
+	//setTimeout(()=>testRemoveOidLoc(R),1500);
 
 }
 
@@ -78,7 +85,9 @@ function updateOutput(R){
 	presentTree(R.tree,'tree',R);
 	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
 
-	mDictionary(R.LocToUid,{dParent:mBy('dicts'),title:'locations'});
+	mDictionary(R.NodesByUid,{dParent:mBy('dicts'),title:'nodesByUid '+Object.keys(R.NodesByUid).length});
+	mDictionary(R.treeNodesByOidAndKey,{dParent:mBy('dicts'),title:'treeNodesBy '+Object.keys(R.treeNodesByOidAndKey).length});
+	mDictionary(R.LocToUid,{dParent:mBy('dicts'),title:'locations '+Object.keys(R.LocToUid).length});
 
 }
 
