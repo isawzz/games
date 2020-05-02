@@ -59,6 +59,7 @@ function ensureRtree(R) {
 		R.NodesByUid = {};
 		R.treeNodesByOidAndKey = {};
 		R.tree = recBuild(R.lastSpec.ROOT, '.', null, R.lastSpec, R);
+		R.tree.key = 'ROOT';
 		R.NodesByUid[R.tree.uid] = R.tree;
 
 	} else {
@@ -69,9 +70,11 @@ function ensureRtree(R) {
 }
 function recBuild(n, path, parent, sp, R) {
 	//console.log('***',n,path,parent,sp)
+	//WORKING WITH NORMALIZED SPEC!!!! (only panels and panel)
 	let n1 = { uid: getUID(), uidParent: parent ? parent.uid : null, path: path };
 
-	let locProp = isdef(n._id) ? '_id' : isString(n.type) && isdef(sp[n.type]) ? 'type' : 'p';
+	//console.log('n',n)
+	let locProp = 'panel';//isdef(n._id) ? '_id' : isString(n.type) && isdef(sp[n.type]) ? 'type' : 'panel';
 	let nodeName = n[locProp];
 	if (isString(nodeName)) {
 		//console.log('location:', nodeName, n1);
@@ -80,7 +83,7 @@ function recBuild(n, path, parent, sp, R) {
 		n1.here = nodeName;
 	}
 
-	let chProp = isContainerType(n.type) ? RCONTAINERPROP[n.type] : 'ch';
+	let chProp = 'panels';// isContainerType(n.type) ? RCONTAINERPROP[n.type] : 'panels';
 	let chlist = n[chProp];
 	if (isdef(chlist)) {
 		n1.children = [];
@@ -133,32 +136,13 @@ function addOidByLocProperty(oid, key, R) {
 		//now find parents that have same key and same oid
 		//here oidNodeUid would come in handy! need tree nodes by oid and key here!
 		let parents = lookup(R.treeNodesByOidAndKey, [ID, k]);
-		//console.log('reps for ID', parents);
+		console.log('reps for ID', ID, k, parents, IDkeys, oid, o);
+		console.log('IDNode',IDNode);
 
-		for(const uidParent of parents){
-			addLocForOidToParent(oid,key,uidParent,R);
+		for (const uidParent of parents) {
+			instantiateOidKeyAtParent(oid, key, uidParent, R);
 		}
 	}
-}
-function addLocForOidToParent(oid, loc, uidParent, R) {
-	//console.log('?????????????', uidParent)
-	let nodes = R.oidNodes[oid];
-	if (isEmpty(nodes)) return;
-	let oidNode = nodes[loc];
-	//let uid = oidNode.uid;
-
-	let key = oidNode.key;
-	let n = R.NodesByUid[uidParent];
-	if (nundef(n.children)) n.children = [];
-	let index = n.children.length;
-	//muss aber auch noch einen node produzieren fuer dieses child!!!
-	let newPath = extendPath(n.path, index);
-	//console.log('newPath', newPath)
-	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };// uidOidNode: uid };
-	//console.log('uid', n1.uid)
-	R.NodesByUid[n1.uid] = n1;
-	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
-	n.children.push(n1.uid);
 }
 function addOidByParentKeyLocation(oid, loc, R) {
 	let nodes = R.oidNodes[oid];
@@ -168,18 +152,32 @@ function addOidByParentKeyLocation(oid, loc, R) {
 	if (nundef(parents)) return;
 	//console.log(parents);
 	for (const uidParent of parents) {
-		addLocForOidToParent(oid, loc, uidParent, R);
+		instantiateOidKeyAtParent(oid, loc, uidParent, R);
 
 	}
 }
 
 //#endregion
 
-//#region remove oid
-function completelyRemoveServerObjectFromRsg(oid,R){
+function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 
-	aushaengen(oid,R); //remove from R.tree
-	
+	console.assert(isdef(R.oidNodes[oid][key]), 'oidNode MISSING', oid, key)
+
+	let n = R.NodesByUid[uidParent];
+	if (nundef(n.children)) n.children = [];
+	let index = n.children.length;
+	let newPath = extendPath(n.path, index);
+	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
+	R.NodesByUid[n1.uid] = n1;
+	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
+	n.children.push(n1.uid);
+}
+
+//#region remove oid
+function completelyRemoveServerObjectFromRsg(oid, R) {
+
+	aushaengen(oid, R); //remove from R.tree
+
 	R.deleteObject(oid); //remove R and O for oid
 }
 function aushaengen(oid, R) {
@@ -196,18 +194,22 @@ function aushaengen(oid, R) {
 		removeOidFromLoc(oid, loc, R);
 	}
 }
-function removeOidFromLoc(oid, loc, R) {
+function removeOidFromLoc(oid, key, R) {
 	//let oidNode = R.oidNodes[oid][loc]; //this is just the spec!!!! DO NOT DELETE THIS!!! THIS IS STATIC INFO!!!!!!!!!!
-	let nodeInstances = R.treeNodesByOidAndKey[oid][loc];
-	console.log('instances',nodeInstances);
+	let nodeInstances = lookup(R.treeNodesByOidAndKey, [oid, key]);
+	if (!nodeInstances) {
+		console.log('nothing to remove!', oid, key);
+		return;
+	}
+	console.log('instances', nodeInstances);
 	for (const uid of nodeInstances) {
 		let n1 = R.NodesByUid[uid]; //jetzt habe tree nodes von parent in dem oid haengt!
 		//let uidParent = n1.uidParent; // each node has 1 parent!
 		//let n = R.NodesByUid[uidParent];
 		recRemove(n1, R);
 	}
-	delete R.treeNodesByOidAndKey[oid][loc];
-	if (isEmpty(R.treeNodesByOidAndKey[oid])) delete(R.treeNodesByOidAndKey[oid]);
+	delete R.treeNodesByOidAndKey[oid][key];
+	if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 }
 function recRemove(n, R) {
 	delete R.NodesByUid[n.uid];

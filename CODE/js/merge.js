@@ -197,6 +197,16 @@ function recMergeSpecTypes(n, spec, defType, counter) {
 
 }
 
+//#region helpers only used in V0
+function detectType(n, defType) {
+	//DEPRECATED!!! (v0 merge version!)
+	for (const [k, v] of Object.entries(RCONTAINERPROP)) {
+		if (isdef(n[v])) return k; //n.type = k;
+	}
+
+	if (n.data) return 'info';
+	return null;
+}
 
 
 

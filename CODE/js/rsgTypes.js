@@ -42,7 +42,7 @@ class RSG {
 
 	}
 
-	getO(oid) { return this._sd[oid].o; }
+	getO(oid) { return lookup(this._sd,[oid,'o']); }
 	addObject(oid, o) {
 		let o1=jsCopy(o);
 		o1.oid=oid;
@@ -51,7 +51,7 @@ class RSG {
 	deleteObject(oid){delete this._sd[oid];}
 
 	addR(oid, k) { addIf(this.getR(oid), k); }
-	getR(oid) { return this._sd[oid].rsg; }
+	getR(oid) {  return lookup(this._sd,[oid,'rsg']);}
 
 	getSpec(spKey = null) { return spKey ? this.lastSpec[spKey] : this.lastSpec; }
 
@@ -62,7 +62,8 @@ class RSG {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 	registerNode(n) {
-		let uid = n.uid = getUID();
+		if (nundef(n.uid)) n.uid= getUID();
+		let uid = n.uid;
 		this.UIS[n.uid] = n;
 		if (n.oid) {
 			lookupAddToList(this.uid2oids, [uid], n.oid);
@@ -76,7 +77,7 @@ class RSG {
 
 	//#endregion
 
-	//#region gens
+	//#region v0
 	//gen10 adds source and pool to each spec node, _rsg to each object	//type lists: nix
 	gen10(genKey = 'G') {
 		let [gen, pools] = addSourcesAndPools(this);
@@ -132,6 +133,7 @@ class RSG {
 		this.ROOT = gen.ROOT;
 
 	}
+
 	// *** 12 + 13 *** hier muesst _id,_ref lists aufloesen!!!!!!!!!!!!!!!!
 	//gen13 merges _ids and _refs	//type lists: nix
 	gen13(genKey = 'G') {
@@ -268,9 +270,9 @@ class RSG {
 		}
 	}
 
-	//#endregion
+	//#endregion v0
 
-	//#region trials
+	//#region FAILED trials
 	geniStart() {
 		let sp = this.lastSpec = this.sp;
 		let genKey = 'inc';
@@ -282,7 +284,7 @@ class RSG {
 	}
 	//#endregion
 
-
+	//#region v1
 	geninc13(genKey = 'G') {
 		this.clearObjects();
 		let gen = jsCopy(this.lastSpec);
@@ -303,9 +305,9 @@ function createUi(n, area, R) {
 
 	R.registerNode(n);
 
-	decodeParams(n, R);
+	if (nundef(n.type)) n.type = inferType(n);
 
-	if (nundef(n.type)) n.type = isdef ? n.params.defaultType : detectType(n);
+	decodeParams(n, R);
 
 	n.ui = RCREATE[n.type](n, mBy(area), R);
 

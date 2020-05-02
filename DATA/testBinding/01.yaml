@@ -1,10 +1,10 @@
 ROOT:
   data: hallo
-  ch:
-    - p: A
-    - p: B
-    - ch:
-      - p: A
+  panels:
+    - panel: A
+    - panel: B
+    - panels:
+      - panel: A
 
 A:
   cond: all

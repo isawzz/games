@@ -1,20 +1,18 @@
 ROOT: 
-  type: panel
   params:
     orientation: h
     bg: green
   panels:
-    - type: panel
-      panels:
-        - type: A
-        - type: H
+    - panels:
+        - key: A
+        - key: H
     - type: A
 A:
   cond:
     obj_type: settlement
-  type: picto
   data: barn
   params:
+    type: picto
     bg: blue
 B:
   cond:
@@ -25,7 +23,7 @@ H:
   cond:
     oid: o1
   type: list
-  elm: .hand
+  data: .hand
 C:
   cond:
     obj_type: card

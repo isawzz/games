@@ -48,12 +48,15 @@ async function gameStep() {
 }
 //#endregion
 function run05(sp, defaults, sdata) {
+	//v1
+	//sp = normalizeSpec(sp);
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	R.geninc13();
 	R.clearObjects();
 	R.oidNodes={};
 
 	let locOids = [];
+	//console.log(sdata)
 	for (const oid in sdata) {
 		let o=sdata[oid];
 		if (isdef(o.loc)) {locOids.push(oid);continue;}
@@ -64,11 +67,10 @@ function run05(sp, defaults, sdata) {
 		addNewServerObjectToRsg(oid,o,R);
 	}
 
-
-	let num = R.gens.G.length;
-	//console.log('#generations',num);
-
 	updateOutput(R);
+
+	generateUis('table',R);
+
 
 	//setTimeout(()=>testRemoveOidLoc(R),1500);
 
@@ -82,14 +84,20 @@ function updateOutput(R){
 	presentGeneration(R.lastSpec,'spec');
 	presentOidNodes(R,'oidNodes');
 
-	presentTree(R.tree,'tree',R);
+	presentTree(R.tree,'tree',R,['children']);
 	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
 
 	mDictionary(R.NodesByUid,{dParent:mBy('dicts'),title:'nodesByUid '+Object.keys(R.NodesByUid).length});
-	mDictionary(R.treeNodesByOidAndKey,{dParent:mBy('dicts'),title:'treeNodesBy '+Object.keys(R.treeNodesByOidAndKey).length});
+	mDictionary(R.treeNodesByOidAndKey,{dParent:mBy('dicts'),title:'treeNodesByOidAndKey '+Object.keys(R.treeNodesByOidAndKey).length});
 	mDictionary(R.LocToUid,{dParent:mBy('dicts'),title:'locations '+Object.keys(R.LocToUid).length});
 
 }
+
+
+
+
+
+
 
 
 
@@ -180,21 +188,7 @@ function run03(sp, defaults, sdata) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#region showPanel, showChildren
+//#region showPanel, showChildren v0
 function showPanels(n){
 	console.log('panels:')
 	if (nundef(n.panels)){

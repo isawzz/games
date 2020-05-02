@@ -1,0 +1,35 @@
+players:
+  p1:
+    name: p1
+    hand: [c1,c2]
+  p2:
+    name: p2
+    age: 32
+    hand: [c3]
+table:
+  c1: 
+    obj_type: card
+    short_name: A
+  c2: 
+    obj_type: card
+    short_name: 2
+  c3: 
+    obj_type: card
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -55,6 +55,8 @@ function calcContent(oid, o, path) {
 function calcContentFromData(oid, o, data, R) {
 
 	// ex: data: .player.name
+	if (!o) return data; //static data
+
 	if (isString(data)) {
 		if (data[0] != '.') return data;
 
@@ -92,6 +94,7 @@ function dPP(o, plist, R) {
 
 	let k1 = plist[0];
 	let o1 = o[k1];
+	if (nundef(o1)) return null; //o does NOT have this prop!
 	let plist1 = plist.slice(1);
 	if (o1._set) { o1 = o1._set; return o1.map(x => dPP(x, plist1, R)); }
 	if (o1._player) { o1 = R.getO(o1._player); }
@@ -136,13 +139,15 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
-function detectType(n, defType) {
-	for (const [k, v] of Object.entries(RCONTAINERPROP)) {
-		if (isdef(n[v])) return k; //n.type = k;
-	}
-	if (n.data) return 'info';
-	return null;
+function inferType(n, defType) {
+	if (isdef(n.children)) return 'panel'; else return 'info';
+	// for (const [k, v] of Object.entries(RCONTAINERPROP)) {
+	// 	if (isdef(n[v])) return k; //n.type = k;
+	// }
+	// if (n.ch) return 'panel';
+	// return 'info';
 }
+
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
 function hasId(o) { return isdef(o._id); }

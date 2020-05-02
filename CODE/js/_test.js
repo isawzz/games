@@ -3,7 +3,7 @@ function testRemoveOidLoc(R){
 
 	let nonEmpty=allCondDict(R.oidNodes,x=> !isEmpty(x));
 
-	let random_oid = 'ro';// chooseRandom(nonEmpty);
+	let random_oid = chooseRandom(nonEmpty);
 
 	let locs = Object.keys(R.oidNodes[random_oid]);
 
@@ -18,6 +18,10 @@ function testRemoveOidLoc(R){
 function testAddOidLoc(R){
 
 	let o = R.getO('ro');
+	if (!o){
+		console.log('no object with oid ro found!!!');
+		return;
+	}
 	o.loc='se2';
 	console.log(' T_____________________ testAddOidLoc: add ro to se2');
 	addOidByLocProperty('ro','B',R);

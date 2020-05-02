@@ -32,7 +32,7 @@ function createLC(n, area, R) {
 		detectBoardOidAndType(n, R);
 		//detectBoardParams(n, R); // ==> wird jetzt in generalGrid gemacht!
 
-		//createBoard ist statt createUI, und damit muss board+alle members selbst decodeParams machen!!!
+		//createBoard ist statt createUi, und damit muss board+alle members selbst decodeParams machen!!!
 		createBoard(n, area, R); // *** calling hexGrid or quadGrid!!!!!!!!!!!!!! ***
 
 	}

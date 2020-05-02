@@ -1,6 +1,7 @@
 
-data: .player.name
+binding:
 
+server: 
 
 
 

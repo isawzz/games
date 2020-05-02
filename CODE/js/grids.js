@@ -129,7 +129,7 @@ function generalGrid(n, area, R) {
 
 			//if (n1.type == 'info') { createLabel(n1, R); }
 
-			//console.log('vor createUI von',n1.oid,n1,n.ui);
+			//console.log('vor createUi von',n1.oid,n1,n.ui);
 			createUi(n1, n.uid, R);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
 
 			n.children.push(n1); //n.bi[name][oid] = n1;

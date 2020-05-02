@@ -34,6 +34,7 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 function mPanel(n, dParent, R) {
 	let ui;
 	ui = mDiv(dParent);
+	if (isdef(n.content)) mTextDiv(n.content,ui);
 
 	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// let params = decodeParams(n,{},R);

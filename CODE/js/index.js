@@ -88,6 +88,7 @@ function presentGeneration(sp, area, lf, ls, lo) {
 		presentAddNode(sp[k], k, area, lf, ls, lo);
 	}
 }
+
 function presentOidNodes(R, area, lf, ls, lo) {
 	for (const oid in R.oidNodes) {
 		for (const k in R.oidNodes[oid]) {

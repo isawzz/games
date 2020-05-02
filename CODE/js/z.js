@@ -1,3 +1,12 @@
+//#region misc utils
+function hasChildren(n){
+	let ch=RCONTAINERPROP[n.type];
+	if (nundef(ch)) ch = 'ch';
+	return isdef(n[ch]);
+}
+
+
+
 //#region createSTree gen20 FAIL!!!!
 function createSTree(n,idParent, R) {
 	n=createNode(n,idParent,R);
