@@ -37,11 +37,12 @@ defaults:
       bg: green
       fg: red
       font-size: 24
-      padding: 10
+      #padding: 10
+      #margin: 2
       orientation: v
       split: equal
       border-radius: 10
-      margin: 2
+      
   list:
     params:
       orientation: h

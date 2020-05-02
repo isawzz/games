@@ -1,9 +1,22 @@
 
-binding:
+n=NodesToUid[_1] ...ROOT
+sp=lastSpec (spec auf ui)
+key=ROOT
+nSpec= spec node ROOT {data:hallo...}
+n1 merge(nspec,n)
+oid=null
+o=null
+content=hallo
+ui wird panel mit hallo
 
-server: 
+n1.ch[0] ... {p:a}
+n1.children[0] ... _2
 
-
+als node will NodesByUid[n1.children[0]]
+als key... ROOT pass own
+als relPath .0
+als params: pass own
+als oid: pass own
 
 
 

@@ -34,7 +34,7 @@ class RSG {
 	addToRefs(specKey, placeName, propList) {
 		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
 	}
-	clearObjects(){
+	clearObjects() {
 		this.UIS = {};
 		this.uid2oids = {};
 		this.oid2uids = {};
@@ -42,16 +42,16 @@ class RSG {
 
 	}
 
-	getO(oid) { return lookup(this._sd,[oid,'o']); }
+	getO(oid) { return lookup(this._sd, [oid, 'o']); }
 	addObject(oid, o) {
-		let o1=jsCopy(o);
-		o1.oid=oid;
+		let o1 = jsCopy(o);
+		o1.oid = oid;
 		this._sd[oid] = { oid: oid, o: o1, rsg: [] };
 	}
-	deleteObject(oid){delete this._sd[oid];}
+	deleteObject(oid) { delete this._sd[oid]; }
 
 	addR(oid, k) { addIf(this.getR(oid), k); }
-	getR(oid) {  return lookup(this._sd,[oid,'rsg']);}
+	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 
 	getSpec(spKey = null) { return spKey ? this.lastSpec[spKey] : this.lastSpec; }
 
@@ -62,7 +62,7 @@ class RSG {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 	registerNode(n) {
-		if (nundef(n.uid)) n.uid= getUID();
+		if (nundef(n.uid)) n.uid = getUID();
 		let uid = n.uid;
 		this.UIS[n.uid] = n;
 		if (n.oid) {
@@ -73,7 +73,7 @@ class RSG {
 
 	//TODO: delete ui also if exists and all its links!
 	unregisterNode(n) { delete this.UIS[n.uid]; }
-	setUid(n) { n.ui.id = n.uid; }
+	setUid(n, ui) { ui.id = n.uid; }
 
 	//#endregion
 
@@ -303,28 +303,37 @@ class RSG {
 
 function createUi(n, area, R) {
 
+	if (nundef(n.type)) n.type = inferType(n);
+	if (nundef(n.content) && n.type == 'info') {
+		n.uiType = 'NONE';
+		//console.log('uiType is NONE))))))))))))))))))))))))')
+		return null;
+	}
+
 	R.registerNode(n);
 
-	if (nundef(n.type)) n.type = inferType(n);
-
 	decodeParams(n, R);
+	// if (n.oid=='p1'){
+	// 	console.log('createUi params:',n.type,n.params)
+	// }
 
-	n.ui = RCREATE[n.type](n, mBy(area), R);
+	let ui = RCREATE[n.type](n, mBy(area), R);
 
-	if (n.type != 'grid') { applyCssStyles(n.ui, n.cssParams); }
+	if (n.type != 'grid') { applyCssStyles(ui, n.cssParams); }
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
 	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {
 		//console.log('rsg std params!!!', n.stdParams);
 		switch (n.stdParams.display) {
-			case 'if_content': if (!n.content) hide(n.ui); break;
-			case 'hidden': hide(n.ui); break;
+			case 'if_content': if (!n.content) hide(ui); break;
+			case 'hidden': hide(ui); break;
 			default: break;
 		}
 	}
 
-	R.setUid(n);
+	R.setUid(n, ui);
+	return ui;
 
 }
 

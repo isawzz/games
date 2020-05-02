@@ -1,4 +1,3 @@
-//das sollte noch ueber createUi gehen fuer setUid und param stuff!!!
 function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 2: prep area div (loc 'areaTable') as flexWrap ***
 	//console.log(area)
@@ -25,7 +24,6 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	//do your own styling!or WHAT??????????
 
 	return ui;
-	//R.setUid(n);
 
 }
 
@@ -34,7 +32,10 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 function mPanel(n, dParent, R) {
 	let ui;
 	ui = mDiv(dParent);
-	if (isdef(n.content)) mTextDiv(n.content,ui);
+	if (isdef(n.content)) {
+		let d1=mTextDiv(n.content,ui);
+		mStyle(d1,{padding:10});
+	}
 
 	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// let params = decodeParams(n,{},R);
@@ -109,6 +110,8 @@ function mInfo(n, dParent, R) {
 	//console.log(dParent)
 	//console.log('--->info content',n.content)
 
+	console.assert(isdef(n.content),'mInfo with NO CONTENT!!!!!!!!!!!');
+
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
 
@@ -123,6 +126,8 @@ function mInfo(n, dParent, R) {
 		}
 
 	} else {
+		//console.log(n.content)
+
 		ui = mNode(n.content, { dParent: dParent });
 	}
 

@@ -9,6 +9,8 @@ ROOT:
 A:
   cond: all
   data: .name
+  params:
+    text-align: center
 
 B: 
   cond:

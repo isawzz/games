@@ -342,6 +342,10 @@ function decodeParams(n, R) {
 		defParams = n.defParams;
 	} else {
 		defParams = lookup(R, ['defs', n.type, 'params']);
+		if (n.oid=='p1'){
+			console.log('decode params:',defParams)
+		}
+	
 		if (n.type != 'grid' && defParams) {
 			if (nundef(n.params)) n.params = jsCopy(defParams);
 			else n.params = deepmergeOverride(defParams, n.params);
