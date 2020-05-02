@@ -96,7 +96,7 @@ function mStyle(elem, styles, unit = 'px') {
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
-function recFlattenLists(o){
+function recFlattenLists(o) {
 	for (const k in o) {
 		let cand = o[k];
 		if (isList(cand)) o[k] = cand.join(' ');
@@ -107,7 +107,7 @@ function recFlattenLists(o){
 function mDictionary(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = jsCopy(o);
-	if (flattenLists) { recFlattenLists(oCopy);}
+	if (flattenLists) { recFlattenLists(oCopy); }
 	// 	for (const k in oCopy) {
 	// 		let cand = oCopy[k];
 	// 		if (isList(cand)) oCopy[k] = cand.join(' ');
@@ -2206,10 +2206,10 @@ function intersection(arr1, arr2) {
 	return res;
 }
 function isEmpty(arr) {
-	return arr === undefined || !arr 
-	|| (isString(arr) && (arr == 'undefined' || arr == '')) 
-	|| (Array.isArray(arr) && arr.length == 0) 
-	|| Object.entries(arr).length === 0;
+	return arr === undefined || !arr
+		|| (isString(arr) && (arr == 'undefined' || arr == ''))
+		|| (Array.isArray(arr) && arr.length == 0)
+		|| Object.entries(arr).length === 0;
 }
 function jsCopy(o) {
 	//console.log(o)
@@ -2325,6 +2325,46 @@ function lookupAddToList(dict, keys, val) {
 		// if (i ==ilast && d[k]) d[k]=val;
 
 		if (d[k] === undefined) d[k] = {};
+
+		d = d[k];
+		i += 1;
+	}
+	return d;
+}
+function lookupRemoveFromList(dict, keys, val, deleteIfEmpty = false) {
+	//usage: lookupRemoveFromList({a:{b:[2]}}, [a,b], 2) => {a:{b:[]}} OR {a:{}} (wenn deleteIfEmpty==true)
+	//usage: lookupRemoveFromList({a:{b:[2,3]}}, [a,b], 3) => {a:{b:[2]}}
+	//usage: lookupRemoveFromList({a:[ 0, [2], {b:[]} ] }, [a,1], 2) => { a:[ 0, [], {b:[]} ] }
+	let d = dict;
+	let ilast = keys.length - 1;
+	let i = 0;
+	for (const k of keys) {
+
+		if (i == ilast) {
+			if (nundef(k)) {
+				//letzter key den ich eigentlich setzen will ist undef!
+				alert('lookupRemoveFromList: last key indefined!' + keys.join(' '));
+				return null;
+			} else if (isList(d[k])) {
+				removeInPlace(d[k], val);
+				if (deleteIfEmpty && isEmpty(d[k])) delete d[k];
+			} else {
+				if (d[k] === undefined) {
+					error('lookupRemoveFromList not a list ' + d[k]);
+					return null;
+				}
+			}
+			return d[k];
+		}
+
+		if (nundef(k)) continue; //skip undef or null values
+
+		// if (i ==ilast && d[k]) d[k]=val;
+
+		if (d[k] === undefined) {
+			error('lookupRemoveFromList key not found ' + k);
+			return null;
+		}
 
 		d = d[k];
 		i += 1;
@@ -2530,7 +2570,7 @@ function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, ls
 	//console.log('n',n,'n.children',n.children);
 	for (const x of n.children) {
 		//console.log('x',x,'nDict',nDict,'nDict[x]',nDict[x])
-		let nx=nDict[x];
+		let nx = nDict[x];
 		//console.log('nx',nx)
 		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 		if (newMax > max) max = newMax;

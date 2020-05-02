@@ -2,11 +2,13 @@ function generateUis(area, R) {
 	//go through rsg tree DFS 
 	//merge info for each node (temp!)
 	//eval content =>could lead to more nodes being added as children!
+	ensureUiNodes(R);
 	let n = R.tree;
 	let defParams = {};// { bg: 'blue', fg: 'white' };
 	//console.log(n);
 	recBuildUis(n, area, R, 'ROOT', '.', defParams, null);
 }
+function ensureUiNodes(R){if(nundef(R.uiNodes)) R.uiNodes = {};}
 function recBuildUis(n, area, R, key, relpath, params={}, oid=null) {
 	let n1 = {};//assembled node!its ui should be in mBy(area)
 
@@ -48,16 +50,14 @@ function recBuildUis(n, area, R, key, relpath, params={}, oid=null) {
 
 	//console.log('HAAAAAAAAAAAAAAAALo',n1.content)
 	
-	if (oid == 'p1'){
-		console.log('===>params',n1.params);
-	}
+	// if (oid == 'p1'){
+	// 	console.log('===>params',n1.params);
+	// }
 
 	n1.ui = createUi(n1, area, R);
 
 	//console.log('n1', n1);
-	presentAddNode(n1, n1.uid, 'uiNodes', ['children'], 
-		['content','data','here','key','type','uidParent','uiType'], 
-		['ui','uid','panels','panel']);
+	R.uiNodes[n1.uid]=n1;
 
 	//return;
 	//recurse for ch property

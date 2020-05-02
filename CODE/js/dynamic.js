@@ -58,7 +58,7 @@ function ensureRtree(R) {
 		R.LocToUid = {};
 		R.NodesByUid = {};
 		R.treeNodesByOidAndKey = {};
-		R.tree = recBuild(R.lastSpec.ROOT, '.', null, R.lastSpec, R);
+		R.tree = recBuildRTree(R.lastSpec.ROOT, '.', null, R.lastSpec, R);
 		R.tree.key = 'ROOT';
 		R.NodesByUid[R.tree.uid] = R.tree;
 
@@ -68,7 +68,7 @@ function ensureRtree(R) {
 	}
 	//console.log('==> R.tree:',R.tree)
 }
-function recBuild(n, path, parent, sp, R) {
+function recBuildRTree(n, path, parent, sp, R) {
 	//console.log('***',n,path,parent,sp)
 	//WORKING WITH NORMALIZED SPEC!!!! (only panels and panel)
 	let n1 = { uid: getUID(), uidParent: parent ? parent.uid : null, path: path };
@@ -92,7 +92,7 @@ function recBuild(n, path, parent, sp, R) {
 			//console.log('info',info);
 			let newPath = extendPath(path, i);
 			i += 1;
-			let ch = recBuild(chInfo, newPath, n1, sp, R);
+			let ch = recBuildRTree(chInfo, newPath, n1, sp, R);
 			R.NodesByUid[ch.uid] = ch;
 			n1.children.push(ch.uid);
 		}
@@ -213,6 +213,10 @@ function removeOidFromLoc(oid, key, R) {
 }
 function recRemove(n, R) {
 	delete R.NodesByUid[n.uid];
+	//n.uid muss aus UIS,register,links,ui entfernt werden!!!
+	R.unregisterNode(n)
+	delete R.uiNodes[n.uid];
+
 	let parent = R.NodesByUid[n.uidParent];
 	removeInPlace(parent.children, n.uid);
 	if (isEmpty(parent.children)) delete parent.children;

@@ -1,4 +1,4 @@
-function onClickDO(){
+function onClickRemove(){
 	//binding01(WR.G);
 	testRemoveOidLoc(WR.inc);
 }

@@ -25,10 +25,10 @@ async function _start() {
 	gameStep();
 }
 async function gameStep() {
-	await prelims(); 
-	
+	await prelims();
+
 	// G, PROTO, POOLS, SPEC, DEFS, sData(=POOLS[augData]) in place for parsing spec!
-	
+
 	//console.log('SPEC',SPEC);
 	//console.log('DEFS',DEFS);
 	//console.log('sData',sData);
@@ -36,7 +36,7 @@ async function gameStep() {
 	// run03(SPEC,DEFS,sData); //macht gens.G
 	// setTimeout(onClickDO,500);
 
-	run05(SPEC,DEFS,sData); //macht gens.G
+	run05(SPEC, DEFS, sData); //macht gens.G
 
 
 
@@ -53,43 +53,50 @@ function run05(sp, defaults, sdata) {
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	R.geninc13();
 	R.clearObjects();
-	R.oidNodes={};
+	R.oidNodes = {};
 
 	let locOids = [];
 	//console.log(sdata)
 	for (const oid in sdata) {
-		let o=sdata[oid];
-		if (isdef(o.loc)) {locOids.push(oid);continue;}
-		addNewServerObjectToRsg(oid,o,R);
-	}
-	for(const oid of locOids){
 		let o = sdata[oid];
-		addNewServerObjectToRsg(oid,o,R);
+		if (isdef(o.loc)) { locOids.push(oid); continue; }
+		addNewServerObjectToRsg(oid, o, R);
 	}
+	for (const oid of locOids) {
+		let o = sdata[oid];
+		addNewServerObjectToRsg(oid, o, R);
+	}
+
+	generateUis('table', R);
 
 	updateOutput(R);
 
-	generateUis('table',R);
-
-
+	//testLookupRemoveFromList(); //OK!
 	//setTimeout(()=>testRemoveOidLoc(R),1500);
 
 }
 
-function updateOutput(R){
-	for(const area of ['spec','oidNodes','tree','dicts']){
+function updateOutput(R) {
+	for (const area of ['spec', 'oidNodes', 'tree', 'dicts','uiNodes']) {
 		clearElement(area);
 	}
 
-	presentGeneration(R.lastSpec,'spec');
-	presentOidNodes(R,'oidNodes');
+	presentGeneration(R.lastSpec, 'spec');
+	presentOidNodes(R, 'oidNodes');
 
-	presentTree(R.tree,'tree',R,['children']);
+	console.log(R.uiNodes)
+	for (const uid in R.uiNodes) {
+		presentAddNode(R.uiNodes[uid], uid, 'uiNodes', ['children'],
+			['content', 'data', 'here', 'key', 'type', 'uidParent', 'uiType'],
+			['ui', 'uid', 'panels', 'panel']);
+	}
+
+	presentTree(R.tree, 'tree', R, ['children']);
 	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
 
-	mDictionary(R.NodesByUid,{dParent:mBy('dicts'),title:'nodesByUid '+Object.keys(R.NodesByUid).length});
-	mDictionary(R.treeNodesByOidAndKey,{dParent:mBy('dicts'),title:'treeNodesByOidAndKey '+Object.keys(R.treeNodesByOidAndKey).length});
-	mDictionary(R.LocToUid,{dParent:mBy('dicts'),title:'locations '+Object.keys(R.LocToUid).length});
+	mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
+	mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
 
 }
 
@@ -113,11 +120,11 @@ function updateOutput(R){
 
 function run04(sp, defaults, sdata) {
 	WR.G = R1 = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
-	genG('table',R1);
-	setTimeout(()=>binding01(WR.G),500);
+	genG('table', R1);
+	setTimeout(() => binding01(WR.G), 500);
 }
-function genG(area,R){
-	console.log('before gen10 habe',R.gens.G.length,R.getSpec());
+function genG(area, R) {
+	console.log('before gen10 habe', R.gens.G.length, R.getSpec());
 	R.gen10(); // sources pools
 	R.gen11(); // make ROOT single(!) panel
 	R.gen12(); // creates places & refs, adds specKey
@@ -134,7 +141,7 @@ function run03(sp, defaults, sdata) {
 	//console.log(sdata)
 	R = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
 
-	console.log('before gen10 habe',R.gens.G.length,R.getSpec());
+	console.log('before gen10 habe', R.gens.G.length, R.getSpec());
 
 	phase = 1013;
 
@@ -165,11 +172,11 @@ function run03(sp, defaults, sdata) {
 
 	//phase = 20;
 	//R.gen20(); //expand static roow
-	
+
 	phase = 21;
-	
+
 	R.gen21('table');// expands dyn root, creates 1 node for each ui and uis
-	
+
 	// console.log('______ final ROOT panels:')
 	// showPanels(R.ROOT);
 	// showChildren(R.ROOT);
@@ -182,30 +189,30 @@ function run03(sp, defaults, sdata) {
 	//presentGenerations([0,4,5,6],'results',R);
 
 	//presentGeneration(R.gens.G[0], 'results')
-	
+
 
 }
 
 
 
 //#region showPanel, showChildren v0
-function showPanels(n){
+function showPanels(n) {
 	console.log('panels:')
-	if (nundef(n.panels)){
-		console.log('NO PANELS!!!',n)
-	}else if (isList(n.panels)){
-		n.panels.map(x=>console.log(x));
-	}else{
+	if (nundef(n.panels)) {
+		console.log('NO PANELS!!!', n)
+	} else if (isList(n.panels)) {
+		n.panels.map(x => console.log(x));
+	} else {
 		console.log(n.panels);
 	}
 }
-function showChildren(n){
+function showChildren(n) {
 	console.log('children:')
-	if (nundef(n.children)){
-		console.log('NO Children!!!',n)
-	}else if (isList(n.children)){
-		n.children.map(x=>console.log(x));
-	}else{
+	if (nundef(n.children)) {
+		console.log('NO Children!!!', n)
+	} else if (isList(n.children)) {
+		n.children.map(x => console.log(x));
+	} else {
 		console.log(n.children);
 	}
 }
@@ -223,7 +230,7 @@ async function restartGame() {
 	d3.select('button').text('NEXT MOVE').on('click', interaction);
 	gameStep();
 }
-async function prelims(){
+async function prelims() {
 
 	if (serverData.waiting_for) { await sendStatus(getUsernameForPlid(serverData.waiting_for[0])); }
 	if (serverData.end) { d3.select('button').text('RESTART').on('click', restartGame); }
@@ -231,9 +238,9 @@ async function prelims(){
 
 	//worldMap('OPPS'); 
 
-	
+
 	preProcessData();
-	
+
 	//have serverData (processed), SPEC, DEFS, [tupleGroups, boats only if serverData.options!]
 
 	// TODO: here I could insert computing diffed serverData
@@ -242,14 +249,14 @@ async function prelims(){
 	//sData are to be augmented server objects ({oid:o} for all players,table entries (copies))
 
 	isTraceOn = SHOW_TRACE;
-	G={};
-	PROTO={};
-	POOLS={augData:makeDefaultPool(jsCopy(serverData))}; //to be augmented w/o contaminating serverData
-	
-	//sData is a deep copy of serverData => confirm that!!!
-	sData = POOLS.augData; 
+	G = {};
+	PROTO = {};
+	POOLS = { augData: makeDefaultPool(jsCopy(serverData)) }; //to be augmented w/o contaminating serverData
 
-	presentSpecDataDefsAsInConfig(SPEC,sData,DEFS);
+	//sData is a deep copy of serverData => confirm that!!!
+	sData = POOLS.augData;
+
+	presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
 
 }
 

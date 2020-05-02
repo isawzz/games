@@ -61,6 +61,7 @@ class RSG {
 	getRefs(placeName) {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
+
 	registerNode(n) {
 		if (nundef(n.uid)) n.uid = getUID();
 		let uid = n.uid;
@@ -72,7 +73,18 @@ class RSG {
 	}
 
 	//TODO: delete ui also if exists and all its links!
-	unregisterNode(n) { delete this.UIS[n.uid]; }
+	unregisterNode(n) { 
+		let uiNode = this.UIS[n.uid];
+		if (nundef(uiNode)) return;
+		let uid = n.uid;
+		console.log(uiNode);
+		if (uiNode.uiType != 'NONE'){
+			uiNode.ui.remove();//GEHT DAS???????????????
+			lookupRemoveFromList(this.uid2oids, [uid], n.oid, true);
+			lookupRemoveFromList(this.oid2uids, [n.oid], uid, true);
+		}
+		delete this.UIS[n.uid]; 
+	}
 	setUid(n, ui) { ui.id = n.uid; }
 
 	//#endregion
