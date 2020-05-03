@@ -54,7 +54,7 @@ function mList(n, dParent, R) {
 function mHand(n, dParent, R) {
 
 	let ui = mDiv(dParent);
-	addClass(ui, 'hand');
+	addClass(ui, 'handStyle');
 
 	// let params = decodeParams(n,{},R);
 	// mStyle(ui, params);
@@ -69,10 +69,10 @@ function mCard(n, dParent, R) {
 	let uiWrapper = mDiv(dParent);
 	addClass(uiWrapper, 'cardWrapper');
 	let ui = mTextDiv(n.content, uiWrapper);
-	addClass(ui, 'card');
+	addClass(ui, 'cardStyle');
 
 	// let ui = mTextDiv(n.content, dParent);
-	// addClass(ui,'card'); 
+	// addClass(ui,'cardStyle'); 
 
 	// let params = decodeParams(n,{},R);
 	// mStyle(ui, params);
@@ -89,7 +89,7 @@ function mPicto(n, dParent, R) {
 	let key = n.content; //key='crow';
 	let ui = mPic(key);
 	mAppend(uiWrapper, ui);
-	addClass(ui, 'wrapped');
+	addClass(ui, 'pictoStyle');
 
 	// let params = decodeParams(n,{},R);
 	// mStyle(ui, params);

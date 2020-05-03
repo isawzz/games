@@ -15,7 +15,7 @@ function createSTree(n,idParent, R) {
 		let prop = RCONTAINERPROP[n.type];
 
 		//daraus mach jetzt liste von einzelnen els von verlangtem type
-		//geht eigentlich nicht weil kann ja .hand oder so sein! und was mach ich dann????
+		//geht eigentlich nicht weil kann ja hand oder so sein! und was mach ich dann????
 	}
 
 }

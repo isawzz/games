@@ -69,6 +69,8 @@ function run05(sp, defaults, sdata) {
 
 	generateUis('table', R);
 
+	activateUis(R);
+
 	updateOutput(R);
 
 	//testLookupRemoveFromList(); //OK!

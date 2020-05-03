@@ -62,6 +62,11 @@ class RSG {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 
+	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
+
+	//#endregion helpers
+
+	//#region register
 	registerNode(n) {
 		if (nundef(n.uid)) n.uid = getUID();
 		let uid = n.uid;
@@ -71,21 +76,26 @@ class RSG {
 			lookupAddToList(this.oid2uids, [n.oid], uid);
 		}
 	}
-
-	//TODO: delete ui also if exists and all its links!
-	unregisterNode(n) { 
+	unregisterNode(n) {
 		let uiNode = this.UIS[n.uid];
 		if (nundef(uiNode)) return;
 		let uid = n.uid;
 		console.log(uiNode);
-		if (uiNode.uiType != 'NONE'){
-			uiNode.ui.remove();//GEHT DAS???????????????
+		if (uiNode.uiType != 'NONE') {
+			//do I have to explicitly remove handlers???
+			purge(uiNode.ui);//GEHT DAS???????????????
 			lookupRemoveFromList(this.uid2oids, [uid], n.oid, true);
 			lookupRemoveFromList(this.oid2uids, [n.oid], uid, true);
 		}
-		delete this.UIS[n.uid]; 
+		delete this.UIS[n.uid];
 	}
-	setUid(n, ui) { ui.id = n.uid; }
+	setUid(n, ui) {
+		ui.id = n.uid;
+		// if (n.uid == '_16') {
+		// 	console.log('JAAAAAAAAAAAA');
+		// }
+		n.act = new Activator(n, ui, this);
+	}
 
 	//#endregion
 
@@ -227,8 +237,6 @@ class RSG {
 
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
-		//console.log('UIS', R.UIS);
-		//console.log('ROOT', R.ROOT);
 	}
 	//#endregion
 
@@ -239,48 +247,8 @@ class RSG {
 
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
-		//console.log('UIS', R.UIS);
-		//console.log('ROOT', R.ROOT);
 	}
 
-
-	// *** NOT IMPLEMENTED!!! ==> present loose objects ***
-	gen30(genKey = 'G') {
-		//present positioned objects
-		//console.log('hallo!!!!!!!!!')
-		for (const k in this.lastSpec) {
-			let n = this.lastSpec[k];
-			//console.log(n)
-			if (nundef(n.position)) continue;
-			if (isdef(n.position)) {
-				console.log('positioned element:', n);
-			}
-			for (const oid of n.pool) {
-				let o = this.getO(oid);
-				//geht nicht wenn path zu anderem o fuehrt!!!!
-				let val = decodePropertyPath(o, n.position);
-				console.log('val ==>', val, typeof val);
-				let oidloc = isString(val) ? val : val._obj;
-				console.log(oidloc);
-				let oloc = this.getO(oidloc);
-				let replist = this.oid2uids[oidloc];
-				console.log('rep', replist);
-				let uiloc = this.UIS[replist[0]].ui;
-				//let pos = getBounds(oloc.ui);
-				console.log('o', o);
-				console.log('oloc', oloc);
-				console.log('uiloc', uiloc);
-
-
-
-				//ok um das zu machen brauch ich jetzt die position von diesem oid!!!
-				//jedes oid brauch einen pointer wo es ueberall ist
-				//das wird bei register gemacht!
-				//console.log('pos',pos);
-
-			}
-		}
-	}
 
 	//#endregion v0
 
@@ -310,8 +278,6 @@ class RSG {
 
 
 }
-
-
 
 function createUi(n, area, R) {
 
@@ -348,7 +314,6 @@ function createUi(n, area, R) {
 	return ui;
 
 }
-
 
 
 

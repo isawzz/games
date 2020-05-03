@@ -33,8 +33,9 @@ function mBg(d, color) { d.style.backgroundColor = color; }
 function mBy(id) { return document.getElementById(id); }
 function mNull(d, attr) { d.removeAttribute(attr); }
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
+function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
-function mDestroy(elem) { if (isString(elem)) elem = mById(elem); elem.parentNode.removeChild(elem); }
+function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
 function mDiv(dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); return d; }
 function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
@@ -63,6 +64,8 @@ function mFlexChildSplit(d, split) {
 }
 function mFlexWrap(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; }
 function mFlexWrapGrow(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; d.style.flex = 1; }
+function mHigh(ui) { mClass(ui,'high'); }
+function mUnhigh(ui) { mClassRemove(ui,'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mTextDiv(label); }
 function mPic(key) {
@@ -1409,6 +1412,38 @@ function makeDroppable(target) {
 //#endregion
 
 //#region DOM: hierarchy, parent, children...
+function removeDOM(elem) { purge(elem); }
+function removeEvents(elem) {
+	var a = elem.attributes, i, l, n;
+	if (a) {
+		for (i = a.length - 1; i >= 0; i -= 1) {
+			n = a[i].name;
+			if (typeof elem[n] === 'function') {
+				console.log('.......removing',n,'from',elem.id)
+				elem[n] = null;
+			}
+		}
+	}
+}
+function purge(elem) {
+	var a = elem.attributes, i, l, n;
+	if (a) {
+		for (i = a.length - 1; i >= 0; i -= 1) {
+			n = a[i].name;
+			if (typeof elem[n] === 'function') {
+				elem[n] = null;
+			}
+		}
+	}
+	a = elem.childNodes;
+	if (a) {
+		l = a.length;
+		for (i = 0; i < l; i += 1) {
+			purge(elem.childNodes[i]);
+		}
+	}
+	elem.remove(); //elem.parentNode.removeChild(elem);
+}
 function clearElement(elem) {
 	//console.log(elem);
 	if (isString(elem)) elem = document.getElementById(elem);
