@@ -1,17 +1,46 @@
+//#region spec normalization => vielleicht brauch ich das noch!!!
+function normalizeSpec(sp) {
+	//preprocess sp:
+	//each spec node is normalized: gets type, container prop=>ch, _id prop=>p
+	let spNew = {};
+	for (const k in sp) {
+		spNew[k] = recNormalize(sp[k], sp);
+	}
+	return spNew;
+
+}
+function recNormalize(n, sp) {
+	let n1 = jsCopy(n);
+	let t = n1.type = nundef(n.type) ? inferType(n) : n.type;
+
+	let locProp = 'panel';// isdef(n._id) ? '_id' : isString(n.type) && isdef(sp[n.type]) ? 'type' : 'p';
+	if (locProp != 'p') {
+		n1.p = n[locProp];
+		delete n1[locProp];
+	}
+	let contProp = 'panels';// nundef(n.ch) && isContainerType(n1.type) ? RCONTAINERPROP[n1.type] : null;
+	//console.log(contProp);
+	if (contProp && isdef(n[contProp])) {
+		n1.ch = n[contProp].map(x => recNormalize(x, sp));
+		delete n1[contProp];
+	}
+	return n1;
+
+}
+
+
 //#region misc utils
-function hasChildren(n){
-	let ch=RCONTAINERPROP[n.type];
+function hasChildren(n) {
+	let ch = RCONTAINERPROP[n.type];
 	if (nundef(ch)) ch = 'ch';
 	return isdef(n[ch]);
 }
 
-
-
 //#region createSTree gen20 FAIL!!!!
-function createSTree(n,idParent, R) {
-	n=createNode(n,idParent,R);
+function createSTree(n, idParent, R) {
+	n = createNode(n, idParent, R);
 
-	if (isContainerType(n.type)){
+	if (isContainerType(n.type)) {
 		let prop = RCONTAINERPROP[n.type];
 
 		//daraus mach jetzt liste von einzelnen els von verlangtem type
@@ -19,16 +48,13 @@ function createSTree(n,idParent, R) {
 	}
 
 }
-function createNode(sp,idParent,R){
-	let n=jsCopy(sp);
+function createNode(sp, idParent, R) {
+	let n = jsCopy(sp);
 	n.idParent = idParent;
-	let id =n.nid=getUid();
-	n.fullPath=R.NODES[idParent].fullPath + '.' + id;
+	let id = n.nid = getUid();
+	n.fullPath = R.NODES[idParent].fullPath + '.' + id;
 	return n;
 }
-
-
-
 
 //#region io
 function consExpand(o, keys, indent = 0) {
@@ -66,7 +92,6 @@ function showFullObject(o, indent = 0, onlySimple = false) {
 		}
 	}
 }
-
 function showObject(o, indent = 0, simple = true, lstShow = null, lstOmit = null) {
 	let s = extendedObjectString(o, indent, simple, lstShow, lstOmit);
 	console.log(s);
@@ -97,7 +122,6 @@ function recShowTree(o, indent, childrenKeys, lstShow, lstOmit) {
 	}
 
 }
-
 function anyString2(x, indent = 0, proplist, include = true, toplevelOnly = false) {
 	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
 	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
@@ -157,7 +181,6 @@ function presentServerData(sdata, area) {
 		mNode(v, { title: k, dParent: d, omitEmpty: true });
 	}
 }
-
 function recPresent_dep(n, level, dLevel, lstFlatten, lstShow) {
 	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
 	n1 = filterByNoKey(n, ['panels', '_id', '_ref', 'children', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'uid', 'ui'])

@@ -71,7 +71,8 @@ function run05(sp, defaults, sdata) {
 
 	updateOutput(R);
 
-	testAddOidKey(WR.inc);
+	//testAddOidKey(WR.inc);
+	//testRemoveOidLoc(R);
 
 	//testLookupRemoveFromList(); //OK!
 	//setTimeout(()=>testRemoveOidLoc(R),1500);

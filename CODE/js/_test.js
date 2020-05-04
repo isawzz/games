@@ -44,7 +44,7 @@ function testRemoveOidLoc(R) {
 	// let { oid, key } = getRandomOidAndKey(R);
 	let n=getRandomUidNodeWithAct(R);
 	let [oid,key]=[n.oid,n.key];
-	//console.log(' T_____________________ testRemoveOidLoc: remove', oid, key);
+	console.log(' ...testRemoveOidLoc: remove', oid, key);
 	removeOidFromLoc(oid, key, R);
 
 	updateOutput(R);
@@ -65,7 +65,7 @@ function testAddOidKey(R) {
 
 	let n = firstCond(R.instantiable,x=>!lookup(R.treeNodesByOidAndKey,[x.oid,x.key]));
 	if (!n) {
-		//console.log('all nodes are instantiated!!!');
+		console.log('all nodes are instantiated!!!');
 		return;
 	}
 	//console.log(n);

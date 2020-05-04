@@ -8,9 +8,8 @@ var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
-
-var SPEC_PATH = '/DATA/testBinding/01'; //
-var SERVERDATA_PATH = '/DATA/testBinding/d1'; //
+var SPEC_PATH = '/DATA/testBinding/03'; //
+var SERVERDATA_PATH = '/DATA/testBinding/d3'; //
 
 
 // // __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01

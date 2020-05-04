@@ -109,6 +109,7 @@ function einhaengen(oid, o, R) {
 	//console.log('_______einhaengen', oid, nodes);
 	for (const key in nodes) {
 
+		//console.log(o.loc)
 		if (o.loc) addOidByLocProperty(oid, key, R);
 		else addOidByParentKeyLocation(oid, key, R);
 
@@ -121,6 +122,8 @@ function addOidByLocProperty(oid, key, R) {
 	let o = R.getO(oid);
 	let ID = o.loc; //ID is oid ob obj AUF DEM o dargestellt werden soll!
 
+	//console.log('location is obj w/ id:',ID)
+
 	//gibt es spec key fuer ID?
 	let IDNode = R.oidNodes[ID];
 
@@ -131,8 +134,8 @@ function addOidByLocProperty(oid, key, R) {
 		//now find parents that have same key and same oid
 		//here oidNodeUid would come in handy! need tree nodes by oid and key here!
 		let parents = lookup(R.treeNodesByOidAndKey, [ID, k]);
-		console.log('reps for ID', ID, k, parents, IDkeys, oid, o);
-		console.log('IDNode',IDNode);
+		//console.log('reps for ID', ID, k, parents, IDkeys, oid, o);
+		//console.log('IDNode',IDNode);
 
 		for (const uidParent of parents) {
 			instantiateOidKeyAtParent(oid, key, uidParent, R);
@@ -219,6 +222,10 @@ function removeOidFromLoc(oid, key, R) {
 	if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 }
 function recRemove(n, R) {
+	if (isdef(n.children)){
+		for (const ch of n.children) recRemove(R.NodesByUid[ch], R);
+	}
+
 	delete R.NodesByUid[n.uid];
 	//n.uid muss aus UIS,register,links,ui entfernt werden!!!
 	R.unregisterNode(n); //hier wird ui removed
@@ -227,8 +234,96 @@ function recRemove(n, R) {
 	let parent = R.NodesByUid[n.uidParent];
 	removeInPlace(parent.children, n.uid);
 	if (isEmpty(parent.children)) delete parent.children;
-	if (nundef(n.children)) return;
-	for (const ch of n.children) recRemove(R.NodesByUid[ch], R);
 }
 //#endregion
+
+//#region instantiate uiNodes
+
+function generateUis(area, R) {
+	//go through rsg tree DFS 
+	//merge info for each node (temp!)
+	//eval content =>could lead to more nodes being added as children!
+	ensureUiNodes(R);
+	let n = R.tree;
+	let defParams = {};// { bg: 'blue', fg: 'white' };
+	//console.log(n);
+	recBuildUiFromNode(n, area, R, 'ROOT', '.', defParams, null);
+
+	R.instantiable = [];
+	for (const x in R.UIS) {
+		let y = R.UIS[x];
+		if (isdef(y.act) && isdef(y.oid) && isdef(y.key)) R.instantiable.push({ oid: y.oid, key: y.key });
+		// Object.values(R.UIS).map(x=>{x.uid,x.oid,x.key});
+	}
+
+}
+function ensureUiNodes(R) { if (nundef(R.uiNodes)) R.uiNodes = {}; }
+
+
+function recBuildUiFromNode(n, area, R, key, relpath, params = {}, oid = null) {
+	//n is unique tree node (treeNodesByOidAndKey) for oid and key
+	let n1 = {};
+	let sp = R.getSpec();
+
+	//find specNode[s] (for now just 1 allowed!) for this oid and merge it into tree node n
+	//invariant: if oid != null n.key is defined! (so evalSpec wont be called with an oid)
+	console.assert(oid==null || isdef(n.key), 'recBuildUiFromNode assertion does NOT hold!!!!',n);
+	key = isdef(n.key) ? n.key : key;
+	
+	let nSpec = sp[key];
+	if (isdef(n.key)) n1 = deepmergeOverride(nSpec, n);
+	else { let nRel = evalSpecPath(nSpec, relpath, R); n1 = deepmergeOverride(nRel, n); }
+
+	n.defParams = params;
+	oid = n1.oid ? n1.oid : oid;
+	let o = oid ? R.getO(oid) : null;
+	if (n1.data) n1.content = calcContentFromData(oid, o, n1.data, R);
+	n1.ui = createUi(n1, area, R);
+	R.uiNodes[n1.uid] = n1;
+	
+	if (R.isUiActive) n1.act.activate(highSelfAndRelatives,unhighSelfAndRelatives,selectUid);
+	
+	if (nundef(n1.children)) return;
+
+	let i = 0;
+	for (const ch of n1.children) {
+		let nNew = R.NodesByUid[ch];
+		let keyNew = key;
+		let relpathNew = isdef(n.key) ? '.' + i : extendPath(relpath, i);
+		let paramsNew = n1.params;
+		let oidNew = isdef(n1.oid) ? n1.oid : null;
+		recBuildUiFromNode(nNew, n1.uid, R, keyNew, relpathNew, paramsNew, oidNew);
+		i += 1;
+	}
+}
+
+function evalSpecPath(n, relpath, R) {
+	//for now NUR panels oder ch als children prop erlaubt!
+	//return partial spec node under n, following relpath
+	//console.log('path', relpath, 'n', n);
+	if (isEmpty(relpath)) return null;
+	if (relpath == '.') return n;
+	let iNext = firstNumber(relpath);
+
+	nNext = n.panels[iNext];
+	//let uidNext = n.children[next];
+	//let nNext=R.NodesByUid[uidNext];
+	let newPath = stringAfter(relpath, '.' + iNext);
+	if (isEmpty(newPath)) return nNext;
+	else return evalSpecPath(nNext, newPath, R);
+
+
+}
+
+//#endregion
+
+
+
+
+
+
+
+
+
+
 

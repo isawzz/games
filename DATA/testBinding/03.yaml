@@ -1,0 +1,15 @@
+ROOT:
+  #data: hallo
+  panel: A
+  # panels:
+  #   - panel: A
+  #   - panel: B
+  #   - panels:
+  #     - panel: A
+
+A:
+  cond: all
+  data: .name
+  params:
+    text-align: center
+

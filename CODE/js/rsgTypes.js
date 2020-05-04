@@ -79,6 +79,7 @@ class RSG {
 		}
 	}
 	unregisterNode(n) {
+		console.log('=>unregisterNode',n.uid,n)
 		let uiNode = this.UIS[n.uid];
 		if (nundef(uiNode)) return;
 		let uid = n.uid;
@@ -301,6 +302,10 @@ function createUi(n, area, R) {
 
 	if (n.type != 'grid') { applyCssStyles(ui, n.cssParams); }
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
+
+	mColor(ui,randomColor()); //just testing!!!
+	mStyle(ui,{padding:4,margin:2})
+
 
 	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {

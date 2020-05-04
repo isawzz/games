@@ -64,8 +64,8 @@ function mFlexChildSplit(d, split) {
 }
 function mFlexWrap(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; }
 function mFlexWrapGrow(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap'; d.style.flex = 1; }
-function mHigh(ui) { mClass(ui,'high'); }
-function mUnhigh(ui) { mClassRemove(ui,'high'); }
+function mHigh(ui) { mClass(ui, 'high'); }
+function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mTextDiv(label); }
 function mPic(key) {
@@ -1414,21 +1414,21 @@ function makeDroppable(target) {
 //#region DOM: hierarchy, parent, children...
 function removeDOM(elem) { purge(elem); }
 function removeEvents(elem) {
-	for(const evname of arguments){
-		elem['on'+evname]=null;
+	for (const evname of arguments) {
+		elem['on' + evname] = null;
 	}
 	return;
-	elem.onmouseenter=null;
-	elem.onmouseleav=null;
-	elem.onclick=null;
+	elem.onmouseenter = null;
+	elem.onmouseleav = null;
+	elem.onclick = null;
 	return;
 	var a = elem.attributes, i, l, n;
 	if (a) {
 		for (i = a.length - 1; i >= 0; i -= 1) {
 			n = a[i].name;
-			console.log(n,typeof(elem[n]))
+			console.log(n, typeof (elem[n]))
 			if (typeof elem[n] === 'function') {
-				console.log('.......removing',n,'from',elem.id)
+				console.log('.......removing', n, 'from', elem.id)
 				elem[n] = null;
 			}
 		}
@@ -1447,7 +1447,9 @@ function purge(elem) {
 	a = elem.childNodes;
 	if (a) {
 		l = a.length;
-		for (i = 0; i < l; i += 1) {
+		// for (i = 0; i < l; i += 1) {
+		for (i = a.length - 1; i >= 0; i -= 1) {
+			console.log(elem.id, a, elem.childNodes[i]);
 			purge(elem.childNodes[i]);
 		}
 	}
