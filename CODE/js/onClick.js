@@ -2,9 +2,16 @@ function onClickRemove(){
 	//binding01(WR.G);
 	testRemoveOidLoc(WR.inc);
 }
-function onClickDO2(){
+function onClickAddAndActivate(){
 	//binding01(WR.G);
-	testAddOidLoc(WR.inc);
+	testAddOidKey(WR.inc);
+
+}
+function onClickActivate(){
+	testActivate(WR.inc);
+}
+function onClickDeactivate(){
+	testDeactivate(WR.inc);
 }
 
 function onClickNextExample(){}

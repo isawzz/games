@@ -8,11 +8,6 @@ function addNewServerObjectToRsg(oid, o, R) {
 
 	ensureRtree(R); //make sure static tree has been built! 
 
-	//???brauch ich diese 2?
-	//console.log('places', R.places);
-	//console.log('refs', R.refs);
-	//??? *** simplification: rsg[oid] only 1 element!
-	//??? *** simplification: only use types info and panel, dyn nodes (cond) only leaves(info) ***
 	createPrototypesForOid(oid, o, R); //=>oidNodes eval cond for all dynamic nodes for oid 
 
 	//console.log('==>NodesByUid',R.NodesByUid)
@@ -168,8 +163,20 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 	let index = n.children.length;
 	let newPath = extendPath(n.path, index);
 	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
+
+	//here muss den echten node auch adden, den uiNode!
+	//console.log('need to add uiNode for uid',n1.uid,oid,key);
+
 	R.NodesByUid[n1.uid] = n1;
 	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
+	
+	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])){
+		let parent = R.uiNodes[uidParent];
+		//let parentUi = R.getUI(uidParent);
+		//console.log('parent uid',uidParent,'ui',parentUi);
+		recBuildUiFromNode(n1,uidParent,R,key,'.',parent.params,oid);
+	}
+	
 	n.children.push(n1.uid);
 }
 
@@ -201,7 +208,7 @@ function removeOidFromLoc(oid, key, R) {
 		console.log('nothing to remove!', oid, key);
 		return;
 	}
-	console.log('instances', nodeInstances);
+	//console.log('instances', nodeInstances);
 	for (const uid of nodeInstances) {
 		let n1 = R.NodesByUid[uid]; //jetzt habe tree nodes von parent in dem oid haengt!
 		//let uidParent = n1.uidParent; // each node has 1 parent!
@@ -214,7 +221,7 @@ function removeOidFromLoc(oid, key, R) {
 function recRemove(n, R) {
 	delete R.NodesByUid[n.uid];
 	//n.uid muss aus UIS,register,links,ui entfernt werden!!!
-	R.unregisterNode(n)
+	R.unregisterNode(n); //hier wird ui removed
 	delete R.uiNodes[n.uid];
 
 	let parent = R.NodesByUid[n.uidParent];

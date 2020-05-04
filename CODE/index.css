@@ -5,7 +5,7 @@ html,body{
 	margin:0;
 }
 div{ text-align:center;}
-button{width:70px;}
+button{min-width:70px;}
 pre{
 	display: block;
 	white-space:pre;

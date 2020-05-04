@@ -9,6 +9,7 @@ class RSG {
 		this.defs = defs;
 		this.places = {};
 		this.refs = {};
+		this.isUiActive = false;
 
 		this.clearObjects();
 		for (const oid in sdata) {
@@ -50,8 +51,10 @@ class RSG {
 	}
 	deleteObject(oid) { delete this._sd[oid]; }
 
-	addR(oid, k) { addIf(this.getR(oid), k); }
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
+	addR(oid, k) { addIf(this.getR(oid), k); }
+
+	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
 	getSpec(spKey = null) { return spKey ? this.lastSpec[spKey] : this.lastSpec; }
 
@@ -62,7 +65,6 @@ class RSG {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 
-	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
 	//#endregion helpers
 
@@ -80,7 +82,7 @@ class RSG {
 		let uiNode = this.UIS[n.uid];
 		if (nundef(uiNode)) return;
 		let uid = n.uid;
-		console.log(uiNode);
+		//console.log(uiNode);
 		if (uiNode.uiType != 'NONE') {
 			//do I have to explicitly remove handlers???
 			purge(uiNode.ui);//GEHT DAS???????????????

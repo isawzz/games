@@ -1,25 +1,27 @@
 
-n=NodesToUid[_1] ...ROOT
-sp=lastSpec (spec auf ui)
-key=ROOT
-nSpec= spec node ROOT {data:hallo...}
-n1 merge(nspec,n)
-oid=null
-o=null
-content=hallo
-ui wird panel mit hallo
+structures for RSG:
 
-n1.ch[0] ... {p:a}
-n1.children[0] ... _2
+R.uiNodes
+R.lastSpec
+R.oidNodes
+R.tree
+R.treeNodesByOidAndKey
+R.oid2uids
+R.uid2oids
+R._sd {oid,o,rsg}
+R.UIS die mit echter ui (uiType != NONE)
 
-als node will NodesByUid[n1.children[0]]
-als key... ROOT pass own
-als relPath .0
-als params: pass own
-als oid: pass own
+R.instantiable possible oid/key pairs! as by 
+existing (in R) oids and keys
 
+but: when a NEW object comes from server, this will NOT
+be in instantiable!
 
-
+need to check
+1. add o to R
+2. check all spec nodes to find which keys cond set includes new object
+3. add combi oidNodes oid/key for outcoming keys
+4. 
 
 
 

@@ -1414,10 +1414,19 @@ function makeDroppable(target) {
 //#region DOM: hierarchy, parent, children...
 function removeDOM(elem) { purge(elem); }
 function removeEvents(elem) {
+	for(const evname of arguments){
+		elem['on'+evname]=null;
+	}
+	return;
+	elem.onmouseenter=null;
+	elem.onmouseleav=null;
+	elem.onclick=null;
+	return;
 	var a = elem.attributes, i, l, n;
 	if (a) {
 		for (i = a.length - 1; i >= 0; i -= 1) {
 			n = a[i].name;
+			console.log(n,typeof(elem[n]))
 			if (typeof elem[n] === 'function') {
 				console.log('.......removing',n,'from',elem.id)
 				elem[n] = null;

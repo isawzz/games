@@ -1,66 +1,83 @@
-class Activator{
-	constructor(n,ui,R){
-		//console.log(n)
-		this.n=n; //a uiNode
-		this.ui=isdef(n.uiActive)?n.uiActive:ui;
-		//console.log(this.ui)
-		this.uid=n.uid;
-		this.R=R;
-
+class Activator {
+	constructor(n, ui, R) {
+		this.n = n; //a uiNode
+		this.ui = isdef(n.uiActive) ? n.uiActive : ui;
+		this.uid = n.uid;
+		this.R = R;
+		this.hoverActive = false;
+		this.clickActive = false;
 
 	}
-	activateHover(fEnter,fLeave){
-		//add mouseenter,mouseleave event handlers to ui
-		//console.log('activateHover','ui',this.ui)
-		//console.log('activating',this.n);
-		//this.ui.addEventListener('mouseenter',()=>highSelfAndRelatives(this.uid));
-		this.ui.onmouseenter=()=>fEnter(this.uid,this.R);
-		this.ui.onmouseleave=()=>fLeave(this.uid,this.R);
-		//this.ui.addEventListener('mouseleave',()=>unhighSelfAndRelatives(this.uid));
-		//console.log(this.ui.onmouseenter)
+	activate(fEnter, fLeave, fClick) { this.activateHover(fEnter, fLeave); this.activateClick(fClick); }
+	activateHover(fEnter, fLeave) {
+		if (this.hoverActive) return;
+		this.hoverActive = true;
+		this.ui.onmouseenter = () => fEnter(this.uid, this.R);
+		this.ui.onmouseleave = () => fLeave(this.uid, this.R);
 	}
-	deactivateHover(){
-		removeEvents(this.ui);
-		//remove all mouseenter,mouseleave event handlers from ui
+	activateClick(fClick) {
+		if (this.clickActive) return;
+		this.clickActive = true;
+		this.ui.onclick = () => fClick(this.uid, this.R);
+	}
+	deactivate() {
+		if (!this.hoverActive && !this.clickActive) return;
+		this.deactivateHover();
+		this.deactivateClick();
+	}
+	deactivateHover() {
+		if (!this.hoverActive) return;
+		this.hoverActive = false;
+
+		removeEvents(this.ui, 'mouseenter', 'mouseleave');
+	}
+	deactivateClick() {
+		if (!this.clickActive) return;
+		this.clickActive = false;
+
+		removeEvents(this.ui, 'click');
 	}
 }
 
-function activateUis(R){
-	for(const uid in R.uiNodes){
+function activateUis(R) {
+	//console.log('activating uis!!!')
+	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
-		
 		if (n.oid && n.ui) {
-			n.act.activateHover(highSelfAndRelatives,unhighSelfAndRelatives);
+			n.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 		}
 	}
+	R.isUiActive = true;
 }
-function highSelfAndRelatives(uid,R) {
-	//console.log('haaaaaaaaaaaaaaaaaaaaa',R.uid2oids[uid],R.oid2uids[R.uid2oids[uid][0]])
+function deactivateUis(R) {
+	//console.log('deactivating uis!!!')
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		if (n.oid && n.ui) {
+			//console.log(n);
+			n.act.deactivate();
+		}
+	}
+	R.isUiActive = false;
+}
+function highSelfAndRelatives(uid, R) {
 	for (const oid of R.uid2oids[uid]) {
-		//console.log(oid)
 		for (const uid1 of R.oid2uids[oid]) {
-
-			//console.log(uid1)
 			let ui = R.getUI(uid1);
-			//console.log(ui);
-			//mStyle(ui,{'background-color':'yellow'})
 			mHigh(ui);
 		}
 	}
 }
-function unhighSelfAndRelatives(uid,R) {
-	//console.log('lo')
+function unhighSelfAndRelatives(uid, R) {
 	for (const oid of R.uid2oids[uid]) {
-		//console.log(oid)
 		for (const uid1 of R.oid2uids[oid]) {
-
-			//console.log(uid1)
 			let ui = R.getUI(uid1);
-			//console.log(ui);
-			//mStyle(ui,{'background-color':'yellow'})
 			mUnhigh(ui);
 		}
 	}
+}
+function selectUid(uid, R) {
+	console.log('user has selected', uid)
 }
 
 

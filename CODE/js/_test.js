@@ -1,4 +1,13 @@
 
+function testActivate(R) {
+	activateUis(R);
+
+}
+function testDeactivate(R) {
+	deactivateUis(R);
+
+}
+
 function testLookupRemoveFromList() {
 	//usage: lookupRemoveFromList({a:{b:[2]}}, [a,b], 2) => {a:{b:[]}} OR {a:{}} (wenn deleteIfEmpty==true)
 	let d = { a: { b: [2] } };
@@ -19,33 +28,59 @@ function testLookupRemoveFromList() {
 	console.log('res', res, 'd', d);
 
 }
-
+function getRandomUidNodeWithAct(R) {
+	//das geht garnicht!!!!!!!!!!!!!!!!!!!!!!!
+	//der node existiert ja nicht mehr!
+	//geht fuer remove aber nicht fuer add!!!!!
+	let cands=Object.values(R.uiNodes).filter(x=>isdef(x.act) && isdef(x.oid));
+	//console.log(cands);
+	if (isEmpty(cands)) return null;
+	let n=chooseRandom(cands);
+	//console.log(n);
+	return n;
+}
 function testRemoveOidLoc(R) {
 
-	let nonEmpty = allCondDict(R.oidNodes, x => !isEmpty(x));
-
-	let random_oid = chooseRandom(nonEmpty);
-
-	let locs = Object.keys(R.oidNodes[random_oid]);
-
-	let random_loc = chooseRandom(locs);
-
-	console.log(' T_____________________ testRemoveOidLoc: remove', random_oid, random_loc);
-	removeOidFromLoc(random_oid, random_loc, R);
+	// let { oid, key } = getRandomOidAndKey(R);
+	let n=getRandomUidNodeWithAct(R);
+	let [oid,key]=[n.oid,n.key];
+	//console.log(' T_____________________ testRemoveOidLoc: remove', oid, key);
+	removeOidFromLoc(oid, key, R);
 
 	updateOutput(R);
 
 }
-function testAddOidLoc(R) {
 
-	let o = R.getO('ro');
-	if (!o) {
-		console.log('no object with oid ro found!!!');
+function getRandomNodeThatCanBeAdded(R){
+	let nonEmpty = allCondDict(R.oidNodes, x => !isEmpty(x));
+	//console.log(nonEmpty);
+	// let random_oid = chooseRandom(nonEmpty);
+	// let locs = Object.keys(R.oidNodes[random_oid]);
+	// let random_loc = chooseRandom(locs);
+	// return { oid: random_oid, loc: random_loc };
+}
+function testAddOidKey(R) {
+
+	//let n=chooseRandom(R.instantiable);
+
+	let n = firstCond(R.instantiable,x=>!lookup(R.treeNodesByOidAndKey,[x.oid,x.key]));
+	if (!n) {
+		//console.log('all nodes are instantiated!!!');
 		return;
 	}
-	o.loc = 'se2';
-	console.log(' T_____________________ testAddOidLoc: add ro to se2');
-	addOidByLocProperty('ro', 'B', R);
+	//console.log(n);
+
+	let [oid,key]=[n.oid,n.key];
+	let o = R.getO(oid);
+	if (!o) {
+		console.log('no object with oid', oid, 'found!!!');
+		return;
+	}
+	//console.log(' T_____________________ testAddOidLoc: add', oid, '/', key);
+	addOidByParentKeyLocation(oid,key,R);
+
+	//hier brauch ich noch generateUi fuer neue nodes!!!
+	//addOidByLocProperty(oid, key, R);
 
 	updateOutput(R);
 

@@ -69,9 +69,9 @@ function run05(sp, defaults, sdata) {
 
 	generateUis('table', R);
 
-	activateUis(R);
-
 	updateOutput(R);
+
+	testAddOidKey(WR.inc);
 
 	//testLookupRemoveFromList(); //OK!
 	//setTimeout(()=>testRemoveOidLoc(R),1500);
@@ -86,7 +86,7 @@ function updateOutput(R) {
 	presentGeneration(R.lastSpec, 'spec');
 	presentOidNodes(R, 'oidNodes');
 
-	console.log(R.uiNodes)
+	//console.log(R.uiNodes)
 	for (const uid in R.uiNodes) {
 		presentAddNode(R.uiNodes[uid], uid, 'uiNodes', ['children'],
 			['content', 'data', 'here', 'key', 'type', 'uidParent', 'uiType'],
