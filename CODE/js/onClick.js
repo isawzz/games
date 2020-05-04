@@ -1,18 +1,15 @@
-function onClickRemove(){
-	//binding01(WR.G);
-	testRemoveOidLoc(WR.inc);
-}
-function onClickAddAndActivate(){
-	//binding01(WR.G);
-	testAddOidKey(WR.inc);
+function onClickAdd() { testAddObject(WR.inc); }
+function onClickRemove() { testRemoveObject(WR.inc); }
 
-}
-function onClickActivate(){
+function onClick_Remove() { testRemoveOidKey(WR.inc); }
+function onClick_Add() { testAddOidKey(WR.inc); }
+
+function onClickActivate() {
 	testActivate(WR.inc);
 }
-function onClickDeactivate(){
+function onClickDeactivate() {
 	testDeactivate(WR.inc);
 }
 
-function onClickNextExample(){}
-function onClickStep(){}
+function onClickNextExample() { }
+function onClickStep() { }

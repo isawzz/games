@@ -79,7 +79,7 @@ class RSG {
 		}
 	}
 	unregisterNode(n) {
-		console.log('=>unregisterNode',n.uid,n)
+		console.log('=>unregisterNode',n.uid)
 		let uiNode = this.UIS[n.uid];
 		if (nundef(uiNode)) return;
 		let uid = n.uid;

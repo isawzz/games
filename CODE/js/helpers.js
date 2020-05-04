@@ -1449,7 +1449,7 @@ function purge(elem) {
 		l = a.length;
 		// for (i = 0; i < l; i += 1) {
 		for (i = a.length - 1; i >= 0; i -= 1) {
-			console.log(elem.id, a, elem.childNodes[i]);
+			//console.log(elem.id, a, elem.childNodes[i]);
 			purge(elem.childNodes[i]);
 		}
 	}
@@ -2718,6 +2718,17 @@ function recFindProp(o, prop, path, akku) {
 
 //#region random
 function chooseRandom(arr, condFunc = null) {
+	let len = arr.length;
+	if (condFunc) {
+		let best = arr.filter(condFunc);
+		if (!isEmpty(best)) return chooseRandom(best);
+	}
+	let idx = Math.floor(Math.random() * len);
+	return arr[idx];
+}
+function chooseRandomDictKey(dict, condFunc = null) {
+	if (isEmpty(dict)) return null;
+	let arr = Object.keys(dict);
 	let len = arr.length;
 	if (condFunc) {
 		let best = arr.filter(condFunc);

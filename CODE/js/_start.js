@@ -55,27 +55,17 @@ function run05(sp, defaults, sdata) {
 	R.clearObjects();
 	R.oidNodes = {};
 
-	let locOids = [];
-	//console.log(sdata)
-	for (const oid in sdata) {
-		let o = sdata[oid];
-		if (isdef(o.loc)) { locOids.push(oid); continue; }
-		addNewServerObjectToRsg(oid, o, R);
-	}
-	for (const oid of locOids) {
-		let o = sdata[oid];
-		addNewServerObjectToRsg(oid, o, R);
-	}
+	addNewlyCreatedServerObjects(sdata,R);
 
 	generateUis('table', R);
 
 	updateOutput(R);
 
 	//testAddOidKey(WR.inc);
-	//testRemoveOidLoc(R);
+	//testRemoveOidKey(R);
 
 	//testLookupRemoveFromList(); //OK!
-	//setTimeout(()=>testRemoveOidLoc(R),1500);
+	//setTimeout(()=>testRemoveOidKey(R),1500);
 
 }
 
@@ -84,8 +74,8 @@ function updateOutput(R) {
 		clearElement(area);
 	}
 
-	presentGeneration(R.lastSpec, 'spec');
-	presentOidNodes(R, 'oidNodes');
+	// presentGeneration(R.lastSpec, 'spec');
+	// presentOidNodes(R, 'oidNodes');
 
 	//console.log(R.uiNodes)
 	for (const uid in R.uiNodes) {

@@ -137,6 +137,11 @@ function addOidByLocProperty(oid, key, R) {
 		//console.log('reps for ID', ID, k, parents, IDkeys, oid, o);
 		//console.log('IDNode',IDNode);
 
+		if (!parents || isEmpty(parents)) {
+			console.log('LOC PARENT MISSING!!!! trying to add',oid,'with loc',o.loc);
+			continue;
+		}
+
 		for (const uidParent of parents) {
 			instantiateOidKeyAtParent(oid, key, uidParent, R);
 		}
@@ -172,14 +177,14 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 
 	R.NodesByUid[n1.uid] = n1;
 	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
-	
-	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])){
+
+	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])) {
 		let parent = R.uiNodes[uidParent];
 		//let parentUi = R.getUI(uidParent);
 		//console.log('parent uid',uidParent,'ui',parentUi);
-		recBuildUiFromNode(n1,uidParent,R,key,'.',parent.params,oid);
+		recBuildUiFromNode(n1, uidParent, R, key, '.', parent.params, oid);
 	}
-	
+
 	n.children.push(n1.uid);
 }
 
@@ -218,18 +223,26 @@ function removeOidFromLoc(oid, key, R) {
 		//let n = R.NodesByUid[uidParent];
 		recRemove(n1, R);
 	}
-	delete R.treeNodesByOidAndKey[oid][key];
-	if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 }
 function recRemove(n, R) {
-	if (isdef(n.children)){
+	if (isdef(n.children)) {
 		for (const ch of n.children) recRemove(R.NodesByUid[ch], R);
+	}
+
+	console.log(n);
+	if (isdef(n.oid) && isdef(n.key)) {
+		let oid=n.oid;
+		let key=n.key;
+		delete R.treeNodesByOidAndKey[oid][key];
+		if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 	}
 
 	delete R.NodesByUid[n.uid];
 	//n.uid muss aus UIS,register,links,ui entfernt werden!!!
 	R.unregisterNode(n); //hier wird ui removed
 	delete R.uiNodes[n.uid];
+
+
 
 	let parent = R.NodesByUid[n.uidParent];
 	removeInPlace(parent.children, n.uid);
@@ -267,9 +280,9 @@ function recBuildUiFromNode(n, area, R, key, relpath, params = {}, oid = null) {
 
 	//find specNode[s] (for now just 1 allowed!) for this oid and merge it into tree node n
 	//invariant: if oid != null n.key is defined! (so evalSpec wont be called with an oid)
-	console.assert(oid==null || isdef(n.key), 'recBuildUiFromNode assertion does NOT hold!!!!',n);
+	console.assert(oid == null || isdef(n.key), 'recBuildUiFromNode assertion does NOT hold!!!!', n);
 	key = isdef(n.key) ? n.key : key;
-	
+
 	let nSpec = sp[key];
 	if (isdef(n.key)) n1 = deepmergeOverride(nSpec, n);
 	else { let nRel = evalSpecPath(nSpec, relpath, R); n1 = deepmergeOverride(nRel, n); }
@@ -280,9 +293,9 @@ function recBuildUiFromNode(n, area, R, key, relpath, params = {}, oid = null) {
 	if (n1.data) n1.content = calcContentFromData(oid, o, n1.data, R);
 	n1.ui = createUi(n1, area, R);
 	R.uiNodes[n1.uid] = n1;
-	
-	if (R.isUiActive) n1.act.activate(highSelfAndRelatives,unhighSelfAndRelatives,selectUid);
-	
+
+	if (R.isUiActive) n1.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
+
 	if (nundef(n1.children)) return;
 
 	let i = 0;
