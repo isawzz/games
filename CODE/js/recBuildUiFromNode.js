@@ -50,10 +50,11 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 	
 	// *** CREATE UI HERE ***
 	if (o && o.obj_type == 'Board'){
-		console.log('line 53 in recBuildUiFromNode vor createUi','\nn',n,'\nn1', n1,'\nuidParent', uidParent);
+		//console.log('line 53 in recBuildUiFromNode vor createUi','\nn',n,'\nn1', n1,'\nuidParent', uidParent);
 
 	}
 	if (n1.type == 'grid'){
+		console.log('oid',oid)
 		createBoard_NEW(n1,uidParent,R,iParams);
 	}else{
 		n1.ui = createUi(n1, uidParent, R, iParams);
@@ -63,7 +64,7 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 
 	if (R.isUiActive) n1.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 
-	if (nundef(n1.children)) {
+	if (nundef(n1.children) || n1.type == 'grid') {
 		//console.log('>>>>>>>NO CHILDREN!!!')
 		return;
 	}

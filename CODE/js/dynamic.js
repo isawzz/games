@@ -61,9 +61,9 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 
 
 //#region add oid
-function addNewServerObjectToRsg(oid, o, R) {
+function addNewServerObjectToRsg(oid, o, R, skipEinhaengen=false) {
 
-	console.log('_____________ add object', oid, o);
+	//console.log('_____________ add object', oid, o);
 	R.addObject(oid, o);
 	addRForObject(oid, R);
 
@@ -73,7 +73,13 @@ function addNewServerObjectToRsg(oid, o, R) {
 
 	createPrototypesForOid(oid, o, R);
 
-	einhaengen(oid, o, R);
+	if (skipEinhaengen){
+		//let key = 'F'
+		return;
+		instantiateOidKeyAtParent(oid,null,null,R);
+	}else{
+		einhaengen(oid, o, R);
+	}
 }
 function addRForObject(oid, R) {
 	let o = R.getO(oid);

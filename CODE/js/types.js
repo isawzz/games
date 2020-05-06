@@ -106,19 +106,22 @@ function mInfo(n, dParent, R) {
 	//console.log(dParent)
 	//console.log('--->info content',n.content)
 
-	console.assert(isdef(n.content), 'mInfo with NO CONTENT!!!!!!!!!!!');
+	console.assert(isdef(n.content) || n.uiType =='g', 'mInfo with NO CONTENT!!!!!!!!!!!');
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
 
 		let pf = n.params;
+		//console.log(n)
 
 		//if (n.oid=='1') console.log('params of board member', n.oid, jsCopy(pf))
 		ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
 		if (n.content) {
-			createLabel_dep(n, ui, R);
-			// let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
-			// n.label = agText(ui, n.content, color, pf.font);
+			//console.log('CONTENT:',n.content,pf);
+			//createLabel_dep(n, ui, R);
+			let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
+			//console.log('color',color)
+			n.label = agText(ui, n.content, color, pf.font);
 		}
 
 	} else {

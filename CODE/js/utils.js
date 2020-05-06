@@ -3,7 +3,7 @@ function adjustContainerLayout(n, R) {
 
 	//console.log(n);return;
 	if (n.type == 'grid') {
-		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!',n);
+		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
 		return;
 	}
 
@@ -64,19 +64,25 @@ function calcContentFromData(oid, o, data, R) {
 	// ex: data: .player.name
 	if (!o) return data; //static data
 
-	if (isString(data)) {
-		if (data[0] != '.') return data;
+	if (isLiteral(data)) {
+		if (isString(data)) {
+			if (data[0] != '.') return data;
 
-		//console.log('PATH:', data, 'oid', oid, 'o', o);
-		let props = data.split('.').slice(1);
-		//console.log('props', props, isEmpty(props));
-		//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
+			//console.log('PATH:', data, 'oid', oid, 'o', o);
+			let props = data.split('.').slice(1);
+			//console.log('props', props, isEmpty(props));
+			//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
 
-		if (props.length == 1 && isEmpty(props[0])) return o;
+			if (props.length == 1 && isEmpty(props[0])) return o;
 
-		else return dPP(o, props, R);
+			else return dPP(o, props, R);
 
-	} else if (isDict(data)) {
+		}else{
+			//it's a literal but NOT a string!!!
+			return data;
+		}
+	}
+	else if (isDict(data)) {
 		//beispiel? data is dictionary {vsp:.vsp,money:.money}
 		let content = {};
 		for (const k in data) {
@@ -381,6 +387,7 @@ function decodeParams(n, R, defParams) {
 	//ist das wirklich nur wenn o? kann ich nicht static map vals verwenden???
 	if (o) pNew = mapValues(o, n.params, defs, R.getSpec());
 
+	//console.log('===>pNew nach mapValues', jsCopy(pNew));
 	//console.log('pNew nach mapValues', jsCopy(pNew));
 	//console.log('o', o)
 

@@ -284,8 +284,10 @@ class RSG {
 
 function createUi(n, area, R, defParams) {
 
+	//console.log('createUi',jsCopy(n))
+
 	if (nundef(n.type)) n.type = inferType(n);
-	if (nundef(n.content) && n.type == 'info') {
+	if (nundef(n.content) && n.type == 'info' && n.uiType != 'g') {
 		n.uiType = 'NONE';
 		//console.log('uiType is NONE))))))))))))))))))))))))')
 		return null;
@@ -293,7 +295,10 @@ function createUi(n, area, R, defParams) {
 
 	R.registerNode(n);
 
+	//console.log('PARAMS VOR DECODE PARAMS',jsCopy(n.params),jsCopy(defParams));
 	decodeParams(n, R, defParams);
+	//console.log('PARAMS NACH DECODE PARAMS','\nn',jsCopy(n.params),'\ndef',jsCopy(defParams));
+	//console.log('PARAMS NACH DECODE PARAMS','\ntyp',jsCopy(n.typParams),'\ncss',jsCopy(n.cssParams),'\nstd',jsCopy(n.stdParams));
 	// if (n.oid=='p1'){
 	// 	console.log('createUi params:',n.type,n.params)
 	// }
