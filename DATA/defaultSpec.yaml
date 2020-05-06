@@ -10,13 +10,13 @@ defaults:
         #fg: 'white'
         size: 56 #ideally divisible by 4
       corners:
-        display: if_content
+        #display: if_content
         defaultType: 'info'
         bg: dimgray
         size: 20
         shape: circle
       edges:
-        display: if_content
+        #display: if_content
         defaultType: 'info'
         bg: 'silver'
         size: 6

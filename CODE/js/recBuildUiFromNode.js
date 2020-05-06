@@ -54,8 +54,8 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 
 	}
 	if (n1.type == 'grid'){
-		console.log('oid',oid)
-		createBoard_NEW(n1,uidParent,R,iParams);
+		//console.log('oid',oid)
+		createBoard(n1,uidParent,R,iParams);
 	}else{
 		n1.ui = createUi(n1, uidParent, R, iParams);
 	}

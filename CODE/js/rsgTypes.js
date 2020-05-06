@@ -53,6 +53,16 @@ class RSG {
 
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 	addR(oid, k) { addIf(this.getR(oid), k); }
+	updateR(k){
+		let nSpec=this.lastSpec[k];
+		if (!nSpec.cond) return;
+		let cond = nSpec.cond;
+		for(const oid in this._sd){
+			if (evalConds(this._sd[oid].o,cond)){
+				this.addR(oid,k);
+			}
+		}
+	}
 
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 

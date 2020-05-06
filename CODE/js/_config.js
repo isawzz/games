@@ -13,6 +13,13 @@ var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 var SPEC_PATH = '/DATA/testGrid/specCatan'; // 03b testBinding/03 | testGrid/04
 var SERVERDATA_PATH = '/DATA/testGrid/serverCatan'; // testBinding/d3 | testGrid/d4
 
+var SHOW_SPEC = false; // true | false
+var SHOW_OIDNODES = false; // true | false
+var SHOW_UINODES = false; // true | false
+var SHOW_RTREE = true; // true | false
+var SHOW_DICTIONARIES = false; // true | false
+
+
 
 // // __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01
 // var SPEC_PATH = '/DATA/testCalcContentFromData/03'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
@@ -30,7 +37,6 @@ const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
 const SHOW_SERVERDATA = false; // true | false
-const SHOW_SPEC = false; // true | false
 const SHOW_DEFS = false; // true | false
 
 // testing vars

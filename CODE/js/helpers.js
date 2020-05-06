@@ -24,6 +24,7 @@ function applyCssStyles(ui, params) {
 	let domType = getTypeOf(ui);
 	if (domType == 'g') {
 		//must apply styles differently or not at all!!!!!
+		mStyle(ui, params); //geht ja eh!!!!!!!!!!
 	} else { mStyle(ui, params); }
 }
 function asElem(x) { return isString(x) ? mBy(x) : x; }
