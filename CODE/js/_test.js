@@ -10,10 +10,11 @@ function testAddLocObject(R){
 function testAddObject(R){
 	let oid=getUID('o');
 	let o={name:'amanda'+oid};
+	if (!serverData.table) serverData.table = {};
 	serverData.table[oid]=o;
 	sData[oid]=jsCopy(o);
 	addNewServerObjectToRsg(oid,o,R);
-	console.log(R.instantiable)
+	//console.log(R.instantiable)
 	updateOutput(R);
 }
 function testRemoveObject(R){
@@ -24,7 +25,7 @@ function testRemoveObject(R){
 	}
 	delete sData[oid];
 	completelyRemoveServerObjectFromRsg(oid,R);
-	console.log('removed oid',oid);
+	//console.log('removed oid',oid);
 	updateOutput(R);
 }
 
@@ -111,7 +112,7 @@ function testRemoveOidKey(R) {
 	let nodeInstances = lookup(R.treeNodesByOidAndKey, [oid, key]);
 	console.log('_________ testRemoveOidKey', 'remove all', oid, key, nodeInstances);
 	//console.log('remove', oid, key);
-	removeOidFromLoc(oid, key, R);
+	removeOidKey(oid, key, R);
 
 	updateOutput(R);
 

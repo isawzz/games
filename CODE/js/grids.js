@@ -1,5 +1,111 @@
 var countDetectBoardParamsCalls=0;//TODO: remove!
 
+function createBoard_NEW(nui, area, R,defParams) {
+	console.log('_____________ board creation!!!!! area',area);
+	console.log('n', nui);
+	//habe type,uid,oid, sonst garnix!
+
+	let ntree = R.NodesByUid[nui.uid];
+	console.log('nTree',ntree);
+
+	let nSpec = R.lastSpec[ntree.key];
+
+	//wie macht man ein board???
+	let [oid,boardType] = detectBoardOidAndType_NEW(ntree.oid,nSpec.boardType, R);
+	console.log('detectBoardOidAndType_NEW',oid,boardType);
+
+	nui.oid = oid;
+	nui.boardType = boardType;
+
+
+	//console.log('createBoard anfang:', jsCopy(n).params)
+	nui.bi = window[nui.boardType](R.getO(nui.oid), R); 
+
+	console.log('========nui.bi',nui.bi);
+	generalGrid_NEW(nui, area, R,defParams);
+}
+function detectBoardOidAndType_NEW(oid,boardType, R) {
+	//detect n.oid if not set!
+	if (!oid) oid = detectFirstBoardObject(R);
+
+	let oBoard = R.getO(oid);
+	//console.log('board server object',oBoard);
+	if (!boardType) boardType = detectBoardType(oBoard, R);
+	return [oid,boardType];
+}
+function generalGrid_NEW(nuiBoard, area, R,defParams) {
+
+	// *** stage 1 create parent *** (kommt von createLC mit n...spec node COPY)
+	//console.log('board',n)
+	let bpa = nuiBoard.params = detectBoardParams(nuiBoard, R);
+	console.log('bpa',bpa)
+	nuiBoard.ui = createUi(nuiBoard, area, R,defParams);
+	console.log('NACH CREATEUI!!!!!!!!!!!',nuiBoard);
+
+	// *** stage 2 create children *** (in n.bi)
+	nuiBoard.children = [];
+	for (const name of ['fields', 'edges', 'corners']) {
+		let bMemberParams = nuiBoard.bi.params[name];
+		let group = nuiBoard.bi[name];
+		for (const oid in group) {
+			let n1 = group[oid];
+			n1.params = n1.defParams = jsCopy(bMemberParams);
+
+			console.log('FIELD',n1);
+			return;
+			n1 = mergeInBasicSpecNodesForOid(oid, n1, R); //implicit merging! 
+			n1.uiType = 'g';
+			n1.content = calcContent(oid, n1.o, n1.data);
+
+			//if (n1.type == 'info') { createLabel(n1, R); }
+
+			//console.log('vor createUi von',n1.oid,n1,n.ui);
+			createUi(n1, nuiBoard.uid, R);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
+
+			nuiBoard.children.push(n1); //n.bi[name][oid] = n1;
+		}
+	}
+
+	// *** stage 4: layout! means append & positioning = transforms... ***
+	let boardInfo = nuiBoard.bi.board.info;
+	let fSpacing = bpa.field_spacing;// = bpa.fields.size+bpa.gap;
+	if (nundef(fSpacing)) fSpacing = 60;
+	let margin = bpa.margin;
+	if (nundef(margin)) margin = 8;
+	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
+
+	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bpa.corners) ? bpa.corners.size : 15;
+	// console.log('cornerSize',cornerSize)
+
+	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
+	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
+
+	//console.log(wBoard,hBoard)
+
+	let boardDiv = nuiBoard.bi.boardDiv;
+	let boardG = nuiBoard.ui;
+	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal, 'border-radius': margin, margin: 'auto 4px' });
+	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
+
+	for (const f of nuiBoard.children) {
+		let uiChild = f.ui;
+		//console.log(uiChild);
+		boardG.appendChild(uiChild);
+		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 function createBoard(n, area, R) {
 	//console.log('createBoard anfang:', jsCopy(n).params)
 	n.bi = window[n.boardType](R.getO(n.oid), R); 

@@ -129,15 +129,32 @@ function mDictionary(o, { dParent, title, flattenLists = true, className = 'node
 function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopy(o);
+	// if (o.adirty) {
+	// 	console.log('oCopy',oCopy);
+	// 	console.log('oCopy\n',jsonToYaml(oCopy));
+	// }
 
 	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
 
 	if (nundef(lstOmit)) lstOmit = [];
 	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
 
+	// if (o.adirty) {
+	// 	console.log('oCopy',oCopy);
+	// 	console.log('oCopy\n',jsonToYaml(oCopy));
+	// 	console.log('oCopy\n',lstOmit);
+	// }
+
+
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
 	mYaml(d, oCopy);
+
+	// console.log('oCopy',oCopy,oCopy.adirty)
+	// if (oCopy.adirty) {
+	// 	console.log('mYaml',jsonToYaml(oCopy));
+	// }
+
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
 	if (isdef(title)) mInsert(d, mTextDiv(title));
@@ -205,7 +222,22 @@ function mAppPosS(d, child) { d = ensure(d); d.style.position = 'relative'; retu
 function mBox(w, h, color, dParent = null) { let d = mDiv(dParent); return mStyle(d, { 'background-color': color, position: 'absolute', display: 'inline', width: w, height: h }); }
 
 function mById(id) { return document.getElementById(id); }
-function mColor(d, bg, fg = 'white') { return mStyle(d, { 'background-color': bg, 'color': fg }); }
+function computeColor(c) { return (c == 'random') ? randomColor() : c; }
+function getExtendedColors(bg,fg){
+	bg = computeColor(bg);
+	fg = computeColor(fg);
+	if (bg == 'inherit' && (nundef(fg)||fg=='contrast')) {
+		fg='inherit'; //contrast to parent bg!
+
+	} else if (fg == 'contrast' && isdef(bg) && bg != 'inherit') fg = colorIdealText(bg);
+	else if (bg == 'contrast' && isdef(fg) && fg != 'inherit') { bg = colorIdealText(fg); }
+	return [bg,fg];
+}
+function mColorX(d, bg, fg) {
+	[bg,fg]=getExtendedColors(bg,fg);
+	return mColor(d, bg, fg);
+}
+function mColor(d, bg, fg) { return mStyle(d, { 'background-color': bg, 'color': fg }); }
 function mRemove(elem) { mDestroy(elem); }
 //function onMouseEnter(d, handler = null) { d3.on('mouse') }
 function mFont(d, fz) { d.style.setProperty('font-size', makeUnitString(fz, 'px')); }
@@ -2693,8 +2725,10 @@ function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 	for (const k in o) {
 		if (omitProps.includes(k)) continue;
 		//console.log(k)
-		if (!isEmpty(o[k])) {
+		if (isLiteral(o[k]) || !isEmpty(o[k])) {
 			onew[k] = recDeleteKeys(jsCopy(o[k]), deleteEmpty, omitProps);
+		}else{
+			//console.log('EMPTY!!!!!!!!!!!!!',k,o[k])
 		}
 	}
 	return onew;
@@ -2758,9 +2792,10 @@ function getRandomKey(dict) {
 	let keys = Object.keys(dict);
 	return chooseRandom(keys);
 }
-function randomColor(s = 100, l = 70, a = 1) {
+function randomColor(s,l,a){return isdef(s)?randomHslaColor(s,l,a):randomHexColor();}
+function randomHslaColor(s = 100, l = 70, a = 1) {
 	//s,l in percent, a in [0,1], returns hsla string
-	var hue = Math.random() * 360;
+	var hue = Math.round(Math.random() * 360);
 	return hslToHslaString(hue, s, l, a);
 }
 function randomHexColor() {

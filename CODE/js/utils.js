@@ -1,5 +1,12 @@
 function adjustContainerLayout(n, R) {
 
+
+	//console.log(n);return;
+	if (n.type == 'grid') {
+		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!',n);
+		return;
+	}
+
 	if (n.type == 'hand') { layoutHand(n); return; }
 	//if (n.type == 'hand') { sortCards(n); return; }
 
@@ -23,8 +30,8 @@ function adjustContainerLayout(n, R) {
 	else if (isNumber(split)) reverseSplit = true;
 
 	for (let i = 0; i < num; i++) {
-		if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
-		let d = n.children[i].ui;
+		//if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
+		let d = R.uiNodes[n.children[i]].ui;
 		mFlexChildSplit(d, split);
 
 		if (reverseSplit) { split = 1 - split; }
@@ -169,7 +176,7 @@ function check_ref(specKey, node, R) {
 }
 
 //#region source, pool
-function addNewObjectToSourcesAndPools(o,R) {
+function addNewObjectToSourcesAndPools(o, R) {
 	let sp = R.getSpec();
 
 	//to each sp node add pool if does not have _source
@@ -267,7 +274,7 @@ function addSourcesAndPools(R) {
 function makePool(cond, source, R) {
 	if (nundef(cond)) return [];
 	else if (cond == 'all') return source;
-	
+
 	// //console.log('cond', cond, 'source', source);
 	let pool = [];
 	for (const oid of source) {
@@ -294,7 +301,7 @@ function instanceOf(o, className) {
 	let otype = o.obj_type;
 	switch (className) {
 		case '_player':
-		case 'player': return ['me', '_me', 'player', '_player', 'opp', 'opponent', '_opponent'].includes(otype); break;
+		case 'player': return ['GamePlayer', 'me', '_me', 'player', '_player', 'opp', 'opponent', '_opponent'].includes(otype); break;
 		// case '_player': return otype == 'GamePlayer' || otype == 'opponent'; break;
 		case 'building': return otype == 'farm' || otype == 'estate' || otype == 'chateau' || otype == 'settlement' || otype == 'city' || otype == 'road'; break;
 	}
@@ -330,34 +337,49 @@ const PARAMRSG_T = {
 	field_spacing: true,
 	size: true,
 };
-function decodeParams(n, R) {
+function decodeParams(n, R, defParams) {
 
-	//console.log('n.params', n.params);
-	//console.log('def params', defParams);
+	console.assert(isdef(n.type), 'decodeParams NO TYPE!!!!')
+	console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
+	console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
+	// console.log('________ decodeParams for type',n.type);
+	// console.log('n.params', n.params);
+	// console.log('n.defParams', n.defParams);
+	// console.log(n);
+	// if (nundef(n.params)) n.params = {};
 
 	//if (n.type == 'grid') console.log(n.params)
-	let defParams;
+	let inherited = lookup(defParams, [n.type, 'params']);
+	let defaults = lookup(R.defs, [n.type, 'params']);
+	//console.log('type', n.type, '\ninherited:', inherited, '\ndefaults:', defaults, '\n=>inherit', n.params.inherit)
+	let defs = n.params.inherit ? inherited : defaults;
+	if (n.type != 'grid') n.params = deepmergeOverride(defs, n.params);
 
-	if (isdef(n.defParams)) {
-		defParams = n.defParams;
-	} else {
-		defParams = lookup(R, ['defs', n.type, 'params']);
-		// if (n.oid=='p1'){
-		// 	console.log('decode params:',defParams)
-		// }
-	
-		if (n.type != 'grid' && defParams) {
-			if (nundef(n.params)) n.params = jsCopy(defParams);
-			else n.params = deepmergeOverride(defParams, n.params);
-		}
-	}
+
+	//console.log('__________ decodeParams',n.type, n.params, defs)
+	//console.log('__________ n',n)
+
+
+	// if (isdef(n.defParams)) {
+	// 	defParams = n.defParams;
+	// } else {
+	// 	defParams = lookup(R, ['defs', n.type, 'params']);
+	// 	// if (n.oid=='p1'){
+	// 	// 	console.log('decode params:',defParams)
+	// 	// }
+
+	// 	if (n.type != 'grid' && defParams) {
+	// 		if (nundef(n.params)) n.params = jsCopy(defParams);
+	// 		else n.params = deepmergeOverride(defParams, n.params);
+	// 	}
+	// }
 
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;
 
-	//console.log('__________ decodeParams', n.params, defParams)
-
 	let pNew = {};
-	if (o) pNew = mapValues(o, n.params, defParams, R.getSpec());
+
+	//ist das wirklich nur wenn o? kann ich nicht static map vals verwenden???
+	if (o) pNew = mapValues(o, n.params, defs, R.getSpec());
 
 	//console.log('pNew nach mapValues', jsCopy(pNew));
 	//console.log('o', o)
@@ -365,20 +387,29 @@ function decodeParams(n, R) {
 	if (o) {
 		//todo: muss recursive werden!!!
 		for (const k in pNew) {
-			let val = pNew[k];
-			//console.log('val von pNew',k,val)
-			if (isString(val) && val[0] == '.') {
-				//console.log('...decoding');
-				val = decodePropertyPath(o, val);
-				//console.log('result:',val)
-			}
+			let val = calcContentFromData(n.oid, o, pNew[k], R);
+			// let val = pNew[k];
+			// //console.log('val von pNew',k,val)
+			// if (isString(val) && val[0] == '.') {
+			// 	//console.log('...decoding');
+			// 	val = decodePropertyPath(o, val);
+			// 	//console.log('result:',val)
+			// }
 			pNew[k] = val;
 		}
-	}
+	} else pNew = n.params;
 
 	//console.log('pNew nach decode prop vals', jsCopy(pNew));
 
-	if (!o) pNew = n.params;
+	// if (!o) pNew = n.params;
+
+	//hier mode color values! bg,fg
+	if (isdef(pNew.bg) || isdef(pNew.fg)) {
+		[pNew.bg, pNew.fg] = getExtendedColors(pNew.bg, pNew.fg);
+	}
+
+	//finally, special param values are converted
+	//check ob fuer css params inherit eh functioniert!
 
 	let params = paramsToCss(pNew);
 	n.params = pNew;

@@ -1,8 +1,4 @@
 function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
-	// *** stage 2: prep area div (loc 'areaTable') as flexWrap ***
-	//console.log(area)
-	//let d = stage2_prepArea(area);
-
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
 	let boardDiv = stage3_prepContainer(dParent);
 
@@ -33,8 +29,8 @@ function mPanel(n, dParent, R) {
 	let ui;
 	ui = mDiv(dParent);
 	if (isdef(n.content)) {
-		let d1=mTextDiv(n.content,ui);
-		mStyle(d1,{padding:10});
+		let d1 = mTextDiv(n.content, ui);
+		//mStyle(d1,{padding:10});
 	}
 
 	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -110,7 +106,7 @@ function mInfo(n, dParent, R) {
 	//console.log(dParent)
 	//console.log('--->info content',n.content)
 
-	console.assert(isdef(n.content),'mInfo with NO CONTENT!!!!!!!!!!!');
+	console.assert(isdef(n.content), 'mInfo with NO CONTENT!!!!!!!!!!!');
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
@@ -120,7 +116,7 @@ function mInfo(n, dParent, R) {
 		//if (n.oid=='1') console.log('params of board member', n.oid, jsCopy(pf))
 		ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
 		if (n.content) {
-			createLabel_dep(n,ui, R);
+			createLabel_dep(n, ui, R);
 			// let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
 			// n.label = agText(ui, n.content, color, pf.font);
 		}

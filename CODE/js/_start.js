@@ -36,7 +36,8 @@ async function gameStep() {
 	// run03(SPEC,DEFS,sData); //macht gens.G
 	// setTimeout(onClickDO,500);
 
-	run05(SPEC, DEFS, sData); //macht gens.G
+	runTest();
+	 //macht gens.G
 
 
 
@@ -47,70 +48,26 @@ async function gameStep() {
 
 }
 //#endregion
-function run05(sp, defaults, sdata) {
-	//v1
-	//sp = normalizeSpec(sp);
+function runTest(){run06(SPEC, DEFS, sData);}
+function run06(sp, defaults, sdata) {
 	WR.inc = R = new RSG(sp, defaults, sdata);
-	R.geninc13();
-	R.clearObjects();
-	R.oidNodes = {};
-
-	addNewlyCreatedServerObjects(sdata,R);
-
-	generateUis('table', R);
-
+	ensureRtree(R); //make sure static tree has been built! OK!
 	updateOutput(R);
-
-	//testAddOidKey(WR.inc);
-	//testRemoveOidKey(R);
-
-	//testLookupRemoveFromList(); //OK!
-	//setTimeout(()=>testRemoveOidKey(R),1500);
-
+	R.baseArea = 'table';
+	createStaticUi(R.baseArea,R);
+	updateOutput(R);
+	addNewlyCreatedServerObjects(sdata,R);
+	updateOutput(R);
 }
 
-function updateOutput(R) {
-	for (const area of ['spec', 'oidNodes', 'tree', 'dicts','uiNodes']) {
-		clearElement(area);
-	}
-
-	// presentGeneration(R.lastSpec, 'spec');
-	// presentOidNodes(R, 'oidNodes');
-
-	//console.log(R.uiNodes)
-	for (const uid in R.uiNodes) {
-		presentAddNode(R.uiNodes[uid], uid, 'uiNodes', ['children'],
-			['content', 'data', 'here', 'key', 'type', 'uidParent', 'uiType'],
-			['ui', 'uid', 'panels', 'panel']);
-	}
-
-	presentTree(R.tree, 'tree', R, ['children']);
-	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
-
-	mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
-	mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
-	mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
-
+//#region frueher
+function run05(sp, defaults, sdata) {
+	WR.inc = R = new RSG(sp, defaults, sdata);
+	ensureRtree(R); //make sure static tree has been built! 
+	//addNewlyCreatedServerObjects(sdata,R);
+	generateUis('table', R);
+	updateOutput(R);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function run04(sp, defaults, sdata) {
 	WR.G = R1 = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
 	genG('table', R1);
@@ -188,7 +145,7 @@ function run03(sp, defaults, sdata) {
 
 
 
-//#region showPanel, showChildren v0
+//showPanel, showChildren v0
 function showPanels(n) {
 	console.log('panels:')
 	if (nundef(n.panels)) {
@@ -211,7 +168,7 @@ function showChildren(n) {
 }
 
 
-
+//#endregion
 
 //#region interaction restartGame prelims (von gameStep)
 async function interaction() {
@@ -252,8 +209,11 @@ async function prelims() {
 	presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
 
 }
+//#endregion
 
 function makeDefaultPool(fromData) {
+	if (nundef(fromData) || isEmpty(fromData.table) && isEmpty(fromData.players)) return {};
+	if (nundef(fromData.table)) fromData.table={};
 	let data = jsCopy(fromData.table);
 	for (const k in fromData.players) {
 		data[k] = jsCopy(fromData.players[k]);
@@ -261,3 +221,36 @@ function makeDefaultPool(fromData) {
 	//console.log('data',data)
 	return data;
 }
+
+function updateOutput(R) {
+	for (const area of ['spec', 'oidNodes', 'tree', 'dicts','uiNodes']) {
+		clearElement(area);
+	}
+
+	presentGeneration(R.lastSpec, 'spec');
+	presentOidNodes(R, 'oidNodes');
+
+	//console.log(R.uiNodes)
+	for (const uid in R.uiNodes) {
+		
+		presentAddNode(R.uiNodes[uid], uid, 'uiNodes', 
+		['children'],
+			['adirty','content', 'data','children','here', 'key', 'uidParent', 'uiType', 'params', 'type'],
+			['ui', 'uid', 'panels', 'panel']);
+	}
+
+	presentTree(R.tree, 'tree', R, ['children']);
+	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
+
+	let numRTree = Object.keys(R.NodesByUid).length;
+	let numUiNodes = nundef(R.uiNodes)? 0: Object.keys(R.uiNodes).length;
+	let handCounted = R.ROOT.data;
+	//console.log('#soll='+handCounted,'#rtree='+numRTree,'#uiNodes='+numUiNodes);
+
+	mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
+	mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
+
+
+}
+

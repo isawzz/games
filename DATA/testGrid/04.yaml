@@ -1,0 +1,41 @@
+#real board!!!
+ROOT:
+  panel: B
+B:
+  cond:
+    obj_type: Board
+  type: grid
+F:
+  cond:
+    obj_type: Tick
+  data: .col
+
+#test super simple!
+# ROOT:
+#   panel: A
+# A:
+#   cond:
+#     instanceof: _player
+#   data: .symbol
+
+#test harmlos OK!
+# ROOT:
+#   panels:
+#   - panel: B
+#   - panels:
+#     - panel: F
+#     - panel: A
+#       params:
+#         orientation: v
+# B:
+#   cond:
+#     obj_type: Board
+#   data: .
+# F:
+#   cond:
+#     obj_type: Tick
+#   data: .col
+# A:
+#   cond: all
+#   data: .obj_type
+

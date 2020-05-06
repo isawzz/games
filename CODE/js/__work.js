@@ -1,49 +1,9 @@
 
-function addNewlyCreatedServerObjects(sdata,R) {
-	let locOids = [];
-	//console.log(sdata)
-	for (const oid in sdata) {
-		let o = sdata[oid];
-		if (isdef(o.loc)) { locOids.push(oid); continue; }
-		addNewServerObjectToRsg(oid, o, R);
-	}
-
-	while(true){
-		//find next loc oid with existing parent!
-		let oid = find_next_loc_oid_with_existing_parent(locOids,sdata,R);
-		if (!oid){
-			console.log('cannot add any other object!',locOids);
-			break;
-		}
-		//add it to RSG
-		let o = sdata[oid];
-		addNewServerObjectToRsg(oid, o, R);
-		//remove it from locOids
-		removeInPlace(locOids,oid);
-		if (isEmpty(locOids)) break;
-		
-	}
-	// for (const oid of locOids) {
-	// 	let o = sdata[oid];
-	// 	addNewServerObjectToRsg(oid, o, R);
-	// }
-
+function completeUiTree(R){
+	// rtree is complete by this time!!!!!!!
+	let uiRoot = R.uiNodes[R.tree.uid];
+	console.log('uiRoot is',uiRoot);
 }
-
-function find_next_loc_oid_with_existing_parent(locOids,sdata,R){
-	for(const oid of locOids){
-		console.log('checking',oid)
-		let o=sdata[oid];
-		let loc=o.loc;
-		let parentID=loc;
-		if (!isEmpty(R.treeNodesByOidAndKey[parentID])) return oid;
-	}
-	return null;
-}
-
-
-
-
 
 
 

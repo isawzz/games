@@ -22,11 +22,6 @@ var DEF_DOM_TAG = 'div';
 function defaultUIFunc(mk) {
 	let el = mk.elem = mCreate('div');
 	el.style.backgroundColor = randomColor();
-	// el.innerHTML = 'hallo';
-	//el.innerHTML = 'oid' + mk.oid + ', id:' + mk.id + ', loc:' + mk.mapping.loc;
-	//el.innerHTML = '<pre>' + 'hallo' + '</pre>'; // o2yaml('hallo'); //{hallo:'hallo'}); //mk.o);
-	//el.innerHTML = '<pre style="white-space: nowrap;">' + jsonToYaml(mk.o) + '</pre>'; 
-	// el.innerHTML = 'oid:' + mk.oid + ', id:' + mk.id + ', loc:' + mk.mapping.loc + o2yaml(mk.o); // id:'+mk.id+', map.oid:'+(mk.mapping.oid);
 	el.innerHTML = formatJson(mk.o); // JSON.stringify(mk.o).replace('\"',''); // id:'+mk.id+', map.oid:'+(mk.mapping.oid);
 	// let id = el.id = mk.childrensParentId = mk.id;
 	el.style.textAlign = 'left';
