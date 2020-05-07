@@ -1,9 +1,3 @@
-#nur 1 beispiel das laufen muss!!!
-# ROOT:
-#   type: panel
-#   panels:
-#     type: tick
-
 #board!!!
 ROOT:
   data: 147

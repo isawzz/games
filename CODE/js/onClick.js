@@ -11,5 +11,20 @@ function onClickDeactivate() {
 	testDeactivate(WR.inc);
 }
 
+function onClickUpdateOutput(elem, caption) {
+
+	if (nundef(caption)) caption = elem.id;
+	//console.log('caption', caption, elem);
+	switch (caption) {
+		case 'contSpec': SHOW_SPEC = !SHOW_SPEC; break;
+		case 'contUiTree': SHOW_UITREE = !SHOW_UITREE; break;
+		case 'contRTree': SHOW_RTREE = !SHOW_RTREE; break;
+		case 'contOidNodes': SHOW_OIDNODES = !SHOW_OIDNODES; break;
+		case 'contDicts': SHOW_DICTIONARIES = !SHOW_DICTIONARIES; break;
+	}
+	updateOutput(WR.inc);
+}
+
+
 function onClickNextExample() { }
 function onClickStep() { }

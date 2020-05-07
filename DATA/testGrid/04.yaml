@@ -8,7 +8,7 @@ B:
 F:
   cond:
     obj_type: Tick
-  data: .col
+  data: .symbol
 
 #test super simple!
 # ROOT:

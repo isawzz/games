@@ -52,10 +52,10 @@ function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! OK!
-	updateOutput(R);
+	//updateOutput(R);
 	R.baseArea = 'table';
 	createStaticUi(R.baseArea, R);
-	updateOutput(R);
+	//updateOutput(R);
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
 }
@@ -223,39 +223,45 @@ function makeDefaultPool(fromData) {
 }
 
 function updateOutput(R) {
-	for (const area of ['spec', 'oidNodes', 'tree', 'dicts', 'uiNodes']) {
+	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts']) {
 		clearElement(area);
 	}
 
 	if (SHOW_SPEC) { presentGeneration(R.lastSpec, 'spec'); }
-	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
 
-	//console.log(R.uiNodes)
-	if (SHOW_UINODES) {
-		for (const uid in R.uiNodes) {
-
-			presentAddNode(R.uiNodes[uid], uid, 'uiNodes',
-				['children'],
-				['adirty', 'content', 'data', 'children', 'here', 'key', 'uidParent', 'uiType', 'params', 'type'],
-				['ui', 'uid', 'panels', 'panel']);
-		}
+	if (SHOW_UITREE) {
+		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
+			['children'],
+			// ['uid', 'adirty', 'type', 'data', 'content', 'params', 'uiType', 'oid', 'key', 'boardType'],
+			['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
+			null,
+			{ 'max-width': '35%', font: '14px arial' });
+		//not: ui, act, uid, info, defParams, cssParams, typParams, stdParams, bi
 	}
 
 	if (SHOW_RTREE) {
-		presentTree(R.tree, 'tree', R, ['children']);
-		//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
+		presentDictTree(R.NodesByUid, R.tree.uid, 'rTree', 'children', R,
+			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
 	}
 
-	let numRTree = Object.keys(R.NodesByUid).length;
-	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
-	let handCounted = R.ROOT.data;
-	console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
 
 	if (SHOW_DICTIONARIES) {
 		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
 		mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
 		mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
 	}
+
+	// if (SHOW_RTREE) {
+	// 	presentTree(R.tree,'children', 'tree', R, ['children']);
+	// 	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
+	// }
+
+	let numRTree = Object.keys(R.NodesByUid).length;
+	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
+	let handCounted = R.ROOT.data;
+	//console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+
 
 
 }

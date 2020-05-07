@@ -40,42 +40,28 @@
 				<b>table</b>
 				<div id='table' class='flexWrap'> </div>
 			</div>
-			<div id='contUiNodes' class='grey'>
-				<b>ui nodes</b>
-				<div id='uiNodes' class='flexWrap'></div>
-			</div>
-			<div id='contSpec' class='grey'>
+			<div id='contSpec' class='grey' onclick='onClickUpdateOutput(this)'>
 				<b>spec</b>
+				<!-- <b onclick='onClickUpdateOutput(this,this.innerHTML)'>spec</b> -->
 				<div id='spec' class='flexWrap'></div>
 			</div>
-			<div id='contOidNodes' class='grey'>
+			<div id='contUiTree' onclick='onClickUpdateOutput(this)' class='grey'>
+				<b>ui tree</b>
+				<!-- <button onclick='onClickUpdateOutput(this,"ui nodes")'>ui nodes</button> -->
+				<div id='uiTree' class='flexWrap'></div>
+			</div>
+			<div id='contRTree' onclick='onClickUpdateOutput(this)' class='grey'>
+				<b>R tree</b>
+				<div id='rTree' class='flexWrap'></div>
+			</div>
+			<div id='contOidNodes' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>oidNodes</b>
 				<div id='oidNodes' class='flexWrap'></div>
 			</div>
-			<div id='contTree' class='grey'>
-				<b>tree</b>
-				<div id='tree' class='flexWrap'></div>
-			</div>
-			<div id='contDicts' class='grey'>
+			<div id='contDicts' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>dictionaries:</b>
 				<div id='dicts' class='flexWrap'> </div>
 			</div>
-			<!-- 
-			<div id='contResults' class='grey'>
-				<b>results</b>
-				<div id='results' class='flexWrap'></div>
-			</div>
-			<div id='contTable1' class='grey'>
-				<b>table1</b>
-				<div id='table1' class='flexWrap'> </div>
-			</div>
-			<div id='contTree1' class='grey'>
-				<div id='tree1' class='flexWrap'></div>
-			</div>
-			<div id='contResults1' class='grey'>
-				<div id='results1' class='flexWrap'></div>
-			</div>
-			-->
 
 		</div>
 		<div id='lower'>
@@ -98,9 +84,9 @@
 	<!-- #region loading: order matters! -->
 	<script src="/CODE/js/helpers.js"></script>
 	<script src="/CODE/js/_config.js"></script>
+	<script src="/CODE/js/__work.js"></script>
 	<script src="/CODE/js/types.js"></script>
 
-	<script src="/CODE/js/__work.js"></script>
 	<script src="/CODE/js/_test.js"></script>
 	<script src="/CODE/js/Activator.js"></script>
 	<script src="/CODE/js/assets.js"></script>

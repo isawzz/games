@@ -296,12 +296,17 @@ function createUi(n, area, R, defParams) {
 
 	//console.log('createUi',jsCopy(n))
 
-	if (nundef(n.type)) n.type = inferType(n);
-	if (nundef(n.content) && n.type == 'info' && n.uiType != 'g') {
-		n.uiType = 'NONE';
-		//console.log('uiType is NONE))))))))))))))))))))))))')
-		return null;
-	}
+	if (nundef(n.type))
+	{
+		n.type = inferType(n);
+		//console.log('type inference: set to',n.type)
+	} 
+	// if (nundef(n.content) && n.type == 'info' && n.uiType != 'g') {
+
+	// 	n.uiType = 'NONE';
+	// 	console.log('uiType is NONE))))))))))))))))))))))))',n.uid)
+	// 	return null;
+	// }
 
 	R.registerNode(n);
 

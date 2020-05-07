@@ -107,7 +107,6 @@ function recFlattenLists(o) {
 		else if (isDict(cand)) recFlattenLists(cand);
 	}
 }
-
 function mDictionary(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = jsCopy(o);
@@ -128,41 +127,19 @@ function mDictionary(o, { dParent, title, flattenLists = true, className = 'node
 	return d;
 }
 function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
-
-	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopy(o);
-	// if (o.adirty) {
-	// 	console.log('oCopy',oCopy);
-	// 	console.log('oCopy\n',jsonToYaml(oCopy));
-	// }
-
+	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopySafe(o);
 	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
-
 	if (nundef(lstOmit)) lstOmit = [];
 	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
-
-	// if (o.adirty) {
-	// 	console.log('oCopy',oCopy);
-	// 	console.log('oCopy\n',jsonToYaml(oCopy));
-	// 	console.log('oCopy\n',lstOmit);
-	// }
-
-
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
 	mYaml(d, oCopy);
-
-	// console.log('oCopy',oCopy,oCopy.adirty)
-	// if (oCopy.adirty) {
-	// 	console.log('mYaml',jsonToYaml(oCopy));
-	// }
-
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-
 function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
@@ -224,18 +201,18 @@ function mBox(w, h, color, dParent = null) { let d = mDiv(dParent); return mStyl
 
 function mById(id) { return document.getElementById(id); }
 function computeColor(c) { return (c == 'random') ? randomColor() : c; }
-function getExtendedColors(bg,fg){
+function getExtendedColors(bg, fg) {
 	bg = computeColor(bg);
 	fg = computeColor(fg);
-	if (bg == 'inherit' && (nundef(fg)||fg=='contrast')) {
-		fg='inherit'; //contrast to parent bg!
+	if (bg == 'inherit' && (nundef(fg) || fg == 'contrast')) {
+		fg = 'inherit'; //contrast to parent bg!
 
 	} else if (fg == 'contrast' && isdef(bg) && bg != 'inherit') fg = colorIdealText(bg);
 	else if (bg == 'contrast' && isdef(fg) && fg != 'inherit') { bg = colorIdealText(fg); }
-	return [bg,fg];
+	return [bg, fg];
 }
 function mColorX(d, bg, fg) {
-	[bg,fg]=getExtendedColors(bg,fg);
+	[bg, fg] = getExtendedColors(bg, fg);
 	return mColor(d, bg, fg);
 }
 function mColor(d, bg, fg) { return mStyle(d, { 'background-color': bg, 'color': fg }); }
@@ -1445,6 +1422,13 @@ function makeDroppable(target) {
 //#endregion
 
 //#region DOM: hierarchy, parent, children...
+function removeAttributes(elem){
+	//removes class, id, style,...
+	while(elem.attributes.length > 0){
+		//console.log(elem.attributes[0].name);
+    elem.removeAttribute(elem.attributes[0].name);
+	}
+}
 function removeDOM(elem) { purge(elem); }
 function removeEvents(elem) {
 	for (const evname of arguments) {
@@ -1488,6 +1472,7 @@ function purge(elem) {
 	}
 	elem.remove(); //elem.parentNode.removeChild(elem);
 }
+//function clearOuter(elem){elem.outerHTML = '';} ACHTUNG GEHT NICHT SO WIE ICH GLAUBTE!
 function clearElement(elem) {
 	//console.log(elem);
 	if (isString(elem)) elem = document.getElementById(elem);
@@ -1495,6 +1480,13 @@ function clearElement(elem) {
 	while (elem.firstChild) {
 		$(elem.firstChild).remove();
 	}
+	return elem;
+}
+function clearIncludingAttr(elem) {
+	//console.log(elem);
+	if (isString(elem)) elem = document.getElementById(elem);
+	elem.innerHTML = ''; 
+	removeAttributes(elem);
 	return elem;
 }
 function clearInit(elem, startProps = {}) {
@@ -2292,7 +2284,26 @@ function isEmpty(arr) {
 }
 function jsCopy(o) {
 	//console.log(o)
+	//console.log(JSON.parse(JSON.stringify(o)))
 	return JSON.parse(JSON.stringify(o)); //macht deep copy
+}
+function jsCopyMinus(o) {
+	//console.log(o)
+	//console.log(JSON.parse(JSON.stringify(o)))
+	let lstOmit=[...arguments].slice(1);
+	addIf(lstOmit,'children'); //.push('children'); TODO!!!! remove!!!
+	//console.log('omit properties:',lstOmit);
+	let oNew ={};
+	for(const k in o){
+		if (lstOmit.includes(k)) continue;
+		oNew[k]=o[k];
+	}
+	return oNew; //JSON.parse(JSON.safeStringify(o)); //macht deep copy
+}
+function jsCopySafe(o) {
+	//console.log(o)
+	//der safeStringify schmeisst html elems weg!!!
+	return JSON.parse(JSON.safeStringify(o)); //macht deep copy
 }
 function arrlast(arr) {
 	return arr.length > 0 ? arr[arr.length - 1] : null;
@@ -2574,6 +2585,25 @@ function union(lst1, lst2) {
 //#endregion
 
 //#region recursion
+// safely handles circular references
+JSON.safeStringify = (obj, indent = 2) => {
+	// usage:
+	//console.log('options', JSON.safeStringify(options))
+	let cache = [];
+	const retVal = JSON.stringify(
+		obj,
+		(key, value) =>
+			typeof value === "object" && value !== null
+				? cache.includes(value)
+					? undefined // Duplicate reference found, discard key
+					: cache.push(value) && value // Store value in our collection
+				: value,
+		indent
+	);
+	cache = null;
+	return retVal;
+};
+
 var ___enteredRecursion = 0;
 const MAX_RECURSIONS = 200;
 function safeRecurse(o, func, params, tailrec) {
@@ -2641,8 +2671,12 @@ function recConvertToList(n, listOfProps) {
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
-function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, lstOmit } = {}) {
-	//console.log('recPresentTreeFilter',n);
+function recPresentTreeFilter(n, level, dLevel, nDict, treeProp, { lstFlatten, lstShow, lstOmit } = {}) {
+	// let x=JSON.safeStringify(n);
+	// let y=JSON.parse(x);
+	// if (isdef(y.act)) delete y.act;
+	// if (isdef(y.ui)) delete y.ui;
+	// //console.log(y)
 	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 	if (nundef(n.children)) return level;
 	let max = 0;
@@ -2651,7 +2685,7 @@ function recPresentTreeFilter(n, level, dLevel, nDict, { lstFlatten, lstShow, ls
 		//console.log('x',x,'nDict',nDict,'nDict[x]',nDict[x])
 		let nx = nDict[x];
 		//console.log('nx',nx)
-		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, treeProp, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 		if (newMax > max) max = newMax;
 	}
 	return max;
@@ -2728,7 +2762,7 @@ function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 		//console.log(k)
 		if (isLiteral(o[k]) || !isEmpty(o[k])) {
 			onew[k] = recDeleteKeys(jsCopy(o[k]), deleteEmpty, omitProps);
-		}else{
+		} else {
 			//console.log('EMPTY!!!!!!!!!!!!!',k,o[k])
 		}
 	}
@@ -2793,7 +2827,7 @@ function getRandomKey(dict) {
 	let keys = Object.keys(dict);
 	return chooseRandom(keys);
 }
-function randomColor(s,l,a){return isdef(s)?randomHslaColor(s,l,a):randomHexColor();}
+function randomColor(s, l, a) { return isdef(s) ? randomHslaColor(s, l, a) : randomHexColor(); }
 function randomHslaColor(s = 100, l = 70, a = 1) {
 	//s,l in percent, a in [0,1], returns hsla string
 	var hue = Math.round(Math.random() * 360);

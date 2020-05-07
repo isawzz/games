@@ -34,6 +34,8 @@ defaults:
         shape: hex
   panel:
     params:
+      # min-width: 20
+      # min-height: 20
       bg: random
       #filter: hue-rotate(90deg)
       #filter: saturate(120%)

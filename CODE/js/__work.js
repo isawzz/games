@@ -5,6 +5,39 @@ function completeUiTree(R){
 	console.log('uiRoot is',uiRoot);
 }
 
+function mPanel(n, dParent, R) {
+	//console.log('add panel', n.content);
+	let ui = n.ui;
+	// console.log('HALLO!!!!',nundef(ui)?ui:jsCopy(ui),isEmpty(ui));
+	if (n.changing){
+		//console.log('CHANGING!!!!!!!!!!!!!!!!!!!!!')
+		clearIncludingAttr(ui);
+		//clearElement(ui);
+		delete n.changing;
+	// }
+	// if (isdef(ui) && ui!={} && !isEmpty(ui)) //isdef(ui)) 
+	// { 
+	// 	clearElement(ui);
+	// 	//clearIncludingAttr(ui); 
+	} else {
+		//console.log('else....')
+		ui = mDiv(dParent);
+	}
+	//if (isdef(ui)) {clearElement(ui);}else ui = mDiv(dParent);
+	// 	clearElement(ui); 
+	// 	removeAttributes(ui);
+	// }else ui = mDiv(dParent);
+
+	if (isdef(n.content)) {
+		let d1 = mTextDiv(n.content, ui);
+		//mStyle(d1,{padding:10});
+	}
+
+	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui,params);
+	return ui;
+}
 
 
 

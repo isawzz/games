@@ -25,19 +25,6 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 
 //container types
-function mPanel(n, dParent, R) {
-	let ui;
-	ui = mDiv(dParent);
-	if (isdef(n.content)) {
-		let d1 = mTextDiv(n.content, ui);
-		//mStyle(d1,{padding:10});
-	}
-
-	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// let params = decodeParams(n,{},R);
-	// mStyle(ui,params);
-	return ui;
-}
 function mList(n, dParent, R) {
 
 	let ui = mDiv(dParent);
@@ -103,10 +90,11 @@ function mTitle(n, dParent, R) {
 }
 
 function mInfo(n, dParent, R) {
+	//console.log('CREATING INFO',n.uid)
 	//console.log(dParent)
 	//console.log('--->info content',n.content)
 
-	console.assert(isdef(n.content) || n.uiType =='g', 'mInfo with NO CONTENT!!!!!!!!!!!');
+	//console.assert(isdef(n.content) || n.uiType == 'g', 'mInfo with NO CONTENT!!!!!!!!!!!');
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
@@ -124,18 +112,14 @@ function mInfo(n, dParent, R) {
 			n.label = agText(ui, n.content, color, pf.font);
 		}
 
-	} else {
+	} else if (isdef(n.content)) {
 		//console.log(n.content)
 
 		ui = mNode(n.content, { dParent: dParent });
+	}else{
+		ui = mDiv(dParent);
+		ui.style.display = 'hidden';
 	}
-
-
-
-
-	// let params = decodeParams(n,{},R);
-	// mStyle(ui, params);
-	// mStyle(ui, paramsToCss(n.params));
 	return ui;
 }
 

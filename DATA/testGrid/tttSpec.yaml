@@ -1,0 +1,36 @@
+ROOT:
+  params:
+    bg: green
+    orientation: v
+    # justify-items: stretch
+    align-items: stretch
+    # align-content: space-between
+  panels:
+    - panel: P
+      #data: 1
+      #type: panel
+    - panel: B
+      #data: 2
+      #type: panel
+    # - panels:
+    #   - panel: P
+    # - panels:
+    #   - panel: A
+B:
+  cond:
+    obj_type: Board
+  type: grid
+  params:
+    field_spacing: 61
+    margin: 0
+P:
+  cond:
+    instanceof: _player
+  data: .name
+Tick:
+  cond:
+    obj_type: Tick
+  type: info
+  data: .col
+  params:
+    fg: red

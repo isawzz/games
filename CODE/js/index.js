@@ -12,7 +12,27 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 	if (d && SHOW_DEFS) { mNode(DEFS, { dParent: d, listOfProps: lst }); } else { hide('contDEFS'); }
 }
 
-function presentTree(n, area, R, lf, ls, lo) {
+function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, styles) {
+	if (nundef(nDict)) {
+		console.log('presentDictTree: cannot present nDict!!!');
+		return;
+	}
+	//console.log(nDict, '\nlf', lf, '\nls', ls, '\nlo', lo)
+	d = mBy(area);
+
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+		if (isdef(styles)) mStyle(d1, styles);
+	}
+
+	maxLevel = 1 + recPresentTreeFilter(nDict[uidStart], 0, dLevel, nDict, treeProperty,
+		{ lstFlatten: lf, lstShow: ls, lstOmit: lo });
+}
+
+function presentTree(n, treeProperty, area, R, lf, ls, lo) {
 	d = mBy(area);
 
 	let depth = 10;
@@ -26,7 +46,7 @@ function presentTree(n, area, R, lf, ls, lo) {
 	//console.log('nDict',nDict)
 	//console.log('n',n)
 	//console.log('nDict',nDict);
-	maxLevel = 1 + recPresentTreeFilter(n, 0, dLevel, nDict, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
+	maxLevel = 1 + recPresentTreeFilter(n, 0, dLevel, nDict, treeProperty, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
 }
 
 function presentRoot(n, area, lf, ls, lo) {

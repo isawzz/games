@@ -151,16 +151,22 @@ function change_parent_type_if_needed(n, R) {
 	let uiNode = R.uiNodes[n.uid];
 
 	if (!isContainerType(uiNode.type)) {
-		//console.log('CHANGE UI TYPE FROM', n.type, 'to panel', n)
 		let uiNode = R.uiNodes[n.uid];
+		//console.log('CHANGE UI TYPE FROM', uiNode.type, 'to panel', jsCopy(n),jsCopyMinus(uiNode,'act'),'\nui:',uiNode.ui)
+		//console.log('uiNode',jsCopySafe(uiNode))
+		//console.log('copy of uiNode.ui',jsCopy(uiNode.ui));
 		//console.log('parent of board',uiNode)
 		uiNode.type = 'panel';
-		if (uiNode.ui) mDestroy(uiNode.ui);
+		uiNode.changing=true;
+		// if (uiNode.ui) {
+		// 	clearElement(uiNode.ui);
+		// 	//mDestroy(uiNode.ui);
+		// }
 		let treeNode = R.NodesByUid[n.uid];
 		let uidParent = treeNode.uidParent;
 		let area = uidParent ? uidParent : R.baseArea;
 		let uiNew = createUi(uiNode, area, R, uiNode.defParams);
-		uiNode.ui = uiNew;
+		//uiNode.ui = uiNew;
 	}
 }
 
