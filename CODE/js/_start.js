@@ -61,6 +61,7 @@ function run06(sp, defaults, sdata) {
 
 	for(let i=0;i<5;i++) testAddObject(R);
 	updateOutput(R);
+	activateUis(R);
 }
 
 //#region frueher
@@ -226,6 +227,7 @@ function makeDefaultPool(fromData) {
 }
 
 function updateOutput(R) {
+
 	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts']) {
 		clearElement(area);
 	}
@@ -263,7 +265,8 @@ function updateOutput(R) {
 	let numRTree = Object.keys(R.NodesByUid).length;
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;
-	//console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree+ ', #uiNodes=' + numUiNodes);
 
 
 

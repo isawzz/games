@@ -23,6 +23,63 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 		console.log('UI not creatable! No suitable parent found! uidParent', uidParent, 'oid', oid, 'key', key, R.uiNodes);
 	}
 }
+function addNewlyCreatedServerObjects(sdata, R) {
+	let locOids = [];
+	for (const oid in sdata) {
+		let o = sdata[oid];
+		if (isdef(o.loc)) { locOids.push(oid); continue; }
+		addNewServerObjectToRsg(oid, o, R);
+	}
+
+	while (true) {
+		//find next loc oid with existing parent!
+		let oid = find_next_loc_oid_with_existing_parent(locOids, sdata, R);
+		if (!oid) {
+			//console.log('cannot add any other object!', locOids);
+			break;
+		}
+		//add it to RSG
+		let o = sdata[oid];
+		addNewServerObjectToRsg(oid, o, R);
+		removeInPlace(locOids, oid); //remove it from locOids
+		if (isEmpty(locOids)) break;
+	}
+
+	//adjust dirty containers
+	//return;
+	recAdjustDirtyContainers(R.tree.uid,R);
+}
+function createStaticUi(area, R) {
+	ensureUiNodes(R);
+	let n = R.tree;
+	let defParams = jsCopy(R.defs);
+	defParams = deepmergeOverride(R.defs, { panel: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
+	recBuildUiFromNode(n, area, R, defParams, null);
+}
+
+function recAdjustDirtyContainers(uid,R,verbose=false){
+	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
+	let nui = R.uiNodes[uid];
+	//if (verbose) console.log('uid',uid)
+	if (nui.adirty){
+		//if(verbose) console.log('adjusting!!!!',uid)
+		adjustContainerLayout(nui,R);
+	}
+	if (nundef(nui.children)) return;
+	for(const ch of nui.children) recAdjustDirtyContainers(ch,R,verbose);
+
+}
+
+function find_next_loc_oid_with_existing_parent(locOids, sdata, R) {
+	for (const oid of locOids) {
+		let o = sdata[oid];
+		let loc = o.loc;
+		let parentID = loc;
+		if (!isEmpty(R.treeNodesByOidAndKey[parentID])) return oid;
+	}
+	return null;
+}
+
 
 //#region add oid
 function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
@@ -32,9 +89,6 @@ function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
 
 	addRForObject(oid, R);
 
-	if (nundef(R.oidNodes)) R.oidNodes = {};
-
-	createPrototypesForOid(oid, o, R);
 
 	if (skipEinhaengen) { return; } else { einhaengen(oid, o, R); }
 }
@@ -42,24 +96,29 @@ function addRForObject(oid, R) {
 	let o = R.getO(oid);
 	let sp = R.getSpec();
 
+	//eval conds (without no_spec!)
 	for (const k in sp) {
 		let n = sp[k];
 		if (nundef(n.cond)) continue;
 		if (n.cond == 'all' || evalConds(o, n.cond)) { R.addR(oid, k); }
 	}
+	//check for no_spec clauses
 	if (isEmpty(R.getR(oid))) {
-		//check for no_spec clauses
+		
 		for (const k in sp) {
 			let n = sp[k];
 			if (nundef(n.cond)) continue;
 			let keys = Object.keys(n.cond);
 			if (!keys.includes('no_spec')) continue;
-			if (o.obj_type == 'card') console.log('adding R')
 			let condCopy = jsCopy(n.cond);
 			delete condCopy['no_spec'];
 			if (evalConds(o, condCopy)) { R.addR(oid, k); }
 		}
 	}
+
+	if (nundef(R.oidNodes)) R.oidNodes = {};
+
+	createPrototypesForOid(oid, o, R);
 
 }
 function createPrototypesForOid(oid, o, R) {
@@ -136,8 +195,10 @@ function change_parent_type_if_needed(n, R) {
 //#region remove oid
 function completelyRemoveServerObjectFromRsg(oid, R) {
 
-	aushaengen(oid, R); //remove from R.tree
+	//???need to ask object whether children should be removed or relocated
+	//recursively?!?
 
+	aushaengen(oid, R); //remove from R.tree, including children
 	R.deleteObject(oid); //remove R and O for oid
 }
 function aushaengen(oid, R) {
@@ -165,7 +226,9 @@ function removeOidKey(oid, key, R) {
 }
 function recRemove(n, R) {
 	if (isdef(n.children)) {
-		for (const ch of n.children) recRemove(R.NodesByUid[ch], R);
+		//console.log('children',n.children);
+		let ids=jsCopy(n.children);
+		for (const ch of ids) recRemove(R.NodesByUid[ch], R);
 	}
 
 	if (isdef(n.oid) && isdef(n.key)) {
@@ -174,15 +237,17 @@ function recRemove(n, R) {
 		delete R.treeNodesByOidAndKey[oid][key];
 		if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 		delete R.oidNodes[oid][key];
+		R.removeR(oid,key);
 		if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]);
 	}
 
 	delete R.NodesByUid[n.uid];
-	R.unregisterNode(n); //hier wird ui removed
+	R.unregisterNode(n); //hier wird ui removed, object remains in _sd!
 	delete R.uiNodes[n.uid];
 	let parent = R.NodesByUid[n.uidParent];
 	removeInPlace(parent.children, n.uid);
 	if (isEmpty(parent.children)) delete parent.children;
+
 }
 //#endregion
 

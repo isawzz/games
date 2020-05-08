@@ -9,16 +9,16 @@ function agColoredShape(g, shape, w, h, color) {
 	SHAPEFUNCS[shape](g, w, h);
 	gBg(g, color);
 }
-function gShape(shape, w = 20, h = 20, color = 'green',rounding) {
+function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 	//console.log(shape)
 	let el = gG();
 	if (nundef(shape)) shape = 'rect';
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
 
-			
-	if (isdef(rounding) && shape=='rect') {
-		let r=el.children[0];
+
+	if (isdef(rounding) && shape == 'rect') {
+		let r = el.children[0];
 		//console.log(rounding,r);
 		r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
 		r.setAttribute('ry', rounding);
@@ -196,7 +196,7 @@ function agHex(g, w, h) { let pts = size2hex(w, h); return agPoly(g, pts); }
 function agPoly(g, pts) { let r = gPoly(pts); g.appendChild(r); return r; }
 function agRect(g, w, h) { let r = gRect(w, h); g.appendChild(r); return r; }
 function agLine(g, x1, y1, x2, y2) { let r = gLine(x1, y1, x2, y2); g.appendChild(r); return r; }
-function agG(g) { let g1=gG();g.appendChild(g1); return g1; }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }
+function agG(g) { let g1 = gG(); g.appendChild(g1); return g1; }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }
 
 
 //endregion
@@ -1433,28 +1433,32 @@ function makeDroppable(target) {
 //#endregion
 
 //#region DOM: hierarchy, parent, children...
-function removeAttributes(elem){
+function removeAttributes(elem) {
 	//removes class, id, style,...
-	while(elem.attributes.length > 0){
+	while (elem.attributes.length > 0) {
 		//console.log(elem.attributes[0].name);
-    elem.removeAttribute(elem.attributes[0].name);
+		elem.removeAttribute(elem.attributes[0].name);
 	}
 }
 function removeDOM(elem) { purge(elem); }
+function removeElem(elem) { 
+	removeAllEvents(elem); 
+	elem.remove();
+}
 function removeEvents(elem) {
 	for (const evname of arguments) {
 		elem['on' + evname] = null;
 	}
-	return;
-	elem.onmouseenter = null;
-	elem.onmouseleav = null;
-	elem.onclick = null;
-	return;
+}
+function removeAllEvents(elem) {
+	// elem.onmouseenter = null;
+	// elem.onmouseleave = null;
+	// elem.onclick = null;
 	var a = elem.attributes, i, l, n;
 	if (a) {
 		for (i = a.length - 1; i >= 0; i -= 1) {
 			n = a[i].name;
-			console.log(n, typeof (elem[n]))
+			//console.log(n, typeof (elem[n]))
 			if (typeof elem[n] === 'function') {
 				console.log('.......removing', n, 'from', elem.id)
 				elem[n] = null;
@@ -1496,7 +1500,7 @@ function clearElement(elem) {
 function clearIncludingAttr(elem) {
 	//console.log(elem);
 	if (isString(elem)) elem = document.getElementById(elem);
-	elem.innerHTML = ''; 
+	elem.innerHTML = '';
 	removeAttributes(elem);
 	return elem;
 }
@@ -2293,19 +2297,19 @@ function isEmpty(arr) {
 		|| (Array.isArray(arr) && arr.length == 0)
 		|| Object.entries(arr).length === 0;
 }
-function jsCopy(o) {	return JSON.parse(JSON.stringify(o)); }
+function jsCopy(o) { return JSON.parse(JSON.stringify(o)); }
 function jsCopyMinus(o) {
 	//console.log(o)
 	//console.log(JSON.parse(JSON.stringify(o)))
-	let lstOmit=[...arguments].slice(1);
-	addIf(lstOmit,'children'); //.push('children'); TODO!!!! remove!!!
+	let lstOmit = [...arguments].slice(1);
+	addIf(lstOmit, 'children'); //.push('children'); TODO!!!! remove!!!
 	//console.log('omit properties:',lstOmit);
-	let oNew ={};
-	for(const k in o){
+	let oNew = {};
+	for (const k in o) {
 		if (lstOmit.includes(k)) continue;
-		oNew[k]=o[k];
+		oNew[k] = o[k];
 	}
-	return oNew; 
+	return oNew;
 }
 function jsCopySafe(o) {
 	//der safeStringify schmeisst html elems weg!!!
@@ -2426,6 +2430,13 @@ function lookupAddToList(dict, keys, val) {
 		i += 1;
 	}
 	return d;
+}
+function lookupAddIfToList(dict, keys, val) {
+	//usage see lookupAddToList 
+	//only adds it to list if not contained!
+	let lst=lookup(dict,keys);
+	if (isList(lst) && lst.includes(val)) return;
+	lookupAddToList(dict,keys,val);
 }
 function lookupRemoveFromList(dict, keys, val, deleteIfEmpty = false) {
 	//usage: lookupRemoveFromList({a:{b:[2]}}, [a,b], 2) => {a:{b:[]}} OR {a:{}} (wenn deleteIfEmpty==true)
@@ -2649,7 +2660,7 @@ function recPresentFilter(n, level, dLevel, { lf, ls, lo } = {}) {
 	if (nundef(n.children)) return level;
 	let max = 0;
 	for (const x of n.children) {
-		let newMax = recPresentFilter(x, level + 1, dLevel, {  lf:lf,  ls:ls, lo:lo });
+		let newMax = recPresentFilter(x, level + 1, dLevel, { lf: lf, ls: ls, lo: lo });
 		if (newMax > max) max = newMax;
 	}
 	return max;

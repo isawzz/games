@@ -44,6 +44,13 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			delete n1.o;
 			n1.params = n1.defParams = jsCopy(bMemberParams);
 			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
+			else if (isEmpty(R.getR(oid))) { 
+				//console.log('ueberpruefe R fuer',oid)
+				//ueberpruefe noch einmal und adde oidNodes!!!
+				addRForObject(oid,R);
+			}else{
+				//console.log('ueberpruefung NICHT gelaufen!!!',R.getR(oid))
+			}
 			let uid = n1.uid = getUID();
 
 			// ***TEMP!!!! hier wird ein artificial key gemacht falls kein spec key fuer oid!

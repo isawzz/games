@@ -7,28 +7,91 @@ function testAddLocObject(R) {
 	addNewServerObjectToRsg(oid, o, R);
 	updateOutput(R);
 }
-function testAddObject(R) {
-	let oid = getUID('o');
-	let o = { obj_type: 'card'};
-	o.short_name = chooseRandom(['K','Q','J','A',2,3,4,5,6,7,8]);
+function testAddBoard(R) {
+	if (R.getO('9')) {
+		console.log('please click remove board first!');
+		return;
+	}
+	let oid ='9';// getUID();
+	let o =
+	{
+		fields:
+		{
+			_set: [
+				{ _obj: '0' },
+				{ _obj: '1' },
+				{ _obj: '2' },
+				{ _obj: '3' },
+				{ _obj: '4' },
+				{ _obj: '5' },
+				{ _obj: '6' },
+				{ _obj: '7' },
+				{ _obj: '8' }]
+		},
+		rows: 3,
+		cols: 3,
+		obj_type: 'Board',
+		map: 'hallo',
+	};
 	if (!serverData.table) serverData.table = {};
 	serverData.table[oid] = o;
 	sData[oid] = jsCopy(o);
-	console.log('adding a new object',o)
+	//console.log('adding a new object', oid);
 	addNewServerObjectToRsg(oid, o, R);
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	updateOutput(R);
+}
+function testAddObject(R) {
+
+	let oid = getUID('o');
+	let o = { obj_type: 'card' };
+	o.short_name = chooseRandom(['K', 'Q', 'J', 'A', 2, 3, 4, 5, 6, 7, 8]);
+	if (!serverData.table) serverData.table = {};
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	//console.log('adding a new object', oid);
+	addNewServerObjectToRsg(oid, o, R);
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
 	//console.log(R.instantiable)
 	updateOutput(R);
 }
 function testRemoveObject(R) {
-	let oid = chooseRandomDictKey(sData);
+	//hier mache policy not to remove board members!!!
+	//lock in objects that are not independent! these are objects
+	let data = dict2list(sData);
+	//data = data.filter(x=>(isdef(x.map) || nundef(x.fields)) && nundef(x.neighbors));
+	data = data.filter(x=>(nundef(x.fields)) && nundef(x.neighbors)); //board weg!
+	if (isEmpty(data)) {
+		console.log('no objects left in sData!!!');
+		return;
+	}
+	let oid = chooseRandom(data).id;
+
+	delete sData[oid];
+	//also have to remove all the children!
+	completelyRemoveServerObjectFromRsg(oid, R);
+	console.log('removed oid',oid);
+	updateOutput(R);
+}
+function testRemoveBoard(R) {
+	let activate = R.isUiActive;
+	if (activate) deactivateUis(R);
+
+	let oid = '9'; //chooseRandomDictKey(sData);
 	if (!oid) {
 		console.log('no objects left in sData!!!');
 		return;
 	}
 	delete sData[oid];
+	//also have to remove all the children!
 	completelyRemoveServerObjectFromRsg(oid, R);
 	//console.log('removed oid',oid);
 	updateOutput(R);
+	if (activate) activateUis(R);
 }
 
 

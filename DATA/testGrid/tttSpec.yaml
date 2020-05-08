@@ -1,15 +1,13 @@
 ROOT:
   panels:
     - panel: O
+      params:
+        bg: inherit
+        orientation: v
     - panel: G
   params:
     bg: green
-    orientation: h
-    #align-items: stretch
 G:
-  params:
-    orientation: v
-    #align-items: stretch
   panels:
     - panel: P
       params:
@@ -17,12 +15,13 @@ G:
     - panel: B
       params:
         bg: inherit
+  params:
+    orientation: v
 O:
   cond: 
     no_spec: true
     obj_type: card
   data: .short_name
-
 B:
   cond:
     obj_type: Board

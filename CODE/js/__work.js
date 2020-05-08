@@ -1,5 +1,10 @@
 function gPanel(n, gParent, R) {
-	if (isdef(n.ui)) return n.ui;
+	if (isdef(n.ui)) {
+		// removeAllEvents(n.ui);
+		// n.act = null;
+		delete n.changing;
+		return n.ui;
+	}
 
 	console.log('EIN NEUES G PANEL?????? ECHT?????')
 	let ui = agG(gParent);
@@ -23,6 +28,9 @@ function mPanel(n, dParent, R) {
 
 	let ui = n.ui;
 	if (n.changing && isdef(ui)) {
+		// console.log(n)
+		// n.act.deactivate();
+		// n.act = null;
 		clearIncludingAttr(ui);
 		delete n.changing;
 	} else {

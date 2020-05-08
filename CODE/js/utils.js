@@ -1,6 +1,8 @@
 function adjustContainerLayout(n, R) {
 
 
+	n.adirty=false;
+
 	//console.log(n);return;
 	if (n.type == 'grid') {
 		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);

@@ -63,6 +63,7 @@ class RSG {
 			}
 		}
 	}
+	removeR(oid,key){let r=lookup(this._sd,[oid,'rsg']);if (r) removeInPlace(r,key);}
 
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
@@ -84,23 +85,26 @@ class RSG {
 		let uid = n.uid;
 		this.UIS[n.uid] = n;
 		if (n.oid) {
-			lookupAddToList(this.uid2oids, [uid], n.oid);
-			lookupAddToList(this.oid2uids, [n.oid], uid);
+			lookupAddIfToList(this.uid2oids, [uid], n.oid);
+			lookupAddIfToList(this.oid2uids, [n.oid], uid);
 		}
 	}
 	unregisterNode(n) {
-		//console.log('=>unregisterNode',n.uid)
+		//console.log('=>unregister',n.uid,n.oid?'oid:'+n.oid:'');
 		let uiNode = this.UIS[n.uid];
 		if (nundef(uiNode)) return;
 		let uid = n.uid;
 		//console.log(uiNode);
 		if (uiNode.uiType != 'NONE') {
 			//do I have to explicitly remove handlers???
-			purge(uiNode.ui);//GEHT DAS???????????????
+			let removableUi = uiNode.uiType == 'h'?mBy(uiNode.uidDiv):uiNode.ui;
+
+			removeElem(removableUi);//GEHT DAS???????????????
 			lookupRemoveFromList(this.uid2oids, [uid], n.oid, true);
 			lookupRemoveFromList(this.oid2uids, [n.oid], uid, true);
 		}
 		delete this.UIS[n.uid];
+		//however, _sd still contains the oid!
 	}
 	setUid(n, ui) {
 		ui.id = n.uid;

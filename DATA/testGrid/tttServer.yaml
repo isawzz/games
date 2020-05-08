@@ -52,7 +52,10 @@ players:
 table:
   robber:
     obj_type: robber
-    loc: '4'
+    loc: '6'
+  robberP:
+    obj_type: robber
+    loc: 'Player1'
   '0':
     row: 1
     col: 1
@@ -203,36 +206,5 @@ table:
         - _obj: '7'
         - _obj: '8'
       _dtype: object
-  # '19':
-  #   fields:
-  #     _set:
-  #     - _obj: '0'
-  #     - _obj: '1'
-  #     - _obj: '2'
-  #     - _obj: '3'
-  #     - _obj: '4'
-  #     - _obj: '5'
-  #     - _obj: '6'
-  #     - _obj: '7'
-  #     - _obj: '8'
-  #   rows: 3
-  #   cols: 3
-  #   obj_type: Board
-  #   visible:
-  #     _set:
-  #     - _player: Player1
-  #     - _player: Player2
-  #   map:
-  #     _ndarray:
-  #     - - _obj: '0'
-  #       - _obj: '1'
-  #       - _obj: '2'
-  #     - - _obj: '3'
-  #       - _obj: '4'
-  #       - _obj: '5'
-  #     - - _obj: '6'
-  #       - _obj: '7'
-  #       - _obj: '8'
-  #     _dtype: object
 phase: tic
 log: []
