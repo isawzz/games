@@ -1,48 +1,5 @@
 //#region server data change!
-function testAddLocObject(R) {
-	let oid = getUID('o');
-	let o = { name: 'felix' + oid, loc: 'p1' };
-	serverData.table[oid] = o;
-	sData[oid] = jsCopy(o);
-	addNewServerObjectToRsg(oid, o, R);
-	updateOutput(R);
-}
-function testAddBoard(R) {
-	if (R.getO('9')) {
-		console.log('please click remove board first!');
-		return;
-	}
-	let oid ='9';// getUID();
-	let o =
-	{
-		fields:
-		{
-			_set: [
-				{ _obj: '0' },
-				{ _obj: '1' },
-				{ _obj: '2' },
-				{ _obj: '3' },
-				{ _obj: '4' },
-				{ _obj: '5' },
-				{ _obj: '6' },
-				{ _obj: '7' },
-				{ _obj: '8' }]
-		},
-		rows: 3,
-		cols: 3,
-		obj_type: 'Board',
-		map: 'hallo',
-	};
-	if (!serverData.table) serverData.table = {};
-	serverData.table[oid] = o;
-	sData[oid] = jsCopy(o);
-	//console.log('adding a new object', oid);
-	addNewServerObjectToRsg(oid, o, R);
-
-	recAdjustDirtyContainers(R.tree.uid, R, true);
-
-	updateOutput(R);
-}
+var TV={};
 function testAddObject(R) {
 
 	let oid = getUID('o');
@@ -77,11 +34,61 @@ function testRemoveObject(R) {
 	console.log('removed oid',oid);
 	updateOutput(R);
 }
+function testAddLocObject(R) {
+	let oid = getUID('o');
+	let o = { name: 'felix' + oid, loc: 'p1' };
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	addNewServerObjectToRsg(oid, o, R);
+	updateOutput(R);
+}
+function testAddBoard(R) {
+	let oid = TV.boardOid; //detectFirstBoardObject(R); //chooseRandomDictKey(sData);
+	let o=TV.oBoard;
+	console.log('boardOid is',oid);
+	if (R.getO(oid)) {
+		console.log('please click remove board first!');
+		return;
+	}
+	// let o =
+	// {
+	// 	fields:
+	// 	{
+	// 		_set: [
+	// 			{ _obj: '0' },
+	// 			{ _obj: '1' },
+	// 			{ _obj: '2' },
+	// 			{ _obj: '3' },
+	// 			{ _obj: '4' },
+	// 			{ _obj: '5' },
+	// 			{ _obj: '6' },
+	// 			{ _obj: '7' },
+	// 			{ _obj: '8' }]
+	// 	},
+	// 	rows: 3,
+	// 	cols: 3,
+	// 	obj_type: 'Board',
+	// 	map: 'hallo',
+	// };
+	if (!serverData.table) serverData.table = {};
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	//console.log('adding a new object', oid);
+	addNewServerObjectToRsg(oid, o, R);
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	updateOutput(R);
+}
 function testRemoveBoard(R) {
+
 	let activate = R.isUiActive;
 	if (activate) deactivateUis(R);
 
-	let oid = '9'; //chooseRandomDictKey(sData);
+	let oid = detectFirstBoardObject(R); //chooseRandomDictKey(sData);
+	console.log('testRemoveBoard: first board object detected has oid',oid);
+
+	if (isdef(oid)) {TV.boardOid = oid;TV.oBoard=R.getO(oid);}
 	if (!oid) {
 		console.log('no objects left in sData!!!');
 		return;

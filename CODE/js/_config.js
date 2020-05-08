@@ -10,10 +10,11 @@ const TESTING = true; // true | false //uses files from tests, DOES NOT send rou
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 // testGrid/ catanSpec catanServer tttSpec tttServer
+// extrem
 // var SPEC_PATH = '/DATA/testGrid/catanSpec'; // 03b testBinding/03 | testGrid/04
 // var SERVERDATA_PATH = '/DATA/testGrid/catanSpec'; // testBinding/d3 | testGrid/d4
-var SPEC_PATH = '/DATA/testGrid/tttSpec'; // 03b testBinding/03 | testGrid/04
-var SERVERDATA_PATH = '/DATA/testGrid/tttServer'; // testBinding/d3 | testGrid/d4
+var SPEC_PATH = '/DATA/extrem/tttSpec'; // 03b testBinding/03 | testGrid/04
+var SERVERDATA_PATH = '/DATA/extrem/tttServer'; // testBinding/d3 | testGrid/d4
 
 var SHOW_SPEC = false; // true | false
 var SHOW_OIDNODES = true; // true | false

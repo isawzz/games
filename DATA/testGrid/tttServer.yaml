@@ -56,6 +56,9 @@ table:
   robberP:
     obj_type: robber
     loc: 'Player1'
+  robberP2:
+    obj_type: robber
+    loc: 'Player1'
   '0':
     row: 1
     col: 1

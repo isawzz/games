@@ -63,7 +63,7 @@ function deactivateUis(R) {
 function highSelfAndRelatives(uid, R) {
 	for (const oid of R.uid2oids[uid]) {
 		for (const uid1 of R.oid2uids[oid]) {
-			console.log('high',uid1)
+			//console.log('high',uid1)
 			let ui = R.getUI(uid1);
 			mHigh(ui);
 		}
@@ -78,7 +78,7 @@ function unhighSelfAndRelatives(uid, R) {
 	}
 }
 function selectUid(uid, R) {
-	console.log('user has selected', uid)
+	console.log('user has selected', uid);
 }
 
 

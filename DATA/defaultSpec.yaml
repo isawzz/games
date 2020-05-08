@@ -1,37 +1,42 @@
 
 defaults:
-  type: panel
-
   grid: #common to all grids
     params:
+      field_spacing: 60
+      margin: 8
       fields:
-        defaultType: 'info'
-        bg: 'beige'
-        #fg: 'white'
-        size: 56 #ideally divisible by 4
+        bg: beige
+        size: 52
+        shape: rect
+      edges:
+        # display: if_content
+        stroke-linecap: round
+        size: 8
+        shape: line
+        bg: silver
       corners:
-        #display: if_content
-        defaultType: 'info'
+        # display: if_content
         bg: dimgray
         size: 20
         shape: circle
-      edges:
-        #display: if_content
-        defaultType: 'info'
-        bg: 'silver'
-        size: 6
-        shape: line
-      #margin: 6
-      #field_spacing: 64
-      #bg: navy
   quadGrid: #overrides grid
     params:
+      border-radius: 4
+      field_spacing: 48
+      bg: skyblue
+      padding: 0
+      margin: 2
       fields:
+        size: 44
         shape: rect
   hexGrid:
     params:
+      field_spacing: 64
       fields:
+        size: 56
         shape: hex
+      edges:
+        size: 8
   panel:
     params:
       bg: inherit

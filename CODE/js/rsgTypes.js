@@ -11,7 +11,7 @@ class RSG {
 		this.refs = {};
 		this.isUiActive = false;
 
-		this.clearObjects();
+		this.clearObjects(); //prepares _sd
 		for (const oid in sdata) {
 			//console.log(sdata)
 			this.addObject(oid, sdata[oid]);

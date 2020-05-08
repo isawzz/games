@@ -6,7 +6,7 @@ function createArtificialSpecForBoardMemberIfNeeded(oid,o,R){
 	}
 	//if null key make a standard key for board member! plus oidNode
 	else {
-		console.log('key',key)
+		//console.log('key',key)
 		key = getUID();
 		//TODO: AENDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info'};//, data: '.' };
@@ -42,6 +42,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			let n1 = group[oid]; 
 			let o = n1.o;
 			delete n1.o;
+
 			n1.params = n1.defParams = jsCopy(bMemberParams);
 			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
 			else if (isEmpty(R.getR(oid))) { 
@@ -159,7 +160,7 @@ function detectBoardParams(n, R) {
 
 }
 function detectFirstBoardObject(R) {
-	for (const oid of R.defSource) {
+	for (const oid in R._sd) { //should do this differently not access _sd!!!!!!!
 		let o = R.getO(oid);
 		if (isdef(o.map) && isdef(o.fields)) return oid;
 	}
