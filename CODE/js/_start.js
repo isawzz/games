@@ -58,6 +58,9 @@ function run06(sp, defaults, sdata) {
 	//updateOutput(R);
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
+
+	for(let i=0;i<5;i++) testAddObject(R);
+	updateOutput(R);
 }
 
 //#region frueher
@@ -82,7 +85,7 @@ function genG(area, R) {
 	R.gen14(); // merges spec types 
 	R.gen21(area);// expands dyn root, creates 1 node for each ui and uis
 
-	presentRoot(R.getSpec().ROOT, 'tree');
+	presentRoot_dep(R.getSpec().ROOT, 'tree');
 	//presentGenerations([0,4,5,6],'results',R);
 	//presentGeneration(R.gens.G[0], 'results')
 }
@@ -135,7 +138,7 @@ function run03(sp, defaults, sdata) {
 
 	//R.gen30(); //NOT IMPLEMENTED!!!
 
-	presentRoot(R.getSpec().ROOT, 'tree');
+	presentRoot_dep(R.getSpec().ROOT, 'tree');
 	//presentGenerations([0,4,5,6],'results',R);
 
 	//presentGeneration(R.gens.G[0], 'results')
@@ -227,7 +230,7 @@ function updateOutput(R) {
 		clearElement(area);
 	}
 
-	if (SHOW_SPEC) { presentGeneration(R.lastSpec, 'spec'); }
+	if (SHOW_SPEC) { presentNodes(R.lastSpec, 'spec'); }
 
 	if (SHOW_UITREE) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,

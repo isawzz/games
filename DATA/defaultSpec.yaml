@@ -21,9 +21,9 @@ defaults:
         bg: 'silver'
         size: 6
         shape: line
-      margin: 6
-      field_spacing: 64
-      bg: yellow
+      #margin: 6
+      #field_spacing: 64
+      #bg: navy
   quadGrid: #overrides grid
     params:
       fields:
@@ -34,9 +34,7 @@ defaults:
         shape: hex
   panel:
     params:
-      # min-width: 20
-      # min-height: 20
-      bg: random
+      bg: inherit
       #filter: hue-rotate(90deg)
       #filter: saturate(120%)
       #filter: contrast(50%)
@@ -49,7 +47,8 @@ defaults:
       orientation: h
       split: equal
       border-radius: 10
-      align-items: flex-start
+      align-items: center
+      #align-items: flex-start
       justify-content: space-evenly
       align-content: space-evenly
       justify-items: flex-start

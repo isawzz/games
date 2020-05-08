@@ -28,13 +28,35 @@ function recNormalize(n, sp) {
 
 }
 
-
 //#region misc utils
 function hasChildren(n) {
 	let ch = RCONTAINERPROP[n.type];
 	if (nundef(ch)) ch = 'ch';
 	return isdef(n[ch]);
 }
+function calcContent_dep(oid, o, path) {
+
+	if (isString(path)) {
+		if (path[0] != '.') return path;
+
+		//console.log('PATH:', path, 'oid', oid, 'o', o);
+		let props = path.split('.').slice(1);
+		//console.log('props', props, isEmpty(props));
+
+		let content = isEmpty(props) ? o.obj_type : lookup(o, props);
+		return content;
+	} else if (isDict(path)) {
+		let content = {};
+		for (const k in path) {
+			let c = calcContent_dep(oid, o, path[k]);
+			if (c) content[k] = c;
+		}
+		return content;
+	}
+	return null;
+
+}
+
 
 //#region createSTree gen20 FAIL!!!!
 function createSTree(n, idParent, R) {
@@ -173,6 +195,77 @@ function anyToString1(x, indent = 0, ifDict = 'entries') {
 	}
 	else return x;
 }
+
+//#region present
+function presentTree_dep(n, treeProperty, area, R, lf, ls, lo) {
+	d = mBy(area);
+
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+	}
+
+	let nDict = R.NodesByUid;
+	//console.log('nDict',nDict)
+	//console.log('n',n)
+	//console.log('nDict',nDict);
+	maxLevel = 1 + recPresent(n, 0, dLevel, nDict, treeProperty, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
+}
+function presentRoot_dep(n, area, lf, ls, lo) {
+	d = mBy(area);
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+	}
+	addIf(lo, 'act');
+	addIf(lo, 'ui');
+
+	maxLevel = 1 + recPresentFilter(n, 0, dLevel, { lstFlatten: lf, lstShow: ls, lstOmit: lo });
+}
+function presentRootPresetLists_dep(n, area) {
+	let lstFlatten = ['type', 'pool', 'source', 'data', 'content'];
+	let lstShow = ['type', 'oid', 'data', 'content', 'pool'];
+	let lstOmit = ['act', 'bi', 'panels', '_id', '_ref', 'children', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'uid', 'ui'];
+	//show('contROOT');
+	d = mBy(area);
+	let level = 0;
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mColor(d1, colorTrans('black', i * .1));
+	}
+
+	maxLevel = 1 + recPresentFilter(n, 0, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+	//console.log('tree has depth',maxLevel);
+
+	removeInPlace(lstOmit, 'children');
+}
+function presentGenerations_dep(indices, area, R, genKey = 'G') {
+	d = mBy(area);
+	let level = 0;
+	let depth = 10;
+	let dLevel = [];
+	for (let i = 0; i < depth; i++) {
+		let d1 = dLevel[i] = mDiv(d);
+		mSize(d1, '100%', 'auto');
+		mFlexWrap(d1)
+		mColor(d1, colorTrans('black', i * .1));
+	}
+
+	let di = 0;
+	for (const i of indices) {
+		let div = dLevel[di]; di++;
+		presentNodes(R.gens[genKey][i], div);
+	}
+}
+
+
+
 function presentServerData(sdata, area) {
 	let d = mBy(area);
 	clearElement(d);
@@ -181,14 +274,26 @@ function presentServerData(sdata, area) {
 		mNode(v, { title: k, dParent: d, omitEmpty: true });
 	}
 }
-function recPresent_dep(n, level, dLevel, lstFlatten, lstShow) {
+function recPresent_dep1(n, level, dLevel, lstFlatten, lstShow) {
 	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
 	n1 = filterByNoKey(n, ['panels', '_id', '_ref', 'children', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'uid', 'ui'])
 	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
 	if (nundef(n.children)) return level;
 	let max = 0;
 	for (const x of n.children) {
-		let newMax = recPresent_dep(x, level + 1, dLevel, lstFlatten, lstShow);
+		let newMax = recPresent_dep1(x, level + 1, dLevel, lstFlatten, lstShow);
+		if (newMax > max) max = newMax;
+	}
+	return max;
+}
+function recPresent_dep(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
+	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
+	n1 = filterByNoKey(n, lstOmit);
+	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
+	if (nundef(n.children)) return level;
+	let max = 0;
+	for (const x of n.children) {
+		let newMax = recPresent_dep(x, level + 1, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 		if (newMax > max) max = newMax;
 	}
 	return max;

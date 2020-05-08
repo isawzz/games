@@ -1,36 +1,59 @@
 ROOT:
+  panels:
+    - panel: O
+    - panel: G
   params:
     bg: green
+    orientation: h
+    #align-items: stretch
+G:
+  params:
     orientation: v
-    # justify-items: stretch
-    align-items: stretch
-    # align-content: space-between
+    #align-items: stretch
   panels:
     - panel: P
-      #data: 1
-      #type: panel
+      params:
+        bg: inherit
     - panel: B
-      #data: 2
-      #type: panel
-    # - panels:
-    #   - panel: P
-    # - panels:
-    #   - panel: A
+      params:
+        bg: inherit
+O:
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
+
 B:
   cond:
     obj_type: Board
   type: grid
   params:
-    field_spacing: 61
-    margin: 0
+    field_spacing: 40
+    #margin: 0
+    bg: orange
+    fg: white
+    border-radius: 10
+    padding: 4
 P:
   cond:
     instanceof: _player
   data: .name
+  params:
+    bg: .color
 Tick:
   cond:
     obj_type: Tick
   type: info
-  data: .col
+  data: .player.symbol
   params:
-    fg: red
+    fg: .player.color
+    rounding: 10
+    size: 34
+R:
+  cond:
+    obj_type: robber
+  data: R 
+  # params:
+  #   size: 20
+  #   rounding: 10
+  #   bg: black   

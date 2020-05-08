@@ -53,13 +53,13 @@ class RSG {
 
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 	addR(oid, k) { addIf(this.getR(oid), k); }
-	updateR(k){
-		let nSpec=this.lastSpec[k];
+	updateR(k) {
+		let nSpec = this.lastSpec[k];
 		if (!nSpec.cond) return;
 		let cond = nSpec.cond;
-		for(const oid in this._sd){
-			if (evalConds(this._sd[oid].o,cond)){
-				this.addR(oid,k);
+		for (const oid in this._sd) {
+			if (evalConds(this._sd[oid].o, cond)) {
+				this.addR(oid, k);
 			}
 		}
 	}
@@ -294,38 +294,25 @@ class RSG {
 
 function createUi(n, area, R, defParams) {
 
-	//console.log('createUi',jsCopy(n))
-
-	if (nundef(n.type))
-	{
-		n.type = inferType(n);
-		//console.log('type inference: set to',n.type)
-	} 
-	// if (nundef(n.content) && n.type == 'info' && n.uiType != 'g') {
-
-	// 	n.uiType = 'NONE';
-	// 	console.log('uiType is NONE))))))))))))))))))))))))',n.uid)
-	// 	return null;
-	// }
+	if (nundef(n.type)) { n.type = inferType(n); }
 
 	R.registerNode(n);
 
-	//console.log('PARAMS VOR DECODE PARAMS',jsCopy(n.params),jsCopy(defParams));
 	decodeParams(n, R, defParams);
-	//console.log('PARAMS NACH DECODE PARAMS','\nn',jsCopy(n.params),'\ndef',jsCopy(defParams));
-	//console.log('PARAMS NACH DECODE PARAMS','\ntyp',jsCopy(n.typParams),'\ncss',jsCopy(n.cssParams),'\nstd',jsCopy(n.stdParams));
-	// if (n.oid=='p1'){
-	// 	console.log('createUi params:',n.type,n.params)
-	// }
 
 	let ui = RCREATE[n.type](n, mBy(area), R);
 
-	if (n.type != 'grid') { applyCssStyles(ui, n.cssParams); }
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
-	// mColor(ui,randomColor(),'id'); //just testing!!!
-	// mStyle(ui,{padding:4,margin:2})
+	if (n.uiType == 'NONE') return ui;
 
+	applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
+	// if (n.uiType == 'h') {
+	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
+	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
+	// } else {
+	// 	applyCssStyles(ui, n.cssParams);
+	// }
 
 	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {

@@ -25,14 +25,15 @@ function generalGrid(nuiBoard, area, R, defParams) {
 	let bpa = nuiBoard.params = detectBoardParams(nuiBoard, R);
 	//console.log('bpa', bpa);
 
-	nuiBoard.ui = createUi(nuiBoard, area, R, defParams);
+	let ui = nuiBoard.ui = createUi(nuiBoard, area, R, defParams);
+	//console.log('board',ui, nuiBoard);
 	//console.log('NACH board CREATEUI!!!!!!!!!!!', nuiBoard);
 
 	// *** stage 2 create children *** (in n.bi)
 	// *** START TEMP CODE ***
 	//vorbereitungen die brauche damit algo ablaufen kann (ev. elim later stage!!!)
 	let rtreeParent = R.NodesByUid[nuiBoard.uid];
-	rtreeParent.children = [];//noetig damit nicht changed type to panel!!!
+	rtreeParent.children = []; //noetig damit nicht changed type to panel!!!
 	let uidBoard = nuiBoard.uid;
 	for (const name of ['fields', 'edges', 'corners']) {
 		let bMemberParams = nuiBoard.bi.params[name];
@@ -49,12 +50,12 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			let key = n1.key = createArtificialSpecForBoardMemberIfNeeded(oid,o,R);
 
 			//*** instantiateOidKeyAtParent(oid, key, uidParent, R)
-			let ntree = { uid: getUID(), uidParent: uidBoard, oid: oid, path: '.', key: key };
+			let ntree = { uid: uid, uidParent: uidBoard, oid: oid, path: '.', key: key };
 			R.NodesByUid[uid] = ntree;
 			lookupAddToList(R.treeNodesByOidAndKey, [oid, key], uid);
 			rtreeParent.children.push(uid);
 
-			//*** recBuildUiFromNode(ntree, uidBoard, R, nuiBoard.defParams, oid);
+			//*** recBuildUiFromNode1(ntree, uidBoard, R, nuiBoard.defParams, oid);
 			let nsub = R.lastSpec[key];
 			let nui = jsCopy(n1); //deepmergeOverride(nSpec, n1);
 			nui.uiType = 'g';
@@ -64,7 +65,11 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			let defsMember = lookup(defParams, ['grid', 'params', name]);
 			if (defsMember) nui.defParams = deepmergeOverride(n1.defParams, defsMember);
 			nui.content = calcContentFromData(oid, o, nui.data, R);
+			
+			//*********** createUi *************** */
 			nui.ui = createUi(nui, nuiBoard.uid, R, nui.defParams);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
+			
+			
 			R.uiNodes[uid] = nui;
 			if (R.isUiActive) nui.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 		}
@@ -74,10 +79,11 @@ function generalGrid(nuiBoard, area, R, defParams) {
 
 	// *** stage 4: layout! means append & positioning = transforms... ***
 	let boardInfo = nuiBoard.bi.board.info;
+	//console.log(bpa);
 	let fSpacing = bpa.field_spacing;
-	if (nundef(fSpacing)) fSpacing = 60;
-	let margin = bpa.margin;
-	if (nundef(margin)) margin = 8;
+	if (nundef(fSpacing)) nuiBoard.params.field_spacing = fSpacing = 60;
+	let margin = isdef(bpa.margin)?bpa.margin:0;
+	//if (nundef(margin)) nuiBoard.params.margin = margin = 4;
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
 
 	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bpa.corners) ? bpa.corners.size : 15;
@@ -89,13 +95,14 @@ function generalGrid(nuiBoard, area, R, defParams) {
 
 	let boardDiv = nuiBoard.bi.boardDiv;
 	let boardG = nuiBoard.ui;
-	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal, 'border-radius': margin, margin: 'auto 4px' });
+	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal });//, 'border-radius': margin, margin: 'auto 4px' });
 	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
 
+	//positioning of elements!
 	for (const fid of nuiBoard.children) {
 		let f = R.uiNodes[fid];
 		let uiChild = f.ui;
-		boardG.appendChild(uiChild);
+		//boardG.appendChild(uiChild);
 		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
 		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}

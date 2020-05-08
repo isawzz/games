@@ -1,3 +1,4 @@
+//#region special types
 function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
 	let boardDiv = stage3_prepContainer(dParent);
@@ -17,12 +18,15 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	let ui = n.bi.boardG = boardG;
 	n.uiType = 'h';
 
+	n.uidDiv = n.uidStyle = boardDiv.id;
+	n.uidG = n.uid;
+
+
 	//do your own styling!or WHAT??????????
 
 	return ui;
 
 }
-
 
 //container types
 function mList(n, dParent, R) {
@@ -90,33 +94,17 @@ function mTitle(n, dParent, R) {
 }
 
 function mInfo(n, dParent, R) {
-	//console.log('CREATING INFO',n.uid)
-	//console.log(dParent)
-	//console.log('--->info content',n.content)
 
-	//console.assert(isdef(n.content) || n.uiType == 'g', 'mInfo with NO CONTENT!!!!!!!!!!!');
+	// if (n.content == 'R') {
+	// 	console.log(n,dParent,getTypeOf(dParent));
+	// }
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
-
-		let pf = n.params;
-		//console.log(n)
-
-		//if (n.oid=='1') console.log('params of board member', n.oid, jsCopy(pf))
-		ui = gShape(pf.shape, pf.size, pf.size, pf.bg);
-		if (n.content) {
-			//console.log('CONTENT:',n.content,pf);
-			//createLabel_dep(n, ui, R);
-			let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
-			//console.log('color',color)
-			n.label = agText(ui, n.content, color, pf.font);
-		}
-
+		return gInfo(n, dParent, R);
 	} else if (isdef(n.content)) {
-		//console.log(n.content)
-
 		ui = mNode(n.content, { dParent: dParent });
-	}else{
+	} else {
 		ui = mDiv(dParent);
 		ui.style.display = 'hidden';
 	}

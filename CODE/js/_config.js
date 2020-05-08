@@ -17,8 +17,8 @@ var SERVERDATA_PATH = '/DATA/testGrid/tttServer'; // testBinding/d3 | testGrid/d
 
 var SHOW_SPEC = false; // true | false
 var SHOW_OIDNODES = false; // true | false
-var SHOW_UITREE = true; // true | false
-var SHOW_RTREE = false; // true | false
+var SHOW_UITREE = false; // true | false
+var SHOW_RTREE = true; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 
 // // __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01

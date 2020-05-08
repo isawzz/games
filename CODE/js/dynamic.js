@@ -1,98 +1,70 @@
 function instantiateOidKeyAtParent(oid, key, uidParent, R) {
-
-	//console.assert(isdef(R.oidNodes[oid][key]), 'oidNode MISSING', oid, key);
 	//console.log('>>>>>instantiate',oid,'using',key,'at',uidParent);
-
 	let rtreeParent = R.NodesByUid[uidParent];
+	//console.log(rtreeParent)
 	if (nundef(rtreeParent.children)) {
 		change_parent_type_if_needed(rtreeParent, R);
-		//console.log('type of parent of board is',R.uiNodes[rtreeParent.uid].type);
 		rtreeParent.children = [];
 	}
-	//return;
 	let index = rtreeParent.children.length;
 	let newPath = isdef(rtreeParent.panels) ? extendPath(rtreeParent.path, index) : '.';// index == 0 ? '.' : extendPath(n.path, index);
-	//console.log('index',index,'newPath',newPath,'oid',oid,'key',key)
 	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
-	//console.log('============== n1 (rtree board)',n1)
 
-	//here muss den echten node auch adden, den uiNode!
 	R.NodesByUid[n1.uid] = n1;
 	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
-
-	//console.log('================> board is of spec type',key);
-
-	//moeglichkeit 1: ich kann hier checken fuer spec types sowie board
-	//und kann hier alle rtree children adden!
-
 	rtreeParent.children.push(n1.uid);
-
-	// if (nundef(R.todo)) R.todo=[];
-	// R.todo.push({oid:oid,key:key,uidParent:uidParent,uid:n1.uid});
-	// return; //das ist version 1 wo ich den gesamten rtree mache fuer alle objects, undd 
-	//dann erst den gesamten ui tree mache!
-
-	//return;
-	//console.log('added to NodesByUid',R.NodesByUid);
-	//console.log('added to treeNodesByOidAndKey',R.treeNodesByOidAndKey);
-	//console.log('there should be a parent since have parent uid!!!!',R.uiNodes)
-	//console.log('...parent:',R.uiNodes[uidParent]);
 
 	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])) {
 		let parent = R.uiNodes[uidParent];
-
-		parent.adirty=true;
-		//console.log('adirty=true for',parent.uid,parent)
-	// if (nundef(R.todo)) R.todo=[];
-	// R.todo.push({oid:oid,key:key,uidParent:uidParent,uid:n1.uid});
-
-
+		parent.adirty = true;
 		recBuildUiFromNode(n1, uidParent, R, parent.defParams, oid);
-		
-		parent.children = rtreeParent.children; //.push(n1.oid);
+		parent.children = rtreeParent.children;
 	} else {
-		console.log('UI not creatable! R.uiNodes:', oid, key, R.uiNodes);
+		console.log('UI not creatable! No suitable parent found! uidParent', uidParent, 'oid', oid, 'key', key, R.uiNodes);
 	}
-
 }
 
-
-
-
-
 //#region add oid
-function addNewServerObjectToRsg(oid, o, R, skipEinhaengen=false) {
+function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
 
 	//console.log('_____________ add object', oid, o);
 	R.addObject(oid, o);
-	addRForObject(oid, R);
 
-	//ensureRtree(R); //make sure static tree has been built! 
+	addRForObject(oid, R);
 
 	if (nundef(R.oidNodes)) R.oidNodes = {};
 
 	createPrototypesForOid(oid, o, R);
 
-	if (skipEinhaengen){
-		//let key = 'F'
-		return;
-		instantiateOidKeyAtParent(oid,null,null,R);
-	}else{
-		einhaengen(oid, o, R);
-	}
+	if (skipEinhaengen) { return; } else { einhaengen(oid, o, R); }
 }
 function addRForObject(oid, R) {
 	let o = R.getO(oid);
 	let sp = R.getSpec();
+
 	for (const k in sp) {
 		let n = sp[k];
 		if (nundef(n.cond)) continue;
 		if (n.cond == 'all' || evalConds(o, n.cond)) { R.addR(oid, k); }
 	}
+	if (isEmpty(R.getR(oid))) {
+		//check for no_spec clauses
+		for (const k in sp) {
+			let n = sp[k];
+			if (nundef(n.cond)) continue;
+			let keys = Object.keys(n.cond);
+			if (!keys.includes('no_spec')) continue;
+			if (o.obj_type == 'card') console.log('adding R')
+			let condCopy = jsCopy(n.cond);
+			delete condCopy['no_spec'];
+			if (evalConds(o, condCopy)) { R.addR(oid, k); }
+		}
+	}
+
 }
 function createPrototypesForOid(oid, o, R) {
 	if (isdef(R.oidNodes[oid])) {
-		console.log('prototypes for',oid,'already created!');
+		console.log('prototypes for', oid, 'already created!');
 		return;
 	}
 	let klist = R.getR(oid);
@@ -126,15 +98,17 @@ function addOidByLocProperty(oid, key, R) {
 	let IDkeys = Object.keys(IDNode);
 	for (const k of IDkeys) {
 		//now find parents that have same key and same oid
-		//here oidNodeUid would come in handy! need tree nodes by oid and key here!
 		let parents = lookup(R.treeNodesByOidAndKey, [ID, k]);
+		//console.log('parents for robber', parents);
 
 		if (!parents || isEmpty(parents)) {
 			console.log('LOC PARENT MISSING!!!! trying to add', oid, 'with loc', o.loc);
 			continue;
 		}
-
-		for (const uidParent of parents) { instantiateOidKeyAtParent(oid, key, uidParent, R); }
+		for (const uidParent of parents) {
+			//console.log('oid', oid, 'key', key, 'uidParent', uidParent)
+			instantiateOidKeyAtParent(oid, key, uidParent, R);
+		}
 	}
 }
 function addOidByParentKeyLocation(oid, key, R) {
@@ -145,28 +119,15 @@ function addOidByParentKeyLocation(oid, key, R) {
 	for (const uidParent of parents) { instantiateOidKeyAtParent(oid, key, uidParent, R); }
 }
 function change_parent_type_if_needed(n, R) {
-	//type MUST change unless explicitly set!!!!!
-	//how do I find out if type was set?
-	//if it is NOT a list type, it MUST BE CHANGED TO PANEL!!!!!
+
 	let uiNode = R.uiNodes[n.uid];
 
 	if (!isContainerType(uiNode.type)) {
-		let uiNode = R.uiNodes[n.uid];
-		//console.log('CHANGE UI TYPE FROM', uiNode.type, 'to panel', jsCopy(n),jsCopyMinus(uiNode,'act'),'\nui:',uiNode.ui)
-		//console.log('uiNode',jsCopySafe(uiNode))
-		//console.log('copy of uiNode.ui',jsCopy(uiNode.ui));
-		//console.log('parent of board',uiNode)
-		uiNode.type = 'panel';
-		uiNode.changing=true;
-		// if (uiNode.ui) {
-		// 	clearElement(uiNode.ui);
-		// 	//mDestroy(uiNode.ui);
-		// }
-		let treeNode = R.NodesByUid[n.uid];
-		let uidParent = treeNode.uidParent;
+		uiNode.type = 'panel'; //TRANSPARENT FOR 'g', 'd', 'h' type!!!
+		uiNode.changing = true;
+		let uidParent = n.uidParent;
 		let area = uidParent ? uidParent : R.baseArea;
 		let uiNew = createUi(uiNode, area, R, uiNode.defParams);
-		//uiNode.ui = uiNew;
 	}
 }
 
@@ -225,7 +186,7 @@ function recRemove(n, R) {
 }
 //#endregion
 
-//#region instantiate uiNodes
+//#region helpers
 function ensureUiNodes(R) { if (nundef(R.uiNodes)) R.uiNodes = {}; }
 
 function evalSpecPath(n, relpath, R) {
@@ -244,57 +205,3 @@ function evalSpecPath(n, relpath, R) {
 //#endregion
 
 
-
-
-
-
-
-
-//#region instantiate ORIGINAL
-function instantiateOidKeyAtParent_ORIGINAL(oid, key, uidParent, R) {
-
-	//console.assert(isdef(R.oidNodes[oid][key]), 'oidNode MISSING', oid, key);
-	//console.log('>>>>>instantiate',oid,'using',key,'at',uidParent);
-
-	let rtreeParent = R.NodesByUid[uidParent];
-	if (nundef(rtreeParent.children)) {
-		change_parent_type_if_needed(rtreeParent, R);
-		console.log('type of parent of board is',R.uiNodes[rtreeParent.uid].type);
-		rtreeParent.children = [];
-	}
-	//return;
-	let index = rtreeParent.children.length;
-	let newPath = isdef(rtreeParent.panels) ? extendPath(rtreeParent.path, index) : '.';// index == 0 ? '.' : extendPath(n.path, index);
-	//console.log('index',index,'newPath',newPath,'oid',oid,'key',key)
-	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
-	console.log('============== n1 (rtree board)',n1)
-
-	//here muss den echten node auch adden, den uiNode!
-	R.NodesByUid[n1.uid] = n1;
-	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
-
-	console.log('================> board is of spec type',key);
-
-	//moeglichkeit 1: ich kann hier checken fuer spec types sowie board
-	//und kann hier alle rtree children adden!
-	
-
-
-	//return;
-	//console.log('added to NodesByUid',R.NodesByUid);
-	//console.log('added to treeNodesByOidAndKey',R.treeNodesByOidAndKey);
-	//console.log('there should be a parent since have parent uid!!!!',R.uiNodes)
-	//console.log('...parent:',R.uiNodes[uidParent]);
-
-	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])) {
-		let parent = R.uiNodes[uidParent];
-
-		recBuildUiFromNode(n1, uidParent, R, parent.defParams, oid);
-	} else {
-		console.log('UI not creatable! R.uiNodes:', oid, key, R.uiNodes);
-	}
-
-	rtreeParent.children.push(n1.uid);
-}
-
-//#endregion

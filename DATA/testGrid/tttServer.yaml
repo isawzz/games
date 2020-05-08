@@ -44,10 +44,15 @@ players:
     obj_type: GamePlayer
     name: Player1
     symbol: X
+    color: red
   Player2:
     name: Player2
     symbol: O
+    color: blue
 table:
+  robber:
+    obj_type: robber
+    loc: '4'
   '0':
     row: 1
     col: 1
@@ -62,6 +67,7 @@ table:
       - _player: Player1
       - _player: Player2
   '1':
+    player: Player1
     row: 1
     col: 2
     neighbors:
@@ -75,6 +81,7 @@ table:
       - _player: Player1
       - _player: Player2
   '2':
+    player: Player2
     row: 1
     col: 3
     neighbors:

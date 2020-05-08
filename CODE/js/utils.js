@@ -37,28 +37,6 @@ function adjustContainerLayout(n, R) {
 		if (reverseSplit) { split = 1 - split; }
 	}
 }
-function calcContent(oid, o, path) {
-
-	if (isString(path)) {
-		if (path[0] != '.') return path;
-
-		//console.log('PATH:', path, 'oid', oid, 'o', o);
-		let props = path.split('.').slice(1);
-		//console.log('props', props, isEmpty(props));
-
-		let content = isEmpty(props) ? o.obj_type : lookup(o, props);
-		return content;
-	} else if (isDict(path)) {
-		let content = {};
-		for (const k in path) {
-			let c = calcContent(oid, o, path[k]);
-			if (c) content[k] = c;
-		}
-		return content;
-	}
-	return null;
-
-}
 function calcContentFromData(oid, o, data, R) {
 
 	// ex: data: .player.name
@@ -77,7 +55,7 @@ function calcContentFromData(oid, o, data, R) {
 
 			else return dPP(o, props, R);
 
-		}else{
+		} else {
 			//it's a literal but NOT a string!!!
 			return data;
 		}
@@ -103,7 +81,12 @@ function dPP(o, plist, R) {
 	//pool is a dictionary that contains all objects that might be involved
 	if (isEmpty(plist)) return o;
 	if (isList(o) && isNumber(plist[0])) { let i = Number(plist[0]); return dPP(o[i]); }
-	if (!isDict(o)) { error('!!!!!!!'); return null; }
+	if (!isDict(o)) {
+		let o1 = R.getO(o);
+		if (isdef(o1)) return dPP(o1, plist, R);
+		console.log('dPP ERROR!!! o', o, 'plist', plist, '\no1', o1);
+		return null;
+	}
 
 	let k1 = plist[0];
 	let o1 = o[k1];
@@ -152,14 +135,7 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
-function inferType(n, defType) {
-	if (isdef(n.children)) return 'panel'; else return 'info';
-	// for (const [k, v] of Object.entries(RCONTAINERPROP)) {
-	// 	if (isdef(n[v])) return k; //n.type = k;
-	// }
-	// if (n.ch) return 'panel';
-	// return 'info';
-}
+function inferType(n, defType) { if (isdef(n.children)) return 'panel'; else return 'info'; }
 
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
@@ -302,6 +278,7 @@ var FUNCTIONS = {
 	obj_type: (o, v) => o.obj_type == v,
 	prop: (o, v) => isdef(o[v]),
 	no_prop: (o, v) => nundef(o[v]),
+	no_spec: (o,v)=> false, //this has to be checked differently!
 }
 function instanceOf(o, className) {
 	let otype = o.obj_type;
@@ -342,6 +319,7 @@ const PARAMRSG_T = {
 	shape: true,
 	field_spacing: true,
 	size: true,
+	rounding: true,
 };
 function decodeParams(n, R, defParams) {
 
@@ -349,75 +327,26 @@ function decodeParams(n, R, defParams) {
 	console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
 	console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
 	// console.log('________ decodeParams for type',n.type);
-	// console.log('n.params', n.params);
-	// console.log('n.defParams', n.defParams);
-	// console.log(n);
-	// if (nundef(n.params)) n.params = {};
+	//  console.log('n.params', n.params);
+	//  console.log('n.defParams', n.defParams);
 
-	//if (n.type == 'grid') console.log(n.params)
 	let inherited = lookup(defParams, [n.type, 'params']);
 	let defaults = lookup(R.defs, [n.type, 'params']);
-	//console.log('type', n.type, '\ninherited:', inherited, '\ndefaults:', defaults, '\n=>inherit', n.params.inherit)
 	let defs = n.params.inherit ? inherited : defaults;
 	if (n.type != 'grid') n.params = deepmergeOverride(defs, n.params);
 
-
-	//console.log('__________ decodeParams',n.type, n.params, defs)
-	//console.log('__________ n',n)
-
-
-	// if (isdef(n.defParams)) {
-	// 	defParams = n.defParams;
-	// } else {
-	// 	defParams = lookup(R, ['defs', n.type, 'params']);
-	// 	// if (n.oid=='p1'){
-	// 	// 	console.log('decode params:',defParams)
-	// 	// }
-
-	// 	if (n.type != 'grid' && defParams) {
-	// 		if (nundef(n.params)) n.params = jsCopy(defParams);
-	// 		else n.params = deepmergeOverride(defParams, n.params);
-	// 	}
-	// }
-
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;
-
 	let pNew = {};
-
-	//ist das wirklich nur wenn o? kann ich nicht static map vals verwenden???
-	if (o) pNew = mapValues(o, n.params, defs, R.getSpec());
-
-	//console.log('===>pNew nach mapValues', jsCopy(pNew));
-	//console.log('pNew nach mapValues', jsCopy(pNew));
-	//console.log('o', o)
-
 	if (o) {
-		//todo: muss recursive werden!!!
-		for (const k in pNew) {
-			let val = calcContentFromData(n.oid, o, pNew[k], R);
-			// let val = pNew[k];
-			// //console.log('val von pNew',k,val)
-			// if (isString(val) && val[0] == '.') {
-			// 	//console.log('...decoding');
-			// 	val = decodePropertyPath(o, val);
-			// 	//console.log('result:',val)
-			// }
-			pNew[k] = val;
-		}
+		pNew = mapValues(o, n.params, defs, R.getSpec());
+		for (const k in pNew) { pNew[k] = calcContentFromData(n.oid, o, pNew[k], R); }
 	} else pNew = n.params;
 
-	//console.log('pNew nach decode prop vals', jsCopy(pNew));
-
-	// if (!o) pNew = n.params;
-
-	//hier mode color values! bg,fg
 	if (isdef(pNew.bg) || isdef(pNew.fg)) {
 		[pNew.bg, pNew.fg] = getExtendedColors(pNew.bg, pNew.fg);
 	}
 
 	//finally, special param values are converted
-	//check ob fuer css params inherit eh functioniert!
-
 	let params = paramsToCss(pNew);
 	n.params = pNew;
 	n.typParams = params.typ;
@@ -476,6 +405,8 @@ function mapValues(o, p, pdef, spec) {
 	//console.log('__________ mapValues',p,pdef,spec);
 	let oNew = {};//newParams = jsCopy(baseParams);
 	for (const k in p) {
+		//console.log(k,p);
+		if (nundef(p[k])) continue;
 		if (nundef(p[k]._map)) { oNew[k] = p[k]; continue; }
 		//console.log('o is',p);
 

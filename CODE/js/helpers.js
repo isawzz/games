@@ -9,12 +9,21 @@ function agColoredShape(g, shape, w, h, color) {
 	SHAPEFUNCS[shape](g, w, h);
 	gBg(g, color);
 }
-function gShape(shape, w = 20, h = 20, color = 'green') {
+function gShape(shape, w = 20, h = 20, color = 'green',rounding) {
 	//console.log(shape)
 	let el = gG();
-	if (nundef(shape)) shape = 'rect'
+	if (nundef(shape)) shape = 'rect';
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
+
+			
+	if (isdef(rounding) && shape=='rect') {
+		let r=el.children[0];
+		//console.log(rounding,r);
+		r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
+		r.setAttribute('ry', rounding);
+	}
+
 	return el;
 }
 //#endregion
@@ -130,6 +139,7 @@ function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, classNam
 	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopySafe(o);
 	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
 	if (nundef(lstOmit)) lstOmit = [];
+	//oCopy = jsCopyMinus()
 	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
@@ -186,6 +196,7 @@ function agHex(g, w, h) { let pts = size2hex(w, h); return agPoly(g, pts); }
 function agPoly(g, pts) { let r = gPoly(pts); g.appendChild(r); return r; }
 function agRect(g, w, h) { let r = gRect(w, h); g.appendChild(r); return r; }
 function agLine(g, x1, y1, x2, y2) { let r = gLine(x1, y1, x2, y2); g.appendChild(r); return r; }
+function agG(g) { let g1=gG();g.appendChild(g1); return g1; }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }
 
 
 //endregion
@@ -2282,11 +2293,7 @@ function isEmpty(arr) {
 		|| (Array.isArray(arr) && arr.length == 0)
 		|| Object.entries(arr).length === 0;
 }
-function jsCopy(o) {
-	//console.log(o)
-	//console.log(JSON.parse(JSON.stringify(o)))
-	return JSON.parse(JSON.stringify(o)); //macht deep copy
-}
+function jsCopy(o) {	return JSON.parse(JSON.stringify(o)); }
 function jsCopyMinus(o) {
 	//console.log(o)
 	//console.log(JSON.parse(JSON.stringify(o)))
@@ -2298,10 +2305,9 @@ function jsCopyMinus(o) {
 		if (lstOmit.includes(k)) continue;
 		oNew[k]=o[k];
 	}
-	return oNew; //JSON.parse(JSON.safeStringify(o)); //macht deep copy
+	return oNew; 
 }
 function jsCopySafe(o) {
-	//console.log(o)
 	//der safeStringify schmeisst html elems weg!!!
 	return JSON.parse(JSON.safeStringify(o)); //macht deep copy
 }
@@ -2638,24 +2644,12 @@ function recAllNodes(n, f, p, tailrec, safe = false) {
 		if (!tailrec) f(n, p);
 	}
 }
-function recPresentFilter(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
-	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+function recPresentFilter(n, level, dLevel, { lf, ls, lo } = {}) {
+	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lf, lstShow: ls, lstOmit: lo });
 	if (nundef(n.children)) return level;
 	let max = 0;
 	for (const x of n.children) {
-		let newMax = recPresentFilter(x, level + 1, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
-		if (newMax > max) max = newMax;
-	}
-	return max;
-}
-function recPresent(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
-	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
-	n1 = filterByNoKey(n, lstOmit);
-	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
-	if (nundef(n.children)) return level;
-	let max = 0;
-	for (const x of n.children) {
-		let newMax = recPresent(x, level + 1, dLevel, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		let newMax = recPresentFilter(x, level + 1, dLevel, {  lf:lf,  ls:ls, lo:lo });
 		if (newMax > max) max = newMax;
 	}
 	return max;
@@ -2671,7 +2665,7 @@ function recConvertToList(n, listOfProps) {
 		for (const k in n) { recConvertToList(n[k], listOfProps); }
 	}
 }
-function recPresentTreeFilter(n, level, dLevel, nDict, treeProp, { lstFlatten, lstShow, lstOmit } = {}) {
+function recPresent(n, level, dLevel, nDict, treeProp, { lstFlatten, lstShow, lstOmit } = {}) {
 	// let x=JSON.safeStringify(n);
 	// let y=JSON.parse(x);
 	// if (isdef(y.act)) delete y.act;
@@ -2685,7 +2679,7 @@ function recPresentTreeFilter(n, level, dLevel, nDict, treeProp, { lstFlatten, l
 		//console.log('x',x,'nDict',nDict,'nDict[x]',nDict[x])
 		let nx = nDict[x];
 		//console.log('nx',nx)
-		let newMax = recPresentTreeFilter(nx, level + 1, dLevel, nDict, treeProp, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
+		let newMax = recPresent(nx, level + 1, dLevel, nDict, treeProp, { lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 		if (newMax > max) max = newMax;
 	}
 	return max;

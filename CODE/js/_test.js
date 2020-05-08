@@ -1,30 +1,32 @@
 //#region server data change!
-function testAddLocObject(R){
-	let oid=getUID('o');
-	let o={name:'felix'+oid,loc:'p1'};
-	serverData.table[oid]=o;
-	sData[oid]=jsCopy(o);
-	addNewServerObjectToRsg(oid,o,R);
+function testAddLocObject(R) {
+	let oid = getUID('o');
+	let o = { name: 'felix' + oid, loc: 'p1' };
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	addNewServerObjectToRsg(oid, o, R);
 	updateOutput(R);
 }
-function testAddObject(R){
-	let oid=getUID('o');
-	let o={name:'amanda'+oid};
+function testAddObject(R) {
+	let oid = getUID('o');
+	let o = { obj_type: 'card'};
+	o.short_name = chooseRandom(['K','Q','J','A',2,3,4,5,6,7,8]);
 	if (!serverData.table) serverData.table = {};
-	serverData.table[oid]=o;
-	sData[oid]=jsCopy(o);
-	addNewServerObjectToRsg(oid,o,R);
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	console.log('adding a new object',o)
+	addNewServerObjectToRsg(oid, o, R);
 	//console.log(R.instantiable)
 	updateOutput(R);
 }
-function testRemoveObject(R){
+function testRemoveObject(R) {
 	let oid = chooseRandomDictKey(sData);
 	if (!oid) {
 		console.log('no objects left in sData!!!');
 		return;
 	}
 	delete sData[oid];
-	completelyRemoveServerObjectFromRsg(oid,R);
+	completelyRemoveServerObjectFromRsg(oid, R);
 	//console.log('removed oid',oid);
 	updateOutput(R);
 }

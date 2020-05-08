@@ -1,43 +1,49 @@
+function gPanel(n, gParent, R) {
+	if (isdef(n.ui)) return n.ui;
 
-function completeUiTree(R){
-	// rtree is complete by this time!!!!!!!
-	let uiRoot = R.uiNodes[R.tree.uid];
-	console.log('uiRoot is',uiRoot);
+	console.log('EIN NEUES G PANEL?????? ECHT?????')
+	let ui = agG(gParent);
+	n.uiType = 'g';
+	return ui;
+}
+function gInfo(n, gParent, R) {
+	let pf = n.params;
+	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
+	gParent.appendChild(ui);
+	if (n.content) {
+		let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
+		n.label = agText(ui, n.content, color, pf.font);
+	}
+	return ui;
 }
 
 function mPanel(n, dParent, R) {
-	//console.log('add panel', n.content);
+
+	if (getTypeOf(dParent) == 'g') { return gPanel(n, dParent, R); }
+
 	let ui = n.ui;
-	// console.log('HALLO!!!!',nundef(ui)?ui:jsCopy(ui),isEmpty(ui));
-	if (n.changing){
-		//console.log('CHANGING!!!!!!!!!!!!!!!!!!!!!')
+	if (n.changing && isdef(ui)) {
 		clearIncludingAttr(ui);
-		//clearElement(ui);
 		delete n.changing;
-	// }
-	// if (isdef(ui) && ui!={} && !isEmpty(ui)) //isdef(ui)) 
-	// { 
-	// 	clearElement(ui);
-	// 	//clearIncludingAttr(ui); 
 	} else {
-		//console.log('else....')
 		ui = mDiv(dParent);
 	}
-	//if (isdef(ui)) {clearElement(ui);}else ui = mDiv(dParent);
-	// 	clearElement(ui); 
-	// 	removeAttributes(ui);
-	// }else ui = mDiv(dParent);
 
+	//content
 	if (isdef(n.content)) {
 		let d1 = mTextDiv(n.content, ui);
-		//mStyle(d1,{padding:10});
 	}
 
 	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// let params = decodeParams(n,{},R);
-	// mStyle(ui,params);
+	// }
+	// else if (n.uiType == 'g'){
+	// 	//now dParent is a g element!
+
+	// }
+
 	return ui;
 }
+
 
 
 

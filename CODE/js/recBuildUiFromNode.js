@@ -58,7 +58,7 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 function recBuildUiFromNode_ORIGINAL(n, uidParent, R, iParams = {}) {
 	//n is NodesByUid node (=treeNodesByOidAndKey) if oid and key
 	//all rtree nodes have now key!!!!
-	//eg. 	recBuildUiFromNode(R.tree, area, R, 'ROOT', '.', defParams, null);
+	//eg. 	recBuildUiFromNode1(R.tree, area, R, 'ROOT', '.', defParams, null);
 
 	let n1 = {}; // n is rtree, n1 is uiNode for eg. board
 	let sp = R.getSpec();
@@ -125,7 +125,7 @@ function recBuildUiFromNode_ORIGINAL(n, uidParent, R, iParams = {}) {
 function recBuildUiFromNode_verbose(n, uidParent, R, iParams = {}) {
 	//n is NodesByUid node (=treeNodesByOidAndKey) if oid and key
 	//all rtree nodes have now key!!!!
-	//eg. 	recBuildUiFromNode(R.tree, area, R, 'ROOT', '.', defParams, null);
+	//eg. 	recBuildUiFromNode1(R.tree, area, R, 'ROOT', '.', defParams, null);
 
 	let n1 = {}; // n is rtree, n1 is uiNode for eg. board
 	let sp = R.getSpec();
@@ -174,7 +174,7 @@ function recBuildUiFromNode_verbose(n, uidParent, R, iParams = {}) {
 
 	// *** CREATE UI HERE ***
 	if (o && o.obj_type == 'Board') {
-		//console.log('line 53 in recBuildUiFromNode vor createUi','\nn',n,'\nn1', n1,'\nuidParent', uidParent);
+		//console.log('line 53 in recBuildUiFromNode1 vor createUi','\nn',n,'\nn1', n1,'\nuidParent', uidParent);
 
 	}
 	if (n1.type == 'grid') {
