@@ -78,6 +78,7 @@ fields:
     obj_type: Field
   type: info
   params:
+    filter: blur(5px)
     font: italic small-caps bold 20px Georgia, serif
     fg:
       _map:
@@ -87,7 +88,7 @@ fields:
       _map:
         map: fields_map
         key: .res
-        default: beige
+        default: navajowhite
   data: .num # type "info".data can be a list, dict, or single element
 corners:
   cond:

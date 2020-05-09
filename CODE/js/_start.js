@@ -48,7 +48,7 @@ async function gameStep() {
 
 }
 //#endregion
-function runTest() { run06(SPEC, DEFS, sData); }
+function runTest() { run08(); } //run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! OK!
@@ -59,9 +59,48 @@ function run06(sp, defaults, sdata) {
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
 
-	for(let i=0;i<5;i++) testAddObject(R);
+	for (let i = 0; i < 5; i++) testAddObject(R);
 	updateOutput(R);
 	activateUis(R);
+}
+function run08() {
+	// var container = document.getElementById("svgContainer");
+	let d = mDiv(mBy('table'));
+	mSize(d, 400, 300);
+	mColor(d, 'blue');
+	let canvas = aSvgg(d);
+	let svg = d.children[0];
+	// var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	// svg.setAttribute("version", "1.1");
+	// d.appendChild(svg);
+	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
+	
+	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular');
+	
+	let ci = g1.children[0];
+
+	// var obj = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+	// obj.setAttribute("width", "90");
+	// obj.setAttribute("height", "90");
+
+	var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+
+	var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+	filter.setAttribute("id", "f1");
+	// filter.setAttribute("x", "0");
+	// filter.setAttribute("y", "0");
+
+	var gaussianFilter = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+	// gaussianFilter.setAttribute("in", "SourceGraphic");
+	gaussianFilter.setAttribute("stdDeviation", "2");
+
+	filter.appendChild(gaussianFilter);
+	defs.appendChild(filter);
+	svg.appendChild(defs);
+	// text.elem.setAttribute("filter", "url(#f1)");
+	ci.setAttribute("filter", "url(#f1)");
+
+	//svg.appendChild(obj);
 }
 
 //#region frueher
@@ -266,7 +305,7 @@ function updateOutput(R) {
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;
 	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
-	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree+ ', #uiNodes=' + numUiNodes);
+	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
 
 
 

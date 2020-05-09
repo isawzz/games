@@ -9,13 +9,17 @@ function agColoredShape(g, shape, w, h, color) {
 	SHAPEFUNCS[shape](g, w, h);
 	gBg(g, color);
 }
+function agShape(g,shape,w,h,color,rounding){
+	let sh = gShape(shape,w,h,color,rounding);
+	g.appendChild(sh);
+	return sh;
+}
 function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 	//console.log(shape)
 	let el = gG();
 	if (nundef(shape)) shape = 'rect';
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
-
 
 	if (isdef(rounding) && shape == 'rect') {
 		let r = el.children[0];
@@ -34,6 +38,7 @@ function applyCssStyles(ui, params) {
 	if (domType == 'g') {
 		//must apply styles differently or not at all!!!!!
 		mStyle(ui, params); //geht ja eh!!!!!!!!!!
+
 	} else { mStyle(ui, params); }
 }
 function asElem(x) { return isString(x) ? mBy(x) : x; }
@@ -196,9 +201,26 @@ function agHex(g, w, h) { let pts = size2hex(w, h); return agPoly(g, pts); }
 function agPoly(g, pts) { let r = gPoly(pts); g.appendChild(r); return r; }
 function agRect(g, w, h) { let r = gRect(w, h); g.appendChild(r); return r; }
 function agLine(g, x1, y1, x2, y2) { let r = gLine(x1, y1, x2, y2); g.appendChild(r); return r; }
-function agG(g) { let g1 = gG(); g.appendChild(g1); return g1; }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }
+function agG(g) { let g1 = gG(); g.appendChild(g1); return g1; }
+//function agSvgg(d) { let svg = gSvg(); agG(svg); d.appendChild(svg); return g; }
+function aSvgg(dParent, originInCenter = true) {
+	if (!dParent.style.position) dParent.style.position = 'relative';
 
+	let svg1 = gSvg();
+	//console.log(svg1)
+	svg1.setAttribute('width', '100%');
+	svg1.setAttribute('height', '100%');
+	let style = 'margin:0;padding:0;position:absolute;top:0px;left:0px;';
+	svg1.setAttribute('style', style);
+	dParent.appendChild(svg1);
 
+	let g1 = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+	svg1.appendChild(g1);
+	if (originInCenter) { g1.style.transform = "translate(50%, 50%)"; } //works!
+
+	return g1;
+
+}
 //endregion
 
 //#region 1 liners B list
@@ -1441,8 +1463,8 @@ function removeAttributes(elem) {
 	}
 }
 function removeDOM(elem) { purge(elem); }
-function removeElem(elem) { 
-	removeAllEvents(elem); 
+function removeElem(elem) {
+	removeAllEvents(elem);
 	elem.remove();
 }
 function removeEvents(elem) {
@@ -2434,9 +2456,9 @@ function lookupAddToList(dict, keys, val) {
 function lookupAddIfToList(dict, keys, val) {
 	//usage see lookupAddToList 
 	//only adds it to list if not contained!
-	let lst=lookup(dict,keys);
+	let lst = lookup(dict, keys);
 	if (isList(lst) && lst.includes(val)) return;
-	lookupAddToList(dict,keys,val);
+	lookupAddToList(dict, keys, val);
 }
 function lookupRemoveFromList(dict, keys, val, deleteIfEmpty = false) {
 	//usage: lookupRemoveFromList({a:{b:[2]}}, [a,b], 2) => {a:{b:[]}} OR {a:{}} (wenn deleteIfEmpty==true)

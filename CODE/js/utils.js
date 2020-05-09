@@ -1,7 +1,7 @@
 function adjustContainerLayout(n, R) {
 
 
-	n.adirty=false;
+	n.adirty = false;
 
 	//console.log(n);return;
 	if (n.type == 'grid') {
@@ -280,7 +280,7 @@ var FUNCTIONS = {
 	obj_type: (o, v) => o.obj_type == v,
 	prop: (o, v) => isdef(o[v]),
 	no_prop: (o, v) => nundef(o[v]),
-	no_spec: (o,v)=> false, //this has to be checked differently!
+	no_spec: (o, v) => false, //this has to be checked differently!
 }
 function instanceOf(o, className) {
 	let otype = o.obj_type;
@@ -430,6 +430,7 @@ function mapValues(o, p, pdef, spec) {
 		let val = _map[_key];
 		//console.log('val is',val);
 		if (isdef(val) && isdef(val[k])) { oNew[k] = val[k]; }
+		else if (isdef(m.default)) { oNew[k] = m.default; }
 		else if (isdef(pdef[k])) { oNew[k] = pdef[k]; }
 		//console.log('oNew[k] is',oNew[k]);
 		//console.log('change!!! old',params[p],'new',newParams[p])

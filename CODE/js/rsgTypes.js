@@ -310,7 +310,14 @@ function createUi(n, area, R, defParams) {
 
 	if (n.uiType == 'NONE') return ui;
 
+
+	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
 	applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
+	// else{
+	// 	console.log(ui);
+	// 	ui.style.filter='grayscale(0.5)';
+
+	// }
 	// if (n.uiType == 'h') {
 	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
 	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);

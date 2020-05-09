@@ -4,6 +4,7 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	let boardDiv = stage3_prepContainer(dParent);
 
 	let boardSvg = gSvg();
+	
 	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
 	boardSvg.setAttribute('style', style);
 	boardDiv.appendChild(boardSvg);
