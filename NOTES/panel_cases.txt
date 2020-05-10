@@ -1,4 +1,4 @@
-panel: 	cp	co	pt	elp	elo	elr
+_id: 	cp	co	pt	elp	elo	elr
 case 1. 0	0	list 0	0	0
 ok - make example
 

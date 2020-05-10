@@ -3,7 +3,7 @@ vor gen10: orig spec R.gens[0]
 
 nach gen10: R.gens[1] hat sources and pools
 
-nach gen11: R.gens[2] hat ROOT as single panels
+nach gen11: R.gens[2] hat ROOT as single sub
 
 nach gen12: R.gens[3] add specKey, create places,refs
 

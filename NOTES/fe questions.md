@@ -38,7 +38,7 @@ Fe fragen 24.4.2020:
 
         - parent has local rep of bag content
 
-- [x]  kann ich assumen dass alle nodes in spec die zb panels haben auch type panel haben?
+- [x]  kann ich assumen dass alle nodes in spec die zb sub haben auch type panel haben?
 
     ja
 
@@ -87,7 +87,7 @@ tree is structure holding:
 
 es gibt also eigentlich 2 trees: einer implizit definiert durch spec T1, und 1 explizit, ergebnis von parsing T2
 
-some correspondence herrscht zwischen T1 panels oder elm oder board fields, corners, edges und children in T2
+some correspondence herrscht zwischen T1 sub oder elm oder board fields, corners, edges und children in T2
 
 correspondence zwischen nodes in T1 und T2 gestaltet sich interessant: muss paar beispiele zeichnen um das mit den refs zu verstehen!!!
 

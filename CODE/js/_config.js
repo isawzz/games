@@ -7,14 +7,10 @@ var SEED = 1;
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
-var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-// testGrid/ catanSpec catanServer tttSpec tttServer
-// extrem
-// var SPEC_PATH = '/DATA/testGrid/catanSpec'; // 03b testBinding/03 | testGrid/04
-// var SERVERDATA_PATH = '/DATA/testGrid/catanSpec'; // testBinding/d3 | testGrid/d4
-var SPEC_PATH = '/DATA/extrem/tttSpec'; // 03b testBinding/03 | testGrid/04
-var SERVERDATA_PATH = '/DATA/extrem/tttServer'; // testBinding/d3 | testGrid/d4
+var SPEC_PATH = '/DATA/v01/01'; // 03b testBinding/03 | testGrid/04
+var SERVERDATA_PATH = '/DATA/allesServer'; // testBinding/d3 | testGrid/d4
+var DSPEC_PATH = '/DATA/D'; // defaultSpec | defaultSpecEmpty
 
 var SHOW_SPEC = false; // true | false
 var SHOW_OIDNODES = true; // true | false
@@ -22,6 +18,10 @@ var SHOW_UITREE = false; // true | false
 var SHOW_RTREE = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 
+// testGrid/ catanSpec catanServer tttSpec tttServer
+// extrem: allesSpec allesServer sSpec 
+// var SPEC_PATH = '/DATA/testGrid/catanSpec'; // 03b testBinding/03 | testGrid/04
+// var SERVERDATA_PATH = '/DATA/testGrid/catanSpec'; // testBinding/d3 | testGrid/d4
 // // __hybrid | _hand1 | nRefs1Id | testCalcContentFromData/01
 // var SPEC_PATH = '/DATA/testCalcContentFromData/03'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo
 // //var SPEC_PATH = '/DATA/__spec0'; // __spec0 | __simple |  __spec0_noParams | __cardSuit | specttt | specCatan | specAristo

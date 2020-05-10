@@ -1,0 +1,184 @@
+ROOT: 
+  type: panel
+  params:
+    orientation: h
+    bg: green
+  sub:
+    # - type: panel
+    #   sub:
+    #     - _id: A
+    #     - _id: B
+    # - type: panel
+    #   # params:
+    #   #   justify-content: center
+    #   sub:
+    #     - type: panel
+    #       params: 
+    #         bg: '#ffffff80'
+    #         flex: 1 0 auto
+    #       sub:
+    #         - type: title
+    #           data: market
+    #         - name: market_loc
+    #           _id: market_loc 
+    #           type: list
+    #     - _id: main_player
+    - type: main_board
+      params: 
+        bg: yellow
+        flex: 1 0 auto
+    # - name: all_opps
+    #   type: panel
+    #   sub:
+    #     _id: all_opps #set multiple sub (sub isDict)
+
+main_board: #for now!
+  cond:
+    obj_type: Board
+  type: grid
+
+settlements:
+  _ref: B
+  cond:
+    obj_type: settlement
+  type: picto
+  data: barn
+  params:
+    bg: blue
+
+fields:
+  cond:
+    obj_type: Field
+  type: info
+  params:
+    font: italic small-caps bold 10pt Georgia, serif
+    fg: #white
+      _map:
+        map: num_map
+        key: .num
+    bg:
+      _map:
+        map: fields_map
+        key: .res
+  data: .num # type "info".data can be a list, dict, or single element
+
+num_map:
+  6:
+    fg: red
+  8:
+    fg: red
+    
+fields_map:
+  wood:
+    texture: grain
+    bg: maroon 
+  brick:
+    texture: rect
+    bg: salmon
+  wheat:
+    texture: grain
+    bg: yellow
+  sheep:
+    bg: lime
+  ore:
+    texture: grain
+    bg: dimgray
+
+p_elm:
+  type: panel
+  sub:
+    - type: title
+      data: .name
+    - _id: info_loc
+    - _id: hand_loc
+  params:
+    bg: .color
+
+global_market:
+  name: global_market
+  cond:
+    obj_type: market
+  _ref: market_loc
+  type: hand
+  elm: .neutral
+
+opp_info:
+  name: opp_info
+  _ref: all_opps
+  cond:
+    obj_type: _opponent
+  type: p_elm
+
+me_info:
+  name: player_panel
+  _ref: main_player
+  cond:
+    obj_type: _me
+  type: p_elm
+  params:
+    orientation: v
+
+player_hand:
+  name: player_hand
+  cond:
+    instanceof: _player
+  _ref: hand_loc
+  type: hand
+  elm: .hand
+  # params:
+  #   align-typeitems: center
+  #   justify-content: space-evenly
+
+player_info:
+  cond:
+    instanceof: _player
+  _ref: info_loc
+  type: info
+  data:
+    vps: .vps
+    money: .money
+    herald: .herald
+
+all_viz_cards:
+  type: card
+  _source: all_cards
+  cond:
+    prop: short_name
+  params:
+    bg: white
+    fg: black
+    font-size: 10pt
+    font-weight: bold
+  data: .short_name
+
+all_non_viz_cards:
+  type: card
+  _source: all_cards
+  cond:
+    no_prop: short_name
+  params:
+    bg: '#c3c3c380'
+    fg: black
+  data: .short_name
+
+all_cards:
+  cond:
+    obj_type: card
+
+robber:
+  cond:
+    obj_type: robber
+  type: picto
+  _ref: A
+  data: crow
+  params:
+    fg: white
+  #position: .loc
+
+
+
+
+
+
+
+

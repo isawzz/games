@@ -4,13 +4,13 @@ function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
 
 	// let d = mBy('SPEC');
 	// console.log(d,SHOW_SPEC)
-	// if (d && SHOW_SPEC) { mNode(SPEC, { dParent: d, listOfProps: lst, omitProps: lstOmit }); } else { hide('contSPEC'); }
+	// if (d && SHOW_SPEC) { mNodeFilter(SPEC, { dParent: d, lstFlatten: lst, omitProps: lstOmit }); } else { hide('contSPEC'); }
 
 	d = mBy('SERVERDATA');
-	if (d && SHOW_SERVERDATA) { mNode(sData, { dParent: d, listOfProps: lst }); } else { hide('contSERVERDATA'); }
+	if (d && SHOW_SERVERDATA) { mNodeFilter(sData, { dParent: d, lstFlatten: lst }); } else { hide('contSERVERDATA'); }
 
 	d = mBy('DEFS');
-	if (d && SHOW_DEFS) { mNode(DEFS, { dParent: d, listOfProps: lst }); } else { hide('contDEFS'); }
+	if (d && SHOW_DEFS) { mNodeFilter(DEFS, { dParent: d, lstFlatten: lst }); } else { hide('contDEFS'); }
 }
 
 function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, styles) {

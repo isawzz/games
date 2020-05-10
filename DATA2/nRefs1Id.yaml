@@ -1,0 +1,57 @@
+#2 id node is object, ref at top level, 1-1
+ROOT: 
+  type: panel
+  sub:
+    _id: A
+settlements:
+  _ref: A
+  type: s1
+s1:
+  cond:
+    obj_type: settlement
+  type: info
+  data: .
+  params:
+    bg: blue
+    fg: white
+ex:
+  type: panel
+  sub:
+    - _ref: barn
+    - type: list
+      elm:
+        _ref: HALLO
+
+# robber:
+#   _ref: A
+#   cond:
+#     obj_type: robber
+#   type: picto
+#   data: crow
+#   params:
+#     bg: red
+
+#OK id node is list el, ref at top level, 1-1
+# ROOT: 
+#   type: panel
+#   sub:
+#     - _id: A
+#     - _id: B
+# settlements:
+#   _ref: B
+#   cond:
+#     obj_type: settlement
+#   type: picto
+#   data: barn
+#   params:
+#     bg: blue
+# robber:
+#   _ref: A
+#   cond:
+#     obj_type: robber
+#   type: picto
+#   data: crow
+#   params:
+#     bg: red
+
+

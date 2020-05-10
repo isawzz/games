@@ -5,13 +5,13 @@
 o0:
   type: panel
   _ref: tree
-  panels:
+  sub:
     - _id: start
 
 o1:
   type: panel
   _ref: tree
-  panels:
+  sub:
     - type: ROOT
 
 ROOT:
@@ -33,7 +33,7 @@ ROOT0:
 
 ROOT1:
   type: panel
-  panels:
+  sub:
     type: info
     cond:
       prop: rank
@@ -41,7 +41,7 @@ ROOT1:
 
 ROOT1a: #mit cards oben!
   type: panel
-  panels:
+  sub:
     _id: A
 
 

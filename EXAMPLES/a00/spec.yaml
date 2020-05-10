@@ -1,6 +1,6 @@
 ROOT:
   name: A
-  panels:
+  sub:
     _id: A
 p1:
   name: B

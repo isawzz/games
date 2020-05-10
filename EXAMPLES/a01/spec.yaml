@@ -1,7 +1,7 @@
 ROOT:
   type: p3
   name: A
-  panels:
+  sub:
     - _id: A #only 1
     - type: p2
 

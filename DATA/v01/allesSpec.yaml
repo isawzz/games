@@ -1,0 +1,123 @@
+ROOT:
+  sub:
+    - _id: O
+      params:
+        bg: inherit
+        orientation: v
+    - _id: G
+  params:
+    bg: green
+
+#game main panel
+G:
+  _ref: G
+  sub:
+    - _id: P
+      params:
+        bg: inherit
+    - _id: B
+      params:
+        bg: inherit
+  params:
+    orientation: v
+
+#other objects
+O:
+  _ref: O
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
+
+#player
+P:
+  _ref: P
+  cond:
+    instanceof: _player
+  data: .name
+  params:
+    bg: .color
+
+#robber
+R:
+  cond:
+    obj_type: robber
+  data: R 
+  params:
+    size: 20
+    rounding: 10
+    border-radius: 50%
+    bg: black   
+
+#board
+B:
+  _ref: B
+  cond:
+    obj_type: Board
+    prop: edges
+  type: grid
+  # params:
+  #   fields:
+  #     size: 44
+  #   field_spacing: 50
+  #   margin: 10
+  #   bg: orange
+  #   fg: white
+  #   border-radius: 10
+  #   padding: 4
+
+#ttt field
+Tick:
+  cond:
+    obj_type: Tick
+  type: info
+  data: .player.symbol
+  params:
+    fg: .player.color
+    rounding: 4
+
+#catan field,edge,corner
+fields:
+  cond:
+    obj_type: Field
+  type: info
+  params:
+    filter: blur(5px)
+    font: italic small-caps bold 20px Georgia, serif
+    fg:
+      _map:
+        map: num_map
+        key: .num
+    bg:
+      _map:
+        map: fields_map
+        key: .res
+        default: navajowhite
+  data: .num # type "info".data can be a list, dict, or single element
+corners:
+  cond:
+    obj_type: Corner
+  params:
+    display: if_content
+
+num_map:
+  6:
+    fg: red
+  8:
+    fg: red
+fields_map:
+  wood:
+    texture: grain
+    bg: maroon 
+  brick:
+    texture: rect
+    bg: salmon
+  wheat:
+    texture: grain
+    bg: yellow
+  sheep:
+    bg: green
+  ore:
+    texture: grain
+    bg: dimgray
+

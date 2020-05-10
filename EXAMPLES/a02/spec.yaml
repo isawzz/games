@@ -1,6 +1,6 @@
 ROOT:
   type: p3
-  panels:
+  sub:
     - _id: A #only 1
 
 p1:

@@ -1,6 +1,6 @@
 ROOT:
   name: A
-  panels:
+  sub:
     - type: p2
 p1:
   name: B

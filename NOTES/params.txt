@@ -1,0 +1,23 @@
+
+defaults:
+	params: *** fine-grained all params ***
+	
+	#types *** collections of default params used by type
+	grid:
+	hexgrid:
+	quadgrid:
+	panel:
+	list:
+	
+	#styles *** betrifft group of visual properties ***
+	...
+	
+	#layouts *** how to organize children ***
+	wrap:
+	snail:
+	...
+	
+	#geometry *** betrifft size,pos,shape within parent layout ***
+	
+	
+	

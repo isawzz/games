@@ -17,7 +17,7 @@ __________________________________
 	- has meta (ignored for now)
 	- can be named (spec nodes)
 	- has a parent (node)
-	- has children (nodes) =>koennen multiple types of children sein, but for now it is just panels for panel und elm for list
+	- has children (nodes) =>koennen multiple types of children sein, but for now it is just sub for panel und elm for list
 	- has a relative address within parent
 	- may have absolute address (just a of path from ROOT)
 	- has a component: pool referring to all oids for which this node is instantiated
@@ -25,7 +25,7 @@ __________________________________
 		pool inherited from parent or set
 	- has a data component
 	- may have params: all visual directives as needed/processable per type
-	- may have other key/values as type (panels, elm, dict, ...)
+	- may have other key/values as type (sub, elm, dict, ...)
 
 7. address can be 
 	key (if parent is object) or 
@@ -104,7 +104,7 @@ if pool non empty:
   foreach oid in pool
 		createUI(ROOT,oid)
 
-each building is a panel with 2 panels
+each building is a panel with 2 sub
 
 type: list
 _id: a

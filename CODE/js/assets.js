@@ -93,8 +93,8 @@ async function loadSpec(path) {
 
 	//merge default and userSpec
 	SPEC = deepmerge(defaultSpec, userSpec, { arrayMerge: overwriteMerge });
-	DEFS = SPEC.defaults;
-	delete SPEC.defaults;
+	DEFS = SPEC;// #111 .defaults;
+	//delete SPEC.defaults; 
 
 	//need to correct areas because it should NOT be merged!!!
 	if (userSpec.layout_alias) { SPEC.areas = userSpec.layout_alias; }

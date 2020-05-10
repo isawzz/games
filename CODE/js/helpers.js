@@ -155,23 +155,13 @@ function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, classNam
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-function mNode(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
+function mNode(o, dParent, title) {
 	let d = mCreate('div');
-	if (isdef(className)) mClass(d, className);
-	// console.log(className)
-	let oCopy = jsCopy(o);
-	//console.log(oCopy)
-	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
-	if (nundef(omitProps)) omitProps = [];
-	//console.log(omitProps,omitEmpty)
-	if (omitEmpty || !isEmpty(omitProps)) oCopy = recDeleteKeys(oCopy, omitEmpty, omitProps);
-	//console.log(oCopy);
-	mYaml(d, oCopy);
+	mYaml(d, o);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
-	return d;// {div:d,pre:pre};
+	return d;
 }
 function mNodeChangeContent(ui, content) {
 	let domel = ui.getElementsByTagName('pre')[0];
@@ -203,6 +193,19 @@ function agRect(g, w, h) { let r = gRect(w, h); g.appendChild(r); return r; }
 function agLine(g, x1, y1, x2, y2) { let r = gLine(x1, y1, x2, y2); g.appendChild(r); return r; }
 function agG(g) { let g1 = gG(); g.appendChild(g1); return g1; }
 //function agSvgg(d) { let svg = gSvg(); agG(svg); d.appendChild(svg); return g; }
+function aSvg(dParent) {
+	if (!dParent.style.position) dParent.style.position = 'relative';
+
+	let svg1 = gSvg();
+	//console.log(svg1)
+	svg1.setAttribute('width', '100%');
+	svg1.setAttribute('height', '100%');
+	let style = 'margin:0;padding:0;position:absolute;top:0px;left:0px;';
+	svg1.setAttribute('style', style);
+	dParent.appendChild(svg1);
+
+	return svg1;
+}
 function aSvgg(dParent, originInCenter = true) {
 	if (!dParent.style.position) dParent.style.position = 'relative';
 
@@ -2720,7 +2723,7 @@ function recPresent(n, level, dLevel, nDict, treeProp, { lstFlatten, lstShow, ls
 
 
 
-function anyString3(x, indent = 0, proplist = null, include = true, guard = ['specKey', 'label', 'pool', 'el', 'panels', 'elm', 'cond', 'info', 'o', 'ui', 'source', 'bi']) {
+function anyString3(x, indent = 0, proplist = null, include = true, guard = ['specKey', 'label', 'pool', 'el', 'sub', 'elm', 'cond', 'info', 'o', 'ui', 'source', 'bi']) {
 	if (isLiteral(x)) return x;// ' '.repeat(indent)+x;
 	else if (isListOfLiterals(x)) return x.join(' '); // ' '.repeat(indent)+x.join(' ');
 	else if (isEmpty(x)) return x;

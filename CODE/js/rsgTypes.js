@@ -1,11 +1,20 @@
 
+function safeMerge(a,b){
+	if (nundef(a) && nundef(b)) return {};
+	else if (nundef(a)) return jsCopy(b);
+	else if (nundef(b)) return jsCopy(a);
+	else return deepmergeOverride(a,b);
+}
+
 class RSG {
 	constructor(sp, defs, sdata) {
 		//console.log(sdata)
 		this.gens = { G: [sp] };
-		this.sp = sp;
-		this.lastSpec = sp; //just points to last spec produced in last step performed
-		this.ROOT = sp.ROOT;
+		this.sp = safeMerge(defs.NODES,sp.NODES);
+		this.maps = safeMerge(defs.MAPS,sp.MAPS);
+		this.channels = safeMerge(defs.CHANNELS,sp.CHANNELS);
+		this.lastSpec = this.sp; //just points to last spec produced in last step performed
+		this.ROOT = this.sp.ROOT;
 		this.defs = defs;
 		this.places = {};
 		this.refs = {};
@@ -13,20 +22,12 @@ class RSG {
 
 		this.clearObjects(); //prepares _sd
 		for (const oid in sdata) {
-			//console.log(sdata)
 			this.addObject(oid, sdata[oid]);
 		}
 		// this.defSource = Object.keys(sdata);
 		// console.log(sdata,this.defSource)
 
 		this.oidNodes = null;
-
-		//this.bySpecKey = {};
-		// this.oidNodes = {};
-		// this.NODES = {};
-		// this.rTree={};
-		// this.gTree={};
-
 	}
 	//#region helpers
 	addToPlaces(specKey, placeName, propList) {
@@ -116,171 +117,6 @@ class RSG {
 
 	//#endregion
 
-	//#region v0
-	//gen10 adds source and pool to each spec node, _rsg to each object	//type lists: nix
-	gen10(genKey = 'G') {
-		let [gen, pools] = addSourcesAndPools(this);
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-		this.POOLS = pools; //not sure if need this.POOLS at all!!!
-	}
-
-	//gen11 adds top panel if is not unique top panel	//type lists: nix
-	gen11(genKey = 'G') {
-		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
-		let gen = jsCopy(this.lastSpec);
-		if (this.ROOT.type == 'panel' && (nundef(this.ROOT.cond) || this.ROOT.pool.length <= 1)) {
-			//console.log('ROOT is already single panel! gens[2] same as gens[1]')
-		} else {
-			gen.ROOT = { type: 'panel', panels: gen.ROOT };
-		}
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-
-	}
-
-	//gen12 fills places ad refs, adds specKey to each node	//type lists: nix
-	gen12(genKey = 'G') {
-		//add a specKey to each spec node
-		//check_id recursively => fill this.places
-		//check_ref recursively => fill this.refs
-		this.places = {};
-		let gen = jsCopy(this.lastSpec);
-		//add specKey to each node
-		for (const k in gen) {
-			let n = gen[k];
-			n.specKey = k;
-		}
-		//recursively add _id node+path to places
-		for (const k in gen) {
-			let n = gen[k];
-			check_id(k, n, this);
-		}
-		//recursively add _ref node+path to places
-		for (const k in gen) {
-			let n = gen[k];
-			check_ref(k, n, this);
-		}
-		//console.log('____________________ places', this.places);
-		//console.log('____________________ refs', this.refs);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-
-	}
-
-	// *** 12 + 13 *** hier muesst _id,_ref lists aufloesen!!!!!!!!!!!!!!!!
-	//gen13 merges _ids and _refs	//type lists: nix
-	gen13(genKey = 'G') {
-		//merge _ref nodes into _id
-		let gen = jsCopy(this.lastSpec);
-
-		for (const k in gen) {
-			let n = gen[k];
-			safeRecurse(n, mergeChildrenWithRefs, this, false); //do merge AFTER processing children damit leaf nodes first!!!
-			if (n._id) {
-				//case a) _id at top level! mergeAllRefsToIdIntoNode(n)
-				n = mergeAllRefsToIdIntoNode(n, R);
-			}
-		}
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-
-
-	}
-	//gen14 merge spec types into places (forward merge) and merges in def types
-	//NOOOOO doch nicht!!!!!!!!!!! for all types except grid! (grid done in detectBoardParams, see createLC)
-	//type list: hier muesst ich type lists aufloesen!!! 
-	gen14(genKey = 'G') {
-		//console.log('gen14 starts.......')
-
-		let gen = jsCopy(this.lastSpec);
-		this.defType = isdef(this.defs.type) ? this.defs.type : 'panel';
-
-		for (const k in gen) {
-			let n = gen[k];
-			if (nundef(n.type)) {
-				let type = detectType(n, this.defType);
-				//console.log('soll ich correcten???',n,type);
-				if (type) n.type = type;
-			}
-			//console.log('_____ node',k,isdef(n.type));
-			gen[k] = recMergeSpecTypes(n, gen, this.defType, 0);
-		}
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-		//console.log(gen)
-	}
-	// *** 14 + 15 *** hier muesst type lists aufloesen!!!!!!!!!!!!!!!!
-	//#region gen15 rausgeschmissen weil mist!!!
-	//gen15 generates 1 spec node for each server object, ==> o._node
-	// by merging all spec nodes in o._rsg
-	//achtung!!! fuer board members kann das NICHT gemacht werden weil diese noch nicht bekannt!
-	//==> mache eine function die ich dann aus generalGrid aufrufen kann die das macht!
-	//composite types as per pool set
-	//could add this node to object as _rsg instead of just name already!!!
-	//theoretically could already eval all params here!!! (except map values for oid)
-	//not now!
-
-	//problem: wenn keine board detection wird board selbst NICHT oidNode bekommen
-	//and therefore NOT BE PRESENTED!!!
-	//muss also VORHER fuer alle type=grid automatic board detection machen!!!
-	//ich koennte aber das schon frueher machen, sobald ich type:grid finde
-	//in einem spec node ohne cond???
-	// gen15(){
-	// 	this.oidNodes = {};
-	// 	for (const oid in R.sData) {
-	// 		this.oidNodes[oid] =	mergeAllNodesForOid(oid,R);
-	// 	}
-	// }
-	//#endregion
-
-	//#region gen20 rausgeschmissen weil mist
-	//gen20 forms tree: MAKES ABSOLUTELY NO SENSE!!!
-	gen20() {
-		let gen = jsCopy(this.lastSpec);
-
-		this.NODES = {};
-		let id = getUid();
-		this.NODES[id] = this.starter = { nid: id, fullPath: id };
-
-		this.ROOT = createSTree(gen.ROOT, this.starter.nid, this);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-	}
-	//#endregion
-
-	gen21(area, genKey = 'G') {
-		let gen = jsCopy(this.lastSpec);
-
-		this.ROOT = createLC(gen.ROOT, area, this);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-	}
-
-
-	//#endregion v0
-
-	//#region FAILED trials
-	geniStart() {
-		let sp = this.lastSpec = this.sp;
-		let genKey = 'inc';
-		this.gens[genKey] = []; //start 'inc' generation!
-		this.gen11(genKey);
-		this.gen12(genKey);
-
-		console.log(this.gens);
-	}
-	//#endregion
-
 	//#region v1
 	geninc13(genKey = 'G') {
 		this.clearObjects();
@@ -291,18 +127,53 @@ class RSG {
 
 	}
 
-
-
-
 }
 
-function createUi(n, area, R, defParams) {
+function adjustContainerLayout(n, R) {
+
+	n.adirty = false;
+
+	//console.log(n);return;
+	if (n.type == 'grid') {
+		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
+		return;
+	}
+	//@@@3
+	//return;
+
+	if (n.type == 'hand') { layoutHand(n); return; }
+
+	let params = n.params;
+	let num = n.children.length;
+
+	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
+	mFlex(n.ui, or);
+
+	//setting split
+	let split = params.split ? params.split : DEF_SPLIT;
+	if (split == 'min') return;
+
+	let reverseSplit = false;
+
+	if (split == 'equal') split = (1 / num);
+	else if (isNumber(split)) reverseSplit = true;
+
+	for (let i = 0; i < num; i++) {
+		//if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
+		let d = R.uiNodes[n.children[i]].ui;
+		mFlexChildSplit(d, split);
+
+		if (reverseSplit) { split = 1 - split; }
+	}
+}
+function createUi(n, area, R) { //#111, defParams) {
 
 	if (nundef(n.type)) { n.type = inferType(n); }
 
 	R.registerNode(n);
 
-	decodeParams(n, R, defParams);
+	decodeParams(n, R); //#111, defParams);//@@@1 */
+	console.log(n.type,n.params)
 
 	let ui = RCREATE[n.type](n, mBy(area), R);
 
@@ -310,30 +181,16 @@ function createUi(n, area, R, defParams) {
 
 	if (n.uiType == 'NONE') return ui;
 
-
 	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	// else{
-	// 	console.log(ui);
-	// 	ui.style.filter='grayscale(0.5)';
+	applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);//@@@2
 
+	// if (!isEmpty(n.stdParams)) {
+	// 	switch (n.stdParams.display) {
+	// 		case 'if_content': if (!n.content) hide(ui); break;
+	// 		case 'hidden': hide(ui); break;
+	// 		default: break;
+	// 	}
 	// }
-	// if (n.uiType == 'h') {
-	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
-	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
-	// } else {
-	// 	applyCssStyles(ui, n.cssParams);
-	// }
-
-	//TODO: hier muss noch die rsg std params setzen (same for all types!)
-	if (!isEmpty(n.stdParams)) {
-		//console.log('rsg std params!!!', n.stdParams);
-		switch (n.stdParams.display) {
-			case 'if_content': if (!n.content) hide(ui); break;
-			case 'hidden': hide(ui); break;
-			default: break;
-		}
-	}
 
 	R.setUid(n, ui);
 	return ui;

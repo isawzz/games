@@ -1,9 +1,9 @@
 ROOT:
-  panels:
+  sub:
     - type: p1
 
 p1:
-  panels:
+  sub:
     - type: p2
 
 p2:

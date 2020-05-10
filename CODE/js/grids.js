@@ -19,13 +19,13 @@ function createArtificialSpecForBoardMemberIfNeeded(oid,o,R){
 	return key;
 }
 
-function generalGrid(nuiBoard, area, R, defParams) {
+function generalGrid(nuiBoard, area, R) {//#111, defParams) {
 
 	// *** stage 1 create parent *** (kommt von createLC mit n...spec node COPY)
 	let bpa = nuiBoard.params = detectBoardParams(nuiBoard, R);
 	//console.log('bpa', bpa);
 
-	let ui = nuiBoard.ui = createUi(nuiBoard, area, R, defParams);
+	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);// #, defParams);
 	//console.log('board',ui, nuiBoard);
 	//console.log('NACH board CREATEUI!!!!!!!!!!!', nuiBoard);
 
@@ -43,16 +43,17 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			let o = n1.o;
 			delete n1.o;
 
-			n1.params = n1.defParams = jsCopy(bMemberParams);
-			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
-			else if (isEmpty(R.getR(oid))) { 
-				//console.log('ueberpruefe R fuer',oid)
-				//ueberpruefe noch einmal und adde oidNodes!!!
-				addRForObject(oid,R);
-			}else{
-				//console.log('ueberpruefung NICHT gelaufen!!!',R.getR(oid))
-			}
 			let uid = n1.uid = getUID();
+			n1.params = n1.defParams = jsCopy(bMemberParams);
+			
+			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
+			// else if (isEmpty(R.getR(oid))) { 
+			// 	//console.log('ueberpruefe R fuer',oid)
+			// 	//ueberpruefe noch einmal und adde oidNodes!!!
+			// 	addRForObject(oid,R);
+			// }else{
+			// 	//console.log('ueberpruefung NICHT gelaufen!!!',R.getR(oid))
+			// }
 
 			// ***TEMP!!!! hier wird ein artificial key gemacht falls kein spec key fuer oid!
 			let key = n1.key = createArtificialSpecForBoardMemberIfNeeded(oid,o,R);
@@ -75,7 +76,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			nui.content = calcContentFromData(oid, o, nui.data, R);
 			
 			//*********** createUi *************** */
-			nui.ui = createUi(nui, nuiBoard.uid, R, nui.defParams);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
+			nui.ui = createUi(nui, nuiBoard.uid, R); // #111, nui.defParams);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
 			
 			
 			R.uiNodes[uid] = nui;
@@ -116,14 +117,14 @@ function generalGrid(nuiBoard, area, R, defParams) {
 	}
 }
 
-function createBoard(nui, area, R, defParams) {
+function createBoard(nui, area, R) {//#111, defParams) {
 	let ntree = R.NodesByUid[nui.uid];
 	let nSpec = R.lastSpec[ntree.key];
 	let [oid, boardType] = detectBoardOidAndType(ntree.oid, nSpec.boardType, R);
 	nui.oid = oid;
 	nui.boardType = boardType;
 	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
-	generalGrid(nui, area, R, defParams);
+	generalGrid(nui, area, R); // #111, defParams);
 }
 //#region detect
 function detectBoardOidAndType(oid, boardType, R) {

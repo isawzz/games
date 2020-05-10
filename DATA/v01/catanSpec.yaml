@@ -1,0 +1,76 @@
+#board!!!
+ROOT:
+  data: 147
+  _id: B
+B:
+  cond:
+    obj_type: Board
+    prop: corners
+  type: grid
+  params:
+    margin: 6
+    field_spacing: 58
+    #boardType: hexGrid #can be detected!
+
+fields:
+  cond:
+    obj_type: Field
+  type: info
+  params:
+    size: 50
+    font: italic small-caps bold 20px Georgia, serif
+    fg:
+      _map:
+        map: num_map
+        key: .num
+    bg:
+      _map:
+        map: fields_map
+        key: .res
+  data: .num # type "info".data can be a list, dict, or single element
+
+edges:
+  cond:
+    obj_type: Edge
+  params:
+    stroke-linecap: round
+    size: 8
+    bg: '#ffffff80'
+    alpha: .5
+
+corners:
+  cond:
+    obj_type: Corner
+  params:
+    display: if_content
+    size: 15
+    shape: rect #default waer hier hex gesetzt von board!
+    bg: green
+
+num_map:
+  6:
+    fg: red
+  8:
+    fg: red
+    
+fields_map:
+  wood:
+    texture: grain
+    bg: maroon 
+  brick:
+    texture: rect
+    bg: salmon
+  wheat:
+    texture: grain
+    bg: yellow
+  sheep:
+    bg: green
+  ore:
+    texture: grain
+    bg: dimgray
+
+# hex:
+#   cond:
+#     obj_type: Field
+#   type: info
+#   data: .num

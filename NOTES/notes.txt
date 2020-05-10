@@ -48,7 +48,7 @@ type [required! + ROOT MUST BE SINGLE PANEL] (no cond)
 	=> standard type or spec node key (forward merging)
 	=> string or list* syntax
 	
-panels|elm (fuer type panel, list|hand resp)
+sub|elm (fuer type panel, list|hand resp)
 	=> propPath, list or dict syntax
 	=> daraus werden children!
 	(ausser bei grid, das selbst chi generiert)

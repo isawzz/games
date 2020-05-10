@@ -1,0 +1,13 @@
+ROOT:
+  #data: hallo
+  _id: A
+  # sub:
+  #   - _id: A
+  #   - _id: B
+  #   - sub:
+  #     - _id: A
+
+A:
+  cond: all
+  data: .name
+

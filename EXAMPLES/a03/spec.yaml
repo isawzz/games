@@ -1,6 +1,6 @@
 ROOT:
   name: A
-  panels:
+  sub:
     - _id: A
     - _id: X
   prop1:
@@ -13,9 +13,9 @@ ROOT:
       p3:
         _id: T
   prop3:
-    panels:
+    sub:
       _id: O #multiple _ref allowed
   prop4:
-    panels:
+    sub:
       - _id: Z #only 1 _ref allowed! will be overwritten
 

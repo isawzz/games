@@ -48,8 +48,10 @@ async function gameStep() {
 
 }
 //#endregion
-function runTest() { run08(); } //run06(SPEC, DEFS, sData); }
+// function runTest() { run09(); } 
+function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
+	console.log('sp',sp,'defs',defaults)
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! OK!
 	//updateOutput(R);
@@ -63,45 +65,13 @@ function run06(sp, defaults, sdata) {
 	updateOutput(R);
 	activateUis(R);
 }
-function run08() {
-	// var container = document.getElementById("svgContainer");
-	let d = mDiv(mBy('table'));
-	mSize(d, 400, 300);
-	mColor(d, 'blue');
-	let canvas = aSvgg(d);
-	let svg = d.children[0];
-	// var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	// svg.setAttribute("version", "1.1");
-	// d.appendChild(svg);
-	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
-	
-	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular');
-	
-	let ci = g1.children[0];
 
-	// var obj = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-	// obj.setAttribute("width", "90");
-	// obj.setAttribute("height", "90");
 
-	var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
 
-	var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
-	filter.setAttribute("id", "f1");
-	// filter.setAttribute("x", "0");
-	// filter.setAttribute("y", "0");
 
-	var gaussianFilter = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-	// gaussianFilter.setAttribute("in", "SourceGraphic");
-	gaussianFilter.setAttribute("stdDeviation", "2");
 
-	filter.appendChild(gaussianFilter);
-	defs.appendChild(filter);
-	svg.appendChild(defs);
-	// text.elem.setAttribute("filter", "url(#f1)");
-	ci.setAttribute("filter", "url(#f1)");
 
-	//svg.appendChild(obj);
-}
+
 
 //#region frueher
 function run05(sp, defaults, sdata) {
@@ -147,9 +117,9 @@ function run03(sp, defaults, sdata) {
 
 	R.gen13(); // merges _ref, _id nodes (_id & _ref) disappear? =>R.gens.G[4]...merged!
 	//console.log(jsCopy(R.lastSpec));
-	//console.log('______ ROOT panels nach id/ref merging:');
+	//console.log('______ ROOT sub nach id/ref merging:');
 	//console.log(R);
-	//R.gens.G[4].ROOT.panels.map(x=>console.log(x));
+	//R.gens.G[4].ROOT.sub.map(x=>console.log(x));
 
 	phase = 14;
 	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens.G[5]...merged!
@@ -170,7 +140,7 @@ function run03(sp, defaults, sdata) {
 
 	R.gen21('table');// expands dyn root, creates 1 node for each ui and uis
 
-	// console.log('______ final ROOT panels:')
+	// console.log('______ final ROOT sub:')
 	// showPanels(R.ROOT);
 	// showChildren(R.ROOT);
 	// console.log(R);
@@ -190,13 +160,13 @@ function run03(sp, defaults, sdata) {
 
 //showPanel, showChildren v0
 function showPanels(n) {
-	console.log('panels:')
-	if (nundef(n.panels)) {
+	console.log('sub:')
+	if (nundef(n.sub)) {
 		console.log('NO PANELS!!!', n)
-	} else if (isList(n.panels)) {
-		n.panels.map(x => console.log(x));
+	} else if (isList(n.sub)) {
+		n.sub.map(x => console.log(x));
 	} else {
-		console.log(n.panels);
+		console.log(n.sub);
 	}
 }
 function showChildren(n) {
@@ -280,7 +250,6 @@ function updateOutput(R) {
 			['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			null,
 			{ 'max-width': '35%', font: '14px arial' });
-		//not: ui, act, uid, info, defParams, cssParams, typParams, stdParams, bi
 	}
 
 	if (SHOW_RTREE) {
