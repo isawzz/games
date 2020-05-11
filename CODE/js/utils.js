@@ -1,3 +1,44 @@
+function adjustContainerLayout(n, R) {
+
+
+	n.adirty = false;
+
+	//console.log(n);return;
+	if (n.type == 'grid') {
+		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
+		return;
+	}
+
+	if (n.type == 'hand') { layoutHand(n); return; }
+	//if (n.type == 'hand') { sortCards(n); return; }
+
+	//console.log('==>', n)
+	let params = n.params;
+	let num = n.children.length;
+
+	let or = params.orientation ? params.orientation : DEF_ORIENTATION;
+	mFlex(n.ui, or);
+
+	//console.log(params, num, or);
+
+
+	//setting split
+	let split = params.split ? params.split : DEF_SPLIT;
+	if (split == 'min') return;
+
+	let reverseSplit = false;
+
+	if (split == 'equal') split = (1 / num);
+	else if (isNumber(split)) reverseSplit = true;
+
+	for (let i = 0; i < num; i++) {
+		//if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
+		let d = R.uiNodes[n.children[i]].ui;
+		mFlexChildSplit(d, split);
+
+		if (reverseSplit) { split = 1 - split; }
+	}
+}
 function calcContentFromData(oid, o, data, R) {
 
 	// ex: data: .player.name
@@ -282,16 +323,18 @@ const PARAMRSG_T = {
 	size: true,
 	rounding: true,
 };
-function decodeParams(n, R){ // #111, defParams) {
+function decodeParams(n, R, defParams) {
 
-	// console.assert(isdef(n.type), 'decodeParams NO TYPE!!!!')
-	// console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
-	// console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
+	console.assert(isdef(n.type), 'decodeParams NO TYPE!!!!')
+	console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
+	console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
+	// console.log('________ decodeParams for type',n.type);
+	//  console.log('n.params', n.params);
+	//  console.log('n.defParams', n.defParams);
 
-	let inherited = {}; //  #111 lookup(defParams, [n.type, 'params']);
+	let inherited = lookup(defParams, [n.type, 'params']);
 	let defaults = lookup(R.defs, [n.type, 'params']);
-	let defs = defaults; // #111 n.params.inherit ? inherited : defaults;
-	if (nundef(n.params)) n.params = {};
+	let defs = n.params.inherit ? inherited : defaults;
 	if (n.type != 'grid') n.params = deepmergeOverride(defs, n.params);
 
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;

@@ -1,0 +1,59 @@
+ROOT:
+  sub:
+    - _id: O
+      params:
+        bg: inherit
+        orientation: v
+    - _id: G
+  params:
+    bg: green
+G:
+  sub:
+    - _id: P
+      params:
+        bg: inherit
+    - _id: B
+      params:
+        bg: inherit
+  params:
+    orientation: v
+O:
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
+B:
+  cond:
+    obj_type: Board
+  type: grid
+  params:
+    field_spacing: 40
+    #margin: 0
+    bg: orange
+    fg: white
+    border-radius: 10
+    padding: 4
+P:
+  cond:
+    instanceof: _player
+  data: .name
+  params:
+    bg: .color
+Tick:
+  cond:
+    obj_type: Tick
+  type: info
+  data: .player.symbol
+  params:
+    fg: .player.color
+    rounding: 10
+    size: 34
+R:
+  cond:
+    obj_type: robber
+  data: R 
+  params:
+    size: 20
+    rounding: 10
+    border-radius: 50%
+    bg: black   

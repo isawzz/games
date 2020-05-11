@@ -1,0 +1,20 @@
+ROOT:
+  data: hallo
+  sub:
+    - _id: A
+    - _id: B
+    - sub:
+      - _id: A
+
+A:
+  cond: all
+  data: .name
+  params:
+    text-align: center
+
+B: 
+  cond:
+    oid: o1
+  data: .age
+  params:
+    fg: red

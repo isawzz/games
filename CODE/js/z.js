@@ -197,25 +197,6 @@ function anyToString1(x, indent = 0, ifDict = 'entries') {
 }
 
 //#region present
-function mNode_dep(o, { dParent, title, listOfProps, omitProps, className = 'node', omitEmpty = false } = {}) {
-	let d = mCreate('div');
-	if (isdef(className)) mClass(d, className);
-	// console.log(className)
-	let oCopy = jsCopy(o);
-	//console.log(oCopy)
-	if (isdef(listOfProps)) recConvertToSimpleList(oCopy, listOfProps);
-	if (nundef(omitProps)) omitProps = [];
-	//console.log(omitProps,omitEmpty)
-	if (omitEmpty || !isEmpty(omitProps)) oCopy = recDeleteKeys(oCopy, omitEmpty, omitProps);
-	//console.log(oCopy);
-	mYaml(d, oCopy);
-	let pre = d.getElementsByTagName('pre')[0];
-	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
-	if (isdef(dParent)) mAppend(dParent, d);
-	return d;// {div:d,pre:pre};
-}
-
 function presentTree_dep(n, treeProperty, area, R, lf, ls, lo) {
 	d = mBy(area);
 
@@ -290,13 +271,13 @@ function presentServerData(sdata, area) {
 	clearElement(d);
 	//console.log(d)
 	for (const [k, v] of Object.entries(sdata)) {
-		mNode_dep(v, { title: k, dParent: d, omitEmpty: true });
+		mNode(v, { title: k, dParent: d, omitEmpty: true });
 	}
 }
 function recPresent_dep1(n, level, dLevel, lstFlatten, lstShow) {
 	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
 	n1 = filterByNoKey(n, ['sub', '_id', '_ref', 'children', 'source', 'specKey', 'params', 'cssParams', 'typParams', 'stdParams', 'uid', 'ui'])
-	mNode_dep(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
+	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
 	if (nundef(n.children)) return level;
 	let max = 0;
 	for (const x of n.children) {
@@ -308,7 +289,7 @@ function recPresent_dep1(n, level, dLevel, lstFlatten, lstShow) {
 function recPresent_dep(n, level, dLevel, { lstFlatten, lstShow, lstOmit } = {}) {
 	let n1 = jsCopy(n);// filterByKey(n, lstShow); // ['type', 'pool', 'oid', 'data', 'content']);
 	n1 = filterByNoKey(n, lstOmit);
-	mNode_dep(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
+	mNode(n1, { dParent: dLevel[level], listOfProps: lstFlatten });
 	if (nundef(n.children)) return level;
 	let max = 0;
 	for (const x of n.children) {

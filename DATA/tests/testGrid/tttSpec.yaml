@@ -25,7 +25,6 @@ O:
 B:
   cond:
     obj_type: Board
-    no_prop: corners
   type: grid
   params:
     field_spacing: 40

@@ -51,7 +51,6 @@ async function gameStep() {
 // function runTest() { run09(); } 
 function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
-	console.log('sp',sp,'defs',defaults)
 	WR.inc = R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! OK!
 	//updateOutput(R);
@@ -65,13 +64,74 @@ function run06(sp, defaults, sdata) {
 	updateOutput(R);
 	activateUis(R);
 }
+function run09(){
+	//this it how it should look like!
+	let paper=mDivG('table',400,300,'blue');
+	let svg = paper.parentNode;
+	let u=`<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
 
 
+	console.log(svg);
+	return;
+	let g = agShape(canvas, 'rect', 250, 250, 'gold');
 
+	// let g = agShape(canvas, 'rect', 250, 250, 'gold');
+	// aFilters(paper,{blur:2,gray:})
+	// let u=`<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
+}
+function mDivSvg(area,w,h,color){
+	let d = mDiv(mBy('table'));
+	if (isdef(w)) mSize(d, w,h);
+	if (isdef(color)) mColor(d, color);
+	let g = aSvgg(d);
+	return g;
+}
+function mDivG(area,w,h,color){
+	let d = mDiv(mBy('table'));
+	if (isdef(w)) mSize(d, w,h);
+	if (isdef(color)) mColor(d, color);
+	let g = aSvgg(d);
+	return g;
+}
+function run08() {
+	// var container = document.getElementById("svgContainer");
+	let d = mDiv(mBy('table'));
+	mSize(d, 400, 300);
+	mColor(d, 'blue');
+	let canvas = aSvgg(d);
+	let svg = d.children[0];
+	// var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	// svg.setAttribute("version", "1.1");
+	// d.appendChild(svg);
+	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
+	
+	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular').elem;
+	
+	let ci = g1.children[0];
 
+	// var obj = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+	// obj.setAttribute("width", "90");
+	// obj.setAttribute("height", "90");
 
+	var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
 
+	var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+	filter.setAttribute("id", "f1");
+	// filter.setAttribute("x", "0");
+	// filter.setAttribute("y", "0");
 
+	var gaussianFilter = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+	// gaussianFilter.setAttribute("in", "SourceGraphic");
+	gaussianFilter.setAttribute("stdDeviation", "2");
+
+	filter.appendChild(gaussianFilter);
+	defs.appendChild(filter);
+	svg.appendChild(defs);
+	// text.elem.setAttribute("filter", "url(#f1)");
+	text.setAttribute("filter", "url(#f1)");
+
+	//svg.appendChild(obj);
+}
 
 //#region frueher
 function run05(sp, defaults, sdata) {
@@ -124,7 +184,7 @@ function run03(sp, defaults, sdata) {
 	phase = 14;
 	R.gen14(); // merges spec types =>spec type names disappear! =>R.gens.G[5]...merged!
 	//NO, REVERTED!!! also: DParams added to each node (except grid type!), params merged w/ defs!s
-	//showPanels(R.gens.G[5].ROOT);
+	//showsub(R.gens.G[5].ROOT);
 	//showChildren(R.gens.G[5].ROOT);
 
 	//gen15 GEHT SO NICHT!!!!!!!!!!!!!!!!!!!!!
@@ -141,7 +201,7 @@ function run03(sp, defaults, sdata) {
 	R.gen21('table');// expands dyn root, creates 1 node for each ui and uis
 
 	// console.log('______ final ROOT sub:')
-	// showPanels(R.ROOT);
+	// showsub(R.ROOT);
 	// showChildren(R.ROOT);
 	// console.log(R);
 	//console.log('detectBoardParams1 has been called', countDetectBoardParamsCalls,'times!!!!!')
@@ -159,10 +219,10 @@ function run03(sp, defaults, sdata) {
 
 
 //showPanel, showChildren v0
-function showPanels(n) {
+function showsub(n) {
 	console.log('sub:')
 	if (nundef(n.sub)) {
-		console.log('NO PANELS!!!', n)
+		console.log('NO sub!!!', n)
 	} else if (isList(n.sub)) {
 		n.sub.map(x => console.log(x));
 	} else {
@@ -219,7 +279,7 @@ async function prelims() {
 	//sData is a deep copy of serverData => confirm that!!!
 	sData = POOLS.augData;
 
-	presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
+	//presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
 
 }
 //#endregion
@@ -250,6 +310,7 @@ function updateOutput(R) {
 			['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			null,
 			{ 'max-width': '35%', font: '14px arial' });
+		//not: ui, act, uid, info, defParams, cssParams, typParams, stdParams, bi
 	}
 
 	if (SHOW_RTREE) {

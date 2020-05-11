@@ -160,6 +160,7 @@ function mNode(o, dParent, title) {
 	mYaml(d, o);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
+	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }

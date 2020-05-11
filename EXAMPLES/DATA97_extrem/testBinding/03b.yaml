@@ -1,0 +1,106 @@
+ex 07: 4 nodes OK
+ROOT:
+  data: 4
+  _id: B
+A:
+  cond: all
+  data: .name
+B:
+  sub:
+    - _id: A
+    - data: B1
+    - data: B2
+
+#ex 06 OK
+# ROOT:
+#   data: weiss nicht
+#   _id: A
+# A:
+#   cond: all
+#   data: .name
+
+#ex 05: 7 nodes OK
+# ROOT:
+#   data: 7
+#   sub:
+#   - _id: B
+# B:
+#   _id: C
+# C:
+#   data: C
+#   sub:
+#     - sub: 
+#       - data: C1
+#     - data: C2
+# A:
+#   cond: all
+#   data: .name
+
+#ex 04: 7 nodes OK
+# ROOT:
+#   data: 7
+#   sub:
+#   - _id: B
+# B:
+#   _id: C
+# C:
+#   data: C
+#   sub:
+#     - sub: 
+#       - data: C1
+#     - data: C2
+
+#ex 03: 6 nodes OK
+# ROOT:
+#   data: 6
+#   sub:
+#   - _id: B
+# B:
+#   _id: C
+# C:
+#   data: C
+#   sub:
+#     - data: C1
+#     - data: C2
+
+#ex 02: 5 nodes OK
+# ROOT:
+#   data: 5
+#   sub:
+#   - _id: B
+# B:
+#   sub:
+#     - data: B1
+#     - data: B2
+
+# ex 01: 4 nodes OK
+# ROOT:
+#   data: 4
+#   _id: B
+# B:
+#   sub:
+#     - data: B1
+#     - data: B2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

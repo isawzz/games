@@ -10,7 +10,6 @@ ROOT:
 
 #game main panel
 G:
-  _ref: G
   sub:
     - _id: P
       params:
@@ -23,7 +22,6 @@ G:
 
 #other objects
 O:
-  _ref: O
   cond: 
     no_spec: true
     obj_type: card
@@ -31,7 +29,6 @@ O:
 
 #player
 P:
-  _ref: P
   cond:
     instanceof: _player
   data: .name
@@ -51,7 +48,6 @@ R:
 
 #board
 B:
-  _ref: B
   cond:
     obj_type: Board
     prop: edges

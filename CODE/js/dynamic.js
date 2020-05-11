@@ -31,8 +31,7 @@ function ensureRtree(R) {
 		R.LocToUid = {}; //locations
 		R.NodesByUid = {}; // rtree
 		R.treeNodesByOidAndKey = {}; //andere sicht of rtree
-		console.log(R.sp,R.lastSpec)
-		R.tree = recBuildRTree(R.lastSpec.ROOT, 'ROOT', '.', null, R.lastSpec, R);
+		R.tree = recBuildRTree(R.lastSpec.ROOT,'ROOT', '.', null, R.lastSpec, R);
 		R.NodesByUid[R.tree.uid] = R.tree;
 
 	} else {
@@ -43,12 +42,9 @@ function ensureRtree(R) {
 function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
-
-	let defParams = jsCopy(R.defs); //@@@4
-	defParams = deepmergeOverride(defParams, { bg: 'skyblue' });
-
-	console.log(defParams);
-	recBuildUiFromNode(n, area, R)//, defParams, null); #111
+	let defParams = jsCopy(R.defs);
+	defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
+	recBuildUiFromNode(n, area, R, defParams, null);
 }
 function addNewlyCreatedServerObjects(sdata, R) {
 	let locOids = [];
@@ -74,18 +70,18 @@ function addNewlyCreatedServerObjects(sdata, R) {
 
 	//adjust dirty containers
 	//return;
-	recAdjustDirtyContainers(R.tree.uid, R);
+	recAdjustDirtyContainers(R.tree.uid,R);
 }
-function recAdjustDirtyContainers(uid, R, verbose = false) {
+function recAdjustDirtyContainers(uid,R,verbose=false){
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
 	let nui = R.uiNodes[uid];
 	//if (verbose) console.log('uid',uid)
-	if (nui.adirty) {
+	if (nui.adirty){
 		//if(verbose) console.log('adjusting!!!!',uid)
-		adjustContainerLayout(nui, R);
+		adjustContainerLayout(nui,R);
 	}
 	if (nundef(nui.children)) return;
-	for (const ch of nui.children) recAdjustDirtyContainers(ch, R, verbose);
+	for(const ch of nui.children) recAdjustDirtyContainers(ch,R,verbose);
 
 }
 function find_next_loc_oid_with_existing_parent(locOids, sdata, R) {
@@ -122,7 +118,7 @@ function addRForObject(oid, R) {
 	}
 	//check for no_spec clauses
 	if (isEmpty(R.getR(oid))) {
-
+		
 		for (const k in sp) {
 			let n = sp[k];
 			if (nundef(n.cond)) continue;
@@ -247,7 +243,7 @@ function removeOidKey(oid, key, R) {
 function recRemove(n, R) {
 	if (isdef(n.children)) {
 		//console.log('children',n.children);
-		let ids = jsCopy(n.children);
+		let ids=jsCopy(n.children);
 		for (const ch of ids) recRemove(R.NodesByUid[ch], R);
 	}
 
@@ -257,7 +253,7 @@ function recRemove(n, R) {
 		delete R.treeNodesByOidAndKey[oid][key];
 		if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
 		delete R.oidNodes[oid][key];
-		R.removeR(oid, key);
+		R.removeR(oid,key);
 		if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]);
 	}
 

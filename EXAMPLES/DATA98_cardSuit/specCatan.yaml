@@ -1,16 +1,20 @@
+#nur 1 beispiel das laufen muss!!!
+# ROOT:
+#   type: panel
+#   sub:
+#     type: tick
+
 #board!!!
 ROOT:
-  data: 147
-  _id: B
-B:
+  type: panel
   cond:
     obj_type: Board
-    prop: corners
-  type: grid
-  params:
-    margin: 6
-    field_spacing: 58
-    #boardType: hexGrid #can be detected!
+  sub:
+    - type: grid
+      params:
+        margin: 10
+        field_spacing: 60
+      #boardType: hexGrid #can be detected!
 
 fields:
   cond:
@@ -33,16 +37,14 @@ edges:
   cond:
     obj_type: Edge
   params:
-    stroke-linecap: round
     size: 8
-    bg: '#ffffff80'
+    bg: pink
     alpha: .5
 
 corners:
   cond:
     obj_type: Corner
   params:
-    display: if_content
     size: 15
     shape: rect #default waer hier hex gesetzt von board!
     bg: green

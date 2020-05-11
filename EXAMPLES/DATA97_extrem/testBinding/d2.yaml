@@ -1,0 +1,53 @@
+players:
+  p1:
+    name: p1
+    age: 320
+  p2:
+    name: p2
+    age: 32
+table:
+  o1:
+    name: max
+    hand: [c1,c2]
+  o2:
+    name: peter
+    age: 30
+  ro:
+    obj_type: robber
+    loc: se1
+  dd:
+    obj_type: devdeck
+  se1:
+    player:
+      _player: p1
+    obj_type: settlement
+  se2:
+    player:
+      _player: p2
+    obj_type: settlement
+  c1: 
+    obj_type: card
+    short_name: A
+  c2: 
+    obj_type: card
+    short_name: 2
+  c3: 
+    obj_type: card
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

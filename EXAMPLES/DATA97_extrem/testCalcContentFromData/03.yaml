@@ -1,0 +1,56 @@
+ROOT: 
+  type: panel
+  mark: x
+  sub:
+  - type: info
+    mark: u
+    data: static
+  - _id: A
+    mark: v
+    params:
+      bg: red
+  - _id: A
+    mark: w
+    params:
+      bg: blue
+
+p2:
+  _ref: B
+  data: B
+
+p1:
+  _ref: A
+  data: A
+# ROOT: 
+#   type: panel
+#   data: X
+#   sub:
+#     - type: grid
+# fields:
+#   cond:
+#     obj_type: Field
+#     res: wood
+#   type: info
+#   params:
+#     bg: blue
+
+
+# ROOT: 
+#   type: panel
+#   data: X
+#   sub:
+#     - type: main_board
+#       params: 
+#         bg: yellow
+#         flex: 1 0 auto
+# main_board: #for now!
+#   cond:
+#     obj_type: Board
+#   type: grid
+# fields:
+#   cond:
+#     obj_type: Field
+#     res: wood
+#   type: info
+#   params:
+#     bg: blue

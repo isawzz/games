@@ -13,6 +13,7 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	boardSvg.appendChild(boardG);
 
 	n.bi.boardDiv = boardDiv;
+	// mColor(boardDiv, 'blue'); //apply stylings?
 	boardDiv.id = n.uid + '_div';
 	n.bi.boardSvg = boardSvg;
 	let ui = n.bi.boardG = boardG;
@@ -20,6 +21,9 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 	n.uidDiv = n.uidStyle = boardDiv.id;
 	n.uidG = n.uid;
+
+
+	//do your own styling!or WHAT??????????
 
 	return ui;
 
@@ -29,91 +33,44 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 function mList(n, dParent, R) {
 
 	let ui = mDiv(dParent);
+
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui, params);
+	//mColor(ui, randomColor());
 	return ui;
 }
 function mHand(n, dParent, R) {
 
 	let ui = mDiv(dParent);
 	addClass(ui, 'handStyle');
+
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui, params);
+	//mColor(ui, randomColor());
 	return ui;
 }
-function gPanel(n, gParent, R) {
-	if (isdef(n.ui)) {
-		// removeAllEvents(n.ui);
-		// n.act = null;
-		delete n.changing;
-		return n.ui;
-	}
 
-	console.log('EIN NEUES G PANEL?????? ECHT?????')
-	let ui = agG(gParent);
-	n.uiType = 'g';
-	return ui;
-}
-function mPanel(n, dParent, R) {
-
-	if (getTypeOf(dParent) == 'g') { return gPanel(n, dParent, R); }
-
-	let ui = n.ui;
-	if (n.changing && isdef(ui)) {
-		// console.log(n)
-		// n.act.deactivate();
-		// n.act = null;
-		clearIncludingAttr(ui);
-		delete n.changing;
-	} else {
-		ui = mDiv(dParent);
-	}
-
-	//content
-	if (isdef(n.content)) {
-		let d1 = mTextDiv(n.content, ui);
-	}
-
-	//apply n.typParams!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// }
-	// else if (n.uiType == 'g'){
-	// 	//now dParent is a g element!
-
-	// }
-
-	return ui;
-}
 //leaf types
-function mInfo(n, dParent, R) {
-	let ui;
-	if (getTypeOf(dParent) == 'g') {
-		return gInfo(n, dParent, R);
-	} else if (isdef(n.content)) {
-		ui = mNode(n.content, dParent);
-		mClass(ui,'node'); //@@@5
-	} else {
-		ui = mDiv(dParent);
-		ui.style.display = 'hidden';
-	}
-	return ui;
-}
-function gInfo(n, gParent, R) {
-	let pf = n.params;
-	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
-	gParent.appendChild(ui);
-	if (n.content) {
-		let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
-		n.label = agText(ui, n.content, color, pf.font);
-	}
-
-
-
-	return ui;
-}
 function mCard(n, dParent, R) {
+
+	//fuer solution 2:
 	let uiWrapper = mDiv(dParent);
 	addClass(uiWrapper, 'cardWrapper');
 	let ui = mTextDiv(n.content, uiWrapper);
 	addClass(ui, 'cardStyle');
+
+	// let ui = mTextDiv(n.content, dParent);
+	// addClass(ui,'cardStyle'); 
+
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui, params);
+
 	return ui;
 }
 function mPicto(n, dParent, R) {
+
+	//console.log('haloooooooooooooooooo')
+	//content should be key to iconChars
 	let uiWrapper = mDiv(dParent);
 	addClass(uiWrapper, 'cardWrapper');
 
@@ -121,11 +78,37 @@ function mPicto(n, dParent, R) {
 	let ui = mPic(key);
 	mAppend(uiWrapper, ui);
 	addClass(ui, 'pictoStyle');
+
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui, params);
+
 	return ui;
 }
 function mTitle(n, dParent, R) {
 	//console.log(n,dParent)
 	let ui = mTextDiv(n.content, dParent);
+
+	// let params = decodeParams(n,{},R);
+	// mStyle(ui, params);
+	// mStyle(ui, paramsToCss(n.params));
+	return ui;
+}
+
+function mInfo(n, dParent, R) {
+
+
+	//console.log(n,'\ndParent:',dParent)
+
+	let ui;
+	if (getTypeOf(dParent) == 'g') {
+		return gInfo(n, dParent, R);
+	} else if (isdef(n.content)) {
+		ui = mNode(n.content, dParent);
+		mClass(ui,'node')
+	} else {
+		ui = mDiv(dParent);
+		ui.style.display = 'hidden';
+	}
 	return ui;
 }
 
@@ -151,6 +134,7 @@ const RCONTAINERPROP = {
 	hand: 'elm',
 	panel: 'sub',
 }
+
 const DEF_ORIENTATION = 'h';
 const DEF_SPLIT = 'equal';
 

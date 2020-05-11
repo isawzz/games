@@ -1,0 +1,46 @@
+#OK forest 33
+ROOT:
+  type: panel
+  cond:
+    instanceof: player
+  sub:
+    - _id: A
+    - _id: B
+sp1:
+  _ref: A
+  type: list
+  elm: .buildings
+sp2:
+  _ref: B
+  type: list
+  elm: .hand
+
+#OK forest 32
+# ROOT:
+#   type: panel
+#   cond:
+#     instanceof: player
+#   sub:
+#     _id: A
+# p1:
+#   _ref: A
+#   type: list
+#   elm: .buildings
+
+#OK forest 31
+# ROOT:
+#   type: panel
+#   cond:
+#     instanceof: player
+#   sub:
+#     type: list
+#     elm: .buildings
+
+#OK forest 30
+# ROOT:
+#   type: panel
+#   cond:
+#     obj_type: market
+#   sub:
+#     type: list
+#     elm: .neutral

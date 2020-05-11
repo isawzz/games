@@ -1,18 +1,3 @@
-function presentSpecDataDefsAsInConfig(SPEC, sData, DEFS) {
-	let lst = ['type', '_id', '_ref', '_source', 'pool', 'neutral', 'source', 'content', 'storage', 'buildings', 'hand'];
-	let lstOmit = ['source'];
-
-	// let d = mBy('SPEC');
-	// console.log(d,SHOW_SPEC)
-	// if (d && SHOW_SPEC) { mNodeFilter(SPEC, { dParent: d, lstFlatten: lst, omitProps: lstOmit }); } else { hide('contSPEC'); }
-
-	d = mBy('SERVERDATA');
-	if (d && SHOW_SERVERDATA) { mNodeFilter(sData, { dParent: d, lstFlatten: lst }); } else { hide('contSERVERDATA'); }
-
-	d = mBy('DEFS');
-	if (d && SHOW_DEFS) { mNodeFilter(DEFS, { dParent: d, lstFlatten: lst }); } else { hide('contDEFS'); }
-}
-
 function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, styles) {
 	if (nundef(nDict)) {
 		console.log('presentDictTree: cannot present nDict!!!');
