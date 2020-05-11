@@ -2,6 +2,7 @@
 window.onload = () => _start();
 var timit, G, PROTO, POOLS, sData;
 var WR = {};
+var T;
 //var R=null; //just testing
 //var NO={};
 var phase = 0;
@@ -51,7 +52,7 @@ async function gameStep() {
 // function runTest() { run09(); } 
 function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
-	WR.inc = R = new RSG(sp, defaults, sdata);
+	WR.inc = T = R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! OK!
 	//updateOutput(R);
 	R.baseArea = 'table';
@@ -64,6 +65,15 @@ function run06(sp, defaults, sdata) {
 	updateOutput(R);
 	activateUis(R);
 }
+
+
+
+
+
+
+
+
+//#region filter
 function run09(){
 	//this it how it should look like!
 	let paper=mDivG('table',400,300,'blue');
@@ -132,6 +142,7 @@ function run08() {
 
 	//svg.appendChild(obj);
 }
+//#endregion
 
 //#region frueher
 function run05(sp, defaults, sdata) {
@@ -215,7 +226,7 @@ function run03(sp, defaults, sdata) {
 
 
 }
-
+//#endregion
 
 
 //showPanel, showChildren v0

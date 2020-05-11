@@ -8,7 +8,7 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-var TEST_DIR = '05refs'; // 01mini 02ttt 03catan 04extrem
+var TEST_DIR = '04extrem'; // 01mini 02ttt 03catan 04extrem 05refs
 var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
 

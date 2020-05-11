@@ -1,33 +1,34 @@
 
 class RSG {
 	constructor(sp, defs, sdata) {
-		//console.log(sdata)
-		this.gens = { G: [sp] };
 		this.sp = sp;
 		this.lastSpec = sp; //just points to last spec produced in last step performed
 		this.ROOT = sp.ROOT;
 		this.defs = defs;
-		this.places = {};
-		this.refs = {};
+
+		this.init(); //prepares _sd, places...
+		for (const oid in sdata) { this.addObject(oid, sdata[oid]); }
+		this.defSource = Object.keys(sdata);
+		// console.log('oids',this.defSource)
+
 		this.isUiActive = false;
 
-		this.clearObjects(); //prepares _sd
-		for (const oid in sdata) {
-			//console.log(sdata)
-			this.addObject(oid, sdata[oid]);
-		}
-		// this.defSource = Object.keys(sdata);
-		// console.log(sdata,this.defSource)
+	}
+	init() {
+		this.places = {};
+		this.refs = {};
 
+		this.UIS = {};
+		this.uid2oids = {};
+		this.oid2uids = {};
+		this._sd = {};
 		this.oidNodes = null;
 
-		//this.bySpecKey = {};
-		// this.oidNodes = {};
-		// this.NODES = {};
-		// this.rTree={};
-		// this.gTree={};
+		this.gens = { G: [this.sp] };
+
 
 	}
+
 	//#region helpers
 	addToPlaces(specKey, placeName, propList) {
 		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
@@ -63,7 +64,7 @@ class RSG {
 			}
 		}
 	}
-	removeR(oid,key){let r=lookup(this._sd,[oid,'rsg']);if (r) removeInPlace(r,key);}
+	removeR(oid, key) { let r = lookup(this._sd, [oid, 'rsg']); if (r) removeInPlace(r, key); }
 
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
@@ -97,7 +98,7 @@ class RSG {
 		//console.log(uiNode);
 		if (uiNode.uiType != 'NONE') {
 			//do I have to explicitly remove handlers???
-			let removableUi = uiNode.uiType == 'h'?mBy(uiNode.uidDiv):uiNode.ui;
+			let removableUi = uiNode.uiType == 'h' ? mBy(uiNode.uidDiv) : uiNode.ui;
 
 			removeElem(removableUi);//GEHT DAS???????????????
 			lookupRemoveFromList(this.uid2oids, [uid], n.oid, true);
@@ -313,7 +314,7 @@ function createUi(n, area, R, defParams) {
 
 
 	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
+	applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 	// else{
 	// 	console.log(ui);
 	// 	ui.style.filter='grayscale(0.5)';
@@ -342,6 +343,16 @@ function createUi(n, area, R, defParams) {
 }
 
 
+
+function safeMerge(a, b) {
+	if (nundef(a) && nundef(b)) return {};
+	else if (nundef(a)) return jsCopy(b);
+	else if (nundef(b)) return jsCopy(a);
+	else return deepmergeOverride(a, b);
+}
+function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
+function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
+function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
 
 
 
