@@ -13,10 +13,11 @@ var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
 
 var SHOW_SPEC = false; // true | false
-var SHOW_OIDNODES = true; // true | false
+var SHOW_OIDNODES = false; // true | false
 var SHOW_UITREE = false; // true | false
 var SHOW_RTREE = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
+var SHOW_REFS_IDS = true; // true | false
 
 //#region previous DATA files
 // testGrid/ catanSpec catanServer tttSpec tttServer

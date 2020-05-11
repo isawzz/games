@@ -124,6 +124,26 @@ function recFlattenLists(o) {
 function mDictionary(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = jsCopy(o);
+	//if (flattenLists) { recFlattenLists(oCopy); }
+	// 	for (const k in oCopy) {
+	// 		let cand = oCopy[k];
+	// 		if (isList(cand)) oCopy[k] = cand.join(' ');
+	// 	}
+	// }
+
+	let d = mCreate('div');
+	if (isdef(className)) mClass(d, className);
+	mYaml(d, oCopy);
+	let pre = d.getElementsByTagName('pre')[0];
+	pre.style.fontFamily = 'inherit';
+	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(dParent)) mAppend(dParent, d);
+	return d;
+}
+
+function mDictionary_dep(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
+
+	let oCopy = jsCopy(o);
 	if (flattenLists) { recFlattenLists(oCopy); }
 	// 	for (const k in oCopy) {
 	// 		let cand = oCopy[k];
@@ -2800,6 +2820,22 @@ function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 	return onew;
 }
 function recFindProp(o, prop, path, akku) {
+	//usage: recFindProp(node, '_id', 'self', akku);
+	//find all incidences of key==prop in object or list o, and collects their path & value
+	//console.log(o);
+	if (!isDict(o) && !Array.isArray(o)) { return; }
+	if (isDict(o)) {
+		// if (o[prop]) { akku[path] = o; }
+		if (o[prop]) { akku[path] = {name:o[prop],node:o}; }
+		for (const k in o) { recFindProp(o[k], prop, path + '.' + k, akku); }
+	} else if (isList(o)) {
+		for (let i = 0; i < o.length; i++) {
+			this.recFindProp(o[i], prop, path + '.' + i, akku);
+		}
+	}
+}
+
+function recFindProp_dep(o, prop, path, akku) {
 	//usage: recFindProp(node, '_id', 'self', akku);
 	//find all incidences of key==prop in object or list o, and collects their path & value
 	//console.log(o);

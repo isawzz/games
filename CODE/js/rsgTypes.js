@@ -2,8 +2,9 @@
 class RSG {
 	constructor(sp, defs, sdata) {
 		this.sp = sp;
-		this.lastSpec = sp; //just points to last spec produced in last step performed
-		this.ROOT = sp.ROOT;
+		console.log(this.sp)
+		this.lastSpec = this.sp; //just points to last spec produced in last step performed
+		this.ROOT = this.sp.ROOT;
 		this.defs = defs;
 
 		this.init(); //prepares _sd, places...
@@ -12,6 +13,11 @@ class RSG {
 		// console.log('oids',this.defSource)
 
 		this.isUiActive = false;
+
+		this.genIdRef();
+		//console.log('\n_ids',this._ids, '\n_refs',this._refs);
+		console.log('\nrefs', this.refs,'\nplaces', this.places);
+
 
 	}
 	init() {
@@ -28,14 +34,63 @@ class RSG {
 
 
 	}
+	addToPlaces(specKey, placeName, propList, node) {
+		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	}
+	addToRefs(specKey, placeName, propList, node) {
+		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	}
+	check_prop(prop, specKey, node, R) {
+		let dictIds = {};
+		recFindExecute(node, prop, x => { dictIds[x[prop]] = x; });
+
+		//console.log(dictIds);
+		return dictIds;
+	}
+	check_id(specKey, node, R) {
+		let akku = {};
+		recFindProp(node, '_id', 'self', akku);
+		for (const k in akku) {
+			let node = akku[k].node;
+			let path = k;
+			let name = akku[k].name;
+			R.addToPlaces(specKey, name, path, node);
+		}
+	}
+	check_ref(specKey, node) {
+		let akku = {};
+		recFindProp(node, '_ref', 'self', akku);
+		console.log('specKey',specKey,'akku',akku)
+		for (const k in akku) {
+			let node = akku[k].node;
+			let path = k;
+			let name = akku[k].name;
+			console.log('call addToRefs mit',specKey,name,path,node)
+			this.addToRefs(specKey, name, path, node);
+		}
+	}
+	genIdRef(genKey = 'G') {
+		let gen = jsCopy(this.lastSpec);
+		for (const k in gen) {
+			let n = gen[k];
+			this.check_ref(k, n);
+		}
+		for (const k in gen) {
+			let n = gen[k];
+			this.check_id(k, n, this);
+		}
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen; //besser als immer lastGen aufzurufen
+		this.ROOT = gen.ROOT;
+	}
 
 	//#region helpers
-	addToPlaces(specKey, placeName, propList) {
-		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	}
-	addToRefs(specKey, placeName, propList) {
-		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	}
+	// addToPlaces(specKey, placeName, propList) {
+	// 	lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
+	// }
+	// addToRefs(specKey, placeName, propList) {
+	// 	lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
+	// }
 	clearObjects() {
 		this.UIS = {};
 		this.uid2oids = {};

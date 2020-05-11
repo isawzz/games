@@ -308,6 +308,67 @@ function makeDefaultPool(fromData) {
 
 function updateOutput(R) {
 
+	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds'])		{ //'channelsStatic', 'channelsLive' 
+		clearElement(area);
+	}
+
+	if (SHOW_SPEC) { presentNodes(R.lastSpec, 'spec'); }
+
+	if (SHOW_UITREE) {
+		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
+			['children'],
+			null,
+			['ui','act'],
+			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
+			// null,
+			{ 'max-width': '35%', font: '14px arial' });
+	}
+
+	if (SHOW_RTREE) {
+		presentDictTree(R.NodesByUid, R.tree.uid, 'rTree', 'children', R,
+			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
+	}
+
+	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
+
+	if (SHOW_DICTIONARIES) {
+		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+		mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
+		mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
+		//mDictionary(R.maps, { dParent: mBy('maps'), title: 'maps' });
+	}
+
+	if (SHOW_REFS_IDS) {
+		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
+		mDictionary(R.refs, { dParent: mBy('refsIds'), title: 'refs ' + Object.keys(R.refs).length });
+		mDictionary(R.places, { dParent: mBy('refsIds'), title: 'places ' + Object.keys(R.places).length });
+		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
+		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+		//mDictionary(R.channels, { dParent: mBy('maps'), title: 'static channels' });
+		//mDictionary(R.live, { dParent: mBy('maps'), title: 'live channels' });
+	}
+	// if (SHOW_CHANNELSSTATIC) {
+	// 	//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	// 	mDictionary(R.channels, { dParent: mBy('channelsStatic'), title: 'static channels' });
+	// }
+	// if (SHOW_CHANNELSLIVE) {
+	// 	//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	// 	mDictionary(R.live, { dParent: mBy('channelsLive'), title: 'live channels' });
+	// }
+	if (nundef(R.NodesByUid)) return;
+	let numRTree = Object.keys(R.NodesByUid).length;
+	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
+	let handCounted = R.ROOT.data;
+	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
+
+
+
+}
+
+
+function updateOutput_dep(R) {
+
 	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts']) {
 		clearElement(area);
 	}

@@ -2,10 +2,12 @@
 ROOT:
   _id: B
 B:
+  _ref: B
   cond:
     obj_type: Board
   type: grid
 F:
+  _ref: C
   cond:
     obj_type: Tick
   data: .symbol
