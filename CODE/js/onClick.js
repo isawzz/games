@@ -23,7 +23,7 @@ function onClickUpdateOutput(elem, caption) {
 		case 'contRTree': SHOW_RTREE = !SHOW_RTREE; break;
 		case 'contOidNodes': SHOW_OIDNODES = !SHOW_OIDNODES; break;
 		case 'contDicts': SHOW_DICTIONARIES = !SHOW_DICTIONARIES; break;
-		case 'contRefsIds': SHOW_REFS_IDS = !SHOW_REFS_IDS; break;
+		case 'contRefsIds': SHOW_IDS_REFS = !SHOW_IDS_REFS; break;
 	}
 	updateOutput(WR.inc);
 }

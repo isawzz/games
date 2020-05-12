@@ -1,3 +1,4 @@
+
 function recBuildRTree(n, key, path, parent, sp, R) {
 	//console.log('***',n,path,parent,sp)
 	//WORKING WITH NORMALIZED SPEC!!!! (only sub and panel)
@@ -9,14 +10,14 @@ function recBuildRTree(n, key, path, parent, sp, R) {
 	//adds a 'here' for key
 	if (isString(nodeName)) {
 		//console.log('found key', nodeName);
-		lookupAddToList(R.LocToUid, [nodeName], n1.uid);
+		lookupAddToList(R.Locations, [nodeName], n1.uid);
 		n1.here = nodeName;
 
 		//hier muesst ich checken fuer static key!
 		let nSpec = sp[nodeName];
 		if (nundef(nSpec.cond)) {
 			let branch = recBuildRTree(nSpec, nodeName, '.', n1, sp, R); //oder '.0'?
-			R.NodesByUid[branch.uid] = branch;
+			R.rNodes[branch.uid] = branch;
 			n1.children = [branch.uid];
 		} else {
 			//console.log('nSpec has cond, so children are not created right now!')
@@ -32,7 +33,7 @@ function recBuildRTree(n, key, path, parent, sp, R) {
 			let newPath = extendPath(path, i);
 			i += 1;
 			let ch = recBuildRTree(chInfo, key, newPath, n1, sp, R);
-			R.NodesByUid[ch.uid] = ch;
+			R.rNodes[ch.uid] = ch;
 			n1.children.push(ch.uid);
 		}
 	}

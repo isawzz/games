@@ -2,7 +2,7 @@
 class RSG {
 	constructor(sp, defs, sdata) {
 		this.sp = sp;
-		console.log(this.sp)
+		//console.log(this.sp)
 		this.lastSpec = this.sp; //just points to last spec produced in last step performed
 		this.ROOT = this.sp.ROOT;
 		this.defs = defs;
@@ -15,11 +15,65 @@ class RSG {
 		this.isUiActive = false;
 
 		this.genIdRef();
+		this.genMerge();
 		//console.log('\n_ids',this._ids, '\n_refs',this._refs);
-		console.log('\nrefs', this.refs,'\nplaces', this.places);
+		//console.log('\nrefs', this.refs,'\nplaces', this.places);
 
 
 	}
+	genIdRef(genKey = 'G') {
+		let gen = jsCopy(this.lastSpec);
+		for (const k in gen) {
+			let n = gen[k];
+			this.check_ref(k, n);
+		}
+		for (const k in gen) {
+			let n = gen[k];
+			this.check_id(k, n, this);
+		}
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen; //besser als immer lastGen aufzurufen
+		this.ROOT = gen.ROOT;
+	}
+	genMerge(genKey = 'G'){
+		//return;
+		let orig = this.lastSpec;
+		let gen = jsCopy(this.lastSpec);
+
+		for(const name in this.places){
+			let idByName = this.places[name];
+			for(const spk in idByName){
+				let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
+				//console.log(id_entry);
+
+				let [key,obj]=findAddress(spk,gen,id_entry.propList);
+
+				let sub = [];
+				//foreach existing ref to name 
+				let refs = this.refs[name];
+				for(const refSpecKey in refs){
+					let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
+					console.log('ref_entry',ref_entry);
+					let merged = safeMerge(id_entry.node,ref_entry.node);
+					console.log('merged',merged);
+					delete merged._ref;
+					delete merged._id;
+					let uid = getUID('sp');
+					gen[uid]=merged;
+					sub.push({_id:uid});
+				}
+
+				if (sub.length == 0) continue;
+				if (sub.length == 1) obj[key]=sub[0];
+				else obj[key]={sub:sub};
+			}
+		}
+		//console.log('_________GEN:',gen);
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = this.lastSpec.ROOT;
+	}
+
 	init() {
 		this.places = {};
 		this.refs = {};
@@ -32,6 +86,12 @@ class RSG {
 
 		this.gens = { G: [this.sp] };
 
+		this.Locations = {}; //locations: sind das die here nodes?
+		this.oidNodes = {};
+		this.rNodes = {}; // rtree
+		this.uiNodes = {}; // ui tree
+		this.rNodesOidKey = {}; //andere sicht of rtree
+		this.tree = {};
 
 	}
 	addToPlaces(specKey, placeName, propList, node) {
@@ -60,28 +120,14 @@ class RSG {
 	check_ref(specKey, node) {
 		let akku = {};
 		recFindProp(node, '_ref', 'self', akku);
-		console.log('specKey',specKey,'akku',akku)
+		//console.log('specKey',specKey,'akku',akku)
 		for (const k in akku) {
 			let node = akku[k].node;
 			let path = k;
 			let name = akku[k].name;
-			console.log('call addToRefs mit',specKey,name,path,node)
+			//console.log('call addToRefs mit',specKey,name,path,node)
 			this.addToRefs(specKey, name, path, node);
 		}
-	}
-	genIdRef(genKey = 'G') {
-		let gen = jsCopy(this.lastSpec);
-		for (const k in gen) {
-			let n = gen[k];
-			this.check_ref(k, n);
-		}
-		for (const k in gen) {
-			let n = gen[k];
-			this.check_id(k, n, this);
-		}
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
 	}
 
 	//#region helpers
@@ -172,171 +218,6 @@ class RSG {
 
 	//#endregion
 
-	//#region v0
-	//gen10 adds source and pool to each spec node, _rsg to each object	//type lists: nix
-	gen10(genKey = 'G') {
-		let [gen, pools] = addSourcesAndPools(this);
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-		this.POOLS = pools; //not sure if need this.POOLS at all!!!
-	}
-
-	//gen11 adds top panel if is not unique top panel	//type lists: nix
-	gen11(genKey = 'G') {
-		//brauch ich nur wenn nicht eh schon ROOT.type == panel ist
-		let gen = jsCopy(this.lastSpec);
-		if (this.ROOT.type == 'panel' && (nundef(this.ROOT.cond) || this.ROOT.pool.length <= 1)) {
-			//console.log('ROOT is already single panel! gens[2] same as gens[1]')
-		} else {
-			gen.ROOT = { type: 'panel', sub: gen.ROOT };
-		}
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-
-	}
-
-	//gen12 fills places ad refs, adds specKey to each node	//type lists: nix
-	gen12(genKey = 'G') {
-		//add a specKey to each spec node
-		//check_id recursively => fill this.places
-		//check_ref recursively => fill this.refs
-		this.places = {};
-		let gen = jsCopy(this.lastSpec);
-		//add specKey to each node
-		for (const k in gen) {
-			let n = gen[k];
-			n.specKey = k;
-		}
-		//recursively add _id node+path to places
-		for (const k in gen) {
-			let n = gen[k];
-			check_id(k, n, this);
-		}
-		//recursively add _ref node+path to places
-		for (const k in gen) {
-			let n = gen[k];
-			check_ref(k, n, this);
-		}
-		//console.log('____________________ places', this.places);
-		//console.log('____________________ refs', this.refs);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen; //besser als immer lastGen aufzurufen
-		this.ROOT = gen.ROOT;
-
-	}
-
-	// *** 12 + 13 *** hier muesst _id,_ref lists aufloesen!!!!!!!!!!!!!!!!
-	//gen13 merges _ids and _refs	//type lists: nix
-	gen13(genKey = 'G') {
-		//merge _ref nodes into _id
-		let gen = jsCopy(this.lastSpec);
-
-		for (const k in gen) {
-			let n = gen[k];
-			safeRecurse(n, mergeChildrenWithRefs, this, false); //do merge AFTER processing children damit leaf nodes first!!!
-			if (n._id) {
-				//case a) _id at top level! mergeAllRefsToIdIntoNode(n)
-				n = mergeAllRefsToIdIntoNode(n, R);
-			}
-		}
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-
-
-	}
-	//gen14 merge spec types into places (forward merge) and merges in def types
-	//NOOOOO doch nicht!!!!!!!!!!! for all types except grid! (grid done in detectBoardParams, see createLC)
-	//type list: hier muesst ich type lists aufloesen!!! 
-	gen14(genKey = 'G') {
-		//console.log('gen14 starts.......')
-
-		let gen = jsCopy(this.lastSpec);
-		this.defType = isdef(this.defs.type) ? this.defs.type : 'panel';
-
-		for (const k in gen) {
-			let n = gen[k];
-			if (nundef(n.type)) {
-				let type = detectType(n, this.defType);
-				//console.log('soll ich correcten???',n,type);
-				if (type) n.type = type;
-			}
-			//console.log('_____ node',k,isdef(n.type));
-			gen[k] = recMergeSpecTypes(n, gen, this.defType, 0);
-		}
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-		//console.log(gen)
-	}
-	// *** 14 + 15 *** hier muesst type lists aufloesen!!!!!!!!!!!!!!!!
-	//#region gen15 rausgeschmissen weil mist!!!
-	//gen15 generates 1 spec node for each server object, ==> o._node
-	// by merging all spec nodes in o._rsg
-	//achtung!!! fuer board members kann das NICHT gemacht werden weil diese noch nicht bekannt!
-	//==> mache eine function die ich dann aus generalGrid aufrufen kann die das macht!
-	//composite types as per pool set
-	//could add this node to object as _rsg instead of just name already!!!
-	//theoretically could already eval all params here!!! (except map values for oid)
-	//not now!
-
-	//problem: wenn keine board detection wird board selbst NICHT oidNode bekommen
-	//and therefore NOT BE PRESENTED!!!
-	//muss also VORHER fuer alle type=grid automatic board detection machen!!!
-	//ich koennte aber das schon frueher machen, sobald ich type:grid finde
-	//in einem spec node ohne cond???
-	// gen15(){
-	// 	this.oidNodes = {};
-	// 	for (const oid in R.sData) {
-	// 		this.oidNodes[oid] =	mergeAllNodesForOid(oid,R);
-	// 	}
-	// }
-	//#endregion
-
-	//#region gen20 rausgeschmissen weil mist
-	//gen20 forms tree: MAKES ABSOLUTELY NO SENSE!!!
-	gen20() {
-		let gen = jsCopy(this.lastSpec);
-
-		this.NODES = {};
-		let id = getUid();
-		this.NODES[id] = this.starter = { nid: id, fullPath: id };
-
-		this.ROOT = createSTree(gen.ROOT, this.starter.nid, this);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-	}
-	//#endregion
-
-	gen21(area, genKey = 'G') {
-		let gen = jsCopy(this.lastSpec);
-
-		this.ROOT = createLC(gen.ROOT, area, this);
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-	}
-
-
-	//#endregion v0
-
-	//#region FAILED trials
-	geniStart() {
-		let sp = this.lastSpec = this.sp;
-		let genKey = 'inc';
-		this.gens[genKey] = []; //start 'inc' generation!
-		this.gen11(genKey);
-		this.gen12(genKey);
-
-		console.log(this.gens);
-	}
-	//#endregion
-
 	//#region v1
 	geninc13(genKey = 'G') {
 		this.clearObjects();
@@ -396,18 +277,75 @@ function createUi(n, area, R, defParams) {
 	return ui;
 
 }
+function findAddress(kSelf,x, propList) {
+	//x muss noch dem path folgen bis es bei der richtigen branch
+	//angekommen ist!
+	let path = propList;
+	let path1 = stringAfter(path, 'self');
+	path1 = kSelf + path1;
+	if (path1[0] != '.') path1 = '.' + path1;
+	//if (isEmpty(path1)) path1='spk';
+	//console.log('path', path, 'path1', path1);
+	let x1 = calcAddressWithin(x, path1);
+	return [x1.key,x1.obj];
+}
+function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
+function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
+function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
+function mergeChildrenWithRefs(n, R) {
+	for (const k in n) {
+		//muss eigentlich hier nur die containerProp checken!
+		let ch = n[k];
+		if (nundef(ch._id)) continue;
+
+		let loc = ch._id;
+		//console.log('node w/ id', loc, ch);
+		//console.log('parent of node w/ id', loc, jsCopy(n));
+
+		//frage is container node n[containerProp] ein object (b) oder eine list (c)?
+		//oder ist _id at top level (n._id) =>caught in caller
 
 
+		let refs = R.refs[loc];
+		if (nundef(refs)) continue;
 
+		//have refs and ids to 1 _id location loc (A)
+		//console.log('refs for', loc, refs);
+
+		//parent node is 
+
+
+		let spKey = Object.keys(refs)[0];
+		let nSpec = R.lastSpec[spKey];
+		//console.log('nSpec', nSpec);
+		let oNew = deepmerge(n[k], nSpec);
+		//console.log('neues child', oNew);
+		n[k] = oNew;
+
+
+	}
+}
+function mergeAllRefsToIdIntoNode(n, R) {
+	//n has prop _id
+	let loc = n._id;
+	let refDictBySpecNodeName = R.refs[loc];
+	let nNew = jsCopy(n); //returns new copy of n TODO=>copy check when optimizing(=nie?)
+	for (const spNodeName in refDictBySpecNodeName) {
+		let reflist = refDictBySpecNodeName[spNodeName];
+		for (const ref of reflist) {
+			nNew = deepmergeOverride(nNew, ref);
+		}
+	}
+	return nNew;
+	//console.log(refDictBySpecNodeName);
+}
 function safeMerge(a, b) {
 	if (nundef(a) && nundef(b)) return {};
 	else if (nundef(a)) return jsCopy(b);
 	else if (nundef(b)) return jsCopy(a);
 	else return deepmergeOverride(a, b);
 }
-function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
-function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
-function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
+
 
 
 

@@ -207,7 +207,7 @@ function presentTree_dep(n, treeProperty, area, R, lf, ls, lo) {
 		mColor(d1, colorTrans('black', i * .1));
 	}
 
-	let nDict = R.NodesByUid;
+	let nDict = R.rNodes;
 	//console.log('nDict',nDict)
 	//console.log('n',n)
 	//console.log('nDict',nDict);

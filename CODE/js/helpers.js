@@ -160,7 +160,7 @@ function mDictionary_dep(o, { dParent, title, flattenLists = true, className = '
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
+function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
 	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopySafe(o);
 	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
 	if (nundef(lstOmit)) lstOmit = [];
@@ -168,6 +168,10 @@ function mNodeFilter(o, { dParent, title, lstFlatten, lstOmit, lstShow, classNam
 	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
+	switch(sort){
+		case 'keys': oCopy = sortKeys(oCopy);break;
+		case 'all':oCopy = JSON.sort(oCopy);break;
+	}
 	mYaml(d, oCopy);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
@@ -2238,6 +2242,41 @@ const fieldSorter = fields => (a, b) =>
 		})
 		.reduce((p, n) => (p ? p : n), 0);
 
+function isObject(v) {
+	return '[object Object]' === Object.prototype.toString.call(v);
+};
+// sortKeys does NOT sort lists!!!!
+function sortKeys (o) {
+	if (Array.isArray(o)) {
+		return o.map(sortKeys); //o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.sort()
+			.reduce(function (a, k) {
+				a[k] = sortKeys(o[k]);
+
+				return a;
+			}, {});
+	}
+	return o;
+}
+//JSON.sort sorts both objects and lists!
+JSON.sort = function (o) {
+	if (Array.isArray(o)) {
+		return o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.sort()
+			.reduce(function (a, k) {
+				a[k] = JSON.sort(o[k]);
+
+				return a;
+			}, {});
+	}
+	return o;
+}
 function first(arr) {
 	return arr.length > 0 ? arr[0] : null;
 }
@@ -2359,6 +2398,8 @@ function jsCopyMinus(o) {
 }
 function jsCopySafe(o) {
 	//der safeStringify schmeisst html elems weg!!!
+	//console.log('jsCopySafe',o);
+	if (nundef(o)) return;
 	return JSON.parse(JSON.safeStringify(o)); //macht deep copy
 }
 function arrlast(arr) {

@@ -101,6 +101,17 @@ function testRemoveBoard(R) {
 	if (activate) activateUis(R);
 }
 
+function testSorting(){
+	let o = { z: [3, 2, 5, 1], d: { w: 2, r: 3 } };
+	let d = mBy('spec');
+	mNodeFilter(o, { dParent: d, title: 'orig' });
+	mNodeFilter(o, { sort: 'all', dParent: d, title: 'sorted' });
+	mNodeFilter(o, { sort: 'keys', dParent: d, title: 'justkeys' });
+	// presentAddNode(o,'orig','spec');
+	// presentAddNode(JSON.sort(jsCopy(o)),'sorted','spec');
+	// presentAddNode(sortKeys(o),'justkeys','spec');
+
+}
 
 //#region activate, deactivate
 function testActivate(R) {
@@ -181,7 +192,7 @@ function testRemoveOidKey(R) {
 	}
 	let [oid, key] = [n.oid, n.key];
 
-	let nodeInstances = lookup(R.treeNodesByOidAndKey, [oid, key]);
+	let nodeInstances = lookup(R.rNodesOidKey, [oid, key]);
 	console.log('_________ testRemoveOidKey', 'remove all', oid, key, nodeInstances);
 	//console.log('remove', oid, key);
 	removeOidKey(oid, key, R);
@@ -202,7 +213,7 @@ function testAddOidKey(R) {
 
 	//let n=chooseRandom(R.instantiable);
 	console.log(R.instantiable)
-	let n = lastCond(R.instantiable, x => !lookup(R.treeNodesByOidAndKey, [x.oid, x.key]));
+	let n = lastCond(R.instantiable, x => !lookup(R.rNodesOidKey, [x.oid, x.key]));
 	if (!n) {
 		console.log('all nodes are instantiated!!!');
 		return;

@@ -5,7 +5,7 @@ R.uiNodes
 R.lastSpec
 R.oidNodes
 R.tree
-R.treeNodesByOidAndKey
+R.rNodesOidKey
 R.oid2uids
 R.uid2oids
 R._sd {oid,o,rsg}

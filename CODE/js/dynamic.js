@@ -1,6 +1,6 @@
 function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 	//console.log('>>>>>instantiate',oid,'using',key,'at',uidParent);
-	let rtreeParent = R.NodesByUid[uidParent];
+	let rtreeParent = R.rNodes[uidParent];
 	//console.log(rtreeParent)
 	if (nundef(rtreeParent.children)) {
 		change_parent_type_if_needed(rtreeParent, R);
@@ -10,8 +10,8 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 	let newPath = isdef(rtreeParent.sub) ? extendPath(rtreeParent.path, index) : '.';// index == 0 ? '.' : extendPath(n.path, index);
 	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
 
-	R.NodesByUid[n1.uid] = n1;
-	lookupAddToList(R.treeNodesByOidAndKey, [oid, key], n1.uid);
+	R.rNodes[n1.uid] = n1;
+	lookupAddToList(R.rNodesOidKey, [oid, key], n1.uid);
 	rtreeParent.children.push(n1.uid);
 
 	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])) {
@@ -28,11 +28,11 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
 		//console.log('____________ creating new tree!!!!!!!!!!!!!!!!!')
-		R.LocToUid = {}; //locations
-		R.NodesByUid = {}; // rtree
-		R.treeNodesByOidAndKey = {}; //andere sicht of rtree
+		R.Locations = {}; //locations
+		R.rNodes = {}; // rtree
+		R.rNodesOidKey = {}; //andere sicht of rtree
 		R.tree = recBuildRTree(R.lastSpec.ROOT,'ROOT', '.', null, R.lastSpec, R);
-		R.NodesByUid[R.tree.uid] = R.tree;
+		R.rNodes[R.tree.uid] = R.tree;
 
 	} else {
 		console.log('(tree present!)');
@@ -89,7 +89,7 @@ function find_next_loc_oid_with_existing_parent(locOids, sdata, R) {
 		let o = sdata[oid];
 		let loc = o.loc;
 		let parentID = loc;
-		if (!isEmpty(R.treeNodesByOidAndKey[parentID])) return oid;
+		if (!isEmpty(R.rNodesOidKey[parentID])) return oid;
 	}
 	return null;
 }
@@ -173,7 +173,7 @@ function addOidByLocProperty(oid, key, R) {
 	let IDkeys = Object.keys(IDNode);
 	for (const k of IDkeys) {
 		//now find parents that have same key and same oid
-		let parents = lookup(R.treeNodesByOidAndKey, [ID, k]);
+		let parents = lookup(R.rNodesOidKey, [ID, k]);
 		//console.log('parents for robber', parents);
 
 		if (!parents || isEmpty(parents)) {
@@ -189,7 +189,7 @@ function addOidByLocProperty(oid, key, R) {
 function addOidByParentKeyLocation(oid, key, R) {
 	let nodes = R.oidNodes[oid];
 	if (isEmpty(nodes)) return;
-	let parents = R.LocToUid[key];
+	let parents = R.Locations[key];
 	if (nundef(parents)) return;
 	for (const uidParent of parents) { instantiateOidKeyAtParent(oid, key, uidParent, R); }
 }
@@ -230,13 +230,13 @@ function aushaengen(oid, R) {
 	}
 }
 function removeOidKey(oid, key, R) {
-	let nodeInstances = lookup(R.treeNodesByOidAndKey, [oid, key]);
+	let nodeInstances = lookup(R.rNodesOidKey, [oid, key]);
 	if (!nodeInstances) {
 		console.log('nothing to remove!', oid, key);
 		return;
 	}
 	for (const uid of nodeInstances) {
-		let n1 = R.NodesByUid[uid]; //jetzt habe tree nodes von parent in dem oid haengt!
+		let n1 = R.rNodes[uid]; //jetzt habe tree nodes von parent in dem oid haengt!
 		recRemove(n1, R);
 	}
 }
@@ -244,23 +244,23 @@ function recRemove(n, R) {
 	if (isdef(n.children)) {
 		//console.log('children',n.children);
 		let ids=jsCopy(n.children);
-		for (const ch of ids) recRemove(R.NodesByUid[ch], R);
+		for (const ch of ids) recRemove(R.rNodes[ch], R);
 	}
 
 	if (isdef(n.oid) && isdef(n.key)) {
 		let oid = n.oid;
 		let key = n.key;
-		delete R.treeNodesByOidAndKey[oid][key];
-		if (isEmpty(R.treeNodesByOidAndKey[oid])) delete (R.treeNodesByOidAndKey[oid]);
+		delete R.rNodesOidKey[oid][key];
+		if (isEmpty(R.rNodesOidKey[oid])) delete (R.rNodesOidKey[oid]);
 		delete R.oidNodes[oid][key];
 		R.removeR(oid,key);
 		if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]);
 	}
 
-	delete R.NodesByUid[n.uid];
+	delete R.rNodes[n.uid];
 	R.unregisterNode(n); //hier wird ui removed, object remains in _sd!
 	delete R.uiNodes[n.uid];
-	let parent = R.NodesByUid[n.uidParent];
+	let parent = R.rNodes[n.uidParent];
 	removeInPlace(parent.children, n.uid);
 	if (isEmpty(parent.children)) delete parent.children;
 

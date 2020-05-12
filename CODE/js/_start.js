@@ -53,6 +53,11 @@ async function gameStep() {
 function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
 	WR.inc = T = R = new RSG(sp, defaults, sdata);
+
+
+	updateOutput(R);
+
+	//return;
 	ensureRtree(R); //make sure static tree has been built! OK!
 	//updateOutput(R);
 	R.baseArea = 'table';
@@ -325,38 +330,38 @@ function updateOutput(R) {
 	}
 
 	if (SHOW_RTREE) {
-		presentDictTree(R.NodesByUid, R.tree.uid, 'rTree', 'children', R,
+		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
 			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
 
 	if (SHOW_DICTIONARIES) {
-		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
-		mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
-		mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
+		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+		mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
+		mDictionary(R.Locations, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.Locations).length });
 		//mDictionary(R.maps, { dParent: mBy('maps'), title: 'maps' });
 	}
 
-	if (SHOW_REFS_IDS) {
+	if (SHOW_IDS_REFS) {
 		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
-		mDictionary(R.refs, { dParent: mBy('refsIds'), title: 'refs ' + Object.keys(R.refs).length });
 		mDictionary(R.places, { dParent: mBy('refsIds'), title: 'places ' + Object.keys(R.places).length });
+		mDictionary(R.refs, { dParent: mBy('refsIds'), title: 'refs ' + Object.keys(R.refs).length });
 		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
-		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
 		//mDictionary(R.channels, { dParent: mBy('maps'), title: 'static channels' });
 		//mDictionary(R.live, { dParent: mBy('maps'), title: 'live channels' });
 	}
 	// if (SHOW_CHANNELSSTATIC) {
-	// 	//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
 	// 	mDictionary(R.channels, { dParent: mBy('channelsStatic'), title: 'static channels' });
 	// }
 	// if (SHOW_CHANNELSLIVE) {
-	// 	//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
+	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
 	// 	mDictionary(R.live, { dParent: mBy('channelsLive'), title: 'live channels' });
 	// }
-	if (nundef(R.NodesByUid)) return;
-	let numRTree = Object.keys(R.NodesByUid).length;
+	if (nundef(R.rNodes)) return;
+	let numRTree = Object.keys(R.rNodes).length;
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;
 	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
@@ -386,24 +391,24 @@ function updateOutput_dep(R) {
 	}
 
 	if (SHOW_RTREE) {
-		presentDictTree(R.NodesByUid, R.tree.uid, 'rTree', 'children', R,
+		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
 			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
 
 	if (SHOW_DICTIONARIES) {
-		//mDictionary(R.NodesByUid, { dParent: mBy('dicts'), title: 'nodesByUid ' + Object.keys(R.NodesByUid).length });
-		mDictionary(R.treeNodesByOidAndKey, { dParent: mBy('dicts'), title: 'treeNodesByOidAndKey ' + Object.keys(R.treeNodesByOidAndKey).length });
-		mDictionary(R.LocToUid, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.LocToUid).length });
+		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+		mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
+		mDictionary(R.Locations, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.Locations).length });
 	}
 
 	// if (SHOW_RTREE) {
 	// 	presentTree(R.tree,'children', 'tree', R, ['children']);
-	// 	//for(const path in R.NodesByUid) presentAddNode(R.NodesByUid[path],'tree',['children'])
+	// 	//for(const path in R.rNodes) presentAddNode(R.rNodes[path],'tree',['children'])
 	// }
 
-	let numRTree = Object.keys(R.NodesByUid).length;
+	let numRTree = Object.keys(R.rNodes).length;
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;
 	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);

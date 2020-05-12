@@ -72,7 +72,57 @@ function calcContentFromData(oid, o, data, R) {
 		return content;
 	} else if (isList(data)) {
 		//ex: data:[.vps, .money]
-		let content = data.map(x => calcContentFromData(x));
+		let content = data.map(x => calcContentFromData(oid,o,x,R));
+		return content;
+	}
+	return null;
+
+}
+function calcAddressWithin(o, addr, R) {
+
+	// ex: data: .player.name
+	if (!o) return addr; //static data
+
+	if (isLiteral(addr)) {
+		if (isString(addr)) {
+			if (addr[0] != '.') return addr;
+
+			//console.log('PATH:', data, 'oid', oid, 'o', o);
+			let props = addr.split('.').slice(1);
+			//console.log('props', props, isEmpty(props));
+			//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
+
+			if (props.length == 1 && isEmpty(props[0])) {
+				console.log('ERROR!!!!!!!! sollte abgefangen werden!!!! props empty!')
+				return o;
+			}else if (props.length == 1){
+				return {key:props[0],obj:o};
+			}
+			else{
+				//take last property from props
+				let key = last(props);
+				let len = props.length;
+				let props1=props.slice(0,len-1);
+				//console.log('props',props,'props1',props1)
+				return {key:key, obj:dPP(o, props1, R)};
+			}
+
+		} else {
+			//it's a literal but NOT a string!!!
+			return addr;
+		}
+	}
+	else if (isDict(addr)) {
+		//beispiel? data is dictionary {vsp:.vsp,money:.money}
+		let content = {};
+		for (const k in addr) {
+			let c = calcAddressWithin(o, addr[k], R);
+			if (c) content[k] = c;
+		}
+		return content;
+	} else if (isList(addr)) {
+		//ex: data:[.vps, .money]
+		let content = addr.map(x => calcAddressWithin(o,x,R));
 		return content;
 	}
 	return null;
@@ -102,6 +152,8 @@ function dPP(o, plist, R) {
 function decodePropertyPath(o, path) {
 	if (isString(path) && path[0] == '.') {
 		let props = path.split('.').slice(1);
+		console.log('o',o,'path', path,'props', props);
+		console.log(lookup(o,props));
 		return lookup(o, props);
 
 	}

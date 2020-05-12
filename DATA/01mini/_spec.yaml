@@ -1,23 +1,25 @@
-#real board!!!
-ROOT:
-  _id: B
-B:
-  _ref: B
-  cond:
-    obj_type: Board
-  type: grid
-F:
-  _ref: C
-  cond:
-    obj_type: Tick
-  data: .symbol
-
 #test super simple!
+ROOT:
+  sub:
+    - _id: A
+HALLO:
+  _ref: A
+  cond:
+    instanceof: _player
+  data: .name
+
+
+#real board!!!
 # ROOT:
-#   _id: A
-# A:
+#   _id: B
+# B:
+#   _ref: B
 #   cond:
-#     instanceof: _player
+#     obj_type: Board
+#   type: grid
+# F:
+#   cond:
+#     obj_type: Tick
 #   data: .symbol
 
 #test harmlos OK!

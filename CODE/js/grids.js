@@ -32,7 +32,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 	// *** stage 2 create children *** (in n.bi)
 	// *** START TEMP CODE ***
 	//vorbereitungen die brauche damit algo ablaufen kann (ev. elim later stage!!!)
-	let rtreeParent = R.NodesByUid[nuiBoard.uid];
+	let rtreeParent = R.rNodes[nuiBoard.uid];
 	rtreeParent.children = []; //noetig damit nicht changed type to panel!!!
 	let uidBoard = nuiBoard.uid;
 	for (const name of ['fields', 'edges', 'corners']) {
@@ -59,8 +59,8 @@ function generalGrid(nuiBoard, area, R, defParams) {
 
 			//*** instantiateOidKeyAtParent(oid, key, uidParent, R)
 			let ntree = { uid: uid, uidParent: uidBoard, oid: oid, path: '.', key: key };
-			R.NodesByUid[uid] = ntree;
-			lookupAddToList(R.treeNodesByOidAndKey, [oid, key], uid);
+			R.rNodes[uid] = ntree;
+			lookupAddToList(R.rNodesOidKey, [oid, key], uid);
 			rtreeParent.children.push(uid);
 
 			//*** recBuildUiFromNode1(ntree, uidBoard, R, nuiBoard.defParams, oid);
@@ -117,7 +117,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 }
 
 function createBoard(nui, area, R, defParams) {
-	let ntree = R.NodesByUid[nui.uid];
+	let ntree = R.rNodes[nui.uid];
 	let nSpec = R.lastSpec[ntree.key];
 	let [oid, boardType] = detectBoardOidAndType(ntree.oid, nSpec.boardType, R);
 	nui.oid = oid;
