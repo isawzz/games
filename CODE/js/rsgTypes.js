@@ -53,9 +53,9 @@ class RSG {
 				let refs = this.refs[name];
 				for(const refSpecKey in refs){
 					let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
-					console.log('ref_entry',ref_entry);
+					//console.log('ref_entry',ref_entry);
 					let merged = safeMerge(id_entry.node,ref_entry.node);
-					console.log('merged',merged);
+					//console.log('merged',merged);
 					delete merged._ref;
 					delete merged._id;
 					let uid = getUID('sp');
@@ -277,10 +277,10 @@ function createUi(n, area, R, defParams) {
 	return ui;
 
 }
-function findAddress(kSelf,x, propList) {
+function findAddress(kSelf,x, path) {
 	//x muss noch dem path folgen bis es bei der richtigen branch
 	//angekommen ist!
-	let path = propList;
+	//let path = propList;
 	let path1 = stringAfter(path, 'self');
 	path1 = kSelf + path1;
 	if (path1[0] != '.') path1 = '.' + path1;

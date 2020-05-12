@@ -7,6 +7,11 @@ ROOT:
     - _id: G
   params:
     bg: green
+O:
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
 G:
   sub:
     - _id: P
@@ -17,11 +22,6 @@ G:
         bg: inherit
   params:
     orientation: v
-O:
-  cond: 
-    no_spec: true
-    obj_type: card
-  data: .short_name
 B:
   cond:
     obj_type: Board

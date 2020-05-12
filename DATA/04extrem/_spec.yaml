@@ -2,13 +2,23 @@ ROOT:
   sub:
     - _id: O
       params:
-        _ref: R1
         bg: inherit
         orientation: v
     - _id: G
   _ref: R2
   params:
     bg: green
+
+#other objects
+O:
+  #_ref: O
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
+  # sub:
+  #   - data: a
+  #   - data: b
 
 #game main panel
 G:
@@ -22,14 +32,6 @@ G:
         bg: inherit
   params:
     orientation: v
-
-#other objects
-O:
-  _ref: O
-  cond: 
-    no_spec: true
-    obj_type: card
-  data: .short_name
 
 #player
 P:

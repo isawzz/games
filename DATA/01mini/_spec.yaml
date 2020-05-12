@@ -1,12 +1,59 @@
-#test super simple!
+# #cs 02
 ROOT:
-  sub:
-    - _id: A
-HALLO:
-  _ref: A
-  cond:
+  cond: 
     instanceof: _player
-  data: .name
+  sub:
+    - data: .obj_type
+    - sub:
+      - data: .name
+      - data: .symbol
+
+
+# #cs 01
+# ROOT:
+#   cond: 
+#     instanceof: _player
+#   sub:
+#     - data: .obj_type
+#     - data: HALLO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #test super simple!
+# ROOT:
+#   _id: A
+# HALLO:
+#   _ref: A
+#   cond:
+#     instanceof: _player
+#   data: .name
 
 
 #real board!!!

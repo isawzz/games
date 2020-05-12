@@ -1,0 +1,74 @@
+ROOT:
+  sub:
+    - _id: O
+    - _id: P
+
+O_info:
+  _ref: O
+  cond: 
+    no_spec: true
+    obj_type: card
+  data: .short_name
+
+P_ELM:
+  _ref: p_elm
+  sub:
+    - type: title
+      data: .name
+    - _id: info_loc
+    - _id: hand_loc
+  params:
+    bg: .color
+
+P_info:
+  _ref: P
+  _id: p_elm
+  cond:
+    instanceof: _player
+  data: .name
+  params:
+    bg: .color
+  # params: 
+  #   theme:
+  #     _map: 
+  #       name: bg_map
+  #       key: .color 
+
+panel_data: 
+  _id: panel
+  params:
+    bg: inherit
+    fg: contrast
+    font-size: 24
+    padding: 4
+    margin: 4
+    orientation: h
+    split: equal
+    border-radius: 10
+    align-items: center
+    justify-content: space-evenly
+    align-content: space-evenly
+    justify-items: flex-start
+
+info_data:
+  _id: info
+  params:
+    bg: random 
+    fg: contrast
+    font: 16px Comic Sans MS 
+
+bg_map:
+  meta:
+    type: map
+  dark:
+    bg: dark-grey
+    fg: medium-grey
+    font-color: cream
+    highlight1: orange
+    highlight2: neon-green
+  light:
+    bg: sky-blue
+    fg: cream
+    font-color: space-grey
+    highlight1: navy-blue
+    highlight2: magenta 

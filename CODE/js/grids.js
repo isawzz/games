@@ -45,6 +45,8 @@ function generalGrid(nuiBoard, area, R, defParams) {
 
 			n1.params = n1.defParams = jsCopy(bMemberParams);
 			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
+
+			//ACHTUNG!!!! the following is NEEDED to be able to re-add board after removing it!
 			else if (isEmpty(R.getR(oid))) { 
 				//console.log('ueberpruefe R fuer',oid)
 				//ueberpruefe noch einmal und adde oidNodes!!!

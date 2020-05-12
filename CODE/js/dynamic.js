@@ -1,108 +1,8 @@
-function instantiateOidKeyAtParent(oid, key, uidParent, R) {
-	//console.log('>>>>>instantiate',oid,'using',key,'at',uidParent);
-	let rtreeParent = R.rNodes[uidParent];
-	//console.log(rtreeParent)
-	if (nundef(rtreeParent.children)) {
-		change_parent_type_if_needed(rtreeParent, R);
-		rtreeParent.children = [];
-	}
-	let index = rtreeParent.children.length;
-	let newPath = isdef(rtreeParent.sub) ? extendPath(rtreeParent.path, index) : '.';// index == 0 ? '.' : extendPath(n.path, index);
-	let n1 = { uid: getUID(), uidParent: uidParent, oid: oid, path: newPath, key: key };
-
-	R.rNodes[n1.uid] = n1;
-	lookupAddToList(R.rNodesOidKey, [oid, key], n1.uid);
-	rtreeParent.children.push(n1.uid);
-
-	if (isdef(R.uiNodes) && isdef(R.uiNodes[uidParent])) {
-		let parent = R.uiNodes[uidParent];
-		parent.adirty = true;
-		recBuildUiFromNode(n1, uidParent, R, parent.defParams, oid);
-		parent.children = rtreeParent.children;
-	} else {
-		console.log('UI not creatable! No suitable parent found! uidParent', uidParent, 'oid', oid, 'key', key, R.uiNodes);
-	}
-}
-
-//#region start sequence
-function ensureRtree(R) {
-	if (nundef(R.tree) || isEmpty(R.tree)) {
-		//console.log('____________ creating new tree!!!!!!!!!!!!!!!!!')
-		R.Locations = {}; //locations
-		R.rNodes = {}; // rtree
-		R.rNodesOidKey = {}; //andere sicht of rtree
-		R.tree = recBuildRTree(R.lastSpec.ROOT,'ROOT', '.', null, R.lastSpec, R);
-		R.rNodes[R.tree.uid] = R.tree;
-
-	} else {
-		console.log('(tree present!)');
-
-	}
-}
-function createStaticUi(area, R) {
-	ensureUiNodes(R);
-	let n = R.tree;
-	let defParams = jsCopy(R.defs);
-	defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
-	recBuildUiFromNode(n, area, R, defParams, null);
-}
-function addNewlyCreatedServerObjects(sdata, R) {
-	let locOids = [];
-	for (const oid in sdata) {
-		let o = sdata[oid];
-		if (isdef(o.loc)) { locOids.push(oid); continue; }
-		addNewServerObjectToRsg(oid, o, R);
-	}
-
-	while (true) {
-		//find next loc oid with existing parent!
-		let oid = find_next_loc_oid_with_existing_parent(locOids, sdata, R);
-		if (!oid) {
-			//console.log('cannot add any other object!', locOids);
-			break;
-		}
-		//add it to RSG
-		let o = sdata[oid];
-		addNewServerObjectToRsg(oid, o, R);
-		removeInPlace(locOids, oid); //remove it from locOids
-		if (isEmpty(locOids)) break;
-	}
-
-	//adjust dirty containers
-	//return;
-	recAdjustDirtyContainers(R.tree.uid,R);
-}
-function recAdjustDirtyContainers(uid,R,verbose=false){
-	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
-	let nui = R.uiNodes[uid];
-	//if (verbose) console.log('uid',uid)
-	if (nui.adirty){
-		//if(verbose) console.log('adjusting!!!!',uid)
-		adjustContainerLayout(nui,R);
-	}
-	if (nundef(nui.children)) return;
-	for(const ch of nui.children) recAdjustDirtyContainers(ch,R,verbose);
-
-}
-function find_next_loc_oid_with_existing_parent(locOids, sdata, R) {
-	for (const oid of locOids) {
-		let o = sdata[oid];
-		let loc = o.loc;
-		let parentID = loc;
-		if (!isEmpty(R.rNodesOidKey[parentID])) return oid;
-	}
-	return null;
-}
-//#endregion
-
 //#region add oid
 function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
-
 	//console.log('_____________ add object', oid, o);
 	R.addObject(oid, o);
-
 	addRForObject(oid, R);
-
 
 	if (skipEinhaengen) { return; } else { einhaengen(oid, o, R); }
 }
@@ -118,7 +18,7 @@ function addRForObject(oid, R) {
 	}
 	//check for no_spec clauses
 	if (isEmpty(R.getR(oid))) {
-		
+
 		for (const k in sp) {
 			let n = sp[k];
 			if (nundef(n.cond)) continue;
@@ -130,7 +30,7 @@ function addRForObject(oid, R) {
 		}
 	}
 
-	if (nundef(R.oidNodes)) R.oidNodes = {};
+	//if (nundef(R.oidNodes)) R.oidNodes = {};
 
 	createPrototypesForOid(oid, o, R);
 
@@ -138,7 +38,7 @@ function addRForObject(oid, R) {
 function createPrototypesForOid(oid, o, R) {
 	//console.log('createPrototypesForOid',oid,o.obj_type)
 	if (isdef(R.oidNodes[oid])) {
-		console.log('prototypes for', oid, 'already created!');
+		//console.log('prototypes for', oid, 'already created!');
 		return;
 	}
 	let klist = R.getR(oid);
@@ -154,56 +54,6 @@ function createProtoForOidAndKey(oid, o, k, R) {
 	let n = R.getSpec(k);
 	let n1 = { key: k, oid: oid, uid: getUID() };
 	return n1;
-}
-
-function einhaengen(oid, o, R) {
-	let nodes = R.oidNodes[oid];
-	if (isEmpty(nodes)) return;
-	for (const key in nodes) {
-		if (o.loc) addOidByLocProperty(oid, key, R);
-		else addOidByParentKeyLocation(oid, key, R);
-	}
-}
-function addOidByLocProperty(oid, key, R) {
-	let o = R.getO(oid);
-	let ID = o.loc; //ID is oid ob obj AUF DEM o dargestellt werden soll!
-
-	//gibt es spec key fuer ID?
-	let IDNode = R.oidNodes[ID];
-	let IDkeys = Object.keys(IDNode);
-	for (const k of IDkeys) {
-		//now find parents that have same key and same oid
-		let parents = lookup(R.rNodesOidKey, [ID, k]);
-		//console.log('parents for robber', parents);
-
-		if (!parents || isEmpty(parents)) {
-			console.log('LOC PARENT MISSING!!!! trying to add', oid, 'with loc', o.loc);
-			continue;
-		}
-		for (const uidParent of parents) {
-			//console.log('oid', oid, 'key', key, 'uidParent', uidParent)
-			instantiateOidKeyAtParent(oid, key, uidParent, R);
-		}
-	}
-}
-function addOidByParentKeyLocation(oid, key, R) {
-	let nodes = R.oidNodes[oid];
-	if (isEmpty(nodes)) return;
-	let parents = R.Locations[key];
-	if (nundef(parents)) return;
-	for (const uidParent of parents) { instantiateOidKeyAtParent(oid, key, uidParent, R); }
-}
-function change_parent_type_if_needed(n, R) {
-
-	let uiNode = R.uiNodes[n.uid];
-
-	if (!isContainerType(uiNode.type)) {
-		uiNode.type = 'panel'; //TRANSPARENT FOR 'g', 'd', 'h' type!!!
-		uiNode.changing = true;
-		let uidParent = n.uidParent;
-		let area = uidParent ? uidParent : R.baseArea;
-		let uiNew = createUi(uiNode, area, R, uiNode.defParams);
-	}
 }
 
 //#endregion
@@ -243,7 +93,7 @@ function removeOidKey(oid, key, R) {
 function recRemove(n, R) {
 	if (isdef(n.children)) {
 		//console.log('children',n.children);
-		let ids=jsCopy(n.children);
+		let ids = jsCopy(n.children);
 		for (const ch of ids) recRemove(R.rNodes[ch], R);
 	}
 
@@ -253,7 +103,7 @@ function recRemove(n, R) {
 		delete R.rNodesOidKey[oid][key];
 		if (isEmpty(R.rNodesOidKey[oid])) delete (R.rNodesOidKey[oid]);
 		delete R.oidNodes[oid][key];
-		R.removeR(oid,key);
+		R.removeR(oid, key);
 		if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]);
 	}
 
@@ -281,6 +131,15 @@ function evalSpecPath(n, relpath, R) {
 	let newPath = stringAfter(relpath, '.' + iNext);
 	if (isEmpty(newPath)) return nNext;
 	else return evalSpecPath(nNext, newPath, R);
+}
+function find_next_loc_oid_with_existing_parent(locOids, sdata, R) {
+	for (const oid of locOids) {
+		let o = sdata[oid];
+		let loc = o.loc;
+		let parentID = loc;
+		if (!isEmpty(R.rNodesOidKey[parentID])) return oid;
+	}
+	return null;
 }
 
 //#endregion

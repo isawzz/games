@@ -14,6 +14,7 @@ function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, sty
 		if (isdef(styles)) mStyle(d1, styles);
 	}
 
+	if (isEmpty(nDict)) return;
 	maxLevel = 1 + recPresent(nDict[uidStart], 0, dLevel, nDict, treeProperty,
 		{ lstFlatten: lf, lstShow: ls, lstOmit: lo });
 }

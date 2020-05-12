@@ -53,16 +53,15 @@ async function gameStep() {
 function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
 	WR.inc = T = R = new RSG(sp, defaults, sdata);
+	// updateOutput(R);
 
-	console.log('nix geht mehr!!!')
-	updateOutput(R);
-
-	//return;
 	ensureRtree(R); //make sure static tree has been built! OK!
-	//updateOutput(R);
+	// updateOutput(R);
 	R.baseArea = 'table';
 	createStaticUi(R.baseArea, R);
-	//updateOutput(R);
+	updateOutput(R);
+	//return;
+	
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
 
@@ -323,7 +322,7 @@ function updateOutput(R) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
 			null,
-			['ui','act'],
+			['ui','act', 'params','defParams','cssParams','typParams','stdParams'],
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });

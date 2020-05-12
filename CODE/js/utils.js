@@ -152,8 +152,8 @@ function dPP(o, plist, R) {
 function decodePropertyPath(o, path) {
 	if (isString(path) && path[0] == '.') {
 		let props = path.split('.').slice(1);
-		console.log('o',o,'path', path,'props', props);
-		console.log(lookup(o,props));
+		//console.log('o',o,'path', path,'props', props);
+		//console.log(lookup(o,props));
 		return lookup(o, props);
 
 	}
