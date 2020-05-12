@@ -54,7 +54,7 @@ function runTest() { run06(SPEC, DEFS, sData); }
 function run06(sp, defaults, sdata) {
 	WR.inc = T = R = new RSG(sp, defaults, sdata);
 
-
+	console.log('nix geht mehr!!!')
 	updateOutput(R);
 
 	//return;
