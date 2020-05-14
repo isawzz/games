@@ -69,7 +69,7 @@ function present00(sp, defaults, sdata) {
 	updateOutput(R);
 	activateUis(R);
 
-	//testEngine.verify(R)
+	testEngine.verify(R)
 	//console.log(R.tree);
 	//normalizeObjectProp(R.tree,'uid',-20);
 	//normalizeRTree(R)

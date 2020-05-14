@@ -7,7 +7,7 @@ html,body{
 	background-color: dimgray;
 }
 div{ text-align:center;}
-button{min-width:70px;}
+/* button{min-width:70px;} */
 pre{
 	display: block;
 	white-space:pre-wrap;

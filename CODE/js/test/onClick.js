@@ -1,4 +1,8 @@
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
+
+async function onClickNextTest(){testEngine.loadNextTestCase();}
+async function onClickRepeatTest(){testEngine.repeatTestCase();}
+
 function onClickVerify() { testEngine.verify(T); }
 function onClickSave() { testEngine.saveAsSolution(T); }
 async function onClickClearTable() { clearElement('table'); }

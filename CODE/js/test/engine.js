@@ -26,6 +26,8 @@ class TestEngine {
 		this.loadTestCase(series, index);
 
 	}
+	loadNextTestCase(){this.loadTestCase(this.series,this.index+1);	}
+	repeatTestCase(){this.loadTestCase(this.series,this.index);}
 	async loadTestCase(series, index) {
 		let di = this.Dict[series];
 		if (nundef(di)) { await this.loadSeries(series); di = this.Dict[series]; }
@@ -40,8 +42,8 @@ class TestEngine {
 		localStorage.setItem('testIndex', this.index);
 		//console.log('stored', this.series, this.index);
 
-		mBy(this.buttonPrefix + series).innerHTML = series + ' ' + index;
-		mBy('message').innerHTML = 'Rsg tester: ' + series + ' ' + index;
+		//mBy(this.buttonPrefix + series).innerHTML = series + ' ' + index;
+		mBy('message').innerHTML = ' ' + series + ' case: ' + index;
 
 		this.presentCallback(spec, this.defs, serverData);
 	}
@@ -60,10 +62,10 @@ class TestEngine {
 
 	saveLastSpec(R) { saveObject(R.lastSpec, 'lastSpec_' + this.series + '_' + this.index); }
 	saveRTree(R) { 
-		console.log('saving',R);
+		console.log('saving',R.rNodes);
 		let r1=normalizeRTree(R);
-		console.log('normalized',R)
-		saveObject(normalizeRTree(R), 'rTree_' + this.series + '_' + this.index); 
+		console.log('normalized',r1)
+		saveObject(r1, 'rTree_' + this.series + '_' + this.index); 
 	}
 	saveUiTree(R) { 
 		saveObject(uiNodesToUiTree(R.uiNodes), 'uiTree_' + this.series + '_' + this.index); 
@@ -75,34 +77,38 @@ class TestEngine {
 	loadOidNodes() { return loadObject('oidNodes_' + this.series + '_' + this.index); }
 
 	loadSolution() {
-		let lastSpec = this.loadLastSpec();
-		if (nundef(lastSpec)) { return null; }
+		//let lastSpec = this.loadLastSpec();
+		//if (nundef(lastSpec)) { return null; }
 		let rTree = this.loadRTree();
-		let uiTree = this.loadUiTree();
-		let oidNodes = this.loadOidNodes();
+		//let uiTree = this.loadUiTree();
+		//let oidNodes = this.loadOidNodes();
 
 		this.solution = {
-			lastSpec: lastSpec,
+			//lastSpec: lastSpec,
 			rTree: rTree,
-			uiTree: uiTree,
-			oidNodes: oidNodes
+			//uiTree: uiTree,
+			//oidNodes: oidNodes
 		};
+
 		return this.solution;
 	}
 	saveAsSolution(R) {
-		this.saveLastSpec(R);
+		//this.saveLastSpec(R);
 		this.saveRTree(R);
-		this.saveUiTree(R);
-		this.saveOidNodes(R);
+		//this.saveUiTree(R);
+		//this.saveOidNodes(R);
 
 	}
 	verify(R) {
 		//console.log('R',R.rNodes);
+		console.log('verifying test case',this.series,this.index,'...');
 		let rTreeNow = normalizeRTree(R);//.rNodes;
 		let solution = this.loadSolution();
+		console.log(solution)
+		//let rTreeNow = normalizeRTree(R);//.rNodes;
 
-		if (!solution) {
-			//console.log('No solution available for test',this.series,this.index);
+		if (!solution.rTree) {
+			console.log('No solution available for test',this.series,this.index);
 			this.saveAsSolution(R);
 			return;
 		}else{
@@ -111,9 +117,9 @@ class TestEngine {
 		let rTreeSolution = this.solution.rTree;
 		let changes = propDiffSimple(rTreeNow,rTreeSolution);
 		if (changes.hasChanged) {
-			console.log('changed:','rTree','\nchanges',changes);
+			console.log('PROBLEM!!!',sortKeys(rTreeNow),'\nshould be',sortKeys(rTreeSolution));
 		} else {
-			console.log('correct!','rTree')
+			console.log('correct!',sortKeys(rTreeNow))
 		}
 
 		return;

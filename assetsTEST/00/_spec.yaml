@@ -1,8 +1,13 @@
-0:
+4:
   ROOT:
-    data: HALLO
-
-1:
+    sub:
+      - data: 1
+      - _NODE: A
+  A:
+    sub:
+      - data: 2
+      - data: 3
+3:
   ROOT:
     sub:
       - data: HALLO
@@ -13,12 +18,18 @@
 2:
   ROOT:
     sub:
-      - data: 1
+      - data: HALLO
       - _NODE: A
   A:
+    data: WELT
+1:
+  ROOT:
     sub:
-      - data: 2
-      - data: 3
+      - data: HALLO
+      - data: WELT
+0:
+  ROOT:
+    data: HALLO
 
 
 
