@@ -1,3 +1,21 @@
+6:
+  ROOT:
+    sub:
+      - data: 1
+      - _NODE: A
+      - data: 3
+  A:
+    _NODE: B
+  B:
+    data: 2
+5:
+  ROOT:
+    sub:
+      - data: 1
+      - _NODE: A
+      - data: 3
+  A:
+    data: 2
 4:
   ROOT:
     sub:
@@ -10,7 +28,7 @@
 3:
   ROOT:
     sub:
-      - data: HALLO
+      - data: 1
       - sub:
         - data: 1.1
         - sub:

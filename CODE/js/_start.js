@@ -46,6 +46,7 @@ async function _start() {
 //#endregion
 function _entryPoint() {
 	//present00(DEFS,SPEC, sData);
+	//localStorage.clear();
 	testEngine.init('btnTest', DEFS, present00)
 
 	//console.log(normalizeUid('_23',23));

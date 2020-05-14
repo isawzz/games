@@ -62,9 +62,9 @@ class TestEngine {
 
 	saveLastSpec(R) { saveObject(R.lastSpec, 'lastSpec_' + this.series + '_' + this.index); }
 	saveRTree(R) { 
-		console.log('saving',R.rNodes);
+		//console.log('saving',R.rNodes);
 		let r1=normalizeRTree(R);
-		console.log('normalized',r1)
+		//console.log('normalized',r1)
 		saveObject(r1, 'rTree_' + this.series + '_' + this.index); 
 	}
 	saveUiTree(R) { 
@@ -104,7 +104,7 @@ class TestEngine {
 		console.log('verifying test case',this.series,this.index,'...');
 		let rTreeNow = normalizeRTree(R);//.rNodes;
 		let solution = this.loadSolution();
-		console.log(solution)
+		//console.log(solution)
 		//let rTreeNow = normalizeRTree(R);//.rNodes;
 
 		if (!solution.rTree) {
