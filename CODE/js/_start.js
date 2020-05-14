@@ -1,14 +1,12 @@
 //#region globals, _start, gameStep
 window.onload = () => _start();
-var timit, G, PROTO, POOLS, sData;
-var WR = {};
-var T;
-//var R=null; //just testing
-//var NO={};
+var timit, sData, T;
 var phase = 0;
+var testEngine = null;
 
 async function _start() {
 	timit = new TimeIt('*timer', TIMIT_SHOW);
+	testEngine = new TestEngine();
 	await loadAssets();
 	await loadGameInfo();
 	await loadSpec();
@@ -23,36 +21,38 @@ async function _start() {
 	//prep ui
 	d3.select('#bNextMove').text('NEXT MOVE').on('click', interaction);
 	//mMinSize(mBy('table'),300,200);
-	gameStep();
-}
-async function gameStep() {
-	await prelims();
+	if (serverData.waiting_for) { await sendStatus(getUsernameForPlid(serverData.waiting_for[0])); }
+	if (serverData.end) { d3.select('button').text('RESTART').on('click', restartGame); }
+	timit.showTime('* vor package: *')
 
-	// G, PROTO, POOLS, SPEC, DEFS, sData(=POOLS[augData]) in place for parsing spec!
+	//worldMap('OPPS'); 
 
-	//console.log('SPEC',SPEC);
-	//console.log('DEFS',DEFS);
-	//console.log('sData',sData);
+	preProcessData();
 
-	// run03(SPEC,DEFS,sData); //macht gens.G
-	// setTimeout(onClickDO,500);
+	//have serverData (processed), SPEC, DEFS, [tupleGroups, boats only if serverData.options!]
+	// TODO: here I could insert computing diffed serverData
+	//serverData are the data sent by server (mit options,players,table)
+	//sData are to be augmented server objects ({oid:o} for all players,table entries (copies))
 
-	runTest();
-	//macht gens.G
+	isTraceOn = SHOW_TRACE;
+	sData = makeDefaultPool(jsCopy(serverData))
 
+	//presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
 
+	// SPEC, DEFS, sData in place for parsing spec!
 
-
-
-
-
-
+	_entryPoint();
 }
 //#endregion
-// function runTest() { run09(); } 
-function runTest() { run06(SPEC, DEFS, sData); }
-function run06(sp, defaults, sdata) {
-	WR.inc = T = R = new RSG(sp, defaults, sdata);
+function _entryPoint() {
+	//present00(DEFS,SPEC, sData);
+	testEngine.init('btnTest', DEFS, present00)
+
+	//console.log(normalizeUid('_23',23));
+}
+function present00(sp, defaults, sdata) {
+	//localStorage.clear(); 
+	T = R = new RSG(sp, defaults, sdata);
 	// updateOutput(R);
 
 	ensureRtree(R); //make sure static tree has been built! OK!
@@ -61,13 +61,18 @@ function run06(sp, defaults, sdata) {
 	createStaticUi(R.baseArea, R);
 	updateOutput(R);
 	//return;
-	
+
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
 
 	for (let i = 0; i < 5; i++) testAddObject(R);
 	updateOutput(R);
 	activateUis(R);
+
+	//testEngine.verify(R)
+	//console.log(R.tree);
+	//normalizeObjectProp(R.tree,'uid',-20);
+	//normalizeRTree(R)
 }
 
 
@@ -77,89 +82,18 @@ function run06(sp, defaults, sdata) {
 
 
 
-//#region filter
-function run09(){
-	//this it how it should look like!
-	let paper=mDivG('table',400,300,'blue');
-	let svg = paper.parentNode;
-	let u=`<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
-
-
-	console.log(svg);
-	return;
-	let g = agShape(canvas, 'rect', 250, 250, 'gold');
-
-	// let g = agShape(canvas, 'rect', 250, 250, 'gold');
-	// aFilters(paper,{blur:2,gray:})
-	// let u=`<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
-}
-function mDivSvg(area,w,h,color){
-	let d = mDiv(mBy('table'));
-	if (isdef(w)) mSize(d, w,h);
-	if (isdef(color)) mColor(d, color);
-	let g = aSvgg(d);
-	return g;
-}
-function mDivG(area,w,h,color){
-	let d = mDiv(mBy('table'));
-	if (isdef(w)) mSize(d, w,h);
-	if (isdef(color)) mColor(d, color);
-	let g = aSvgg(d);
-	return g;
-}
-function run08() {
-	// var container = document.getElementById("svgContainer");
-	let d = mDiv(mBy('table'));
-	mSize(d, 400, 300);
-	mColor(d, 'blue');
-	let canvas = aSvgg(d);
-	let svg = d.children[0];
-	// var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-	// svg.setAttribute("version", "1.1");
-	// d.appendChild(svg);
-	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
-	
-	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular').elem;
-	
-	let ci = g1.children[0];
-
-	// var obj = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-	// obj.setAttribute("width", "90");
-	// obj.setAttribute("height", "90");
-
-	var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-
-	var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
-	filter.setAttribute("id", "f1");
-	// filter.setAttribute("x", "0");
-	// filter.setAttribute("y", "0");
-
-	var gaussianFilter = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
-	// gaussianFilter.setAttribute("in", "SourceGraphic");
-	gaussianFilter.setAttribute("stdDeviation", "2");
-
-	filter.appendChild(gaussianFilter);
-	defs.appendChild(filter);
-	svg.appendChild(defs);
-	// text.elem.setAttribute("filter", "url(#f1)");
-	text.setAttribute("filter", "url(#f1)");
-
-	//svg.appendChild(obj);
-}
-//#endregion
-
-//#region frueher
+//#region older run tests
 function run05(sp, defaults, sdata) {
-	WR.inc = R = new RSG(sp, defaults, sdata);
+	R = new RSG(sp, defaults, sdata);
 	ensureRtree(R); //make sure static tree has been built! 
 	//addNewlyCreatedServerObjects(sdata,R);
 	generateUis('table', R);
 	updateOutput(R);
 }
 function run04(sp, defaults, sdata) {
-	WR.G = R1 = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
+	T = new RSG(sp, defaults, sdata); // =>R.gens[0]...original spec
 	genG('table', R1);
-	setTimeout(() => binding01(WR.G), 500);
+	setTimeout(() => binding01(T), 500);
 }
 function genG(area, R) {
 	console.log('before gen10 habe', R.gens.G.length, R.getSpec());
@@ -230,10 +164,6 @@ function run03(sp, defaults, sdata) {
 
 
 }
-//#endregion
-
-
-//showPanel, showChildren v0
 function showsub(n) {
 	console.log('sub:')
 	if (nundef(n.sub)) {
@@ -254,123 +184,6 @@ function showChildren(n) {
 		console.log(n.children);
 	}
 }
-
-
-//#endregion
-
-//#region interaction restartGame prelims (von gameStep)
-async function interaction() {
-	await sendAction();
-	gameStep();
-}
-async function restartGame() {
-	await sendRestart();
-	d3.select('button').text('NEXT MOVE').on('click', interaction);
-	gameStep();
-}
-async function prelims() {
-
-	if (serverData.waiting_for) { await sendStatus(getUsernameForPlid(serverData.waiting_for[0])); }
-	if (serverData.end) { d3.select('button').text('RESTART').on('click', restartGame); }
-	timit.showTime('* vor package: *')
-
-	//worldMap('OPPS'); 
-
-
-	preProcessData();
-
-	//have serverData (processed), SPEC, DEFS, [tupleGroups, boats only if serverData.options!]
-
-	// TODO: here I could insert computing diffed serverData
-
-	//serverData are the data sent by server (mit options,players,table)
-	//sData are to be augmented server objects ({oid:o} for all players,table entries (copies))
-
-	isTraceOn = SHOW_TRACE;
-	G = {};
-	PROTO = {};
-	POOLS = { augData: makeDefaultPool(jsCopy(serverData)) }; //to be augmented w/o contaminating serverData
-
-	//sData is a deep copy of serverData => confirm that!!!
-	sData = POOLS.augData;
-
-	//presentSpecDataDefsAsInConfig(SPEC, sData, DEFS);
-
-}
-//#endregion
-
-function makeDefaultPool(fromData) {
-	if (nundef(fromData) || isEmpty(fromData.table) && isEmpty(fromData.players)) return {};
-	if (nundef(fromData.table)) fromData.table = {};
-	let data = jsCopy(fromData.table);
-	for (const k in fromData.players) {
-		data[k] = jsCopy(fromData.players[k]);
-	}
-	//console.log('data',data)
-	return data;
-}
-
-function updateOutput(R) {
-
-	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds'])		{ //'channelsStatic', 'channelsLive' 
-		clearElement(area);
-	}
-
-	if (SHOW_SPEC) { presentNodes(R.lastSpec, 'spec'); }
-
-	if (SHOW_UITREE) {
-		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
-			['children'],
-			null,
-			['ui','act', 'params','defParams','cssParams','typParams','stdParams'],
-			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
-			// null,
-			{ 'max-width': '35%', font: '14px arial' });
-	}
-
-	if (SHOW_RTREE) {
-		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
-			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
-	}
-
-	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
-
-	if (SHOW_DICTIONARIES) {
-		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-		mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
-		mDictionary(R.Locations, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.Locations).length });
-		//mDictionary(R.maps, { dParent: mBy('maps'), title: 'maps' });
-	}
-
-	if (SHOW_IDS_REFS) {
-		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
-		mDictionary(R.places, { dParent: mBy('refsIds'), title: 'places ' + Object.keys(R.places).length });
-		mDictionary(R.refs, { dParent: mBy('refsIds'), title: 'refs ' + Object.keys(R.refs).length });
-		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
-		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-		//mDictionary(R.channels, { dParent: mBy('maps'), title: 'static channels' });
-		//mDictionary(R.live, { dParent: mBy('maps'), title: 'live channels' });
-	}
-	// if (SHOW_CHANNELSSTATIC) {
-	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-	// 	mDictionary(R.channels, { dParent: mBy('channelsStatic'), title: 'static channels' });
-	// }
-	// if (SHOW_CHANNELSLIVE) {
-	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-	// 	mDictionary(R.live, { dParent: mBy('channelsLive'), title: 'live channels' });
-	// }
-	if (nundef(R.rNodes)) return;
-	let numRTree = Object.keys(R.rNodes).length;
-	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
-	let handCounted = R.ROOT.data;
-	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
-	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
-
-
-
-}
-
-
 function updateOutput_dep(R) {
 
 	for (const area of ['spec', 'uiTree', 'rTree', 'oidNodes', 'dicts']) {
@@ -407,6 +220,91 @@ function updateOutput_dep(R) {
 	// 	//for(const path in R.rNodes) presentAddNode(R.rNodes[path],'tree',['children'])
 	// }
 
+	let numRTree = Object.keys(R.rNodes).length;
+	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
+	let handCounted = R.ROOT.data;
+	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
+	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
+
+
+
+}
+//#endregion
+
+//#region interaction restartGame (von gameStep)
+async function interaction() {
+	await sendAction();
+	gameStep();
+}
+async function restartGame() {
+	await sendRestart();
+	d3.select('button').text('NEXT MOVE').on('click', interaction);
+	gameStep();
+}
+//#endregion
+
+function makeDefaultPool(fromData) {
+	if (nundef(fromData) || isEmpty(fromData.table) && isEmpty(fromData.players)) return {};
+	if (nundef(fromData.table)) fromData.table = {};
+	let data = jsCopy(fromData.table);
+	for (const k in fromData.players) {
+		data[k] = jsCopy(fromData.players[k]);
+	}
+	//console.log('data',data)
+	return data;
+}
+function updateOutput(R) {
+
+	for (const area of ['spec', 'lastSpec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds']) { //'channelsStatic', 'channelsLive' 
+		clearElement(area);
+	}
+
+	if (SHOW_SPEC) { presentNodes(R.sp, 'spec'); }
+
+	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec'); }
+
+	if (SHOW_UITREE) {
+		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
+			['children'],
+			null,
+			['ui', 'act', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'],
+			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
+			// null,
+			{ 'max-width': '35%', font: '14px arial' });
+	}
+
+	if (SHOW_RTREE) {
+		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
+			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
+	}
+
+	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
+
+	if (SHOW_DICTIONARIES) {
+		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+		mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
+		mDictionary(R.Locations, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.Locations).length });
+		//mDictionary(R.maps, { dParent: mBy('maps'), title: 'maps' });
+	}
+
+	if (SHOW_IDS_REFS) {
+		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
+		mDictionary(R.places, { dParent: mBy('refsIds'), title: '_ids ' + Object.keys(R.places).length });
+		mDictionary(R.refs, { dParent: mBy('refsIds'), title: '_refs ' + Object.keys(R.refs).length });
+		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
+		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+		//mDictionary(R.channels, { dParent: mBy('maps'), title: 'static channels' });
+		//mDictionary(R.live, { dParent: mBy('maps'), title: 'live channels' });
+	}
+	// if (SHOW_CHANNELSSTATIC) {
+	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+	// 	mDictionary(R.channels, { dParent: mBy('channelsStatic'), title: 'static channels' });
+	// }
+	// if (SHOW_CHANNELSLIVE) {
+	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
+	// 	mDictionary(R.live, { dParent: mBy('channelsLive'), title: 'live channels' });
+	// }
+	if (nundef(R.rNodes)) return;
 	let numRTree = Object.keys(R.rNodes).length;
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;

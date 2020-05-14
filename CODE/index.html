@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Roboto+Mono|Work+Sans:400,700&display=swap" rel="stylesheet"> -->
 	<link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/facebook/65/game-die_1f3b2.png">
-	<title>happy!</title>
+	<title>YEP!</title>
 	<script src="/_extlibs/js-yaml.min.js"></script>
 	<script src="/_extlibs/d3.min.js"></script>
 	<script src="/_extlibs/prettyprint.js"></script>
@@ -19,12 +19,15 @@
 	<!-- #region html-->
 	<div>
 		<h2 id='message'>Gsm Tester</h2>
+		<button id='btnTest00' style='padding:8px' onclick='onClickTest(this)'>00</button>
+		<button style='padding:8px' onclick='onClickVerify(this)'>verify</button>
+		<button style='padding:8px' onclick='onClickSave(this)'>save</button>
+		<button style='padding:8px;margin-right:10px' onclick='onClickClearTable(this)'>clear table</button>
+		
 		<button style='padding:8px;' onclick='onClickAdd()'>add</button>
 		<button style='padding:8px;' onclick='onClickAddBoard()'>add board</button>
 		<button style='padding:8px;' onclick='onClickRemove()'>remove</button>
 		<button style='padding:8px;' onclick='onClickRemoveBoard()'>remove board</button>
-		<!-- <button style='padding:8px;' onclick='onClick_Remove()'>_remove</button>
-		<button style='padding:8px;' onclick='onClick_Add()'>_add</button> -->
 		<button style='padding:8px;' onclick='onClickActivate()'>activate</button>
 		<button style='padding:8px;' onclick='onClickDeactivate()'>deactivate</button>
 	</div>
@@ -37,8 +40,11 @@
 			</div>
 			<div id='contSpec' class='grey' onclick='onClickUpdateOutput(this)'>
 				<b>spec</b>
-				<!-- <b onclick='onClickUpdateOutput(this,this.innerHTML)'>spec</b> -->
 				<div id='spec' class='flexWrap'></div>
+			</div>
+			<div id='contLastSpec' class='grey' onclick='onClickUpdateOutput(this)'>
+				<b>pre-processed spec</b>
+				<div id='lastSpec' class='flexWrap'></div>
 			</div>
 			<div id='contRTree' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>R tree</b>
@@ -58,24 +64,10 @@
 				<div id='dicts' class='flexWrap'> </div>
 			</div>
 			<div id='contRefsIds' onclick='onClickUpdateOutput(this)' class='grey'>
-				<b>refs and ids:</b>
+				<b>_ids and _refs:</b>
 				<div id='refsIds' class='flexWrap'> </div>
 			</div>
 		</div>
-		<!-- <div id='lower'>
-			<div id='contSPEC' class='grey'>
-				<b>spec</b>
-				<div id='SPEC' class='node'></div>
-			</div>
-			<div id='contSERVERDATA' class='grey'>
-				<b>serverData</b>
-				<div id='SERVERDATA' class='node'></div>
-			</div>
-			<div id='contDEFS' class='grey'>
-				<b>defaults</b>
-				<div id='DEFS' class='node'></div>
-			</div>
-		</div> -->
 
 	</div>
 
@@ -85,23 +77,27 @@
 	<script src="/CODE/js/__work.js"></script>
 	<script src="/CODE/js/types.js"></script>
 
-	<script src="/CODE/js/_test.js"></script>
-	<script src="/CODE/js/Activator.js"></script>
-	<script src="/CODE/js/assets.js"></script>
-	<script src="/CODE/js/binding.js"></script>
+	<script src="/CODE/js/__rTree.js"></script>
+	<script src="/CODE/js/__uiTree.js"></script>
+	<script src="/CODE/js/test/Activator.js"></script>
+	<script src="/CODE/js/test/assets.js"></script>
+	<script src="/CODE/js/test/binding.js"></script>
+	<script src="/CODE/js/creation.js"></script>
 	<script src="/CODE/js/dynamic.js"></script>
 	<script src="/CODE/js/einhang.js"></script>
+	<script src="/CODE/js/test/engine.js"></script>
 	<script src="/CODE/js/ensureR.js"></script>
-	<script src="/CODE/js/factory.js"></script>
+	<script src="/CODE/js/test/factory.js"></script>
 	<script src="/CODE/js/grids.js"></script>
-	<script src="/CODE/js/gText.js"></script>
+	<script src="/CODE/js/test/gText.js"></script>
 	<script src="/CODE/js/index.js"></script>
 	<script src="/CODE/js/instantiateOid.js"></script>
-	<script src="/CODE/js/onClick.js"></script>
+	<script src="/CODE/js/test/onClick.js"></script>
 	<script src="/CODE/js/rsgTypes.js"></script>
 
 	<script src="/CODE/js/recBuildRTree.js"></script>
 	<script src="/CODE/js/recBuildUiFromNode.js"></script>
+	<script src="/CODE/js/testing.js"></script>
 
 	<script src="/CODE/js/utils.js"></script>
 

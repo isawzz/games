@@ -1,0 +1,30 @@
+0:
+  ROOT:
+    data: HALLO
+
+1:
+  ROOT:
+    sub:
+      - data: HALLO
+      - sub:
+        - data: 1.1
+        - sub:
+          - data: 1.1.1
+2:
+  ROOT:
+    sub:
+      - data: 1
+      - _NODE: A
+  A:
+    sub:
+      - data: 2
+      - data: 3
+
+
+
+
+
+
+
+
+

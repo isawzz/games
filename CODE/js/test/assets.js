@@ -166,6 +166,7 @@ async function sendAction(boat, username) {
 		serverData = result;
 	}
 }
+async function loadYamlDict(url){ return await route_path_yaml_dict(url);}
 
 // serverData helpers
 //ACHTUNG!!! die player obj_types sind variable!!!

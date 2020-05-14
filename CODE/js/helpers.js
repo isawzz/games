@@ -2387,7 +2387,7 @@ function jsCopyMinus(o) {
 	//console.log(o)
 	//console.log(JSON.parse(JSON.stringify(o)))
 	let lstOmit = [...arguments].slice(1);
-	addIf(lstOmit, 'children'); //.push('children'); TODO!!!! remove!!!
+	//addIf(lstOmit, 'children'); //.push('children'); TODO!!!! remove!!!
 	//console.log('omit properties:',lstOmit);
 	let oNew = {};
 	for (const k in o) {
@@ -2860,6 +2860,22 @@ function recDeleteKeys(o, deleteEmpty = true, omitProps) {
 	}
 	return onew;
 }
+function recFindExecute(o, prop, func) {
+	//usage: recFindProp(node, '_id', 'self', akku);
+	//find all incidences of key==prop in object or list o, and collects their path & value
+	//console.log(o);
+	if (!isDict(o) && !Array.isArray(o)) { return; }
+	if (isDict(o)) {
+		// if (o[prop]) { akku[path] = o; }
+		if (o[prop]) { func(o); }
+		for (const k in o) { recFindExecute(o[k], prop, func); }
+	} else if (isList(o)) {
+		for (let i = 0; i < o.length; i++) {
+			this.recFindExecute(o[i], prop, func);
+		}
+	}
+}
+
 function recFindProp(o, prop, path, akku) {
 	//usage: recFindProp(node, '_id', 'self', akku);
 	//find all incidences of key==prop in object or list o, and collects their path & value

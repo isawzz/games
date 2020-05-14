@@ -101,18 +101,6 @@ function testRemoveBoard(R) {
 	if (activate) activateUis(R);
 }
 
-function testSorting(){
-	let o = { z: [3, 2, 5, 1], d: { w: 2, r: 3 } };
-	let d = mBy('spec');
-	mNodeFilter(o, { dParent: d, title: 'orig' });
-	mNodeFilter(o, { sort: 'all', dParent: d, title: 'sorted' });
-	mNodeFilter(o, { sort: 'keys', dParent: d, title: 'justkeys' });
-	// presentAddNode(o,'orig','spec');
-	// presentAddNode(JSON.sort(jsCopy(o)),'sorted','spec');
-	// presentAddNode(sortKeys(o),'justkeys','spec');
-
-}
-
 //#region activate, deactivate
 function testActivate(R) {
 	activateUis(R);
@@ -125,6 +113,22 @@ function testDeactivate(R) {
 //#endregion
 
 //#region helper function tests
+function testSaveLoadUiTree(){
+	let uiTree = jsCopyMinus(T.uiTree,'act','ui','defParams','params');
+	console.log(uiTree);
+
+}
+function testSorting(){
+	let o = { z: [3, 2, 5, 1], d: { w: 2, r: 3 } };
+	let d = mBy('spec');
+	mNodeFilter(o, { dParent: d, title: 'orig' });
+	mNodeFilter(o, { sort: 'all', dParent: d, title: 'sorted' });
+	mNodeFilter(o, { sort: 'keys', dParent: d, title: 'justkeys' });
+	// presentAddNode(o,'orig','spec');
+	// presentAddNode(JSON.sort(jsCopy(o)),'sorted','spec');
+	// presentAddNode(sortKeys(o),'justkeys','spec');
+
+}
 function testLookupRemoveFromList() {
 	//usage: lookupRemoveFromList({a:{b:[2]}}, [a,b], 2) => {a:{b:[]}} OR {a:{}} (wenn deleteIfEmpty==true)
 	let d = { a: { b: [2] } };
@@ -168,9 +172,11 @@ function logVals(title, o) {
 	console.log(s);
 }
 
-//#endregion
 
-//#region add or remove oid/key
+
+
+
+//#region old tests: add or remove oid/key
 function getRandomUidNodeWithAct(R) {
 	//das geht garnicht!!!!!!!!!!!!!!!!!!!!!!!
 	//der node existiert ja nicht mehr!

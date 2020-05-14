@@ -1,12 +1,145 @@
-# #cs 02
+#98 sub test OK beide!
 ROOT:
-  cond: 
-    instanceof: _player
   sub:
-    - data: .obj_type
+    - data: 1
     - sub:
-      - data: .name
-      - data: .symbol
+      - data: 1.1
+      - sub:
+        - data: 1.1.1
+        # - data: 1.1.2
+
+
+
+
+
+
+
+#99 
+# ROOT:
+#   sub:
+#   - _id: A
+#   - sub:
+#     - _id: A
+#       params:
+#         bg: black
+# HALLO:
+#   _ref: A
+#   cond:
+#     instanceof: _player
+#   data: .name
+#   params:
+#     _id: RED
+# HALLO2:
+#   _ref: A
+#   _NODE: C
+#   cond:
+#     instanceof: _player
+#   data: .obj_type
+# C:
+#   data: wie bitte
+#   sub:
+#     - data: 1
+#     - data: 2
+#       params:
+#         _ref: RED
+#         fg: red
+
+
+#100 _id_ref simple OK
+# ROOT:
+#   _id: A
+# HALLO:
+#   _ref: A
+#   cond:
+#     instanceof: _player
+#   data: .name
+
+
+#real board!!!
+# ROOT:
+#   _id: B
+# B:
+#   _ref: B
+#   cond:
+#     obj_type: Board
+#   _FUNC: grid
+# F:
+#   cond:
+#     obj_type: Tick
+#   data: .symbol
+
+#test harmlos OK!
+# ROOT:
+#   sub:
+#   - _id: B
+#   - sub:
+#     - _id: F
+#     - _id: A
+#       params:
+#         orientation: v
+# B:
+#   cond:
+#     obj_type: Board
+#   data: .
+# F:
+#   cond:
+#     obj_type: Tick
+#   data: .col
+# A:
+#   cond: all
+#   data: .obj_type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #cs 03
+# ROOT:
+#   cond: 
+#     instanceof: _player
+#   sub:
+#     - data: .oid
+#     # - sub:
+#     #   - data: .name
+#     #   - data: .symbol
+#     - _NODE: A
+#   params:
+#     orientation: v
+# A:
+#   #show first card
+#   data: .hand.0
+
+# CARD:
+#   cond:
+#     obj_type: card
+#   data: .short_name
+
+# #cs 02
+# ROOT:
+#   cond: 
+#     instanceof: _player
+#   sub:
+#     - data: .obj_type
+#     - sub:
+#       - data: .name
+#       - data: .symbol
 
 
 # #cs 01
@@ -45,48 +178,4 @@ ROOT:
 
 
 
-
-# #test super simple!
-# ROOT:
-#   _id: A
-# HALLO:
-#   _ref: A
-#   cond:
-#     instanceof: _player
-#   data: .name
-
-
-#real board!!!
-# ROOT:
-#   _id: B
-# B:
-#   _ref: B
-#   cond:
-#     obj_type: Board
-#   type: grid
-# F:
-#   cond:
-#     obj_type: Tick
-#   data: .symbol
-
-#test harmlos OK!
-# ROOT:
-#   sub:
-#   - _id: B
-#   - sub:
-#     - _id: F
-#     - _id: A
-#       params:
-#         orientation: v
-# B:
-#   cond:
-#     obj_type: Board
-#   data: .
-# F:
-#   cond:
-#     obj_type: Tick
-#   data: .col
-# A:
-#   cond: all
-#   data: .obj_type
 

@@ -8,6 +8,7 @@ function ensureRtree(R) {
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
 
+			//R.tree = rTreeStaticRoot(R.lastSpec.ROOT, 'ROOT', '.', null, R);
 			R.tree = recBuildRTree(R.lastSpec.ROOT, 'ROOT', '.', null, R.lastSpec, R);
 
 			R.rNodes[R.tree.uid] = R.tree;

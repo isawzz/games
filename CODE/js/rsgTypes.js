@@ -35,45 +35,61 @@ class RSG {
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
 	}
-	genMerge(genKey = 'G'){
+	genMerge(genKey = 'G') {
 		//return;
 		let orig = this.lastSpec;
 		let gen = jsCopy(this.lastSpec);
 
-		for(const name in this.places){
+		for (const name in this.places) {
 			let idByName = this.places[name];
-			for(const spk in idByName){
-				let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
-				//console.log(id_entry);
+			for (const spk in idByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+				for (const id_entry of idByName[spk]) {
+					//let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
+					//console.log(id_entry);
 
-				let [key,obj]=findAddress(spk,gen,id_entry.propList);
+					let [key, obj] = findAddress(spk, gen, id_entry.propList);
 
-				let sub = [];
-				//foreach existing ref to name 
-				let refs = this.refs[name];
-				for(const refSpecKey in refs){
-					let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
-					//console.log('ref_entry',ref_entry);
-					let merged = safeMerge(id_entry.node,ref_entry.node);
-					//console.log('merged',merged);
-					delete merged._ref;
-					delete merged._id;
-					let uid = getUID('sp');
-					gen[uid]=merged;
-					sub.push({_id:uid});
+					let sub = [];
+					//foreach existing ref to name 
+					let refs = this.refs[name];
+					for (const refSpecKey in refs) {
+						let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
+						//console.log('ref_entry',ref_entry);
+						let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
+						//console.log('merged',merged);
+						delete merged._ref;
+						delete merged._id;
+						let uid = getUID('sp');
+						gen[uid] = merged;
+						sub.push({ _NODE: uid });
+					}
+
+					if (sub.length == 0) {
+						//no ref exists for this id! (in ALL of spec!!!!!)
+						//if name is name of spec node, replace by that name
+						//otherwise error!
+						if (isdef(this.lastSpec[name])) {
+							obj._NODE = name;
+							delete obj._id;
+							console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.propList, name, obj);
+						} else {
+							console.log('_id without any reference or node!', id_entry.specKey, id_entry.propList, name, obj);
+						}
+						continue;
+					}
+					if (sub.length == 1) obj[key] = sub[0];
+					else obj[key] = { sub: sub };
+
 				}
 
-				if (sub.length == 0) continue;
-				if (sub.length == 1) obj[key]=sub[0];
-				else obj[key]={sub:sub};
 			}
+			//hiermit is _id:name abgebaut fuer alle refs darauf!
 		}
 		//console.log('_________GEN:',gen);
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;
 	}
-
 	init() {
 		this.places = {};
 		this.refs = {};
@@ -94,12 +110,6 @@ class RSG {
 		this.tree = {};
 
 	}
-	addToPlaces(specKey, placeName, propList, node) {
-		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
-	}
-	addToRefs(specKey, placeName, propList, node) {
-		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
-	}
 	check_prop(prop, specKey, node, R) {
 		let dictIds = {};
 		recFindExecute(node, prop, x => { dictIds[x[prop]] = x; });
@@ -114,7 +124,7 @@ class RSG {
 			let node = akku[k].node;
 			let path = k;
 			let name = akku[k].name;
-			R.addToPlaces(specKey, name, path, node);
+			this.addToPlaces(specKey, name, path, node);
 		}
 	}
 	check_ref(specKey, node) {
@@ -131,12 +141,12 @@ class RSG {
 	}
 
 	//#region helpers
-	// addToPlaces(specKey, placeName, propList) {
-	// 	lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	// }
-	// addToRefs(specKey, placeName, propList) {
-	// 	lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList });
-	// }
+	addToPlaces(specKey, placeName, propList, node) {
+		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	}
+	addToRefs(specKey, placeName, propList, node) {
+		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	}
 	clearObjects() {
 		this.UIS = {};
 		this.uid2oids = {};
@@ -144,7 +154,6 @@ class RSG {
 		this._sd = {};
 
 	}
-
 	getO(oid) { return lookup(this._sd, [oid, 'o']); }
 	addObject(oid, o) {
 		let o1 = jsCopy(o);
@@ -218,19 +227,6 @@ class RSG {
 
 	//#endregion
 
-	//#region v1
-	geninc13(genKey = 'G') {
-		this.clearObjects();
-		let gen = jsCopy(this.lastSpec);
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-
-	}
-
-
-
-
 }
 
 function createUi(n, area, R, defParams) {
@@ -277,7 +273,7 @@ function createUi(n, area, R, defParams) {
 	return ui;
 
 }
-function findAddress(kSelf,x, path) {
+function findAddress(kSelf, x, path) {
 	//x muss noch dem path folgen bis es bei der richtigen branch
 	//angekommen ist!
 	//let path = propList;
@@ -287,7 +283,7 @@ function findAddress(kSelf,x, path) {
 	//if (isEmpty(path1)) path1='spk';
 	//console.log('path', path, 'path1', path1);
 	let x1 = calcAddressWithin(x, path1);
-	return [x1.key,x1.obj];
+	return [x1.key, x1.obj];
 }
 function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
 function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }

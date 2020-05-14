@@ -1,4 +1,73 @@
-//#region filter
+//#region filter tests
+function run09() {
+	//this it how it should look like!
+	let paper = mDivG('table', 400, 300, 'blue');
+	let svg = paper.parentNode;
+	let u = `<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
+
+
+	console.log(svg);
+	return;
+	let g = agShape(canvas, 'rect', 250, 250, 'gold');
+
+	// let g = agShape(canvas, 'rect', 250, 250, 'gold');
+	// aFilters(paper,{blur:2,gray:})
+	// let u=`<use x="100" y="100" xlink:href="assets/svg/animals.svg#bird" />`;
+}
+function mDivSvg(area, w, h, color) {
+	let d = mDiv(mBy('table'));
+	if (isdef(w)) mSize(d, w, h);
+	if (isdef(color)) mColor(d, color);
+	let g = aSvgg(d);
+	return g;
+}
+function mDivG(area, w, h, color) {
+	let d = mDiv(mBy('table'));
+	if (isdef(w)) mSize(d, w, h);
+	if (isdef(color)) mColor(d, color);
+	let g = aSvgg(d);
+	return g;
+}
+function run08() {
+	// var container = document.getElementById("svgContainer");
+	let d = mDiv(mBy('table'));
+	mSize(d, 400, 300);
+	mColor(d, 'blue');
+	let canvas = aSvgg(d);
+	let svg = d.children[0];
+	// var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	// svg.setAttribute("version", "1.1");
+	// d.appendChild(svg);
+	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
+
+	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular').elem;
+
+	let ci = g1.children[0];
+
+	// var obj = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+	// obj.setAttribute("width", "90");
+	// obj.setAttribute("height", "90");
+
+	var defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+
+	var filter = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+	filter.setAttribute("id", "f1");
+	// filter.setAttribute("x", "0");
+	// filter.setAttribute("y", "0");
+
+	var gaussianFilter = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+	// gaussianFilter.setAttribute("in", "SourceGraphic");
+	gaussianFilter.setAttribute("stdDeviation", "2");
+
+	filter.appendChild(gaussianFilter);
+	defs.appendChild(filter);
+	svg.appendChild(defs);
+	// text.elem.setAttribute("filter", "url(#f1)");
+	text.setAttribute("filter", "url(#f1)");
+
+	//svg.appendChild(obj);
+}
+//#region filter functions
 function createcircle(posx, posy, radius, stroke, fill, filter) {
 	var circle = document.createElementNS(svgns, "circle");
 	circle.setAttributeNS(null, "id", "c" + circles);
@@ -61,7 +130,7 @@ function run07() {
 
 
 
-//noch mehr mist
+//#region old filter functions
 function createfilter1(posx, posy, sizex, sizey, type, data) {
 	var svg = document.getElementById("canvas");
 	var fs = document.getElementById("filters");
@@ -104,8 +173,6 @@ function test() {
 	}
 
 }
-//#endregion
-
 
 
 

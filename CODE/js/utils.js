@@ -255,7 +255,7 @@ function addNewObjectToSourcesAndPools(o, R) {
 		//console.log('missing', missing);
 	}
 
-	//console.log('POOLS', pools);
+	
 	return [sp, pools];
 }
 
@@ -304,7 +304,7 @@ function addSourcesAndPools(R) {
 		//console.log('missing', missing);
 	}
 
-	//console.log('POOLS', pools);
+	
 	return [sp, pools];
 }
 function makePool(cond, source, R) {

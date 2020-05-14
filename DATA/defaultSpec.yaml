@@ -38,14 +38,9 @@ defaults:
         size: 8
   panel:
     params:
-      bg: inherit
-      #filter: hue-rotate(90deg)
-      #filter: saturate(120%)
-      #filter: contrast(50%)
-      #filter: drop-shadow(5px 5px 5px black)
-      #filter: invert(100%)
+      bg: random
       fg: contrast
-      font-size: 24
+      font: 18px Arial #AlgerianRegular
       padding: 4
       margin: 4
       orientation: h
@@ -66,12 +61,6 @@ defaults:
       bg: random #inherit
       fg: contrast
       font: 16px Comic Sans MS #AlgerianRegular
-      # border-radius: 22px
-      # border: 1px solid red
-      # font: italic small-caps bold 12px/24px Georgia, serif
-      # font-family: AlgerianRegular
-      # font-size: 20px
-      # font: italic small-caps bold 12px/30px Georgia, serif
   title:
     params:
       font: 10pt AlgerianRegular

@@ -1,10 +1,10 @@
 ROOT:
   sub:
-    - _id: O
+    - _NODE: O
       params:
         bg: inherit
         orientation: v
-    - _id: G
+    - _NODE: G
   params:
     bg: green
 O:
@@ -14,10 +14,10 @@ O:
   data: .short_name
 G:
   sub:
-    - _id: P
+    - _NODE: P
       params:
         bg: inherit
-    - _id: B
+    - _NODE: B
       params:
         bg: inherit
   params:

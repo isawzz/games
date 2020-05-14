@@ -8,16 +8,20 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-var TEST_DIR = '04extrem'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
+var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
 var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
 
 var SHOW_SPEC = true; // true | false
+var SHOW_LASTSPEC = true; // true | false
 var SHOW_RTREE = true; // true | false
 var SHOW_UITREE = false; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
-var SHOW_IDS_REFS = false; // true | false
+var SHOW_IDS_REFS = true; // true | false
+
+var MAX_CYCLES = 500; //Recursion safety!
+var CYCLES=0;
 
 //#region previous DATA files
 // testGrid/ catanSpec catanServer tttSpec tttServer
