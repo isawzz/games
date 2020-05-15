@@ -1,4 +1,48 @@
 {
+	"10": {
+		"_1": {
+			"_ref": "A",
+			"data": "YES!",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"data": "NEIN!",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_0": {
+			"uid": "_0",
+			"uidParent": null,
+			"children": [
+				"_1",
+				"_2"
+			]
+		}
+	},
+	"9": {
+		"_0": {
+			"data": "YES!",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_0",
+			"uidParent": null
+		}
+	},
+	"8": {
+		"_0": {
+			"data": "YES!",
+			"uid": "_0",
+			"uidParent": null
+		}
+	},
 	"7": {
 		"_1": {
 			"data": 1,

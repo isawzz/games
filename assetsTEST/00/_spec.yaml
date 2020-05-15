@@ -1,3 +1,48 @@
+11:
+  ROOT:
+    _NODE: [A,B]
+    params:
+      fg: red
+  A:
+    data: WAS
+    params:
+      fg: blue
+  B:
+    data: YES!
+    params:
+      fg: green
+      bg: white
+10: #===> HERE
+  ROOT:
+    _id: A
+    data: hallo
+  hallo:
+    _ref: A
+    _NODE: B
+    data: YES!
+  B:
+    _ref: A
+    data: NEIN!
+    params:
+      fg: red
+9: 
+  ROOT:
+    _id: A
+    data: hallo
+  hallo:
+    _ref: A
+    _NODE: B
+    data: YES!
+  B:
+    data: NEIN!
+    params:
+      fg: red
+8:
+  ROOT:
+    _id: A
+  hallo:
+    _ref: A
+    data: YES!
 7: 
   ROOT:
     sub:
