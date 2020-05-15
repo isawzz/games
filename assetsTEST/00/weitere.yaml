@@ -1,3 +1,39 @@
+10: 
+  ROOT:
+    _NODE: A
+    params: 
+      bg: black
+      fg: blue
+  A:
+    data: YES!
+    params:
+      fg: red
+9: #wird gemerged: _ref node override data and fg!
+  ROOT:
+    _id: A
+    params: 
+      bg: black
+      fg: blue
+  hallo:
+    _ref: A
+    data: YES!
+    params:
+      fg: red
+8:
+  ROOT:
+    _id: A
+  hallo:
+    _ref: A
+    data: YES!
+  hallo1:
+    _ref: A
+    data: JAAAA!
+7: #===> HERE
+  ROOT:
+    _id: A
+  hallo:
+    _ref: A
+    data: YES!
 # 13:
 #   ROOT:
 #     _id: A

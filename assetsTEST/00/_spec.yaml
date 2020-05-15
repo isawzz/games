@@ -1,30 +1,22 @@
-9: #wird gemerged: _ref node override data and fg!
+7: 
   ROOT:
-    _id: A
-    params: 
-      bg: black
+    sub:
+      - data: 1
+      - _NODE: A
+        params:
+          fg: silver
+      - data: 3
+  A:
+    _NODE: B
+  B:
+    _NODE: C
+    params:
       fg: blue
-  hallo:
-    _ref: A
-    data: YES!
+  C:
+    data: 2
     params:
       fg: red
-8:
-  ROOT:
-    _id: A
-  hallo:
-    _ref: A
-    data: YES!
-  hallo1:
-    _ref: A
-    data: JAAAA!
-7:
-  ROOT:
-    _id: A
-  hallo:
-    _ref: A
-    data: YES!
-6:
+6: 
   ROOT:
     sub:
       - data: 1
@@ -34,7 +26,7 @@
     _NODE: B
   B:
     data: 2
-5:
+5: 
   ROOT:
     sub:
       - data: 1
@@ -42,6 +34,7 @@
       - data: 3
   A:
     data: 2
+
 4:
   ROOT:
     sub:
@@ -63,8 +56,9 @@
   ROOT:
     sub:
       - data: HALLO
-      - _NODE: A
+      - _id: A
   A:
+    _ref: A
     data: WELT
 1:
   ROOT:

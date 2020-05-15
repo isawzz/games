@@ -47,7 +47,7 @@ class RSG {
 					//let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
 					//console.log(id_entry);
 
-					let [key, obj] = findAddress(spk, gen, id_entry.propList);
+					let [key, obj] = findAddress(spk, gen, id_entry.ppath);
 
 					let sub = [];
 					//foreach existing ref to name 
@@ -72,10 +72,10 @@ class RSG {
 						if (isdef(this.lastSpec[name])) {
 							obj[key]._NODE = name; //!!!!!!!!!!!!
 							delete obj[key]._id;
-							console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.propList, name, obj);
+							console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
 							alert('ERROR!!!!!!!!!')
 						} else {
-							console.log('_id without any reference or node!', id_entry.specKey, id_entry.propList, name, obj);
+							console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
 						}
 						continue;
 					}
@@ -165,11 +165,12 @@ class RSG {
 	}
 
 	//#region helpers
-	addToPlaces(specKey, placeName, propList, node) {
-		lookupAddToList(this.places, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	addToPlaces(specKey, placeName, ppath, node) {
+		lookupAddToList(this.places, [placeName, specKey], 
+			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
-	addToRefs(specKey, placeName, propList, node) {
-		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, propList: propList, node: node });
+	addToRefs(specKey, placeName, ppath, node) {
+		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
 	clearObjects() {
 		this.UIS = {};

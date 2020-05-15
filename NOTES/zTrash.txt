@@ -1,0 +1,55 @@
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________________
+	n = R.lastSpec[key] = deepmerge(R.lastSpec[nodeName], n);
+	delete n._NODE;
+} else if (nundef(n.cond)) {
+	//let [k,o]=findAddress()
+
+	let [k, o] = findAddress(key, R.lastSpec, 'self' + path);
+	console.log('findAddress returns:', k, o);
+	let branch = deepmerge(R.lastSpec[nodeName], n);
+	delete branch._NODE;
+	console.log('branch:', branch);
+	o[k] = branch;
+	//in specNode key replace this address by merged in
+
+	//build a new node in specthat merges info,
+	//???
+	//mach den node den ich brauche
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

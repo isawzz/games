@@ -1,4 +1,4 @@
-function recBuildRTree(n, key, path, parent, sp, R, oid) {
+function recBuildRTree_orig(n, key, path, parent, sp, R, oid) {
 	CYCLES += 1; if (CYCLES > MAX_CYCLES) return;
 	//console.log('***',n,path,parent,sp)
 	let n1 = { uid: getUID(), key: key, uidParent: parent ? parent.uid : null, path: path };
@@ -13,13 +13,16 @@ function recBuildRTree(n, key, path, parent, sp, R, oid) {
 		let nSpec = sp[nodeName];
 		//console.log(nodeName,nSpec)
 		if (nundef(nSpec.cond)) {
+
 			//TODO: muss nSpec mit rest von diesem node (n,path) mergen!
+			//mergeNodes
+
 			let branch = recBuildRTree(nSpec, nodeName, '.', parent, sp, R, oid); //oder '.0'?
 
-			n1=branch;
+			n1 = branch;
 
 			// n1.here = nodeName; 	//adds a 'here' for key
-			lookupAddToList(R.Locations, [nodeName], n1.uid);
+			//lookupAddToList(R.Locations, [nodeName], n1.uid);
 			R.rNodes[n1.uid] = branch;
 			//n1.children = [branch.uid];
 			//parent.children.push(n1.uid);
@@ -50,6 +53,7 @@ function recBuildRTree(n, key, path, parent, sp, R, oid) {
 	}
 	return n1;
 }
+
 
 
 

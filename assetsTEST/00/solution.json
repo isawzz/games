@@ -1,30 +1,152 @@
 {
-	"0": {
+	"7": {
+		"_1": {
+			"data": 1,
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"data": 2,
+			"params": {
+				"fg": "silver"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": 3,
+			"uid": "_3",
+			"uidParent": "_0"
+		},
 		"_0": {
 			"uid": "_0",
-			"key": "ROOT",
 			"uidParent": null,
-			"path": "."
+			"children": [
+				"_1",
+				"_2",
+				"_3"
+			]
 		}
 	},
-	"1": {
+	"6": {
 		"_1": {
+			"data": 1,
 			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
+			"uidParent": "_0"
+		},
+		"_2": {
+			"data": 2,
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": 3,
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_0": {
+			"uid": "_0",
+			"uidParent": null,
+			"children": [
+				"_1",
+				"_2",
+				"_3"
+			]
+		}
+	},
+	"5": {
+		"_1": {
+			"data": 1,
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"data": 2,
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": 3,
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_0": {
+			"uid": "_0",
+			"uidParent": null,
+			"children": [
+				"_1",
+				"_2",
+				"_3"
+			]
+		}
+	},
+	"4": {
+		"_1": {
+			"data": 1,
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": 2,
+			"uid": "_3",
+			"uidParent": "_2"
+		},
+		"_4": {
+			"data": 3,
+			"uid": "_4",
+			"uidParent": "_2"
 		},
 		"_2": {
 			"uid": "_2",
-			"key": "ROOT",
 			"uidParent": "_0",
-			"path": ".1"
+			"children": [
+				"_3",
+				"_4"
+			]
 		},
 		"_0": {
 			"uid": "_0",
-			"key": "ROOT",
 			"uidParent": null,
-			"path": ".",
+			"children": [
+				"_1",
+				"_2"
+			]
+		}
+	},
+	"3": {
+		"_1": {
+			"data": 1,
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": 1.1,
+			"uid": "_3",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"data": "1.1.1",
+			"uid": "_5",
+			"uidParent": "_4"
+		},
+		"_4": {
+			"uid": "_4",
+			"uidParent": "_2",
+			"children": [
+				"_5"
+			]
+		},
+		"_2": {
+			"uid": "_2",
+			"uidParent": "_0",
+			"children": [
+				"_3",
+				"_4"
+			]
+		},
+		"_0": {
+			"uid": "_0",
+			"uidParent": null,
 			"children": [
 				"_1",
 				"_2"
@@ -33,233 +155,49 @@
 	},
 	"2": {
 		"_1": {
+			"data": "HALLO",
 			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
-		},
-		"_3": {
-			"uid": "_3",
-			"key": "A",
-			"uidParent": "_0",
-			"path": "."
-		},
-		"_0": {
-			"uid": "_0",
-			"key": "ROOT",
-			"uidParent": null,
-			"path": ".",
-			"children": [
-				"_1",
-				"_3"
-			]
-		}
-	},
-	"3": {
-		"_1": {
-			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
-		},
-		"_3": {
-			"uid": "_3",
-			"key": "ROOT",
-			"uidParent": "_2",
-			"path": ".1.0"
-		},
-		"_5": {
-			"uid": "_5",
-			"key": "ROOT",
-			"uidParent": "_4",
-			"path": ".1.1.0"
-		},
-		"_4": {
-			"uid": "_4",
-			"key": "ROOT",
-			"uidParent": "_2",
-			"path": ".1.1",
-			"children": [
-				"_5"
-			]
+			"uidParent": "_0"
 		},
 		"_2": {
+			"data": "WELT",
 			"uid": "_2",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".1",
-			"children": [
-				"_3",
-				"_4"
-			]
+			"uidParent": "_0"
 		},
 		"_0": {
 			"uid": "_0",
-			"key": "ROOT",
 			"uidParent": null,
-			"path": ".",
 			"children": [
 				"_1",
 				"_2"
 			]
 		}
 	},
-	"4": {
+	"1": {
 		"_1": {
+			"data": "HALLO",
 			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
+			"uidParent": "_0"
 		},
-		"_4": {
-			"uid": "_4",
-			"key": "A",
-			"uidParent": "_3",
-			"path": ".0"
-		},
-		"_5": {
-			"uid": "_5",
-			"key": "A",
-			"uidParent": "_3",
-			"path": ".1"
-		},
-		"_3": {
-			"uid": "_3",
-			"key": "A",
-			"uidParent": "_0",
-			"path": ".",
-			"children": [
-				"_4",
-				"_5"
-			]
-		},
-		"_0": {
-			"uid": "_0",
-			"key": "ROOT",
-			"uidParent": null,
-			"path": ".",
-			"children": [
-				"_1",
-				"_3"
-			]
-		}
-	},
-	"5": {
-		"_1": {
-			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
-		},
-		"_3": {
-			"uid": "_3",
-			"key": "A",
-			"uidParent": "_0",
-			"path": "."
-		},
-		"_4": {
-			"uid": "_4",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".2"
-		},
-		"_0": {
-			"uid": "_0",
-			"key": "ROOT",
-			"uidParent": null,
-			"path": ".",
-			"children": [
-				"_1",
-				"_3",
-				"_4"
-			]
-		}
-	},
-	"6": {
-		"_1": {
-			"uid": "_1",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".0"
-		},
-		"_4": {
-			"uid": "_4",
-			"key": "B",
-			"uidParent": "_0",
-			"path": "."
-		},
-		"_5": {
-			"uid": "_5",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".2"
-		},
-		"_0": {
-			"uid": "_0",
-			"key": "ROOT",
-			"uidParent": null,
-			"path": ".",
-			"children": [
-				"_1",
-				"_4",
-				"_5"
-			]
-		}
-	},
-	"7": {
-		"_0": {
-			"uid": "_0",
-			"key": "sp_-2",
-			"uidParent": null,
-			"path": "."
-		}
-	},
-	"8": {
 		"_2": {
+			"data": "WELT",
 			"uid": "_2",
-			"key": "sp_-2",
-			"uidParent": "_0",
-			"path": "."
-		},
-		"_4": {
-			"uid": "_4",
-			"key": "sp_-1",
-			"uidParent": "_0",
-			"path": "."
+			"uidParent": "_0"
 		},
 		"_0": {
 			"uid": "_0",
-			"key": "ROOT",
 			"uidParent": null,
-			"path": ".",
 			"children": [
-				"_2",
-				"_4"
+				"_1",
+				"_2"
 			]
 		}
 	},
-	"9": {
+	"0": {
 		"_0": {
+			"data": "HALLO",
 			"uid": "_0",
-			"key": "sp_-2",
-			"uidParent": null,
-			"path": "."
-		}
-	},
-	"10": {
-		"_0": {
-			"uid": "_0",
-			"key": "panel",
-			"uidParent": null,
-			"path": "."
-		}
-	},
-	"11": {
-		"_0": {
-			"uid": "_0",
-			"key": "superSpec",
-			"uidParent": null,
-			"path": "."
+			"uidParent": null
 		}
 	}
 }

@@ -27,9 +27,9 @@ class TestEngine {
 		this.loadTestCase(series, index);
 
 	}
-	loadNextTestCase(){this.loadTestCase(this.series,this.index+1);	}
-	loadPrevTestCase(){this.loadTestCase(this.series,this.index-1);	}
-	repeatTestCase(){this.loadTestCase(this.series,this.index);}
+	loadNextTestCase() { this.loadTestCase(this.series, this.index + 1); }
+	loadPrevTestCase() { this.loadTestCase(this.series, this.index - 1); }
+	repeatTestCase() { this.loadTestCase(this.series, this.index); }
 	async loadTestCase(series, index) {
 		let di = this.Dict[series];
 
@@ -37,7 +37,7 @@ class TestEngine {
 
 		let numCases = Object.keys(di.specs).length;
 		if (index < 0) index = numCases - 1;
-		else if (index>=numCases) index = 0;
+		else if (index >= numCases) index = 0;
 
 		let spec = di.specs[index];
 		if (nundef(spec)) { index = 0; spec = di.specs[0]; }
@@ -64,24 +64,24 @@ class TestEngine {
 			solutions: await loadJsonDict(path + 'solution.json'),
 		};
 
-		console.log('solutions',this.Dict[series].solutions);
-		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions={};
+		//console.log('solutions', this.Dict[series].solutions);
+		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions = {};
 		//sowie in assets lade ich hier ein yaml dict 
 		//lade es jedesmal frisch weil ja aenderungen!!!!!!
 	}
 
 	//saveLastSpec(R) { saveObject(R.lastSpec, 'lastSpec_' + this.series + '_' + this.index); }
-	saveRTree(R,download=false) { 
+	saveRTree(R, download = false) {
 		//console.log('saving',R.rNodes);
-		let r1=normalizeRTree(R);
-		console.log('normalized',sortKeys(r1));
+		let r1 = normalizeRTree(R);
+		console.log('normalized', sortKeys(r1));
 		this.Dict[this.series].solutions[this.index] = r1;
 
-		if (download)	this.saveDict();
+		if (download) this.saveDict();
 
 		//saveObject(r1, 'rTree_' + this.series + '_' + this.index); 
 	}
-	saveDict(){downloadFile(this.Dict[this.series].solutions,'solution');}
+	saveDict() { downloadFile(this.Dict[this.series].solutions, 'solution'); }
 	//saveUiTree(R) { 
 	//	saveObject(uiNodesToUiTree(R.uiNodes), 'uiTree_' + this.series + '_' + this.index); 
 	//}
@@ -108,7 +108,7 @@ class TestEngine {
 
 		return this.solution;
 	}
-	invalidate(){
+	invalidate() {
 		//localStorage.removeItem('rTree_' + this.series + '_' + this.index);
 		delete this.Dict[this.series].solutions[this.index];
 	}
@@ -121,46 +121,46 @@ class TestEngine {
 	}
 	verify(R) {
 		//console.log('R',R.rNodes);
-		console.log('verifying test case',this.series,this.index,'...');
+		console.log('verifying test case', this.series, this.index, '...');
 		let rTreeNow = normalizeRTree(R);//.rNodes;
 		let solution = this.loadSolution();
 		//console.log(solution)
 		//let rTreeNow = normalizeRTree(R);//.rNodes;
 
 		if (!solution.rTree) {
-			console.log('No solution available for test',this.series,this.index);
+			console.log('No solution available for test', this.series, this.index);
 			if (this.autosave) this.saveAsSolution(R);
 			return;
-		}else{
+		} else {
 			//console.log('solution',this.solution.rTree);
 		}
 		let rTreeSolution = this.solution.rTree;
-		let changes = propDiffSimple(rTreeNow,rTreeSolution);
+		let changes = propDiffSimple(rTreeNow, rTreeSolution);
 		if (changes.hasChanged) {
-			console.log('!!!!!!!!!!!!!!!PROBLEM!!! ',this.index,'!!!!!!!!!!!!!!!!\n',sortKeys(rTreeNow),'\nshould be',sortKeys(rTreeSolution));
+			console.log('!!!!!!!!!!!!!!!PROBLEM!!! ', this.index, '!!!!!!!!!!!!!!!!\n', sortKeys(rTreeNow), '\nshould be', sortKeys(rTreeSolution));
 			localStorage.removeItem('rTree_' + this.series + '_' + this.index)
-			console.log('FAIL!!!!!!!!!!!! '+this.index);
+			console.log('FAIL!!!!!!!!!!!! ' + this.index);
 		} else {
-			console.log('*** correct! ',this.index,'***',sortKeys(rTreeNow))
+			console.log('*** correct! ', this.index, '***', sortKeys(rTreeNow))
 		}
 
 		return;
-		let rProcessed ={
-			lastSpec:R.lastSpec,
-			rTree:R.rNodes,
+		let rProcessed = {
+			lastSpec: R.lastSpec,
+			rTree: R.rNodes,
 			uiTree: uiNodesToUiTree(R.uiNodes),
-			oidNodes:R.oidNodes,
+			oidNodes: R.oidNodes,
 		};
 
 
 		for (const k of ['lastSpec', 'rTree', 'uiTree', 'oidNodes']) {
 			//console.log(this.solution)
-			
+
 			let changes = propDiffSimple(this.solution[k], rProcessed[k]);
 			if (changes.hasChanged) {
-				console.log('change:',k,'\nchanges',changes,'\nsolution',this.solution,'\nactual',R);
+				console.log('change:', k, '\nchanges', changes, '\nsolution', this.solution, '\nactual', R);
 			} else {
-				console.log('correct!',k)
+				console.log('correct!', k)
 			}
 		}
 
@@ -168,11 +168,19 @@ class TestEngine {
 
 }
 
-function uiNodesToUiTree(R){
+function sat() {
+	let R = T;
+	let rtree = normalizeRTree(R);
+	let sol = {};
+	sol[testEngine.index] = rtree;
+	downloadFile(sol, 'sol' + testEngine.index);
+}
+
+function uiNodesToUiTree(R) {
 	let uiTree = {};
-	for(const k in R.uiNodes){
-		let n=R.uiNodes[k];
-		uiTree[k]=jsCopyMinus(n,'act','ui','defParams','params');
+	for (const k in R.uiNodes) {
+		let n = R.uiNodes[k];
+		uiTree[k] = jsCopyMinus(n, 'act', 'ui', 'defParams', 'params');
 	}
 	return uiTree;
 }
@@ -180,7 +188,7 @@ function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
 
 function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
 
-function normalizeRTree(R){
+function normalizeRTree(R) {
 	let rTree = jsCopy(R.rNodes);
 
 	let first = R.tree.uid;
@@ -190,12 +198,12 @@ function normalizeRTree(R){
 	//prop = 'uid';
 	// recFindExecute(rTree, prop, x=>normalizeObjectProp(x,prop,num) );
 	//usage: safeRecurse(o, func, params, tailrec) 
-	safeRecurse(rTree, normalizeNode, num, false );
+	safeRecurse(rTree, normalizeNode, num, false);
 
 	let newRTree = {};
-	for(const k in rTree){
-		let kNew = normalizeVal(k,num);
-		newRTree[kNew]=rTree[k];
+	for (const k in rTree) {
+		let kNew = normalizeVal(k, num);
+		newRTree[kNew] = rTree[k];
 	}
 	rTree = newRTree;
 
@@ -203,34 +211,34 @@ function normalizeRTree(R){
 	//console.log('new',rTree);
 	return rTree;
 }
-function normalizeNode(o,num){
+function normalizeNode(o, num) {
 	//console.log('________',o,num)
 	//normalize uid
-	if (isdef(o.uid)) normalizeObjectProp(o,'uid',num);
+	if (isdef(o.uid)) normalizeObjectProp(o, 'uid', num);
 	//normalize children
-	if (isdef(o.children)){
+	if (isdef(o.children)) {
 		//console.log('has children',o.children)
-		o.children = o.children.map(x=>normalizeVal(x,num));
+		o.children = o.children.map(x => normalizeVal(x, num));
 		//console.log('has children',o.children)
-	} 
+	}
 	//normalize uidParent
-	if (isdef(o.uidParent)) normalizeObjectProp(o,'uidParent',num);
+	if (isdef(o.uidParent)) normalizeObjectProp(o, 'uidParent', num);
 	//console.log('result',o)
-	if (isdef(o.key) && startsWith(o.key,'sp_')){
+	if (isdef(o.key) && startsWith(o.key, 'sp_')) {
 		let val = o.key.substring(2);
-		o.key='sp'+ normalizeVal(val,num);
+		o.key = 'sp' + normalizeVal(val, num);
 	}
 }
-function normalizeObjectProp(o,prop,num){
+function normalizeObjectProp(o, prop, num) {
 	//console.log(o[prop])
-	o[prop]=normalizeVal(o[prop],num);
+	o[prop] = normalizeVal(o[prop], num);
 	//console.log(o)
 }
-function normalizeVal(val,num){
+function normalizeVal(val, num) {
 	let nval = firstNumber(val);
 	//console.log(val,num,nval,typeof nval);
-	nval-=num;
-	return '_'+nval;
+	nval -= num;
+	return '_' + nval;
 }
 
 

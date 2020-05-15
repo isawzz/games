@@ -8,9 +8,8 @@ function ensureRtree(R) {
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
 
-			//R.tree = rTreeStaticRoot(R.lastSpec.ROOT, 'ROOT', '.', null, R);
-			R.tree = recBuildRTree(R.lastSpec.ROOT, 'ROOT', '.', null, R.lastSpec, R);
-
+			//R.tree = recBuildRTree(R.lastSpec.ROOT, 'ROOT', '.', null, R.lastSpec, R);
+			R.tree = recTree(R.lastSpec.ROOT, null, R);
 			R.rNodes[R.tree.uid] = R.tree;
 		}
 
@@ -21,9 +20,11 @@ function ensureRtree(R) {
 function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
+
 	let defParams = jsCopy(R.defs);
 	defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
-	recBuildUiFromNode(n, area, R, defParams, null);
+	//recBuildUiFromNode(n, area, R, defParams, null);
+	recUi(n,area,R);
 }
 function addNewlyCreatedServerObjects(sdata, R) {
 	//console.log('_____________ addNewly...', sdata);

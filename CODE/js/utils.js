@@ -81,7 +81,7 @@ function calcContentFromData(oid, o, data, R) {
 function findAddress(kSelf, x, path) {
 	//x muss noch dem path folgen bis es bei der richtigen branch
 	//angekommen ist!
-	//let path = propList;
+	//let path = ppath;
 	let path1 = stringAfter(path, 'self');
 	path1 = kSelf + path1;
 	if (path1[0] != '.') path1 = '.' + path1;
@@ -201,7 +201,7 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
-function inferType(n, defType) { if (isdef(n.children)) return 'panel'; else return 'info'; }
+function inferType(n, defType='panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
 
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
@@ -396,12 +396,18 @@ const PARAMRSG_T = {
 };
 function decodeParams(n, R, defParams) {
 
+
+
 	console.assert(isdef(n.type), 'decodeParams NO TYPE!!!!')
-	console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
-	console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
-	// console.log('________ decodeParams for type',n.type);
-	//  console.log('n.params', n.params);
-	//  console.log('n.defParams', n.defParams);
+
+	// console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
+	// console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
+
+
+	if (nundef(n.params)) n.params = lookup(R.defs,[n.type,'params']);
+	//console.log('________ decodeParams for type',n.type);
+	// console.log('n.params', n.params);
+	// console.log('n.defParams', n.defParams);
 
 	let inherited = lookup(defParams, [n.type, 'params']);
 	let defaults = lookup(R.defs, [n.type, 'params']);
