@@ -1,8 +1,9 @@
 class TestEngine {
 	constructor() {
-		this.Dict = {};
+		this.Dict = {}; // {series: {}, specs: {}, solutions: {}};
 		this.series = null; //name of test dir
 		this.index = 0; //index of test case
+		this.autosave = false;
 	}
 	async init(buttonPrefix, defs, presentCallback) {
 		this.presentCallback = presentCallback;
@@ -27,10 +28,16 @@ class TestEngine {
 
 	}
 	loadNextTestCase(){this.loadTestCase(this.series,this.index+1);	}
+	loadPrevTestCase(){this.loadTestCase(this.series,this.index-1);	}
 	repeatTestCase(){this.loadTestCase(this.series,this.index);}
 	async loadTestCase(series, index) {
 		let di = this.Dict[series];
+
 		if (nundef(di)) { await this.loadSeries(series); di = this.Dict[series]; }
+
+		let numCases = Object.keys(di.specs).length;
+		if (index < 0) index = numCases - 1;
+		else if (index>=numCases) index = 0;
 
 		let spec = di.specs[index];
 		if (nundef(spec)) { index = 0; spec = di.specs[0]; }
@@ -53,35 +60,44 @@ class TestEngine {
 		//console.log('loading', path);
 		this.Dict[series] = {
 			specs: await loadYamlDict(path + '_spec.yaml'),
-			serverData: await loadYamlDict(path + 'server.yaml')
+			serverData: await loadYamlDict(path + 'server.yaml'),
+			solutions: await loadJsonDict(path + 'solution.json'),
 		};
 
+		console.log('solutions',this.Dict[series].solutions);
+		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions={};
 		//sowie in assets lade ich hier ein yaml dict 
 		//lade es jedesmal frisch weil ja aenderungen!!!!!!
 	}
 
-	saveLastSpec(R) { saveObject(R.lastSpec, 'lastSpec_' + this.series + '_' + this.index); }
-	saveRTree(R) { 
+	//saveLastSpec(R) { saveObject(R.lastSpec, 'lastSpec_' + this.series + '_' + this.index); }
+	saveRTree(R,download=false) { 
 		//console.log('saving',R.rNodes);
 		let r1=normalizeRTree(R);
-		//console.log('normalized',r1)
-		saveObject(r1, 'rTree_' + this.series + '_' + this.index); 
+		console.log('normalized',sortKeys(r1));
+		this.Dict[this.series].solutions[this.index] = r1;
+
+		if (download)	this.saveDict();
+
+		//saveObject(r1, 'rTree_' + this.series + '_' + this.index); 
 	}
-	saveUiTree(R) { 
-		saveObject(uiNodesToUiTree(R.uiNodes), 'uiTree_' + this.series + '_' + this.index); 
-	}
-	saveOidNodes(R) { saveObject(R.oidNodes, 'oidNodes_' + this.series + '_' + this.index); }
-	loadLastSpec() { return loadObject('lastSpec_' + this.series + '_' + this.index); }
+	saveDict(){downloadFile(this.Dict[this.series].solutions,'solution');}
+	//saveUiTree(R) { 
+	//	saveObject(uiNodesToUiTree(R.uiNodes), 'uiTree_' + this.series + '_' + this.index); 
+	//}
+	//saveOidNodes(R) { saveObject(R.oidNodes, 'oidNodes_' + this.series + '_' + this.index); }
+	//loadLastSpec() { return loadObject('lastSpec_' + this.series + '_' + this.index); }
 	loadRTree() { return loadObject('rTree_' + this.series + '_' + this.index); }
-	loadUiTree() { return loadObject('uiTree_' + this.series + '_' + this.index); }
-	loadOidNodes() { return loadObject('oidNodes_' + this.series + '_' + this.index); }
+	//loadUiTree() { return loadObject('uiTree_' + this.series + '_' + this.index); }
+	//loadOidNodes() { return loadObject('oidNodes_' + this.series + '_' + this.index); }
 
 	loadSolution() {
 		//let lastSpec = this.loadLastSpec();
 		//if (nundef(lastSpec)) { return null; }
-		let rTree = this.loadRTree();
 		//let uiTree = this.loadUiTree();
 		//let oidNodes = this.loadOidNodes();
+		// let rTree = this.loadRTree();
+		let rTree = this.Dict[this.series].solutions[this.index]; //loadRTree();
 
 		this.solution = {
 			//lastSpec: lastSpec,
@@ -91,6 +107,10 @@ class TestEngine {
 		};
 
 		return this.solution;
+	}
+	invalidate(){
+		//localStorage.removeItem('rTree_' + this.series + '_' + this.index);
+		delete this.Dict[this.series].solutions[this.index];
 	}
 	saveAsSolution(R) {
 		//this.saveLastSpec(R);
@@ -109,7 +129,7 @@ class TestEngine {
 
 		if (!solution.rTree) {
 			console.log('No solution available for test',this.series,this.index);
-			this.saveAsSolution(R);
+			if (this.autosave) this.saveAsSolution(R);
 			return;
 		}else{
 			//console.log('solution',this.solution.rTree);
@@ -117,9 +137,11 @@ class TestEngine {
 		let rTreeSolution = this.solution.rTree;
 		let changes = propDiffSimple(rTreeNow,rTreeSolution);
 		if (changes.hasChanged) {
-			console.log('PROBLEM!!!',sortKeys(rTreeNow),'\nshould be',sortKeys(rTreeSolution));
+			console.log('!!!!!!!!!!!!!!!PROBLEM!!! ',this.index,'!!!!!!!!!!!!!!!!\n',sortKeys(rTreeNow),'\nshould be',sortKeys(rTreeSolution));
+			localStorage.removeItem('rTree_' + this.series + '_' + this.index)
+			console.log('FAIL!!!!!!!!!!!! '+this.index);
 		} else {
-			console.log('correct!',sortKeys(rTreeNow))
+			console.log('*** correct! ',this.index,'***',sortKeys(rTreeNow))
 		}
 
 		return;
@@ -143,6 +165,7 @@ class TestEngine {
 		}
 
 	}
+
 }
 
 function uiNodesToUiTree(R){
@@ -193,6 +216,10 @@ function normalizeNode(o,num){
 	//normalize uidParent
 	if (isdef(o.uidParent)) normalizeObjectProp(o,'uidParent',num);
 	//console.log('result',o)
+	if (isdef(o.key) && startsWith(o.key,'sp_')){
+		let val = o.key.substring(2);
+		o.key='sp'+ normalizeVal(val,num);
+	}
 }
 function normalizeObjectProp(o,prop,num){
 	//console.log(o[prop])

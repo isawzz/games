@@ -1,6 +1,7 @@
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
 async function onClickNextTest() { testEngine.loadNextTestCase(); }
+async function onClickPrevTest() { testEngine.loadPrevTestCase(); }
 async function onClickRepeatTest() { testEngine.repeatTestCase(); }
 
 function onClickVerify() { testEngine.verify(T); }
@@ -13,7 +14,8 @@ async function doNext(series, index, mexIndex) {
 	recVerify(series, index + 1, maxIndex);
 }
 async function onClickVerifySoFar() {
-	console.log('______________ verify so far')
+	console.log('______________ verify so far');
+	testEngine.autosave = true;
 	clearElement(mBy('table'));
 	let series = testEngine.series;
 	let maxIndex = testEngine.index;
@@ -22,10 +24,11 @@ async function onClickVerifySoFar() {
 	console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, 1000);
 }
+function onClickInvalidate(){	testEngine.invalidate();}
 async function verNext(series, index, maxIndex) {
 
 	await testEngine.loadTestCase(series, index);
-	console.log('...completed', index);
+	//console.log('...completed', index);
 	updateOutput(T);
 
 
@@ -33,7 +36,12 @@ async function verNext(series, index, maxIndex) {
 	// 	let func = async () => { await verNext(series, index + 1, maxIndex); }
 	// 	await pollDOM(index, func);
 	// }
-	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, 1000);
+	let timeOUT = 500;
+	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, timeOUT);
+	else {
+		testEngine.autosave = false;
+		testEngine.saveDict();
+	}
 
 }
 function onClickSave() { testEngine.saveAsSolution(T); }

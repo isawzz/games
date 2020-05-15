@@ -260,9 +260,9 @@ function updateOutput(R) {
 		clearElement(area);
 	}
 
-	if (SHOW_SPEC) { presentNodes(R.sp, 'spec'); }
+	if (SHOW_SPEC) { presentNodes(R.sp, 'spec', ['_NODE']); }
 
-	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec'); }
+	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec', ['_NODE']); }
 
 	if (SHOW_UITREE) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,

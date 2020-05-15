@@ -1,0 +1,97 @@
+# 13:
+#   ROOT:
+#     _id: A
+#     _NODE: B
+#     params: 
+#       fg: yellow
+#   A:
+#     data: yellow
+#     params:
+#       fg: red
+#   B: 
+#     params:
+#       fg: blue
+#   C: 
+#     params:
+#       fg: silver
+#       bg: black
+# 12:
+#   ROOT:
+#     _NODE: [A,B,C]
+#     params: 
+#       fg: yellow
+#   A:
+#     data: yellow
+#     params:
+#       fg: red
+#   B: 
+#     params:
+#       fg: blue
+#   C: 
+#     params:
+#       fg: silver
+#       bg: black
+14:
+  ROOT:
+    _NODE: [A,B]
+    params: 
+      fg: yellow
+  A:
+    data: yellow
+    params:
+      fg: red
+  B: 
+    params:
+      fg: blue
+13:
+  ROOT:
+    _NODE: A
+    data: na geh!
+    params:
+      bg: black
+  A:
+    data: hallo
+    params:
+      fg: red
+12: #wird gemerged: _ref node override data and fg!
+  ROOT:
+    _id: A
+    _NODE: panel
+    params: 
+      bg: blue
+      fg: yellow
+  hallo:
+    _ref: A
+    data: WAAAaAAAAAS!
+    params:
+      fg: red
+  panel: # name matters!
+    params:
+      fg: blue
+11:
+  ROOT:
+    _NODE: [panel, sp_0]
+  sp_0:
+    data: WAAAaAAAAAS!
+    params:
+      bg: white
+      fg: red
+  panel: # name matters!
+    params:
+      fg: blue
+      font-size: 10
+10:
+  ROOT:
+    _NODE: sp_1
+  sp_1:
+    data: WAAAaAAAAAS!
+    params:
+      bg: white
+      fg: red
+      font-size: 10
+  panel: # name matters!
+    params:
+      fg: blue
+      font-size: 10
+
+

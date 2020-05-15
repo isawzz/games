@@ -1727,13 +1727,13 @@ function fireClick(node) {
 	if (document.createEvent) {
 		var evt = document.createEvent('MouseEvents');
 		evt.initEvent('click', true, false);
-		console.log('fireClick: createEvent and node.dispatchEvent exist!!!', node)
+		//console.log('fireClick: createEvent and node.dispatchEvent exist!!!', node)
 		node.dispatchEvent(evt);
 	} else if (document.createEventObject) {
-		console.log('fireClick: createEventObject and node.fireEvent exist!!!', node)
+		//console.log('fireClick: createEventObject and node.fireEvent exist!!!', node)
 		node.fireEvent('onclick');
 	} else if (typeof node.onclick == 'function') {
-		console.log('fireClick: node.onclick exists!!!', node)
+		//console.log('fireClick: node.onclick exists!!!', node)
 		node.onclick();
 	}
 }
@@ -1781,9 +1781,9 @@ function saveFileAtClient(name, type, data) {
 	// json_str = JSON.stringify(someObject);
 	// saveFileAtClient("yourfilename.json", "data:application/json", new Blob([json_str], {type: ""}));
 
-	console.log(navigator.msSaveBlob);
+	//console.log(navigator.msSaveBlob);
 	if (data != null && navigator.msSaveBlob) return navigator.msSaveBlob(new Blob([data], { type: type }), name);
-	console.log('still here!')
+	//console.log('still here!')
 	let a = document.createElement('a');
 	a.style.display = 'none';
 	let url = window.URL.createObjectURL(new Blob([data], { type: type }));

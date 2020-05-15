@@ -78,6 +78,18 @@ function calcContentFromData(oid, o, data, R) {
 	return null;
 
 }
+function findAddress(kSelf, x, path) {
+	//x muss noch dem path folgen bis es bei der richtigen branch
+	//angekommen ist!
+	//let path = propList;
+	let path1 = stringAfter(path, 'self');
+	path1 = kSelf + path1;
+	if (path1[0] != '.') path1 = '.' + path1;
+	//if (isEmpty(path1)) path1='spk';
+	//console.log('path', path, 'path1', path1);
+	let x1 = calcAddressWithin(x, path1);
+	return [x1.key, x1.obj];
+}
 function calcAddressWithin(o, addr, R) {
 
 	// ex: data: .player.name
@@ -194,6 +206,13 @@ function inferType(n, defType) { if (isdef(n.children)) return 'panel'; else ret
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
 function hasId(o) { return isdef(o._id); }
+
+function normalizeToList(n,prop){
+	let val=n[prop];
+	if (isdef(val) && !isList(val)) n[prop]=[val];
+}
+
+
 
 //#region merging types, _id, _ref helpers
 function check_id(specKey, node, R) {

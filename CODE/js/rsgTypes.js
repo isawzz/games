@@ -64,20 +64,30 @@ class RSG {
 						sub.push({ _NODE: uid });
 					}
 
+					//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
 					if (sub.length == 0) {
 						//no ref exists for this id! (in ALL of spec!!!!!)
 						//if name is name of spec node, replace by that name
 						//otherwise error!
 						if (isdef(this.lastSpec[name])) {
-							obj._NODE = name;
-							delete obj._id;
+							obj[key]._NODE = name; //!!!!!!!!!!!!
+							delete obj[key]._id;
 							console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.propList, name, obj);
+							alert('ERROR!!!!!!!!!')
 						} else {
 							console.log('_id without any reference or node!', id_entry.specKey, id_entry.propList, name, obj);
 						}
 						continue;
 					}
-					if (sub.length == 1) obj[key] = sub[0];
+
+
+					if (sub.length == 1) {
+						if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
+							let x = obj[key]._NODE;
+							obj[key]._NODE = [x, sub[0]._NODE];
+							console.log('resulting obj', obj[key])
+						} else obj[key] = sub[0];
+					}
 					else obj[key] = { sub: sub };
 
 				}
@@ -90,6 +100,20 @@ class RSG {
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;
 	}
+	genNODE(genKey = 'G') {
+		let gen = jsCopy(this.lastSpec);
+
+		for (const k in gen) {
+			//usage: safeRecurse(o, func, params, tailrec) 
+			safeRecurse(gen[k], normalizeToList, '_NODE', true);
+		}
+
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = gen.ROOT;
+		//console.log(gen)
+	}
+
 	init() {
 		this.places = {};
 		this.refs = {};
@@ -272,18 +296,6 @@ function createUi(n, area, R, defParams) {
 	R.setUid(n, ui);
 	return ui;
 
-}
-function findAddress(kSelf, x, path) {
-	//x muss noch dem path folgen bis es bei der richtigen branch
-	//angekommen ist!
-	//let path = propList;
-	let path1 = stringAfter(path, 'self');
-	path1 = kSelf + path1;
-	if (path1[0] != '.') path1 = '.' + path1;
-	//if (isEmpty(path1)) path1='spk';
-	//console.log('path', path, 'path1', path1);
-	let x1 = calcAddressWithin(x, path1);
-	return [x1.key, x1.obj];
 }
 function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
 function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }

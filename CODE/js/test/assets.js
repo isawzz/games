@@ -51,9 +51,9 @@ async function loadGameInfo(useAllGamesStub = true) {
 				num_players: [2, 3, 4, 5],
 				player_names: ['Player1', 'Player2', 'Player3', 'Player4', 'Player5'],
 			}
-		
+
 		};
-	
+
 	} else {
 		allGamesC = await vidCache.load('allGames', route_allGames);
 		allGames = vidCache.asDict('allGames');
@@ -71,16 +71,16 @@ async function loadGameInfo(useAllGamesStub = true) {
 async function loadSpec(path) {
 	if (TESTING) {
 
-		let url = DSPEC_PATH + '.yaml'; 
+		let url = DSPEC_PATH + '.yaml';
 		defaultSpecC = await vidCache.load('defaultSpec', async () => await route_path_yaml_dict(url), true, false);// last 2 params: reload, useLocal
 
-		url = (isdef(path)?path: SPEC_PATH) + '.yaml';
+		url = (isdef(path) ? path : SPEC_PATH) + '.yaml';
 		if (USE_NON_TESTING_DATA) url = '/games/' + GAME + '/_rsg/' + GAME + VERSION + '.yaml';
 		userSpecC = await vidCache.load('userSpec', async () => await route_test_userSpec(url), true, false);// last 2 params: reload, useLocal
 
 	} else {
 
-		url = DSPEC_PATH + '.yaml'; 
+		url = DSPEC_PATH + '.yaml';
 		//url = TEST_PATH + 'defaultSpec' + DSPEC_VERSION + '.yaml'; //always the same default spec!
 		defaultSpecC = await vidCache.load('defaultSpec', async () => await route_path_yaml_dict(url), !CACHE_DEFAULTSPEC, CACHE_DEFAULTSPEC);// last 2 params: reload, useLocal
 
@@ -131,7 +131,7 @@ async function loadInitialServerData(unameStarts) {
 	_syncUsernameOfSender(unameStarts);
 
 	if (TESTING) {
-		let url = SERVERDATA_PATH+ '.yaml';
+		let url = SERVERDATA_PATH + '.yaml';
 		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_path_yaml_dict(url), true, false); // last 2 params: reload, useLocal
 	} else {
 		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_initGame(GAME, playerConfig[GAME], USERNAME), !CACHE_INITDATA, CACHE_INITDATA); // last 2 params: reload, useLocal 
@@ -166,8 +166,8 @@ async function sendAction(boat, username) {
 		serverData = result;
 	}
 }
-async function loadYamlDict(url){ return await route_path_yaml_dict(url);}
-
+async function loadYamlDict(url) { return await route_path_yaml_dict(url); }
+async function loadJsonDict(url) { return await route_path_json_dict(url); }
 // serverData helpers
 //ACHTUNG!!! die player obj_types sind variable!!!
 function preProcessData(data) {
@@ -332,7 +332,7 @@ async function route_userSpec(game, fname) {
 		let spec = jsyaml.load(text);
 		spec.asText = text;
 		return spec;
-	} catch(error){
+	} catch (error) {
 		return { asText: '' }; //empty spec!
 	}
 }
@@ -342,7 +342,7 @@ async function route_test_userSpec(url) {
 		let spec = jsyaml.load(text);
 		spec.asText = text;
 		return spec;
-	} catch(error){
+	} catch (error) {
 		return { asText: '' }; //empty spec!
 	}
 }
@@ -353,7 +353,7 @@ async function route_userCode(game, fname) {
 		let text = await route_server_text(url);
 
 		return { asText: text };
-	} catch(error){ return {}; }
+	} catch (error) { return {}; }
 
 }
 async function route_initGame(game, gc, username, seed = SEED) {
@@ -400,6 +400,12 @@ async function route_path_yaml_dict(url) {
 	let dict = jsyaml.load(text);
 	return dict;
 }
+async function route_path_json_dict(url) {
+	let data = await fetch_wrapper(url);
+	let json = await data.json();
+	//let dict = jsyaml.load(text);
+	return json;
+}
 async function route_path_text(url) {
 	let data = await fetch_wrapper(url);
 	return await data.text();
@@ -434,12 +440,44 @@ async function postData(url = '', data = {}) {
 async function route_server(url) { await fetch_wrapper(SERVER + url); }
 
 var route_counter = 0;
+async function fetch_wrapper_NO(url) {
+	route_counter += 1;
+	if (SHOW_SERVER_ROUTE) consOutput(route_counter + ': route:' + url);
+	let res = await fetch(url).then((response) => {
+		if (response.status === 200) {
+			if (SHOW_SERVER_RETURN) consOutput(route_counter + ': return:', response);
+			//return response;
+			// return response.json();
+		} else {
+			throw new Error('Something went wrong');
+			//return "ERROR";
+		}
+	}).catch((error) => {
+		console.log(error)
+	});
+	return res;
+	// .then((responseJson) => {
+	// 	// Do something with the response
+	// })
+	// .catch((error) => {
+	// 	console.log(error)
+	// });
+}
 async function fetch_wrapper(url) {
 	route_counter += 1;
 	if (SHOW_SERVER_ROUTE) consOutput(route_counter + ': route:' + url);
 	let res = await fetch(url);
 	if (SHOW_SERVER_RETURN) consOutput(route_counter + ': return:', res);
 	return res;
+	// try {
+	// 	let res = await fetch(url);
+	// 	if (SHOW_SERVER_RETURN) consOutput(route_counter + ': return:', res);
+	// 	return res;
+
+	// } catch (err) {
+	// 	console.log('FETCH ERROR:', err)
+	// 	return {};
+	// }
 }
 
 // caches & consts: playerColors, THEMES, iTHEME
