@@ -405,6 +405,7 @@ function decodeParams(n, R, defParams) {
 
 
 	if (nundef(n.params)) n.params = lookup(R.defs,[n.type,'params']);
+	if (!n.params) n.params={};
 	//console.log('________ decodeParams for type',n.type);
 	// console.log('n.params', n.params);
 	// console.log('n.defParams', n.defParams);

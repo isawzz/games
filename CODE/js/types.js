@@ -1,3 +1,10 @@
+function mInvisible(n, dParent, R) {
+	let d=mDiv(dParent);
+	d.innerHTML=n.uid;
+	return d;
+}
+
+
 function mInfo(n, dParent, R) {
 
 
@@ -177,6 +184,7 @@ function isGridType(t) { return t == 'grid'; }
 
 
 const RCREATE = {
+	invisible: mInvisible,
 	info: mInfo,
 	list: mList,
 	card: mCard,

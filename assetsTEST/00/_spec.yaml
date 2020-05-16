@@ -1,22 +1,13 @@
-# 16:
-#   ROOT:
-#     _id: A
-#     sub:
-#     - _NODE: sp_1
-#       data: hallo
-#   hallo1:
-#     data: wieso
-#     _ref: A
-#   hallo2:
-#     _ref: B
-#     params:
-#       fg: red
+17:
+  ROOT:
+    cond: all
+    data: .oid
 16:
   ROOT:
     _id: A
     sub:
-    - _id: B
-      data: hallo
+      - _id: B
+        data: hallo
   hallo1:
     data: wieso
     _ref: A
@@ -24,12 +15,10 @@
     _ref: B
     params:
       fg: red
-
-
 15:
   ROOT:
     _NODE: [B, A]
-    params: 
+    params:
       fg: yellow
   A:
     data: yellow
@@ -38,27 +27,27 @@
   B:
     data: green
     sub:
-      - _NODE: A 
+      - _NODE: A
       - data: white
     params:
       fg: blue
-  C: 
+  C:
     params:
       fg: silver
       bg: black
 14:
   ROOT:
-    _NODE: [A,B,C]
-    params: 
+    _NODE: [A, B, C]
+    params:
       fg: yellow
   A:
     data: yellow
     params:
       fg: red
-  B: 
+  B:
     params:
       fg: blue
-  C: 
+  C:
     params:
       fg: silver
       bg: black
@@ -76,7 +65,7 @@
   ROOT:
     _id: A
     _NODE: panel
-    params: 
+    params:
       bg: blue
       fg: yellow
   hallo:
@@ -90,7 +79,7 @@
       font-size: 24
 11: #erst A, dann B, dann node itself!
   ROOT:
-    _NODE: [A,B]
+    _NODE: [A, B]
     data: RICHTIG!
     params:
       fg: red
@@ -116,7 +105,7 @@
     data: NEIN!
     params:
       fg: red
-9: 
+9:
   ROOT:
     _id: A
     data: hallo
@@ -134,7 +123,7 @@
   hallo:
     _ref: A
     data: YES!
-7: 
+7:
   ROOT:
     sub:
       - data: 1
@@ -152,7 +141,7 @@
     data: 2
     params:
       fg: red
-6: 
+6:
   ROOT:
     sub:
       - data: 1
@@ -162,7 +151,7 @@
     _NODE: B
   B:
     data: 2
-5: 
+5:
   ROOT:
     sub:
       - data: 1
@@ -185,9 +174,9 @@
     sub:
       - data: 1
       - sub:
-        - data: 1.1
-        - sub:
-          - data: 1.1.1
+          - data: 1.1
+          - sub:
+              - data: 1.1.1
 2:
   ROOT:
     sub:
@@ -204,12 +193,3 @@
 0:
   ROOT:
     data: HALLO
-
-
-
-
-
-
-
-
-

@@ -41,13 +41,15 @@ async function _start() {
 
 	// SPEC, DEFS, sData in place for parsing spec!
 
-	_entryPoint();
+	_entryPoint(DEFS,SPEC, sData);
 }
 //#endregion
-function _entryPoint() {
+function _entryPoint(defs,spec, sdata) {
 	//present00(DEFS,SPEC, sData);
 	//localStorage.clear();
-	testEngine.init('btnTest', DEFS, present00)
+	//console.log(sdata);
+	//return;
+	testEngine.init('btnTest', defs, sdata, present00)
 
 	//console.log(normalizeUid('_23',23));
 }
@@ -70,9 +72,9 @@ function present00(sp, defaults, sdata) {
 	addNewlyCreatedServerObjects(sdata, R);
 	updateOutput(R);
 
-	for (let i = 0; i < 5; i++) testAddObject(R);
-	updateOutput(R);
-	activateUis(R);
+	//for (let i = 0; i < 5; i++) testAddObject(R);
+	//updateOutput(R);
+	//activateUis(R);
 
 	testEngine.verify(R)
 	//console.log(R.tree);

@@ -40,7 +40,7 @@ class RSG {
 		let orig = this.lastSpec;
 		let gen = jsCopy(this.lastSpec);
 
-		console.log(this.places);
+		//console.log(this.places);
 		//how to get all places within a spec node?
 		let byNode = {};
 		for (const name in this.places) {
@@ -53,7 +53,7 @@ class RSG {
 				}
 			}
 		}
-		console.log('byNode', byNode);
+		//console.log('byNode', byNode);
 		for (const spk in byNode) {
 			let arr = byNode[spk];
 			console.log('arr', arr)
@@ -328,9 +328,27 @@ function createUi(n, area, R, defParams) {
 	return ui;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
 function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
 function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
+
+
+
+
 function mergeChildrenWithRefs(n, R) {
 	for (const k in n) {
 		//muss eigentlich hier nur die containerProp checken!

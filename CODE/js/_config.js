@@ -12,6 +12,9 @@ var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
 var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
 
+//===> *** USE THIS WHEN WORKING WITH testEngine! ***
+var SERVERDATA_PATH = '/assetsTEST/00/server'; // 00
+
 var SHOW_SPEC = true; // true | false
 var SHOW_LASTSPEC = true; // true | false
 var SHOW_RTREE = true; // true | false

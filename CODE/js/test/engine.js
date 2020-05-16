@@ -5,10 +5,11 @@ class TestEngine {
 		this.index = 0; //index of test case
 		this.autosave = false;
 	}
-	async init(buttonPrefix, defs, presentCallback) {
+	async init(buttonPrefix, defs, sdata, presentCallback) {
 		this.presentCallback = presentCallback;
 		this.buttonPrefix = buttonPrefix;
 		this.defs = defs;
+		this.sdata = sdata;
 		let series = localStorage.getItem('testSeries');
 		if (nundef(series)) series = '00';
 		let index = localStorage.getItem('testIndex');
@@ -60,7 +61,7 @@ class TestEngine {
 		//console.log('loading', path);
 		this.Dict[series] = {
 			specs: await loadYamlDict(path + '_spec.yaml'),
-			serverData: await loadYamlDict(path + 'server.yaml'),
+			serverData: this.sdata, // await loadYamlDict(path + 'server.yaml'),
 			solutions: await loadJsonDict(path + 'solution.json'),
 		};
 

@@ -2,6 +2,8 @@
 function recTree(n, rParent, R, oid, key) {
 	CYCLES += 1; if (CYCLES > MAX_CYCLES) return;
 	console.log('***recBuildTree input:', '\nn', n, '\rParent', rParent)
+	let uid=getUID();
+	let n1={};
 
 	// let n1 = {uid:getUID(),uidParent:rParent ? rParent.uid : null};
 	let expandProp = '_NODE'; let nodeName = n[expandProp];
@@ -21,6 +23,10 @@ function recTree(n, rParent, R, oid, key) {
 			//TODO!!! wenn cond cases reinnehme
 			//kann noch nicht mergen weil keine info ueber objects habe: spaeter!
 			//trag irgendwie in loc ein
+			lookupAddToList(R.Locations, [nodeName], uid);
+			n1.here = nodeName; 	//adds a 'here' for key
+			if (nundef(n.data)) n1.type='invisible';
+
 		}
 	} else if (isList(nodeName)) {
 		console.log('found _NODE list', nodeName);
@@ -47,9 +53,9 @@ function recTree(n, rParent, R, oid, key) {
 		//n1=branch;
 	}
 
-	let n1 = jsCopy(n);
+	n1 = deepmergeOverride(n,n1);
 	if (isdef(n1.sub)) delete n1.sub;
-	n1.uid = getUID();
+	n1.uid = uid;
 	n1.uidParent = rParent ? rParent.uid : null;
 	if (isdef(oid)) n1.oid = oid;
 

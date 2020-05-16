@@ -1,17 +1,52 @@
-# 13:
-#   ROOT:
-#     _id: A
-#     _NODE: B
-#     params: 
-#       fg: yellow
-#   A:
-#     data: yellow
-#     params:
-#       fg: red
-#   B: 
-#     params:
-#       fg: blue
-#   C: 
-#     params:
-#       fg: silver
-#       bg: black
+17:
+  ROOT:
+    sub:
+      - _id: O
+      - _id: P
+
+  O_info:
+    _ref: O
+    cond:
+      no_spec: true
+      obj_type: card
+    data: .short_name
+
+  P_ELM:
+    _ref: p_elm
+    sub:
+      - type: title
+        data: .name
+    params:
+      bg: .color
+
+  P_info:
+    _ref: P
+    _id: p_elm
+    cond:
+      instanceof: _player
+    data: .name
+    params:
+      bg: .color
+
+  panel_data:
+    _ref: panel
+    params:
+      bg: inherit
+      fg: contrast
+      font-size: 24
+      padding: 4
+      margin: 4
+      orientation: h
+      split: equal
+      border-radius: 10
+      align-items: center
+      justify-content: space-evenly
+      align-content: space-evenly
+      justify-items: flex-start
+
+  info_data:
+    _ref: info
+    params:
+      bg: random
+      fg: contrast
+      font: 16px Comic Sans MS

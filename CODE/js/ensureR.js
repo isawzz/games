@@ -3,7 +3,7 @@ function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
 
 		if (isdef(R.lastSpec.ROOT.cond)) {
-			R.tree = {uid:getUID(),uidParent:null,key:'ROOT',path:'.'};
+			R.tree = {uid:getUID(),uidParent:null,here:'ROOT',type:'invisible'}; //,key:'ROOT',path:'.'};
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
@@ -45,6 +45,9 @@ function addNewlyCreatedServerObjects(sdata, R) {
 		removeInPlace(locOids, oid); //remove it from locOids
 		if (isEmpty(locOids)) break;
 	}
+
+
+
 	recAdjustDirtyContainers(R.tree.uid, R);
 }
 function recAdjustDirtyContainers(uid, R, verbose = false) {

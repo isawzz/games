@@ -1,11 +1,8 @@
 function recUi(n, area, R, oid, key) {
 
 	// *** n is rNode ***
-
 	//just take rNode and make ui node
-
 	//rNode can have a cond - deal with that later!
-
 	//basically just eval data and params
 
 	let n1 = jsCopy(n);
@@ -15,7 +12,7 @@ function recUi(n, area, R, oid, key) {
 	n1.ui = createUi(n1, area, R, {});
 
 	R.uiNodes[n1.uid] = n1;
-	console.log(R.uiNodes);
+	//console.log(R.uiNodes);
 
 	if (R.isUiActive) n1.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 
@@ -27,6 +24,5 @@ function recUi(n, area, R, oid, key) {
 	}
 
 	return n1;
-
 
 }

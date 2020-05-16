@@ -25,7 +25,10 @@ function addOidByLocProperty(oid, key, R) {
 		}
 		for (const uidParent of parents) {
 			//console.log('oid', oid, 'key', key, 'uidParent', uidParent)
-			instantiateOidKeyAtParent(oid, key, uidParent, R);
+			
+			//instantiateOidKeyAtParent(oid, key, uidParent, R);
+
+			instantOidKey(oid,key,uidParent,R);
 		}
 	}
 }
@@ -36,7 +39,12 @@ function addOidByParentKeyLocation(oid, key, R) {
 	let parents = R.Locations[key]; //for now just 1 allowed!!!!!!!!!!
 	//console.log('found parents:',parents)
 	if (nundef(parents)) return;
-	for (const uidParent of parents) { instantiateOidKeyAtParent(oid, key, uidParent, R); }
+	for (const uidParent of parents) { 
+		// instantiateOidKeyAtParent(oid, key, uidParent, R); 
+
+		instantOidKey(oid,key,uidParent,R);
+	
+	}
 }
 function change_parent_type_if_needed(n, R) {
 
