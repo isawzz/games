@@ -1,6 +1,97 @@
-11:
+# 16:
+#   ROOT:
+#     _id: A
+#     sub:
+#     - _NODE: sp_1
+#       data: hallo
+#   hallo1:
+#     data: wieso
+#     _ref: A
+#   hallo2:
+#     _ref: B
+#     params:
+#       fg: red
+16:
+  ROOT:
+    _id: A
+    sub:
+    - _id: B
+      data: hallo
+  hallo1:
+    data: wieso
+    _ref: A
+  hallo2:
+    _ref: B
+    params:
+      fg: red
+
+
+15:
+  ROOT:
+    _NODE: [B, A]
+    params: 
+      fg: yellow
+  A:
+    data: yellow
+    params:
+      fg: red
+  B:
+    data: green
+    sub:
+      - _NODE: A 
+      - data: white
+    params:
+      fg: blue
+  C: 
+    params:
+      fg: silver
+      bg: black
+14:
+  ROOT:
+    _NODE: [A,B,C]
+    params: 
+      fg: yellow
+  A:
+    data: yellow
+    params:
+      fg: red
+  B: 
+    params:
+      fg: blue
+  C: 
+    params:
+      fg: silver
+      bg: black
+13:
+  ROOT:
+    _NODE: A
+    data: na geh!
+    params:
+      bg: black
+  A:
+    data: hallo
+    params:
+      fg: red
+12: #wird gemerged: _ref node override data and fg!
+  ROOT:
+    _id: A
+    _NODE: panel
+    params: 
+      bg: blue
+      fg: yellow
+  hallo:
+    _ref: A
+    data: CORRECT!!
+    params:
+      fg: red
+  panel: # name matters!
+    params:
+      fg: blue
+      font-size: 24
+11: #erst A, dann B, dann node itself!
   ROOT:
     _NODE: [A,B]
+    data: RICHTIG!
     params:
       fg: red
   A:

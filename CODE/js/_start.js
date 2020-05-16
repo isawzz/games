@@ -57,7 +57,11 @@ function present00(sp, defaults, sdata) {
 	// updateOutput(R);
 
 	ensureRtree(R); //make sure static tree has been built! OK!
+	
 	//updateOutput(R);
+
+	//return;
+
 	R.baseArea = 'table';
 	createStaticUi(R.baseArea, R);
 	updateOutput(R);

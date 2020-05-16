@@ -40,61 +40,91 @@ class RSG {
 		let orig = this.lastSpec;
 		let gen = jsCopy(this.lastSpec);
 
+		console.log(this.places);
+		//how to get all places within a spec node?
+		let byNode = {};
 		for (const name in this.places) {
 			let idByName = this.places[name];
 			for (const spk in idByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
-				for (const id_entry of idByName[spk]) {
-					//let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
-					//console.log(id_entry);
+				let list = idByName[spk];
+				console.log(list, typeof list);
+				for (const el of list) {
+					lookupAddToList(byNode, [spk], el);
+				}
+			}
+		}
+		console.log('byNode', byNode);
+		for (const spk in byNode) {
+			let arr = byNode[spk];
+			console.log('arr', arr)
+			sortByFuncDescending(arr, x => x.ppath.length);
+			console.log('sorted', arr);
+		}
 
-					let [key, obj] = findAddress(spk, gen, id_entry.ppath);
+		for (const spk in byNode) {
+			let idlistByNode = byNode[spk];
+			for (const id_entry of idlistByNode) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+				let name = id_entry.idName;
+				//let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
+				//console.log(id_entry);
 
-					let sub = [];
-					//foreach existing ref to name 
-					let refs = this.refs[name];
-					for (const refSpecKey in refs) {
-						let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
-						//console.log('ref_entry',ref_entry);
-						let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
-						//console.log('merged',merged);
-						delete merged._ref;
-						delete merged._id;
-						let uid = getUID('sp');
-						gen[uid] = merged;
-						sub.push({ _NODE: uid });
-					}
+				console.log('calling findAddress', spk, gen, id_entry.ppath);
+				let [key, obj] = findAddress(spk, gen, id_entry.ppath);
 
-					//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
-					if (sub.length == 0) {
-						//no ref exists for this id! (in ALL of spec!!!!!)
-						//if name is name of spec node, replace by that name
-						//otherwise error!
-						if (isdef(this.lastSpec[name])) {
-							obj[key]._NODE = name; //!!!!!!!!!!!!
-							delete obj[key]._id;
-							console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
-							alert('ERROR!!!!!!!!!')
-						} else {
-							console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
-						}
-						continue;
-					}
+				let sub = [];
+				//foreach existing ref to name 
+				let refs = this.refs[name];
+				for (const refSpecKey in refs) {
+					let ref_entry = refs[refSpecKey][0]; // for now only allow UNIQUE _ref to same name in same spec node!!!
+					//console.log('ref_entry',ref_entry);
+
+					let idnode = obj[key];
+					//idnode = safeMerge(idnode,id_entry.node);
+					console.log('idnode',idnode)
+					let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+
+					//orig!
+					//let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
 
 
-					if (sub.length == 1) {
-						if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
-							let x = obj[key]._NODE;
-							obj[key]._NODE = [x, sub[0]._NODE];
-							console.log('resulting obj', obj[key])
-						} else obj[key] = sub[0];
-					}
-					else obj[key] = { sub: sub };
-
+					console.log('merged',merged);
+					delete merged._ref;
+					delete merged._id;
+					let uid = getUID('sp');
+					gen[uid] = merged;
+					sub.push({ _NODE: uid });
 				}
 
+				//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
+				if (sub.length == 0) {
+					//no ref exists for this id! (in ALL of spec!!!!!)
+					//if name is name of spec node, replace by that name
+					//otherwise error!
+					if (isdef(this.lastSpec[name])) {
+						obj[key]._NODE = name; //!!!!!!!!!!!!
+						delete obj[key]._id;
+						console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
+						alert('SPEC ERROR! =>please replace _id:' + name + ' by _NODE:', name);
+					} else {
+						console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
+					}
+					continue;
+				}
+
+				console.log(obj, key, name)
+
+				if (sub.length == 1) {
+					if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
+						let x = obj[key]._NODE;
+						obj[key]._NODE = [x, sub[0]._NODE];
+						console.log('resulting obj', obj[key])
+					} else obj[key] = sub[0];
+				}
+				else obj[key] = { sub: sub };
 			}
 			//hiermit is _id:name abgebaut fuer alle refs darauf!
 		}
+
 		//console.log('_________GEN:',gen);
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
@@ -166,7 +196,7 @@ class RSG {
 
 	//#region helpers
 	addToPlaces(specKey, placeName, ppath, node) {
-		lookupAddToList(this.places, [placeName, specKey], 
+		lookupAddToList(this.places, [placeName, specKey],
 			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
 	addToRefs(specKey, placeName, ppath, node) {
