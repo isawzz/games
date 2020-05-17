@@ -1,4 +1,4 @@
-function recBuildRTree_orig(n, key, path, parent, sp, R, oid) {
+function recBuildRTree(n, key, path, parent, sp, R, oid) {
 	CYCLES += 1; if (CYCLES > MAX_CYCLES) return;
 	//console.log('***',n,path,parent,sp)
 	let n1 = { uid: getUID(), key: key, uidParent: parent ? parent.uid : null, path: path };

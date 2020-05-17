@@ -1,3 +1,28 @@
+19:
+  ROOT:
+    data: Tic Tac Toe
+    params:
+      orientation: v
+    sub:
+      - _id: A
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: Board
+    type: grid
+  tick:
+    cond: all
+    data: .oid
+
+18:
+  ROOT:
+    cond: 
+      obj_type: Board
+    type: grid
+  tick:
+    cond: all
+    data: .oid
+
 17:
   ROOT:
     cond: all

@@ -18,7 +18,7 @@ function instantOidKey(oid, key, uidParent, R) {
 
 	rtreeParent.children.push(n1.uid);
 	
-
+	return n1;
 
 }
 

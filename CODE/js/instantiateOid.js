@@ -1,9 +1,9 @@
 function instantiateOidKeyAtParent(oid, key, uidParent, R) {
-	console.log('>>>>>instantiate', oid, 'using', key, 'at', uidParent, '\nrParent', R.rNodes[uidParent], '\nuiParent', R.uiNodes[uidParent]);
+	//console.log('>>>>>instantiate', oid, 'using', key, 'at', uidParent, '\nrParent', R.rNodes[uidParent], '\nuiParent', R.uiNodes[uidParent]);
 
 	let rtreeParent = R.rNodes[uidParent];
 
-	console.log('rTreeParent',rTreeParent);
+	//console.log('rtreeParent',rtreeParent);
 
 	//return;
 	if (nundef(rtreeParent.children)) {

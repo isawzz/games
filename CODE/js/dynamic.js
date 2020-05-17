@@ -4,7 +4,7 @@ function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
 	R.addObject(oid, o);
 	addRForObject(oid, R);
 
-	if (skipEinhaengen) { return; } else { einhaengen(oid, o, R); }
+	if (skipEinhaengen) { return; } else { einhaengen0(oid, o, R); }
 }
 function addRForObject(oid, R) {
 	let o = R.getO(oid);

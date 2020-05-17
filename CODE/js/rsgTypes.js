@@ -47,7 +47,7 @@ class RSG {
 			let idByName = this.places[name];
 			for (const spk in idByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
 				let list = idByName[spk];
-				console.log(list, typeof list);
+				//console.log(list, typeof list);
 				for (const el of list) {
 					lookupAddToList(byNode, [spk], el);
 				}
@@ -56,9 +56,9 @@ class RSG {
 		//console.log('byNode', byNode);
 		for (const spk in byNode) {
 			let arr = byNode[spk];
-			console.log('arr', arr)
+			//console.log('arr', arr)
 			sortByFuncDescending(arr, x => x.ppath.length);
-			console.log('sorted', arr);
+			//console.log('sorted', arr);
 		}
 
 		for (const spk in byNode) {
@@ -68,7 +68,7 @@ class RSG {
 				//let id_entry = idByName[spk][0]; //MUST BE UNIQUE!!! does NOT need to be a list!!!
 				//console.log(id_entry);
 
-				console.log('calling findAddress', spk, gen, id_entry.ppath);
+				//console.log('calling findAddress', spk, gen, id_entry.ppath);
 				let [key, obj] = findAddress(spk, gen, id_entry.ppath);
 
 				let sub = [];
@@ -80,14 +80,14 @@ class RSG {
 
 					let idnode = obj[key];
 					//idnode = safeMerge(idnode,id_entry.node);
-					console.log('idnode',idnode)
+					//console.log('idnode',idnode)
 					let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
 
 					//orig!
 					//let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
 
 
-					console.log('merged',merged);
+					//console.log('merged',merged);
 					delete merged._ref;
 					delete merged._id;
 					let uid = getUID('sp');
@@ -111,13 +111,13 @@ class RSG {
 					continue;
 				}
 
-				console.log(obj, key, name)
+				//console.log(obj, key, name)
 
 				if (sub.length == 1) {
 					if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
 						let x = obj[key]._NODE;
 						obj[key]._NODE = [x, sub[0]._NODE];
-						console.log('resulting obj', obj[key])
+						//console.log('resulting obj', obj[key])
 					} else obj[key] = sub[0];
 				}
 				else obj[key] = { sub: sub };

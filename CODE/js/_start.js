@@ -60,7 +60,7 @@ function present00(sp, defaults, sdata) {
 
 	ensureRtree(R); //make sure static tree has been built! OK!
 	
-	//updateOutput(R);
+	updateOutput(R);
 
 	//return;
 
@@ -316,7 +316,7 @@ function updateOutput(R) {
 	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
 	let handCounted = R.ROOT.data;
 	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
-	console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
+	//console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
 
 
 
