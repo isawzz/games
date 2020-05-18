@@ -44,16 +44,21 @@ async function _start() {
 	_entryPoint(DEFS,SPEC, sData);
 }
 //#endregion
-function _entryPoint(defs,spec, sdata) {
+async function _entryPoint(defs,spec, sdata) {
+
+
+	//testSolutionConverter();	return;
+
 	//present00(DEFS,SPEC, sData);
 	//localStorage.clear();
 	//console.log(sdata);
 	//return;
-	testEngine.init('btnTest', defs, sdata, present00)
+	await testEngine.init(defs,sdata,'00'); //'btnTest', defs, sdata, present00)
+	await present00(testEngine.spec,testEngine.defs,testEngine.sdata);
 
 	//console.log(normalizeUid('_23',23));
 }
-function present00(sp, defaults, sdata) {
+async function present00(sp, defaults, sdata) {
 	//localStorage.clear(); 
 	T = R = new RSG(sp, defaults, sdata);
 	// updateOutput(R);
@@ -80,6 +85,7 @@ function present00(sp, defaults, sdata) {
 	//console.log(R.tree);
 	//normalizeObjectProp(R.tree,'uid',-20);
 	//normalizeRTree(R)
+	//satall();
 }
 
 

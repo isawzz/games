@@ -1,94 +1,90 @@
 {
-	"19": {
-		"_1": {
-			"_NODE": "sp_1",
-			"here": "sp_1",
-			"type": "invisible",
-			"uid": "_1",
-			"uidParent": "_0",
-			"children": [
-				"_7"
-			]
-		},
+	" 19 ": {
 		"_0": {
+			"children": [
+				"_1"
+			],
 			"data": "Tic Tac Toe",
 			"params": {
 				"orientation": "v"
 			},
 			"uid": "_0",
-			"uidParent": null,
+			"uidParent": null
+		},
+		"_1": {
+			"_NODE": "sp_-1",
 			"children": [
-				"_1"
-			]
+				"_7"
+			],
+			"here": "sp_-1",
+			"type": "invisible",
+			"uid": "_1",
+			"uidParent": "_0"
 		},
 		"_7": {
-			"uid": "_7",
-			"key": "sp_-1",
-			"uidParent": "_1",
-			"path": ".",
-			"oid": "9",
 			"children": [
 				"_8",
 				"_9"
-			]
+			],
+			"key": "sp_-1",
+			"oid": "9",
+			"path": ".",
+			"uid": "_7",
+			"uidParent": "_1"
 		},
 		"_8": {
-			"uid": "_8",
-			"uidParent": "_7",
+			"key": "tick",
 			"oid": "0",
 			"path": ".",
-			"key": "tick"
+			"uid": "_8",
+			"uidParent": "_7"
 		},
 		"_9": {
-			"uid": "_9",
-			"uidParent": "_7",
+			"key": "tick",
 			"oid": "1",
 			"path": ".",
-			"key": "tick"
+			"uid": "_9",
+			"uidParent": "_7"
 		}
 	},
-	"18": {
+	" 18 ": {
 		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"here": "ROOT",
-			"type": "invisible",
 			"children": [
 				"_5"
-			]
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
 		},
 		"_5": {
-			"uid": "_5",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".",
-			"oid": "9",
 			"children": [
 				"_6",
 				"_7"
-			]
+			],
+			"key": "ROOT",
+			"oid": "9",
+			"path": ".",
+			"uid": "_5",
+			"uidParent": "_0"
 		},
 		"_6": {
-			"uid": "_6",
-			"uidParent": "_5",
+			"key": "tick",
 			"oid": "0",
 			"path": ".",
-			"key": "tick"
+			"uid": "_6",
+			"uidParent": "_5"
 		},
 		"_7": {
-			"uid": "_7",
-			"uidParent": "_5",
+			"key": "tick",
 			"oid": "1",
 			"path": ".",
-			"key": "tick"
+			"uid": "_7",
+			"uidParent": "_5"
 		}
 	},
-	"17": {
+	" 17 ": {
 		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"here": "ROOT",
-			"type": "invisible",
 			"children": [
 				"_2",
 				"_4",
@@ -99,191 +95,195 @@
 				"_14",
 				"_16",
 				"_18"
-			]
-		},
-		"_2": {
-			"uid": "_2",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".",
-			"oid": "0"
-		},
-		"_4": {
-			"uid": "_4",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".",
-			"oid": "1"
-		},
-		"_6": {
-			"uid": "_6",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".",
-			"oid": "9"
-		},
-		"_8": {
-			"uid": "_8",
-			"key": "ROOT",
-			"uidParent": "_0",
-			"path": ".",
-			"oid": "ck"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
 		},
 		"_10": {
-			"uid": "_10",
 			"key": "ROOT",
-			"uidParent": "_0",
+			"oid": "cq",
 			"path": ".",
-			"oid": "cq"
+			"uid": "_10",
+			"uidParent": "_0"
 		},
 		"_12": {
-			"uid": "_12",
 			"key": "ROOT",
-			"uidParent": "_0",
+			"oid": "c1",
 			"path": ".",
-			"oid": "c1"
+			"uid": "_12",
+			"uidParent": "_0"
 		},
 		"_14": {
-			"uid": "_14",
 			"key": "ROOT",
-			"uidParent": "_0",
+			"oid": "c2",
 			"path": ".",
-			"oid": "c2"
+			"uid": "_14",
+			"uidParent": "_0"
 		},
 		"_16": {
-			"uid": "_16",
 			"key": "ROOT",
-			"uidParent": "_0",
+			"oid": "Player1",
 			"path": ".",
-			"oid": "Player1"
+			"uid": "_16",
+			"uidParent": "_0"
 		},
 		"_18": {
-			"uid": "_18",
 			"key": "ROOT",
-			"uidParent": "_0",
+			"oid": "Player2",
 			"path": ".",
-			"oid": "Player2"
+			"uid": "_18",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"key": "ROOT",
+			"oid": "0",
+			"path": ".",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"key": "ROOT",
+			"oid": "1",
+			"path": ".",
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_6": {
+			"key": "ROOT",
+			"oid": "9",
+			"path": ".",
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_8": {
+			"key": "ROOT",
+			"oid": "ck",
+			"path": ".",
+			"uid": "_8",
+			"uidParent": "_0"
 		}
 	},
-	"16": {
-		"_1": {
+	" 16 ": {
+		"_0": {
+			"children": [
+				"_2"
+			],
+			"data": "wieso",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_2": {
 			"data": "hallo",
 			"params": {
 				"fg": "red"
 			},
-			"uid": "_1",
-			"uidParent": "_0"
-		},
-		"_0": {
-			"data": "wieso",
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1"
-			]
-		}
-	},
-	"15": {
-		"_1": {
-			"data": "yellow",
-			"params": {
-				"fg": "red"
-			},
-			"uid": "_1",
-			"uidParent": "_0"
-		},
-		"_2": {
-			"data": "white",
 			"uid": "_2",
 			"uidParent": "_0"
-		},
+		}
+	},
+	" 15 ": {
 		"_0": {
+			"children": [
+				"_2",
+				"_3"
+			],
 			"data": "yellow",
 			"params": {
 				"fg": "yellow"
 			},
 			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2"
-			]
+			"uidParent": null
+		},
+		"_2": {
+			"data": "yellow",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": "white",
+			"uid": "_3",
+			"uidParent": "_0"
 		}
 	},
-	"14": {
+	" 14 ": {
 		"_0": {
 			"data": "yellow",
 			"params": {
-				"fg": "yellow",
-				"bg": "black"
+				"bg": "black",
+				"fg": "yellow"
 			},
 			"uid": "_0",
 			"uidParent": null
 		}
 	},
-	"13": {
+	" 13 ": {
 		"_0": {
 			"data": "na geh!",
 			"params": {
-				"fg": "red",
-				"bg": "black"
+				"bg": "black",
+				"fg": "red"
 			},
 			"uid": "_0",
 			"uidParent": null
 		}
 	},
-	"12": {
+	" 12 ": {
 		"_0": {
-			"params": {
-				"fg": "yellow",
-				"font-size": 24,
-				"bg": "blue"
-			},
-			"data": "CORRECT!!",
 			"_id": "A",
+			"data": "CORRECT!!",
+			"params": {
+				"bg": "blue",
+				"fg": "yellow",
+				"font-size": 24
+			},
 			"uid": "_0",
 			"uidParent": null
 		}
 	},
-	"11": {
+	" 11 ": {
 		"_0": {
 			"data": "RICHTIG!",
 			"params": {
-				"fg": "red",
-				"bg": "white"
+				"bg": "white",
+				"fg": "red"
 			},
 			"uid": "_0",
 			"uidParent": null
 		}
 	},
-	"10": {
-		"_1": {
+	" 10 ": {
+		"_0": {
+			"children": [
+				"_3",
+				"_5"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_3": {
 			"_ref": "A",
 			"data": "YES!",
 			"params": {
 				"fg": "red"
 			},
-			"uid": "_1",
+			"uid": "_3",
 			"uidParent": "_0"
 		},
-		"_2": {
+		"_5": {
 			"data": "NEIN!",
 			"params": {
 				"fg": "red"
 			},
-			"uid": "_2",
+			"uid": "_5",
 			"uidParent": "_0"
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2"
-			]
 		}
 	},
-	"9": {
+	" 9 ": {
 		"_0": {
 			"data": "YES!",
 			"params": {
@@ -293,95 +293,78 @@
 			"uidParent": null
 		}
 	},
-	"8": {
+	" 8 ": {
 		"_0": {
 			"data": "YES!",
 			"uid": "_0",
 			"uidParent": null
 		}
 	},
-	"7": {
+	" 7 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_5",
+				"_6"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
 		"_1": {
 			"data": 1,
 			"uid": "_1",
 			"uidParent": "_0"
 		},
-		"_2": {
+		"_5": {
 			"data": 2,
 			"params": {
 				"fg": "silver"
 			},
-			"uid": "_2",
+			"uid": "_5",
 			"uidParent": "_0"
 		},
-		"_3": {
+		"_6": {
 			"data": 3,
-			"uid": "_3",
+			"uid": "_6",
 			"uidParent": "_0"
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2",
-				"_3"
-			]
 		}
 	},
-	"6": {
+	" 6 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_4",
+				"_5"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
 		"_1": {
 			"data": 1,
 			"uid": "_1",
 			"uidParent": "_0"
 		},
-		"_2": {
+		"_4": {
 			"data": 2,
-			"uid": "_2",
+			"uid": "_4",
 			"uidParent": "_0"
 		},
-		"_3": {
+		"_5": {
 			"data": 3,
-			"uid": "_3",
+			"uid": "_5",
 			"uidParent": "_0"
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2",
-				"_3"
-			]
 		}
 	},
-	"5": {
-		"_1": {
-			"data": 1,
-			"uid": "_1",
-			"uidParent": "_0"
-		},
-		"_2": {
-			"data": 2,
-			"uid": "_2",
-			"uidParent": "_0"
-		},
-		"_3": {
-			"data": 3,
-			"uid": "_3",
-			"uidParent": "_0"
-		},
+	" 5 ": {
 		"_0": {
-			"uid": "_0",
-			"uidParent": null,
 			"children": [
 				"_1",
-				"_2",
-				"_3"
-			]
-		}
-	},
-	"4": {
+				"_3",
+				"_4"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
 		"_1": {
 			"data": 1,
 			"uid": "_1",
@@ -390,34 +373,67 @@
 		"_3": {
 			"data": 2,
 			"uid": "_3",
-			"uidParent": "_2"
+			"uidParent": "_0"
 		},
 		"_4": {
 			"data": 3,
 			"uid": "_4",
-			"uidParent": "_2"
-		},
-		"_2": {
-			"uid": "_2",
-			"uidParent": "_0",
-			"children": [
-				"_3",
-				"_4"
-			]
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2"
-			]
+			"uidParent": "_0"
 		}
 	},
-	"3": {
+	" 4 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_3"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
 		"_1": {
 			"data": 1,
 			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"children": [
+				"_4",
+				"_5"
+			],
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"data": 2,
+			"uid": "_4",
+			"uidParent": "_3"
+		},
+		"_5": {
+			"data": 3,
+			"uid": "_5",
+			"uidParent": "_3"
+		}
+	},
+	" 3 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_2"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"data": 1,
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"children": [
+				"_3",
+				"_4"
+			],
+			"uid": "_2",
 			"uidParent": "_0"
 		},
 		"_3": {
@@ -425,36 +441,48 @@
 			"uid": "_3",
 			"uidParent": "_2"
 		},
+		"_4": {
+			"children": [
+				"_5"
+			],
+			"uid": "_4",
+			"uidParent": "_2"
+		},
 		"_5": {
 			"data": "1.1.1",
 			"uid": "_5",
 			"uidParent": "_4"
-		},
-		"_4": {
-			"uid": "_4",
-			"uidParent": "_2",
-			"children": [
-				"_5"
-			]
-		},
-		"_2": {
-			"uid": "_2",
-			"uidParent": "_0",
-			"children": [
-				"_3",
-				"_4"
-			]
-		},
+		}
+	},
+	" 2 ": {
 		"_0": {
+			"children": [
+				"_1",
+				"_3"
+			],
 			"uid": "_0",
-			"uidParent": null,
+			"uidParent": null
+		},
+		"_1": {
+			"data": "HALLO",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": "WELT",
+			"uid": "_3",
+			"uidParent": "_0"
+		}
+	},
+	" 1 ": {
+		"_0": {
 			"children": [
 				"_1",
 				"_2"
-			]
-		}
-	},
-	"2": {
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
 		"_1": {
 			"data": "HALLO",
 			"uid": "_1",
@@ -464,37 +492,9 @@
 			"data": "WELT",
 			"uid": "_2",
 			"uidParent": "_0"
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2"
-			]
 		}
 	},
-	"1": {
-		"_1": {
-			"data": "HALLO",
-			"uid": "_1",
-			"uidParent": "_0"
-		},
-		"_2": {
-			"data": "WELT",
-			"uid": "_2",
-			"uidParent": "_0"
-		},
-		"_0": {
-			"uid": "_0",
-			"uidParent": null,
-			"children": [
-				"_1",
-				"_2"
-			]
-		}
-	},
-	"0": {
+	" 0 ": {
 		"_0": {
 			"data": "HALLO",
 			"uid": "_0",

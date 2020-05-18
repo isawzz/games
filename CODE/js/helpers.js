@@ -9,8 +9,8 @@ function agColoredShape(g, shape, w, h, color) {
 	SHAPEFUNCS[shape](g, w, h);
 	gBg(g, color);
 }
-function agShape(g,shape,w,h,color,rounding){
-	let sh = gShape(shape,w,h,color,rounding);
+function agShape(g, shape, w, h, color, rounding) {
+	let sh = gShape(shape, w, h, color, rounding);
 	g.appendChild(sh);
 	return sh;
 }
@@ -168,9 +168,9 @@ function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, cl
 	if (omitEmpty || !isEmpty(lstOmit)) oCopy = recDeleteKeys(oCopy, omitEmpty, lstOmit);
 	let d = mCreate('div');
 	if (isdef(className)) mClass(d, className);
-	switch(sort){
-		case 'keys': oCopy = sortKeys(oCopy);break;
-		case 'all':oCopy = JSON.sort(oCopy);break;
+	switch (sort) {
+		case 'keys': oCopy = sortKeys(oCopy); break;
+		case 'all': oCopy = JSON.sort(oCopy); break;
 	}
 	mYaml(d, oCopy);
 	let pre = d.getElementsByTagName('pre')[0];
@@ -1770,6 +1770,10 @@ function fireKey(k, { control, alt, shift } = {}) {
 }
 
 //#region file IO
+//localStorage save and load:
+function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
+function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
+
 function downloadFile(jsonObject, filenameNoExt) {
 	json_str = JSON.stringify(jsonObject);
 	saveFileAtClient(filenameNoExt + ".json", "data:application/json", new Blob([json_str], { type: "" }));
@@ -2226,57 +2230,6 @@ function odict2olist(d, keyName = 'id') {
 	return res;
 }
 function dropLast(s) { return s.substring(0, s.length - 1); }
-const fieldSorter = fields => (a, b) =>
-	//usage of field sorter:
-	// const homes = [{"h_id":"3", "city":"Dallas", "state":"TX","zip":"75201","price":162500}, {"h_id":"4","city":"Bevery Hills", "state":"CA", "zip":"90210", "price":319250},{"h_id":"6", "city":"Dallas", "state":"TX", "zip":"75000", "price":556699},{"h_id":"5", "city":"New York", "state":"NY", "zip":"00010", "price":962500}];
-	// const sortedHomes = homes.sort(fieldSorter(['state', '-price']));
-	// document.write('<pre>' + JSON.stringify(sortedHomes, null, '\t') + '</pre>')
-	fields
-		.map(o => {
-			let dir = 1;
-			if (o[0] === '-') {
-				dir = -1;
-				o = o.substring(1);
-			}
-			return a[o] > b[o] ? dir : a[o] < b[o] ? -dir : 0;
-		})
-		.reduce((p, n) => (p ? p : n), 0);
-
-function isObject(v) {
-	return '[object Object]' === Object.prototype.toString.call(v);
-};
-// sortKeys does NOT sort lists!!!!
-function sortKeys (o) {
-	if (Array.isArray(o)) {
-		return o.map(sortKeys); //o.sort().map(JSON.sort);
-	} else if (isObject(o)) {
-		return Object
-			.keys(o)
-			.sort()
-			.reduce(function (a, k) {
-				a[k] = sortKeys(o[k]);
-
-				return a;
-			}, {});
-	}
-	return o;
-}
-//JSON.sort sorts both objects and lists!
-JSON.sort = function (o) {
-	if (Array.isArray(o)) {
-		return o.sort().map(JSON.sort);
-	} else if (isObject(o)) {
-		return Object
-			.keys(o)
-			.sort()
-			.reduce(function (a, k) {
-				a[k] = JSON.sort(o[k]);
-
-				return a;
-			}, {});
-	}
-	return o;
-}
 function first(arr) {
 	return arr.length > 0 ? arr[0] : null;
 }
@@ -2648,21 +2601,6 @@ function sameList(l1, l2) {
 function sameStringify(o1, o2) {
 	return JSON.stringify(o1) == JSON.stringify(o2);
 }
-function shuffle(arr) { return fisherYates(arr); }
-function sortBy(arr, key) {
-	//console.log(jsCopy(arr))
-	arr.sort((a, b) => (a[key] < b[key] ? -1 : 1));
-}
-function sortByDescending(arr, key) {
-	//console.log(jsCopy(arr))
-	arr.sort((a, b) => (a[key] > b[key] ? -1 : 1));
-}
-function sortByFunc(arr, func) {
-	arr.sort((a, b) => (func(a) < func(b) ? -1 : 1));
-}
-function sortByFuncDescending(arr, func) {
-	arr.sort((a, b) => (func(a) > func(b) ? -1 : 1));
-}
 function simpleRep(val) {
 	if (nundef(val) || val === '') {
 		return '_';
@@ -2687,6 +2625,110 @@ function union(lst1, lst2) {
 
 
 //#endregion
+
+//#region filter
+
+//#region sort
+const fieldSorter = fields => (a, b) =>
+	//usage of field sorter:
+	// const homes = [{"h_id":"3", "city":"Dallas", "state":"TX","zip":"75201","price":162500}, {"h_id":"4","city":"Bevery Hills", "state":"CA", "zip":"90210", "price":319250},{"h_id":"6", "city":"Dallas", "state":"TX", "zip":"75000", "price":556699},{"h_id":"5", "city":"New York", "state":"NY", "zip":"00010", "price":962500}];
+	// const sortedHomes = homes.sort(fieldSorter(['state', '-price']));
+	// document.write('<pre>' + JSON.stringify(sortedHomes, null, '\t') + '</pre>')
+	fields
+		.map(o => {
+			let dir = 1;
+			if (o[0] === '-') {
+				dir = -1;
+				o = o.substring(1);
+			}
+			return a[o] > b[o] ? dir : a[o] < b[o] ? -dir : 0;
+		})
+		.reduce((p, n) => (p ? p : n), 0);
+
+
+function isObject(v) {
+	return '[object Object]' === Object.prototype.toString.call(v);
+};
+// sort by keys only topmost objects!
+function sortKeysNonRecursive(o) {
+	if (Array.isArray(o)) {
+		return o.map(sortKeysNonRecursive); //o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.sort()
+			.reduce(function (a, k) {
+				a[k] = o[k];
+
+				return a;
+			}, {});
+	}
+	return o;
+}
+// sort by keys only topmost objects!
+function sortKeysNonRecursiveDescending(o) {
+	if (Array.isArray(o)) {
+		return o.map(sortKeysNonRecursiveDescending); //o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.reverse()
+			.reduce(function (a, k) {
+				a[k] = o[k];
+
+				return a;
+			}, {});
+	}
+	return o;
+}
+// sortKeys does NOT sort lists!!!!
+function sortKeys(o) {
+	if (Array.isArray(o)) {
+		return o.map(sortKeys); //o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.sort()
+			.reduce(function (a, k) {
+				a[k] = sortKeys(o[k]);
+
+				return a;
+			}, {});
+	}
+	return o;
+}
+//JSON.sort sorts both objects and lists!
+JSON.sort = function (o) {
+	if (Array.isArray(o)) {
+		return o.sort().map(JSON.sort);
+	} else if (isObject(o)) {
+		return Object
+			.keys(o)
+			.sort()
+			.reduce(function (a, k) {
+				a[k] = JSON.sort(o[k]);
+
+				return a;
+			}, {});
+	}
+	return o;
+}
+function shuffle(arr) { return fisherYates(arr); }
+function sortBy(arr, key) {
+	//console.log(jsCopy(arr))
+	arr.sort((a, b) => (a[key] < b[key] ? -1 : 1));
+}
+function sortByDescending(arr, key) {
+	//console.log(jsCopy(arr))
+	arr.sort((a, b) => (a[key] > b[key] ? -1 : 1));
+}
+function sortByFunc(arr, func) {
+	arr.sort((a, b) => (func(a) < func(b) ? -1 : 1));
+}
+function sortByFuncDescending(arr, func) {
+	arr.sort((a, b) => (func(a) > func(b) ? -1 : 1));
+}
+
 
 //#region recursion
 // safely handles circular references
@@ -2883,7 +2925,7 @@ function recFindProp(o, prop, path, akku) {
 	if (!isDict(o) && !Array.isArray(o)) { return; }
 	if (isDict(o)) {
 		// if (o[prop]) { akku[path] = o; }
-		if (o[prop]) { akku[path] = {name:o[prop],node:o}; }
+		if (o[prop]) { akku[path] = { name: o[prop], node: o }; }
 		for (const k in o) { recFindProp(o[k], prop, path + '.' + k, akku); }
 	} else if (isList(o)) {
 		for (let i = 0; i < o.length; i++) {

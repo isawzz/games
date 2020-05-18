@@ -1,8 +1,17 @@
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
-async function onClickNextTest() { testEngine.loadNextTestCase(); }
-async function onClickPrevTest() { testEngine.loadPrevTestCase(); }
-async function onClickRepeatTest() { testEngine.repeatTestCase(); }
+async function onClickNextTest() {
+	await testEngine.loadNextTestCase();
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+}
+async function onClickPrevTest() {
+	await testEngine.loadPrevTestCase();
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+}
+async function onClickRepeatTest() {
+	await testEngine.repeatTestCase();
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+}
 
 function onClickVerify() { testEngine.verify(T); }
 
@@ -21,47 +30,25 @@ async function onClickVerifySoFar() {
 	let maxIndex = testEngine.index;
 	let index = 0;
 	await testEngine.loadTestCase(series, index);
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 	console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, 1000);
 }
-function onClickInvalidate(){	testEngine.invalidate();}
+function onClickInvalidate() { testEngine.invalidate(); }
 async function verNext(series, index, maxIndex) {
 
 	await testEngine.loadTestCase(series, index);
-	//console.log('...completed', index);
-	updateOutput(T);
 
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
-	// if (index < maxIndex) {
-	// 	let func = async () => { await verNext(series, index + 1, maxIndex); }
-	// 	await pollDOM(index, func);
-	// }
 	let timeOUT = 500;
 	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, timeOUT);
-	else {
-		testEngine.autosave = false;
-		testEngine.saveDict();
-	}
+	else { saveSolutions(series, testEngine.Dict[series].solutions); }
 
 }
-function onClickSave() { testEngine.saveAsSolution(T); }
+function onClickSave() { testEngine.saveSolution(T); }
 async function onClickClearTable() { clearElement('table'); }
 
-// var __signal = false;
-// async function pollDOM(i, func) {
-// 	const el = mBy('message');
-// 	if (isdef(el)) {
-// 		if (el.innerHTML.includes('' + i)) {
-// 			__signal = true;
-// 			await func();
-// 			// Do something with el
-// 		}
-// 	}
-// 	else {
-// 		__signal = false;
-// 		setTimeout(() => console.log('waiting...'), 1000); // try again in 300 milliseconds
-// 	}
-// }
 
 
 function onClickAdd() { testAddObject(T); }
@@ -79,10 +66,8 @@ function onClickDeactivate() {
 	testDeactivate(T);
 }
 
-function onClickUpdateOutput(elem) { //, caption) {
+function onClickUpdateOutput(elem) { 
 
-	//if (nundef(caption)) caption = elem.id;
-	//console.log('caption', caption, elem);
 	switch (elem.id) {
 		case 'contSpec': SHOW_SPEC = !SHOW_SPEC; break;
 		case 'contLastSpec': SHOW_LASTSPEC = !SHOW_LASTSPEC; break;

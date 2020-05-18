@@ -1,3 +1,40 @@
+
+async function testSolutionConverter(){
+	let series ='00';
+	let sols=await loadSolutions(series);
+	console.log('solutions',sols);
+
+	await saveSolutions(series,sols);
+}
+async function loadSolutions(series){
+	//when loading solutions from disk:convert keys into numbers
+	let sol = await loadJsonDict('/assetsTEST/'+series + '/solution.json');
+	let sol1 = {};
+	for (const k in sol) { sol1[firstNumber(k)] = sol[k]; }
+	let solutions = sol1;
+	return solutions;
+}
+async function saveSolutions(series,solutions){
+	//solutions have number keys, make it string and sort!
+	let keys = Object.keys(solutions);
+	console.log(keys[0],typeof keys[0]);
+	let n=firstNumber(keys[0]);
+	console.log('n',n,'type',typeof n);
+	console.log(solutions[10],'number');
+	console.log(solutions['10'],'string');
+	keys.sort(x=>Number(x)).reverse();
+	console.log('keys',keys);
+	let sortedObject={};
+	for(const k of keys){
+		let x=sortKeys(solutions[k]);
+		sortedObject[' '+k+' ']=x; //solutions[k];
+	}
+	downloadFile(sortedObject,'solutions'+series);
+}
+
+
+
+
 //#region server data change!
 var TV={};
 function testAddObject(R) {
