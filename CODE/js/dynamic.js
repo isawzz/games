@@ -4,7 +4,7 @@ function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
 	R.addObject(oid, o);
 	addRForObject(oid, R);
 
-	if (skipEinhaengen) { return; } else { einhaengen0(oid, o, R); }
+	if (skipEinhaengen) { return; } else { einhaengen(oid, o, R); }
 }
 function addRForObject(oid, R) {
 	let o = R.getO(oid);
@@ -30,30 +30,10 @@ function addRForObject(oid, R) {
 		}
 	}
 
-	//if (nundef(R.oidNodes)) R.oidNodes = {};
+	//createPrototypesForOid(oid, o, R); //ELIM
+	//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 
-	createPrototypesForOid(oid, o, R);
 
-}
-function createPrototypesForOid(oid, o, R) {
-	//console.log('createPrototypesForOid',oid,o.obj_type)
-	if (isdef(R.oidNodes[oid])) {
-		//console.log('prototypes for', oid, 'already created!');
-		return;
-	}
-	let klist = R.getR(oid);
-	//console.log('klist',klist)
-	let nlist = {};
-	for (const k of klist) {
-		let n1 = createProtoForOidAndKey(oid, o, k, R);
-		nlist[k] = n1;
-	}
-	R.oidNodes[oid] = nlist;
-}
-function createProtoForOidAndKey(oid, o, k, R) {
-	let n = R.getSpec(k);
-	let n1 = { key: k, oid: oid, uid: getUID() };
-	return n1;
 }
 
 //#endregion
@@ -72,9 +52,12 @@ function aushaengen(oid, R) {
 	//passiert wenn eine server object removed wird
 
 	//an welchen locations gibt es dieses oid object als child?
-	let nodes = R.oidNodes[oid];
+	let nodes = R.getR(oid);
+	//let nodes = R.oidNodes[oid]; //ELIM use R.getR(oid) instead!!!
+	//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+
 	if (isEmpty(nodes)) return;
-	for (const key in nodes) {
+	for (const key of nodes){ //in nodes) {
 		//hier kann: removeOidKey aufrufen, das das folgende macht
 		removeOidKey(oid, key, R);
 	}
@@ -100,11 +83,12 @@ function recRemove(n, R) {
 	if (isdef(n.oid) && isdef(n.key)) {
 		let oid = n.oid;
 		let key = n.key;
+		if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 		delete R.rNodesOidKey[oid][key];
 		if (isEmpty(R.rNodesOidKey[oid])) delete (R.rNodesOidKey[oid]);
-		delete R.oidNodes[oid][key];
+		//delete R.oidNodes[oid][key]; // ELIM
 		R.removeR(oid, key);
-		if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]);
+		//if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]); // ELIM
 	}
 
 	delete R.rNodes[n.uid];

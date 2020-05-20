@@ -26,11 +26,18 @@ function presentNodes(sp, area, lf, ls, lo) {
 }
 
 function presentOidNodes(R, area, lf, ls, lo) {
-	for (const oid in R.oidNodes) {
-		for (const k in R.oidNodes[oid]) {
-			presentAddNode(R.oidNodes[oid][k], oid, area, lf, ls, lo);
+	for(const oid in R._sd){
+		let rsg=R.getR(oid);
+		if (!isEmpty(rsg)){
+			let x = {rsg:rsg};
+			presentAddNode(x,oid,area,['rsg'],ls,lo);
 		}
 	}
+	// for (const oid in R.oidNodes) {
+	// 	for (const k in R.oidNodes[oid]) {
+	// 		presentAddNode(R.oidNodes[oid][k], oid, area, lf, ls, lo);
+	// 	}
+	// }
 }
 function presentAddNode(n, title, area, lf, ls, lo) {
 	if (nundef(lo)) lo=[];

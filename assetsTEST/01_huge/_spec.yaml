@@ -1,0 +1,23 @@
+2:
+  ROOT:
+    data: Catan
+    params:
+      orientation: v
+    sub:
+      - _id: A
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: CatanBoard
+    type: grid
+  def:
+    cond: all
+    data: .oid
+1:
+  ROOT:
+    sub:
+      - data: HALLO
+      - data: WELT
+0:
+  ROOT:
+    data: HALLO

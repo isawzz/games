@@ -1,6 +1,6 @@
 function mInvisible(n, dParent, R) {
 	let d=mDiv(dParent);
-	d.innerHTML=n.uid;
+	//d.innerHTML=n.uid;
 	return d;
 }
 

@@ -21,8 +21,8 @@ function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
 
-	let defParams = jsCopy(R.defs);
-	defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
+	//let defParams = jsCopy(R.defs);
+	//defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
 	//recBuildUiFromNode(n, area, R, defParams, null);
 	recUi(n,area,R);
 }
@@ -48,7 +48,6 @@ function addNewlyCreatedServerObjects(sdata, R) {
 
 
 
-	recAdjustDirtyContainers(R.tree.uid, R);
 }
 function recAdjustDirtyContainers(uid, R, verbose = false) {
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen

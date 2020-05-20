@@ -1,5 +1,15 @@
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
+async function onClickGo(){
+	let elem=mBy('iTestCase');
+	console.log(elem)
+	let n=elem.value;
+	n=firstNumber(n)
+	console.log(n,typeof n)
+	await testEngine.loadTestCase(testEngine.series,n);
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+}
+
 async function onClickNextTest() {
 	await testEngine.loadNextTestCase();
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);

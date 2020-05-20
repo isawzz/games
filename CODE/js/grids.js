@@ -1,4 +1,7 @@
-function createArtificialSpecForBoardMemberIfNeeded(oid,o,R){
+function createArtificialSpecForBoardMemberIfNeeded(oid, o, R) {
+
+	//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+
 	let key = R.getR(oid);
 	if (!isEmpty(key)) {
 		//console.log('***FOUND KEY FOR',oid,key);
@@ -9,9 +12,10 @@ function createArtificialSpecForBoardMemberIfNeeded(oid,o,R){
 		//console.log('key',key)
 		key = getUID();
 		//TODO: AENDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info'};//, data: '.' };
+		R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info' };//, data: '.' };
 		R.addR(oid, key);
-		R.oidNodes[key] = key;
+		//R.oidNodes[key] = key;// ELIM
+		//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 
 		//retest all objects in R for this cond!
 		R.updateR(key);
@@ -39,7 +43,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 		let bMemberParams = nuiBoard.bi.params[name];
 		let group = nuiBoard.bi[name];
 		for (const oid in group) {
-			let n1 = group[oid]; 
+			let n1 = group[oid];
 			let o = n1.o;
 			delete n1.o;
 
@@ -47,17 +51,17 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
 
 			//ACHTUNG!!!! the following is NEEDED to be able to re-add board after removing it!
-			else if (isEmpty(R.getR(oid))) { 
+			else if (isEmpty(R.getR(oid))) {
 				//console.log('ueberpruefe R fuer',oid)
-				//ueberpruefe noch einmal und adde oidNodes!!!
-				addRForObject(oid,R);
-			}else{
+				//ueberpruefe noch einmal und adde rsg!!!
+				addRForObject(oid, R);
+			} else {
 				//console.log('ueberpruefung NICHT gelaufen!!!',R.getR(oid))
 			}
 			let uid = n1.uid = getUID();
 
 			// ***TEMP!!!! hier wird ein artificial key gemacht falls kein spec key fuer oid!
-			let key = n1.key = createArtificialSpecForBoardMemberIfNeeded(oid,o,R);
+			let key = n1.key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
 
 			//*** instantiateOidKeyAtParent(oid, key, uidParent, R)
 			let ntree = { uid: uid, uidParent: uidBoard, oid: oid, path: '.', key: key };
@@ -75,16 +79,16 @@ function generalGrid(nuiBoard, area, R, defParams) {
 			let defsMember = lookup(defParams, ['grid', 'params', name]);
 			if (defsMember) nui.defParams = deepmergeOverride(n1.defParams, defsMember);
 			nui.content = calcContentFromData(oid, o, nui.data, R);
-			
-			//*********** createUi *************** */
+
+			//*********** createUi__ *************** */
 			nui.ui = createUi(nui, nuiBoard.uid, R, nui.defParams);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
-			
-			
+
+
 			R.uiNodes[uid] = nui;
 			if (R.isUiActive) nui.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 		}
 	}
-	nuiBoard.children = rtreeParent.children; 
+	nuiBoard.children = rtreeParent.children;
 	// *** END TEMP CODE ***
 
 	// *** stage 4: layout! means append & positioning = transforms... ***
@@ -92,7 +96,136 @@ function generalGrid(nuiBoard, area, R, defParams) {
 	//console.log(bpa);
 	let fSpacing = bpa.field_spacing;
 	if (nundef(fSpacing)) nuiBoard.params.field_spacing = fSpacing = 60;
-	let margin = isdef(bpa.margin)?bpa.margin:0;
+	let margin = isdef(bpa.margin) ? bpa.margin : 0;
+	//if (nundef(margin)) nuiBoard.params.margin = margin = 4;
+	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
+
+	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bpa.corners) ? bpa.corners.size : 15;
+	// console.log('cornerSize',cornerSize)
+
+	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
+	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
+	//console.log(wBoard,hBoard)
+
+	let boardDiv = nuiBoard.bi.boardDiv;
+	let boardG = nuiBoard.ui;
+	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal });//, 'border-radius': margin, margin: 'auto 4px' });
+	boardG.style.transform = "translate(50%, 50%)"; //geht das schon vor append???
+
+	//positioning of elements!
+	for (const fid of nuiBoard.children) {
+		let f = R.uiNodes[fid];
+		let uiChild = f.ui;
+		//boardG.appendChild(uiChild);
+		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
+	}
+}
+function createBoard_NEW(nui, area, R) {
+	// let ntree = R.rNodes[nui.uid];
+	// let nSpec = R.lastSpec[ntree.key];
+	// console.log('createBoard_NEW','\nntree',ntree,'\nnui',nui)
+	let [oid, boardType] = detectBoardOidAndType(nui.oid, nui.boardType, R);
+	nui.oid = oid;
+	nui.boardType = boardType;
+	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
+	generalGrid_NEW(nui, area, R);
+}
+function generalGrid_NEW(nuiBoard, area, R) {
+
+	// *** stage 1 create parent *** (kommt von createLC mit n...spec node COPY)
+	let bpa = nuiBoard.params = detectBoardParams(nuiBoard, R);
+	//console.log('bpa', bpa);
+
+	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
+	//console.log(ui)
+	//console.log('board',ui, nuiBoard);
+	//console.log('NACH board CREATEUI!!!!!!!!!!!', nuiBoard);
+
+	// *** stage 2 create children *** (in n.bi)
+	// *** START TEMP CODE ***
+	//vorbereitungen die brauche damit algo ablaufen kann (ev. elim later stage!!!)
+	let rtreeParent = R.rNodes[nuiBoard.uid];
+	rtreeParent.children = []; //noetig damit nicht changed type to panel!!!
+	let uidBoard = nuiBoard.uid;
+	for (const name of ['fields', 'edges', 'corners']) {
+		let bMemberParams = nuiBoard.bi.params[name];
+		let group = nuiBoard.bi[name];
+		for (const oid in group) {
+			let n1 = group[oid];
+			let o = n1.o;
+			delete n1.o;
+
+			//n1.params = n1.defParams = jsCopy(bMemberParams);
+
+			if (oid == '0') console.log('Member: creation gengrid!', jsCopy(n1))
+			if (oid == '0') console.log('Member: obj wird geadded, key created if needed, einhaengen SKIP!');
+
+			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
+			//ACHTUNG!!!! the following is NEEDED to be able to re-add board after removing it!
+			else if (isEmpty(R.getR(oid))) { addRForObject(oid, R); }
+			// ***TEMP!!!! hier wird ein artificial key gemacht falls kein spec key fuer oid!
+			let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
+
+			let tryit = true;
+			let ntree, nui;
+			if (tryit) {
+				//let uidParent = uidBoard;
+				ntree = instantOidKey(oid, key, uidBoard, R);
+				//if (oid == '0') console.log('ntree',ntree)
+				//let top={ uid: ntree.uid, uidParent: uidParent };
+				let params = lookup(DEFS, ['grid', 'params', name]);
+				if (!params) params = {};
+				params = safeMerge(params,bMemberParams);
+				if (isdef(ntree.params)) params = safeMerge(params, ntree.params);
+				ntree.params = params;
+
+				console.log('final params for',name,ntree.params);
+
+				ntree.uiType = 'g';
+				nui = recUi(ntree, uidBoard, R, oid, key);
+				//nui.key=n1.key;
+				nui.info=n1.info;
+				console.log('===>n1',n1,'\n===>nui',nui);
+				//nui = safeMerge(n1,nui);
+			} else {
+				//*** instantiateOidKeyAtParent(oid, key, uidParent, R)
+				if (oid == '0') console.log('Member: obj wird geadded, key created if needed, einhaengen SKIP!');
+				let uid = n1.uid = getUID();
+				ntree = { uid: uid, uidParent: uidBoard, oid: oid, path: '.', key: key };
+				R.rNodes[uid] = ntree;
+				lookupAddToList(R.rNodesOidKey, [oid, key], uid);
+				rtreeParent.children.push(uid);
+				//*** recBuildUiFromNode1(ntree, uidBoard, R, nuiBoard.defParams, oid);
+				let nsub = R.lastSpec[key];
+				nui = jsCopy(n1); //deepmergeOverride(nSpec, n1);
+				nui.uiType = 'g';
+				nui.type = nsub.type;
+				nui.data = nsub.data;
+				if (isdef(nsub.params)) nui.params = deepmergeOverride(n1.params, nsub.params);
+				let defsMember = lookup(DEFS, ['grid', 'params', name]);
+				if (defsMember) nui.defParams = deepmergeOverride(n1.defParams, defsMember);
+				nui.content = calcContentFromData(oid, o, nui.data, R);
+				//*********** createUi__ *************** */
+				nui.ui = createUi(nui, nuiBoard.uid, R, nui.defParams);// *************************** HIER !!!!!!!!!!!!!!!!!!!!!!
+				R.uiNodes[uid] = nui;
+				if (R.isUiActive) nui.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
+			}
+
+			if (oid == '0') console.log('Member: created!', '\nn1', jsCopy(n1), '\nntree', jsCopy(ntree), '\nnui', jsCopySafe(nui))
+
+		}
+	}
+	console.log('board',nuiBoard);
+	nuiBoard.children = rtreeParent.children; //weiss nicht ob das brauche!!!
+	// *** END TEMP CODE ***
+
+	// *** stage 4: layout! means append & positioning = transforms... ***
+	let boardInfo = nuiBoard.bi.board.info;
+	//console.log(bpa);
+	let fSpacing = bpa.field_spacing;
+	if (nundef(fSpacing)) nuiBoard.params.field_spacing = fSpacing = 60;
+	let margin = isdef(bpa.margin) ? bpa.margin : 0;
 	//if (nundef(margin)) nuiBoard.params.margin = margin = 4;
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
 
@@ -120,6 +253,7 @@ function generalGrid(nuiBoard, area, R, defParams) {
 
 function createBoard(nui, area, R, defParams) {
 	let ntree = R.rNodes[nui.uid];
+	console.log('createBoard', '\nntree', ntree, '\nnui', nui)
 	let nSpec = R.lastSpec[ntree.key];
 	let [oid, boardType] = detectBoardOidAndType(ntree.oid, nSpec.boardType, R);
 	nui.oid = oid;

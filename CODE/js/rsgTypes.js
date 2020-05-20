@@ -152,12 +152,12 @@ class RSG {
 		this.uid2oids = {};
 		this.oid2uids = {};
 		this._sd = {};
-		this.oidNodes = null;
+		//this.oidNodes = null;
 
 		this.gens = { G: [this.sp] };
 
 		this.Locations = {}; //locations: sind das die here nodes?
-		this.oidNodes = {};
+		//this.oidNodes = {};
 		this.rNodes = {}; // rtree
 		this.uiNodes = {}; // ui tree
 		this.rNodesOidKey = {}; //andere sicht of rtree
@@ -211,6 +211,7 @@ class RSG {
 	}
 	getO(oid) { return lookup(this._sd, [oid, 'o']); }
 	addObject(oid, o) {
+		//TODO: was wenn oid bereits in _sd ist???!!! OVERRIDE
 		let o1 = jsCopy(o);
 		o1.oid = oid;
 		this._sd[oid] = { oid: oid, o: o1, rsg: [] };
@@ -284,13 +285,13 @@ class RSG {
 
 }
 
-function createUi(n, area, R, defParams) {
+function createUi(n, area, R) {
 
 	if (nundef(n.type)) { n.type = inferType(n); }
 
 	R.registerNode(n);
 
-	decodeParams(n, R, defParams);
+	decodeParams(n, R, {}); //defParams);
 
 	//console.log(n,n.type)
 	let ui = RCREATE[n.type](n, mBy(area), R);
@@ -338,6 +339,49 @@ function createUi(n, area, R, defParams) {
 
 
 
+
+function createUi0(n, area, R, defParams) {
+
+	if (nundef(n.type)) { n.type = inferType(n); }
+	R.registerNode(n);
+	decodeParams(n, R, defParams);
+
+	console.log(n,n.type)
+	let ui = RCREATE[n.type](n, mBy(area), R);
+
+	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
+
+	if (n.uiType == 'NONE') return ui;
+
+
+	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
+	applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
+	// else{
+	// 	console.log(ui);
+	// 	ui.style.filter='grayscale(0.5)';
+
+	// }
+	// if (n.uiType == 'h') {
+	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
+	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
+	// } else {
+	// 	applyCssStyles(ui, n.cssParams);
+	// }
+
+	//TODO: hier muss noch die rsg std params setzen (same for all types!)
+	if (!isEmpty(n.stdParams)) {
+		//console.log('rsg std params!!!', n.stdParams);
+		switch (n.stdParams.display) {
+			case 'if_content': if (!n.content) hide(ui); break;
+			case 'hidden': hide(ui); break;
+			default: break;
+		}
+	}
+
+	R.setUid(n, ui);
+	return ui;
+
+}
 
 
 

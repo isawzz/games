@@ -13,7 +13,8 @@ var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var SERVERDATA_PATH = '/assetsTEST/00/server'; // 00
+var TEST_SERIES = '00'; // 00 01_huge
+var SERVERDATA_PATH = '/assetsTEST/'+TEST_SERIES+'/server'; // 00
 
 var SHOW_SPEC = true; // true | false
 var SHOW_LASTSPEC = true; // true | false

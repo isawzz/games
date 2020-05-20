@@ -1,5 +1,5 @@
 function instantiateOidKeyAtParent(oid, key, uidParent, R) {
-	//console.log('>>>>>instantiate', oid, 'using', key, 'at', uidParent, '\nrParent', R.rNodes[uidParent], '\nuiParent', R.uiNodes[uidParent]);
+	//console.log('>>>>>ooooooooooooooooooooooold!!!!!! instantiate', oid, 'using', key, 'at', uidParent, '\nrParent', R.rNodes[uidParent], '\nuiParent', R.uiNodes[uidParent]);
 
 	let rtreeParent = R.rNodes[uidParent];
 
@@ -7,14 +7,13 @@ function instantiateOidKeyAtParent(oid, key, uidParent, R) {
 
 	//return;
 	if (nundef(rtreeParent.children)) {
-		if (isdef(R.uiNodes[uidParent])) change_parent_type_if_needed(rtreeParent, R);
+		//if (isdef(R.uiNodes[uidParent])) change_parent_type_if_needed(rtreeParent, R);
 		rtreeParent.children = [];
 	}
 	let index = rtreeParent.children.length;
 	let newPath = isdef(rtreeParent.sub) ? extendPath(rtreeParent.path, index) : '.';// index == 0 ? '.' : extendPath(n.path, index);
 
-	//die spec fuer neuen node befindet sich bei 
-	//find address of(key,rtreeParent.path);
+	//=================================================
 	
 	let nsp = R.lastSpec[key];
 	let n1 = recBuildRTree(nsp, key, '.', rtreeParent, R.lastSpec, R,oid);

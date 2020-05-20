@@ -1,6 +1,6 @@
 
 async function testSolutionConverter(){
-	let series ='00';
+	let series = TEST_SERIES;
 	let sols=await loadSolutions(series);
 	console.log('solutions',sols);
 
@@ -17,13 +17,13 @@ async function loadSolutions(series){
 async function saveSolutions(series,solutions){
 	//solutions have number keys, make it string and sort!
 	let keys = Object.keys(solutions);
-	console.log(keys[0],typeof keys[0]);
+	//console.log(keys[0],typeof keys[0]);
 	let n=firstNumber(keys[0]);
-	console.log('n',n,'type',typeof n);
-	console.log(solutions[10],'number');
-	console.log(solutions['10'],'string');
+	//console.log('n',n,'type',typeof n);
+	//console.log(solutions[10],'number');
+	//console.log(solutions['10'],'string');
 	keys.sort(x=>Number(x)).reverse();
-	console.log('keys',keys);
+	//console.log('keys',keys);
 	let sortedObject={};
 	for(const k of keys){
 		let x=sortKeys(solutions[k]);
@@ -245,12 +245,9 @@ function testRemoveOidKey(R) {
 }
 
 function getRandomNodeThatCanBeAdded(R) {
-	let nonEmpty = allCondDict(R.oidNodes, x => !isEmpty(x));
-	//console.log(nonEmpty);
-	// let random_oid = chooseRandom(nonEmpty);
-	// let locs = Object.keys(R.oidNodes[random_oid]);
-	// let random_loc = chooseRandom(locs);
-	// return { oid: random_oid, loc: random_loc };
+	console.log('SINNLOS!!!')
+	let nonEmpty = allCondDict(R._sd, x => !isEmpty(x.rsg));
+	console.log('getRandomNodeThatCanBeAdded: nonEmpty',nonEmpty);
 }
 function testAddOidKey(R) {
 

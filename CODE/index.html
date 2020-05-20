@@ -18,9 +18,17 @@
 <body>
 	<!-- #region html-->
 	<div id='pageHeader' style='text-align:left;padding-left:12px'>
-		<h2 id='message'>Rsg Tester</h2>
+		<div>
+			<h2 id='message' style='float:left'>Rsg Tester</h2>
+			<div style='float:left;margin:11px 0px 0px 50px;vertical-align:baseline'>
+				<span>Enter test case:</span>
+				<input type="number" value="0" id='iTestCase' style='width:50px' />
+				<button onclick='onClickGo(this)' style='width:50px'>GO</button>
+			</div>
+		</div>
 
 		<!-- <button id='btnTest00' style='padding:8px' onclick='onClickTest(this)'>00</button> -->
+		<br style='clear:both' />
 		<button onclick='onClickPrevTest(this)'>PREV</button>
 		<button onclick='onClickNextTest(this)'>NEXT</button>
 		<button onclick='onClickRepeatTest(this)'>repeat</button>
@@ -29,7 +37,7 @@
 		<button onclick='onClickSave(this)'>save</button>
 		<button onclick='onClickInvalidate(this)'>invalidate</button>
 		<button style='margin-right:10px' onclick='onClickClearTable(this)'>clear table</button>
-		
+
 		<!-- <button onclick='onClickAdd()'>add</button>
 		<button onclick='onClickAddBoard()'>add board</button>
 		<button onclick='onClickRemove()'>remove</button>

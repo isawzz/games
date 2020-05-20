@@ -30,18 +30,25 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 				let o1 = R.getO(oid1);
 				if (o1) {
 					//jetzt muss ich dieses object darstellen wenn es geht!
-					let oidNode1 = R.oidNodes[oid1];
-					if (isdef(oidNode1)) {
-						let key1list = Object.keys(oidNode1);
-						//console.log('following keys available for', oid1, key1list);
-						let key1 = key1list[0];
-						//console.log('FOUND BETTER REP FOR O', oid1, key1, '\nWAS JETZT???????');
-						//hier muss ich eine neue branch bauen in RTREE!
-						//habe oid, key, uidParent (is eigene uid)
-						//console.log('der rNode muss doch existieren!!!', R.rNodes[n.uid])
+
+					let oid1keys = R.getR(oid1);
+					if (!isEmpty(oid1keys)){
+						let key1 = oid1keys[0];
 						instantiateOidKeyAtParent(oid1, key1, uidParent, R);
-						//console.log('HALLOOOOOOOO');
 					}
+
+					// let oidNode1 = R.oidNodes[oid1];
+					// if (isdef(oidNode1)) {
+					// 	let key1list = Object.keys(oidNode1);
+					// 	//console.log('following keys available for', oid1, key1list);
+					// 	let key1 = key1list[0];
+					// 	//console.log('FOUND BETTER REP FOR O', oid1, key1, '\nWAS JETZT???????');
+					// 	//hier muss ich eine neue branch bauen in RTREE!
+					// 	//habe oid, key, uidParent (is eigene uid)
+					// 	//console.log('der rNode muss doch existieren!!!', R.rNodes[n.uid])
+					// 	instantiateOidKeyAtParent(oid1, key1, uidParent, R);
+					// 	//console.log('HALLOOOOOOOO');
+					// }
 				}
 			}
 		}
@@ -50,8 +57,8 @@ function recBuildUiFromNode(n, uidParent, R, iParams = {}) {
 	if (n1.type == 'grid') {
 		createBoard(n1, uidParent, R, iParams);
 	} else {
-		//console.log('call createUi for',n1.uid)
-		n1.ui = createUi(n1, uidParent, R, iParams);
+		//console.log('call createUi__ for',n1.uid)
+		n1.ui = createUi0(n1, uidParent, R, iParams);
 	}
 	R.uiNodes[n1.uid] = n1;
 	if (R.isUiActive) n1.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);

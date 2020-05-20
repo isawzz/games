@@ -12,16 +12,30 @@ class TestEngine {
 		this.spec = null;
 		this.sdata = null;
 	}
-	async init(defs, sdata, series = '00') {
+	async init(defs, sdata, series, index) {
 		this.defs = defs;
 		this.sdata = sdata;
 		series = isdef(series) ? series : localStorage.getItem('testSeries');
-		if (nundef(series)) series = '00';
-		let index = localStorage.getItem('testIndex');
+		if (nundef(series)) series = TEST_SERIES;
+		index = isdef(index) ? index : localStorage.getItem('testIndex');
 		if (nundef(index)) index = '0';
 
 		index = Number(index);
 		await this.loadTestCase(series, index);
+		updateTestInput(index);
+	}
+	async loadSeries(series) {
+		let path = '/assetsTEST/' + series + '/';
+		this.series = series;
+		this.Dict[series] = {
+			specs: await loadYamlDict(path + '_spec.yaml'),
+			solutions: await loadSolutions(series),
+		};
+		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions = {};
+
+		this.specs = this.Dict[series].specs;
+		this.solutions = this.Dict[series].solutions;
+
 	}
 	async loadNextTestCase() { await this.loadTestCase(this.series, this.index + 1); }
 	async loadPrevTestCase() { await this.loadTestCase(this.series, this.index - 1); }
@@ -46,18 +60,6 @@ class TestEngine {
 
 		this.spec = spec;
 	}
-	async loadSeries(series) {
-		let path = '/assetsTEST/' + series + '/';
-		this.series = series;
-		this.Dict[series] = {
-			specs: await loadYamlDict(path + '_spec.yaml'),
-			solutions: await loadSolutions(series),
-		};
-		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions = {};
-
-		this.specs = this.Dict[series].specs;
-		this.solutions = this.Dict[series].solutions;
-	}
 	saveSolutions() { saveSolutions(this.series, this.solutions); }
 
 	loadSolution() {
@@ -73,7 +75,7 @@ class TestEngine {
 
 	invalidate() { delete this.solutions[this.index]; }
 	verify(R) {
-		console.log('verifying test case', this.series, this.index, '...');
+		//console.log('verifying test case', this.series, this.index, '...');
 		let rTreeNow = normalizeRTree(R); //also sorts keys rec!
 		let solution = this.loadSolution();
 
@@ -85,12 +87,24 @@ class TestEngine {
 		let rTreeSolution = this.solution.rTree;
 		let changes = propDiffSimple(rTreeNow, rTreeSolution);
 		if (changes.hasChanged) {
-			console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
-			console.log('changes:', changes)
+			//console.log('verifying test case', this.series, this.index, 'FAIL');
+			//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
+			//console.log('changes:', changes)
 		} else {
-			console.log('*** correct! ', this.index, '***', rTreeNow)
+			console.log('verifying test case', this.series, this.index, 'correct!');
+			// console.log('*** correct! ', this.index, '***', rTreeNow)
 		}
 	}
+}
+function updateTestInput(index) {
+	//set max on input element called iTestCase if exists
+	let elem = mBy('iTestCase');
+	if (isdef(elem)) {
+		elem.max = Object.keys(testEngine.specs).length - 1;
+		elem.min = 0;
+		elem.value = index;
+	}
+
 }
 function sat() {
 	let R = T;
