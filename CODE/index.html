@@ -22,8 +22,15 @@
 			<h2 id='message' style='float:left'>Rsg Tester</h2>
 			<div style='float:left;margin:11px 0px 0px 50px;vertical-align:baseline'>
 				<span>Enter test case:</span>
-				<input type="number" value="0" id='iTestCase' style='width:50px' />
+				<input onclick='this.select()'  type="number" value="0" id='iTestCase' style='width:50px' />
 				<button onclick='onClickGo(this)' style='width:50px'>GO</button>
+			</div>
+			<div style='float:left;margin:11px 0px 0px 50px;vertical-align:baseline'>
+				<span>from:</span>
+				<input onc17lick='this.select()' type="number" value="0" id='iTestCaseFrom' style='width:50px' />
+				<span>to:</span>
+				<input onclick='this.select()'  type="number" value="19" id='iTestCaseTo' style='width:50px' />
+				<button onclick='onClickRun(this)' style='width:50px'>Run</button>
 			</div>
 		</div>
 
@@ -87,36 +94,30 @@
 
 	<!-- #region loading: order matters! -->
 	<script src="/CODE/js/helpers.js"></script>
-	<script src="/CODE/js/_config.js"></script>
+	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/__work.js"></script>
-	<script src="/CODE/js/types.js"></script>
 
-	<script src="/CODE/js/__rTree.js"></script>
-	<script src="/CODE/js/__uiTree.js"></script>
-	<script src="/CODE/js/test/Activator.js"></script>
-	<script src="/CODE/js/test/assets.js"></script>
-	<script src="/CODE/js/test/binding.js"></script>
+	<script src="/CODE/js/_rTree.js"></script>
+	<script src="/CODE/js/_uiTree.js"></script>
+	<script src="/CODE/js/activator.js"></script>
+	<script src="/CODE/js/assets.js"></script>
+	<script src="/CODE/js/binding.js"></script>
 	<script src="/CODE/js/creation.js"></script>
-	<script src="/CODE/js/dynamic.js"></script>
-	<script src="/CODE/js/einhang.js"></script>
-	<script src="/CODE/js/einhang_old.js"></script>
-	<script src="/CODE/js/test/engine.js"></script>
-	<script src="/CODE/js/ensureR.js"></script>
-	<script src="/CODE/js/test/factory.js"></script>
+	<script src="/CODE/js/createUi_.js"></script>
+	<script src="/CODE/js/factory.js"></script>
 	<script src="/CODE/js/grids.js"></script>
-	<script src="/CODE/js/test/gText.js"></script>
+	<script src="/CODE/js/gText.js"></script>
 	<script src="/CODE/js/index.js"></script>
-	<script src="/CODE/js/instantiateOid.js"></script>
-	<script src="/CODE/js/test/onClick.js"></script>
+	<script src="/CODE/js/onClick.js"></script>
+	<script src="/CODE/js/old_einha_0.js"></script>
 	<script src="/CODE/js/rsgTypes.js"></script>
-
-	<script src="/CODE/js/recBuildRTree.js"></script>
-	<script src="/CODE/js/recBuildUiFromNode.js"></script>
 	<script src="/CODE/js/testing.js"></script>
-
+	<script src="/CODE/js/types.js"></script>
 	<script src="/CODE/js/utils.js"></script>
 
-	<script src="/CODE/js/_start.js"></script>
+	<script src="/CODE/js/test/engine.js"></script>
+
+	<script src="/CODE/js/__start.js"></script>
 
 	<!-- #endregion loading -->
 </body>

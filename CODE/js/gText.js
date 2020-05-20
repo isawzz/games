@@ -378,6 +378,7 @@ class gText {
 
 function agText(g, txt, color, font) {
 	let res = new gText(g);
+	//console.log(res)
 	//console.log('res',res,g,txt,color,font)
 	res.text({ txt: txt, fill: color, font: font });
 	return res;

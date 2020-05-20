@@ -8,7 +8,8 @@ async function testSolutionConverter(){
 }
 async function loadSolutions(series){
 	//when loading solutions from disk:convert keys into numbers
-	let sol = await loadJsonDict('/assetsTEST/'+series + '/solution.json');
+	let solFilename=EINHAENGEN_NEW?'sol':'solution';
+	let sol = await loadJsonDict('/assetsTEST/'+series + '/'+solFilename+'.json');
 	let sol1 = {};
 	for (const k in sol) { sol1[firstNumber(k)] = sol[k]; }
 	let solutions = sol1;

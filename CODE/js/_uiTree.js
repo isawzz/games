@@ -11,11 +11,10 @@ function recUi(n, area, R, oid, key) {
 
 	//console.log(n1)
 	if (n1.type == 'grid') {
-		console.log('Board: calling createBoard',jsCopy(n1))
 		createBoard_NEW(n1, area, R);
 	} else {
 		//console.log('call createUi__ for',n1.uid)
-		if (oid == '0') console.log('Member: calling createUi',jsCopy(n1))
+		//if (oid == '0') console.log('Member: calling createUi',jsCopy(n1))
 		n1.ui = createUi(n1, area, R);
 		// n1.ui = createUi0(n1, uidParent, R, iParams);
 	}

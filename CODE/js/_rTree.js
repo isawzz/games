@@ -1,5 +1,5 @@
 function recTree(n, rParent, R, oid, key) {
-	CYCLES += 1; if (CYCLES > MAX_CYCLES) return;
+	//CYCLES += 1; if (CYCLES > MAX_CYCLES) return 'idiot';
 	//console.log('***recTree input:', '\nn', n, '\rParent', rParent)
 	let uid = getUID();
 	let n1 = {};
@@ -58,9 +58,10 @@ function recTree(n, rParent, R, oid, key) {
 		}
 	}
 
-	if (oid == '9') console.log('Board: recTree returns',jsCopy(n1))
-	if (oid == '0') console.log('Member: recTree returns',jsCopy(n1))
+	//if (oid == '9') console.log('Board: recTree returns',jsCopy(n1))
+	//if (oid == '0') console.log('Member: recTree returns',jsCopy(n1))
 
+	//console.log('am ende!')
 	return n1;
 }
 

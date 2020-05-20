@@ -1,21 +1,16 @@
-function mInvisible(n, dParent, R) {
-	let d=mDiv(dParent);
-	//d.innerHTML=n.uid;
-	return d;
-}
-
-
+function mInvisible(n, dParent, R) { let d = mDiv(dParent); return d; }
 function mInfo(n, dParent, R) {
 
 
 	//console.log(n,'\ndParent:',dParent)
+	//if (n.oid == '3') console.log('params',n)
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
 		return gInfo(n, dParent, R);
 	} else if (isdef(n.content)) {
 		ui = mNode(n.content, dParent);
-		mClass(ui,'node')
+		mClass(ui, 'node')
 	} else {
 		ui = mDiv(dParent);
 		ui.style.display = 'hidden';
@@ -24,6 +19,7 @@ function mInfo(n, dParent, R) {
 }
 function gInfo(n, gParent, R) {
 	let pf = n.params;
+	n.uiType = 'g';
 	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
 	gParent.appendChild(ui);
 	if (n.content) {
@@ -32,10 +28,8 @@ function gInfo(n, gParent, R) {
 	}
 
 
-
 	return ui;
 }
-
 
 //#region special types
 function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
@@ -43,7 +37,7 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 	let boardDiv = stage3_prepContainer(dParent);
 
 	let boardSvg = gSvg();
-	
+
 	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
 	boardSvg.setAttribute('style', style);
 	boardDiv.appendChild(boardSvg);
@@ -106,7 +100,7 @@ function gPanel(n, gParent, R) {
 		return n.ui;
 	}
 
-	console.log('EIN NEUES G PANEL?????? ECHT?????')
+	//console.log('EIN NEUES G PANEL?????? ECHT?????')
 	let ui = agG(gParent);
 	n.uiType = 'g';
 	return ui;
@@ -175,14 +169,6 @@ function mTitle(n, dParent, R) {
 	return ui;
 }
 
-
-function isSpecType(t) { return isdef(R.lastSpec[t]); }
-function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
-function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t == 'picto'; }
-//function isPositionedType(t) { return t == 'boardElement'; }
-function isGridType(t) { return t == 'grid'; }
-
-
 const RCREATE = {
 	invisible: mInvisible,
 	info: mInfo,
@@ -202,6 +188,63 @@ const RCONTAINERPROP = {
 
 const DEF_ORIENTATION = 'h';
 const DEF_SPLIT = 'equal';
+
+
+//#region old functions
+function layoutHand(n) {
+	if (isdef(n.params.overlap) && n.children.length > 1) {
+		let cards = n.children.map(x => x.ui);
+		let clast = last(cards);
+		//console.log('card',clast);
+		let b = getBounds(clast);
+		//console.log('bounds',b);
+		let wIs = b.width;
+		let overlap = firstNumber(n.params.overlap);
+		let sOverlap = '' + overlap;
+		let unit = stringAfter(n.params.overlap, sOverlap);
+		//console.log('num',overlap,'unit',unit)
+		let wSoll = 0;
+		if (unit == '%') {
+			overlap /= 100;
+			wSoll = wIs - wIs * overlap;
+
+		} else { wSoll = wIs - overlap; }
+		//console.log('wSoll ...', wSoll);
+		let wTotal = wIs + wSoll * (cards.length - 1);
+		n.ui.style.maxWidth = '' + (wTotal + 2) + 'px';
+	}
+}
+function pictoDiv(key, color, w, h) { let d = mPic(key); mColor(d, color); mSizePic(d, w, h); return d; }
+
+function picDiv(size) { return o => pictoDiv(o.key, o.color, size, size); }
+
+function makePictoPiece(mk, o, sz, color) {
+
+	//console.log('unit',unit,'percent',percent,'sz',sz);
+	let [w, h] = [sz, sz];
+
+	let sym = o.obj_type;
+	if (sym in SPEC.symbol) { sym = SPEC.symbol[sym]; }
+	if (!(sym in iconChars)) {
+		//console.log("didn't find key", sym);
+		symNew = Object.keys(iconChars)[randomNumber(5, 120)]; //abstract symbols
+		//console.log('will rep', sym, 'by', symNew)
+		SPEC.symbol[sym] = symNew;
+		sym = symNew;
+	}
+	//console.log(iconChars,sym,iconChars[sym])
+	mk.ellipse({ w: w, h: h, fill: color, alpha: .3 });
+	let pictoColor = color == 'black' ? randomColor() : color;
+	mk.pictoImage(sym, pictoColor, sz * 2 / 3); //colorDarker(color),sz*2/3);
+}
+
+
+//#region helpers
+function isSpecType(t) { return isdef(R.lastSpec[t]); }
+function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
+function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t == 'picto'; }
+//function isPositionedType(t) { return t == 'boardElement'; }
+function isGridType(t) { return t == 'grid'; }
 
 
 

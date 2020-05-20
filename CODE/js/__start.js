@@ -58,26 +58,24 @@ async function _entryPoint(defs,spec, sdata) {
 async function present00(sp, defaults, sdata) {
 	T = R = new RSG(sp, defaults, sdata);
 
+	//creation sequence:
 	ensureRtree(R); 
-	
-	// updateOutput(R); return;
 
 	R.baseArea = 'table';
 	createStaticUi(R.baseArea, R);
-	
-	// updateOutput(R); return;
 
 	addNewlyCreatedServerObjects(sdata, R);
 
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
+	//output and testing
 	updateOutput(R);
 
 	//for (let i = 0; i < 5; i++) testAddObject(R);
 	//updateOutput(R);
 	//activateUis(R);
 
-	testEngine.verify(R)
+	testEngine.verify(R);
 
 }
 

@@ -131,7 +131,7 @@ async function loadInitialServerData(unameStarts) {
 	_syncUsernameOfSender(unameStarts);
 
 	if (TESTING) {
-		let url = SERVERDATA_PATH + '.yaml';
+		let url = SERVERDATA_PATH + '.yaml'; //console.log('loading',url)
 		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_path_yaml_dict(url), true, false); // last 2 params: reload, useLocal
 	} else {
 		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_initGame(GAME, playerConfig[GAME], USERNAME), !CACHE_INITDATA, CACHE_INITDATA); // last 2 params: reload, useLocal 

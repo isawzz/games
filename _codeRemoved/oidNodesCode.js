@@ -1,3 +1,28 @@
+class RSG_removed{
+	genNODE(genKey = 'G') {
+		let gen = jsCopy(this.lastSpec);
+
+		for (const k in gen) {
+			//usage: safeRecurse(o, func, params, tailrec) 
+			safeRecurse(gen[k], normalizeToList, '_NODE', true);
+		}
+
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = gen.ROOT;
+		//console.log(gen)
+	}
+
+	check_prop(prop, specKey, node, R) {
+		let dictIds = {};
+		recFindExecute(node, prop, x => { dictIds[x[prop]] = x; });
+
+		//console.log(dictIds);
+		return dictIds;
+	}
+
+}
+
 //#region helpers to compare oidNodes to R.getR
 function oidNodesSame(oid,R){
 	let rsg=R.getR(oid);
@@ -183,6 +208,54 @@ function updateOutput_dep(R) {
 }
 //#endregion
 
+//#region merging
+function mergeChildrenWithRefs(n, R) {
+	for (const k in n) {
+		//muss eigentlich hier nur die containerProp checken!
+		let ch = n[k];
+		if (nundef(ch._id)) continue;
+
+		let loc = ch._id;
+		//console.log('node w/ id', loc, ch);
+		//console.log('parent of node w/ id', loc, jsCopy(n));
+
+		//frage is container node n[containerProp] ein object (b) oder eine list (c)?
+		//oder ist _id at top level (n._id) =>caught in caller
+
+
+		let refs = R.refs[loc];
+		if (nundef(refs)) continue;
+
+		//have refs and ids to 1 _id location loc (A)
+		//console.log('refs for', loc, refs);
+
+		//parent node is 
+
+
+		let spKey = Object.keys(refs)[0];
+		let nSpec = R.lastSpec[spKey];
+		//console.log('nSpec', nSpec);
+		let oNew = deepmerge(n[k], nSpec);
+		//console.log('neues child', oNew);
+		n[k] = oNew;
+
+
+	}
+}
+function mergeAllRefsToIdIntoNode(n, R) {
+	//n has prop _id
+	let loc = n._id;
+	let refDictBySpecNodeName = R.refs[loc];
+	let nNew = jsCopy(n); //returns new copy of n TODO=>copy check when optimizing(=nie?)
+	for (const spNodeName in refDictBySpecNodeName) {
+		let reflist = refDictBySpecNodeName[spNodeName];
+		for (const ref of reflist) {
+			nNew = deepmergeOverride(nNew, ref);
+		}
+	}
+	return nNew;
+	//console.log(refDictBySpecNodeName);
+}
 
 
 

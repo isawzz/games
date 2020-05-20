@@ -2,7 +2,7 @@
 class RSG {
 	constructor(sp, defs, sdata) {
 		this.sp = sp;
-		//console.log(this.sp)
+
 		this.lastSpec = this.sp; //just points to last spec produced in last step performed
 		this.ROOT = this.sp.ROOT;
 		this.defs = defs;
@@ -10,16 +10,11 @@ class RSG {
 		this.init(); //prepares _sd, places...
 		for (const oid in sdata) { this.addObject(oid, sdata[oid]); }
 		this.defSource = Object.keys(sdata);
-		// console.log('oids',this.defSource)
 
 		this.isUiActive = false;
 
 		this.genIdRef();
 		this.genMerge();
-		//console.log('\n_ids',this._ids, '\n_refs',this._refs);
-		//console.log('\nrefs', this.refs,'\nplaces', this.places);
-
-
 	}
 	genIdRef(genKey = 'G') {
 		let gen = jsCopy(this.lastSpec);
@@ -130,20 +125,6 @@ class RSG {
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;
 	}
-	genNODE(genKey = 'G') {
-		let gen = jsCopy(this.lastSpec);
-
-		for (const k in gen) {
-			//usage: safeRecurse(o, func, params, tailrec) 
-			safeRecurse(gen[k], normalizeToList, '_NODE', true);
-		}
-
-		this.gens[genKey].push(gen);
-		this.lastSpec = gen;
-		this.ROOT = gen.ROOT;
-		//console.log(gen)
-	}
-
 	init() {
 		this.places = {};
 		this.refs = {};
@@ -152,24 +133,24 @@ class RSG {
 		this.uid2oids = {};
 		this.oid2uids = {};
 		this._sd = {};
-		//this.oidNodes = null;
 
 		this.gens = { G: [this.sp] };
 
 		this.Locations = {}; //locations: sind das die here nodes?
-		//this.oidNodes = {};
 		this.rNodes = {}; // rtree
 		this.uiNodes = {}; // ui tree
 		this.rNodesOidKey = {}; //andere sicht of rtree
 		this.tree = {};
 
 	}
-	check_prop(prop, specKey, node, R) {
-		let dictIds = {};
-		recFindExecute(node, prop, x => { dictIds[x[prop]] = x; });
 
-		//console.log(dictIds);
-		return dictIds;
+	//ids and refs
+	addToPlaces(specKey, placeName, ppath, node) {
+		lookupAddToList(this.places, [placeName, specKey],
+			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
+	}
+	addToRefs(specKey, placeName, ppath, node) {
+		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
 	check_id(specKey, node, R) {
 		let akku = {};
@@ -194,14 +175,7 @@ class RSG {
 		}
 	}
 
-	//#region helpers
-	addToPlaces(specKey, placeName, ppath, node) {
-		lookupAddToList(this.places, [placeName, specKey],
-			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
-	}
-	addToRefs(specKey, placeName, ppath, node) {
-		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, ppath: ppath, node: node });
-	}
+	//server objects
 	clearObjects() {
 		this.UIS = {};
 		this.uid2oids = {};
@@ -218,8 +192,33 @@ class RSG {
 	}
 	deleteObject(oid) { delete this._sd[oid]; }
 
+	// rsg: spec nodes for oids
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 	addR(oid, k) { addIf(this.getR(oid), k); }
+	addRForObject(oid) {
+		let o = this.getO(oid);
+		let sp = this.getSpec();
+
+		//eval conds (without no_spec!)
+		for (const k in sp) {
+			let n = sp[k];
+			if (nundef(n.cond)) continue;
+			if (n.cond == 'all' || evalConds(o, n.cond)) { this.addR(oid, k); }
+		}
+		//check for no_spec clauses
+		if (isEmpty(this.getR(oid))) {
+
+			for (const k in sp) {
+				let n = sp[k];
+				if (nundef(n.cond)) continue;
+				let keys = Object.keys(n.cond);
+				if (!keys.includes('no_spec')) continue;
+				let condCopy = jsCopy(n.cond);
+				delete condCopy['no_spec'];
+				if (evalConds(o, condCopy)) { this.addR(oid, k); }
+			}
+		}
+	}
 	updateR(k) {
 		let nSpec = this.lastSpec[k];
 		if (!nSpec.cond) return;
@@ -232,6 +231,7 @@ class RSG {
 	}
 	removeR(oid, key) { let r = lookup(this._sd, [oid, 'rsg']); if (r) removeInPlace(r, key); }
 
+	// getters
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
 	getSpec(spKey = null) { return spKey ? this.lastSpec[spKey] : this.lastSpec; }
@@ -243,10 +243,7 @@ class RSG {
 		return (placeName in this.places) ? this.refs[placeName] : {};
 	}
 
-
-	//#endregion helpers
-
-	//#region register
+	// register
 	registerNode(n) {
 		if (nundef(n.uid)) n.uid = getUID();
 		let uid = n.uid;
@@ -281,52 +278,7 @@ class RSG {
 		n.act = new Activator(n, ui, this);
 	}
 
-	//#endregion
-
-}
-
-function createUi(n, area, R) {
-
-	if (nundef(n.type)) { n.type = inferType(n); }
-
-	R.registerNode(n);
-
-	decodeParams(n, R, {}); //defParams);
-
-	//console.log(n,n.type)
-	let ui = RCREATE[n.type](n, mBy(area), R);
-
-	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
-
-	if (n.uiType == 'NONE') return ui;
-
-
-	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
-	// else{
-	// 	console.log(ui);
-	// 	ui.style.filter='grayscale(0.5)';
-
-	// }
-	// if (n.uiType == 'h') {
-	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
-	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
-	// } else {
-	// 	applyCssStyles(ui, n.cssParams);
-	// }
-
-	//TODO: hier muss noch die rsg std params setzen (same for all types!)
-	if (!isEmpty(n.stdParams)) {
-		//console.log('rsg std params!!!', n.stdParams);
-		switch (n.stdParams.display) {
-			case 'if_content': if (!n.content) hide(ui); break;
-			case 'hidden': hide(ui); break;
-			default: break;
-		}
-	}
-
-	R.setUid(n, ui);
-	return ui;
+	
 
 }
 
@@ -340,112 +292,9 @@ function createUi(n, area, R) {
 
 
 
-function createUi0(n, area, R, defParams) {
-
-	if (nundef(n.type)) { n.type = inferType(n); }
-	R.registerNode(n);
-	decodeParams(n, R, defParams);
-
-	console.log(n,n.type)
-	let ui = RCREATE[n.type](n, mBy(area), R);
-
-	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
-
-	if (n.uiType == 'NONE') return ui;
-
-
-	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
-	// else{
-	// 	console.log(ui);
-	// 	ui.style.filter='grayscale(0.5)';
-
-	// }
-	// if (n.uiType == 'h') {
-	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
-	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
-	// } else {
-	// 	applyCssStyles(ui, n.cssParams);
-	// }
-
-	//TODO: hier muss noch die rsg std params setzen (same for all types!)
-	if (!isEmpty(n.stdParams)) {
-		//console.log('rsg std params!!!', n.stdParams);
-		switch (n.stdParams.display) {
-			case 'if_content': if (!n.content) hide(ui); break;
-			case 'hidden': hide(ui); break;
-			default: break;
-		}
-	}
-
-	R.setUid(n, ui);
-	return ui;
-
-}
 
 
 
-
-function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
-function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
-function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
-
-
-
-
-function mergeChildrenWithRefs(n, R) {
-	for (const k in n) {
-		//muss eigentlich hier nur die containerProp checken!
-		let ch = n[k];
-		if (nundef(ch._id)) continue;
-
-		let loc = ch._id;
-		//console.log('node w/ id', loc, ch);
-		//console.log('parent of node w/ id', loc, jsCopy(n));
-
-		//frage is container node n[containerProp] ein object (b) oder eine list (c)?
-		//oder ist _id at top level (n._id) =>caught in caller
-
-
-		let refs = R.refs[loc];
-		if (nundef(refs)) continue;
-
-		//have refs and ids to 1 _id location loc (A)
-		//console.log('refs for', loc, refs);
-
-		//parent node is 
-
-
-		let spKey = Object.keys(refs)[0];
-		let nSpec = R.lastSpec[spKey];
-		//console.log('nSpec', nSpec);
-		let oNew = deepmerge(n[k], nSpec);
-		//console.log('neues child', oNew);
-		n[k] = oNew;
-
-
-	}
-}
-function mergeAllRefsToIdIntoNode(n, R) {
-	//n has prop _id
-	let loc = n._id;
-	let refDictBySpecNodeName = R.refs[loc];
-	let nNew = jsCopy(n); //returns new copy of n TODO=>copy check when optimizing(=nie?)
-	for (const spNodeName in refDictBySpecNodeName) {
-		let reflist = refDictBySpecNodeName[spNodeName];
-		for (const ref of reflist) {
-			nNew = deepmergeOverride(nNew, ref);
-		}
-	}
-	return nNew;
-	//console.log(refDictBySpecNodeName);
-}
-function safeMerge(a, b) {
-	if (nundef(a) && nundef(b)) return {};
-	else if (nundef(a)) return jsCopy(b);
-	else if (nundef(b)) return jsCopy(a);
-	else return deepmergeOverride(a, b);
-}
 
 
 

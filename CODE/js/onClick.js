@@ -1,5 +1,40 @@
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
+
+
+async function onClickRun(){
+	let indexFrom=firstNumber(mBy('iTestCaseFrom').value);
+	localStorage.setItem('iTestCaseFrom',indexFrom);
+	let indexTo=firstNumber(mBy('iTestCaseTo').value);
+	localStorage.setItem('iTestCaseTo',indexTo);
+	verifySequence(indexFrom,indexTo, false);
+}
+async function onClickVerifySoFar() { verifySequence(0,testEngine.index, true);}
+async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
+	console.log('______________ verify from',indexFrom,'to',indexTo, 'save',saveOnCompleted);
+	testEngine.autosave = true;
+	clearElement(mBy('table'));
+	let series = testEngine.series;
+	let maxIndex = indexTo;
+	let index = indexFrom;
+	await testEngine.loadTestCase(series, index);
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	//console.log('...completed', index);
+	setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, 1000);
+	
+}
+async function verNext(series, index, maxIndex, saveOnCompleted=false) {
+	//console.log('______________ vernext',saveOnCompleted);
+
+	await testEngine.loadTestCase(series, index);
+
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+
+	let timeOUT = 500;
+	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex,saveOnCompleted); }, timeOUT);
+	else if (saveOnCompleted) { saveSolutions(series, testEngine.Dict[series].solutions); }
+
+}
 async function onClickGo(){
 	let elem=mBy('iTestCase');
 	console.log(elem)
@@ -32,30 +67,18 @@ function recVerify(series, index, maxIndex) {
 async function doNext(series, index, mexIndex) {
 	recVerify(series, index + 1, maxIndex);
 }
-async function onClickVerifySoFar() {
-	console.log('______________ verify so far');
-	testEngine.autosave = true;
-	clearElement(mBy('table'));
-	let series = testEngine.series;
-	let maxIndex = testEngine.index;
-	let index = 0;
-	await testEngine.loadTestCase(series, index);
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
-	console.log('...completed', index);
-	setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, 1000);
-}
+// 	console.log('______________ verify so far');
+// 	testEngine.autosave = true;
+// 	clearElement(mBy('table'));
+// 	let series = testEngine.series;
+// 	let maxIndex = testEngine.index;
+// 	let index = 0;
+// 	await testEngine.loadTestCase(series, index);
+// 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+// 	console.log('...completed', index);
+// 	setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, 1000);
+// }
 function onClickInvalidate() { testEngine.invalidate(); }
-async function verNext(series, index, maxIndex) {
-
-	await testEngine.loadTestCase(series, index);
-
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
-
-	let timeOUT = 500;
-	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex); }, timeOUT);
-	else { saveSolutions(series, testEngine.Dict[series].solutions); }
-
-}
 function onClickSave() { testEngine.saveSolution(T); }
 async function onClickClearTable() { clearElement('table'); }
 

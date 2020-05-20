@@ -1,3 +1,177 @@
+5:
+  ROOT:
+    data: Catan
+    params:
+      orientation: v
+    sub:
+      - _id: A
+  port:
+    cond:
+      prop: port
+    sub:
+    - data: .port
+    - data: .port
+      # params:
+      #   dray:
+      #     rel: ancestor
+      #     cond:
+      #       obj_type: CatanBoard
+      #     by: 100%
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: CatanBoard
+    type: grid
+    params:
+      field_spacing: 58
+      margin: 20
+  fields:
+    cond:
+      obj_type: Field
+    type: info
+    params:
+      size: 50
+      font: italic small-caps bold 20px Georgia, serif
+      fg:
+        _map:
+          map: num_map
+          key: .num
+      bg:
+        _map:
+          map: fields_map
+          key: .res
+          default: moccasin
+    data: .num # type "info".data can be a list, dict, or single element
+  num_map:
+    6:
+      fg: red
+    8:
+      fg: red
+  fields_map:
+    wood:
+      texture: grain
+      bg: maroon 
+    brick:
+      texture: rect
+      bg: salmon
+    wheat:
+      texture: grain
+      bg: yellow
+    sheep:
+      bg: green
+    ore:
+      texture: grain
+      bg: dimgray
+4:
+  ROOT:
+    data: Catan
+    params:
+      orientation: v
+    sub:
+      - _id: A
+  port:
+    cond:
+      prop: port
+    data: .port
+    params:
+      dray:
+        rel: parent
+        by: 100%
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: CatanBoard
+    type: grid
+    params:
+      field_spacing: 58
+      margin: 50
+  fields:
+    cond:
+      obj_type: Field
+    type: info
+    params:
+      size: 50
+      font: italic small-caps bold 20px Georgia, serif
+      fg:
+        _map:
+          map: num_map
+          key: .num
+      bg:
+        _map:
+          map: fields_map
+          key: .res
+          default: moccasin
+    data: .num # type "info".data can be a list, dict, or single element
+  num_map:
+    6:
+      fg: red
+    8:
+      fg: red
+  fields_map:
+    wood:
+      texture: grain
+      bg: maroon 
+    brick:
+      texture: rect
+      bg: salmon
+    wheat:
+      texture: grain
+      bg: yellow
+    sheep:
+      bg: green
+    ore:
+      texture: grain
+      bg: dimgray
+3:
+  ROOT:
+    data: Catan
+    params:
+      orientation: v
+    sub:
+      - _id: A
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: CatanBoard
+    type: grid
+    params:
+      field_spacing: 58
+  fields:
+    cond:
+      obj_type: Field
+    type: info
+    params:
+      size: 50
+      font: italic small-caps bold 20px Georgia, serif
+      fg:
+        _map:
+          map: num_map
+          key: .num
+      bg:
+        _map:
+          map: fields_map
+          key: .res
+    data: .num # type "info".data can be a list, dict, or single element
+  num_map:
+    6:
+      fg: red
+    8:
+      fg: red
+  fields_map:
+    wood:
+      texture: grain
+      bg: maroon 
+    brick:
+      texture: rect
+      bg: salmon
+    wheat:
+      texture: grain
+      bg: yellow
+    sheep:
+      bg: green
+    ore:
+      texture: grain
+      bg: dimgray
 2:
   ROOT:
     data: Catan

@@ -12,13 +12,18 @@ class TestEngine {
 		this.spec = null;
 		this.sdata = null;
 	}
-	async init(defs, sdata, series, index) {
+	async init(defs, sdata, series, index, ifrom, ito) {
 		this.defs = defs;
 		this.sdata = sdata;
 		series = isdef(series) ? series : localStorage.getItem('testSeries');
 		if (nundef(series)) series = TEST_SERIES;
 		index = isdef(index) ? index : localStorage.getItem('testIndex');
 		if (nundef(index)) index = '0';
+
+		ifrom = isdef(ifrom) ? ifrom : localStorage.getItem('iTestCaseFrom');
+		if (nundef(ifrom)) ifrom = '0'; mBy('iTestCaseFrom').value = ifrom;
+		ito = isdef(ito) ? ito : localStorage.getItem('iTestCaseTo');
+		if (nundef(ito)) ito = '2'; mBy('iTestCaseTo').value = ito;
 
 		index = Number(index);
 		await this.loadTestCase(series, index);
@@ -87,7 +92,7 @@ class TestEngine {
 		let rTreeSolution = this.solution.rTree;
 		let changes = propDiffSimple(rTreeNow, rTreeSolution);
 		if (changes.hasChanged) {
-			//console.log('verifying test case', this.series, this.index, 'FAIL');
+			console.log('verifying test case', this.series, this.index, 'FAIL');
 			//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
 			//console.log('changes:', changes)
 		} else {

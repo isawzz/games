@@ -5,15 +5,11 @@ var SEED = 1;
 
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
-var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
-var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
-
+var EINHAENGEN_NEW = true; // true | false
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var TEST_SERIES = '00'; // 00 01_huge
+var TEST_SERIES = '01_huge'; // 00 01_huge
 var SERVERDATA_PATH = '/assetsTEST/'+TEST_SERIES+'/server'; // 00
 
 var SHOW_SPEC = true; // true | false
@@ -26,6 +22,14 @@ var SHOW_IDS_REFS = true; // true | false
 
 var MAX_CYCLES = 500; //Recursion safety!
 var CYCLES=0;
+
+//older way to specify file dirs before engine!
+var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
+var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
+//var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
+
+const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
+
 
 //#region previous DATA files
 // testGrid/ catanSpec catanServer tttSpec tttServer
