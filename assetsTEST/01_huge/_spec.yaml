@@ -63,11 +63,15 @@
           default: moccasin
     data: .num # type "info".data can be a list, dict, or single element
   num_map:
+    meta:
+      type: map
     6:
       fg: red
     8:
       fg: red
   fields_map:
+    meta:
+      type: map
     wood:
       texture: grain
       bg: maroon 10 .5

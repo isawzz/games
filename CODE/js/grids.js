@@ -28,9 +28,9 @@ function generalGrid(nuiBoard, area, R) {
 			//if (oid == '0') console.log('Member: creation gengrid!', jsCopy(n1))
 			//if (oid == '0') console.log('Member: obj wird geadded, key created if needed, einhaengen SKIP!');
 
-			if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
-			//ACHTUNG!!!! the following is NEEDED to be able to re-add board after removing it!
-			else if (isEmpty(R.getR(oid))) { R.addRForObject(oid); }
+			// if (!R.getO(oid)) { addNewServerObjectToRsg(oid, o, R, true); }
+			// //ACHTUNG!!!! the following is NEEDED to be able to re-add board after removing it!
+			// else if (isEmpty(R.getR(oid))) { R.addRForObject(oid); }
 
 			let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
 			//console.log('key',key)

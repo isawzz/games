@@ -1,6 +1,6 @@
 
 class RSG {
-	constructor(sp, defs, sdata) {
+	constructor(sp, defs) { //}, sdata) {
 		this.sp = sp;
 
 		this.lastSpec = this.sp; //just points to last spec produced in last step performed
@@ -8,8 +8,8 @@ class RSG {
 		this.defs = defs;
 
 		this.init(); //prepares _sd, places...
-		for (const oid in sdata) { this.addObject(oid, sdata[oid]); }
-		this.defSource = Object.keys(sdata);
+		//for (const oid in sdata) { this.addObject(oid, sdata[oid]); }
+		//this.defSource = Object.keys(sdata);
 
 		this.isUiActive = false;
 
@@ -125,6 +125,7 @@ class RSG {
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;
 	}
+	initRound() { this.oUpdated = {}; this.rUpdated = {}; }
 	init() {
 		this.places = {};
 		this.refs = {};
@@ -134,6 +135,8 @@ class RSG {
 		this.oid2uids = {};
 		this._sd = {};
 
+		this.locOids = [];
+
 		this.gens = { G: [this.sp] };
 
 		this.Locations = {}; //locations: sind das die here nodes?
@@ -141,7 +144,7 @@ class RSG {
 		this.uiNodes = {}; // ui tree
 		//this.rNodesOidKey = {}; //andere sicht of rtree
 		this.tree = {};
-
+		this.initRound();
 	}
 
 	//ids and refs
@@ -176,33 +179,50 @@ class RSG {
 	}
 
 	//server objects
+	addToLocOids(oid) { addIf(this.locOids, oid); } //%%%
+	removeFromLocOids(oid) { removeInPlace(this.locOids, oid); }
 	clearObjects() {
 		this.UIS = {};
 		this.uid2oids = {};
 		this.oid2uids = {};
 		this._sd = {};
-
+		this.locOids = [];
+		this.oUpdated = {}; this.rUpdated = {};
 	}
 	getO(oid) { return lookup(this._sd, [oid, 'o']); }
+
 	addObject(oid, o) {
 		//TODO: was wenn oid bereits in _sd ist???!!! OVERRIDE
+		if (this.oUpdated[oid]) {
+			console.log('object', oid, 'already updated this round!!!!!');
+			return;
+		} else this.oUpdated[oid] = true;
+
 		let o1 = jsCopy(o);
+		if (isdef(o.loc)) this.addToLocOids(oid);// %%%
 		o1.oid = oid;
 		this._sd[oid] = { oid: oid, o: o1, rsg: [] };
 	}
-	deleteObject(oid) { delete this._sd[oid]; }
+	deleteObject(oid) { this.removeFromLocOids(oid); delete this._sd[oid]; }
 
 	// rsg: spec nodes for oids
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 	addR(oid, k) { addIf(this.getR(oid), k); }
+
+	notThisNode(n) { return nundef(n.cond) || isdef(n._ref); } //do NOT check _ref nodes!
 	addRForObject(oid) {
+		if (this.rUpdated[oid]) {
+			console.log('rsg list for object', oid, 'already updated this round!!!!!!');
+			return;
+		} else this.rUpdated[oid] = true;
+
 		let o = this.getO(oid);
 		let sp = this.getSpec();
 
 		//eval conds (without no_spec!)
 		for (const k in sp) {
 			let n = sp[k];
-			if (nundef(n.cond)) continue;
+			if (this.notThisNode(n)) continue;
 			if (n.cond == 'all' || evalConds(o, n.cond)) { this.addR(oid, k); }
 		}
 		//check for no_spec clauses
@@ -220,8 +240,8 @@ class RSG {
 		}
 	}
 	updateR(k) {
-		let nSpec = this.lastSpec[k];
-		if (!nSpec.cond) return;
+		let nSpec = this.getSpec(k);
+		if (this.notThisNode(nSpec)) return;
 		let cond = nSpec.cond;
 		for (const oid in this._sd) {
 			if (evalConds(this._sd[oid].o, cond)) {
@@ -278,7 +298,7 @@ class RSG {
 		n.act = new Activator(n, ui, this);
 	}
 
-	
+
 
 }
 

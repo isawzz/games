@@ -24,47 +24,6 @@ function createStaticUi(area, R) {
 	//recBuildUiFromNode(n, area, R, defParams, null);
 	recUi(n, area, R);
 }
-function addNewlyCreatedServerObjects(sdata, R) {
-	//console.log('_____________ addNewly...', sdata);
-	let locOids = [];
-	let failedLocOids = [];
-	for (const oid in sdata) {
-		let o = sdata[oid];
-		if (isdef(o.loc)) { locOids.push(oid); continue; }
-		addNewServerObjectToRsg(oid, o, R);
-
-	}
-	CYCLES = 0; //MAX_CYCLES=10;
-	while (true) { //find next loc oid with existing parent!
-		CYCLES += 1; if (CYCLES > MAX_CYCLES) { console.log('MAX_CYCLES reached!'); return; }
-		let locOidsStart = jsCopy(locOids);
-		let oid = find_next_loc_oid_with_existing_parent(locOids, R);
-		if (!oid) {
-			//console.log('cannot add any other object!', '\nstart',locOidsStart,'\nfailed:',failedLocOids,'\nCYCLES',CYCLES);
-			return;
-		}
-		let o = sdata[oid];
-		let success = addNewServerObjectToRsg(oid, o, R);
-		if (!success) {
-			removeInPlace(locOids, oid);
-			if (!isEmpty(R.getR(oid))) addIf(failedLocOids, oid);
-		}
-		if (isEmpty(locOids)) {
-			if (isEmpty(failedLocOids)) {
-				console.log('both locOids and failedLocOids empty!', '\nCYCLES', CYCLES)
-				return;
-			} else { locOids = failedLocOids; failedLocOids = []; }
-		}
-
-		let locOidsEnd = jsCopy(locOids);
-		if (sameList(locOidsStart, locOidsEnd) || sameList(locOidsStart, failedLocOids)) {
-			//console.log('cant add more oids', '\nstart', locOidsStart, '\nend', locOidsEnd, '\nfailed:', failedLocOids, '\nCYCLES', CYCLES);
-			return;
-		}
-		//removeInPlace(locOids, oid); //remove it from locOids
-		//if (isEmpty(locOids)) break;
-	}
-}
 function recAdjustDirtyContainers(uid, R, verbose = false) {
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
 	let nui = R.uiNodes[uid];
@@ -96,19 +55,29 @@ function einhaengen(oid, o, R) {
 
 	if (isEmpty(nodes)) return false;
 
-	for (const key of nodes) { //} in nodes) {
-		let topUids;
+	let topUids;
+	let success = false;
+	let successKeys=[];
+	for (const key of nodes) { 
 		let specNode = R.getSpec(key);
 		//console.log(o)
 		if (o.loc && nundef(R.Locations[key]) && nundef(specNode._ref)) {
-			console.log('robber want to add', key, 'locations:', R.Locations[key]);
-			if (nundef(R.Locations[key])) topUids = addOidByLocProperty(oid, key, R);
-		} else {
-			if (oid == '146') console.log('trying to add robber by parent!')
+			console.log('robber want to add key='+ key);
+			if (nundef(R.Locations[key])) {
+				console.log('YES!!! key is free!');
+				topUids = addOidByLocProperty(oid, key, R);
+			}else{
+				console.log('impossible to add!!! key bound to location',R.locations[key]);
+			}
+		} else if (isdef(R.Locations[key])) {
+			if (oid == '146') console.log('trying to add key='+key, 'by parent location!')
 			topUids = addOidByParentKeyLocation(oid, key, R);
+		} else {
+			// console.log('key='+key,'cannot be added for oid='+oid,'cause no loc or available location! (this might be a board element!)')
 		}
-		if (nundef(topUids)) { continue; }
-		//else console.log(topUids)
+		if (isEmpty(topUids)) { continue; }	
+		else { successKeys.push(key); success=true;}
+
 		for (const top of topUids) {
 			let uiParent = R.uiNodes[top.uidParent];
 			let rParent = R.rNodes[top.uidParent];
@@ -119,7 +88,7 @@ function einhaengen(oid, o, R) {
 			recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
 		}
 	}
-	return true; //assume added at least some node since already know that 
+	return success?successKeys:false; // true; //assume added at least some node since already know that 
 	//there is a key with available channel for oid, 
 	//AND 
 	//there is a parent with correct channel for oid
