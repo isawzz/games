@@ -31,7 +31,7 @@ function calcContentFromData(oid, o, data, R) {
 		return content;
 	} else if (isList(data)) {
 		//ex: data:[.vps, .money]
-		let content = data.map(x => calcContentFromData(oid,o,x,R));
+		let content = data.map(x => calcContentFromData(oid, o, x, R));
 		return content;
 	}
 	return null;
@@ -66,16 +66,16 @@ function calcAddressWithin(o, addr, R) {
 			if (props.length == 1 && isEmpty(props[0])) {
 				console.log('ERROR!!!!!!!! sollte abgefangen werden!!!! props empty!')
 				return o;
-			}else if (props.length == 1){
-				return {key:props[0],obj:o};
+			} else if (props.length == 1) {
+				return { key: props[0], obj: o };
 			}
-			else{
+			else {
 				//take last property from props
 				let key = last(props);
 				let len = props.length;
-				let props1=props.slice(0,len-1);
+				let props1 = props.slice(0, len - 1);
 				//console.log('props',props,'props1',props1)
-				return {key:key, obj:dPP(o, props1, R)};
+				return { key: key, obj: dPP(o, props1, R) };
 			}
 
 		} else {
@@ -93,7 +93,7 @@ function calcAddressWithin(o, addr, R) {
 		return content;
 	} else if (isList(addr)) {
 		//ex: data:[.vps, .money]
-		let content = addr.map(x => calcAddressWithin(o,x,R));
+		let content = addr.map(x => calcAddressWithin(o, x, R));
 		return content;
 	}
 	return null;
@@ -160,33 +160,15 @@ function defaultPresentationNode(oid, o, R) {
 
 
 }
-function inferType(n, defType='panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
+function inferType(n, defType = 'panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
 
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
 function hasId(o) { return isdef(o._id); }
 
-function normalizeToList(n,prop){
-	let val=n[prop];
-	if (isdef(val) && !isList(val)) n[prop]=[val];
-}
-
-
-
-//#region merging types, _id, _ref helpers
-function check_id(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_id', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToPlaces(specKey, akku[k], k); }
-	//console.log('places', this.places)
-}
-function check_ref(specKey, node, R) {
-	let akku = {};
-	recFindProp(node, '_ref', 'self', akku);
-	//console.log(node.specKey, node, akku);
-	for (const k in akku) { R.addToRefs(specKey, akku[k], k); }
-	//console.log('places', this.places)
+function normalizeToList(n, prop) {
+	let val = n[prop];
+	if (isdef(val) && !isList(val)) n[prop] = [val];
 }
 
 //#region source, pool
@@ -233,10 +215,9 @@ function addNewObjectToSourcesAndPools(o, R) {
 		//console.log('missing', missing);
 	}
 
-	
+
 	return [sp, pools];
 }
-
 function addSourcesAndPools(R) {
 	//source and cond can only occur at top level!
 
@@ -282,7 +263,7 @@ function addSourcesAndPools(R) {
 		//console.log('missing', missing);
 	}
 
-	
+
 	return [sp, pools];
 }
 function makePool(cond, source, R) {
@@ -307,7 +288,7 @@ function makePool(cond, source, R) {
 //#region cond, eval, eval FUNCTIONS
 var FUNCTIONS = {
 	instanceof: 'instanceOf',
-	obj_type: (o, v) => o.obj_type == v,
+	//obj_type: (o, v) => o.obj_type == v,
 	prop: (o, v) => isdef(o[v]),
 	no_prop: (o, v) => nundef(o[v]),
 	no_spec: (o, v) => false, //this has to be checked differently!
@@ -323,8 +304,21 @@ function instanceOf(o, className) {
 }
 function evalCond(o, condKey, condVal) {
 	let func = FUNCTIONS[condKey];
+	//if (isList(condVal)) console.log('liste',func)
 	if (isString(func)) func = window[func];
-	if (nundef(func)) return isdef(o[condKey]) ? o[condKey] == condVal : null;
+	if (nundef(func)) {
+		//condKey and condVal interpreted as property of object
+		//console.log('haaaaaaaaaaaaaalllllllllllo')
+		if (nundef(o[condKey])) return null;
+		if (isList(condVal)) {
+			//console.log('list!')
+			for (const v of condVal) if (o[condKey] == v) return true;
+			return null;
+		} else {
+			return isdef(o[condKey]) ? o[condKey] == condVal : null;
+
+		}
+	}
 	return func(o, condVal);
 }
 function evalConds(o, conds) {
@@ -353,18 +347,43 @@ const PARAMRSG_T = {
 	size: true,
 	rounding: true,
 };
+const COLORPARAMNAMES = {
+	bg: true,
+	fg: true,
+	color: true,
+	'font-color': true,
+	border: true,
+	highlight: true,
+	highlight1: true,
+	highlight1: true,
+}
+function decodeColor(c) {
+	//color of form: [name lum alpha] is turned into corresponding number
+	//name...knowncolor, lum...percent helligkeit (0=black,100=white), alpha:0-1
+	//if form is [name float] float is interpreted as alpha, lum=50
+	//if form is [name int] int is interpreted as lum, alpha=1
+	//if form is [name] lum=50,alpha=1
+	//console.log(c)
+	let parts = c.split(' ');
+	if (parts.length == 1) return c;
+	else if (parts.length == 2 && (parts[1][0] == '.' || parts[1][0] == '0')) {
+		return anyColorToStandardString(parts[0], Number(parts[1]));
+	} else {
+		//has parts[1] and this is lum, may also have parts[2] alpha
+		let n = Number(parts[1]);
+		let lumParam = n / 50 - 1.0;
+		let cAltered = colorShade(lumParam, parts[0]);
+		if (parts.length > 2) { cAltered = anyColorToStandardString(cAltered, Number(parts[2])); }
+		//console.log('c', c, 'cAltered', cAltered);
+		return cAltered;
+
+	}
+
+}
 function decodeParams(n, R, defParams) {
 
-
-
-	console.assert(isdef(n.type), 'decodeParams NO TYPE!!!!')
-
-	// console.assert(isdef(n.params), 'decodeParams: n.params MISSING!!!!!');
-	// console.assert(isdef(defParams), 'decodeParams: defParams MISSING!!!!!');
-
-
-	if (nundef(n.params)) n.params = lookup(R.defs,[n.type,'params']);
-	if (!n.params) n.params={};
+	if (nundef(n.params)) n.params = lookup(R.defs, [n.type, 'params']);
+	if (!n.params) n.params = {};
 	//console.log('________ decodeParams for type',n.type);
 	// console.log('n.params', n.params);
 	// console.log('n.defParams', n.defParams);
@@ -377,6 +396,7 @@ function decodeParams(n, R, defParams) {
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;
 	let pNew = {};
 	if (o) {
+		//if (isdef(o.port)) console.log('o', o, '\nparams', n.params)
 		pNew = mapValues(o, n.params, defs, R.getSpec());
 		for (const k in pNew) { pNew[k] = calcContentFromData(n.oid, o, pNew[k], R); }
 	} else pNew = n.params;
@@ -386,6 +406,14 @@ function decodeParams(n, R, defParams) {
 	}
 
 	//finally, special param values are converted
+	//console.log('vor dem loop', pNew);
+
+	//remove all params that have a value of undefined!!!!
+	let pNew1 = {};
+	for (const k in pNew) { if (nundef(pNew[k])) continue; pNew1[k] = pNew[k]; }
+	pNew = pNew1;
+
+	for (const k in pNew) { if (COLORPARAMNAMES[k]) pNew[k] = decodeColor(pNew[k]); }
 	let params = paramsToCss(pNew);
 	n.params = pNew;
 	n.typParams = params.typ;
@@ -462,12 +490,19 @@ function mapValues(o, p, pdef, spec) {
 		//console.log('propPath is',propPath);
 		//console.log(mapName,propPath,'_map',_map);
 		let _key = decodePropertyPath(o, propPath);
-		//console.log('_key is',_key);
+		//console.log('_key is', _key);
 		//console.log('o1',o1,'',_key,_key);
 		let val = _map[_key];
-		//console.log('val is',val);
-		if (isdef(val) && isdef(val[k])) { oNew[k] = val[k]; }
+		//console.log('val is', val); //this will usually be a dict
+
+		let valKey = isdef(m.value) ? m.value : k;
+
+		//console.log('===>the key of value to use is', valKey)
+
+		if (isdef(val) && isdef(val[valKey])) { oNew[k] = val[valKey]; }
+
 		else if (isdef(m.default)) { oNew[k] = m.default; }
+
 		else if (isdef(pdef[k])) { oNew[k] = pdef[k]; }
 		//console.log('oNew[k] is',oNew[k]);
 		//console.log('change!!! old',params[p],'new',newParams[p])

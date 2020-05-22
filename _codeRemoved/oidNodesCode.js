@@ -257,7 +257,149 @@ function mergeAllRefsToIdIntoNode(n, R) {
 	//console.log(refDictBySpecNodeName);
 }
 
+//#region remove node: R.rNodesOidKey HAS BEEN DEPRECATED!!!
+function aushaengen(oid, R) {
 
+	//new code
+	console.log('should remove',oid,R.rNodes)
+
+	while(true){
+		let uid=firstCondDict(R.rNodes,x=>x.oid==oid);
+		if (!uid) return;
+		console.log('found node to remove:',uid);
+		let n=R.rNodes[uid];
+
+		//make sure that in each round have less rNodes
+		let len = Object.keys(R.rNodes).length;
+
+		console.log('removing',n.uid,n)
+		recRemove(n,R);
+		let len2 = Object.keys(R.rNodes).length;
+
+		if (len2<len){
+			console.log('success! removed',len-len2,'nodes!');
+		}else{
+			console.log('DID NOT REMOVE ANYTHING!!!!',len,len2);
+			return;
+		}
+	}
+
+	//remove all nodes representing oid from R.tree
+	//passiert wenn eine server object removed wird
+
+	//an welchen locations gibt es dieses oid object als child?
+	let nodes = R.getR(oid);
+	//let nodes = R.oidNodes[oid]; //ELIM use R.getR(oid) instead!!!
+	//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+
+	if (isEmpty(nodes)) return;
+	for (const key of nodes) { //in nodes) {
+		//hier kann: removeOidKey aufrufen, das das folgende macht
+		removeOidKey(oid, key, R);
+	}
+}
+function removeOidKey(oid, key, R) {
+	let nodeInstances = lookup(R.rNodesOidKey, [oid, key]);
+	if (!nodeInstances) {
+		console.log('nothing to remove!', oid, key);
+		return;
+	}
+	for (const uid of nodeInstances) {
+		let n1 = R.rNodes[uid]; //jetzt habe tree nodes von parent in dem oid haengt!
+		recRemove(n1, R);
+	}
+}
+function recRemove(n, R) {
+	if (isdef(n.children)) {
+		//console.log('children',n.children);
+		let ids = jsCopy(n.children);
+		for (const ch of ids) recRemove(R.rNodes[ch], R);
+	}
+
+	if (isdef(n.oid) && isdef(n.key)) {
+		let oid = n.oid;
+		let key = n.key;
+		if (!oidNodesSame(oid, R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid, R), R.getR(oid)); }
+		delete R.rNodesOidKey[oid][key];
+		if (isEmpty(R.rNodesOidKey[oid])) delete (R.rNodesOidKey[oid]);
+		//delete R.oidNodes[oid][key]; // ELIM
+		R.removeR(oid, key);
+		//if (isEmpty(R.oidNodes[oid])) delete (R.oidNodes[oid]); // ELIM
+	}
+
+	delete R.rNodes[n.uid];
+	R.unregisterNode(n); //hier wird ui removed, object remains in _sd!
+	delete R.uiNodes[n.uid];
+	let parent = R.rNodes[n.uidParent];
+	removeInPlace(parent.children, n.uid);
+	if (isEmpty(parent.children)) delete parent.children;
+
+}
+
+
+//#region old tests: add or remove oid/key
+function getRandomUidNodeWithAct(R) {
+	//das geht garnicht!!!!!!!!!!!!!!!!!!!!!!!
+	//der node existiert ja nicht mehr!
+	//geht fuer remove aber nicht fuer add!!!!!
+	let cands = Object.values(R.uiNodes).filter(x => isdef(x.act) && isdef(x.oid));
+	//console.log(cands);
+	if (isEmpty(cands)) return null;
+	let n = chooseRandom(cands);
+	//console.log(n);
+	return n;
+}
+function testRemoveOidKey(R) {
+
+	// let { oid, key } = getRandomOidAndKey(R);
+	let n = getRandomUidNodeWithAct(R);
+	if (!n) {
+		console.log('there is no oid to remove!!!');
+		return;
+	}
+	let [oid, key] = [n.oid, n.key];
+
+	let nodeInstances = lookup(R.rNodesOidKey, [oid, key]);
+	console.log('_________ testRemoveOidKey', 'remove all', oid, key, nodeInstances);
+	//console.log('remove', oid, key);
+	removeOidKey(oid, key, R);
+
+	updateOutput(R);
+
+}
+
+function getRandomNodeThatCanBeAdded(R) {
+	console.log('SINNLOS!!!')
+	let nonEmpty = allCondDict(R._sd, x => !isEmpty(x.rsg));
+	console.log('getRandomNodeThatCanBeAdded: nonEmpty',nonEmpty);
+}
+function testAddOidKey(R) {
+
+	//let n=chooseRandom(R.instantiable);
+	console.log(R.instantiable)
+	let n = lastCond(R.instantiable, x => !lookup(R.rNodesOidKey, [x.oid, x.key]));
+	if (!n) {
+		console.log('all nodes are instantiated!!!');
+		return;
+	}
+	//console.log(n);
+
+	let [oid, key] = [n.oid, n.key];
+	let o = R.getO(oid);
+	if (!o) {
+		console.log('no object with oid', oid, 'found!!!');
+		return;
+	}
+	//console.log(' T_____________________ testAddOidLoc: add', oid, '/', key);
+	if (o.loc) addOidByLocProperty(oid, key, R); else addOidByParentKeyLocation(oid, key, R);
+
+	//hier brauch ich noch generateUi fuer neue nodes!!!
+	//addOidByLocProperty(oid, key, R);
+
+	updateOutput(R);
+
+}
+//#endregion
 
 
 

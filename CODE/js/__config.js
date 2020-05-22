@@ -7,17 +7,16 @@ var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
-var EINHAENGEN_NEW = true; // true | false
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
 var TEST_SERIES = '01_huge'; // 00 01_huge
 var SERVERDATA_PATH = '/assetsTEST/'+TEST_SERIES+'/server'; // 00
 
-var SHOW_SPEC = true; // true | false
-var SHOW_LASTSPEC = true; // true | false
+var SHOW_SPEC = false; // true | false
+var SHOW_LASTSPEC = false; // true | false
 var SHOW_RTREE = true; // true | false
 var SHOW_UITREE = false; // true | false
 var SHOW_OIDNODES = false; // true | false
-var SHOW_DICTIONARIES = false; // true | false
+var SHOW_DICTIONARIES = true; // true | false
 var SHOW_IDS_REFS = true; // true | false
 
 var MAX_CYCLES = 500; //Recursion safety!

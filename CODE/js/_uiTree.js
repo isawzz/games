@@ -11,7 +11,7 @@ function recUi(n, area, R, oid, key) {
 
 	//console.log(n1)
 	if (n1.type == 'grid') {
-		createBoard_NEW(n1, area, R);
+		createBoard(n1, area, R);
 	} else {
 		//console.log('call createUi__ for',n1.uid)
 		//if (oid == '0') console.log('Member: calling createUi',jsCopy(n1))

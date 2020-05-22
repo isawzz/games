@@ -131,14 +131,14 @@ function updateOutput(R) {
 
 	if (SHOW_RTREE) {
 		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
-			['children'], null, null, { 'max-width': '35%', font: '14px arial' });
+			['children'], null, ['params','info'], { 'max-width': '35%', font: '14px arial' });
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
 
 	if (SHOW_DICTIONARIES) {
 		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-		mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
+		//mDictionary(R.rNodesOidKey, { dParent: mBy('dicts'), title: 'rNodesOidKey ' + Object.keys(R.rNodesOidKey).length });
 		mDictionary(R.Locations, { dParent: mBy('dicts'), title: 'locations ' + Object.keys(R.Locations).length });
 		//mDictionary(R.maps, { dParent: mBy('maps'), title: 'maps' });
 	}

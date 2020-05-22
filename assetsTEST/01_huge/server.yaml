@@ -2706,8 +2706,8 @@ table:
       - _obj: '143'
       - _obj: '144'
   '146':
-    loc:
-      _obj: '3'
+    loc: '3'
+      # _obj: '3'
     obj_type: robber
     visible:
       _set:

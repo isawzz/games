@@ -1,43 +1,78 @@
 
-async function testSolutionConverter(){
+async function testSolutionConverter() {
 	let series = TEST_SERIES;
-	let sols=await loadSolutions(series);
-	console.log('solutions',sols);
+	let sols = await loadSolutions(series);
+	console.log('solutions', sols);
 
-	await saveSolutions(series,sols);
+	await saveSolutions(series, sols);
 }
-async function loadSolutions(series){
+async function loadSolutions(series) {
 	//when loading solutions from disk:convert keys into numbers
-	let solFilename=EINHAENGEN_NEW?'sol':'solution';
-	let sol = await loadJsonDict('/assetsTEST/'+series + '/'+solFilename+'.json');
+	let solFilename = 'sol';
+	let sol = await loadJsonDict('/assetsTEST/' + series + '/' + solFilename + '.json');
 	let sol1 = {};
 	for (const k in sol) { sol1[firstNumber(k)] = sol[k]; }
 	let solutions = sol1;
 	return solutions;
 }
-async function saveSolutions(series,solutions){
+async function saveSolutions(series, solutions) {
 	//solutions have number keys, make it string and sort!
 	let keys = Object.keys(solutions);
 	//console.log(keys[0],typeof keys[0]);
-	let n=firstNumber(keys[0]);
+	let n = firstNumber(keys[0]);
 	//console.log('n',n,'type',typeof n);
 	//console.log(solutions[10],'number');
 	//console.log(solutions['10'],'string');
-	keys.sort(x=>Number(x)).reverse();
+	keys.sort(x => Number(x)).reverse();
 	//console.log('keys',keys);
-	let sortedObject={};
-	for(const k of keys){
-		let x=sortKeys(solutions[k]);
-		sortedObject[' '+k+' ']=x; //solutions[k];
+	let sortedObject = {};
+	for (const k of keys) {
+		let x = sortKeys(solutions[k]);
+		sortedObject[' ' + k + ' '] = x; //solutions[k];
 	}
-	downloadFile(sortedObject,'solutions'+series);
+	downloadFile(sortedObject, 'solutions' + series);
 }
 
 
+function recheckAllObjectsForLoc(R) {
+	let locOids = [];
+	for (const oid in R._sd) {
+		let o = R.getO(oid);
+		if (o.loc) locOids.push(oid);
+	}
+	CYCLES = 0; //MAX_CYCLES=10;
+	while (true) { //find next loc oid with existing parent!
+		CYCLES += 1; if (CYCLES > MAX_CYCLES) { console.log('MAX_CYCLES reached!'); return; }
+		let locOidsStart = jsCopy(locOids);
+		let oid = find_next_loc_oid_with_existing_parent(locOids, R);
+		if (!oid) {
+			//console.log('cannot add any other object!', '\nstart',locOidsStart,'\nfailed:',failedLocOids,'\nCYCLES',CYCLES);
+			return;
+		}
+		let o = R.getO(oid);
+		let success = einhaengen(oid, o, R);
+		if (!success) {
+			removeInPlace(locOids, oid);
+			if (!isEmpty(R.getR(oid))) addIf(failedLocOids, oid);
+		}
+		if (isEmpty(locOids)) {
+			if (isEmpty(failedLocOids)) {
+				console.log('both locOids and failedLocOids empty!', '\nCYCLES', CYCLES)
+				return;
+			} else { locOids = failedLocOids; failedLocOids = []; }
+		}
+
+		let locOidsEnd = jsCopy(locOids);
+		if (sameList(locOidsStart, locOidsEnd) || sameList(locOidsStart, failedLocOids)) {
+			//console.log('cant add more oids', '\nstart', locOidsStart, '\nend', locOidsEnd, '\nfailed:', failedLocOids, '\nCYCLES', CYCLES);
+			return;
+		}
+	}
+}
 
 
 //#region server data change!
-var TV={};
+var TV = {};
 function testAddObject(R) {
 
 	let oid = getUID('o');
@@ -49,17 +84,27 @@ function testAddObject(R) {
 	//console.log('adding a new object', oid);
 	addNewServerObjectToRsg(oid, o, R);
 
+	recheckAllObjectsForLoc(R);
+
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
 	//console.log(R.instantiable)
 	updateOutput(R);
 }
 function testRemoveObject(R) {
+
+	//muss ein object removen das nicht ein board member ist, nicht ein board ist,
+	//aber schon irgendwo represented it!
+
 	//hier mache policy not to remove board members!!!
 	//lock in objects that are not independent! these are objects
 	let data = dict2list(sData);
 	//data = data.filter(x=>(isdef(x.map) || nundef(x.fields)) && nundef(x.neighbors));
-	data = data.filter(x=>(nundef(x.fields)) && nundef(x.neighbors)); //board weg!
+	data = data.filter(x => (nundef(x.fields)) && nundef(x.neighbors)); //board weg!
+
+	data = data.filter(x => firstCondDict(R.rNodes, y => y.oid == x.id));
+	console.log('data gefiltered:', data)
+
 	if (isEmpty(data)) {
 		console.log('no objects left in sData!!!');
 		return;
@@ -69,7 +114,7 @@ function testRemoveObject(R) {
 	delete sData[oid];
 	//also have to remove all the children!
 	completelyRemoveServerObjectFromRsg(oid, R);
-	console.log('removed oid',oid);
+	console.log('removed oid', oid);
 	updateOutput(R);
 }
 function testAddLocObject(R) {
@@ -82,37 +127,19 @@ function testAddLocObject(R) {
 }
 function testAddBoard(R) {
 	let oid = TV.boardOid; //detectFirstBoardObject(R); //chooseRandomDictKey(sData);
-	let o=TV.oBoard;
-	console.log('boardOid is',oid);
+	let o = TV.oBoard;
+	console.log('boardOid is', oid);
 	if (R.getO(oid)) {
 		console.log('please click remove board first!');
 		return;
 	}
-	// let o =
-	// {
-	// 	fields:
-	// 	{
-	// 		_set: [
-	// 			{ _obj: '0' },
-	// 			{ _obj: '1' },
-	// 			{ _obj: '2' },
-	// 			{ _obj: '3' },
-	// 			{ _obj: '4' },
-	// 			{ _obj: '5' },
-	// 			{ _obj: '6' },
-	// 			{ _obj: '7' },
-	// 			{ _obj: '8' }]
-	// 	},
-	// 	rows: 3,
-	// 	cols: 3,
-	// 	obj_type: 'Board',
-	// 	map: 'hallo',
-	// };
 	if (!serverData.table) serverData.table = {};
 	serverData.table[oid] = o;
 	sData[oid] = jsCopy(o);
 	//console.log('adding a new object', oid);
 	addNewServerObjectToRsg(oid, o, R);
+
+	recheckAllObjectsForLoc(R);
 
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
@@ -124,9 +151,9 @@ function testRemoveBoard(R) {
 	if (activate) deactivateUis(R);
 
 	let oid = detectFirstBoardObject(R); //chooseRandomDictKey(sData);
-	console.log('testRemoveBoard: first board object detected has oid',oid);
+	console.log('testRemoveBoard: first board object detected has oid', oid);
 
-	if (isdef(oid)) {TV.boardOid = oid;TV.oBoard=R.getO(oid);}
+	if (isdef(oid)) { TV.boardOid = oid; TV.oBoard = R.getO(oid); }
 	if (!oid) {
 		console.log('no objects left in sData!!!');
 		return;
@@ -151,12 +178,12 @@ function testDeactivate(R) {
 //#endregion
 
 //#region helper function tests
-function testSaveLoadUiTree(){
-	let uiTree = jsCopyMinus(T.uiTree,'act','ui','defParams','params');
+function testSaveLoadUiTree() {
+	let uiTree = jsCopyMinus(T.uiTree, 'act', 'ui', 'defParams', 'params');
 	console.log(uiTree);
 
 }
-function testSorting(){
+function testSorting() {
 	let o = { z: [3, 2, 5, 1], d: { w: 2, r: 3 } };
 	let d = mBy('spec');
 	mNodeFilter(o, { dParent: d, title: 'orig' });
@@ -213,70 +240,6 @@ function logVals(title, o) {
 
 
 
-
-//#region old tests: add or remove oid/key
-function getRandomUidNodeWithAct(R) {
-	//das geht garnicht!!!!!!!!!!!!!!!!!!!!!!!
-	//der node existiert ja nicht mehr!
-	//geht fuer remove aber nicht fuer add!!!!!
-	let cands = Object.values(R.uiNodes).filter(x => isdef(x.act) && isdef(x.oid));
-	//console.log(cands);
-	if (isEmpty(cands)) return null;
-	let n = chooseRandom(cands);
-	//console.log(n);
-	return n;
-}
-function testRemoveOidKey(R) {
-
-	// let { oid, key } = getRandomOidAndKey(R);
-	let n = getRandomUidNodeWithAct(R);
-	if (!n) {
-		console.log('there is no oid to remove!!!');
-		return;
-	}
-	let [oid, key] = [n.oid, n.key];
-
-	let nodeInstances = lookup(R.rNodesOidKey, [oid, key]);
-	console.log('_________ testRemoveOidKey', 'remove all', oid, key, nodeInstances);
-	//console.log('remove', oid, key);
-	removeOidKey(oid, key, R);
-
-	updateOutput(R);
-
-}
-
-function getRandomNodeThatCanBeAdded(R) {
-	console.log('SINNLOS!!!')
-	let nonEmpty = allCondDict(R._sd, x => !isEmpty(x.rsg));
-	console.log('getRandomNodeThatCanBeAdded: nonEmpty',nonEmpty);
-}
-function testAddOidKey(R) {
-
-	//let n=chooseRandom(R.instantiable);
-	console.log(R.instantiable)
-	let n = lastCond(R.instantiable, x => !lookup(R.rNodesOidKey, [x.oid, x.key]));
-	if (!n) {
-		console.log('all nodes are instantiated!!!');
-		return;
-	}
-	//console.log(n);
-
-	let [oid, key] = [n.oid, n.key];
-	let o = R.getO(oid);
-	if (!o) {
-		console.log('no object with oid', oid, 'found!!!');
-		return;
-	}
-	//console.log(' T_____________________ testAddOidLoc: add', oid, '/', key);
-	if (o.loc) addOidByLocProperty(oid, key, R); else addOidByParentKeyLocation(oid, key, R);
-
-	//hier brauch ich noch generateUi fuer neue nodes!!!
-	//addOidByLocProperty(oid, key, R);
-
-	updateOutput(R);
-
-}
-//#endregion
 
 
 

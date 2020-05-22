@@ -139,7 +139,7 @@ class RSG {
 		this.Locations = {}; //locations: sind das die here nodes?
 		this.rNodes = {}; // rtree
 		this.uiNodes = {}; // ui tree
-		this.rNodesOidKey = {}; //andere sicht of rtree
+		//this.rNodesOidKey = {}; //andere sicht of rtree
 		this.tree = {};
 
 	}

@@ -3,11 +3,12 @@ function einhaengen0(oid, o, R) {
 	//let nodes = R.oidNodes[oid];
 
 	let nodes = R.getR(oid);
-	if (isEmpty(nodes)) return;
+	if (isEmpty(nodes)) return false;
 	for (const key of nodes) { //} in nodes) {
 		if (o.loc) addOidByLocProperty0(oid, key, R);
 		else addOidByParentKeyLocation0(oid, key, R);
 	}
+	return true;
 }
 function addOidByLocProperty0(oid, key, R) {
 	let o = R.getO(oid);

@@ -43,7 +43,7 @@ function activateUis(R) {
 	//console.log('activating uis!!!')
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
-		if (n.oid && n.ui) {
+		if (isdef(n.oid) && isdef(n.ui)) {
 			n.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
 		}
 	}
@@ -64,6 +64,8 @@ function highSelfAndRelatives(uid, R) {
 	for (const oid of R.uid2oids[uid]) {
 		for (const uid1 of R.oid2uids[oid]) {
 			//console.log('high',uid1)
+			//console.log('activate','uid',uid,'oid',oid);
+			//if (oid == '145') continue;
 			let ui = R.getUI(uid1);
 			mHigh(ui);
 		}

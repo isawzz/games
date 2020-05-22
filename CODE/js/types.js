@@ -21,12 +21,29 @@ function gInfo(n, gParent, R) {
 	let pf = n.params;
 	n.uiType = 'g';
 	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
+	
 	gParent.appendChild(ui);
+	
 	if (n.content) {
 		let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
 		n.label = agText(ui, n.content, color, pf.font);
+		calcRays(n, gParent, R);
 	}
 
+	if (pf.border){
+		let th=isdef(pf.thickness)?pf.thickness:1;
+
+		let color=decodeColor(pf.border);
+
+		// let alpha=firstFloat(pf.border);
+		// console.log('alpha',alpha);
+		// let color = stringBefore(pf.border,' ');
+		// if (alpha) color = anyColorToStandardString(color,alpha);
+		let ch=ui.children[0];
+		//console.log('child w/ shape that should get border is',ch,'\np:',pf, '\nport',n.content);
+		ch.setAttribute('stroke', color);
+		ch.setAttribute('stroke-width',th);
+	}
 
 	return ui;
 }

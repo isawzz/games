@@ -3063,6 +3063,17 @@ function firstNumber(s) {
 	}
 	return null;
 }
+function firstFloat(s) {
+	// returns first number in string s
+	if (s) {
+		let m = s.match(/-?.?\d+/);
+		if (m) {
+			let sh = m.shift();
+			if (sh) { return Number(sh); }
+		}
+	}
+	return null;
+}
 
 function firstPositiveNumber(s) {
 	// returns first number in string s
