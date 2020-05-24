@@ -80,7 +80,7 @@ async function doNext(series, index, mexIndex) {
 // }
 function onClickInvalidate() { testEngine.invalidate(); }
 function onClickSave() { testEngine.saveSolution(T); }
-async function onClickClearTable() { clearElement('table'); }
+async function onClickClearTable() { clearElement('table');clearUpdateOutput();T={}; }
 
 function onClickRemove() { testRemoveObject(T); }
 function onClickAdd() { testAddObject(T); }

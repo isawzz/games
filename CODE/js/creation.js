@@ -18,7 +18,24 @@ function ensureRtree(R) {
 function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
+	//console.log('create static')
 	recUi(n, area, R);
+}
+function addNewlyCreatedServerObjects(sdata, R) {
+	//console.log('_____________ addNewly...', sdata);
+
+	for (const oid in sdata) { R.addObject(oid, sdata[oid]); R.addRForObject(oid); }
+
+	for (const oid in sdata) {
+		let o = sdata[oid];
+		if (isdef(o.loc)) { continue; }
+		let success = einhaengen(oid, o, R);
+	}
+	//return;
+	//so far has added all objects to tree that do NOT have loc component and have spec node
+	//or are a part of an object that has spec node (eg. board member)
+
+	sieveLocOids(R);
 }
 function recAdjustDirtyContainers(uid, R, verbose = false) {
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
@@ -49,8 +66,10 @@ function einhaengen(oid, o, R) {
 			}
 		} else if (isdef(R.Locations[key])) {
 			//if (oid == '146') console.log('trying to add key='+key, 'by parent location!')
+			if (oid == '9') console.log('==>trying to add key='+key, 'by parent location!')
 			topUids = addOidByParentKeyLocation(oid, key, R);
 		} else {
+			topUids=[];
 			// console.log('key='+key,'cannot be added for oid='+oid,'cause no loc or available location! (this might be a board element!)')
 		}
 		if (isEmpty(topUids)) { continue; }
@@ -63,6 +82,7 @@ function einhaengen(oid, o, R) {
 				uiParent.adirty = true;
 				uiParent.children = rParent.children.map(x => x);
 			}
+			//console.log('einhaengen!!!!',key)
 			recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
 		}
 	}
@@ -75,7 +95,6 @@ function addOidByLocProperty(oid, key, R) {
 	//if (o.obj_type == 'robber') console.log('_____________ addOidByLocProperty', oid, key)
 
 	let parents = R.oid2uids[oidParent];
-	//if (oid=='cycle1') console.log('parents',parents);
 
 	if (isEmpty(parents)) { return []; }
 
@@ -94,10 +113,8 @@ function addOidByParentKeyLocation(oid, key, R) {
 	// if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 	// if (isEmpty(nodes)) return;
 
-
-
 	let parents = R.Locations[key]; //for now just 1 allowed!!!!!!!!!!
-	//console.log('found parents:',parents)
+	if (oid=='9') console.log('found parents:',parents)
 	if (nundef(parents)) {
 		if (oid == '146') console.log('not added!!!', oid, key)
 		return;
@@ -114,6 +131,7 @@ function addOidByParentKeyLocation(oid, key, R) {
 }
 function instantOidKey(oid, key, uidParent, R) {
 	//console.log('*** instant *** oid', oid, 'key', key, 'uidParent', uidParent, '\nrtreeParent', R.rNodes[uidParent],'\nR',R);
+	//if (oid=='9')console.log('*** instant *** oid', oid, 'key', key, 'uidParent', uidParent, '\nrtreeParent', R.rNodes[uidParent],'\nR',R);
 
 	let rtreeParent = R.rNodes[uidParent];
 
@@ -132,7 +150,6 @@ function instantOidKey(oid, key, uidParent, R) {
 	return n1;
 
 }
-
 
 //#region remove oid
 function completelyRemoveServerObjectFromRsg(oid, R) {

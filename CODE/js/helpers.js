@@ -2141,6 +2141,21 @@ function any(arr, cond) {
 function anyStartsWith(arr, prefix) {
 	return any(arr, el => startsWith(el, prefix));
 }
+Array.prototype.rotate = (function () {
+	// usage:
+	// let arr = [1,2,3,4,5];let arr1=jsCopy(arr).rotate(2);
+	var unshift = Array.prototype.unshift,
+		splice = Array.prototype.splice;
+
+	return function (count) {
+		var len = this.length >>> 0,
+			count = count >> 0;
+
+		unshift.apply(this, splice.call(this, count % len, len));
+		return this;
+	};
+})();
+
 function arrChildren(elem) { return [...elem.children]; }
 
 function arrFromIndex(arr, i) { return arr.slice(i); }

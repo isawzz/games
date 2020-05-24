@@ -109,15 +109,26 @@ function makeDefaultPool(fromData) {
 	//console.log('data',data)
 	return data;
 }
-function updateOutput(R) {
-
+function clearUpdateOutput(){
 	for (const area of ['spec', 'lastSpec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds']) { //'channelsStatic', 'channelsLive' 
 		clearElement(area);
+	}
+}
+function updateOutput(R) {
+	clearUpdateOutput();
+	if (isEmpty(R)) {
+		console.log('no data available!');
+		return;
 	}
 
 	if (SHOW_SPEC) { presentNodes(R.sp, 'spec', ['_NODE']); }
 
 	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec', ['_NODE']); }
+
+	if (SHOW_RTREE) {
+		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
+			['children'], null, ['info'], { 'max-width': '35%', font: '14px arial' });
+	}
 
 	if (SHOW_UITREE) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
@@ -127,11 +138,6 @@ function updateOutput(R) {
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });
-	}
-
-	if (SHOW_RTREE) {
-		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
-			['children'], null, ['params','info'], { 'max-width': '35%', font: '14px arial' });
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
@@ -146,6 +152,7 @@ function updateOutput(R) {
 	if (SHOW_IDS_REFS) {
 		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
 		mDictionary(R.places, { dParent: mBy('refsIds'), title: '_ids ' + Object.keys(R.places).length });
+		mDictionary(R.mixins, { dParent: mBy('refsIds'), title: '_mixins ' + Object.keys(R.mixins).length });
 		mDictionary(R.refs, { dParent: mBy('refsIds'), title: '_refs ' + Object.keys(R.refs).length });
 		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
 		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });

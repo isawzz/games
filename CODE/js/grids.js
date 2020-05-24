@@ -8,6 +8,7 @@ function createBoard(nui, area, R) {
 }
 function generalGrid(nuiBoard, area, R) {
 
+	//console.log('gengrid')
 	// *** stage 1 create parent *** 
 	let bParams = nuiBoard.params = detectBoardParams(nuiBoard, R);
 	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
@@ -27,6 +28,7 @@ function generalGrid(nuiBoard, area, R) {
 			let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
 
 			let ntree, nui;
+			//console.log('jetzt kommt',oid)
 			ntree = instantOidKey(oid, key, uidBoard, R);
 			ntree.params = isdef(ntree.params) ? safeMerge(groupParams, ntree.params) : groupParams;
 			ntree.info = n1.info;

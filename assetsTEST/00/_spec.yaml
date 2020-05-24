@@ -207,9 +207,20 @@
     sub:
       - data: HALLO
       - _id: A
-  A:
+        _mixin: PANEL
+        params:
+          orientation: v
+  hallo:
     _ref: A
+    cond: all
     data: WELT
+  hallo2:
+    _ref: PANEL
+    params:
+      bg: blue
+  # B:
+  #   _ref: A
+  #   data: WELT2
 1:
   ROOT:
     sub:
