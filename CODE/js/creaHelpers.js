@@ -20,36 +20,6 @@ function parentHasChannelForThisOid(n, oid) {
 	if (nundef(channels)) return true; //per default ALL channels are valid!
 
 }
-//TODO: THIS IS INEFFICIENT!!!! checking twice!!! should already return parents here!!!
-function find_next_loc_oid_with_new_parent(locOids, R) {
-
-	//TODO!!! HIER MUSS ICH AUCH CHECKEN OB DER PARENT EINEN ENSPRECHENDEN CHANNEL HAT!!!!!
-	//WENN NICHT DANN GILT DER PARENT NICHT!!!!!!!!!!!!!!!!!!!!!
-
-	//console.log('find_next_loc_oid_with_new_parent', locOids);
-	for (const oid of locOids) {
-		let o = R.getO(oid); 
-		let loc = o.loc;
-		let oidParent = loc;
-
-		let uidsParent=R.oid2uids[oidParent];
-		console.log('parent',oidParent,'for oid='+oid,'has uids:',uidsParent);
-		if (nundef(uidsParent)) continue;
-		for(const uidParent of uidsParent){
-			if (!parentHasThisChildAlready(uidParent,oid) && parentHasChannelForThisOid(R.rNodes[uidParent],oid)) return oid;
-		}
-		
-
-		// for (const uid in R.rNodes) { //WOW! super inefficient!!!!
-		// 	let n = R.rNodes[uid];
-		// 	if (n.oid != oidParent || !parentHasChannelForThisOid(n, oid, R)) continue;
-		// 	//console.log('parent for', oid, 'found:', uid, n.children);
-			
-		// 	if (!parentHasThisChildAlready(uid,oid)) return oid;
-		// }
-	}
-	return null;
-}
 function parentHasThisChildAlready(uidParent,oid){
 	let n=R.rNodes[uidParent];
 	if (nundef(n.children)) return false; //FOUND!

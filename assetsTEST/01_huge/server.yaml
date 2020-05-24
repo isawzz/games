@@ -79,6 +79,27 @@ players:
     ports:
       _set: []
 table:
+  cycle1:
+    name: cycle
+    loc: cycle2
+  cycle2:
+    name: cycle
+    loc: cycle1
+  loc1:
+    name: hallo1
+    loc: loc2
+  loc2:
+    name: hallo2
+    loc: '146'
+  '146':
+    loc: '3'
+      # _obj: '3'
+    obj_type: robber
+    visible:
+      _set:
+      - _player: White
+      - _player: Red
+      - _player: Blue
   'ttt0':
     row: 1
     col: 1
@@ -2705,15 +2726,6 @@ table:
       - _obj: '142'
       - _obj: '143'
       - _obj: '144'
-  '146':
-    loc: '3'
-      # _obj: '3'
-    obj_type: robber
-    visible:
-      _set:
-      - _player: White
-      - _player: Red
-      - _player: Blue
   '147':
     obj_type: devdeck
     visible:

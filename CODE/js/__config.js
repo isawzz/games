@@ -5,7 +5,7 @@ var SEED = 1;
 
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-var DSPEC_PATH = '/DATA/defaultSpec'; // defaultSpec | defaultSpecEmpty
+var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
 var TEST_SERIES = '01_huge'; // 00 01_huge

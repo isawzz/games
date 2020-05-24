@@ -1,3 +1,11 @@
+function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
+	if (oid == '146' || o.obj_type == 'robber') console.log('_____________ add object', oid, o);
+	R.addObject(oid, o);
+	R.addRForObject(oid);
+
+	if (skipEinhaengen) { return false; }
+	else { return einhaengen(oid, o, R); }
+}
 function addRForObject(oid, R) {
 	let o = R.getO(oid);
 	let sp = R.getSpec();

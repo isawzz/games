@@ -1,4 +1,5 @@
 defaults:
+  cycleLengthAllowed: 4
   grid: #common to all grids
     params:
       field_spacing: 60
@@ -16,7 +17,8 @@ defaults:
       corners:
         # display: if_content
         bg: dimgray
-        fg: red
+        #stroke: red
+        stroke-width: 0
         size: 20
         shape: circle
   quadGrid: #overrides grid

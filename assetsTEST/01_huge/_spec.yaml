@@ -1,3 +1,22 @@
+8:
+  ROOT:
+    cond:
+      oid: cycle2
+    data: .oid
+  hallo2:
+    cond:
+      name: cycle
+    data: .oid
+7:
+  ROOT:
+    cond:
+      oid: '146'
+    data: .oid
+  hallo2:
+    cond:
+      oid: [loc1,loc2,'146']
+    data: .oid
+
 6: #add robber
   ROOT:
     data: Catan

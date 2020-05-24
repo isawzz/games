@@ -80,7 +80,7 @@ class TestEngine {
 
 	invalidate() { delete this.solutions[this.index]; }
 	verify(R) {
-		//console.log('verifying test case', this.series, this.index, '...');
+		console.log('verifying test case', this.series, this.index, '...');
 		let rTreeNow = normalizeRTree(R); //also sorts keys rec!
 		let solution = this.loadSolution();
 

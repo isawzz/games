@@ -7,7 +7,6 @@ function ensureRtree(R) {
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
-			//R.tree = recBuildRTree(R.lastSpec.ROOT, 'ROOT', '.', null, R.lastSpec, R);
 			R.tree = recTree(R.lastSpec.ROOT, null, R);
 			R.rNodes[R.tree.uid] = R.tree;
 		}
@@ -19,9 +18,6 @@ function ensureRtree(R) {
 function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
-	//let defParams = jsCopy(R.defs);
-	//defParams = deepmergeOverride(R.defs, { _id: { params: { bg: 'green' } } });// { bg: 'blue', fg: 'white' };
-	//recBuildUiFromNode(n, area, R, defParams, null);
 	recUi(n, area, R);
 }
 function recAdjustDirtyContainers(uid, R, verbose = false) {
@@ -37,46 +33,28 @@ function recAdjustDirtyContainers(uid, R, verbose = false) {
 }
 
 //#region add oid
-function addNewServerObjectToRsg(oid, o, R, skipEinhaengen = false) {
-	if (oid == '146' || o.obj_type == 'robber') console.log('_____________ add object', oid, o);
-	R.addObject(oid, o);
-	R.addRForObject(oid);
-
-	if (skipEinhaengen) { return false; }
-	else { return einhaengen(oid, o, R); }
-}
 function einhaengen(oid, o, R) {
-	//console.log('_____________ einhaengen', oid, R.oidNodes[oid]);
-	let nodes = R.getR(oid);
-	//need to check channels!!!!
-
-	// let nodes = R.oidNodes[oid];// ELIM
-	// if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
-
-	if (isEmpty(nodes)) return false;
-
 	let topUids;
 	let success = false;
-	let successKeys=[];
-	for (const key of nodes) { 
+	let successKeys = [];
+	for (const key of R.getR(oid)) {
 		let specNode = R.getSpec(key);
-		//console.log(o)
 		if (o.loc && nundef(R.Locations[key]) && nundef(specNode._ref)) {
-			console.log('robber want to add key='+ key);
+			//console.log('robber want to add key='+ key);
 			if (nundef(R.Locations[key])) {
-				console.log('YES!!! key is free!');
+				//console.log('YES!!! key is free!');
 				topUids = addOidByLocProperty(oid, key, R);
-			}else{
-				console.log('impossible to add!!! key bound to location',R.locations[key]);
+			} else {
+				console.log('impossible to add!!! key bound to location', R.locations[key]);
 			}
 		} else if (isdef(R.Locations[key])) {
-			if (oid == '146') console.log('trying to add key='+key, 'by parent location!')
+			//if (oid == '146') console.log('trying to add key='+key, 'by parent location!')
 			topUids = addOidByParentKeyLocation(oid, key, R);
 		} else {
 			// console.log('key='+key,'cannot be added for oid='+oid,'cause no loc or available location! (this might be a board element!)')
 		}
-		if (isEmpty(topUids)) { continue; }	
-		else { successKeys.push(key); success=true;}
+		if (isEmpty(topUids)) { continue; }
+		else { successKeys.push(key); success = true; }
 
 		for (const top of topUids) {
 			let uiParent = R.uiNodes[top.uidParent];
@@ -88,69 +66,26 @@ function einhaengen(oid, o, R) {
 			recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
 		}
 	}
-	return success?successKeys:false; // true; //assume added at least some node since already know that 
-	//there is a key with available channel for oid, 
-	//AND 
-	//there is a parent with correct channel for oid
-
+	return success ? successKeys : false;
 }
 function addOidByLocProperty(oid, key, R) {
 	let o = R.getO(oid);
-	let ID = o.loc; //ID is oid ob obj AUF DEM o dargestellt werden soll!
+	let oidParent = o.loc;
 
-	if (o.obj_type == 'robber') console.log('_____________ addOidByLocProperty', oid, key)
+	//if (o.obj_type == 'robber') console.log('_____________ addOidByLocProperty', oid, key)
 
-	//gibt es spec key fuer ID?
-	// let IDNode = R.oidNodes[ID];// ELIM
-	// if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
-	// let IDkeys = Object.keys(IDNode);
-	// let IDkeys = R.getR(oid); //key must be selected by channel!
+	let parents = R.oid2uids[oidParent];
+	//if (oid=='cycle1') console.log('parents',parents);
 
-	//console.log('robber spec key is',key);
-
-	//gibt es parents (dh rNodes mit n.oid==ID)
-
-	let parents = allCondDict(R.rNodes, v => v.oid == ID);
-
-	//console.log('rNodes w/ loc value as oid', parents);
-
-	if (isEmpty(parents)) {
-		console.log('no parent found in rtree to represent oid', oid);
-		return [];
-	}
+	if (isEmpty(parents)) { return []; }
 
 	let topUids = [];
-
 	for (const uidParent of parents) {
-		//console.log('oid', oid, 'key', key, 'uidParent', uidParent)
-
-		//instantiateOidKeyAtParent(oid, key, uidParent, R);
-
+		if (parentHasThisChildAlready(uidParent, oid) || !parentHasChannelForThisOid(R.rNodes[uidParent], oid)) continue;
 		let n1 = instantOidKey(oid, key, uidParent, R);
 		topUids.push({ uid: n1.uid, uidParent: uidParent });
 	}
-
-	//#region RUBBISH
-	//NOT SURE WHAT THE FOLLOWING CODE WAS GOING TO ACCOMPLISH!!! it is RUBBISH!
-	// for (const k of IDkeys) {
-	// 	//now find parents that have same key and same oid
-	// 	let parents = lookup(R.rNodesOidKey, [ID, k]);
-	// 	//console.log('parents for robber', parents);
-
-	// 	if (!parents || isEmpty(parents)) {
-	// 		console.log('LOC PARENT MISSING!!!! trying to add', oid, 'with loc', o.loc);
-	// 		continue;
-	// 	}
-	// 	for (const uidParent of parents) {
-	// 		//console.log('oid', oid, 'key', key, 'uidParent', uidParent)
-
-	// 		//instantiateOidKeyAtParent(oid, key, uidParent, R);
-
-	// 		let n1 = instantOidKey(oid, key, uidParent, R);
-	// 		topUids.push({ uid: n1.uid, uidParent: uidParent });
-	// 	}
-	// }
-	//#endregion
+	//if (o.obj_type == 'robber') console.log('result', topUids);
 	return topUids;
 }
 function addOidByParentKeyLocation(oid, key, R) {
@@ -170,7 +105,7 @@ function addOidByParentKeyLocation(oid, key, R) {
 	let topUids = [];
 	for (const uidParent of parents) {
 		// instantiateOidKeyAtParent(oid, key, uidParent, R); 
-		if (parentHasThisChildAlready(uidParent,oid)) continue;
+		if (parentHasThisChildAlready(uidParent, oid)) continue;
 		let n1 = instantOidKey(oid, key, uidParent, R);
 		topUids.push({ uid: n1.uid, uidParent: uidParent });
 
@@ -191,7 +126,6 @@ function instantOidKey(oid, key, uidParent, R) {
 	let n1 = recTree(R.lastSpec[key], rtreeParent, R, oid, key);
 
 	R.rNodes[n1.uid] = n1;
-	//lookupAddToList(R.rNodesOidKey, [oid, key], n1.uid); //not sure if need this!!!
 	rtreeParent.children.push(n1.uid);
 
 	//console.log('result:',n1)

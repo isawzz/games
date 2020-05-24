@@ -82,15 +82,13 @@ function onClickInvalidate() { testEngine.invalidate(); }
 function onClickSave() { testEngine.saveSolution(T); }
 async function onClickClearTable() { clearElement('table'); }
 
-
-
-function onClickAdd() { testAddObject(T); }
-function onClickAddBoard() { testAddBoard(T); }
 function onClickRemove() { testRemoveObject(T); }
-function onClickRemoveBoard() { testRemoveBoard(T); }
+function onClickAdd() { testAddObject(T); }
 
-// function onClick_Remove() { testRemoveOidKey(T); }
-// function onClick_Add() { testAddOidKey(T); }
+function onClickRemoveBoard() { removeBoard(T); }
+function onClickAddBoard() { addBoard(T); }
+function onClickRemoveRobber(){removeRobber(T);}
+function onClickAddRobber(){addRobber(T);}
 
 function onClickActivate() {
 	testActivate(T);

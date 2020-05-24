@@ -1,4 +1,172 @@
+//#region server data change!
+var TV = {};
+function reAddServerObject(label){
+	//the server object has been removed previously! (or oid,o is in TV)
+	let tv=TV[label];
+	if (nundef(tv)){
+		console.log('this object has NOT been entered in TV!!! did you remove the object?!?',label);
+		return;
+	}
+	let oid=tv.oid;
+	let o=tv.o;
+	addServerObject(oid,o,R);
 
+}
+
+function removeServerObject(oid,label){
+	let o=R.getO(oid);
+	if (nundef(o)) {
+		console.log('object cannot be removed because not in R',oid);
+		return;
+	}
+	if (isdef(label)) TV[label]={oid:oid,o:o};
+
+	let activate = R.isUiActive;
+	if (activate) deactivateUis(R);
+
+	delete sData[oid];
+	//also have to remove all the children!
+	completelyRemoveServerObjectFromRsg(oid, R);
+	console.log('removed oid', oid);
+	updateOutput(R);
+
+	if (activate) activateUis(R);
+
+}
+
+function removeRobber(R){
+	let robberOid = firstCondDict(R._sd,x=>x.o.obj_type == 'robber');
+	if (nundef(robberOid)) {
+		console.log('this test is not applicable!');
+	}
+	removeServerObject(robberOid,'robber');
+}
+function addRobber(R){ R.initRound();reAddServerObject('robber');}
+function removeBoard(R){
+	let oid = detectFirstBoardObject(R);
+	removeServerObject(oid,'board');
+}
+function addBoard(R){	R.initRound();reAddServerObject('board');}
+function addServerObject(oid,o,R){
+	if (!serverData.table) serverData.table = {};
+	serverData.table[oid] = o;
+	sData[oid] = jsCopy(o);
+	//console.log('adding a new object', oid);
+	addSO(oid, o, R);
+	
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+	updateOutput(R);
+}
+function addSO(oid,o,R){	let sd={};sd[oid]=o;addNewlyCreatedServerObjects(sd,R);}
+function testAddObject(R) {
+	R.initRound();
+	let oid = getUID('o');
+	let o = { obj_type: 'card' };
+	o.short_name = chooseRandom(['K', 'Q', 'J', 'A', 2, 3, 4, 5, 6, 7, 8]);
+	addServerObject(oid,o,R);
+	// if (!serverData.table) serverData.table = {};
+	// serverData.table[oid] = o;
+	// sData[oid] = jsCopy(o);
+	// //console.log('adding a new object', oid);
+	// addSO(oid, o, R);
+	// sieveLocOids(R);
+	// //recheckAllObjectsForLoc(R);
+	// recAdjustDirtyContainers(R.tree.uid, R, true);
+	// //console.log(R.instantiable)
+	// updateOutput(R);
+}
+function testRemoveObject(R) {
+	let data = dict2list(sData);
+
+	//nur die sdata die nicht board or board members sind:
+	data = data.filter(x => (nundef(x.fields)) && nundef(x.neighbors)); //board weg!
+
+	//von denen, nur die die einen node in rtree besitzen!!!
+	data = data.filter(x => firstCondDict(R.rNodes, y => y.oid == x.id));
+	console.log('data gefiltered:', data)
+
+	if (isEmpty(data)) {
+		console.log('no objects left in sData!!!');
+		return;
+	}
+
+	//oid ergibt object das in rtree present ist aber NICHT zu board gehoert!
+	let oid = chooseRandom(data).id;
+
+	removeServerObject(oid,'random');
+	// delete sData[oid];
+	// //also have to remove all the children!
+	// completelyRemoveServerObjectFromRsg(oid, R);
+	// console.log('removed oid', oid);
+	// updateOutput(R);
+}
+function testAddLocObject(R) {
+	R.initRound();
+
+	let oidLoc = getRandomExistingObjectWithRep(R);
+	let oid = getUID('o');
+	let o = { name: 'felix' + oid, loc: oidLoc };
+	addServerObject(oid,o,R);
+
+	// serverData.table[oid] = o;
+	// sData[oid] = jsCopy(o);
+	// addSO(oid, o, R);
+	// sieveLocOids(R);
+	// updateOutput(R);
+}
+
+
+
+
+
+
+function testAddBoard(R) {
+	R.initRound();
+
+	reAddServerObject('board');
+
+	// let oid = TV.boardOid; //detectFirstBoardObject(R); //chooseRandomDictKey(sData);
+	// let o = TV.oBoard;
+	// console.log('boardOid is', oid);
+	// if (R.getO(oid)) {
+	// 	console.log('please click remove board first!');
+	// 	return;
+	// }
+	// if (!serverData.table) serverData.table = {};
+	// serverData.table[oid] = o;
+	// sData[oid] = jsCopy(o);
+	// //console.log('adding a new object', oid);
+	// addSO(oid, o, R);
+	// sieveLocOids(R);
+	// recAdjustDirtyContainers(R.tree.uid, R, true);
+	// updateOutput(R);
+}
+function testRemoveBoard(R) {
+
+	// let activate = R.isUiActive;
+	// if (activate) deactivateUis(R);
+
+	let oid = detectFirstBoardObject(R);
+	console.log('testRemoveBoard: first board object detected has oid', oid);
+
+	removeServerObject(oid,'board');
+
+
+	// if (isdef(oid)) { TV.boardOid = oid; TV.oBoard = R.getO(oid); }
+	// if (!oid) {
+	// 	console.log('no objects left in sData!!!');
+	// 	return;
+	// }
+
+	// delete sData[oid];
+	// //also have to remove all the children!
+	// completelyRemoveServerObjectFromRsg(oid, R);
+	// //console.log('removed oid',oid);
+	// updateOutput(R);
+	// if (activate) activateUis(R);
+}
+
+//#region engine
 async function testSolutionConverter() {
 	let series = TEST_SERIES;
 	let sols = await loadSolutions(series);
@@ -33,108 +201,7 @@ async function saveSolutions(series, solutions) {
 	downloadFile(sortedObject, 'solutions' + series);
 }
 
-
-//#region server data change!
-var TV = {};
-function testAddObject(R) {
-	R.initRound();
-	let oid = getUID('o');
-	let o = { obj_type: 'card' };
-	o.short_name = chooseRandom(['K', 'Q', 'J', 'A', 2, 3, 4, 5, 6, 7, 8]);
-	if (!serverData.table) serverData.table = {};
-	serverData.table[oid] = o;
-	sData[oid] = jsCopy(o);
-	//console.log('adding a new object', oid);
-	addSO(oid, o, R);
-
-	sieveLocOids(R);
-	//recheckAllObjectsForLoc(R);
-
-	recAdjustDirtyContainers(R.tree.uid, R, true);
-
-	//console.log(R.instantiable)
-	updateOutput(R);
-}
-function testRemoveObject(R) {
-
-	//muss ein object removen das nicht ein board member ist, nicht ein board ist,
-	//aber schon irgendwo represented it!
-
-	//hier mache policy not to remove board members!!!
-	//lock in objects that are not independent! these are objects
-	let data = dict2list(sData);
-	//data = data.filter(x=>(isdef(x.map) || nundef(x.fields)) && nundef(x.neighbors));
-	data = data.filter(x => (nundef(x.fields)) && nundef(x.neighbors)); //board weg!
-
-	data = data.filter(x => firstCondDict(R.rNodes, y => y.oid == x.id));
-	console.log('data gefiltered:', data)
-
-	if (isEmpty(data)) {
-		console.log('no objects left in sData!!!');
-		return;
-	}
-	let oid = chooseRandom(data).id;
-
-	delete sData[oid];
-	//also have to remove all the children!
-	completelyRemoveServerObjectFromRsg(oid, R);
-	console.log('removed oid', oid);
-	updateOutput(R);
-}
-function testAddLocObject(R) {
-	R.initRound();
-
-	let oid = getUID('o');
-	let o = { name: 'felix' + oid, loc: 'p1' };
-	serverData.table[oid] = o;
-	sData[oid] = jsCopy(o);
-	addSO(oid, o, R);
-	sieveLocOids(R);
-	updateOutput(R);
-}
-function addSO(oid,o,R){	let sd={};sd[oid]=o;addNewlyCreatedServerObjects(sd,R);}
-function testAddBoard(R) {
-	R.initRound();
-
-	let oid = TV.boardOid; //detectFirstBoardObject(R); //chooseRandomDictKey(sData);
-	let o = TV.oBoard;
-	console.log('boardOid is', oid);
-	if (R.getO(oid)) {
-		console.log('please click remove board first!');
-		return;
-	}
-	if (!serverData.table) serverData.table = {};
-	serverData.table[oid] = o;
-	sData[oid] = jsCopy(o);
-	//console.log('adding a new object', oid);
-	addSO(oid, o, R);
-
-	sieveLocOids(R);
-
-	recAdjustDirtyContainers(R.tree.uid, R, true);
-
-	updateOutput(R);
-}
-function testRemoveBoard(R) {
-
-	let activate = R.isUiActive;
-	if (activate) deactivateUis(R);
-
-	let oid = detectFirstBoardObject(R); //chooseRandomDictKey(sData);
-	console.log('testRemoveBoard: first board object detected has oid', oid);
-
-	if (isdef(oid)) { TV.boardOid = oid; TV.oBoard = R.getO(oid); }
-	if (!oid) {
-		console.log('no objects left in sData!!!');
-		return;
-	}
-	delete sData[oid];
-	//also have to remove all the children!
-	completelyRemoveServerObjectFromRsg(oid, R);
-	//console.log('removed oid',oid);
-	updateOutput(R);
-	if (activate) activateUis(R);
-}
+//#endregion
 
 //#region activate, deactivate
 function testActivate(R) {
