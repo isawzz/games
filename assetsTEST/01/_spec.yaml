@@ -1,0 +1,6 @@
+0:
+  ROOT:
+    _id: A
+  hallo:
+    _ref: A
+    data: YES!

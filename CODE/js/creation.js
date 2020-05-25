@@ -113,6 +113,8 @@ function addOidByParentKeyLocation(oid, key, R) {
 	// if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 	// if (isEmpty(nodes)) return;
 
+
+
 	let parents = R.Locations[key]; //for now just 1 allowed!!!!!!!!!!
 	if (oid=='9') console.log('found parents:',parents)
 	if (nundef(parents)) {
@@ -150,6 +152,7 @@ function instantOidKey(oid, key, uidParent, R) {
 	return n1;
 
 }
+
 
 //#region remove oid
 function completelyRemoveServerObjectFromRsg(oid, R) {

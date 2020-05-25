@@ -26,10 +26,6 @@ class RSG {
 			let n = gen[k];
 			this.check_id(k, n, this);
 		}
-		for (const k in gen) {
-			let n = gen[k];
-			this.check_mixin(k, n, this);
-		}
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
@@ -78,20 +74,26 @@ class RSG {
 					//console.log('ref_entry',ref_entry);
 
 					let idnode = obj[key];
-					//idnode = safeMerge(idnode,id_entry.node);
-					console.log('idnode',idnode)
-					let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+					//console.log('key',key,'\nidnode',idnode)
 
-					//orig!
+					//v_orig!
 					//let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
-
+					//v_2
+					//idnode = safeMerge(idnode,id_entry.node);
+					let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+					//v_fail_klappt_mit_panel:
+					//let merged = jsCopy(ref_entry.node);
 
 					//console.log('merged',merged);
 					delete merged._ref;
 					delete merged._id;
 					let uid = getUID('sp');
 					gen[uid] = merged;
+
 					sub.push({ _NODE: uid });
+					//v_fail_klappt_mit_panel:
+					//let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
+
 				}
 
 				//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
@@ -132,7 +134,6 @@ class RSG {
 	initRound() { this.oUpdated = {}; this.rUpdated = {}; }
 	init() {
 		this.places = {};
-		this.mixins = {};
 		this.refs = {};
 
 		this.UIS = {};
@@ -157,10 +158,6 @@ class RSG {
 		lookupAddToList(this.places, [placeName, specKey],
 			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
-	addToMixins(specKey, placeName, ppath, node) {
-		lookupAddToList(this.mixins, [placeName, specKey],
-			{ idName: placeName, specKey: specKey, ppath: ppath, node: node });
-	}
 	addToRefs(specKey, placeName, ppath, node) {
 		lookupAddToList(this.refs, [placeName, specKey], { idName: placeName, specKey: specKey, ppath: ppath, node: node });
 	}
@@ -172,16 +169,6 @@ class RSG {
 			let path = k;
 			let name = akku[k].name;
 			this.addToPlaces(specKey, name, path, node);
-		}
-	}
-	check_mixin(specKey, node, R) {
-		let akku = {};
-		recFindProp(node, '_mixin', 'self', akku);
-		for (const k in akku) {
-			let node = akku[k].node;
-			let path = k;
-			let name = akku[k].name;
-			this.addToMixins(specKey, name, path, node);
 		}
 	}
 	check_ref(specKey, node) {

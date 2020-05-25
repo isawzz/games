@@ -1,3 +1,8 @@
+function onClickToggleInteractivity(btn){
+	let d=mBy('divInteractivity');
+	if (isVisible(d)) {hide(d);btn.innerHTML='+';} else {show(d);btn.innerHTML='-';}
+}
+
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
 
@@ -101,6 +106,7 @@ function onClickUpdateOutput(elem) {
 
 	switch (elem.id) {
 		case 'contSpec': SHOW_SPEC = !SHOW_SPEC; break;
+		case 'contMixinSpec': SHOW_MIXINSPEC = !SHOW_MIXINSPEC; break;
 		case 'contLastSpec': SHOW_LASTSPEC = !SHOW_LASTSPEC; break;
 		case 'contUiTree': SHOW_UITREE = !SHOW_UITREE; break;
 		case 'contRTree': SHOW_RTREE = !SHOW_RTREE; break;
