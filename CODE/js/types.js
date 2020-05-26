@@ -203,7 +203,7 @@ const RCONTAINERPROP = {
 	panel: 'sub',
 }
 
-const DEF_ORIENTATION = 'h';
+const DEF_ORIENTATION = 'v';
 const DEF_SPLIT = 'equal';
 
 

@@ -325,7 +325,7 @@
 				"_2",
 				"_3"
 			],
-			"data": "yellow",
+			"data": "green yellow",
 			"params": {
 				"fg": "yellow"
 			},
@@ -359,7 +359,7 @@
 	},
 	" 13 ": {
 		"_0": {
-			"data": "na geh!",
+			"data": "na geh! hallo",
 			"params": {
 				"bg": "black",
 				"fg": "red"
@@ -383,7 +383,7 @@
 	},
 	" 11 ": {
 		"_0": {
-			"data": "RICHTIG!",
+			"data": "DAS IST RICHTIG",
 			"params": {
 				"bg": "white",
 				"fg": "red"
@@ -403,7 +403,7 @@
 		},
 		"_3": {
 			"_ref": "A",
-			"data": "YES!",
+			"data": "hallo YES! NEIN!",
 			"params": {
 				"fg": "red"
 			},
@@ -411,7 +411,7 @@
 			"uidParent": "_0"
 		},
 		"_5": {
-			"data": "NEIN!",
+			"data": "hallo NEIN!",
 			"params": {
 				"fg": "red"
 			},
@@ -421,7 +421,7 @@
 	},
 	" 9 ": {
 		"_0": {
-			"data": "YES!",
+			"data": "hallo YES! NEIN!",
 			"params": {
 				"fg": "red"
 			},

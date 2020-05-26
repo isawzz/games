@@ -74,25 +74,57 @@ class RSG {
 					//console.log('ref_entry',ref_entry);
 
 					let idnode = obj[key];
+					let uid = getUID('sp');
 					//console.log('key',key,'\nidnode',idnode)
 
 					//v_orig!
-					//let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
-					//v_2
-					//idnode = safeMerge(idnode,id_entry.node);
-					let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
-					//v_fail_klappt_mit_panel:
-					//let merged = jsCopy(ref_entry.node);
+					// let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
+					// sub.push({ _NODE: uid });
 
-					//console.log('merged',merged);
+					//v_2
+					// idnode = safeMerge(idnode,id_entry.node);
+					// sub.push({ _NODE: uid });
+
+					//v_3:
+					// let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+					// sub.push({ _NODE: uid });
+					// console.log('------> merged alte version',jsCopy(merged))
+					//hier muss genauso gemerged werden wie bei _NODE!
+
+					//v_4:
+					// let merged = merge1(idnode, ref_entry.node);
+					// sub.push({ _NODE: uid });
+					// console.log('------> merged idnode zuerst',jsCopy(merged))
+
+					//v_5 (fail_klappt_mit_panel):
+					// let merged = jsCopy(ref_entry.node);
+					// let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
+					// console.log('------> merged nur ref node!',jsCopy(merged))
+
+					//v_6:
+					// let merged = merge1(ref_entry.node,idnode);
+					// sub.push({ _NODE: uid });
+					// console.log('=>welcher soll als erstes stehen?','\nidnode',idnode,'\nref_entry.node',ref_entry.node,'\nmerged',merged);
+
+					//v_7:
+					let merged;
+					if (isdef(idnode._merge) && idnode._merge == 'blend') {
+						merged = merge1(ref_entry.node, idnode);
+						sub.push({ _NODE: uid });
+						//console.log('------> merged _merge=' + idnode._merge, jsCopy(merged));
+					} else { //default merge mode: sub (sowie bei v_5 fail_klappt_mit_panel)
+						merged = jsCopy(ref_entry.node);
+						let resultNode = jsCopy(idnode); 
+						resultNode._NODE = uid; 
+						delete resultNode._id; 
+						sub.push(resultNode);
+						//console.log('------> merged _merge=sub', jsCopy(merged));
+					}
+
 					delete merged._ref;
 					delete merged._id;
-					let uid = getUID('sp');
 					gen[uid] = merged;
 
-					sub.push({ _NODE: uid });
-					//v_fail_klappt_mit_panel:
-					//let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
 
 				}
 
@@ -215,7 +247,9 @@ class RSG {
 	getR(oid) { return lookup(this._sd, [oid, 'rsg']); }
 	addR(oid, k) { addIf(this.getR(oid), k); }
 
-	notThisNode(n) { return nundef(n.cond) || isdef(n._ref); } //do NOT check _ref nodes!
+	//TODO: maybe this should be changed!!!!???
+	//irrelevant for R: static nodes or nodes that are _ref nodes w/ matching _id!
+	notThisNode(n) { return nundef(n.cond) || (isdef(n._ref) && isdef(this.places[n._ref])); } //do NOT check _ref nodes!
 	addRForObject(oid) {
 		if (this.rUpdated[oid]) {
 			console.log('rsg list for object', oid, 'already updated this round!!!!!!');

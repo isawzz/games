@@ -1,6 +1,245 @@
-0:
+# 15:
+#   ROOT:
+#     _NODE: sa
+#     _id: sb
+#     params:
+#       bg: yellow
+#       orientation: v
+#   sa:
+#     cond: all
+#     data: .oid
+#     params:
+#       fg: green
+#   sb:
+#     _ref: sb
+#     params:
+#       fg: red
+# 16:
+#   ROOT:
+#     _NODE: [sa, sb]
+#     params:
+#       bg: yellow
+#       orientation: v
+#   sa:
+#     cond: all
+#     data: .oid
+#     params:
+#       fg: green
+#   sb:
+#     params:
+#       fg: red
+17:
   ROOT:
-    _id: A
-  hallo:
-    _ref: A
-    data: YES!
+    _NODE: sa
+    params:
+      orientation: v
+  sa:
+    cond: all
+    data: .oid
+    params:
+      bg: yellow
+      fg: green
+16:
+  ROOT:
+    _id: sa
+    params:
+      orientation: v
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+    params:
+      bg: yellow
+      fg: green
+15:
+  ROOT:
+    cond: all
+    data: .oid
+    params:
+      bg: yellow
+      fg: green
+14:
+  ROOT:
+    cond: all
+    data: .oid
+13: #correct
+  ROOT:
+    data: hallo
+    _id: sa
+  sa:
+    _ref: sa
+    data: geh
+12: #correct
+  ROOT:
+    data: hallo
+    _NODE: sa
+  sa:
+    data: geh
+11: # correct
+  ROOT:
+    data: hallo
+    _id: sa
+    sub:
+      - _id: sa
+      - data: sub2
+    params:
+      fg: red
+  sa:
+    _ref: sa
+    data: geh
+    sub:
+      - data: sub3
+      - data: sub4
+    params:
+      bg: blue
+      fg: green
+      orientation: v
+10: # correct
+  ROOT:
+    data: hallo
+    _id: sa
+    sub:
+      - _id: sb
+      - data: sub2
+    params:
+      fg: red
+  sa:
+    _ref: sa
+    data: geh
+    sub:
+      - data: sub3
+      - data: sub4
+    params:
+      bg: blue
+      fg: green
+      orientation: v
+  sb:
+    _ref: sb
+    data: geh
+    sub:
+      - data: sub3
+      - data: sub4
+    params:
+      bg: blue
+      fg: green
+      orientation: v
+9: # correct
+  ROOT:
+    data: hallo
+    _NODE: sa
+    sub:
+      - _NODE: sa
+      - data: sub2
+    params:
+      fg: red
+  sa:
+    data: geh
+    sub:
+      - data: sub3
+      - data: sub4
+    params:
+      bg: blue
+      fg: green
+      orientation: v
+8: # correct
+  ROOT:
+    data: hallo
+    _id: sa
+    params:
+      bg: blue
+      orientation: v
+  sa:
+    _ref: sa
+    sub:
+      - data: sub1
+      - data: sub2
+7: # correct
+  ROOT:
+    data: hallo
+    _NODE: sa
+    params:
+      bg: blue
+      orientation: v
+  sa:
+    sub:
+      - data: sub1
+      - data: sub2
+6: # correct
+  ROOT:
+    data: hallo
+    _id: sa
+    sub:
+      - data: sub1
+      - data: sub2
+  sa:
+    _ref: sa
+    params:
+      bg: blue
+      orientation: v
+5: # correct
+  ROOT:
+    data: hallo
+    _NODE: sa
+    sub:
+      - data: sub1
+      - data: sub2
+  sa:
+    params:
+      bg: blue
+      orientation: v
+4: # correct
+  ROOT:
+    data: hallo
+    _id: sa
+  sa:
+    _ref: sa
+    sub:
+      - data: sub1
+      - data: sub2
+    params:
+      bg: blue
+      orientation: v
+3: # correct
+  ROOT:
+    data: hallo
+    _NODE: sa
+  sa:
+    sub:
+      - data: sub1
+      - data: sub2
+    params:
+      bg: blue
+      orientation: v
+2: # correct
+  ROOT:
+    _id: sa
+  A:
+    _ref: sa
+    data: hallo
+    sub:
+      - data: sub1
+      - data: sub2
+    params:
+      bg: blue
+      orientation: v
+1: # correct
+  ROOT:
+    _NODE: sa
+  sa:
+    data: hallo
+    sub:
+      - data: sub1
+      - data: sub2
+    params:
+      bg: blue
+      orientation: v
+0: #correct
+  ROOT:
+    data: hallo
+    sub:
+      - data: sub1
+      - data: sub2
+    params:
+      bg: blue
+      orientation: v
+# ---------------      

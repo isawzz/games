@@ -391,7 +391,7 @@ function decodeParams(n, R, defParams) {
 	let inherited = lookup(defParams, [n.type, 'params']);
 	let defaults = lookup(R.defs, [n.type, 'params']);
 	let defs = n.params.inherit ? inherited : defaults;
-	if (n.type != 'grid') n.params = deepmergeOverride(defs, n.params);
+	if (n.type != 'grid') n.params = mergeOverrideArrays(defs, n.params);
 
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;
 	let pNew = {};

@@ -29,6 +29,8 @@ function addNewlyCreatedServerObjects(sdata, R) {
 	for (const oid in sdata) {
 		let o = sdata[oid];
 		if (isdef(o.loc)) { continue; }
+		//console.log('sollte hier reingehen!!!!!!!!!!!!!!!!!')
+
 		let success = einhaengen(oid, o, R);
 	}
 	//return;
@@ -54,8 +56,13 @@ function einhaengen(oid, o, R) {
 	let topUids;
 	let success = false;
 	let successKeys = [];
+	//console.log('sollte hier reingehen!!!!!!!!!!!!!!!!!',R.getR(oid))
+
 	for (const key of R.getR(oid)) {
 		let specNode = R.getSpec(key);
+		//console.log('sollte hier reingehen!!!!!!!!!!!!!!!!!')
+
+		// do *** NOT *** allow .loc placement nodes to have _ref!!!!
 		if (o.loc && nundef(R.Locations[key]) && nundef(specNode._ref)) {
 			//console.log('robber want to add key='+ key);
 			if (nundef(R.Locations[key])) {
@@ -66,7 +73,7 @@ function einhaengen(oid, o, R) {
 			}
 		} else if (isdef(R.Locations[key])) {
 			//if (oid == '146') console.log('trying to add key='+key, 'by parent location!')
-			if (oid == '9') console.log('==>trying to add key='+key, 'by parent location!')
+			//if (oid == '9') console.log('==>trying to add key='+key, 'by parent location!')
 			topUids = addOidByParentKeyLocation(oid, key, R);
 		} else {
 			topUids=[];
@@ -116,7 +123,7 @@ function addOidByParentKeyLocation(oid, key, R) {
 
 
 	let parents = R.Locations[key]; //for now just 1 allowed!!!!!!!!!!
-	if (oid=='9') console.log('found parents:',parents)
+	//if (oid=='9') console.log('found parents:',parents)
 	if (nundef(parents)) {
 		if (oid == '146') console.log('not added!!!', oid, key)
 		return;
@@ -137,7 +144,9 @@ function instantOidKey(oid, key, uidParent, R) {
 
 	let rtreeParent = R.rNodes[uidParent];
 
-	if (nundef(rtreeParent.children)) { rtreeParent.children = []; }
+	if (nundef(rtreeParent.children)) { 
+		rtreeParent.children = []; 
+	}
 
 	//=================================================
 	//if (oid == '9') console.log('Board: instantOidKey vor recTree call',oid,key,uidParent)
@@ -147,6 +156,21 @@ function instantOidKey(oid, key, uidParent, R) {
 
 	R.rNodes[n1.uid] = n1;
 	rtreeParent.children.push(n1.uid);
+
+	//turning from 1 child to 2 children, expose panel if has bg set!
+	if (rtreeParent.children.length == 2 && rtreeParent.type == 'invisible' && lookup(rtreeParent,['params','bg'])){
+		//console.log('JETZT!!!')
+		//genau jetzt muss ich rtreeParent zu einem panel machen!!!
+		let uiParent = R.uiNodes[rtreeParent.uid];
+		//console.log('rNode',rtreeParent,'\nuiNode',uiParent)
+		if (isdef(uiParent)){
+
+			rtreeParent.type =uiParent.type= 'panel';
+			decodeParams(uiParent,R,{});
+			uiParent.adirty = true;
+			applyCssStyles(uiParent.ui,uiParent.cssParams);
+		}
+	}
 
 	//console.log('result:',n1)
 	return n1;

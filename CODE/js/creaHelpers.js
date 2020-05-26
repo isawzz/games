@@ -14,7 +14,7 @@ function evalSpecPath(n, relpath, R) {
 	else return evalSpecPath(nNext, newPath, R);
 }
 
-//#region sieve oids with loc (einhaengen von server objects mit loc prop)
+//#region sieve oids with loc (einhaengen_ von server objects mit loc prop)
 function calcCycles(R) {
 	let oids = jsCopy(R.locOids);
 	let cycles = R.partitions = {};
@@ -82,6 +82,8 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 	let cycles = 0;
 	let locOids = cycle;
 	if (isCyclic) {
+		//console.log('serverdata CYCLIC!!!!!!!!!!!!!!!!!!', cycle)
+
 		let i = 0; let top = null;
 		while (isEmpty(top)) {
 			let oid = cycle[i];
@@ -99,7 +101,7 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 	}
 
 	//hier koennte nochmal max_cycles definieren, entweder nach starting oid 
-	//oder nach node (in welchem fall ich aber einhaengen umdrehen muss!)
+	//oder nach node (in welchem fall ich aber einhaengen_ umdrehen muss!)
 
 	//console.log('locOids', locOids)
 	while (true) {
@@ -156,6 +158,6 @@ function safeMerge(a, b) {
 	if (nundef(a) && nundef(b)) return {};
 	else if (nundef(a)) return jsCopy(b);
 	else if (nundef(b)) return jsCopy(a);
-	else return deepmergeOverride(a, b);
+	else return mergeOverrideArrays(a, b);
 }
 

@@ -13,20 +13,8 @@ function createUi(n, area, R) {
 
 	if (n.uiType == 'NONE') return ui;
 
-
-	//if (n.uiType != 'g') applyCssStyles(n.uiType == 'h'?mBy(n.uidStyle):ui, n.cssParams);
-	applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
-	// else{
-	// 	console.log(ui);
-	// 	ui.style.filter='grayscale(0.5)';
-
-	// }
-	// if (n.uiType == 'h') {
-	// 	// console.log('NOT APPLYING CSS STYLES!!!', n.uid, n.uiType, n.params)
-	// 	applyCssStyles(mBy(n.uidStyle), n.cssParams);
-	// } else {
-	// 	applyCssStyles(ui, n.cssParams);
-	// }
+	if (n.type != 'invisible') applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
+	//applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 
 	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {
@@ -45,7 +33,6 @@ function createUi(n, area, R) {
 
 function adjustContainerLayout(n, R) {
 
-
 	n.adirty = false;
 
 	//console.log(n);return;
@@ -57,7 +44,7 @@ function adjustContainerLayout(n, R) {
 	if (n.type == 'hand') { layoutHand(n); return; }
 	//if (n.type == 'hand') { sortCards(n); return; }
 
-	//console.log('==>', n)
+	//console.log('==>', n.params)
 	let params = n.params;
 	let num = n.children.length;
 

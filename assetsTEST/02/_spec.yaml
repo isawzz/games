@@ -1,0 +1,106 @@
+# 1:
+#   ROOT:
+#     data: hallo
+#     _NODE: sa
+#     params:
+#       orientation: v
+#   sa:
+#     cond: all
+#     data: 
+#       title: .oid
+#       content: .hand
+6:
+  ROOT:
+    data: hallo
+    sub:
+    - data: witzig!
+    - _id: sa
+      params:
+        bg: red
+        orientation: v
+    params:
+      bg: green
+  sa:
+    _ref: sa
+    cond: 
+      obj_type: opponent
+    data: .oid
+    params:
+      bg: yellow
+5:
+  ROOT:
+    data: hallo
+    sub:
+    - data: witzig!
+    - _id: sa
+      params:
+        bg: red
+        orientation: v
+    params:
+      bg: green
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+    params:
+      bg: yellow
+4:
+  ROOT:
+    data: hallo
+    sub:
+    - data: witzig!
+    - _NODE: sa
+      params:
+        bg: red
+        orientation: v
+    params:
+      bg: green
+  sa:
+    _ref: sa
+    cond: 
+      obj_type: opponent
+    data: .oid
+    params:
+      bg: yellow
+3:
+  ROOT:
+    data: hallo
+    sub:
+    - data: witzig!
+    - _NODE: sa
+      params:
+        bg: red
+        orientation: v
+    params:
+      bg: green
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+    params:
+      bg: yellow
+2:
+  ROOT:
+    data: hallo
+    _id: sa
+    #_merge: blend #[sub]
+    params:
+      orientation: v
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+1:
+  ROOT:
+    data: hallo
+    _NODE: sa
+    params:
+      orientation: v
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+0:
+  ROOT:
+    cond: all
+    data: .oid

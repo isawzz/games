@@ -1,25 +1,27 @@
+
+
 //#region server data change!
 var TV = {};
-function reAddServerObject(label){
+function reAddServerObject(label) {
 	//the server object has been removed previously! (or oid,o is in TV)
-	let tv=TV[label];
-	if (nundef(tv)){
-		console.log('this object has NOT been entered in TV!!! did you remove the object?!?',label);
+	let tv = TV[label];
+	if (nundef(tv)) {
+		console.log('this object has NOT been entered in TV!!! did you remove the object?!?', label);
 		return;
 	}
-	let oid=tv.oid;
-	let o=tv.o;
-	addServerObject(oid,o,R);
+	let oid = tv.oid;
+	let o = tv.o;
+	addServerObject(oid, o, R);
 
 }
 
-function removeServerObject(oid,label){
-	let o=R.getO(oid);
+function removeServerObject(oid, label) {
+	let o = R.getO(oid);
 	if (nundef(o)) {
-		console.log('object cannot be removed because not in R',oid);
+		console.log('object cannot be removed because not in R', oid);
 		return;
 	}
-	if (isdef(label)) TV[label]={oid:oid,o:o};
+	if (isdef(label)) TV[label] = { oid: oid, o: o };
 
 	let activate = R.isUiActive;
 	if (activate) deactivateUis(R);
@@ -34,36 +36,36 @@ function removeServerObject(oid,label){
 
 }
 
-function removeRobber(R){
-	let robberOid = firstCondDict(R._sd,x=>x.o.obj_type == 'robber');
+function removeRobber(R) {
+	let robberOid = firstCondDict(R._sd, x => x.o.obj_type == 'robber');
 	if (nundef(robberOid)) {
 		console.log('this test is not applicable!');
 	}
-	removeServerObject(robberOid,'robber');
+	removeServerObject(robberOid, 'robber');
 }
-function addRobber(R){ R.initRound();reAddServerObject('robber');}
-function removeBoard(R){
+function addRobber(R) { R.initRound(); reAddServerObject('robber'); }
+function removeBoard(R) {
 	let oid = detectFirstBoardObject(R);
-	removeServerObject(oid,'board');
+	removeServerObject(oid, 'board');
 }
-function addBoard(R){	R.initRound();reAddServerObject('board');}
-function addServerObject(oid,o,R){
+function addBoard(R) { R.initRound(); reAddServerObject('board'); }
+function addServerObject(oid, o, R) {
 	if (!serverData.table) serverData.table = {};
 	serverData.table[oid] = o;
 	sData[oid] = jsCopy(o);
 	//console.log('adding a new object', oid);
 	addSO(oid, o, R);
-	
+
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 	updateOutput(R);
 }
-function addSO(oid,o,R){	let sd={};sd[oid]=o;addNewlyCreatedServerObjects(sd,R);}
+function addSO(oid, o, R) { let sd = {}; sd[oid] = o; addNewlyCreatedServerObjects(sd, R); }
 function testAddObject(R) {
 	R.initRound();
 	let oid = getUID('o');
 	let o = { obj_type: 'card' };
 	o.short_name = chooseRandom(['K', 'Q', 'J', 'A', 2, 3, 4, 5, 6, 7, 8]);
-	addServerObject(oid,o,R);
+	addServerObject(oid, o, R);
 	// if (!serverData.table) serverData.table = {};
 	// serverData.table[oid] = o;
 	// sData[oid] = jsCopy(o);
@@ -93,7 +95,7 @@ function testRemoveObject(R) {
 	//oid ergibt object das in rtree present ist aber NICHT zu board gehoert!
 	let oid = chooseRandom(data).id;
 
-	removeServerObject(oid,'random');
+	removeServerObject(oid, 'random');
 	// delete sData[oid];
 	// //also have to remove all the children!
 	// completelyRemoveServerObjectFromRsg(oid, R);
@@ -106,7 +108,7 @@ function testAddLocObject(R) {
 	let oidLoc = getRandomExistingObjectWithRep(R);
 	let oid = getUID('o');
 	let o = { name: 'felix' + oid, loc: oidLoc };
-	addServerObject(oid,o,R);
+	addServerObject(oid, o, R);
 
 	// serverData.table[oid] = o;
 	// sData[oid] = jsCopy(o);
@@ -149,7 +151,7 @@ function testRemoveBoard(R) {
 	let oid = detectFirstBoardObject(R);
 	console.log('testRemoveBoard: first board object detected has oid', oid);
 
-	removeServerObject(oid,'board');
+	removeServerObject(oid, 'board');
 
 
 	// if (isdef(oid)) { TV.boardOid = oid; TV.oBoard = R.getO(oid); }
@@ -250,6 +252,20 @@ function testLookupRemoveFromList() {
 	res = lookupRemoveFromList(d, ['a', 1], 2);
 	console.log('res', res, 'd', d);
 
+}
+function deepmergeTestArray() {
+	//=> all 3 objects are different copies!!!
+	let o1 = { a: 1, b: [1, 2, 3], c: 1 };
+	let o2 = { a: 2, b: [2, 3, 4, 5] };
+
+	let o3 = deepmerge(o1, o2);
+	logVals('___\no1', o1); logVals('o2', o2); logVals('o3', o3);
+
+	o3 = mergeOverrideArrays(o1, o2); //, {arrayMerge: overwriteMerge});
+	logVals('___\no1', o1); logVals('o2', o2); logVals('o3', o3);
+
+	o3 = safeMerge(o1, o2); //override array semantics!
+	logVals('___\no1', o1); logVals('o2', o2); logVals('o3', o3);
 }
 function deepmergeTest() {
 	//=> all 3 objects are different copies!!!

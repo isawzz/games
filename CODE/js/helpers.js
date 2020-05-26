@@ -39,7 +39,10 @@ function applyCssStyles(ui, params) {
 		//must apply styles differently or not at all!!!!!
 		mStyle(ui, params); //geht ja eh!!!!!!!!!!
 
-	} else { mStyle(ui, params); }
+	} else { 
+		//console.log('apply NOW',ui,params)
+		mStyle(ui, params); 
+	}
 }
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
@@ -2062,9 +2065,7 @@ function showNodeInfo(n, title, lst, lstOmit) {
 
 //#endregion
 
-//#region objects, dictionaries, lists, arrays
-//#region deepmerge helpers
-const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
+//#region deepmerge
 function isMergeableObject(val) {
 	var nonNullObject = val && typeof val === 'object'
 
@@ -2072,30 +2073,26 @@ function isMergeableObject(val) {
 		&& Object.prototype.toString.call(val) !== '[object RegExp]'
 		&& Object.prototype.toString.call(val) !== '[object Date]'
 }
-
 function emptyTarget(val) {
 	return Array.isArray(val) ? [] : {}
 }
-
 function cloneIfNecessary(value, optionsArgument) {
 	var clone = optionsArgument && optionsArgument.clone === true
 	return (clone && isMergeableObject(value)) ? deepmerge(emptyTarget(value), value, optionsArgument) : value
 }
-
 function defaultArrayMerge(target, source, optionsArgument) {
 	var destination = target.slice()
-	source.forEach(function (e, i) {
-		if (typeof destination[i] === 'undefined') {
+	source.forEach(function (e, i) { 
+		if (typeof destination[i] === 'undefined') { //el[i] nur in source
 			destination[i] = cloneIfNecessary(e, optionsArgument)
-		} else if (isMergeableObject(e)) {
+		} else if (isMergeableObject(e)) { //el[i] in beidem
 			destination[i] = deepmerge(target[i], e, optionsArgument)
-		} else if (target.indexOf(e) === -1) {
+		} else if (target.indexOf(e) === -1) { //el[i] nur in target
 			destination.push(cloneIfNecessary(e, optionsArgument))
 		}
 	})
 	return destination
 }
-
 function mergeObject(target, source, optionsArgument) {
 	var destination = {}
 	if (isMergeableObject(target)) {
@@ -2105,26 +2102,51 @@ function mergeObject(target, source, optionsArgument) {
 	}
 	Object.keys(source).forEach(function (key) {
 		if (!isMergeableObject(source[key]) || !target[key]) {
+			//console.log('das sollte bei data triggern!',key,source[key])
 			destination[key] = cloneIfNecessary(source[key], optionsArgument)
 		} else {
 			destination[key] = deepmerge(target[key], source[key], optionsArgument)
 		}
 	})
-	return destination
+	return destination;
 }
+// deepmerge.all = function deepmergeAll(array, optionsArgument) {
+// 	if (!Array.isArray(array) || array.length < 2) {
+// 		throw new Error('first argument should be an array with at least two elements')
+// 	}
 
+// 	// we are sure there are at least 2 values, so it is safe to have no initial value
+// 	return array.reduce(function (prev, next) {
+// 		return deepmerge(prev, next, optionsArgument)
+// 	})
+// }
+function deepmerge(target, source, optionsArgument) {
+	var array = Array.isArray(source);
+	var options = optionsArgument || { arrayMerge: defaultArrayMerge }
+	var arrayMerge = options.arrayMerge || defaultArrayMerge
 
-deepmerge.all = function deepmergeAll(array, optionsArgument) {
-	if (!Array.isArray(array) || array.length < 2) {
-		throw new Error('first argument should be an array with at least two elements')
+	if (array) {
+		return Array.isArray(target) ? arrayMerge(target, source, optionsArgument) : cloneIfNecessary(source, optionsArgument)
+	} else {
+		return mergeObject(target, source, optionsArgument)
 	}
-
-	// we are sure there are at least 2 values, so it is safe to have no initial value
-	return array.reduce(function (prev, next) {
-		return deepmerge(prev, next, optionsArgument)
-	})
 }
+//____________ USAGE API _____________________
+const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray
+function mergeOverrideArrays(base, drueber) {
+	return deepmerge(base, drueber, { arrayMerge: overwriteMerge });
+}
+function mergeCombineArrays(base, drueber) {
+	return deepmerge(base, drueber);
+}
+function deepmergeOverride(base,drueber){return mergeOverrideArrays(base,drueber);}
+// function merge(base, drueber) {
+// 	return deepmerge(base, drueber);
+// }
 //#endregion
+
+//#region objects, dictionaries, lists, arrays
+
 function addIf(arr, el) {
 	if (!arr.includes(el)) arr.push(el);
 }
@@ -2204,20 +2226,6 @@ function containsAll(arr, lst) {
 		if (!arr.includes(el)) return false;
 	}
 	return true;
-}
-function deepmerge(target, source, optionsArgument) {
-	var array = Array.isArray(source);
-	var options = optionsArgument || { arrayMerge: defaultArrayMerge }
-	var arrayMerge = options.arrayMerge || defaultArrayMerge
-
-	if (array) {
-		return Array.isArray(target) ? arrayMerge(target, source, optionsArgument) : cloneIfNecessary(source, optionsArgument)
-	} else {
-		return mergeObject(target, source, optionsArgument)
-	}
-}
-function deepmergeOverride(base, drueber) {
-	return deepmerge(base, drueber, { arrayMerge: overwriteMerge });
 }
 function dict2list(d, keyName = 'id') { return dict2olist(d, keyName); }
 function dict2olist(d, keyName = 'id') {

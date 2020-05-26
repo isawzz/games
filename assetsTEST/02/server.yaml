@@ -1,0 +1,25 @@
+players:
+  Player1:
+    name: Player1
+    symbol: X
+    hand: [c1, c2]
+  Player2:
+    name: Player2
+    symbol: O
+    hand: [ck]
+table:
+  # ck:
+  #   obj_type: card
+  #   short_name: K
+  #   rel: [c1,c2]
+  # cq:
+  #   obj_type: card
+  #   short_name: Q
+  #   rel: [c2,c3]
+  # c1:
+  #   obj_type: card
+  #   short_name: A
+  #   rel: [c2,c3]
+  # c2:
+  #   obj_type: card
+  #   short_name: 2

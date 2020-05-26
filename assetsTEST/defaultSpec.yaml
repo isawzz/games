@@ -54,6 +54,9 @@ defaults:
       justify-content: space-evenly
       align-content: space-evenly
       justify-items: flex-start
+  invisible:
+    params:
+      orientation: h
 
   list:
     params:

@@ -105,19 +105,19 @@
 11: #erst A, dann B, dann node itself!
   ROOT:
     _NODE: [A, B]
-    data: RICHTIG!
+    data: DAS
     params:
       fg: red
   A:
-    data: WAS
+    data: IST
     params:
       fg: blue
   B:
-    data: YES!
+    data: RICHTIG
     params:
       fg: green
       bg: white
-10: #===> HERE
+10: #new! data combining!
   ROOT:
     _id: A
     data: hallo
@@ -130,7 +130,7 @@
     data: NEIN!
     params:
       fg: red
-9:
+9: #new! data combining!!!!
   ROOT:
     _id: A
     data: hallo

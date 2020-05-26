@@ -92,7 +92,7 @@ async function loadSpec(path) {
 	userSpec = vidCache.asDict('userSpec');
 
 	//merge default and userSpec
-	SPEC = deepmerge(defaultSpec, userSpec, { arrayMerge: overwriteMerge });
+	SPEC = deepmerge(defaultSpec, userSpec);//, { arrayMerge: overwriteMerge });
 	DEFS = SPEC.defaults;
 	delete SPEC.defaults;
 

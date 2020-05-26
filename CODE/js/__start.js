@@ -50,6 +50,14 @@ async function _entryPoint(defs,spec, sdata) {
 	//localStorage.clear();
 	//console.log(sdata);
 	//return;
+	//deepmergeTestArray(); return;
+
+	// console.log('test1',isMergeableObject({})); // true
+	// console.log('test1',isMergeableObject([])); // true
+	// console.log('test1',isMergeableObject('hallo')); // false
+	// console.log('test4',!{a:'hallo'}.b); // true
+	// console.log('test4',{a:'hallo'}.a); // hallo
+
 
 	await testEngine.init(defs,sdata,TEST_SERIES);
 	await present00(testEngine.spec,testEngine.defs,testEngine.sdata);
@@ -125,19 +133,19 @@ function updateOutput(R) {
 
 	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec', ['_NODE']); }
 
+	if (SHOW_RTREE) {
+		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
+			['children'], null, ['info'], { 'max-width': '35%', font: '14px arial' });
+	}
+
 	if (SHOW_UITREE) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
 			null,
-			['ui', 'act', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'],
+			['ui', 'act','bi','info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });
-	}
-
-	if (SHOW_RTREE) {
-		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
-			['children'], null, ['params','info'], { 'max-width': '35%', font: '14px arial' });
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }
