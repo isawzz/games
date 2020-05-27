@@ -1,0 +1,51 @@
+{
+	" 2 ": {
+		"_0": {
+			"children": [
+				"_2",
+				"_3"
+			],
+			"data": "green yellow",
+			"params": {
+				"fg": "yellow"
+			},
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_2": {
+			"data": "yellow",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"data": "white",
+			"uid": "_3",
+			"uidParent": "_0"
+		}
+	},
+	" 1 ": {
+		"_0": {
+			"data": "yellow",
+			"params": {
+				"bg": "black",
+				"fg": "yellow"
+			},
+			"uid": "_0",
+			"uidParent": null
+		}
+	},
+	" 0 ": {
+		"_0": {
+			"data": "DAS IST RICHTIG",
+			"params": {
+				"bg": "white",
+				"fg": "red"
+			},
+			"uid": "_0",
+			"uidParent": null
+		}
+	}
+}

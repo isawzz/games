@@ -1,0 +1,71 @@
+4:
+  ROOT:
+    _NODE: [sa, sb]
+    params:
+      bg: yellow
+      orientation: v
+  sa:
+    cond: all
+    data: .oid
+    params:
+      fg: green
+  sb:
+    cond: 
+      obj_type: card
+    params:
+      fg: red
+3: 
+  ROOT:
+    cond: all
+    data: .oid
+2:
+  ROOT:
+    _NODE: [B, A]
+    params:
+      fg: yellow
+  A:
+    data: yellow
+    params:
+      fg: red
+  B:
+    data: green
+    sub:
+      - _NODE: A
+      - data: white
+    params:
+      fg: blue
+  C:
+    params:
+      fg: silver
+      bg: black
+1:
+  ROOT:
+    _NODE: [A, B, C]
+    params:
+      fg: yellow
+  A:
+    data: yellow
+    params:
+      fg: red
+  B:
+    params:
+      fg: blue
+  C:
+    params:
+      fg: silver
+      bg: black
+0: #erst A, dann B, dann node itself!
+  ROOT:
+    _NODE: [A, B]
+    data: DAS
+    params:
+      fg: red
+  A:
+    data: IST
+    params:
+      fg: blue
+  B:
+    data: RICHTIG
+    params:
+      fg: green
+      bg: white

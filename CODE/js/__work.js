@@ -1,3 +1,35 @@
+
+function mergedSpecNode(n1, n2) {
+	if (nundef(n1.cond) && nundef(n2.cond)) {
+		return merge1(n1,n2);// deepmerge(merged, nSpec);
+	} else {
+		return deepmerge(n1,n2); //,{dataMerge: 'none'});// deepmerge(merged, nSpec);
+	}
+}
+function makeMergedSpecNodes_dep(nodeNameList, n, R) {
+	let mergedCondNodes = {};
+	let mergedNoCondNodes = {};
+	//let merged = {};//jsCopy(n);
+	let newNodeList = [];
+	let hereList = [];
+	for (const name of nodeNameList) {
+		let nSpec = R.getSpec(name);
+		if (nundef(nSpec.cond)) {
+			mergedNoCondNodes = merge1(mergedNoCondNodes, nSpec);// deepmerge(merged, nSpec);
+			if (isdef(nSpec._NODE)) addIf(newNodeList, nSpec._NODE);
+		} else {
+			mergedCondNodes = deepmerge(mergedCondNodes, nSpec); //,{dataMerge: 'none'});// deepmerge(merged, nSpec);
+			if (isdef(nSpec._NODE)) addIf(hereList, nSpec._NODE);
+		}
+	}
+	return [mergedCondNodes, mergedNoCondNodes, newNodeList, hereList];
+}
+function getCombNodeName(namelist) {
+	return namelist.join('_');
+}
+
+
+
 function mergeArr(a, b, opt) {
 	var res = a.slice()
 	b.forEach(function (e, i) {
@@ -75,13 +107,16 @@ function mergeObj(a, b, opt) {
 	return res;
 }
 
-function merge1(sp1, sp2, { reverseData } = {}) {
+function merge1(sp1, sp2, { dataMerge } = {}) {
 	//console.log('calling dm1')
 	//return merge(sp1,sp2);
 	let options = {
 		sub: (a, b, opt) => b.concat(a),
 		data: (a, b, opt) => isLiteral(a) && isLiteral(b) ?
-			reverseData ? b + ' ' + a : a + ' ' + b : dm1(a, b, opt),
+			nundef(dataMerge)||dataMerge=='concat'? a + ' ' + b
+			:dataMerge == 'reverse'?b + ' ' + a
+			:b
+			: dm1(a, b, opt),
 		//params: (a, b, opt) => ({ bg: 'green' }),
 	};
 	return dm1(sp1, sp2, options);

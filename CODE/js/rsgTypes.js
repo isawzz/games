@@ -15,6 +15,7 @@ class RSG {
 
 		this.genIdRef();
 		this.genMerge();
+		this.genNODE();
 	}
 	genIdRef(genKey = 'G') {
 		let gen = jsCopy(this.lastSpec);
@@ -159,6 +160,34 @@ class RSG {
 		}
 
 		//console.log('_________GEN:',gen);
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = this.lastSpec.ROOT;
+	}
+	genNODE(genKey = 'G') {
+		let orig = this.lastSpec;
+		let gen = jsCopy(this.lastSpec);
+
+		//_NODE list only in top level allowed!
+		for(const k in orig){
+			let n = gen[k];
+			//check if this node contains a _NODE:[...]
+			//if not, put it in safe
+			//otherwise,put it in todo
+			if (isList(n._NODE)){
+				console.log(n)
+				let lst = n._NODE;
+				let combiName = getCombNodeName(lst);
+				let nComb = {};
+				for(const name of lst){
+					nComb = mergedSpecNode(nComb,orig[name]);
+				}
+				gen[combiName]=nComb;
+				n._NODE = combiName;
+			}
+		}
+
+		console.log('_________GEN:',gen);
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;

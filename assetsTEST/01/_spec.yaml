@@ -14,7 +14,7 @@
 #     _ref: sb
 #     params:
 #       fg: red
-# 16:
+# 18:
 #   ROOT:
 #     _NODE: [sa, sb]
 #     params:
@@ -28,6 +28,16 @@
 #   sb:
 #     params:
 #       fg: red
+19:
+  ROOT:
+    _NODE: sa
+    cond: all
+  sa:
+    data: .oid
+18:
+  ROOT:
+    cond: all
+    data: .oid
 17:
   ROOT:
     _NODE: sa
