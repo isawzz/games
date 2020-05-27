@@ -1,4 +1,233 @@
 {
+	" 19 ": {
+		"_0": {
+			"_NODE": "sa_sp_-1",
+			"_id": "sb",
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4",
+				"_5",
+				"_6",
+				"_7",
+				"_8",
+				"_9"
+			],
+			"here": "sa_sp_-1",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_5": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_5",
+			"uidParent": "_0"
+		},
+		"_6": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_7": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_7",
+			"uidParent": "_0"
+		},
+		"_8": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_8",
+			"uidParent": "_0"
+		},
+		"_9": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_9",
+			"uidParent": "_0"
+		}
+	},
+	" 18 ": {
+		"_0": {
+			"_NODE": "sa_sb",
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4",
+				"_5",
+				"_6",
+				"_7",
+				"_8",
+				"_9"
+			],
+			"here": "sa_sb",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_5": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_5",
+			"uidParent": "_0"
+		},
+		"_6": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_7": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_7",
+			"uidParent": "_0"
+		},
+		"_8": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_8",
+			"uidParent": "_0"
+		},
+		"_9": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_9",
+			"uidParent": "_0"
+		}
+	},
 	" 17 ": {
 		"_0": {
 			"_NODE": "sa",

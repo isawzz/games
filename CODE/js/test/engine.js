@@ -143,23 +143,93 @@ function normalizeRTree(R) {
 	return sortKeys(rTree);
 }
 function normalizeNode(o, num) {
-	if (isdef(o.uid)) normalizeObjectProp(o, 'uid', num);
+	if (isdef(o.uid)) normalizeSimpleUidProp(o, 'uid', num);
 	if (isdef(o.children)) { o.children = o.children.map(x => normalizeVal(x, num)); }
-	if (isdef(o.uidParent)) normalizeObjectProp(o, 'uidParent', num);
-	if (isdef(o.key) && startsWith(o.key, 'sp_')) {
-		let val = o.key.substring(2);
-		o.key = 'sp' + normalizeVal(val, num);
+	if (isdef(o.uidParent)) normalizeSimpleUidProp(o, 'uidParent', num);
+	// if (isdef(o.key) && startsWith(o.key, 'sp_')) {
+	// 	let val = o.key.substring(2);
+	// 	o.key = 'sp' + normalizeVal(val, num);
+	// }
+	if (isdef(o._NODE)) normalizeSpecKeyProp(o,'_NODE',num);// normalizeNODE(o, num);
+	if (isdef(o.here)) normalizeSpecKeyProp(o,'here',num); //normalizehere(o, num);
+	// if (isdef(o._NODE) && startsWith(o._NODE, 'sp_')) {
+	// 	let val = o._NODE.substring(2);
+	// 	o._NODE = 'sp' + normalizeVal(val, num);
+	// }
+	// if (isdef(o.here) && startsWith(o.here, 'sp_')) {
+	// 	let val = o.here.substring(2);
+	// 	o.here = 'sp' + normalizeVal(val, num);
+	// }
+}
+function correctNumbersInString(s,dec){
+	//console.log('input:',s,dec);
+	let parts = s.split('_');
+	for(let i=0;i<parts.length;i++){
+		let p = parts[i];
+		if (isNumber(p)){
+			let n=Number(p);
+			n-=dec;
+			parts[i] = ''+n;
+		}
 	}
-	if (isdef(o._NODE) && startsWith(o._NODE, 'sp_')) {
-		let val = o._NODE.substring(2);
-		o._NODE = 'sp' + normalizeVal(val, num);
-	}
-	if (isdef(o.here) && startsWith(o.here, 'sp_')) {
-		let val = o.here.substring(2);
-		o.here = 'sp' + normalizeVal(val, num);
+	let res = parts.join('_');
+	//console.log('output:',res);
+	return res;
+}
+function normalizeSpecKeyProp(o,prop, num) {
+	let node1 = o[prop];
+	if (isString(node1) && node1.includes('_')){
+		o[prop] = correctNumbersInString(node1,num);
+	} else if (isList(node1)) {
+		let newlist = [];
+		for (const el of node1) {
+			if (el.includes('_')) {
+				newlist.push(correctNumbersInString(el,num));
+			}
+		}
+		console.log('SOLLTE NIEEEEEEEEEEEEEEEEEEE VORKOMMEN!!!!!!');
+		o[prop] = newlist;
+
 	}
 }
-function normalizeObjectProp(o, prop, num) {
+function normalizeNODE(o, num) {
+	let node1 = o._NODE;
+	if (isString(node1) && node1.includes('_')){
+		o._NODE = correctNumbersInString(node1,num);
+	} else if (isList(node1)) {
+		let newlist = [];
+		for (const el of node1) {
+			if (el.includes('_')) {
+				newlist.push(correctNumbersInString(el,num));
+			}
+		}
+		console.log('SOLLTE NIEEEEEEEEEEEEEEEEEEE VORKOMMEN!!!!!!');
+		o.NODE = newlist;
+
+	}
+}
+function normalizehere(o, num) {
+	let node1 = o.here;
+	if (isString(node1) && node1.includes('_')){// startsWith(node1, 'sp_')) {
+		// let val = node1.substring(2);
+		// o._NODE = 'sp' + normalizeVal(val, num);
+		o.here = correctNumbersInString(node1,num);
+	} else if (isList(node1)) {
+		alert('NIEEEEEEEEEEEEEEEEEEEEEEEEE');
+		let newlist = [];
+		for (const el of node1) {
+			if (el.includes('_')) {//startsWith(el, 'sp_')) {
+				// let val = el.substring(2);
+				// newlist.push('sp' + normalizeVal(val, num));
+				newlist.push(correctNumbersInString(el,num));
+			}
+		}
+		console.log('SOLLTE NIEEEEEEEEEEEEEEEEEEE VORKOMMEN!!!!!!');
+		o.here = newlist;
+
+	}
+}
+function normalizeSimpleUidProp(o, prop, num) {
 	//console.log(o[prop])
 	o[prop] = normalizeVal(o[prop], num);
 	//console.log(o)

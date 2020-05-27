@@ -1,3 +1,67 @@
+7:
+  ROOT:
+    _id: A
+    params:
+      bg: yellow
+      orientation: v
+  sa:
+    _ref: A
+    cond: all
+    data: 
+      id: .oid
+    params:
+      bg: green
+  sb:
+    _ref: A
+    cond: 
+      obj_type: card
+    data: .short_name
+    params:
+      fg: red
+6:
+  ROOT:
+    _id: A
+    _NODE: sc
+    params:
+      bg: yellow
+      orientation: v
+  sa:
+    _ref: A
+    cond: 
+      prop: name
+  sb:
+    _ref: A
+    cond: 
+      obj_type: card
+  sc:
+    data: .oid
+    params:
+      fg: red
+5:
+  ROOT:
+    #_NODE: [sa, sb, sc]
+    _id: A
+    _NODE: [sb, sc]
+    params:
+      bg: yellow
+      orientation: v
+  sa:
+    _ref: A
+    cond: all
+    data: 
+      id: .oid
+    params:
+      bg: green
+  sb:
+    cond: 
+      obj_type: card
+    params:
+      fg: red
+  sc:
+    data: 
+      static: HALLO
+    params:
+      font-size: 18
 4:
   ROOT:
     _NODE: [sa, sb]
@@ -8,7 +72,7 @@
     cond: all
     data: .oid
     params:
-      fg: green
+      bg: green
   sb:
     cond: 
       obj_type: card

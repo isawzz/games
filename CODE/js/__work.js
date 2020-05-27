@@ -1,5 +1,26 @@
 
+function recMergeSpecNode(n,sp,spNew){
+	if (isList(n._NODE)) {
+		//console.log('+++++++++',n)
+		let lst = n._NODE;
+		//console.log(lst)
+		let combiName = getCombNodeName(lst);
+		let nComb = {};
+		for (const name of lst) {
+			//console.log(name)
+			nComb = mergedSpecNode(nComb, sp[name]);
+		}
+		spNew[combiName] = nComb;
+		n._NODE = combiName;
+	}
+	if (isdef(n.sub)){
+		for(const n1 of n.sub) recMergeSpecNode(n1,sp, spNew);
+	}
+
+}
+
 function mergedSpecNode(n1, n2) {
+	//console.log(n1,n2)
 	if (nundef(n1.cond) && nundef(n2.cond)) {
 		return merge1(n1,n2);// deepmerge(merged, nSpec);
 	} else {

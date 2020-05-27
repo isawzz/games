@@ -57,6 +57,8 @@ async function _entryPoint(defs,spec, sdata) {
 	// console.log('test1',isMergeableObject('hallo')); // false
 	// console.log('test4',!{a:'hallo'}.b); // true
 	// console.log('test4',{a:'hallo'}.a); // hallo
+	//let x='wer_-34';	let y=firstNumber(x);	console.log('___________TEST!',x,y,y+100)
+
 
 
 	await testEngine.init(defs,sdata,TEST_SERIES);

@@ -1,4 +1,590 @@
 {
+	" 7 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_2"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"_NODE": "sp_-2",
+			"children": [
+				"_3",
+				"_4",
+				"_5",
+				"_6",
+				"_8",
+				"_10",
+				"_12",
+				"_14",
+				"_15"
+			],
+			"here": "sp_-2",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "c1",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_10",
+			"uidParent": "_1"
+		},
+		"_11": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_11",
+			"uidParent": "_2"
+		},
+		"_12": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "c2",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_12",
+			"uidParent": "_1"
+		},
+		"_13": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_13",
+			"uidParent": "_2"
+		},
+		"_14": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "Player1",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_14",
+			"uidParent": "_1"
+		},
+		"_15": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "Player2",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_15",
+			"uidParent": "_1"
+		},
+		"_2": {
+			"_NODE": "sp_-1",
+			"children": [
+				"_7",
+				"_9",
+				"_11",
+				"_13"
+			],
+			"here": "sp_-1",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "0",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "1",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_4",
+			"uidParent": "_1"
+		},
+		"_5": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "9",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_5",
+			"uidParent": "_1"
+		},
+		"_6": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "ck",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_6",
+			"uidParent": "_1"
+		},
+		"_7": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_7",
+			"uidParent": "_2"
+		},
+		"_8": {
+			"cond": "all",
+			"data": {
+				"id": ".oid"
+			},
+			"oid": "cq",
+			"params": {
+				"bg": "green"
+			},
+			"uid": "_8",
+			"uidParent": "_1"
+		},
+		"_9": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "cq",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_9",
+			"uidParent": "_2"
+		}
+	},
+	" 6 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_2"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"_NODE": "sc_sp_-2",
+			"children": [
+				"_3",
+				"_5",
+				"_9",
+				"_10"
+			],
+			"here": "sc_sp_-2",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"cond": {
+				"prop": "name"
+			},
+			"data": ".oid",
+			"oid": "Player2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_10",
+			"uidParent": "_1"
+		},
+		"_2": {
+			"_NODE": "sc_sp_-1",
+			"children": [
+				"_4",
+				"_6",
+				"_7",
+				"_8"
+			],
+			"here": "sc_sp_-1",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"prop": "name"
+			},
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_4",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"cond": {
+				"prop": "name"
+			},
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_5",
+			"uidParent": "_1"
+		},
+		"_6": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_6",
+			"uidParent": "_2"
+		},
+		"_7": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "c1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_7",
+			"uidParent": "_2"
+		},
+		"_8": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "c2",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_8",
+			"uidParent": "_2"
+		},
+		"_9": {
+			"cond": {
+				"prop": "name"
+			},
+			"data": ".oid",
+			"oid": "Player1",
+			"params": {
+				"fg": "red"
+			},
+			"uid": "_9",
+			"uidParent": "_1"
+		}
+	},
+	" 5 ": {
+		"_0": {
+			"_NODE": "sp_-1_sb_sc",
+			"_id": "A",
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4"
+			],
+			"here": "sp_-1_sb_sc",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": {
+				"id": ".oid",
+				"static": "HALLO"
+			},
+			"oid": "ck",
+			"params": {
+				"bg": "green",
+				"fg": "red",
+				"font-size": 18
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": {
+				"id": ".oid",
+				"static": "HALLO"
+			},
+			"oid": "cq",
+			"params": {
+				"bg": "green",
+				"fg": "red",
+				"font-size": 18
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": {
+				"id": ".oid",
+				"static": "HALLO"
+			},
+			"oid": "c1",
+			"params": {
+				"bg": "green",
+				"fg": "red",
+				"font-size": 18
+			},
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": {
+				"id": ".oid",
+				"static": "HALLO"
+			},
+			"oid": "c2",
+			"params": {
+				"bg": "green",
+				"fg": "red",
+				"font-size": 18
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		}
+	},
+	" 4 ": {
+		"_0": {
+			"_NODE": "sa_sb",
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4"
+			],
+			"here": "sa_sb",
+			"params": {
+				"bg": "yellow",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"bg": "green",
+				"fg": "red"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"bg": "green",
+				"fg": "red"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "c1",
+			"params": {
+				"bg": "green",
+				"fg": "red"
+			},
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".oid",
+			"oid": "c2",
+			"params": {
+				"bg": "green",
+				"fg": "red"
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		}
+	},
+	" 3 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4",
+				"_5",
+				"_6",
+				"_7",
+				"_8",
+				"_9"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_5": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"uid": "_5",
+			"uidParent": "_0"
+		},
+		"_6": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_7": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"uid": "_7",
+			"uidParent": "_0"
+		},
+		"_8": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"uid": "_8",
+			"uidParent": "_0"
+		},
+		"_9": {
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"uid": "_9",
+			"uidParent": "_0"
+		}
+	},
 	" 2 ": {
 		"_0": {
 			"children": [

@@ -42,10 +42,12 @@ table:
     obj_type: card
     short_name: K
     rel: [c1,c2]
+    name: JA
   cq:
     obj_type: card
     short_name: Q
     rel: [c2,c3]
+    name: JA
   c1:
     obj_type: card
     short_name: A

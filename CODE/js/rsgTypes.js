@@ -89,23 +89,23 @@ class RSG {
 					//v_3:
 					// let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
 					// sub.push({ _NODE: uid });
-					// console.log('------> merged alte version',jsCopy(merged))
+					// //console.log('------> merged alte version',jsCopy(merged))
 					//hier muss genauso gemerged werden wie bei _NODE!
 
 					//v_4:
 					// let merged = merge1(idnode, ref_entry.node);
 					// sub.push({ _NODE: uid });
-					// console.log('------> merged idnode zuerst',jsCopy(merged))
+					// //console.log('------> merged idnode zuerst',jsCopy(merged))
 
 					//v_5 (fail_klappt_mit_panel):
 					// let merged = jsCopy(ref_entry.node);
 					// let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
-					// console.log('------> merged nur ref node!',jsCopy(merged))
+					// //console.log('------> merged nur ref node!',jsCopy(merged))
 
 					//v_6:
 					// let merged = merge1(ref_entry.node,idnode);
 					// sub.push({ _NODE: uid });
-					// console.log('=>welcher soll als erstes stehen?','\nidnode',idnode,'\nref_entry.node',ref_entry.node,'\nmerged',merged);
+					// //console.log('=>welcher soll als erstes stehen?','\nidnode',idnode,'\nref_entry.node',ref_entry.node,'\nmerged',merged);
 
 					//v_7:
 					let merged;
@@ -114,12 +114,35 @@ class RSG {
 						sub.push({ _NODE: uid });
 						//console.log('------> merged _merge=' + idnode._merge, jsCopy(merged));
 					} else { //default merge mode: sub (sowie bei v_5 fail_klappt_mit_panel)
+						//console.log('\nidnode', idnode, '\nrefnode', ref_entry.node)
 						merged = jsCopy(ref_entry.node);
-						let resultNode = jsCopy(idnode); 
-						resultNode._NODE = uid; 
-						delete resultNode._id; 
+						let resultNode = jsCopy(idnode);
+
+						//console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\nidnode', idnode, '\nrefnode', ref_entry.node, '\nresultnode', resultNode)
+
+						// if (isdef(idnode._NODE)) {
+						// 	let x = idnode._NODE;
+						// 	if (isList(x)) {
+						// 		//console.log('bbbbbbbbbbbbbbbbbbbbbb x list!',x)
+						// 		//das _id ist sub[0]._NODE
+						// 		//das orig _NODE ist eine liste x=[A,B,...]
+						// 		//x.push(sub[0]._NODE);
+						// 		x.unshift(uid);
+						// 		resultNode._NODE = jsCopy(x); // sub[0]._NODE[x, sub[0]._NODE];
+						// 	} else {
+						// 		resultNode._NODE = [x, uid];
+						// 	}
+						// 	//console.log('resulting obj', obj[key])
+						// } else resultNode._NODE = uid;
+
+						resultNode._NODE = uid;
+						//console.log('================\nidnode', jsCopy(idnode), '\nrefnode', jsCopy(ref_entry.node), '\nresultnode', jsCopy(resultNode))
+
+						//resultNode._NODE = uid;
+						delete resultNode._id;
+						//console.log('\nidnode', idnode, '\nrefnode', ref_entry.node, '\nresultnode', resultNode)
 						sub.push(resultNode);
-						//console.log('------> merged _merge=sub', jsCopy(merged));
+						//console.log('------> sub sub',sub);
 					}
 
 					delete merged._ref;
@@ -137,24 +160,44 @@ class RSG {
 					if (isdef(this.lastSpec[name])) {
 						obj[key]._NODE = name; //!!!!!!!!!!!!
 						delete obj[key]._id;
-						console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
+						//console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
 						alert('SPEC ERROR! =>please replace _id:' + name + ' by _NODE:', name);
 					} else {
-						console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
+						//console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
 					}
 					continue;
 				}
 
 				//console.log(obj, key, name)
 
+				//console.log('SUB LENGTH===========',sub.length,sub)
+
 				if (sub.length == 1) {
 					if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
 						let x = obj[key]._NODE;
-						obj[key]._NODE = [x, sub[0]._NODE];
+						if (isList(x)) {
+							//das _id ist sub[0]._NODE
+							//das orig _NODE ist eine liste x=[A,B,...]
+							//x.push(sub[0]._NODE);
+							x.unshift(sub[0]._NODE);
+							obj[key]._NODE = jsCopy(x); // sub[0]._NODE[x, sub[0]._NODE];
+						} else {
+							obj[key]._NODE = [x, sub[0]._NODE];
+						}
 						//console.log('resulting obj', obj[key])
 					} else obj[key] = sub[0];
 				}
-				else obj[key] = { sub: sub };
+				else{
+					//console.log('haaaaaaaaaaaaaaaalo');
+					let res = obj[key];
+					//console.log('res',jsCopy(res))
+					if (isdef(res._NODE)){
+						//in jedes sub muss ich 
+						let x=res._NODE;
+						for(let i=0;i<sub.length;i++) sub[i]._NODE=[x, sub[i]._NODE];
+						obj[key]={ sub: sub };
+					}else	obj[key] = { sub: sub };
+				} 
 			}
 			//hiermit is _id:name abgebaut fuer alle refs darauf!
 		}
@@ -168,26 +211,30 @@ class RSG {
 		let orig = this.lastSpec;
 		let gen = jsCopy(this.lastSpec);
 
-		//_NODE list only in top level allowed!
-		for(const k in orig){
+		for (const k in orig) {
 			let n = gen[k];
 			//check if this node contains a _NODE:[...]
 			//if not, put it in safe
 			//otherwise,put it in todo
-			if (isList(n._NODE)){
-				console.log(n)
-				let lst = n._NODE;
-				let combiName = getCombNodeName(lst);
-				let nComb = {};
-				for(const name of lst){
-					nComb = mergedSpecNode(nComb,orig[name]);
-				}
-				gen[combiName]=nComb;
-				n._NODE = combiName;
-			}
+			// if (isList(n._NODE)) {
+			// 	//console.log('LIST!!!!!!!!!!!!!!!!!!!!!!!!!',jsCopy(n._NODE));
+			// 	let lst = n._NODE;
+			// 	//console.log('9999999999999999999999',jsCopy(lst));
+
+			// 	let combiName = getCombNodeName(lst);
+			// 	let nComb = {};
+			// 	for (const name of lst) {
+			// 		if (isList(name)) continue;
+			// 		//console.log(name)
+			// 		nComb = mergedSpecNode(nComb, orig[name]);
+			// 	}
+			// 	gen[combiName] = nComb;
+			// 	n._NODE = combiName;
+			// }
+			recMergeSpecNode(n,orig,gen);
 		}
 
-		console.log('_________GEN:',gen);
+		//console.log('_________GEN:', gen);
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen;
 		this.ROOT = this.lastSpec.ROOT;
@@ -261,7 +308,7 @@ class RSG {
 	addObject(oid, o) {
 		//TODO: was wenn oid bereits in _sd ist???!!! OVERRIDE
 		if (this.oUpdated[oid]) {
-			console.log('object', oid, 'already updated this round!!!!!');
+			//console.log('object', oid, 'already updated this round!!!!!');
 			return;
 		} else this.oUpdated[oid] = true;
 
@@ -281,7 +328,7 @@ class RSG {
 	notThisNode(n) { return nundef(n.cond) || (isdef(n._ref) && isdef(this.places[n._ref])); } //do NOT check _ref nodes!
 	addRForObject(oid) {
 		if (this.rUpdated[oid]) {
-			console.log('rsg list for object', oid, 'already updated this round!!!!!!');
+			//console.log('rsg list for object', oid, 'already updated this round!!!!!!');
 			return;
 		} else this.rUpdated[oid] = true;
 
@@ -362,7 +409,7 @@ class RSG {
 	setUid(n, ui) {
 		ui.id = n.uid;
 		// if (n.uid == '_16') {
-		// 	console.log('JAAAAAAAAAAAA');
+		// 	//console.log('JAAAAAAAAAAAA');
 		// }
 		n.act = new Activator(n, ui, this);
 	}

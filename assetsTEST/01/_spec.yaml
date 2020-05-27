@@ -1,43 +1,33 @@
-# 15:
-#   ROOT:
-#     _NODE: sa
-#     _id: sb
-#     params:
-#       bg: yellow
-#       orientation: v
-#   sa:
-#     cond: all
-#     data: .oid
-#     params:
-#       fg: green
-#   sb:
-#     _ref: sb
-#     params:
-#       fg: red
-# 18:
-#   ROOT:
-#     _NODE: [sa, sb]
-#     params:
-#       bg: yellow
-#       orientation: v
-#   sa:
-#     cond: all
-#     data: .oid
-#     params:
-#       fg: green
-#   sb:
-#     params:
-#       fg: red
 19:
   ROOT:
     _NODE: sa
-    cond: all
+    _id: sb
+    params:
+      bg: yellow
+      orientation: v
   sa:
+    cond: all
     data: .oid
+    params:
+      fg: green
+  sb:
+    _ref: sb
+    params:
+      fg: red
 18:
   ROOT:
+    _NODE: [sa, sb]
+    params:
+      bg: yellow
+      orientation: v
+  sa:
     cond: all
     data: .oid
+    params:
+      fg: green
+  sb:
+    params:
+      fg: red
 17:
   ROOT:
     _NODE: sa
