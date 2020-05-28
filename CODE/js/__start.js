@@ -41,10 +41,10 @@ async function _start() {
 
 	// SPEC, DEFS, sData in place for parsing spec!
 
-	_entryPoint(DEFS,SPEC, sData);
+	_entryPoint(DEFS, SPEC, sData);
 }
 //#endregion
-async function _entryPoint(defs,spec, sdata) {
+async function _entryPoint(defs, spec, sdata) {
 	//testSolutionConverter();	return;
 	//present00(DEFS,SPEC, sData);
 	//localStorage.clear();
@@ -61,15 +61,15 @@ async function _entryPoint(defs,spec, sdata) {
 
 
 
-	await testEngine.init(defs,sdata,TEST_SERIES);
-	await present00(testEngine.spec,testEngine.defs,testEngine.sdata);
+	await testEngine.init(defs, sdata, TEST_SERIES);
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 }
 async function present00(sp, defaults, sdata) {
 	T = R = new RSG(sp, defaults, sdata);
 
 	//creation sequence:
-	ensureRtree(R); 
+	ensureRtree(R);
 
 	R.baseArea = 'table';
 	createStaticUi(R.baseArea, R);
@@ -119,9 +119,9 @@ function makeDefaultPool(fromData) {
 	//console.log('data',data)
 	return data;
 }
-function clearUpdateOutput(){
+function clearUpdateOutput() {
 	for (const area of ['spec', 'lastSpec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds']) { //'channelsStatic', 'channelsLive' 
-		clearElement(area);
+		if (isdef(mBy(area))) clearElement(area);
 	}
 }
 function updateOutput(R) {
@@ -131,7 +131,28 @@ function updateOutput(R) {
 		return;
 	}
 
-	if (SHOW_SPEC) { presentNodes(R.sp, 'spec', ['_NODE']); }
+	if (SHOW_SPEC) {
+
+		if (OUTPUT_EACH_SPEC_STEP) {
+			SHOW_LASTSPEC=false;
+			let num = R.gens.G.length;
+			//console.log('there are', num, 'gens!!!');
+			let d = mBy('contSpec');
+			let b = d.children[0];
+			clearElement(d);
+			d.appendChild(b);
+			//console.log('first child of d contSpec is', b);
+			for (let i = 1; i <= num; i++) {
+				let d1=mDiv(d);
+				mClass(d,'flexWrap');
+				d1.id='spec'+i;
+				let o = R.gens.G[i-1];
+				mDictionary(o, { dParent: d1, title: 'gen'+i +': '+ Object.keys(o).length });
+				//presentNodes(R.gens.G[i-1], d1.id, ['_NODE']);
+			}
+
+		} else presentNodes(R.sp, 'spec', ['_NODE']);
+	}
 
 	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec', ['_NODE']); }
 
@@ -144,7 +165,7 @@ function updateOutput(R) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
 			null,
-			['ui', 'act','bi','info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
+			['ui', 'act', 'bi', 'info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });
@@ -160,13 +181,12 @@ function updateOutput(R) {
 	}
 
 	if (SHOW_IDS_REFS) {
-		// mDictionary(R._ids, { dParent: mBy('dicts'), title: '_ids ' + Object.keys(R._ids).length });
+		if (isdef(R.orig_places))mDictionary(R.orig_places, { dParent: mBy('refsIds'), title: 'orig_ids ' + Object.keys(R.orig_places).length });
+		if (isdef(R.orig_refs))mDictionary(R.orig_refs, { dParent: mBy('refsIds'), title: 'orig_refs ' + Object.keys(R.orig_refs).length });
+
 		mDictionary(R.places, { dParent: mBy('refsIds'), title: '_ids ' + Object.keys(R.places).length });
 		mDictionary(R.refs, { dParent: mBy('refsIds'), title: '_refs ' + Object.keys(R.refs).length });
-		// mDictionary(R._refs, { dParent: mBy('dicts'), title: '_refs ' + Object.keys(R._refs).length });
-		//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
-		//mDictionary(R.channels, { dParent: mBy('maps'), title: 'static channels' });
-		//mDictionary(R.live, { dParent: mBy('maps'), title: 'live channels' });
+
 	}
 	// if (SHOW_CHANNELSSTATIC) {
 	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });

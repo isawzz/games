@@ -8,19 +8,21 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var TEST_SERIES = '02'; // 00 01 01_huge 01_NODElist 02
-var SERVERDATA_PATH = '/assetsTEST/'+TEST_SERIES+'/server'; // 00
+var TEST_SERIES = '03'; // 00 01 01_huge 01_NODElist 02 03
+var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 
 var SHOW_SPEC = true; // true | false
+var LEAVE_SPEC_OPEN = true; // true | false
+var OUTPUT_EACH_SPEC_STEP = true; // true | false
 var SHOW_LASTSPEC = true; // true | false
 var SHOW_RTREE = true; // true | false
 var SHOW_UITREE = false; // true | false
 var SHOW_OIDNODES = false; // true | false
-var SHOW_DICTIONARIES = true; // true | false
+var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = true; // true | false
 
 var MAX_CYCLES = 500; //Recursion safety!
-var CYCLES=0;
+var CYCLES = 0;
 
 //older way to specify file dirs before engine!
 var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo

@@ -1,0 +1,100 @@
+9:
+  ROOT:
+    params:
+      _NODE: sp_2
+    _NODE: sp_1
+  sa:
+    _ref: sa
+    data: green
+  sb:
+    _ref: sb
+    bg: black
+    fg: green
+  sp_1:
+    data: green
+  sp_2:
+    bg: black
+    fg: green  
+8: #ref not in main branch!
+  ROOT:
+    _id: sa
+    params:
+      _id: sb
+  sa:
+    _ref: sa
+    data: green
+  sb:
+    _ref: sb
+    bg: black
+    fg: green
+7:
+  ROOT:
+    sub:
+      - data: geh
+        _NODE: sp_6
+      - _NODE: sp_7
+  sa:
+    _ref: sa
+    data: hallo
+  sp_6:
+    data: hallo
+  sp_7:
+    data: hallo
+6:
+  ROOT:
+    sub:
+      - _id: sa
+        data: geh
+      - _id: sa
+  sa:
+    _ref: sa
+    data: hallo
+5:
+  ROOT:
+    sub:
+      - _NODE: sp_1
+      - _NODE: sp_2
+  sp_1:
+    data: hallo
+  sp_2:
+    data: hallo
+4:
+  ROOT:
+    sub:
+      - _id: sa
+      - _id: sa
+  sa:
+    _ref: sa
+    data: hallo
+3:
+  ROOT:
+    _NODE: sa
+  sa:
+    data: hallo
+    _NODE: sb
+  sb:
+    data: geh
+2: #ok
+  ROOT:
+    _id: sa
+  sa:
+    _ref: sa
+    _id: sb
+    data: hallo
+  sb:
+    _ref: sb
+    data: geh
+1:
+  ROOT:
+    _NODE: new
+  sa:
+    _ref: sa
+    data: hallo
+  new:
+    data: hallo
+0: #ok
+  ROOT:
+    _id: sa
+  sa:
+    _ref: sa
+    data: hallo

@@ -382,6 +382,23 @@ function decodeColor(c) {
 }
 function decodeParams(n, R, defParams) {
 
+
+	if (isdef(n.params) && isdef(n.params._NODE)){
+		//console.log('spaetestens JETZT muss ich ersetzen!!!!',n.params);
+		//wie wird ersetzt???
+		let spk=n.params._NODE;
+		//console.log('params spec key is',spk);
+		let oParams=R.getSpec()[spk];
+		//console.log(oParams);
+		for(const k in oParams){
+			n.params[k]=oParams[k];
+		}
+		delete n.params._NODE;
+		//rueckwirkend aendere auch rtree node!!!
+		let r=R.rNodes[n.uid];
+		r.params = jsCopy(n.params);
+	}
+
 	if (nundef(n.params)) n.params = lookup(R.defs, [n.type, 'params']);
 	if (!n.params) n.params = {};
 	//console.log('________ decodeParams for type',n.type);

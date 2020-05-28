@@ -105,7 +105,7 @@ function onClickDeactivate() {
 function onClickUpdateOutput(elem) { 
 
 	switch (elem.id) {
-		case 'contSpec': SHOW_SPEC = !SHOW_SPEC; break;
+		case 'contSpec': if (LEAVE_SPEC_OPEN) SHOW_SPEC = true; else SHOW_SPEC = !SHOW_SPEC; break;
 		case 'contMixinSpec': SHOW_MIXINSPEC = !SHOW_MIXINSPEC; break;
 		case 'contLastSpec': SHOW_LASTSPEC = !SHOW_LASTSPEC; break;
 		case 'contUiTree': SHOW_UITREE = !SHOW_UITREE; break;

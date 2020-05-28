@@ -13,8 +13,10 @@ class RSG {
 
 		this.isUiActive = false;
 
-		this.genIdRef();
-		this.genMerge();
+		Rgen(this, 0);
+
+		// this.genIdRef();
+		//this.genMerge();
 		this.genNODE();
 	}
 	genIdRef(genKey = 'G') {
@@ -30,6 +32,85 @@ class RSG {
 		this.gens[genKey].push(gen);
 		this.lastSpec = gen; //besser als immer lastGen aufzurufen
 		this.ROOT = gen.ROOT;
+	}
+	genArrays() {
+		//only data for ids and refs
+		this.idarr = [];
+		this.refarr = [];
+		for (const name in this.places) {
+			let idByName = this.places[name];
+			for (const spk in idByName) {
+				let placelist = idByName[spk];
+				for (const el of placelist) {
+					this.idarr.push(el);
+					console.log(el, '\nnode', el.node)
+				}
+			}
+		}
+		for (const name in this.refs) {
+			let refByName = this.refs[name];
+			for (const spk in refByName) {
+				let refslist = refByName[spk];
+				for (const el of refslist) {
+					this.refarr.push(el);
+					console.log(el, '\nnode', el.node)
+				}
+			}
+		}
+		this.idByNode = {};
+		this.idByName = {};
+		for (const name in this.places) {
+			let idByName = this.places[name];
+			for (const spk in idByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+				let list = idByName[spk];
+				//console.log(list, typeof list);
+				for (const el of list) {
+					lookupAddToList(this.idByNode, [spk], el);
+					lookupAddToList(this.idByName, [name], el);
+				}
+			}
+		}
+		this.refByNode = {};
+		this.refByName = {};
+		for (const name in this.refs) {
+			let refByName = this.refs[name];
+			for (const spk in refByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+				let list = refByName[spk];
+				//console.log(list, typeof list);
+				for (const el of list) {
+					lookupAddToList(this.refByNode, [spk], el);
+					lookupAddToList(this.refByName, [name], el);
+				}
+			}
+		}
+
+		//simple waer es wenn ich jetzt durch jeden spec node gehe
+		//recursively, und jedesmal merke mir place wo das id hingehoert
+		//(gib einfach ein _NODE rein!)
+		for (const id of this.idarr) {
+			//find place where to put the _NODE
+			//combine all refs into it
+		}
+	}
+	sortIds() {
+		let hasid = [];
+		let noid = [];
+		for (const name in IdByName) {
+			let reflist = refByName[name];
+			for (const ref of reflist) {
+				let nref = ref.node;
+				let akku = {};
+				recFindProp(nref, '_id', 'self', akku);
+				if (isEmpty(akku)) {
+					ref.hasid = false;
+					noid.push(ref);
+				} else {
+					ref.hasid = true;
+					ref.idOccurrences = jsCopy(akku);
+					hasid.push(ref);
+				}
+			}
+		}
 	}
 	genMerge(genKey = 'G') {
 		//return;
@@ -187,17 +268,17 @@ class RSG {
 						//console.log('resulting obj', obj[key])
 					} else obj[key] = sub[0];
 				}
-				else{
+				else {
 					//console.log('haaaaaaaaaaaaaaaalo');
 					let res = obj[key];
 					//console.log('res',jsCopy(res))
-					if (isdef(res._NODE)){
+					if (isdef(res._NODE)) {
 						//in jedes sub muss ich 
-						let x=res._NODE;
-						for(let i=0;i<sub.length;i++) sub[i]._NODE=[x, sub[i]._NODE];
-						obj[key]={ sub: sub };
-					}else	obj[key] = { sub: sub };
-				} 
+						let x = res._NODE;
+						for (let i = 0; i < sub.length; i++) sub[i]._NODE = [x, sub[i]._NODE];
+						obj[key] = { sub: sub };
+					} else obj[key] = { sub: sub };
+				}
 			}
 			//hiermit is _id:name abgebaut fuer alle refs darauf!
 		}
@@ -231,7 +312,7 @@ class RSG {
 			// 	gen[combiName] = nComb;
 			// 	n._NODE = combiName;
 			// }
-			recMergeSpecNode(n,orig,gen);
+			recMergeSpecNode(n, orig, gen);
 		}
 
 		//console.log('_________GEN:', gen);
@@ -416,6 +497,399 @@ class RSG {
 
 
 
+	genMerge2(genKey = 'G') {
+		let orig = this.lastSpec;
+		let gen = jsCopy(this.lastSpec);
+
+		//look for a node that has only _ref but no _id
+		//look for the corresponding id nodes
+		//build sp node
+		//let 
+		for (const id of this.idarr) {
+			let name = id.idName;
+			let spk = id.specKey;
+			let idpath = id.ppath;
+			//find place where to put the _NODE
+			let [key, obj] = findAddress(spk, gen, idpath);
+			let sub = [];
+
+			//combine all refs that have this name
+			for (const ref of this.refarr) {
+				if (ref.idName != name) continue;
+
+				let idnode = obj[key];
+				let uid = getUID('sp');
+				//console.log('key',key,'\nidnode',idnode)
+				//#region other versions
+
+				//v_orig!
+				// let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
+				// sub.push({ _NODE: uid });
+
+				//v_2
+				// idnode = safeMerge(idnode,id_entry.node);
+				// sub.push({ _NODE: uid });
+
+				//v_3:
+				// let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+				// sub.push({ _NODE: uid });
+				// //console.log('------> merged alte version',jsCopy(merged))
+				//hier muss genauso gemerged werden wie bei _NODE!
+
+				//v_4:
+				// let merged = merge1(idnode, ref_entry.node);
+				// sub.push({ _NODE: uid });
+				// //console.log('------> merged idnode zuerst',jsCopy(merged))
+
+				//v_5 (fail_klappt_mit_panel):
+				// let merged = jsCopy(ref_entry.node);
+				// let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
+				// //console.log('------> merged nur ref node!',jsCopy(merged))
+
+				//v_6:
+				// let merged = merge1(ref_entry.node,idnode);
+				// sub.push({ _NODE: uid });
+				// //console.log('=>welcher soll als erstes stehen?','\nidnode',idnode,'\nref_entry.node',ref_entry.node,'\nmerged',merged);
+
+
+				//v_7:
+				//#endregion
+
+				let merged;
+				if (isdef(idnode._merge) && idnode._merge == 'blend') {
+					merged = merge1(ref.node, idnode);
+					sub.push({ _NODE: uid });
+					//console.log('------> merged _merge=' + idnode._merge, jsCopy(merged));
+				} else {
+					//default merge mode: sub (sowie bei v_5 fail_klappt_mit_panel)
+					merged = jsCopy(ref.node);
+					let resultNode = jsCopy(idnode);
+					resultNode._NODE = uid;
+					delete resultNode._id;
+					//console.log('================\nidnode', jsCopy(idnode), '\nrefnode', jsCopy(ref_entry.node), '\nresultnode', jsCopy(resultNode))
+					//console.log('\nidnode', idnode, '\nrefnode', ref_entry.node, '\nresultnode', resultNode)
+					sub.push(resultNode);
+				}
+				//das geht nicht!!!
+				delete merged._ref; //*** */
+				delete merged._id; //*** */
+				gen[uid] = merged;
+			}
+
+			//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
+			if (sub.length == 0) {
+				//no ref exists for this id! (in ALL of spec!!!!!)
+				//if name is name of spec node, replace by that name
+				//otherwise error!
+				if (isdef(this.lastSpec[name])) {
+					obj[key]._NODE = name; //!!!!!!!!!!!!
+					delete obj[key]._id;
+					//console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
+					alert('SPEC ERROR! =>please replace _id:' + name + ' by _NODE:', name);
+				} else {
+					//console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
+				}
+			} else if (sub.length == 1) {
+				if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
+					let x = obj[key]._NODE;
+					if (isList(x)) {
+						//das _id ist sub[0]._NODE
+						//das orig _NODE ist eine liste x=[A,B,...]
+						//x.push(sub[0]._NODE);
+						x.unshift(sub[0]._NODE);
+						obj[key]._NODE = jsCopy(x); // sub[0]._NODE[x, sub[0]._NODE];
+					} else {
+						obj[key]._NODE = [x, sub[0]._NODE];
+					}
+					//console.log('resulting obj', obj[key])
+				} else obj[key] = sub[0];
+			} else {
+				let res = obj[key];
+				if (isdef(res._NODE)) {
+					//in jedes sub muss ich 
+					let x = res._NODE;
+					for (let i = 0; i < sub.length; i++) sub[i]._NODE = [x, sub[i]._NODE];
+					obj[key] = { sub: sub };
+				} else obj[key] = { sub: sub };
+			}
+			//hiermit is _id:name abgebaut fuer alle refs darauf!
+		}
+
+		//console.log('_________GEN:',gen);
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = this.lastSpec.ROOT;
+	}
+
+
+	genMerge1(genKey = 'G') {
+		let orig = this.lastSpec;
+		let gen = jsCopy(this.lastSpec);
+
+		for (const id of this.idarr) {
+			let name = id.idName;
+			let spk = id.specKey;
+			let idpath = id.ppath;
+			//find place where to put the _NODE
+			let [key, obj] = findAddress(spk, gen, idpath);
+			let sub = [];
+
+			//combine all refs that have this name
+			for (const ref of this.refarr) {
+				if (ref.idName != name) continue;
+
+				let idnode = obj[key];
+				let uid = getUID('sp');
+				//console.log('key',key,'\nidnode',idnode)
+				//#region other versions
+
+				//v_orig!
+				// let merged = safeMerge(id_entry.node, ref_entry.node); //HOW to merge each property?
+				// sub.push({ _NODE: uid });
+
+				//v_2
+				// idnode = safeMerge(idnode,id_entry.node);
+				// sub.push({ _NODE: uid });
+
+				//v_3:
+				// let merged = safeMerge(idnode, ref_entry.node); //HOW to merge each property?
+				// sub.push({ _NODE: uid });
+				// //console.log('------> merged alte version',jsCopy(merged))
+				//hier muss genauso gemerged werden wie bei _NODE!
+
+				//v_4:
+				// let merged = merge1(idnode, ref_entry.node);
+				// sub.push({ _NODE: uid });
+				// //console.log('------> merged idnode zuerst',jsCopy(merged))
+
+				//v_5 (fail_klappt_mit_panel):
+				// let merged = jsCopy(ref_entry.node);
+				// let resultNode = jsCopy(idnode); resultNode._NODE = uid; delete resultNode._add; sub.push(resultNode);
+				// //console.log('------> merged nur ref node!',jsCopy(merged))
+
+				//v_6:
+				// let merged = merge1(ref_entry.node,idnode);
+				// sub.push({ _NODE: uid });
+				// //console.log('=>welcher soll als erstes stehen?','\nidnode',idnode,'\nref_entry.node',ref_entry.node,'\nmerged',merged);
+
+
+				//v_7:
+				//#endregion
+
+				let merged;
+				if (isdef(idnode._merge) && idnode._merge == 'blend') {
+					merged = merge1(ref.node, idnode);
+					sub.push({ _NODE: uid });
+					//console.log('------> merged _merge=' + idnode._merge, jsCopy(merged));
+				} else {
+					//default merge mode: sub (sowie bei v_5 fail_klappt_mit_panel)
+					merged = jsCopy(ref.node);
+					let resultNode = jsCopy(idnode);
+					resultNode._NODE = uid;
+					delete resultNode._id;
+					//console.log('================\nidnode', jsCopy(idnode), '\nrefnode', jsCopy(ref_entry.node), '\nresultnode', jsCopy(resultNode))
+					//console.log('\nidnode', idnode, '\nrefnode', ref_entry.node, '\nresultnode', resultNode)
+					sub.push(resultNode);
+				}
+				//das geht nicht!!!
+				delete merged._ref; //*** */
+				delete merged._id; //*** */
+				gen[uid] = merged;
+			}
+
+			//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
+			if (sub.length == 0) {
+				//no ref exists for this id! (in ALL of spec!!!!!)
+				//if name is name of spec node, replace by that name
+				//otherwise error!
+				if (isdef(this.lastSpec[name])) {
+					obj[key]._NODE = name; //!!!!!!!!!!!!
+					delete obj[key]._id;
+					//console.log('==> please replace _id by _NODE!', id_entry.specKey, id_entry.ppath, name, obj);
+					alert('SPEC ERROR! =>please replace _id:' + name + ' by _NODE:', name);
+				} else {
+					//console.log('_id without any reference or node!', id_entry.specKey, id_entry.ppath, name, obj);
+				}
+			} else if (sub.length == 1) {
+				if (isdef(obj[key]._NODE)) { //!!!!!!!!!!!!!!!!!!
+					let x = obj[key]._NODE;
+					if (isList(x)) {
+						//das _id ist sub[0]._NODE
+						//das orig _NODE ist eine liste x=[A,B,...]
+						//x.push(sub[0]._NODE);
+						x.unshift(sub[0]._NODE);
+						obj[key]._NODE = jsCopy(x); // sub[0]._NODE[x, sub[0]._NODE];
+					} else {
+						obj[key]._NODE = [x, sub[0]._NODE];
+					}
+					//console.log('resulting obj', obj[key])
+				} else obj[key] = sub[0];
+			} else {
+				let res = obj[key];
+				if (isdef(res._NODE)) {
+					//in jedes sub muss ich 
+					let x = res._NODE;
+					for (let i = 0; i < sub.length; i++) sub[i]._NODE = [x, sub[i]._NODE];
+					obj[key] = { sub: sub };
+				} else obj[key] = { sub: sub };
+			}
+			//hiermit is _id:name abgebaut fuer alle refs darauf!
+		}
+
+		//console.log('_________GEN:',gen);
+		this.gens[genKey].push(gen);
+		this.lastSpec = gen;
+		this.ROOT = this.lastSpec.ROOT;
+	}
+
+
+
+}
+
+
+function RgenIdRef(R, genKey = 'G') {
+	let gen = R.lastSpec;
+	if (nundef(R.orig_places) && !isEmpty(R.places)) R.orig_places = R.places;
+	if (nundef(R.orig_refs) && !isEmpty(R.refs)) R.orig_refs = R.refs;
+	R.places = {};
+	R.refs = {};
+	for (const k in gen) {
+		let n = gen[k];
+		R.check_ref(k, n);
+	}
+	for (const k in gen) {
+		let n = gen[k];
+		R.check_id(k, n, R);
+	}
+	//R.gens[genKey].push(gen);
+	//R.lastSpec = gen; //besser als immer lastGen aufzurufen
+	//R.ROOT = gen.ROOT;
+}
+
+function RgenArrays(R) {
+	//only data for ids and refs
+	R.idarr = [];
+	R.refarr = [];
+	for (const name in R.places) {
+		let idByName = R.places[name];
+		for (const spk in idByName) {
+			let placelist = idByName[spk];
+			for (const el of placelist) {
+				R.idarr.push(el);
+				//console.log('id:', el, '\nnode', el.node)
+			}
+		}
+	}
+	for (const name in R.refs) {
+		let refByName = R.refs[name];
+		for (const spk in refByName) {
+			let refslist = refByName[spk];
+			for (const el of refslist) {
+				R.refarr.push(el);
+				//console.log('ref:', el, '\nnode', el.node)
+			}
+		}
+	}
+	R.idByNode = {};
+	R.idByName = {};
+	for (const name in R.places) {
+		let idByName = R.places[name];
+		for (const spk in idByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+			let list = idByName[spk];
+			//console.log(list, typeof list);
+			for (const el of list) {
+				lookupAddToList(R.idByNode, [spk], el);
+				lookupAddToList(R.idByName, [name], el);
+			}
+		}
+	}
+	R.refByNode = {};
+	R.refByName = {};
+	for (const name in R.refs) {
+		let refByName = R.refs[name];
+		for (const spk in refByName) { //DIESES KOENNTE MAN STREICHEN! WENN EH NUR 1 incident!
+			let list = refByName[spk];
+			//console.log(list, typeof list);
+			for (const el of list) {
+				lookupAddToList(R.refByNode, [spk], el);
+				lookupAddToList(R.refByName, [name], el);
+			}
+		}
+	}
+
+	//simple waer es wenn ich jetzt durch jeden spec node gehe
+	//recursively, und jedesmal merke mir place wo das id hingehoert
+	//(gib einfach ein _NODE rein!)
+	for (const id of R.idarr) {
+		//find place where to put the _NODE
+		//combine all refs into it
+	}
+
+	if (nundef(R.allIdRefNames)) R.allIdRefNames = intersection(Object.keys(R.idByName), Object.keys(R.refByName));
+	//console.log('===> all existing names are:', R.allIdRefNames);
+
+}
+
+function RsortIds(workingSpec, R) {
+	//console.log('--------------- sort')
+	//console.log('R.idByName',R.)
+	let hasid = {};
+	let noid = {};
+
+	//look for next name that can be replaced
+	let cycles1 = 0; let max1 = 2;
+	let cycles2 = 0; let max2 = 2;
+	for (const name in R.idByName) {
+
+		cycles1 += 1; if (cycles1 > max1) { console.log('MAX1!!!!'); break; }
+		//console.log('name',name)
+		let reflist = R.refByName[name];
+		//console.log('reflist',R.refByName)
+		for (const ref of reflist) {
+			//console.log(reflist)
+			cycles2 += 1; if (cycles2 > max2) { console.log('MAX2!!!!'); break; }
+			let nref = ref.node;
+			let akku = {};
+			recFindProp(nref, '_id', 'self', akku);
+			//console.log('__________________>akku', akku);
+			if (isEmpty(akku)) {
+				ref.hasid = false;
+				if (nundef(noid[name])) noid[name] = []; 
+				noid[name].push(ref);
+			} else {
+				ref.hasid = true;
+				ref.idOccurrences = jsCopy(akku);
+				if (nundef(hasid[name])) hasid[name] = []; hasid[name].push(ref);
+			}
+		}
+	}
+
+	//console.log('noid',noid,'hasid',hasid)
+	//return noid;
+
+	if (isEmpty(noid)) {
+		//console.log('cannot replace any more names!');
+		return null;
+	} else {
+		//pick first key
+		let name = Object.keys(noid)[0];
+
+
+
+		let newSpecUids = replaceIdName(name, R, workingSpec);
+		//console.log('created new spec nodes', '\nnew:', newSpecUids, '\ngen', workingSpec)
+		if (nundef(R.namesReplaced)) R.namesReplaced = [];
+		R.namesReplaced.push(name);
+		removeInPlace(R.allIdRefNames, name);
+		return name;
+
+
+		//since there has been a change (1 name replace) can start entire process again!
+		//hoping to find another viable name to replace!!!
+
+
+	}
+	return null;
 }
 
 
@@ -430,8 +904,58 @@ class RSG {
 
 
 
+//#region trash
+// 	let cycles = 0; let max = 10;
+// 	while (!isEmpty(noid)) {
+// 		cycles += 1; if (cycles > max) { console.log('MAX!!!!'); break; }
+// 		let newNoids = {};
+// 		for (const name in noid) {
+// 			console.log('replacing next:', name);
+// 			//this name can be replaced without any problem!
+// 			let newSpecUids = replaceIdName(name, R, workingSpec);
+// 			console.log('created new spec nodes','\nnew:',newSpecUids,'\ngen',workingSpec)
+// 			if (nundef(R.namesReplaced)) R.namesReplaced = [];
+// 			R.namesReplaced.push(name);
+// 			//this name can now be removed from hasid and be added to noid
+// 			delete noid[name];
+
+// 			//place all hasids that only have ids with deleted name in noid!
+// 			for(const name1 in hasid){
+// 				let refs=R.refByName[name1];
+// 				console.log('refByName['+name1+']=',refs);
+// 				let clear=true;
+// 				for(const r of refs){
+// 					for(const occ in r.idOccurrences){
+// 						let akku1=r.idOccurrences[occ];
+// 						if (akku1.name!=name) {clear=false;break;}
+// 					}
+// 					if (!clear) break;
+// 				}
+// 				if (clear) {
+// 					//this name can be removed from hasid and added to noid
+// 					let lst = hasid[name1];
+// 					newNoids[name1]=lst;
+// 					delete hasid[name1];
+// 					for(const r of lst){
+// 						r.hasid=false;
+// 						delete r.idOccurrences;
+// 					}
+// 					console.log('moved name',name1,'to newNoids!',newNoids);
+
+// 				}else{
+
+// 				}
+// 			}
+// 		}
+// 		for(const x in newNoids){
+
+// 			noid[x]=newNoids[x];
+// 		}
+
+// 	}
 
 
-
+// }
+//#endregion
 
 
