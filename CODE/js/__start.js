@@ -43,14 +43,6 @@ async function _start() {
 
 	_entryPoint(DEFS, SPEC, sData);
 }
-async function loadServerDataForTestSeries(series){
-	let path = '/assetsTEST/'+series+'/server.yaml';
-	await loadTestServerData(path);
-	preProcessData();
-	isTraceOn = SHOW_TRACE;
-	sData = makeDefaultPool(jsCopy(serverData));
-	
-}
 //#endregion
 async function _entryPoint(defs, spec, sdata) {
 	//testSolutionConverter();	return;
@@ -134,6 +126,12 @@ function clearUpdateOutput() {
 	for (const area of ['spec', 'lastSpec', 'uiTree', 'rTree', 'oidNodes', 'dicts', 'refsIds']) { //'channelsStatic', 'channelsLive' 
 		if (isdef(mBy(area))) clearElement(area);
 	}
+	if (OUTPUT_EACH_SPEC_STEP) {
+		let d = mBy('contSpec');
+		let b = d.children[0];
+		clearElement(d);
+		d.appendChild(b);
+	}
 }
 function updateOutput(R) {
 	clearUpdateOutput();
@@ -145,7 +143,7 @@ function updateOutput(R) {
 	if (SHOW_SPEC) {
 
 		if (OUTPUT_EACH_SPEC_STEP) {
-			SHOW_LASTSPEC=false;
+			SHOW_LASTSPEC = false;
 			let num = R.gens.G.length;
 			//console.log('there are', num, 'gens!!!');
 			let d = mBy('contSpec');
@@ -154,11 +152,11 @@ function updateOutput(R) {
 			d.appendChild(b);
 			//console.log('first child of d contSpec is', b);
 			for (let i = 1; i <= num; i++) {
-				let d1=mDiv(d);
-				mClass(d,'flexWrap');
-				d1.id='spec'+i;
-				let o = R.gens.G[i-1];
-				mDictionary(o, { dParent: d1, title: 'gen'+i +': '+ Object.keys(o).length });
+				let d1 = mDiv(d);
+				mClass(d, 'flexWrap');
+				d1.id = 'spec' + i;
+				let o = R.gens.G[i - 1];
+				mDictionary(o, { dParent: d1, title: 'gen' + i + ': ' + Object.keys(o).length });
 				//presentNodes(R.gens.G[i-1], d1.id, ['_NODE']);
 			}
 
@@ -192,8 +190,8 @@ function updateOutput(R) {
 	}
 
 	if (SHOW_IDS_REFS) {
-		if (isdef(R.orig_places))mDictionary(R.orig_places, { dParent: mBy('refsIds'), title: 'orig_ids ' + Object.keys(R.orig_places).length });
-		if (isdef(R.orig_refs))mDictionary(R.orig_refs, { dParent: mBy('refsIds'), title: 'orig_refs ' + Object.keys(R.orig_refs).length });
+		if (isdef(R.orig_places)) mDictionary(R.orig_places, { dParent: mBy('refsIds'), title: 'orig_ids ' + Object.keys(R.orig_places).length });
+		if (isdef(R.orig_refs)) mDictionary(R.orig_refs, { dParent: mBy('refsIds'), title: 'orig_refs ' + Object.keys(R.orig_refs).length });
 
 		mDictionary(R.places, { dParent: mBy('refsIds'), title: '_ids ' + Object.keys(R.places).length });
 		mDictionary(R.refs, { dParent: mBy('refsIds'), title: '_refs ' + Object.keys(R.refs).length });

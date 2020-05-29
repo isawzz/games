@@ -21,6 +21,7 @@ var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = true; // true | false
 
+var STOP = false;
 var MAX_CYCLES = 500; //Recursion safety!
 var CYCLES = 0;
 

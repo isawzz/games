@@ -29,19 +29,22 @@ class TestEngine {
 		await this.loadTestCase(series, index);
 		updateTestInput(index);
 	}
+	
 	async loadSeries(series) {
 		let path = '/assetsTEST/' + series + '/';
 		this.series = series;
 		this.Dict[series] = {
 			specs: await loadYamlDict(path + '_spec.yaml'),
-			
+			sdata: await loadServerDataForTestSeries(series),
 			solutions: await loadSolutions(series),
 		};
 		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions = {};
-
+		this.sdata = this.Dict[series].sdata;
 		this.specs = this.Dict[series].specs;
 		this.solutions = this.Dict[series].solutions;
-
+		//console.log('series data',this.sdata)
+		let numCases = Object.keys(this.specs).length;
+		return numCases;
 	}
 	async loadNextTestCase() { await this.loadTestCase(this.series, this.index + 1); }
 	async loadPrevTestCase() { await this.loadTestCase(this.series, this.index - 1); }
@@ -65,6 +68,7 @@ class TestEngine {
 		mBy('message').innerHTML = ' ' + series + ' case: ' + index;
 
 		this.spec = spec;
+		this.sdata = di.sdata;
 
 		return numCases;
 	}
@@ -194,6 +198,18 @@ function normalizeVal(val, num) {
 	//console.log(val,num,nval,typeof nval);
 	nval -= num;
 	return '_' + nval;
+}
+async function loadServerDataForTestSeries(series){
+	let path = '/assetsTEST/'+series+'/server.yaml';
+	await loadTestServerData(path);
+
+	//console.log('______ loadServerDataForTestSeries',serverData)
+
+	preProcessData();
+	isTraceOn = SHOW_TRACE;
+	sData = makeDefaultPool(jsCopy(serverData));
+	//console.log('______ loadServerDataForTestSeries',sData)
+	return sData;
 }
 
 

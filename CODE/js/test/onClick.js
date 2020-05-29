@@ -1,26 +1,66 @@
+async function onClickRunAll(){
+	let sel=mBy('selSeries');
+	let listSeries = [];
+	for(const ch of sel.children){
+		//console.log(ch.value);
+		if (ch.value != 'none') listSeries.push(ch.value);
+	}
+	let imax = await testEngine.loadSeries(listSeries[0]);
+	show('btnStop');
+	console.log('_______ *NEW SERIES: ',listSeries[0]);
+	await runNextSeries(listSeries,listSeries[0],0,imax);
+}
+async function runNextSeries(listSeries,series,from,to){
+	let timeOUT = 500;
+
+	if (isEmpty(listSeries)) {
+		console.log('*** ALL TESTS COMPLETED! ***');
+		return;
+	}else if (STOP){
+		console.log('*** TEST RUN INTERRUPTED!!! ***');
+		STOP=false;
+		return;
+	}else if (from >= to){
+		let series = testEngine.series;
+		removeInPlace(listSeries,series);
+		if (isEmpty(listSeries)) {
+			console.log('*** ALL TESTS COMPLETED! ***');
+			return;
+		}		
+		series = listSeries[0];
+		console.log('_______ *NEW SERIES: ',series);
+		let imax = await testEngine.loadSeries(series);
+		setTimeout(async () => { await runNextSeries(listSeries,series,0,imax); }, timeOUT*2);
+		// await runNextSeries(listSeries,series,0,imax);
+	}else{
+		let series = listSeries[0];
+		let index = from;
+		await testEngine.loadTestCase(series,index);
+		await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+
+		setTimeout(async () => { await runNextSeries(listSeries,series,from+1,to); }, timeOUT);
+	}
+}
+function onClickStop(){ STOP=true;hide('btnStop');}
 async function onTestSeriesChanged(){
 
 	//achtung!!! er muss die richtigen sdata laden!!!!!!!!!
 	let series = mBy('selSeries').value;
 	if (series == 'none') return;
-	if (series != testEngine.series){
-		//needs to reload server data!!!!!!!!!!!!!!!
-		//wie geht das??????????
-		//console.log(series, testEngine.series);
-		await loadServerDataForTestSeries(series);
-		//console.log('sData',sData);
 
-	}
-	//console.log('selected test series',series);
+	// await testEngine.init(DEFS, sData, series);
+	// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
-	// _entryPoint(DEFS, SPEC, sData);
-	await testEngine.init(DEFS, sData, series);
+	await testEngine.loadSeries(series);
 
-	//console.log('_______________',testEngine.sdata);
+	//console.log('sdata',testEngine.sdata,testEngine.spec);
 
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
-	// let imax = await testEngine.loadTestCase(val,0);
-	// verifySequence(0,imax, true);
+
+	let imax = await testEngine.loadTestCase(series,0);
+
+	//console.log('sdata',testEngine.sdata,testEngine.spec);
+
+	verifySequence(0,imax, true);
 }
 
 
@@ -39,6 +79,7 @@ async function onClickRun(){
 }
 async function onClickVerifySoFar() { verifySequence(0,testEngine.index, true);}
 async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
+	show('btnStop');
 	console.log('______________ verify from',indexFrom,'to',indexTo, 'save',saveOnCompleted);
 	testEngine.autosave = true;
 	clearElement(mBy('table'));
@@ -46,6 +87,7 @@ async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
 	let maxIndex = indexTo;
 	let index = indexFrom;
 	await testEngine.loadTestCase(series, index);
+	//console.log(testEngine.sdata)
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 	//console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, 1000);
@@ -59,8 +101,8 @@ async function verNext(series, index, maxIndex, saveOnCompleted=false) {
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	let timeOUT = 500;
-	if (index < maxIndex) setTimeout(async () => { await verNext(series, index + 1, maxIndex,saveOnCompleted); }, timeOUT);
-	else if (saveOnCompleted) { saveSolutions(series, testEngine.Dict[series].solutions); }
+	if (index < maxIndex && !STOP) setTimeout(async () => { await verNext(series, index + 1, maxIndex,saveOnCompleted); }, timeOUT);
+	else if (saveOnCompleted) { STOP=false;saveSolutions(series, testEngine.Dict[series].solutions); }
 
 }
 async function onClickGo(){
