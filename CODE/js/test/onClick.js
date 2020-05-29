@@ -1,11 +1,34 @@
+async function onTestSeriesChanged(){
+
+	//achtung!!! er muss die richtigen sdata laden!!!!!!!!!
+	let series = mBy('selSeries').value;
+	if (series == 'none') return;
+	if (series != testEngine.series){
+		//needs to reload server data!!!!!!!!!!!!!!!
+		//wie geht das??????????
+		//console.log(series, testEngine.series);
+		await loadServerDataForTestSeries(series);
+		//console.log('sData',sData);
+
+	}
+	//console.log('selected test series',series);
+
+	// _entryPoint(DEFS, SPEC, sData);
+	await testEngine.init(DEFS, sData, series);
+
+	//console.log('_______________',testEngine.sdata);
+
+	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	// let imax = await testEngine.loadTestCase(val,0);
+	// verifySequence(0,imax, true);
+}
+
+
 function onClickToggleInteractivity(btn){
 	let d=mBy('divInteractivity');
 	if (isVisible(d)) {hide(d);btn.innerHTML='+';} else {show(d);btn.innerHTML='-';}
 }
-
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
-
-
 
 async function onClickRun(){
 	let indexFrom=firstNumber(mBy('iTestCaseFrom').value);
@@ -42,10 +65,10 @@ async function verNext(series, index, maxIndex, saveOnCompleted=false) {
 }
 async function onClickGo(){
 	let elem=mBy('iTestCase');
-	console.log(elem)
+	//console.log(elem)
 	let n=elem.value;
 	n=firstNumber(n)
-	console.log(n,typeof n)
+	//console.log(n,typeof n)
 	await testEngine.loadTestCase(testEngine.series,n);
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
@@ -116,7 +139,6 @@ function onClickUpdateOutput(elem) {
 	}
 	updateOutput(T);
 }
-
 
 function onClickNextExample() { }
 function onClickStep() { }

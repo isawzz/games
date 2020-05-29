@@ -34,6 +34,7 @@ class TestEngine {
 		this.series = series;
 		this.Dict[series] = {
 			specs: await loadYamlDict(path + '_spec.yaml'),
+			
 			solutions: await loadSolutions(series),
 		};
 		if (nundef(this.Dict[series].solutions)) this.Dict[series].solutions = {};
@@ -64,7 +65,10 @@ class TestEngine {
 		mBy('message').innerHTML = ' ' + series + ' case: ' + index;
 
 		this.spec = spec;
+
+		return numCases;
 	}
+
 	saveSolutions() { saveSolutions(this.series, this.solutions); }
 
 	loadSolution() {
@@ -94,7 +98,7 @@ class TestEngine {
 		if (changes.hasChanged) {
 			console.log('verifying test case', this.series, this.index, 'FAIL');
 			//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
-			//console.log('changes:', changes)
+			console.log('changes:', changes)
 		} else {
 			console.log('verifying test case', this.series, this.index, 'correct!');
 			// console.log('*** correct! ', this.index, '***', rTreeNow)

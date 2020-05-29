@@ -43,6 +43,14 @@ async function _start() {
 
 	_entryPoint(DEFS, SPEC, sData);
 }
+async function loadServerDataForTestSeries(series){
+	let path = '/assetsTEST/'+series+'/server.yaml';
+	await loadTestServerData(path);
+	preProcessData();
+	isTraceOn = SHOW_TRACE;
+	sData = makeDefaultPool(jsCopy(serverData));
+	
+}
 //#endregion
 async function _entryPoint(defs, spec, sdata) {
 	//testSolutionConverter();	return;
@@ -62,6 +70,9 @@ async function _entryPoint(defs, spec, sdata) {
 
 
 	await testEngine.init(defs, sdata, TEST_SERIES);
+
+	//console.log('_______________',testEngine.sdata);
+
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 }

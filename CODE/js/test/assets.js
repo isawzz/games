@@ -125,6 +125,12 @@ async function loadCode() {
 
 	//testingHallo('hallo das geht wirklich!!!!!');
 }
+async function loadTestServerData(url) {
+	let initial = 'testServerData';
+	serverDataC = initialDataC[GAME] = await vidCache.load(initial, async () => await route_path_yaml_dict(url), true, false); // last 2 params: reload, useLocal
+	serverData = vidCache.asDict(initial);
+	return serverData;
+}
 async function loadInitialServerData(unameStarts) {
 	let initialPath = GAME + (USE_MAX_PLAYER_NUM ? '_max' : '');
 

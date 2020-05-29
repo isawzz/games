@@ -1,8 +1,158 @@
+13:
+  ROOT:
+    sub:
+      - params:
+          orientation: v
+        _NODE: sp2
+      - params:
+          orientation: v
+        _NODE: sp4
+  O_info:
+    _ref: O
+    cond:
+      no_spec: true
+      obj_type: card
+    data: .short_name
+    _NODE: sp1
+  P_ELM:
+    _ref: p_elm
+    data: .name
+    params:
+      bg: .color
+  P_info:
+    _ref: P
+    cond:
+      instanceof: _player
+    _NODE: sp3
+  panel_data:
+    _ref: panel
+    params:
+      bg: black
+      fg: green
+      font-size: 24
+      padding: 4
+      margin: 4
+      orientation: h
+      split: equal
+      border-radius: 10
+      align-items: center
+      justify-content: space-evenly
+      align-content: space-evenly
+      justify-items: flex-start
+  sp1:
+    params:
+      bg: black
+      fg: green
+      font-size: 24
+      padding: 4
+      margin: 4
+      orientation: h
+      split: equal
+      border-radius: 10
+      align-items: center
+      justify-content: space-evenly
+      align-content: space-evenly
+      justify-items: flex-start
+  sp2:
+    cond:
+      no_spec: true
+      obj_type: card
+    data: .short_name
+    _NODE: sp1
+  sp3:
+    data: .name
+    params:
+      bg: .color
+  sp4:
+    cond:
+      instanceof: _player
+    _NODE: sp3  
+12:
+  ROOT:
+    sub:
+      - _id: O
+        params:
+          orientation: v
+      - _id: P
+        params:
+          orientation: v
+
+  O_info:
+    _ref: O
+    _id: panel
+    cond:
+      no_spec: true
+      obj_type: card
+    data: .short_name
+
+  P_ELM:
+    _ref: p_elm
+    data: .name
+    params:
+      bg: .color
+
+  P_info:
+    _ref: P
+    _id: p_elm
+    cond:
+      instanceof: _player
+
+  panel_data:
+    _ref: panel
+    params:
+      bg: black
+      fg: green
+      font-size: 24
+      padding: 4
+      margin: 4
+      orientation: h
+      split: equal
+      border-radius: 10
+      align-items: center
+      justify-content: space-evenly
+      align-content: space-evenly
+      justify-items: flex-start
+
+
+11:
+  ROOT:
+    data: ha!
+    sub:
+      - data: hallo
+      - data: geh
+      - _NODE: sp3
+    _NODE: sp2
+  sa:
+    _ref: sa
+    _NODE: sp1
+  sb:
+    _ref: sb
+    data: title
+  sp1:
+    data: title
+  sp2:
+    _NODE: sp1
+  sp3:
+    _NODE: sp1  
+10:
+  ROOT:
+    _id: sa
+    data: ha!
+    sub:
+      - data: hallo
+      - data: geh
+      - _id: sa
+  sa:
+    _ref: sa
+    _id: sb
+  sb:
+    _ref: sb
+    data: title
 9:
   ROOT:
     params:
-      _NODE: sp_2
-    _NODE: sp_1
+      _NODE: sp2
+    _NODE: sp1
   sa:
     _ref: sa
     data: green
@@ -10,9 +160,9 @@
     _ref: sb
     bg: black
     fg: green
-  sp_1:
+  sp1:
     data: green
-  sp_2:
+  sp2:
     bg: black
     fg: green  
 8: #ref not in main branch!
@@ -52,11 +202,11 @@
 5:
   ROOT:
     sub:
-      - _NODE: sp_1
-      - _NODE: sp_2
-  sp_1:
+      - _NODE: sp1
+      - _NODE: sp2
+  sp1:
     data: hallo
-  sp_2:
+  sp2:
     data: hallo
 4:
   ROOT:

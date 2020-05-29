@@ -8,7 +8,7 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var TEST_SERIES = '03'; // 00 01 01_huge 01_NODElist 02 03
+var TEST_SERIES = '01_huge'; // 00 01 01_huge 01_NODElist 02 03
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 
 var SHOW_SPEC = true; // true | false

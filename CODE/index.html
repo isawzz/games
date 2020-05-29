@@ -21,18 +21,32 @@
 	<div id='pageHeader' style='text-align:left;padding-left:12px'>
 		<div>
 			<h2 id='message' style='float:left'>Rsg Tester</h2>
-			<div style='float:left;margin:11px 0px 0px 50px;vertical-align:baseline'>
+			<div style='float:left;margin:11px 0px 0px 30px;vertical-align:baseline'>
 				<span>Enter test case:</span>
 				<input onclick='this.select()' type="number" value="0" id='iTestCase' style='width:50px' />
 				<button onclick='onClickGo(this)' style='width:50px'>GO</button>
 			</div>
-			<div style='float:left;margin:11px 0px 0px 50px;vertical-align:baseline'>
+			<div style='float:left;margin:11px 0px 0px 30px;vertical-align:baseline'>
 				<span>from:</span>
-				<input onc17lick='this.select()' type="number" value="0" id='iTestCaseFrom' style='width:50px' />
+				<input onclick='this.select()' type="number" value="0" id='iTestCaseFrom' style='width:50px' />
 				<span>to:</span>
 				<input onclick='this.select()' type="number" value="19" id='iTestCaseTo' style='width:50px' />
 				<button onclick='onClickRun(this)' style='width:50px'>Run</button>
 			</div>
+			<div style='float:left;margin:11px 0px 0px 30px;vertical-align:baseline'>
+				<span>Run test series:</span>
+				<!-- <label for="cars">Choose a car:</label> -->
+
+				<select id="selSeries" onchange='onTestSeriesChanged()'>
+					<option value="none">select series</option>
+
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="01_huge">01_huge</option>
+					<option value="01_NODElist">01_NODElist</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+				</select>			</div>
 		</div>
 
 		<!-- <button id='btnTest00' style='padding:8px' onclick='onClickTest(this)'>00</button> -->

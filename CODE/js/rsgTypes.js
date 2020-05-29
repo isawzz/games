@@ -841,13 +841,13 @@ function RsortIds(workingSpec, R) {
 	let cycles2 = 0; let max2 = 2;
 	for (const name in R.idByName) {
 
-		cycles1 += 1; if (cycles1 > max1) { console.log('MAX1!!!!'); break; }
+		//cycles1 += 1; if (cycles1 > max1) { console.log('MAX1!!!!'); break; }
 		//console.log('name',name)
 		let reflist = R.refByName[name];
 		//console.log('reflist',R.refByName)
 		for (const ref of reflist) {
 			//console.log(reflist)
-			cycles2 += 1; if (cycles2 > max2) { console.log('MAX2!!!!'); break; }
+			//cycles2 += 1; if (cycles2 > max2) { console.log('MAX2!!!!'); break; }
 			let nref = ref.node;
 			let akku = {};
 			recFindProp(nref, '_id', 'self', akku);
