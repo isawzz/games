@@ -52,15 +52,11 @@ async function onTestSeriesChanged(){
 	// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	await testEngine.loadSeries(series);
+	onClickClearTable();
+	onClickRepeatTest();
 
-	//console.log('sdata',testEngine.sdata,testEngine.spec);
+	// let imax = await testEngine.loadTestCase(series,0);
 
-
-	let imax = await testEngine.loadTestCase(series,0);
-
-	//console.log('sdata',testEngine.sdata,testEngine.spec);
-
-	verifySequence(0,imax, true);
 }
 
 

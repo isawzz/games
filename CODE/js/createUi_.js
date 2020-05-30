@@ -13,13 +13,14 @@ function createUi(n, area, R) {
 
 	if (n.uiType == 'NONE') return ui;
 
+	//console.log('\ntype',n.type,'\ncssParams',n.cssParams,'\nparams',n.params);
 	if (n.type != 'invisible') applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 	//applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 
 	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {
 		//console.log('rsg std params!!!', n.stdParams);
-		switch (n.stdParams.display) {
+		switch (n.stdParams.show) {
 			case 'if_content': if (!n.content) hide(ui); break;
 			case 'hidden': hide(ui); break;
 			default: break;

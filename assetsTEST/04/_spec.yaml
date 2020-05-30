@@ -1,0 +1,100 @@
+5:
+  ROOT:
+    chanav: [c1,c2]
+    sub:
+      - _id: sa
+        channels:
+        - c1:
+            params:
+              bg: black
+      - _id: sa
+        channels:
+        - c2:
+            params:
+              bg: white
+    params:
+      orientation: v
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+4:
+  ROOT:
+    chanav: [c1,c2]
+    sub:
+      - _id: sa
+        channels:
+        - c1:
+            params:
+              bg: black
+              orientation: v
+      - _id: sa
+        channels:
+        - c2:
+            params:
+              bg: white
+  sa:
+    _ref: sa
+    cond: all
+    data: .oid
+3:
+  ROOT:
+    chanav: [c1,c2]
+    sub:
+      - data: hallo
+        channels:
+        - c1:
+            params:
+              bg: black
+      - data: geh
+        channels:
+        - c2:
+            params:
+              bg: white
+2:
+  ROOT:
+    chanav: c1
+    channels:
+    - c1:
+        params:
+          bg: black
+          orientation: v
+    - c2:
+        params:
+          bg: white
+    sub:
+      - data: hallo
+      - data: geh
+1:
+  ROOT:
+    chanav: c1
+    channels:
+    - c1:
+        params:
+          bg: black
+    - c2:
+        params:
+          bg: white
+    cond: all
+    data: .oid
+0:
+  ROOT:
+    chanav: c1
+    channels:
+    - c1:
+        params:
+          bg: black
+    - c2:
+        params:
+          bg: white
+    #cond: all
+    data: hallo
+
+
+
+
+
+
+
+
+

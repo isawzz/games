@@ -1,0 +1,957 @@
+{
+	" 5 ": {
+		"_0": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"children": [
+				"_1",
+				"_2"
+			],
+			"params": {
+				"orientation": "v"
+			},
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"_NODE": "sp_-2",
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				}
+			],
+			"children": [
+				"_3",
+				"_5",
+				"_7",
+				"_9",
+				"_11",
+				"_13",
+				"_15",
+				"_17",
+				"_19"
+			],
+			"here": "sp_-2",
+			"params": {
+				"bg": "black"
+			},
+			"type": "panel",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"uid": "_10",
+			"uidParent": "_2"
+		},
+		"_11": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"uid": "_11",
+			"uidParent": "_1"
+		},
+		"_12": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"uid": "_12",
+			"uidParent": "_2"
+		},
+		"_13": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"uid": "_13",
+			"uidParent": "_1"
+		},
+		"_14": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"uid": "_14",
+			"uidParent": "_2"
+		},
+		"_15": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"uid": "_15",
+			"uidParent": "_1"
+		},
+		"_16": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"uid": "_16",
+			"uidParent": "_2"
+		},
+		"_17": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"uid": "_17",
+			"uidParent": "_1"
+		},
+		"_18": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"uid": "_18",
+			"uidParent": "_2"
+		},
+		"_19": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"uid": "_19",
+			"uidParent": "_1"
+		},
+		"_2": {
+			"_NODE": "sp_-1",
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"children": [
+				"_4",
+				"_6",
+				"_8",
+				"_10",
+				"_12",
+				"_14",
+				"_16",
+				"_18",
+				"_20"
+			],
+			"here": "sp_-1",
+			"params": {
+				"bg": "white"
+			},
+			"type": "panel",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_20": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"uid": "_20",
+			"uidParent": "_2"
+		},
+		"_3": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"uid": "_4",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"uid": "_5",
+			"uidParent": "_1"
+		},
+		"_6": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"uid": "_6",
+			"uidParent": "_2"
+		},
+		"_7": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"uid": "_7",
+			"uidParent": "_1"
+		},
+		"_8": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"uid": "_8",
+			"uidParent": "_2"
+		},
+		"_9": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"uid": "_9",
+			"uidParent": "_1"
+		}
+	},
+	" 4 ": {
+		"_0": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"children": [
+				"_1",
+				"_2"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"_NODE": "sp_-2",
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black",
+							"orientation": "v"
+						}
+					}
+				}
+			],
+			"children": [
+				"_3",
+				"_5",
+				"_7",
+				"_9",
+				"_11",
+				"_13",
+				"_15",
+				"_17",
+				"_19"
+			],
+			"here": "sp_-2",
+			"params": {
+				"bg": "black",
+				"orientation": "v"
+			},
+			"type": "panel",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"uid": "_10",
+			"uidParent": "_2"
+		},
+		"_11": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"uid": "_11",
+			"uidParent": "_1"
+		},
+		"_12": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"uid": "_12",
+			"uidParent": "_2"
+		},
+		"_13": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"uid": "_13",
+			"uidParent": "_1"
+		},
+		"_14": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"uid": "_14",
+			"uidParent": "_2"
+		},
+		"_15": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"uid": "_15",
+			"uidParent": "_1"
+		},
+		"_16": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"uid": "_16",
+			"uidParent": "_2"
+		},
+		"_17": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"uid": "_17",
+			"uidParent": "_1"
+		},
+		"_18": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"uid": "_18",
+			"uidParent": "_2"
+		},
+		"_19": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"uid": "_19",
+			"uidParent": "_1"
+		},
+		"_2": {
+			"_NODE": "sp_-1",
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"children": [
+				"_4",
+				"_6",
+				"_8",
+				"_10",
+				"_12",
+				"_14",
+				"_16",
+				"_18",
+				"_20"
+			],
+			"here": "sp_-1",
+			"params": {
+				"bg": "white"
+			},
+			"type": "panel",
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_20": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"uid": "_20",
+			"uidParent": "_2"
+		},
+		"_3": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"uid": "_4",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"uid": "_5",
+			"uidParent": "_1"
+		},
+		"_6": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"uid": "_6",
+			"uidParent": "_2"
+		},
+		"_7": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"uid": "_7",
+			"uidParent": "_1"
+		},
+		"_8": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"uid": "_8",
+			"uidParent": "_2"
+		},
+		"_9": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"uid": "_9",
+			"uidParent": "_1"
+		}
+	},
+	" 3 ": {
+		"_0": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"children": [
+				"_1",
+				"_2"
+			],
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				}
+			],
+			"data": "hallo",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"chanav": [
+				"c1",
+				"c2"
+			],
+			"channels": [
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"data": "geh",
+			"params": {
+				"bg": "white"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		}
+	},
+	" 2 ": {
+		"_0": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black",
+							"orientation": "v"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"children": [
+				"_1",
+				"_2"
+			],
+			"params": {
+				"bg": "black",
+				"orientation": "v"
+			},
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"chanav": "c1",
+			"data": "hallo",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"chanav": "c1",
+			"data": "geh",
+			"uid": "_2",
+			"uidParent": "_0"
+		}
+	},
+	" 1 ": {
+		"_0": {
+			"chanav": "c1",
+			"children": [
+				"_1",
+				"_2",
+				"_3",
+				"_4",
+				"_5",
+				"_6",
+				"_7",
+				"_8",
+				"_9"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "0",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "1",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_2",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "9",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_3",
+			"uidParent": "_0"
+		},
+		"_4": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "ck",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_5": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "cq",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_5",
+			"uidParent": "_0"
+		},
+		"_6": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c1",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_7": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "c2",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_7",
+			"uidParent": "_0"
+		},
+		"_8": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player1",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_8",
+			"uidParent": "_0"
+		},
+		"_9": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"cond": "all",
+			"data": ".oid",
+			"oid": "Player2",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_9",
+			"uidParent": "_0"
+		}
+	},
+	" 0 ": {
+		"_0": {
+			"chanav": "c1",
+			"channels": [
+				{
+					"c1": {
+						"params": {
+							"bg": "black"
+						}
+					}
+				},
+				{
+					"c2": {
+						"params": {
+							"bg": "white"
+						}
+					}
+				}
+			],
+			"data": "hallo",
+			"params": {
+				"bg": "black"
+			},
+			"uid": "_0",
+			"uidParent": null
+		}
+	}
+}

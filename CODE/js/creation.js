@@ -4,6 +4,7 @@ function ensureRtree(R) {
 
 		if (isdef(R.lastSpec.ROOT.cond)) {
 			R.tree = { uid: getUID(), uidParent: null, here: 'ROOT', type: 'invisible' };
+			if (R.lastSpec.ROOT.chanav) R.tree.chanav = R.lastSpec.ROOT.chanav;
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
@@ -149,8 +150,8 @@ function instantOidKey(oid, key, uidParent, R) {
 	}
 
 	//=================================================
-	//if (oid == '9') console.log('Board: instantOidKey vor recTree call',oid,key,uidParent)
-	//if (oid == '0') console.log('Member: instantOidKey vor recTree call',oid,key,uidParent)
+	//if (oid == '9') console.log('Board: instantOidKey vor recTree_ call',oid,key,uidParent)
+	//if (oid == '0') console.log('Member: instantOidKey vor recTree_ call',oid,key,uidParent)
 
 	let n1 = recTree(R.lastSpec[key], rtreeParent, R, oid, key);
 

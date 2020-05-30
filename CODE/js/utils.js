@@ -338,7 +338,7 @@ const PARAMCSS = {
 const PARAMRSG_T = {
 	// true heisst: type handles this param
 	defaultType: false,
-	display: false,
+	show: false,
 	overlap: true,
 	orientation: true, // TODO: false
 	split: true, // TODO: false

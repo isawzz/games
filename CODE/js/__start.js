@@ -72,6 +72,10 @@ async function present00(sp, defaults, sdata) {
 	T = R = new RSG(sp, defaults, sdata);
 
 	//creation sequence:
+	//wann und wie wird start channels bestimmt?
+	//lets do that hardcoded for now!
+	R.initialChannels=[]; //do not provide anything here or ALL tests before 04 will fail!!!!
+	//console.log(R)
 	ensureRtree(R);
 
 	R.baseArea = 'table';
