@@ -1,0 +1,69 @@
+# 20:
+#   ROOT:
+#     cond: 
+#       name: felix
+#     data: .hand
+#   sa:
+#     cond:
+#       obj_type: card
+#     data: .short_name
+6: #does NOT work!!!
+  ROOT:
+    cond: 
+      obj_type: Board
+    params:
+      margin: 20
+    data: .oid
+    type: grid
+  sa:
+    cond: 
+      obj_type: robber
+    data: .hand
+5: #this works!
+  ROOT:
+    cond: 
+      obj_type: Board
+    data: .oid
+    type: grid
+  sa:
+    cond: 
+      obj_type: Board2
+    data: .oid
+4:
+  ROOT:
+    cond: 
+      name: felix
+    data: .name
+    sub:
+      - data: .oid
+      - data: .hand
+3:
+  ROOT:
+    cond: 
+      obj_type: Board
+    data: .oid
+    type: grid
+2:
+  ROOT:
+    cond: 
+      obj_type: Board
+    data: .oid
+  
+1:
+  ROOT:
+    cond: 
+      name: felix
+    data: .hand
+0:
+  ROOT:
+    cond: 
+      instanceof: _player
+    data: .name
+
+
+
+
+
+
+
+

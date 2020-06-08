@@ -178,7 +178,7 @@ function updateOutput(R) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
 			null,
-			['ui', 'act', 'bi', 'info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
+			['ui', 'ui_bg', 'act', 'bi', 'info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });

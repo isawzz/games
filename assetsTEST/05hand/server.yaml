@@ -1,0 +1,75 @@
+players:
+  Player1:
+    name: felix
+    symbol: X
+    hand: [c1, c2]
+  # Player2:
+  #   name: amanda
+  #   symbol: O
+  #   hand: [ck]
+table:
+  robber:
+    loc: "0"
+    obj_type: robber
+    hand: [c1, c2, c3]
+  c1:
+    obj_type: card
+    short_name: A
+    rel: [c2, c3]
+  c2:
+    obj_type: card
+    short_name: 2
+  c3:
+    obj_type: card
+    short_name: 3
+  # ck:
+  #   obj_type: card
+  #   short_name: K
+  #   rel: [c1,c2]
+  # cq:
+  #   obj_type: card
+  #   short_name: Q
+  #   rel: [c2,c3]
+  "0":
+    row: 1
+    col: 1
+    neighbors:
+      -
+      - _obj: "1"
+      -
+      -
+    obj_type: Tick
+  "1":
+    row: 1
+    col: 2
+    neighbors:
+      -
+      -
+      -
+      - _obj: "0"
+    obj_type: Tick
+  "9":
+    fields:
+      _set:
+        - _obj: "0"
+        - _obj: "1"
+    rows: 1
+    cols: 2
+    obj_type: Board
+    map:
+      _ndarray:
+        - - _obj: "0"
+          - _obj: "1"
+  "19":
+    loc: "0"
+    fields:
+      _set:
+        - _obj: "0"
+        - _obj: "1"
+    rows: 1
+    cols: 2
+    obj_type: Board2
+    map:
+      _ndarray:
+        - - _obj: "0"
+          - _obj: "1"

@@ -11,6 +11,9 @@ function generalGrid(nuiBoard, area, R) {
 	//console.log('gengrid')
 	// *** stage 1 create parent *** 
 	let bParams = nuiBoard.params = detectBoardParams(nuiBoard, R);
+
+	//console.log('area',area); mTextDiv('HALLO',mBy(area));
+
 	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
 
 	// *** stage 2 create children *** (in n.bi)

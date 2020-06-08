@@ -1,0 +1,111 @@
+players:
+  p1:
+    obj_type: _me
+    name: felix
+    hand: [c1, c2]
+    buildings:
+      road:
+        _set: []
+      settlement:
+        _set:
+        - _obj: '148'
+      city:
+        _set: []
+    abuildings: [farm, farm2]
+    vps: 3
+    herald: true
+    money: 4
+    color: crimson
+  p2:
+    obj_type: _opponent
+    name: amanda
+    hand: [c1, c3, c2, c4, c6, c7, c8]
+    buildings:
+      road:
+        _set: []
+      settlement:
+        _set:
+        - _obj: '149'
+      city:
+        _set: []
+    vps: 1
+    color: skyblue
+  p3:
+    obj_type: _opponent
+    name: lauren
+    hand: [c2, c3, c8, c1]
+    vps: 1
+    color: seagreen
+  p4:
+    obj_type: _opponent
+    name: anuj
+    hand: [c2]
+    vps: 1
+    color: gold
+table:
+  set1:
+    player:
+      _player: p1
+    obj_type: settlement
+  ck:
+    obj_type: card
+    short_name: K
+    rank: K
+    rel: [c1,c2]
+  cq:
+    obj_type: card
+    short_name: Q
+    rank: Q
+    rel: [c2,c3]
+  c1:
+    obj_type: card
+    short_name: A
+    rank: A
+    rel: [c2,c3]
+  c2:
+    obj_type: card
+    short_name: 2
+    rank: 2
+  c3:
+    obj_type: card
+    short_name: 3
+    rank: 3
+  c4:
+    obj_type: card
+    short_name: 4
+    rank: 4
+  c5:
+    obj_type: card
+    short_name: 5
+    rank: 5
+  c6:
+    obj_type: card
+    short_name: 6
+    rank: 6
+  c7:
+    obj_type: card
+    short_name: 7
+    rank: 7
+  c8:
+    obj_type: card
+    short_name: 8
+    rank: 8
+  c9:
+    obj_type: card
+    short_name: 9
+    rank: 9
+  market:
+    obj_type: market
+    neutral: [c9, c8, c7]
+  # market2:
+  #   obj_type: market
+  #   neutral: [c2,c3]
+  farm:
+    obj_type: building
+    storage: [c1,c2]
+  farm2:
+    obj_type: building
+    storage: [c1,c3]
+  # robber:
+  #   obj_type: robber
+  #   loc: 'c1'

@@ -7,7 +7,7 @@ function createUi(n, area, R) {
 	decodeParams(n, R, {}); //defParams);
 
 	//console.log(n,n.type)
-	let ui = RCREATE[n.type](n, mBy(area), R);
+	let ui = RCREATE[n.type](n, area, R);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 

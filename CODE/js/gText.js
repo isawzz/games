@@ -2,7 +2,7 @@ class gText {
 	constructor(g) {
 		this.elem = g;
 		this.texts = []; //akku for text elems, each elem {w:textWidth,el:elem,i:indexOfChild}
-
+		this.textBackground = null;
 	}
 	//#region text
 	computeTextColors(fill, alpha = 1, textBg = null) {
@@ -40,6 +40,9 @@ class gText {
 		let sFont = weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
 		sFont = sFont.trim();
 		let wText = getTextWidth(txt, sFont);
+
+		//console.log('calcTextWidth', 'w', wText, 'text', txt)
+
 		return wText;
 	}
 
@@ -224,6 +227,20 @@ class gText {
 		//console.log('text: textBg='+textBg)
 		let wText = isdef(font) ? getTextWidth(txt, font) : this.calcTextWidth(txt, fz, family, weight);
 
+		//console.log('wText wurde mit getTextWidth ausgerechnet!', '\nwText', wText, '\ntxt', txt);
+
+		let bParent = getBounds(this.elem.children[0]);
+		//console.log('bounds of parent elem', bParent);
+		if (!this.textBackground && wText > bParent.width) {
+			if (nundef(textBg)) {
+				textBg = this.elem.children[0].getAttribute('background-color');
+				if (nundef(textBg)) textBg = 'red';
+			}
+			this.textBackground = agShape(this.elem, 'rect', wText+18, fz, textBg, 4);
+
+			//this.getRect({ w: wText + 10, h: fz * 1.5, fill: textBg });
+		}
+
 		if (this.isLine && !isMultiText) {
 			x += this.x;
 			y += this.y;
@@ -262,7 +279,8 @@ class gText {
 			this.elem.appendChild(r);
 		}
 
-		let res = { el: r, w: wText };
+		let res = { txt: txt, ui: r, w: wText };
+		//if (ui_bg){res.ui_bg=}
 		this.texts.push(res);
 		//console.log('MSOB.text done: res',res)
 		//console.log(r)
@@ -280,6 +298,7 @@ class gText {
 	removeTexts() {
 		for (const t of this.texts) {
 			this.elem.removeChild(t.el);
+			if (this.textBackground) this.elem.removeChild(this.textBackground);
 		}
 		this.texts = [];
 	}
@@ -383,23 +402,3 @@ function agText(g, txt, color, font) {
 	res.text({ txt: txt, fill: color, font: font });
 	return res;
 }
-function createLabel_dep(n1, ui, R) {
-	//adds n1.label (type: gText)
-	let g = ui;
-	if (n1.content) {
-		let pa = n1.params;
-		let transPa = { txt: n1.content };
-		let fill = pa.fg;
-		if (isdef(fill)) { transPa.fill = fill; }
-		else if (isdef(pa.bg)) { transPa.fill = colorIdealText(pa.bg); }
-		else {
-			//console.log('should set default for fg to white')
-			transPa.fill = 'white';
-		}
-
-		let font = pa.font; if (isdef(font)) transPa.font = font;
-		let gt = n1.label = new gText(g);
-		gt.text(transPa);
-	}
-}
-

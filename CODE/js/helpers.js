@@ -1,4 +1,5 @@
 //#region DOM constants, shape functions
+const MSCATS = { rect: 'g', g: 'g', circle: 'g', text: 'g', polygon: 'g', line: 'g', body: 'd', svg: 'd', div: 'd', p: 'd', table: 'd', button: 'd', a: 'd', span: 'd', image: 'd', paragraph: 'd', anchor: 'd' };
 const SHAPEFUNCS = {
 	'circle': agCircle,
 	'hex': agHex,

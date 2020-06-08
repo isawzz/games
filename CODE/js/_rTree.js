@@ -1,49 +1,8 @@
-function convertToList(x) {
-	if (isList(x)) return x;
-	if (isString(x) && x != '') return [x];
-	return [];
-}
-function buildChanav(n, rParent) {
-	let parentChanav = convertToList(rParent ? rParent.chanav : R.initialChannels);
-	let ownChanav = convertToList(n.chanav);
-
-	//which one has higher priority??? sagma own
-	let res = ownChanav;
-	parentChanav.map(x => addIf(res, x));
-
-	return isEmpty(res) ? null : res.length == 1 ? res[0] : res;
-}
-
-function mixinChannel(n, rParent, R) {
-	//determin channel: for now first available channel that is implemented
-	//if none, none
-	let chanav = buildChanav(n,rParent); // rParent ? rParent.chanav : R.initialChannels;
-	chanavList = isList(chanav) ? chanav : isString(chanav) ? [chanav] : [];
-	let chanimpl = n.channels;
-	chanimpl = isDict(chanimpl) ? Object.keys(chanimpl) : isList(chanimpl) ? chanimpl : isString(chanimpl) ? [chanimpl] : [];
-	//console.log('chanInitial', R.initialChannels, '\nrParent', rParent, '\nchanav', chanav, '\nchanimpl', chanimpl);
-
-	let activeChannelKey = null; let activeChannel = null;
-	for (const ch of chanimpl) {
-		let k = Object.keys(ch)[0];
-		let val = ch[k];
-		//console.log('key', k, 'val', val);
-		if (chanavList.includes(k)) { activeChannelKey = k; activeChannel = val; }
-	}
-	//console.log('active channel:', activeChannel);
-	if (activeChannel) {
-		//console.log('vor merge:', jsCopy(n));
-		n = deepmerge(n, activeChannel);
-		//console.log('nach merge:', jsCopy(n));
-	}
-
-	return [n,chanav];
-}
-
 function recTree(n, rParent, R, oid, key) {
 	//CYCLES += 1; if (CYCLES > MAX_CYCLES) return 'idiot';
 	//console.log('***recTree_ input:', '\nn', n, '\nParent', rParent)
 	let uid = getUID();
+	//console.log('create rtree node','uid',uid,'oid',oid);
 	let n1 = {};
 
 	let chanav;
@@ -102,6 +61,51 @@ function recTree(n, rParent, R, oid, key) {
 
 	//console.log('am ende!')
 	return n1;
+}
+
+
+
+
+function convertToList(x) {
+	if (isList(x)) return x;
+	if (isString(x) && x != '') return [x];
+	return [];
+}
+function buildChanav(n, rParent) {
+	let parentChanav = convertToList(rParent ? rParent.chanav : R.initialChannels);
+	let ownChanav = convertToList(n.chanav);
+
+	//which one has higher priority??? sagma own
+	let res = ownChanav;
+	parentChanav.map(x => addIf(res, x));
+
+	return isEmpty(res) ? null : res.length == 1 ? res[0] : res;
+}
+
+function mixinChannel(n, rParent, R) {
+	//determin channel: for now first available channel that is implemented
+	//if none, none
+	let chanav = buildChanav(n,rParent); // rParent ? rParent.chanav : R.initialChannels;
+	chanavList = isList(chanav) ? chanav : isString(chanav) ? [chanav] : [];
+	let chanimpl = n.channels;
+	chanimpl = isDict(chanimpl) ? Object.keys(chanimpl) : isList(chanimpl) ? chanimpl : isString(chanimpl) ? [chanimpl] : [];
+	//console.log('chanInitial', R.initialChannels, '\nrParent', rParent, '\nchanav', chanav, '\nchanimpl', chanimpl);
+
+	let activeChannelKey = null; let activeChannel = null;
+	for (const ch of chanimpl) {
+		let k = Object.keys(ch)[0];
+		let val = ch[k];
+		//console.log('key', k, 'val', val);
+		if (chanavList.includes(k)) { activeChannelKey = k; activeChannel = val; }
+	}
+	//console.log('active channel:', activeChannel);
+	if (activeChannel) {
+		//console.log('vor merge:', jsCopy(n));
+		n = deepmerge(n, activeChannel);
+		//console.log('nach merge:', jsCopy(n));
+	}
+
+	return [n,chanav];
 }
 
 

@@ -1,13 +1,13 @@
-function mInvisible(n, dParent, R) { let d = mDiv(dParent); return d; }
-function mInfo(n, dParent, R) {
+function mInvisible(n, uidParent, R) { let dParent = mBy(uidParent); let d = mDiv(dParent); return d; }
+function mInfo(n, uidParent, R) {
 
-
+	let dParent = mBy(uidParent);
 	//console.log(n,'\ndParent:',dParent)
 	//if (n.oid == '3') console.log('params',n)
 
 	let ui;
 	if (getTypeOf(dParent) == 'g') {
-		return gInfo(n, dParent, R);
+		return gInfo(n, uidParent, R);
 	} else if (isdef(n.content)) {
 		ui = mNode(n.content, dParent);
 		mClass(ui, 'node')
@@ -17,40 +17,103 @@ function mInfo(n, dParent, R) {
 	}
 	return ui;
 }
-function gInfo(n, gParent, R) {
+function calculateTopLevelGElement(el){
+	while (el && el.parentNode) {
+		let t = getTypeOf(el);
+		let tParent = getTypeOf(el.parentNode);
+		//console.log('el', t, tParent, 'el.id', el.id, 'parentNode.id', el.parentNode.id);
+		if (tParent == 'svg') break;
+		el = el.parentNode;
+	}
+	return el;
+
+}
+function gInfo(n, uidParent, R) {
 	let pf = n.params;
 	n.uiType = 'g';
 	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
-	
+
+	//the ui parent should be the g element under the next highest svg element
+	let gParent = calculateTopLevelGElement(mBy(uidParent));
 	gParent.appendChild(ui);
-	
+
 	if (n.content) {
 		let color = nundef(pf.fg) ? nundef(pf.bg) ? null : colorIdealText(pf.bg) : pf.fg;
 		n.label = agText(ui, n.content, color, pf.font);
+		//console.log('gInfo', '\nparams', pf, '\nlabel', n.label)
 		calcRays(n, gParent, R);
 	}
 
-	if (pf.border){
-		let th=isdef(pf.thickness)?pf.thickness:1;
+	if (pf.border) {
+		let th = isdef(pf.thickness) ? pf.thickness : 1;
 
-		let color=decodeColor(pf.border);
+		let color = decodeColor(pf.border);
 
 		// let alpha=firstFloat(pf.border);
 		// console.log('alpha',alpha);
 		// let color = stringBefore(pf.border,' ');
 		// if (alpha) color = anyColorToStandardString(color,alpha);
-		let ch=ui.children[0];
+		let ch = ui.children[0];
 		//console.log('child w/ shape that should get border is',ch,'\np:',pf, '\nport',n.content);
 		ch.setAttribute('stroke', color);
-		ch.setAttribute('stroke-width',th);
+		ch.setAttribute('stroke-width', th);
 	}
+
+	//g element needs to be positioned on top of its parent's uid pos
+	positionGElement(ui, uidParent, gParent);
+
+	return ui;
+}
+function positionGElement(ui, uidParent, topG) {
+	let uiParent = mBy(uidParent);
+	if (isdef(uiParent) && topG != uiParent) {
+		//if (uidParent == '_4' || uidParent == '_5') console.log('uiParent', uiParent);
+		let bds = getBounds(uiParent, true);
+		let trans = getTransformInfo(uiParent);
+		let [x, y] = [trans.translateX, trans.translateY];
+		//console.log('______________ TRANS:', '\nx', x, '\ny', y, '\ntrans', trans, '\nw', bds.width, '\nh', bds.height);
+		let x1 = -22; // x - bds.width / 2;
+		let y1 = 0;//y - bds.height / 2;
+		console.log('______________ TRANS:', '\nx', x, '\ny', y, '\ntrans', trans, '\nw', bds.width, '\nh', bds.height);
+		console.log('ui:', ui, '\nuiParent', uiParent)
+
+		let x2 = 0; let y2 = 0;
+		let trans1 = uiParent.style.transform;
+		let tt = trans1.split('translate');
+		if (tt.length <= 1) {
+			console.log('there is NO tarnslate transform!!!');
+		} else {
+			//assuming only translate transform!
+			let traNumbersX = trans1.split('('); //getAttribute('transform');
+			x2 = firstNumber(traNumbersX[1]);
+			let traNumbersY = trans1.split(','); //getAttribute('transform');
+			y2 = firstNumber(traNumbersY[1]);
+
+		}
+		console.log('trans1', trans1, 'x2', x2, 'y2', y2);
+		//ich brauche das translate nicht das bounds
+		//if (uidParent == '_4' || uidParent == '_5') console.log('bounds of parent', bds);
+		gPos(ui, x2, y2);
+
+		console.log('bbox', ui.getBBox());
+		console.log('bbox parent', uiParent.getBBox(), uidParent);
+		//console.log('bbox',ui.getBBox());
+
+		let nParent = R.uiNodes[uidParent]
+		let par1 = R.uiNodes[nParent.uidParent];
+		let par2 = R.uiNodes[par1.uidParent];
+		console.log('nParent', nParent, 'par1', par1, 'par2', par2);
+
+	}
+
 
 	return ui;
 }
 
 //#region special types
-function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
+function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
+	let dParent = mBy(uidParent);
 	let boardDiv = stage3_prepContainer(dParent);
 
 	let boardSvg = gSvg();
@@ -80,9 +143,9 @@ function mGrid(n, dParent, R) { //enspricht jetzt dem basic type grid!!!!
 }
 
 //container types
-function mPanel(n, dParent, R) {
-
-	if (getTypeOf(dParent) == 'g') { return gPanel(n, dParent, R); }
+function mPanel(n, uidParent, R) {
+	let dParent = mBy(uidParent);
+	if (getTypeOf(dParent) == 'g') { return gPanel(n, uidParent, R); }
 
 	let ui = n.ui;
 	if (n.changing && isdef(ui)) {
@@ -109,7 +172,8 @@ function mPanel(n, dParent, R) {
 
 	return ui;
 }
-function gPanel(n, gParent, R) {
+function gPanel(n, uidParent, R) {
+	gParent = mBy(uidParent);
 	if (isdef(n.ui)) {
 		// removeAllEvents(n.ui);
 		// n.act = null;
@@ -122,8 +186,9 @@ function gPanel(n, gParent, R) {
 	n.uiType = 'g';
 	return ui;
 }
-function mList(n, dParent, R) {
+function mList(n, uidParent, R) {
 
+	let dParent = mBy(uidParent);
 	let ui = mDiv(dParent);
 
 	// let params = decodeParams(n,{},R);
@@ -131,7 +196,8 @@ function mList(n, dParent, R) {
 	//mColor(ui, randomColor());
 	return ui;
 }
-function mHand(n, dParent, R) {
+function mHand(n, uidParent, R) {
+	let dParent = mBy(uidParent);
 
 	let ui = mDiv(dParent);
 	addClass(ui, 'handStyle');
@@ -143,7 +209,8 @@ function mHand(n, dParent, R) {
 }
 
 //leaf types
-function mCard(n, dParent, R) {
+function mCard(n, uidParent, R) {
+	let dParent = mBy(uidParent);
 
 	//fuer solution 2:
 	let uiWrapper = mDiv(dParent);
@@ -159,7 +226,9 @@ function mCard(n, dParent, R) {
 
 	return ui;
 }
-function mPicto(n, dParent, R) {
+function mPicto(n, uidParent, R) {
+
+	let dParent = mBy(uidParent);
 
 	//console.log('haloooooooooooooooooo')
 	//content should be key to iconChars
@@ -176,7 +245,9 @@ function mPicto(n, dParent, R) {
 
 	return ui;
 }
-function mTitle(n, dParent, R) {
+function mTitle(n, uidParent, R) {
+	let dParent = mBy(uidParent);
+
 	//console.log(n,dParent)
 	let ui = mTextDiv(n.content, dParent);
 
