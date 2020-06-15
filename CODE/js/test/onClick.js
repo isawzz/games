@@ -3,7 +3,7 @@ async function onClickRunAll(){
 	let listSeries = [];
 	for(const ch of sel.children){
 		//console.log(ch.value);
-		if (ch.value != 'none') listSeries.push(ch.value);
+		if (ch.value != 'none') listSeries.push('_D/'+ch.value);
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');

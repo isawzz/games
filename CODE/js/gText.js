@@ -175,7 +175,7 @@ class gText {
 		isMultiText = false,
 		replaceFirst = true,
 		fill = null,
-		textBg = null,
+		bgText = null,
 		alpha = 1,
 		x = 0,
 		y = 0,
@@ -219,26 +219,33 @@ class gText {
 		if (className) { r.classList.add(className); }
 		//console.log('classes attached to new text element',r.getAttribute('class'),r.classList);
 
-		textBg = this.setTextFill(r, fill, alpha, textBg);
+		bgText = this.setTextFill(r, fill, alpha, bgText);
 		// if (isFirstChild) {
-		// 	this.bgs.ground = textBg;
+		// 	this.bgs.ground = bgText;
 		// 	this.fgs.ground = fill;
 		// }
-		//console.log('text: textBg='+textBg)
+		//console.log('text: bgText='+bgText)
 		let wText = isdef(font) ? getTextWidth(txt, font) : this.calcTextWidth(txt, fz, family, weight);
 
 		//console.log('wText wurde mit getTextWidth ausgerechnet!', '\nwText', wText, '\ntxt', txt);
 
-		let bParent = getBounds(this.elem.children[0]);
-		//console.log('bounds of parent elem', bParent);
-		if (!this.textBackground && wText > bParent.width) {
-			if (nundef(textBg)) {
-				textBg = this.elem.children[0].getAttribute('background-color');
-				if (nundef(textBg)) textBg = 'red';
-			}
-			this.textBackground = agShape(this.elem, 'rect', wText+18, fz, textBg, 4);
+		//console.log(this.elem)
 
-			//this.getRect({ w: wText + 10, h: fz * 1.5, fill: textBg });
+		//console.log('==>bgText is', bgText)
+		if (this.elem.children[0]) {
+			let bParent = getBounds(this.elem.children[0]);
+			//console.log('bounds of parent elem', bParent);
+			if (!this.textBackground && (wText > bParent.width || isdef(bgText))) {
+				if (nundef(bgText)) {
+					bgText = this.elem.children[0].getAttribute('background-color');
+					//if (nundef(textBg)) textBg = 'red';
+				}
+				// console.log('==>bgText is', bgText)
+				this.textBackground = agRect(this.elem, wText + 18, fz)
+				gBg(this.textBackground,bgText); //.setAttribute('fill', bgText);//, 4);
+				gRounding(this.textBackground,4);
+				//this.getRect({ w: wText + 10, h: fz * 1.5, fill: textBg });
+			}
 		}
 
 		if (this.isLine && !isMultiText) {
@@ -249,7 +256,7 @@ class gText {
 				this.elem.removeChild(this.textBackground);
 			}
 
-			this.textBackground = this.getRect({ w: wText + 10, h: fz * 1.5, fill: textBg });
+			this.textBackground = this.getRect({ w: wText + 10, h: fz * 1.5, fill: bgText });
 			this.textBackground.setAttribute('rx', 6);
 			this.textBackground.setAttribute('ry', 6);
 		}
@@ -395,10 +402,11 @@ class gText {
 
 }
 
-function agText(g, txt, color, font) {
+function agText(g, txt, fg, bg, font) {
+
 	let res = new gText(g);
 	//console.log(res)
-	//console.log('res',res,g,txt,color,font)
-	res.text({ txt: txt, fill: color, font: font });
+	//console.log('res',res,'\ntxt='+txt,'fg='+fg,'bg='+bg,'font='+font)
+	res.text({ txt: txt, fill: fg, bgText: bg, font: font });
 	return res;
 }

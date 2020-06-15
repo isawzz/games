@@ -1,0 +1,188 @@
+players:
+  Player1:
+    obj_type: GamePlayer
+    name: Player1
+    symbol: X
+    color: red
+  Player2:
+    name: Player2
+    symbol: O
+    color: blue
+table:
+  robber:
+    loc: "0"
+    obj_type: robber
+    hand: [c1, c2, c3]
+  rob1:
+    loc: "1"
+    obj_type: robber
+    hand: oh
+  rob2:
+    loc: "4"
+    obj_type: robber
+    hand: 
+      a: gott 
+      b: was ist da 
+      c: los komisch
+    params:
+      text-align: left
+  c1:
+    obj_type: card
+    short_name: A
+    rel: [c2, c3]
+  c2:
+    obj_type: card
+    short_name: 2
+  c3:
+    obj_type: card
+    short_name: 3
+  '0':
+    row: 1
+    col: 1
+    neighbors:
+    - 
+    - _obj: '1'
+    - _obj: '3'
+    - 
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '1':
+    player: Player1
+    row: 1
+    col: 2
+    neighbors:
+    - 
+    - _obj: '2'
+    - _obj: '4'
+    - _obj: '0'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '2':
+    player: Player2
+    row: 1
+    col: 3
+    neighbors:
+    - 
+    - 
+    - _obj: '5'
+    - _obj: '1'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '3':
+    row: 2
+    col: 1
+    neighbors:
+    - _obj: '0'
+    - _obj: '4'
+    - _obj: '6'
+    - 
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '4':
+    row: 2
+    col: 2
+    neighbors:
+    - _obj: '1'
+    - _obj: '5'
+    - _obj: '7'
+    - _obj: '3'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '5':
+    row: 2
+    col: 3
+    neighbors:
+    - _obj: '2'
+    - 
+    - _obj: '8'
+    - _obj: '4'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '6':
+    row: 3
+    col: 1
+    neighbors:
+    - _obj: '3'
+    - _obj: '7'
+    - 
+    - 
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '7':
+    row: 3
+    col: 2
+    neighbors:
+    - _obj: '4'
+    - _obj: '8'
+    - 
+    - _obj: '6'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '8':
+    row: 3
+    col: 3
+    neighbors:
+    - _obj: '5'
+    - 
+    - 
+    - _obj: '7'
+    obj_type: Tick
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+  '9':
+    fields:
+      _set:
+      - _obj: '0'
+      - _obj: '1'
+      - _obj: '2'
+      - _obj: '3'
+      - _obj: '4'
+      - _obj: '5'
+      - _obj: '6'
+      - _obj: '7'
+      - _obj: '8'
+    rows: 3
+    cols: 3
+    obj_type: Board
+    visible:
+      _set:
+      - _player: Player1
+      - _player: Player2
+    map:
+      _ndarray:
+      - - _obj: '0'
+        - _obj: '1'
+        - _obj: '2'
+      - - _obj: '3'
+        - _obj: '4'
+        - _obj: '5'
+      - - _obj: '6'
+        - _obj: '7'
+        - _obj: '8'
+      _dtype: object

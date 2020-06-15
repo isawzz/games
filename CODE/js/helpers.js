@@ -22,11 +22,12 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
 
-	if (isdef(rounding) && shape == 'rect') {
+	if (isdef(rounding) && shape == 'rect') { 
 		let r = el.children[0];
+		gRounding(r,rounding);
 		//console.log(rounding,r);
-		r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
-		r.setAttribute('ry', rounding);
+		// r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
+		// r.setAttribute('ry', rounding);
 	}
 
 	return el;
@@ -144,7 +145,6 @@ function mDictionary(o, { dParent, title, flattenLists = true, className = 'node
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-
 function mDictionary_dep(o, { dParent, title, flattenLists = true, className = 'node', omitEmpty = false } = {}) {
 
 	let oCopy = jsCopy(o);
@@ -190,6 +190,7 @@ function mNode(o, dParent, title) {
 	pre.style.fontFamily = 'inherit';
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
+	if (isDict(o)) d.style.textAlign = 'left';
 	return d;
 }
 function mNodeChangeContent(ui, content) {
@@ -205,6 +206,13 @@ function gCreate(tag) { return document.createElementNS('http://www.w3.org/2000/
 function gPos(g, x, y) { g.style.transform = `translate(${x}px, ${y}px)`; }
 function gBg(g, color) { g.setAttribute('fill', color); }
 function gFg(g, color, thickness) { g.setAttribute('stroke', color); if (thickness) g.setAttribute('stroke-width', thickness); }
+function gRounding(r,rounding){
+	//let r = el.children[0];
+	//console.log(rounding,r);
+	r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
+	r.setAttribute('ry', rounding);
+
+}
 function gStroke(g, color, thickness) { g.setAttribute('stroke', color); if (thickness) g.setAttribute('stroke-width', thickness); }
 function gSvg() { return gCreate('svg'); } //document.createElementNS('http://www.w3.org/2000/svg', 'svg'); }
 function gG() { return gCreate('g'); }// document.createElementNS('http://www.w3.org/2000/svg', 'g'); }

@@ -73,7 +73,7 @@ function testAddObject(R) {
 	// addSO(oid, o, R);
 	// sieveLocOids(R);
 	// //recheckAllObjectsForLoc(R);
-	// recAdjustDirtyContainers(R.tree.uid, R, true);
+	// recAdjustDirtyContainers_(R.tree.uid, R, true);
 	// //console.log(R.instantiable)
 	// updateOutput(R);
 }
@@ -117,11 +117,6 @@ function testAddLocObject(R) {
 	// updateOutput(R);
 }
 
-
-
-
-
-
 function testAddBoard(R) {
 	R.initRound();
 
@@ -140,7 +135,7 @@ function testAddBoard(R) {
 	// //console.log('adding a new object', oid);
 	// addSO(oid, o, R);
 	// sieveLocOids(R);
-	// recAdjustDirtyContainers(R.tree.uid, R, true);
+	// recAdjustDirtyContainers_(R.tree.uid, R, true);
 	// updateOutput(R);
 }
 function testRemoveBoard(R) {

@@ -40,7 +40,7 @@ function run08() {
 	// d.appendChild(svg);
 	let g1 = agShape(canvas, 'rect', 250, 250, 'gold');
 
-	let text = agText(g1, 'hallo', 'black', '16px AlgerianRegular').elem;
+	let text = agText(g1, 'hallo', 'black', 'yellow', '16px AlgerianRegular').elem;
 
 	let ci = g1.children[0];
 

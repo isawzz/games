@@ -3,6 +3,8 @@ window.onload = () => _start();
 var timit, sData, T;
 var phase = 0;
 var testEngine = null;
+var maxZIndex = 10;
+
 
 async function _start() {
 	timit = new TimeIt('*timer', TIMIT_SHOW);
@@ -178,7 +180,7 @@ function updateOutput(R) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
 			null,
-			['ui', 'ui_bg', 'act', 'bi', 'info', 'defParams', 'cssParams', 'typParams', 'stdParams'],
+			['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'],
 			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
 			// null,
 			{ 'max-width': '35%', font: '14px arial' });

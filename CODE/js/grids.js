@@ -44,7 +44,10 @@ function generalGrid(nuiBoard, area, R) {
 	let boardInfo = nuiBoard.bi.board.info;
 	let fSpacing = bParams.field_spacing;
 	if (nundef(fSpacing)) nuiBoard.params.field_spacing = fSpacing = 60;
-	let margin = isdef(bParams.margin) ? bParams.margin : 0;
+	let margin = isdef(bParams.padding) ? bParams.padding : 0;
+
+	//console.log('setting board margin to',margin,'padding',bParams.padding);
+
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
 	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bParams.corners) ? bParams.corners.size : 15;
 	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];

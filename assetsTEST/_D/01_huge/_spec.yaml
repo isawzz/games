@@ -1,3 +1,78 @@
+9:
+  ROOT:
+    data: Catan
+    params:
+      orientation: v
+      bg: rgb(48,57,96)
+    sub:
+      - _id: A
+  port:
+    cond:
+      prop: port
+    data: .port
+    params:
+      font: 9px arial
+      dray:
+        rel: parent
+        by: 175%
+      fg: white
+      bgText: red
+      #bg: transparent
+      thickness: 5
+      border: 
+        _map:
+          map: fields_map 
+          key: .port
+          value: bg
+          default: moccasin .5
+  hallo:
+    _ref: A
+    cond: 
+      obj_type: CatanBoard
+    type: grid
+    params:
+      field_spacing: 58
+      margin: 0
+      padding: 50
+      #bg: rgb(48,57,96)
+  fields:
+    cond:
+      obj_type: Field
+    type: info
+    params:
+      size: 50
+      font: italic small-caps bold 20px Georgia, serif
+      fg:
+        _map:
+          map: num_map
+          key: .num
+      bg:
+        _map:
+          map: fields_map
+          key: .res
+          default: moccasin
+    data: .num # type "info".data can be a list, dict, or single element
+  num_map:
+    6:
+      fg: red
+    8:
+      fg: red
+  fields_map:
+    wood:
+      texture: grain
+      bg: maroon 10 .5
+    brick:
+      texture: rect
+      bg: salmon .5
+    wheat:
+      texture: grain
+      bg: yellow 20 .5
+    sheep:
+      bg: green .5
+    ore:
+      texture: grain
+      bg: dimgray .5 
+
 8:
   ROOT:
     cond:
@@ -123,6 +198,8 @@
         rel: parent
         by: 100%
       fg: white
+      #bgText: red
+      #bg: transparent
       thickness: 5
       border: 
         _map:

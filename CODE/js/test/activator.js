@@ -70,6 +70,12 @@ function highSelfAndRelatives(uid, R) {
 			mHigh(ui);
 		}
 	}
+	//also if this uid is an object overlapped by other objects, bringToFront
+	let n = R.uiNodes[uid];
+	if (n.potentialOverlap) {
+		let ui = R.getUI(uid);
+		bringToFront(ui);
+	}
 }
 function unhighSelfAndRelatives(uid, R) {
 	for (const oid of R.uid2oids[uid]) {

@@ -1,4 +1,19 @@
-function calcContentFromData(oid, o, data, R) {
+function bringToFront(ui) {
+	ui.style.zIndex = maxZIndex;
+	maxZIndex += 1;
+}
+function calculateTopLevelGElement(el) {
+	while (el && el.parentNode) {
+		let t = getTypeOf(el);
+		let tParent = getTypeOf(el.parentNode);
+		//console.log('el', t, tParent, 'el.id', el.id, 'parentNode.id', el.parentNode.id);
+		if (tParent == 'svg') break;
+		el = el.parentNode;
+	}
+	return el;
+
+}
+function calcContentFromData(oid, o, data, R, default_data) {
 
 	// ex: data: .player.name
 	if (!o) return data; //static data
@@ -14,7 +29,10 @@ function calcContentFromData(oid, o, data, R) {
 
 			if (props.length == 1 && isEmpty(props[0])) return o;
 
-			else return dPP(o, props, R);
+			else {
+				let res = dPP(o, props, R);
+				if (res) return res;
+			} 
 
 		} else {
 			//it's a literal but NOT a string!!!
@@ -34,9 +52,62 @@ function calcContentFromData(oid, o, data, R) {
 		let content = data.map(x => calcContentFromData(oid, o, x, R));
 		return content;
 	}
-	return null;
+
+	if (isdef(default_data)) {
+		//console.log('need to call CalcContentFromData again!!!', default_data);
+		let finalRes = calcContentFromData(oid, o, default_data, R);
+		//console.log('finalRes',finalRes)
+		return finalRes;
+	}else	return null;
 
 }
+function findOrCreateKeysForObjTypes(oids, R) {
+	//similar as createArtificialSpecForBoardMemberIfNeeded but also sets data
+
+	let keysForOids = {};
+	//als erstes divide up oids into obj_types
+	for (const oid of oids) {
+		let key = R.getR(oid);
+		if (!isEmpty(key)) {
+			//console.log('***FOUND KEY FOR', oid, key);
+			keysForOids[oid] = key[0]; //weil rsg eine liste ist!
+		} else {
+			key = getUID();
+			let o = R.getO(oid);
+			let nSpec = R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info' };//, data: '.' };
+			R.addR(oid, key);
+
+			let otype = o.obj_type;
+			let sameTypeOids = oids.filter(x => R.getO(x).obj_type == otype);
+			console.log('sameTypeOids', sameTypeOids);
+
+			//for these objects find all fields that are literal value
+			//make 1 object that has all the fields together
+			let oSuper = {};
+			for (const oid1 of sameTypeOids) {
+				let o1 = R.getO(oid1);
+				for (const k1 in o1) {
+					if (k1 == 'obj_type' || k1 == 'oid' || !isLiteral(o1[k1])) continue;
+					if (isdef(oSuper[k1])) continue;
+					oSuper[k1] = '.' + k1;
+
+				}
+
+			}
+			let dataKeys = Object.keys(oSuper);
+			if (dataKeys.length == 0) oSuper = 'X';
+			else if (dataKeys.length == 1) oSuper = '.' + dataKeys[0];
+
+			console.log('oSuper is', oSuper, '\nsoll das jetzt dann data sein?');
+			nSpec.data = oSuper;
+			keysForOids[oid] = key;
+			R.updateR(key); //retest all objects in R for this cond! so that next time find key for this type of object!
+		}
+	}
+
+	return keysForOids;
+}
+
 function findAddress(kSelf, x, path) {
 	//x muss noch dem path folgen bis es bei der richtigen branch
 	//angekommen ist!
@@ -129,8 +200,42 @@ function decodePropertyPath(o, path) {
 
 	}
 }
-function inferType(n, defType = 'panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
+function findAncestorElemWithParentOfType(el, type) {
+	while (el && el.parentNode) {
+		let t = getTypeOf(el);
+		let tParent = getTypeOf(el.parentNode);
+		//console.log('el', t, tParent, 'el.id', el.id, 'parentNode.id', el.parentNode.id);
+		if (tParent == type) break;
+		el = el.parentNode;
+	}
+	return el;
 
+}
+function findAncestorElemOfType(el, type) {
+	while (el) {
+		let t = getTypeOf(el);
+		if (t == type) break;
+		el = el.parentNode;
+	}
+	return el;
+
+}
+function getParentUi(n) { return n.idUiParent ? mBy(n.idUiParent) : null; }
+function getParentRNode(n, R) { return n.uidParent ? R.rNodes(n.uidParent) : null; }
+function getParentUiNodes(n, R) { return n.uidParent ? R.uiNodes(n.uidParent) : null; }
+function getO(n, R) { let oid = n.oid; if (isdef(oid)) return R.getO(oid); else return null; }
+function inferType(n, defType = 'panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
+function isBoard(uid, R) {
+	if (!uid) return false;
+	let n = R.uiNodes[uid];
+	return isdef(n) && isdef(n.bi) && isdef(n.bi.boardDiv);
+}
+function isBoardMember(uid, R) {
+	//console.log('uid',uid);
+	let n = R.uiNodes[uid];
+	return isdef(n) ? isBoard(n.uidParent, R) : false;
+
+}
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
 function hasId(o) { return isdef(o._id); }
@@ -238,19 +343,19 @@ function decodeColor(c) {
 function decodeParams(n, R, defParams) {
 
 
-	if (isdef(n.params) && isdef(n.params._NODE)){
+	if (isdef(n.params) && isdef(n.params._NODE)) {
 		//console.log('spaetestens JETZT muss ich ersetzen!!!!',n.params);
 		//wie wird ersetzt???
-		let spk=n.params._NODE;
+		let spk = n.params._NODE;
 		//console.log('params spec key is',spk);
-		let oParams=R.getSpec()[spk];
+		let oParams = R.getSpec()[spk];
 		//console.log(oParams);
-		for(const k in oParams){
-			n.params[k]=oParams[k];
+		for (const k in oParams) {
+			n.params[k] = oParams[k];
 		}
 		delete n.params._NODE;
 		//rueckwirkend aendere auch rtree node!!!
-		let r=R.rNodes[n.uid];
+		let r = R.rNodes[n.uid];
 		r.params = jsCopy(n.params);
 	}
 

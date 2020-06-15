@@ -1,35 +1,50 @@
 players:
   Player1:
+    color: red
     name: felix
     symbol: X
     hand: [c1, c2]
-  # Player2:
-  #   name: amanda
-  #   symbol: O
-  #   hand: [ck]
+  Player2:
+    color: green
+    name: amanda
+    symbol: O
+    hand: [cq,ck,c2]
+    buildings:
+      farms: [farm1, farm2]
+      estates: []
+    nested: [[c1, c2], [c3, cq, ck]]
 table:
+  farm1:
+    obj_type: building
+    cards: [ck, c1]
+  farm2:
+    obj_type: building
+    cards: [cq, c2]
   robber:
     loc: "0"
     obj_type: robber
     hand: [c1, c2, c3]
+  rob1:
+    loc: "1"
+    obj_type: robber
+    hand: [ck, cq]
   c1:
     obj_type: card
     short_name: A
-    rel: [c2, c3]
   c2:
     obj_type: card
     short_name: 2
   c3:
     obj_type: card
     short_name: 3
-  # ck:
-  #   obj_type: card
-  #   short_name: K
-  #   rel: [c1,c2]
-  # cq:
-  #   obj_type: card
-  #   short_name: Q
-  #   rel: [c2,c3]
+  ck:
+    obj_type: card
+    short_name: K
+    rel: [c1, c2]
+  cq:
+    obj_type: card
+    short_name: Q
+    rel: [c2, c3]
   "0":
     row: 1
     col: 1
