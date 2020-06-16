@@ -1,0 +1,14 @@
+0:
+  ROOT:
+    cond: 
+      obj_type: card
+    data: .short_name
+    type: card
+
+
+
+
+
+
+
+

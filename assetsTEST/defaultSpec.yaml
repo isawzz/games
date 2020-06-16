@@ -44,8 +44,8 @@ defaults:
       bg: random
       fg: contrast
       font: 18px Arial #AlgerianRegular
-      padding: 4
-      margin: 4
+      padding: 2
+      margin: 2
       orientation: h
       split: equal
       border-radius: 10
@@ -60,6 +60,9 @@ defaults:
   invisible:
     params:
       orientation: h
+      split: equal
+      padding: 2
+      margin: 2
       justify-items: center
       justify-content: center
       align-items: center

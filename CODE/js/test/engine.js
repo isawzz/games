@@ -100,7 +100,7 @@ class TestEngine {
 		let rTreeSolution = this.solution.rTree;
 		let changes = propDiffSimple(rTreeNow, rTreeSolution);
 		if (changes.hasChanged) {
-			console.log('verifying test case', this.series, this.index, 'FAIL');
+			console.log('verifying test case', this.series, this.index, 'FAIL!!!!!!!');
 			//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
 			console.log('changes:', changes)
 		} else {

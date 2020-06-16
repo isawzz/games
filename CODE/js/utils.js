@@ -16,6 +16,55 @@ function recListToString(lst){
 		return res;
 	}
 }
+function calcContentFromData(oid, o, data, R, default_data) {
+
+	// ex: data: .player.name
+	if (!o) return data; //static data
+
+	if (isLiteral(data)) {
+		if (isString(data)) {
+			if (data[0] != '.') return data;
+
+			//console.log('PATH:', data, 'oid', oid, 'o', o);
+			let props = data.split('.').slice(1);
+			//console.log('props', props, isEmpty(props));
+			//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
+
+			if (props.length == 1 && isEmpty(props[0])) return o;
+
+			else {
+				//console.log('___________',props)
+				let res = dPP1(o, props, R);
+				if (res) return res;
+			} 
+
+		} else {
+			//it's a literal but NOT a string!!!
+			return data;
+		}
+	}
+	else if (isDict(data)) {
+		//beispiel? data is dictionary {vsp:.vsp,money:.money}
+		let content = {};
+		for (const k in data) {
+			let c = calcContentFromData(oid, o, data[k], R);
+			if (c) content[k] = c;
+		}
+		return content;
+	} else if (isList(data)) {
+		//ex: data:[.vps, .money]
+		let content = data.map(x => calcContentFromData(oid, o, x, R));
+		return content;
+	}
+
+	if (isdef(default_data)) {
+		//console.log('need to call CalcContentFromData again!!!', default_data);
+		let finalRes = calcContentFromData(oid, o, default_data, R);
+		//console.log('finalRes',finalRes)
+		return finalRes;
+	}else	return null;
+
+}
 
 function calculateTopLevelGElement(el) {
 	while (el && el.parentNode) {

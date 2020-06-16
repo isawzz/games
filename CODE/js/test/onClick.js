@@ -74,7 +74,7 @@ async function onClickRun(){
 	localStorage.setItem('iTestCaseTo',indexTo);
 	verifySequence(indexFrom,indexTo, false);
 }
-async function onClickVerifySoFar() { verifySequence(0,testEngine.index, true);}
+async function onClickVerifySoFar() { verifySequence(0, testEngine.index, true);}
 async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
 	show('btnStop');
 	console.log('______________ verify from',indexFrom,'to',indexTo, 'save',saveOnCompleted);
@@ -83,6 +83,7 @@ async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
 	let series = testEngine.series;
 	let maxIndex = indexTo;
 	let index = indexFrom;
+	//console.log('______________ vernext',series,index);
 	await testEngine.loadTestCase(series, index);
 	//console.log(testEngine.sdata)
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
@@ -91,7 +92,7 @@ async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
 	
 }
 async function verNext(series, index, maxIndex, saveOnCompleted=false) {
-	//console.log('______________ vernext',saveOnCompleted);
+	//console.log('______________ vernext',series,index);
 
 	await testEngine.loadTestCase(series, index);
 

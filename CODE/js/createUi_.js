@@ -1,15 +1,10 @@
 function createUi(n, area, R) {
 
-	// if (n.uid == '_16') { // || n.uidParent == '_16') {
-	// 	console.log('createUi ==> n', jsCopy(n));
-	// }
 	if (nundef(n.type)) { n.type = inferType(n); }
 
 	R.registerNode(n);
 
-	decodeParams(n, R, {}); //defParams);
-
-	//console.log(n,n.type)
+	decodeParams(n, R, {}); 
 
 	let ui = RCREATE[n.type](n, area, R);
 
@@ -17,19 +12,11 @@ function createUi(n, area, R) {
 
 	if (n.uiType == 'NONE') return ui;
 
-	//console.log('\ntype',n.type,'\ncssParams',n.cssParams,'\nparams',n.params);
-	if (n.type != 'invisible' && n.uiType != 'childOfBoardElement') {
-		if (isBoard(n.uid, R)) {
-			//console.log('cssParams', n.cssParams)
-			//delete n.cssParams.margin;
-			delete n.cssParams.padding;
-			//console.log('applying margin', n.cssParams.margin, 'to', n, n.uiType, n.uidStyle)
-		} //else
+	if (n.uiType != 'childOfBoardElement') {
+		if (isBoard(n.uid, R)) { delete n.cssParams.padding; }
 		applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 	}
-	//applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
 
-	//TODO: hier muss noch die rsg std params setzen (same for all types!)
 	if (!isEmpty(n.stdParams)) {
 		//console.log('rsg std params!!!', n.stdParams);
 		switch (n.stdParams.show) {
@@ -76,17 +63,18 @@ function adjustContainerLayout(n, R) {
 	else if (isNumber(split)) reverseSplit = true;
 
 	for (let i = 0; i < num; i++) {
-		//if (n.children[i].uid == '_19') console.log(jsCopy(n.children[i]));
 		let d = R.uiNodes[n.children[i]].ui;
 		mFlexChildSplit(d, split);
 
 		if (reverseSplit) { split = 1 - split; }
 	}
+
+
 }
 
 function calcRays(n, gParent, R) {
-	//return;
 	//console.log(n);
+	//console.assert(n.type == 'grid','calcRays on NON-grid type!!!! (geht nicht!)')
 	if (n.params.dray) {
 		let ui = n.ui;
 		let buid = n.uidParent;
@@ -97,7 +85,7 @@ function calcRays(n, gParent, R) {
 		//console.log('===>size',size,buid,b,'\nbui',bui);
 		let fsp = bui.params.field_spacing;
 		//console.log('fieldSpacing',fsp);
-		let info = n.info;//R.rNodes[n.uid].info;
+		let info = n.info;
 		//console.log('info',info,'\nn',n);
 		let x = info.x * fsp;
 		let y = info.y * fsp;
@@ -108,8 +96,7 @@ function calcRays(n, gParent, R) {
 		let p = n.params.dray;
 		let rel = p.rel;
 
-		//console.log('haaaaaaaaaaaaaaaaalllllllllllllllooooooooooooo')
-		let nanc = n;//R.rNodes(n.uidParent);
+		let nanc = n;
 		if (rel == 'ancestor') {
 			console.log('haaaaaaaaaaaaaaaaalllllllllllllllooooooooooooo')
 			//eval next clause!
@@ -123,32 +110,22 @@ function calcRays(n, gParent, R) {
 			}
 
 		}
-
-		//console.log('------------------------>nanc', nanc);
 		let by = p.by;
 		nby = isNumber(by) ? by : firstNumber(by);
 		if (isString(by) && by[by.length - 1] == '%') {
 			//let n=firstNumber(by);
 			nby = nby * size / 100;
 		}
-		//console.log('nby', nby);
-		//nby = 22;
 		let elem = isdef(nanc) ? nanc : rel == 'parent' ? gParent : ui;
 		let norm = nby / D;
 		let xdisp = x * norm;//nby*norm;//*x;
 		let ydisp = y * norm; //nby*norm;//*y;
-		//console.log(elem,ui)
-		//console.log(n)
-		//console.log(elem.id, R.uiNodes[gParent.id])
 
 		//console.log('verschiebe label um',xdisp,ydisp,'\nnorm',norm,'\nlabel',n.label);
 		let txt = n.label.texts;
 		let el = n.label.texts[0].ui;
 		el.setAttribute('x', xdisp);
 		el.setAttribute('y', ydisp);
-
-		//koennt es auch so machen dass in einem ray no textBackground existiert!
-		//oder dass textBackground nur existiert wenn gesetzt wird
 
 		if (isdef(n.label.textBackground)) {
 			if (n.params.bgText) {
@@ -170,19 +147,6 @@ function calcRays(n, gParent, R) {
 
 
 		}
-
-
-		//console.log(n.label.texts[0].el)
-		//console.log('txt elem',txt);
-
-		//setAttribute(txttransform: translate(10px, 10px);
-
-		//gPos(txt, x,y);// xdisp, ydisp);
-		//need to compute center of parent relative to center of this elem!
-		//center of parent is 0,0
-		//center of this elem is: 
-		// need to computer size of this elem
-
 	}
 
 }
