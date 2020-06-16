@@ -3212,6 +3212,9 @@ function isListOfLiterals(lst) {
 	}
 	return true;
 }
+function isListOfLists(lst){
+	return isList(lst) && !isEmpty(lst) && isList(lst[0]);
+}
 function isNumber(param) { return !isNaN(Number(param)); }
 function isNumeric(x) { return !isNaN(+x); }
 function isSet(x) { return (isDict(x) && (x.set || x._set)); }

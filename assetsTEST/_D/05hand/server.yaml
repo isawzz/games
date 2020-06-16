@@ -8,9 +8,19 @@ players:
     color: green
     name: amanda
     symbol: O
-    hand: [cq,ck,c2]
+    card: #[_obj:c1]
+      _obj: c1
+      # _set:
+      #   - _obj: c1
+    hand: [cq, ck, c2]
+    hand1:
+      _set:
+        - _obj: c1
+        - _obj: c2
     buildings:
-      farms: [farm1, farm2]
+      farms: 
+        - _obj: farm1
+        - _obj: farm2
       estates: []
     nested: [[c1, c2], [c3, cq, ck]]
 table:

@@ -1,4 +1,5 @@
 async function onClickRunAll(){
+	STOP = false;
 	let sel=mBy('selSeries');
 	let listSeries = [];
 	for(const ch of sel.children){
@@ -17,8 +18,8 @@ async function runNextSeries(listSeries,series,from,to){
 		console.log('*** ALL TESTS COMPLETED! ***');
 		return;
 	}else if (STOP){
-		console.log('*** TEST RUN INTERRUPTED!!! ***');
 		STOP=false;
+		console.log('*** TEST RUN INTERRUPTED!!! ***');
 		return;
 	}else if (from >= to){
 		let series = testEngine.series;

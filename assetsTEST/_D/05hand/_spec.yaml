@@ -88,6 +88,73 @@
 #       obj_type: card
 #     data: .short_name
 #     default_data: .oid  #this is if data yields nothing
+13:
+  ROOT:
+    cond:
+      name: amanda
+    data: ['a','b','c']
+12:
+  ROOT:
+    cond:
+      name: amanda
+    data: .buildings.farms.0
+  b:
+    cond:
+      obj_type: building
+    data: .cards
+11:
+  ROOT:
+    cond:
+      name: amanda
+    data: .name
+    sub:
+      - data: farms
+        params:
+          bg: inherit
+      - data: .buildings.farms
+        params:
+          bg: inherit
+    params:
+      orientation: v
+      bg: .color
+  b:
+    cond:
+      obj_type: building
+    data: .cards
+10:
+  ROOT:
+    cond:
+      name: amanda
+    data: .buildings.farms.0.cards
+9: 
+  ROOT:
+    cond:
+      name: amanda
+    data: .buildings.farms
+  b:
+    cond:
+      obj_type: building
+    data: .cards
+8:
+  ROOT:
+    cond:
+      name: amanda
+    data: .hand1.0.short_name
+7:
+  ROOT:
+    cond:
+      name: amanda
+    data: .hand1
+6:
+  ROOT:
+    cond:
+      name: amanda
+    data: .card.short_name
+5: 
+  ROOT:
+    cond:
+      name: amanda
+    data: .card
 4:
   ROOT:
     cond: 

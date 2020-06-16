@@ -7,6 +7,40 @@
 #     cond:
 #       obj_type: card
 #     data: .short_name
+8:
+  ROOT:
+    sub:
+      - _id: sa
+      - _id: sb
+    params:
+      orientation: v
+    sa:
+      _ref: sa
+      cond: 
+        instanceof: _player
+      sub:
+        - data: .name
+          params:
+            bg: inherit
+        - data: .hand
+          params:
+            bg: inherit
+      params:
+        orientation: v
+        bg: .color
+    sb:
+      _ref: sb
+      cond:
+        obj_type: Board
+      type: grid
+    card:
+      cond:
+        obj_type: card
+      params:
+        height: 35
+        width: 25
+      data: .short_name        
+
 7: #ok
   ROOT:
     cond: 

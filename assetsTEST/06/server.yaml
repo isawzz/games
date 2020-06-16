@@ -4,10 +4,12 @@ players:
     name: Player1
     symbol: X
     color: red
+    hand: [c2, c3]
   Player2:
     name: Player2
     symbol: O
     color: blue
+    hand: [c1]
 table:
   robber:
     loc: "0"

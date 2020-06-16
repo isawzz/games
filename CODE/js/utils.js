@@ -2,6 +2,21 @@ function bringToFront(ui) {
 	ui.style.zIndex = maxZIndex;
 	maxZIndex += 1;
 }
+function recListToString(lst){
+
+	if (!isList(lst)) return lst;
+	if (isListOfLiterals(lst)) return lst.join(',');// '['+ lst.join(',') +']';
+	else{
+		let res=[];
+		for(const el of lst){
+			let elString = recListToString(el);
+			res.push(elString); // += elString + ',';
+		}
+		//res= res.substring(0,res.length-1);
+		return res;
+	}
+}
+
 function calculateTopLevelGElement(el) {
 	while (el && el.parentNode) {
 		let t = getTypeOf(el);
@@ -13,57 +28,10 @@ function calculateTopLevelGElement(el) {
 	return el;
 
 }
-function calcContentFromData(oid, o, data, R, default_data) {
-
-	// ex: data: .player.name
-	if (!o) return data; //static data
-
-	if (isLiteral(data)) {
-		if (isString(data)) {
-			if (data[0] != '.') return data;
-
-			//console.log('PATH:', data, 'oid', oid, 'o', o);
-			let props = data.split('.').slice(1);
-			//console.log('props', props, isEmpty(props));
-			//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
-
-			if (props.length == 1 && isEmpty(props[0])) return o;
-
-			else {
-				let res = dPP(o, props, R);
-				if (res) return res;
-			} 
-
-		} else {
-			//it's a literal but NOT a string!!!
-			return data;
-		}
-	}
-	else if (isDict(data)) {
-		//beispiel? data is dictionary {vsp:.vsp,money:.money}
-		let content = {};
-		for (const k in data) {
-			let c = calcContentFromData(oid, o, data[k], R);
-			if (c) content[k] = c;
-		}
-		return content;
-	} else if (isList(data)) {
-		//ex: data:[.vps, .money]
-		let content = data.map(x => calcContentFromData(oid, o, x, R));
-		return content;
-	}
-
-	if (isdef(default_data)) {
-		//console.log('need to call CalcContentFromData again!!!', default_data);
-		let finalRes = calcContentFromData(oid, o, default_data, R);
-		//console.log('finalRes',finalRes)
-		return finalRes;
-	}else	return null;
-
-}
 function findOrCreateKeysForObjTypes(oids, R) {
 	//similar as createArtificialSpecForBoardMemberIfNeeded but also sets data
 
+	//console.log('oids',oids)
 	let keysForOids = {};
 	//als erstes divide up oids into obj_types
 	for (const oid of oids) {
@@ -74,12 +42,13 @@ function findOrCreateKeysForObjTypes(oids, R) {
 		} else {
 			key = getUID();
 			let o = R.getO(oid);
+			//console.log('oid',oid,'o',o)
 			let nSpec = R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info' };//, data: '.' };
 			R.addR(oid, key);
 
 			let otype = o.obj_type;
 			let sameTypeOids = oids.filter(x => R.getO(x).obj_type == otype);
-			console.log('sameTypeOids', sameTypeOids);
+			//console.log('sameTypeOids', sameTypeOids);
 
 			//for these objects find all fields that are literal value
 			//make 1 object that has all the fields together
@@ -98,7 +67,7 @@ function findOrCreateKeysForObjTypes(oids, R) {
 			if (dataKeys.length == 0) oSuper = 'X';
 			else if (dataKeys.length == 1) oSuper = '.' + dataKeys[0];
 
-			console.log('oSuper is', oSuper, '\nsoll das jetzt dann data sein?');
+			//console.log('oSuper is', oSuper, '\nsoll das jetzt dann data sein?');
 			nSpec.data = oSuper;
 			keysForOids[oid] = key;
 			R.updateR(key); //retest all objects in R for this cond! so that next time find key for this type of object!
@@ -169,27 +138,6 @@ function calcAddressWithin(o, addr, R) {
 	}
 	return null;
 
-}
-function dPP(o, plist, R) {
-	//plist is a list of properties
-	//pool is a dictionary that contains all objects that might be involved
-	if (isEmpty(plist)) return o;
-	if (isList(o) && isNumber(plist[0])) { let i = Number(plist[0]); return dPP(o[i]); }
-	if (!isDict(o)) {
-		let o1 = R.getO(o);
-		if (isdef(o1)) return dPP(o1, plist, R);
-		console.log('dPP ERROR!!! o', o, 'plist', plist, '\no1', o1);
-		return null;
-	}
-
-	let k1 = plist[0];
-	let o1 = o[k1];
-	if (nundef(o1)) return null; //o does NOT have this prop!
-	let plist1 = plist.slice(1);
-	if (o1._set) { o1 = o1._set; return o1.map(x => dPP(x, plist1, R)); }
-	if (o1._player) { o1 = R.getO(o1._player); }
-	else if (o1._obj) { o1 = R.getO(o1._obj); }
-	return dPP(o1, plist1, R);
 }
 function decodePropertyPath(o, path) {
 	if (isString(path) && path[0] == '.') {

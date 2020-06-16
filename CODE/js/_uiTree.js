@@ -3,6 +3,36 @@ function isListOfServerObjects(x) {
 	console.log('getElements returns', oids);
 	return false;
 }
+function createPanelParentOfObjects(lst, n1, area, R) {
+	if (nundef(n1.type)) n1.type = lst.length == 1 ? 'invisible' : 'panel';
+	n1.content = null;
+	n1.ui = createUi(n1, area, R);
+}
+function handleListOfObjectIds(lst, n1, area, R) {
+	let keysForOids = findOrCreateKeysForObjTypes(lst, R);
+	for (const oid1 of lst) {
+		let o1 = R.getO(oid1);
+		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
+		//console.log('found key for', oid1, '=', key);
+		let ntree, nui;
+		ntree = instantOidKey(oid1, key, n1.uid, R);
+		nui = recUi(ntree, n1.uid, R, oid1, key);
+	}
+}
+function handleListOfConstants(lst, n1, area, R) {
+	//let keysForOids = findOrCreateKeysForObjTypes(lst, R);
+	for (const oid1 of lst) {
+		let o1 = R.getO(oid1);
+		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
+		//console.log('found key for', oid1, '=', key);
+		let ntree, nui;
+		ntree = instantOidKey(oid1, key, n1.uid, R);
+		nui = recUi(ntree, n1.uid, R, oid1, key);
+	}
+}
+
+
+
 function recUi(n, area, R, oid, key) {
 
 	// *** n is rNode ***
@@ -20,8 +50,10 @@ function recUi(n, area, R, oid, key) {
 		// 	console.log('calling calContentFromData',oid,n1.data,n1.default_data)
 		// }
 		n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data);
-		//console.log('content:',n1.content,'uid',n1.uid,'n1.default_data',n1.default_data);
-		//console.log('content',n1.uid,n1.data,typeof n1.content,n1.content);
+		//console.log('____________','uid',n1.uid,'\ncontent:',n1.content,'\nn1.default_data',n1.default_data);
+		//console.log('____________',n1.uid,'\ndata',typeof n1.data,n1.data,'\ncontent',typeof n1.content, n1.content);
+		//let c2=calcAddressWithin(o,n1.data);
+		//console.log('addrWithin',c2,'val',c2.obj[c2.key]);
 	}
 
 	//console.log('ui node',jsCopy(n1))
@@ -30,49 +62,36 @@ function recUi(n, area, R, oid, key) {
 		// R.uiNodes[n1.uid] = n1; // ONLY DONE HERE!!!!!!!
 		createBoard(n1, area, R);
 	} else {
-		let oids = getElements(n1.content);
-		if (isdef(oids) && !isEmpty(oids)) {
-			//console.log('found list of elements', oids, '\nWAS JETZT???');
-			//hier muss ich jetzt die hand machen!
-			//was ist der unterschied zu board???
-			if (nundef(n1.type)) n1.type = 'panel';
-			n1.content = null;
-			n1.ui = createUi(n1, area, R);
-			let rTreePanel = R.rNodes[n1.uid];
+		let lst = getElements(n1.content);
+		//zuerst muss ich checken ob das ueberhaupt objects sind
+		//wenn hier nur 1 element zurueckkommt, dann mache NICHT ein panel sondern ein invisible!
+		if (isdef(lst) && !isEmpty(lst)) {
 
-
-			let keysForOids = findOrCreateKeysForObjTypes(oids,R);
-			//console.log('__________ END __________')
-
-			for (const oid1 of oids) {
-				//find a specNode!
-				//how to do that???
-				let o1 = R.getO(oid1);
-				let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
-
-				// let nSpec=R.getSpec(key);
-				// console.log(nSpec);
-				// if (nundef(nSpec.data)){
-				// 	let dataExp={};
-				// 	for(const k1 in o1){
-				// 		if (k1 == 'obj_type' || k1 == 'oid' || !isLiteral(o1[k1])) continue;
-				// 		dataExp[k1]='.'+k1;
-
-				// 	}
-				// 	let dataKeys=Object.keys(dataExp);
-				// 	if (dataKeys.length == 0) dataExp='X';
-				// 	else if (dataKeys.length == 1) dataExp = '.'+dataKeys[0];
-				// 	nSpec.data=dataExp;
-				// }
-
-				//console.log('found key for', oid1, '=', key);
-				let ntree, nui;
-				//console.log('jetzt kommt',oid)
-				ntree = instantOidKey(oid1, key, n1.uid, R);
-				nui = recUi(ntree, n1.uid, R, oid1, key);
+			//lst can be:
+			//1. list of object IDs
+			let o=R.getO(lst[0]);
+			//console.log('=======o',o);
+			if (isListOfLiterals(lst) && isdef(R.getO(lst[0]))) {
+				createPanelParentOfObjects(lst, n1, area, R);
+				handleListOfObjectIds(lst, n1, area, R);
+			}
+			else if (isListOfLists(lst) && isdef(R.getO(lst[0][0]))) {
+				//dann bekommt n1 ein panel fuer jedes object
+				for (const l of lst) {
+					createPanelParentOfObjects(l, n1, area, R);
+					handleListOfObjectIds(l, n1, area, R);
+				}
+			}
+			else {// if (isListOfLiterals(lst)){
+				//console.log('ist einfach nur eine liste',lst);
+				if (nundef(n1.type)) n1.type = 'info';
+				n1.content = lst.join(' '); //recListToString(lst);
+				n1.ui = createUi(n1, area, R);
 			}
 			//console.log('rtree children',rTreePanel.children)
+			let rTreePanel = R.rNodes[n1.uid];
 			n1.children = rTreePanel.children;
+
 		} else {
 			n1.ui = createUi(n1, area, R);
 			// R.uiNodes[n1.uid] = n1; // ONLY DONE HERE!!!!!!!
@@ -100,4 +119,49 @@ function recUi(n, area, R, oid, key) {
 
 	return n1;
 
+}
+
+
+function handleListOfObjectIds_VERBOSE(lst, n1, area, R) {
+	//console.log('found list of elements', oids, '\nWAS JETZT???');
+	//hier muss ich jetzt die hand machen!
+	//was ist der unterschied zu board???
+	if (nundef(n1.type)) n1.type = lst.length == 1 ? 'invisible' : 'panel';
+	n1.content = null;
+	n1.ui = createUi(n1, area, R);
+	let rTreePanel = R.rNodes[n1.uid];
+
+
+	let keysForOids = findOrCreateKeysForObjTypes(lst, R);
+	//console.log('__________ END __________')
+
+	for (const oid1 of lst) {
+		//find a specNode!
+		//how to do that???
+		let o1 = R.getO(oid1);
+		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
+
+		// let nSpec=R.getSpec(key);
+		// console.log(nSpec);
+		// if (nundef(nSpec.data)){
+		// 	let dataExp={};
+		// 	for(const k1 in o1){
+		// 		if (k1 == 'obj_type' || k1 == 'oid' || !isLiteral(o1[k1])) continue;
+		// 		dataExp[k1]='.'+k1;
+
+		// 	}
+		// 	let dataKeys=Object.keys(dataExp);
+		// 	if (dataKeys.length == 0) dataExp='X';
+		// 	else if (dataKeys.length == 1) dataExp = '.'+dataKeys[0];
+		// 	nSpec.data=dataExp;
+		// }
+
+		//console.log('found key for', oid1, '=', key);
+		let ntree, nui;
+		//console.log('jetzt kommt',oid)
+		ntree = instantOidKey(oid1, key, n1.uid, R);
+		nui = recUi(ntree, n1.uid, R, oid1, key);
+	}
+	//console.log('rtree children',rTreePanel.children)
+	n1.children = rTreePanel.children;
 }

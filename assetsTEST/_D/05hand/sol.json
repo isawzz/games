@@ -1,0 +1,799 @@
+{
+	" 13 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"name": "amanda"
+			},
+			"data": [
+				"a",
+				"b",
+				"c"
+			],
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		}
+	},
+	" 12 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".buildings.farms.0",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"children": [
+				"_4",
+				"_5"
+			],
+			"cond": {
+				"obj_type": "building"
+			},
+			"data": ".cards",
+			"oid": "farm1",
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"type": "info",
+			"uid": "_4",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_5",
+			"uidParent": "_2"
+		}
+	},
+	" 11 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2",
+				"_3"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".name",
+			"oid": "Player2",
+			"params": {
+				"bg": ".color",
+				"orientation": "v"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"type": "info",
+			"uid": "_10",
+			"uidParent": "_8"
+		},
+		"_2": {
+			"data": "farms",
+			"oid": "Player2",
+			"params": {
+				"bg": "inherit"
+			},
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_3": {
+			"children": [
+				"_4",
+				"_8"
+			],
+			"data": ".buildings.farms",
+			"oid": "Player2",
+			"params": {
+				"bg": "inherit"
+			},
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"children": [
+				"_6",
+				"_7"
+			],
+			"cond": {
+				"obj_type": "building"
+			},
+			"data": ".cards",
+			"oid": "farm1",
+			"uid": "_4",
+			"uidParent": "_3"
+		},
+		"_6": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"type": "info",
+			"uid": "_6",
+			"uidParent": "_4"
+		},
+		"_7": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_7",
+			"uidParent": "_4"
+		},
+		"_8": {
+			"children": [
+				"_9",
+				"_10"
+			],
+			"cond": {
+				"obj_type": "building"
+			},
+			"data": ".cards",
+			"oid": "farm2",
+			"uid": "_8",
+			"uidParent": "_3"
+		},
+		"_9": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "cq",
+			"type": "info",
+			"uid": "_9",
+			"uidParent": "_8"
+		}
+	},
+	" 10 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_3",
+				"_4"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".buildings.farms.0.cards",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"type": "info",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_4",
+			"uidParent": "_1"
+		}
+	},
+	" 9 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2",
+				"_6"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".buildings.farms",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"children": [
+				"_4",
+				"_5"
+			],
+			"cond": {
+				"obj_type": "building"
+			},
+			"data": ".cards",
+			"oid": "farm1",
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"type": "info",
+			"uid": "_4",
+			"uidParent": "_2"
+		},
+		"_5": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_5",
+			"uidParent": "_2"
+		},
+		"_6": {
+			"children": [
+				"_7",
+				"_8"
+			],
+			"cond": {
+				"obj_type": "building"
+			},
+			"data": ".cards",
+			"oid": "farm2",
+			"uid": "_6",
+			"uidParent": "_1"
+		},
+		"_7": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "cq",
+			"type": "info",
+			"uid": "_7",
+			"uidParent": "_6"
+		},
+		"_8": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"type": "info",
+			"uid": "_8",
+			"uidParent": "_6"
+		}
+	},
+	" 8 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".hand1.0.short_name",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		}
+	},
+	" 7 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_3",
+				"_4"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".hand1",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"type": "info",
+			"uid": "_4",
+			"uidParent": "_1"
+		}
+	},
+	" 6 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".card.short_name",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		}
+	},
+	" 5 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_3"
+			],
+			"cond": {
+				"name": "amanda"
+			},
+			"data": ".card",
+			"oid": "Player2",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_3",
+			"uidParent": "_1"
+		}
+	},
+	" 4 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_6"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2",
+				"_3"
+			],
+			"cond": {
+				"instanceof": "_player"
+			},
+			"oid": "Player1",
+			"params": {
+				"align-items": "flex-start",
+				"bg": ".color",
+				"orientation": "v"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_10": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"uid": "_10",
+			"uidParent": "_8"
+		},
+		"_11": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"uid": "_11",
+			"uidParent": "_8"
+		},
+		"_2": {
+			"data": ".name",
+			"oid": "Player1",
+			"params": {
+				"bg": "inherit"
+			},
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_3": {
+			"children": [
+				"_4",
+				"_5"
+			],
+			"data": ".hand",
+			"oid": "Player1",
+			"params": {
+				"bg": "inherit",
+				"orientation": "h"
+			},
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"uid": "_4",
+			"uidParent": "_3"
+		},
+		"_5": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"uid": "_5",
+			"uidParent": "_3"
+		},
+		"_6": {
+			"children": [
+				"_7",
+				"_8"
+			],
+			"cond": {
+				"instanceof": "_player"
+			},
+			"oid": "Player2",
+			"params": {
+				"align-items": "flex-start",
+				"bg": ".color",
+				"orientation": "v"
+			},
+			"uid": "_6",
+			"uidParent": "_0"
+		},
+		"_7": {
+			"data": ".name",
+			"oid": "Player2",
+			"params": {
+				"bg": "inherit"
+			},
+			"uid": "_7",
+			"uidParent": "_6"
+		},
+		"_8": {
+			"children": [
+				"_9",
+				"_10",
+				"_11"
+			],
+			"data": ".hand",
+			"oid": "Player2",
+			"params": {
+				"bg": "inherit",
+				"orientation": "h"
+			},
+			"uid": "_8",
+			"uidParent": "_6"
+		},
+		"_9": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "cq",
+			"uid": "_9",
+			"uidParent": "_8"
+		}
+	},
+	" 3 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_4"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2",
+				"_3"
+			],
+			"cond": {
+				"instanceof": "_player"
+			},
+			"data": ".hand",
+			"oid": "Player1",
+			"params": {
+				"orientation": "h"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"children": [
+				"_5",
+				"_6",
+				"_7"
+			],
+			"cond": {
+				"instanceof": "_player"
+			},
+			"data": ".hand",
+			"oid": "Player2",
+			"params": {
+				"orientation": "h"
+			},
+			"uid": "_4",
+			"uidParent": "_0"
+		},
+		"_5": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "cq",
+			"uid": "_5",
+			"uidParent": "_4"
+		},
+		"_6": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "ck",
+			"uid": "_6",
+			"uidParent": "_4"
+		},
+		"_7": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"uid": "_7",
+			"uidParent": "_4"
+		}
+	},
+	" 2 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_2",
+				"_3"
+			],
+			"cond": {
+				"name": "felix"
+			},
+			"data": ".hand",
+			"oid": "Player1",
+			"params": {
+				"orientation": "h"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"uid": "_2",
+			"uidParent": "_1"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"uid": "_3",
+			"uidParent": "_1"
+		}
+	},
+	" 1 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_3",
+				"_4"
+			],
+			"cond": {
+				"name": "felix"
+			},
+			"data": ".hand",
+			"oid": "Player1",
+			"params": {
+				"orientation": "h"
+			},
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c1",
+			"type": "info",
+			"uid": "_3",
+			"uidParent": "_1"
+		},
+		"_4": {
+			"cond": {
+				"obj_type": "card"
+			},
+			"data": ".short_name",
+			"oid": "c2",
+			"type": "info",
+			"uid": "_4",
+			"uidParent": "_1"
+		}
+	},
+	" 0 ": {
+		"_0": {
+			"children": [
+				"_1",
+				"_2"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"cond": {
+				"instanceof": "_player"
+			},
+			"data": ".name",
+			"oid": "Player1",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_2": {
+			"cond": {
+				"instanceof": "_player"
+			},
+			"data": ".name",
+			"oid": "Player2",
+			"uid": "_2",
+			"uidParent": "_0"
+		}
+	}
+}

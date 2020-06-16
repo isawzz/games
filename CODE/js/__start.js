@@ -47,6 +47,11 @@ async function _start() {
 }
 //#endregion
 async function _entryPoint(defs, spec, sdata) {
+
+	//let x = recListToString([[0,1,2],4,[5,6,7]]);
+	//console.log('x',x)
+
+	//testGetElements();
 	//testSolutionConverter();	return;
 	//present00(DEFS,SPEC, sData);
 	//localStorage.clear();

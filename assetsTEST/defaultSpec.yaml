@@ -49,16 +49,21 @@ defaults:
       orientation: h
       split: equal
       border-radius: 10
-      align-items: stretch
-      #align-items: center
-      #align-items: flex-start
-      justify-content: space-evenly
-      align-content: space-evenly
-      justify-items: flex-start
+      justify-items: center
+      justify-content: center
+      align-items: center
+      align-content: center
+      # align-items: stretch
+      # justify-content: space-evenly
+      # align-content: space-evenly
+      # justify-items: flex-start
   invisible:
     params:
       orientation: h
-
+      justify-items: center
+      justify-content: center
+      align-items: center
+      align-content: center
   list:
     params:
       orientation: h
@@ -69,7 +74,10 @@ defaults:
       fg: contrast
       font: 16px Comic Sans MS #AlgerianRegular
       display: flex
+      justify-items: center
+      justify-content: center
       align-items: center
+      align-content: center
   title:
     params:
       font: 10pt AlgerianRegular

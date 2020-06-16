@@ -62,6 +62,12 @@ function mInfo(n, uidParent, R) {
 	} else if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
 		return gInfo(n, uidParent, R);
+	// } else if (isList(n.content)) {
+	// 	//console.log('--------------isdef(content)', n.content)
+	// 	//mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
+	// 	ui = mNode(n.content.join(' '),dParent);
+	// 	n.idUiParent = dParent.id;
+	// 	mClass(ui, 'node');
 	} else if (isdef(n.content)) {
 		//console.log('--------------isdef(content)', n.content)
 		ui = mNode(n.content, dParent);

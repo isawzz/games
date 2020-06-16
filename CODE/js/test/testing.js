@@ -284,7 +284,12 @@ function logVals(title, o) {
 	for (const k in o) { s += k + ':' + o[k] + ' '; }
 	console.log(s);
 }
-
+function testGetElements() {
+	let x = getElements([0, 1, 2]);
+	console.log('x', x);
+	x = getElements([[3, 2], [0, 1, 2]]);
+	console.log('x', x);
+}
 
 
 
