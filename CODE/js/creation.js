@@ -3,7 +3,7 @@ function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
 
 		if (isdef(R.lastSpec.ROOT.cond)) {
-			R.tree = { uid: getUID(), uidParent: null, here: 'ROOT', type: 'invisible' };
+			R.tree = { uid: getUID(), idUiParent: null, uidParent: null, here: 'ROOT', type: 'invisible' };
 			if (R.lastSpec.ROOT.chanav) R.tree.chanav = R.lastSpec.ROOT.chanav;
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
@@ -41,6 +41,21 @@ function addNewlyCreatedServerObjects(sdata, R) {
 	sieveLocOids(R);
 }
 function recAdjustDirtyContainers(uid, R, verbose = false) {
+	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
+	let nui = R.uiNodes[uid];
+
+	if (isdef(nui.children)){
+		for (const ch of nui.children) recAdjustDirtyContainers(ch, R, verbose);
+	}
+	if (nui.adirty) {
+		//if(verbose) console.log('adjusting!!!!',uid)
+		adjustContainerLayout(nui, R);
+	}
+	//if (nundef(nui.children)) return;
+	
+
+}
+function recAdjustDirtyContainers_dep(uid, R, verbose = false) {
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
 	let nui = R.uiNodes[uid];
 	if (nui.adirty) {

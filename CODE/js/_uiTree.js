@@ -1,38 +1,3 @@
-function isListOfServerObjects(x) {
-	let oids = getElements(x);
-	console.log('getElements returns', oids);
-	return false;
-}
-function createPanelParentOfObjects(lst, n1, area, R) {
-	if (nundef(n1.type)) n1.type = lst.length == 1 ? 'invisible' : 'panel';
-	n1.content = null;
-	n1.ui = createUi(n1, area, R);
-}
-function handleListOfObjectIds(lst, n1, area, R) {
-	let keysForOids = findOrCreateKeysForObjTypes(lst, R);
-	for (const oid1 of lst) {
-		let o1 = R.getO(oid1);
-		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
-		//console.log('found key for', oid1, '=', key);
-		let ntree, nui;
-		ntree = instantOidKey(oid1, key, n1.uid, R);
-		nui = recUi(ntree, n1.uid, R, oid1, key);
-	}
-}
-function handleListOfConstants(lst, n1, area, R) {
-	//let keysForOids = findOrCreateKeysForObjTypes(lst, R);
-	for (const oid1 of lst) {
-		let o1 = R.getO(oid1);
-		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
-		//console.log('found key for', oid1, '=', key);
-		let ntree, nui;
-		ntree = instantOidKey(oid1, key, n1.uid, R);
-		nui = recUi(ntree, n1.uid, R, oid1, key);
-	}
-}
-
-
-
 function recUi(n, area, R, oid, key) {
 
 	// *** n is rNode ***
@@ -44,7 +9,7 @@ function recUi(n, area, R, oid, key) {
 	//if (n.uid=='_3') console.log('create uitree node','uid',n.uid,'oid',oid);
 	let n1 = jsCopy(n);
 	let o = isdef(oid) ? R.getO(oid) : null;
-	//console.log('o',oid,o)
+	//console.log('o',oid,o,n, n1)
 	if (isdef(n1.data)) {
 		// if (n1.uid == '_3') {
 		// 	console.log('calling calContentFromData',oid,n1.data,n1.default_data)
@@ -72,6 +37,7 @@ function recUi(n, area, R, oid, key) {
 			let o=R.getO(lst[0]);
 			//console.log('=======o',o);
 			if (isListOfLiterals(lst) && isdef(R.getO(lst[0]))) {
+				//console.log('RICHTIG')
 				createPanelParentOfObjects(lst, n1, area, R);
 				handleListOfObjectIds(lst, n1, area, R);
 			}
@@ -122,46 +88,38 @@ function recUi(n, area, R, oid, key) {
 }
 
 
-function handleListOfObjectIds_VERBOSE(lst, n1, area, R) {
-	//console.log('found list of elements', oids, '\nWAS JETZT???');
-	//hier muss ich jetzt die hand machen!
-	//was ist der unterschied zu board???
+function isListOfServerObjects(x) {
+	let oids = getElements(x);
+	console.log('getElements returns', oids);
+	return false;
+}
+function createPanelParentOfObjects(lst, n1, area, R) {
 	if (nundef(n1.type)) n1.type = lst.length == 1 ? 'invisible' : 'panel';
 	n1.content = null;
 	n1.ui = createUi(n1, area, R);
-	let rTreePanel = R.rNodes[n1.uid];
-
-
+}
+function handleListOfObjectIds(lst, n1, area, R) {
 	let keysForOids = findOrCreateKeysForObjTypes(lst, R);
-	//console.log('__________ END __________')
-
 	for (const oid1 of lst) {
-		//find a specNode!
-		//how to do that???
 		let o1 = R.getO(oid1);
 		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
-
-		// let nSpec=R.getSpec(key);
-		// console.log(nSpec);
-		// if (nundef(nSpec.data)){
-		// 	let dataExp={};
-		// 	for(const k1 in o1){
-		// 		if (k1 == 'obj_type' || k1 == 'oid' || !isLiteral(o1[k1])) continue;
-		// 		dataExp[k1]='.'+k1;
-
-		// 	}
-		// 	let dataKeys=Object.keys(dataExp);
-		// 	if (dataKeys.length == 0) dataExp='X';
-		// 	else if (dataKeys.length == 1) dataExp = '.'+dataKeys[0];
-		// 	nSpec.data=dataExp;
-		// }
-
 		//console.log('found key for', oid1, '=', key);
 		let ntree, nui;
-		//console.log('jetzt kommt',oid)
 		ntree = instantOidKey(oid1, key, n1.uid, R);
 		nui = recUi(ntree, n1.uid, R, oid1, key);
 	}
-	//console.log('rtree children',rTreePanel.children)
-	n1.children = rTreePanel.children;
 }
+function handleListOfConstants(lst, n1, area, R) {
+	//let keysForOids = findOrCreateKeysForObjTypes(lst, R);
+	for (const oid1 of lst) {
+		let o1 = R.getO(oid1);
+		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
+		//console.log('found key for', oid1, '=', key);
+		let ntree, nui;
+		ntree = instantOidKey(oid1, key, n1.uid, R);
+		nui = recUi(ntree, n1.uid, R, oid1, key);
+	}
+}
+
+
+

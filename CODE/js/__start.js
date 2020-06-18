@@ -46,7 +46,11 @@ async function _start() {
 	_entryPoint(DEFS, SPEC, sData);
 }
 //#endregion
+
 async function _entryPoint(defs, spec, sdata) {
+
+	testComposeShapesAndResize();
+	return;
 
 	//let x = recListToString([[0,1,2],4,[5,6,7]]);
 	//console.log('x',x)

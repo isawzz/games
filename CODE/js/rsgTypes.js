@@ -431,6 +431,11 @@ class RSG {
 	removeR(oid, key) { let r = lookup(this._sd, [oid, 'rsg']); if (r) removeInPlace(r, key); }
 
 	// getters
+	getUidWithParent(oid,uidParent){
+		let uids = this.oid2uids[oid];
+		for(const uid of uids){if (R.uiNodes[uid].uidParent == uidParent) return uid; }
+		return null;
+	}
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
 
 	getSpec(spKey = null) { return spKey ? this.lastSpec[spKey] : this.lastSpec; }

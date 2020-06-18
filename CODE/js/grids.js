@@ -6,6 +6,77 @@ function createBoard(nui, area, R) {
 	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
 	generalGrid(nui, area, R);
 }
+
+
+function updateSizes(nuiBoard){
+	let szOrig = nuiBoard.bi.params.fields.size;
+	let szNew = szOrig;
+	let cSizeOrig=nuiBoard.bi.params.corners.size;
+	let cSizeNew = cSizeOrig;
+	let eSizeOrig = nuiBoard.bi.params.fields.size;
+	let eSizeNew = eSizeOrig;
+	if (isdef(nuiBoard.resizeInfo.fields)) {
+		szNew = nuiBoard.resizeInfo.fields;
+	}
+	if (isdef(nuiBoard.resizeInfo.corners)) {
+		cSizeNew = nuiBoard.resizeInfo.corners;
+	}
+	szNew = Math.max(szNew,cSizeNew);
+	if (isdef(nuiBoard.resizeInfo.edges)) {
+		eSizeNew = nuiBoard.resizeInfo.edges;
+	}
+	szNew = Math.max(szNew,eSizeNew);
+	return {sOrig:{f:szOrig,c:cSizeOrig,e:eSizeOrig},sNew:{f:szNew,c:cSizeNew,e:eSizeNew}};
+}
+
+//function resizeShape(ui,)
+
+function regenBoardUis(nuiBoard, R) {
+	let rtreeParent = R.rNodes[nuiBoard.uid];
+	let uidBoard = nuiBoard.uid;
+
+	let sz = updateSizes(nuiBoard);
+
+	console.log('===>nuiBoard',nuiBoard,'\nsizes',sz);
+	//let fieldSize = isdef(nuiBoard.resizeInfo.fields)?nuiBoard.resizeInfo.fields:
+	//if (nuiBoard.resizeInfo.corners )
+
+	for (const name of ['fields', 'edges', 'corners']) {
+		let groupParams = lookup(DEFS, ['grid', 'params', name]); if (!groupParams) groupParams = {};
+		groupParams = safeMerge(groupParams, nuiBoard.bi.params[name]);
+
+		if (nuiBoard.resizeInfo[name]) groupParams.size = nuiBoard.resizeInfo[name];
+		console.log('groupParams', groupParams);
+
+		let group = nuiBoard.bi[name];
+		for (const oid in group) {
+
+			//console.log('oid', oid, 'uidBoard', uidBoard)
+			let uid = R.getUidWithParent(oid, uidBoard);
+			//console.log('uid', uid)
+			let n = R.uiNodes[uid];
+
+			console.log('found', name, 'with oid', oid, n);
+
+			// n is uiNode fuer das field (or corner....) to be resized! and repositioned!!!
+
+
+			// let n1 = group[oid];
+			// let o = n1.o;
+			// delete n1.o;
+
+			// let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
+
+			// let ntree, nui;
+			// //console.log('jetzt kommt',oid)
+			// ntree = instantOidKey(oid, key, uidBoard, R);
+			// ntree.params = isdef(ntree.params) ? safeMerge(groupParams, ntree.params) : groupParams;
+			// ntree.info = n1.info;
+			// nui = recUi(ntree, uidBoard, R, oid, key);
+		}
+	}
+	nuiBoard.children = rtreeParent.children;
+}
 function generalGrid(nuiBoard, area, R) {
 
 	//console.log('gengrid')
@@ -56,7 +127,7 @@ function generalGrid(nuiBoard, area, R) {
 	let boardDiv = nuiBoard.bi.boardDiv;
 	let boardG = nuiBoard.ui;
 	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal });
-	boardG.style.transform = "translate(50%, 50%)"; 
+	boardG.style.transform = "translate(50%, 50%)";
 
 	//positioning of elements!
 	for (const fid of nuiBoard.children) {

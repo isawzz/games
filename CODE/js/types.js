@@ -1,34 +1,38 @@
 function mInvisible(n, uidParent, R) {
 	//console.log('invisible',n.uid,n.data,n.params)
-	let dParent = mBy(uidParent);
+	let dParent = mBy(n.idUiParent);
 	let d = mDiv(dParent);
 	// console.log('invisible')
-	if (n.data) { console.log('habe data', n.data) }
-	if (n.content) { console.log('habe content!!!', n.content); mTextDiv(n.content, d); }
-	n.idUiParent = d.id;
+	//if (n.data) { console.log('habe data', n.data) }
+	if (n.content) { 
+		//console.log('habe content!!!', n.content); 
+		mTextDiv(n.content, d); 
+	}
+	//n.idUiParent = d.id;
 	return d;
 }
 function mInfo(n, uidParent, R) {
 	//console.log('info',n.uid,n.data,n.params)
 
 	let ui;
-	let dParent = mBy(uidParent);
+	let dParent = mBy(n.idUiParent); //uidParent);
 	//console.log(uidParent, dParent, R.uiNodes)
-	if (uidParent && isBoardMember(uidParent, R)) {
-		//console.log('--------------isBoardMember', n.content)
-		ui = makeUiOnBoardMember(n, uidParent, R);
-	} else if (getTypeOf(dParent) == 'g') {
+	// if (uidParent && isBoardMember(uidParent, R)) {
+	// 	//console.log('--------------isBoardMember', n.content)
+	// 	ui = makeUiOnBoardMember(n, uidParent, R);
+	// } else 
+	if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
 		return gInfo(n, uidParent, R);
 	} else if (isdef(n.content)) {
 		//console.log('--------------isdef(content)', n.content)
 		ui = mNode(n.content, dParent);
-		n.idUiParent = dParent.id;
+		//n.idUiParent = dParent.id;
 		mClass(ui, 'node');
 	} else {
 		//console.log('--------------else', n.content)
 		ui = mDiv(dParent);
-		n.idUiParent = dParent.id;
+		//n.idUiParent = dParent.id;
 		ui.style.display = 'hidden';
 	}
 	return ui;
@@ -76,10 +80,16 @@ function gInfo(n, uidParent, R) {
 }
 function positionGElement(ui, uidParent, topG) {
 	let uiParent = mBy(uidParent);
+	
 	if (isdef(uiParent) && topG != uiParent) {
+
+		console.log('positionGElement',ui.id, uiParent.id, topG.id);
+		console.log(ui,uiParent,topG)
+
 		//if (uidParent == '_4' || uidParent == '_5') console.log('uiParent', uiParent);
 		let bds = getBounds(uiParent, true);
 		let trans = getTransformInfo(uiParent);
+		console.log('positionGElement,trans',trans)
 		let [x, y] = [trans.translateX, trans.translateY];
 		//console.log('______________ TRANS:', '\nx', x, '\ny', y, '\ntrans', trans, '\nw', bds.width, '\nh', bds.height);
 		let x1 = -22; // x - bds.width / 2;
@@ -91,7 +101,7 @@ function positionGElement(ui, uidParent, topG) {
 		let trans1 = uiParent.style.transform;
 		let tt = trans1.split('translate');
 		if (tt.length <= 1) {
-			console.log('there is NO translate transform!!!');
+			console.log('there is NO translate transform!!! uiParent',uiParent);
 		} else {
 			//assuming only translate transform!
 			let traNumbersX = trans1.split('('); //getAttribute('transform');
@@ -132,8 +142,7 @@ function addTitleToGrid(n,d){
 }
 function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	let boardDiv = stage3_prepContainer(dParent);
 
@@ -158,7 +167,6 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 	n.uidDiv = n.uidStyle = boardDiv.id;
 	n.uidG = n.uid;
 
-
 	//do your own styling!or WHAT??????????
 
 	return ui;
@@ -168,8 +176,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 //container types
 function mPanel(n, uidParent, R) {
 	//console.log('panel',n.uid,n.data,n.params)
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	if (getTypeOf(dParent) == 'g') { return gPanel(n, uidParent, R); }
 
@@ -211,8 +218,7 @@ function gPanel(n, uidParent, R) {
 
 function mList(n, uidParent, R) {
 
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	let ui = mDiv(dParent);
 
@@ -222,8 +228,7 @@ function mList(n, uidParent, R) {
 	return ui;
 }
 function mHand(n, uidParent, R) {
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	let ui = mDiv(dParent);
 	addClass(ui, 'handStyle');
@@ -236,8 +241,7 @@ function mHand(n, uidParent, R) {
 
 //leaf types
 function mCard(n, uidParent, R) {
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	//fuer solution 2:
 	let uiWrapper = mDiv(dParent);
@@ -255,8 +259,7 @@ function mCard(n, uidParent, R) {
 }
 function mPicto(n, uidParent, R) {
 
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	//console.log('haloooooooooooooooooo')
 	//content should be key to iconChars
@@ -274,8 +277,7 @@ function mPicto(n, uidParent, R) {
 	return ui;
 }
 function mTitle(n, uidParent, R) {
-	let dParent = mBy(uidParent);
-	n.idUiParent = dParent.id;
+	let dParent = mBy(n.idUiParent);
 
 	//console.log(n,dParent)
 	let ui = mTextDiv(n.content, dParent);
@@ -362,47 +364,6 @@ function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand';
 function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t == 'picto'; }
 //function isPositionedType(t) { return t == 'boardElement'; }
 function isGridType(t) { return t == 'grid'; }
-function makeUiOnBoardMember(n, uidParent, R) {
-	let ui;
-	let divParent = findAncestorElemOfType(mBy(uidParent), 'div');
-	n.idUiParent = divParent.id;
-	let directParent = mBy(uidParent); //parent of robber
-	//console.log('\ndivParent is', divParent, '\ndirectParent is', directParent);
-
-	//ui = mTextDiv(n.content	); 
-	//ui = isdef(n.content)?mNode(n.content, divParent):mDiv(divParent);
-	ui = mNode(n.content, divParent);
-
-	//als erstes alle stylings!
-	let pre = ui.children[0];
-	if (!n.content) {
-		pre.innerHTML = '';
-		n.adirty = true;
-	} else {
-		pre.style.fontSize = '10pt';
-	}
-	ui.style.borderRadius = '6px';
-	ui.style.padding = '2px 10px 2px 8px';
-
-	applyCssStyles(ui, n.cssParams);
-
-	//als zweites append damit getBounds functioniert
-	mAppend(divParent, ui);
-
-	//als LETZTES: positioning!
-	let bmk = getBounds(directParent, false, divParent);//false,mBy('table'));
-	ui.style.position = 'absolute';
-	ui.style.display = 'inline-block';
-
-	//das darf erst NACH inline-block sein weil size veraendert!!!!!!!!!
-	let bel = getBounds(ui);
-	ui.style.left = (bmk.left + (bmk.width - bel.width) / 2) + 'px';
-	ui.style.top = (bmk.top + (bmk.height - bel.height) / 2) + 'px';
-	n.uiType = 'childOfBoardElement';
-	n.potentialOverlap = true;
-	return ui;
-
-}
 
 
 

@@ -11,23 +11,23 @@ players:
     color: blue
     hand: [c1]
 table:
-  robber:
-    loc: "0"
-    obj_type: robber
-    hand: [c1, c2, c3]
+  # robber:
+  #   loc: "0"
+  #   obj_type: robber
+  #   hand: [c1, c2, c3]
   rob1:
     loc: "1"
     obj_type: robber
-    hand: oh
-  rob2:
-    loc: "4"
-    obj_type: robber
-    hand: 
-      a: gott 
-      b: was ist da 
-      c: los komisch
-    params:
-      text-align: left
+    hand: ohhhhhhhhhhhhhhhhh
+  # rob2:
+  #   loc: "4"
+  #   obj_type: robber
+  #   hand: 
+  #     a: gott 
+  #     b: was ist da 
+  #     c: los komisch
+  #   params:
+  #     text-align: left
   c1:
     obj_type: card
     short_name: A

@@ -1,4 +1,38 @@
+//#region test drawing, shapes, elements & functions
+function testComposeShapesAndResize(){
+	let g = testMakeACanvas();
+}
+function testMakeACanvas(){
+	let dParent = mBy('table');
+	dParent.style.width=400+'px';
+	dParent.style.height=300+'px';
+	mColor(dParent,'yellow');
 
+	let div = stage3_prepContainer(dParent);
+	div.style.width=400+'px';
+	div.style.height=300+'px';
+	mColor(div,'orange');
+
+	//addTitleToGrid(n,d)
+
+	let svg = gSvg();
+
+	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
+	svg.setAttribute('style', style);
+	mColor(svg,'green');
+	div.appendChild(svg);
+
+	let g = gG();
+	gBg(g,'blue'); //unsichtbar weil es size 0 ist? JA
+	
+	svg.appendChild(g);
+	return g;
+}
+
+
+
+
+//#endregion
 
 //#region server data change!
 var TV = {};
@@ -290,6 +324,7 @@ function testGetElements() {
 	x = getElements([[3, 2], [0, 1, 2]]);
 	console.log('x', x);
 }
+
 
 
 
