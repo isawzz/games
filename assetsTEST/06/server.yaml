@@ -18,7 +18,7 @@ table:
   rob1:
     loc: "1"
     obj_type: robber
-    hand: ohhhhhhhhhhhhhhhhh
+    #hand: ohhhhhhhhhhhhhhhhh
   # rob2:
   #   loc: "4"
   #   obj_type: robber

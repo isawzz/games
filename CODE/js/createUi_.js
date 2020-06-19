@@ -9,6 +9,11 @@ function calcDirectParentAndIdUiParent(n, uidParent, R) {
 
 function createUi(n, uidParent, R) {
 
+	if (n == R.uiNodes[n.uid]){
+		//console.log('n in createUi is uiNode',n.uid);
+	}else if (n == R.rNodes[n.uid]){
+		console.log('n in createUi is rNode',n.uid);
+	}
 	//if (n.uid == '_14') {		console.log('createUi', n)	}
 	if (nundef(n.type)) { n.type = inferType(n); }
 
@@ -48,13 +53,13 @@ function createUi(n, uidParent, R) {
 
 function adjustContainerLayout(n, R) {
 
-	console.log('adjustContainer', n.uid);
+	//console.log('adjustContainer', n.uid);
 	n.adirty = false;
 
 	//console.log(n);return;
 	if (n.type == 'grid') {
-		console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
-		regenBoardUis(n,R);
+		//console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
+		resizeBoard(n,R);
 		return;
 	}
 
@@ -64,12 +69,12 @@ function adjustContainerLayout(n, R) {
 	//hier kommt jetzt das adjusting wenn parent ein board member ist und child ein div ist
 	// n ist hier der parent also das board member!!!!
 	if (n.uid && isBoardMember(n.uid, R)) {
-		console.log('adjust layout for a board member parent', n);
+		//console.log('adjust layout for a board member parent', n);
 
 		//first assume there is only 1 child (because if there is more than 1, there should have been placed a panel!!!!)
-		console.assert(n.children.length == 1, 'board member as parent: adjusting layout for MORE THAN 1 CHILD!!!!!! - should have used a panel!!!!!!')
+		//console.assert(n.children.length == 1, 'board member as parent: adjusting layout for MORE THAN 1 CHILD!!!!!! - should have used a panel!!!!!!')
 		let ch = n.children[0];
-		console.log('child of board member is', ch, R.uiNodes[ch]);
+		//console.log('child of board member is', ch, R.uiNodes[ch]);
 		let n1 = R.uiNodes[ch];
 		let divParent = mBy(n1.idUiParent);
 		let directParent = mBy(n1.uidParent);
@@ -89,14 +94,14 @@ function adjustContainerLayout(n, R) {
 		ui.style.top = y + 'px';
 		ui.style.margin = '0px';
 
-		console.log('tile bounds', bmk, '\nui bounds', bel, '\nleft', x, '\ntop', y, '\nui', ui);
-		console.log('tile size', bmk.width,'x',bmk.height, '\nui size', bel.width,'x',bel.height); 
+		//console.log('tile bounds', bmk, '\nui bounds', bel, '\nleft', x, '\ntop', y, '\nui', ui);
+		//console.log('tile size', bmk.width,'x',bmk.height, '\nui size', bel.width,'x',bel.height); 
 		n.sizeNeeded={w:Math.max(bmk.width,bel.width),h:Math.max(bmk.height,bel.height)};
 		
 		if (bmk.width<bel.width || bmk.height<bel.height) {
 			//need to adjust layout for board as well!!!!!!!
 			let nBoard = R.uiNodes[n.uidParent];
-			console.log('______________\nboard should be',nBoard);
+			//console.log('______________\nboard should be',nBoard);
 			nBoard.adirty=true;
 
 			//1. which type of member is n?
@@ -113,7 +118,7 @@ function adjustContainerLayout(n, R) {
 			//ALL board member sizes must be divisible by 4!!!!!!!
 
 
-			console.log('memType',memType,'\ncurSize',curSize,'\nnewSize',newSize);
+			//console.log('memType',memType,'\ncurSize',curSize,'\nnewSize',newSize);
 
 
 

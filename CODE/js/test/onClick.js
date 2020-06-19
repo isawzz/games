@@ -1,3 +1,11 @@
+function onClickResizeBoard(){
+	let nuiBoard = R.uiNodes['_2'];
+	nuiBoard.adirty = true;
+	lookupSet(nuiBoard,['resizeInfo','fields'],80);
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+}
+
 async function onClickRunAll(){
 	STOP = false;
 	let sel=mBy('selSeries');

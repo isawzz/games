@@ -1,12 +1,34 @@
 //#region test drawing, shapes, elements & functions
 function testComposeShapesAndResize(){
-	let g = testMakeACanvas();
+	let g = gCanvas('table',400,300,'skyblue'); 
+	//let g = testMakeACanvas();
+
+	//testResizeRect(g);
+	//testResizeEllipse(g);
+	testResizeHex(g);
+
+
+}
+function testResizeHex(g){
+	let el = agHex(g,50,50);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el,'blue');
+	gPos(el,100,110);
+	gSize(el,20,20,'hex');//hex info MUSS dabei sein!!!!
+}
+function testResizeEllipse(g){
+	let el = agEllipse(g,100,100);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el,'violet');
+	gPos(el,100,110);
+	gSize(el,50,20);
+}
+function testResizeRect(g){
+	let el = agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el,'violet');
+	gPos(el,100,110);
+	gSize(el,50,20);
 }
 function testMakeACanvas(){
 	let dParent = mBy('table');
-	dParent.style.width=400+'px';
-	dParent.style.height=300+'px';
-	mColor(dParent,'yellow');
 
 	let div = stage3_prepContainer(dParent);
 	div.style.width=400+'px';
@@ -23,7 +45,8 @@ function testMakeACanvas(){
 	div.appendChild(svg);
 
 	let g = gG();
-	gBg(g,'blue'); //unsichtbar weil es size 0 ist? JA
+	g.style.transform = "translate(50%, 50%)";	
+	gBg(g,'blue'); 
 	
 	svg.appendChild(g);
 	return g;

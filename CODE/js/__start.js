@@ -49,8 +49,8 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
-	testComposeShapesAndResize();
-	return;
+	//testComposeShapesAndResize();
+	//return;
 
 	//let x = recListToString([[0,1,2],4,[5,6,7]]);
 	//console.log('x',x)
@@ -104,6 +104,8 @@ async function present00(sp, defaults, sdata) {
 	//activateUis(R);
 
 	testEngine.verify(R);
+
+	//setTimeout(onClickResizeBoard,500);
 
 }
 

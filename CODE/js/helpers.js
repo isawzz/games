@@ -22,9 +22,9 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 	if (shape != 'line') agColoredShape(el, shape, w, h, color);
 	else gStroke(el, color, w); //agColoredLine(el, w, color);
 
-	if (isdef(rounding) && shape == 'rect') { 
+	if (isdef(rounding) && shape == 'rect') {
 		let r = el.children[0];
-		gRounding(r,rounding);
+		gRounding(r, rounding);
 		//console.log(rounding,r);
 		// r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
 		// r.setAttribute('ry', rounding);
@@ -41,9 +41,9 @@ function applyCssStyles(ui, params) {
 		//must apply styles differently or not at all!!!!!
 		mStyle(ui, params); //geht ja eh!!!!!!!!!!
 
-	} else { 
+	} else {
 		//console.log('apply NOW',ui,params)
-		mStyle(ui, params); 
+		mStyle(ui, params);
 	}
 }
 function asElem(x) { return isString(x) ? mBy(x) : x; }
@@ -204,9 +204,26 @@ function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '<
 //#region SVG/g 1 liners A list shapes
 function gCreate(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
 function gPos(g, x, y) { g.style.transform = `translate(${x}px, ${y}px)`; }
+function gSize(g, w, h, shape = null, iChild = 0) {
+	//console.log(getTypeOf(g))
+	let el = (getTypeOf(g) != 'g') ? g : g.children[iChild];
+	let t = getTypeOf(el);
+	//console.log('g', g, '\ntype of g child', el, 'is', t);
+	switch (t) {
+		case 'rect': el.setAttribute('width', w); el.setAttribute('height', h); break;
+		case 'ellipse': el.setAttribute('rx', w / 2); el.setAttribute('ry', h / 2); break;
+		default:
+			if (shape) {
+				switch (shape) {
+					case 'hex': let pts = size2hex(w, h); el.setAttribute('points', pts);  break;
+				}
+			}
+	}
+	return el;
+}
 function gBg(g, color) { g.setAttribute('fill', color); }
 function gFg(g, color, thickness) { g.setAttribute('stroke', color); if (thickness) g.setAttribute('stroke-width', thickness); }
-function gRounding(r,rounding){
+function gRounding(r, rounding) {
 	//let r = el.children[0];
 	//console.log(rounding,r);
 	r.setAttribute('rx', rounding); // rounding kann ruhig in % sein!
@@ -221,6 +238,26 @@ function gPoly(pts) { let r = gCreate('polygon'); if (pts) r.setAttribute('point
 function gRect(w, h) { let r = gCreate('rect'); r.setAttribute('width', w); r.setAttribute('height', h); r.setAttribute('x', -w / 2); r.setAttribute('y', -h / 2); return r; }
 function gEllipse(w, h) { let r = gCreate('ellipse'); r.setAttribute('rx', w / 2); r.setAttribute('ry', h / 2); return r; }
 function gLine(x1, y1, x2, y2) { let r = gCreate('line'); r.setAttribute('x1', x1); r.setAttribute('y1', y1); r.setAttribute('x2', x2); r.setAttribute('y2', y2); return r; }
+
+function gCanvas(area, w, h, color, originInCenter = true) {
+	let dParent = mBy(area);
+	let div = stage3_prepContainer(dParent);
+	div.style.width = w + 'px';
+	div.style.height = h + 'px';
+
+	let svg = gSvg();
+	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
+	svg.setAttribute('style', style);
+	mColor(svg, color);
+	div.appendChild(svg);
+
+	let g = gG();
+	if (originInCenter) g.style.transform = "translate(50%, 50%)";
+	svg.appendChild(g);
+
+	return g;
+
+}
 
 function agCircle(g, sz) { let r = gEllipse(sz, sz); g.appendChild(r); return r; }
 function agEllipse(g, w, h) { let r = gEllipse(w, h); g.appendChild(r); return r; }
@@ -2091,7 +2128,7 @@ function cloneIfNecessary(value, optionsArgument) {
 }
 function defaultArrayMerge(target, source, optionsArgument) {
 	var destination = target.slice()
-	source.forEach(function (e, i) { 
+	source.forEach(function (e, i) {
 		if (typeof destination[i] === 'undefined') { //el[i] nur in source
 			destination[i] = cloneIfNecessary(e, optionsArgument)
 		} else if (isMergeableObject(e)) { //el[i] in beidem
@@ -2148,7 +2185,7 @@ function mergeOverrideArrays(base, drueber) {
 function mergeCombineArrays(base, drueber) {
 	return deepmerge(base, drueber);
 }
-function deepmergeOverride(base,drueber){return mergeOverrideArrays(base,drueber);}
+function deepmergeOverride(base, drueber) { return mergeOverrideArrays(base, drueber); }
 // function merge(base, drueber) {
 // 	return deepmerge(base, drueber);
 // }
@@ -3212,7 +3249,7 @@ function isListOfLiterals(lst) {
 	}
 	return true;
 }
-function isListOfLists(lst){
+function isListOfLists(lst) {
 	return isList(lst) && !isEmpty(lst) && isList(lst[0]);
 }
 function isNumber(param) { return !isNaN(Number(param)); }

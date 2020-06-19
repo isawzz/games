@@ -152,6 +152,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
 	boardSvg.setAttribute('style', style);
+	boardSvg.id = n.uid + '_svg';
 	boardDiv.appendChild(boardSvg);
 
 	let boardG = gG();
@@ -165,6 +166,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 	n.uiType = 'h';
 
 	n.uidDiv = n.uidStyle = boardDiv.id;
+	n.uidSvg = boardSvg.id;
 	n.uidG = n.uid;
 
 	//do your own styling!or WHAT??????????

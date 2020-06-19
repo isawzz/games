@@ -3,7 +3,7 @@ function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
 
 		if (isdef(R.lastSpec.ROOT.cond)) {
-			R.tree = { uid: getUID(), idUiParent: null, uidParent: null, here: 'ROOT', type: 'invisible' };
+			R.tree = { uid: getUID(), uidParent: null, here: 'ROOT', type: 'invisible' };
 			if (R.lastSpec.ROOT.chanav) R.tree.chanav = R.lastSpec.ROOT.chanav;
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
