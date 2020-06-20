@@ -1,0 +1,141 @@
+# 20:
+#   ROOT:
+#     cond: 
+#       name: felix
+#     data: .hand
+#   sa:
+#     cond:
+#       obj_type: card
+#     data: .short_name
+# 8:
+#   ROOT:
+#     sub:
+#       - _id: sa
+#       - _id: sb
+#     _id: vpanel
+#     sa:
+#       _ref: sa
+#       cond: 
+#         instanceof: _player
+#       sub:
+#         - data: .name
+#           params:
+#             bg: inherit
+#         - data: .hand
+#           type: panel
+#           params:
+#             bg: inherit
+#       _id: vpanel
+#       params:
+#         bg: .color
+#     sb:
+#       _ref: sb
+#       cond:
+#         obj_type: Board
+#       type: grid
+#     card:
+#       cond:
+#         obj_type: card
+#       params:
+#         height: 35
+#         width: 25
+#       data: .short_name        
+#     vpanel:
+#       _ref: vpanel
+#       params:
+#         orientation: v
+#         padding: 0
+#         margin: 2
+# 7: #ok
+#   ROOT:
+#     cond: 
+#       obj_type: Board
+#     params:
+#       margin: 20
+#     data: .oid
+#     type: grid
+#   sa:
+#     cond: 
+#       obj_type: robber
+#     data: .hand
+#     params:
+#       fg: contrast
+#       orientation: h
+#   card:
+#     cond:
+#       obj_type: card
+#     data: .short_name
+7: #ok
+  ROOT:
+    cond: 
+      obj_type: CatanBoard
+    params:
+      padding: 20
+    data: .oid
+    type: grid
+  sa:
+    cond: 
+      obj_type: robber
+    data: .hand
+    params:
+      fg: contrast
+6: #ok
+  ROOT:
+    cond: 
+      obj_type: Board
+    params:
+      padding: 20
+    data: .oid
+    type: grid
+  sa:
+    cond: 
+      obj_type: robber
+    data: .hand
+    params:
+      fg: contrast
+5: #ok
+  ROOT:
+    cond: 
+      obj_type: Board
+    data: .oid
+    type: grid
+    params:
+      padding: 20
+4:
+  ROOT:
+    cond: 
+      name: amanda
+    data: .name
+    sub:
+      - data: .oid
+      - data: .hand
+3:
+  ROOT:
+    cond: 
+      obj_type: Board
+    #data: .oid
+    type: grid
+2:
+  ROOT:
+    cond: 
+      obj_type: Board
+    data: .oid
+  
+1:
+  ROOT:
+    cond: 
+      name: felix
+    data: .hand
+0:
+  ROOT:
+    cond: 
+      instanceof: _player
+    data: .name
+
+
+
+
+
+
+
+

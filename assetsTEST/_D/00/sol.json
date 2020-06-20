@@ -327,6 +327,7 @@
 			],
 			"data": "green yellow",
 			"params": {
+				"bg": "green",
 				"fg": "yellow"
 			},
 			"uid": "_0",
@@ -335,6 +336,7 @@
 		"_2": {
 			"data": "yellow",
 			"params": {
+				"bg": "green",
 				"fg": "red"
 			},
 			"uid": "_2",

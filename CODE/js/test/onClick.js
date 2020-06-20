@@ -1,7 +1,17 @@
 function onClickResizeBoard(){
 	let nuiBoard = R.uiNodes['_2'];
 	nuiBoard.adirty = true;
-	lookupSet(nuiBoard,['resizeInfo','fields'],80);
+	lookupSetOverride(nuiBoard,['resizeInfo','fields'],80);
+	//console.log('resizeInfo',nuiBoard.resizeInfo)
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+}
+function onClickSmallerBoard(){
+	let nuiBoard = R.uiNodes['_2'];
+	//console.log('nuiBoard vor resizing to smaller:',nuiBoard)
+	nuiBoard.adirty = true;
+	lookupSetOverride(nuiBoard,['resizeInfo','fields'],32);
+	//console.log('resizeInfo',nuiBoard.resizeInfo)
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
 }

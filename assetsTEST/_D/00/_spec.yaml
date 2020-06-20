@@ -49,6 +49,7 @@
     data: yellow
     params:
       fg: red
+      bg: green
   B:
     data: green
     sub:

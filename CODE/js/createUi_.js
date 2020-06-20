@@ -51,24 +51,7 @@ function createUi(n, uidParent, R) {
 
 }
 
-function adjustContainerLayout(n, R) {
-
-	//console.log('adjustContainer', n.uid);
-	n.adirty = false;
-
-	//console.log(n);return;
-	if (n.type == 'grid') {
-		//console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
-		resizeBoard(n,R);
-		return;
-	}
-
-	if (n.type == 'hand') { layoutHand(n); return; }
-	//if (n.type == 'hand') { sortCards(n); return; }
-
-	//hier kommt jetzt das adjusting wenn parent ein board member ist und child ein div ist
-	// n ist hier der parent also das board member!!!!
-	if (n.uid && isBoardMember(n.uid, R)) {
+function adjustLayoutForBoardMember(n,R){
 		//console.log('adjust layout for a board member parent', n);
 
 		//first assume there is only 1 child (because if there is more than 1, there should have been placed a panel!!!!)
@@ -128,6 +111,27 @@ function adjustContainerLayout(n, R) {
 		n.uiType = 'childOfBoardElement';
 		n.potentialOverlap = true;
 
+}
+function adjustContainerLayout(n, R) {
+
+	//console.log('adjustContainer', n.uid);
+	n.adirty = false;
+
+	//console.log(n);return;
+	if (n.type == 'grid') {
+		//console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
+		resizeBoard(n,R);
+		return;
+	}
+
+	if (n.type == 'hand') { layoutHand(n); return; }
+	//if (n.type == 'hand') { sortCards(n); return; }
+
+	//hier kommt jetzt das adjusting wenn parent ein board member ist und child ein div ist
+	// n ist hier der parent also das board member!!!!
+	if (n.uid && isBoardMember(n.uid, R)) {
+
+		adjustLayoutForBoardMember(n,R);
 	}
 
 

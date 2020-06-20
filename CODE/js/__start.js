@@ -49,6 +49,7 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
+	await testAblauf0(defs,spec,sdata);return;
 	//testComposeShapesAndResize();
 	//return;
 

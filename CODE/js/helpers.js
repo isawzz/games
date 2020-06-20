@@ -210,7 +210,7 @@ function gSize(g, w, h, shape = null, iChild = 0) {
 	let t = getTypeOf(el);
 	//console.log('g', g, '\ntype of g child', el, 'is', t);
 	switch (t) {
-		case 'rect': el.setAttribute('width', w); el.setAttribute('height', h); break;
+		case 'rect': el.setAttribute('width', w); el.setAttribute('height', h);el.setAttribute('x', -w / 2); el.setAttribute('y', -h / 2); break;
 		case 'ellipse': el.setAttribute('rx', w / 2); el.setAttribute('ry', h / 2); break;
 		default:
 			if (shape) {

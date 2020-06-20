@@ -1,6 +1,55 @@
 //#region test drawing, shapes, elements & functions
-function testComposeShapesAndResize(){
-	let g = gCanvas('table',400,300,'skyblue'); 
+async function testAblauf0(defs, spec, sdata0) {
+	await testEngine.init(defs, sdata0, TEST_SERIES);
+	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
+	T = R = new RSG(sp, defaults, sdata);
+	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
+	ensureRtree(R);
+	R.baseArea = 'table';
+	createStaticUi(R.baseArea, R);
+
+	//addNewlyCreatedServerObjects
+	for (const oid in sdata) { R.addObject(oid, sdata[oid]); R.addRForObject(oid); }
+	for (const oid in sdata) {
+		let o = sdata[oid];
+		if (isdef(o.loc)) { continue; }
+
+		let topUids;
+		for (const key of R.getR(oid)) {
+			let specNode = R.getSpec(key);
+
+			//add rtree: topUids will be newly created top level rNodes
+			if (o.loc && nundef(R.Locations[key]) && nundef(specNode._ref)) {
+				topUids = addOidByLocProperty(oid, key, R);
+			} else if (isdef(R.Locations[key])) {
+				topUids = addOidByParentKeyLocation(oid, key, R);
+			}
+
+			if (isEmpty(topUids)) { continue; } // no rNode was produced, therefore, no uiNode
+
+			//for each rtree add corresponding uiNodes
+			for (const top of topUids) {
+				let uiParent = R.uiNodes[top.uidParent];
+				let rParent = R.rNodes[top.uidParent];
+				if (isdef(uiParent)) {
+					uiParent.adirty = true;
+					uiParent.children = rParent.children.map(x => x);
+				}
+				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+			}
+		}
+	}
+	sieveLocOids(R); // process .loc objects that have not been able to be added because parent is also loc and hasn't been added!
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	updateOutput(R);
+	testEngine.verify(R);
+}
+
+
+function testComposeShapesAndResize() {
+	let g = gCanvas('table', 400, 300, 'skyblue');
 	//let g = testMakeACanvas();
 
 	//testResizeRect(g);
@@ -9,31 +58,31 @@ function testComposeShapesAndResize(){
 
 
 }
-function testResizeHex(g){
-	let el = agHex(g,50,50);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
-	gBg(el,'blue');
-	gPos(el,100,110);
-	gSize(el,20,20,'hex');//hex info MUSS dabei sein!!!!
+function testResizeHex(g) {
+	let el = agHex(g, 50, 50);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el, 'blue');
+	gPos(el, 100, 110);
+	gSize(el, 20, 20, 'hex');//hex info MUSS dabei sein!!!!
 }
-function testResizeEllipse(g){
-	let el = agEllipse(g,100,100);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
-	gBg(el,'violet');
-	gPos(el,100,110);
-	gSize(el,50,20);
+function testResizeEllipse(g) {
+	let el = agEllipse(g, 100, 100);// agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el, 'violet');
+	gPos(el, 100, 110);
+	gSize(el, 50, 20);
 }
-function testResizeRect(g){
-	let el = agRect(g,100,50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
-	gBg(el,'violet');
-	gPos(el,100,110);
-	gSize(el,50,20);
+function testResizeRect(g) {
+	let el = agRect(g, 100, 50); //der macht nicht ein shape mit rect als ground sondern NUR ein rect!!!!!!
+	gBg(el, 'violet');
+	gPos(el, 100, 110);
+	gSize(el, 50, 20);
 }
-function testMakeACanvas(){
+function testMakeACanvas() {
 	let dParent = mBy('table');
 
 	let div = stage3_prepContainer(dParent);
-	div.style.width=400+'px';
-	div.style.height=300+'px';
-	mColor(div,'orange');
+	div.style.width = 400 + 'px';
+	div.style.height = 300 + 'px';
+	mColor(div, 'orange');
 
 	//addTitleToGrid(n,d)
 
@@ -41,13 +90,13 @@ function testMakeACanvas(){
 
 	let style = `margin:0;padding:0;position:absolute;top:0px;left:0px;width:100%;height:100%;`
 	svg.setAttribute('style', style);
-	mColor(svg,'green');
+	mColor(svg, 'green');
 	div.appendChild(svg);
 
 	let g = gG();
-	g.style.transform = "translate(50%, 50%)";	
-	gBg(g,'blue'); 
-	
+	g.style.transform = "translate(50%, 50%)";
+	gBg(g, 'blue');
+
 	svg.appendChild(g);
 	return g;
 }

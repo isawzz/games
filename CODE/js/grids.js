@@ -1,39 +1,90 @@
 
 function createBoard(nui, area, R) {
+	function generalGrid(nuiBoard, area, R) {
+
+		//console.log('gengrid')
+		// *** stage 1 create parent *** 
+		let bParams = nuiBoard.params = detectBoardParams(nuiBoard, R);
+
+		//console.log('area',area); mTextDiv('HALLO',mBy(area));
+
+		let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
+
+		// *** stage 2 create children *** (in n.bi)
+		let rtreeParent = R.rNodes[nuiBoard.uid];
+		let uidBoard = nuiBoard.uid;
+
+		nuiBoard.params.sizes = nuiBoard.bi.sizes = { f: 0, c: 0, e: 0 };
+
+		for (const name of ['fields', 'edges', 'corners']) {
+			let groupParams = lookup(DEFS, ['grid', 'params', name]); if (!groupParams) groupParams = {};
+			groupParams = safeMerge(groupParams, nuiBoard.bi.params[name]);
+			let group = nuiBoard.bi[name];
+
+			let groupSize = nuiBoard.params.sizes[name[0]] = groupParams.size;
+
+			for (const oid in group) {
+				let n1 = group[oid];
+				let o = n1.o;
+				delete n1.o;
+
+				let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
+
+				let ntree, nui;
+				//console.log('jetzt kommt',oid)
+				ntree = instantOidKey(oid, key, uidBoard, R);
+				ntree.params = isdef(ntree.params) ? safeMerge(groupParams, ntree.params) : groupParams;
+
+				if (ntree.params.size != groupSize) groupSize = nuiBoard.params.sizes[name[0]] = ntree.params.size;
+
+				ntree.info = n1.info;
+				nui = recUi(ntree, uidBoard, R, oid, key);
+			}
+		}
+		nuiBoard.children = rtreeParent.children;
+		nuiBoard.adirty = true;
+
+		// *** stage 4: layout! means append & positioning = transforms... ***
+		//gridLayout_(nuiBoard, R);
+	}
 	let [oid, boardType] = detectBoardOidAndType(nui.oid, nui.boardType, R);
 	nui.oid = oid;
 	nui.boardType = boardType;
 	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
 	generalGrid(nui, area, R);
 }
-
-
-function updateSizes(nuiBoard) {
-	let szOrig = nuiBoard.bi.params.fields.size;
-	let szNew = szOrig;
-	let cSizeOrig = nuiBoard.bi.params.corners.size;
-	let cSizeNew = cSizeOrig;
-	let eSizeOrig = nuiBoard.bi.params.fields.size;
-	let eSizeNew = eSizeOrig;
-	if (isdef(nuiBoard.resizeInfo.fields)) {
-		szNew = nuiBoard.resizeInfo.fields;
-	}
-	if (isdef(nuiBoard.resizeInfo.corners)) {
-		cSizeNew = nuiBoard.resizeInfo.corners;
-	}
-	szNew = Math.max(szNew, cSizeNew);
-	if (isdef(nuiBoard.resizeInfo.edges)) {
-		eSizeNew = nuiBoard.resizeInfo.edges;
-	}
-	szNew = Math.max(szNew, eSizeNew);
-	return { sOrig: { f: szOrig, c: cSizeOrig, e: eSizeOrig }, sNew: { f: szNew, c: cSizeNew, e: eSizeNew } };
-}
-
 function resizeBoard(nuiBoard, R) {
+	function updateSizes(nuiBoard) {
+
+		//console.log('updateSizes_')
+
+		let szOrig = nuiBoard.params.sizes.f;
+		let szNew = szOrig;
+		let cSizeOrig = nuiBoard.params.sizes.c;
+		let cSizeNew = cSizeOrig;
+		let eSizeOrig = nuiBoard.params.sizes.e;
+		let eSizeNew = eSizeOrig;
+		if (nundef(nuiBoard.resizeInfo)) nuiBoard.resizeInfo = {};
+		if (isdef(nuiBoard.resizeInfo.fields)) {
+			szNew = nuiBoard.resizeInfo.fields;
+		}
+		if (isdef(nuiBoard.resizeInfo.corners)) {
+			cSizeNew = nuiBoard.resizeInfo.corners;
+		}
+		szNew = Math.max(szNew, cSizeNew);
+		if (isdef(nuiBoard.resizeInfo.edges)) {
+			eSizeNew = nuiBoard.resizeInfo.edges;
+		}
+		szNew = Math.max(szNew, eSizeNew);
+		return { sOrig: { f: szOrig, c: cSizeOrig, e: eSizeOrig }, sNew: { f: szNew, c: cSizeNew, e: eSizeNew } };
+	}
+	//console.log('resizeBoard_!!!',nuiBoard.uid)
 	//let rtreeParent = R.rNodes[nuiBoard.uid];
 	let uidBoard = nuiBoard.uid;
 
 	let sz = updateSizes(nuiBoard);
+	nuiBoard.params.sizes = sz.sNew;
+	//console.log(nuiBoard.params.sizes)
 	//calc field_spacing now!
 	let params = nuiBoard.params;
 	let gap = params.field_spacing - sz.sOrig.f;
@@ -59,7 +110,11 @@ function resizeBoard(nuiBoard, R) {
 			//hier brauche den neuen size von diesem board element!
 			let elSize_old = sz.sOrig[name[0]];
 			let elSize = sz.sNew[name[0]];
-			if (elSize_old == elSize) continue;
+			if (elSize_old == elSize) {
+				//console.log('size is same! no size adjustment',oid)
+				continue;
+			}
+
 			//console.log('new size for element',oid,elSize);
 
 			//console.log('oid', oid, 'uidBoard', uidBoard)
@@ -84,54 +139,20 @@ function resizeBoard(nuiBoard, R) {
 			n.typParams.size = n.params.size = elSize;
 
 		}
-		gridLayout(nuiBoard, R);
 	}
 
-
-}
-function generalGrid(nuiBoard, area, R) {
-
-	//console.log('gengrid')
-	// *** stage 1 create parent *** 
-	let bParams = nuiBoard.params = detectBoardParams(nuiBoard, R);
-
-	//console.log('area',area); mTextDiv('HALLO',mBy(area));
-
-	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
-
-	// *** stage 2 create children *** (in n.bi)
-	let rtreeParent = R.rNodes[nuiBoard.uid];
-	let uidBoard = nuiBoard.uid;
-	for (const name of ['fields', 'edges', 'corners']) {
-		let groupParams = lookup(DEFS, ['grid', 'params', name]); if (!groupParams) groupParams = {};
-		groupParams = safeMerge(groupParams, nuiBoard.bi.params[name]);
-		let group = nuiBoard.bi[name];
-		for (const oid in group) {
-			let n1 = group[oid];
-			let o = n1.o;
-			delete n1.o;
-
-			let key = createArtificialSpecForBoardMemberIfNeeded(oid, o, R);
-
-			let ntree, nui;
-			//console.log('jetzt kommt',oid)
-			ntree = instantOidKey(oid, key, uidBoard, R);
-			ntree.params = isdef(ntree.params) ? safeMerge(groupParams, ntree.params) : groupParams;
-			ntree.info = n1.info;
-			nui = recUi(ntree, uidBoard, R, oid, key);
-		}
-	}
-	nuiBoard.children = rtreeParent.children;
-
-	// *** stage 4: layout! means append & positioning = transforms... ***
 	gridLayout(nuiBoard, R);
+
+
 }
 function gridLayout(nuiBoard, R) {
+	//console.log('gridLayout_', getFunctionsNameThatCalledThisFunction())
 	let boardInfo = nuiBoard.bi.board.info;
 	let bParams = nuiBoard.params;
 	let fSpacing = bParams.field_spacing;
 	if (nundef(fSpacing)) nuiBoard.params.field_spacing = fSpacing = 60;
 	let margin = isdef(bParams.padding) ? bParams.padding : 0;
+	let gap = fSpacing - nuiBoard.params.sizes.f;
 	//console.log('setting board margin to',margin,'padding',bParams.padding);
 
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
@@ -150,9 +171,10 @@ function gridLayout(nuiBoard, R) {
 
 	let boardG = nuiBoard.ui;
 	mStyle(boardDiv, { 'min-width': wTotal, 'min-height': hTotal });
-	boardG.style = "transform:translate(50%, 50%)";
+	//boardG.style = '';
+	//boardG.style = "transform:translate(50%, 50%)";
 	//boardG.style = `transform: translate(${wTotal / 2}px, ${hTotal / 2}px)`;
-	boardG.style = `transform: translate(${wBoard / 2}px, ${hBoard / 2}px)`;
+	//boardG.style = `transform: translate(${wBoard / 2}px, ${hBoard / 2}px)`;
 	svg.style.backgroundColor = 'blue';
 
 	// setTimeout(() => {
@@ -160,23 +182,39 @@ function gridLayout(nuiBoard, R) {
 	// 	svg.style.backgroundColor = 'blue';
 	// }, 1000);
 
-	console.log('board uiNode', nuiBoard)
-
+	//console.log('_________board uiNode', nuiBoard);
 
 	//positioning of elements!
 	for (const fid of nuiBoard.children) {
 		let f = R.uiNodes[fid];
-		if (f.params.shape == 'line') agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+		//console.log('field',fid,f)
+		if (f.params.shape == 'line') {
+			let line = f.ui.firstChild;
+			//console.log('line for',f.uid,'is',line);
+			if (nundef(line)) {
+				agLine(f.ui, f.info.x1 * fw, f.info.y1 * fw, f.info.x2 * fw, f.info.y2 * fw);
+			} else {
+				line.setAttribute('x1', f.info.x1 * fw);
+				line.setAttribute('y1', f.info.y1 * fw);
+				line.setAttribute('x2', f.info.x2 * fw);
+				line.setAttribute('y2', f.info.y2 * fw);
+			}
+
+		}
 		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
 
-	console.log('svg', svg, '\ng', g, '\ndiv', boardDiv);
-	console.log('svg bounds', getBounds(svg), '\ng bounds', getBounds(g), '\ndiv bounds', getBounds(boardDiv))
-	console.log('wTotal', wTotal, 'hTotal', hTotal)
-	console.log('fw', fw, 'fh', fh, 'boardInfo', boardInfo, 'wBoard', wBoard, 'cornerSize', cornerSize,'margin',margin)
+	//console.log('svg', svg, '\ng', g, '\ndiv', boardDiv);
+	let boundsG = getBounds(g);
+	g.style = `transform: translate(${boundsG.width / 2 + margin}px, ${boundsG.height / 2 + margin}px)`;
+	// console.log('svg bounds', getBounds(svg), '\ng bounds', getBounds(g), '\ndiv bounds', getBounds(boardDiv))
+	// console.log('wTotal', wTotal, 'hTotal', hTotal)
+	// console.log('wBoard', wBoard, 'hBoard', hBoard, 'margin', margin, 'fSpacing', fSpacing, 'gap', gap);
+	// console.log('field-size', nuiBoard.params.sizes.f, 'corner-size', nuiBoard.params.sizes.c, 'edge-size', nuiBoard.params.sizes.e,)
+	// console.log('fw', fw, 'fh', fh, 'boardInfo', boardInfo, 'cornerSize', cornerSize);
+	// console.log(g)
 
 }
-
 
 //#region detect
 function detectBoardOidAndType(oid, boardType, R) {
@@ -305,7 +343,6 @@ function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 	return { board: board, fields: fields, corners: corners, edges: edges };
 
 }
-
 
 function quadGrid(o, R) {
 	function boardInfo(rows, cols) {
