@@ -3,7 +3,7 @@ players:
     color: red
     name: felix
     symbol: X
-    hand: [c1, c2]
+    hand: [c1]
   Player2:
     color: green
     name: amanda
@@ -12,7 +12,7 @@ players:
       _obj: c1
       # _set:
       #   - _obj: c1
-    hand: [cq, ck, c2]
+    hand: [cq, ck]
     hand1:
       _set:
         - _obj: c1
@@ -38,6 +38,15 @@ table:
     loc: "1"
     obj_type: robber
     hand: [ck, cq]
+  c0:
+    obj_type: card1
+    short_name: J
+  c01:
+    obj_type: card2
+    short_name: 21
+  c02:
+    obj_type: card2
+    short_name: 22
   c1:
     obj_type: card
     short_name: A

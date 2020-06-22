@@ -1,417 +1,4 @@
 {
-	" 5 ": {
-		"_0": {
-			"children": [
-				"_1"
-			],
-			"here": "ROOT",
-			"type": "invisible",
-			"uid": "_0",
-			"uidParent": null
-		},
-		"_1": {
-			"children": [
-				"_3",
-				"_4",
-				"_5",
-				"_6",
-				"_7",
-				"_8",
-				"_9",
-				"_10",
-				"_11"
-			],
-			"cond": {
-				"obj_type": "Board"
-			},
-			"data": ".oid",
-			"oid": "9",
-			"params": {
-				"padding": 20
-			},
-			"type": "grid",
-			"uid": "_1",
-			"uidParent": "_0"
-		},
-		"_10": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 2,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 2,
-						"y": 2
-					},
-					{
-						"x": 2,
-						"y": 6
-					},
-					{
-						"x": -2,
-						"y": 6
-					},
-					{
-						"x": -2,
-						"y": 2
-					}
-				],
-				"row": 3,
-				"shape": "rect",
-				"w": 4,
-				"x": 0,
-				"y": 4
-			},
-			"oid": "7",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_10",
-			"uidParent": "_1"
-		},
-		"_11": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 3,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 6,
-						"y": 2
-					},
-					{
-						"x": 6,
-						"y": 6
-					},
-					{
-						"x": 2,
-						"y": 6
-					},
-					{
-						"x": 2,
-						"y": 2
-					}
-				],
-				"row": 3,
-				"shape": "rect",
-				"w": 4,
-				"x": 4,
-				"y": 4
-			},
-			"oid": "8",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_11",
-			"uidParent": "_1"
-		},
-		"_3": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 1,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": -2,
-						"y": -6
-					},
-					{
-						"x": -2,
-						"y": -2
-					},
-					{
-						"x": -6,
-						"y": -2
-					},
-					{
-						"x": -6,
-						"y": -6
-					}
-				],
-				"row": 1,
-				"shape": "rect",
-				"w": 4,
-				"x": -4,
-				"y": -4
-			},
-			"oid": "0",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_3",
-			"uidParent": "_1"
-		},
-		"_4": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 2,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 2,
-						"y": -6
-					},
-					{
-						"x": 2,
-						"y": -2
-					},
-					{
-						"x": -2,
-						"y": -2
-					},
-					{
-						"x": -2,
-						"y": -6
-					}
-				],
-				"row": 1,
-				"shape": "rect",
-				"w": 4,
-				"x": 0,
-				"y": -4
-			},
-			"oid": "1",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_4",
-			"uidParent": "_1"
-		},
-		"_5": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 3,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 6,
-						"y": -6
-					},
-					{
-						"x": 6,
-						"y": -2
-					},
-					{
-						"x": 2,
-						"y": -2
-					},
-					{
-						"x": 2,
-						"y": -6
-					}
-				],
-				"row": 1,
-				"shape": "rect",
-				"w": 4,
-				"x": 4,
-				"y": -4
-			},
-			"oid": "2",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_5",
-			"uidParent": "_1"
-		},
-		"_6": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 1,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": -2,
-						"y": -2
-					},
-					{
-						"x": -2,
-						"y": 2
-					},
-					{
-						"x": -6,
-						"y": 2
-					},
-					{
-						"x": -6,
-						"y": -2
-					}
-				],
-				"row": 2,
-				"shape": "rect",
-				"w": 4,
-				"x": -4,
-				"y": 0
-			},
-			"oid": "3",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_6",
-			"uidParent": "_1"
-		},
-		"_7": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 2,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 2,
-						"y": -2
-					},
-					{
-						"x": 2,
-						"y": 2
-					},
-					{
-						"x": -2,
-						"y": 2
-					},
-					{
-						"x": -2,
-						"y": -2
-					}
-				],
-				"row": 2,
-				"shape": "rect",
-				"w": 4,
-				"x": 0,
-				"y": 0
-			},
-			"oid": "4",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_7",
-			"uidParent": "_1"
-		},
-		"_8": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 3,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": 6,
-						"y": -2
-					},
-					{
-						"x": 6,
-						"y": 2
-					},
-					{
-						"x": 2,
-						"y": 2
-					},
-					{
-						"x": 2,
-						"y": -2
-					}
-				],
-				"row": 2,
-				"shape": "rect",
-				"w": 4,
-				"x": 4,
-				"y": 0
-			},
-			"oid": "5",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_8",
-			"uidParent": "_1"
-		},
-		"_9": {
-			"cond": {
-				"obj_type": "Tick"
-			},
-			"info": {
-				"col": 1,
-				"h": 4,
-				"memType": "field",
-				"poly": [
-					{
-						"x": -2,
-						"y": 2
-					},
-					{
-						"x": -2,
-						"y": 6
-					},
-					{
-						"x": -6,
-						"y": 6
-					},
-					{
-						"x": -6,
-						"y": 2
-					}
-				],
-				"row": 3,
-				"shape": "rect",
-				"w": 4,
-				"x": -4,
-				"y": 4
-			},
-			"oid": "6",
-			"params": {
-				"bg": "beige",
-				"shape": "rect",
-				"size": 44
-			},
-			"type": "info",
-			"uid": "_9",
-			"uidParent": "_1"
-		}
-	},
 	" 4 ": {
 		"_0": {
 			"children": [
@@ -428,48 +15,24 @@
 				"_3"
 			],
 			"cond": {
-				"name": "Player1"
+				"name": "amanda"
 			},
 			"data": ".name",
-			"oid": "Player1",
+			"oid": "Player2",
 			"uid": "_1",
 			"uidParent": "_0"
 		},
 		"_2": {
 			"data": ".oid",
-			"oid": "Player1",
+			"oid": "Player2",
 			"uid": "_2",
 			"uidParent": "_1"
 		},
 		"_3": {
-			"children": [
-				"_5",
-				"_6"
-			],
 			"data": ".hand",
-			"oid": "Player1",
+			"oid": "Player2",
 			"uid": "_3",
 			"uidParent": "_1"
-		},
-		"_5": {
-			"cond": {
-				"obj_type": "card"
-			},
-			"data": ".short_name",
-			"oid": "c2",
-			"type": "info",
-			"uid": "_5",
-			"uidParent": "_3"
-		},
-		"_6": {
-			"cond": {
-				"obj_type": "card"
-			},
-			"data": ".short_name",
-			"oid": "c3",
-			"type": "info",
-			"uid": "_6",
-			"uidParent": "_3"
 		}
 	},
 	" 3 ": {
@@ -497,7 +60,7 @@
 			"cond": {
 				"obj_type": "Board"
 			},
-			"oid": "9",
+			"oid": "t9",
 			"type": "grid",
 			"uid": "_1",
 			"uidParent": "_0"
@@ -534,7 +97,7 @@
 				"x": 0,
 				"y": 4
 			},
-			"oid": "7",
+			"oid": "t7",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -576,7 +139,7 @@
 				"x": 4,
 				"y": 4
 			},
-			"oid": "8",
+			"oid": "t8",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -618,7 +181,7 @@
 				"x": -4,
 				"y": -4
 			},
-			"oid": "0",
+			"oid": "t0",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -660,7 +223,7 @@
 				"x": 0,
 				"y": -4
 			},
-			"oid": "1",
+			"oid": "t1",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -702,7 +265,7 @@
 				"x": 4,
 				"y": -4
 			},
-			"oid": "2",
+			"oid": "t2",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -744,7 +307,7 @@
 				"x": -4,
 				"y": 0
 			},
-			"oid": "3",
+			"oid": "t3",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -786,7 +349,7 @@
 				"x": 0,
 				"y": 0
 			},
-			"oid": "4",
+			"oid": "t4",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -828,7 +391,7 @@
 				"x": 4,
 				"y": 0
 			},
-			"oid": "5",
+			"oid": "t5",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -870,7 +433,7 @@
 				"x": -4,
 				"y": 4
 			},
-			"oid": "6",
+			"oid": "t6",
 			"params": {
 				"bg": "beige",
 				"shape": "rect",
@@ -896,7 +459,7 @@
 				"obj_type": "Board"
 			},
 			"data": ".oid",
-			"oid": "9",
+			"oid": "t9",
 			"uid": "_1",
 			"uidParent": "_0"
 		}
@@ -912,37 +475,13 @@
 			"uidParent": null
 		},
 		"_1": {
-			"children": [
-				"_3",
-				"_4"
-			],
 			"cond": {
-				"name": "Player1"
+				"name": "felix"
 			},
 			"data": ".hand",
 			"oid": "Player1",
 			"uid": "_1",
 			"uidParent": "_0"
-		},
-		"_3": {
-			"cond": {
-				"obj_type": "card"
-			},
-			"data": ".short_name",
-			"oid": "c2",
-			"type": "info",
-			"uid": "_3",
-			"uidParent": "_1"
-		},
-		"_4": {
-			"cond": {
-				"obj_type": "card"
-			},
-			"data": ".short_name",
-			"oid": "c3",
-			"type": "info",
-			"uid": "_4",
-			"uidParent": "_1"
 		}
 	},
 	" 0 ": {

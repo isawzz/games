@@ -49,7 +49,8 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
-	await testAblauf0(defs,spec,sdata);return;
+	//await testAblauf02(defs,spec,sdata);return;
+	//await testAblauf00(defs,spec,sdata);return;
 	//testComposeShapesAndResize();
 	//return;
 
@@ -95,7 +96,13 @@ async function present00(sp, defaults, sdata) {
 
 	addNewlyCreatedServerObjects(sdata, R);
 
-	recAdjustDirtyContainers(R.tree.uid, R, true);
+// 	setTimeout(()=>present2(R),2000);
+// }
+// function present2(R){
+	
+	//recAdjustDirtyContainers(R.tree.uid, R, true);
+	
+	recMeasureOverride(R.tree.uid,R);
 
 	//output and testing
 	updateOutput(R);
@@ -191,10 +198,10 @@ function updateOutput(R) {
 	if (SHOW_UITREE) {
 		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 			['children'],
-			null,
-			['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'],
-			// ['uid', 'adirty', 'type', 'data', 'content', 'uiType', 'oid', 'key', 'boardType'],
-			// null,
+			// null, //show
+			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
+			['size','uid', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
+			null, //omit
 			{ 'max-width': '35%', font: '14px arial' });
 	}
 

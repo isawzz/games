@@ -93,7 +93,7 @@
     data: .hand
     params:
       fg: contrast
-5: #ok
+5: #TODO
   ROOT:
     cond: 
       obj_type: Board

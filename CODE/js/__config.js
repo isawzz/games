@@ -8,15 +8,15 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var TEST_SERIES = '_D/00'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 07card
+var TEST_SERIES = '08'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 
-var SHOW_SPEC = false; // true | false
+var SHOW_SPEC = true; // true | false
 var LEAVE_SPEC_OPEN = true; // true | false
 var OUTPUT_EACH_SPEC_STEP = true; // true | false
 var SHOW_LASTSPEC = false; // true | false
 var SHOW_RTREE = false; // true | false
-var SHOW_UITREE = false; // true | false
+var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false

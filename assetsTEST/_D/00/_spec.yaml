@@ -1,4 +1,4 @@
-19: #==> HERE!!!
+19: 
   ROOT:
     data: Tic Tac Toe
     params:
@@ -14,7 +14,7 @@
     cond: all
     data: .oid
 
-18:
+18: #==> HERE!!!
   ROOT:
     cond: 
       obj_type: Board

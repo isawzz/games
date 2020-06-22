@@ -1,5 +1,5 @@
-//#region test drawing, shapes, elements & functions
-async function testAblauf0(defs, spec, sdata0) {
+//#region testAblauf
+async function testAblauf02(defs, spec, sdata0) {
 	await testEngine.init(defs, sdata0, TEST_SERIES);
 	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
 	T = R = new RSG(sp, defaults, sdata);
@@ -14,6 +14,77 @@ async function testAblauf0(defs, spec, sdata0) {
 		let o = sdata[oid];
 		if (isdef(o.loc)) { continue; }
 
+		//hier startet einhaengen!
+		let topUids;
+		for (const key of R.getR(oid)) {
+			let parents = R.Locations[key];
+			if (nundef(parents)) continue;
+
+			//add rtree: topUids will be newly created top level rNodes
+			topUids = [];
+			for (const uidParent of parents) {
+				if (parentHasThisChildAlready(uidParent, oid)) continue;
+
+				// --- START of instantOidKey ---
+				//let n1 = instantOidKey(oid, key, uidParent, R);
+				let rtreeParent = R.rNodes[uidParent];
+				if (nundef(rtreeParent.children)) { rtreeParent.children = []; }
+				let n1 = recTree(R.lastSpec[key], rtreeParent, R, oid, key);
+				R.rNodes[n1.uid] = n1;
+				rtreeParent.children.push(n1.uid);
+				//turning from 1 child to 2 children, expose panel if has bg set!
+				if (rtreeParent.children.length == 2 && rtreeParent.type == 'invisible' && lookup(rtreeParent, ['params', 'bg'])) {
+					let uiParent = R.uiNodes[rtreeParent.uid];
+					if (isdef(uiParent)) {
+						rtreeParent.type = uiParent.type = 'panel';
+						decodeParams(uiParent, R, {});
+						uiParent.adirty = true;
+						applyCssStyles(uiParent.ui, uiParent.cssParams);
+					}
+				}
+				// --- END of instantOidKey ---
+
+				topUids.push({ uid: n1.uid, uidParent: uidParent });
+			}
+
+			if (isEmpty(topUids)) { continue; } // no rNode was produced, therefore, no uiNode
+
+			//for each rtree add corresponding uiNodes
+			for (const top of topUids) {
+				let uiParent = R.uiNodes[top.uidParent];
+				let rParent = R.rNodes[top.uidParent];
+				if (isdef(uiParent)) {
+					uiParent.adirty = true;
+					uiParent.children = rParent.children.map(x => x);
+				}
+				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+			}
+		}
+	}
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	updateOutput(R);
+	testEngine.verify(R);
+}
+
+//#region testAblauf ABLAGE --------------
+async function testAblauf00(defs, spec, sdata0) {
+	await testEngine.init(defs, sdata0, TEST_SERIES);
+	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
+	T = R = new RSG(sp, defaults, sdata);
+	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
+	ensureRtree(R);
+	R.baseArea = 'table';
+	createStaticUi(R.baseArea, R);
+
+	//addNewlyCreatedServerObjects
+	for (const oid in sdata) { R.addObject(oid, sdata[oid]); R.addRForObject(oid); }
+	for (const oid in sdata) {
+		let o = sdata[oid];
+		if (isdef(o.loc)) { continue; }
+
+		//hier startet einhaengen!
 		let topUids;
 		for (const key of R.getR(oid)) {
 			let specNode = R.getSpec(key);
@@ -46,6 +117,59 @@ async function testAblauf0(defs, spec, sdata0) {
 	updateOutput(R);
 	testEngine.verify(R);
 }
+async function testAblauf01(defs, spec, sdata0) {
+	await testEngine.init(defs, sdata0, TEST_SERIES);
+	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
+	T = R = new RSG(sp, defaults, sdata);
+	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
+	ensureRtree(R);
+	R.baseArea = 'table';
+	createStaticUi(R.baseArea, R);
+
+	//addNewlyCreatedServerObjects
+	for (const oid in sdata) { R.addObject(oid, sdata[oid]); R.addRForObject(oid); }
+	for (const oid in sdata) {
+		let o = sdata[oid];
+		if (isdef(o.loc)) { continue; }
+
+		//hier startet einhaengen!
+		let topUids;
+		for (const key of R.getR(oid)) {
+			let parents = R.Locations[key];
+			if (nundef(parents)) continue;
+
+			//add rtree: topUids will be newly created top level rNodes
+			topUids = [];
+			for (const uidParent of parents) {
+				if (parentHasThisChildAlready(uidParent, oid)) continue;
+				let n1 = instantOidKey(oid, key, uidParent, R);
+				topUids.push({ uid: n1.uid, uidParent: uidParent });
+			}
+
+			if (isEmpty(topUids)) { continue; } // no rNode was produced, therefore, no uiNode
+
+			//for each rtree add corresponding uiNodes
+			for (const top of topUids) {
+				let uiParent = R.uiNodes[top.uidParent];
+				let rParent = R.rNodes[top.uidParent];
+				if (isdef(uiParent)) {
+					uiParent.adirty = true;
+					uiParent.children = rParent.children.map(x => x);
+				}
+				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+			}
+		}
+	}
+
+	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	updateOutput(R);
+	testEngine.verify(R);
+}
+//#endregion
+
+//#region test drawing, shapes, elements & functions
+
 
 
 function testComposeShapesAndResize() {
@@ -268,6 +392,8 @@ function testRemoveBoard(R) {
 	// updateOutput(R);
 	// if (activate) activateUis(R);
 }
+//#endregion
+
 
 //#region engine
 async function testSolutionConverter() {
@@ -397,6 +523,7 @@ function testGetElements() {
 	console.log('x', x);
 }
 
+//#endregion
 
 
 

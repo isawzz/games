@@ -23,16 +23,21 @@ defaults:
         shape: circle
   quadGrid: #overrides grid
     params:
-      border-radius: 4
+      border-radius: 6
       field_spacing: 48
-      bg: skyblue
-      padding: 0
-      margin: 2
+      bg: pink
+      padding: 2
+      margin: 10
       fields:
+        rounding: 4
         size: 44
         shape: rect
   hexGrid:
     params:
+      border-radius: 6
+      bg: skyblue
+      padding: 20
+      margin: 10
       field_spacing: 64
       fields:
         size: 56

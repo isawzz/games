@@ -1,0 +1,47 @@
+7:
+  ROOT:
+    data: hallo
+6:
+  ROOT:
+    cond:
+      oid: board2
+    type: grid
+  robber:
+    cond:
+      oid: rtile2
+    data: R
+5:
+  ROOT:
+    cond:
+      oid: board1
+    type: grid
+  robber:
+    cond:
+      oid: rtile1
+    data: R
+4:
+  ROOT:
+    cond:
+      oid: t9
+    type: grid
+3:
+  ROOT:
+    cond:
+      oid: 145
+    type: grid
+2:
+  ROOT:
+    cond:
+      oid: catanBoard1
+    type: grid
+1:
+  ROOT:
+    cond:
+      oid: board2
+    type: grid
+0:
+  ROOT:
+    cond:
+      oid: board1
+    type: grid
+    

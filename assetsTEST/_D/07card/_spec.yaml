@@ -1,0 +1,115 @@
+14:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name
+13:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name
+12:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name
+11:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name
+10:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name
+9:
+  ROOT:
+    cond: 
+      obj_type: card2
+    data: .short_name
+    params:
+      bg: red
+8:
+  ROOT:
+    cond: 
+      obj_type: card2
+    data: .short_name
+    params:
+      bg: red
+7:
+  ROOT:
+    cond: 
+      oid: Player2
+    data: .hand
+    params:
+      bg: red
+6:
+  ROOT:
+    cond: 
+      oid: Player1
+    data: .hand
+    params:
+      bg: red
+5:
+  ROOT:
+    cond: 
+      obj_type: card2
+    data: .short_name
+    params:
+      bg: red
+4:
+  ROOT:
+    cond: 
+      obj_type: card1
+    data: .short_name
+    params:
+      bg: red
+3:
+  ROOT:
+    cond: 
+      obj_type: card
+    data: .short_name
+2:
+  ROOT:
+    cond: 
+      obj_type: card2
+    data: .short_name
+1:
+  ROOT:
+    cond: 
+      obj_type: card1
+    data: .short_name
+0:
+  ROOT:
+    cond: 
+      obj_type: card0
+    data: .short_name
+
+
+
+
+
+
+
+

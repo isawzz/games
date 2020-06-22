@@ -124,7 +124,7 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 function sieveLocOids(R) {
 	if (isEmpty(R.locOids)) return;
 
-	calcCycles(R);
+	calcCycles(R); //for all locOids that have not been added, calc cycles in order in which they can be added
 
 	//*** have R.partitions, R.oid2partition, R.locOids
 	for (const k in R.partitions) {

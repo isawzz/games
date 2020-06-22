@@ -9,11 +9,11 @@ function calcDirectParentAndIdUiParent(n, uidParent, R) {
 
 function createUi(n, uidParent, R) {
 
-	if (n == R.uiNodes[n.uid]){
-		//console.log('n in createUi is uiNode',n.uid);
-	}else if (n == R.rNodes[n.uid]){
-		console.log('n in createUi is rNode',n.uid);
-	}
+	// if (n == R.uiNodes[n.uid]){
+	// 	//console.log('n in createUi is uiNode',n.uid);
+	// }else if (n == R.rNodes[n.uid]){
+	// 	console.log('n in createUi is rNode',n.uid);
+	// }
 	//if (n.uid == '_14') {		console.log('createUi', n)	}
 	if (nundef(n.type)) { n.type = inferType(n); }
 
@@ -51,65 +51,81 @@ function createUi(n, uidParent, R) {
 
 }
 
-function adjustLayoutForBoardMember(n,R){
-		//console.log('adjust layout for a board member parent', n);
+function adjustLayoutForBoardMember(n, R) {
+	console.log('adjust layout for', n.uid);
 
-		//first assume there is only 1 child (because if there is more than 1, there should have been placed a panel!!!!)
-		//console.assert(n.children.length == 1, 'board member as parent: adjusting layout for MORE THAN 1 CHILD!!!!!! - should have used a panel!!!!!!')
-		let ch = n.children[0];
-		//console.log('child of board member is', ch, R.uiNodes[ch]);
-		let n1 = R.uiNodes[ch];
-		let divParent = mBy(n1.idUiParent);
-		let directParent = mBy(n1.uidParent);
+	//first assume there is only 1 child (because if there is more than 1, there should have been placed a panel!!!!)
+	//console.assert(n.children.length == 1, 'board member as parent: adjusting layout for MORE THAN 1 CHILD!!!!!! - should have used a panel!!!!!!')
+	let ch = n.children[0];
+	//console.log('child of board member is', ch, R.uiNodes[ch]);
+	let n1 = R.uiNodes[ch];
+	console.log('id_divParent', n1.idUiParent, 'id_directParent', n1.uidParent)
+	let divParent = mBy(n1.idUiParent);
+	let directParent = mBy(n1.uidParent);
 
-		let ui = n1.ui;
+	let ui = n1.ui;
 
-		//als LETZTES: positioning!
-		let bmk = getBounds(directParent, false, divParent);
-		ui.style.position = 'absolute';
-		ui.style.display = 'inline-block';
+	let nuiBoard = R.uiNodes[n.uidParent];
+	console.log(nuiBoard)
 
-		//das darf erst NACH inline-block sein weil size veraendert!!!!!!!!!
-		let bel = getBounds(ui);
-		let x = (bmk.left + (bmk.width - bel.width) / 2);
-		let y = (bmk.top + (bmk.height - bel.height) / 2);
-		ui.style.left = x + 'px';
-		ui.style.top = y + 'px';
-		ui.style.margin = '0px';
+	//als LETZTES: positioning!
+	let bmk = getBounds(directParent, false, divParent);
+	let arr;
+	let [wTotal, hTotal, wBoard, hBoard, fw, fh, fSpacing, fSize, gap] = 
+	[nuiBoard.wTotal, nuiBoard.hTotal, nuiBoard.wBoard, nuiBoard.hBoard, nuiBoard.fw, nuiBoard.fh, nuiBoard.fSpacing, nuiBoard.fSize, nuiBoard.gap];
+	console.log('wTotal',wTotal,'hTotal',hTotal,'wBoard',wBoard,
+	'hBoard',hBoard,'fw',fw,'fh',fh,'fSpacing',fSpacing,'fSize',fSize,'gap',gap)
+	let bdiv = getBounds(divParent);
+	divParent.style.backgroundColor = 'yellow';
+	ui.style.position = 'absolute';
+	ui.style.display = 'inline-block';
 
-		//console.log('tile bounds', bmk, '\nui bounds', bel, '\nleft', x, '\ntop', y, '\nui', ui);
-		//console.log('tile size', bmk.width,'x',bmk.height, '\nui size', bel.width,'x',bel.height); 
-		n.sizeNeeded={w:Math.max(bmk.width,bel.width),h:Math.max(bmk.height,bel.height)};
-		
-		if (bmk.width<bel.width || bmk.height<bel.height) {
-			//need to adjust layout for board as well!!!!!!!
-			let nBoard = R.uiNodes[n.uidParent];
-			//console.log('______________\nboard should be',nBoard);
-			nBoard.adirty=true;
+	//das darf erst NACH inline-block sein weil size veraendert!!!!!!!!!
+	let bel = getBounds(ui);
+	let x = 0;// wTotal/2 + -22;//bdiv.width/2-bmk.width/2;//(bdiv.width/2 + bmk.left + (bmk.width - bel.width) / 2);
+	let y = 0;// (bmk.top + (bmk.height - bel.height) / 2);
+	ui.style.left = x + 'px';
+	ui.style.top = y + 'px';
+	//ui.style.left = '11px';
+	//ui.style.top = '12px';
+	ui.style.margin = '0px';
 
-			//1. which type of member is n?
-			let memType = n.info.memType;
-			let curSize = n.typParams.size;
-			let newSize = Math.max(bel.width,bel.height);
-			newSize = Math.ceil(newSize/ 4);
-			newSize *= 4;
-			if (newSize%4 != 0) newSize += 4;
+	//let b=getBounds(ui);
+	console.log('x', x, '\nbdiv left', bdiv.left, 'w', bdiv.width, '\nbmk left', bmk.left, 'w', bmk.width, '\nbel left', bel.left, 'w', bel.width);
+	// console.log('x',x,'y',y,'\nbdiv',bdiv.left,bdiv.top,bdiv.width,bdiv.height,'\nbmk',bmk.left,bmk.top,bmk.width,bmk.height,'\nbel',bel.left,bel.top,bel.width,bel.height);
+	//console.log('tile bounds bmk', bmk, '\nui bounds bel', bel, '\nleft', x, '\ntop', y, '\nui', ui);
+	//console.log('tile size', bmk.width,'x',bmk.height, '\nui size', bel.width,'x',bel.height); 
+	n.sizeNeeded = { w: Math.max(bmk.width, bel.width), h: Math.max(bmk.height, bel.height) };
 
-			if (nundef(nBoard.resizeInfo)) nBoard.resizeInfo = {};
-			nBoard.resizeInfo[memType+'s']=newSize;
+	if (bmk.width < bel.width || bmk.height < bel.height) {
+		//need to adjust layout for board as well!!!!!!!
+		let nBoard = R.uiNodes[n.uidParent];
+		//console.log('______________\nboard should be',nBoard);
+		nBoard.adirty = true;
 
-			//ALL board member sizes must be divisible by 4!!!!!!!
+		//1. which type of member is n?
+		let memType = n.info.memType;
+		let curSize = n.typParams.size;
+		let newSize = Math.max(bel.width, bel.height);
+		newSize = Math.ceil(newSize / 4);
+		newSize *= 4;
+		if (newSize % 4 != 0) newSize += 4;
+
+		if (nundef(nBoard.resizeInfo)) nBoard.resizeInfo = {};
+		nBoard.resizeInfo[memType + 's'] = newSize;
+
+		//ALL board member sizes must be divisible by 4!!!!!!!
 
 
-			//console.log('memType',memType,'\ncurSize',curSize,'\nnewSize',newSize);
+		//console.log('memType',memType,'\ncurSize',curSize,'\nnewSize',newSize);
 
 
 
 
-		}
+	}
 
-		n.uiType = 'childOfBoardElement';
-		n.potentialOverlap = true;
+	n.uiType = 'childOfBoardElement';
+	n.potentialOverlap = true;
 
 }
 function adjustContainerLayout(n, R) {
@@ -120,7 +136,7 @@ function adjustContainerLayout(n, R) {
 	//console.log(n);return;
 	if (n.type == 'grid') {
 		//console.log('adjustContainerLayout! ja grid kommt auch hierher!!!', n);
-		resizeBoard(n,R);
+		resizeBoard(n, R);
 		return;
 	}
 
@@ -131,7 +147,7 @@ function adjustContainerLayout(n, R) {
 	// n ist hier der parent also das board member!!!!
 	if (n.uid && isBoardMember(n.uid, R)) {
 
-		adjustLayoutForBoardMember(n,R);
+		adjustLayoutForBoardMember(n, R);
 	}
 
 

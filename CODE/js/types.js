@@ -144,9 +144,9 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
 	let dParent = mBy(n.idUiParent);
 
-	let boardDiv = stage3_prepContainer(dParent);
+	let boardDiv = stage3_prepContainer(dParent); //macht nur mDiv,mPosRel
 
-	addTitleToGrid(n,boardDiv)
+	//addTitleToGrid(n,boardDiv)
 
 	let boardSvg = gSvg();
 

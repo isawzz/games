@@ -175,6 +175,7 @@ function instantOidKey(oid, key, uidParent, R) {
 
 	//turning from 1 child to 2 children, expose panel if has bg set!
 	if (rtreeParent.children.length == 2 && rtreeParent.type == 'invisible' && lookup(rtreeParent,['params','bg'])){
+		console.log('test case',testEngine.series,testEngine.index);
 		//console.log('JETZT!!!')
 		//genau jetzt muss ich rtreeParent zu einem panel machen!!!
 		let uiParent = R.uiNodes[rtreeParent.uid];
