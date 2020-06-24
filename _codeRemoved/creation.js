@@ -1,13 +1,4 @@
 //#region start sequence
-function addInvisiblePanel(uidParent, R) {
-	let uid = getUID();
-	let n = { uid: uid, uidParent: uidParent, type: 'invisible' };
-	let rParent = R.rNodes[uidParent];
-	if (nundef(rParent.children)) rParent.children = [];
-	rParent.children.push(uid);
-	return n;
-}
-
 function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
 
@@ -55,7 +46,7 @@ function recAdjustDirtyContainers(uid, R, verbose = false) {
 	//OPT::: koennte mir merken nur die die sich geaendert haben statt alle durchzugehen
 	let nui = R.uiNodes[uid];
 
-	if (isdef(nui.children)) {
+	if (isdef(nui.children)){
 		for (const ch of nui.children) recAdjustDirtyContainers(ch, R, verbose);
 	}
 	if (nui.adirty) {
@@ -63,7 +54,7 @@ function recAdjustDirtyContainers(uid, R, verbose = false) {
 		adjustContainerLayout(nui, R);
 	}
 	//if (nundef(nui.children)) return;
-
+	
 
 }
 function recAdjustDirtyContainers_dep(uid, R, verbose = false) {
@@ -103,7 +94,7 @@ function einhaengen(oid, o, R) {
 			//if (oid == '9') console.log('==>trying to add key='+key, 'by parent location!')
 			topUids = addOidByParentKeyLocation(oid, key, R);
 		} else {
-			topUids = [];
+			topUids=[];
 			// console.log('key='+key,'cannot be added for oid='+oid,'cause no loc or available location! (this might be a board element!)')
 		}
 		if (isEmpty(topUids)) { continue; }
@@ -122,37 +113,6 @@ function einhaengen(oid, o, R) {
 	}
 	return success ? successKeys : false;
 }
-function transformParentsToBags(parents, R) {
-	let parentPanels = [];
-	for (const p of parents) {
-		let nParent = R.uiNodes[p];
-		// if parent has no child at all, make invisible container and use that for loc node
-		if (isEmpty(nParent.children)) {
-			console.log('parent', p, 'does NOT have any child!');
-
-			//create an invisible node 
-			//let nPanel = addInvisiblePanel(p, R);
-
-			//also need to create uiNode for this panel!
-
-			console.log(nPanel);
-			//parentPanels.push(nPanel.uid);
-		}
-
-		parentPanels.push(p);
-		//if this parent already has a child that is a container,
-		//dann kann ich diesen container als echten parent nehmen
-
-		//sonst mache einen container
-
-		//was wenn parent genau 1 child hat aber das ist NICHT ein container?
-		//dann mache ein weiteres child das ein container ist
-
-
-	}
-	return parentPanels;
-
-}
 function addOidByLocProperty(oid, key, R) {
 	let o = R.getO(oid);
 	let oidParent = o.loc;
@@ -161,15 +121,10 @@ function addOidByLocProperty(oid, key, R) {
 
 	let parents = R.oid2uids[oidParent];
 
-
 	if (isEmpty(parents)) { return []; }
-
-	//transformParentsToBags(parents,R);
-
 
 	let topUids = [];
 	for (const uidParent of parents) {
-
 		if (parentHasThisChildAlready(uidParent, oid) || !parentHasChannelForThisOid(R.rNodes[uidParent], oid)) continue;
 		let n1 = instantOidKey(oid, key, uidParent, R);
 		topUids.push({ uid: n1.uid, uidParent: uidParent });
@@ -178,13 +133,22 @@ function addOidByLocProperty(oid, key, R) {
 	return topUids;
 }
 function addOidByParentKeyLocation(oid, key, R) {
-	let parents = R.Locations[key];
+	//console.log('_____________ addOidByParentKeyLocation', oid, key);
+	// let nodes = R.oidNodes[oid];// ELIM
+	// if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+	// if (isEmpty(nodes)) return;
+
+
+
+	let parents = R.Locations[key]; //for now just 1 allowed!!!!!!!!!!
+	//if (oid=='9') console.log('found parents:',parents)
 	if (nundef(parents)) {
 		if (oid == '146') console.log('not added!!!', oid, key)
 		return;
 	}
 	let topUids = [];
 	for (const uidParent of parents) {
+		// instantiateOidKeyAtParent(oid, key, uidParent, R); 
 		if (parentHasThisChildAlready(uidParent, oid)) continue;
 		let n1 = instantOidKey(oid, key, uidParent, R);
 		topUids.push({ uid: n1.uid, uidParent: uidParent });
@@ -198,8 +162,8 @@ function instantOidKey(oid, key, uidParent, R) {
 
 	let rtreeParent = R.rNodes[uidParent];
 
-	if (nundef(rtreeParent.children)) {
-		rtreeParent.children = [];
+	if (nundef(rtreeParent.children)) { 
+		rtreeParent.children = []; 
 	}
 
 	//=================================================
@@ -212,18 +176,18 @@ function instantOidKey(oid, key, uidParent, R) {
 	rtreeParent.children.push(n1.uid);
 
 	//turning from 1 child to 2 children, expose panel if has bg set!
-	if (rtreeParent.children.length == 2 && rtreeParent.type == 'invisible' && lookup(rtreeParent, ['params', 'bg'])) {
-		console.log('test case', testEngine.series, testEngine.index);
+	if (rtreeParent.children.length == 2 && rtreeParent.type == 'invisible' && lookup(rtreeParent,['params','bg'])){
+		console.log('test case',testEngine.series,testEngine.index);
 		//console.log('JETZT!!!')
 		//genau jetzt muss ich rtreeParent zu einem panel machen!!!
 		let uiParent = R.uiNodes[rtreeParent.uid];
 		//console.log('rNode',rtreeParent,'\nuiNode',uiParent)
-		if (isdef(uiParent)) {
+		if (isdef(uiParent)){
 
-			rtreeParent.type = uiParent.type = 'panel';
-			decodeParams(uiParent, R, {});
+			rtreeParent.type =uiParent.type= 'panel';
+			decodeParams(uiParent,R,{});
 			uiParent.adirty = true;
-			applyCssStyles(uiParent.ui, uiParent.cssParams);
+			applyCssStyles(uiParent.ui,uiParent.cssParams);
 		}
 	}
 

@@ -57,31 +57,31 @@ function createBoard(nui, area, R) {
 	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
 	generalGrid(nui, area, R);
 }
-function resizeBoard(nuiBoard, R) {
-	function updateSizes(nuiBoard) {
+function updateSizes(nuiBoard) {
 
-		//console.log('updateSizes_')
+	//console.log('updateSizes_')
 
-		let szOrig = nuiBoard.params.sizes.f;
-		let szNew = szOrig;
-		let cSizeOrig = nuiBoard.params.sizes.c;
-		let cSizeNew = cSizeOrig;
-		let eSizeOrig = nuiBoard.params.sizes.e;
-		let eSizeNew = eSizeOrig;
-		if (nundef(nuiBoard.resizeInfo)) nuiBoard.resizeInfo = {};
-		if (isdef(nuiBoard.resizeInfo.fields)) {
-			szNew = nuiBoard.resizeInfo.fields;
-		}
-		if (isdef(nuiBoard.resizeInfo.corners)) {
-			cSizeNew = nuiBoard.resizeInfo.corners;
-		}
-		szNew = Math.max(szNew, cSizeNew);
-		if (isdef(nuiBoard.resizeInfo.edges)) {
-			eSizeNew = nuiBoard.resizeInfo.edges;
-		}
-		szNew = Math.max(szNew, eSizeNew);
-		return { sOrig: { f: szOrig, c: cSizeOrig, e: eSizeOrig }, sNew: { f: szNew, c: cSizeNew, e: eSizeNew } };
+	let szOrig = nuiBoard.params.sizes.f;
+	let szNew = szOrig;
+	let cSizeOrig = nuiBoard.params.sizes.c;
+	let cSizeNew = cSizeOrig;
+	let eSizeOrig = nuiBoard.params.sizes.e;
+	let eSizeNew = eSizeOrig;
+	if (nundef(nuiBoard.resizeInfo)) nuiBoard.resizeInfo = {};
+	if (isdef(nuiBoard.resizeInfo.fields)) {
+		szNew = nuiBoard.resizeInfo.fields;
 	}
+	if (isdef(nuiBoard.resizeInfo.corners)) {
+		cSizeNew = nuiBoard.resizeInfo.corners;
+	}
+	szNew = Math.max(szNew, cSizeNew);
+	if (isdef(nuiBoard.resizeInfo.edges)) {
+		eSizeNew = nuiBoard.resizeInfo.edges;
+	}
+	szNew = Math.max(szNew, eSizeNew);
+	return { sOrig: { f: szOrig, c: cSizeOrig, e: eSizeOrig }, sNew: { f: szNew, c: cSizeNew, e: eSizeNew } };
+}
+function resizeBoard(nuiBoard, R) {
 
 	let uidBoard = nuiBoard.uid;
 	let sz = updateSizes(nuiBoard);
@@ -104,14 +104,18 @@ function resizeBoard(nuiBoard, R) {
 			let info = n.info;
 			let shape = n.info.shape;
 			n.info.size = elSize;
-			console.log('updated member size to',elSize)
+			console.log('***resizeBoard: updated member', uid, 'size to', elSize);
+
+			n.size = { w: elSize, h: elSize };
+			n.sizeMeasured = jsCopy(n.size);
+
 			gSize(ui, elSize, elSize, shape);
 			n.typParams.size = n.params.size = elSize;
 		}
 	}
 	gridLayout(nuiBoard, R);
 }
-function calcBoardDimensions(nuiBoard,R){
+function calcBoardDimensions(nuiBoard, R) {
 	let boardInfo = nuiBoard.bi.board.info;
 	let bParams = nuiBoard.params;
 	let fSpacing = bParams.field_spacing;
@@ -136,7 +140,7 @@ function calcBoardDimensions(nuiBoard,R){
 	nuiBoard.fSize = fSpacing - gap;
 
 }
-function calcBoardDimensionsX(nuiBoard,R){
+function calcBoardDimensionsX(nuiBoard, R) {
 	let boardInfo = nuiBoard.bi.board.info;
 	let bParams = nuiBoard.params;
 	let fSpacing = bParams.field_spacing;
@@ -164,14 +168,16 @@ function calcBoardDimensionsX(nuiBoard,R){
 
 function gridLayout(nuiBoard, R) {
 	//console.log('===>gridLayout_', getFunctionsNameThatCalledThisFunction())
-	calcBoardDimensionsX(nuiBoard,R);
-	let [fw,fh]=[nuiBoard.fw,nuiBoard.fh];
+	calcBoardDimensionsX(nuiBoard, R);
+	let [fw, fh] = [nuiBoard.fw, nuiBoard.fh];
 	let boardDiv = mBy(nuiBoard.uidDiv); //nuiBoard.bi.boardDiv;
 	let svg = mBy(nuiBoard.uidSvg);
 	let g = mBy(nuiBoard.uid);
 
 	//let boardG = nuiBoard.ui;
 	mStyle(boardDiv, { 'min-width': nuiBoard.wTotal, 'min-height': nuiBoard.hTotal });
+	nuiBoard.sizeMeasured = { w: nuiBoard.wTotal, h: nuiBoard.hTotal };
+	nuiBoard.size = jsCopy(nuiBoard.sizeMeasured);
 
 	//positioning of elements!
 	for (const fid of nuiBoard.children) {
@@ -188,9 +194,11 @@ function gridLayout(nuiBoard, R) {
 				line.setAttribute('x2', f.info.x2 * fw);
 				line.setAttribute('y2', f.info.y2 * fw);
 			}
-
+			f.pos = { x: (f.info.x1 * fw + f.info.x2 * fw) / 2, y: (f.info.y1 * fw + f.info.y2 * fw) / 2 };
+		} else {
+			f.pos = { x: fw * f.info.x, y: fh * f.info.y };
+			gPos(f.ui, fw * f.info.x, fh * f.info.y);
 		}
-		else gPos(f.ui, fw * f.info.x, fh * f.info.y);
 	}
 
 	//let boundsG = getBounds(g);

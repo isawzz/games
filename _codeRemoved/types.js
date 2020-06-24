@@ -15,7 +15,12 @@ function mInfo(n, uidParent, R) {
 	//console.log('info',n.uid,n.data,n.params)
 
 	let ui;
-	let dParent = mBy(n.idUiParent); 
+	let dParent = mBy(n.idUiParent); //uidParent);
+	//console.log(uidParent, dParent, R.uiNodes)
+	// if (uidParent && isBoardMember(uidParent, R)) {
+	// 	//console.log('--------------isBoardMember', n.content)
+	// 	ui = makeUiOnBoardMember(n, uidParent, R);
+	// } else 
 	if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
 		return gInfo(n, uidParent, R);

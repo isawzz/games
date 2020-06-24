@@ -71,10 +71,10 @@ function adjustLayoutForBoardMember(n, R) {
 	//als LETZTES: positioning!
 	let bmk = getBounds(directParent, false, divParent);
 	let arr;
-	let [wTotal, hTotal, wBoard, hBoard, fw, fh, fSpacing, fSize, gap] = 
-	[nuiBoard.wTotal, nuiBoard.hTotal, nuiBoard.wBoard, nuiBoard.hBoard, nuiBoard.fw, nuiBoard.fh, nuiBoard.fSpacing, nuiBoard.fSize, nuiBoard.gap];
-	console.log('wTotal',wTotal,'hTotal',hTotal,'wBoard',wBoard,
-	'hBoard',hBoard,'fw',fw,'fh',fh,'fSpacing',fSpacing,'fSize',fSize,'gap',gap)
+	let [wTotal, hTotal, wBoard, hBoard, fw, fh, fSpacing, fSize, gap] =
+		[nuiBoard.wTotal, nuiBoard.hTotal, nuiBoard.wBoard, nuiBoard.hBoard, nuiBoard.fw, nuiBoard.fh, nuiBoard.fSpacing, nuiBoard.fSize, nuiBoard.gap];
+	console.log('wTotal', wTotal, 'hTotal', hTotal, 'wBoard', wBoard,
+		'hBoard', hBoard, 'fw', fw, 'fh', fh, 'fSpacing', fSpacing, 'fSize', fSize, 'gap', gap)
 	let bdiv = getBounds(divParent);
 	divParent.style.backgroundColor = 'yellow';
 	ui.style.position = 'absolute';
@@ -130,7 +130,7 @@ function adjustLayoutForBoardMember(n, R) {
 }
 function adjustContainerLayout(n, R) {
 
-	//console.log('adjustContainer', n.uid);
+	console.log('adjustContainer____________', n.uid);
 	n.adirty = false;
 
 	//console.log(n);return;
@@ -146,7 +146,7 @@ function adjustContainerLayout(n, R) {
 	//hier kommt jetzt das adjusting wenn parent ein board member ist und child ein div ist
 	// n ist hier der parent also das board member!!!!
 	if (n.uid && isBoardMember(n.uid, R)) {
-
+		//console.log('88888888888888888888888')
 		adjustLayoutForBoardMember(n, R);
 	}
 

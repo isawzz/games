@@ -1,3 +1,68 @@
+14:
+  ROOT:
+    cond:
+      oid: board1
+    type: grid
+  robber:
+    cond:
+      obj_type: robberT1Duplicate
+    data: R
+13:
+  ROOT:
+    cond:
+      oid: catanBoard1
+    type: grid
+  robber:
+    cond:
+      obj_type: robberC1
+    data: R
+12:
+  ROOT:
+    cond:
+      oid: catanBoard1
+    type: grid
+  robber:
+    cond:
+      oid: rCatan1Edge
+    data: R
+11:
+  ROOT:
+    cond:
+      oid: 145
+    type: grid
+  robber:
+    cond:
+      oid: rCatan_4
+    data: R
+  robber1:
+    cond:
+      oid: rCatan
+    data: R
+10:
+  ROOT:
+    cond:
+      oid: 145
+    type: grid
+  robber:
+    cond:
+      oid: rCatan
+    data: R
+9:
+  ROOT:
+    cond:
+      oid: catanBoard1
+    type: grid
+  robber:
+    cond:
+      oid: rCatan1
+    data: R
+8:
+  ROOT:
+    cond:
+      name: felix
+    data: .hand
+    params:
+      orientation: h
 7:
   ROOT:
     data: hallo
