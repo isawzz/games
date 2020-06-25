@@ -1,3 +1,51 @@
+
+function addInvisiblePanel(uidParent, R) {
+	let uid = getUID();
+	let n = { uid: uid, uidParent: uidParent, type: 'invisible' };
+	R.rNodes[uid] = n;
+	let rParent = R.rNodes[uidParent];
+	if (nundef(rParent.children)) rParent.children = [];
+	rParent.children.push(uid);
+	recUi(n, uidParent, R);
+	return n;
+}
+function transformParentsToBags(parents, R) {
+	let parentPanels = [];
+	for (const p of parents) {
+		let nParent = R.uiNodes[p];
+		let uidNewParent=p;
+		// if parent has no child at all, make invisible container and use that for loc node
+		if (isEmpty(nParent.children)) {
+			console.log('parent', p, 'does NOT have any child!');
+
+			//create an invisible node 
+			let nPanel = addInvisiblePanel(p, R);
+			uidNewParent = nPanel.uid;
+			//also need to create uiNode for this panel!
+
+			console.log(nParent);
+			//parentPanels.push(nPanel.uid);
+		}
+
+		parentPanels.push(uidNewParent);
+		//if this parent already has a child that is a container,
+		//dann kann ich diesen container als echten parent nehmen
+
+		//sonst mache einen container
+
+		//was wenn parent genau 1 child hat aber das ist NICHT ein container?
+		//dann mache ein weiteres child das ein container ist
+
+
+	}
+	console.log('parentPanels',parentPanels)
+	return parentPanels;
+
+}
+
+
+
+//#region measure and arrange! ==>eigenes file!
 function recMeasureOverride(uid, R) {
 	//console.log('measure', uid);
 	let n = R.uiNodes[uid];
@@ -17,6 +65,58 @@ function recMeasureOverride(uid, R) {
 	};
 	//console.log('final size',n.size);
 }
+function arrangeOverride(uid, R) {
+	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
+	//console.log('arrange', uid)
+	let n = R.uiNodes[uid];
+
+	if (nundef(n.children)) return { w: 0, h: 0 }
+
+	// let w, h, res;
+	if (n.type == 'grid') {
+		resizeBoard(n, R);
+
+		//only NOW arrange of children of board members is done!!! 
+		for (const uidMember of n.children) {
+			let tile = R.uiNodes[uidMember];
+			if (nundef(tile.children)) continue;
+
+			//simpleLayoutForOneChildPosition(n,tile,R);
+			wrapLayoutPosition(n,tile,R);
+		}
+		return { w: n.wTotal, h: n.hTotal };
+
+	} else if (n.uiType == 'd') { 
+		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+
+	} else if (n.info) {
+
+		//hier wird platzreservierung fuer children auf einem board member gemacht!!!!!!!
+		// alle children kommen dann ja direkt auf das board selbst! sind aber immer noch node children von tile!!!
+		//2 children case
+		//console.log('arranging board member parent, children', n.children);
+
+		//new code: multiple children
+		n.sizeNeeded = wrapLayoutSizeNeeded(n.children,R);
+		//console.log('wrapLayoutSizeNeeded returned',n.sizeNeeded);
+
+		//old code: only 1 child
+		//n.sizeNeeded = simpleLayoutForOneChildSizeNeeded(n.children[0],R);
+
+		//but: since relies on board sizing, need to resize board and arrange board first!
+		let nBoard = R.uiNodes[n.uidParent];
+		addResizeInfo(nBoard, n, n.sizeNeeded);
+		// console.log('child', nChild.uid, 'needs', nChild.size, 'layout 1/1', '\nresizeInfo:', nBoard.resizeInfo);
+
+		return { w: n.sizeNeeded.w, h: n.sizeNeeded.h };
+
+	} else {
+		console.log('!!!!!!!!!!case NOT catched in arrangeOverride!!!!!!!!!!', n);
+
+	}
+	return res;
+}
+
 function calcSizeMeasured(uid, R) {
 	let n = R.uiNodes[uid];
 	if (isdef(n.info)) { //board member
@@ -31,12 +131,11 @@ function calcSizeMeasured(uid, R) {
 		return { w: b.width, h: b.height };
 	}
 }
-
 function addResizeInfo(nBoard, nMember, sizeNeeded) {
 	//console.log('addrrrrrrrrrrrrrrrrr')
 	let szNeeded = Math.max(sizeNeeded.w, sizeNeeded.h);
 	if (nMember.info.size < szNeeded) {
-		console.log('szNeeded')
+		//console.log('szNeeded')
 		let memType = nMember.info.memType;
 		let newSize = Math.max(sizeNeeded.w, sizeNeeded.h);
 		newSize = Math.ceil(newSize / 4);
@@ -72,67 +171,6 @@ function addResizeInfo(nBoard, nMember, sizeNeeded) {
 		}
 		nBoard.adirty = nMember.adirty = true;
 	}
-}
-
-function arrangeOverride(uid, R) {
-	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
-	//console.log('arrange', uid)
-	let n = R.uiNodes[uid];
-
-	if (nundef(n.children)) return { w: 0, h: 0 }
-
-	// let w, h, res;
-	if (n.type == 'grid') {
-		resizeBoard(n, R);
-
-		//only NOW arrange of children of board members is done!!! 
-		for (const uidMember of n.children) {
-			let tile = R.uiNodes[uidMember];
-			if (nundef(tile.children)) continue;
-			let ch = tile.children[0];
-			let robber = R.uiNodes[ch];
-			let ui = robber.ui;
-
-			// console.log('arranging:', uidMember)
-			// console.log('board size', n.size, '\ntile size', tile.size, '\nrobber size', robber.size)
-
-			ui.style.position = 'absolute';
-			ui.style.display = 'inline-block';
-
-			let x = n.size.w / 2 + tile.pos.x - robber.size.w / 2;// 10;// wTotal/2 + -22;//bdiv.width/2-bmk.width/2;//(bdiv.width/2 + bmk.left + (bmk.width - bel.width) / 2);
-			let y = n.size.h / 2 + tile.pos.y - robber.size.h / 2;// 10;// wTotal/2 + -22;//bdiv.width/2-bmk.width/2;//(bdiv.width/2 + bmk.left + (bmk.width - bel.width) / 2);
-
-			ui.style.left = x + 'px';
-			ui.style.top = y + 'px';
-			ui.style.margin = '0px';
-		}
-		return { w: n.wTotal, h: n.hTotal };
-
-	} else if (n.uiType == 'd') { 
-		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
-
-	} else if (n.info) {
-		//console.log('arranging board member parent, children', n.children);
-		let ch = n.children[0];
-		let nChild = R.uiNodes[ch];
-
-		//since this is a board member, layout is 1/1
-		let wNeeded = nChild.size.w+12; //just testing: give child more space for margin
-		let hNeeded = nChild.size.h+12;
-		n.sizeNeeded = { w: wNeeded, h: hNeeded };
-
-		//but: since relies on board sizing, need to resize board and arrange board first!
-		let nBoard = R.uiNodes[n.uidParent];
-		addResizeInfo(nBoard, n, n.sizeNeeded);
-		// console.log('child', nChild.uid, 'needs', nChild.size, 'layout 1/1', '\nresizeInfo:', nBoard.resizeInfo);
-
-		return { w: n.sizeNeeded.w, h: n.sizeNeeded.h };
-
-	} else {
-		console.log('!!!!!!!!!!case NOT catched in arrangeOverride!!!!!!!!!!', n);
-
-	}
-	return res;
 }
 function calcSizeAvailable(uid, R) {
 	let n = R.uiNodes[uid];

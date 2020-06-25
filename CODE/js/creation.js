@@ -1,12 +1,4 @@
 //#region start sequence
-function addInvisiblePanel(uidParent, R) {
-	let uid = getUID();
-	let n = { uid: uid, uidParent: uidParent, type: 'invisible' };
-	let rParent = R.rNodes[uidParent];
-	if (nundef(rParent.children)) rParent.children = [];
-	rParent.children.push(uid);
-	return n;
-}
 
 function ensureRtree(R) {
 	if (nundef(R.tree) || isEmpty(R.tree)) {
@@ -122,37 +114,6 @@ function einhaengen(oid, o, R) {
 	}
 	return success ? successKeys : false;
 }
-function transformParentsToBags(parents, R) {
-	let parentPanels = [];
-	for (const p of parents) {
-		let nParent = R.uiNodes[p];
-		// if parent has no child at all, make invisible container and use that for loc node
-		if (isEmpty(nParent.children)) {
-			console.log('parent', p, 'does NOT have any child!');
-
-			//create an invisible node 
-			//let nPanel = addInvisiblePanel(p, R);
-
-			//also need to create uiNode for this panel!
-
-			console.log(nPanel);
-			//parentPanels.push(nPanel.uid);
-		}
-
-		parentPanels.push(p);
-		//if this parent already has a child that is a container,
-		//dann kann ich diesen container als echten parent nehmen
-
-		//sonst mache einen container
-
-		//was wenn parent genau 1 child hat aber das ist NICHT ein container?
-		//dann mache ein weiteres child das ein container ist
-
-
-	}
-	return parentPanels;
-
-}
 function addOidByLocProperty(oid, key, R) {
 	let o = R.getO(oid);
 	let oidParent = o.loc;
@@ -164,8 +125,8 @@ function addOidByLocProperty(oid, key, R) {
 
 	if (isEmpty(parents)) { return []; }
 
-	//transformParentsToBags(parents,R);
-
+	//parents = transformParentsToBags(parents,R);
+	//console.log(parents)
 
 	let topUids = [];
 	for (const uidParent of parents) {

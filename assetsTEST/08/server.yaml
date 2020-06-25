@@ -29,8 +29,38 @@ table:
   'rt1dup_1':
     obj_type: robberT1Duplicate
     loc: tile1
-  'rt1dup_2':
-    obj_type: robberT1Duplicate
+  # 'rt1dup_2':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  # 'rt1dup_3':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  # 'rt1dup_4':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  # 'rt1dup_5':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  # 'rt1dup_6':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  # 'rt1dup_7':
+  #   obj_type: robberT1Duplicate
+  #   loc: tile1
+  'rc1dup_1':
+    obj_type: robberC1Duplicate
+    loc: tile1
+  'rc1dup_2':
+    obj_type: robberC1Duplicate
+    loc: tile1
+  'rc1dup_3':
+    obj_type: robberC1Duplicate
+    loc: tile1
+  'rc1dup_4':
+    obj_type: robberC1Duplicate
+    loc: tile1
+  'rc1dup_5':
+    obj_type: robberC1Duplicate
     loc: tile1
   'rCatan1Corner':
     obj_type: robberC1

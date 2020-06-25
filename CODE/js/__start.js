@@ -87,7 +87,7 @@ async function present00(sp, defaults, sdata) {
 	//creation sequence:
 	//wann und wie wird start channels bestimmt?
 	//lets do that hardcoded for now!
-	R.initialChannels=[]; //do not provide anything here or ALL tests before 04 will fail!!!!
+	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
 	//console.log(R)
 	ensureRtree(R);
 
@@ -96,13 +96,13 @@ async function present00(sp, defaults, sdata) {
 
 	addNewlyCreatedServerObjects(sdata, R);
 
-// 	setTimeout(()=>present2(R),2000);
-// }
-// function present2(R){
-	
+	// 	setTimeout(()=>present2(R),2000);
+	// }
+	// function present2(R){
+
 	//recAdjustDirtyContainers(R.tree.uid, R, true);
-	
-	recMeasureOverride(R.tree.uid,R);
+
+	recMeasureOverride(R.tree.uid, R);
 
 	//output and testing
 	updateOutput(R);
@@ -200,7 +200,7 @@ function updateOutput(R) {
 			['children'],
 			// null, //show
 			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-			['size','uid', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
+			['uid', 'size', 'pos', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
 			null, //omit
 			{ 'max-width': '35%', font: '14px arial' });
 	}

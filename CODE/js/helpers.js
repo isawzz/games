@@ -2314,6 +2314,7 @@ function filterByNoKey(o, undesiredKeys) {
 }
 function filterByKey(o, desiredKeys) {
 	//create shallow copy of o with only desiredKeys
+	//o = recRenameKey(o,'y','top');
 	let o1 = {};
 	for (const k of desiredKeys) {
 		if (isdef(o[k])) {
@@ -2322,7 +2323,17 @@ function filterByKey(o, desiredKeys) {
 	}
 	return o1;
 }
+// function recRenameKey(o,kOld,kNew){
+// 	console.log(o)
+// 	if (isDict(o)){
 
+// 		let oNew = {};
+// 		for(const k in o){
+// 			if (k == kOld){oNew[kNew]=recRenameKey(o[k],kOld,kNew);}else{oNew[k]=recRenameKey(o[k],kOld,kNew);}
+// 		}
+// 		return oNew;
+// 	}else return o;
+// }
 function fisherYates(array) {
 	var rnd, temp;
 

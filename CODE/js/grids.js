@@ -83,6 +83,7 @@ function updateSizes(nuiBoard) {
 }
 function resizeBoard(nuiBoard, R) {
 
+	//console.log('*** resizeBoard')	
 	let uidBoard = nuiBoard.uid;
 	let sz = updateSizes(nuiBoard);
 	nuiBoard.params.sizes = sz.sNew;
@@ -94,9 +95,12 @@ function resizeBoard(nuiBoard, R) {
 
 	for (const name of ['fields', 'edges', 'corners']) {
 		let group = nuiBoard.bi[name];
+		//console.log('1')
 		for (const oid in group) {
+			//console.log('2')
 			let elSize_old = sz.sOrig[name[0]];
 			let elSize = sz.sNew[name[0]];
+			//console.log(elSize)
 			if (elSize_old == elSize) { continue; }
 			let uid = R.getUidWithParent(oid, uidBoard);
 			let n = R.uiNodes[uid];
@@ -104,7 +108,7 @@ function resizeBoard(nuiBoard, R) {
 			let info = n.info;
 			let shape = n.info.shape;
 			n.info.size = elSize;
-			console.log('***resizeBoard: updated member', uid, 'size to', elSize);
+			//console.log('***resizeBoard: updated member', uid, 'size to', elSize);
 
 			n.size = { w: elSize, h: elSize };
 			n.sizeMeasured = jsCopy(n.size);
@@ -196,7 +200,7 @@ function gridLayout(nuiBoard, R) {
 			}
 			f.pos = { x: (f.info.x1 * fw + f.info.x2 * fw) / 2, y: (f.info.y1 * fw + f.info.y2 * fw) / 2 };
 		} else {
-			f.pos = { x: fw * f.info.x, y: fh * f.info.y };
+			f.pos = { x: (fw * f.info.x), y: (fh * f.info.y) };
 			gPos(f.ui, fw * f.info.x, fh * f.info.y);
 		}
 	}

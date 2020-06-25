@@ -141,10 +141,12 @@ function parentHasChannelForThisOid(n, oid) {
 
 }
 function parentHasThisChildAlready(uidParent,oid){
+	//console.log('parentHasThisChildAlready','uidParent',uidParent,'oid',oid);
 	let n=R.rNodes[uidParent];
 	if (nundef(n.children)) return false; //FOUND!
 	let hasThisChild = false;
 	for (const chuid of n.children) {
+		//console.log('chuid',chuid,'uidParent',uidParent,'oid',oid);
 		if (R.rNodes[chuid].oid == oid) { hasThisChild = true; break; }
 	}
 	return hasThisChild;
