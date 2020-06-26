@@ -17,14 +17,35 @@ table:
   cycle2:
     name: cycle
     loc: cycle1
+  lc1:
+    obj_type: robbercadd2
+    loc: lc2
+  lc2:
+    obj_type: robbercadd2
+    loc: lc3
+  lc3:
+    loc: c1f0
+    obj_type: robbercadd2
+  lt1:
+    obj_type: robbertadd2
+    loc: lt2
+  lt2:
+    obj_type: robbertadd2
+    loc: lt3
+  lt3:
+    loc: tile1
+    obj_type: robbertadd2
   # loc1t:
   #   obj_type: robberth
   #   name: hallo1
   #   loc: loc2
-  # loc2t:
-  #   obj_type: robberth
-  #   name: hallo2
-  #   loc: loc3t
+  loc2t:
+    obj_type: robbert2
+    name: hallo2
+    loc: loc3t
+  loc3ta:
+    loc: tile1
+    obj_type: robberta
   loc3t:
     loc: tile1
       # _obj: '3'

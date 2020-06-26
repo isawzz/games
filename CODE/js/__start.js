@@ -97,10 +97,6 @@ async function present00(sp, defaults, sdata) {
 
 	addNewlyCreatedServerObjects(sdata, R);
 
-	// 	setTimeout(()=>present2(R),2000);
-	// }
-	// function present2(R){
-
 	//recAdjustDirtyContainers(R.tree.uid, R, true);
 
 	recMeasureOverride(R.tree.uid, R);

@@ -1,52 +1,19 @@
-function mSimplestInvisible(n, uidParent, R) {
-	//console.log('invisible',n.uid,n.data,n.params)
-	let dParent = mBy(n.idUiParent);
-	let d = mDiv(dParent);
-	// console.log('invisible')
-	//if (n.data) { console.log('habe data', n.data) }
-	if (n.content) {
-		//console.log('habe content!!!', n.content); 
-		mTextDiv(n.content, d);
-	}
-	//n.idUiParent = d.id;
-	return d;
-}
-
-
-
-function mSimplest(n, uidParent, R) {
-	//console.log('info',n.uid,n.data,n.params)
-
+function mBare(n, uidParent, R) {
 	let ui;
 	let dParent = mBy(n.idUiParent);
+	ui = mDiv(dParent);
 	if (isdef(n.content)) {
-		ui = mDiv(dParent);
-		ui.innerHTML = n.content;
+		
+		//mTextDiv(n.content,ui);
+		mNode(n.content,ui)
+		//ui=mNode(n.content, dParent);
 		// let para = document.createElement('p');
 		// para.innerHTML = 'hallo';
 		// ui.appendChild(para);
 		//ui = mTextDiv(n.content,dParent);
-	} else {
-		ui = mDiv(dParent);
 	}
 	let b = getBounds(ui, true);
-	console.log('________createUi: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
-	if (ui.id == '_1') ui.style.maxWidth = '140px';
-	return ui;
-	if (getTypeOf(dParent) == 'g') {
-		//console.log('--------------g', n.content)
-		return gInfo(n, uidParent, R);
-	} else if (isdef(n.content)) {
-		//console.log('--------------isdef(content)', n.content)
-		ui = mNode(n.content, dParent);
-		//n.idUiParent = dParent.id;
-		mClass(ui, 'node');
-	} else {
-		//console.log('--------------else', n.content)
-		ui = mDiv(dParent);
-		//n.idUiParent = dParent.id;
-		ui.style.display = 'hidden';
-	}
+	//console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
 	return ui;
 }
 
@@ -344,6 +311,7 @@ function mTitle(n, uidParent, R) {
 }
 
 const RCREATE = {
+	bare: mBare,
 	invisible: mInvisible,
 	info: mInfo,
 	list: mList,
@@ -423,5 +391,58 @@ function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t 
 function isGridType(t) { return t == 'grid'; }
 
 
+
+
+function mSimplestInvisible(n, uidParent, R) {
+	//console.log('invisible',n.uid,n.data,n.params)
+	let dParent = mBy(n.idUiParent);
+	let d = mDiv(dParent);
+	// console.log('invisible')
+	//if (n.data) { console.log('habe data', n.data) }
+	if (n.content) {
+		//console.log('habe content!!!', n.content); 
+		mTextDiv(n.content, d);
+	}
+	//n.idUiParent = d.id;
+	return d;
+}
+
+
+
+function mSimplest(n, uidParent, R) {
+	//console.log('info',n.uid,n.data,n.params)
+
+	let ui;
+	let dParent = mBy(n.idUiParent);
+	if (isdef(n.content)) {
+		ui = mDiv(dParent);
+		ui.innerHTML = n.content;
+		// let para = document.createElement('p');
+		// para.innerHTML = 'hallo';
+		// ui.appendChild(para);
+		//ui = mTextDiv(n.content,dParent);
+	} else {
+		ui = mDiv(dParent);
+	}
+	let b = getBounds(ui, true);
+	console.log('________createUi: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
+	if (ui.id == '_1') ui.style.maxWidth = '140px';
+	return ui;
+	if (getTypeOf(dParent) == 'g') {
+		//console.log('--------------g', n.content)
+		return gInfo(n, uidParent, R);
+	} else if (isdef(n.content)) {
+		//console.log('--------------isdef(content)', n.content)
+		ui = mNode(n.content, dParent);
+		//n.idUiParent = dParent.id;
+		mClass(ui, 'node');
+	} else {
+		//console.log('--------------else', n.content)
+		ui = mDiv(dParent);
+		//n.idUiParent = dParent.id;
+		ui.style.display = 'hidden';
+	}
+	return ui;
+}
 
 

@@ -1,18 +1,24 @@
+function onClickMeasure(){
+	recMeasureOverride(R.tree.uid, R);
+	updateOutput(R);
+}
+
 function onClickAddLocObject() {
 	//addNewlyCreatedServerObjects(sdata, R);
+	//console.log('halllllllllllooooooooooooooooo')
 	let o = {
-		oid: 'loc2t',
-		obj_type: 'robbert',
+		oid: 'loc2ta',
+		obj_type: 'robberta',
 		name: 'hallo2',
-		loc: 'loc3t'
+		loc: 'loc3ta'
 	};
 	let o2 = {
-		oid: 'loc1t',
-		obj_type: 'robbert',
+		oid: 'loc1ta',
+		obj_type: 'robberta',
 		name: 'hallo1',
-		loc: 'loc2t'
+		loc: 'loc2ta'
 	};
-	if (isdef(R.getO('loc2t'))) o = o2;
+	if (isdef(R.getO('loc2ta'))) o = o2;
 	R.addObject(o.oid, o); R.addRForObject(o.oid);
 	let success = einhaengen(o.oid, o, R);
 

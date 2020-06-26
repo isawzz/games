@@ -1,8 +1,4 @@
 //#region layout functions
-function wrapLayoutColarr(num) {
-	const arr = [[0], [1], [2], [1, 2], [2, 2], [2, 3], [3, 3], [2, 3, 2], [2, 3, 3], [3, 3, 3], [3, 4, 3], [3, 4, 4], [4, 4, 4]];
-	return num < arr.length ? arr[num] : [num];
-}
 function calcTotalDims(n, uids, R) {
 	let hMax = 0;
 	let margin = isdef(n.params.margin) ? n.params.margin : 0;
@@ -19,7 +15,7 @@ function calcTotalDims(n, uids, R) {
 }
 
 function infoLayout(n,R){
-	
+
 }
 
 function horLayout(n, R) {
@@ -52,6 +48,12 @@ function horLayout(n, R) {
 	uiParent.style.width = dims.w + 'px';
 	uiParent.style.minHeight = dims.h+'px';
 
+}
+
+//#region wrap layout
+function wrapLayoutColarr(num) {
+	const arr = [[0], [1], [2], [1, 2], [2, 2], [2, 3], [3, 3], [2, 3, 2], [2, 3, 3], [3, 3, 3], [3, 4, 3], [3, 4, 4], [4, 4, 4]];
+	return num < arr.length ? arr[num] : [num];
 }
 function wrapLayoutPosition(nBoard, tile, R) {
 	let margin = 2;
