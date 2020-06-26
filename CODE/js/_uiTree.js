@@ -29,7 +29,7 @@ function recUi(n, area, R, oid, key) {
 	} else {
 		let lst = getElements(n1.content);
 		//zuerst muss ich checken ob das ueberhaupt objects sind
-		//wenn hier nur 1 element zurueckkommt, dann mache NICHT ein panel sondern ein invisible!
+		//wenn hier nur 1 element zurueckkommt, dann mache NICHT ein panel_ sondern ein invisible!
 		if (isdef(lst) && !isEmpty(lst)) {
 
 			//lst can be:

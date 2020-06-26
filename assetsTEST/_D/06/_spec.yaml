@@ -70,13 +70,12 @@
     cond: 
       obj_type: Board
     params:
-      padding: 20
-    data: .oid
+      padding: 2
     type: grid
   sa:
     cond: 
       obj_type: robber
-    data: .hand
+    data: R
     params:
       fg: contrast
 5: #ok

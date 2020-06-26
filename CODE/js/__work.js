@@ -9,41 +9,6 @@ function addInvisiblePanel(uidParent, R) {
 	recUi(n, uidParent, R);
 	return n;
 }
-function transformParentsToBags(parents, R) {
-	let parentPanels = [];
-	for (const p of parents) {
-		let nParent = R.uiNodes[p];
-		let uidNewParent=p;
-		// if parent has no child at all, make invisible container and use that for loc node
-		if (isEmpty(nParent.children)) {
-			console.log('parent', p, 'does NOT have any child!');
-
-			//create an invisible node 
-			let nPanel = addInvisiblePanel(p, R);
-			uidNewParent = nPanel.uid;
-			//also need to create uiNode for this panel!
-
-			console.log(nParent);
-			//parentPanels.push(nPanel.uid);
-		}
-
-		parentPanels.push(uidNewParent);
-		//if this parent already has a child that is a container,
-		//dann kann ich diesen container als echten parent nehmen
-
-		//sonst mache einen container
-
-		//was wenn parent genau 1 child hat aber das ist NICHT ein container?
-		//dann mache ein weiteres child das ein container ist
-
-
-	}
-	console.log('parentPanels',parentPanels)
-	return parentPanels;
-
-}
-
-
 
 //#region measure and arrange! ==>eigenes file!
 function recMeasureOverride(uid, R) {
@@ -63,7 +28,8 @@ function recMeasureOverride(uid, R) {
 		w: Math.max(n.sizeMeasured.w, n.sizeNeeded.w), 
 		h: Math.max(n.sizeMeasured.h, n.sizeNeeded.h) 
 	};
-	//console.log('final size',n.size);
+	//console.log('final size',n.uid,n.size);
+	showSizes(n,R);
 }
 function arrangeOverride(uid, R) {
 	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
@@ -87,6 +53,14 @@ function arrangeOverride(uid, R) {
 		return { w: n.wTotal, h: n.hTotal };
 
 	} else if (n.uiType == 'd') { 
+		panelLayout(n,R);
+		// if (n.params.orientation == 'h'){
+		// 	//console.log('horizontal layout!')
+		// 	horLayout(n,R);
+		// }else{
+		// 	panelLayout(n,R);
+		// }
+
 		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
 
 	} else if (n.info) {
@@ -94,7 +68,6 @@ function arrangeOverride(uid, R) {
 		//hier wird platzreservierung fuer children auf einem board member gemacht!!!!!!!
 		// alle children kommen dann ja direkt auf das board selbst! sind aber immer noch node children von tile!!!
 		//2 children case
-		//console.log('arranging board member parent, children', n.children);
 
 		//new code: multiple children
 		n.sizeNeeded = wrapLayoutSizeNeeded(n.children,R);
@@ -127,7 +100,7 @@ function calcSizeMeasured(uid, R) {
 		return { w: n.wTotal, h: n.hTotal };
 
 	} else {
-		let b = getBounds(n.ui);
+		let b = getBounds(n.ui,);
 		return { w: b.width, h: b.height };
 	}
 }
@@ -135,7 +108,7 @@ function addResizeInfo(nBoard, nMember, sizeNeeded) {
 	//console.log('addrrrrrrrrrrrrrrrrr')
 	let szNeeded = Math.max(sizeNeeded.w, sizeNeeded.h);
 	if (nMember.info.size < szNeeded) {
-		//console.log('szNeeded')
+		//console.log('szNeeded',szNeeded)
 		let memType = nMember.info.memType;
 		let newSize = Math.max(sizeNeeded.w, sizeNeeded.h);
 		newSize = Math.ceil(newSize / 4);
@@ -192,7 +165,15 @@ function calcSizeAvailable(uid, R) {
 	}
 }
 
-
+function showSizes(nLast,R){
+	//console.log('______showSizes_______',nLast.uid);
+	for(const uid in R.UIS){
+		let n = R.UIS[uid];
+		// if (isdef(n.size)) {
+		// 	console.log(n.uid,'size',n.size.w,n.size.h,			'measured',n.sizeMeasured.w,n.sizeMeasured.h,			'needed',n.sizeNeeded.w,n.sizeNeeded.h,); //R.UIS[uid]);
+		// }
+	}
+}
 
 
 

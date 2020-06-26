@@ -1,3 +1,26 @@
+
+function testTableDiv(){
+	let d=mBy('table');
+	d.style.position = 'relative';
+	let d1=mDiv(d);
+	d1.style.position = 'relative';
+	d1.style.width = '100px';
+	d1.style.height='50px';
+	d1.style.left='0px';
+	d1.style.top='0px';
+	d1.style.backgroundColor='blue';
+
+
+	let b=getBounds(d1);
+	console.log(b.width,b.height);
+
+	d1.style.borderRadius='4px'
+
+	b=getBounds(d1);
+	console.log(b.width,b.height);
+}
+
+
 //#region testAblauf
 async function testAblauf02(defs, spec, sdata0) {
 	await testEngine.init(defs, sdata0, TEST_SERIES);

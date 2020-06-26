@@ -1,3 +1,51 @@
+# 20:
+#   ROOT:
+#     cond: 
+#       name: felix
+#     data: .hand
+#   sa:
+#     cond:
+#       obj_type: card
+#     data: .short_name
+# 8:
+#   ROOT:
+#     sub:
+#       - _id: sa
+#       - _id: sb
+#     _id: vpanel
+#     sa:
+#       _ref: sa
+#       cond: 
+#         instanceof: _player
+#       sub:
+#         - data: .name
+#           params:
+#             bg: inherit
+#         - data: .hand
+#           type: panel
+#           params:
+#             bg: inherit
+#       _id: vpanel
+#       params:
+#         bg: .color
+#     sb:
+#       _ref: sb
+#       cond:
+#         obj_type: Board
+#       type: grid
+#     card:
+#       cond:
+#         obj_type: card
+#       params:
+#         height: 35
+#         width: 25
+#       data: .short_name        
+#     vpanel:
+#       _ref: vpanel
+#       params:
+#         orientation: v
+#         padding: 0
+#         margin: 2
 14:
   ROOT:
     _NODE: sa

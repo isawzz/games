@@ -11,6 +11,12 @@ players:
     color: blue
     hand:
 table:
+  robber:
+    loc: t0
+    obj_type: robber
+  '146':
+    loc: t0
+    obj_type: robber
   't0':
     row: 1
     col: 1
@@ -2742,26 +2748,8 @@ table:
       - _obj: '142'
       - _obj: '143'
       - _obj: '144'
-  # '146':
-  #   loc:
-  #     _obj: '3'
-  #   obj_type: robber
-  #   visible:
-  #     _set:
-  #     - _player: White
-  #     - _player: Red
-  #     - _player: Blue
   # '147':
   #   obj_type: devdeck
-  #   visible:
-  #     _set:
-  #     - _player: White
-  #     - _player: Red
-  #     - _player: Blue
-  # robber:
-  #   loc: "0"
-  #   obj_type: robber
-  #   hand: [c1, c2, c3]
   # rob1:
   #   loc: "1"
   #   obj_type: robber

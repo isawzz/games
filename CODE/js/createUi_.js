@@ -15,7 +15,10 @@ function createUi(n, uidParent, R) {
 	// 	console.log('n in createUi is rNode',n.uid);
 	// }
 	//if (n.uid == '_14') {		console.log('createUi', n)	}
-	if (nundef(n.type)) { n.type = inferType(n); }
+	if (nundef(n.type)) {
+		n.type = inferType(n);
+		//console.log('inferring type:',n.type);
+	}
 
 	R.registerNode(n);
 
@@ -47,6 +50,10 @@ function createUi(n, uidParent, R) {
 	}
 
 	R.setUid(n, ui);
+
+	let b=getBounds(ui,true);
+	//console.log('________createUi: ',n.uid,'\n',ui,'\nbounds',b.width,b.height);
+
 	return ui;
 
 }
@@ -130,7 +137,7 @@ function adjustLayoutForBoardMember(n, R) {
 }
 function adjustContainerLayout(n, R) {
 
-	console.log('adjustContainer____________', n.uid);
+	console.log('...........adjustContainer____________', n.uid);
 	n.adirty = false;
 
 	//console.log(n);return;

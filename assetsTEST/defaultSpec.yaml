@@ -1,9 +1,28 @@
 defaults:
+  defaultPanel: panel
+  defaultInfo: info
+  defaultInvisible: invisible
+  simplest:
+    params:
+      orientation: h
+      font: 16px Comic Sans MS #AlgerianRegular
+      border-radius: 6
+      box-sizing: border-box
+      margin: 4
+      padding: '4px 10px'
+      position: relative
+      bg: random
+      fg: contrast
+  simplestInvisible:
+    params:
+      position: relative
+      bg: transparent
+      fg: transparent
   cycleLengthAllowed: 4
   grid: #common to all grids
     params:
       field_spacing: 60
-      margin: 8
+      margin: 0
       fields:
         bg: beige
         size: 52
@@ -27,17 +46,17 @@ defaults:
       field_spacing: 48
       bg: pink
       padding: 2
-      margin: 10
+      margin: 0
       fields:
-        rounding: 4
+        #rounding: 4
         size: 44
         shape: rect
   hexGrid:
     params:
       border-radius: 6
       bg: skyblue
-      padding: 20
-      margin: 10
+      padding: 2
+      margin: 0
       field_spacing: 64
       fields:
         size: 56
@@ -58,6 +77,7 @@ defaults:
       justify-content: center
       align-items: center
       align-content: center
+      #________________
       # align-items: stretch
       # justify-content: space-evenly
       # align-content: space-evenly
@@ -68,6 +88,7 @@ defaults:
       split: equal
       padding: 2
       margin: 2
+      #float: left
       justify-items: center
       justify-content: center
       align-items: center

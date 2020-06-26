@@ -18,7 +18,7 @@ players:
         - _obj: c1
         - _obj: c2
     buildings:
-      farms: 
+      farms:
         - _obj: farm1
         - _obj: farm2
       estates: []

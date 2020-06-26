@@ -1,67 +1,94 @@
-function onClickResizeBoard(){
+function onClickAddLocObject() {
+	//addNewlyCreatedServerObjects(sdata, R);
+	let o = {
+		oid: 'loc2t',
+		obj_type: 'robbert',
+		name: 'hallo2',
+		loc: 'loc3t'
+	};
+	let o2 = {
+		oid: 'loc1t',
+		obj_type: 'robbert',
+		name: 'hallo1',
+		loc: 'loc2t'
+	};
+	if (isdef(R.getO('loc2t'))) o = o2;
+	R.addObject(o.oid, o); R.addRForObject(o.oid);
+	let success = einhaengen(o.oid, o, R);
+
+	//recAdjustDirtyContainers(R.tree.uid, R, true);
+	//setTimeout(() => {
+		recMeasureOverride(R.tree.uid, R)
+		//output and testing
+		updateOutput(R);
+	//}, 200);
+
+
+}
+function onClickResizeBoard() {
 	let nuiBoard = R.uiNodes['_2'];
 	nuiBoard.adirty = true;
-	lookupSetOverride(nuiBoard,['resizeInfo','fields'],80);
+	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 80);
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
 }
-function onClickSmallerBoard(){
+function onClickSmallerBoard() {
 	let nuiBoard = R.uiNodes['_2'];
 	//console.log('nuiBoard vor resizing to smaller:',nuiBoard)
 	nuiBoard.adirty = true;
-	lookupSetOverride(nuiBoard,['resizeInfo','fields'],32);
+	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 32);
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
 	recAdjustDirtyContainers(R.tree.uid, R, true);
 
 }
 
-async function onClickRunAll(){
+async function onClickRunAll() {
 	STOP = false;
-	let sel=mBy('selSeries');
+	let sel = mBy('selSeries');
 	let listSeries = [];
-	for(const ch of sel.children){
+	for (const ch of sel.children) {
 		//console.log(ch.value);
-		if (ch.value != 'none') listSeries.push('_D/'+ch.value);
+		if (ch.value != 'none') listSeries.push('_D/' + ch.value);
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');
-	console.log('_______ *NEW SERIES: ',listSeries[0]);
-	await runNextSeries(listSeries,listSeries[0],0,imax);
+	console.log('_______ *NEW SERIES: ', listSeries[0]);
+	await runNextSeries(listSeries, listSeries[0], 0, imax);
 }
-async function runNextSeries(listSeries,series,from,to){
+async function runNextSeries(listSeries, series, from, to) {
 	let timeOUT = 500;
 
 	if (isEmpty(listSeries)) {
 		console.log('*** ALL TESTS COMPLETED! ***');
 		return;
-	}else if (STOP){
-		STOP=false;
+	} else if (STOP) {
+		STOP = false;
 		console.log('*** TEST RUN INTERRUPTED!!! ***');
 		return;
-	}else if (from >= to){
+	} else if (from >= to) {
 		let series = testEngine.series;
-		removeInPlace(listSeries,series);
+		removeInPlace(listSeries, series);
 		if (isEmpty(listSeries)) {
 			console.log('*** ALL TESTS COMPLETED! ***');
 			return;
-		}		
+		}
 		series = listSeries[0];
-		console.log('_______ *NEW SERIES: ',series);
+		console.log('_______ *NEW SERIES: ', series);
 		let imax = await testEngine.loadSeries(series);
-		setTimeout(async () => { await runNextSeries(listSeries,series,0,imax); }, timeOUT*2);
+		setTimeout(async () => { await runNextSeries(listSeries, series, 0, imax); }, timeOUT * 2);
 		// await runNextSeries(listSeries,series,0,imax);
-	}else{
+	} else {
 		let series = listSeries[0];
 		let index = from;
-		await testEngine.loadTestCase(series,index);
+		await testEngine.loadTestCase(series, index);
 		await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
-		setTimeout(async () => { await runNextSeries(listSeries,series,from+1,to); }, timeOUT);
+		setTimeout(async () => { await runNextSeries(listSeries, series, from + 1, to); }, timeOUT);
 	}
 }
-function onClickStop(){ STOP=true;hide('btnStop');}
-async function onTestSeriesChanged(){
+function onClickStop() { STOP = true; hide('btnStop'); }
+async function onTestSeriesChanged() {
 
 	//achtung!!! er muss die richtigen sdata laden!!!!!!!!!
 	let series = mBy('selSeries').value;
@@ -79,23 +106,23 @@ async function onTestSeriesChanged(){
 }
 
 
-function onClickToggleInteractivity(btn){
-	let d=mBy('divInteractivity');
-	if (isVisible(d)) {hide(d);btn.innerHTML='+';} else {show(d);btn.innerHTML='-';}
+function onClickToggleInteractivity(btn) {
+	let d = mBy('divInteractivity');
+	if (isVisible(d)) { hide(d); btn.innerHTML = '+'; } else { show(d); btn.innerHTML = '-'; }
 }
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 
-async function onClickRun(){
-	let indexFrom=firstNumber(mBy('iTestCaseFrom').value);
-	localStorage.setItem('iTestCaseFrom',indexFrom);
-	let indexTo=firstNumber(mBy('iTestCaseTo').value);
-	localStorage.setItem('iTestCaseTo',indexTo);
-	verifySequence(indexFrom,indexTo, false);
+async function onClickRun() {
+	let indexFrom = firstNumber(mBy('iTestCaseFrom').value);
+	localStorage.setItem('iTestCaseFrom', indexFrom);
+	let indexTo = firstNumber(mBy('iTestCaseTo').value);
+	localStorage.setItem('iTestCaseTo', indexTo);
+	verifySequence(indexFrom, indexTo, false);
 }
-async function onClickVerifySoFar() { verifySequence(0, testEngine.index, true);}
-async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
+async function onClickVerifySoFar() { verifySequence(0, testEngine.index, true); }
+async function verifySequence(indexFrom, indexTo, saveOnCompleted = false) {
 	show('btnStop');
-	console.log('______________ verify from',indexFrom,'to',indexTo, 'save',saveOnCompleted);
+	console.log('______________ verify from', indexFrom, 'to', indexTo, 'save', saveOnCompleted);
 	testEngine.autosave = true;
 	clearElement(mBy('table'));
 	let series = testEngine.series;
@@ -107,9 +134,9 @@ async function verifySequence(indexFrom,indexTo, saveOnCompleted=false){
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 	//console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, 1000);
-	
+
 }
-async function verNext(series, index, maxIndex, saveOnCompleted=false) {
+async function verNext(series, index, maxIndex, saveOnCompleted = false) {
 	//console.log('______________ vernext',series,index);
 
 	await testEngine.loadTestCase(series, index);
@@ -117,17 +144,17 @@ async function verNext(series, index, maxIndex, saveOnCompleted=false) {
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	let timeOUT = 500;
-	if (index < maxIndex && !STOP) setTimeout(async () => { await verNext(series, index + 1, maxIndex,saveOnCompleted); }, timeOUT);
-	else if (saveOnCompleted) { STOP=false;saveSolutions(series, testEngine.Dict[series].solutions); }
+	if (index < maxIndex && !STOP) setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, timeOUT);
+	else if (saveOnCompleted) { STOP = false; saveSolutions(series, testEngine.Dict[series].solutions); }
 
 }
-async function onClickGo(){
-	let elem=mBy('iTestCase');
+async function onClickGo() {
+	let elem = mBy('iTestCase');
 	//console.log(elem)
-	let n=elem.value;
-	n=firstNumber(n)
+	let n = elem.value;
+	n = firstNumber(n)
 	//console.log(n,typeof n)
-	await testEngine.loadTestCase(testEngine.series,n);
+	await testEngine.loadTestCase(testEngine.series, n);
 	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
 
@@ -166,15 +193,15 @@ async function doNext(series, index, mexIndex) {
 // }
 function onClickInvalidate() { testEngine.invalidate(); }
 function onClickSave() { testEngine.saveSolution(T); }
-async function onClickClearTable() { clearElement('table');clearUpdateOutput();T={}; }
+async function onClickClearTable() { clearElement('table'); clearUpdateOutput(); T = {}; }
 
 function onClickRemove() { testRemoveObject(T); }
 function onClickAdd() { testAddObject(T); }
 
 function onClickRemoveBoard() { removeBoard(T); }
 function onClickAddBoard() { addBoard(T); }
-function onClickRemoveRobber(){removeRobber(T);}
-function onClickAddRobber(){addRobber(T);}
+function onClickRemoveRobber() { removeRobber(T); }
+function onClickAddRobber() { addRobber(T); }
 
 function onClickActivate() {
 	testActivate(T);
@@ -183,7 +210,7 @@ function onClickDeactivate() {
 	testDeactivate(T);
 }
 
-function onClickUpdateOutput(elem) { 
+function onClickUpdateOutput(elem) {
 
 	switch (elem.id) {
 		case 'contSpec': if (LEAVE_SPEC_OPEN) SHOW_SPEC = true; else SHOW_SPEC = !SHOW_SPEC; break;

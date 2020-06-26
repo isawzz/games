@@ -1,21 +1,75 @@
+function mSimplestInvisible(n, uidParent, R) {
+	//console.log('invisible',n.uid,n.data,n.params)
+	let dParent = mBy(n.idUiParent);
+	let d = mDiv(dParent);
+	// console.log('invisible')
+	//if (n.data) { console.log('habe data', n.data) }
+	if (n.content) {
+		//console.log('habe content!!!', n.content); 
+		mTextDiv(n.content, d);
+	}
+	//n.idUiParent = d.id;
+	return d;
+}
+
+
+
+function mSimplest(n, uidParent, R) {
+	//console.log('info',n.uid,n.data,n.params)
+
+	let ui;
+	let dParent = mBy(n.idUiParent);
+	if (isdef(n.content)) {
+		ui = mDiv(dParent);
+		ui.innerHTML = n.content;
+		// let para = document.createElement('p');
+		// para.innerHTML = 'hallo';
+		// ui.appendChild(para);
+		//ui = mTextDiv(n.content,dParent);
+	} else {
+		ui = mDiv(dParent);
+	}
+	let b = getBounds(ui, true);
+	console.log('________createUi: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
+	if (ui.id == '_1') ui.style.maxWidth = '140px';
+	return ui;
+	if (getTypeOf(dParent) == 'g') {
+		//console.log('--------------g', n.content)
+		return gInfo(n, uidParent, R);
+	} else if (isdef(n.content)) {
+		//console.log('--------------isdef(content)', n.content)
+		ui = mNode(n.content, dParent);
+		//n.idUiParent = dParent.id;
+		mClass(ui, 'node');
+	} else {
+		//console.log('--------------else', n.content)
+		ui = mDiv(dParent);
+		//n.idUiParent = dParent.id;
+		ui.style.display = 'hidden';
+	}
+	return ui;
+}
+
+
 function mInvisible(n, uidParent, R) {
 	//console.log('invisible',n.uid,n.data,n.params)
 	let dParent = mBy(n.idUiParent);
 	let d = mDiv(dParent);
 	// console.log('invisible')
 	//if (n.data) { console.log('habe data', n.data) }
-	if (n.content) { 
+	if (n.content) {
 		//console.log('habe content!!!', n.content); 
-		mTextDiv(n.content, d); 
+		mTextDiv(n.content, d);
 	}
 	//n.idUiParent = d.id;
 	return d;
 }
+
 function mInfo(n, uidParent, R) {
 	//console.log('info',n.uid,n.data,n.params)
 
 	let ui;
-	let dParent = mBy(n.idUiParent); 
+	let dParent = mBy(n.idUiParent);
 	if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
 		return gInfo(n, uidParent, R);
@@ -75,16 +129,16 @@ function gInfo(n, uidParent, R) {
 }
 function positionGElement(ui, uidParent, topG) {
 	let uiParent = mBy(uidParent);
-	
+
 	if (isdef(uiParent) && topG != uiParent) {
 
-		console.log('positionGElement',ui.id, uiParent.id, topG.id);
-		console.log(ui,uiParent,topG)
+		console.log('positionGElement', ui.id, uiParent.id, topG.id);
+		console.log(ui, uiParent, topG)
 
 		//if (uidParent == '_4' || uidParent == '_5') console.log('uiParent', uiParent);
 		let bds = getBounds(uiParent, true);
 		let trans = getTransformInfo(uiParent);
-		console.log('positionGElement,trans',trans)
+		console.log('positionGElement,trans', trans)
 		let [x, y] = [trans.translateX, trans.translateY];
 		//console.log('______________ TRANS:', '\nx', x, '\ny', y, '\ntrans', trans, '\nw', bds.width, '\nh', bds.height);
 		let x1 = -22; // x - bds.width / 2;
@@ -96,7 +150,7 @@ function positionGElement(ui, uidParent, topG) {
 		let trans1 = uiParent.style.transform;
 		let tt = trans1.split('translate');
 		if (tt.length <= 1) {
-			console.log('there is NO translate transform!!! uiParent',uiParent);
+			console.log('there is NO translate transform!!! uiParent', uiParent);
 		} else {
 			//assuming only translate transform!
 			let traNumbersX = trans1.split('('); //getAttribute('transform');
@@ -126,13 +180,17 @@ function positionGElement(ui, uidParent, topG) {
 //#region special types
 
 //TODO: refine!!!
-function addTitleToGrid(n,d){
+function addTitleToGrid(n, d) {
 	//if (n.data) { console.log('habe data', n.data) }
-	if (n.content && n.params.padding) { 
+	//return;
+	if (n.content && n.params.padding) {
 		//console.log('habe content!!!', n.content); 
-		let d1=mTextDiv(n.content, d); 
-		d1.style.display='block';
-		d1.style.backgroundColor='black';
+		let d1 = mTextDiv(n.content, d);
+		d1.style.display = 'block';
+		d1.style.backgroundColor = 'black';
+		d1.style.position = 'absolute';
+		d1.style.width = '100%';
+		//console.log(d)
 	}
 }
 function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
@@ -141,7 +199,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 	let boardDiv = stage3_prepContainer(dParent); //macht nur mDiv,mPosRel
 
-	//addTitleToGrid(n,boardDiv)
+	addTitleToGrid(n,boardDiv)
 
 	let boardSvg = gSvg();
 
@@ -295,6 +353,8 @@ const RCREATE = {
 	title: mTitle,
 	picto: mPicto,
 	grid: mGrid,
+	simplest: mSimplest,
+	simplestInvisible: mSimplestInvisible
 }
 const RCONTAINERPROP = {
 	list: 'elm',

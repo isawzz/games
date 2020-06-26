@@ -49,6 +49,7 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
+	//testTableDiv(); return;
 	//await testAblauf02(defs,spec,sdata);return;
 	//await testAblauf00(defs,spec,sdata);return;
 	//testComposeShapesAndResize();
@@ -200,7 +201,7 @@ function updateOutput(R) {
 			['children'],
 			// null, //show
 			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-			['uid', 'size', 'pos', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
+			['uid', 'size', 'pos','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
 			null, //omit
 			{ 'max-width': '35%', font: '14px arial' });
 	}

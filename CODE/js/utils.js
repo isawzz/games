@@ -2,13 +2,13 @@ function bringToFront(ui) {
 	ui.style.zIndex = maxZIndex;
 	maxZIndex += 1;
 }
-function recListToString(lst){
+function recListToString(lst) {
 
 	if (!isList(lst)) return lst;
 	if (isListOfLiterals(lst)) return lst.join(',');// '['+ lst.join(',') +']';
-	else{
-		let res=[];
-		for(const el of lst){
+	else {
+		let res = [];
+		for (const el of lst) {
 			let elString = recListToString(el);
 			res.push(elString); // += elString + ',';
 		}
@@ -36,7 +36,7 @@ function calcContentFromData(oid, o, data, R, default_data) {
 				//console.log('___________',props)
 				let res = dPP1(o, props, R);
 				if (res) return res;
-			} 
+			}
 
 		} else {
 			//it's a literal but NOT a string!!!
@@ -62,7 +62,7 @@ function calcContentFromData(oid, o, data, R, default_data) {
 		let finalRes = calcContentFromData(oid, o, default_data, R);
 		//console.log('finalRes',finalRes)
 		return finalRes;
-	}else	return null;
+	} else return null;
 
 }
 
@@ -221,7 +221,13 @@ function getParentUi(n) { return n.idUiParent ? mBy(n.idUiParent) : null; }
 function getParentRNode(n, R) { return n.uidParent ? R.rNodes(n.uidParent) : null; }
 function getParentUiNodes(n, R) { return n.uidParent ? R.uiNodes(n.uidParent) : null; }
 function getO(n, R) { let oid = n.oid; if (isdef(oid)) return R.getO(oid); else return null; }
-function inferType(n, defType = 'panel') { if (isdef(n.children)) return 'panel'; else return 'info'; }
+function inferType(n, defType = 'panel') {
+	if (isdef(n.children)) {
+		return DEFS.defaultPanel; //'panel';
+	} else { 
+		return DEFS.defaultInfo; //'info'; 
+		}
+}
 function isBoard(uid, R) {
 	if (!uid) return false;
 	let n = R.uiNodes[uid];

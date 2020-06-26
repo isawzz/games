@@ -86,6 +86,7 @@ function resizeBoard(nuiBoard, R) {
 	//console.log('*** resizeBoard')	
 	let uidBoard = nuiBoard.uid;
 	let sz = updateSizes(nuiBoard);
+	//console.log('sz',sz)
 	nuiBoard.params.sizes = sz.sNew;
 	let params = nuiBoard.params;
 	let gap = params.field_spacing - sz.sOrig.f;
@@ -145,6 +146,7 @@ function calcBoardDimensions(nuiBoard, R) {
 
 }
 function calcBoardDimensionsX(nuiBoard, R) {
+	//console.log(nuiBoard.params.sizes);
 	let boardInfo = nuiBoard.bi.board.info;
 	let bParams = nuiBoard.params;
 	let fSpacing = bParams.field_spacing;
@@ -154,7 +156,10 @@ function calcBoardDimensionsX(nuiBoard, R) {
 	//console.log('setting board margin to',margin,'padding',bParams.padding);
 
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
-	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bParams.corners) ? bParams.corners.size : 15;
+	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 :nuiBoard.params.sizes.c;// isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bParams.corners) ? bParams.corners.size : 15;
+	
+	//console.log('cornerSize',cornerSize)
+	
 	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
 	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
 
