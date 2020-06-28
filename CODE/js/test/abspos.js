@@ -17,7 +17,7 @@ function recMeasureAbs(uid, R) {
 		w: Math.max(n.sizeMeasured.w, n.sizeNeeded.w),
 		h: Math.max(n.sizeMeasured.h, n.sizeNeeded.h)
 	}
-	console.log('final size', n.uid, n.size);
+	console.log('final sasa size', n.uid, n.size);
 	showSizes(n, R);
 }
 function arrangeAbs(uid, R) {
