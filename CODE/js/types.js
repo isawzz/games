@@ -1,23 +1,25 @@
+function standardCreate(n,area,R){
+	let ui;
+	let dParent = mBy(n.idUiParent);
+	ui = mDiv(dParent);
+	if (isdef(n.content)) { mNode(n.content, ui) }
+	//let b = getBounds(ui, true);console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
+	return ui;
+
+}
+
+
+
+
+
 function mBare(n, uidParent, R) {
 	let ui;
 	let dParent = mBy(n.idUiParent);
 	ui = mDiv(dParent);
-	if (isdef(n.content)) {
-		
-		//mTextDiv(n.content,ui);
-		mNode(n.content,ui)
-		//ui=mNode(n.content, dParent);
-		// let para = document.createElement('p');
-		// para.innerHTML = 'hallo';
-		// ui.appendChild(para);
-		//ui = mTextDiv(n.content,dParent);
-	}
-	let b = getBounds(ui, true);
-	//console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
+	if (isdef(n.content)) { mNode(n.content, ui) }
+	//let b = getBounds(ui, true);console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
 	return ui;
 }
-
-
 function mInvisible(n, uidParent, R) {
 	//console.log('invisible',n.uid,n.data,n.params)
 	let dParent = mBy(n.idUiParent);
@@ -31,12 +33,12 @@ function mInvisible(n, uidParent, R) {
 	//n.idUiParent = d.id;
 	return d;
 }
-
 function mInfo(n, uidParent, R) {
-	//console.log('info',n.uid,n.data,n.params)
+	//console.log('info',n.uid);//,n.data,n.params)
 
 	let ui;
 	let dParent = mBy(n.idUiParent);
+	//console.log('saaaaaaaaaaaaaaaaaaa',n,dParent)
 	if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
 		return gInfo(n, uidParent, R);
@@ -166,7 +168,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 	let boardDiv = stage3_prepContainer(dParent); //macht nur mDiv,mPosRel
 
-	addTitleToGrid(n,boardDiv)
+	addTitleToGrid(n, boardDiv)
 
 	let boardSvg = gSvg();
 
@@ -197,8 +199,17 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 //container types
 function mPanel(n, uidParent, R) {
-	//console.log('panel',n.uid,n.data,n.params)
+	//console.log('panel.......',n.uid,n.idUiParent);//,n.data,n.params,n.idUiParent)
 	let dParent = mBy(n.idUiParent);
+	//console.log('HALLO!!!!!!!!!mBy('+uidParent+')='+dParent);
+	//console.log('??????????????????????????????????????????????')
+	// if (dParent){
+	// 	let t1=getTypeOf(dParent);
+	// 	//console.log('YES! dParent exists',dParent,t1);
+	// }else{
+	// 	//console.log('dParent is null ------------- THE END ------------');
+	// 	return;
+	// }
 
 	if (getTypeOf(dParent) == 'g') { return gPanel(n, uidParent, R); }
 
@@ -324,11 +335,6 @@ const RCREATE = {
 	simplest: mSimplest,
 	simplestInvisible: mSimplestInvisible
 }
-const RCONTAINERPROP = {
-	list: 'elm',
-	hand: 'elm',
-	panel: 'sub',
-}
 
 const DEF_ORIENTATION = 'v';
 const DEF_SPLIT = 'equal';
@@ -383,16 +389,12 @@ function makePictoPiece(mk, o, sz, color) {
 }
 
 
-//#region helpers
-function isSpecType(t) { return isdef(R.lastSpec[t]); }
-function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
-function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t == 'picto'; }
-//function isPositionedType(t) { return t == 'boardElement'; }
-function isGridType(t) { return t == 'grid'; }
-
-
-
-
+//#region unused: mSimplest... isContainerType...
+const RCONTAINERPROP = {
+	list: 'elm',
+	hand: 'elm',
+	panel: 'sub',
+}
 function mSimplestInvisible(n, uidParent, R) {
 	//console.log('invisible',n.uid,n.data,n.params)
 	let dParent = mBy(n.idUiParent);
@@ -406,9 +408,6 @@ function mSimplestInvisible(n, uidParent, R) {
 	//n.idUiParent = d.id;
 	return d;
 }
-
-
-
 function mSimplest(n, uidParent, R) {
 	//console.log('info',n.uid,n.data,n.params)
 
@@ -445,4 +444,10 @@ function mSimplest(n, uidParent, R) {
 	return ui;
 }
 
+function isSpecType(t) { return isdef(R.lastSpec[t]); }
+function isContainerType(t) { return t == 'panel' || t == 'list' || t == 'hand'; }
+function isLeafType(t) { return t == 'info' || t == 'title' || t == 'card' || t == 'picto'; }
+//function isPositionedType(t) { return t == 'boardElement'; }
+function isGridType(t) { return t == 'grid'; }
+//#endregion
 

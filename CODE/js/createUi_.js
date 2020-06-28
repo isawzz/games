@@ -1,35 +1,16 @@
-function calcDirectParentAndIdUiParent(n, uidParent, R) {
-	if (uidParent && isBoardMember(uidParent, R)) {
-		let divParent = findAncestorElemOfType(mBy(uidParent), 'div');
-		n.idUiParent = divParent.id;
-	} else {
-		n.idUiParent = uidParent;
-	}
-}
 
-function createUi(n, uidParent, R) {
-
-	// if (n == R.uiNodes[n.uid]){
-	// 	//console.log('n in createUi is uiNode',n.uid);
-	// }else if (n == R.rNodes[n.uid]){
-	// 	console.log('n in createUi is rNode',n.uid);
-	// }
-	//if (n.uid == '_14') {		console.log('createUi', n)	}
-	if (nundef(n.type)) {
-		n.type = inferType(n);
-		//console.log('inferring type:',n.type);
-	}
+function createUi(n, area, R) {
+	if (nundef(n.type)) { n.type = inferType(n); }
 
 	R.registerNode(n);
 
 	decodeParams(n, R, {});
 
-	calcDirectParentAndIdUiParent(n, uidParent, R);
-	//console.log('in createUi_',n.idUiParent)
+	calcDirectParentAndIdUiParent(n, area, R);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 
-	let ui = RCREATE[n.type](n, uidParent, R);
+	let ui = RCREATE[n.type](n, area, R);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
@@ -51,13 +32,13 @@ function createUi(n, uidParent, R) {
 
 	R.setUid(n, ui);
 
-	let b=getBounds(ui,true);
-	//console.log('________createUi: ',n.uid,'\n',ui,'\nbounds',b.width,b.height);
+	// let b=getBounds(ui,true);console.log('________createUi: ',n.uid,'\n',ui,'\nbounds',b.width,b.height);
 
 	return ui;
 
 }
 
+//#region deprecated! =>recMeasureOverride, arrangeOverride
 function adjustLayoutForBoardMember(n, R) {
 	console.log('adjust layout for', n.uid);
 
@@ -186,6 +167,7 @@ function adjustContainerLayout(n, R) {
 
 }
 
+//#region helpers
 function calcRays(n, gParent, R) {
 	//console.log(n);
 	//console.assert(n.type == 'grid','calcRays on NON-grid type!!!! (geht nicht!)')
@@ -263,5 +245,13 @@ function calcRays(n, gParent, R) {
 		}
 	}
 
+}
+function calcDirectParentAndIdUiParent(n, uidParent, R) {
+	if (uidParent && isBoardMember(uidParent, R)) {
+		let divParent = findAncestorElemOfType(mBy(uidParent), 'div');
+		n.idUiParent = divParent.id;
+	} else {
+		n.idUiParent = uidParent;
+	}
 }
 

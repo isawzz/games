@@ -1,3 +1,6 @@
+
+
+
 //#region layout functions
 function calcTotalDims(n, uids, R) {
 	let hMax = 0;
@@ -29,7 +32,7 @@ function horLayout(n, R) {
 	let y = margin;
 	let uiParent = n.ui;
 	uiParent.style.position = 'relative';
-	uiParent.style.boxSizing = 'border-box';
+	//uiParent.style.boxSizing = 'border-box';
 	console.log(uiParent);
 	for (const ch of uids) {
 		let n = R.uiNodes[ch];

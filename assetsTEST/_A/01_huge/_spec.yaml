@@ -375,6 +375,11 @@
     cond: 
       obj_type: CatanBoard
     type: grid
+  # loc:
+  #   cond:
+  #     prop: loc
+  #   data: .oid
+  #   type: bare
   def:
     cond: all
     data: .oid

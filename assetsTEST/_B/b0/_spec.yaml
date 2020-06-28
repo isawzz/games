@@ -1,0 +1,6 @@
+0:
+  ROOT:
+    cond:
+      oid: board1
+    type: grid
+    

@@ -49,7 +49,8 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
-	//testTableDiv(); return;
+	testAbsolutePositioning();return;
+	//testRelativePositioning(); return;
 	//await testAblauf02(defs,spec,sdata);return;
 	//await testAblauf00(defs,spec,sdata);return;
 	//testComposeShapesAndResize();
@@ -92,7 +93,7 @@ async function present00(sp, defaults, sdata) {
 	//console.log(R)
 	ensureRtree(R);
 
-	R.baseArea = 'table';
+	R.baseArea = 'basediv';
 	createStaticUi(R.baseArea, R);
 
 	addNewlyCreatedServerObjects(sdata, R);
@@ -197,7 +198,8 @@ function updateOutput(R) {
 			['children'],
 			// null, //show
 			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-			['uid', 'size', 'pos','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded'], //show
+			['uid','pos','size','uidParent'],
+			//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 			null, //omit
 			{ 'max-width': '35%', font: '14px arial' });
 	}
@@ -227,10 +229,12 @@ function updateOutput(R) {
 	// 	//mDictionary(R.rNodes, { dParent: mBy('dicts'), title: 'rNodes ' + Object.keys(R.rNodes).length });
 	// 	mDictionary(R.live, { dParent: mBy('channelsLive'), title: 'live channels' });
 	// }
-	if (nundef(R.rNodes)) return;
-	let numRTree = Object.keys(R.rNodes).length;
-	let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
-	let handCounted = R.ROOT.data;
+
+	// if (nundef(R.rNodes)) return;
+	// let numRTree = Object.keys(R.rNodes).length;
+	// let numUiNodes = nundef(R.uiNodes) ? 0 : Object.keys(R.uiNodes).length;
+	// let handCounted = R.ROOT.data;
+
 	// console.log('#soll=' + handCounted, '#rtree=' + numRTree, '#uiNodes=' + numUiNodes);
 	//console.assert(numRTree == numUiNodes, '!!!FEHLCOUNT!!! #rtree=' + numRTree + ', #uiNodes=' + numUiNodes);
 

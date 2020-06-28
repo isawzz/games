@@ -1,0 +1,68 @@
+{
+	" 0 ": {
+		"_0": {
+			"children": [
+				"_1"
+			],
+			"here": "ROOT",
+			"type": "invisible",
+			"uid": "_0",
+			"uidParent": null
+		},
+		"_1": {
+			"children": [
+				"_3"
+			],
+			"cond": {
+				"oid": "board1"
+			},
+			"oid": "board1",
+			"type": "grid",
+			"uid": "_1",
+			"uidParent": "_0"
+		},
+		"_3": {
+			"cond": {
+				"obj_type": "Tick"
+			},
+			"info": {
+				"col": 1,
+				"h": 4,
+				"memType": "field",
+				"poly": [
+					{
+						"x": 2,
+						"y": -2
+					},
+					{
+						"x": 2,
+						"y": 2
+					},
+					{
+						"x": -2,
+						"y": 2
+					},
+					{
+						"x": -2,
+						"y": -2
+					}
+				],
+				"row": 1,
+				"shape": "rect",
+				"size": 44,
+				"w": 4,
+				"x": 0,
+				"y": 0
+			},
+			"oid": "tile1",
+			"params": {
+				"bg": "beige",
+				"shape": "rect",
+				"size": 44
+			},
+			"type": "info",
+			"uid": "_3",
+			"uidParent": "_1"
+		}
+	}
+}

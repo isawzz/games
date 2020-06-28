@@ -2891,6 +2891,7 @@ function recPresent(n, level, dLevel, nDict, treeProp, { lstFlatten, lstShow, ls
 	// if (isdef(y.act)) delete y.act;
 	// if (isdef(y.ui)) delete y.ui;
 	// //console.log(y)
+	//console.log('n',n)
 	mNodeFilter(n, { dParent: dLevel[level], lstFlatten: lstFlatten, lstShow: lstShow, lstOmit: lstOmit });
 	if (nundef(n.children)) return level;
 	let max = 0;
@@ -3234,6 +3235,7 @@ function evToClosestId(ev) {
 }
 function getTypeOf(param) {
 	let type = typeof param;
+	//console.log('>>>>>getTypeOf',param)
 	if (type == 'string') {
 		return 'string';
 	}

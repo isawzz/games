@@ -31,6 +31,17 @@ function transformParentsToBags(parents, R) {
 	return parentPanels;
 
 }
+function addInvisiblePanel(uidParent, R) {
+	let uid = getUID();
+	let n = { uid: uid, uidParent: uidParent, type: 'invisible' };
+	R.rNodes[uid] = n;
+	let rParent = R.rNodes[uidParent];
+	if (nundef(rParent.children)) rParent.children = [];
+	rParent.children.push(uid);
+	recUi(n, uidParent, R);
+	return n;
+}
+
 
 
 

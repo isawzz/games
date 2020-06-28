@@ -1,25 +1,68 @@
 
-function testTableDiv(){
-	let d=mBy('table');
+function testAbsolutePositioning(){
+	R=makeSimplestTree();
+	let d = mBy('table');
 	d.style.position = 'relative';
-	let d1=mDiv(d);
-	d1.style.position = 'relative';
-	d1.style.width = '100px';
-	d1.style.height='50px';
-	d1.style.left='0px';
-	d1.style.top='0px';
-	d1.style.backgroundColor='blue';
+	R.baseArea = 'table';
+	recUiTest(R.tree,R);
+	let root = R.root = R.uiNodes[R.tree.uid];
+	//root.ui.position='relative';
 
-
-	let b=getBounds(d1);
-	console.log(b.width,b.height);
-
-	d1.style.borderRadius='4px'
-
-	b=getBounds(d1);
-	console.log(b.width,b.height);
+	recMeasureAbs(R.tree.uid,R);
+	recPositionsAbs(R.tree.uid,R);
+	updateOutput(R);
+	d.style.minWidth = root.size.w;
+	d.style.minHeight = root.size.h;
 }
 
+
+function testRelativePositioning(){
+	let d=makeBaseDiv('basediv');
+	//console.log(d);
+	let letter = randomLetter();
+	//console.log('letter is',letter);
+
+	R={rNodes:{},uiNodes:{},defs:DEFS};
+	let n = R.tree = addRandomNode(null,R);
+	
+	//recPopulateTree(n,R,3);
+	let n1;//=addRandomNode(n,R);
+	for(let i=0;i<3;i++){
+		n1=addRandomNode(n,R);
+	}
+	for(let i=0;i<3;i++){
+		addRandomNode(n1,R);
+	}
+
+
+	R.baseArea = 'basediv';
+	recUiTest(R.tree,R);
+	//addRandomChildren(n,R);
+	//console.log(R.tree);
+
+	recMeasureOverride(R.tree.uid,R);
+	//still need to set pos of root element!!!
+	let root = R.uiNodes[R.tree.uid];
+	let b=getBounds(d);
+	let b1=getBounds(root.ui);
+	root.rpos = {left:b1.left-b.left,top:b1.top-b.top};
+	root.apos = {left:b1.left,top:b1.top};
+
+	recPositions(R.tree.uid,R);
+
+	updateOutput(R);
+	for(const uid in R.uiNodes){
+		let n=R.uiNodes[uid];
+		let w=Math.round(n.size.w);
+		let h=Math.round(n.size.h);
+		let x=Math.round(n.apos.left);
+		let y=Math.round(n.apos.top);
+		let cx=Math.round(n.acenter.x);
+		let cy=Math.round(n.acenter.y);
+
+		console.log('=> ',uid,'size = '+w+' x '+h,'pos = '+x+' x '+y,'cx',cx, 'cy',cy);
+	}
+}
 
 //#region testAblauf
 async function testAblauf02(defs, spec, sdata0) {

@@ -65,7 +65,6 @@ function calcContentFromData(oid, o, data, R, default_data) {
 	} else return null;
 
 }
-
 function calculateTopLevelGElement(el) {
 	while (el && el.parentNode) {
 		let t = getTypeOf(el);
@@ -125,7 +124,6 @@ function findOrCreateKeysForObjTypes(oids, R) {
 
 	return keysForOids;
 }
-
 function findAddress(kSelf, x, path) {
 	//x muss noch dem path folgen bis es bei der richtigen branch
 	//angekommen ist!
@@ -222,11 +220,15 @@ function getParentRNode(n, R) { return n.uidParent ? R.rNodes(n.uidParent) : nul
 function getParentUiNodes(n, R) { return n.uidParent ? R.uiNodes(n.uidParent) : null; }
 function getO(n, R) { let oid = n.oid; if (isdef(oid)) return R.getO(oid); else return null; }
 function inferType(n, defType = 'panel') {
+	if (isdef(n.oid)){
+		let o=R.getO(n.oid);
+		if (isdef(o.loc)) return DEFS.defaultLoc;
+	}
 	if (isdef(n.children)) {
 		return DEFS.defaultPanel; //'panel';
-	} else { 
+	} else {
 		return DEFS.defaultInfo; //'info'; 
-		}
+	}
 }
 function isBoard(uid, R) {
 	if (!uid) return false;

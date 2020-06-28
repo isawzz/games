@@ -1,7 +1,39 @@
 defaults:
-  defaultPanel: panel
-  defaultInfo: info
-  defaultInvisible: invisible
+
+  defaultPanel: manual00
+  defaultInfo: manual00
+  defaultLoc: manual00
+  defaultInvisible: manual00
+
+  manual00:
+    params:
+      bg: random #inherit
+      fg: contrast
+      padding: 10
+      margin: 2
+      # min-width: 20
+      # min-height: 20
+      display: inline-block
+      position: absolute #relative
+      #display: unset
+      #padding: 4 #YES!
+      #margin: 4 #nooooo
+      #margin: 4
+      #box-sizing: border-box #noooooooooooo
+
+      # font: 16px Comic Sans MS #AlgerianRegular
+      # font-size: 10pt
+      # text-align: left
+      # margin: 6px
+      # box-sizing: border-box
+      # padding: 2px 10px 2px 8px
+      # border-radius: 6px
+
+
+
+
+
+
   simplest:
     params:
       orientation: h

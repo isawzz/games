@@ -5,13 +5,17 @@ var SEED = 1;
 
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 
 //===> *** USE THIS WHEN WORKING WITH testEngine! ***
-var TEST_SERIES = '_D/08'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card
+var DIR_TESTS = '_B/'; // _A/ _B/
+var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
+
+var TEST_SERIES = DIR_TESTS + 'b0'; // b0
+// var TEST_SERIES = DIR_TESTS + '01_huge'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
+
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 
-var SHOW_SPEC = true; // true | false
+var SHOW_SPEC = false; // true | false
 var LEAVE_SPEC_OPEN = true; // true | false
 var OUTPUT_EACH_SPEC_STEP = true; // true | false
 var SHOW_LASTSPEC = false; // true | false

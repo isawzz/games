@@ -1,4 +1,25 @@
-function onClickMeasure(){
+function onClickHorLayout(){
+	let uid = '_4';
+	let n = R.uiNodes[uid];
+	horLayout(n,R);
+	
+	reArrange(R)
+}
+function onClickMove(){
+	let keys = Object.keys(R.uiNodes);
+	let uid=chooseRandom(keys);
+
+	uid = '_2';
+
+	n=R.uiNodes[uid];
+	modeNodeBy(n,10,10,R);
+
+	recMeasureOverride(R.tree.uid,R);
+	recPositions(R.tree.uid,R);
+
+	updateOutput(R)
+}
+function onClickMeasure() {
 	recMeasureOverride(R.tree.uid, R);
 	updateOutput(R);
 }
@@ -24,9 +45,9 @@ function onClickAddLocObject() {
 
 	//recAdjustDirtyContainers(R.tree.uid, R, true);
 	//setTimeout(() => {
-		recMeasureOverride(R.tree.uid, R)
-		//output and testing
-		updateOutput(R);
+	recMeasureOverride(R.tree.uid, R)
+	//output and testing
+	updateOutput(R);
 	//}, 200);
 
 
@@ -34,9 +55,12 @@ function onClickAddLocObject() {
 function onClickResizeBoard() {
 	let nuiBoard = R.uiNodes['_2'];
 	nuiBoard.adirty = true;
-	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 80);
+	
+	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 180);
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
-	recAdjustDirtyContainers(R.tree.uid, R, true);
+	
+	//recAdjustDirtyContainers(R.tree.uid, R, true);
+	recMeasureOverride(R.tree.uid,R);
 
 }
 function onClickSmallerBoard() {
@@ -45,7 +69,9 @@ function onClickSmallerBoard() {
 	nuiBoard.adirty = true;
 	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 32);
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
-	recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	//recAdjustDirtyContainers(R.tree.uid, R, true);
+	recMeasureOverride(R.tree.uid,R);
 
 }
 
@@ -55,7 +81,7 @@ async function onClickRunAll() {
 	let listSeries = [];
 	for (const ch of sel.children) {
 		//console.log(ch.value);
-		if (ch.value != 'none') listSeries.push('_D/' + ch.value);
+		if (ch.value != 'none') listSeries.push(DIR_TESTS + ch.value);
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');
@@ -228,7 +254,7 @@ function onClickUpdateOutput(elem) {
 		case 'contDicts': SHOW_DICTIONARIES = !SHOW_DICTIONARIES; break;
 		case 'contRefsIds': SHOW_IDS_REFS = !SHOW_IDS_REFS; break;
 	}
-	updateOutput(T);
+	updateOutput(R);
 }
 
 function onClickNextExample() { }

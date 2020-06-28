@@ -3,7 +3,7 @@ function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, sty
 		console.log('presentDictTree: cannot present nDict!!!');
 		return;
 	}
-	//console.log(nDict, '\nlf', lf, '\nls', ls, '\nlo', lo)
+	//console.log('_________________',nDict); //, '\nlf', lf, '\nls', ls, '\nlo', lo)
 	d = mBy(area);
 
 	let depth = 10;
