@@ -63,23 +63,6 @@ function addRandomChildren(n, R) {
 	}
 	return n;
 }
-function addRandomNode(nParent, R) {
-	//add 1 rNode 
-
-	let uidParent = nParent ? nParent.uid : null;
-	//console.log('setting nParent='+uidParent)
-	let nChild = { uidParent: uidParent, idUiParent: uidParent, uid: getUID(), content: randomLetter() };
-	nChild.content = nChild.uid;
-	//console.log(nChild.uidParent, nChild.idUiParent)
-	if (nParent) {
-		if (nundef(nParent.children)) nParent.children = [];
-		nParent.children.push(nChild.uid);
-	} else {
-		//console.log('NPARENT IS NULL!!!!!!!!!!!!!!!!')
-	}
-	R.rNodes[nChild.uid] = nChild;
-	return nChild;
-}
 function makeBaseDiv() {
 	let d = mBy('table');
 	d.style.position = 'relative';

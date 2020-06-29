@@ -198,7 +198,7 @@ function updateOutput(R) {
 			['children'],
 			// null, //show
 			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-			['uid','pos','size','uidParent'],
+			['uid','pos','size','uidParent'],//,'params'],
 			//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 			null, //omit
 			{ 'max-width': '35%', font: '14px arial' });

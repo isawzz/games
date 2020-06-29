@@ -1,6 +1,6 @@
 const LAYOUT = {};
-const GAP = 2;
-const PADDING = 2;
+const GAP=2;
+const PADDING=2;
 function recMeasureAbs(uid, R) {
 	//console.log('measureAbs', uid);
 	let n = R.uiNodes[uid];
@@ -25,13 +25,16 @@ function recMeasureAbs(uid, R) {
 	n.ui.style.height = n.size.h + 'px';
 	//console.log('final size', n.uid, n.size);
 }
-function horizontalSizeToContentCentered(uid, r) {
+
+function arrangeAbs(uid, R) {
 	let n = R.uiNodes[uid];	//n is the parent
 
 	if (nundef(n.children)) return { w: 0, h: 0 }
 
-	parentPadding = isdef(n.params.paddingAroundChildren) ? n.params.paddingAroundChildren : PADDING;
-	childMargin = isdef(n.params.gapBetweenChildren) ? n.params.gapBetweenChildren : GAP;
+	let parentPadding = PADDING;
+	parentPadding = isdef(n.params.paddingAroundChildren)?n.params.paddingAroundChildren:PADDING;
+	let childMargin = GAP;
+	childMargin = isdef(n.params.gapBetweenChildren)?n.params.gapBetweenChildren:GAP;
 
 	// *******************************************************
 	//1. horizontal,sizeToContent,default abstand,yCentered
@@ -43,52 +46,47 @@ function horizontalSizeToContentCentered(uid, r) {
 
 	let y0 = 0;
 	let wmin = 0;
+	console.log('wmin',wmin)
 
 	if (isdef(n.content)) {
 		let uiParent = n.ui;
 		let cont = uiParent.firstChild;
+		//console.log('first child of parent is', cont);
 		let b = getBounds(cont, true);
-		wmin = b.width;// + 2 * parentPadding;
-		if (isdef(n.params.padding)) wmin += 2 * n.params.padding;
+		//console.log('size of first child is', b.width, b.height);
+		//console.log('bounds', b)
+		wmin = b.width + 2 * parentPadding;
 		y0 = parentPadding + b.top + b.height + parentPadding;
-	} else y0 = parentPadding;
+	}else y0=parentPadding;
 	//how to find parent y=0 (below its content)? look where first child has been placed naturally
-	let children = n.children.map(x => R.uiNodes[x]);
-	let hmax = Math.max(...children.map(x => x.size.h));
-	let wmax = children.reduce((a, b) => a + (b.size.w || 0), 0);
-	wmax += childMargin * (children.length - 1);
-	let xoff = 0;
-	if (wmin > wmax) xoff = (wmin - wmax) / 2;
-	//console.log('hmax',hmax,'wmax',wmax);
-	let x0 = parentPadding + xoff;
+	let x0 = parentPadding;
 	let x = x0;
 	let y = y0;
-	console.log('wmin', wmin, 'wmax', wmax, 'parentPadding', parentPadding, 'childMargin', childMargin, '= x0', x0);
-	let lastChild = R.uiNodes[n.children[n.children.length - 1]];
+	let children = n.children.map(x=>R.uiNodes[x]);
+	let hmax = Math.max(...children.map(x=>x.size.h));
+	//console.log('hmax is',children,hmax);
+	//let hmax = 0;
+	let lastChild = R.uiNodes[n.children[n.children.length-1]];
 	for (const n1 of children) {
-		y = y0 + (hmax - n1.size.h) / 2;
+		y=y0+(hmax-n1.size.h)/2;
 		n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
 		let ui = n1.ui;
 		ui.style.left = n1.pos.x + 'px';
 		ui.style.top = n1.pos.y + 'px';
 		x += n1.size.w;
-		if (n1 != lastChild) x += childMargin;
+		if (n1!=lastChild) x += childMargin;
 	}
-	let wParent = Math.max(wmin + parentPadding * 2, x + parentPadding);
-
+	let wParent = Math.max(wmin, x) + parentPadding;
 	let hParent = y0 + hmax + parentPadding;
 	//console.log('parent size should be', wParent, hParent);
 	return { w: wParent, h: hParent };
 
-}
 
-function arrangeAbs(uid, R) {
-	
-	let n = R.uiNodes[uid];	//n is the parent
 
-	if (n.params.orientation == 'v') return verticalSizeToContentCentered(uid, R);
-	else return horizontalSizeToContentCentered(uid, R);
 
+
+	// console.log('type is', n.type);
+	// return isdef(LAYOUT) && isdef(LAYOUT[n.type]) ? LAYOUT[n.type](n, R) : absLayout(n, R);
 }
 function recPositionsAbs(uid, R) {
 	let n = R.uiNodes[uid];

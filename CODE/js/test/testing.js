@@ -1,18 +1,25 @@
 
 function testAbsolutePositioning(){
-	R=makeSimplestTree();
-	let d = mBy('table');
-	d.style.position = 'relative';
-	R.baseArea = 'table';
-	recUiTest(R.tree,R);
-	let root = R.root = R.uiNodes[R.tree.uid];
-	//root.ui.position='relative';
+
+	//let root=makeTableTree(makeSimplestTree);
+	//let root=makeTableTree(makeSimplestTree,false);
+	//let root = makeTableTree(makeSimpleTree);
+	//let root = makeTableTree(makeSimpleTree,false);
+	//let root = makeTableTree(makeTree33,false);
+	//let root = makeTableTree(makeTree332x2);
+	//let root = makeTableTree(makeTree332x2,false);
+	//let root = makeTableTree(()=>makeSimpleTree(20),false);
+	//let root = makeTableTree(makeSimplestTree,true,true);
+	//let root = makeTableTree(makeTree33,true,true);
+	//let root = makeTableTree(()=>makeSimpleTree(3),true,true);
+	//let root = mixedOrientation();
+	let root = mixedOr2();
 
 	recMeasureAbs(R.tree.uid,R);
-	recPositionsAbs(R.tree.uid,R);
+	//recPositionsAbs(R.tree.uid,R);
 	updateOutput(R);
-	d.style.minWidth = root.size.w;
-	d.style.minHeight = root.size.h;
+
+	adjustTableSize(R);
 }
 
 

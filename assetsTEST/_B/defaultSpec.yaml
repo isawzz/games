@@ -1,26 +1,61 @@
 defaults:
-
   defaultPanel: manual00
   defaultInfo: manual00
   defaultLoc: manual00
   defaultInvisible: manual00
 
+  manh:
+    params:
+      orientation: h
+      sizing: sizeToContent
+      ypos: centered
+      bg: random
+      fg: contrast
+      padding: 8
+      paddingAroundChildren: 8
+      gapBetweenChildren: 2
+      display: inline-block
+      position: absolute
+      box-sizing: border-box
+  manv:
+    params:
+      orientation: v
+      sizing: sizeToContent
+      ypos: centered
+      bg: random
+      fg: contrast
+      padding: 8
+      paddingAroundChildren: 8
+      gapBetweenChildren: 2
+      display: inline-block
+      position: absolute
+      box-sizing: border-box
+
   manual00:
     params:
+      #special layout params used in arrange!
+      sizing: sizeToContent
+      orientation: h 
+      ypos: centered
+
       bg: random #inherit
       fg: contrast
-      padding: 10
-      margin: 2
-      # min-width: 20
-      # min-height: 20
+      
+      padding: 8 #appleCssParams, padding around content
+      paddingAroundChildren: 8 #use this instead of PADDING in abspos.js!
+      gapBetweenChildren: 2 #use this instead of GAP in apspos arrangeAbs
+      # margin: 0
+
       display: inline-block
       position: absolute #relative
+      box-sizing: border-box
+
       #display: unset
       #padding: 4 #YES!
       #margin: 4 #nooooo
       #margin: 4
-      #box-sizing: border-box #noooooooooooo
-
+      # min-width: 20
+      # min-height: 20
       # font: 16px Comic Sans MS #AlgerianRegular
       # font-size: 10pt
       # text-align: left
@@ -29,11 +64,6 @@ defaults:
       # padding: 2px 10px 2px 8px
       # border-radius: 6px
 
-
-
-
-
-
   simplest:
     params:
       orientation: h
@@ -41,7 +71,7 @@ defaults:
       border-radius: 6
       box-sizing: border-box
       margin: 4
-      padding: '4px 10px'
+      padding: "4px 10px"
       position: relative
       bg: random
       fg: contrast
