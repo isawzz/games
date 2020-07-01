@@ -57,30 +57,39 @@
 			</div>
 		</div>
 
-		<!-- <button id='btnTest00' style='padding:8px' onclick='onClickTest(this)'>00</button> -->
 		<br style='clear:both' />
-		<!-- <button onclick='onClickToggleEngine()' style='float:left'>+</button> -->
-		<!-- <div style='text-align:left;'> -->
 
-		<button onclick='onClickHorLayout()'>horiz layout</button>
-		<!-- <button onclick='onClickMove()'>move</button> -->
-		<!-- <button onclick='onClickMeasure(this)'>measure</button>
-		<button onclick='onClickAddLocObject(this)'>add loc</button> -->
+		<button onclick='onClickToggleInteractivity(this,"test")'>-t</button>
+		<div id='divTesting' style='text-align:left;display:inline'>
+			<button onclick='onClickResetAbsLayoutTest()'>reset test</button>
+			<button onclick='onClickNextTestOfSeries()'>next test</button>
+			<button onclick='onClickAllTests()'>all tests</button>
+			<button onclick='onClickAllTestSeries()'>all series</button>
+		</div>
 
-		<button onclick='onClickResizeBoard(this)'>resize</button>
-		<button onclick='onClickSmallerBoard(this)'>smaller</button>
+		<button onclick='onClickToggleInteractivity(this,"main")'>+m</button>
+		<div id='divMainTest' style='text-align:left;display:none'>
+			<button onclick='onClickPrevTest(this)'>PREV</button>
+			<button onclick='onClickNextTest(this)'>NEXT</button>
+			<button onclick='onClickRepeatTest(this)'>repeat</button>
+			<button onclick='onClickVerify(this)'>verify</button>
+			<button onclick='onClickVerifySoFar(this)'>verify so far</button>
+			<button onclick='onClickSave(this)'>save</button>
+			<button onclick='onClickInvalidate(this)'>invalidate</button>
+			<button style='margin-right:10px' onclick='onClickClearTable(this)'>clear table</button>
+		</div>
 
-		<button onclick='onClickPrevTest(this)'>PREV</button>
-		<button onclick='onClickNextTest(this)'>NEXT</button>
-		<button onclick='onClickRepeatTest(this)'>repeat</button>
-		<button onclick='onClickVerify(this)'>verify</button>
-		<button onclick='onClickVerifySoFar(this)'>verify so far</button>
-		<button onclick='onClickSave(this)'>save</button>
-		<button onclick='onClickInvalidate(this)'>invalidate</button>
-		<button style='margin-right:10px' onclick='onClickClearTable(this)'>clear table</button>
-		<button onclick='onClickToggleInteractivity(this)'>+</button>
-		<!-- </div> -->
+		<button onclick='onClickToggleInteractivity(this,"other")'>+o</button>
+		<div id='divOther' style='text-align:left;display:none'>
+			<button onclick='onClickMove()'>move</button>
+			<button onclick='onClickMeasure(this)'>measure</button>
+			<button onclick='onClickAddLocObject(this)'>add loc</button>
 
+			<button style='margin-left:10px' onclick='onClickResizeBoard(this)'>resize</button>
+			<button onclick='onClickSmallerBoard(this)'>smaller</button>
+		</div>
+
+		<button onclick='onClickToggleInteractivity(this,"interactivity")'>+i</button>
 		<div id='divInteractivity' style='text-align:left;display:none'>
 			<button onclick='onClickRemove()'>remove</button>
 			<button onclick='onClickAdd()'>add</button>
@@ -162,8 +171,9 @@
 	<script src="/CODE/js/test/onClick.js"></script>
 	<script src="/CODE/js/test/relpos.js"></script>
 	<script src="/CODE/js/test/abspos.js"></script>
-	<script src="/CODE/js/test/testing.js"></script>
 	<script src="/CODE/js/test/testFactory.js"></script>
+	<script src="/CODE/js/test/testData.js"></script>
+	<script src="/CODE/js/test/testing.js"></script>
 
 	<script src="/CODE/js/__start.js"></script>
 

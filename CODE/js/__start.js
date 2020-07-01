@@ -49,7 +49,8 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
-	testAbsolutePositioning();return;
+	onClickNextTestOfSeries(); return;
+	//testAbsolutePositioning();return;
 	//testRelativePositioning(); return;
 	//await testAblauf02(defs,spec,sdata);return;
 	//await testAblauf00(defs,spec,sdata);return;

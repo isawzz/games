@@ -1,73 +1,134 @@
-
-function testAbsolutePositioning(){
-
-	//let root=makeTableTree(makeSimplestTree);
-	//let root=makeTableTree(makeSimplestTree,false);
-	//let root = makeTableTree(makeSimpleTree);
-	//let root = makeTableTree(makeSimpleTree,false);
-	//let root = makeTableTree(makeTree33,false);
-	//let root = makeTableTree(makeTree332x2);
-	//let root = makeTableTree(makeTree332x2,false);
-	//let root = makeTableTree(()=>makeSimpleTree(20),false);
-	//let root = makeTableTree(makeSimplestTree,true,true);
-	//let root = makeTableTree(makeTree33,true,true);
-	//let root = makeTableTree(()=>makeSimpleTree(3),true,true);
-	//let root = mixedOrientation();
-	let root = mixedOr2();
-
-	recMeasureAbs(R.tree.uid,R);
-	//recPositionsAbs(R.tree.uid,R);
+var iTESTSERIES = 0;
+var iTEST = 0;
+var testDict = {};
+function isLastTestOfSeries() {
+	let tests = ALLTESTS[iTESTSERIES];
+	let numtests = Object.keys(tests).length;
+	return iTEST >= numtests - 1;
+}
+function nextTestOfSeries() {
+	if (isLastTestOfSeries()) {
+		console.log('press next test again');
+		return;
+	}
+	//console.log('running iTEST',iTEST,'iTEST')
+	clearElement('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
+	let tests = ALLTESTS[iTESTSERIES];
+	let solutions = ALLTESTSOLUTIONS[iTESTSERIES];
+	let { func, params } = tests[iTEST];
+	let root = makeTableTreeX(func, params);
+	recMeasureAbs(R.tree.uid, R);
 	updateOutput(R);
-
 	adjustTableSize(R);
+	let sols = {};
+	recCollectSolutions(R.uiNodes[R.tree.uid], R, sols);
+	//console.log('solutions to test', iAbsLayoutTest, sols);
+	let changes = propDiffSimple(sols, solutions[iTEST]);
+	if (changes.hasChanged) {
+		console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
+		//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
+		console.log('changes:', changes)
+	} else {
+		console.log('verifying test case', iTEST, 'correct!');
+		// console.log('*** correct! ', this.index, '***', rTreeNow)
+	}
+
+	let testDict = ALLTESTSOLUTIONS[iTESTSERIES];
+	if (nundef(ALLTESTSOLUTIONS[iTESTSERIES])) { testDict = ALLTESTSOLUTIONS[iTESTSERIES] = {}; }
+	testDict[iTEST] = sols;
+
+	let len = Object.keys(tests).length;
+	iTEST += 1;
+	if (isLastTestOfSeries()) {
+		console.log('last test in series! NOW should download solutions!');
+		downloadFile(testDict, 'testDict');
+	}
+}
+function startTestLoop() {
+	if (isLastTestOfSeries()) {
+		console.log('TESTS COMPLETED!');
+	} else {
+		nextTestOfSeries();
+		if (!isLastTestOfSeries()) setTimeout(startTestLoop, 1000);
+	}
+}
+function startTestSeries() {
+	//console.log('iTESTSERIES',iTESTSERIES)
+	if (iTESTSERIES > 1) {
+		console.log('TEST SERIES COMPLETED!');return;
+	} else if (isLastTestOfSeries()) {
+		iTESTSERIES += 1;
+		iTEST = 0;
+		resetUIDs();
+	} else {
+		nextTestOfSeries();
+	}
+	if (iTESTSERIES <= 1) setTimeout(startTestSeries, 1000);
+}
+function runAllTests() {
+	iTEST = 0;
+	resetUIDs();
+	startTestLoop();
+}
+function runAllTestSeries() {
+	iTEST = 0;
+	resetUIDs();
+	iTESTSERIES = 0;
+	startTestSeries();
+
+}
+function recCollectSolutions(t, R, sols) {
+	sols[t.uid] = { w: Math.floor(t.size.w), h: Math.floor(t.size.h) };
+	if (nundef(t.children)) return;
+	for (const ch of t.children) { recCollectSolutions(R.uiNodes[ch], R, sols); }
 }
 
 
-function testRelativePositioning(){
-	let d=makeBaseDiv('basediv');
+function testRelativePositioning() {
+	let d = makeBaseDiv('basediv');
 	//console.log(d);
 	let letter = randomLetter();
 	//console.log('letter is',letter);
 
-	R={rNodes:{},uiNodes:{},defs:DEFS};
-	let n = R.tree = addRandomNode(null,R);
-	
+	R = { rNodes: {}, uiNodes: {}, defs: DEFS };
+	let n = R.tree = addRandomNode(null, R);
+
 	//recPopulateTree(n,R,3);
 	let n1;//=addRandomNode(n,R);
-	for(let i=0;i<3;i++){
-		n1=addRandomNode(n,R);
+	for (let i = 0; i < 3; i++) {
+		n1 = addRandomNode(n, R);
 	}
-	for(let i=0;i<3;i++){
-		addRandomNode(n1,R);
+	for (let i = 0; i < 3; i++) {
+		addRandomNode(n1, R);
 	}
 
 
 	R.baseArea = 'basediv';
-	recUiTest(R.tree,R);
+	recUiTest(R.tree, R);
 	//addRandomChildren(n,R);
 	//console.log(R.tree);
 
-	recMeasureOverride(R.tree.uid,R);
+	recMeasureOverride(R.tree.uid, R);
 	//still need to set pos of root element!!!
 	let root = R.uiNodes[R.tree.uid];
-	let b=getBounds(d);
-	let b1=getBounds(root.ui);
-	root.rpos = {left:b1.left-b.left,top:b1.top-b.top};
-	root.apos = {left:b1.left,top:b1.top};
+	let b = getBounds(d);
+	let b1 = getBounds(root.ui);
+	root.rpos = { left: b1.left - b.left, top: b1.top - b.top };
+	root.apos = { left: b1.left, top: b1.top };
 
-	recPositions(R.tree.uid,R);
+	recPositions(R.tree.uid, R);
 
 	updateOutput(R);
-	for(const uid in R.uiNodes){
-		let n=R.uiNodes[uid];
-		let w=Math.round(n.size.w);
-		let h=Math.round(n.size.h);
-		let x=Math.round(n.apos.left);
-		let y=Math.round(n.apos.top);
-		let cx=Math.round(n.acenter.x);
-		let cy=Math.round(n.acenter.y);
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		let w = Math.round(n.size.w);
+		let h = Math.round(n.size.h);
+		let x = Math.round(n.apos.left);
+		let y = Math.round(n.apos.top);
+		let cx = Math.round(n.acenter.x);
+		let cy = Math.round(n.acenter.y);
 
-		console.log('=> ',uid,'size = '+w+' x '+h,'pos = '+x+' x '+y,'cx',cx, 'cy',cy);
+		console.log('=> ', uid, 'size = ' + w + ' x ' + h, 'pos = ' + x + ' x ' + y, 'cx', cx, 'cy', cy);
 	}
 }
 

@@ -1,22 +1,19 @@
 //#region sample R
-function makeTableTree(fStruct, rootContent = true, extralong = false) {
-	R = fStruct();
-	if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
-	let d = mBy('table');
-	d.style.position = 'relative';
-	R.baseArea = 'table';
-	recUiTest(R.tree, R);
-	let root = R.root = R.uiNodes[R.tree.uid];
-	//root.ui.position='relative';
-	return root;
-}
-function makeTableTreeX(fStruct, { rootContent = true, extralong = false, params }) {
+function makeTableTreeX(fStruct, { rootContent = true, extralong = false, params } = {}) {
 	R = fStruct();
 	if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
 
+	let r1 = normalizeRTree(R);
+	let num = firstNumber(R.tree.uid);
+	for(const uid in r1){
+		r1[uid].realUid='_'+(firstNumber(uid)+num);
+	}
+
 	if (isdef(params)) {
 		for (const uid in params) {
-			let n = R.rNodes[uid];
+			let realUid = r1[uid].realUid;
+			let n =  R.rNodes[realUid];
+			//console.log('giving caption:'+realUid,'= index:'+uid,'params',params[uid]);
 			n.params = params[uid];
 		}
 	}
@@ -27,23 +24,6 @@ function makeTableTreeX(fStruct, { rootContent = true, extralong = false, params
 	R.baseArea = 'table';
 	recUiTest(R.tree, R);
 	let root = R.root = R.uiNodes[R.tree.uid];
-	//root.ui.position='relative';
-
-
-	return root;
-}
-
-function mixedOr2() {
-	let params = { '_1': { bg: 'black',orientation:'v' },
-	'_4': { bg: 'inherit',orientation:'v' }
- };
-	let root = makeTableTreeX(makeTree33, { rootContent: true, extralong: false, params: params });
-	return root;
-}
-function mixedOrientation() {
-	let root = makeTableTree(makeTree33);
-	//_1 soll type v bekommen!
-	root.params.orientation = 'v';
 	return root;
 }
 
@@ -84,7 +64,7 @@ function makeTree332x2() {
 		else if (i == 2) n3 = nChild;
 	}
 	//n1 and n2 get each 2 children
-	console.log('uids of last parents', n2.uid, n3.uid)
+	//console.log('uids of last parents', n2.uid, n3.uid)
 	for (let i = 0; i < 2; i++) { addRandomNode(n2, r); }
 	for (let i = 0; i < 2; i++) { addRandomNode(n3, r); }
 	return r;
@@ -105,8 +85,8 @@ function adjustTableSize(R) {
 	let d = mBy('table');
 	let root = R.root;
 	d.style.minWidth = root.size.w + 'px';
-	console.log('size of root is:', root.size)
-	d.style.minHeight = root.size.h + 25 + 'px';
+	//console.log('size of root is:', root.size)
+	d.style.minHeight = root.size.h + 'px';
 
 }
 

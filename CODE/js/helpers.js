@@ -2058,6 +2058,7 @@ function getUID(pref = '') {
 	UIDCounter += 1;
 	return pref + '_' + UIDCounter;
 }
+function resetUIDs(){UIDCounter = 0;}
 //#endregion
 
 //#region io

@@ -1,21 +1,41 @@
-function onClickHorLayout(){
+function onClickResetAbsLayoutTest() {
+	iAbsLayoutTest = 0;
+	iTEST = 0;
+	resetUIDs();
+}
+function onClickNextTestOfSeries() {
+	nextTestOfSeries();
+}
+function onClickAllTests() {
+	onClickResetAbsLayoutTest();
+	runAllTests();
+}
+function onClickAllTestSeries() {
+	onClickResetAbsLayoutTest();
+	runAllTestSeries();
+}
+function onClickAllAbsLayoutTests() {
+	onClickResetAbsLayoutTest();
+	runAllAbsLayoutTests();
+}
+function onClickHorLayout() {
 	let uid = '_4';
 	let n = R.uiNodes[uid];
-	horLayout(n,R);
-	
+	horLayout(n, R);
+
 	reArrange(R)
 }
-function onClickMove(){
+function onClickMove() {
 	let keys = Object.keys(R.uiNodes);
-	let uid=chooseRandom(keys);
+	let uid = chooseRandom(keys);
 
 	uid = '_2';
 
-	n=R.uiNodes[uid];
-	modeNodeBy(n,10,10,R);
+	n = R.uiNodes[uid];
+	modeNodeBy(n, 10, 10, R);
 
-	recMeasureOverride(R.tree.uid,R);
-	recPositions(R.tree.uid,R);
+	recMeasureOverride(R.tree.uid, R);
+	recPositions(R.tree.uid, R);
 
 	updateOutput(R)
 }
@@ -55,12 +75,12 @@ function onClickAddLocObject() {
 function onClickResizeBoard() {
 	let nuiBoard = R.uiNodes['_2'];
 	nuiBoard.adirty = true;
-	
+
 	lookupSetOverride(nuiBoard, ['resizeInfo', 'fields'], 180);
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
-	
+
 	//recAdjustDirtyContainers(R.tree.uid, R, true);
-	recMeasureOverride(R.tree.uid,R);
+	recMeasureOverride(R.tree.uid, R);
 
 }
 function onClickSmallerBoard() {
@@ -71,7 +91,7 @@ function onClickSmallerBoard() {
 	//console.log('resizeInfo',nuiBoard.resizeInfo)
 
 	//recAdjustDirtyContainers(R.tree.uid, R, true);
-	recMeasureOverride(R.tree.uid,R);
+	recMeasureOverride(R.tree.uid, R);
 
 }
 
@@ -138,9 +158,12 @@ async function onTestSeriesChanged() {
 }
 
 
-function onClickToggleInteractivity(btn) {
-	let d = mBy('divInteractivity');
-	if (isVisible(d)) { hide(d); btn.innerHTML = '+'; } else { show(d); btn.innerHTML = '-'; }
+function onClickToggleInteractivity(btn, desc) {
+	let d = desc == 'main' ? mBy('divMainTest'): desc == 'test' ? mBy('divTesting'): desc == 'other' ? mBy('divOther') : mBy('divInteractivity');
+	if (isVisible(d)) { 
+		hide(d); 
+		btn.innerHTML =  '+'+desc[0]; } else { 
+			show(d); d.style.display='inline'; btn.innerHTML = '-'+desc[0]; }
 }
 async function onClickTest(btn) { await testEngine.clicked(btn.innerHTML); }
 

@@ -1,4 +1,5 @@
 const MAXNODES = 5;
+// var iNode=0;
 function makeUiNodeFromRNode(n, R) {
 	let n1 = jsCopy(n);
 	//console.log('00000000000000000000000000make uiNode for rNode',n)

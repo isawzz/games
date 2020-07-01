@@ -4,45 +4,18 @@ defaults:
   defaultLoc: manual00
   defaultInvisible: manual00
 
-  manh:
-    params:
-      orientation: h
-      sizing: sizeToContent
-      ypos: centered
-      bg: random
-      fg: contrast
-      padding: 8
-      paddingAroundChildren: 8
-      gapBetweenChildren: 2
-      display: inline-block
-      position: absolute
-      box-sizing: border-box
-  manv:
-    params:
-      orientation: v
-      sizing: sizeToContent
-      ypos: centered
-      bg: random
-      fg: contrast
-      padding: 8
-      paddingAroundChildren: 8
-      gapBetweenChildren: 2
-      display: inline-block
-      position: absolute
-      box-sizing: border-box
-
   manual00:
     params:
       #special layout params used in arrange!
       sizing: sizeToContent
       orientation: h 
-      ypos: centered
+      baseline: centered
 
       bg: random #inherit
       fg: contrast
       
-      padding: 8 #appleCssParams, padding around content
-      paddingAroundChildren: 8 #use this instead of PADDING in abspos.js!
+      padding: 4 #appleCssParams, padding around content
+      paddingAroundChildren: 2 #use this instead of PADDING in abspos.js!
       gapBetweenChildren: 2 #use this instead of GAP in apspos arrangeAbs
       # margin: 0
 
@@ -198,3 +171,31 @@ defaults:
     params:
       size: 24
       shape: round
+
+  # manh:
+  #   params:
+  #     orientation: h
+  #     sizing: sizeToContent
+  #     ypos: centered
+  #     bg: random
+  #     fg: contrast
+  #     padding: 8
+  #     paddingAroundChildren: 8
+  #     gapBetweenChildren: 2
+  #     display: inline-block
+  #     position: absolute
+  #     box-sizing: border-box
+  # manv:
+  #   params:
+  #     orientation: v
+  #     sizing: sizeToContent
+  #     ypos: centered
+  #     bg: random
+  #     fg: contrast
+  #     padding: 8
+  #     paddingAroundChildren: 8
+  #     gapBetweenChildren: 8
+  #     display: inline-block
+  #     position: absolute
+  #     box-sizing: border-box
+
