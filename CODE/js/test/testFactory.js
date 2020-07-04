@@ -1,20 +1,28 @@
 //#region sample R
-function makeTableTreeX(fStruct, { rootContent = true, extralong = false, params } = {}) {
+function makeTableTreeX(fStruct, { positioning='none', rootContent = true, extralong = false, params, data } = {}) {
 	R = fStruct();
 	if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
 
 	let r1 = normalizeRTree(R);
 	let num = firstNumber(R.tree.uid);
-	for(const uid in r1){
-		r1[uid].realUid='_'+(firstNumber(uid)+num);
+	for (const uid in r1) {
+		r1[uid].realUid = '_' + (firstNumber(uid) + num);
 	}
 
 	if (isdef(params)) {
 		for (const uid in params) {
 			let realUid = r1[uid].realUid;
-			let n =  R.rNodes[realUid];
+			let n = R.rNodes[realUid];
 			//console.log('giving caption:'+realUid,'= index:'+uid,'params',params[uid]);
 			n.params = params[uid];
+		}
+	}
+	if (isdef(data)) {
+		for (const uid in data) {
+			let realUid = r1[uid].realUid;
+			let n = R.rNodes[realUid];
+			//console.log('giving caption:'+realUid,'= index:'+uid,'params',params[uid]);
+			n.content = data[uid];
 		}
 	}
 
@@ -22,9 +30,77 @@ function makeTableTreeX(fStruct, { rootContent = true, extralong = false, params
 	let d = mBy('table');
 	d.style.position = 'relative';
 	R.baseArea = 'table';
-	recUiTest(R.tree, R);
+	recUiTestX(R.tree, R);
+
 	let root = R.root = R.uiNodes[R.tree.uid];
+
+	if (positioning == 'random') {
+		//console.log('posRandom!!!')
+		initPosArray(10, 10);
+		recPosRandomUiTree(R.tree.uid, R);
+		delete root.params.size;
+		delete root.params.pos;
+	}else if (positioning == 'regular'){
+		recPosQuadUiTree(R.tree.uid, R);
+		delete root.params.size;
+		delete root.params.pos;
+	}
+
 	return root;
+}
+function recUiTestX(n, R) {
+	let n1 = R.uiNodes[n.uid] = jsCopy(n);
+	let area = isdef(n1.uidParent) ? n1.uidParent : R.baseArea;
+	n1.ui = createUiTestX(n1, area, R);
+
+	//console.log('************ have uiNode',n.uid,n1)
+
+	if (nundef(n1.children)) return;
+	for (const ch of n1.children) {
+		recUiTestX(R.rNodes[ch], R);
+	}
+}
+function createUiTestX(n, area, R) {
+	//console.log('createUiTest',n)
+	if (nundef(n.type)) { n.type = inferType(n); }
+	//console.log('type='+n.type)
+	// R.registerNode(n);
+
+	decodeParams(n, R, {});
+
+	calcDirectParentAndIdUiParent(n, area, R);
+
+	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
+
+	let ui;
+	if (isdef(RCREATE[n.type])) ui = RCREATE[n.type](n, area, R);
+	else ui = standardCreate(n, area, R);
+
+	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
+
+	if (n.uiType == 'NONE') return ui;
+
+	if (n.uiType != 'childOfBoardElement') {
+		if (isBoard(n.uid, R)) { delete n.cssParams.padding; }
+		applyCssStyles(n.uiType == 'h' ? mBy(n.uidStyle) : ui, n.cssParams);
+	}
+
+	if (!isEmpty(n.stdParams)) {
+		//console.log('rsg std params!!!', n.stdParams);
+		switch (n.stdParams.show) {
+			case 'if_content': if (!n.content) hide(ui); break;
+			case 'hidden': hide(ui); break;
+			default: break;
+		}
+	}
+
+	//R.setUid(n, ui);
+
+	// let b=getBounds(ui,true);console.log('________createUi: ',n.uid,'\n',ui,'\nbounds',b.width,b.height);
+
+	ui.id = n.uid;
+	return ui;
+
 }
 
 
@@ -85,9 +161,7 @@ function adjustTableSize(R) {
 	let d = mBy('table');
 	let root = R.root;
 	d.style.minWidth = root.size.w + 'px';
-	//console.log('size of root is:', root.size)
-	d.style.minHeight = root.size.h + 'px';
-
+	d.style.minHeight = (root.size.h +4)+ 'px';
 }
 
 
@@ -108,6 +182,23 @@ function addRandomNode(nParent, R, funcContent) {
 	return nChild;
 }
 
+
+function makeTestBoard(rows, cols, shape) {
+	//shape quad
+	let fieldSize = 50;
+	let dims = { fieldSize: fieldSize };
+	let bpos = {};
+
+	for (let r = 0; r < rows; r++) {
+		bpos[r] = {};
+		y = r * fieldSize;
+		for (let c = 0; c < cols; c++) {
+			bpos[r][c] = { x: c * fieldSize, y: y };
+		}
+	}
+	dims.positions = bpos;
+	return dims;
+}
 
 
 

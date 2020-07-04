@@ -9,10 +9,14 @@ defaults:
       #special layout params used in arrange!
       sizing: sizeToContent
       orientation: h 
-      baseline: centered
+      baseline: stretch
 
       bg: random #inherit
       fg: contrast
+      #opacity: .5
+
+      #width: 50
+      #height: 130
       
       padding: 4 #appleCssParams, padding around content
       paddingAroundChildren: 2 #use this instead of PADDING in abspos.js!
@@ -23,6 +27,7 @@ defaults:
       position: absolute #relative
       box-sizing: border-box
 
+      border-radius: 4
       #display: unset
       #padding: 4 #YES!
       #margin: 4 #nooooo

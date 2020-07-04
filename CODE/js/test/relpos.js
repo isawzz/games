@@ -13,6 +13,16 @@ function makeUiNodeFromRNode(n, R) {
 	return n1;
 }
 
+function recUiTest(n, R) {
+	//console.log('hooooooooooooooo')
+	let n1 = R.uiNodes[n.uid] = makeUiNodeFromRNode(n, R);
+	//console.log('************ have uiNode',n.uid,n1)
+	if (nundef(n1.children)) return;
+	//console.log(n1.children, n1.children.map(x=>R.rNodes[x]))
+	for (const ch of n1.children) {
+		recUiTest(R.rNodes[ch], R);
+	}
+}
 
 
 function reArrange(R) {
@@ -20,7 +30,7 @@ function reArrange(R) {
 	recPositions(R.tree.uid, R);
 }
 
-function modeNodeBy(n, dx, dy, R) {
+function moveNodeBy(n, dx, dy, R) {
 	n.rcenter.x + dx;
 	n.rcenter.y += dy;
 	n.acenter.x += dx;
@@ -54,7 +64,7 @@ function modeNodeBy(n, dx, dy, R) {
 function setRCenter(n, x, y, R) {
 	let dx = x - n.rcenter.x;
 	let dy = y - n.rcenter.y;
-	modeNodeBy(n, dx, dy, R);
+	moveNodeBy(n, dx, dy, R);
 }
 
 function addRandomChildren(n, R) {
@@ -143,16 +153,6 @@ function createUiTest(n, area, R) {
 	ui.id = n.uid;
 	return ui;
 
-}
-function recUiTest(n, R) {
-	//console.log('hooooooooooooooo')
-	let n1 = R.uiNodes[n.uid] = makeUiNodeFromRNode(n, R);
-	//console.log('************ have uiNode',n.uid,n1)
-	if (nundef(n1.children)) return;
-	//console.log(n1.children, n1.children.map(x=>R.rNodes[x]))
-	for (const ch of n1.children) {
-		recUiTest(R.rNodes[ch], R);
-	}
 }
 
 function standardLayout(n, R) {

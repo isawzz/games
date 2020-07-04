@@ -1,4 +1,147 @@
 //#region june06
+function recMeasureArrangeFixedSizeAndPos1(uid, R) {
+	//console.log('measureAbs', uid);
+	let n = R.uiNodes[uid];
+
+	let [minx, maxx, miny, maxy] = [100000, 0, 100000, 0];
+	if (isdef(n.children)) {
+
+		for (const ch of n.children) {
+			let [xmin, xmax, ymin, ymax] = recMeasureArrangeFixedSizeAndPos(ch, R);
+			minx = Math.min(minx, xmin);
+			maxx = Math.max(maxx, xmax);
+			miny = Math.min(miny, ymin);
+			maxy = Math.max(maxy, ymax);
+		}
+	} else {
+		console.log('===>LEAF');
+		//LEAF what shoul this return???
+		//supposedly it does have n.pos and n.size set
+		//it should return 
+		setFixedSizeAndPos(n);
+		let b = getBounds(n.ui);
+		// console.log(b, n.size);
+		return [n.pos.x, n.pos.x + b.width, n.pos.y, n.pos.y + b.height];
+
+	}
+
+
+	//set size and pos, there is no arrange actually!
+	if (nundef(n.params.pos)) return [minx, maxx, miny, maxy];
+	setFixedSizeAndPos(n);
+	minx = Math.min(minx, n.pos.x);
+	maxx = Math.max(maxx, n.pos.x + n.size.w);
+	miny = Math.min(miny, n.pos.y);
+	maxy = Math.max(maxy, n.pos.y + n.size.h);
+	return [minx, maxx, miny, maxy];
+
+
+
+}
+
+function arrangeAbs(uid, R) {
+
+	return fixedSizePos(uid);
+	return sizeToContent(uid);
+
+}
+
+function sizeToContent(uid, r) {
+
+	console.log('sizeToContent!!!!!!!!!!!!!!!!!!!');
+	let n = R.uiNodes[uid];	//n is the parent
+	if (nundef(n.children)) return { w: 0, h: 0 }
+	parentPadding = isdef(n.params.paddingAroundChildren) ? n.params.paddingAroundChildren : PADDING;
+	childMargin = isdef(n.params.gapBetweenChildren) ? n.params.gapBetweenChildren : GAP;
+
+	//params that influence this layout
+	let or = n.params.orientation;
+	// let centered = true;// n.params.baseline == 'center';// n.params.sizing == 'sizeToContent';
+
+	console.log('or', uid, 'is', or);
+
+	//berechne wTitle und y0
+	let y0 = 0;
+	let wTitle = 0;
+	if (isdef(n.content)) {
+		let uiParent = n.ui;
+		let cont = uiParent.firstChild;
+		let b = getBounds(cont, true);
+		wTitle = b.width;// + 2 * parentPadding;
+		if (isdef(n.params.padding)) wTitle += 2 * n.params.padding;
+		y0 = parentPadding + b.top + b.height + parentPadding;
+	} else y0 = parentPadding;
+
+	console.log('wTitle', wTitle, 'y0', y0);
+	//have wTitle and y0 right unter title!
+	let children = n.children.map(x => R.uiNodes[x]);
+
+	let axMain, ax2;
+	if (or == 'v') {
+		axMain = 'h';
+		ax2 = 'w';
+	} else {
+		axMain = 'w';
+		ax2 = 'h';
+
+	}
+	let ax2Max = Math.max(...children.map(x => x.size[ax2]));
+	let axMainSum = children.reduce((a, b) => a + (b.size[axMain] || 0), 0);
+	axMainSum += childMargin * (children.length - 1);
+
+	let wmax = (or == 'v' ? ax2Max : axMainSum);//!!!
+	let xoff = 0;
+	if (wTitle > wmax) xoff = (wTitle - wmax) / 2;
+	let x0 = parentPadding + xoff;
+	let x = x0;
+	let y = y0;
+	console.log('x', x, 'y', y)
+	console.log('wTitle', wTitle, 'maxChildWidth', wmax, 'parentPadding', parentPadding, 'childMargin', childMargin, '= x0', x0);
+	let lastChild = R.uiNodes[n.children[n.children.length - 1]];
+
+	for (const n1 of children) {
+		if (or == 'v') {
+			x = x0 + (ax2Max - n1.size[ax2]) / 2;
+			//x = x0 + centered? (ax2Max - n1.size[ax2]) / 2:0;
+			n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
+			
+			y += n1.size[axMain];
+			if (n1 != lastChild) y += childMargin;
+		} else {
+			y = y0 + (ax2Max - n1.size[ax2]) / 2;
+			n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
+			// let ui = n1.ui;
+			// ui.style.left = n1.pos.x + 'px';
+			// ui.style.top = n1.pos.y + 'px';
+			x += n1.size.w;
+			if (n1 != lastChild) x += childMargin;
+
+			// y = y0 + (ax2Max - n1.size[ax2]) / 2;
+			// y = y0 + centered?(ax2Max - n1.size[ax2]) / 2:0;
+			// n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
+			// x += n1.size.w;
+			// if (n1 != lastChild) x += childMargin;
+		}
+
+		n1.ui.style.left = n1.pos.x + 'px';
+		n1.ui.style.top = n1.pos.y + 'px';
+
+	}
+	console.log('wTitle', wTitle, 'x', x, 'y', y)
+
+	let wParent, hParent;
+	if (or == 'v') {
+		wParent = Math.max(wTitle + parentPadding * 2, ax2Max + 2 * x0);
+		hParent = y + parentPadding;
+	} else {
+		wParent = Math.max(wTitle + parentPadding * 2, x + parentPadding);
+		hParent = y0 + ax2Max + parentPadding;
+	}
+	//console.log('parent size should be', wParent, hParent);
+	return { w: wParent, h: hParent };
+
+}
+
 //#region orig absLayoutTests
 const absLayoutTestsSolutions =
 {

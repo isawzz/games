@@ -1,36 +1,73 @@
+function testCreateDivWithDivFixedSize() {
+	let d = mBy('table');
+	d.style.position = 'relative';
+	let root = mDiv(d);
+	root.style.position = 'relative';
+	root.style.width = '200px';
+	root.style.height = '100px';
+	let ch = mDiv(root);
+	ch.style.position = 'absolute';
+	ch.style.left = '20px';
+	ch.style.top = '10px';
+	ch.style.width = '30px';
+	ch.style.height = '60px';
+	ch.style.backgroundColor = 'blue';
+	root.style.backgroundColor = 'red';
+
+}
+
+//#region running tests from testData.js
 var iTESTSERIES = 0;
 var iTEST = 0;
 var testDict = {};
 function isLastTestOfSeries() {
 	let tests = ALLTESTS[iTESTSERIES];
 	let numtests = Object.keys(tests).length;
-	return iTEST >= numtests - 1;
+	return iTEST >= numtests;
 }
 function nextTestOfSeries() {
-	if (isLastTestOfSeries()) {
-		console.log('press next test again');
-		return;
-	}
+	if (isLastTestOfSeries()) { console.log('...press reset!'); return; }
 	//console.log('running iTEST',iTEST,'iTEST')
 	clearElement('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
 	let tests = ALLTESTS[iTESTSERIES];
 	let solutions = ALLTESTSOLUTIONS[iTESTSERIES];
 	let { func, params } = tests[iTEST];
+
+	mBy('spiTESTSERIES').innerHTML = 'series ' + iTESTSERIES + ',';
+	mBy('spiTEST').innerHTML = 'test ' + iTEST;
+
+	//console.log('series', iTESTSERIES, 'case', iTEST, 'num cases', Object.keys(tests).length, '\ntest', tests[iTEST]);
 	let root = makeTableTreeX(func, params);
-	recMeasureAbs(R.tree.uid, R);
-	updateOutput(R);
-	adjustTableSize(R);
+	console.log('root is',root,'sizing',root.params.sizing)
+	if (root.params.sizing == 'sizeToContent') {
+		recMeasureAbs(R.tree.uid, R);
+		updateOutput(R);
+		adjustTableSize(R);
+	} else if (root.params.sizing == 'fixed') {
+		//console.log('fixed sizing!!!!!!!!!!!!!!!!!!!')
+		let [minx,maxx,miny,maxy]=recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
+		console.log('result von recFixed',minx,maxx,miny,maxy)
+		root.size={w:maxx,h:maxy};
+		// root.size={w:200,h:200};
+		root.ui.style.minWidth=(root.size.w+4)+'px';
+		root.ui.style.minHeight=(root.size.h+4)+'px';
+		adjustTableSize(R);
+	}
 	let sols = {};
 	recCollectSolutions(R.uiNodes[R.tree.uid], R, sols);
 	//console.log('solutions to test', iAbsLayoutTest, sols);
-	let changes = propDiffSimple(sols, solutions[iTEST]);
-	if (changes.hasChanged) {
-		console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
-		//console.log('FAIL!!! ' + this.index, '\nis:', rTreeNow, '\nshould be:', rTreeSolution);
-		console.log('changes:', changes)
+	if (isdef(solutions) && isdef(solutions[iTEST])) {
+		let changes = propDiffSimple(sols, solutions[iTEST]);
+		if (changes.hasChanged) {
+			// console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
+			// console.log('changes:', changes)
+			console.log('FAIL!!! changes:', changes);
+		} else {
+			console.log('verifying test case', iTEST, 'correct!');
+			// console.log('*** correct! ', this.index, '***', rTreeNow)
+		}
 	} else {
-		console.log('verifying test case', iTEST, 'correct!');
-		// console.log('*** correct! ', this.index, '***', rTreeNow)
+		//console.log('test',iTESTSERIES,iTEST,'has NO solution!')
 	}
 
 	let testDict = ALLTESTSOLUTIONS[iTESTSERIES];
@@ -38,24 +75,30 @@ function nextTestOfSeries() {
 	testDict[iTEST] = sols;
 
 	let len = Object.keys(tests).length;
+	//console.log('len', len)
+
 	iTEST += 1;
+	//console.log('iTEST is now', iTEST)
 	if (isLastTestOfSeries()) {
-		console.log('last test in series! NOW should download solutions!');
-		downloadFile(testDict, 'testDict');
+		if (isdef(testDict)) downloadFile(testDict, 'testDict');
+		console.log('...press reset!');
+		return;
 	}
 }
 function startTestLoop() {
 	if (isLastTestOfSeries()) {
 		console.log('TESTS COMPLETED!');
 	} else {
+
 		nextTestOfSeries();
 		if (!isLastTestOfSeries()) setTimeout(startTestLoop, 1000);
 	}
 }
 function startTestSeries() {
 	//console.log('iTESTSERIES',iTESTSERIES)
-	if (iTESTSERIES > 1) {
-		console.log('TEST SERIES COMPLETED!');return;
+	let numSeries = Object.keys(ALLTESTS).length;
+	if (iTESTSERIES >= numSeries) {
+		console.log('TEST SERIES COMPLETED!'); return;
 	} else if (isLastTestOfSeries()) {
 		iTESTSERIES += 1;
 		iTEST = 0;
@@ -63,7 +106,7 @@ function startTestSeries() {
 	} else {
 		nextTestOfSeries();
 	}
-	if (iTESTSERIES <= 1) setTimeout(startTestSeries, 1000);
+	if (iTESTSERIES < numSeries) setTimeout(startTestSeries, 1000);
 }
 function runAllTests() {
 	iTEST = 0;
@@ -93,8 +136,7 @@ function testRelativePositioning() {
 	R = { rNodes: {}, uiNodes: {}, defs: DEFS };
 	let n = R.tree = addRandomNode(null, R);
 
-	//recPopulateTree(n,R,3);
-	let n1;//=addRandomNode(n,R);
+	let n1;
 	for (let i = 0; i < 3; i++) {
 		n1 = addRandomNode(n, R);
 	}

@@ -1,5 +1,26 @@
 const ALLTESTS = {
 	0: {
+		0: { func: ()=>makeSimpleTree(20), params: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+		1: { func: makeSimplestTree, params: { rootContent: true, extralong: false, params: { '_0': { height: 120 } }, data: { '_0': 'hallo' } } },
+		2: { func: makeSimplestTree, params: { data: { '_0': { first: '1', sec: '2' } }, rootContent: true, extralong: false, params: { '_0': { width: 100, height: 120 } } } },
+		3: { func: makeSimplestTree, params: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		4: { func: makeSimpleTree, params: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		5: { func: ()=>makeSimpleTree(10), params: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		6: { func: makeTree33, params: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		7: { func: ()=>makeSimpleTree(4), params: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+	},
+	3: {
+		0: { func: makeSimplestTree, params: { rootContent: true, extralong: false, params: { '_0': { height: 120 } } } },
+		1: { func: makeSimplestTree, params: { rootContent: true, extralong: false, params: { '_0': { width: 100, height: 120 } } } },
+		2: { func: makeSimpleTree, params: { rootContent: true, extralong: false, params: { '_0': { width: 100, height: 120 } } } },
+		3: { func: makeSimpleTree, params: { rootContent: true, extralong: false, params: { '_0': { orientation: 'v', width: 100, height: 120 } } } },
+		//done
+		4: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_0': { orientation: 'v' }, '_3': { orientation: 'v' } } } },
+		5: { func: makeTree332x2, params: { rootContent: true, extralong: false, params: { '_0': { orientation: 'v' } } } },
+		6: { func: makeTree332x2, params: { rootContent: true, extralong: false, params: { '_4': { orientation: 'v' } } } },
+		7: { func: makeTree332x2, params: { rootContent: true, extralong: false, params: { '_3': { orientation: 'v' } } } },
+	},
+	1: {
 		0: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_3': { fg: 'red', orientation: 'v' } } } },
 		1: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_3': { orientation: 'v' } } } },
 		2: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_0': { orientation: 'v' } } } },
@@ -9,7 +30,7 @@ const ALLTESTS = {
 		6: { func: makeTree332x2, params: { rootContent: true, extralong: false, params: { '_4': { orientation: 'v' } } } },
 		7: { func: makeTree332x2, params: { rootContent: true, extralong: false, params: { '_6': { orientation: 'v' } } } },
 	},
-	1: {
+	2: {
 		0: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_3': { fg: 'red', orientation: 'v' } } } },
 		1: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_3': { orientation: 'v' } } } },
 		2: { func: makeTree33, params: { rootContent: true, extralong: false, params: { '_0': { orientation: 'v' } } } },
@@ -44,7 +65,8 @@ const ALLTESTS = {
 	},
 };
 const ALLTESTSOLUTIONS = {
-	0: {
+	0: {},
+	1: {
 		"0": {
 			"_1": {
 				"w": 69,
@@ -288,7 +310,7 @@ const ALLTESTSOLUTIONS = {
 			}
 		}
 	},
-	1: {
+	2: {
 		"0": {
 			"_1": {
 				"w": 69,

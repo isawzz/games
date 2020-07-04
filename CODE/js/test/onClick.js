@@ -1,5 +1,5 @@
 function onClickResetAbsLayoutTest() {
-	iAbsLayoutTest = 0;
+	iTESTSERIES = Math.max(iTESTSERIES-1,0);
 	iTEST = 0;
 	resetUIDs();
 }
@@ -32,7 +32,7 @@ function onClickMove() {
 	uid = '_2';
 
 	n = R.uiNodes[uid];
-	modeNodeBy(n, 10, 10, R);
+	moveNodeBy(n, 10, 10, R);
 
 	recMeasureOverride(R.tree.uid, R);
 	recPositions(R.tree.uid, R);
