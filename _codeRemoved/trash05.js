@@ -1,4 +1,140 @@
+//#region june07: habe current state in june07 dir gemoved (ganze files)
+
+//uses deprecated relpos.js!
+function testRelativePositioning() {
+	let d = makeBaseDiv('basediv');
+	//console.log(d);
+	let letter = randomLetter();
+	//console.log('letter is',letter);
+
+	R = { rNodes: {}, uiNodes: {}, defs: DEFS };
+	let n = R.tree = addRandomNode(null, R);
+
+	let n1;
+	for (let i = 0; i < 3; i++) {
+		n1 = addRandomNode(n, R);
+	}
+	for (let i = 0; i < 3; i++) {
+		addRandomNode(n1, R);
+	}
+
+	console.log('______________00present', R)
+	R.baseArea = 'table';//'basediv';
+	recUiTest(R.tree, R);
+	//addRandomChildren(n,R);
+	//console.log(R.tree);
+
+	recMeasureOverride(R.tree.uid, R);
+	//still need to set pos of root element!!!
+	let root = R.uiNodes[R.tree.uid];
+	let b = getBounds(d);
+	let b1 = getBounds(root.ui);
+	root.rpos = { left: b1.left - b.left, top: b1.top - b.top };
+	root.apos = { left: b1.left, top: b1.top };
+
+	recPositions(R.tree.uid, R);
+
+	updateOutput(R);
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		let w = Math.round(n.size.w);
+		let h = Math.round(n.size.h);
+		let x = Math.round(n.apos.left);
+		let y = Math.round(n.apos.top);
+		let cx = Math.round(n.acenter.x);
+		let cy = Math.round(n.acenter.y);
+
+		console.log('=> ', uid, 'size = ' + w + ' x ' + h, 'pos = ' + x + ' x ' + y, 'cx', cx, 'cy', cy);
+	}
+}
+
 //#region june06
+function makeTestBoard(rows, cols, shape) {
+	//shape quad
+	let fieldSize = 50;
+	let dims = { fieldSize: fieldSize };
+	let bpos = {};
+
+	for (let r = 0; r < rows; r++) {
+		bpos[r] = {};
+		y = r * fieldSize;
+		for (let c = 0; c < cols; c++) {
+			bpos[r][c] = { x: c * fieldSize, y: y };
+		}
+	}
+	dims.positions = bpos;
+	return dims;
+}
+
+//#region random pos and size
+function recPosRandomUiTree(uid, R, wmax = 4, hmax = 2, gran = 10, usedPositions) {
+	let n = R.uiNodes[uid];
+	n.params.size = { w: randomNumber(1, wmax) * gran, h: randomNumber(1, hmax) * gran };
+	n.params.pos = randomPos(wmax, hmax, gran);
+	n.params.sizing = 'fixed';
+	//console.log('pos and size set:', uid, n)
+	if (nundef(n.children)) return;
+	for (const ch of n.children) { recPosRandomUiTree(ch, R); }
+}
+var posArray; var posArrayRows; var posArrayCols;
+function initPosArray(n, m) {
+	posArray = []; posArrayRows = n; posArrayCols = m;
+	for (let r = 0; r < n * m; r++) { posArray[r] = true; }
+}
+function randomPos(w, h, granularity = 20) {
+	if (nundef(posArray)) return { x: randomNumber(2, w - 2), y: randomNumber(2, h - 2) };
+	else {
+		let len = posArray.length;
+		let i = randomNumber(0, len - 1);
+		while (!posArray[i]) i = (i + 1) % len;
+		posArray[i] = false;
+		return { y: Math.floor(i / posArrayRows) * granularity, x: i % posArrayCols * granularity };
+		// let rows = posArray.length;
+		// let cols = posArray[0].length;
+		// let r = randomNumber(0, rows - 1);
+		// let c = randomNumber(0, cols - 1);
+		// while (!posArray[r][c]) { }
+	}
+}
+//#endregion
+
+function fixedSizePos(uid) {
+
+	console.log('fixedSizePos_', uid);
+	let n = R.uiNodes[uid];	//n is the parent
+	if (nundef(n.params.left)) return sizeToContent(uid);
+
+	//assuming all nodes have set position
+	if (isdef(n.params.left)) {
+		console.log('style of', n.uid, n.ui.style);
+
+		n.size = { w: n.params.width, h: n.params.height };
+		n.pos = { x: n.params.left, y: n.params.top, cx: n.params.left + n.size.w / 2, cy: n.params.top + n.size.h / 2 };
+		n.ui.style.position = 'absolute';
+		n.ui.style.left = 20 + 'px';
+		n.ui.style.top = 20 + 'px';
+		n.ui.style.width = n.params.width + 'px';
+		n.ui.style.backgroundColor = 'red'
+		n.ui.style.height = n.params.height + 'px';
+
+	}
+
+	if (nundef(n.children)) return { w: 0, h: 0 }
+	let children = n.children.map(x => R.uiNodes[x]);
+
+	let minx, miny, maxx, maxy;
+	for (const n1 of children) {
+		if (nundef(n1.pos)) continue;
+		minx = Math.min(minx, n1.pos.x);
+		maxx = Math.max(maxx, n1.pos.x + n1.size.w);
+		miny = Math.min(miny, n1.pos.y);
+		maxy = Math.max(maxy, n1.pos.y + n1.size.h);
+		fixedSizePos(uid);
+	}
+
+	return { w: maxx - minx, h: maxy - miny };
+}
+
 function recMeasureArrangeFixedSizeAndPos1(uid, R) {
 	//console.log('measureAbs', uid);
 	let n = R.uiNodes[uid];

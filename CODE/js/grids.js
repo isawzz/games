@@ -47,7 +47,7 @@ function generalGrid(nuiBoard, area, R) {
 	nuiBoard.children = rtreeParent.children;
 	nuiBoard.adirty = true;
 
-	// *** stage 4: layout! means append & positioning = transforms... ***
+	// *** stage 4: layout! means append & positioning_ = transforms... ***
 	//gridLayout_(nuiBoard, R);
 }
 function createBoard(nui, area, R) {
@@ -188,7 +188,7 @@ function gridLayout(nuiBoard, R) {
 	nuiBoard.sizeMeasured = { w: nuiBoard.wTotal, h: nuiBoard.hTotal };
 	nuiBoard.size = jsCopy(nuiBoard.sizeMeasured);
 
-	//positioning of elements!
+	//positioning_ of elements!
 	for (const fid of nuiBoard.children) {
 		let f = R.uiNodes[fid];
 		//console.log('field',fid,f)

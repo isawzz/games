@@ -210,12 +210,12 @@ function gSize(g, w, h, shape = null, iChild = 0) {
 	let t = getTypeOf(el);
 	//console.log('g', g, '\ntype of g child', el, 'is', t);
 	switch (t) {
-		case 'rect': el.setAttribute('width', w); el.setAttribute('height', h);el.setAttribute('x', -w / 2); el.setAttribute('y', -h / 2); break;
+		case 'rect': el.setAttribute('width', w); el.setAttribute('height', h); el.setAttribute('x', -w / 2); el.setAttribute('y', -h / 2); break;
 		case 'ellipse': el.setAttribute('rx', w / 2); el.setAttribute('ry', h / 2); break;
 		default:
 			if (shape) {
 				switch (shape) {
-					case 'hex': let pts = size2hex(w, h); el.setAttribute('points', pts);  break;
+					case 'hex': let pts = size2hex(w, h); el.setAttribute('points', pts); break;
 				}
 			}
 	}
@@ -335,7 +335,7 @@ function mSzPic(d, sz, unit = 'px') { return mSizePic(d, sz, sz, unit); }
 function mStyleS(elem, styles, unit = 'px') { elem = mEnsure(elem); for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } return elem; }
 //#endregion
 
-//#region 1 liners positioning...
+//#region 1 liners positioning_...
 function posTL(d) { mPos(d, 0, 0) }
 function posTR(d) { mStyle(d, { right: 0, top: 0, position: 'absolute' }); }
 function posBL(d) { mStyle(d, { left: 0, bottom: 0, position: 'absolute' }); }
@@ -1252,7 +1252,7 @@ function addDivU({ id, dParent, w, h, unit, fg, bg, position, x, y, html, classN
 	if (isdef(html)) d1.innerHTML = html;
 
 	//size and position
-	//positioning with gap: x,y,w,h MUST be numbers for this to work!
+	//positioning_ with gap: x,y,w,h MUST be numbers for this to work!
 	if (gap > 0 && (unit == '%' || dParent && isdef(dParent.offsetWidth) && isdef(dParent.offsetHeight))) {
 		//check if this div touches right border of parent
 		let wCont = unit == '%' ? 100 : dParent.offsetWidth;
@@ -1679,7 +1679,7 @@ function findParentWithId(elem) {
 }
 //#endregion
 
-//#region DOM: positioning divs w/  inline-block
+//#region DOM: positioning_ divs w/  inline-block
 function posCenterInCenter(d) { d.classList.add('centerCentered'); }
 function posTopLeftInCenter(d) { d.classList.add('centered'); }
 function posXY(d1, dParent, x, y, unit = 'px', position = 'absolute') {
@@ -1725,6 +1725,7 @@ function hide(elem) {
 	}
 }
 function isVisible(elem) { // Where el is the DOM element you'd like to test for visibility
+
 	return (elem.offsetParent !== null)
 }
 function show(elem) {
@@ -2058,7 +2059,7 @@ function getUID(pref = '') {
 	UIDCounter += 1;
 	return pref + '_' + UIDCounter;
 }
-function resetUIDs(){UIDCounter = 0;}
+function resetUIDs() { UIDCounter = 0; }
 //#endregion
 
 //#region io
@@ -3235,8 +3236,8 @@ function evToClosestId(ev) {
 	return elem.id;
 }
 function getTypeOf(param) {
-	let type = typeof param;
 	//console.log('>>>>>getTypeOf',param)
+	let type = typeof param;
 	if (type == 'string') {
 		return 'string';
 	}

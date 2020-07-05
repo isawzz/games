@@ -49,13 +49,26 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
-	//initPosArray(10, 10); console.log(randomPos()); return;
+	showMenu('main')
+	await testEngine.init(defs, sdata, TEST_SERIES);
+
+	if (RSG_SOURCE == 'test') {
+		onClickNextTestOfSeries(); return;
+	} else {
+		//console.log('hallooooooooooooooo')
+		//[sp, defs, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
+		await rParse(RSG_SOURCE,{defs:testEngine.defs,spec:testEngine.spec,sdata:testEngine.sdata});
+		// await testEngine.init(defs, sdata, TEST_SERIES);
+		// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	}
+
+	//rParse(RSG_SOURCE,)
+
+	//initPosArray_(10, 10); console.log(randomPos()); return;
 
 	//testCreateDivWithDivFixedSize(); return;
-	onClickNextTestOfSeries(); return;
 
-	//testAbsolutePositioning();return;
-	//testRelativePositioning(); return;
+
 	//await testAblauf02(defs,spec,sdata);return;
 	//await testAblauf00(defs,spec,sdata);return;
 	//testComposeShapesAndResize();
@@ -81,15 +94,12 @@ async function _entryPoint(defs, spec, sdata) {
 
 
 
-	await testEngine.init(defs, sdata, TEST_SERIES);
-
-	//console.log('_______________',testEngine.sdata);
-
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 }
 async function present00(sp, defaults, sdata) {
 	T = R = new RSG(sp, defaults, sdata);
+
+	console.log('R',R,sp,defaults,sdata)
 
 	//creation sequence:
 	//wann und wie wird start channels bestimmt?
@@ -98,7 +108,7 @@ async function present00(sp, defaults, sdata) {
 	//console.log(R)
 	ensureRtree(R);
 
-	R.baseArea = 'basediv';
+	R.baseArea = 'table'; //'basediv'
 	createStaticUi(R.baseArea, R);
 
 	addNewlyCreatedServerObjects(sdata, R);

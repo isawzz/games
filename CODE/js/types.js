@@ -199,7 +199,8 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 //container types
 function mPanel(n, uidParent, R) {
-	//console.log('panel.......',n.uid,n.idUiParent);//,n.data,n.params,n.idUiParent)
+	console.log('panel.......',n.uid,n.idUiParent);//,n.data,n.params,n.idUiParent)
+
 	let dParent = mBy(n.idUiParent);
 	//console.log('HALLO!!!!!!!!!mBy('+uidParent+')='+dParent);
 	//console.log('??????????????????????????????????????????????')

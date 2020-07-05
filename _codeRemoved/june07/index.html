@@ -84,6 +84,7 @@
 
 		<button id='bother' onclick='onClickToggleInteractivity("other")'>+o</button>
 		<div id='divother' style='text-align:left;display:none'>
+			<!-- <button onclick='onClickMove()'>move</button> -->
 			<button onclick='onClickMeasure(this)'>measure</button>
 			<button onclick='onClickAddLocObject(this)'>add loc</button>
 
@@ -128,6 +129,7 @@
 			</div>
 			<div id='contUiTree' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>ui tree</b>
+				<!-- <button onclick='onClickUpdateOutput(this,"ui nodes")'>ui nodes</button> -->
 				<div id='uiTree' class='flexWrap'></div>
 			</div>
 			<div id='contOidNodes' onclick='onClickUpdateOutput(this)' class='grey'>
@@ -172,6 +174,7 @@
 	<script src="/CODE/js/utils.js"></script>
 
 	<script src="/CODE/js/onClick.js"></script>
+	<script src="/CODE/js/relpos.js"></script>
 	<script src="/CODE/js/testFactory.js"></script>
 	<script src="/CODE/js/testData.js"></script>
 	<script src="/CODE/js/testing.js"></script>

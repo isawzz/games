@@ -1,4 +1,4 @@
-//#region measure and arrange! ==>eigenes file!
+//#region measure and arrange! 
 function recMeasureOverride(uid, R) {
 	console.log('measure', uid);
 	let n = R.uiNodes[uid];
@@ -197,6 +197,21 @@ function showSizes(nLast, R) {
 	}
 }
 
+function standardLayout(n, R) {
+
+	if (nundef(n.children)) return;
+	//horLayout(n, R); return;
+
+
+	let b = getBounds(n.ui);
+
+	for (const uid of n.children) {
+		let n1 = R.uiNodes[uid];
+		let b1 = getBounds(n1.ui);
+		n1.rpos = { left: b1.left - b.left, top: b1.top - b.top };
+		n1.apos = { left: b1.left, top: b1.top };
+	}
+}
 
 
 

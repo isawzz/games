@@ -1,22 +1,4 @@
-function testCreateDivWithDivFixedSize() {
-	let d = mBy('table');
-	d.style.position = 'relative';
-	let root = mDiv(d);
-	root.style.position = 'relative';
-	root.style.width = '200px';
-	root.style.height = '100px';
-	let ch = mDiv(root);
-	ch.style.position = 'absolute';
-	ch.style.left = '20px';
-	ch.style.top = '10px';
-	ch.style.width = '30px';
-	ch.style.height = '60px';
-	ch.style.backgroundColor = 'blue';
-	root.style.backgroundColor = 'red';
-
-}
-
-//#region running tests from testData.js
+//#region running tests from testData.js (using abspos and testFactory)
 var iTESTSERIES = 0;
 var iTEST = 0;
 var testDict = {};
@@ -38,7 +20,7 @@ function nextTestOfSeries() {
 
 	//console.log('series', iTESTSERIES, 'case', iTEST, 'num cases', Object.keys(tests).length, '\ntest', tests[iTEST]);
 	let root = makeTableTreeX(func, params);
-	console.log('root is',root,'sizing',root.params.sizing)
+	//console.log('root is',root,'sizing',root.params.sizing)
 	if (root.params.sizing == 'sizeToContent') {
 		recMeasureAbs(R.tree.uid, R);
 		updateOutput(R);
@@ -46,18 +28,18 @@ function nextTestOfSeries() {
 	} else if (root.params.sizing == 'fixed') {
 		//console.log('fixed sizing!!!!!!!!!!!!!!!!!!!')
 		let [minx,maxx,miny,maxy]=recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
-		console.log('result von recFixed',minx,maxx,miny,maxy)
+		//console.log('result von recFixed',minx,maxx,miny,maxy)
 		root.size={w:maxx,h:maxy};
 		// root.size={w:200,h:200};
 		root.ui.style.minWidth=(root.size.w+4)+'px';
 		root.ui.style.minHeight=(root.size.h+4)+'px';
 		adjustTableSize(R);
 	}
-	let sols = {};
-	recCollectSolutions(R.uiNodes[R.tree.uid], R, sols);
+	let uiNodeSizes = {};
+	recCollectSizeInfo(R.uiNodes[R.tree.uid], R, uiNodeSizes);
 	//console.log('solutions to test', iAbsLayoutTest, sols);
 	if (isdef(solutions) && isdef(solutions[iTEST])) {
-		let changes = propDiffSimple(sols, solutions[iTEST]);
+		let changes = propDiffSimple(uiNodeSizes, solutions[iTEST]);
 		if (changes.hasChanged) {
 			// console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
 			// console.log('changes:', changes)
@@ -72,7 +54,7 @@ function nextTestOfSeries() {
 
 	let testDict = ALLTESTSOLUTIONS[iTESTSERIES];
 	if (nundef(ALLTESTSOLUTIONS[iTESTSERIES])) { testDict = ALLTESTSOLUTIONS[iTESTSERIES] = {}; }
-	testDict[iTEST] = sols;
+	testDict[iTEST] = uiNodeSizes;
 
 	let len = Object.keys(tests).length;
 	//console.log('len', len)
@@ -120,13 +102,34 @@ function runAllTestSeries() {
 	startTestSeries();
 
 }
-function recCollectSolutions(t, R, sols) {
-	sols[t.uid] = { w: Math.floor(t.size.w), h: Math.floor(t.size.h) };
+function recCollectSizeInfo(t, R, uiNodeSizes) {
+	uiNodeSizes[t.uid] = { w: Math.floor(t.size.w), h: Math.floor(t.size.h) };
 	if (nundef(t.children)) return;
-	for (const ch of t.children) { recCollectSolutions(R.uiNodes[ch], R, sols); }
+	for (const ch of t.children) { recCollectSizeInfo(R.uiNodes[ch], R, uiNodeSizes); }
 }
 
+//#region positioning tests
 
+//super simple hand drawn rectangles of fixed size and pos
+function testCreateDivWithDivFixedSize() {
+	let d = mBy('table');
+	d.style.position = 'relative';
+	let root = mDiv(d);
+	root.style.position = 'relative';
+	root.style.width = '200px';
+	root.style.height = '100px';
+	let ch = mDiv(root);
+	ch.style.position = 'absolute';
+	ch.style.left = '20px';
+	ch.style.top = '10px';
+	ch.style.width = '30px';
+	ch.style.height = '60px';
+	ch.style.backgroundColor = 'blue';
+	root.style.backgroundColor = 'red';
+
+}
+
+//uses deprecated relpos.js!
 function testRelativePositioning() {
 	let d = makeBaseDiv('basediv');
 	//console.log(d);

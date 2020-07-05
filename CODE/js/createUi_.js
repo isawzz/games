@@ -38,7 +38,7 @@ function createUi(n, area, R) {
 
 }
 
-//#region deprecated! =>recMeasureOverride, arrangeOverride
+//#region deprecated! =>recMeasureOverride_, arrangeOverride_
 function adjustLayoutForBoardMember(n, R) {
 	console.log('adjust layout for', n.uid);
 
@@ -56,7 +56,7 @@ function adjustLayoutForBoardMember(n, R) {
 	let nuiBoard = R.uiNodes[n.uidParent];
 	console.log(nuiBoard)
 
-	//als LETZTES: positioning!
+	//als LETZTES: positioning_!
 	let bmk = getBounds(directParent, false, divParent);
 	let arr;
 	let [wTotal, hTotal, wBoard, hBoard, fw, fh, fSpacing, fSize, gap] =
