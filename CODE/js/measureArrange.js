@@ -1,6 +1,6 @@
 //#region measure and arrange! 
 function recMeasureOverride(uid, R) {
-	console.log('measure', uid);
+	//console.log('measure', uid);
 	let n = R.uiNodes[uid];
 
 	if (isdef(n.children)) {
@@ -10,18 +10,19 @@ function recMeasureOverride(uid, R) {
 	}
 	n.sizeMeasured = calcSizeMeasured(uid, R);
 	//console.log('measured:',n.sizeMeasured)
+	// n.sizeNeeded =  arrangeOverride(uid, R);
 	n.sizeNeeded = arrangeOverride(uid, R);
 
 	n.size = {
 		w: Math.max(n.sizeMeasured.w, n.sizeNeeded.w),
 		h: Math.max(n.sizeMeasured.h, n.sizeNeeded.h)
 	}
-	console.log('final size', n.uid, n.size);
+	//console.log('final size', n.uid, n.size);
 	showSizes(n, R);
 }
 function arrangeOverride(uid, R) {
 	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
-	console.log('arrange', uid)
+	//console.log('arrange', uid)
 	let n = R.uiNodes[uid];
 
 	if (nundef(n.children)) return { w: 0, h: 0 }
@@ -43,13 +44,13 @@ function arrangeOverride(uid, R) {
 	} else if (n.uiType == 'd' && !startsWith(n.type, 'manual')) {
 
 		panelLayout(n, R);
-		console.log('______________ : panel!')
+		//console.log('______________ : panel!')
 
 		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
 
 	} else if (n.info) {
 
-		console.log('______________ : wrap!')
+		//console.log('______________ : wrap!')
 		//hier wird platzreservierung fuer children auf einem board member gemacht!!!!!!!
 		// alle children kommen dann ja direkt auf das board selbst! sind aber immer noch node children von tile!!!
 		//2 children case
@@ -87,11 +88,11 @@ function recPositions(uid, R) {
 		// n.rpos=jsCopy(n.pos);
 
 		//n is root node!
-		let d=mBy(R.baseArea);
-		let b=getBounds(d);
-		let b1=getBounds(n.ui);
-		n.rpos = {left:b1.left-b.left,top:b1.top-b.top};
-		n.apos = {left:b1.left,top:b1.top};
+		let d = mBy(R.baseArea);
+		let b = getBounds(d);
+		let b1 = getBounds(n.ui);
+		n.rpos = { left: b1.left - b.left, top: b1.top - b.top };
+		n.apos = { left: b1.left, top: b1.top };
 		//n.apos = jsCopy(n.rpos);
 	} else {
 		nParent = R.uiNodes[n.uidParent];
@@ -109,8 +110,8 @@ function recPositions(uid, R) {
 		y: n.apos.top + n.size.h / 2
 	};
 	if (nundef(n.children)) return;
-	for(const uidChild of n.children){
-		recPositions(uidChild,R);
+	for (const uidChild of n.children) {
+		recPositions(uidChild, R);
 	}
 }
 function calcSizeMeasured(uid, R) {

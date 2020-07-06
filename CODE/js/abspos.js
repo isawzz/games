@@ -1,61 +1,31 @@
-function arrangeChildrenAsCircle(n, R) {
-}
-function arrangeChildrenAsQuad(n, R) {
-	let children = n.children.map(x => R.uiNodes[x]);
-
-	let num = children.length;
-	let rows = Math.ceil(Math.sqrt(num));
-	let cols = Math.floor(Math.sqrt(num));
-	let size = 20;
-	let padding = 4;
-	let i = 0;
-
-	//calc max size of children first! set size accordingly!
-	for (const n1 of children) {
-		let b = getBounds(n1.ui);
-		size = Math.max(Math.max(b.width, b.height), size);
-	}
-
-	for (let r = 0; r < rows; r++) {
-		for (let c = 0; c < cols; c++) {
-			let n1 = children[i]; i += 1;
-			n1.params.size = { w: size - 1, h: size - 1 };
-			n1.params.pos = { x: padding + r * size, y: padding + c * size };
-			n1.params.sizing = 'fixed';
-
-		}
-	}
-
-}
-
-// Function: addManual00Node
-// Multiplies two integers and returns the result.
+// Function: recMeasureArrangeFixedSizeAndPos
+// assumes that all children of uid have n.params.size and n.params.pos
+// 
 function recMeasureArrangeFixedSizeAndPos(uid, R) {
 	//console.log('measureAbs', uid);
 	let n = R.uiNodes[uid];
 
 	let [minx, maxx, miny, maxy] = [100000, 0, 100000, 0];
 	if (isdef(n.children)) {
+
+		//calculate maximal dimensions to fit all children's x,y,w,h
 		for (const ch of n.children) {
 			let [xmin, xmax, ymin, ymax] = recMeasureArrangeFixedSizeAndPos(ch, R);
-			// if (xmax>maxx){
-			// 	maxx=xmax
-			// }
 			minx = Math.min(minx, xmin);
 			maxx = Math.max(maxx, xmax);
 			miny = Math.min(miny, ymin);
 			maxy = Math.max(maxy, ymax);
 		}
-		//set size and pos, there is no arrange actually!
+
+		//kann das ueberhaupt vorkommen???????
 		if (nundef(n.params.pos)) {
 			//console.log('parent has no position set!!!', uid)
 			return [minx, maxx, miny, maxy];
 		}
 
-		//muss den parent vielleicht groesser machen!!
-		console.log('__________ ', uid)
-		console.log('children need', 'x', minx, maxx, 'y', miny, maxy);
-		console.log('parent size', n.params.size, 'pos', n.params.pos)
+		//console.log('__________ ', uid)
+		//console.log('children need', 'x', minx, maxx, 'y', miny, maxy);
+		//console.log('parent size', n.params.size, 'pos', n.params.pos)
 		let wParent = Math.max(n.params.size.w, maxx);
 		let hParent = Math.max(n.params.size.h, maxy);
 		n.params.size.w = wParent + 4;
@@ -70,13 +40,8 @@ function recMeasureArrangeFixedSizeAndPos(uid, R) {
 		return [minx, maxx, miny, maxy];
 
 	} else {
-		//console.log('===>LEAF');
-		//LEAF what shoul this return???
-		//supposedly it does have n.pos and n.size set
-		//it should return 
 		setFixedSizeAndPos(n);
 		let b = getBounds(n.ui);
-		//console.log(b, n.size);
 		return [n.pos.x, n.pos.x + b.width, n.pos.y, n.pos.y + b.height];
 
 	}
@@ -105,6 +70,19 @@ function recMeasureAbs(uid, R) {
 	n.ui.style.height = n.size.h + 'px';
 	//console.log('final size', n.uid, n.size);
 }
+function calcParentContentYOffsetAndWidth(n,parentPadding) {
+	let y0 = 0;
+	let wTitle = 0;
+	if (isdef(n.content)) {
+		let uiParent = n.ui;
+		let cont = uiParent.firstChild;
+		let b = getBounds(cont, true);
+		wTitle = b.width;// + 2 * parentPadding;
+		if (isdef(n.params.padding)) wTitle += 2 * n.params.padding;
+		y0 = parentPadding + b.top + b.height + parentPadding;
+	} else y0 = parentPadding;
+	return [y0, wTitle];
+}
 function sizeToContent(uid) {
 
 	//console.log('sizeToContent_', uid);
@@ -120,16 +98,7 @@ function sizeToContent(uid) {
 	//console.log('or', or, 'baseline', bl)
 
 	//berechne wTitle und y0
-	let y0 = 0;
-	let wTitle = 0;
-	if (isdef(n.content)) {
-		let uiParent = n.ui;
-		let cont = uiParent.firstChild;
-		let b = getBounds(cont, true);
-		wTitle = b.width;// + 2 * parentPadding;
-		if (isdef(n.params.padding)) wTitle += 2 * n.params.padding;
-		y0 = parentPadding + b.top + b.height + parentPadding;
-	} else y0 = parentPadding;
+	let [y0, wTitle] = calcParentContentYOffsetAndWidth(n, parentPadding);
 
 	let children = n.children.map(x => R.uiNodes[x]);
 

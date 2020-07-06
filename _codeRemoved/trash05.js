@@ -1,4 +1,158 @@
 //#region june07: habe current state in june07 dir gemoved (ganze files)
+async function rParse_dep(source, context) {
+	if (source == 'test') {
+		let fStruct = context.fStruct;
+		let options = context.options;
+		let rTemp = makeTableTreeX(fStruct, options);
+		let root = rTemp.root;
+
+		if (root.params.sizing == 'sizeToContent') {
+			recMeasureAbs(rTemp.tree.uid, rTemp);
+			updateOutput(rTemp);
+			adjustTableSize(rTemp);
+		} else if (root.params.sizing == 'fixed') {
+			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(rTemp.tree.uid, rTemp);
+			root.size = { w: maxx, h: maxy };
+			root.ui.style.minWidth = (root.size.w + 4) + 'px';
+			root.ui.style.minHeight = (root.size.h + 4) + 'px';
+			adjustTableSize(rTemp);
+		}
+	} else if (source == 'main') {
+		//supposedly context should contain spec,data,defs
+		let sp = context.spec;
+		let defs = context.defs;
+		let sdata = context.sdata;
+		T = R = new RSG(sp, defs, sdata);
+
+		R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
+		ensureRtree(R);
+		R.baseArea = 'table';
+		createStaticUi(R.baseArea, R);
+		addNewlyCreatedServerObjects(sdata, R);
+
+		let uidRoot = R.tree.uid;
+		R.rRoot = R.rNodes[uidRoot];
+		R.uiRoot = R.root = R.uiNodes[uidRoot];
+
+		recMeasureOverride(R.tree.uid, R);
+		adjustTableSize(R);
+		updateOutput(R);
+		testEngine.verify(R);
+	} else {
+
+	}
+	return R;
+}
+
+function arrangeFusion(uid, R) {
+	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
+	//console.log('arrange', uid)
+	let n = R.uiNodes[uid];
+
+	if (nundef(n.children)) return { w: 0, h: 0 }
+
+	// let w, h, res;
+	if (n.type == 'grid') {
+		resizeBoard(n, R);
+
+		//only NOW arrange of children of board members is done!!! 
+		for (const uidMember of n.children) {
+			let tile = R.uiNodes[uidMember];
+			if (nundef(tile.children)) continue;
+
+			//simpleLayoutForOneChildPosition(n,tile,R);
+			wrapLayoutPosition(n, tile, R);
+		}
+		return { w: n.wTotal, h: n.hTotal };
+
+	} else if (n.uiType == 'd' && !startsWith(n.type, 'manual')) {
+
+		return sizeToContent(n.uid, R);
+
+		panelLayout(n, R);
+		console.log('______________ : panel!')
+		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+
+		// if (root.params.sizing == 'sizeToContent') {
+		// 	recMeasureAbs(rTemp.tree.uid, rTemp);
+		// 	updateOutput(rTemp);
+		// 	adjustTableSize(rTemp);
+		// } else if (root.params.sizing == 'fixed') {
+		// 	let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(rTemp.tree.uid, rTemp);
+		// 	root.size = { w: maxx, h: maxy };
+		// 	root.ui.style.minWidth = (root.size.w + 4) + 'px';
+		// 	root.ui.style.minHeight = (root.size.h + 4) + 'px';
+		// 	adjustTableSize(rTemp);
+		// }
+
+
+	} else if (n.info) {
+
+		console.log('______________ : wrap!')
+		//hier wird platzreservierung fuer children auf einem board member gemacht!!!!!!!
+		// alle children kommen dann ja direkt auf das board selbst! sind aber immer noch node children von tile!!!
+		//2 children case
+
+		//new code: multiple children
+		n.sizeNeeded = wrapLayoutSizeNeeded(n.children, R);
+		//console.log('wrapLayoutSizeNeeded returned',n.sizeNeeded);
+
+		//old code: only 1 child
+		//n.sizeNeeded = simpleLayoutForOneChildSizeNeeded(n.children[0],R);
+
+		//but: since relies on board sizing, need to resize board and arrange board first!
+		let nBoard = R.uiNodes[n.uidParent];
+		addResizeInfo(nBoard, n, n.sizeNeeded);
+		// console.log('child', nChild.uid, 'needs', nChild.size, 'layout 1/1', '\nresizeInfo:', nBoard.resizeInfo);
+
+		return { w: n.sizeNeeded.w, h: n.sizeNeeded.h };
+
+	} else if (n.type == 'manual00') {
+		console.log('______________ : manual00');
+		standardLayout(n, R);
+		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+
+	} else {
+		console.log('!!!!!!!!!!case NOT catched in arrangeOverride!!!!!!!!!!', n);
+
+	}
+	return res;
+}
+async function present00_(sp, defaults, sdata) {
+	console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
+	T = R = new RSG(sp, defaults, sdata);
+
+	//console.log('R',R,sp,defaults,sdata)
+
+	//creation sequence:
+	//wann und wie wird start channels bestimmt?
+	//lets do that hardcoded for now!
+	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
+	//console.log(R)
+	ensureRtree(R);
+
+	R.baseArea = 'table'; //'basediv'
+	createStaticUi(R.baseArea, R);
+
+	addNewlyCreatedServerObjects(sdata, R);
+
+	//recAdjustDirtyContainers(R.tree.uid, R, true);
+
+	recMeasureOverride(R.tree.uid, R);
+
+	//output and testing
+	updateOutput(R);
+
+	//for (let i = 0; i < 5; i++) testAddObject(R);
+	//updateOutput(R);
+	//activateUis(R);
+
+	testEngine.verify(R);
+
+	//setTimeout(onClickResizeBoard,500);
+
+}
+
 
 //uses deprecated relpos.js!
 function testRelativePositioning() {
@@ -240,7 +394,7 @@ function sizeToContent(uid, r) {
 			x = x0 + (ax2Max - n1.size[ax2]) / 2;
 			//x = x0 + centered? (ax2Max - n1.size[ax2]) / 2:0;
 			n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
-			
+
 			y += n1.size[axMain];
 			if (n1 != lastChild) y += childMargin;
 		} else {
@@ -653,12 +807,12 @@ function horizontalSizeToContentCentered(uid, r) {
 		if (isdef(n.params.padding)) wTitle += 2 * n.params.padding;
 		y0 = parentPadding + b.top + b.height + parentPadding;
 	} else y0 = parentPadding;
-	
+
 	//have wTitle and y0 right unter title!
 	let children = n.children.map(x => R.uiNodes[x]);
 
-	let axMain='w';//!!!
-	let ax2='h';//!!!
+	let axMain = 'w';//!!!
+	let ax2 = 'h';//!!!
 	let ax2Max = Math.max(...children.map(x => x.size[ax2]));
 	let axMainSum = children.reduce((a, b) => a + (b.size[axMain] || 0), 0);
 	axMainSum += childMargin * (children.length - 1);
@@ -672,7 +826,7 @@ function horizontalSizeToContentCentered(uid, r) {
 	let y = y0;
 	console.log('wmin', wTitle, 'wmax', wmax, 'parentPadding', parentPadding, 'childMargin', childMargin, '= x0', x0);
 	let lastChild = R.uiNodes[n.children[n.children.length - 1]];
-	
+
 	for (const n1 of children) {
 		y = y0 + (ax2Max - n1.size[ax2]) / 2;
 		n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
@@ -759,12 +913,12 @@ function sizeToContentCentered(uid, r) {
 	for (const n1 of children) {
 
 		if (or == 'v') {
-			x = x0 + centered? (ax2Max - n1.size[ax2]) / 2:0;
+			x = x0 + centered ? (ax2Max - n1.size[ax2]) / 2 : 0;
 			n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
 			y += n1.size[axMain];
 			if (n1 != lastChild) y += childMargin;
 		} else {
-			y = y0 + centered?(ax2Max - n1.size[ax2]) / 2:0;
+			y = y0 + centered ? (ax2Max - n1.size[ax2]) / 2 : 0;
 			n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };
 			x += n1.size.w;
 			if (n1 != lastChild) x += childMargin;
@@ -790,7 +944,7 @@ function sizeToContentCentered(uid, r) {
 }
 //#region abs layout variants
 function arrangeAbs(uid, R) {
-	
+
 	let n = R.uiNodes[uid];	//n is the parent
 	if (n.params.orientation == 'v') return verticalSizeToContentCentered(uid, R);
 	else return horizontalSizeToContentCentered(uid, R);
@@ -813,12 +967,12 @@ function horizontalSizeToContentCentered(uid, r) {
 		if (isdef(n.params.padding)) wTitle += 2 * n.params.padding;
 		y0 = parentPadding + b.top + b.height + parentPadding;
 	} else y0 = parentPadding;
-	
+
 	//have wTitle and y0 right unter title!
 	let children = n.children.map(x => R.uiNodes[x]);
 
-	let axMain='w';//!!!
-	let ax2='h';//!!!
+	let axMain = 'w';//!!!
+	let ax2 = 'h';//!!!
 	let ax2Max = Math.max(...children.map(x => x.size[ax2]));
 	let axMainSum = children.reduce((a, b) => a + (b.size[axMain] || 0), 0);
 	axMainSum += childMargin * (children.length - 1);
@@ -831,7 +985,7 @@ function horizontalSizeToContentCentered(uid, r) {
 	let y = y0;
 	console.log('wmin', wTitle, 'wmax', wmax, 'parentPadding', parentPadding, 'childMargin', childMargin, '= x0', x0);
 	let lastChild = R.uiNodes[n.children[n.children.length - 1]];
-	
+
 	for (const n1 of children) {
 		y = y0 + (ax2Max - n1.size[ax2]) / 2;
 		n1.pos = { x: x, y: y, cx: x + n1.size.w / 2, cy: y + n1.size.h / 2 };

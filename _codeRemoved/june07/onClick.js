@@ -156,7 +156,11 @@ async function runNextSeries(listSeries, series, from, to) {
 		let series = listSeries[0];
 		let index = from;
 		await testEngine.loadTestCase(series, index);
-		await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+		// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
+
+		await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
+	
+
 
 		setTimeout(async () => { await runNextSeries(listSeries, series, from + 1, to); }, timeOUT);
 	}
@@ -169,7 +173,7 @@ async function onTestSeriesChanged() {
 	if (series == 'none') return;
 
 	// await testEngine.init(DEFS, sData, series);
-	// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	await testEngine.loadSeries(series);
 	onClickClearTable();
@@ -227,7 +231,8 @@ async function verifySequence(indexFrom, indexTo, saveOnCompleted = false) {
 	//console.log('______________ vernext',series,index);
 	await testEngine.loadTestCase(series, index);
 	//console.log(testEngine.sdata)
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 	//console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, 1000);
 

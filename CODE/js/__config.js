@@ -5,7 +5,7 @@ var SEED = 1;
 
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-var RSG_SOURCE = 'test'; // 'test' | 'main' | 'spec'
+var RSG_SOURCE = 'test'; // 'test' | 'main'  
 
 //===> *** USE THIS WHEN WORKING WITH testEngine_! ***
 var DIR_TESTS = '_A/'; // _A/ _B/
@@ -27,6 +27,8 @@ var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
+
+var IS_START=true;
 
 var STOP = false;
 var MAX_CYCLES = 500; //Recursion safety!

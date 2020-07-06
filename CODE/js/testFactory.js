@@ -1,7 +1,7 @@
 //#region sample R = {tree,uiNodes,rNodes} construction (see testData.js)
 function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, extralong = false, params, data } = {}) {
 	//rtree is constructed
-	console.log('test',iTESTSERIES,iTEST,'params',params)
+	//console.log('test',iTESTSERIES,iTEST,'params',params)
 	R = fStruct();
 	if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
 
@@ -34,8 +34,9 @@ function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, ext
 	R.baseArea = 'table';
 	recUiTestX(R.tree, R);
 
-	let root = R.root = R.uiRoot = R.uiNodes[R.tree.uid];
-	R.rRoot = R.rNodes[R.tree.uid];
+	let root = R.uiNodes[R.tree.uid];
+	// let root = R.root = R.uiRoot = R.uiNodes[R.tree.uid];
+	// R.rRoot = R.rNodes[R.tree.uid];
 
 	//uitree is modified adding size,pos to uinode.params.size (w,h) ,uinode.params.pos (x,y)
 	if (positioning == 'random') {
@@ -43,13 +44,14 @@ function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, ext
 		delete root.params.size;
 		delete root.params.pos;
 	} else if (positioning == 'regular') {
-		recPosQuadUiTree(R.tree.uid, R);
+		recPosRegularUiTree(R.tree.uid, R);
 		delete root.params.size;
 		delete root.params.pos;
 	} else {
 		//console.log('positions NOT set',iTEST,params)
 	}
 
+	//console.log('sizing of root is',root.params.sizing)
 	return R; 
 }
 
@@ -182,16 +184,48 @@ function recPosRandomUiTreeX(uid, R, context) {
 	if (nundef(n.children)) return;
 	for (const ch of n.children) { recPosRandomUiTreeX(ch, R, context); }
 }
-function recPosQuadUiTree(uid, R) {
+function recPosRegularUiTree(uid, R) {
 	let n = R.uiNodes[uid];
 	n.params.sizing = 'fixed';
 	if (nundef(n.children)) return;
-	for (const ch of n.children) { recPosQuadUiTree(ch, R); }
+	for (const ch of n.children) { recPosRegularUiTree(ch, R); }
 
 	let num = n.children.length;
-	if ([4, 6, 8, 9, 12, 16, 20].includes(num)) arrangeChildrenAsQuad(n, R);
+	if ([2, 4, 6, 8, 9, 12, 16, 20].includes(num)) arrangeChildrenAsQuad(n, R);
 	else if (num > 1 && num < 10) arrangeChildrenAsCircle(n, R);
 }
+function arrangeChildrenAsQuad(n, R) {
+	let children = n.children.map(x => R.uiNodes[x]);
+
+	let num = children.length;
+	let rows = Math.ceil(Math.sqrt(num));
+	let cols = Math.floor(Math.sqrt(num));
+	let size = 20;
+	let padding = 4;
+	let i = 0;
+
+	//calc max size of children first! set size accordingly!
+	for (const n1 of children) {
+		let b = getBounds(n1.ui);
+		size = Math.max(Math.max(b.width, b.height), size);
+	}
+
+	let [y0, wTitle] = calcParentContentYOffsetAndWidth(n, padding);
+
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			let n1 = children[i]; i += 1;
+			n1.params.size = { w: size - 1, h: size - 1 };
+			n1.params.pos = { x: padding + r * size, y: y0 + c * size };
+			n1.params.sizing = 'fixed';
+
+		}
+	}
+
+}
+function arrangeChildrenAsCircle(n, R) {
+}
+
 
 //#region random rtree
 const MAXNODES = 5; //max amount of nodes in rTree (not exact!)

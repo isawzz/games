@@ -5,7 +5,7 @@ function isLastTestOfSeries() {
 	let numtests = Object.keys(tests).length;
 	return iTEST >= numtests;
 }
-function nextTestOfSeries() {
+async function nextTestOfSeries() {
 	if (isLastTestOfSeries()) { console.log('...press reset!'); return; }
 	//console.log('running iTEST',iTEST,'iTEST')
 	clearElement('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
@@ -19,13 +19,14 @@ function nextTestOfSeries() {
 
 	//console.log('series', iTESTSERIES, 'case', iTEST, 'num cases', Object.keys(tests).length, '\ntest', tests[iTEST]);
 
-	rParse('test', context);
+	await rParse('test', context);
 
-	let sols = {};
-	recCollectSolutions(R.uiNodes[R.tree.uid], R, sols);
+	let uiNodeSizes = {};
+	console.log()
+	recCollectSizeInfo(R.uiNodes[R.tree.uid], R, uiNodeSizes);
 	//console.log('solutions to test', iAbsLayoutTest, sols);
 	if (isdef(solutions) && isdef(solutions[iTEST])) {
-		let changes = propDiffSimple(sols, solutions[iTEST]);
+		let changes = propDiffSimple(uiNodeSizes, solutions[iTEST]);
 		if (changes.hasChanged) {
 			// console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
 			// console.log('changes:', changes)
@@ -40,17 +41,19 @@ function nextTestOfSeries() {
 
 	let testDict = ALLTESTSOLUTIONS[iTESTSERIES];
 	if (nundef(ALLTESTSOLUTIONS[iTESTSERIES])) { testDict = ALLTESTSOLUTIONS[iTESTSERIES] = {}; }
-	testDict[iTEST] = sols;
+	testDict[iTEST] = uiNodeSizes;
 
 	let len = Object.keys(tests).length;
 	//console.log('len', len)
 
 	iTEST += 1;
 	//console.log('iTEST is now', iTEST)
-	if (isLastTestOfSeries()) {
+	if (isLastTestOfSeries() && !IS_START) {
 		if (isdef(testDict)) downloadFile(testDict, 'testDict');
 		console.log('...press reset!');
 		return;
+	}else if (IS_START) {
+		IS_START = false;
 	}
 }
 function startTestLoop() {
@@ -89,10 +92,10 @@ function runAllTestSeries() {
 	startTestSeries();
 
 }
-function recCollectSolutions(t, R, sols) {
-	sols[t.uid] = { w: Math.floor(t.size.w), h: Math.floor(t.size.h) };
+function recCollectSizeInfo(t, R, uiNodeSizes) {
+	uiNodeSizes[t.uid] = { w: Math.floor(t.size.w), h: Math.floor(t.size.h) };
 	if (nundef(t.children)) return;
-	for (const ch of t.children) { recCollectSolutions(R.uiNodes[ch], R, sols); }
+	for (const ch of t.children) { recCollectSizeInfo(R.uiNodes[ch], R, uiNodeSizes); }
 }
 
 //#region positioning tests

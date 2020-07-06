@@ -46,20 +46,21 @@ async function _start() {
 	_entryPoint(DEFS, SPEC, sData);
 }
 //#endregion
-
 async function _entryPoint(defs, spec, sdata) {
 
-	showMenu('main')
+	showMenu('main');
 	await testEngine.init(defs, sdata, TEST_SERIES);
+	iTEST = Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
+	console.log('series', iTESTSERIES, 'case', iTEST, ALLTESTS[iTESTSERIES])
 
 	if (RSG_SOURCE == 'test') {
-		onClickNextTestOfSeries(); return;
+		onClickNextTestOfSeries();
 	} else {
 		//console.log('hallooooooooooooooo')
 		//[sp, defs, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
-		await rParse(RSG_SOURCE,{defs:testEngine.defs,spec:testEngine.spec,sdata:testEngine.sdata});
+		await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 		// await testEngine.init(defs, sdata, TEST_SERIES);
-		// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+		// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 	}
 
 	//rParse(RSG_SOURCE,)
@@ -79,7 +80,7 @@ async function _entryPoint(defs, spec, sdata) {
 
 	//testGetElements();
 	//testSolutionConverter();	return;
-	//present00(DEFS,SPEC, sData);
+	//present00__(DEFS,SPEC, sData);
 	//localStorage.clear();
 	//console.log(sdata);
 	//return;
@@ -96,40 +97,6 @@ async function _entryPoint(defs, spec, sdata) {
 
 
 }
-async function present00(sp, defaults, sdata) {
-	T = R = new RSG(sp, defaults, sdata);
-
-	console.log('R',R,sp,defaults,sdata)
-
-	//creation sequence:
-	//wann und wie wird start channels bestimmt?
-	//lets do that hardcoded for now!
-	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
-	//console.log(R)
-	ensureRtree(R);
-
-	R.baseArea = 'table'; //'basediv'
-	createStaticUi(R.baseArea, R);
-
-	addNewlyCreatedServerObjects(sdata, R);
-
-	//recAdjustDirtyContainers(R.tree.uid, R, true);
-
-	recMeasureOverride(R.tree.uid, R);
-
-	//output and testing
-	updateOutput(R);
-
-	//for (let i = 0; i < 5; i++) testAddObject(R);
-	//updateOutput(R);
-	//activateUis(R);
-
-	testEngine.verify(R);
-
-	//setTimeout(onClickResizeBoard,500);
-
-}
-
 
 
 
@@ -209,14 +176,31 @@ function updateOutput(R) {
 	}
 
 	if (SHOW_UITREE) {
-		presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
-			['children'],
-			// null, //show
-			// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-			['uid', 'pos', 'size', 'uidParent'],//,'params'],
-			//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
-			null, //omit
-			{ 'max-width': '35%', font: '14px arial' });
+
+		let numNodes = Object.keys(R.uiNodes).length;
+		console.log('numNodes',numNodes);
+		if (numNodes <= 10) {
+			presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
+				['children'],
+				// null, //show
+				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
+				['uid', 'pos', 'size', 'uidParent', 'params'],
+				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
+				null, //omit
+				{ 'max-width': '50%', font: '14px arial' });
+
+		} else {
+			presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
+				['children'],
+				// null, //show
+				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
+				['uid', 'pos', 'size', 'uidParent'],//,'params'],
+				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
+				null, //omit
+				{ 'max-width': '35%', font: '14px arial' });
+
+		}
+
 	}
 
 	if (SHOW_OIDNODES) { presentOidNodes(R, 'oidNodes'); }

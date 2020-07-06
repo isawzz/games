@@ -1,14 +1,9 @@
 //manual00 tests
 const ALLTESTS = {
-	0: {
-		0: { fStruct: () => makeSimpleTree(20), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
-		1: { fStruct: makeSimplestTree, options: { rootContent: true, extralong: false, options: { '_0': { height: 120 } }, data: { '_0': 'hallo' } } },
-		2: { fStruct: makeSimplestTree, options: { data: { '_0': { first: '1', sec: '2' } }, rootContent: true, extralong: false, params: { '_0': { width: 100, height: 120 } } } },
-		3: { fStruct: makeSimplestTree, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
-		4: { fStruct: makeSimpleTree, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
-		5: { fStruct: () => makeSimpleTree(10), options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
-		6: { fStruct: makeTree33, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
-		7: { fStruct: () => makeSimpleTree(4), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+	0: { // regular positioning
+		2: { fStruct: () => makeSimpleTree(2), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+		1: { fStruct: () => makeSimpleTree(20), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+		0: { fStruct: () => makeSimpleTree(4), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
 	},
 	1: {
 		0: { fStruct: makeSimplestTree, options: { rootContent: true, extralong: false, params: { '_0': { height: 120 } } } },
@@ -64,238 +59,19 @@ const ALLTESTS = {
 		22: { fStruct: makeTree33, options: { rootContent: true, extralong: true, params: { '_0': { orientation: 'v' } } } },
 		23: { fStruct: makeTree33, options: { rootContent: true, extralong: true, params: { '_3': { orientation: 'v' } } } },
 	},
+	4: { //random positioning: NO SOLUTIONS!!!!
+		0: { fStruct: makeSimplestTree, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		1: { fStruct: makeSimpleTree, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		2: { fStruct: () => makeSimpleTree(10), options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+		3: { fStruct: makeTree33, options: { positioning: 'random', data: { '_0': 'positioned' }, rootContent: true, extralong: false } },
+	},
+	5: { //data verschiedenster art: TODO: solutions dazu!
+		0: { fStruct: makeSimplestTree, options: { rootContent: true, extralong: false, options: { '_0': { height: 120 } }, data: { '_0': 'hallo' } } },
+		1: { fStruct: makeSimplestTree, options: { data: { '_0': { first: '1', sec: '2' } }, rootContent: true, extralong: false, params: { '_0': { width: 100, height: 120 } } } },
+	},
 };
 const ALLTESTSOLUTIONS = {
-	0: {
-		"0": {
-			"_1": {
-				"w": 127,
-				"h": 101
-			},
-			"_2": {
-				"w": 23,
-				"h": 23
-			},
-			"_3": {
-				"w": 23,
-				"h": 23
-			},
-			"_4": {
-				"w": 23,
-				"h": 23
-			},
-			"_5": {
-				"w": 23,
-				"h": 23
-			},
-			"_6": {
-				"w": 23,
-				"h": 23
-			},
-			"_7": {
-				"w": 23,
-				"h": 23
-			},
-			"_8": {
-				"w": 23,
-				"h": 23
-			},
-			"_9": {
-				"w": 23,
-				"h": 23
-			},
-			"_10": {
-				"w": 23,
-				"h": 23
-			},
-			"_11": {
-				"w": 23,
-				"h": 23
-			},
-			"_12": {
-				"w": 23,
-				"h": 23
-			},
-			"_13": {
-				"w": 23,
-				"h": 23
-			},
-			"_14": {
-				"w": 23,
-				"h": 23
-			},
-			"_15": {
-				"w": 23,
-				"h": 23
-			},
-			"_16": {
-				"w": 23,
-				"h": 23
-			},
-			"_17": {
-				"w": 23,
-				"h": 23
-			},
-			"_18": {
-				"w": 23,
-				"h": 23
-			},
-			"_19": {
-				"w": 23,
-				"h": 23
-			},
-			"_20": {
-				"w": 23,
-				"h": 23
-			},
-			"_21": {
-				"w": 23,
-				"h": 23
-			}
-		},
-		"1": {
-			"_22": {
-				"w": 33,
-				"h": 40
-			},
-			"_23": {
-				"w": 24,
-				"h": 19
-			}
-		},
-		"2": {
-			"_24": {
-				"w": 104,
-				"h": 120
-			},
-			"_25": {
-				"w": 24,
-				"h": 19
-			}
-		},
-		"3": {
-			"_26": {
-				"w": 560,
-				"h": 90
-			},
-			"_27": {
-				"w": 60,
-				"h": 40
-			}
-		},
-		"4": {
-			"_28": {
-				"w": 540,
-				"h": 270
-			},
-			"_29": {
-				"w": 50,
-				"h": 20
-			},
-			"_30": {
-				"w": 10,
-				"h": 40
-			}
-		},
-		"5": {
-			"_31": {
-				"w": 530,
-				"h": 280
-			},
-			"_32": {
-				"w": 20,
-				"h": 40
-			},
-			"_33": {
-				"w": 30,
-				"h": 10
-			},
-			"_34": {
-				"w": 20,
-				"h": 40
-			},
-			"_35": {
-				"w": 40,
-				"h": 30
-			},
-			"_36": {
-				"w": 50,
-				"h": 40
-			},
-			"_37": {
-				"w": 30,
-				"h": 10
-			},
-			"_38": {
-				"w": 40,
-				"h": 40
-			},
-			"_39": {
-				"w": 30,
-				"h": 30
-			},
-			"_40": {
-				"w": 20,
-				"h": 30
-			},
-			"_41": {
-				"w": 30,
-				"h": 20
-			}
-		},
-		"6": {
-			"_42": {
-				"w": 844,
-				"h": 334
-			},
-			"_43": {
-				"w": 40,
-				"h": 30
-			},
-			"_44": {
-				"w": 50,
-				"h": 10
-			},
-			"_45": {
-				"w": 454,
-				"h": 204
-			},
-			"_46": {
-				"w": 40,
-				"h": 20
-			},
-			"_47": {
-				"w": 40,
-				"h": 20
-			},
-			"_48": {
-				"w": 30,
-				"h": 30
-			}
-		},
-		"7": {
-			"_49": {
-				"w": 53,
-				"h": 52
-			},
-			"_50": {
-				"w": 23,
-				"h": 23
-			},
-			"_51": {
-				"w": 23,
-				"h": 23
-			},
-			"_52": {
-				"w": 23,
-				"h": 23
-			},
-			"_53": {
-				"w": 23,
-				"h": 23
-			}
-		}
-	},
+	0: { "0": { "_1": { "w": 43, "h": 62 }, "_2": { "w": 19, "h": 19 }, "_3": { "w": 19, "h": 19 }, "_4": { "w": 19, "h": 19 }, "_5": { "w": 19, "h": 19 } }, "1": { "_6": { "w": 127, "h": 120 }, "_7": { "w": 23, "h": 23 }, "_8": { "w": 23, "h": 23 }, "_9": { "w": 23, "h": 23 }, "_10": { "w": 23, "h": 23 }, "_11": { "w": 23, "h": 23 }, "_12": { "w": 23, "h": 23 }, "_13": { "w": 23, "h": 23 }, "_14": { "w": 23, "h": 23 }, "_15": { "w": 23, "h": 23 }, "_16": { "w": 23, "h": 23 }, "_17": { "w": 23, "h": 23 }, "_18": { "w": 23, "h": 23 }, "_19": { "w": 23, "h": 23 }, "_20": { "w": 23, "h": 23 }, "_21": { "w": 23, "h": 23 }, "_22": { "w": 23, "h": 23 }, "_23": { "w": 23, "h": 23 }, "_24": { "w": 23, "h": 23 }, "_25": { "w": 23, "h": 23 }, "_26": { "w": 23, "h": 23 } } },
 	1: {
 		"0": {
 			"_1": {
@@ -1558,6 +1334,8 @@ const ALLTESTSOLUTIONS = {
 			}
 		}
 	},
+	4: {}, //cannot have solutions because random positioning!!!!
+	5: { "0": { "_1": { "w": 33, "h": 40 }, "_2": { "w": 19, "h": 19 } }, "1": { "_3": { "w": 104, "h": 120 }, "_4": { "w": 19, "h": 19 } } },
 };
 
 

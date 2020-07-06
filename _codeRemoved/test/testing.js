@@ -25,7 +25,8 @@ function nextTestOfSeries() {
 		recMeasureAbs(R.tree.uid, R);
 		updateOutput(R);
 		adjustTableSize(R);
-	} else if (root.params.sizing == 'fixed') {
+	} else if
+	(root.params.sizing == 'fixed') {
 		//console.log('fixed sizing!!!!!!!!!!!!!!!!!!!')
 		let [minx,maxx,miny,maxy]=recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 		//console.log('result von recFixed',minx,maxx,miny,maxy)

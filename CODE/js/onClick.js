@@ -129,22 +129,25 @@ async function onClickGo() {
 	n = firstNumber(n)
 	//console.log(n,typeof n)
 	await testEngine.loadTestCase(testEngine.series, n);
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	//await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 }
 function onClickInvalidate() { testEngine.invalidate(); }
 
 async function onClickNextTest() {
-	await testEngine.loadNextTestCase();
 	setRSG_SOURCE('main');
+	await testEngine.loadNextTestCase();
 	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 }
 async function onClickPrevTest() {
 	await testEngine.loadPrevTestCase();
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
 async function onClickRepeatTest() {
 	await testEngine.repeatTestCase();
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
 async function onClickRun() {
 	let indexFrom = firstNumber(mBy('iTestCaseFrom').value);
@@ -163,7 +166,7 @@ async function onClickRunAll() {
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');
-	console.log('_______ *NEW SERIES: ', listSeries[0]);
+	//console.log('_______ *NEW SERIES: ', listSeries[0]);
 	await runNextSeries(listSeries, listSeries[0], 0, imax);
 }
 function onClickSave() { testEngine.saveSolution(T); }
@@ -181,7 +184,7 @@ async function onTestSeriesChanged() {
 	if (series == 'none') return;
 
 	// await testEngine.init(DEFS, sData, series);
-	// await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	await testEngine.loadSeries(series);
 	onClickClearTable();
@@ -207,7 +210,7 @@ async function runNextSeries(listSeries, series, from, to) {
 		return;
 	} else if (STOP) {
 		STOP = false;
-		console.log('*** TEST RUN INTERRUPTED!!! ***');
+		//console.log('*** TEST RUN INTERRUPTED!!! ***');
 		return;
 	} else if (from >= to) {
 		let series = testEngine.series;
@@ -217,14 +220,15 @@ async function runNextSeries(listSeries, series, from, to) {
 			return;
 		}
 		series = listSeries[0];
-		console.log('_______ *NEW SERIES: ', series);
+		//console.log('_______ *NEW SERIES: ', series);
 		let imax = await testEngine.loadSeries(series);
 		setTimeout(async () => { await runNextSeries(listSeries, series, 0, imax); }, timeOUT * 2);
 	} else {
 		let series = listSeries[0];
 		let index = from;
 		await testEngine.loadTestCase(series, index);
-		await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+		await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
+		// await present00__(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 		setTimeout(async () => { await runNextSeries(listSeries, series, from + 1, to); }, timeOUT);
 	}
@@ -233,8 +237,9 @@ async function verNext(series, index, maxIndex, saveOnCompleted = false) {
 	//console.log('______________ vernext',series,index);
 
 	await testEngine.loadTestCase(series, index);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 
 	let timeOUT = 500;
 	if (index < maxIndex && !STOP) setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, timeOUT);
@@ -251,8 +256,9 @@ async function verifySequence(indexFrom, indexTo, saveOnCompleted = false) {
 	let index = indexFrom;
 	//console.log('______________ vernext',series,index);
 	await testEngine.loadTestCase(series, index);
+	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 	//console.log(testEngine.sdata)
-	await present00(testEngine.spec, testEngine.defs, testEngine.sdata);
+	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 	//console.log('...completed', index);
 	setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, 1000);
 

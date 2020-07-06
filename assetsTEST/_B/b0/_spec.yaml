@@ -1,6 +1,13 @@
+1:
+  ROOT:
+    data: mit subs
+    # type: manual00
+    sub:
+      - data: sub1
+      - data: sub2
+      - data: sub3
 0:
   ROOT:
-    cond:
-      oid: board1
-    type: grid
+    data: hallo
+    type: manual00
     

@@ -1,4 +1,15 @@
-function standardCreate(n,area,R){
+function mManual00(n, area, R) {
+	let ui = standardCreate(n, area, R);
+	if (isdef(n.idUiParent)) {
+		//console.log('uidParent', n.idUiParent);
+		let dParent = mBy(n.idUiParent);
+		//console.log(n.idUiParent, n)
+		if (dParent && nundef(dParent.style.position)) dParent.style.position = 'relative';
+	}
+	return ui;
+}
+
+function standardCreate(n, area, R) {
 	let ui;
 	let dParent = mBy(n.idUiParent);
 	ui = mDiv(dParent);
@@ -199,7 +210,7 @@ function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
 
 //container types
 function mPanel(n, uidParent, R) {
-	console.log('panel.......',n.uid,n.idUiParent);//,n.data,n.params,n.idUiParent)
+	//console.log('panel.......', n.uid, n.idUiParent);//,n.data,n.params,n.idUiParent)
 
 	let dParent = mBy(n.idUiParent);
 	//console.log('HALLO!!!!!!!!!mBy('+uidParent+')='+dParent);
@@ -323,6 +334,7 @@ function mTitle(n, uidParent, R) {
 }
 
 const RCREATE = {
+	manual00: mManual00,
 	bare: mBare,
 	invisible: mInvisible,
 	info: mInfo,
