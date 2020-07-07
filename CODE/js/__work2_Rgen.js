@@ -1,4 +1,29 @@
+function recArrangeContent(uid,R){
 
+	console.log('............')
+	let n = R.uiNodes[uid];	//n is the parent
+
+	parentPadding = isdef(n.params.paddingAroundChildren) ? n.params.paddingAroundChildren : DEFS.defaultPadding;
+	childMargin = isdef(n.params.gapBetweenChildren) ? n.params.gapBetweenChildren : DEFS.defaultGap;
+
+	if (isdef(n.children) && isdef(n.params.contentwalign) && n.params.contentwalign == 'center'){
+		//calc total with of content
+		console.log('...................................>>')
+		let children = n.children.map(x => R.uiNodes[x]);
+		let xchimin = Math.min(...children.map(x => x.pos.x));
+		let xchimax = Math.max(...children.map(x => x.pos.x+x.size.w));
+		let diff = xchimax-xchimin;
+		let wpar = n.size.w-2*parentPadding;
+		console.log('wpar',wpar,'diff',diff,'should align?',wpar>diff+2?'yes':'no');
+
+		//calc 
+	}
+
+	if (nundef(n.children)) return;
+
+	for(const ch of n.children) recArrangeContent(ch,R);
+
+}
 
 
 

@@ -51,7 +51,7 @@ async function _entryPoint(defs, spec, sdata) {
 	showMenu('main');
 	await testEngine.init(defs, sdata, TEST_SERIES);
 	iTEST = Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
-	console.log('series', iTESTSERIES, 'case', iTEST, ALLTESTS[iTESTSERIES])
+	//console.log('series', iTESTSERIES, 'case', iTEST, ALLTESTS[iTESTSERIES])
 
 	if (RSG_SOURCE == 'test') {
 		onClickNextTestOfSeries();
@@ -178,7 +178,7 @@ function updateOutput(R) {
 	if (SHOW_UITREE) {
 
 		let numNodes = Object.keys(R.uiNodes).length;
-		console.log('numNodes',numNodes);
+		//console.log('numNodes',numNodes);
 		if (numNodes <= 10) {
 			presentDictTree(R.uiNodes, R.tree.uid, 'uiTree', 'children', R,
 				['children'],

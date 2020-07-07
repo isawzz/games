@@ -1,11 +1,12 @@
 //#region sample R = {tree,uiNodes,rNodes} construction (see testData.js)
-function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, extralong = false, params, data } = {}) {
+function makeTableTreeX(fStruct, { fContent, positioning = 'none', rootContent = true, extralong = false, params, data } = {}) {
 	//rtree is constructed
 	//console.log('test',iTESTSERIES,iTEST,'params',params)
 	R = fStruct();
 	if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
 
 	let r1 = normalizeRTree(R);
+	//console.log(r1)
 	let num = firstNumber(R.tree.uid);
 	for (const uid in r1) {
 		r1[uid].realUid = '_' + (firstNumber(uid) + num);
@@ -13,10 +14,19 @@ function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, ext
 	//rtree is modified by params,content
 	if (isdef(params)) {
 		for (const uid in params) {
+			//console.log('uid',uid,r1[uid])
 			let realUid = r1[uid].realUid;
 			let n = R.rNodes[realUid];
 			n.params = params[uid];
 			//if (n.params.orientation) console.log('===>',n.uid,n.params.orientation)
+		}
+	}
+	if (isdef(fContent)) {
+		for (const uid in R.rNodes) {
+			let v = R.rNodes[uid];
+			let val = fContent(v,R);
+			if (!val) delete v.content; else v.content = val;
+			//console.log('entries in rtree: k',uid,'\ncontent',v.content,'\nfContent',fContent(v));
 		}
 	}
 	if (isdef(data)) {
@@ -52,7 +62,7 @@ function makeTableTreeX(fStruct, { positioning = 'none', rootContent = true, ext
 	}
 
 	//console.log('sizing of root is',root.params.sizing)
-	return R; 
+	return R;
 }
 
 //#region rTree
@@ -60,7 +70,7 @@ function addManual00Node(nParent, R, funcContent) {
 
 	let uidParent = nParent ? nParent.uid : null;
 	//console.log('setting nParent='+uidParent)
-	let nChild = { uidParent: uidParent, idUiParent: uidParent, uid: getUID(), type:'manual00', content: randomLetter() };
+	let nChild = { uidParent: uidParent, idUiParent: uidParent, uid: getUID(), type: 'manual00', content: randomLetter() };
 	nChild.content = isdef(funcContent) ? funcContent(nChild) : nChild.uid;
 	//console.log(nChild.uidParent, nChild.idUiParent)
 	if (nParent) {
@@ -71,6 +81,33 @@ function addManual00Node(nParent, R, funcContent) {
 	}
 	R.rNodes[nChild.uid] = nChild;
 	return nChild;
+}
+function makeTreeNNEach(num1, num2) {
+	let r = { rNodes: {}, uiNodes: {}, defs: DEFS };
+	let n = r.tree = addManual00Node(null, r);
+
+	for (let i = 0; i < num1; i++) {
+		let n1 = addManual00Node(n, r);
+		for (let j = 0; j < num2; j++) {
+			addManual00Node(n1, r);
+		}
+	}
+
+	return r;
+}
+function makeTreeNN(num1, num2) {
+	let r = { rNodes: {}, uiNodes: {}, defs: DEFS };
+	let n = r.tree = addManual00Node(null, r);
+
+	let n1;
+	for (let i = 0; i < num1; i++) {
+		n1 = addManual00Node(n, r);
+	}
+	for (let i = 0; i < num2; i++) {
+		addManual00Node(n1, r);
+	}
+
+	return r;
 }
 function makeTree33() {
 	let r = { rNodes: {}, uiNodes: {}, defs: DEFS };
@@ -195,7 +232,9 @@ function recPosRegularUiTree(uid, R) {
 	else if (num > 1 && num < 10) arrangeChildrenAsCircle(n, R);
 }
 function arrangeChildrenAsQuad(n, R) {
+	console.log('arrangeChildrenAsQuad', n.children);
 	let children = n.children.map(x => R.uiNodes[x]);
+
 
 	let num = children.length;
 	let rows = Math.ceil(Math.sqrt(num));
@@ -207,7 +246,12 @@ function arrangeChildrenAsQuad(n, R) {
 	//calc max size of children first! set size accordingly!
 	for (const n1 of children) {
 		let b = getBounds(n1.ui);
-		size = Math.max(Math.max(b.width, b.height), size);
+		console.log('uid', n1.uid, 'w', b.width)
+		let newMax = Math.max(Math.max(b.width, b.height), size);
+		if (newMax > size) {
+			console.log('got new max:', newMax);
+			size = newMax;
+		}
 	}
 
 	let [y0, wTitle] = calcParentContentYOffsetAndWidth(n, padding);

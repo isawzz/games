@@ -22,7 +22,11 @@ async function generateTree(source, context) {
 }
 async function presentTree(root, R) {
 	if (root.params.sizing == 'sizeToContent') {
+		console.log('hier!!! bei recMeasureAbs')
 		recMeasureAbs(R.tree.uid, R);
+
+		recArrangeContent(R.tree.uid,R);
+
 		adjustTableSize(R);
 	} else if (root.params.sizing == 'fixed') {
 		let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);

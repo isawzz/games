@@ -58,7 +58,9 @@ function recMeasureAbs(uid, R) {
 
 	n.sizeMeasured = calcSizeMeasured(uid, R); //das ist mit getBounds, also ist size
 	//console.log('measured:',n.sizeMeasured)
-	n.sizeNeeded = sizeToContent(uid, R);
+	n.sizeNeeded = uniformSizeToContent(uid, R);
+	// n.sizeNeeded = sizeToContent(uid, R);
+
 	//console.log('node', uid, 'measured', n.sizeMeasured, 'needed:', n.sizeNeeded);
 
 
@@ -70,7 +72,7 @@ function recMeasureAbs(uid, R) {
 	n.ui.style.height = n.size.h + 'px';
 	//console.log('final size', n.uid, n.size);
 }
-function calcParentContentYOffsetAndWidth(n,parentPadding) {
+function calcParentContentYOffsetAndWidth(n, parentPadding) {
 	let y0 = 0;
 	let wTitle = 0;
 	if (isdef(n.content)) {

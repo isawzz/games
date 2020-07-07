@@ -1,8 +1,34 @@
 //manual00 tests
+function noParentContent(x, R) {
+	if (nundef(x.children)) return x.uid; else return null;
+}
+function noParentContentRootExtralong(x, R) {
+	if (nundef(x.children)) return x.uid;
+	else if (x.uid == R.tree.uid) return 'hallo das ist ein super super super langer string let it go - unclutch!';
+	else return null;
+}
+
+
 const ALLTESTS = {
 	0: { // regular positioning
-		2: { fStruct: () => makeSimpleTree(2), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
-		1: { fStruct: () => makeSimpleTree(20), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
+		// 9: { fStruct: () => makeTreeNNEach(2, 4), options: { rootContent: true, extralong: false , params: { '_0': { orientation: 'w', rows: 1, cols: 2 },'_1': { orientation: 'w', rows: 2, cols: 2 },'_6': { orientation: 'w', rows: 2, cols: 2 }} } },
+		17: { fStruct: () => makeTreeNNEach(2, 4), options: { fContent: noParentContent, rootContent: true, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_1': { contentwalign: 'center', orientation: 'w', rows: 2, cols: 2 }, '_6': { orientation: 'w', rows: 2, cols: 2 } } } },
+		16: { fStruct: () => makeTreeNNEach(2, 4), options: { fContent: noParentContentRootExtralong, rootContent: true, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_1': { orientation: 'w', rows: 2, cols: 2 }, '_6': { orientation: 'w', rows: 2, cols: 2 } } } },
+		15: { fStruct: () => makeTreeNNEach(2, 4), options: { rootContent: true, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_1': { orientation: 'w', rows: 2, cols: 2 }, '_6': { orientation: 'w', rows: 2, cols: 2 } } } },
+		14: { fStruct: () => makeTreeNN(2, 4), options: { fContent: noParentContentRootExtralong, rootContent: true, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_2': { orientation: 'w', rows: 2, cols: 2 } } } },
+		13: { fStruct: () => makeTreeNN(2, 4), options: { rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_2': { orientation: 'w', rows: 2, cols: 2 } } } },
+		12: { fStruct: () => makeTreeNN(2, 4), options: { fContent: noParentContent, rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 1, cols: 2 }, '_2': { orientation: 'w', rows: 2, cols: 2 } } } },
+		11: { fStruct: () => makeSimpleTree(3), options: { rootContent: true, extralong: true, params: { '_0': { orientation: 'w', rows: 3, cols: 1 } } } },
+		10: { fStruct: () => makeSimpleTree(3), options: { rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 3, cols: 1 } } } },
+		9: { fStruct: () => makeSimpleTree(3), options: { fContent: noParentContent, rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 3, cols: 1 } } } },
+		8: { fStruct: () => makeSimpleTree(2), options: { rootContent: true, extralong: true, params: { '_0': { orientation: 'w', rows: 2, cols: 1 } } } },
+		7: { fStruct: () => makeSimpleTree(2), options: { rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 2, cols: 1 } } } },
+		6: { fStruct: () => makeSimpleTree(2), options: { fContent: noParentContent, rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 2, cols: 1 } } } },
+		5: { fStruct: () => makeSimpleTree(4), options: { rootContent: true, extralong: true, params: { '_0': { orientation: 'w', rows: 2, cols: 2 } } } },
+		4: { fStruct: () => makeSimpleTree(4), options: { rootContent: true, extralong: false, params: { '_0': { orientation: 'w', rows: 2, cols: 2 } } } },
+		3: { fStruct: () => makeSimpleTree(2), options: { rootContent: true, extralong: true } },
+		2: { fStruct: () => makeSimpleTree(2), options: { positioning: 'regular', rootContent: true, extralong: true } },
+		1: { fStruct: () => makeSimpleTree(20), options: { positioning: 'regular', rootContent: true, extralong: false } },
 		0: { fStruct: () => makeSimpleTree(4), options: { positioning: 'regular', data: { '_0': 'board' }, rootContent: true, extralong: false } },
 	},
 	1: {
