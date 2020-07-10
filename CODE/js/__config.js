@@ -8,12 +8,13 @@ var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 var RSG_SOURCE = 'test'; // 'test' | 'main'  
 
 //===> *** USE THIS WHEN WORKING WITH testEngine_! ***
-var DIR_TESTS = '_A/'; // _A/ _B/
-var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
+var DIR_TESTS = '_B/'; // _A/ _B/
+//var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
+var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
 var iTESTSERIES = 0;
 var iTEST = 0;
 
-var TEST_SERIES = DIR_TESTS + '00'; // b0
+var TEST_SERIES = DIR_TESTS + 'b0'; // b0
 // var TEST_SERIES = DIR_TESTS + '01_huge'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
 
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
@@ -27,6 +28,7 @@ var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
+const TIMIT_SHOW = false; // true | false
 
 var IS_START=true;
 
@@ -59,9 +61,9 @@ const TESTING = true; // true | false //uses files from tests, DOES NOT send rou
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false
 
-const SHOW_TRACE = false; // true | false
+const CLEAR_BETWEEN_TESTS = true; // true | false
+const SHOW_TRACE = true; // true | false
 
-const TIMIT_SHOW = false; // true | false
 const VERBOSE = true; // true | false
 const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false

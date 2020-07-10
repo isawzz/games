@@ -50,6 +50,7 @@ class TestEngine {
 	async loadPrevTestCase() { await this.loadTestCase(this.series, this.index - 1); }
 	async repeatTestCase() { await this.loadTestCase(this.series, this.index); }
 	async loadTestCase(series, index) {
+		if (CLEAR_BETWEEN_TESTS) await onClickClearTable(); //clearElement_('table');
 		let di = this.Dict[series];
 		if (nundef(di)) { await this.loadSeries(series); di = this.Dict[series]; }
 
@@ -136,20 +137,47 @@ function uiNodesToUiTree(R) {
 	}
 	return uiTree;
 }
-function normalizeRTree(R) {
-	let rTree = jsCopy(R.rNodes);
-	let first = R.tree.uid;
+//Function: normalizeDict
+// t is a dict, each key is normalized by smallest key (as number)
+//
+// returns {num: , result: }
+//
+// example: normalizeDict({_23:'bla',_28:'blabla'}) => {num:23, dictNew:{_0:'bla',_5:'blabla'}}
+//
+// NOTE! only modifies keys, *not* all occurrences of key values in dict
+function normalizeDict(t){
+	let tNew = {};
+	let keys = Object.keys(t);
+	let minKey = Math.min(...keys.map(x => firstNumber(x)));
+	//console.log('minKey is',minKey);
+	for(const k in t){
+		tNew['_'+(firstNumber(k)-minKey)]=jsCopy(t[k]);
+	}
+	return {num:minKey,result:sortKeys(tNew)};
+}
+
+//Function: normalizeTree
+// t is a tree, uid in each node, children is branching property
+//
+// r is an r structure that has rNodes, uiNodes, root
+// returns a copy of t where uids are normalized by the number value of root.uid
+//
+// example: if root.uid == '_24', result will have root.uid = '_0' and each uid subtracted 24
+function normalizeTree(t,r){
+	let tNew = jsCopy(t);
+	let first = r.tree.uid;
 	let num = firstNumber(first);
-	safeRecurse(rTree, normalizeNode, num, false);
+	safeRecurse(tNew, normalizeNode, num, false);
 
 	let newRTree = {};
-	for (const k in rTree) {
+	for (const k in tNew) {
 		let kNew = normalizeVal(k, num);
-		newRTree[kNew] = rTree[k];
+		newRTree[kNew] = tNew[k];
 	}
-	rTree = newRTree;
-	return sortKeys(rTree);
+	tNew = newRTree;
+	return sortKeys(tNew);
 }
+function normalizeRTree(R) { return normalizeTree(R.rNodes,R);}
 function normalizeNode(o, num) {
 	if (isdef(o.uid)) normalizeSimpleUidProp(o, 'uid', num);
 	if (isdef(o.children)) { o.children = o.children.map(x => normalizeVal(x, num)); }
@@ -206,7 +234,7 @@ async function loadServerDataForTestSeries(series){
 	//console.log('______ loadServerDataForTestSeries',serverData)
 
 	preProcessData();
-	isTraceOn = SHOW_TRACE;
+	//isTraceOn = SHOW_TRACE;
 	sData = makeDefaultPool(jsCopy(serverData));
 	//console.log('______ loadServerDataForTestSeries',sData)
 	return sData;

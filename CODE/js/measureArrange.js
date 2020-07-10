@@ -1,16 +1,18 @@
-//#region measure and arrange! 
+
+
+
+
+
+
+
+
+//#region orig measure and arrange! 
 function recMeasureOverride(uid, R) {
 	//console.log('measure', uid);
 	let n = R.uiNodes[uid];
 
-	if (isdef(n.children)) {
-		for (const ch of n.children) {
-			recMeasureOverride(ch, R);
-		}
-	}
+	if (isdef(n.children)) { for (const ch of n.children) { recMeasureOverride(ch, R); } }
 	n.sizeMeasured = calcSizeMeasured(uid, R);
-	//console.log('measured:',n.sizeMeasured)
-	// n.sizeNeeded =  arrangeOverride(uid, R);
 	n.sizeNeeded = arrangeOverride(uid, R);
 
 	n.size = {
@@ -18,12 +20,15 @@ function recMeasureOverride(uid, R) {
 		h: Math.max(n.sizeMeasured.h, n.sizeNeeded.h)
 	}
 	//console.log('final size', n.uid, n.size);
-	showSizes(n, R);
+	//showSizes(n, R);
 }
 function arrangeOverride(uid, R) {
 	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
 	//console.log('arrange', uid)
 	let n = R.uiNodes[uid];
+
+	//if (n.type == 'manual00') { if (isdef(n.children)) { n.type = 'panel'; } else { n.type = 'info'; } }
+
 
 	if (nundef(n.children)) return { w: 0, h: 0 }
 
@@ -42,11 +47,24 @@ function arrangeOverride(uid, R) {
 		return { w: n.wTotal, h: n.hTotal };
 
 	} else if (n.uiType == 'd' && !startsWith(n.type, 'manual')) {
+		// console.log('===>type',n.type)
 
 		panelLayout(n, R);
-		//console.log('______________ : panel!')
+		//console.log('______________ : panel!',n.uid,n);
 
 		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+
+	} else if (n.uiType == 'd') {// && !startsWith(n.type, 'manual')) {
+
+		console.log('===>type', n.type)
+		if (isdef(n.children)) {
+			panelLayout(n, R);
+			//console.log('______________ : panel!',n.uid,n);
+
+			return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+		} else {
+			//wrapLayout
+		}
 
 	} else if (n.info) {
 
@@ -188,16 +206,6 @@ function calcSizeAvailable(uid, R) {
 		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
 	}
 }
-function showSizes(nLast, R) {
-	//console.log('______showSizes_______',nLast.uid);
-	for (const uid in R.UIS) {
-		let n = R.UIS[uid];
-		// if (isdef(n.size)) {
-		// 	console.log(n.uid,'size',n.size.w,n.size.h,			'measured',n.sizeMeasured.w,n.sizeMeasured.h,			'needed',n.sizeNeeded.w,n.sizeNeeded.h,); //R.UIS[uid]);
-		// }
-	}
-}
-
 function standardLayout(n, R) {
 
 	if (nundef(n.children)) return;

@@ -6,6 +6,24 @@ defaults:
   defaultGap: 2
   defaultPadding: 4
 
+  type00:
+    params:
+      bg: red
+      
+  empty:
+    params:
+      bg: blue
+      fg: red
+  manual01:
+    params:
+      sizing: sizeToContent
+      background-color: blue
+      bg: 'red'
+      fg: contrast
+      display: flex
+      flex-wrap: wrap
+      flex: 0 0 20%
+
   manual00:
     params:
       #special layout params used in arrange!

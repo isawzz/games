@@ -5,29 +5,38 @@ function isLastTestOfSeries() {
 	let numtests = Object.keys(tests).length;
 	return iTEST >= numtests;
 }
-async function nextTestOfSeries(downloadRequested=true) {
+async function nextTestOfSeries() {
 	if (isLastTestOfSeries()) { console.log('...press reset!'); return; }
-	await onClickClearTable();
-	//	clearElement_('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
+	//console.log('running iTEST',iTEST,'iTEST')
+	clearElement('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
 	resetUIDs();
 	let tests = ALLTESTS[iTESTSERIES];
 	let solutions = ALLTESTSOLUTIONS[iTESTSERIES];
 	let context = tests[iTEST];
+	// let { func, params } = tests[iTEST];
+
 	mBy('spiTESTSERIES').innerHTML = 'series ' + iTESTSERIES + ',';
 	mBy('spiTEST').innerHTML = 'test ' + iTEST;
+
+	//console.log('series', iTESTSERIES, 'case', iTEST, 'num cases', Object.keys(tests).length, '\ntest', tests[iTEST]);
 
 	await rParse('test', context);
 
 	let uiNodeSizes = {};
 	recCollectSizeInfo(R.uiNodes[R.tree.uid], R, uiNodeSizes);
+	//uiNodeSizes = normalizeDict(uiNodeSizes).result;
+	//console.log(uiNodeSizes);
 
 	//console.log('solutions to test', iAbsLayoutTest, sols);
 	if (isdef(solutions) && isdef(solutions[iTEST])) {
 		let changes = propDiffSimple(uiNodeSizes, solutions[iTEST]);
 		if (changes.hasChanged) {
+			// console.log('verifying test case', iTEST, 'FAIL!!!!!!!');
+			// console.log('changes:', changes)
 			console.log('FAIL!!! ', iTESTSERIES + '.' + iTEST, 'changes: ', changes);
 		} else {
 			console.log('verifying test case', iTESTSERIES + '.' + iTEST, 'correct!');
+			// console.log('*** correct! ', this.index, '***', rTreeNow)
 		}
 	} else {
 		//console.log('test',iTESTSERIES,iTEST,'has NO solution!')
@@ -37,10 +46,15 @@ async function nextTestOfSeries(downloadRequested=true) {
 	if (nundef(ALLTESTSOLUTIONS[iTESTSERIES])) { testDict = ALLTESTSOLUTIONS[iTESTSERIES] = {}; }
 	testDict[iTEST] = uiNodeSizes;
 
+	let len = Object.keys(tests).length;
+	//console.log('len', len)
+
 	iTEST += 1;
-	if (isLastTestOfSeries() && !IS_START && downloadRequested) {
+	//console.log('iTEST is now', iTEST)
+	if (isLastTestOfSeries() && !IS_START) {
 		if (isdef(testDict)) downloadFile(testDict, 'testDict');
 		console.log('...press reset!');
+		return;
 	} else if (IS_START) {
 		IS_START = false;
 	}

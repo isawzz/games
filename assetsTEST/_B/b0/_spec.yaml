@@ -1,11 +1,23 @@
+2:
+  ROOT:
+    cond:
+      prop: uid
+    type: empty
+    data: .uid
 1:
   ROOT:
-    data: mit subs
-    # type: manual00
+    type: empty
+    data: _1
     sub:
-      - data: sub1
-      - data: sub2
-      - data: sub3
+      - data: _2
+        type: empty
+      - data: _3
+        type: empty
+        sub:
+          - data: _4
+            type: empty
+          - data: _5
+            type: empty
 0:
   ROOT:
     data: hallo

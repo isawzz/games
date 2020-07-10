@@ -11,6 +11,16 @@ players:
     color: blue
     hand: [ck]
 table:
+  o1:
+    uid: _1
+  o2:
+    uid: _2
+  o3:
+    uid: _3
+  o4:
+    uid: _4
+  o5:
+    uid: _5
   cycle1:
     name: cycle
     loc: cycle2

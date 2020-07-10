@@ -5,16 +5,36 @@ defaults:
   defaultInvisible: invisible
   defaultGap: 2
   defaultPadding: 4
+  defaultSizing: sizeToContent
+  defaultPresentationStrategy: orig
+
+  type00grid:
+    params:
+      bg: random
+      fg: contrast
+      font: 18px AlgerianRegular
+      padding: 4
+      margin: 2
+      border-radius: 10
+      display: grid
+      grid-template-columns: repeat(3, 20px [col-start]);
 
   type00flex:
     params:
-      bg: red
-      display: flex
-      #flex
-      flex: 0 0 auto
-      padding: 2
+      bg: random
+      fg: contrast
+      font: 18px Arial #AlgerianRegular
+      padding: 4
+      margin: 2
+      border-radius: 10
+      # display: flex
+      # flex-flow: column
+      #flex: 0 0 auto
+      # justify-items: center
+      # justify-content: center
+      # align-items: center
+      # align-content: center
 
-      
   empty:
     params:
       bg: blue
@@ -23,7 +43,7 @@ defaults:
     params:
       sizing: sizeToContent
       background-color: blue
-      bg: 'red'
+      bg: "red"
       fg: contrast
       display: flex
       flex-wrap: wrap
@@ -31,41 +51,18 @@ defaults:
 
   manual00:
     params:
-      #special layout params used in arrange!
       sizing: sizeToContent
-      orientation: h 
+      orientation: h
       baseline: stretch
-
-      bg: random #inherit
+      bg: random
       fg: contrast
-      #opacity: .5
-
-      #width: 50
-      #height: 130
-      
       padding: 4 #appleCssParams, padding around content
       paddingAroundChildren: 2 #use this instead of PADDING in abspos.js!
       gapBetweenChildren: 2 #use this instead of GAP in apspos arrangeAbs
-      # margin: 0
-
       display: inline-block
       position: absolute #relative
       box-sizing: border-box
-
       border-radius: 4
-      #display: unset
-      #padding: 4 #YES!
-      #margin: 4 #nooooo
-      #margin: 4
-      # min-width: 20
-      # min-height: 20
-      # font: 16px Comic Sans MS #AlgerianRegular
-      # font-size: 10pt
-      # text-align: left
-      # margin: 6px
-      # box-sizing: border-box
-      # padding: 2px 10px 2px 8px
-      # border-radius: 6px
   simplest:
     params:
       orientation: h
@@ -73,7 +70,7 @@ defaults:
       border-radius: 6
       box-sizing: border-box
       margin: 4
-      padding: '4px 10px'
+      padding: "4px 10px"
       position: relative
       bg: random
       fg: contrast
@@ -148,15 +145,14 @@ defaults:
       # justify-items: flex-start
   invisible:
     params:
-      orientation: h
-      split: equal
-      padding: 2
-      margin: 2
-      #float: left
-      justify-items: center
-      justify-content: center
-      align-items: center
-      align-content: center
+      # orientation: h
+      # split: equal
+      # padding: 2
+      # margin: 2
+      # justify-items: center
+      # justify-content: center
+      # align-items: center
+      # align-content: center
   list:
     params:
       orientation: h

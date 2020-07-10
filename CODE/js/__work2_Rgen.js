@@ -1,27 +1,58 @@
-function recArrangeContent(uid,R){
+/*
+Function: recArrangeContent
+starting from uid and top down, arranges content according to params.contentwalign and contenthalign
 
-	console.log('............')
+*/
+function recArrangeContent(uid, R) {
+
+	//console.log('............')
 	let n = R.uiNodes[uid];	//n is the parent
-
-	parentPadding = isdef(n.params.paddingAroundChildren) ? n.params.paddingAroundChildren : DEFS.defaultPadding;
-	childMargin = isdef(n.params.gapBetweenChildren) ? n.params.gapBetweenChildren : DEFS.defaultGap;
-
-	if (isdef(n.children) && isdef(n.params.contentwalign) && n.params.contentwalign == 'center'){
-		//calc total with of content
-		console.log('...................................>>')
-		let children = n.children.map(x => R.uiNodes[x]);
-		let xchimin = Math.min(...children.map(x => x.pos.x));
-		let xchimax = Math.max(...children.map(x => x.pos.x+x.size.w));
-		let diff = xchimax-xchimin;
-		let wpar = n.size.w-2*parentPadding;
-		console.log('wpar',wpar,'diff',diff,'should align?',wpar>diff+2?'yes':'no');
-
-		//calc 
-	}
 
 	if (nundef(n.children)) return;
 
-	for(const ch of n.children) recArrangeContent(ch,R);
+	let parentPadding = isdef(n.params.paddingAroundChildren) ? n.params.paddingAroundChildren : DEFS.defaultPadding;
+	let childMargin = isdef(n.params.gapBetweenChildren) ? n.params.gapBetweenChildren : DEFS.defaultGap;
+	let posModified = false;
+	let sizeModified = false;
+	let children = n.children.map(x => R.uiNodes[x]);
+
+	if (isdef(n.children) && isdef(n.params.contentwalign) && n.params.contentwalign == 'center') {
+		//calc total with of content
+		//console.log('...................................>>')
+		let children = n.children.map(x => R.uiNodes[x]);
+		let xchimin = Math.min(...children.map(x => x.pos.x));
+		let xchimax = Math.max(...children.map(x => x.pos.x + x.size.w));
+		let diff = xchimax - xchimin;
+		let wpar = n.size.w - 2 * parentPadding;
+		//console.log('wpar', wpar, 'diff', diff, 'should align?', wpar > diff + 2 ? 'yes' : 'no');
+		//align each child by (wpar-diff)/2
+		let displ = (wpar - diff) / 2;
+		if (displ >= 1) {
+			posModified = true;
+			for (const ch of children) { ch.params.pos = { x: ch.pos.x + displ, y: ch.pos.y }; }
+		}
+	}
+	if (isdef(n.children) && isdef(n.params.contenthalign) && n.params.contenthalign == 'center') {
+		//calc total with of content
+		//console.log('...................................>>')
+		let ychimin = Math.min(...children.map(ch => ch.pos.y));
+		let ychimax = Math.max(...children.map(ch => ch.pos.y + ch.size.h));
+		let diff = ychimax - ychimin;
+		let hpar = n.size.h - 2 * parentPadding;
+		//console.log('hpar', hpar, 'diff', diff, 'should align?', hpar > diff + 2 ? 'yes' : 'no');
+		//align each child by (wpar-diff)/2
+		let displ = (hpar - diff) / 2;
+		if (displ >= 1) {
+			posModified = true;
+			for (const ch of children) { ch.params.pos = { x: ch.pos.x, y: ch.pos.y + displ }; }
+		}
+	}
+
+	if (posModified || sizeModified) { for (const ch of children) { setFixedSizeAndPos(ch); } } 
+	else return;
+
+
+	for (const ch of n.children) recArrangeContent(ch, R);
 
 }
 
@@ -40,7 +71,7 @@ function dPP1(o, plist, R) {
 	//console.log('dPP', o, plist)
 
 	if (isEmpty(plist)) {
-		let res = isdef(o._player)?[o._player]:isdef(o._obj)?[o._obj]: o;
+		let res = isdef(o._player) ? [o._player] : isdef(o._obj) ? [o._obj] : o;
 		//console.log('empty plist: o',o, '\nreturning',res)
 		return res;
 	}

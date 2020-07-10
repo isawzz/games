@@ -17,15 +17,10 @@ function noParentContentRootExtralong(x, R) {
 function typeEmpty(n, R) { return 'empty'; }
 function type00flex(n, R) { return 'type00flex'; }
 
+
+
 const ALLTESTS = {
 	0: { // regular positioning
-		35: { fStruct: ()=>makeTreeNN(2,2), options: { fType: typeEmpty, presentationStrategy: 'new' } },
-		34: { fStruct: makeTree33, options: { fType: typeEmpty, presentationStrategy: 'new' } },
-		33: { fStruct: makeTree33, options: { fType: typeEmpty, presentationStrategy: 'new', params: { '_1': { orientation: 'v' } } } },
-		32: { fStruct: makeTree33, options: { presentationStrategy: 'orig', params: { '_1': { orientation: 'v' } } } },
-		31: { fStruct: makeTree33, options: { presentationStrategy: 'new', params: { '_1': { orientation: 'v' } } } },
-		30: { fStruct: makeTree33, options: { presentationStrategy: 'rec', params: { '_1': { orientation: 'v' } } } },
-		29: { fStruct: makeTree33, options: { params: { '_1': { orientation: 'v' } } } },
 		28: { fStruct: () => makeSimpleTree(8), options: { presentationStrategy: 'new', fType: type00flex } },
 		27: { fStruct: makeSimplestTree, options: { presentationStrategy: 'new', fType: type00flex } },
 		26: { fStruct: makeSimplestTree, options: { presentationStrategy: 'new', fType: typeEmpty } },

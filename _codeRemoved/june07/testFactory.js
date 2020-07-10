@@ -7,36 +7,13 @@
 //
 //example: makeTableTreeX(makeSimplestTree, options: { fType: typeEmpty })
 function makeTableTreeX(fStruct, { presentationStrategy, fContent, fType, positioning = 'none', params, data } = {}) {
-	//rtree is constructed
-	//console.log('test',iTESTSERIES,iTEST,'params',params)
 	R = fStruct(); //gibt jedem node manual00 type!
-
-	//if (!rootContent) delete R.tree.content; else if (extralong) R.tree.content = 'hallo das ist ein besonders langer string!!!';
-
-	// let r1 = normalizeRTree(R);
-	// //console.log(r1)
-	// let num = firstNumber(R.tree.uid);
-	// for (const uid in r1) {
-	// 	r1[uid].realUid = '_' + (firstNumber(uid) + num);
-	// }
-	//rtree is modified by params,content
 	if (isdef(params)) { for (const uid in params) { R.rNodes[uid].params = params[uid]; } }
-
-	// if (isdef(params)) {
-	// 	for (const uid in params) {
-	// 		//console.log('uid',uid,r1[uid])
-	// 		let realUid = uid;// r1[uid].realUid;
-	// 		let n = R.rNodes[realUid];
-	// 		n.params = params[uid];
-	// 		//if (n.params.orientation) console.log('===>',n.uid,n.params.orientation)
-	// 	}
-	// }
 	if (isdef(fType)) {
 		for (const uid in R.rNodes) {
-			let v = R.rNodes[uid];
-			let val = fType(v, R);
-			if (!val) delete v.type; else v.type = val;
-			//console.log('entries in rtree: k',uid,'\ncontent',v.content,'\nfContent',fContent(v));
+			let node = R.rNodes[uid];
+			let val = fType(node, R);
+			if (!val) delete node.type; else node.type = val;
 		}
 	}
 	if (isdef(fContent)) {
@@ -44,21 +21,17 @@ function makeTableTreeX(fStruct, { presentationStrategy, fContent, fType, positi
 			let v = R.rNodes[uid];
 			let val = fContent(v, R);
 			if (!val) delete v.content; else v.content = val;
-			//console.log('entries in rtree: k',uid,'\ncontent',v.content,'\nfContent',fContent(v));
 		}
 	}
 	if (isdef(data)) { for (const uid in data) { R.rNodes[uid].content = data[uid]; } }
 
 	//uitree is constructed
 	let d = mBy('table');
-	//clearElement(d);
 	d.style.position = 'relative';
 	R.baseArea = 'table';
 	recUiTestX(R.tree, R);
 
 	let root = R.uiNodes[R.tree.uid];
-	// let root = R.root = R.uiRoot = R.uiNodes[R.tree.uid];
-	// R.rRoot = R.rNodes[R.tree.uid];
 
 	//uitree is modified adding size,pos to uinode.params.size (w,h) ,uinode.params.pos (x,y)
 	if (positioning == 'random') {
@@ -74,7 +47,7 @@ function makeTableTreeX(fStruct, { presentationStrategy, fContent, fType, positi
 	}
 
 	//console.log('sizing of root is',root.params.sizing)
-	R.presentationStrategy = isdef(presentationStrategy) ? presentationStrategy : R.defs.defaultPresentationStrategy;
+	R.presentationStrategy = isdef(presentationStrategy) ? presentationStrategy : 'orig';
 	return R;
 }
 

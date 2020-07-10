@@ -44,6 +44,11 @@ Title: RSG
 # ------------------------------------------------------------------------
 
 Source Folder: ..\..\CODE\js
+   Name: js
+
+Source Folder 2: ..\..\CODE\js\z
+   Name: js
+
 
 
 

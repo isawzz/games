@@ -498,6 +498,7 @@ class TimeIt {
 		this.t = tNew;
 	}
 	format(t) { return '___' + t.getSeconds() + ':' + t.getMilliseconds(); }
+	show(msg) { this.showTime(msg); }
 	showTime(msg) {
 		//shows ticks diff to last call of show
 		let tNew = new Date(); //new Date().getTime() - this.t;
@@ -2064,7 +2065,11 @@ function resetUIDs() { UIDCounter = 0; }
 
 //#region io
 var isTraceOn = true; // true | false
-function trace() { if (isTraceOn) console.log('___ ', getFunctionsNameThatCalledThisFunction(), ...arguments); }
+function trace() { if (isTraceOn) console.log('___ ', getFunctionsNameThatCalledThisFunction(),'\n', ...arguments); }
+function consout() { 
+	//console.log('halllllllllllllllooooooooooooooooooooo',isTraceOn)
+	if (isTraceOn) console.log(...arguments); 
+}
 
 function consOutput() { console.log(...arguments); }
 function error(msg) {

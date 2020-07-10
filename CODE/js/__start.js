@@ -25,7 +25,7 @@ async function _start() {
 	//mMinSize(mBy('table'),300,200);
 	if (serverData.waiting_for) { await sendStatus(getUsernameForPlid(serverData.waiting_for[0])); }
 	if (serverData.end) { d3.select('button').text('RESTART').on('click', restartGame); }
-	timit.showTime('* vor package: *')
+	//timit.showTime('* vor package: *')
 
 	//worldMap('OPPS'); 
 
@@ -47,6 +47,8 @@ async function _start() {
 }
 //#endregion
 async function _entryPoint(defs, spec, sdata) {
+
+	//let x=normalizeDict({_23:'bla',_28:'blabla'});console.log('result',x);return;
 
 	showMenu('main');
 	await testEngine.init(defs, sdata, TEST_SERIES);
@@ -170,12 +172,15 @@ function updateOutput(R) {
 
 	if (SHOW_LASTSPEC) { presentNodes(R.lastSpec, 'lastSpec', ['_NODE']); }
 
-	if (SHOW_RTREE) {
+	let numNodes = Object.keys(R.rNodes).length;
+	//console.log(numNodes)
+
+	if (numNodes<=200 && SHOW_RTREE) {
 		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
 			['children'], null, ['info'], { 'max-width': '35%', font: '14px arial' });
 	}
 
-	if (SHOW_UITREE) {
+	if (numNodes<=25 && SHOW_UITREE) {
 
 		let numNodes = Object.keys(R.uiNodes).length;
 		//console.log('numNodes',numNodes);

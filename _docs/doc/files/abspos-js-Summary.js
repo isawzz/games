@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("File:abspos.js","abspos.js");NDSummary.OnSummaryLoaded("File:abspos.js",[["JavaScript","JavaScript"]],[["Functions","Function"],["Groups","Group"]],[[11,0,1,"Functions","Functions"],[12,0,0,"recMeasureArrangeFixedSizeAndPos","recMeasureArrangeFixedSizeAndPos"]]);

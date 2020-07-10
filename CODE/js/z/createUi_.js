@@ -1,6 +1,9 @@
 
 function createUi(n, area, R) {
 	if (nundef(n.type)) { n.type = inferType(n); }
+	
+	//if (n.type == 'manual00') { if (isdef(n.children)) { n.type = 'panel'; } else { n.type = 'info'; } }
+	//console.log('hallo',n.uid,n.type)
 
 	R.registerNode(n);
 
@@ -9,8 +12,9 @@ function createUi(n, area, R) {
 	calcDirectParentAndIdUiParent(n, area, R);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
-
-	let ui = RCREATE[n.type](n, area, R);
+	let ui;
+	if (nundef(RCREATE[n.type])) ui=standardCreate(n,area,R);
+	else ui = RCREATE[n.type](n, area, R);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 

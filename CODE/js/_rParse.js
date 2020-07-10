@@ -1,3 +1,19 @@
+//Function: rParse
+//source: test | main
+//
+//context: {fStruct, options} | {spec,sdata,defs}
+async function rParse(source, context) {
+	R = await generateTree(source, context);
+	timit.show('present');
+	await presentTree(R.root, R);
+	adjustTableSize(R);
+	timit.show('done!')
+	updateOutput(R);
+	showSetSizes(R.root,R); //all sizes that have not been set are set here!
+	outype();
+	ouparams();
+	oupos();
+}
 async function generateTree(source, context) {
 	if (source == 'test') {
 		let fStruct = context.fStruct;
@@ -20,44 +36,103 @@ async function generateTree(source, context) {
 	R.uiRoot = R.root = R.uiNodes[uidRoot];
 	return R;
 }
-async function presentTree(root, R) {
-	if (root.params.sizing == 'sizeToContent') {
-		console.log('hier!!! bei recMeasureAbs')
-		recMeasureAbs(R.tree.uid, R);
+function setSP(n) {
+	let ui = n.ui;
+	let b = getBounds(ui, true);
+	n.size = { w: b.width, h: b.height };
+	n.pos = { x: b.x, y: b.y };
 
-		recArrangeContent(R.tree.uid,R);
-
-		adjustTableSize(R);
-	} else if (root.params.sizing == 'fixed') {
-		let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
-		root.size = { w: maxx, h: maxy };
-		root.ui.style.minWidth = (root.size.w + 4) + 'px';
-		root.ui.style.minHeight = (root.size.h + 4) + 'px';
-		adjustTableSize(R);
+}
+function getSizing(n, R, currentSizing) {
+	//console.log(n)
+	return isdef(n.params) && isdef(n.params.sizing) ? n.params.sizing
+		: isdef(currentSizing) ? currentSizing : R.defs.defaultSizing;
+}
+/* Function: presentTree
+depending on R.presentationStrategy and root.params.sizing, size and pos set for every node
+*/
+async function presentTree(uiRoot, R) {
+	consout('presentationStrategy: ' + R.presentationStrategy+', root-sizing: ' + uiRoot.params.sizing);
+	if (R.presentationStrategy == 'rec') {
+		consout('calling recPresentNode')
+		recPresentNode(uiRoot, R, getSizing(uiRoot, R));
+	} else if (R.presentationStrategy == 'new') {
+		consout('NOTHING is called in presentTree')
+		//adjustTableSize_(R);
 	} else {
-		recMeasureOverride(R.tree.uid, R);
-		testEngine.verify(R);
-
+		if (uiRoot.params.sizing == 'sizeToContent') {
+			consout('calling recMeasureAbs, recArrangeSize, adjustTableSize_');
+			recMeasureAbs(R.tree.uid, R);
+			recArrangeContent(R.tree.uid, R);
+			//adjustTableSize_(R);
+		} else if (uiRoot.params.sizing == 'fixed') {
+			consout('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
+			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
+			uiRoot.size = { w: maxx, h: maxy };
+			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
+			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
+			//adjustTableSize_(R);
+		} else {
+			consout('calling recMeasureOverride');
+			recMeasureOverride(R.tree.uid, R);
+			testEngine.verify(R);
+		}
 	}
-	updateOutput(R);
+	
+}
+function recPresentNode(n, R, sizing) {
+	consout('sizing', n.uid, sizing);
 
-
+	if (nundef(n.children)) return;
+	for (const ch of n.children) {
+		let n1 = R.uiNodes[ch];
+		recPresentNode(n1, R, getSizing(n1, R, sizing));
+	}
 }
 
-async function rParse(source, context) {
-	R = await generateTree(source, context);
-	// recMeasureOverride(R.tree.uid, R);
-	// adjustTableSize(R);
-	// updateOutput(R);
-	// testEngine.verify(R);
-	await presentTree(R.root,R);
+//#region output helpers in console
+function showSetSizes(nLast, R) {
+	consout('______showSizes_______',nLast.uid);
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		if (isdef(n.size) && isdef(n.sizeNeeded)) {
+			consout(n.uid, 'size', n.size.w, n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
+		}else{
+			setSP(n);
+			consout(n.uid, 'size', n.size.w, n.size.h,'pos',n.pos.x,n.pos.y); //R.UIS[uid]);
+		}
+	}
 }
-
-
-
-
-
-
+function showSizes(nLast, R) {
+	consout('______showSizes_______',nLast.uid);
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		if (isdef(n.size) && isdef(n.sizeNeeded)) {
+			consout(n.uid, 'size', n.size.w, n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
+		}else{
+			setSP(n);
+			consout(n.uid, 'size', n.size.w, n.size.h,'pos',n.pos.x,n.pos.y); //R.UIS[uid]);
+		}
+	}
+}
+function outype() {
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		consout(n.uid + ':', n.type);
+	}
+}
+function ouparams() {
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		consout(n.uid + ':', n.params);
+	}
+}
+function oupos() {
+	for (const uid in R.uiNodes) {
+		let n = R.uiNodes[uid];
+		consout(n.uid + ':position', n.params.position,'size',n.size,'pos',n.pos);
+	}
+}
 
 
 

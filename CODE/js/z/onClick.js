@@ -41,6 +41,16 @@ function showMenu(desc) {
 //#endregion
 
 //#region new tests using abspos.js (RSG_SOURCE='test')
+function onClickRepeatTestOfSeries() {
+	setRSG_SOURCE('test');
+	iTEST -= 1; if (iTEST < 0) iTEST = 0;
+	nextTestOfSeries(false);
+}
+function onClickPrevTestOfSeries() {
+	setRSG_SOURCE('test');
+	iTEST -= 2; if (iTEST < 0) iTEST = 0;
+	nextTestOfSeries();
+}
 function onClickResetTest() {
 	setRSG_SOURCE('test');
 	//iTESTSERIES = Math.max(iTESTSERIES - 1, 0);
@@ -120,9 +130,14 @@ function onClickSmallerBoard() {
 //#endregion
 
 //#region RSG_SOURCE = 'main'
-async function onClickClearTable() { clearElement('table'); clearUpdateOutput(); T = {}; }
+async function onClickClearTable() { 
+	clearElement('table'); clearUpdateOutput(); T = {}; 
+	mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
+
+}
 
 async function onClickGo() {
+	setRSG_SOURCE('main');
 	let elem = mBy('iTestCase');
 	//console.log(elem)
 	let n = elem.value;
@@ -140,16 +155,19 @@ async function onClickNextTest() {
 	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 }
 async function onClickPrevTest() {
+	setRSG_SOURCE('main');
 	await testEngine.loadPrevTestCase();
 	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
 async function onClickRepeatTest() {
+	setRSG_SOURCE('main');
 	await testEngine.repeatTestCase();
 	await rParse(RSG_SOURCE, { defs: testEngine.defs, spec: testEngine.spec, sdata: testEngine.sdata });
 	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
 }
 async function onClickRun() {
+	setRSG_SOURCE('main');
 	let indexFrom = firstNumber(mBy('iTestCaseFrom').value);
 	localStorage.setItem('iTestCaseFrom', indexFrom);
 	let indexTo = firstNumber(mBy('iTestCaseTo').value);
@@ -157,7 +175,10 @@ async function onClickRun() {
 	verifySequence(indexFrom, indexTo, false);
 }
 async function onClickRunAll() {
+	setRSG_SOURCE('main');
 	STOP = false;
+	isTraceOn = false;
+	console.log('===> isTraceOn', isTraceOn)
 	let sel = mBy('selSeries');
 	let listSeries = [];
 	for (const ch of sel.children) {
@@ -166,6 +187,7 @@ async function onClickRunAll() {
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');
+	//return;
 	//console.log('_______ *NEW SERIES: ', listSeries[0]);
 	await runNextSeries(listSeries, listSeries[0], 0, imax);
 }
@@ -207,9 +229,13 @@ async function runNextSeries(listSeries, series, from, to) {
 
 	if (isEmpty(listSeries)) {
 		console.log('*** ALL TESTS COMPLETED! ***');
+		hide('btnStop');
+		isTraceOn = SHOW_TRACE;
 		return;
 	} else if (STOP) {
 		STOP = false;
+		isTraceOn = SHOW_TRACE;
+		hide('btnStop');
 		//console.log('*** TEST RUN INTERRUPTED!!! ***');
 		return;
 	} else if (from >= to) {
@@ -217,6 +243,9 @@ async function runNextSeries(listSeries, series, from, to) {
 		removeInPlace(listSeries, series);
 		if (isEmpty(listSeries)) {
 			console.log('*** ALL TESTS COMPLETED! ***');
+			STOP = false;
+			isTraceOn = SHOW_TRACE;
+			hide('btnStop');
 			return;
 		}
 		series = listSeries[0];

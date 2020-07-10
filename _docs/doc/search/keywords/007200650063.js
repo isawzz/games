@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("rec",["Function"],[["recArrangeContent",,[[,,,,0,"File:__work2_Rgen.js:recArrangeContent"]]],["recMeasureArrangeFixedSizeAndPos",,[[,,,,0,"File:abspos.js:recMeasureArrangeFixedSizeAndPos"]]]]);

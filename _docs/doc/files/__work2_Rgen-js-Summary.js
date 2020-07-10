@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("File:__work2_Rgen.js","__work2_Rgen.js");NDSummary.OnSummaryLoaded("File:__work2_Rgen.js",[["JavaScript","JavaScript"]],[["Functions","Function"],["Groups","Group"]],[[9,0,1,"Functions","Functions"],[10,0,0,"recArrangeContent","recArrangeContent"]]);
