@@ -14,10 +14,10 @@ function calcTotalDims(n, uids, R) {
 		wTotal += w + margin;
 
 	}
-	return {w:wTotal,h:hMax+2*margin,margin:margin};
+	return { w: wTotal, h: hMax + 2 * margin, margin: margin };
 }
 
-function infoLayout(n,R){
+function infoLayout(n, R) {
 
 }
 
@@ -27,7 +27,7 @@ function horLayout(n, R) {
 
 	let dims = calcTotalDims(n, uids, R);
 	let margin = dims.margin;
-	console.log('dims',dims);
+	console.log('dims', dims);
 	let x = margin;
 	let y = margin;
 	let uiParent = n.ui;
@@ -49,7 +49,7 @@ function horLayout(n, R) {
 		x += w + 2;
 	}
 	uiParent.style.width = dims.w + 'px';
-	uiParent.style.minHeight = dims.h+'px';
+	uiParent.style.minHeight = dims.h + 'px';
 
 }
 
@@ -186,7 +186,10 @@ function panelLayout(n, R) {
 
 	//setting split
 	let split = params.split ? params.split : DEF_SPLIT;
-	if (split == 'min') return;
+	if (split == 'min') {
+		let b = getBounds(n.ui, true); //n.sizeMeasured = { w: b.width, h: b.height };
+		return { w: b.width, h: b.height }; //n.sizeMeasured;
+	}
 
 	let reverseSplit = false;
 
@@ -199,6 +202,9 @@ function panelLayout(n, R) {
 
 		if (reverseSplit) { split = 1 - split; }
 	}
+	// let b = getBounds(n.ui, true); n.sizeMeasured = { w: b.width, h: b.height };return n.sizeMeasured;
+	let b = getBounds(n.ui, true); //n.sizeMeasured = { w: b.width, h: b.height };
+	return { w: b.width, h: b.height }; //n.sizeMeasured;
 
 }
 

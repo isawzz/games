@@ -3,21 +3,18 @@ var GAME = 'ttt'; // catan | aristocracy | ttt | game01
 var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
 
-var SPEC = null; //merged userSpec and defaultSpec
-var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
-var RSG_SOURCE = 'test'; // 'test' | 'main'  
-
-//===> *** USE THIS WHEN WORKING WITH testEngine_! ***
-var DIR_TESTS = '_B/'; // _A/ _B/
-//var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
-var iTESTSERIES = 0;
-var iTEST = 0;
+var RSG_SOURCE = 'main'; // 'test' | 'main'  
 
-var TEST_SERIES = DIR_TESTS + 'b0'; // b0
-// var TEST_SERIES = DIR_TESTS + '01_huge'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
-
+// main
+var DIR_TESTS = '_A/'; // _A/ _B/
+var TEST_SERIES = DIR_TESTS + '00'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
+var TEST_INDEX = null;//2; //when != null, should override localStorage!
+
+//test
+var iTESTSERIES = 0;
+var iTEST = 2; //when null, starts at last test of series!
 
 var SHOW_SPEC = false; // true | false
 var LEAVE_SPEC_OPEN = true; // true | false
@@ -31,12 +28,16 @@ var SHOW_IDS_REFS = false; // true | false
 const TIMIT_SHOW = false; // true | false
 
 var IS_START=true;
+var SPEC = null; //merged userSpec and defaultSpec
+var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
 
 var STOP = false;
 var MAX_CYCLES = 500; //Recursion safety!
 var CYCLES = 0;
 
 //older way to specify file dirs before engine!
+// var TEST_SERIES = DIR_TESTS + '01_huge'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
+//var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
 var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
 var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
 //var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';

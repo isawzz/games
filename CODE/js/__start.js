@@ -51,8 +51,8 @@ async function _entryPoint(defs, spec, sdata) {
 	//let x=normalizeDict({_23:'bla',_28:'blabla'});console.log('result',x);return;
 
 	showMenu('main');
-	await testEngine.init(defs, sdata, TEST_SERIES);
-	iTEST = Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
+	await testEngine.init(defs, sdata, TEST_SERIES, TEST_INDEX);
+	iTEST = isdef(iTEST)?iTEST: Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
 	//console.log('series', iTESTSERIES, 'case', iTEST, ALLTESTS[iTESTSERIES])
 
 	if (RSG_SOURCE == 'test') {

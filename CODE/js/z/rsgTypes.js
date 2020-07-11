@@ -1,6 +1,6 @@
 
 class RSG {
-	constructor(sp, defs) { //}, sdata) {
+	constructor(sp, defs) { 
 		this.sp = sp;
 
 		this.lastSpec = this.sp; //just points to last spec produced in last step performed

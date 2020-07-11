@@ -8,8 +8,7 @@ function isLastTestOfSeries() {
 async function nextTestOfSeries(downloadRequested=true) {
 	if (isLastTestOfSeries()) { console.log('...press reset!'); return; }
 	await onClickClearTable();
-	//	clearElement_('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
-	resetUIDs();
+	//	clearElement_('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;	resetUIDs();
 	let tests = ALLTESTS[iTESTSERIES];
 	let solutions = ALLTESTSOLUTIONS[iTESTSERIES];
 	let context = tests[iTEST];
@@ -62,7 +61,7 @@ function startTestSeries() {
 	} else if (isLastTestOfSeries()) {
 		iTESTSERIES += 1;
 		iTEST = 0;
-		resetUIDs();
+		//resetUIDs();
 	} else {
 		nextTestOfSeries();
 	}
@@ -71,12 +70,12 @@ function startTestSeries() {
 function runAllTests() {
 	//console.log('hhhhhhhhhhhhhhhhh',iTESTSERIES)
 	iTEST = 0;
-	resetUIDs();
+	//resetUIDs();
 	startTestLoop();
 }
 function runAllTestSeries() {
 	iTEST = 0;
-	resetUIDs();
+	//resetUIDs();
 	iTESTSERIES = 1;
 	startTestSeries();
 
@@ -115,7 +114,7 @@ function testCreateDivWithDivFixedSize() {
 async function testAblauf02(defs, spec, sdata0) {
 	await testEngine.init(defs, sdata0, TEST_SERIES);
 	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
-	T = R = new RSG(sp, defaults, sdata);
+	T = R = new RSG(sp, defaults);
 	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
 	ensureRtree(R);
 	R.baseArea = 'table';
@@ -185,7 +184,7 @@ async function testAblauf02(defs, spec, sdata0) {
 async function testAblauf00(defs, spec, sdata0) {
 	await testEngine.init(defs, sdata0, TEST_SERIES);
 	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
-	T = R = new RSG(sp, defaults, sdata);
+	T = R = new RSG(sp, defaults);
 	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
 	ensureRtree(R);
 	R.baseArea = 'table';
@@ -233,7 +232,7 @@ async function testAblauf00(defs, spec, sdata0) {
 async function testAblauf01(defs, spec, sdata0) {
 	await testEngine.init(defs, sdata0, TEST_SERIES);
 	let [sp, defaults, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
-	T = R = new RSG(sp, defaults, sdata);
+	T = R = new RSG(sp, defaults);
 	R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
 	ensureRtree(R);
 	R.baseArea = 'table';

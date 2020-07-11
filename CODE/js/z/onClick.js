@@ -55,7 +55,7 @@ function onClickResetTest() {
 	setRSG_SOURCE('test');
 	//iTESTSERIES = Math.max(iTESTSERIES - 1, 0);
 	iTEST = 0;
-	resetUIDs();
+	//resetUIDs();
 }
 function onClickNextTestOfSeries() {
 	setRSG_SOURCE('test');
@@ -133,7 +133,7 @@ function onClickSmallerBoard() {
 async function onClickClearTable() { 
 	clearElement('table'); clearUpdateOutput(); T = {}; 
 	mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
-
+	resetUIDs();
 }
 
 async function onClickGo() {

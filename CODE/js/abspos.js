@@ -330,6 +330,8 @@ function uniformSizeToContent(uid) {
 function adjustTableSize(R) {
 	let d = mBy('table');
 	let root = R.root;
+	let b=getBounds(root.ui,true)
+	consout('b',b.height,'root.size',root.size);
 	if (!isdef(root.size)) setSP(root);
 	d.style.minWidth = root.size.w + 'px';
 	d.style.minHeight = (root.size.h + 4) + 'px';

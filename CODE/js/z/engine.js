@@ -13,12 +13,16 @@ class TestEngine {
 		this.sdata = null;
 	}
 	async init(defs, sdata, series, index, ifrom, ito) {
+		//consout('1. starting test ==>', series, index);
+
 		this.defs = defs;
 		this.sdata = sdata;
 		series = isdef(series) ? series : localStorage.getItem('testSeries');
 		if (nundef(series)) series = TEST_SERIES;
 		index = isdef(index) ? index : localStorage.getItem('testIndex');
 		if (nundef(index)) index = '0';
+
+		//consout('starting test ==>', series, index);
 
 		ifrom = isdef(ifrom) ? ifrom : localStorage.getItem('iTestCaseFrom');
 		if (nundef(ifrom)) ifrom = '0'; mBy('iTestCaseFrom').value = ifrom;
@@ -29,7 +33,7 @@ class TestEngine {
 		await this.loadTestCase(series, index);
 		updateTestInput(index);
 	}
-	
+
 	async loadSeries(series) {
 		let path = '/assetsTEST/' + series + '/';
 		this.series = series;
@@ -145,15 +149,15 @@ function uiNodesToUiTree(R) {
 // example: normalizeDict({_23:'bla',_28:'blabla'}) => {num:23, dictNew:{_0:'bla',_5:'blabla'}}
 //
 // NOTE! only modifies keys, *not* all occurrences of key values in dict
-function normalizeDict(t){
+function normalizeDict(t) {
 	let tNew = {};
 	let keys = Object.keys(t);
 	let minKey = Math.min(...keys.map(x => firstNumber(x)));
 	//console.log('minKey is',minKey);
-	for(const k in t){
-		tNew['_'+(firstNumber(k)-minKey)]=jsCopy(t[k]);
+	for (const k in t) {
+		tNew['_' + (firstNumber(k) - minKey)] = jsCopy(t[k]);
 	}
-	return {num:minKey,result:sortKeys(tNew)};
+	return { num: minKey, result: sortKeys(tNew) };
 }
 
 //Function: normalizeTree
@@ -163,7 +167,7 @@ function normalizeDict(t){
 // returns a copy of t where uids are normalized by the number value of root.uid
 //
 // example: if root.uid == '_24', result will have root.uid = '_0' and each uid subtracted 24
-function normalizeTree(t,r){
+function normalizeTree(t, r) {
 	let tNew = jsCopy(t);
 	let first = r.tree.uid;
 	let num = firstNumber(first);
@@ -177,38 +181,38 @@ function normalizeTree(t,r){
 	tNew = newRTree;
 	return sortKeys(tNew);
 }
-function normalizeRTree(R) { return normalizeTree(R.rNodes,R);}
+function normalizeRTree(R) { return normalizeTree(R.rNodes, R); }
 function normalizeNode(o, num) {
 	if (isdef(o.uid)) normalizeSimpleUidProp(o, 'uid', num);
 	if (isdef(o.children)) { o.children = o.children.map(x => normalizeVal(x, num)); }
 	if (isdef(o.uidParent)) normalizeSimpleUidProp(o, 'uidParent', num);
-	if (isdef(o._NODE)) normalizeSpecKeyProp(o,'_NODE',num);
-	if (isdef(o.here)) normalizeSpecKeyProp(o,'here',num); 
+	if (isdef(o._NODE)) normalizeSpecKeyProp(o, '_NODE', num);
+	if (isdef(o.here)) normalizeSpecKeyProp(o, 'here', num);
 }
-function correctNumbersInString(s,dec){
+function correctNumbersInString(s, dec) {
 	//console.log('input:',s,dec);
 	let parts = s.split('_');
-	for(let i=0;i<parts.length;i++){
+	for (let i = 0; i < parts.length; i++) {
 		let p = parts[i];
-		if (isNumber(p)){
-			let n=Number(p);
-			n-=dec;
-			parts[i] = ''+n;
+		if (isNumber(p)) {
+			let n = Number(p);
+			n -= dec;
+			parts[i] = '' + n;
 		}
 	}
 	let res = parts.join('_');
 	//console.log('output:',res);
 	return res;
 }
-function normalizeSpecKeyProp(o,prop, num) {
+function normalizeSpecKeyProp(o, prop, num) {
 	let node1 = o[prop];
-	if (isString(node1) && node1.includes('_')){
-		o[prop] = correctNumbersInString(node1,num);
+	if (isString(node1) && node1.includes('_')) {
+		o[prop] = correctNumbersInString(node1, num);
 	} else if (isList(node1)) {
 		let newlist = [];
 		for (const el of node1) {
 			if (el.includes('_')) {
-				newlist.push(correctNumbersInString(el,num));
+				newlist.push(correctNumbersInString(el, num));
 			}
 		}
 		console.log('SOLLTE NIEEEEEEEEEEEEEEEEEEE VORKOMMEN!!!!!!');
@@ -227,8 +231,8 @@ function normalizeVal(val, num) {
 	nval -= num;
 	return '_' + nval;
 }
-async function loadServerDataForTestSeries(series){
-	let path = '/assetsTEST/'+series+'/server.yaml';
+async function loadServerDataForTestSeries(series) {
+	let path = '/assetsTEST/' + series + '/server.yaml';
 	await loadTestServerData(path);
 
 	//console.log('______ loadServerDataForTestSeries',serverData)

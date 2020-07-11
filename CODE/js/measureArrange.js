@@ -14,7 +14,7 @@ function recMeasureOverride(uid, R) {
 	if (isdef(n.children)) { for (const ch of n.children) { recMeasureOverride(ch, R); } }
 	n.sizeMeasured = calcSizeMeasured(uid, R);
 	n.sizeNeeded = arrangeOverride(uid, R);
-
+	if (uid == R.tree.uid){		consout('hallooooooo',uid,n.sizeNeeded,n.sizeMeasured)	}
 	n.size = {
 		w: Math.max(n.sizeMeasured.w, n.sizeNeeded.w),
 		h: Math.max(n.sizeMeasured.h, n.sizeNeeded.h)
@@ -24,7 +24,7 @@ function recMeasureOverride(uid, R) {
 }
 function arrangeOverride(uid, R) {
 	//das macht mehr oder weniger was adjustLayout gemacht hat!!!
-	//console.log('arrange', uid)
+	console.log('arrange', uid)
 	let n = R.uiNodes[uid];
 
 	//if (n.type == 'manual00') { if (isdef(n.children)) { n.type = 'panel'; } else { n.type = 'info'; } }
@@ -49,10 +49,10 @@ function arrangeOverride(uid, R) {
 	} else if (n.uiType == 'd' && !startsWith(n.type, 'manual')) {
 		// console.log('===>type',n.type)
 
-		panelLayout(n, R);
+		let szNeeded = panelLayout(n, R);
 		//console.log('______________ : panel!',n.uid,n);
 
-		return { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
+		return szNeeded; // { w: n.sizeMeasured.w, h: n.sizeMeasured.h };
 
 	} else if (n.uiType == 'd') {// && !startsWith(n.type, 'manual')) {
 
@@ -140,9 +140,16 @@ function calcSizeMeasured(uid, R) {
 	} else if (n.type == 'grid') {
 		calcBoardDimensions(n, R);
 		return { w: n.wTotal, h: n.hTotal };
+	}else if (n.ui.style.display == 'flex'){ //$$$
 
+		consout('ALERT!!! flex style:measure AFTER arrange!!!',uid);return {w:0,h:0};
 	} else {
-		let b = getBounds(n.ui,);
+
+
+		let b = getBounds(n.ui,true);
+
+		if (uid == R.tree.uid){		consout('222222',uid,n.type,'\ndisplay',n.ui.style.display,b.height)	}
+
 		return { w: b.width, h: b.height };
 	}
 }

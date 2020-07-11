@@ -6,13 +6,14 @@ async function rParse(source, context) {
 	R = await generateTree(source, context);
 	timit.show('present');
 	await presentTree(R.root, R);
+	consout('==>uiRoot',R.root,'\nh',R.root.ui.style.height,R.root.ui.style.minHeight,R.root.ui.style.display)
+	showSetSizes(R.root,R); //all sizes that have not been set are set here!
 	adjustTableSize(R);
 	timit.show('done!')
 	updateOutput(R);
-	showSetSizes(R.root,R); //all sizes that have not been set are set here!
-	outype();
-	ouparams();
-	oupos();
+	//outype();
+	//ouparams();
+	//oupos();
 }
 async function generateTree(source, context) {
 	if (source == 'test') {
@@ -21,15 +22,12 @@ async function generateTree(source, context) {
 		T = R = makeTableTreeX(fStruct, options);
 	} else if (source == 'main') {
 		//supposedly context should contain spec,data,defs
-		let sp = context.spec;
-		let defs = context.defs;
-		let sdata = context.sdata;
-		T = R = new RSG(sp, defs, sdata);
+		T = R = new RSG(context.spec, context.defs);//, context.sdata);
 		R.initialChannels = []; //do not provide anything here or ALL tests before 04 will fail!!!!
 		ensureRtree(R);
 		R.baseArea = 'table';
 		createStaticUi(R.baseArea, R);
-		addNewlyCreatedServerObjects(sdata, R);
+		addNewlyCreatedServerObjects(context.sdata, R);
 	}
 	let uidRoot = R.tree.uid;
 	R.rRoot = R.rNodes[uidRoot];
@@ -39,6 +37,7 @@ async function generateTree(source, context) {
 function setSP(n) {
 	let ui = n.ui;
 	let b = getBounds(ui, true);
+	consout('-------------------',b)
 	n.size = { w: b.width, h: b.height };
 	n.pos = { x: b.x, y: b.y };
 
@@ -52,7 +51,7 @@ function getSizing(n, R, currentSizing) {
 depending on R.presentationStrategy and root.params.sizing, size and pos set for every node
 */
 async function presentTree(uiRoot, R) {
-	consout('presentationStrategy: ' + R.presentationStrategy+', root-sizing: ' + uiRoot.params.sizing);
+	consout('__________________presentationStrategy: ' + R.presentationStrategy+', root-sizing: ' + uiRoot.params.sizing);
 	if (R.presentationStrategy == 'rec') {
 		consout('calling recPresentNode')
 		recPresentNode(uiRoot, R, getSizing(uiRoot, R));
@@ -92,7 +91,7 @@ function recPresentNode(n, R, sizing) {
 
 //#region output helpers in console
 function showSetSizes(nLast, R) {
-	consout('______showSizes_______',nLast.uid);
+	//consout('______showSizes_______',nLast.uid);
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
 		if (isdef(n.size) && isdef(n.sizeNeeded)) {
@@ -104,7 +103,7 @@ function showSetSizes(nLast, R) {
 	}
 }
 function showSizes(nLast, R) {
-	consout('______showSizes_______',nLast.uid);
+	//consout('______showSizes_______',nLast.uid);
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
 		if (isdef(n.size) && isdef(n.sizeNeeded)) {
