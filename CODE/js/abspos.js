@@ -56,7 +56,7 @@ function recMeasureAbs(uid, R) {
 		}
 	}
 
-	n.sizeMeasured = calcSizeMeasured(uid, R); //das ist mit getBounds, also ist size
+	n.sizeMeasured = calcSizeMeasured(n, R); //das ist mit getBounds, also ist size
 	//console.log('measured:',n.sizeMeasured)
 	n.sizeNeeded = uniformSizeToContent(uid, R);
 	// n.sizeNeeded = sizeToContent(uid, R);
@@ -203,6 +203,8 @@ function uniformSizeToContent(uid) {
 	let bl = n.params.baseline;
 	//console.log('or', or, 'baseline', bl)
 
+	if (uid == '_1') console.log('?????????',uid,n,or);
+
 	//berechne wTitle und y0
 	let [y0, wTitle] = calcParentContentYOffsetAndWidth(n, parentPadding);
 
@@ -227,7 +229,9 @@ function uniformSizeToContent(uid) {
 		let i = 0;
 		for (let r = 0; r < rows; r++) {
 			for (let c = 0; c < cols; c++) {
-				let ch = children[i]; i += 1;
+				let ch = children[i]; 
+				i += 1;
+				console.log('.........',children.length,i,ch,n.uid)
 				ch.params.size = { w: wchi, h: hchi };
 				ch.params.pos = { x: x, y: y };
 				x += wchi + childMargin;
@@ -331,7 +335,7 @@ function adjustTableSize(R) {
 	let d = mBy('table');
 	let root = R.root;
 	let b=getBounds(root.ui,true)
-	consout('b',b.height,'root.size',root.size);
+	//consout('b',b.height,'root.size',root.size);
 	if (!isdef(root.size)) setSP(root);
 	d.style.minWidth = root.size.w + 'px';
 	d.style.minHeight = (root.size.h + 4) + 'px';

@@ -40,7 +40,7 @@ function showMenu(desc) {
 }
 //#endregion
 
-//#region new tests using abspos.js (RSG_SOURCE='test')
+//#region RSG_SOURCE = 'test'
 function onClickRepeatTestOfSeries() {
 	setRSG_SOURCE('test');
 	iTEST -= 1; if (iTEST < 0) iTEST = 0;
@@ -59,7 +59,7 @@ function onClickResetTest() {
 }
 function onClickNextTestOfSeries() {
 	setRSG_SOURCE('test');
-	nextTestOfSeries();
+	nextTestOfSeries(false);
 }
 function onClickAllTests() {
 	setRSG_SOURCE('test');
@@ -130,8 +130,8 @@ function onClickSmallerBoard() {
 //#endregion
 
 //#region RSG_SOURCE = 'main'
-async function onClickClearTable() { 
-	clearElement('table'); clearUpdateOutput(); T = {}; 
+async function onClickClearTable() {
+	clearElement('table'); clearUpdateOutput(); T = {};
 	mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;
 	resetUIDs();
 }
@@ -183,7 +183,7 @@ async function onClickRunAll() {
 	let listSeries = [];
 	for (const ch of sel.children) {
 		//console.log(ch.value);
-		if (ch.value != 'none') listSeries.push(DIR_TESTS + ch.value);
+		if (ch.value != 'none') listSeries.push(DIR_TESTS + '/' + ch.value);
 	}
 	let imax = await testEngine.loadSeries(listSeries[0]);
 	show('btnStop');

@@ -58,16 +58,15 @@
 		</div>
 
 		<br style='clear:both' />
-		<button onclick='testCreateDivWithDivFixedSize()'>testButton</button>
 
 		<button id='btest' onclick='onClickToggleInteractivity("test")'>-t</button>
 		<div id='divtest' style='text-align:left;display:inline'>
-			<span id='spiTESTSERIES' style='font-size:14pt'>series 0,</span>
-			<span id='spiTEST' style='font-size:14pt'>test 0</span>
+			<!-- <span id='spiTESTSERIES' style='font-size:14pt'>series 0,</span> -->
+			<!-- <span id='spiTEST' style='font-size:14pt'>test 0</span> -->
+			<button onclick='onClickPrevTestOfSeries()'>prev</button>
+			<button onclick='onClickNextTestOfSeries()'>next</button>
 			<button onclick='onClickRepeatTestOfSeries()'>repeat</button>
-			<button onclick='onClickPrevTestOfSeries()'>prev test</button>
-			<button onclick='onClickResetTest()'>reset test</button>
-			<button onclick='onClickNextTestOfSeries()'>next test</button>
+			<button onclick='onClickResetTest()'>reset</button>
 			<button onclick='onClickAllTests()'>all tests</button>
 			<button onclick='onClickAllTestSeries()'>all series</button>
 		</div>
@@ -76,7 +75,7 @@
 		<div id='divmain' style='text-align:left;display:none'>
 			<button onclick='onClickPrevTest(this)'>PREV</button>
 			<button onclick='onClickNextTest(this)'>NEXT</button>
-			<button onclick='onClickRepeatTest(this)'>repeat</button>
+			<button onclick='onClickRepeatTest(this)'>REPEAT</button>
 			<button onclick='onClickVerify(this)'>verify</button>
 			<button onclick='onClickVerifySoFar(this)'>verify so far</button>
 			<button onclick='onClickSave(this)'>save</button>
@@ -86,7 +85,9 @@
 
 		<button id='bother' onclick='onClickToggleInteractivity("other")'>+o</button>
 		<div id='divother' style='text-align:left;display:none'>
-			<button onclick='onClickMeasure(this)'>measure</button>
+			<button onclick='testCreateDivWithDivFixedSize()'>testButton</button>
+
+			<button style='margin-left:10px' onclick='onClickMeasure(this)'>measure</button>
 			<button onclick='onClickAddLocObject(this)'>add loc</button>
 
 			<button style='margin-left:10px' onclick='onClickResizeBoard(this)'>resize</button>

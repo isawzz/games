@@ -12,8 +12,9 @@ async function nextTestOfSeries(downloadRequested=true) {
 	let tests = ALLTESTS[iTESTSERIES];
 	let solutions = ALLTESTSOLUTIONS[iTESTSERIES];
 	let context = tests[iTEST];
-	mBy('spiTESTSERIES').innerHTML = 'series ' + iTESTSERIES + ',';
-	mBy('spiTEST').innerHTML = 'test ' + iTEST;
+	// mBy('spiTESTSERIES').innerHTML = 'series ' + iTESTSERIES + ',';
+	// mBy('spiTEST').innerHTML = 'test ' + iTEST;
+	mBy('message').innerHTML = '(test) ' + iTESTSERIES + ' / ' + iTEST;
 
 	await rParse('test', context);
 
@@ -87,7 +88,7 @@ function recCollectSizeInfo(t, R, uiNodeSizes) {
 	for (const ch of t.children) { recCollectSizeInfo(R.uiNodes[ch], R, uiNodeSizes); }
 }
 
-//#region positioning tests
+//#region positioning_ tests
 
 //super simple hand drawn rectangles of fixed size and pos
 function testCreateDivWithDivFixedSize() {

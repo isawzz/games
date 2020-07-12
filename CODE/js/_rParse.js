@@ -1,20 +1,37 @@
+//#region Function: rParse
+
 //Function: rParse
 //source: test | main
 //
 //context: {fStruct, options} | {spec,sdata,defs}
+//#endregion
 async function rParse(source, context) {
 	R = await generateTree(source, context);
 	timit.show('present');
 	await presentTree(R.root, R);
-	consout('==>uiRoot',R.root,'\nh',R.root.ui.style.height,R.root.ui.style.minHeight,R.root.ui.style.display)
-	showSetSizes(R.root,R); //all sizes that have not been set are set here!
+	//consout('==>uiRoot',R.root,'\nh',R.root.ui.style.height,R.root.ui.style.minHeight,R.root.ui.style.display)
+	showSetSizes(R.root, R); //all sizes that have not been set are set here!
 	adjustTableSize(R);
 	timit.show('done!')
 	updateOutput(R);
+	if (source == 'main') testEngine.verify(R);
 	//outype();
 	//ouparams();
 	//oupos();
 }
+
+//#region Function: generateTree
+
+// Function: generateTree
+//
+// depending on source (main or test) generates R
+//
+// sets R.uidRoot, R.uiRoot=R.root, R.rRoot
+//
+// returns R
+//
+// TODO: currently, uses global var R and T (setting those)
+// #endregion
 async function generateTree(source, context) {
 	if (source == 'test') {
 		let fStruct = context.fStruct;
@@ -29,43 +46,51 @@ async function generateTree(source, context) {
 		createStaticUi(R.baseArea, R);
 		addNewlyCreatedServerObjects(context.sdata, R);
 	}
-	let uidRoot = R.tree.uid;
+	let uidRoot = R.uidRoot = R.tree.uid;
 	R.rRoot = R.rNodes[uidRoot];
 	R.uiRoot = R.root = R.uiNodes[uidRoot];
 	return R;
 }
-function setSP(n) {
-	let ui = n.ui;
-	let b = getBounds(ui, true);
-	consout('-------------------',b)
-	n.size = { w: b.width, h: b.height };
-	n.pos = { x: b.x, y: b.y };
 
-}
-function getSizing(n, R, currentSizing) {
-	//console.log(n)
-	return isdef(n.params) && isdef(n.params.sizing) ? n.params.sizing
-		: isdef(currentSizing) ? currentSizing : R.defs.defaultSizing;
-}
-/* Function: presentTree
-depending on R.presentationStrategy and root.params.sizing, size and pos set for every node
-*/
+//#region Function: presentTree
+
+// Function: presentTree
+// depending on R.presentationStrategy and root.params.sizing, size and pos set for every node
+//#endregion
 async function presentTree(uiRoot, R) {
-	consout('__________________presentationStrategy: ' + R.presentationStrategy+', root-sizing: ' + uiRoot.params.sizing);
+	consout('_______', RSG_SOURCE, 'presStrategy: ' + R.presentationStrategy + ', root-sizing: ' + uiRoot.params.sizing);
 	if (R.presentationStrategy == 'rec') {
 		consout('calling recPresentNode')
 		recPresentNode(uiRoot, R, getSizing(uiRoot, R));
 	} else if (R.presentationStrategy == 'new') {
-		consout('NOTHING is called in presentTree')
+		//consout('NOTHING is called in presentTree')
 		//adjustTableSize_(R);
-	} else {
+	} else if (R.presentationStrategy == 'orig') {
 		if (uiRoot.params.sizing == 'sizeToContent') {
-			consout('calling recMeasureAbs, recArrangeSize, adjustTableSize_');
+			//consout('calling recMeasureAbs, recArrangeSize, adjustTableSize_');
 			recMeasureAbs(R.tree.uid, R);
 			recArrangeContent(R.tree.uid, R);
 			//adjustTableSize_(R);
 		} else if (uiRoot.params.sizing == 'fixed') {
-			consout('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
+			//consout('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
+			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
+			uiRoot.size = { w: maxx, h: maxy };
+			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
+			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
+			//adjustTableSize_(R);
+		} else {
+			//consout('calling recMeasureOverride');
+			recMeasureOverride(R.tree.uid, R);
+			testEngine.verify(R);
+		}
+	} else if (nundef(R.presentationStrategy)) {
+		if (uiRoot.params.sizing == 'sizeToContent') {
+			//consout('calling recMeasureAbs, recArrangeSize, adjustTableSize_');
+			recMeasureAbs(R.tree.uid, R);
+			recArrangeContent(R.tree.uid, R);
+			//adjustTableSize_(R);
+		} else if (uiRoot.params.sizing == 'fixed') {
+			//consout('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
 			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 			uiRoot.size = { w: maxx, h: maxy };
 			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
@@ -74,11 +99,14 @@ async function presentTree(uiRoot, R) {
 		} else {
 			consout('calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);
-			testEngine.verify(R);
 		}
+	} else {
+		consout('UNKNOWN presentationStrategy!!!!!!', R.presentationStrategy)
 	}
-	
+
 }
+
+
 function recPresentNode(n, R, sizing) {
 	consout('sizing', n.uid, sizing);
 
@@ -95,10 +123,10 @@ function showSetSizes(nLast, R) {
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
 		if (isdef(n.size) && isdef(n.sizeNeeded)) {
-			consout(n.uid, 'size', n.size.w, n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
-		}else{
+			consout(n.uid, 'size w=' + n.size.w, 'h=' + n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
+		} else {
 			setSP(n);
-			consout(n.uid, 'size', n.size.w, n.size.h,'pos',n.pos.x,n.pos.y); //R.UIS[uid]);
+			consout(n.uid, 'size (unset) w=' + n.size.w, 'h=' + n.size.h, 'pos', n.pos.x, n.pos.y); //R.UIS[uid]);
 		}
 	}
 }
@@ -108,9 +136,9 @@ function showSizes(nLast, R) {
 		let n = R.uiNodes[uid];
 		if (isdef(n.size) && isdef(n.sizeNeeded)) {
 			consout(n.uid, 'size', n.size.w, n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
-		}else{
+		} else {
 			setSP(n);
-			consout(n.uid, 'size', n.size.w, n.size.h,'pos',n.pos.x,n.pos.y); //R.UIS[uid]);
+			consout(n.uid, 'size', n.size.w, n.size.h, 'pos', n.pos.x, n.pos.y); //R.UIS[uid]);
 		}
 	}
 }
@@ -129,8 +157,21 @@ function ouparams() {
 function oupos() {
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
-		consout(n.uid + ':position', n.params.position,'size',n.size,'pos',n.pos);
+		consout(n.uid + ':position', n.params.position, 'size', n.size, 'pos', n.pos);
 	}
+}
+function setSP(n) {
+	let ui = n.ui;
+	let b = getBounds(ui, true);
+	//consout('-------------------',b)
+	n.size = { w: b.width, h: b.height };
+	n.pos = { x: b.x, y: b.y };
+
+}
+function getSizing(n, R, currentSizing) {
+	//console.log(n)
+	return isdef(n.params) && isdef(n.params.sizing) ? n.params.sizing
+		: isdef(currentSizing) ? currentSizing : R.defs.defaultSizing;
 }
 
 

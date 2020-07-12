@@ -2070,6 +2070,10 @@ function consout() {
 	//console.log('halllllllllllllllooooooooooooooooooooo',isTraceOn)
 	if (isTraceOn) console.log(...arguments); 
 }
+function consoutt() { 
+	//console.log('halllllllllllllllooooooooooooooooooooo',isTraceOn)
+	if (isTraceOn) console.log(...arguments,getFunctionsNameThatCalledThisFunction()); 
+}
 
 function consOutput() { console.log(...arguments); }
 function error(msg) {

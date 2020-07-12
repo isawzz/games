@@ -18,9 +18,9 @@
  <div class="CBody"><p>t is a dict, each key is normalized by smallest key (as number)</p><p>returns {num: , result: }</p><p>example: normalizeDict({_23:'bla',_28:'blabla'}) =&gt; {num:23, dictNew:{_0:'bla',_5:'blabla'}}</p><p>NOTE! only modifies keys, <b>not</b> all occurrences of key values in dict</p></div>
 </div>
 
-<a name="normalizeTree"></a><a name="Topic8"></a><div class="CTopic TFunction LJavaScript last">
+<a name="normalizeTree"></a><a name="Topic13"></a><div class="CTopic TFunction LJavaScript last">
  <div class="CTitle">normalizeTree</div>
- <div id="NDPrototype8" class="NDPrototype WideForm CStyle"><table><tr><td class="PBeforeParameters"><span class="SHKeyword">function</span> normalizeTree(</td><td class="PParametersParentCell"><table class="PParameters"><tr><td class="PName first last">t,</td></tr><tr><td class="PName first last">r</td></tr></table></td><td class="PAfterParameters">)</td></tr></table></div>
+ <div id="NDPrototype13" class="NDPrototype WideForm CStyle"><table><tr><td class="PBeforeParameters"><span class="SHKeyword">function</span> normalizeTree(</td><td class="PParametersParentCell"><table class="PParameters"><tr><td class="PName first last">t,</td></tr><tr><td class="PName first last">r</td></tr></table></td><td class="PAfterParameters">)</td></tr></table></div>
  <div class="CBody"><p>t is a tree, uid in each node, children is branching property</p><p>r is an r structure that has rNodes, uiNodes, root returns a copy of t where uids are normalized by the number value of root.uid</p><p>example: if root.uid == '_24', result will have root.uid = '_0' and each uid subtracted 24</p></div>
 </div>
 

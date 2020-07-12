@@ -6,7 +6,8 @@ defaults:
   defaultGap: 2
   defaultPadding: 4
   defaultSizing: sizeToContent
-  defaultPresentationStrategy: orig
+  #defaultPresentationStrategy: orig
+  #defaultPositioning: none
 
   type00grid:
     params:
