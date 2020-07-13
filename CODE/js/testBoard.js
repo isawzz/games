@@ -1,3 +1,31 @@
+
+function catan31() {
+	//mach eine map
+	let mapdata = [' W ', 'O Y', ' S '];
+	let shape = 'hex';
+	console.log('map',mapdata);
+
+	//count letters in first row ... top cols = cols
+	let line0 = mapdata[0];
+	let cols = 0; for (const letter of line0) { if (letter != ' ') cols += 1; }
+
+	//count rows
+	let rows = mapdata.length;
+	console.log('rows',rows,'cols',cols);
+
+	//call SimpleGrid
+	let b1 = new SimpleGrid('b1',{rows:rows,cols:cols,hasEdges:true,hasNodes:true,randomizeIds:true});
+	console.log('board b1',b1)
+
+	//transform to board object as in serverData
+	//transform fields,edges,corners to sdata objects
+	//return sdata
+}
+
+
+
+
+
 function catan00() {
 	let map =
 	{
@@ -56,7 +84,7 @@ function catan00() {
 
 }
 
-function comp_(){return [...arguments].join('_');}
+function comp_() { return [...arguments].join('_'); }
 function makeBoard(mapdata, shape) {
 	let sdata = {};
 	//for now only hex and quad shapes
@@ -105,7 +133,7 @@ function makeBoard(mapdata, shape) {
 	//edges for first field
 	let fields = b.fields.map(x => sdata[x]);
 	//console.log('fields', fields);
-	let help={};
+	let help = {};
 	for (const f of fields) {
 		f.edges = [];
 		f.corners = [];
@@ -118,17 +146,17 @@ function makeBoard(mapdata, shape) {
 
 			let efields = [f.oid];
 
-			if (x) { 
+			if (x) {
 				//console.log('daaaaaaaaaaa')
-				efields.push(x._obj); efields.sort(); 
+				efields.push(x._obj); efields.sort();
 			}
 			else efields.push(null);
-			efields = efields.map(x => x ?x : null);
-			
+			efields = efields.map(x => x ? x : null);
+
 			f.edges.push({ _obj: e.oid });//??? or _obj:
-			
-			console.log(x,efields);
-			
+
+			console.log(x, efields);
+
 			e.fields = efields;
 
 			//break;

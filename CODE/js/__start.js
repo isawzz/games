@@ -48,8 +48,12 @@ async function _start() {
 //#endregion
 async function _entryPoint(defs, spec, sdata) {
 
-	console.log('comp_:',comp_(1,2,3))
-	catan00();return;
+	catan31();
+	//let gr=new SimpleGrid('g1',{rows:5,cols:3,hasEdges:true,hasNodes:true,randomizeIds:true});
+	//console.log(gr);
+	//console.log('comp_:',comp_(1,2,3))
+	//catan00();
+	return;
 	//let x=normalizeDict({_23:'bla',_28:'blabla'});console.log('result',x);return;
 
 	showMenu('main');

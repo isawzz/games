@@ -347,6 +347,7 @@ function posCICT(d) { d = mEnsure(d); d.classList.add('centerCenteredTopHalf'); 
 function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'); }
 //#endregion
 
+//#region cache
 class LazyCache {
 	constructor(resetStorage = false) {
 		this.caches = {};
@@ -463,6 +464,7 @@ class ScriptLoader {
 		})
 	}
 }
+//#endregion
 
 //#region Timit
 class TimeIt {
@@ -1774,6 +1776,9 @@ function loadCode0(text, codeToRunWhenScriptLoaded = null, callback = null) {
 	//scriptTag.innerHTML = text;
 	document.getElementsByTagName("body")[0].appendChild(scriptTag);
 }
+//#endregion
+
+//#region fire
 function fireClick(node) {
 	if (document.createEvent) {
 		var evt = document.createEvent('MouseEvents');
@@ -1819,6 +1824,7 @@ function fireKey(k, { control, alt, shift } = {}) {
 		node.onclick();
 	}
 }
+//#endregion
 
 //#region file IO
 //localStorage save and load:
@@ -2115,6 +2121,13 @@ function showNodeInfo(n, title, lst, lstOmit) {
 	//console.log(title, ...args);
 
 }
+function wlog() {
+	let s = '';
+	for (const a of arguments) {
+		s += a + ' ';
+	}
+	console.log(s);
+}
 
 
 
@@ -2236,6 +2249,14 @@ Array.prototype.rotate = (function () {
 })();
 
 function arrChildren(elem) { return [...elem.children]; }
+function arrCreate(n, func) {
+	//creates an array and init
+	let res = [];
+	for (let i = 0; i < n; i++) {
+		res.push(func(i));
+	}
+	return res;
+}
 
 function arrFromIndex(arr, i) { return arr.slice(i); }
 function arrMinus(a, b) {
@@ -2334,17 +2355,6 @@ function filterByKey(o, desiredKeys) {
 	}
 	return o1;
 }
-// function recRenameKey(o,kOld,kNew){
-// 	console.log(o)
-// 	if (isDict(o)){
-
-// 		let oNew = {};
-// 		for(const k in o){
-// 			if (k == kOld){oNew[kNew]=recRenameKey(o[k],kOld,kNew);}else{oNew[k]=recRenameKey(o[k],kOld,kNew);}
-// 		}
-// 		return oNew;
-// 	}else return o;
-// }
 function fisherYates(array) {
 	var rnd, temp;
 
@@ -2446,6 +2456,46 @@ function jsCopySafe(o) {
 	if (nundef(o)) return;
 	return JSON.parse(JSON.safeStringify(o)); //macht deep copy
 }
+function indexOfMax(arr, prop) {
+	let max = null;
+	let imax = null;
+	for (const [i, v] of arr.entries()) {
+		if (prop) {
+			//console.log(i,v[prop])
+			if (max == null || v[prop] > max) {
+				//console.log(max,lookup(v, [prop]))
+				max = v[prop];
+				imax = i;
+			} else {
+				if (max == null || v > max) {
+					max = v;
+					imax = i;
+				}
+			}
+		}
+	}
+	return { i: imax, val: max };
+}
+function indexOfMin(arr, prop) {
+	let min = null;
+	let imin = null;
+	for (const [i, v] of arr.entries()) {
+		if (prop) {
+			if (min == null || lookup(v, [prop]) < min) {
+				//console.log(min,lookup(v, [prop]))
+				min = v[prop];
+				imin = i;
+			}
+		} else {
+			if (min == null || v < min) {
+				min = v;
+				imin = i;
+			}
+		}
+	}
+	return { i: imin, val: min };
+}
+
 function arrlast(arr) {
 	return arr.length > 0 ? arr[arr.length - 1] : null;
 }
@@ -2717,8 +2767,6 @@ function union(lst1, lst2) {
 
 //#endregion
 
-//#region filter
-
 //#region sort
 const fieldSorter = fields => (a, b) =>
 	//usage of field sorter:
@@ -2819,7 +2867,7 @@ function sortByFunc(arr, func) {
 function sortByFuncDescending(arr, func) {
 	arr.sort((a, b) => (func(a) > func(b) ? -1 : 1));
 }
-
+//#endregion
 
 //#region recursion
 // safely handles circular references
@@ -3041,7 +3089,7 @@ function recFindProp_dep(o, prop, path, akku) {
 		}
 	}
 }
-
+//#endregion
 
 //#region random
 function chooseRandom(arr, condFunc = null) {
@@ -3327,7 +3375,7 @@ function _setToList(oval) { if (typeof oval == 'object' && '_set' in oval) retur
 
 //#endregion
 
-// #region zooming
+//#region zooming
 function deltaTransformPoint(matrix, point) {
 	var dx = point.x * matrix.a + point.y * matrix.c + 0;
 	var dy = point.x * matrix.b + point.y * matrix.d + 0;
