@@ -1,6 +1,7 @@
 class SimpleGrid {
-	constructor(id, { shape = 'hex', rows = 3, cols = 2, idPrefix, hasNodes = false, hasEdges = false, randomizeIds = false } = {}) {
+	constructor(id, { mapData, shape = 'hex', rows = 3, cols = 2, idPrefix, hasNodes = false, hasEdges = false, randomizeIds = false } = {}) {
 		this.randomizeIds = randomizeIds;
+		this.mapData = mapData;
 		this.dhelp = {};
 		this.idCounters = { field: 0, corner: 0, edge: 0, other: 0 };
 		this.shape = shape;

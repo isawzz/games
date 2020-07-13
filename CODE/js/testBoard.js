@@ -1,25 +1,91 @@
+function simpleGridToServerData(b1) {
+	let bo1 = {};
+	let fields = bo1.fields = { _set: b1.fields.map(oid => { return { _obj: oid }; }) };
+	console.log('fields', fields);
 
+	let edges = null;
+	if (b1.hasEdges) {
+		edges = bo1.edges = { _set: b1.edges.map(oid => { return { _obj: oid }; }) };
+		console.log('edges', edges);
+
+	}
+
+	let corners = null;
+	if (b1.hasNodes) {
+		corners = bo1.corners = { _set: b1.corners.map(oid => { return { _obj: oid }; }) };
+		console.log('corners', corners);
+	}
+
+	bo1.rows = b1.rows;
+	bo1.cols = b1.mapData[0].length;
+	let obj_type = bo1.obj_type = 'Board';
+	console.log('rows', bo1.rows, 'cols', bo1.cols, 'obj_type', bo1.obj_type);
+
+	let maxColIndex = 2 * b1.colarr[b1.imiddleRow] - 1;
+	console.assert(maxColIndex == bo1.cols, 'maxColIndex is NOT correct!!!!!!!!', maxColIndex, bo1.cols)
+	//transform fields,edges,corners to sdata objects
+	//return sdata
+
+	bo1.map = b1.mapData;
+
+	return bo1;
+}
 function catan31() {
 	//mach eine map
-	let mapdata = [' W ', 'O Y', ' S '];
+	let mapData = [' W ', 'O Y', ' S '];
 	let shape = 'hex';
-	console.log('map',mapdata);
+	console.log('map', mapData);
 
 	//count letters in first row ... top cols = cols
-	let line0 = mapdata[0];
+	let line0 = mapData[0];
 	let cols = 0; for (const letter of line0) { if (letter != ' ') cols += 1; }
 
 	//count rows
-	let rows = mapdata.length;
-	console.log('rows',rows,'cols',cols);
+	let rows = mapData.length;
+	console.log('rows', rows, 'cols', cols);
 
 	//call SimpleGrid
-	let b1 = new SimpleGrid('b1',{rows:rows,cols:cols,hasEdges:true,hasNodes:true,randomizeIds:true});
-	console.log('board b1',b1)
+	let b1 = new SimpleGrid('b1', {
+		mapData: mapData,
+		shape: shape,
+		rows: rows,
+		cols: cols,
+		hasEdges: true,
+		hasNodes: true,
+		randomizeIds: true,
+		mapData: mapData,
+	});
+	console.log('board b1', b1)
 
 	//transform to board object as in serverData
-	//transform fields,edges,corners to sdata objects
-	//return sdata
+	//example of serverData board:
+	let sdata = {};
+	let oidBoard = getUID();
+	let board = simpleGridToServerData(b1);
+	sdata[oidBoard] = board;
+	console.log('board server object:', board);
+
+	//make field objects
+	let fields = Object.values(b1.objects).filter(x => x.obj_type == 'field');
+	console.log('fields', fields);
+
+	for (const oid in b1.objects) {
+		let o = jsCopy(b1.objects[oid]);
+		o.oid = o.id; delete o.id;
+		o.obj_type = capitalize(o.obj_type); //.toCapital(); //toUpperCase(); //'Field';
+		o.row -= 1; //0 based!
+		o.col -= 1;
+		if (o.obj_type == 'Field') o.letter = b1.mapData[o.row-1][o.col-1];
+		if (isdef(o.neighbors)) o.neighbors = o.neighbors.map(x => (x ? { _obj: x } : null));
+		if (isdef(o.edges)) o.edges = o.edges.map(x => (x ? { _obj: x } : null));
+		if (isdef(o.corners)) o.corners = o.corners.map(x => (x ? { _obj: x } : null));
+		if (isdef(o.fields)) o.fields = o.fields.map(x => (x ? { _obj: x } : null));
+		console.log(o.obj_type, o)
+		sdata[o.oid] = o;
+	}
+
+	console.log(sdata)
+
 }
 
 
@@ -71,9 +137,9 @@ function catan00() {
 	/*
 		
 	*/
-	let mapdata = [' W ', 'O Y', ' S '];
+	let mapData = [' W ', 'O Y', ' S '];
 	let shape = 'hex';
-	let b = makeBoard(mapdata, shape);
+	let b = makeBoard(mapData, shape);
 	//console.log('board', b);
 	for (const oid in b.sdata) {
 		let o = b.sdata[oid];
@@ -85,19 +151,19 @@ function catan00() {
 }
 
 function comp_() { return [...arguments].join('_'); }
-function makeBoard(mapdata, shape) {
+function makeBoard(mapData, shape) {
 	let sdata = {};
 	//for now only hex and quad shapes
 	const hexNeiInc = [{ r: -1, c: 1 }, { r: 0, c: 2 }, { r: 1, c: 1 }, { r: 1, c: -1 }, { r: 0, c: -2 }, { r: -1, c: -1 }];
 	const quadNeiInc = [{ r: -1, c: 0 }, { r: 0, c: 1 }, { r: 1, c: 0 }, { r: 0, c: -1 }];
 	let neiInc = shape == 'hex' ? hexNeiInc : quadNeiInc;
-	let b = { oid: getUID(), rows: mapdata.length, cols: mapdata[0].length, shape: shape, fields: [] };
+	let b = { oid: getUID(), rows: mapData.length, cols: mapData[0].length, shape: shape, fields: [] };
 	sdata[b.oid] = b;
 	let byRC = {};
 	for (let r = 0; r < b.rows; r++) {
 		byRC[r] = {};
 		for (let c = 0; c < b.cols; c++) {
-			let letter = mapdata[r][c];
+			let letter = mapData[r][c];
 			if (letter == ' ') { byRC[r][c] = null; continue; }
 			let f = makeField(r, c, { obj_type: 'Field', res: chooseRandom(['wood', 'brick']), num: chooseRandom([2, 4, 6, 8]) });
 			sdata[f.oid] = f;
