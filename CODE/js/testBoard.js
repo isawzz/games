@@ -39,33 +39,115 @@ function catan00() {
 	// '2',0,5 neighbors: '1',0,3   '5',1,4   '6',1,6
 	// '1',0,3 neighbors: '0',0,1   '2',0,5   '4',1,2   '5',1,4
 	// '3',1,0 neighbors: '0',0,1   '4',1,2   '8',2,1   '7',2,8
-	
+
 	/*
 		
 	*/
-	let mapdata=[' W ','O Y',' S '];
-	let shape='hex';
-
-
-}
-function makeBoard(mapdata,shape){
-	let b={oid:getUID(),rows:mapdata.length,cols:mapdata[0].length,shape:shape};
-	for(let r=0;r<b.rows;r++){
-		for(let c=0;c<b.cols;c++){
-			let letter = mapdata[r][c];
-			if (letter==' ') continue;
-			let f=makeField(r,c,{obj_type:'Field',res:chooseRandom(['wood','brick']),num:chooseRandom([2,4,6,8])});
-
+	let mapdata = [' W ', 'O Y', ' S '];
+	let shape = 'hex';
+	let b = makeBoard(mapdata, shape);
+	//console.log('board', b);
+	for (const oid in b.sdata) {
+		let o = b.sdata[oid];
+		if (isdef(o.neighbors)) {
+			//consout(o.neighbors.map(x => x)); //''+b.sdata[x._obj].row+','+b.sdata[x._obj].col));
 		}
 	}
+
 }
-function makeField(r,c,props){
-	let f={oid:getUID(),row:r,col:c};
-	for (const k in props){
-		f[k]=props[k];
+
+function comp_(){return [...arguments].join('_');}
+function makeBoard(mapdata, shape) {
+	let sdata = {};
+	//for now only hex and quad shapes
+	const hexNeiInc = [{ r: -1, c: 1 }, { r: 0, c: 2 }, { r: 1, c: 1 }, { r: 1, c: -1 }, { r: 0, c: -2 }, { r: -1, c: -1 }];
+	const quadNeiInc = [{ r: -1, c: 0 }, { r: 0, c: 1 }, { r: 1, c: 0 }, { r: 0, c: -1 }];
+	let neiInc = shape == 'hex' ? hexNeiInc : quadNeiInc;
+	let b = { oid: getUID(), rows: mapdata.length, cols: mapdata[0].length, shape: shape, fields: [] };
+	sdata[b.oid] = b;
+	let byRC = {};
+	for (let r = 0; r < b.rows; r++) {
+		byRC[r] = {};
+		for (let c = 0; c < b.cols; c++) {
+			let letter = mapdata[r][c];
+			if (letter == ' ') { byRC[r][c] = null; continue; }
+			let f = makeField(r, c, { obj_type: 'Field', res: chooseRandom(['wood', 'brick']), num: chooseRandom([2, 4, 6, 8]) });
+			sdata[f.oid] = f;
+			b.fields.push(f.oid);
+			byRC[r][c] = f;
+		}
+	}
+	//console.log('board', b);
+	for (let r = 0; r < b.rows; r++) {
+		for (let c = 0; c < b.cols; c++) {
+			let f = byRC[r][c];
+			//console.log('field',f)
+			if (!f) continue;
+			//console.log('f byRC', r, c, f)
+			f.neighbors = [];
+			let len = neiInc.length;
+			//set nei in clockwise order
+			for (let i = 0; i < len; i++) {
+				let inc = neiInc[i];
+				//console.log('inc',inc)
+				let iRow = r + inc.r;
+				let iCol = c + inc.c;
+				if (iRow < 0 || iCol < 0 || iRow >= b.rows || iCol >= b.cols) {
+					f.neighbors.push(null);
+				} else {
+					let nei = byRC[iRow][iCol];
+					f.neighbors.push({ _obj: nei.oid });
+				}
+			}
+		}
+	}
+
+	//edges for first field
+	let fields = b.fields.map(x => sdata[x]);
+	//console.log('fields', fields);
+	let help={};
+	for (const f of fields) {
+		f.edges = [];
+		f.corners = [];
+		for (const x of f.neighbors) {
+			//NE neighbor
+			//make edge that has 2 oids: f.oid and nei.oid
+			//let f2 = sdata[x];
+			let e = makeEdge();
+			sdata[e.oid] = e;
+
+			let efields = [f.oid];
+
+			if (x) { 
+				//console.log('daaaaaaaaaaa')
+				efields.push(x._obj); efields.sort(); 
+			}
+			else efields.push(null);
+			efields = efields.map(x => x ?x : null);
+			
+			f.edges.push({ _obj: e.oid });//??? or _obj:
+			
+			console.log(x,efields);
+			
+			e.fields = efields;
+
+			//break;
+		}
+		//break;
+	}
+
+	return { sdata: sdata, board: b };
+}
+function makeEdge() {
+	return { oid: getUID(), obj_type: 'Edge' };
+}
+function makeField(r, c, props) {
+	let f = { oid: getUID(), row: r, col: c };
+	for (const k in props) {
+		f[k] = props[k];
 	}
 	return f;
-	
+
 }
 
 
