@@ -5,7 +5,7 @@ function isLastTestOfSeries() {
 	let numtests = Object.keys(tests).length;
 	return iTEST >= numtests;
 }
-async function nextTestOfSeries(downloadRequested=true) {
+async function nextTestOfSeries(downloadRequested = true) {
 	if (isLastTestOfSeries()) { console.log('...press reset!'); return; }
 	await onClickClearTable();
 	//	clearElement_('table'); mBy('table').style.minWidth = 0; mBy('table').style.minHeight = 0;	resetUIDs();
@@ -47,6 +47,8 @@ async function nextTestOfSeries(downloadRequested=true) {
 }
 function startTestLoop() {
 	if (isLastTestOfSeries()) {
+		isTraceOn = SHOW_TRACE;
+
 		console.log('TESTS COMPLETED!');
 	} else {
 
@@ -58,7 +60,9 @@ function startTestSeries() {
 	//console.log('iTESTSERIES',iTESTSERIES)
 	let numSeries = Object.keys(ALLTESTS).length;
 	if (iTESTSERIES >= numSeries) {
-		console.log('TEST SERIES COMPLETED!'); return;
+		console.log('TEST SERIES COMPLETED!');
+		isTraceOn = SHOW_TRACE;
+		return;
 	} else if (isLastTestOfSeries()) {
 		iTESTSERIES += 1;
 		iTEST = 0;
@@ -547,7 +551,9 @@ async function saveSolutions(series, solutions) {
 
 //#region activate, deactivate
 function testActivate(R) {
+	console.log('testActivate', R)
 	activateUis(R);
+
 
 }
 function testDeactivate(R) {
@@ -556,7 +562,46 @@ function testDeactivate(R) {
 }
 //#endregion
 
-//#region helper function tests
+//#region misc tests
+function testObjectWithUiAndClasses(){
+	let n={uid:'_1'};
+	let d=mCenteredNode({a:'HALLO',b:'geh'});
+	console.log(d,d.classList);
+	//mClass(d,'node');
+	mSize(d,100,50);
+	mAppend(mBy('table'),d);
+	mCenterText(d.firstChild);
+	mClass(d.firstChild,'centered')
+	n.class = ['centered'];
+	//mCenter(d.firstChild);
+
+	console.log('line2',d,d.classList);
+	n.ui = d;
+	let dDesc = mNodeFilter(n,{dParent:mBy('table'),lstShow:['uid','class']});
+}
+function mCenteredNode(content){
+	let d=mNode(content);
+	return d;
+
+}
+function testCenteredNode() {
+	let dTable = mBy('table');
+	let d = mDiv(dTable);
+	mSize(d, 100, 100);
+	mColor(d, 'blue');
+	let d1 = mNode({a:'HALLO',b:'geh'}, d);
+	//d1.style.display = 'inline-box'; //NO
+	//d.style.textAlign = 'center'; //NO
+	mCenterH(d1);
+}
+function testVCentered() {
+	let dTable = mBy('table');
+	let d = mDiv(dTable);
+	mSize(d, 100, 100);
+	mColor(d, 'blue');
+	let d1 = mTextDiv('HALLO', d);
+	mCenterV(d1);
+}
 function testSaveLoadUiTree() {
 	let uiTree = jsCopyMinus(T.uiTree, 'act', 'ui', 'defParams', 'params');
 	console.log(uiTree);

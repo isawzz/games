@@ -46,23 +46,85 @@ async function _start() {
 	_entryPoint(DEFS, SPEC, sData);
 }
 //#endregion
+
 async function _entryPoint(defs, spec, sdata) {
 
-	catan31();
+	//testObjectWithUiAndClasses(); return;
+	//testCenteredNode(); //return;
+	//testVCentered();return;
+
+
+	//let isSpecial = tossCoin(25);	console.log('outcome 25',isSpecial); return;
+	//await testCardDraw52();
+	//let c = cardFace({rank:'K'},35,55);	console.log(c); return;
+
+	//let c=genCard(); console.log(c);return;
+
+	// let mapData;let topcols;
+	// [mapData, topcols] = genMapData(3, 1, 'reghex',['W','Y','B','O','S']);
+	// console.log('map 1,3',mapData);
+	// [mapData, topcols] = genMapData(3, 3, 'reghex',['W','Y','B','O','S']);
+	// console.log('map 3,3',mapData);
+	// [mapData, topcols] = genMapData(5, 3, 'reghex',['W','Y','B','O','S']);
+	// console.log('map 5,3',mapData);
+	// [mapData, topcols] = genMapData(5, 2, 'reghex', ['W','Y','B','O','S']);
+	// console.log('map 5,3',mapData);
+	// return;
+
+	// console.log(reverseString('na geh'))
+	// let s='hallo';	let sr=toLetterList(s).reverse().join('');	console.log(s,sr); return;
+	// let lst=toLetterList('hallo');console.log(lst);return;
+	// let o={b:1,a:4,c:5};	let x=Object.keys(o).reverse();	console.log(x); return;
+	// let o1=sortKeysNonRecursiveDescending(o);	console.log('o',o1); return;
+
 	//let gr=new SimpleGrid('g1',{rows:5,cols:3,hasEdges:true,hasNodes:true,randomizeIds:true});
 	//console.log(gr);
 	//console.log('comp_:',comp_(1,2,3))
 	//catan00();
-	return;
+	//return;
 	//let x=normalizeDict({_23:'bla',_28:'blabla'});console.log('result',x);return;
 
-	showMenu('main');
+	if (OPEN_MAIN) showMenu('main');
+	if (OPEN_TEST) showMenu('test');
+	if (OPEN_OTHER) showMenu('other');
+	if (OPEN_INTERACT) showMenu('interact');
 	await testEngine.init(defs, sdata, TEST_SERIES, TEST_INDEX);
-	iTEST = isdef(iTEST)?iTEST: Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
+	iTEST = isdef(iTEST) ? iTEST : Object.keys(ALLTESTS[iTESTSERIES]).length - 1;
 	//console.log('series', iTESTSERIES, 'case', iTEST, ALLTESTS[iTESTSERIES])
 
 	if (RSG_SOURCE == 'test') {
 		onClickNextTestOfSeries();
+	} else if (RSG_SOURCE == 'direct') {
+		//console.log('------------------hallooooooooo')
+		await testPicto(20, {
+			ROOT: { _NODE: 'pics', params:{orientation:'h'} },
+			pics: { cond: 'all', data: '.key', type: 'picto', params:{margin:4} }
+		}, genServerDataPicto);
+
+		// await testCardsUni(2, {
+		// 	ROOT: { _NODE: 'cards', type: 'hand' },
+		// 	cards: { cond: 'all', data: '.cardKey', type: 'card52' }
+		// }, genServerDataCards52);
+
+		// await testCardsUni(5,{
+		// 	ROOT: { _NODE: 'cards', params:{orientation:'h'} },
+		// 	cards: { cond: 'all', data: '.cardKey', type: 'card52' }
+		// }, genServerDataCards52);
+
+		//await testCard();
+
+		//await testCardHorizontal();
+
+		// await testGeneralBoard(2, 2, 'quad', true, true,
+		// 	{
+		// 		fieldContent: { a: 'ja', b: 'nein' },
+		// 		// nodeContent: { a: 'ja', b: 'nein' },
+		// 		// edgeContent: { a: 'ja', b: 'nein' }
+		// 	});
+
+		//await testTtt(4,4);
+
+		//await testCatan(3,1);
 	} else {
 		//console.log('hallooooooooooooooo')
 		//[sp, defs, sdata] = [testEngine.spec, testEngine.defs, testEngine.sdata];
@@ -181,12 +243,12 @@ function updateOutput(R) {
 	let numNodes = Object.keys(R.rNodes).length;
 	//console.log(numNodes)
 
-	if (numNodes<=200 && SHOW_RTREE) {
+	if (numNodes <= 200 && SHOW_RTREE) {
 		presentDictTree(R.rNodes, R.tree.uid, 'rTree', 'children', R,
 			['children'], null, ['info'], { 'max-width': '35%', font: '14px arial' });
 	}
 
-	if (numNodes<=25 && SHOW_UITREE) {
+	if (numNodes <= 25 && SHOW_UITREE) {
 
 		let numNodes = Object.keys(R.uiNodes).length;
 		//console.log('numNodes',numNodes);
@@ -195,7 +257,7 @@ function updateOutput(R) {
 				['children'],
 				// null, //show
 				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-				['uid', 'pos', 'size', 'uidParent', 'params'],
+				['uid', 'pos', 'size', 'uidParent', 'params','class', 'type', 'content'],
 				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 				null, //omit
 				{ 'max-width': '50%', font: '14px arial' });
@@ -205,7 +267,7 @@ function updateOutput(R) {
 				['children'],
 				// null, //show
 				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-				['uid', 'pos', 'size', 'uidParent'],//,'params'],
+				['uid', 'pos', 'size', 'uidParent','class', 'type', 'content'],//,'params'],
 				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 				null, //omit
 				{ 'max-width': '35%', font: '14px arial' });

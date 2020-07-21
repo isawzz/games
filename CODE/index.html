@@ -117,14 +117,6 @@
 				<b>spec</b>
 				<div id='spec' class='flexWrap'></div>
 			</div>
-			<div id='contRefsIds' onclick='onClickUpdateOutput(this)' class='grey'>
-				<b>_ids and _refs:</b>
-				<div id='refsIds' class='flexWrap'> </div>
-			</div>
-			<div id='contLastSpec' class='grey' onclick='onClickUpdateOutput(this)'>
-				<b>pre-processed spec</b>
-				<div id='lastSpec' class='flexWrap'></div>
-			</div>
 			<div id='contRTree' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>R tree</b>
 				<div id='rTree' class='flexWrap'></div>
@@ -133,28 +125,45 @@
 				<b>ui tree</b>
 				<div id='uiTree' class='flexWrap'></div>
 			</div>
-			<div id='contOidNodes' onclick='onClickUpdateOutput(this)' class='grey'>
-				<b>oidNodes</b>
-				<div id='oidNodes' class='flexWrap'></div>
+			<div id='contRefsIds' onclick='onClickUpdateOutput(this)' class='grey'>
+				<b>_ids and _refs:</b>
+				<div id='refsIds' class='flexWrap'> </div>
+			</div>
+			<div id='contLastSpec' class='grey' onclick='onClickUpdateOutput(this)'>
+				<b>pre-processed spec</b>
+				<div id='lastSpec' class='flexWrap'></div>
 			</div>
 			<div id='contDicts' onclick='onClickUpdateOutput(this)' class='grey'>
 				<b>dictionaries:</b>
 				<div id='dicts' class='flexWrap'> </div>
+			</div>
+			<div id='contOidNodes' onclick='onClickUpdateOutput(this)' class='grey'>
+				<b>oidNodes</b>
+				<div id='oidNodes' class='flexWrap'></div>
 			</div>
 		</div>
 
 	</div>
 
 	<!-- #region loading: order matters! -->
-	<script src="/CODE/js/helpers.js"></script>
+	<script src="/CODE/js/z/helpers.js"></script>
 	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/__work.js"></script>
-	<script src="/CODE/js/__work2_Rgen.js"></script>
 	<script src="/CODE/js/_rparse.js"></script>
+
+	<script src="/CODE/js/types/card.js"></script>
+	<script src="/CODE/js/types/card52.js"></script>
+	<script src="/CODE/js/types/grid.js"></script>
+	<script src="/CODE/js/types/hand.js"></script>
+	<script src="/CODE/js/types/panel.js"></script>
+	<script src="/CODE/js/types/picto.js"></script>
+	<script src="/CODE/js/types.js"></script>
+	<script src="/CODE/js/types/_cTypes.js"></script>
+	<script src="/CODE/js/types/_default.js"></script>
 
 	<script src="/CODE/js/z/_rTree.js"></script>
 	<script src="/CODE/js/z/_uiTree.js"></script>
-	<script src="/CODE/js/abspos.js"></script>
+	<script src="/CODE/js/z/abspos.js"></script>
 	<script src="/CODE/js/z/activator.js"></script>
 	<script src="/CODE/js/z/assets.js"></script>
 	<script src="/CODE/js/z/binding.js"></script>
@@ -172,14 +181,16 @@
 	<script src="/CODE/js/z/merge.js"></script>
 	<script src="/CODE/js/z/rsgTypes.js"></script>
 	<script src="/CODE/js/z/SimpleGrid.js"></script>
-	<script src="/CODE/js/types.js"></script>
 	<script src="/CODE/js/z/utils.js"></script>
 
 	<script src="/CODE/js/z/onClick.js"></script>
-	<script src="/CODE/js/testBoard.js"></script>
+	<script src="/CODE/js/z/testBoard.js"></script>
+	<script src="/CODE/js/z/testCards.js"></script>
 	<script src="/CODE/js/testFactory.js"></script>
 	<script src="/CODE/js/testData.js"></script>
-	<script src="/CODE/js/testing.js"></script>
+	<script src="/CODE/js/z/testing.js"></script>
+
+
 
 	<script src="/CODE/js/__start.js"></script>
 

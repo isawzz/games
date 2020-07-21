@@ -51,6 +51,41 @@ function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
 function mBg(d, color) { d.style.backgroundColor = color; }
 function mBy(id) { return document.getElementById(id); }
+function mCenterV(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let h = b.height;
+	let b1 = getBounds(d);
+	let h1 = b1.height;
+	let diff = h - h1;
+	d.style.marginTop = (diff / 2) + 'px';
+
+}
+function mCenterH(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let h = b.width;
+	let b1 = getBounds(d);
+	let h1 = b1.width;
+	let diff = h - h1;
+	d.style.marginleft = (diff / 2) + 'px';
+
+}
+function mCenter(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let b1 = getBounds(d);
+	let h = b.height;
+	let h1 = b1.height;
+	let hdiff = h - h1;
+	d.style.marginTop = (hdiff / 2) + 'px';
+	let w = b.width;
+	let w1 = b1.width;
+	let wdiff = w - w1;
+	d.style.marginLeft = (wdiff / 2) + 'px';
+
+}
+function mCenterText(d){d.style.textAlign='center';}
 function mNull(d, attr) { d.removeAttribute(attr); }
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
@@ -107,7 +142,9 @@ function mMinBounds(d) {
 	let b = getBounds(d);
 	mStyle(d, { 'min-width': b.width, 'min-height': b.height }, 'px');
 }
-function mSizePic(d, w, h = 0, unit = 'px') { return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit); }
+function mSizePic(d, w, h = 0, unit = 'px') {
+	return mStyle(d, { 'font-size': h / 2, 'font-weight': 900, 'padding-top': h / 4, 'text-align': 'center', 'box-sizing': 'border-box', width: w, height: h ? h : w }, unit);
+}
 function mStyle(elem, styles, unit = 'px') {
 	//console.log(':::::::::styles',styles)
 	for (const k in styles) {
@@ -166,6 +203,11 @@ function mDictionary_dep(o, { dParent, title, flattenLists = true, className = '
 }
 function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, className = 'node', omitEmpty = false } = {}) {
 	let oCopy = isList(lstShow) ? filterByKey(o, lstShow) : jsCopySafe(o);
+	// if (lstShow.includes('class') && isdef(o.ui)) {
+	// 	let carr = Array.from(o.ui.classList);
+	// 	console.log(carr)
+	// 	oCopy.class = isEmpty(carr) ? carr : carr.join(',');
+	// }
 	if (isList(lstFlatten)) recConvertToSimpleList(oCopy, lstFlatten);
 	if (nundef(lstOmit)) lstOmit = [];
 	//oCopy = jsCopyMinus()
@@ -183,7 +225,7 @@ function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, cl
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-function mNode(o, dParent, title) {
+function mNode(o, dParent, title, isSized=false) {
 	let d = mCreate('div');
 	mYaml(d, o);
 	let pre = d.getElementsByTagName('pre')[0];
@@ -191,14 +233,20 @@ function mNode(o, dParent, title) {
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	if (isDict(o)) d.style.textAlign = 'left';
+	if (isSized) addClass(d,'centered');
+
 	return d;
 }
+
 function mNodeChangeContent(ui, content) {
 	let domel = ui.getElementsByTagName('pre')[0];
 	domel.innerHTML = jsonToYaml(content);
 
 }
-function mYaml(d, js) { d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; }
+function mYaml(d, js) {
+	d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>';
+	// d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; 
+}
 //#endregion
 
 //#region SVG/g 1 liners A list shapes
@@ -1492,7 +1540,7 @@ function setDropPosition(ev, elem, targetElem, dropPos) {
 	} else if (dropPos == 'center') {
 		// do I need to remove all pos info from element??? YES!!!
 		elem.style.position = elem.style.left = elem.style.top = '';
-		elem.classList.add('centered');
+		elem.classList.add('centeredTL');
 	} else if (dropPos == 'centerCentered') {
 		elem.style.position = elem.style.left = elem.style.top = '';
 		elem.classList.add('centerCentered');
@@ -2071,14 +2119,14 @@ function resetUIDs() { UIDCounter = 0; }
 
 //#region io
 var isTraceOn = true; // true | false
-function trace() { if (isTraceOn) console.log('___ ', getFunctionsNameThatCalledThisFunction(),'\n', ...arguments); }
-function consout() { 
+function trace() { if (isTraceOn) console.log('___ ', getFunctionsNameThatCalledThisFunction(), '\n', ...arguments); }
+function consout() {
 	//console.log('halllllllllllllllooooooooooooooooooooo',isTraceOn)
-	if (isTraceOn) console.log(...arguments); 
+	if (isTraceOn) console.log(...arguments);
 }
-function consoutt() { 
+function consoutt() {
 	//console.log('halllllllllllllllooooooooooooooooooooo',isTraceOn)
-	if (isTraceOn) console.log(...arguments,getFunctionsNameThatCalledThisFunction()); 
+	if (isTraceOn) console.log(...arguments, getFunctionsNameThatCalledThisFunction());
 }
 
 function consOutput() { console.log(...arguments); }
@@ -2281,6 +2329,7 @@ function arrMinMax(arr) {
 
 	return [min, max];
 }
+function arrRange(from = 1, to = 10, step = 1) { let res = []; for (let i = from; i <= to; i += step)res.push(i); return res; }
 function arrReplace(arr, oldval, newval) {
 	let i = arr.indexOf(oldval);
 	if (i >= 0) arr[i] = newval;
@@ -2334,7 +2383,11 @@ function dropLast(s) { return s.substring(0, s.length - 1); }
 function first(arr) {
 	return arr.length > 0 ? arr[0] : null;
 }
-
+function stripObject(o, keysToDelete) {
+	for (const k of keysToDelete) {
+		if (isdef(o[k])) delete o[k];
+	}
+}
 function filterByNoKey(o, undesiredKeys) {
 	//create shallow copy of o without undesiredKeys
 	let o1 = {};
@@ -3149,6 +3202,15 @@ function randomHexColor() {
 function randomNumber(min = 0, max = 100) {
 	return Math.floor(Math.random() * (max - min + 1)) + min; //min and max inclusive!
 }
+function tossCoin(percent) {
+
+	let r = Math.random();
+	//r ist jetzt zahl zwischen 0 und 1
+	r *= 100;
+	//console.log('random:',r)
+	//r ist jetzt zahl zwischen 0 und 100
+	return r < percent;
+}
 
 //#endregion
 
@@ -3191,7 +3253,6 @@ function getLines(s) {
 	var res = str.split('\n');
 	return res;
 }
-
 function firstNumber(s) {
 	// returns first number in string s
 	if (s) {
@@ -3214,7 +3275,6 @@ function firstFloat(s) {
 	}
 	return null;
 }
-
 function firstPositiveNumber(s) {
 	// returns first number in string s
 	return s ? Number(s.match(/\d+/).shift()) : -1;
@@ -3251,6 +3311,9 @@ function replaceAll(str, sSub, sBy) {
 	let regex = new RegExp(sSub, 'g');
 	return str.replace(regex, sBy);
 }
+function reverseString(s) {
+	return toLetterList(s).reverse().join('');
+}
 function sameCaseIndep(s1, s2) {
 	return s1.toLowerCase() == s2.toLowerCase();
 }
@@ -3280,6 +3343,9 @@ function stringBefore(sFull, sSub) {
 function stringBeforeLast(sFull, sSub) {
 	let parts = sFull.split(sSub);
 	return sFull.substring(0, sFull.length - last(parts).length - 1);
+}
+function toLetterList(s) {
+	return [...s];
 }
 function trim(str) {
 	return str.replace(/^\s+|\s+$/gm, '');

@@ -9,7 +9,9 @@ function ensureRtree(R) {
 			R.rNodes[R.tree.uid] = R.tree;
 			R.Locations.ROOT = [R.tree.uid];
 		} else {
+			//console.log('---------')
 			R.tree = recTree(R.lastSpec.ROOT, null, R);
+			//console.log('rtree',R.lastSpec.ROOT,R.tree)
 			R.rNodes[R.tree.uid] = R.tree;
 		}
 

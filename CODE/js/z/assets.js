@@ -1,4 +1,4 @@
-var vidCache, allGames, playerConfig, iconChars, c52, testCards; //session data
+var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
@@ -9,6 +9,8 @@ async function loadAssets() {
 	testCards = vidCache.asDict('testCards');
 	iconCharsC = await vidCache.load('iconChars', route_iconChars);
 	iconChars = vidCache.asDict('iconChars');
+	iconKeys = Object.keys(iconChars);
+	numIcons = iconKeys.length;
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
 }
@@ -315,7 +317,7 @@ async function route_allGames() {
 	return res;
 }
 async function route_c52() {
-	return await route_rsg_asset('c52', 'yaml');
+	return await route_rsg_asset('c52_blackBorder', 'yaml');
 }
 async function route_iconChars() {
 	let gaIcons = await route_rsg_asset('gameIconCodes');

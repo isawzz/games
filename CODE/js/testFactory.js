@@ -7,11 +7,18 @@
 //
 //example: makeTableTreeX(makeSimplestTree, options: { fType: typeEmpty })
 //#endregion
-function makeTableTreeX(fStruct, { presentationStrategy, fContent, fType, positioning = 'none', params } = {}) {
+function makeTableTreeX(fStruct, { presentationStrategy, fContent, fType, autoType, positioning = 'none', params } = {}) {
 	R = fStruct(); //gibt jedem node manual00 type!
 
 	// rtree is modified
 	if (isdef(params)) { for (const uid in params) { R.rNodes[uid].params = params[uid]; } }
+	if (isdef(autoType)) {
+		for (const uid in R.rNodes) {
+			let v = R.rNodes[uid];
+			let val = autoType;
+			if (!val) delete v.type; else v.type = val;
+		}
+	}
 	if (isdef(fType)) {
 		for (const uid in R.rNodes) {
 			let v = R.rNodes[uid];
@@ -173,6 +180,11 @@ function makeSimpleTree(numChildren = 2) {
 	for (let i = 0; i < numChildren; i++) addManual00Node(n, r);
 	return r;
 }
+function makeRoot() {
+	let r = { rNodes: {}, uiNodes: {}, defs: DEFS };
+	r.tree = addManual00Node(null, r);
+	return r;
+}
 
 //#region uitree
 function recUiTestX(n, R) {
@@ -205,7 +217,7 @@ function createUiTestX(n, area, R) {
 
 	let ui;
 	if (isdef(RCREATE[n.type])) ui = RCREATE[n.type](n, area, R);
-	else ui = standardCreate(n, area, R);
+	else ui = mDefault(n, area, R);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
@@ -255,7 +267,7 @@ function recPosRegularUiTree(uid, R) {
 	else if (num > 1 && num < 10) arrangeChildrenAsCircle(n, R);
 }
 function arrangeChildrenAsQuad(n, R) {
-	console.log('arrangeChildrenAsQuad', n.children);
+	//console.log('arrangeChildrenAsQuad', n.children);
 	let children = n.children.map(x => R.uiNodes[x]);
 
 
@@ -269,7 +281,7 @@ function arrangeChildrenAsQuad(n, R) {
 	//calc max size of children first! set size accordingly!
 	for (const n1 of children) {
 		let b = getBounds(n1.ui);
-		console.log('uid', n1.uid, 'w', b.width)
+		//console.log('uid', n1.uid, 'w', b.width)
 		let newMax = Math.max(Math.max(b.width, b.height), size);
 		if (newMax > size) {
 			console.log('got new max:', newMax);

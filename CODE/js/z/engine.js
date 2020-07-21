@@ -70,7 +70,7 @@ class TestEngine {
 		localStorage.setItem('testSeries', this.series);
 		localStorage.setItem('testIndex', this.index);
 
-		console.log('series',series,'index',index)
+		//console.log('series',series,'index',index)
 		mBy('message').innerHTML = '(main) ' + series + ' case: ' + index;
 
 		this.spec = spec;

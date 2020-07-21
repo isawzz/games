@@ -31,7 +31,7 @@ function recTree(n, rParent, R, oid, key) {
 			lookupAddToList(R.Locations, [nodeName], uid);
 			n1.here = nodeName;
 			//console.log(n1,n)
-			if (nundef(n.data)) n1.type = 'invisible';
+			if (nundef(n.data) && nundef(n.type)) n1.type = 'invisible';
 		}
 	} else if (isList(nodeName)) {
 		console.log('REINGEFALLEN!!!!!!!!!!!!!!!!!!!!!!')

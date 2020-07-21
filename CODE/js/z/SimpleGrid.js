@@ -1,5 +1,6 @@
 class SimpleGrid {
 	constructor(id, { mapData, shape = 'hex', rows = 3, cols = 2, idPrefix, hasNodes = false, hasEdges = false, randomizeIds = false } = {}) {
+		//console.log('SimpleGrid', arguments)
 		this.randomizeIds = randomizeIds;
 		this.mapData = mapData;
 		this.dhelp = {};
@@ -20,6 +21,8 @@ class SimpleGrid {
 			this.topcols = cols;
 			this.colarr = new Array(rows).fill(cols);
 		}
+		//console.log('SimpleGrid', this.colarr, this.sides, this.degree, this.obj_type)
+
 		this.maxcols = arrMax(this.colarr);
 		this.rows = rows;
 		this.cols = cols;
@@ -34,23 +37,37 @@ class SimpleGrid {
 		}
 
 		this._calcMetrics();
-		this._verifyMetrics(true);
+		this._verifyMetrics();
 
 		this.hasNodes = hasNodes;
 		this.hasEdges = hasEdges;
 		this._addPositions();
 
 		if (!this.hasNodes) {
+			for (const id of this.fields) {
+				delete this.objects[id].corners;
+			}
+			for (const id of this.edges) {
+				delete this.objects[id].corners;
+			}
 			for (const id of this.corners) {
 				delete this.objects[id];
 			}
-			this.corners = [];
+			delete this.corners; // = [];
 		}
 		if (!this.hasEdges) {
+			for (const id of this.fields) {
+				delete this.objects[id].edges;
+			}
+			if (isdef(this.corners)) {
+				for (const id of this.corners) {
+					delete this.objects[id].edges;
+				}
+			}
 			for (const id of this.edges) {
 				delete this.objects[id];
 			}
-			this.edges = [];
+			delete this.edges; // = [];
 		}
 
 	}
@@ -98,7 +115,7 @@ class SimpleGrid {
 
 		this.wBoard = right - left + this.wdef; // + this.wdef/2;
 		this.hBoard = bottom - top + this.hdef; // + this.hdef/2;
-		////console.log('left',left,'right',right,'wdef',this.wdef,'wBoard',this.wBoard)
+		//console.log('left',left,'right',right,'wdef',this.wdef,'wBoard',this.wBoard)
 		let dx = (left + right) / 2;
 		let dy = (top + bottom) / 2;
 		//unitTestGrid('verschieben um', -dx, -dy);
@@ -162,7 +179,7 @@ class SimpleGrid {
 
 		if (w == undefined) {
 			let g = document.getElementById(gName);
-			////console.log(gName);
+			//console.log(gName);
 			let transinfo = getTransformInfo(g);
 			w = transinfo.translateX * 2;
 			h = transinfo.translateY * 2;
@@ -174,7 +191,7 @@ class SimpleGrid {
 			fw = ff;
 			fh = ff;
 		}
-		////console.log(wBoard, wField, hBoard, hField, w, h, fw, fh);
+		//console.log(wBoard, wField, hBoard, hField, w, h, fw, fh);
 
 		return [fw, fh, Math.floor(fw / f2nRatio), Math.floor(fh / f2nRatio), edgeWidth];
 	}
@@ -195,21 +212,23 @@ class SimpleGrid {
 		this.fieldsByRowCol = {};
 		//fields
 		for (let irow = 0; irow < this.colarr.length; irow++) {
-			this.fieldsByRowCol[irow + 1] = {};
+			this.fieldsByRowCol[irow] = {};
+			// this.fieldsByRowCol[irow + 1] = {};
 			let colstart = this.maxcols - this.colarr[irow];
 			for (let j = 0; j < this.colarr[irow]; j++) {
 				var icol = colstart + 2 * j;
 				let field = {};
 				field.obj_type = 'field';
 				field.id = this._getId(field);
-				field.row = irow + 1;
-				field.col = icol + 1;
+				field.row = irow;// + 1;
+				field.col = icol;// + 1;
 				field.edges = arrCreate(6, () => null);
 				field.neighbors = arrCreate(6, () => null);
 				field.corners = arrCreate(6, () => null);
 				this.objects[field.id] = field;
 				this.fields.push(field.id);
-				this.fieldsByRowCol[irow + 1][icol + 1] = field.id;
+				this.fieldsByRowCol[irow][icol] = field.id;
+				//this.fieldsByRowCol[irow + 1][icol + 1] = field.id;
 			}
 		}
 		//nodes________________
@@ -352,20 +371,24 @@ class SimpleGrid {
 		this.fieldsByRowCol = {};
 		//fields_________________
 		for (let irow = 0; irow < this.colarr.length; irow++) {
-			this.fieldsByRowCol[irow + 1] = {};
+			this.fieldsByRowCol[irow] = {};
+			// this.fieldsByRowCol[irow + 1] = {};
 			for (let icol = 0; icol < this.colarr[irow]; icol++) {
 				let field = {};
-				////console.log('-------------------------------------------new field!!!!!');
+				//console.log('-------------------------------------------new field!!!!!');
 				field.obj_type = 'field';
 				field.id = this._getId(field);
-				field.row = irow + 1;
-				field.col = icol + 1;
+				// field.row = irow + 1;
+				// field.col = icol + 1;
+				field.row = irow; // + 1;
+				field.col = icol; // + 1;
 				field.edges = arrCreate(4, () => null);
 				field.neighbors = arrCreate(4, () => null);
 				field.corners = arrCreate(4, () => null);
 				this.objects[field.id] = field;
 				this.fields.push(field.id);
-				this.fieldsByRowCol[irow + 1][icol + 1] = field.id;
+				this.fieldsByRowCol[irow][icol] = field.id;
+				//this.fieldsByRowCol[irow + 1][icol + 1] = field.id;
 			}
 		}
 
@@ -519,7 +542,7 @@ class SimpleGrid {
 	_recurseFields(fid, { x = 0, y = 0 } = {}) {
 		if (!fid) return;
 		let f = this.objects[fid];
-		////console.log(fid, f, this.objects);
+		//console.log(fid, f, this.objects);
 		if ('done' in f) return;
 		f.done = true;
 		f.h = this.hdef;
@@ -600,16 +623,50 @@ class SimpleGrid {
 			//console.log('*** verifying board ***', this.id);
 		}
 		if (this.corners.length != this.nNodes || this.edges.length != this.nEdges || this.fields.length != this.nFields) {
-			console.log('hexgrid', this.rows, this.cols, 'should have:');
-			console.log('\t', this.nFields, 'fields');
-			console.log('\t', this.nNodes, 'nodes');
-			console.log('\t', this.nEdges, 'edges');
-			console.log('\ttotal:', this.nEdges + this.nFields + this.nNodes);
-			console.log(this.fields.length, 'fields', this.corners.length, 'nodes,', this.edges.length, 'edges, total:', Object.keys(this.objects).length);
+			//console.log('_verifyMetrics', this.rows, this.cols, 'should have:');
+			//console.log('\t', this.nFields, 'fields');
+			//console.log('\t', this.nNodes, 'nodes');
+			//console.log('\t', this.nEdges, 'edges');
+			//console.log('\ttotal:', this.nEdges + this.nFields + this.nNodes);
+			//console.log(this.fields.length, 'fields', this.corners.length, 'nodes,', this.edges.length, 'edges, total:', Object.keys(this.objects).length);
 		} else if (verbose) {
-			console.log('CORRECT!', this.fields.length, 'fields', this.corners.length, 'nodes,', this.edges.length, 'edges, total:', Object.keys(this.objects).length);
+			//console.log('CORRECT!', this.fields.length, 'fields', this.corners.length, 'nodes,', this.edges.length, 'edges, total:', Object.keys(this.objects).length);
 		}
 	}
 }
 
+function simpleGridToServerData(b1) {
+	let bo1 = {};
+	let fields = bo1.fields = { _set: b1.fields.map(oid => { return { _obj: oid }; }) };
+	//console.log('fields', fields);
+
+	let edges = null;
+	if (b1.hasEdges) {
+		edges = bo1.edges = { _set: b1.edges.map(oid => { return { _obj: oid }; }) };
+		//console.log('edges', edges);
+
+	}
+
+	let corners = null;
+	if (b1.hasNodes) {
+		corners = bo1.corners = { _set: b1.corners.map(oid => { return { _obj: oid }; }) };
+		//console.log('corners', corners);
+	}
+
+	bo1.rows = b1.rows;
+	bo1.cols = b1.mapData[0].length;
+	let obj_type = bo1.obj_type = 'Board';
+	//console.log('rows', bo1.rows, 'cols', bo1.cols, 'obj_type', bo1.obj_type);
+
+	if (this.shape == 'hex') {
+		let maxColIndex = 2 * b1.colarr[b1.imiddleRow] - 1;
+		console.assert(maxColIndex == bo1.cols, 'maxColIndex is NOT correct!!!!!!!!', maxColIndex, bo1.cols)
+	}
+	//transform fields,edges,corners to sdata objects
+	//return sdata
+
+	bo1.map = b1.mapData;
+
+	return bo1;
+}
 

@@ -122,6 +122,12 @@ function showSetSizes(nLast, R) {
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
 		if (nundef(n.size)) setSP(n);
+		// if (isdef(n.size) && isdef(n.sizeNeeded)) {
+		// 	//console.log(n.uid, 'size w=' + n.size.w, 'h=' + n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
+		// } else {
+		// 	setSP(n);
+		// 	//console.log(n.uid, 'size (unset) w=' + n.size.w, 'h=' + n.size.h, 'pos', n.pos.x, n.pos.y); //R.UIS[uid]);
+		// }
 	}
 }
 function showSizes(nLast, R) {
@@ -155,9 +161,9 @@ function oupos() {
 	}
 }
 function setSP(n) {
-	console.log('--- setSP_ ---',n.uid)
 	let ui = n.ui;
 	let b = getBounds(ui, true);
+	console.log('--- setSP_ ---',b)
 	n.size = { w: b.width, h: b.height };
 	n.pos = { x: b.x, y: b.y };
 

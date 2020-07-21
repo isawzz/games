@@ -2,6 +2,11 @@ function bringToFront(ui) {
 	ui.style.zIndex = maxZIndex;
 	maxZIndex += 1;
 }
+function sendToBack(ui) {
+	ui.style.zIndex = 0;
+	//delete ui.style.zIndex; // = maxZIndex;
+	//maxZIndex += 1;
+}
 function recListToString(lst) {
 
 	if (!isList(lst)) return lst;
@@ -322,6 +327,18 @@ const COLORPARAMNAMES = {
 	highlight1: true,
 	highlight1: true,
 }
+function addClassInfo(ui, n) {
+	if (isdef(ui.firstChild)) {
+		//addClass(ui.firstChild, 'centered');
+		let cl1 = Array.from(ui.firstChild.classList); cl1 = isEmpty(cl1) ? cl1 : cl1.join(',');
+		let cl = Array.from(ui.classList); cl = isEmpty(cl) ? cl : cl.join(',');
+		n.class = { pre: cl1, top: cl };
+
+	} else {
+		let cl = Array.from(ui.classList); cl = isEmpty(cl) ? cl : cl.join(',');
+		n.class = cl;
+	}
+}
 function decodeColor(c) {
 	//color of form: [name lum alpha] is turned into corresponding number
 	//name...knowncolor, lum...percent helligkeit (0=black,100=white), alpha:0-1
@@ -367,12 +384,14 @@ function decodeParams(n, R, defParams) {
 	if (nundef(n.params)) n.params = lookup(R.defs, [n.type, 'params']);
 	if (!n.params) n.params = {};
 	//console.log('________ decodeParams for type',n.type);
-	// console.log('n.params', n.params);
 	// console.log('n.defParams', n.defParams);
 
 	let inherited = lookup(defParams, [n.type, 'params']);
 	let defaults = lookup(R.defs, [n.type, 'params']);
-	let defs = n.params.inherit ? inherited : defaults;
+	let defs = n.params.inherit ? inherited : defaults?defaults:{};
+
+	//console.log('n.params', n.params,'defs',defs, 'defaults',defaults);
+
 	if (n.type != 'grid') n.params = mergeOverrideArrays(defs, n.params);
 
 	let o = isdef(n.oid) ? R.getO(n.oid) : null;
@@ -447,6 +466,7 @@ function paramsToCss(params) {
 	//console.log('params:', res.css, '\n', res.typ, '\n', res.std)
 	return res;
 }
+function isSizedNode(n) { return isdef(n.params.size) || isdef(n.params.width) || isdef(n.params.height); }
 function justIds(o) {
 	return Object.keys(o);
 }

@@ -4,9 +4,11 @@ class Activator {
 		this.ui = isdef(n.uiActive) ? n.uiActive : ui;
 		this.uid = n.uid;
 		this.R = R;
+		// this.hoverActive = ACTIVATE_UI; //false;
+		// this.clickActive = ACTIVATE_UI; //false;
 		this.hoverActive = false;
 		this.clickActive = false;
-
+		//console.log('ACTIVATOR NEW!!!',n)
 	}
 	activate(fEnter, fLeave, fClick) { this.activateHover(fEnter, fLeave); this.activateClick(fClick); }
 	activateHover(fEnter, fLeave) {
@@ -83,6 +85,11 @@ function unhighSelfAndRelatives(uid, R) {
 			let ui = R.getUI(uid1);
 			mUnhigh(ui);
 		}
+	}
+	let n = R.uiNodes[uid];
+	if (n.potentialOverlap) {
+		let ui = R.getUI(uid);
+		sendToBack(ui);
 	}
 }
 function selectUid(uid, R) {

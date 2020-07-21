@@ -51,10 +51,16 @@ function generalGrid(nuiBoard, area, R) {
 	//gridLayout_(nuiBoard, R);
 }
 function createBoard(nui, area, R) {
-	let [oid, boardType] = detectBoardOidAndType(nui.oid, nui.boardType, R);
+	let [oid, boardType, r0, c0] = detectBoardOidAndType(nui.oid, nui.boardType, R);
 	nui.oid = oid;
 	nui.boardType = boardType;
-	nui.bi = window[nui.boardType](R.getO(nui.oid), R);
+	let baseIndex = { r0: r0, c0: c0 };
+	// let [funcBoardInfo,funcFieldInfo]=window[nui.boardType](R.getO(nui.oid), R);
+	// nui.baseIndex={r0:r0,c0:c0};
+	nui.bi = window[nui.boardType](R.getO(nui.oid), R, baseIndex);
+	//nui.bi.minRow=r0;
+	//nui.bi.minCol=c0;
+	//nui.bi = gridSkeleton()
 	generalGrid(nui, area, R);
 }
 function updateSizes(nuiBoard) {
@@ -156,10 +162,10 @@ function calcBoardDimensionsX(nuiBoard, R) {
 	//console.log('setting board margin to',margin,'padding',bParams.padding);
 
 	let [fw, fh] = [fSpacing / boardInfo.wdef, fSpacing / boardInfo.hdef];
-	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 :nuiBoard.params.sizes.c;// isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bParams.corners) ? bParams.corners.size : 15;
-	
+	let cornerSize = isEmpty(nuiBoard.bi.corners) ? 0 : nuiBoard.params.sizes.c;// isEmpty(nuiBoard.bi.corners) ? 0 : isdef(bParams.corners) ? bParams.corners.size : 15;
+
 	//console.log('cornerSize',cornerSize)
-	
+
 	let [wBoard, hBoard] = [fw * boardInfo.w + cornerSize, fh * boardInfo.h + cornerSize];
 	let [wTotal, hTotal] = [wBoard + 2 * margin, hBoard + 2 * margin];
 
@@ -222,10 +228,23 @@ function detectBoardOidAndType(oid, boardType, R) {
 	let oBoard = R.getO(oid);
 	//console.log('board server object',oBoard);
 	if (!boardType) boardType = detectBoardType(oBoard, R);
-	return [oid, boardType];
+
+	let fids = getElements(oBoard.fields);
+	let r0=1000;let c0=1000;
+	for(const fid of fids){
+		let f=R.getO(fid);
+		if (f.row<r0)r0=f.row;
+		if (f.col<c0)c0=f.col;
+	}
+	//let fid0 = getElements(oBoard.fields)[0];
+	//let f0 = R.getO(fid0);
+	//console.log('.......f0',f0);
+	//let [r0, c0] = [f0.row, f0.col];
+
+	return [oid, boardType, r0, c0];
 }
 function detectBoardParams(n, R) {
-	// console.log('board node before detectBoardParams!',jsCopy(n));
+	// //console.log('board node before detectBoardParams!',jsCopy(n));
 
 	// *** 1 *** merge of node params and default params for grid and n.boardType
 	let allParams = {};
@@ -257,7 +276,7 @@ function detectFirstBoardObject(R) {
 function detectBoardType(oBoard, R) {
 	//console.log(oBoard)
 	let fid0 = getElements(oBoard.fields)[0];
-	//console.log(fid0)
+	//console.log('------------',fid0)
 	let nei = R.getO(fid0).neighbors;
 	//console.log('nei',nei);
 	let len = nei.length;
@@ -267,7 +286,7 @@ function detectBoardType(oBoard, R) {
 //#region helpers
 function createArtificialSpecForBoardMemberIfNeeded(oid, o, R) {
 
-	//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+	//if (!oidNodesSame(oid,R)) { //console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 
 	let key = R.getR(oid);
 	if (!isEmpty(key)) {
@@ -282,7 +301,7 @@ function createArtificialSpecForBoardMemberIfNeeded(oid, o, R) {
 		R.lastSpec[key] = { cond: { obj_type: o.obj_type }, type: 'info' };//, data: '.' };
 		R.addR(oid, key);
 		//R.oidNodes[key] = key;// ELIM
-		//if (!oidNodesSame(oid,R)) { console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
+		//if (!oidNodesSame(oid,R)) { //console.log('NOT EQUAL!!!!!!!!!!', getOidNodeKeys(oid,R), R.getR(oid)); }
 
 		//retest all objects in R for this cond!
 		R.updateR(key);
@@ -297,12 +316,20 @@ function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 	for (const fid of getElements(omap.fields)) {
 		let o = R.getO(fid);
 		fields[fid] = { oid: fid, o: o, info: fieldInfoFunc(board.info, o.row, o.col) };
+		//console.log('row',o.row,'col',o.col, fields[fid].info);
+		//fields[fid].info.x+=4;
+		//fields[fid].info.y+=4;
 	}
-	// console.log('fields', fields);
+	// //console.log('fields', fields);
 
 	//now vertices
 	board.info.vertices = correctPolys(Object.values(fields).map(x => x.info.poly), 1);
 
+	//console.log('===> oBoard',omap);
+
+	// if (o.corners){
+
+	// }
 	let dhelp = {}; //remember nodes that have already been created!!!
 	let corners = {};
 	for (const fid in fields) {
@@ -317,7 +344,7 @@ function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 			i += 1;
 		}
 	}
-	// console.log('corners', corners);
+	// //console.log('corners', corners);
 
 	//now edges
 	dhelp = {}; //remember edges that have already been created!!!
@@ -336,13 +363,13 @@ function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 			}
 		}
 	}
-	// console.log('edges', edges);
+	// //console.log('edges', edges);
 
 	return { board: board, fields: fields, corners: corners, edges: edges };
 
 }
 
-function quadGrid(o, R) {
+function quadGrid(o, R, baseIndex) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
 		let info = {
@@ -355,20 +382,26 @@ function quadGrid(o, R) {
 			dy: hdef,
 			w: wdef * cols,
 			h: hdef * rows,
-			minRow: 1,
-			minCol: 1,
+			// minRow: 1,
+			// minCol: 1,
 		};
 		return info;
 	}
 	function fieldInfo(boardInfo, row, col) {
 		//is exactly same as for hex field except for shape! >so unify after testing!
+
+		//find lowest row,col
+		//console.log('///////////',boardInfo.minRow)
+
 		let info = {
 			shape: 'rect',
 			memType: 'field',
 			row: row,
 			col: col,
-			x: -boardInfo.w / 2 + (col - boardInfo.minCol) * boardInfo.dx + boardInfo.wdef / 2,
-			y: -boardInfo.h / 2 + (row - boardInfo.minRow) * boardInfo.dy + boardInfo.hdef / 2,
+			x: -boardInfo.w / 2 + (col - baseIndex.c0) * boardInfo.dx + boardInfo.wdef / 2,
+			y: -boardInfo.h / 2 + (row - baseIndex.r0) * boardInfo.dy + boardInfo.hdef / 2,
+			// x: -boardInfo.w / 2 + (col - boardInfo.minCol) * boardInfo.dx + boardInfo.wdef / 2,
+			// y: -boardInfo.h / 2 + (row - boardInfo.minRow) * boardInfo.dy + boardInfo.hdef / 2,
 			w: boardInfo.wdef,
 			h: boardInfo.hdef,
 		};
@@ -376,10 +409,11 @@ function quadGrid(o, R) {
 		info.poly = getQuadPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
+	//return [boardInfo,fieldInfo];
 	return gridSkeleton(o, R, boardInfo, fieldInfo);
 
 }
-function hexGrid(o, R) {
+function hexGrid(o, R, baseIndex) {
 	function boardInfo(rows, cols) {
 		[wdef, hdef] = [4, 4];
 		[dx, dy] = [wdef / 2, (hdef * 3) / 4];
@@ -399,19 +433,24 @@ function hexGrid(o, R) {
 		return info;
 	}
 	function fieldInfo(boardInfo, row, col) {
+		//console.log('baseIndex', baseIndex)
 		let info = {
 			shape: 'hex',
 			memType: 'field',
 			row: row,
 			col: col,
-			x: -boardInfo.w / 2 + (col - boardInfo.minCol) * boardInfo.dx + boardInfo.wdef / 2,
-			y: -boardInfo.h / 2 + boardInfo.hdef / 2 + (row - boardInfo.minRow) * boardInfo.dy,
+			x: -boardInfo.w / 2 + (col - baseIndex.c0) * boardInfo.dx + boardInfo.wdef / 2,
+			y: -boardInfo.h / 2 + boardInfo.hdef / 2 + (row - baseIndex.r0) * boardInfo.dy,
+			// x: -boardInfo.w / 2 + (col - boardInfo.minCol) * boardInfo.dx + boardInfo.wdef / 2,
+			// y: -boardInfo.h / 2 + boardInfo.hdef / 2 + (row - boardInfo.minRow) * boardInfo.dy,
 			w: boardInfo.wdef,
 			h: boardInfo.hdef,
 		};
 		info.poly = getHexPoly(info.x, info.y, info.w, info.h);
 		return info;
 	}
+	//return [boardInfo,fieldInfo];
+
 	return gridSkeleton(o, R, boardInfo, fieldInfo);
 }
 

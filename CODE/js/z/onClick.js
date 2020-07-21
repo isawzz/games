@@ -63,10 +63,12 @@ function onClickNextTestOfSeries() {
 }
 function onClickAllTests() {
 	setRSG_SOURCE('test');
+	isTraceOn = false;
 	runAllTests();
 }
 function onClickAllTestSeries() {
 	iTESTSERIES = 0;
+	isTraceOn = false;
 	onClickResetTest();
 	runAllTestSeries();
 }
@@ -178,7 +180,7 @@ async function onClickRunAll() {
 	setRSG_SOURCE('main');
 	STOP = false;
 	isTraceOn = false;
-	console.log('===> isTraceOn', isTraceOn)
+	//console.log('===> isTraceOn', isTraceOn)
 	let sel = mBy('selSeries');
 	let listSeries = [];
 	for (const ch of sel.children) {
@@ -207,7 +209,8 @@ async function onTestSeriesChanged() {
 
 	// await testEngine.init(DEFS, sData, series);
 	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
-
+	series = DIR_TESTS+'/'+series;
+	console.log('series',series)
 	await testEngine.loadSeries(series);
 	onClickClearTable();
 	onClickRepeatTest();
@@ -305,9 +308,13 @@ function onClickAddBoard() { addBoard(T); }
 
 function onClickAddRobber() { addRobber(T); }
 
-function onClickActivate() { testActivate(T); }
+function onClickActivate() { 
+	console.log('on click',T)
+	ACTIVATE_UI=true;
+	testActivate(T); 
+}
 
-function onClickDeactivate() { testDeactivate(T); }
+function onClickDeactivate() { ACTIVATE_UI=false;testDeactivate(T); }
 
 function onClickRemove() { testRemoveObject(T); }
 

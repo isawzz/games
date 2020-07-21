@@ -9,12 +9,6 @@ defaults:
   #defaultPresentationStrategy: orig
   #defaultPositioning: none
 
-  cssEmpty:
-    params:
-
-  cssPrefab00:
-    params:
-
   empty:
     params:
       bg: blue
@@ -36,7 +30,7 @@ defaults:
     params:
       bg: random
       fg: contrast
-      font: 18px Arial
+      font: 18px Arial #AlgerianRegular
       padding: 2
       margin: 2
       orientation: h
@@ -47,12 +41,17 @@ defaults:
       justify-content: center
       align-items: center
       align-content: center
+      #________________
+      # align-items: stretch
+      # justify-content: space-evenly
+      # align-content: space-evenly
+      # justify-items: flex-start
 
   info:
     params:
-      bg: random
+      bg: random #inherit
       fg: contrast
-      font: 16px Comic Sans MS
+      font: 16px Comic Sans MS #AlgerianRegular
       display: flex
       justify-items: center
       justify-content: center

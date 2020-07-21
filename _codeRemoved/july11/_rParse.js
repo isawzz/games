@@ -1,9 +1,9 @@
 //#region Function: rParse
 
 //Function: rParse
-//source: test | main
+//source: test | main | direct
 //
-//context: {fStruct, options} | {spec,sdata,defs}
+//context: {fStruct, options} | {spec,sdata,defs} | 
 //#endregion
 async function rParse(source, context) {
 	R = await generateTree(source, context);
@@ -30,7 +30,7 @@ async function rParse(source, context) {
 
 // Function: generateTree
 //
-// depending on source (main or test) generates R
+// depending on source (main/direct or test) generates R
 //
 // sets R.uidRoot, R.uiRoot=R.root, R.rRoot
 //
@@ -121,7 +121,12 @@ function showSetSizes(nLast, R) {
 	//console.log('______showSizes_______',nLast.uid);
 	for (const uid in R.uiNodes) {
 		let n = R.uiNodes[uid];
-		if (nundef(n.size)) setSP(n);
+		if (isdef(n.size) && isdef(n.sizeNeeded)) {
+			//console.log(n.uid, 'size w=' + n.size.w, 'h=' + n.size.h, 'measured', n.sizeMeasured.w, n.sizeMeasured.h, 'needed', n.sizeNeeded.w, n.sizeNeeded.h,); //R.UIS[uid]);
+		} else {
+			setSP(n);
+			//console.log(n.uid, 'size (unset) w=' + n.size.w, 'h=' + n.size.h, 'pos', n.pos.x, n.pos.y); //R.UIS[uid]);
+		}
 	}
 }
 function showSizes(nLast, R) {
@@ -155,9 +160,9 @@ function oupos() {
 	}
 }
 function setSP(n) {
-	console.log('--- setSP_ ---',n.uid)
 	let ui = n.ui;
 	let b = getBounds(ui, true);
+	//console.log('-------------------',b)
 	n.size = { w: b.width, h: b.height };
 	n.pos = { x: b.x, y: b.y };
 

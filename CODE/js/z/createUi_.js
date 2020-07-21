@@ -13,7 +13,7 @@ function createUi(n, area, R) {
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 	let ui;
-	if (nundef(RCREATE[n.type])) ui=standardCreate(n,area,R);
+	if (nundef(RCREATE[n.type])) ui=mDefault(n,area,R);
 	else ui = RCREATE[n.type](n, area, R);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
