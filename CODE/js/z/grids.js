@@ -32,7 +32,7 @@ function generalGrid(nuiBoard, R,area) {
 
 			let ntree, nui;
 			//console.log('jetzt kommt',oid)
-			ntree = instantOidKey(oid, key, uidBoard, R);
+			ntree = instantOidKey(oid, key, uidBoard, R); //hier wird rtree modified!!!
 			ntree.params = isdef(ntree.params) ? safeMerge(groupParams, ntree.params) : groupParams;
 
 			if (ntree.params.size != groupSize) groupSize = nuiBoard.params.sizes[name[0]] = ntree.params.size;

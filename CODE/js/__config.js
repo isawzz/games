@@ -4,11 +4,11 @@ var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
 
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
-var RSG_SOURCE = 'test'; // test | main | direct 
+var RSG_SOURCE = 'main'; // test | main | direct 
 
 // main
 var DIR_TESTS = '_A'; // _A/ _B/
-var DIR_SERIES = '00'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
+var DIR_SERIES = '08'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
 var TEST_SERIES = DIR_TESTS + '/' + DIR_SERIES;
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 var TEST_INDEX = null;//2; //when != null, should override localStorage!

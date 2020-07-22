@@ -65,7 +65,8 @@ async function generateTree(source, context) {
 // depending on R.presentationStrategy and root.params.sizing, size and pos set for every node
 //#endregion
 async function presentTree(uiRoot, R) {
-	trace('___source=' + RSG_SOURCE, 'presStrategy=' + R.presentationStrategy + ', sizing=' + uiRoot.params.sizing);
+	//return;
+	//console.log('___source=' + RSG_SOURCE, 'presStrategy=' + R.presentationStrategy + ', sizing=' + uiRoot.params.sizing);
 	if (R.presentationStrategy == 'rec') {
 		trace('calling recPresentNode_')
 		recPresentNode(uiRoot, R, uiRoot.params);
@@ -105,7 +106,7 @@ async function presentTree(uiRoot, R) {
 			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
 			
 		} else {
-			trace('calling recMeasureOverride');
+			//console.log('*** calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);
 		}
 	} else {

@@ -15,6 +15,8 @@ function evalSpecPath(n, relpath, R) {
 }
 
 //#region sieve oids with loc (einhaengen_ von server objects mit loc prop)
+var TESTVAR=0;
+
 function calcCycles(R) {
 	let oids = jsCopy(R.locOids);
 	let cycles = R.partitions = {};
@@ -114,9 +116,12 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 		let changed = false;
 		for (const oid of locOids) {
 			let top = einhaengen(oid, R.getO(oid), R);
+			if (!isEmpty(top)) { 
 			//console.log('oid', oid, '\ntop', top, '\noid2uids', R.oid2uids[oid]);
-			if (!isEmpty(top)) { changed = true; } 
+			changed = true; 
+			} 
 		}
+		//TESTVAR+=1;console.log('*********sieving:',TESTVAR);
 		if (!changed) { break; }
 	}
 	//console.log('done after', cycles, 'cycles')
@@ -126,6 +131,7 @@ function sieveLocOids(R) {
 
 	calcCycles(R); //for all locOids that have not been added, calc cycles in order in which they can be added
 
+	//console.log('sieveLocOids',R.partitions)
 	//*** have R.partitions, R.oid2partition, R.locOids
 	for (const k in R.partitions) {
 		let cycle = R.partitions[k];

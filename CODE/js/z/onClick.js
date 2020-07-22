@@ -199,7 +199,7 @@ function onClickStop() { STOP = true; hide('btnStop'); }
 
 function onClickVerify() { testEngine.verify(T); }
 
-async function onClickVerifySoFar() { verifySequence(0, testEngine.index, true); }
+async function onClickVerifySoFar() { isTraceOn = false; verifySequence(0, testEngine.index, true); }
 
 async function onTestSeriesChanged() {
 
@@ -209,8 +209,8 @@ async function onTestSeriesChanged() {
 
 	// await testEngine.init(DEFS, sData, series);
 	// await present00_(testEngine.spec, testEngine.defs, testEngine.sdata);
-	series = DIR_TESTS+'/'+series;
-	console.log('series',series)
+	series = DIR_TESTS + '/' + series;
+	console.log('series', series)
 	await testEngine.loadSeries(series);
 	onClickClearTable();
 	onClickRepeatTest();
@@ -275,7 +275,12 @@ async function verNext(series, index, maxIndex, saveOnCompleted = false) {
 
 	let timeOUT = 500;
 	if (index < maxIndex && !STOP) setTimeout(async () => { await verNext(series, index + 1, maxIndex, saveOnCompleted); }, timeOUT);
-	else if (saveOnCompleted) { STOP = false; saveSolutions(series, testEngine.Dict[series].solutions); }
+	else {
+		isTraceOn = SHOW_TRACE;
+		STOP = false;
+		hide('btnStop');
+		if (saveOnCompleted) saveSolutions(series, testEngine.Dict[series].solutions);
+	}
 
 }
 async function verifySequence(indexFrom, indexTo, saveOnCompleted = false) {
@@ -308,13 +313,13 @@ function onClickAddBoard() { addBoard(T); }
 
 function onClickAddRobber() { addRobber(T); }
 
-function onClickActivate() { 
-	console.log('on click',T)
-	ACTIVATE_UI=true;
-	testActivate(T); 
+function onClickActivate() {
+	console.log('on click', T)
+	ACTIVATE_UI = true;
+	testActivate(T);
 }
 
-function onClickDeactivate() { ACTIVATE_UI=false;testDeactivate(T); }
+function onClickDeactivate() { ACTIVATE_UI = false; testDeactivate(T); }
 
 function onClickRemove() { testRemoveObject(T); }
 

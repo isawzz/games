@@ -495,19 +495,6 @@ function testRemoveBoard(R) {
 
 	removeServerObject(oid, 'board');
 
-
-	// if (isdef(oid)) { TV.boardOid = oid; TV.oBoard = R.getO(oid); }
-	// if (!oid) {
-	// 	console.log('no objects left in sData!!!');
-	// 	return;
-	// }
-
-	// delete sData[oid];
-	// //also have to remove all the children!
-	// completelyRemoveServerObjectFromRsg(oid, R);
-	// //console.log('removed oid',oid);
-	// updateOutput(R);
-	// if (activate) activateUis(R);
 }
 //#endregion
 

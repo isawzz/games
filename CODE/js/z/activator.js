@@ -10,17 +10,20 @@ class Activator {
 		this.clickActive = false;
 		//console.log('ACTIVATOR NEW!!!',n)
 	}
-	activate(fEnter, fLeave, fClick) { this.activateHover(fEnter, fLeave); this.activateClick(fClick); }
+	activate(fEnter, fLeave, fClick) {
+		//console.log('activate', this.uid);
+		this.activateHover(fEnter, fLeave); this.activateClick(fClick);
+	}
 	activateHover(fEnter, fLeave) {
 		if (this.hoverActive) return;
 		this.hoverActive = true;
-		this.ui.onmouseenter = (ev) => {ev.stopPropagation();fEnter(this.uid, this.R);}
-		this.ui.onmouseleave = (ev) =>  {ev.stopPropagation();fLeave(this.uid, this.R);}
+		this.ui.onmouseenter = (ev) => { ev.stopPropagation(); fEnter(this.uid, this.R); }
+		this.ui.onmouseleave = (ev) => { ev.stopPropagation(); fLeave(this.uid, this.R); }
 	}
 	activateClick(fClick) {
 		if (this.clickActive) return;
 		this.clickActive = true;
-		this.ui.onclick = (ev) => {ev.stopPropagation();fClick(this.uid, this.R);}
+		this.ui.onclick = (ev) => { ev.stopPropagation(); fClick(this.uid, this.R); }
 	}
 	deactivate() {
 		if (!this.hoverActive && !this.clickActive) return;

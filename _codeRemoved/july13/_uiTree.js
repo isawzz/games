@@ -1,19 +1,19 @@
 function recUi(n, R, area, oid, key) {
 
-	let n1 =R.uiNodes[n.uid] =  jsCopy(n);// ONLY DONE HERE!!!!!!!
+	let n1 = jsCopy(n);
 	let o = isdef(oid) ? R.getO(oid) : null;
 	if (isdef(n1.data)) { n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data); }
 
-	//R.uiNodes[n1.uid] = n1; 
-	if (n1.type == 'grid') { 
-		createBoard(n1, R, area); 
-		//return n1;
-	}	else {
+	R.uiNodes[n1.uid] = n1; // ONLY DONE HERE!!!!!!!
+	if (n1.type == 'grid') { createBoard(n1, R, area); }
+	else {
 		let lst = getElements(n1.content);
 		if (isdef(lst) && !isEmpty(lst)) {
 			let o = R.getO(lst[0]);
+			// if (isListOfLiterals(lst) && isdef(o)) { createPanelParentOfObjects(lst, n1, area, R); handleListOfObjectIds(lst, n1, area, R); }
 			if (isListOfLiterals(lst) && isdef(o)) { handleListOfObjectIds(lst, n1, area, R); }
 			else if (isListOfLists(lst) && isdef(o[0])) {
+				// for (const l of lst) { createPanelParentOfObjects(l, n1, area, R); handleListOfObjectIds(l, n1, area, R); }
 				for (const l of lst) { handleListOfObjectIds(l, n1, area, R); }
 			}
 			else {
@@ -24,11 +24,10 @@ function recUi(n, R, area, oid, key) {
 			let rTreePanel = R.rNodes[n1.uid];
 			n1.children = rTreePanel.children;
 
-		} else { 
-			n1.ui = createUi(n1, R, area); 
-		}
+		} else { n1.ui = createUi(n1, R, area); }
 	}
-
+	if (R.isUiActive) n1.act.activate(highSelfAndRelatives, unhighSelfAndRelatives, selectUid);
+	//else trace('NO,R.isUiActive is false!!!!!!',n.uid);
 	if (nundef(n1.children) || n1.type == 'grid') return n1;
 
 	//hier werden weitere children mit derselben oid created:
@@ -60,7 +59,7 @@ function handleListOfObjectIds(lst, n1, area, R) {
 		let key = keysForOids[oid1]; // createArtificialSpecForBoardMemberIfNeeded(oid1, o1, R);
 		//console.log('found key for', oid1, '=', key);
 		let ntree, nui;
-		ntree = instantOidKey(oid1, key, n1.uid, R); //hier wird rtree von recUi aus erweitert!!!
+		ntree = instantOidKey(oid1, key, n1.uid, R);
 		nui = recUi(ntree, R, n1.uid, oid1, key);
 	}
 }

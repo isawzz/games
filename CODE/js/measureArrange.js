@@ -16,30 +16,35 @@ function recMeasureOverride(uid, R) {
 	//showSizes(n, R);
 }
 function arrangeOverride(n, R) {
+
 	if (nundef(n.children)) return { w: 0, h: 0 }
 
-	if (isdef(RLAYOUT[n.type])) return RLAYOUT[n.type](n,R);
+
+	if (isdef(RLAYOUT[n.type])) {
+		//console.log('uid', n.uid, 'FOUND RLAYOUT FUNC type=' + n.type, RLAYOUT[n.type].name)
+		return RLAYOUT[n.type](n, R);
+	}
 
 	if (n.type == 'grid') {
 		console.log('should have been done')
 	} else if (n.type == 'hand') {
 		console.log('should have been done')
-		
+
 		let szNeeded = handLayout(n, R);
 		return szNeeded;
 
-	} else if (n.uiType == 'd') {
-		// console.log('===> (panelLayout_) type',n.type)
-		let szNeeded = panelLayout(n, R);
-		//console.log('height needed returned from panelLayout_',szNeeded.h)
-		return szNeeded;
-
 	} else if (n.info) {
-
+		//console.log('uid', n.uid, 'wrapLayoutSizeNeeded wird fuer type=' + n.type, 'ausgerufen!!!! weil n.info gesetzt!')
 		n.sizeNeeded = wrapLayoutSizeNeeded(n.children, R);
 		let nBoard = R.uiNodes[n.uidParent];
 		addResizeInfo(nBoard, n, n.sizeNeeded);
 		return { w: n.sizeNeeded.w, h: n.sizeNeeded.h };
+
+	} else if (n.uiType == 'd') {
+		//console.log('uid', n.uid, '===> (panelLayout_) type=' + n.type)
+		let szNeeded = panelLayout(n, R);
+		//console.log('height needed returned from panelLayout_',szNeeded.h)
+		return szNeeded;
 
 	} else {
 		console.log('!!!!!!!!!!case NOT catched in arrangeOverride_!!!!!!!!!!', n);
@@ -344,7 +349,7 @@ function uniformSizeToContent(uid) {
 		let i = 0;
 		for (let r = 0; r < rows; r++) {
 			for (let c = 0; c < cols; c++) {
-				let ch = children[i]; 
+				let ch = children[i];
 				i += 1;
 				//console.log('.........',children.length,i,ch,n.uid)
 				ch.params.size = { w: wchi, h: hchi };
@@ -352,7 +357,7 @@ function uniformSizeToContent(uid) {
 				x += wchi + childMargin;
 				setFixedSizeAndPos(ch);
 			}
-			x = xoff+parentPadding;
+			x = xoff + parentPadding;
 			y += hchi + childMargin;
 		}
 
@@ -449,12 +454,12 @@ function uniformSizeToContent(uid) {
 function adjustTableSize(R) {
 	let d = mBy('table');
 	let root = R.root;
-	let b=getBounds(root.ui,true)
+	let b = getBounds(root.ui, true)
 	//consout_('b',b.height,'root.size',root.size);
 	if (!isdef(root.size)) {
 		setSP(root);
 		//console.log('>>>> root size not set',root)
-	}else{
+	} else {
 		//console.log('root size',root.size)
 	}
 	d.style.minWidth = root.size.w + 'px';
@@ -572,9 +577,9 @@ function recArrangeContent(uid, R) {
 		}
 	}
 
-	if (posModified || sizeModified) { 
-		for (const ch of children) { setFixedSizeAndPos(ch); } 
-	} 
+	if (posModified || sizeModified) {
+		for (const ch of children) { setFixedSizeAndPos(ch); }
+	}
 	// else return;
 
 	for (const ch of n.children) recArrangeContent(ch, R);
@@ -715,15 +720,15 @@ function handLayout_Wrapper(n, R) {
 	let uis = n.children.map(x => R.uiNodes[x].ui.parentNode);
 	let area = n.uid;
 
-	let ch0=R.uiNodes[n.children[0]];
+	let ch0 = R.uiNodes[n.children[0]];
 	let size = ch0.params.size;
-	let [w, h, gap] = [size.w,size.h, 4];
+	let [w, h, gap] = [size.w, size.h, 4];
 
 	if (isEmpty(uis)) return [0, 0];
 	let x = y = gap;
 	let ov = n.params.overlap / 100;
-	if (nundef(ov)) ov=.20;
-	console.log('overlap',ov,n.params);
+	if (nundef(ov)) ov = .20;
+	console.log('overlap', ov, n.params);
 	let overlap = .1 * w;
 	//console.log(uis);
 	let dParent = mBy(area);
@@ -928,7 +933,7 @@ function cardFace({ cardKey, rank, suit, key } = {}, w, h) {
 	let svgCode;
 	//console.log('cardFace',rank,suit,key,cardKey,w,h)
 	if (isdef(cardKey)) {
-		cardKey = 'card_'+cardKey;
+		cardKey = 'card_' + cardKey;
 		//console.log('cardKey kommt an:',cardKey,c52[cardKey])
 		svgCode = isdef(c52[cardKey]) ? c52[cardKey] : testCards[cardKey];
 		if (!svgCode) svgCode = vidCache.getRandom('c52');
