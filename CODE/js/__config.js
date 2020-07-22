@@ -14,7 +14,7 @@ var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 var TEST_INDEX = null;//2; //when != null, should override localStorage!
 
 //test
-var iTESTSERIES = 0;
+var iTESTSERIES = 7;
 var iTEST = null;//2; //when null, starts at last test of series!
 
 var SHOW_SPEC = false; // true | false

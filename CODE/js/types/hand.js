@@ -1,4 +1,4 @@
-function mHand(n, uidParent, R) {
+function mHand(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
 	let ui = mDiv(dParent);

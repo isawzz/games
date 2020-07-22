@@ -10,12 +10,12 @@ function recPresentNode(n, R, trickle) {
 
 	//hier muss dann das sizing machen
 	if (n.params.display == 'flex') {
-		console.log('flex type', n.type);
+		//console.log('flex type', n.type);
 		if (isdef(n.children)) n.size = panelLayout(n, R);
 		else n.size = measureElement(n.ui);
-		console.log(n.size);
+		//console.log(n.size);
 	} else {
-		console.log('NOT IMPLEMENTED!', n.type, n.params);
+		//console.log('NOT IMPLEMENTED!', n.type, n.params);
 	}
 	return;
 }

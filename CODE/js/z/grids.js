@@ -1,5 +1,5 @@
 
-function generalGrid(nuiBoard, area, R) {
+function generalGrid(nuiBoard, R,area) {
 
 	//console.log('gengrid')
 	// *** stage 1 create parent *** 
@@ -7,7 +7,7 @@ function generalGrid(nuiBoard, area, R) {
 
 	//console.log('area',area); mTextDiv('HALLO',mBy(area));
 
-	let ui = nuiBoard.ui = createUi(nuiBoard, area, R);
+	let ui = nuiBoard.ui = createUi(nuiBoard, R,area);
 	//console.log('board params', nuiBoard.params)
 
 	// *** stage 2 create children *** (in n.bi)
@@ -40,7 +40,7 @@ function generalGrid(nuiBoard, area, R) {
 			n1.info.size = groupSize;
 
 			ntree.info = n1.info;
-			nui = recUi(ntree, uidBoard, R, oid, key);
+			nui = recUi(ntree, R, uidBoard, oid, key);
 			//console.log('nui.info',nui.info)
 		}
 	}
@@ -50,7 +50,7 @@ function generalGrid(nuiBoard, area, R) {
 	// *** stage 4: layout! means append & positioning_ = transforms... ***
 	//gridLayout_(nuiBoard, R);
 }
-function createBoard(nui, area, R) {
+function createBoard(nui, R,area) {
 	let [oid, boardType, r0, c0] = detectBoardOidAndType(nui.oid, nui.boardType, R);
 	nui.oid = oid;
 	nui.boardType = boardType;
@@ -61,7 +61,7 @@ function createBoard(nui, area, R) {
 	//nui.bi.minRow=r0;
 	//nui.bi.minCol=c0;
 	//nui.bi = gridSkeleton()
-	generalGrid(nui, area, R);
+	generalGrid(nui, R,area);
 }
 function updateSizes(nuiBoard) {
 

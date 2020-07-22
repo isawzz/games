@@ -1,4 +1,4 @@
-function mCard52(n, uidParent, R) {
+function mCard52(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
 	// let uiWrapper = mDiv(dParent);

@@ -1,14 +1,15 @@
-function mDefault(n, area, R) {
+function mDefault(n, R, area) {
 	let ui;
 	let dParent = mBy(n.idUiParent);
 	ui = mDiv(dParent);
 	if (isdef(n.content)) {
-		//console.log('..........',isSizedNode(n))
-		let d = mNode(n.content, ui, n.title, isSizedNode(n));
+		//console.log('-------------',n.type)
+		let d;
+		if (n.type!='manual00') d = mNode(n.content, ui, n.title, isSizedNode(n));
+		else d = mNode(n.content, ui, n.title);
 		if (isdef(n.params['text-align'])) d.style.textAlign = n.params['text-align'];
 	}
-	addClassInfo(ui,n);
-	//let b = getBounds(ui, true);console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
+	if (n.type!='manual00') addClassInfo(ui,n);
 	return ui;
 
 }

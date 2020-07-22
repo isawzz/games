@@ -1,5 +1,5 @@
 
-function createUi(n, area, R) {
+function createUi(n, R, area) {
 	if (nundef(n.type)) { n.type = inferType(n); }
 	
 	//if (n.type == 'manual00') { if (isdef(n.children)) { n.type = 'panel'; } else { n.type = 'info'; } }
@@ -9,12 +9,12 @@ function createUi(n, area, R) {
 
 	decodeParams(n, R, {});
 
-	calcDirectParentAndIdUiParent(n, area, R);
+	calcDirectParentAndIdUiParent(n, R, area);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 	let ui;
 	if (nundef(RCREATE[n.type])) ui=mDefault(n,area,R);
-	else ui = RCREATE[n.type](n, area, R);
+	else ui = RCREATE[n.type](n, R, area);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
@@ -250,7 +250,7 @@ function calcRays(n, gParent, R) {
 	}
 
 }
-function calcDirectParentAndIdUiParent(n, uidParent, R) {
+function calcDirectParentAndIdUiParent(n, R, uidParent) {
 	if (uidParent && isBoardMember(uidParent, R)) {
 		let divParent = findAncestorElemOfType(mBy(uidParent), 'div');
 		n.idUiParent = divParent.id;

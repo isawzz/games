@@ -1,4 +1,4 @@
-function mGrid(n, uidParent, R) { //enspricht jetzt dem basic type grid!!!!
+function mGrid(n, R, uidParent) { //enspricht jetzt dem basic type grid!!!!
 	// *** stage 3: prep container div/svg/g (board) as posRel ***
 	let dParent = mBy(n.idUiParent);
 

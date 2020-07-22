@@ -174,7 +174,7 @@ async function testAblauf02(defs, spec, sdata0) {
 					uiParent.adirty = true;
 					uiParent.children = rParent.children.map(x => x);
 				}
-				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+				recUi(R.rNodes[top.uid], R, top.uidParent, oid, key);
 			}
 		}
 	}
@@ -223,7 +223,7 @@ async function testAblauf00(defs, spec, sdata0) {
 					uiParent.adirty = true;
 					uiParent.children = rParent.children.map(x => x);
 				}
-				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+				recUi(R.rNodes[top.uid], R, top.uidParent,  oid, key);
 			}
 		}
 	}
@@ -273,7 +273,7 @@ async function testAblauf01(defs, spec, sdata0) {
 					uiParent.adirty = true;
 					uiParent.children = rParent.children.map(x => x);
 				}
-				recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+				recUi(R.rNodes[top.uid], R, top.uidParent, oid, key);
 			}
 		}
 	}

@@ -190,7 +190,7 @@ function makeRoot() {
 function recUiTestX(n, R) {
 	let n1 = R.uiNodes[n.uid] = jsCopy(n);
 	let area = isdef(n1.uidParent) ? n1.uidParent : R.baseArea;
-	n1.ui = createUiTestX(n1, area, R);
+	n1.ui = createUiTestX(n1, R, area);
 
 	//console.log('************ have uiNode',n.uid,n1)
 
@@ -199,7 +199,7 @@ function recUiTestX(n, R) {
 		recUiTestX(R.rNodes[ch], R);
 	}
 }
-function createUiTestX(n, area, R) {
+function createUiTestX(n, R, area) {
 	//console.log('createUiTestX_',n)
 	if (nundef(n.type)) { n.type = inferType(n); }
 
@@ -211,13 +211,13 @@ function createUiTestX(n, area, R) {
 
 	decodeParams(n, R, {});
 
-	calcDirectParentAndIdUiParent(n, area, R);
+	calcDirectParentAndIdUiParent(n, R, area);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 
 	let ui;
-	if (isdef(RCREATE[n.type])) ui = RCREATE[n.type](n, area, R);
-	else ui = mDefault(n, area, R);
+	if (isdef(RCREATE[n.type])) ui = RCREATE[n.type](n, R, area);
+	else ui = mDefault(n, R, area);
 
 	if (nundef(n.uiType)) n.uiType = 'd'; // d, g, h (=hybrid)
 
@@ -284,7 +284,7 @@ function arrangeChildrenAsQuad(n, R) {
 		//console.log('uid', n1.uid, 'w', b.width)
 		let newMax = Math.max(Math.max(b.width, b.height), size);
 		if (newMax > size) {
-			console.log('got new max:', newMax);
+			//console.log('got new max:', newMax);
 			size = newMax;
 		}
 	}

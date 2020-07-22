@@ -8,7 +8,7 @@ const RCREATE = {
 	panel: mPanel,
 	picto: mPicto,
 //#region old types
-	// manual00: mManual00,
+	manual00: mManual00,
 	// bare: mBare,
 	// list: mList,
 	// title: mTitle,

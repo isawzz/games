@@ -1,15 +1,41 @@
 function recUi(n, R, area, oid, key) {
 
+	// *** n is rNode ***
+	//just take rNode and make ui node
+
+	//rNode can have a cond - deal with that later!
+	//basically just eval data and params
+
+	//if (n.uid=='_3') console.log('create uitree node','uid',n.uid,'oid',oid);
 	let n1 = jsCopy(n);
 	let o = isdef(oid) ? R.getO(oid) : null;
-	if (isdef(n1.data)) { n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data); }
+	//console.log('o',oid,o,n, n1)
+	if (isdef(n1.data)) {
+		// if (n1.uid == '_3') {
+		// 	console.log('calling calContentFromData',oid,n1.data,n1.default_data)
+		// }
+		n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data);
+		//console.log('____________','uid',n1.uid,'\ncontent:',n1.content,'\nn1.default_data',n1.default_data);
+		//console.log('____________',n1.uid,'\ndata',typeof n1.data,n1.data,'\ncontent',typeof n1.content, n1.content);
+		//let c2=calcAddressWithin(o,n1.data);
+		//console.log('addrWithin',c2,'val',c2.obj[c2.key]);
+	}
 
+	//console.log('ui node',jsCopy(n1))
 	R.uiNodes[n1.uid] = n1; // ONLY DONE HERE!!!!!!!
-	if (n1.type == 'grid') { createBoard(n1, R, area); }
-	else {
+	if (n1.type == 'grid') {
+		// R.uiNodes[n1.uid] = n1; // ONLY DONE HERE!!!!!!!
+		createBoard(n1, R, area);
+	} else {
 		let lst = getElements(n1.content);
+		//zuerst muss ich checken ob das ueberhaupt objects sind
+		//wenn hier nur 1 element zurueckkommt, dann mache NICHT ein panel_ sondern ein invisible!
 		if (isdef(lst) && !isEmpty(lst)) {
-			let o = R.getO(lst[0]);
+
+			//lst can be:
+			//1. list of object IDs
+			let o=R.getO(lst[0]);
+			//console.log('=======o',o);
 			if (isListOfLiterals(lst) && isdef(R.getO(lst[0]))) {
 				//console.log('RICHTIG')
 				createPanelParentOfObjects(lst, n1, area, R);
@@ -54,7 +80,7 @@ function recUi(n, R, area, oid, key) {
 			//console.log('ui node',ch,'has already been created!!!!')
 			continue;
 		}
-		recUi(R.rNodes[ch], R, n1.uid, oid, key);
+		recUi(R.rNodes[ch], R,n1.uid, oid, key);
 	}
 
 	return n1;

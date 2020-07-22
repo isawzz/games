@@ -67,49 +67,49 @@ async function generateTree(source, context) {
 async function presentTree(uiRoot, R) {
 	trace('___source=' + RSG_SOURCE, 'presStrategy=' + R.presentationStrategy + ', sizing=' + uiRoot.params.sizing);
 	if (R.presentationStrategy == 'rec') {
-		console.log('calling recPresentNode_')
+		trace('calling recPresentNode_')
 		recPresentNode(uiRoot, R, uiRoot.params);
 	} else if (R.presentationStrategy == 'new') {
-		//console.log('NOTHING is called in presentTree')
+		trace('NOTHING is called in presentTree')
 		recMeasureOverride(R.tree.uid, R);
-		//adjustTableSize_(R);
+		
 	} else if (R.presentationStrategy == 'orig') {
 		if (uiRoot.params.sizing == 'sizeToContent') {
-			console.log('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
+			trace('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
 			recMeasureAbs(R.tree.uid, R);
 			recArrangeContent(R.tree.uid, R);
-			//adjustTableSize_(R);
+			
 		} else if (uiRoot.params.sizing == 'fixed') {
-			//console.log('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
+			trace('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
 			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 			uiRoot.size = { w: maxx, h: maxy };
 			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
 			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
-			//adjustTableSize_(R);
+			
 		} else {
-			//console.log('calling recMeasureOverride');
+			trace('calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);
 			testEngine.verify(R);
 		}
 	} else if (nundef(R.presentationStrategy)) {
 		if (uiRoot.params.sizing == 'sizeToContent') {
-			console.log('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
+			trace('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
 			recMeasureAbs(R.tree.uid, R);
 			recArrangeContent(R.tree.uid, R);
-			//adjustTableSize_(R);
+			
 		} else if (uiRoot.params.sizing == 'fixed') {
-			//console.log('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
+			trace('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
 			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 			uiRoot.size = { w: maxx, h: maxy };
 			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
 			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
-			//adjustTableSize_(R);
+			
 		} else {
-			//console.log('calling recMeasureOverride');
+			trace('calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);
 		}
 	} else {
-		console.log('UNKNOWN presentationStrategy!!!!!!', R.presentationStrategy)
+		trace('UNKNOWN presentationStrategy!!!!!!', R.presentationStrategy)
 	}
 
 }
@@ -155,7 +155,7 @@ function oupos() {
 	}
 }
 function setSP(n) {
-	console.log('--- setSP_ ---',n.uid)
+	//console.log('--- setSP_ ---',n.uid)
 	let ui = n.ui;
 	let b = getBounds(ui, true);
 	n.size = { w: b.width, h: b.height };

@@ -1,4 +1,4 @@
-function mPicto(n, uidParent, R) {
+function mPicto(n, R, uidParent) {
 
 	let dParent = mBy(n.idUiParent);
 
@@ -51,7 +51,7 @@ function lPicto(){}
 
 
 
-function mPictoWrapper(n, uidParent, R) {
+function mPictoWrapper(n, R, uidParent) {
 
 	let dParent = mBy(n.idUiParent);
 

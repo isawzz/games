@@ -23,7 +23,7 @@ function createStaticUi(area, R) {
 	ensureUiNodes(R);
 	let n = R.tree;
 	//console.log('create static')
-	recUi(n, area, R);
+	recUi(n, R, area);
 }
 function addNewlyCreatedServerObjects(sdata, R) {
 	//console.log('_____________ addNewly...', sdata);
@@ -111,7 +111,7 @@ function einhaengen(oid, o, R) {
 				uiParent.children = rParent.children.map(x => x);
 			}
 			//console.log('einhaengen!!!!',key)
-			recUi(R.rNodes[top.uid], top.uidParent, R, oid, key);
+			recUi(R.rNodes[top.uid], R, top.uidParent, oid, key);
 		}
 	}
 	return success ? successKeys : false;

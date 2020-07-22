@@ -1,5 +1,6 @@
-function mManual00(n, area, R) {
-	let ui = mDefault(n, area, R);
+function mManual00(n, R, area) {
+	let ui = mDefault(n, R, area);
+	
 	if (isdef(n.idUiParent)) {
 		//console.log('uidParent', n.idUiParent);
 		let dParent = mBy(n.idUiParent);
@@ -10,7 +11,7 @@ function mManual00(n, area, R) {
 }
 
 
-function mBare(n, uidParent, R) {
+function mBare(n, R, uidParent) {
 	let ui;
 	let dParent = mBy(n.idUiParent);
 	ui = mDiv(dParent);
@@ -18,7 +19,7 @@ function mBare(n, uidParent, R) {
 	//let b = getBounds(ui, true);console.log('________mBare: ', n.uid, '\n', ui, '\nbounds', b.width, b.height);
 	return ui;
 }
-function mInvisible(n, uidParent, R) {
+function mInvisible(n, R, uidParent) {
 	//console.log('invisible',n.uid,n.data,n.params)
 	let dParent = mBy(n.idUiParent);
 	let d = mDiv(dParent);
@@ -31,7 +32,7 @@ function mInvisible(n, uidParent, R) {
 	//n.idUiParent = d.id;
 	return d;
 }
-function mInfo(n, uidParent, R) {
+function mInfo(n, R, uidParent) {
 	//console.log('info',n.uid);//,n.data,n.params)
 
 	let ui;
@@ -39,7 +40,7 @@ function mInfo(n, uidParent, R) {
 	//console.log('saaaaaaaaaaaaaaaaaaa',n,dParent)
 	if (getTypeOf(dParent) == 'g') {
 		//console.log('--------------g', n.content)
-		return gInfo(n, uidParent, R);
+		return gInfo(n, R, uidParent);
 	} else if (isdef(n.content)) {
 		//console.log('--------------isdef(content)', n.content)
 		ui = mNode(n.content, dParent);
@@ -53,7 +54,7 @@ function mInfo(n, uidParent, R) {
 	}
 	return ui;
 }
-function gInfo(n, uidParent, R) {
+function gInfo(n, R, uidParent) {
 	let pf = n.params;
 	n.uiType = 'g';
 	let ui = gShape(pf.shape, pf.size, pf.size, pf.bg, pf.rounding);
@@ -162,59 +163,9 @@ function addTitleToGrid(n, d) {
 }
 
 //container types
-function mPanel(n, uidParent, R) {
-	//console.log('panel.......', n.uid, n.idUiParent);//,n.data,n.params,n.idUiParent)
-
-	let dParent = mBy(n.idUiParent);
-	//console.log('HALLO!!!!!!!!!mBy('+uidParent+')='+dParent);
-	//console.log('??????????????????????????????????????????????')
-	// if (dParent){
-	// 	let t1=getTypeOf(dParent);
-	// 	//console.log('YES! dParent exists',dParent,t1);
-	// }else{
-	// 	//console.log('dParent is null ------------- THE END ------------');
-	// 	return;
-	// }
-
-	if (getTypeOf(dParent) == 'g') { return gPanel(n, uidParent, R); }
-
-	let ui = n.ui;
-	if (n.changing && isdef(ui)) {
-		// console.log(n)
-		// n.act.deactivate();
-		// n.act = null;
-		clearIncludingAttr(ui);
-		delete n.changing;
-	} else {
-		ui = mDiv(dParent);
-	}
-
-	//content
-	if (isdef(n.content)) {
-		let d1 = mTextDiv(n.content, ui);
-	}
-
-	return ui;
-}
-function gPanel(n, uidParent, R) {
-	gParent = mBy(uidParent);
-	n.idUiParent = gParent.id;
-
-	if (isdef(n.ui)) {
-		// removeAllEvents(n.ui);
-		// n.act = null;
-		delete n.changing;
-		return n.ui;
-	}
-
-	//console.log('EIN NEUES G PANEL?????? ECHT?????')
-	let ui = agG(gParent);
-	n.uiType = 'g';
-	return ui;
-}
 
 
-function mList(n, uidParent, R) {
+function mList(n, R, uidParent) {
 
 	let dParent = mBy(n.idUiParent);
 
@@ -227,7 +178,7 @@ function mList(n, uidParent, R) {
 }
 
 //leaf types
-function mCard52_Wrapper(n, uidParent, R) {
+function mCard52_Wrapper(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
 	let uiWrapper = mDiv(dParent);
@@ -276,7 +227,7 @@ function mCard52_Wrapper(n, uidParent, R) {
 
 	return ui;
 }
-function mTitle(n, uidParent, R) {
+function mTitle(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
 	//console.log(n,dParent)
@@ -349,7 +300,7 @@ const RCONTAINERPROP = {
 	hand: 'elm',
 	panel: 'sub',
 }
-function mSimplestInvisible(n, uidParent, R) {
+function mSimplestInvisible(n, R, uidParent) {
 	//console.log('invisible',n.uid,n.data,n.params)
 	let dParent = mBy(n.idUiParent);
 	let d = mDiv(dParent);
@@ -362,7 +313,7 @@ function mSimplestInvisible(n, uidParent, R) {
 	//n.idUiParent = d.id;
 	return d;
 }
-function mSimplest(n, uidParent, R) {
+function mSimplest(n, R, uidParent) {
 	//console.log('info',n.uid,n.data,n.params)
 
 	let ui;
