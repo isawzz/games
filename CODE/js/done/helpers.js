@@ -49,6 +49,30 @@ function applyCssStyles(ui, params) {
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
+function mButton(caption,handler,dParent,styles,classes){
+	let x = mCreate('button');
+	x.innerHTML = caption;
+	if (isdef(handler)) x.onclick = handler;
+	if (isdef(dParent)) dParent.appendChild(x);
+	if (isdef(styles)) mStyle(x,styles);
+	if (isdef(classes)) {
+		//console.log('setting classes',classes,...classes)
+		mClass(x,...classes);
+	}
+	return x;
+}
+function mLink(content,href,dParent,styles,classes){
+	let x = mCreate('a');
+	x.innerHTML = content;
+	if (isdef(href)) x.href = href;
+	if (isdef(dParent)) dParent.appendChild(x);
+	if (isdef(styles)) mStyle(x,styles);
+	if (isdef(classes)) {
+		console.log('setting classes',classes,...classes)
+		mClass(x,...classes);
+	}
+	return x;
+}
 function mBg(d, color) { d.style.backgroundColor = color; }
 function mBy(id) { return document.getElementById(id); }
 function mCenterV(d) {
@@ -85,7 +109,7 @@ function mCenter(d) {
 	d.style.marginLeft = (wdiff / 2) + 'px';
 
 }
-function mCenterText(d){d.style.textAlign='center';}
+function mCenterText(d) { d.style.textAlign = 'center'; }
 function mNull(d, attr) { d.removeAttribute(attr); }
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
@@ -225,7 +249,7 @@ function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, cl
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
-function mNode(o, dParent, title, isSized=false) {
+function mNode(o, dParent, title, isSized = false) {
 	let d = mCreate('div');
 	mYaml(d, o);
 	let pre = d.getElementsByTagName('pre')[0];
@@ -233,7 +257,7 @@ function mNode(o, dParent, title, isSized=false) {
 	if (isdef(title)) mInsert(d, mTextDiv(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	if (isDict(o)) d.style.textAlign = 'left';
-	if (isSized) addClass(d,'centered');
+	if (isSized) addClass(d, 'centered');
 
 	return d;
 }
@@ -1676,7 +1700,27 @@ function closestParent(elem, selector) {
 function findDOMAncestorOfType(elem, t = 'div') {
 	let anc = elem.parentNode;
 	while (MSCATS[getTypeOf(anc)] != t) { anc = anc.parentNode; }
-	this.ancestor = anc;
+	return anc;
+}
+function findAncestorElemWithParentOfType(el, type) {
+	while (el && el.parentNode) {
+		let t = getTypeOf(el);
+		let tParent = getTypeOf(el.parentNode);
+		//console.log('el', t, tParent, 'el.id', el.id, 'parentNode.id', el.parentNode.id);
+		if (tParent == type) break;
+		el = el.parentNode;
+	}
+	return el;
+
+}
+function findAncestorElemOfType(el, type) {
+	while (el) {
+		let t = getTypeOf(el);
+		if (t == type) break;
+		el = el.parentNode;
+	}
+	return el;
+
 }
 function findDescendantWithId(id, parent) {
 	if (parent.id == id) return parent;
@@ -1879,9 +1923,33 @@ function fireKey(k, { control, alt, shift } = {}) {
 function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
 function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
 
+async function fetchFileAsText(url) {
+	let f = await fetch(url);
+	let txt = await f.text();
+	return txt;
+}
 function downloadFile(jsonObject, filenameNoExt) {
 	json_str = JSON.stringify(jsonObject);
-	saveFileAtClient(filenameNoExt + ".json", "data:application/json", new Blob([json_str], { type: "" }));
+	saveFileAtClient(
+		filenameNoExt + ".json",
+		"data:application/json",
+		new Blob([json_str], { type: "" }));
+
+}
+function downloadTextFile(s, filenameNoExt) {
+	//json_str = JSON.stringify(jsonObject);
+	saveFileAtClient(
+		filenameNoExt + ".txt",
+		"data:application/text",
+		new Blob([s], { type: "" }));
+
+}
+function downloadHtmlFile(html, filenameNoExt) {
+	//json_str = JSON.stringify(jsonObject);
+	saveFileAtClient(
+		filenameNoExt + ".html",
+		"data:application/html",
+		new Blob([html], { type: "" }));
 
 }
 function saveFileAtClient(name, type, data) {
@@ -2183,6 +2251,36 @@ function wlog() {
 
 //#endregion
 
+//#region lines helpers
+function copyLinesFromTo(lines, iStart, iEnd, trimStart, trimEnd) {
+	let block = isdef(trimStart) ? stringAfter(lines[iStart], '/*') : lines[iStart];
+	iStart += 1;
+	while (iStart < iEnd) {
+		block += '\n' + lines[iStart];
+		iStart += 1;
+	}
+	if (isdef(trimEnd)) block = stringBefore(block, '*/');
+	return block.trim();
+
+}
+function skipToLine(lines, i, options) {
+	//console.log('skipTo', i)
+	options = convertToList(options);
+	//console.log('options', options)
+	while (i < lines.length) {
+		for (const s of options) {
+			if (lines[i].includes(s)) {
+				//console.log('YES!!!!!', i, s)
+				return { index: i, option: s };
+			}
+		}
+		i += 1;
+	}
+	return { index: i, option: null };
+}
+
+//#endregion
+
 //#region deepmerge
 function isMergeableObject(val) {
 	var nonNullObject = val && typeof val === 'object'
@@ -2424,6 +2522,7 @@ function allCondDict(d, func) {
 	for (const k in d) { if (func(d[k])) res.push(k); }
 	return res;
 }
+
 function findKey(dict, val) { for (const k in dict) { if (dict[k] == val) return k; } }
 function firstCond(arr, func) {
 	//return first elem that fulfills condition
@@ -2924,6 +3023,21 @@ function sortByFuncDescending(arr, func) {
 
 //#region recursion
 // safely handles circular references
+function recListToString(lst) {
+
+	if (!isList(lst)) return lst;
+	if (isListOfLiterals(lst)) return lst.join(',');// '['+ lst.join(',') +']';
+	else {
+		let res = [];
+		for (const el of lst) {
+			let elString = recListToString(el);
+			res.push(elString); // += elString + ',';
+		}
+		//res= res.substring(0,res.length-1);
+		return res;
+	}
+}
+
 JSON.safeStringify = (obj, indent = 2) => {
 	// usage:
 	//console.log('options', JSON.safeStringify(options))
@@ -3344,6 +3458,14 @@ function stringBeforeLast(sFull, sSub) {
 	let parts = sFull.split(sSub);
 	return sFull.substring(0, sFull.length - last(parts).length - 1);
 }
+function stringBetween(sFull, sStart, sEnd) {
+	return stringBefore(stringAfter(sFull, sStart), isdef(sEnd) ? sEnd : sStart);
+}
+function stringBetweenLast(sFull, sStart, sEnd) {
+	let s1 = stringBeforeLast(sFull,isdef(sEnd) ? sEnd : sStart);
+	return stringAfterLast(s1, sStart);
+	//return stringBefore(stringAfter(sFull,sStart),isdef(sEnd)?sEnd:sStart);
+}
 function toLetterList(s) {
 	return [...s];
 }
@@ -3353,6 +3475,11 @@ function trim(str) {
 //#endregion
 
 //#region types, conversions
+function convertToList(x) {
+	if (isList(x)) return x;
+	if (isString(x) && x != '') return [x];
+	return [];
+}
 function evToClosestId(ev) {
 	//returns first ancestor that has an id
 	let elem = findParentWithId(ev.target);

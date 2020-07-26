@@ -1,1 +1,0 @@
-NDFramePage.OnPageTitleLoaded("File:testFactory.js","testFactory.js");NDSummary.OnSummaryLoaded("File:testFactory.js",[["JavaScript","JavaScript"]],[["Functions","Function"],["Groups","Group"]],[[4,0,1,"Functions","Functions"],[5,0,0,"makeTableTreeX","makeTableTreeX"]]);

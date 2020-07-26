@@ -7,20 +7,6 @@ function sendToBack(ui) {
 	//delete ui.style.zIndex; // = maxZIndex;
 	//maxZIndex += 1;
 }
-function recListToString(lst) {
-
-	if (!isList(lst)) return lst;
-	if (isListOfLiterals(lst)) return lst.join(',');// '['+ lst.join(',') +']';
-	else {
-		let res = [];
-		for (const el of lst) {
-			let elString = recListToString(el);
-			res.push(elString); // += elString + ',';
-		}
-		//res= res.substring(0,res.length-1);
-		return res;
-	}
-}
 function calcContentFromData(oid, o, data, R, default_data) {
 
 	// ex: data: .player.name
@@ -200,26 +186,6 @@ function decodePropertyPath(o, path) {
 
 	}
 }
-function findAncestorElemWithParentOfType(el, type) {
-	while (el && el.parentNode) {
-		let t = getTypeOf(el);
-		let tParent = getTypeOf(el.parentNode);
-		//console.log('el', t, tParent, 'el.id', el.id, 'parentNode.id', el.parentNode.id);
-		if (tParent == type) break;
-		el = el.parentNode;
-	}
-	return el;
-
-}
-function findAncestorElemOfType(el, type) {
-	while (el) {
-		let t = getTypeOf(el);
-		if (t == type) break;
-		el = el.parentNode;
-	}
-	return el;
-
-}
 function getParentUi(n) { return n.idUiParent ? mBy(n.idUiParent) : null; }
 function getParentRNode(n, R) { return n.uidParent ? R.rNodes(n.uidParent) : null; }
 function getParentUiNodes(n, R) { return n.uidParent ? R.uiNodes(n.uidParent) : null; }
@@ -246,6 +212,10 @@ function isBoardMember(uid, R) {
 	return isdef(n) ? isBoard(n.uidParent, R) : false;
 
 }
+function isStatic(x) { let t = lookup(x, ['meta', 'type']); return t == 'static'; }
+function isDynamic(x) { let t = lookup(x, ['meta', 'type']); return t == 'dynamic'; }
+function isMap(x) { let t = lookup(x, ['meta', 'type']); return t == 'map'; }
+
 function extendPath(path, postfix) { return path + (endsWith(path, '.') ? '' : '.') + postfix; }
 
 function hasId(o) { return isdef(o._id); }

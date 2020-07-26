@@ -23,6 +23,7 @@ async function nextTestOfSeries(downloadRequested = true) {
 
 	//console.log('solutions to test', iAbsLayoutTest, sols);
 	if (isdef(solutions) && isdef(solutions[iTEST])) {
+		//console.log(solutions,solutions[iTEST],iTESTSERIES,iTEST)
 		let changes = propDiffSimple(uiNodeSizes, solutions[iTEST]);
 		if (changes.hasChanged) {
 			console.log('FAIL!!! ', iTESTSERIES + '.' + iTEST, 'changes: ', changes);
@@ -91,10 +92,11 @@ function recCollectSizeInfo(t, R, uiNodeSizes) {
 	if (nundef(t.children)) return;
 	for (const ch of t.children) { recCollectSizeInfo(R.uiNodes[ch], R, uiNodeSizes); }
 }
+//#endregion
 
 //#region positioning_ tests
 
-//super simple hand drawn rectangles of fixed size and pos
+//#region super simple hand drawn rectangles of fixed size and pos
 function testCreateDivWithDivFixedSize() {
 	let d = mBy('table');
 	clearElement(d);
@@ -113,7 +115,7 @@ function testCreateDivWithDivFixedSize() {
 	root.style.backgroundColor = 'red';
 
 }
-
+//#endregion
 
 //#region testAblauf
 async function testAblauf02(defs, spec, sdata0) {
@@ -184,6 +186,7 @@ async function testAblauf02(defs, spec, sdata0) {
 	updateOutput(R);
 	testEngine.verify(R);
 }
+//#endregion
 
 //#region testAblauf ABLAGE --------------
 async function testAblauf00(defs, spec, sdata0) {
@@ -498,7 +501,6 @@ function testRemoveBoard(R) {
 }
 //#endregion
 
-
 //#region engine
 async function testSolutionConverter() {
 	let series = TEST_SERIES;
@@ -670,6 +672,39 @@ function testGetElements() {
 
 //#endregion
 
+//#region docfile tests
+
+async function testDocumentFile(){
+	//let res = await fetchFileAsText('/CODE/js/_rParse.js');	console.log('res', typeof res, res); return;
+	let akku = await documentFile('/CODE/js/done/docs/docfile.js');
+	let keys=Object.keys(akku);
+	keys.sort();
+	keys.map(x => console.log('signature:',x,'\ncomment block:\n',akku[x]));
+
+	//console.log(akku)
+
+}
+async function testDocumentVault(){
+	let vault = [
+		"/CODE/js/R/binding.js",
+		"/CODE/js/R/rsgTypes.js",
+		"/CODE/js/testing/engine.js",
+		"/CODE/js/testing/onClick.js",
+		"/CODE/js/testing/SimpleGrid.js",
+		"/CODE/js/testing/testBoard.js",
+		"/CODE/js/testing/testCards.js",
+		"/CODE/js/testing/testFactory.js",
+		"/CODE/js/testing/testData.js",
+		"/CODE/js/testing/testing.js",
+		"/CODE/js/done/activator.js",
+		"/CODE/js/done/assets.js",
+		"/CODE/js/done/index.js",
+		"/CODE/js/done/utils.js",
+	];
+	//let res = await documentVault(vault);
+	console.log(res);
+}
+//#endregion
 
 
 

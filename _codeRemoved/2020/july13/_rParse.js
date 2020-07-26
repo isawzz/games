@@ -6,14 +6,7 @@
 //context: {fStruct, options} | {spec,sdata,defs}
 //#endregion
 async function rParse(source, context) {
-	//#region doc 
-	/*
 
-	ist ja eh voellig egal was ich da schreibe!
-	aber es soll schon ganz exact so ausgegeben werden
-
-	*/
-	//#endregion 
 	R = await generateTree(source, context);
 
 	//console.log('____________',R)
@@ -84,20 +77,20 @@ async function presentTree(uiRoot, R) {
 	} else if (R.presentationStrategy == 'new') {
 		//trace('NOTHING is called in presentTree')
 		recMeasureOverride(R.tree.uid, R);
-
+		
 	} else if (R.presentationStrategy == 'orig') {
 		if (uiRoot.params.sizing == 'sizeToContent') {
 			//trace('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
 			recMeasureAbs(R.tree.uid, R);
 			recArrangeContent(R.tree.uid, R);
-
+			
 		} else if (uiRoot.params.sizing == 'fixed') {
 			//trace('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
 			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 			uiRoot.size = { w: maxx, h: maxy };
 			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
 			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
-
+			
 		} else {
 			//trace('*******calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);
@@ -107,14 +100,14 @@ async function presentTree(uiRoot, R) {
 			//trace('calling recMeasureAbs, recArrangeContent, adjustTableSize_');
 			recMeasureAbs(R.tree.uid, R);
 			recArrangeContent(R.tree.uid, R);
-
+			
 		} else if (uiRoot.params.sizing == 'fixed') {
 			//trace('calling recMeasureArrangeFixedSizeAndPos, adjustTableSize_');
 			let [minx, maxx, miny, maxy] = recMeasureArrangeFixedSizeAndPos(R.tree.uid, R);
 			uiRoot.size = { w: maxx, h: maxy };
 			uiRoot.ui.style.minWidth = (uiRoot.size.w + 4) + 'px';
 			uiRoot.ui.style.minHeight = (uiRoot.size.h + 4) + 'px';
-
+			
 		} else {
 			//console.log('*** calling recMeasureOverride');
 			recMeasureOverride(R.tree.uid, R);

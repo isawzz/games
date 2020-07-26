@@ -46,8 +46,28 @@ Title: RSG
 Source Folder: ..\..\CODE\js
    Name: js
 
-Source Folder 2: ..\..\CODE\js\z
+Source Folder 2: ..\..\CODE\js\done
    Name: js
+
+Source Folder 3: ..\..\CODE\js\R
+   Name: js
+
+Source Folder 4: ..\..\CODE\js\uiCreation
+   Name: js
+
+Source Folder 5: ..\..\CODE\js\types
+   Name: js
+
+Source Folder 6: ..\..\CODE\js\measureArrange
+   Name: js
+
+Source Folder 7: ..\..\CODE\js\testing
+   Name: js
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 //#region globals, _start, gameStep
-window.onload = () => _start();
+//window.onload = () => _start();
 var timit, sData, T;
 var phase = 0;
 var testEngine = null;
@@ -49,6 +49,16 @@ async function _start() {
 
 async function _entryPoint(defs, spec, sdata) {
 
+	//let x=stringBetween('hallo das ist gut',' ');
+	//x=stringBetweenLast('hallo das ist gut',' ');
+	//console.log(x.length, x);
+	//await createIndexDoc(); return;
+	
+	//testDocumentVault(); return;
+	//testDocumentFile();return;
+	//downloadTextFile('hallo','hallo'); return;
+	//downloadHtmlFile('<html><body>hallo</body></html>','hallo'); return;
+
 	//testObjectWithUiAndClasses(); return;
 	//testCenteredNode(); //return;
 	//testVCentered();return;
@@ -97,8 +107,8 @@ async function _entryPoint(defs, spec, sdata) {
 	} else if (RSG_SOURCE == 'direct') {
 		//console.log('------------------hallooooooooo')
 		await testPicto(20, {
-			ROOT: { _NODE: 'pics', params:{orientation:'h'} },
-			pics: { cond: 'all', data: '.key', type: 'picto', params:{margin:4} }
+			ROOT: { _NODE: 'pics', params: { orientation: 'h' } },
+			pics: { cond: 'all', data: '.key', type: 'picto', params: { margin: 4 } }
 		}, genServerDataPicto);
 
 		// await testCardsUni(2, {
@@ -257,7 +267,7 @@ function updateOutput(R) {
 				['children'],
 				// null, //show
 				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-				['uid', 'pos', 'size', 'uidParent', 'params','class', 'type', 'content'],
+				['uid', 'pos', 'size', 'uidParent', 'params', 'class', 'type', 'content'],
 				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 				null, //omit
 				{ 'max-width': '50%', font: '14px arial' });
@@ -267,7 +277,7 @@ function updateOutput(R) {
 				['children'],
 				// null, //show
 				// ['ui', 'ui_bg', 'act', 'bi', 'info', 'params', 'defParams', 'cssParams', 'typParams', 'stdParams'], //omit
-				['uid', 'pos', 'size', 'uidParent','class', 'type', 'content'],//,'params'],
+				['uid', 'pos', 'size', 'uidParent', 'class', 'type', 'content'],//,'params'],
 				//['uid', 'size', 'rcenter','oid','params', 'uidParent', 'type', 'uiType', 'sizeMeasured', 'sizeAvailable', 'sizeNeeded','rpos','apos','acenter'], //show
 				null, //omit
 				{ 'max-width': '35%', font: '14px arial' });

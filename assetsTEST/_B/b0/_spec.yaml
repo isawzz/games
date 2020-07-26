@@ -1,3 +1,9 @@
+3:
+  ROOT:
+    cond:
+      prop: uid
+    data: .uid
+    type: blabla
 2:
   ROOT:
     cond:
