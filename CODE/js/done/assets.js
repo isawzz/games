@@ -14,6 +14,13 @@ async function loadAssets() {
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
 }
+async function loadIcons(){
+	vidCache = new LazyCache(true);
+	iconCharsC = await vidCache.load('iconChars', route_iconChars);
+	iconChars = vidCache.asDict('iconChars');
+	iconKeys = Object.keys(iconChars);
+	numIcons = iconKeys.length;
+}
 async function loadGameInfo(useAllGamesStub = true) {
 
 	if (useAllGamesStub) {

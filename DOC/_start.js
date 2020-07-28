@@ -1,2 +1,22 @@
-window.onload = createDocs;
-// window.onload = () => activateCollapsibles();
+window.onload = DOCStart;
+
+function DOCStart() {
+	//testIconViewer(); return;
+	//testMultiline(); return;
+	//testIndenting();return;
+
+	createDocs();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

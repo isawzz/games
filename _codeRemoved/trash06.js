@@ -1,3 +1,78 @@
+//#region july15
+function countStarting(s,sub){
+
+	let i=0;
+	let len=sub.length;
+	while(startsWith(s,sub) || startsWith(s,'\t')){
+		i+=1;
+		s=s.slice(len);
+		console.log(s)
+	}
+	return i;
+}
+function addComment_dep(s, dParent) {
+	for (const ch of s) { console.log('ch=' + ch) }
+	s = s.replace('\t', '  ');
+	let el = mCreate('pre');
+	el.innerHTML = s;
+	mAppend(dParent, el);
+	//el.style.whiteSpace = 'pre'
+	convertPre2(el);
+	//convertPre1(el)
+	return el;
+}
+function convertPre(pre) {
+	//var pre= document.querySelector('pre');
+
+	//insert a span in front of the first letter.  (the span will automatically close.)
+	pre.innerHTML = pre.textContent.replace(/(\w)/, '<span>$1');
+	console.log(pre);
+
+	//get the new span's left offset:
+	var left = pre.querySelector('span').getClientRects()[0].left;
+
+	//move the code to the left, taking into account the body's margin:
+	pre.style.marginLeft = (-left + pre.getClientRects()[0].left) + 'px';
+}
+function convertPre1(el) {
+	// get block however you want.
+	var block = el; //document.getElementById("the-code");
+
+	// remove leading and trailing white space.
+	var code = block.innerHTML
+		.split('\n')
+		.filter(l => l.trim().length > 0)
+		.join('\n');
+
+	// find the first non-empty line and use its
+	// leading whitespace as the amount that needs to be removed
+	var firstNonEmptyLine = block.textContent
+		.split('\n')
+		.filter(l => l.trim().length > 0)[0];
+
+	// using regex get the first capture group
+	var leadingWhiteSpace = firstNonEmptyLine.match(/^([ ]*)/);
+
+	// if the capture group exists, then use that to
+	// replace all subsequent lines.
+	if (leadingWhiteSpace && leadingWhiteSpace[0]) {
+		var whiteSpace = leadingWhiteSpace[0];
+		code = code.split('\n')
+			.map(l => l.replace(new RegExp('^' + whiteSpace + ''), ''))
+			.join('\n');
+	}
+
+	// update the inner HTML with the edited code
+	block.innerHTML = code;
+}
+function convertPre2(el) {
+	var html = el.innerHTML;
+	var pattern = html.match(/\s*\n[\t\s]*/);
+	let x = html.replace(new RegExp(pattern, "g"), '\n');
+	el.innerHTML = x;
+}
+
+
 //#region july14
 async function documentFile(url) {
 	let res = await fetchFileAsText(url);

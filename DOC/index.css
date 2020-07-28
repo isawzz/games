@@ -1,3 +1,17 @@
+.pathTitle{
+	font: italic small-caps bold 12px/30px Georgia, serif;
+}
+.signature{
+	color: blue;
+	/* font: bold 12pt Impact, Charcoal, sans-serif; */
+}
+.comments{
+	margin: 4px 12px;
+	font-size: 11pt;
+	color: dimgray;
+	/* font: bold 12pt Impact, Charcoal, sans-serif; */
+}
+
 .funcSignature{
 	/* font: italic small-caps bold 12px/30px Georgia, serif; */
 	/* font: 18px AlgerianRegular; */

@@ -1,5 +1,5 @@
 //#region vault
-async function createVault(){
+async function createVault() {
 	//zuerst vault holen und zwar aus index.html!
 	//fetch index.html als text
 	let sIndex = await fetchFileAsText('/CODE/index.html');
@@ -12,12 +12,12 @@ async function createVault(){
 
 	let resend = skipToLine(lines, res.index, '#endregion');
 	//console.log(lines[resend.index]);
-	
+
 	//alle
-	let listOfFiles = lines.slice(res.index,resend.index);
-	listOfFiles = listOfFiles.map(x=>stringBetween(x,'"'));
-	listOfFiles = listOfFiles.filter(x=>!isEmpty(x.trim()));
-	listOfFiles.sort();	
+	let listOfFiles = lines.slice(res.index, resend.index);
+	listOfFiles = listOfFiles.map(x => stringBetween(x, '"'));
+	listOfFiles = listOfFiles.filter(x => !isEmpty(x.trim()));
+	listOfFiles.sort();
 	listOfFiles = Array.from(listOfFiles);
 	//console.log(typeof listOfFiles, listOfFiles)
 	//vault.map(x=>//console.log(x));
@@ -31,7 +31,9 @@ async function documentVault(pathlist) {
 	let res = {};
 	for (const p of pathlist) {
 		//console.log(p)
-		res[p] = await documentFile(p);
+		let fileInfo = await documentFile(p);
+		res[p] = { filename: stringAfterLast(p, '/'), funcDict: fileInfo.funcDict, topComment: fileInfo.topComment };
+		//let pathEntry= await documentFile(p);
 	}
 	return res;
 }
@@ -41,11 +43,16 @@ async function documentFile(url) {
 	return a dictionary {signature:commentBlock} for each function in url 
 	*/
 	//#endregion
+
+	//console.log('url',url)
+
 	let res = await fetchFileAsText(url);
 	let lines = res.split('\n');
 	let i = 0;
+	let iFunc = 0;
 	let akku = {};
 	let lastKey;
+	let topComment = '';
 	while (i < lines.length) {
 		let res = skipToLine(lines, i, ['function', '//#region doc ']);
 		if (nundef(res.option)) { break; }
@@ -56,7 +63,10 @@ async function documentFile(url) {
 			if (startsWith(lineTrimmed, 'function') || startsWith(lineTrimmed, 'async')) {
 				let line1 = stringAfter(line, 'function ');
 				line1 = stringBefore(line1, '{').trim();
-				akku[line1] = '';
+				//akku[line1] = '';
+
+				akku[line1] = { index: iFunc, comments: '', path: url }; iFunc += 1;
+
 				lastKey = line1;
 				//console.log(line1);
 			}
@@ -67,13 +77,16 @@ async function documentFile(url) {
 			let resend = skipToLine(lines, iStart, ['//#endregion']);
 			let iEnd = resend.index;
 			let block = copyLinesFromTo(lines, iStart, iEnd, '/*', '*/');
-			if (lastKey) akku[lastKey] = block;
+			if (lastKey) akku[lastKey].comments = block;
+			else topComment = block;//this MUST be top of file comment!!!
+
 			lastKey = null;
 
 		}
 		i = res.index + 1;
 	}
-	return akku;
+	//console.log(akku)
+	return { funcDict: akku, topComment: topComment };
 }
 function test0000000() {
 	//#region doc

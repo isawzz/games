@@ -4,7 +4,7 @@ var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
 
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
-var RSG_SOURCE = 'main'; // test | main | direct 
+var RSG_SOURCE = 'direct'; // test | main | direct 
 
 // main
 var DIR_TESTS = '_A'; // _A/ _B/

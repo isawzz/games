@@ -273,7 +273,8 @@ function evalConds(o, conds) {
 const PARAMCSS = {
 	bg: 'background-color',
 	fg: 'color',
-
+	align: 'text-align',
+	rounding: 'border-radius',
 };
 const PARAMRSG_T = {
 	// true heisst: type handles this param
@@ -333,7 +334,6 @@ function decodeColor(c) {
 
 }
 function decodeParams(n, R, defParams) {
-
 
 	if (isdef(n.params) && isdef(n.params._NODE)) {
 		//console.log('spaetestens JETZT muss ich ersetzen!!!!',n.params);

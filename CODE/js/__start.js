@@ -1,5 +1,5 @@
 //#region globals, _start, gameStep
-//window.onload = () => _start();
+window.onload = () => _start();
 var timit, sData, T;
 var phase = 0;
 var testEngine = null;

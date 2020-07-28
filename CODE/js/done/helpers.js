@@ -32,6 +32,60 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 
 	return el;
 }
+function createText({ s, parent, style, classes }) {
+	let d = mTextDiv(s, parent);
+	if (isdef(style)) mStyle(d, style);
+	if (isdef(classes)) mClass(d, ...classes);
+}
+function createPictoX(parent, style, classes, titleOptions, pictoOptions, captionOptions) {
+	// { key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
+	// 	padding = 6, cat, parent, border = '1px solid red', rounding = 4, title, caption }) {
+	let d = mDiv(parent);
+	if (isdef(style)) mStyle(d, style);
+	if (isdef(classes)) mClass(d, ...classes);
+	//d.style.textAlign = 'center';
+	if (isdef(titleOptions)) { titleOptions.parent = d; createText(titleOptions); }
+	if (isdef(pictoOptions)) { pictoOptions.parent = d; createPicto(pictoOptions); }
+	if (isdef(captionOptions)) { captionOptions.parent = d; createText(captionOptions); }
+	return d;
+}
+function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
+	padding, cat, parent, border, rounding = 4 }) {
+	if (nundef(key)) key = getRandomKey(iconChars);
+	let ch = iconChars[key];
+	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let text = String.fromCharCode('0x' + ch);
+	cat = isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
+	let domel;
+	if (cat == 'd') {
+		let d = document.createElement('div');
+		d.style.textAlign = 'center';
+		d.style.fontFamily = family;
+		d.style.fontWeight = 900;
+		d.style.fontSize = h + unit;
+		if (isdef(bg)) d.style.backgroundColor = bg;
+		if (isdef(fg)) d.style.color = fg;
+		d.innerHTML = text;
+		domel = d;
+		if (isdef(padding)) d.style.padding = padding + unit;
+		d.style.display = 'inline-block';
+		d.style.height = h + 2 * padding + unit;
+		d.style.width = d.style.height;
+		//d.style.textAlign = 'center';
+		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
+		if (isdef(border)) d.style.border = border;
+		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
+	} else {
+		//create a g element
+		//add a rectangle element w/ or wo/ stroke and rounding
+		//add a text element
+
+	}
+	domel.key = key;
+	if (parent) parent.appendChild(domel);
+	return domel;
+}
+
 //#endregion
 
 //#region DOM 1 liners A list divs
@@ -49,27 +103,27 @@ function applyCssStyles(ui, params) {
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
-function mButton(caption,handler,dParent,styles,classes){
+function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');
 	x.innerHTML = caption;
 	if (isdef(handler)) x.onclick = handler;
 	if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) mStyle(x,styles);
+	if (isdef(styles)) mStyle(x, styles);
 	if (isdef(classes)) {
 		//console.log('setting classes',classes,...classes)
-		mClass(x,...classes);
+		mClass(x, ...classes);
 	}
 	return x;
 }
-function mLink(content,href,dParent,styles,classes){
+function mLink(content, href, dParent, styles, classes) {
 	let x = mCreate('a');
 	x.innerHTML = content;
 	if (isdef(href)) x.href = href;
 	if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) mStyle(x,styles);
+	if (isdef(styles)) mStyle(x, styles);
 	if (isdef(classes)) {
-		console.log('setting classes',classes,...classes)
-		mClass(x,...classes);
+		console.log('setting classes', classes, ...classes)
+		mClass(x, ...classes);
 	}
 	return x;
 }
@@ -384,6 +438,9 @@ function mBox(w, h, color, dParent = null) { let d = mDiv(dParent); return mStyl
 function mById(id) { return document.getElementById(id); }
 function computeColor(c) { return (c == 'random') ? randomColor() : c; }
 function getExtendedColors(bg, fg) {
+	//#region doc 
+	/* handles values random, inherit, contrast	*/
+	//#endregion 
 	bg = computeColor(bg);
 	fg = computeColor(fg);
 	if (bg == 'inherit' && (nundef(fg) || fg == 'contrast')) {
@@ -1820,7 +1877,7 @@ function hide(elem) {
 	}
 }
 function isVisible(elem) { // Where el is the DOM element you'd like to test for visibility
-
+	//console.log(elem)
 	return (elem.offsetParent !== null)
 }
 function show(elem) {
@@ -3344,6 +3401,19 @@ function capitalize(s) {
 	if (typeof s !== 'string') return '';
 	return s.charAt(0).toUpperCase() + s.slice(1);
 }
+function countIndent(s, ntab = 2) {
+
+	let i = 0;
+	let inc;
+	while (!isEmpty(s)) {
+		if (startsWith(s, '\t')) { i += ntab; inc = ntab; }
+		else if (s[0] == ' ') { i += 1; inc = 1; }
+		else break;
+		s = s.slice(1);
+		//console.log(s);
+	}
+	return i;
+}
 function eraseSpaces(s) {
 	let i = 0;
 	while (s.includes('  ')) {
@@ -3462,7 +3532,7 @@ function stringBetween(sFull, sStart, sEnd) {
 	return stringBefore(stringAfter(sFull, sStart), isdef(sEnd) ? sEnd : sStart);
 }
 function stringBetweenLast(sFull, sStart, sEnd) {
-	let s1 = stringBeforeLast(sFull,isdef(sEnd) ? sEnd : sStart);
+	let s1 = stringBeforeLast(sFull, isdef(sEnd) ? sEnd : sStart);
 	return stringAfterLast(s1, sStart);
 	//return stringBefore(stringAfter(sFull,sStart),isdef(sEnd)?sEnd:sStart);
 }

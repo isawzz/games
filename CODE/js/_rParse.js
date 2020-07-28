@@ -1,3 +1,24 @@
+	//#region doc 
+	/*
+ich bin nicht der der ich denke
+er ist nicht der der ich denke
+ich bin nicht dieser koerper
+er ist nicht dieser koerper
+mir so wie ich bin kann nichts passieren
+ihm so wie er ist kann nichts passieren
+verstehe 
+
+	 das 
+	nicht
+
+	ist ja super weired!
+		das
+		ist
+		gut
+	*/
+	//#endregion 
+
+
 //#region Function: rParse
 
 //Function: rParse
