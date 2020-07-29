@@ -9,7 +9,6 @@ html,body{
 div{ text-align:center;}
 button{
 	color: blue;
-	
 	/* padding: 0px 8px; */
 	/* min-width:70px; */
 }
@@ -106,6 +105,8 @@ pre{
 	margin-right: -50%;
 	transform: translate(-50%, 0%) 
 }
+/* #endregion */
+
 /* #region text ellipsis, truncate */
 .textEllipsis4Lines{
    overflow: hidden;
@@ -121,6 +122,7 @@ pre{
 .truncate:hover {
 	overflow: visible;
 }
+/* #endregion */
 
 .flexWrap{
 	display:flex;
@@ -128,7 +130,6 @@ pre{
 	flex-wrap:wrap;
 	justify-content:center;
 }
-
 .myclass table {
 	table-layout: auto !important;
 }

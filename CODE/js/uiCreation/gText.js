@@ -1,3 +1,4 @@
+
 class gText {
 	constructor(g) {
 		this.elem = g;

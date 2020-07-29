@@ -1,3 +1,4 @@
+
 async function testPicto(n, spec, generator=genServerDataPicto) {
 	let sdata = generator(n);
 	//console.log(sdata);

@@ -1878,6 +1878,8 @@ function hide(elem) {
 }
 function isVisible(elem) { // Where el is the DOM element you'd like to test for visibility
 	//console.log(elem)
+	if (isString(elem)) elem = document.getElementById(elem);
+
 	return (elem.offsetParent !== null)
 }
 function show(elem) {

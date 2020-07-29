@@ -47,6 +47,13 @@ async function documentFile(url) {
 	//console.log('url',url)
 
 	let res = await fetchFileAsText(url);
+
+	let regex=new RegExp('\nasync|\nfunction|\nvar|\nconst|\nclass','g');
+	let fcode=res.split(regex);
+	console.log(fcode);
+
+
+
 	let lines = res.split('\n');
 	let i = 0;
 	let iFunc = 0;
@@ -55,8 +62,10 @@ async function documentFile(url) {
 	let topComment = '';
 	while (i < lines.length) {
 		let res = skipToLine(lines, i, ['function', '//#region doc ']);
-		if (nundef(res.option)) { break; }
-		if (res.option == 'function') {
+		if (nundef(res.option)) {
+			//rest must be collected!
+			break;
+		} else if (res.option == 'function') {
 			//what if find function?
 			let line = lines[res.index];
 			let lineTrimmed = line.trim();

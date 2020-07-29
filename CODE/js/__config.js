@@ -1,3 +1,4 @@
+
 var USERNAME = 'felix';
 var GAME = 'ttt'; // catan | aristocracy | ttt | game01
 var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay

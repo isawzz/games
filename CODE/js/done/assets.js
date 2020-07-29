@@ -1,3 +1,4 @@
+
 var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 

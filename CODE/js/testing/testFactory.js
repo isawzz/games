@@ -211,7 +211,7 @@ function createUiTestX(n, R, area) {
 
 	decodeParams(n, R, {});
 
-	calcDirectParentAndIdUiParent(n, R, area);
+	calcIdUiParent(n, R, area);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 

@@ -9,7 +9,7 @@ function createUi(n, R, area) {
 
 	decodeParams(n, R, {});
 
-	calcDirectParentAndIdUiParent(n, R, area);
+	calcIdUiParent(n, R, area);
 
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
 	let ui;
@@ -250,7 +250,10 @@ function calcRays(n, gParent, R) {
 	}
 
 }
-function calcDirectParentAndIdUiParent(n, R, uidParent) {
+function calcIdUiParent(n, R, uidParent) {
+	//#region doc 
+	/* board members have board div as idUiParent. all others uidParent */
+	//#endregion 
 	if (uidParent && isBoardMember(uidParent, R)) {
 		let divParent = findAncestorElemOfType(mBy(uidParent), 'div');
 		n.idUiParent = divParent.id;

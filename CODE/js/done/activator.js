@@ -1,3 +1,4 @@
+
 class Activator {
 	constructor(n, ui, R) {
 		this.n = n; //a uiNode

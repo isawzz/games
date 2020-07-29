@@ -1,3 +1,4 @@
+
 class SimpleGrid {
 	constructor(id, { mapData, shape = 'hex', rows = 3, cols = 2, idPrefix, hasNodes = false, hasEdges = false, randomizeIds = false } = {}) {
 		//console.log('SimpleGrid', arguments)

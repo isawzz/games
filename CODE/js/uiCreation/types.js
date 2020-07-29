@@ -1,3 +1,4 @@
+
 function mManual00(n, R, area) {
 	let ui = mDefault(n, R, area);
 	

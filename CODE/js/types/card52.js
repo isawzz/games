@@ -1,3 +1,4 @@
+
 function mCard52(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 

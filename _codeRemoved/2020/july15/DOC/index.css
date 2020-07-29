@@ -1,7 +1,13 @@
+.top-bar._fixed {
+	position: fixed;
+	min-width: auto;
+	box-shadow: var(--bs-sm);
+}
 #floatingMenu {
 	position: fixed;
 	min-width: auto;
 	box-shadow: var(--bs-sm);
+	/* position: absolute; */
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -11,17 +17,39 @@
 	height: 22px;
 	font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
 	box-sizing: border-box;
+	/* border-top: 3px solid #f48024; */
 }
+/* #floatingMenu{
+	position: -webkit-sticky; 
+	position: sticky;
+	top: 0;
+	height: 35px;
+	margin: 0;
+	z-index: 9999;
+	background-color: white;
+} */
+/* #floatingMenu + * {
+	margin-top: 35px;
+} */
+/* #floatingMenu{
+	clear: both;
+	position: sticky;
+	width: 100%;
+	background-color: #78AB46;
+} */
+
 .pathTitle{
 	font: italic small-caps bold 12px/30px Georgia, serif;
 }
 .signature{
 	color: blue;
+	/* font: bold 12pt Impact, Charcoal, sans-serif; */
 }
 .comments{
 	margin: 4px 12px;
 	font-size: 11pt;
 	color: dimgray;
+	/* font: bold 12pt Impact, Charcoal, sans-serif; */
 }
 
 .funcSignature{
@@ -41,6 +69,15 @@
 
 }
 button {
+  /* text-transform: uppercase;
+  font-size: var(--fzLobby);
+	min-width: 120px;
+	padding: 8px 10px;
+  color: white;
+  background-color: var(--bgLobby);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 150ms ease-in; */
   border-radius: 2px;
 	margin: 2px;
   border: none;
@@ -52,9 +89,15 @@ button:hover {
 
 a{
 	display: block;
+	/* display: inline-block; */
 	background-color: aliceblue;
 	overflow-x: auto;
 	word-wrap:break-word;
+	/* white-space: wrap; */
+	/* max-width: 100%; */
+	/* width: 100%; */
+	/* float: left;
+	clear: both; */
 }
 .wordwrap { 
 	white-space: pre-wrap;      /* CSS3 */   
@@ -63,22 +106,12 @@ a{
 	white-space: -o-pre-wrap;   /* Opera 7 */    
 	word-wrap: break-word;      /* IE */
 }
-
-#mainDiv, html, body {
-	height: 98%;
-}
-#mainDiv{
-	margin-top:22px;
-}
-#sidebar{
-	float: left;
-	max-width: 40%;
-	height: 100%;
-	overflow: auto;
-}
-#pageContent{
-	height: 100%;
-	overflow: auto;
+.sidebar{
+	/* float: left; */
+	max-width: 38%;
+	background-color: aliceblue;
+	/* max-width: 38%; */
+	overflow-x: scroll;
 }
 .collapsible {
 	display: block;
@@ -87,6 +120,8 @@ a{
 	cursor: pointer;
 	padding: 0px 10px;
 	margin-bottom: 2px;
+  /* padding: 18px; */
+  /* width: 100%; */
   border: none;
   text-align: left;
   outline: none;

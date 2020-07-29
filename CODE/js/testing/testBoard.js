@@ -1,3 +1,4 @@
+
 async function testCatan(r, c) {
 	let sdata = genServerDataCatan(r, c);
 	let spec = { ROOT: { cond: { obj_type: 'Board' }, type: 'grid', data: '.uid' } };

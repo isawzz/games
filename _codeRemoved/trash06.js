@@ -1,11 +1,20 @@
-//#region july15
-function countStarting(s,sub){
+//#region july16
+function activateCollapsibles(isOpen = true) {
+	let coll = document.getElementsByClassName("collapsible");
+	for (let i = 0; i < coll.length; i++) {
+		//coll[i].addEventListener("click", toggleCollapsible);
+		if (isOpen) fireClick(coll[i]);
+	}
+}
 
-	let i=0;
-	let len=sub.length;
-	while(startsWith(s,sub) || startsWith(s,'\t')){
-		i+=1;
-		s=s.slice(len);
+//#region july15
+function countStarting(s, sub) {
+
+	let i = 0;
+	let len = sub.length;
+	while (startsWith(s, sub) || startsWith(s, '\t')) {
+		i += 1;
+		s = s.slice(len);
 		console.log(s)
 	}
 	return i;
@@ -82,13 +91,13 @@ async function documentFile(url) {
 
 	let i = 0;
 	let akku = {};
-	
+
 	let MAXMAX = 5;
 	let MAX = 0;
 	let lastKey;
 	while (i < lines.length) {
 		//MAX += 1; if (MAX > MAXMAX) break;
-		
+
 		let res = skipToLine(lines, i, ['function', '//#region doc']);
 		// console.log(res,lines[res.index])
 		if (nundef(res.option)) { break; }
@@ -97,8 +106,8 @@ async function documentFile(url) {
 			let line = lines[res.index];
 			let line1 = stringAfter(line, 'function ');
 			line1 = stringBefore(line1, '{');
-			akku[line1]='';
-			lastKey=line1;
+			akku[line1] = '';
+			lastKey = line1;
 			//console.log(line1);
 		} else {
 			//what if find //#region doc?
@@ -107,7 +116,7 @@ async function documentFile(url) {
 			let resend = skipToLine(lines, iStart, ['//#endregion']);
 			let iEnd = resend.index;
 
-			let block = copyLinesFromTo(lines,iStart,iEnd);
+			let block = copyLinesFromTo(lines, iStart, iEnd);
 			// //from iStart to iEnd is doc block, however start it after /* and before */
 			// let block = stringAfter(lines[iStart], '/*');
 			// while (iStart < iEnd) {
@@ -122,9 +131,9 @@ async function documentFile(url) {
 		i = res.index + 1;
 	}
 
-	let keys=Object.keys(akku);
+	let keys = Object.keys(akku);
 	keys.sort();
-	keys.map(x => console.log(x,akku[x]));
+	keys.map(x => console.log(x, akku[x]));
 
 	// console.log(entries);
 	// return entries;

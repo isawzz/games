@@ -17,11 +17,13 @@ async function createDocs(uncollapsed = false) {
 	for (const item of sortedlst) {
 		let id = item.id;
 		let x = dv[item.id];
+		//console.log('WAS???',item,item.id,x);
 		x.index = i;
 		x.idLink = 'a_path_' + i;
 		x.idPathContainer = 'div_path_' + i;
 		i += 1;
 	}
+
 
 	//repair func indices
 	for (const p in dv) {
@@ -41,6 +43,7 @@ async function createDocs(uncollapsed = false) {
 function setCurrentPath(fname) {
 	let pathDictionary = DOC_vault;
 	let key = firstCondDict(pathDictionary, x => x.filename == fname);
+	//console.log(fname,key)
 	let entry = DOC_vault[key];
 	let index = entry.index;
 	setCurrentPathIndex(index);
@@ -65,7 +68,19 @@ function setCurrentPathIndex(i) {
 		DOC_CURRENT_PATH_INDEX = i;
 	}
 }
-function addComment(s, dParent) {	return mMultiline(s,2,dParent);}
+function addComment(s, dParent) {
+	// s is a block!
+	return mMultiline(s,2,dParent);
+	// for (const ch of s) { console.log('ch=' + ch) }
+	// s = s.replace('\t', '  ');
+	// let el = mCreate('pre');
+	// el.innerHTML = s;
+	// mAppend(dParent, el);
+	// //el.style.whiteSpace = 'pre'
+	// convertPre2(el);
+	// //convertPre1(el)
+	// return el;
+}
 function getLinkContainerId(linkId){return 'd'+linkId;}
 function createCollapsibles(dv, lst, uncollapsed) {
 	let pageContent = mBy('pageContent');
@@ -78,8 +93,10 @@ function createCollapsibles(dv, lst, uncollapsed) {
 
 		let signatureLinkContainer = mDiv(mBy('menu'));
 		signatureLinkContainer.id = getLinkContainerId(coll.id);
+		//console.log(coll.id,signatureLinkContainer.id)
 
 		let pathContainer = mDiv(pageContent);
+
 		pathContainer.id = info.idPathContainer;
 
 		let pathTitle = mDiv(pathContainer);
@@ -88,6 +105,8 @@ function createCollapsibles(dv, lst, uncollapsed) {
 		let pathContent = mDiv(pathContainer);
 
 		if (!isEmpty(info.topComment)) addComment(info.topComment, pathContent);
+		//pathContent.innerHTML = info.topComment; //'comment anfang von file path.....';
+
 
 		pathContent.classList.add('comments');
 
@@ -103,6 +122,11 @@ function createCollapsibles(dv, lst, uncollapsed) {
 			entry.idLink = l.id;
 			entry.idDiv = 'div' + entry.index + '@' + entry.path;
 
+			//console.log('funcDict entry',entry);
+			//wie muss ich l.id setzen 
+			//wie komme ich von l.id zu funcDict entry?
+			//hier hab ich ja den index
+
 			let fDiv0 = mDiv(pathContent);
 			fDiv0.id = entry.idDiv;
 			let fDiv = mCreate('p');
@@ -114,6 +138,11 @@ function createCollapsibles(dv, lst, uncollapsed) {
 			let fComments = mDiv(fDiv);
 			fComments.innerHTML = comments;
 			fComments.classList.add('comments');
+
+			//console.log('link',l)
+			//soll ich hier den content von der func einfuegen???
+
+			//let c=genContent(signature,)
 		}
 
 		hide(pathContainer);
@@ -121,6 +150,7 @@ function createCollapsibles(dv, lst, uncollapsed) {
 	let coll = document.getElementsByClassName("collapsible");
 	for (let i = 0; i < coll.length; i++) {
 		coll[i].addEventListener("click", toggleCollapsible);
+		//if (uncollapsed) fireClick(coll[i]);
 	}
 
 }
@@ -135,6 +165,8 @@ function collapseAll() {
 	let coll = document.getElementsByClassName("collapsible");
 	for (let i = 0; i < coll.length; i++) {
 		let elem = coll[i];
+		//console.log('collapseAll',elem.id,getLinkContainerId(elem.id),isVisible(mBy(getLinkContainerId(elem.id))))
+		//if (isVisible(mBy(getLinkContainerId(elem.id)))) fireClick(elem);
 		if (isVisible(getLinkContainerId(elem.id))) fireClick(elem);
 	}
 }
@@ -155,18 +187,35 @@ function showSignatureContent(ev) {
 	let ifunc = firstNumber(id);
 	let path = stringAfter(id, '@');
 	let pathEntry = DOC_vault[path];
+	//console.log('clicked on',id,ifunc,path,'\n',pathEntry);
 	let funcName = pathEntry.funcIndex[ifunc];
 	let funcEntry = pathEntry.funcDict[funcName];
+	//console.log('funcName',funcName,'funcEntry',funcEntry);
+	//console.log(pathEntry.idPathContainer)
 	let divPath = document.getElementById(pathEntry.idPathContainer);
 	if (!isVisible(divPath)) setCurrentPath(pathEntry.filename);
 	let funcDiv = mBy(funcEntry.idDiv);
+	//console.log('funcDiv',funcDiv)
 	funcDiv.scrollIntoView(true);
 }
 function toggleCollapsible(ev) {
-	let b=ev.target; //das ist scheinbar 'this' bei aufruf!
+	let b=ev.target;
+	//console.log('arguments',arguments)
 	b.classList.toggle("active");
-	var content =getLinkContainerId(b.id);
+	var content =getLinkContainerId(b.id);// mBy(getLinkContainerId(b.id)); //this.nextElementSibling;
+
+	//let funcNameContainer = mBy(getLinkContainerId(b.id));
+	//console.log('visible',funcNameContainer.id,'?',isVisible(funcNameContainer))
+
 	if (isVisible(content)) hide(content); else show(content);
+	// if (content.style.display === "block") {
+	// 	content.style.display = "none";
+	// } else {
+	// 	content.style.display = "block";
+	// }
+}
+function openCollapsible(){
+	if (!isVisible(this)){toggleCollapsible(this)}
 }
 function genLink(fname, dParent) {
 	let content = fname;

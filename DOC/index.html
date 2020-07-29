@@ -14,20 +14,20 @@
 
 </head>
 
-<body>
-	<div style='position:fixed'>
-		<button onclick='collapseAll()'>coll</button>
-		<button onclick='uncollapseAll()'>exp</button>
-		<button onclick='onClickFilter()'>filt</button>
+<body style='margin:0;padding:0'>
+	<div id='floatingMenu'>
+		<button onclick='onClickCollapse()'>collapse</button>
+		<button onclick='onClickExpand()'>expand</button>
+		<button onclick='onClickFilter()'>filter</button>
 	</div>
-	<div style='display:flex;margin-top:22px'>
+	<div id='mainDiv'>
 		<!-- Sidebar -->
-		<div id='sidebar' class="sidebar">
-			<div id='menu' style='margin-top:22px'></div>
+		<div id='sidebar'>
+			<div id='menu'></div>
 		</div>
 
 		<!-- Page Content -->
-		<div id='pageContent' style="margin-left:20px">
+		<div id='pageContent'>
 			<div id='table'></div>
 		</div>
 	</div>
