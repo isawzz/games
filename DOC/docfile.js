@@ -21,6 +21,9 @@ async function createVault() {
 	listOfFiles = Array.from(listOfFiles);
 	//console.log(typeof listOfFiles, listOfFiles)
 	//vault.map(x=>//console.log(x));
+
+	listOfFiles = ['/CODE/js/done/helpers.js','/CODE/js/_rParse.js'];
+	//console.log(listOfFiles)
 	let vault = await documentVault(listOfFiles);
 	return vault;
 }
@@ -48,9 +51,17 @@ async function documentFile(url) {
 
 	let res = await fetchFileAsText(url);
 
-	let regex=new RegExp('\nasync|\nfunction|\nvar|\nconst|\nclass','g');
+	let regex=new RegExp('\nasync function|\nfunction|\nvar|\nconst|\nclass','g');
 	let fcode=res.split(regex);
-	console.log(fcode);
+	//fcode.map(x=>console.log(x));
+	let code={};
+	for(const w of fcode){
+		let trimmed = w.trim();
+		let name = firstWord(trimmed);
+		//console.log('first word of',trimmed,'is',name);
+		//console.log('first word is',name);
+		if (!isEmpty(name)) code[name]=trimmed;
+	}
 
 
 
@@ -74,7 +85,9 @@ async function documentFile(url) {
 				line1 = stringBefore(line1, '{').trim();
 				//akku[line1] = '';
 
-				akku[line1] = { index: iFunc, comments: '', path: url }; iFunc += 1;
+				let entry = akku[line1] = { name: firstWord(line1), index: iFunc, comments: '', path: url }; 
+				if (isdef(code[entry.name])) entry.code = code[entry.name];
+				iFunc += 1;
 
 				lastKey = line1;
 				//console.log(line1);

@@ -37,6 +37,42 @@ function createText({ s, parent, style, classes }) {
 	if (isdef(style)) mStyle(d, style);
 	if (isdef(classes)) mClass(d, ...classes);
 }
+function createEmoji({ key, w, h, unit = 'px', fg, bg,	padding, cat, parent, border, rounding }) {
+	if (nundef(key)) key = getRandomKey(iconChars);
+	let ch = iconChars[key];
+	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let text = String.fromCharCode('0x' + ch);
+	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
+	let domel;
+	//console.log(parent, cat)
+	if (cat == 'd') {
+		let d = document.createElement('div');
+		d.style.textAlign = 'center';
+		d.style.fontFamily = family;
+		d.style.fontWeight = 900;
+		d.style.fontSize = h + unit;
+		if (isdef(bg)) d.style.backgroundColor = bg;
+		if (isdef(fg)) d.style.color = fg;
+		d.innerHTML = text;
+		domel = d;
+		if (isdef(padding)) d.style.padding = padding + unit;
+		d.style.display = 'inline-block';
+		d.style.height = h + 2 * padding + unit;
+		d.style.width = d.style.height;
+		//d.style.textAlign = 'center';
+		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
+		if (isdef(border)) d.style.border = border;
+		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
+	} else {
+		//create a g element
+		//add a rectangle element w/ or wo/ stroke and rounding
+		//add a text element
+
+	}
+	domel.key = key;
+	if (parent) parent.appendChild(domel);
+	return domel;
+}
 function createPictoX(parent, style, classes, titleOptions, pictoOptions, captionOptions) {
 	// { key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
 	// 	padding = 6, cat, parent, border = '1px solid red', rounding = 4, title, caption }) {
@@ -55,8 +91,48 @@ function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 	let text = String.fromCharCode('0x' + ch);
-	cat = isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
+	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
 	let domel;
+	//console.log(parent, cat)
+	if (cat == 'd') {
+		let d = document.createElement('div');
+		d.style.textAlign = 'center';
+		d.style.fontFamily = family;
+		d.style.fontWeight = 900;
+		d.style.fontSize = h + unit;
+		if (isdef(bg)) d.style.backgroundColor = bg;
+		if (isdef(fg)) d.style.color = fg;
+		d.innerHTML = text;
+		domel = d;
+		if (isdef(padding)) d.style.padding = padding + unit;
+		d.style.display = 'inline-block';
+		d.style.height = h + 2 * padding + unit;
+		d.style.width = d.style.height;
+		//d.style.textAlign = 'center';
+		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
+		if (isdef(border)) d.style.border = border;
+		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
+	} else {
+		//create a g element
+		//add a rectangle element w/ or wo/ stroke and rounding
+		//add a text element
+
+	}
+	domel.key = key;
+	if (parent) parent.appendChild(domel);
+	return domel;
+}
+function createPictoSimple({ key, w, h, unit = 'px', fg, bg, padding, cat, parent, border, rounding }) {
+	if (nundef(key)) key = getRandomKey(iconChars);
+	let ch = iconChars[key];
+	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let text = String.fromCharCode('0x' + ch);
+	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
+	if (nundef(w)) w = 25;
+	if (nundef(h)) h = w;
+
+	let domel;
+	//console.log(parent, cat)
 	if (cat == 'd') {
 		let d = document.createElement('div');
 		d.style.textAlign = 'center';
@@ -113,6 +189,33 @@ function mButton(caption, handler, dParent, styles, classes) {
 		//console.log('setting classes',classes,...classes)
 		mClass(x, ...classes);
 	}
+	return x;
+}
+function mPicButton(key, handler, dParent, styles, classes) {
+	let x = createPicto({
+		key: key, w: 20, h: 20, unit: 'px', fg: 'yellow', bg: 'violet',
+		padding: 2, margin: 0, cat: 'd', parent: dParent, rounding: 4
+	});
+	//return x;
+	// let x = mCreate('button');
+	// x.innerHTML = caption;
+	if (isdef(handler)) x.onclick = handler;
+	// if (isdef(dParent)) dParent.appendChild(x);
+	if (isdef(styles)) {
+		//console.log('style of picButton', styles)
+		mStyle(x, styles);
+		//mClass(dParent,'vCentered')
+	}
+	if (isdef(classes)) { mClass(x, ...classes); }
+	else mClass(x, 'picButton');
+	return x;
+}
+function mPicButtonSimple(key, handler, dParent, styles, classes) {
+	let x = createPictoSimple({ key: key, cat: 'd', parent: dParent });
+	if (isdef(handler)) x.onclick = handler;
+	if (isdef(styles)) {		mStyle(x, styles);	}
+	if (isdef(classes)) { mClass(x, ...classes); }
+	//else mClass(x, 'picButton');
 	return x;
 }
 function mLink(content, href, dParent, styles, classes) {
@@ -1531,6 +1634,67 @@ function addSvggViewbox(dParent, gid, { w = '100%', h = '100%', bg, fg, originIn
 //#endregion
 
 //#region DOM: coordinate and bounds helpers, text measuring!
+var resizeObserver = new ResizeObserver(entries => {
+	for (let entry of entries) {
+		let cs = window.getComputedStyle(entry.target);
+		console.log('watching element:', entry.target);
+		console.log(entry.contentRect.top, ' is ', cs.paddingTop);
+		console.log(entry.contentRect.left, ' is ', cs.paddingLeft);
+		console.log(entry.borderBoxSize[0].inlineSize, ' is ', cs.width);
+		console.log(entry.borderBoxSize[0].blockSize, ' is ', cs.height);
+		if (entry.target.handleResize)
+			entry.target.handleResize(entry);
+	}
+});
+class MaxWidthPreserver {
+	constructor() {
+		this.entries = {};
+		this.resizeObserver = new ResizeObserver(this.handler.bind(this));
+	}
+	handler(entries) {
+		//console.log('........entries:', entries, 'this.entries', this.entries)
+		for (let entry of entries) {
+			let domel = entry.target;
+			let cs = window.getComputedStyle(entry.target);
+			let w = firstNumber(cs.width);
+
+			let id = domel.id;
+			let x = this.entries[id];
+			//console.log('domel', domel, '\nid', id, '\nw', w, '\nx', x)
+			if (isdef(x)) {
+				if (w < x.minWidth && Math.abs(w - x.minWidth) > 1) {
+					//console.log('!!!!!!!!!!!!!!');
+					w = x.minWidth;
+					domel.style.minWidth = w + 'px';
+				}
+				x.minWidth = w;
+				//console.log('width is', w);
+			}
+		}
+	}
+	add(id) {
+		//console.log(id)
+		let entry = this.entries[id] = { elem: mBy(id) };
+		let cs = window.getComputedStyle(entry.elem);
+		this.resizeObserver.observe(mBy(id));
+		entry.minWidth = firstNumber(cs.width);
+	}
+}
+
+var maxWidthPreserver = new MaxWidthPreserver();
+var xxxxxxxxxx = new ResizeObserver(entries => {
+	for (let entry of entries) {
+		let cs = window.getComputedStyle(entry.target);
+		console.log('watching element:', entry.target);
+		console.log(entry.contentRect.top, ' is ', cs.paddingTop);
+		console.log(entry.contentRect.left, ' is ', cs.paddingLeft);
+		console.log(entry.borderBoxSize[0].inlineSize, ' is ', cs.width);
+		console.log(entry.borderBoxSize[0].blockSize, ' is ', cs.height);
+		if (entry.target.handleResize)
+			entry.target.handleResize(entry);
+	}
+});
+
 function myFunction() {
 	console.log('onresize!!!');
 	//for(const id of [])
@@ -3465,6 +3629,40 @@ function firstPositiveNumber(s) {
 	// returns first number in string s
 	return s ? Number(s.match(/\d+/).shift()) : -1;
 }
+function firstWord(s) {
+	let i = 0;
+	let res = '';
+	while (i < s.length && !isWhiteSpace(s[i])) { res += s[i]; i += 1; }
+	return res;
+}
+function hasWhiteSpace(s) { return /\s/g.test(s); }
+function isAlphaNum(s) {
+	//regex version: Here 
+	// ^ means beginning of string and 
+	// $ means end of string, and [0-9a-z]+ means one or more of character from 0 to 9 OR from a to z.
+	// i means case insensitive
+
+	return /^[a-z0-9_]+$/i.test(s); // only lower case: /^[0-9a-z_]+$/);
+}
+function isAlphaNumeric(str) {
+	var code, i, len;
+
+	for (i = 0, len = str.length; i < len; i++) {
+		code = str.charCodeAt(i);
+		if (!(code > 47 && code < 58) && // numeric (0-9)
+			!(code > 64 && code < 91) && // upper alpha (A-Z)
+			!(code > 96 && code < 123) && str[i] != '_') { // lower alpha (a-z)
+			return false;
+		}
+	}
+	return true;
+};
+function isWhiteSpace(ch) { return /\s/.test(ch) }
+function isWhiteSpace1(s) { let white = new RegExp(/^\s$/); return white.test(s.charAt(0)); }
+function isWhiteSpace2(ch) {
+	const alphanum = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_';
+	return !alphanum.includes(ch);
+}
 function makeString(obj, prop, maxlen = 50, isStart = true) {
 	let s = prop + ':';
 	if (prop in obj) {
@@ -3500,14 +3698,14 @@ function replaceAll(str, sSub, sBy) {
 function reverseString(s) {
 	return toLetterList(s).reverse().join('');
 }
-function sameCaseIndep(s1, s2) {
+function sameCaseInsensitive(s1, s2) {
 	return s1.toLowerCase() == s2.toLowerCase();
 }
 function startsWith(s, sSub) {
 	//testHelpers('startWith: s='+s+', sSub='+sSub,typeof(s),typeof(sSub));
 	return s.substring(0, sSub.length) == sSub;
 }
-function startsWithCaseIndep(s, ssub) {
+function startsWithCaseInsensitive(s, ssub) {
 	return startsWith(s.toLowerCase(), ssub.toLowerCase());
 }
 function stringAfter(sFull, sSub) {

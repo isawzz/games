@@ -1,3 +1,21 @@
+.picButton{
+	float: right;
+	margin-right: 10px;
+	padding: 5px;
+	margin: 4px 16px;
+	width: 25px;
+	height: 25px;
+	background-color: rgb(39, 39, 41);
+	color: white;
+	box-sizing: border-box;
+}
+.picButtonHover{
+	background-color: green;
+	color: black;
+	width: 35px;
+	height: 135px;
+}
+
 #floatingMenu {
 	position: fixed;
 	min-width: auto;
@@ -43,10 +61,12 @@
 button {
   border-radius: 2px;
 	margin: 2px;
+	padding:0px;
   border: none;
+	/* background-color: #79d7e4; */
   outline: none;
 }
-button:hover {
+button:hover,.collapsible:hover {
     background-color: #79d7e4;
 }
 
@@ -68,35 +88,38 @@ a{
 	height: 98%;
 }
 #mainDiv{
+	display: flex;
 	margin-top:22px;
 }
+#mainDiv div{
+	flex: 0 0 auto;
+}
 #sidebar{
-	float: left;
-	max-width: 40%;
+	/* float: left; */
+	/* max-width: 40%; */
 	height: 100%;
-	overflow: auto;
+	overflow-y: auto; 
+	/* flex: 0 0 auto; */
 }
 #pageContent{
 	height: 100%;
-	overflow: auto;
+	overflow: auto; 
 }
 .collapsible {
 	display: block;
   background-color: #777;
   color: white;
 	cursor: pointer;
-	padding: 0px 10px;
+	/* padding: 0px 10px; */
 	margin-bottom: 2px;
   border: none;
   text-align: left;
   outline: none;
 	font-size: 15px;
-	width: 100%;
+	width: 98%;
+	box-sizing: border-box;
 }
 
-.active, .collapsible:hover {
-  background-color: #555;
-}
 
 .content {
   /* padding: 0 18px; */
@@ -105,19 +128,3 @@ a{
   background-color: #f1f1f1;
 }
 
-/* #region fonts */
-
-@font-face{
-	font-family: 'pictoFa';
-	src: url('/CODE/css/Font Awesome 5 Free-Solid-900.otf') format("truetype");
-}
-@font-face {
-	font-family: 'pictoGame';
-	src: url('/CODE/css/game-icons.ttf') format("truetype");
-}
-@font-face {
-	font-family: 'AlgerianRegular';
-	src: url('/CODE/css/ALGER.ttf') format("truetype");
-}
-
-/* #endregion fonts */

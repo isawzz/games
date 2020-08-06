@@ -4,7 +4,8 @@ var DOC_dvIndex;
 var DOC_CURRENT_PATH_INDEX;
 var DOC_CURRENT_FUNC;
 
-async function createDocs(uncollapsed = false) {
+
+async function createDocs(collapsed = true) {
 	let dv = DOC_vault = await createVault();
 	DOC_UIS = {};
 
@@ -33,14 +34,20 @@ async function createDocs(uncollapsed = false) {
 	}
 	//console.log(dv)
 	DOC_dvIndex = sortedlst.map(x => x.id);
-	createCollapsibles(dv, DOC_dvIndex, uncollapsed);
+	//console.log('collapsed', collapsed)
+	createCollapsibles(dv, DOC_dvIndex, collapsed);
 
-	setCurrentPath('_rparse.js');
+	setCurrentPath('helpers.js');
 
+	//new ResizeObserver(outputsize).observe(textbox)
+	//resizeObserver.observe(mBy('sidebar'));
+	maxWidthPreserver.add('sidebar');
 }
+
 function setCurrentPath(fname) {
+	//console.log(fname,DOC_vault)
 	let pathDictionary = DOC_vault;
-	let key = firstCondDict(pathDictionary, x => x.filename == fname);
+	let key = firstCondDict(pathDictionary, x => sameCaseInsensitive(x.filename, fname));
 	let entry = DOC_vault[key];
 	let index = entry.index;
 	setCurrentPathIndex(index);
@@ -65,9 +72,9 @@ function setCurrentPathIndex(i) {
 		DOC_CURRENT_PATH_INDEX = i;
 	}
 }
-function addComment(s, dParent) {	return mMultiline(s,2,dParent);}
-function getLinkContainerId(linkId){return 'd'+linkId;}
-function createCollapsibles(dv, lst, uncollapsed) {
+function addComment(s, dParent) { return mMultiline(s, 2, dParent); }
+function getLinkContainerId(linkId) { return 'd' + linkId; }
+function createCollapsibles(dv, lst, collapsed) {
 	let pageContent = mBy('pageContent');
 	for (const item of lst) {
 		let path = item;
@@ -122,6 +129,7 @@ function createCollapsibles(dv, lst, uncollapsed) {
 	for (let i = 0; i < coll.length; i++) {
 		coll[i].addEventListener("click", toggleCollapsible);
 	}
+	if (collapsed) collapseAll();
 
 }
 function uncollapseAll() {
@@ -138,14 +146,19 @@ function collapseAll() {
 		if (isVisible(getLinkContainerId(elem.id))) fireClick(elem);
 	}
 }
-function onClickFilter(){
+function onClickFilter() {
 	console.log('clicked filter!')
 }
-function onClickCollapse(){	collapseAll();}
-function onClickExpand(){	uncollapseAll();}
+function onClickTop() {
+	mBy('sidebar').scrollTo(0, 0); //console.log('clicked filter!')
+	mBy('pageContent').scrollTo(0, 0); //console.log('clicked filter!')
+}
+
+function onClickCollapse() { collapseAll(); }
+function onClickExpand() { uncollapseAll(); }
 function showCollapsibleContent(ev) {
 	let id = evToClosestId(ev);
-	mBy('pageContent').scrollTo(0,0);
+	mBy('pageContent').scrollTo(0, 0);
 	ev.cancelBubble = true;
 	setCurrentPathIndex(firstNumber(id));
 }
@@ -163,13 +176,14 @@ function showSignatureContent(ev) {
 	funcDiv.scrollIntoView(true);
 }
 function toggleCollapsible(ev) {
-	let b=ev.target; //das ist scheinbar 'this' bei aufruf!
+	let b = ev.target; //das ist scheinbar 'this' bei aufruf!
 	b.classList.toggle("active");
-	var content =getLinkContainerId(b.id);
+	var content = getLinkContainerId(b.id);
 	if (isVisible(content)) hide(content); else show(content);
 }
 function genLink(fname, dParent) {
-	let content = fname;
+	let content = stringBefore(fname, '(');
+	//console.log('fname is',content)
 	let b = mLink(content, '#' + content, dParent, { padding: '0px 2px' }, null);
 	b.addEventListener('click', showSignatureContent);
 	return b;
@@ -181,7 +195,38 @@ function genCollapsible(path, info) {
 	let b = mButton(caption, null, dParent, {}, classes);
 	b.id = info.idLink;
 
-	let bView = mButton('view', e => showCollapsibleContent(e), b, { float: 'right' }, null);
+	//let bView = mButton('view', e => showCollapsibleContent(e), b, { float: 'right' }, null);
+	let bView = mPicButtonSimple('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, null);
+
+	//let bView = mPicButton('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, null);
+
+	bView.addEventListener('mouseenter', ev => {
+		let domel = ev.target;
+		domel.origColor = domel.style.backgroundColor;
+		//domel.style.backgroundColor = 'red';
+		//mStyle(domel,{'background-color':'green'});
+		domel.classList.remove('picButton');
+		domel.classList.add('picButtonHover');
+		console.log('==>classList',domel.classList);
+		//mClass(domel,'picButtonHover');
+		//ev.cancelBubble = true; 
+		ev.stopPropagation = true; 
+		//ev.defaultPrevented = true;
+		//console.log('entering view button', '\nevent', ev, '\nbutton', this);
+	});
+	bView.addEventListener('mouseleave', ev => {
+		let domel = ev.target;
+		domel.classList.add('picButton');
+		domel.classList.remove('picButtonHover')
+		// domel.style.backgroundColor = domel.origColor; //'violet';
+		//ev.cancelBubble = true; 
+		ev.stopPropagation = true; 
+		//ev.defaultPrevented = true;
+		// console.log('leaving view button', '\nevent', ev, '\nbutton', this);
+	});
+
+	//console.log('haaaaaaaaaaaaaaaaalo',b.style.padding)
+	b.style.padding = '4px';
 
 	return b;
 }
