@@ -1,11 +1,21 @@
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
 var hintWord, bestWord;
 
+
+function mSidebar(dParent,styles,classes){
+	
+}
+
 async function testSpeech() {
+
+	// let x=simpleWordListFromString('" hallo das, ist gut');
+	// console.log(x);	return;
+
 	await loadAssets();
 	//speechEngineInit();
 	setStatus('wait');
 	score = 0;
+	onClickStartButton();
 }
 function onClickStartButton() {
 	console.log('start');

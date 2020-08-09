@@ -4,12 +4,6 @@ var emojiChars, numEmojis, emojiKeys;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
-function takeFromStart(ad, n) {
-	if (isDict(ad)) {
-		let keys = Object.keys(ad);
-		return keys.slice(0, n).map(x => ({ x: ad[x] }));
-	} else return ad.slice(0, n);
-}
 async function loadAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
 	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));

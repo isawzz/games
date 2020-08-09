@@ -27,14 +27,14 @@ var tiere = [{ key: 'monkey', words: ['affe'], lang: 'G' }, { key: 'gorilla', la
 { key: 'deer', words: ['hirsch', 'elch'], lang: 'G' }, { key: 'ox', words: ['ochs', 'bueffel', 'stier'], lang: 'G' },
 { key: 'cow', words: ['kuh'], lang: 'G' },
 { key: 'pig', words: ['schwein'] }, { key: 'goat', words: ['ziege'] }, { key: 'ewe', words: ['schaf'] },
-{ key: 'camel', words: ['kamel'], lang: 'G' }, { key: 'elephant', words: ['elephant', 'elefant'], lang: 'G' }, 
-{ key: 'rhinoceros',words: ['rhinozeros','nashorn'], lang: 'G' },
+{ key: 'camel', words: ['kamel'], lang: 'G' }, { key: 'elephant', words: ['elephant', 'elefant'], lang: 'G' },
+{ key: 'rhinoceros', words: ['rhinozeros', 'nashorn'], lang: 'G' },
 { key: 'hippopotamus', words: ['nilpferd', 'hippo', 'hippopotamus'], lang: 'G' },
 { key: 'mouse', words: ['maus'], lang: 'G' }, { key: 'rat', words: ['ratte'], lang: 'G' },
-{ key: 'rabbit', words: ['kaninchen','hase'], lang: 'G' },
+{ key: 'rabbit', words: ['kaninchen', 'hase'], lang: 'G' },
 { key: 'hedgehog', words: ['igel'], lang: 'G' }, { key: 'bat', words: ['fledermaus'], lang: 'G' },
 { key: 'sloth', words: ['faultier'], lang: 'G' },
-{ key: 'otter', lang: 'G' }, { key: 'skunk', words: ['stinktier'], lang: 'G' }, { key: 'kangaroo',words: ['kaenguru'], lang: 'G' },
+{ key: 'otter', lang: 'G' }, { key: 'skunk', words: ['stinktier'], lang: 'G' }, { key: 'kangaroo', words: ['kaenguru'], lang: 'G' },
 { key: 'rooster', words: ['hahn'], lang: 'G' },
 { key: 'penguin', words: ['pinguin'], lang: 'G' }, { key: 'dove', words: ['taube'], lang: 'G' },
 { key: 'eagle', words: ['adler'], lang: 'G' }, { key: 'duck', words: ['ente'], lang: 'G' },
@@ -64,12 +64,40 @@ function getGermanAnimals() {
 	choice.lang = 'D';
 	return choice;
 }
+function simpleWordListFromString(s) {
+	let lst = listFromString(s);
+	let res = [];
+	for (const w of lst) {
+		let parts = w.split(' ');
+		parts.map(x => addIf(res, x));
+	}
+	return res;
+}
+function listFromString(s) {
+	//let tags=s.replace('"','').trim();
+	let words = s.split(',');
+	return words.map(x => x.replace('"', '').trim());
+}
+function allEnglishWords() {
+	console.log(emojiChars, emojiKeys);
 
-function allEnglishWords(){
-	console.log(emojiChars,emojiKeys)
+	//test
+	// let os=takeFromTo(emojiChars,100,103);
+	// console.log('_______');
+	// os.map(x=>console.log(x,x.tags,x.openmoji_tags))
+	//let o = os[0];
+
 	let key = chooseRandomKey(emojiKeys);
-	console.log('_______________', key)
-	let m={};
+	console.log('_______________', key);
+	let o = emojiChars[emojiKeys[key]];
+	console.log('emoji object', o);
+	let tags = simpleWordListFromString(o.tags);
+	let etags = simpleWordListFromString(o.openmoji_tags);
+	let other = simpleWordListFromString(o.annotation);
+	let words = union(union(tags, etags), other);
+	console.log('words', words);
+
+	return { words: words, key: o.annotation, lang: 'E' };
 
 }
 

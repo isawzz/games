@@ -2661,6 +2661,19 @@ function deepmergeOverride(base, drueber) { return mergeOverrideArrays(base, dru
 //#endregion
 
 //#region objects, dictionaries, lists, arrays
+function takeFromStart(ad, n) {
+	if (isDict(ad)) {
+		let keys = Object.keys(ad);
+		return keys.slice(0, n).map(x => (ad[x]));
+	} else return ad.slice(0, n);
+}
+function takeFromTo(ad, from,to) {
+
+	if (isDict(ad)) {
+		let keys = Object.keys(ad);
+		return keys.slice(from, to).map(x => (ad[x]));
+	} else return ad.slice(from, to);
+}
 
 function addIf(arr, el) {
 	if (!arr.includes(el)) arr.push(el);
