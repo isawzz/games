@@ -37,22 +37,31 @@ function createText({ s, parent, style, classes }) {
 	if (isdef(style)) mStyle(d, style);
 	if (isdef(classes)) mClass(d, ...classes);
 }
-function createEmoji({ key, w, h, unit = 'px', fg, bg,	padding, cat, parent, border, rounding }) {
-	if (nundef(key)) key = getRandomKey(iconChars);
-	let ch = iconChars[key];
-	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-	let text = String.fromCharCode('0x' + ch);
+function createEmoji({ key, w, h, unit = 'px', fg, bg, padding, cat, parent, border, rounding }) {
+	let emoji = emojiChars[emojiKeys[key]];
+	console.log('emoji', emoji);
+	if (nundef(key)) key = getRandomKey(emojiChars);
+	let ch = emoji.hexcode;
+	console.log('ch', ch)
+	let family = 'emoColor';// (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let text = emoji.emoji;// String.fromCharCode('0x' + ch);
+	if (isdef(parent) && isString(parent)) parent = mBy(parent);
+	console.log(parent);
+	console.log(typeof text, text)
 	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
 	let domel;
 	//console.log(parent, cat)
 	if (cat == 'd') {
 		let d = document.createElement('div');
 		d.style.textAlign = 'center';
-		d.style.fontFamily = family;
-		d.style.fontWeight = 900;
-		d.style.fontSize = h + unit;
-		if (isdef(bg)) d.style.backgroundColor = bg;
-		if (isdef(fg)) d.style.color = fg;
+		//d.style.fontFamily = family;
+		//d.style.fontWeight = 900;
+		//d.style.fontSize = h + unit;
+		if (isdef(bg)) {
+			console.log('bg', bg);
+			d.style.backgroundColor = bg;
+		}
+		//if (isdef(fg)) d.style.color = fg;
 		d.innerHTML = text;
 		domel = d;
 		if (isdef(padding)) d.style.padding = padding + unit;
@@ -213,7 +222,7 @@ function mPicButton(key, handler, dParent, styles, classes) {
 function mPicButtonSimple(key, handler, dParent, styles, classes) {
 	let x = createPictoSimple({ key: key, cat: 'd', parent: dParent });
 	if (isdef(handler)) x.onclick = handler;
-	if (isdef(styles)) {		mStyle(x, styles);	}
+	if (isdef(styles)) { mStyle(x, styles); }
 	if (isdef(classes)) { mClass(x, ...classes); }
 	//else mClass(x, 'picButton');
 	return x;
@@ -277,6 +286,26 @@ function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
 function mFg(d, color) { d.style.color = color; }
+function mInstruction(msg, dParent) {
+	let p = mCreate('h2');
+	p.innerHTML = msg + '!';
+	mAppend(dParent, p);
+	return p;
+}
+function mHeading(msg, dParent, level, id) {
+	let p = mCreate('h' + level);
+	if (!isEmpty(msg)) p.innerHTML = msg;
+	if (isdef(id)) p.id = id;
+	mAppend(dParent, p);
+	return p;
+}
+function mText(msg, dParent, id) {
+	let p = mCreate('div');
+	if (!isEmpty(msg)) p.innerHTML = msg;
+	if (isdef(id)) p.id = id;
+	mAppend(dParent, p);
+	return p;
+}
 function mFlexCenterContent(d) { mStyle(d, { 'justify-content': 'center', 'align-items': 'center' }); }
 function mFlex(d, or = 'h') {
 	d.style.display = 'flex';
@@ -291,6 +320,7 @@ function mFlexChild(d, grow = 1, shrink = 0, base = 'auto') {
 	// d.style.flexBase='50%';
 	d.style.flex = '' + grow + ' ' + shrink + ' ' + base;
 }
+function mFlexLinebreak(d) { if (isString(d)) d = mBy(d); let lb = mDiv(d); mClass(lb, 'linebreak'); return lb; }
 function mFlexChildSplit(d, split) {
 	if (split != 1) { split *= 10; if (split % 2 == 0) split /= 2; }
 	d.style.flex = '' + split + ' 0 auto'; //NO
@@ -304,6 +334,26 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mTextDiv(label); }
+function mEmo(key, parent, fontSize) {
+	//console.log(key,parent,fontSize);
+	if (isString(parent)) parent = mBy(parent);
+	let d = mDiv(parent);
+	let rec = emojiChars[emojiKeys[key]];
+	let decCode = hexStringToDecimal(rec.hexcode);
+	//console.log(key,rec.hexcode,decCode,);
+	let s1 = '&#' + decCode + ';'; //'\u{1F436}';
+	d.innerHTML = s1;
+	d.style.fontSize = fontSize + 'pt';
+	return d;
+}
+function mEmoSimple(key, parent, fontSize) {
+	if (isString(parent)) parent = mBy(parent);
+	let d = mDiv(parent);
+	let s1 = '&#' + key + ';'; //'\u{1F436}';
+	d.innerHTML = s1;
+	d.style.fontSize = fontSize + 'pt';
+	return d;
+}
 function mPic(key) {
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
@@ -2142,6 +2192,32 @@ function fireKey(k, { control, alt, shift } = {}) {
 //#endregion
 
 //#region file IO
+function processCsvData(allText) {
+	var numHeadings = 5;  // or however many elements there are in each row
+	var allTextLines = allText.split(/\r\n|\n/);
+	//console.log('found',allTextLines.length,'text lines!!!')
+	var headings = allTextLines[0].split(',');
+	numHeadings = headings.length;
+	//console.log('headings',numHeadings,headings);
+	let entries = allTextLines.splice(1);
+	//entries = entries.slice(0,10);
+	//entries.map(x=>console.log(x)); 
+	var records = { headings: headings };
+	// var recordsByName = {};
+	for (const e of entries) {
+		let o = {};
+		let values = e.split(',');
+		for (let i = 0; i < numHeadings; i++) {
+			let k = headings[i];
+			o[k] = values[i];
+		}
+		records[o.hexcode] = o;
+		//recordsByName[o.annotation] = o.hexcode;
+	}
+	//console.log('recordsByName',recordsByName)
+	return records; //{ records: records, recordsByName: recordsByName };
+}
+
 //localStorage save and load:
 function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
 function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
@@ -3491,6 +3567,7 @@ function chooseRandom(arr, condFunc = null) {
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
 }
+function chooseRandomKey(dict) { return chooseRandom(Object.keys(dict)); }
 function chooseRandomDictKey(dict, condFunc = null) {
 	if (isEmpty(dict)) return null;
 	let arr = Object.keys(dict);
@@ -3769,6 +3846,23 @@ function getTypeOf(param) {
 	let lType = type.toLowerCase();
 	if (lType.includes('event')) type = 'event';
 	return type;
+}
+function hexDigitToDecimal(hex) {
+	let n = firstNumber(hex);
+	if (nundef(n)) {
+		hex = hex.toLowerCase();
+		return hex == 'f' ? 15 : hex == 'e' ? 14 : hex == 'd' ? 13 : hex == 'c' ? 12 : hex == 'b' ? 11 : 10;
+	} else return n;
+}
+function hexStringToDecimal(hex) {
+	let len = hex.length;
+	let fact = 1;
+	let num = 0;
+	for (let i = len - 1; i >= 0; i--) {
+		num += hexDigitToDecimal(hex[i]) * fact;
+		fact *= 16;
+	}
+	return num;
 }
 function isdef(x) { return x !== null && x !== undefined; }
 function isDictOrList(d) { return typeof (d) == 'object'; }

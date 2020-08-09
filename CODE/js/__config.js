@@ -27,8 +27,9 @@ var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
-const TIMIT_SHOW = false; // true | false
-const STOP_TESTS_ON_FAIL =true; // true | false
+const TIMIT_SHOW = true; // true | false
+const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
+const STOP_TESTS_ON_FAIL = true; // true | false
 
 var ACTIVATE_UI = true; // true | false
 const OPEN_MAIN = true; // true | false
@@ -68,7 +69,6 @@ const TESTING = true; // true | false //uses files from tests, DOES NOT send rou
 // var SERVERDATA_PATH = '/DATA/_server0'; // _server0 | __cardSuitData | serverttt_real | serverttt | serverCatan | serverAristo
 //#endregion
 
-const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const USE_MAX_PLAYER_NUM = false; // true | false
 
 const CLEAR_BETWEEN_TESTS = true; // true | false

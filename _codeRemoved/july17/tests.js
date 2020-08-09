@@ -1,134 +1,11 @@
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
-var words,grammar,lang,matchingWords,recognition,speechRecognitionList,hintMessage,resultMessage;
-
-function onClickStartButton(){
-	hide('bStart');
-	speechEngineGo(lang,matchingWords);
-}
-//function 
-
-async function testSpeech(){
-	await loadAssets();
-
-	hide('floatingMenu');
-	let table=mBy('table');
-	//hier kommen words, choose random word
-
-
-	let e=mEmo('red heart',table,200);
-	e.style.color = 'red';
-
-	mFlexLinebreak(table);
-
-	 lang='E';
-	 matchingWords=['heart'];
-	if (isEnglish(lang)){
-		mInstruction('Say the word in English', table);
-	}else{
-		mInstruction('Sag das Wort auf Deutsch', table);
-	}
-	mFlexLinebreak(table);
-	hintMessage = mHeading('HALLO',table,1,'hint');
-	mFlexLinebreak(table);
-	resultMessage = mText('jajaja',table,'result');
-	resultMessage.style.marginTop='200px';
-	resultMessage.style.fontSize='20pt';
-
-	//start the engine!
-
-	//speechEngineGo(lang,matchingWords);
-}
-function speechEngineGo(lang,matchingWords){
-	words = matchingWords;
-	grammar = '#JSGF V1.0; grammar colors; public <color> = ' + words.join(' | ') + ' ;'
-	
-	recognition = new SpeechRecognition();
-	speechRecognitionList = new SpeechGrammarList();
-	speechRecognitionList.addFromString(grammar, 1);
-	recognition.grammars = speechRecognitionList;
-	recognition.continuous = false;
-	recognition.lang = isEnglish(lang) ?'en-US':'de-DE'; //'en-US';
-	recognition.interimResults = false;
-	recognition.maxAlternatives = 1;
-
-	recognition.onresult = function (event) {
-		let word = event.results[0][0].transcript;
-		resultMessage.textContent = 'Result received: ' + word + '.';
-		//bg.style.backgroundColor = color;
-		console.log('Confidence: ' + event.results[0][0].confidence);
-		recognition.stop();
-		let b=mBy('bStart');
-		b.innerHTML='NEXT';
-		show('bStart');
-	}
-	
-	recognition.onspeechend = function () {
-		console.log('onSpeechEnd happened!')
-		recognition.stop();
-	}
-	
-	recognition.onnomatch = function (event) {
-		resultMessage.textContent = "I didn't recognise that word! - try again";
-		//da muss ein hint kommen!!!
-		recognition.stop();
-	}
-	
-	recognition.onerror = function (event) {
-		resultMessage.textContent = 'Error occurred in recognition: ' + event.error;
-		recognition.stop();
-	}
-
-	// resultMessage = document.querySelector('.output');
-	// var bg = document.querySelector('html');
-	// var hints = document.querySelector('.hints');
-	
-	// var colorHTML = '';
-	// words.forEach(function (v, i, a) {
-	// 	console.log(v, i);
-	// 	colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
-	// });
-	// hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try ' + colorHTML + '.';
-	
-	document.body.onclick = function () {
-		recognition.start();
-		console.log('Ready to receive a color command.');
-	}
-	
-	
-}
-function mInstruction(msg,dParent){
-	let p=mCreate('h2');
-	p.innerHTML=msg+'!';
-	mAppend(dParent,p);
-	return p;
-}
-function mHeading(msg,dParent,level,id){
-	let p=mCreate('h'+level);
-	if (!isEmpty(msg)) p.innerHTML=msg;
-	if (isdef(id)) p.id=id;
-	mAppend(dParent,p);
-	return p;
-}
-function mText(msg,dParent,id){
-	let p=mCreate('div');
-	if (!isEmpty(msg)) p.innerHTML=msg;
-	if (isdef(id)) p.id=id;
-	mAppend(dParent,p);
-	return p;
-}
 async function testFetchCsvAsTextAndSearch() {
-	// let x = await (await fetch('/assets/openmoji.csv')).text();
-	// let res = processCsvData(x);
-	// let records = emojiChars = res.records;
-	// let byName = emojiKeys = res.recordsByName;
-	// let num = numEmojis = Object.keys(byName).length;
-	timit = new TimeIt('*timer', TIMIT_SHOW);
+	let x = await (await fetch('/assets/openmoji.csv')).text();
+	let res = processCsvData(x);
 
-	await loadAssets();
+	let records = emojiChars = res.records;
+	let byName = emojiKeys = res.recordsByName;
+	let num = numEmojis = Object.keys(byName).length;
 
-	timit.show();
 	mEmo('blue heart','table',100);
 
 	mFlexLinebreak('table');
@@ -274,6 +151,31 @@ function testDec(){
 	console.log('x',hexStringToDecimal('1F499'));
 	console.log('x',hexStringToDecimal('1F981'));
 }
+function processCsvData(allText) {
+	var numHeadings = 5;  // or however many elements there are in each row
+	var allTextLines = allText.split(/\r\n|\n/);
+	//console.log('found',allTextLines.length,'text lines!!!')
+	var headings = allTextLines[0].split(',');
+	numHeadings = headings.length;
+	//console.log('headings',numHeadings,headings);
+	let entries = allTextLines.splice(1);
+	//entries = entries.slice(0,10);
+	//entries.map(x=>console.log(x)); 
+	var records = { headings: headings };
+	var recordsByName = {};
+	for (const e of entries) {
+		let o = {};
+		let values = e.split(',');
+		for (let i = 0; i < numHeadings; i++) {
+			let k = headings[i];
+			o[k] = values[i];
+		}
+		records[o.hexcode] = o;
+		recordsByName[o.annotation] = o.hexcode;
+	}
+	//console.log('recordsByName',recordsByName)
+	return { records: records, recordsByName: recordsByName };
+}
 async function testFetchIndexHtmlAsTextAndSearch() {
 	let x = await (await fetch('/EMOJI/indexTest.html')).text();
 	let syms = x.split("copyToClipboard('");
@@ -345,7 +247,6 @@ async function testDirList() {
 	console.log(files);
 
 }
-function isEnglish(lang){	return startsWith(lang.toLowerCase(),'e');}
 
 
 

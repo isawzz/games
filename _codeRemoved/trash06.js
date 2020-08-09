@@ -1,3 +1,37 @@
+//#region july17
+async function loadIcons() {
+	vidCache = new LazyCache(true);
+	iconCharsC = await vidCache.load('iconChars', route_iconChars);
+	iconChars = vidCache.asDict('iconChars');
+	iconKeys = Object.keys(iconChars);
+	numIcons = iconKeys.length;
+}
+function processCsvData(allText) {
+	var numHeadings = 5;  // or however many elements there are in each row
+	var allTextLines = allText.split(/\r\n|\n/);
+	//console.log('found',allTextLines.length,'text lines!!!')
+	var headings = allTextLines[0].split(',');
+	numHeadings = headings.length;
+	//console.log('headings',numHeadings,headings);
+	let entries = allTextLines.splice(1);
+	//entries = entries.slice(0,10);
+	//entries.map(x=>console.log(x)); 
+	var records = { headings: headings };
+	var recordsByName = {};
+	for (const e of entries) {
+		let o = {};
+		let values = e.split(',');
+		for (let i = 0; i < numHeadings; i++) {
+			let k = headings[i];
+			o[k] = values[i];
+		}
+		records[o.hexcode] = o;
+		recordsByName[o.annotation] = o.hexcode;
+	}
+	//console.log('recordsByName',recordsByName)
+	return { records: records, recordsByName: recordsByName };
+}
+
 //#region july16
 function activateCollapsibles(isOpen = true) {
 	let coll = document.getElementsByClassName("collapsible");

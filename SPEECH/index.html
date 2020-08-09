@@ -11,7 +11,7 @@
 	<!-- <link rel="stylesheet" href="/docs/w3.css">
 	<link rel="stylesheet" href="/docs/style.css"> -->
 	<link rel="stylesheet" href="/assets/font/fonts.css">
-	<link rel="stylesheet" href="/doc/index.css">
+	<link rel="stylesheet" href="/speech/index.css">
 
 </head>
 
@@ -19,32 +19,23 @@
 	<!-- <button id='bStart' onclick='onClickStartButton()' style='position:fixed;top:34%;left:37%;font-size:60pt;background-color:green'>START!</button> -->
 	<button id='bStart' onclick='onClickStartButton()' class='bigCentralButton'>START!</button>
 	<div id='table' class='flexWrap'></div>
-	<div id='floatingMenu'>
+	<div id='floatingMenu' style='display:none'>
 		<button onclick='onClickCollapse()'>collapse</button>
 		<button onclick='onClickExpand()'>expand</button>
 		<button onclick='onClickFilter()'>filter</button>
 		<button onclick='onClickTop()'>top</button>
 	</div>
-	<div id='mainDiv'>
-		<!-- Sidebar -->
-		<div id='sidebar'>
-			
-			<div id='menu'></div>
-		</div>
-
-		<!-- Page Content -->
-		<div id='pageContent'>
-		</div>
-	</div>
+	<div id='status' style='position:absolute;bottom:20px'>status message</div>
 
 	<script src="/CODE/js/done/helpers.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
-	<script src="/DOC/docfile.js"></script>
-	<script src="/DOC/index.js"></script>
-	<script src="/DOC/tests.js"></script>
+	<script src="/speech/recog.js"></script>
+	<script src="/speech/setSpeechWords.js"></script>
+	<script src="/speech/tests.js"></script>
 
 	<script src="/CODE/js/__config.js"></script>
-	<script src="/DOC/_start.js"></script>
+	<script src="/speech/_start.js"></script>
+
 
 </body>
 

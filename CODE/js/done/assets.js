@@ -1,29 +1,36 @@
 
 var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
+var emojiChars, numEmojis, emojiKeys;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
+function takeFromStart(ad, n) {
+	if (isDict(ad)) {
+		let keys = Object.keys(ad);
+		return keys.slice(0, n).map(x => ({ x: ad[x] }));
+	} else return ad.slice(0, n);
+}
 async function loadAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
-
 	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));
 	testCards = vidCache.asDict('testCards');
 	iconCharsC = await vidCache.load('iconChars', route_iconChars);
 	iconChars = vidCache.asDict('iconChars');
 	iconKeys = Object.keys(iconChars);
 	numIcons = iconKeys.length;
+	emojiCharsC = await vidCache.load('emojiChars', route_emoChars);
+	emojiChars = vidCache.asDict('emojiChars');
+	//console.log('emojiChars', takeFromStart(emojiChars, 10));
+	emojiKeys = {};
+	for (const k in emojiChars) {
+		emojiKeys[emojiChars[k].annotation] = k;
+	}
+	numEmojis = Object.keys(emojiKeys).length;
+
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
 }
-async function loadIcons(){
-	vidCache = new LazyCache(true);
-	iconCharsC = await vidCache.load('iconChars', route_iconChars);
-	iconChars = vidCache.asDict('iconChars');
-	iconKeys = Object.keys(iconChars);
-	numIcons = iconKeys.length;
-}
 async function loadGameInfo(useAllGamesStub = true) {
-
 	if (useAllGamesStub) {
 		allGames = {
 			ttt: {
@@ -340,6 +347,11 @@ async function route_iconChars() {
 	return dIcons;
 
 }
+async function route_emoChars() {
+	let x = await (await fetch('/assets/openmoji.csv')).text();
+	emojiChars = processCsvData(x);
+	return emojiChars;
+}
 async function route_userSpec(game, fname) {
 	try {
 		let url = '/spec/' + game + (isdef(fname) ? '/' + fname : '');
@@ -500,6 +512,7 @@ async function fetch_wrapper(url) {
 var allGamesC = null;
 var playerConfigC = null;
 var iconCharsC = null;
+var emoCharsC = null;
 var c52C = null;
 var testCardsC = null
 var defaultSpecC = null;
