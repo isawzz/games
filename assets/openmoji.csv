@@ -20,7 +20,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 ☺️,263A,smileys-emotion,face-affection,smiling face,"face, outlined, relaxed, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,20
 😚,1F61A,smileys-emotion,face-affection,kissing face with closed eyes,"closed, eye, face, kiss","love, happy",Emily Jäger,2018-04-18,,,,,0.6,21
 😙,1F619,smileys-emotion,face-affection,kissing face with smiling eyes,"eye, face, kiss, smile",,Emily Jäger,2018-04-18,,,,,1,22
-🥲,1F972,smileys-emotion,face-affection,smiling face with tear,"grateful, proud, relieved, smiling, tear, touched",,Liz Bravo,2020-03-07,,,,,13,23
 😋,1F60B,smileys-emotion,face-tongue,face savoring food,"delicious, face, savouring, smile, yum","yummy, tongue",Emily Jäger,2018-04-18,,,,,0.6,24
 😛,1F61B,smileys-emotion,face-tongue,face with tongue,"face, tongue",,Mariella Steeb,2018-04-18,,,,,1,25
 😜,1F61C,smileys-emotion,face-tongue,winking face with tongue,"eye, face, joke, tongue, wink",,Mariella Steeb,2018-04-18,,,,,0.6,26
@@ -59,7 +58,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🤯,1F92F,smileys-emotion,face-unwell,exploding head,"mind blown, shocked",explosion,Tara Lynn Connelly,2020-04-13,,,,,5,59
 🤠,1F920,smileys-emotion,face-hat,cowboy hat face,"cowboy, cowgirl, face, hat",howdy,Emily Jäger,2018-04-18,,,,,3,60
 🥳,1F973,smileys-emotion,face-hat,partying face,"celebration, hat, horn, party",,Antonia Wagner,2019-05-03,,,,,11,61
-🥸,1F978,smileys-emotion,face-hat,disguised face,"disguise, face, glasses, incognito, nose",,Liz Bravo,2020-03-07,,,,,13,62
 😎,1F60E,smileys-emotion,face-glasses,smiling face with sunglasses,"bright, cool, face, sun, sunglasses",,Emily Jäger,2018-04-18,,,,,1,63
 🤓,1F913,smileys-emotion,face-glasses,nerd face,"face, geek, nerd","glasses, learning",Emily Jäger,2018-04-18,,,,,1,64
 🧐,1F9D0,smileys-emotion,face-glasses,face with monocle,stuffy,"glasses, intelligent",Emily Jäger,2018-04-18,,,,,5,65
@@ -1927,15 +1925,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 👥,1F465,people-body,person-symbol,busts in silhouette,"bust, silhouette","human, person",Johanna Wellnitz,2018-04-18,,,,,1,2645
 🫂,1FAC2,people-body,person-symbol,people hugging,"goodbye, hello, hug, thanks","love, harmony, humans, like, making out, arms",Kai Wanschura,2018-04-18,,,,,13,2646
 👣,1F463,people-body,person-symbol,footprints,"clothing, footprint, print","clothing, footprint, print",Julian Grüneberg,2018-04-18,,,,,0.6,2647
-🏻,1F3FB,component,skin-tone,light skin tone,"skin tone, type 1–2",,Benedikt Groß,2019-05-07,,,,,1,2648
-🏼,1F3FC,component,skin-tone,medium-light skin tone,"skin tone, type 3",,Benedikt Groß,2019-05-07,,,,,1,2649
-🏽,1F3FD,component,skin-tone,medium skin tone,"skin tone, type 4",,Benedikt Groß,2019-05-07,,,,,1,2650
-🏾,1F3FE,component,skin-tone,medium-dark skin tone,"skin tone, type 5",,Benedikt Groß,2019-05-07,,,,,1,2651
-🏿,1F3FF,component,skin-tone,dark skin tone,"skin tone, type 6",,Benedikt Groß,2019-05-07,,,,,1,2652
-🦰,1F9B0,component,hair-style,red hair,"ginger, redhead",,Nadine Bartel,2019-05-13,,,,,11,2653
-🦱,1F9B1,component,hair-style,curly hair,"afro, curly, ringlets",,Nadine Bartel,2019-05-13,,,,,11,2654
-🦳,1F9B3,component,hair-style,white hair,"gray, hair, old, white",,Nadine Bartel,2019-05-13,,,,,11,2655
-🦲,1F9B2,component,hair-style,bald,"chemotherapy, hairless, no hair, shaven",,Nadine Bartel,2019-05-13,,,,,11,2656
 🐵,1F435,animals-nature,animal-mammal,monkey face,"face, monkey","jungle, ape, evolution, primate, africa",Sofie Ascherl,2018-04-18,,,,,0.6,2657
 🐒,1F412,animals-nature,animal-mammal,monkey,monkey,"jungle, ape, evolution, primate",Sofie Ascherl,2018-04-18,,,,,0.6,2658
 🦍,1F98D,animals-nature,animal-mammal,gorilla,gorilla,"monkey, primate, evolution",Sofie Ascherl,2018-04-18,,,,,3,2659
@@ -2176,7 +2165,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🍼,1F37C,food-drink,drink,baby bottle,"baby, bottle, drink, milk","baby, drink, sweet",Laura Humpfer,2018-04-18,,,,,1,2909
 🥛,1F95B,food-drink,drink,glass of milk,"drink, glass, milk",,Laura Humpfer,2018-04-18,,,,,3,2910
 ☕️,2615,food-drink,drink,hot beverage,"beverage, coffee, drink, hot, steaming, tea",,Alexander Müller,2020-05-11,,,,,0.6,2911
-🫖,1FAD6,food-drink,drink,teapot,"drink, pot, tea",,Liz Bravo,2020-07-21,,,,,13,2912
 🍵,1F375,food-drink,drink,teacup without handle,"beverage, cup, drink, tea, teacup","glass, hot",Laura Humpfer,2018-04-18,,,,,0.6,2913
 🍶,1F376,food-drink,drink,sake,"bar, beverage, bottle, cup, drink",,Laura Humpfer,2018-04-18,,,,,0.6,2914
 🍾,1F37E,food-drink,drink,bottle with popping cork,"bar, bottle, cork, drink, popping","party, celebrate, event",Laura Humpfer,2018-04-18,,,,,1,2915
@@ -2285,7 +2273,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🚗,1F697,travel-places,transport-ground,automobile,car,"car, travel, automobile, vehicle, transportation",Ronja Bäurlen,2018-04-18,,,,,0.6,3038
 🚘️,1F698,travel-places,transport-ground,oncoming automobile,"automobile, car, oncoming",,Nadja Grün,2018-11-16,,,,,0.7,3039
 🚙,1F699,travel-places,transport-ground,sport utility vehicle,"recreational, sport utility","car, travel, automobile, vehicle, transportation, sport, utility",Ronja Bäurlen,2018-04-18,,,,,0.6,3040
-🛻,1F6FB,travel-places,transport-ground,pickup truck,"pick-up, pickup, truck",,Liz Bravo,2020-03-07,,,,,13,3041
 🚚,1F69A,travel-places,transport-ground,delivery truck,"delivery, truck","truck, delivery, car, transportation, travel, trucker, driver",Ronja Bäurlen,2018-04-18,,,,,0.6,3042
 🚛,1F69B,travel-places,transport-ground,articulated lorry,"lorry, semi, truck","delivery truck, truck, car, transportation, travel, trucker, truck driver",Ronja Bäurlen,2018-04-18,,,,,1,3043
 🚜,1F69C,travel-places,transport-ground,tractor,vehicle,"tractor, towing, vehicle, farm, farming, field, acre",Ronja Bäurlen,2018-04-18,,,,,1,3044
@@ -2298,7 +2285,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🚲️,1F6B2,travel-places,transport-ground,bicycle,bike,"bike, vehicle, bicycle",Ronja Bäurlen,2018-04-18,,,,,0.6,3053
 🛴,1F6F4,travel-places,transport-ground,kick scooter,"kick, scooter","kick, scooter, city roller",Ronja Bäurlen,2018-04-18,,,,,3,3054
 🛹,1F6F9,travel-places,transport-ground,skateboard,board,,Jonas Dunkel,2019-05-07,,,,,11,3055
-🛼,1F6FC,travel-places,transport-ground,roller skate,"roller, skate",,Liz Bravo,2020-03-11,,,,,13,3056
 🚏,1F68F,travel-places,transport-ground,bus stop,"bus, busstop, stop","station, stop, bus, traffic, travel, bus stop, departure, arrive",Ronja Bäurlen,2018-04-18,,,,,0.6,3057
 🛣️,1F6E3,travel-places,transport-ground,motorway,"highway, road",,Nadja Grün,2018-11-16,,,,,0.7,3059
 🛤️,1F6E4,travel-places,transport-ground,railway track,"railway, train",,Nadja Grün,2018-11-16,,,,,0.7,3061
@@ -2562,7 +2548,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🎻,1F3BB,objects,musical-instrument,violin,"instrument, music","string, violin, fiddle, bow",Sina Schulz,2018-04-18,,,,,0.6,3368
 🪕,1FA95,objects,musical-instrument,banjo,"music, stringed",,Sam Eckert,2019-05-06,,,,,12,3369
 🥁,1F941,objects,musical-instrument,drum,"drumsticks, music","drum, drumsticks, music, beat",Sina Schulz,2018-04-18,,,,,3,3370
-🪘,1FA98,objects,musical-instrument,long drum,"beat, conga, drum, rhythm",,Liz Bravo,2020-03-03,,,,,13,3371
 📱,1F4F1,objects,phone,mobile phone,"cell, mobile, phone, telephone","smartphone, message, voice, communication",Martin Wehl,2018-04-18,,,,,0.6,3372
 📲,1F4F2,objects,phone,mobile phone with arrow,"arrow, cell, mobile, phone, receive","voice, smartphone, message",Martin Wehl,2018-04-18,,,,,0.6,3373
 ☎️,260E,objects,phone,telephone,phone,"call, voice, communication",Kai Wanschura,2018-04-18,,,,,0.6,3375
@@ -2681,12 +2666,9 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🗡️,1F5E1,objects,tool,dagger,"knife, weapon",metal,Hilda Kalyoncu,2018-04-18,,,,,0.7,3520
 ⚔️,2694,objects,tool,crossed swords,"crossed, swords, weapon",,Marleen Heine,2018-11-16,,,,,1,3522
 🔫,1F52B,objects,tool,pistol,"gun, handgun, revolver, tool, weapon","gun, weapon, pistol",Hilda Kalyoncu,2018-04-18,,,,,0.6,3523
-🪃,1FA83,objects,tool,boomerang,"australia, rebound, repercussion",,Liz Bravo,2020-03-26,,,,,13,3524
 🏹,1F3F9,objects,tool,bow and arrow,"archer, arrow, bow, sagittarius, zodiac",,Marleen Heine,2018-11-16,,,,,1,3525
 🛡️,1F6E1,objects,tool,shield,weapon,"protection, fight, middle ages",Hilda Kalyoncu,2018-04-18,,,,,0.7,3527
-🪚,1FA9A,objects,tool,carpentry saw,"carpenter, lumber, saw, tool",,Liz Bravo,2020-03-28,,,,,13,3528
 🔧,1F527,objects,tool,wrench,"spanner, tool","toolbox, silver",Hilda Kalyoncu,2018-04-18,,,,,0.6,3529
-🪛,1FA9B,objects,tool,screwdriver,"screw, tool",,Liz Bravo,2020-03-28,,,,,13,3530
 🔩,1F529,objects,tool,nut and bolt,"bolt, nut, tool",,Marleen Heine,2018-11-16,,,,,0.6,3531
 ⚙️,2699,objects,tool,gear,"cog, cogwheel, tool","tool, metal, silver",Hilda Kalyoncu,2018-04-18,,,,,1,3533
 🗜️,1F5DC,objects,tool,clamp,"compress, tool, vice",toolbox,Hilda Kalyoncu,2018-04-18,,,,,0.7,3535
@@ -2694,7 +2676,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🦯,1F9AF,objects,tool,white cane,"accessibility, blind",,Sam Eckert,2019-05-06,,,,,12,3538
 🔗,1F517,objects,tool,link,link,"silver, link",Hilda Kalyoncu,2018-04-18,,,,,0.6,3539
 ⛓️,26D3,objects,tool,chains,chain,"metal, silver",Hilda Kalyoncu,2018-04-18,,,,,0.7,3541
-🪝,1FA9D,objects,tool,hook,"catch, crook, curve, ensnare, selling point","fishing, catch",Liz Bravo,2020-04-11,,,,,13,3542
 🧰,1F9F0,objects,tool,toolbox,"chest, mechanic, tool",,Tonia Reinhardt,2019-05-07,,,,,11,3543
 🧲,1F9F2,objects,tool,magnet,"attraction, horseshoe, magnetic",,Tonia Reinhardt,2019-05-07,,,,,11,3544
 ⚗️,2697,objects,science,alembic,"chemistry, tool",,Marleen Heine,2018-11-16,,,,,1,3547
@@ -2710,34 +2691,26 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🩹,1FA79,objects,medical,adhesive bandage,bandage,,Sam Eckert,2019-05-06,,,,,12,3557
 🩺,1FA7A,objects,medical,stethoscope,"doctor, heart, medicine",,Sam Eckert,2019-05-06,,,,,12,3558
 🚪,1F6AA,objects,household,door,door,,Lisa Schulz,2018-04-18,,,,,0.6,3559
-🪞,1FA9E,objects,household,mirror,"reflection, reflector, speculum",,Liz Bravo,2020-03-26,,,,,13,3561
-🪟,1FA9F,objects,household,window,"frame, fresh air, opening, transparent, view",,Liz Bravo,2020-07-21,,,,,13,3562
 🛏️,1F6CF,objects,household,bed,"hotel, sleep",furniture,Lisa Schulz,2018-04-18,,,,,0.7,3564
 🛋️,1F6CB,objects,household,couch and lamp,"couch, hotel, lamp",furniture,Lisa Schulz,2018-04-18,,,,,0.7,3566
 🪑,1FA91,objects,household,chair,"seat, sit",,Sam Eckert,2019-05-06,,,,,12,3567
 🚽,1F6BD,objects,household,toilet,toilet,,Lisa Schulz,2018-04-18,,,,,0.6,3568
-🪠,1FAA0,objects,household,plunger,"force cup, plumber, suction, toilet",,Liz Bravo,2020-03-11,,,,,13,3569
 🚿,1F6BF,objects,household,shower,water,wash,Lisa Schulz,2018-04-18,,,,,1,3570
 🛁,1F6C1,objects,household,bathtub,bath,"wash, water, foam",Lisa Schulz,2018-04-18,,,,,1,3571
-🪤,1FAA4,objects,household,mouse trap,"bait, mousetrap, snare, trap",isometric,Liz Bravo,2020-03-28,,,,,13,3572
 🪒,1FA92,objects,household,razor,"sharp, shave",,Sam Eckert,2019-05-06,,,,,12,3573
 🧴,1F9F4,objects,household,lotion bottle,"lotion, moisturizer, shampoo, sunscreen",,Tonia Reinhardt,2019-05-07,,,,,11,3574
 🧷,1F9F7,objects,household,safety pin,"diaper, punk rock",,Tonia Reinhardt,2019-05-07,,,,,11,3575
 🧹,1F9F9,objects,household,broom,"cleaning, sweeping, witch",,Tonia Reinhardt,2019-05-07,,,,,11,3576
 🧺,1F9FA,objects,household,basket,"farming, laundry, picnic",,Tonia Reinhardt,2019-05-07,,,,,11,3577
 🧻,1F9FB,objects,household,roll of paper,"paper towels, toilet paper",isometric,Tonia Reinhardt,2019-05-07,,,,,11,3578
-🪣,1FAA3,objects,household,bucket,"cask, pail, vat",,Liz Bravo,2020-03-26,,,,,13,3579
 🧼,1F9FC,objects,household,soap,"bar, bathing, cleaning, lather, soapdish",,Tonia Reinhardt,2019-05-07,,,,,11,3580
-🪥,1FAA5,objects,household,toothbrush,"bathroom, brush, clean, dental, hygiene, teeth",,Liz Bravo,2020-03-11,,,,,13,3581
 🧽,1F9FD,objects,household,sponge,"absorbing, cleaning, porous",,Tonia Reinhardt,2019-05-07,,,,,11,3582
 🧯,1F9EF,objects,household,fire extinguisher,"extinguish, fire, quench",,Tonia Reinhardt,2019-05-07,,,,,11,3583
 🛒,1F6D2,objects,household,shopping cart,"cart, shopping, trolley",,Marius Schnabel,2018-04-18,,,,,3,3584
 🚬,1F6AC,objects,other-object,cigarette,smoking,"tobacco, smoke",Marius Schnabel,2018-04-18,,,,,0.6,3585
 ⚰️,26B0,objects,other-object,coffin,death,"funeral, dead",Marius Schnabel,2018-04-18,,,,,1,3587
-🪦,1FAA6,objects,other-object,headstone,"cemetery, grave, graveyard, tombstone",,Liz Bravo,2020-03-22,,,,,13,3588
 ⚱️,26B1,objects,other-object,funeral urn,"ashes, death, funeral, urn",,Marleen Heine,2018-11-16,,,,,1,3590
 🗿,1F5FF,objects,other-object,moai,"face, moyai, statue","stone, easter island",Marius Schnabel,2018-04-18,,,,,0.6,3591
-🪧,1FAA7,objects,other-object,placard,"demonstration, picket, protest, sign",,Liz Bravo,2020-03-28,,,,,13,3592
 🏧,1F3E7,symbols,transport-sign,ATM sign,"atm, atm sign, automated, bank, teller",,Tonia Reinhardt,2019-05-07,,,,,0.6,3593
 🚮,1F6AE,symbols,transport-sign,litter in bin sign,"litter, litter bin","trash, litter, bin, garbage, can, throw, away",Ronja Bäurlen,2018-04-18,,,,,1,3594
 🚰,1F6B0,symbols,transport-sign,potable water,"drinking, potable, water","water, faucet, tap, glass",Guemil Project,2019-01-14,,,,,1,3595
@@ -2896,7 +2869,6 @@ emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,open
 🆑,1F191,symbols,alphanum,CL button,"cl, cl button",,Laura Dworatschek,2019-05-06,,,,,0.6,3817
 🆒,1F192,symbols,alphanum,COOL button,"cool, cool button","popular, nice",Jose Avila,2018-04-18,,,,,0.6,3818
 🆓,1F193,symbols,alphanum,FREE button,"free, free button",,Laura Dworatschek,2019-05-06,,,,,0.6,3819
-ℹ️,2139,symbols,alphanum,information,i,"advice, info",Jose Avila,2018-04-18,,,,,0.6,3821
 🆔,1F194,symbols,alphanum,ID button,"id, id button, identity",id card,Jose Avila,2018-04-18,,,,,0.6,3822
 Ⓜ️,24C2,symbols,alphanum,circled M,"circle, circled m, m",,Laura Dworatschek,2019-05-06,,,,,0.6,3824
 🆕,1F195,symbols,alphanum,NEW button,"new, new button","modern, recent",Jose Avila,2018-04-18,,,,,0.6,3825

@@ -1,24 +1,30 @@
-window.onload = DOCStart;
-
+window.onload = SPEECHStart;
 var timit;
 
-async function DOCStart() {
+function multiSplit(s,seplist){
+	let res = [s];
+	for(const sep of seplist){
+		let resNew = [];
+		for(const s1 of res){
+			let parts= s1.split(sep);
+			resNew= resNew.concat(parts);
+		}
+		res = resNew;
+	}
+	return res.filter(x=>!isEmpty(x));
+}
 
-	testSpeech(); return;
-	//testDec();return;
-	//testFetchCsvAsTextAndSearch(); return;
-	//testFetchIndexHtmlAsTextAndSearch(); return;
-	//testDirList();return;
-	//let x=isAlphaNum('_rParse');console.log(x);return;
-	// let vault = await documentVault(['/CODE/js/_rParse.js']);
-	// console.log(vault); return;
-	//testRegexSplit(); return;
-	//testIconViewer(); return;
-	//testMultiline(); return;
-	//testIndenting();return;
+async function SPEECHStart() {
 	await loadAssets();
 
-	createDocs();
+	// let x=multiSplit('hallo-das ist! ein string',[' ','-','!']);
+	// console.log(x)
+
+	//console.log('WAAAAAAAAAAAAAAAAAAAAAAAAAS?')
+	//testSidebar();
+	// let x=simpleWordListFromString('" hallo das, ist gut');
+	// console.log(x);	return;
+	testSpeech(); 
 }
 
 

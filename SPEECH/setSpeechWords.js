@@ -1,3 +1,57 @@
+var emoSets = [
+	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
+	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
+	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
+	{ name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
+	{ name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
+	{ name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
+	{ name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
+	{ name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
+	{ name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
+	{ name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
+	{ name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
+	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
+	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
+	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
+	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
+	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+
+	//objects:
+	{
+		name: 'object', f: o => (o.group == 'food-drink' && o.subgroups == 'dishware')
+			|| (o.group == 'travel-places' && o.subgroups == 'time')
+			|| (o.group == 'activities' && o.subgroups == 'event')
+			|| (o.group == 'activities' && o.subgroups == 'award-medal')
+			|| (o.group == 'activities' && o.subgroups == 'sport')
+			|| (o.group == 'activities' && o.subgroups == 'game')
+			|| (o.group == 'objects')
+			|| (o.group == 'activities' && o.subgroups == 'event')
+			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
+	},
+
+	{ name: 'place', f: o => startsWith(o.subgroup, 'place') },
+	{ name: 'transport', f: o => startsWith(o.subgroup, 'transport') },
+	{ name: 'symbols', f: o => o.group == 'symbols' },
+	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
+	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
+
+	//toolbar buttons:
+	{
+		name: 'toolbar', f: o => (o.group == 'symbols' && o.subgroups == 'warning')
+			|| (o.group == 'symbols' && o.subgroups == 'arrow')
+			|| (o.group == 'symbols' && o.subgroups == 'av-symbol')
+			|| (o.group == 'symbols' && o.subgroups == 'other-symbol')
+			|| (o.group == 'symbols' && o.subgroups == 'keycap')
+	},
+
+	{ name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
+	{ name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
+	{ name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
+
+]
+
+
 function getColoredHearts() {
 	let m = [
 		{ key: 'red heart', words: ['red', 'love', 'heart'] },
@@ -64,11 +118,15 @@ function getGermanAnimals() {
 	choice.lang = 'D';
 	return choice;
 }
-function simpleWordListFromString(s) {
+function sepWordListFromString(s, seplist) {
+	let words = multiSplit(s, seplist);
+	return words.map(x => x.replace('"', '').trim());
+}
+function simpleWordListFromString(s, sep = [' ']) {
 	let lst = listFromString(s);
 	let res = [];
 	for (const w of lst) {
-		let parts = w.split(' ');
+		let parts = w.split(sep);
 		parts.map(x => addIf(res, x));
 	}
 	return res;
@@ -78,8 +136,28 @@ function listFromString(s) {
 	let words = s.split(',');
 	return words.map(x => x.replace('"', '').trim());
 }
+function setGroup(group) {
+	emoGroup = group.toUpperCase();
+	emoDict = {};
+	for (const k in emojiChars) {
+		let o = emojiChars[k];
+		if (isdef(o.group) && o.group.toUpperCase() == emoGroup)
+			emoDict[k] = emojiChars[k];
+	}
+	console.log(emoDict);
+}
+function setGroup_dep(group) {
+	emoGroup = group.toUpperCase();
+	emoDict = {};
+	for (const k in emojiChars) {
+		let o = emojiChars[k];
+		if (isdef(o.group) && o.group.toUpperCase() == emoGroup)
+			emoDict[k] = emojiChars[k];
+	}
+	console.log(emoDict);
+}
 function allEnglishWords() {
-	console.log(emojiChars, emojiKeys);
+	//console.log(emojiChars, emojiKeys);
 
 	//test
 	// let os=takeFromTo(emojiChars,100,103);
@@ -87,15 +165,16 @@ function allEnglishWords() {
 	// os.map(x=>console.log(x,x.tags,x.openmoji_tags))
 	//let o = os[0];
 
-	let key = chooseRandomKey(emojiKeys);
-	console.log('_______________', key);
-	let o = emojiChars[emojiKeys[key]];
-	console.log('emoji object', o);
-	let tags = simpleWordListFromString(o.tags);
-	let etags = simpleWordListFromString(o.openmoji_tags);
-	let other = simpleWordListFromString(o.annotation);
+	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
+	//console.log('_______________', key);
+	let o = emojiChars[key];
+	//console.log('emoji object', o);
+	let tags = sepWordListFromString(o.tags, [' ', ',']);
+	let etags = sepWordListFromString(o.openmoji_tags, [' ', ',']);
+	let other = sepWordListFromString(o.annotation, [' ', ',']);
+	let subgroups = sepWordListFromString(o.subgroups, [' ', ',', '-']);
 	let words = union(union(tags, etags), other);
-	console.log('words', words);
+	//console.log('words', words);
 
 	return { words: words, key: o.annotation, lang: 'E' };
 
@@ -106,7 +185,8 @@ function setSpeechWords() {
 	clearElement(table);
 
 	//hier kommen {words,key,lang} 
-	let data = allEnglishWords(); //getGermanAnimals(); //getColoredHearts();
+	let data = getGermanAnimals(); //allEnglishWords(); //getGermanAnimals(); //getColoredHearts();
+	console.log('example data:', data)
 
 	lang = data.lang;
 	matchingWords = data.words;

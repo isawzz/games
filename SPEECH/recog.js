@@ -1,4 +1,4 @@
-var finalResult, lang, matchingWords, recognition;
+var finalResult, emoGroup, emoDict, lang, matchingWords, recognition;
 var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 
 function speech00(lang, matchingWords) {
@@ -6,7 +6,7 @@ function speech00(lang, matchingWords) {
 	// if (!('webkitSpeechRecognition' in window)) { alert("Unable to use the Speech Recognition API"); }
 	// if (!window.hasOwnProperty("webkitSpeechRecognition")) { alert("Unable to use the Speech Recognition API"); }
 	if (typeof (webkitSpeechRecognition) != "function") { alert("Unable to use the Speech Recognition API"); }
-	else console.log('speech is supported! lang', lang, 'words', matchingWords);
+	//else console.log('speech is supported! lang', lang, 'words', matchingWords);
 
 	recognition = new webkitSpeechRecognition(); // Create a new instance of SpeechRecognition
 	recognition.continuous = true; // Define whether continuous results are returned for each recognition or only a single result. Defaults to false
@@ -67,7 +67,7 @@ function addStartHandler() {
 	// will run when the speech recognition 
 	// service has began listening to incoming audio 
 	recognition.onstart = function () {
-		console.log('Speech recognition service has started');
+		//console.log('Speech recognition service has started');
 	};
 }
 function addErrorHandler() {

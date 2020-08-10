@@ -2,24 +2,74 @@ var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
 var hintWord, bestWord;
 
 
-function mSidebar(dParent,styles,classes){
-	
+function testSidebar() {
+	let sidebar = mBy('sidebar');
+	let captions = [];
+	for (const k in emojiChars) {
+		let o = emojiChars[k];
+		addIf(captions, o.group);
+	}
+	for (const t of captions) {
+		mButton(t, () => setGroup(t), sidebar, {display:'block'}); //, styles, classes);//(sidebar)	
+	}
+	// let table = mBy('table');	//console.log(table); return;
+	// mColor(table,'green')
+	// let d=mDiv(table);
+	// mSize(d,200,200);
+	// mColor(d,'red'); //return;
+	// let parent=d;
+	// let sb=mSidebar(table); //d);
+	// mColor(sb,'dimgray','red');
+	// //sb.innerHTML='hallo';
+	// sb.style.minWidth='100px';
+	// sb.style.minHeight='100%';
+
 }
 
+function mInsertFirst(dParent) {
+	let d = mCreate('div');
+	dParent.insertBefore(d, dParent.firstChild);
+	return d;
+
+}
+
+function mSidebar(dParent, styles, classes) {
+	let d = mInsertFirst(dParent);
+	mClass(dParent, 'sidebarContainer');
+	mClass(d, 'sidebar');
+	return d;
+}
+function mSidebarMenu(dParent, captionList, handler) {
+
+}
 async function testSpeech() {
 
-	// let x=simpleWordListFromString('" hallo das, ist gut');
-	// console.log(x);	return;
+	// let sb = mSidebar(mBy('table'));
+	// mColor(sb, 'dimgray', 'red')
 
-	await loadAssets();
-	//speechEngineInit();
 	setStatus('wait');
 	score = 0;
-	onClickStartButton();
+	//onClickStartButton();
+}
+function activateStartButton(){
+	//hide('bStart');
+	let btn = mBy('bStart');
+	btn.onclick=onClickStartButton;
+	btn.style.opacity='1';
+	btn.classList.add('bigCentralButtonActivation')
+
+}
+function deactivateStartButton(){
+	//hide('bStart');
+	let btn = mBy('bStart');
+	btn.onclick=null;
+	btn.style.opacity='.5';
+	btn.classList.remove('bigCentralButtonActivation')
+
 }
 function onClickStartButton() {
-	console.log('start');
-	hide('bStart');
+	// console.log('start');
+	deactivateStartButton();
 	let btn = mBy('bStart');
 	let caption = btn.innerHTML;
 	if (caption != 'try again') setSpeechWords();
@@ -33,14 +83,14 @@ function nextWord(correct) {
 	//set status to init
 	let b = mBy('bStart');
 	b.innerHTML = correct ? 'NEXT' : 'try again';
-	show('bStart');
+	activateStartButton(); //show('bStart');
 	setStatus('wait');
 }
 
 
 //#region evaluation of answer
 function evaluateAnswer(answer) {
-	let words = matchingWords.map(x=>x.toUpperCase());
+	let words = matchingWords.map(x => x.toUpperCase());
 	answer = answer.toUpperCase();
 	if (words.includes(answer)) {
 		setScore(score + 1);

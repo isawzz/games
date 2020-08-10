@@ -95,11 +95,11 @@ a{
 #mainDiv, html, body {
 	height: 98%;
 }
-#mainDiv{
+.sidebarContainer, #mainDiv{
 	display: flex;
 	margin-top:22px;
 }
-#mainDiv div{
+.sidebarContainer, #mainDiv div{
 	flex: 0 0 auto;
 }
 #sidebar{
@@ -145,6 +145,24 @@ a{
 	background-color:red;
 
 }
+.bigCentralButtonActivation{
+	background-color:skyblue;
+}
+.bigCentralButton2{
+	border-radius: 8px;
+	padding: 8px;
+	font-size: 60pt;
+	display:block;
+	/* transform: translate(-100%, -100%);  */
+}
+.bigCentralButtonActivation:hover{
+	background-color:blue;
+
+}
+.bigCentralButtonActivation:active{
+	background-color:red;
+
+}
 .content {
   /* padding: 0 18px; */
   display: none;
@@ -167,6 +185,12 @@ a{
   position: relative;
   top: 50%;
 	left: 50%;
+}
+.hcentered {
+  position: relative;
+  /* top: 50%; */
+	left: 50%;
+	transform: translate(-70%, 10%); 
 }
 .centered {
   position: relative;
