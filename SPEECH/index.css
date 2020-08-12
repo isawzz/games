@@ -150,9 +150,10 @@ a{
 }
 .bigCentralButton2{
 	border-radius: 8px;
-	padding: 8px;
-	font-size: 60pt;
-	display:block;
+	padding: 4px 16px;
+	font-size: 48pt;
+	background-color: springgreen;
+	/* display:block; */
 	/* transform: translate(-100%, -100%);  */
 }
 .bigCentralButtonActivation:hover{

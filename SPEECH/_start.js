@@ -1,18 +1,4 @@
 window.onload = SPEECHStart;
-var timit;
-
-function multiSplit(s,seplist){
-	let res = [s];
-	for(const sep of seplist){
-		let resNew = [];
-		for(const s1 of res){
-			let parts= s1.split(sep);
-			resNew= resNew.concat(parts);
-		}
-		res = resNew;
-	}
-	return res.filter(x=>!isEmpty(x));
-}
 
 async function SPEECHStart() {
 	await loadAssets();
@@ -24,6 +10,7 @@ async function SPEECHStart() {
 	//testSidebar();
 	// let x=simpleWordListFromString('" hallo das, ist gut');
 	// console.log(x);	return;
+	//console.log(emojiChars)
 	testSpeech(); 
 }
 

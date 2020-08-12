@@ -1,3 +1,15 @@
+//#july18
+function setGroup_dep(group) {
+	emoGroup = group.toUpperCase();
+	emoDict = {};
+	for (const k in emojiChars) {
+		let o = emojiChars[k];
+		if (isdef(o.group) && o.group.toUpperCase() == emoGroup)
+			emoDict[k] = emojiChars[k];
+	}
+	console.log(emoDict);
+}
+
 //#region july17
 async function loadIcons() {
 	vidCache = new LazyCache(true);

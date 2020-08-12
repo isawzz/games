@@ -1,279 +1,279 @@
-emoji,hexcode,group,subgroups,annotation,E,D,tags,openmoji_tags,openmoji_author,openmoji_date,skintone,skintone_combination,skintone_base_emoji,skintone_base_hexcode,unicode,order
-😀,1F600,smileys-emotion,face-smiling,grinning face,,,"face, grin","smile, happy",Emily Jäger,2018-04-18,,,,,1,1
-😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,,,"face, mouth, open, smile","eyes, teeth",Emily Jäger,2018-04-18,,,,,0.6,2
-😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,,,"eye, face, mouth, open, smile","happy, teeth",Emily Jäger,2018-04-18,,,,,0.6,3
-😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,,,"eye, face, grin, smile","happy, teeth, mouth",Emily Jäger,2018-04-18,,,,,0.6,4
-😆,1F606,smileys-emotion,face-smiling,grinning squinting face,,,"face, laugh, mouth, satisfied, smile",,Emily Jäger,2018-04-18,,,,,0.6,5
-😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,,,"cold, face, open, smile, sweat",laugh,Emily Jäger,2018-04-18,,,,,0.6,6
-🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,,,"face, floor, laugh, rolling",tears,Emily Jäger,2018-04-18,,,,,3,7
-😂,1F602,smileys-emotion,face-smiling,face with tears of joy,,,"face, joy, laugh, tear",,Emily Jäger,2018-04-18,,,,,0.6,8
-🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,,,"face, smile",satisfied,Emily Jäger,2018-04-18,,,,,1,9
-🙃,1F643,smileys-emotion,face-smiling,upside-down face,,,"face, upside-down",turn,Emily Jäger,2018-04-18,,,,,1,10
-😉,1F609,smileys-emotion,face-smiling,winking face,,,"face, wink",eye,Emily Jäger,2018-04-18,,,,,0.6,11
-😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,,,"blush, eye, face, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
-😇,1F607,smileys-emotion,face-smiling,smiling face with halo,,,"angel, face, fantasy, halo, innocent",,Emily Jäger,2018-04-18,,,,,1,13
-🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,,,"adore, crush, hearts, in love",,Antonia Wagner,2019-05-03,,,,,11,14
-😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,,,"eye, face, love, smile","hearts, happy",Emily Jäger,2018-04-18,,,,,0.6,15
-🤩,1F929,smileys-emotion,face-affection,star-struck,,,"eyes, face, grinning, star",surprised,Emily Jäger,2018-04-18,,,,,5,16
-😘,1F618,smileys-emotion,face-affection,face blowing a kiss,,,"face, kiss","love, happy",Emily Jäger,2018-04-18,,,,,0.6,17
-😗,1F617,smileys-emotion,face-affection,kissing face,,,"face, kiss",,Emily Jäger,2018-04-18,,,,,1,18
-☺️,263A,smileys-emotion,face-affection,smiling face,,,"face, outlined, relaxed, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,20
-😚,1F61A,smileys-emotion,face-affection,kissing face with closed eyes,,,"closed, eye, face, kiss","love, happy",Emily Jäger,2018-04-18,,,,,0.6,21
-😙,1F619,smileys-emotion,face-affection,kissing face with smiling eyes,,,"eye, face, kiss, smile",,Emily Jäger,2018-04-18,,,,,1,22
-😋,1F60B,smileys-emotion,face-tongue,face savoring food,,,"delicious, face, savouring, smile, yum","yummy, tongue",Emily Jäger,2018-04-18,,,,,0.6,24
-😛,1F61B,smileys-emotion,face-tongue,face with tongue,,,"face, tongue",,Mariella Steeb,2018-04-18,,,,,1,25
-😜,1F61C,smileys-emotion,face-tongue,winking face with tongue,,,"eye, face, joke, tongue, wink",,Mariella Steeb,2018-04-18,,,,,0.6,26
-🤪,1F92A,smileys-emotion,face-tongue,zany face,,,"eye, goofy, large, small",,Mariella Steeb,2018-04-18,,,,,5,27
-😝,1F61D,smileys-emotion,face-tongue,squinting face with tongue,,,"eye, face, horrible, taste, tongue",,Mariella Steeb,2018-04-18,,,,,0.6,28
-🤑,1F911,smileys-emotion,face-tongue,money-mouth face,,,"face, money, mouth","tongue, dollar",Emily Jäger,2018-04-18,,,,,1,29
-🤗,1F917,smileys-emotion,face-hand,hugging face,,,"face, hug, hugging",hands,Emily Jäger,2018-04-18,,,,,1,30
-🤭,1F92D,smileys-emotion,face-hand,face with hand over mouth,,,whoops,"hand, mouth",Emily Jäger,2018-04-18,,,,,5,31
-🤫,1F92B,smileys-emotion,face-hand,shushing face,,,"quiet, shush","hand, silent",Emily Jäger,2018-04-18,,,,,5,32
-🤔,1F914,smileys-emotion,face-hand,thinking face,,,"face, thinking","hand, overthinking",Emily Jäger,2018-04-18,,,,,1,33
-🤐,1F910,smileys-emotion,face-neutral-skeptical,zipper-mouth face,,,"face, mouth, zipper",,Emily Jäger,2018-04-18,,,,,1,34
-🤨,1F928,smileys-emotion,face-neutral-skeptical,face with raised eyebrow,,,"distrust, skeptic",suspiciously,Emily Jäger,2018-04-18,,,,,5,35
-😐️,1F610,smileys-emotion,face-neutral-skeptical,neutral face,,,"deadpan, face, meh, neutral",,Mariella Steeb,2018-04-18,,,,,0.7,36
-😑,1F611,smileys-emotion,face-neutral-skeptical,expressionless face,,,"expressionless, face, inexpressive, meh, unexpressive",,Mariella Steeb,2018-04-18,,,,,1,37
-😶,1F636,smileys-emotion,face-neutral-skeptical,face without mouth,,,"face, mouth, quiet, silent",shhh,Emily Jäger,2018-04-18,,,,,1,38
-😏,1F60F,smileys-emotion,face-neutral-skeptical,smirking face,,,"face, smirk",,Mariella Steeb,2018-04-18,,,,,0.6,39
-😒,1F612,smileys-emotion,face-neutral-skeptical,unamused face,,,"face, unamused, unhappy",,Mariella Steeb,2018-04-18,,,,,0.6,40
-🙄,1F644,smileys-emotion,face-neutral-skeptical,face with rolling eyes,,,"eyeroll, eyes, face, rolling",annoyed,Emily Jäger,2018-04-18,,,,,1,41
-😬,1F62C,smileys-emotion,face-neutral-skeptical,grimacing face,,,"face, grimace",awkward,Daniel Utz,2019-11-11,,,,,1,42
-🤥,1F925,smileys-emotion,face-neutral-skeptical,lying face,,,"face, lie, pinocchio","nose, long",Emily Jäger,2018-04-18,,,,,3,43
-😌,1F60C,smileys-emotion,face-sleepy,relieved face,,,"face, relieved",,Mariella Steeb,2018-04-18,,,,,0.6,44
-😔,1F614,smileys-emotion,face-sleepy,pensive face,,,"dejected, face, pensive",,Mariella Steeb,2018-04-18,,,,,0.6,45
-😪,1F62A,smileys-emotion,face-sleepy,sleepy face,,,"face, sleep","snot bubble, side-tear",Mariella Steeb,2018-04-18,,,,,0.6,46
-🤤,1F924,smileys-emotion,face-sleepy,drooling face,,,"drooling, face","hungry, yummy",Emily Jäger,2018-04-18,,,,,3,47
-😴,1F634,smileys-emotion,face-sleepy,sleeping face,,,"face, sleep, zzz",tired,Emily Jäger,2018-04-18,,,,,1,48
-😷,1F637,smileys-emotion,face-unwell,face with medical mask,,,"cold, doctor, face, mask, sick",ill,Emily Jäger,2018-04-18,,,,,0.6,49
-🤒,1F912,smileys-emotion,face-unwell,face with thermometer,,,"face, ill, sick, thermometer",fever,Emily Jäger,2018-04-18,,,,,1,50
-🤕,1F915,smileys-emotion,face-unwell,face with head-bandage,,,"bandage, face, hurt, injury",head,Emily Jäger,2018-04-18,,,,,1,51
-🤢,1F922,smileys-emotion,face-unwell,nauseated face,,,"face, nauseated, vomit",green,Emily Jäger,2018-04-18,,,,,3,52
-🤮,1F92E,smileys-emotion,face-unwell,face vomiting,,,"sick, vomit",,Emily Jäger,2018-04-18,,,,,5,53
-🤧,1F927,smileys-emotion,face-unwell,sneezing face,,,"face, gesundheit, sneeze",tissue,Emily Jäger,2018-04-18,,,,,3,54
-🥵,1F975,smileys-emotion,face-unwell,hot face,,,"feverish, heat stroke, hot, red-faced, sweating",,Antonia Wagner,2019-05-03,,,,,11,55
-🥶,1F976,smileys-emotion,face-unwell,cold face,,,"blue-faced, cold, freezing, frostbite, icicles",,Antonia Wagner,2019-05-03,,,,,11,56
-🥴,1F974,smileys-emotion,face-unwell,woozy face,,,"dizzy, intoxicated, tipsy, uneven eyes, wavy mouth",,Antonia Wagner,2019-05-03,,,,,11,57
-😵,1F635,smileys-emotion,face-unwell,dizzy face,,,"dizzy, face",dead eyes,Mariella Steeb,2018-04-18,,,,,0.6,58
-🤯,1F92F,smileys-emotion,face-unwell,exploding head,,,"mind blown, shocked",explosion,Tara Lynn Connelly,2020-04-13,,,,,5,59
-🤠,1F920,smileys-emotion,face-hat,cowboy hat face,,,"cowboy, cowgirl, face, hat",howdy,Emily Jäger,2018-04-18,,,,,3,60
-🥳,1F973,smileys-emotion,face-hat,partying face,,,"celebration, hat, horn, party",,Antonia Wagner,2019-05-03,,,,,11,61
-😎,1F60E,smileys-emotion,face-glasses,smiling face with sunglasses,,,"bright, cool, face, sun, sunglasses",,Emily Jäger,2018-04-18,,,,,1,63
-🤓,1F913,smileys-emotion,face-glasses,nerd face,,,"face, geek, nerd","glasses, learning",Emily Jäger,2018-04-18,,,,,1,64
-🧐,1F9D0,smileys-emotion,face-glasses,face with monocle,,,stuffy,"glasses, intelligent",Emily Jäger,2018-04-18,,,,,5,65
-😕,1F615,smileys-emotion,face-concerned,confused face,,,"confused, face, meh",,Mariella Steeb,2018-04-18,,,,,1,66
-😟,1F61F,smileys-emotion,face-concerned,worried face,,,"face, worried",,Mariella Steeb,2018-04-18,,,,,1,67
-🙁,1F641,smileys-emotion,face-concerned,slightly frowning face,,,"face, frown",,Mariella Steeb,2018-04-18,,,,,1,68
-☹️,2639,smileys-emotion,face-concerned,frowning face,,,"face, frown",negative,Mariella Steeb,2018-04-18,,,,,0.7,70
-😮,1F62E,smileys-emotion,face-concerned,face with open mouth,,,"face, mouth, open, sympathy",,Mariella Steeb,2018-04-18,,,,,1,71
-😯,1F62F,smileys-emotion,face-concerned,hushed face,,,"face, hushed, stunned, surprised",,Mariella Steeb,2018-04-18,,,,,1,72
-😲,1F632,smileys-emotion,face-concerned,astonished face,,,"astonished, face, shocked, totally",,Emily Jäger,2018-04-18,,,,,0.6,73
-😳,1F633,smileys-emotion,face-concerned,flushed face,,,"dazed, face, flushed",red jaws,Mariella Steeb,2018-04-18,,,,,0.6,74
-🥺,1F97A,smileys-emotion,face-concerned,pleading face,,,"begging, mercy, puppy eyes",,Antonia Wagner,2019-05-03,,,,,11,75
-😦,1F626,smileys-emotion,face-concerned,frowning face with open mouth,,,"face, frown, mouth, open",,Mariella Steeb,2018-04-18,,,,,1,76
-😧,1F627,smileys-emotion,face-concerned,anguished face,,,"anguished, face",,Mariella Steeb,2018-04-18,,,,,1,77
-😨,1F628,smileys-emotion,face-concerned,fearful face,,,"face, fear, fearful, scared",,Mariella Steeb,2018-04-18,,,,,0.6,78
-😰,1F630,smileys-emotion,face-concerned,anxious face with sweat,,,"blue, cold, face, rushed, sweat","anxious, worried, considerate",Mariella Steeb,2018-04-18,,,,,0.6,79
-😥,1F625,smileys-emotion,face-concerned,sad but relieved face,,,"disappointed, face, relieved, whew",,Mariella Steeb,2018-04-18,,,,,0.6,80
-😢,1F622,smileys-emotion,face-concerned,crying face,,,"cry, face, sad, tear",,Mariella Steeb,2018-04-18,,,,,0.6,81
-😭,1F62D,smileys-emotion,face-concerned,loudly crying face,,,"cry, face, sad, sob, tear",,Carlin MacKenzie,2020-05-11,,,,,0.6,82
-😱,1F631,smileys-emotion,face-concerned,face screaming in fear,,,"face, fear, munch, scared, scream",open mouth,Mariella Steeb,2018-04-18,,,,,0.6,83
-😖,1F616,smileys-emotion,face-concerned,confounded face,,,"confounded, face",,Mariella Steeb,2018-04-18,,,,,0.6,84
-😣,1F623,smileys-emotion,face-concerned,persevering face,,,"face, persevere",,Mariella Steeb,2018-04-18,,,,,0.6,85
-😞,1F61E,smileys-emotion,face-concerned,disappointed face,,,"disappointed, face",,Mariella Steeb,2018-04-18,,,,,0.6,86
-😓,1F613,smileys-emotion,face-concerned,downcast face with sweat,,,"cold, face, sweat",,Mariella Steeb,2018-04-18,,,,,0.6,87
-😩,1F629,smileys-emotion,face-concerned,weary face,,,"face, tired, weary",distraught,Mariella Steeb,2018-04-18,,,,,0.6,88
-😫,1F62B,smileys-emotion,face-concerned,tired face,,,"face, tired",exhausted,Mariella Steeb,2018-04-18,,,,,0.6,89
-🥱,1F971,smileys-emotion,face-concerned,yawning face,,,"bored, tired, yawn",,Laura Dworatschek,2019-05-06,,,,,12,90
-😤,1F624,smileys-emotion,face-negative,face with steam from nose,,,"face, triumph, won",,Mariella Steeb,2018-04-18,,,,,0.6,91
-😡,1F621,smileys-emotion,face-negative,pouting face,,,"angry, face, mad, pouting, rage, red",,Mariella Steeb,2018-04-18,,,,,0.6,92
-😠,1F620,smileys-emotion,face-negative,angry face,,,"angry, face, mad",,Mariella Steeb,2018-04-18,,,,,0.6,93
-🤬,1F92C,smileys-emotion,face-negative,face with symbols on mouth,,,swearing,angry,Mariella Steeb,2018-04-18,,,,,5,94
-😈,1F608,smileys-emotion,face-negative,smiling face with horns,,,"face, fairy tale, fantasy, horns, smile","malicious, sardonic",Mariella Steeb,2018-04-18,,,,,1,95
-👿,1F47F,smileys-emotion,face-negative,angry face with horns,,,"demon, devil, face, fantasy, imp",mean,Mariella Steeb,2018-04-18,,,,,0.6,96
-💀,1F480,smileys-emotion,face-negative,skull,,,"death, face, fairy tale, monster",skull,Mariella Steeb,2018-04-18,,,,,0.6,97
-☠️,2620,smileys-emotion,face-negative,skull and crossbones,,,"crossbones, death, face, monster, skull",,Mariella Steeb,2018-04-18,,,,,1,99
-💩,1F4A9,smileys-emotion,face-costume,pile of poo,,,"dung, face, monster, poo, poop",,Mariella Steeb,2018-04-18,,,,,0.6,100
-🤡,1F921,smileys-emotion,face-costume,clown face,,,"clown, face",,Emily Jäger,2018-04-18,,,,,3,101
-👹,1F479,smileys-emotion,face-costume,ogre,,,"creature, face, fairy tale, fantasy, monster",,Anne Frauendorf,2018-11-16,,,,,0.6,102
-👺,1F47A,smileys-emotion,face-costume,goblin,,,"creature, face, fairy tale, fantasy, monster",,Antonia Wagner,2019-05-03,,,,,0.6,103
-👻,1F47B,smileys-emotion,face-costume,ghost,,,"creature, face, fairy tale, fantasy, monster",ghost,Mariella Steeb,2018-04-18,,,,,0.6,104
-👽️,1F47D,smileys-emotion,face-costume,alien,,,"creature, extraterrestrial, face, fantasy, ufo",alien,Mariella Steeb,2018-04-18,,,,,0.6,105
-👾,1F47E,smileys-emotion,face-costume,alien monster,,,"alien, creature, extraterrestrial, face, monster, ufo",,Antonia Wagner,2019-05-03,,,,,0.6,106
-🤖,1F916,smileys-emotion,face-costume,robot,,,"face, monster",,Mariella Steeb,2018-04-18,,,,,1,107
-😺,1F63A,smileys-emotion,cat-face,grinning cat,,,"cat, face, grinning, mouth, open, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,108
-😸,1F638,smileys-emotion,cat-face,grinning cat with smiling eyes,,,"cat, eye, face, grin, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,109
-😹,1F639,smileys-emotion,cat-face,cat with tears of joy,,,"cat, face, joy, tear","laughing, smile",Emily Jäger,2018-04-18,,,,,0.6,110
-😻,1F63B,smileys-emotion,cat-face,smiling cat with heart-eyes,,,"cat, eye, face, heart, love, smile","hearts, red",Emily Jäger,2018-04-18,,,,,0.6,111
-😼,1F63C,smileys-emotion,cat-face,cat with wry smile,,,"cat, face, ironic, smile, wry",,Emily Jäger,2018-04-18,,,,,0.6,112
-😽,1F63D,smileys-emotion,cat-face,kissing cat,,,"cat, eye, face, kiss",,Emily Jäger,2018-04-18,,,,,0.6,113
-🙀,1F640,smileys-emotion,cat-face,weary cat,,,"cat, face, oh, surprised, weary",wow,Emily Jäger,2018-04-18,,,,,0.6,114
-😿,1F63F,smileys-emotion,cat-face,crying cat,,,"cat, cry, face, sad, tear","unhappy, depressed",Emily Jäger,2018-04-18,,,,,0.6,115
-😾,1F63E,smileys-emotion,cat-face,pouting cat,,,"cat, face, pouting","sad, angry",Emily Jäger,2018-04-18,,,,,0.6,116
-🙈,1F648,smileys-emotion,monkey-face,see-no-evil monkey,,,"evil, face, forbidden, monkey, see",,Mariella Steeb,2018-04-18,,,,,0.6,117
-🙉,1F649,smileys-emotion,monkey-face,hear-no-evil monkey,,,"evil, face, forbidden, hear, monkey",,Mariella Steeb,2018-04-18,,,,,0.6,118
-🙊,1F64A,smileys-emotion,monkey-face,speak-no-evil monkey,,,"evil, face, forbidden, monkey, speak",,Mariella Steeb,2018-04-18,,,,,0.6,119
-💋,1F48B,smileys-emotion,emotion,kiss mark,,,"kiss, lips",love,Laura Humpfer,2018-04-18,,,,,0.6,120
-💌,1F48C,smileys-emotion,emotion,love letter,,,"heart, letter, love, mail",,Laura Humpfer,2018-04-18,,,,,0.6,121
-💘,1F498,smileys-emotion,emotion,heart with arrow,,,"arrow, cupid","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,122
-💝,1F49D,smileys-emotion,emotion,heart with ribbon,,,"ribbon, valentine","present, love",Laura Humpfer,2018-04-18,,,,,0.6,123
-💖,1F496,smileys-emotion,emotion,sparkling heart,,,"excited, sparkle","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,124
-💗,1F497,smileys-emotion,emotion,growing heart,,,"excited, growing, nervous, pulse","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,125
-💓,1F493,smileys-emotion,emotion,beating heart,,,"beating, heartbeat, pulsating",love,Laura Humpfer,2018-04-18,,,,,0.6,126
-💞,1F49E,smileys-emotion,emotion,revolving hearts,,,revolving,,Laura Humpfer,2018-04-18,,,,,0.6,127
-💕,1F495,smileys-emotion,emotion,two hearts,,,love,,Laura Humpfer,2018-04-18,,,,,0.6,128
-💟,1F49F,smileys-emotion,emotion,heart decoration,,,heart,,Laura Humpfer,2018-04-18,,,,,0.6,129
-❣️,2763,smileys-emotion,emotion,heart exclamation,,,"exclamation, mark, punctuation",,Laura Humpfer,2018-04-18,,,,,1,131
-💔,1F494,smileys-emotion,emotion,broken heart,,,"break, broken",heartbreak,Laura Humpfer,2018-04-18,,,,,0.6,132
-❤️,2764,smileys-emotion,emotion,red heart,,,heart,"love, red",Laura Humpfer,2018-04-18,,,,,0.6,134
-🧡,1F9E1,smileys-emotion,emotion,orange heart,,,orange,,Laura Schießer,2019-05-06,,,,,5,135
-💛,1F49B,smileys-emotion,emotion,yellow heart,,,yellow,,Laura Humpfer,2018-04-18,,,,,0.6,136
-💚,1F49A,smileys-emotion,emotion,green heart,,,green,,Laura Humpfer,2018-04-18,,,,,0.6,137
-💙,1F499,smileys-emotion,emotion,blue heart,,,blue,,Laura Humpfer,2018-04-18,,,,,0.6,138
-💜,1F49C,smileys-emotion,emotion,purple heart,,,purple,,Laura Humpfer,2018-04-18,,,,,0.6,139
-🤎,1F90E,smileys-emotion,emotion,brown heart,,,"brown, heart",,Laura Dworatschek,2019-05-06,,,,,12,140
-🖤,1F5A4,smileys-emotion,emotion,black heart,,,"black, evil, wicked",,Laura Humpfer,2018-04-18,,,,,3,141
-🤍,1F90D,smileys-emotion,emotion,white heart,,,"heart, white",,Laura Dworatschek,2019-05-06,,,,,12,142
-💯,1F4AF,smileys-emotion,emotion,hundred points,,,"100, full, hundred, score","perfect, excellent",Jose Avila,2018-04-18,,,,,0.6,143
-💢,1F4A2,smileys-emotion,emotion,anger symbol,,,"angry, comic, mad",,Anne Frauendorf,2018-11-16,,,,,0.6,144
-💥,1F4A5,smileys-emotion,emotion,collision,,,"boom, comic",explosion,Laura Humpfer,2018-04-18,,,,,0.6,145
-💫,1F4AB,smileys-emotion,emotion,dizzy,,,"comic, star",shootingstar,Laura Humpfer,2018-04-18,,,,,0.6,146
-💦,1F4A6,smileys-emotion,emotion,sweat droplets,,,"comic, splashing, sweat",,Laura Humpfer,2018-04-18,,,,,0.6,147
-💨,1F4A8,smileys-emotion,emotion,dashing away,,,"comic, dash, running",,Laura Humpfer,2018-04-18,,,,,0.6,148
-🕳️,1F573,smileys-emotion,emotion,hole,,,hole,,Laura Humpfer,2018-04-18,,,,,0.7,150
-💣️,1F4A3,smileys-emotion,emotion,bomb,,,comic,explosion,Laura Humpfer,2018-04-18,,,,,0.6,151
-💬,1F4AC,smileys-emotion,emotion,speech balloon,,,"balloon, bubble, comic, dialog, speech",talk,Laura Humpfer,2018-04-18,,,,,0.6,152
-👁️‍🗨️,1F441-FE0F-200D-1F5E8-FE0F,smileys-emotion,emotion,eye in speech bubble,,,"eye, speech bubble, witness","eye, speech bubble, witness",Julian Grüneberg,2018-04-18,,,,,2,153
-🗨️,1F5E8,smileys-emotion,emotion,left speech bubble,,,"dialog, speech",,Laura Humpfer,2018-04-18,,,,,2,158
-🗯️,1F5EF,smileys-emotion,emotion,right anger bubble,,,"angry, balloon, bubble, mad",,Laura Humpfer,2018-04-18,,,,,0.7,160
-💭,1F4AD,smileys-emotion,emotion,thought balloon,,,"balloon, bubble, comic, thought",think,Laura Humpfer,2018-04-18,,,,,1,161
-💤,1F4A4,smileys-emotion,emotion,zzz,,,"comic, sleep",night,Laura Humpfer,2018-04-18,,,,,0.6,162
-👋,1F44B,people-body,hand-fingers-open,waving hand,,,"hand, wave, waving","Hello, Goodbye, Waving Hand Sign, Wave",Julian Grüneberg,2018-04-18,,single,👋,1F44B,0.6,163
-👋🏻,1F44B-1F3FB,people-body,hand-fingers-open,waving hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👋,1F44B,1,164
-👋🏼,1F44B-1F3FC,people-body,hand-fingers-open,waving hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👋,1F44B,1,165
-👋🏽,1F44B-1F3FD,people-body,hand-fingers-open,waving hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👋,1F44B,1,166
-👋🏾,1F44B-1F3FE,people-body,hand-fingers-open,waving hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👋,1F44B,1,167
-👋🏿,1F44B-1F3FF,people-body,hand-fingers-open,waving hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👋,1F44B,1,168
-🤚,1F91A,people-body,hand-fingers-open,raised back of hand,,,"backhand, raised","Backhand, raised, hand",Julian Grüneberg,2018-04-18,,single,🤚,1F91A,3,169
-🤚🏻,1F91A-1F3FB,people-body,hand-fingers-open,raised back of hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🤚,1F91A,3,170
-🤚🏼,1F91A-1F3FC,people-body,hand-fingers-open,raised back of hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🤚,1F91A,3,171
-🤚🏽,1F91A-1F3FD,people-body,hand-fingers-open,raised back of hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🤚,1F91A,3,172
-🤚🏾,1F91A-1F3FE,people-body,hand-fingers-open,raised back of hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🤚,1F91A,3,173
-🤚🏿,1F91A-1F3FF,people-body,hand-fingers-open,raised back of hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🤚,1F91A,3,174
-🖐️,1F590,people-body,hand-fingers-open,hand with fingers splayed,,,"finger, hand, splayed","Five Hand, Hand, Five, Splayed",Julian Grüneberg,2018-04-18,,single,🖐️,1F590,0.7,176
-🖐🏻,1F590-1F3FB,people-body,hand-fingers-open,hand with fingers splayed: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🖐️,1F590,1,177
-🖐🏼,1F590-1F3FC,people-body,hand-fingers-open,hand with fingers splayed: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🖐️,1F590,1,178
-🖐🏽,1F590-1F3FD,people-body,hand-fingers-open,hand with fingers splayed: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🖐️,1F590,1,179
-🖐🏾,1F590-1F3FE,people-body,hand-fingers-open,hand with fingers splayed: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🖐️,1F590,1,180
-🖐🏿,1F590-1F3FF,people-body,hand-fingers-open,hand with fingers splayed: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🖐️,1F590,1,181
-✋,270B,people-body,hand-fingers-open,raised hand,,,hand,"raise, raised, raised hand, hand",Julian Grüneberg,2018-04-18,,single,✋,270B,0.6,182
-✋🏻,270B-1F3FB,people-body,hand-fingers-open,raised hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,✋,270B,1,183
-✋🏼,270B-1F3FC,people-body,hand-fingers-open,raised hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,✋,270B,1,184
-✋🏽,270B-1F3FD,people-body,hand-fingers-open,raised hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,✋,270B,1,185
-✋🏾,270B-1F3FE,people-body,hand-fingers-open,raised hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,✋,270B,1,186
-✋🏿,270B-1F3FF,people-body,hand-fingers-open,raised hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,✋,270B,1,187
-🖖,1F596,people-body,hand-fingers-open,vulcan salute,,,"finger, hand, spock, vulcan","finger, hand, spock, vulcan",Julian Grüneberg,2018-04-18,,single,🖖,1F596,1,188
-🖖🏻,1F596-1F3FB,people-body,hand-fingers-open,vulcan salute: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🖖,1F596,1,189
-🖖🏼,1F596-1F3FC,people-body,hand-fingers-open,vulcan salute: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🖖,1F596,1,190
-🖖🏽,1F596-1F3FD,people-body,hand-fingers-open,vulcan salute: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🖖,1F596,1,191
-🖖🏾,1F596-1F3FE,people-body,hand-fingers-open,vulcan salute: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🖖,1F596,1,192
-🖖🏿,1F596-1F3FF,people-body,hand-fingers-open,vulcan salute: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🖖,1F596,1,193
-👌,1F44C,people-body,hand-fingers-partial,OK hand,,,"hand, ok","hand, ok, okay, perfect",Julian Grüneberg,2018-04-18,,single,👌,1F44C,0.6,194
-👌🏻,1F44C-1F3FB,people-body,hand-fingers-partial,OK hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👌,1F44C,1,195
-👌🏼,1F44C-1F3FC,people-body,hand-fingers-partial,OK hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👌,1F44C,1,196
-👌🏽,1F44C-1F3FD,people-body,hand-fingers-partial,OK hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👌,1F44C,1,197
-👌🏾,1F44C-1F3FE,people-body,hand-fingers-partial,OK hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👌,1F44C,1,198
-👌🏿,1F44C-1F3FF,people-body,hand-fingers-partial,OK hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👌,1F44C,1,199
-🤏,1F90F,people-body,hand-fingers-partial,pinching hand,,,small amount,,Laura Dworatschek,2019-05-06,,single,🤏,1F90F,12,206
-🤏🏻,1F90F-1F3FB,people-body,hand-fingers-partial,pinching hand: light skin tone,,,,,Laura Dworatschek,2019-05-06,1,single,🤏,1F90F,12,207
-🤏🏼,1F90F-1F3FC,people-body,hand-fingers-partial,pinching hand: medium-light skin tone,,,,,Laura Dworatschek,2019-05-06,2,single,🤏,1F90F,12,208
-🤏🏽,1F90F-1F3FD,people-body,hand-fingers-partial,pinching hand: medium skin tone,,,,,Laura Dworatschek,2019-05-06,3,single,🤏,1F90F,12,209
-🤏🏾,1F90F-1F3FE,people-body,hand-fingers-partial,pinching hand: medium-dark skin tone,,,,,Laura Dworatschek,2019-05-06,4,single,🤏,1F90F,12,210
-🤏🏿,1F90F-1F3FF,people-body,hand-fingers-partial,pinching hand: dark skin tone,,,,,Laura Dworatschek,2019-05-06,5,single,🤏,1F90F,12,211
-✌️,270C,people-body,hand-fingers-partial,victory hand,,,"hand, v, victory","hand, v, victory, Air Quotes, quotes, Peace, Peace Sign, V Sign",Julian Grüneberg,2018-04-18,,single,✌️,270C,0.6,213
-✌🏻,270C-1F3FB,people-body,hand-fingers-partial,victory hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,✌️,270C,1,214
-✌🏼,270C-1F3FC,people-body,hand-fingers-partial,victory hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,✌️,270C,1,215
-✌🏽,270C-1F3FD,people-body,hand-fingers-partial,victory hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,✌️,270C,1,216
-✌🏾,270C-1F3FE,people-body,hand-fingers-partial,victory hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,✌️,270C,1,217
-✌🏿,270C-1F3FF,people-body,hand-fingers-partial,victory hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,✌️,270C,1,218
-🤞,1F91E,people-body,hand-fingers-partial,crossed fingers,,,"cross, finger, hand, luck","Fingers Crossed, crossed, fingers, Good Luck, luck",Julian Grüneberg,2018-04-18,,single,🤞,1F91E,3,219
-🤞🏻,1F91E-1F3FB,people-body,hand-fingers-partial,crossed fingers: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🤞,1F91E,3,220
-🤞🏼,1F91E-1F3FC,people-body,hand-fingers-partial,crossed fingers: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🤞,1F91E,3,221
-🤞🏽,1F91E-1F3FD,people-body,hand-fingers-partial,crossed fingers: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🤞,1F91E,3,222
-🤞🏾,1F91E-1F3FE,people-body,hand-fingers-partial,crossed fingers: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🤞,1F91E,3,223
-🤞🏿,1F91E-1F3FF,people-body,hand-fingers-partial,crossed fingers: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🤞,1F91E,3,224
-🤟,1F91F,people-body,hand-fingers-partial,love-you gesture,,,"hand, ily","hand, love, heavy metal",Julian Grüneberg,2018-04-18,,single,🤟,1F91F,5,225
-🤟🏻,1F91F-1F3FB,people-body,hand-fingers-partial,love-you gesture: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🤟,1F91F,5,226
-🤟🏼,1F91F-1F3FC,people-body,hand-fingers-partial,love-you gesture: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🤟,1F91F,5,227
-🤟🏽,1F91F-1F3FD,people-body,hand-fingers-partial,love-you gesture: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🤟,1F91F,5,228
-🤟🏾,1F91F-1F3FE,people-body,hand-fingers-partial,love-you gesture: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🤟,1F91F,5,229
-🤟🏿,1F91F-1F3FF,people-body,hand-fingers-partial,love-you gesture: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🤟,1F91F,5,230
-🤘,1F918,people-body,hand-fingers-partial,sign of the horns,,,"finger, hand, horns, rock-on","rock on, finger, hand, horns, rock-on, rock, Devil, Devil Fingers, Heavy, Metal, Heavy Metal, rock",Julian Grüneberg,2018-04-18,,single,🤘,1F918,1,231
-🤘🏻,1F918-1F3FB,people-body,hand-fingers-partial,sign of the horns: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🤘,1F918,1,232
-🤘🏼,1F918-1F3FC,people-body,hand-fingers-partial,sign of the horns: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🤘,1F918,1,233
-🤘🏽,1F918-1F3FD,people-body,hand-fingers-partial,sign of the horns: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🤘,1F918,1,234
-🤘🏾,1F918-1F3FE,people-body,hand-fingers-partial,sign of the horns: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🤘,1F918,1,235
-🤘🏿,1F918-1F3FF,people-body,hand-fingers-partial,sign of the horns: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🤘,1F918,1,236
-🤙,1F919,people-body,hand-fingers-partial,call me hand,,,"call, hand","Call Me Hand, call, hand, Phone, Shaka",Julian Grüneberg,2018-04-18,,single,🤙,1F919,3,237
-🤙🏻,1F919-1F3FB,people-body,hand-fingers-partial,call me hand: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🤙,1F919,3,238
-🤙🏼,1F919-1F3FC,people-body,hand-fingers-partial,call me hand: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🤙,1F919,3,239
-🤙🏽,1F919-1F3FD,people-body,hand-fingers-partial,call me hand: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🤙,1F919,3,240
-🤙🏾,1F919-1F3FE,people-body,hand-fingers-partial,call me hand: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🤙,1F919,3,241
-🤙🏿,1F919-1F3FF,people-body,hand-fingers-partial,call me hand: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🤙,1F919,3,242
-👈️,1F448,people-body,hand-single-finger,backhand index pointing left,,,"backhand, finger, hand, index, point","backhand, finger, hand, index, point, point, left, Middle Finger, White left",Julian Grüneberg,2018-04-18,,single,👈️,1F448,0.6,243
-👈🏻,1F448-1F3FB,people-body,hand-single-finger,backhand index pointing left: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👈️,1F448,1,244
-👈🏼,1F448-1F3FC,people-body,hand-single-finger,backhand index pointing left: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👈️,1F448,1,245
-👈🏽,1F448-1F3FD,people-body,hand-single-finger,backhand index pointing left: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👈️,1F448,1,246
-👈🏾,1F448-1F3FE,people-body,hand-single-finger,backhand index pointing left: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👈️,1F448,1,247
-👈🏿,1F448-1F3FF,people-body,hand-single-finger,backhand index pointing left: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👈️,1F448,1,248
-👉️,1F449,people-body,hand-single-finger,backhand index pointing right,,,"backhand, finger, hand, index, point","backhand, finger, hand, index, point, point, right, Middle Finger, White right",Julian Grüneberg,2018-04-18,,single,👉️,1F449,0.6,249
-👉🏻,1F449-1F3FB,people-body,hand-single-finger,backhand index pointing right: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👉️,1F449,1,250
-👉🏼,1F449-1F3FC,people-body,hand-single-finger,backhand index pointing right: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👉️,1F449,1,251
-👉🏽,1F449-1F3FD,people-body,hand-single-finger,backhand index pointing right: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👉️,1F449,1,252
-👉🏾,1F449-1F3FE,people-body,hand-single-finger,backhand index pointing right: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👉️,1F449,1,253
-👉🏿,1F449-1F3FF,people-body,hand-single-finger,backhand index pointing right: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👉️,1F449,1,254
-👆️,1F446,people-body,hand-single-finger,backhand index pointing up,,,"backhand, finger, hand, point, up","backhand, finger, hand, index, point, up, Middle Finger, White Up",Julian Grüneberg,2018-04-18,,single,👆️,1F446,0.6,255
-👆🏻,1F446-1F3FB,people-body,hand-single-finger,backhand index pointing up: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👆️,1F446,1,256
-👆🏼,1F446-1F3FC,people-body,hand-single-finger,backhand index pointing up: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👆️,1F446,1,257
-👆🏽,1F446-1F3FD,people-body,hand-single-finger,backhand index pointing up: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👆️,1F446,1,258
-👆🏾,1F446-1F3FE,people-body,hand-single-finger,backhand index pointing up: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👆️,1F446,1,259
-👆🏿,1F446-1F3FF,people-body,hand-single-finger,backhand index pointing up: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👆️,1F446,1,260
-🖕,1F595,people-body,hand-single-finger,middle finger,,,"finger, hand","finger, hand, fingering",Julian Grüneberg,2018-04-18,,single,🖕,1F595,1,261
-🖕🏻,1F595-1F3FB,people-body,hand-single-finger,middle finger: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,🖕,1F595,1,262
-🖕🏼,1F595-1F3FC,people-body,hand-single-finger,middle finger: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,🖕,1F595,1,263
-🖕🏽,1F595-1F3FD,people-body,hand-single-finger,middle finger: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,🖕,1F595,1,264
-🖕🏾,1F595-1F3FE,people-body,hand-single-finger,middle finger: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,🖕,1F595,1,265
-🖕🏿,1F595-1F3FF,people-body,hand-single-finger,middle finger: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,🖕,1F595,1,266
-👇️,1F447,people-body,hand-single-finger,backhand index pointing down,,,"backhand, down, finger, hand, point","backhand, down, finger, hand, index, point, point, down, Middle Finger, White down",Julian Grüneberg,2018-04-18,,single,👇️,1F447,0.6,267
-👇🏻,1F447-1F3FB,people-body,hand-single-finger,backhand index pointing down: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👇️,1F447,1,268
-👇🏼,1F447-1F3FC,people-body,hand-single-finger,backhand index pointing down: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👇️,1F447,1,269
-👇🏽,1F447-1F3FD,people-body,hand-single-finger,backhand index pointing down: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👇️,1F447,1,270
-👇🏾,1F447-1F3FE,people-body,hand-single-finger,backhand index pointing down: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👇️,1F447,1,271
-👇🏿,1F447-1F3FF,people-body,hand-single-finger,backhand index pointing down: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👇️,1F447,1,272
-☝️,261D,people-body,hand-single-finger,index pointing up,,,"finger, hand, index, point, up","finger, hand, index, point, up",Julian Grüneberg,2018-04-18,,single,☝️,261D,0.6,274
-☝🏻,261D-1F3FB,people-body,hand-single-finger,index pointing up: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,☝️,261D,1,275
-☝🏼,261D-1F3FC,people-body,hand-single-finger,index pointing up: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,☝️,261D,1,276
-☝🏽,261D-1F3FD,people-body,hand-single-finger,index pointing up: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,☝️,261D,1,277
-☝🏾,261D-1F3FE,people-body,hand-single-finger,index pointing up: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,☝️,261D,1,278
-☝🏿,261D-1F3FF,people-body,hand-single-finger,index pointing up: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,☝️,261D,1,279
-👍️,1F44D,people-body,hand-fingers-closed,thumbs up,,,"+1, hand, thumb, up","Like, yes, +1, hand, thumb, up, thumbs up, thumbs up",Julian Grüneberg,2018-04-18,,single,👍️,1F44D,0.6,280
-👍🏻,1F44D-1F3FB,people-body,hand-fingers-closed,thumbs up: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👍️,1F44D,1,281
-👍🏼,1F44D-1F3FC,people-body,hand-fingers-closed,thumbs up: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👍️,1F44D,1,282
-👍🏽,1F44D-1F3FD,people-body,hand-fingers-closed,thumbs up: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👍️,1F44D,1,283
-👍🏾,1F44D-1F3FE,people-body,hand-fingers-closed,thumbs up: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👍️,1F44D,1,284
-👍🏿,1F44D-1F3FF,people-body,hand-fingers-closed,thumbs up: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👍️,1F44D,1,285
-👎️,1F44E,people-body,hand-fingers-closed,thumbs down,,,"-1, down, hand, thumb","Dislike no, Thumbs Down, Thumbs Down sign, -1, down, hand, thumb, thumbs",Julian Grüneberg,2018-04-18,,single,👎️,1F44E,0.6,286
-👎🏻,1F44E-1F3FB,people-body,hand-fingers-closed,thumbs down: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,👎️,1F44E,1,287
-👎🏼,1F44E-1F3FC,people-body,hand-fingers-closed,thumbs down: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,👎️,1F44E,1,288
-👎🏽,1F44E-1F3FD,people-body,hand-fingers-closed,thumbs down: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,👎️,1F44E,1,289
-👎🏾,1F44E-1F3FE,people-body,hand-fingers-closed,thumbs down: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,👎️,1F44E,1,290
-👎🏿,1F44E-1F3FF,people-body,hand-fingers-closed,thumbs down: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,👎️,1F44E,1,291
-✊,270A,people-body,hand-fingers-closed,raised fist,,,"clenched, fist, hand, punch","clenched, fist, hand, punch",Julian Grüneberg,2018-04-18,,single,✊,270A,0.6,292
-✊🏻,270A-1F3FB,people-body,hand-fingers-closed,raised fist: light skin tone,,,,,Julian Grüneberg,2018-04-18,1,single,✊,270A,1,293
-✊🏼,270A-1F3FC,people-body,hand-fingers-closed,raised fist: medium-light skin tone,,,,,Julian Grüneberg,2018-04-18,2,single,✊,270A,1,294
-✊🏽,270A-1F3FD,people-body,hand-fingers-closed,raised fist: medium skin tone,,,,,Julian Grüneberg,2018-04-18,3,single,✊,270A,1,295
-✊🏾,270A-1F3FE,people-body,hand-fingers-closed,raised fist: medium-dark skin tone,,,,,Julian Grüneberg,2018-04-18,4,single,✊,270A,1,296
-✊🏿,270A-1F3FF,people-body,hand-fingers-closed,raised fist: dark skin tone,,,,,Julian Grüneberg,2018-04-18,5,single,✊,270A,1,297
+emoji,hexcode,group,subgroups,annotation,tags,openmoji_tags,openmoji_author,openmoji_date,skintone,skintone_combination,skintone_base_emoji,skintone_base_hexcode,unicode,order
+😀,1F600,smileys-emotion,face-smiling,grinning face,"face, grin","smile, happy",Emily Jäger,2018-04-18,,,,,1,1
+😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,"face, mouth, open, smile","eyes, teeth",Emily Jäger,2018-04-18,,,,,0.6,2
+😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,"eye, face, mouth, open, smile","happy, teeth",Emily Jäger,2018-04-18,,,,,0.6,3
+😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,"eye, face, grin, smile","happy, teeth, mouth",Emily Jäger,2018-04-18,,,,,0.6,4
+😆,1F606,smileys-emotion,face-smiling,grinning squinting face,"face, laugh, mouth, satisfied, smile",,Emily Jäger,2018-04-18,,,,,0.6,5
+😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,"cold, face, open, smile, sweat",laugh,Emily Jäger,2018-04-18,,,,,0.6,6
+🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,"face, floor, laugh, rolling",tears,Emily Jäger,2018-04-18,,,,,3,7
+😂,1F602,smileys-emotion,face-smiling,face with tears of joy,"face, joy, laugh, tear",,Emily Jäger,2018-04-18,,,,,0.6,8
+🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,"face, smile",satisfied,Emily Jäger,2018-04-18,,,,,1,9
+🙃,1F643,smileys-emotion,face-smiling,upside-down face,"face, upside-down",turn,Emily Jäger,2018-04-18,,,,,1,10
+😉,1F609,smileys-emotion,face-smiling,winking face,"face, wink",eye,Emily Jäger,2018-04-18,,,,,0.6,11
+😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,"blush, eye, face, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
+😇,1F607,smileys-emotion,face-smiling,smiling face with halo,"angel, face, fantasy, halo, innocent",,Emily Jäger,2018-04-18,,,,,1,13
+🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,"adore, crush, hearts, in love",,Antonia Wagner,2019-05-03,,,,,11,14
+😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,"eye, face, love, smile","hearts, happy",Emily Jäger,2018-04-18,,,,,0.6,15
+🤩,1F929,smileys-emotion,face-affection,star-struck,"eyes, face, grinning, star",surprised,Emily Jäger,2018-04-18,,,,,5,16
+😘,1F618,smileys-emotion,face-affection,face blowing a kiss,"face, kiss","love, happy",Emily Jäger,2018-04-18,,,,,0.6,17
+😗,1F617,smileys-emotion,face-affection,kissing face,"face, kiss",,Emily Jäger,2018-04-18,,,,,1,18
+☺️,263A,smileys-emotion,face-affection,smiling face,"face, outlined, relaxed, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,20
+😚,1F61A,smileys-emotion,face-affection,kissing face with closed eyes,"closed, eye, face, kiss","love, happy",Emily Jäger,2018-04-18,,,,,0.6,21
+😙,1F619,smileys-emotion,face-affection,kissing face with smiling eyes,"eye, face, kiss, smile",,Emily Jäger,2018-04-18,,,,,1,22
+😋,1F60B,smileys-emotion,face-tongue,face savoring food,"delicious, face, savouring, smile, yum","yummy, tongue",Emily Jäger,2018-04-18,,,,,0.6,24
+😛,1F61B,smileys-emotion,face-tongue,face with tongue,"face, tongue",,Mariella Steeb,2018-04-18,,,,,1,25
+😜,1F61C,smileys-emotion,face-tongue,winking face with tongue,"eye, face, joke, tongue, wink",,Mariella Steeb,2018-04-18,,,,,0.6,26
+🤪,1F92A,smileys-emotion,face-tongue,zany face,"eye, goofy, large, small",,Mariella Steeb,2018-04-18,,,,,5,27
+😝,1F61D,smileys-emotion,face-tongue,squinting face with tongue,"eye, face, horrible, taste, tongue",,Mariella Steeb,2018-04-18,,,,,0.6,28
+🤑,1F911,smileys-emotion,face-tongue,money-mouth face,"face, money, mouth","tongue, dollar",Emily Jäger,2018-04-18,,,,,1,29
+🤗,1F917,smileys-emotion,face-hand,hugging face,"face, hug, hugging",hands,Emily Jäger,2018-04-18,,,,,1,30
+🤭,1F92D,smileys-emotion,face-hand,face with hand over mouth,whoops,"hand, mouth",Emily Jäger,2018-04-18,,,,,5,31
+🤫,1F92B,smileys-emotion,face-hand,shushing face,"quiet, shush","hand, silent",Emily Jäger,2018-04-18,,,,,5,32
+🤔,1F914,smileys-emotion,face-hand,thinking face,"face, thinking","hand, overthinking",Emily Jäger,2018-04-18,,,,,1,33
+🤐,1F910,smileys-emotion,face-neutral-skeptical,zipper-mouth face,"face, mouth, zipper",,Emily Jäger,2018-04-18,,,,,1,34
+🤨,1F928,smileys-emotion,face-neutral-skeptical,face with raised eyebrow,"distrust, skeptic",suspiciously,Emily Jäger,2018-04-18,,,,,5,35
+😐️,1F610,smileys-emotion,face-neutral-skeptical,neutral face,"deadpan, face, meh, neutral",,Mariella Steeb,2018-04-18,,,,,0.7,36
+😑,1F611,smileys-emotion,face-neutral-skeptical,expressionless face,"expressionless, face, inexpressive, meh, unexpressive",,Mariella Steeb,2018-04-18,,,,,1,37
+😶,1F636,smileys-emotion,face-neutral-skeptical,face without mouth,"face, mouth, quiet, silent",shhh,Emily Jäger,2018-04-18,,,,,1,38
+😏,1F60F,smileys-emotion,face-neutral-skeptical,smirking face,"face, smirk",,Mariella Steeb,2018-04-18,,,,,0.6,39
+😒,1F612,smileys-emotion,face-neutral-skeptical,unamused face,"face, unamused, unhappy",,Mariella Steeb,2018-04-18,,,,,0.6,40
+🙄,1F644,smileys-emotion,face-neutral-skeptical,face with rolling eyes,"eyeroll, eyes, face, rolling",annoyed,Emily Jäger,2018-04-18,,,,,1,41
+😬,1F62C,smileys-emotion,face-neutral-skeptical,grimacing face,"face, grimace",awkward,Daniel Utz,2019-11-11,,,,,1,42
+🤥,1F925,smileys-emotion,face-neutral-skeptical,lying face,"face, lie, pinocchio","nose, long",Emily Jäger,2018-04-18,,,,,3,43
+😌,1F60C,smileys-emotion,face-sleepy,relieved face,"face, relieved",,Mariella Steeb,2018-04-18,,,,,0.6,44
+😔,1F614,smileys-emotion,face-sleepy,pensive face,"dejected, face, pensive",,Mariella Steeb,2018-04-18,,,,,0.6,45
+😪,1F62A,smileys-emotion,face-sleepy,sleepy face,"face, sleep","snot bubble, side-tear",Mariella Steeb,2018-04-18,,,,,0.6,46
+🤤,1F924,smileys-emotion,face-sleepy,drooling face,"drooling, face","hungry, yummy",Emily Jäger,2018-04-18,,,,,3,47
+😴,1F634,smileys-emotion,face-sleepy,sleeping face,"face, sleep, zzz",tired,Emily Jäger,2018-04-18,,,,,1,48
+😷,1F637,smileys-emotion,face-unwell,face with medical mask,"cold, doctor, face, mask, sick",ill,Emily Jäger,2018-04-18,,,,,0.6,49
+🤒,1F912,smileys-emotion,face-unwell,face with thermometer,"face, ill, sick, thermometer",fever,Emily Jäger,2018-04-18,,,,,1,50
+🤕,1F915,smileys-emotion,face-unwell,face with head-bandage,"bandage, face, hurt, injury",head,Emily Jäger,2018-04-18,,,,,1,51
+🤢,1F922,smileys-emotion,face-unwell,nauseated face,"face, nauseated, vomit",green,Emily Jäger,2018-04-18,,,,,3,52
+🤮,1F92E,smileys-emotion,face-unwell,face vomiting,"sick, vomit",,Emily Jäger,2018-04-18,,,,,5,53
+🤧,1F927,smileys-emotion,face-unwell,sneezing face,"face, gesundheit, sneeze",tissue,Emily Jäger,2018-04-18,,,,,3,54
+🥵,1F975,smileys-emotion,face-unwell,hot face,"feverish, heat stroke, hot, red-faced, sweating",,Antonia Wagner,2019-05-03,,,,,11,55
+🥶,1F976,smileys-emotion,face-unwell,cold face,"blue-faced, cold, freezing, frostbite, icicles",,Antonia Wagner,2019-05-03,,,,,11,56
+🥴,1F974,smileys-emotion,face-unwell,woozy face,"dizzy, intoxicated, tipsy, uneven eyes, wavy mouth",,Antonia Wagner,2019-05-03,,,,,11,57
+😵,1F635,smileys-emotion,face-unwell,dizzy face,"dizzy, face",dead eyes,Mariella Steeb,2018-04-18,,,,,0.6,58
+🤯,1F92F,smileys-emotion,face-unwell,exploding head,"mind blown, shocked",explosion,Tara Lynn Connelly,2020-04-13,,,,,5,59
+🤠,1F920,smileys-emotion,face-hat,cowboy hat face,"cowboy, cowgirl, face, hat",howdy,Emily Jäger,2018-04-18,,,,,3,60
+🥳,1F973,smileys-emotion,face-hat,partying face,"celebration, hat, horn, party",,Antonia Wagner,2019-05-03,,,,,11,61
+😎,1F60E,smileys-emotion,face-glasses,smiling face with sunglasses,"bright, cool, face, sun, sunglasses",,Emily Jäger,2018-04-18,,,,,1,63
+🤓,1F913,smileys-emotion,face-glasses,nerd face,"face, geek, nerd","glasses, learning",Emily Jäger,2018-04-18,,,,,1,64
+🧐,1F9D0,smileys-emotion,face-glasses,face with monocle,stuffy,"glasses, intelligent",Emily Jäger,2018-04-18,,,,,5,65
+😕,1F615,smileys-emotion,face-concerned,confused face,"confused, face, meh",,Mariella Steeb,2018-04-18,,,,,1,66
+😟,1F61F,smileys-emotion,face-concerned,worried face,"face, worried",,Mariella Steeb,2018-04-18,,,,,1,67
+🙁,1F641,smileys-emotion,face-concerned,slightly frowning face,"face, frown",,Mariella Steeb,2018-04-18,,,,,1,68
+☹️,2639,smileys-emotion,face-concerned,frowning face,"face, frown",negative,Mariella Steeb,2018-04-18,,,,,0.7,70
+😮,1F62E,smileys-emotion,face-concerned,face with open mouth,"face, mouth, open, sympathy",,Mariella Steeb,2018-04-18,,,,,1,71
+😯,1F62F,smileys-emotion,face-concerned,hushed face,"face, hushed, stunned, surprised",,Mariella Steeb,2018-04-18,,,,,1,72
+😲,1F632,smileys-emotion,face-concerned,astonished face,"astonished, face, shocked, totally",,Emily Jäger,2018-04-18,,,,,0.6,73
+😳,1F633,smileys-emotion,face-concerned,flushed face,"dazed, face, flushed",red jaws,Mariella Steeb,2018-04-18,,,,,0.6,74
+🥺,1F97A,smileys-emotion,face-concerned,pleading face,"begging, mercy, puppy eyes",,Antonia Wagner,2019-05-03,,,,,11,75
+😦,1F626,smileys-emotion,face-concerned,frowning face with open mouth,"face, frown, mouth, open",,Mariella Steeb,2018-04-18,,,,,1,76
+😧,1F627,smileys-emotion,face-concerned,anguished face,"anguished, face",,Mariella Steeb,2018-04-18,,,,,1,77
+😨,1F628,smileys-emotion,face-concerned,fearful face,"face, fear, fearful, scared",,Mariella Steeb,2018-04-18,,,,,0.6,78
+😰,1F630,smileys-emotion,face-concerned,anxious face with sweat,"blue, cold, face, rushed, sweat","anxious, worried, considerate",Mariella Steeb,2018-04-18,,,,,0.6,79
+😥,1F625,smileys-emotion,face-concerned,sad but relieved face,"disappointed, face, relieved, whew",,Mariella Steeb,2018-04-18,,,,,0.6,80
+😢,1F622,smileys-emotion,face-concerned,crying face,"cry, face, sad, tear",,Mariella Steeb,2018-04-18,,,,,0.6,81
+😭,1F62D,smileys-emotion,face-concerned,loudly crying face,"cry, face, sad, sob, tear",,Carlin MacKenzie,2020-05-11,,,,,0.6,82
+😱,1F631,smileys-emotion,face-concerned,face screaming in fear,"face, fear, munch, scared, scream",open mouth,Mariella Steeb,2018-04-18,,,,,0.6,83
+😖,1F616,smileys-emotion,face-concerned,confounded face,"confounded, face",,Mariella Steeb,2018-04-18,,,,,0.6,84
+😣,1F623,smileys-emotion,face-concerned,persevering face,"face, persevere",,Mariella Steeb,2018-04-18,,,,,0.6,85
+😞,1F61E,smileys-emotion,face-concerned,disappointed face,"disappointed, face",,Mariella Steeb,2018-04-18,,,,,0.6,86
+😓,1F613,smileys-emotion,face-concerned,downcast face with sweat,"cold, face, sweat",,Mariella Steeb,2018-04-18,,,,,0.6,87
+😩,1F629,smileys-emotion,face-concerned,weary face,"face, tired, weary",distraught,Mariella Steeb,2018-04-18,,,,,0.6,88
+😫,1F62B,smileys-emotion,face-concerned,tired face,"face, tired",exhausted,Mariella Steeb,2018-04-18,,,,,0.6,89
+🥱,1F971,smileys-emotion,face-concerned,yawning face,"bored, tired, yawn",,Laura Dworatschek,2019-05-06,,,,,12,90
+😤,1F624,smileys-emotion,face-negative,face with steam from nose,"face, triumph, won",,Mariella Steeb,2018-04-18,,,,,0.6,91
+😡,1F621,smileys-emotion,face-negative,pouting face,"angry, face, mad, pouting, rage, red",,Mariella Steeb,2018-04-18,,,,,0.6,92
+😠,1F620,smileys-emotion,face-negative,angry face,"angry, face, mad",,Mariella Steeb,2018-04-18,,,,,0.6,93
+🤬,1F92C,smileys-emotion,face-negative,face with symbols on mouth,swearing,angry,Mariella Steeb,2018-04-18,,,,,5,94
+😈,1F608,smileys-emotion,face-negative,smiling face with horns,"face, fairy tale, fantasy, horns, smile","malicious, sardonic",Mariella Steeb,2018-04-18,,,,,1,95
+👿,1F47F,smileys-emotion,face-negative,angry face with horns,"demon, devil, face, fantasy, imp",mean,Mariella Steeb,2018-04-18,,,,,0.6,96
+💀,1F480,smileys-emotion,face-negative,skull,"death, face, fairy tale, monster",skull,Mariella Steeb,2018-04-18,,,,,0.6,97
+☠️,2620,smileys-emotion,face-negative,skull and crossbones,"crossbones, death, face, monster, skull",,Mariella Steeb,2018-04-18,,,,,1,99
+💩,1F4A9,smileys-emotion,face-costume,pile of poo,"dung, face, monster, poo, poop",,Mariella Steeb,2018-04-18,,,,,0.6,100
+🤡,1F921,smileys-emotion,face-costume,clown face,"clown, face",,Emily Jäger,2018-04-18,,,,,3,101
+👹,1F479,smileys-emotion,face-costume,ogre,"creature, face, fairy tale, fantasy, monster",,Anne Frauendorf,2018-11-16,,,,,0.6,102
+👺,1F47A,smileys-emotion,face-costume,goblin,"creature, face, fairy tale, fantasy, monster",,Antonia Wagner,2019-05-03,,,,,0.6,103
+👻,1F47B,smileys-emotion,face-costume,ghost,"creature, face, fairy tale, fantasy, monster",ghost,Mariella Steeb,2018-04-18,,,,,0.6,104
+👽️,1F47D,smileys-emotion,face-costume,alien,"creature, extraterrestrial, face, fantasy, ufo",alien,Mariella Steeb,2018-04-18,,,,,0.6,105
+👾,1F47E,smileys-emotion,face-costume,alien monster,"alien, creature, extraterrestrial, face, monster, ufo",,Antonia Wagner,2019-05-03,,,,,0.6,106
+🤖,1F916,smileys-emotion,face-costume,robot,"face, monster",,Mariella Steeb,2018-04-18,,,,,1,107
+😺,1F63A,smileys-emotion,cat-face,grinning cat,"cat, face, grinning, mouth, open, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,108
+😸,1F638,smileys-emotion,cat-face,grinning cat with smiling eyes,"cat, eye, face, grin, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,109
+😹,1F639,smileys-emotion,cat-face,cat with tears of joy,"cat, face, joy, tear","laughing, smile",Emily Jäger,2018-04-18,,,,,0.6,110
+😻,1F63B,smileys-emotion,cat-face,smiling cat with heart-eyes,"cat, eye, face, heart, love, smile","hearts, red",Emily Jäger,2018-04-18,,,,,0.6,111
+😼,1F63C,smileys-emotion,cat-face,cat with wry smile,"cat, face, ironic, smile, wry",,Emily Jäger,2018-04-18,,,,,0.6,112
+😽,1F63D,smileys-emotion,cat-face,kissing cat,"cat, eye, face, kiss",,Emily Jäger,2018-04-18,,,,,0.6,113
+🙀,1F640,smileys-emotion,cat-face,weary cat,"cat, face, oh, surprised, weary",wow,Emily Jäger,2018-04-18,,,,,0.6,114
+😿,1F63F,smileys-emotion,cat-face,crying cat,"cat, cry, face, sad, tear","unhappy, depressed",Emily Jäger,2018-04-18,,,,,0.6,115
+😾,1F63E,smileys-emotion,cat-face,pouting cat,"cat, face, pouting","sad, angry",Emily Jäger,2018-04-18,,,,,0.6,116
+🙈,1F648,smileys-emotion,monkey-face,see-no-evil monkey,"evil, face, forbidden, monkey, see",,Mariella Steeb,2018-04-18,,,,,0.6,117
+🙉,1F649,smileys-emotion,monkey-face,hear-no-evil monkey,"evil, face, forbidden, hear, monkey",,Mariella Steeb,2018-04-18,,,,,0.6,118
+🙊,1F64A,smileys-emotion,monkey-face,speak-no-evil monkey,"evil, face, forbidden, monkey, speak",,Mariella Steeb,2018-04-18,,,,,0.6,119
+💋,1F48B,smileys-emotion,emotion,kiss mark,"kiss, lips",love,Laura Humpfer,2018-04-18,,,,,0.6,120
+💌,1F48C,smileys-emotion,emotion,love letter,"heart, letter, love, mail",,Laura Humpfer,2018-04-18,,,,,0.6,121
+💘,1F498,smileys-emotion,emotion,heart with arrow,"arrow, cupid","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,122
+💝,1F49D,smileys-emotion,emotion,heart with ribbon,"ribbon, valentine","present, love",Laura Humpfer,2018-04-18,,,,,0.6,123
+💖,1F496,smileys-emotion,emotion,sparkling heart,"excited, sparkle","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,124
+💗,1F497,smileys-emotion,emotion,growing heart,"excited, growing, nervous, pulse","love, inlove",Laura Humpfer,2018-04-18,,,,,0.6,125
+💓,1F493,smileys-emotion,emotion,beating heart,"beating, heartbeat, pulsating",love,Laura Humpfer,2018-04-18,,,,,0.6,126
+💞,1F49E,smileys-emotion,emotion,revolving hearts,revolving,,Laura Humpfer,2018-04-18,,,,,0.6,127
+💕,1F495,smileys-emotion,emotion,two hearts,love,,Laura Humpfer,2018-04-18,,,,,0.6,128
+💟,1F49F,smileys-emotion,emotion,heart decoration,heart,,Laura Humpfer,2018-04-18,,,,,0.6,129
+❣️,2763,smileys-emotion,emotion,heart exclamation,"exclamation, mark, punctuation",,Laura Humpfer,2018-04-18,,,,,1,131
+💔,1F494,smileys-emotion,emotion,broken heart,"break, broken",heartbreak,Laura Humpfer,2018-04-18,,,,,0.6,132
+❤️,2764,smileys-emotion,emotion,red heart,heart,"love, red",Laura Humpfer,2018-04-18,,,,,0.6,134
+🧡,1F9E1,smileys-emotion,emotion,orange heart,orange,,Laura Schießer,2019-05-06,,,,,5,135
+💛,1F49B,smileys-emotion,emotion,yellow heart,yellow,,Laura Humpfer,2018-04-18,,,,,0.6,136
+💚,1F49A,smileys-emotion,emotion,green heart,green,,Laura Humpfer,2018-04-18,,,,,0.6,137
+💙,1F499,smileys-emotion,emotion,blue heart,blue,,Laura Humpfer,2018-04-18,,,,,0.6,138
+💜,1F49C,smileys-emotion,emotion,purple heart,purple,,Laura Humpfer,2018-04-18,,,,,0.6,139
+🤎,1F90E,smileys-emotion,emotion,brown heart,"brown, heart",,Laura Dworatschek,2019-05-06,,,,,12,140
+🖤,1F5A4,smileys-emotion,emotion,black heart,"black, evil, wicked",,Laura Humpfer,2018-04-18,,,,,3,141
+🤍,1F90D,smileys-emotion,emotion,white heart,"heart, white",,Laura Dworatschek,2019-05-06,,,,,12,142
+💯,1F4AF,smileys-emotion,emotion,hundred points,"100, full, hundred, score","perfect, excellent",Jose Avila,2018-04-18,,,,,0.6,143
+💢,1F4A2,smileys-emotion,emotion,anger symbol,"angry, comic, mad",,Anne Frauendorf,2018-11-16,,,,,0.6,144
+💥,1F4A5,smileys-emotion,emotion,collision,"boom, comic",explosion,Laura Humpfer,2018-04-18,,,,,0.6,145
+💫,1F4AB,smileys-emotion,emotion,dizzy,"comic, star",shootingstar,Laura Humpfer,2018-04-18,,,,,0.6,146
+💦,1F4A6,smileys-emotion,emotion,sweat droplets,"comic, splashing, sweat",,Laura Humpfer,2018-04-18,,,,,0.6,147
+💨,1F4A8,smileys-emotion,emotion,dashing away,"comic, dash, running",,Laura Humpfer,2018-04-18,,,,,0.6,148
+🕳️,1F573,smileys-emotion,emotion,hole,hole,,Laura Humpfer,2018-04-18,,,,,0.7,150
+💣️,1F4A3,smileys-emotion,emotion,bomb,comic,explosion,Laura Humpfer,2018-04-18,,,,,0.6,151
+💬,1F4AC,smileys-emotion,emotion,speech balloon,"balloon, bubble, comic, dialog, speech",talk,Laura Humpfer,2018-04-18,,,,,0.6,152
+👁️‍🗨️,1F441-FE0F-200D-1F5E8-FE0F,smileys-emotion,emotion,eye in speech bubble,"eye, speech bubble, witness","eye, speech bubble, witness",Julian Grüneberg,2018-04-18,,,,,2,153
+🗨️,1F5E8,smileys-emotion,emotion,left speech bubble,"dialog, speech",,Laura Humpfer,2018-04-18,,,,,2,158
+🗯️,1F5EF,smileys-emotion,emotion,right anger bubble,"angry, balloon, bubble, mad",,Laura Humpfer,2018-04-18,,,,,0.7,160
+💭,1F4AD,smileys-emotion,emotion,thought balloon,"balloon, bubble, comic, thought",think,Laura Humpfer,2018-04-18,,,,,1,161
+💤,1F4A4,smileys-emotion,emotion,zzz,"comic, sleep",night,Laura Humpfer,2018-04-18,,,,,0.6,162
+👋,1F44B,people-body,hand-fingers-open,waving hand,"hand, wave, waving","Hello, Goodbye, Waving Hand Sign, Wave",Julian Grüneberg,2018-04-18,,single,👋,1F44B,0.6,163
+👋🏻,1F44B-1F3FB,people-body,hand-fingers-open,waving hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👋,1F44B,1,164
+👋🏼,1F44B-1F3FC,people-body,hand-fingers-open,waving hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👋,1F44B,1,165
+👋🏽,1F44B-1F3FD,people-body,hand-fingers-open,waving hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👋,1F44B,1,166
+👋🏾,1F44B-1F3FE,people-body,hand-fingers-open,waving hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👋,1F44B,1,167
+👋🏿,1F44B-1F3FF,people-body,hand-fingers-open,waving hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👋,1F44B,1,168
+🤚,1F91A,people-body,hand-fingers-open,raised back of hand,"backhand, raised","Backhand, raised, hand",Julian Grüneberg,2018-04-18,,single,🤚,1F91A,3,169
+🤚🏻,1F91A-1F3FB,people-body,hand-fingers-open,raised back of hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🤚,1F91A,3,170
+🤚🏼,1F91A-1F3FC,people-body,hand-fingers-open,raised back of hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🤚,1F91A,3,171
+🤚🏽,1F91A-1F3FD,people-body,hand-fingers-open,raised back of hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🤚,1F91A,3,172
+🤚🏾,1F91A-1F3FE,people-body,hand-fingers-open,raised back of hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🤚,1F91A,3,173
+🤚🏿,1F91A-1F3FF,people-body,hand-fingers-open,raised back of hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🤚,1F91A,3,174
+🖐️,1F590,people-body,hand-fingers-open,hand with fingers splayed,"finger, hand, splayed","Five Hand, Hand, Five, Splayed",Julian Grüneberg,2018-04-18,,single,🖐️,1F590,0.7,176
+🖐🏻,1F590-1F3FB,people-body,hand-fingers-open,hand with fingers splayed: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🖐️,1F590,1,177
+🖐🏼,1F590-1F3FC,people-body,hand-fingers-open,hand with fingers splayed: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🖐️,1F590,1,178
+🖐🏽,1F590-1F3FD,people-body,hand-fingers-open,hand with fingers splayed: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🖐️,1F590,1,179
+🖐🏾,1F590-1F3FE,people-body,hand-fingers-open,hand with fingers splayed: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🖐️,1F590,1,180
+🖐🏿,1F590-1F3FF,people-body,hand-fingers-open,hand with fingers splayed: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🖐️,1F590,1,181
+✋,270B,people-body,hand-fingers-open,raised hand,hand,"raise, raised, raised hand, hand",Julian Grüneberg,2018-04-18,,single,✋,270B,0.6,182
+✋🏻,270B-1F3FB,people-body,hand-fingers-open,raised hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,✋,270B,1,183
+✋🏼,270B-1F3FC,people-body,hand-fingers-open,raised hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,✋,270B,1,184
+✋🏽,270B-1F3FD,people-body,hand-fingers-open,raised hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,✋,270B,1,185
+✋🏾,270B-1F3FE,people-body,hand-fingers-open,raised hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,✋,270B,1,186
+✋🏿,270B-1F3FF,people-body,hand-fingers-open,raised hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,✋,270B,1,187
+🖖,1F596,people-body,hand-fingers-open,vulcan salute,"finger, hand, spock, vulcan","finger, hand, spock, vulcan",Julian Grüneberg,2018-04-18,,single,🖖,1F596,1,188
+🖖🏻,1F596-1F3FB,people-body,hand-fingers-open,vulcan salute: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🖖,1F596,1,189
+🖖🏼,1F596-1F3FC,people-body,hand-fingers-open,vulcan salute: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🖖,1F596,1,190
+🖖🏽,1F596-1F3FD,people-body,hand-fingers-open,vulcan salute: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🖖,1F596,1,191
+🖖🏾,1F596-1F3FE,people-body,hand-fingers-open,vulcan salute: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🖖,1F596,1,192
+🖖🏿,1F596-1F3FF,people-body,hand-fingers-open,vulcan salute: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🖖,1F596,1,193
+👌,1F44C,people-body,hand-fingers-partial,OK hand,"hand, ok","hand, ok, okay, perfect",Julian Grüneberg,2018-04-18,,single,👌,1F44C,0.6,194
+👌🏻,1F44C-1F3FB,people-body,hand-fingers-partial,OK hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👌,1F44C,1,195
+👌🏼,1F44C-1F3FC,people-body,hand-fingers-partial,OK hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👌,1F44C,1,196
+👌🏽,1F44C-1F3FD,people-body,hand-fingers-partial,OK hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👌,1F44C,1,197
+👌🏾,1F44C-1F3FE,people-body,hand-fingers-partial,OK hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👌,1F44C,1,198
+👌🏿,1F44C-1F3FF,people-body,hand-fingers-partial,OK hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👌,1F44C,1,199
+🤏,1F90F,people-body,hand-fingers-partial,pinching hand,small amount,,Laura Dworatschek,2019-05-06,,single,🤏,1F90F,12,206
+🤏🏻,1F90F-1F3FB,people-body,hand-fingers-partial,pinching hand: light skin tone,,,Laura Dworatschek,2019-05-06,1,single,🤏,1F90F,12,207
+🤏🏼,1F90F-1F3FC,people-body,hand-fingers-partial,pinching hand: medium-light skin tone,,,Laura Dworatschek,2019-05-06,2,single,🤏,1F90F,12,208
+🤏🏽,1F90F-1F3FD,people-body,hand-fingers-partial,pinching hand: medium skin tone,,,Laura Dworatschek,2019-05-06,3,single,🤏,1F90F,12,209
+🤏🏾,1F90F-1F3FE,people-body,hand-fingers-partial,pinching hand: medium-dark skin tone,,,Laura Dworatschek,2019-05-06,4,single,🤏,1F90F,12,210
+🤏🏿,1F90F-1F3FF,people-body,hand-fingers-partial,pinching hand: dark skin tone,,,Laura Dworatschek,2019-05-06,5,single,🤏,1F90F,12,211
+✌️,270C,people-body,hand-fingers-partial,victory hand,"hand, v, victory","hand, v, victory, Air Quotes, quotes, Peace, Peace Sign, V Sign",Julian Grüneberg,2018-04-18,,single,✌️,270C,0.6,213
+✌🏻,270C-1F3FB,people-body,hand-fingers-partial,victory hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,✌️,270C,1,214
+✌🏼,270C-1F3FC,people-body,hand-fingers-partial,victory hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,✌️,270C,1,215
+✌🏽,270C-1F3FD,people-body,hand-fingers-partial,victory hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,✌️,270C,1,216
+✌🏾,270C-1F3FE,people-body,hand-fingers-partial,victory hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,✌️,270C,1,217
+✌🏿,270C-1F3FF,people-body,hand-fingers-partial,victory hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,✌️,270C,1,218
+🤞,1F91E,people-body,hand-fingers-partial,crossed fingers,"cross, finger, hand, luck","Fingers Crossed, crossed, fingers, Good Luck, luck",Julian Grüneberg,2018-04-18,,single,🤞,1F91E,3,219
+🤞🏻,1F91E-1F3FB,people-body,hand-fingers-partial,crossed fingers: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🤞,1F91E,3,220
+🤞🏼,1F91E-1F3FC,people-body,hand-fingers-partial,crossed fingers: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🤞,1F91E,3,221
+🤞🏽,1F91E-1F3FD,people-body,hand-fingers-partial,crossed fingers: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🤞,1F91E,3,222
+🤞🏾,1F91E-1F3FE,people-body,hand-fingers-partial,crossed fingers: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🤞,1F91E,3,223
+🤞🏿,1F91E-1F3FF,people-body,hand-fingers-partial,crossed fingers: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🤞,1F91E,3,224
+🤟,1F91F,people-body,hand-fingers-partial,love-you gesture,"hand, ily","hand, love, heavy metal",Julian Grüneberg,2018-04-18,,single,🤟,1F91F,5,225
+🤟🏻,1F91F-1F3FB,people-body,hand-fingers-partial,love-you gesture: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🤟,1F91F,5,226
+🤟🏼,1F91F-1F3FC,people-body,hand-fingers-partial,love-you gesture: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🤟,1F91F,5,227
+🤟🏽,1F91F-1F3FD,people-body,hand-fingers-partial,love-you gesture: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🤟,1F91F,5,228
+🤟🏾,1F91F-1F3FE,people-body,hand-fingers-partial,love-you gesture: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🤟,1F91F,5,229
+🤟🏿,1F91F-1F3FF,people-body,hand-fingers-partial,love-you gesture: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🤟,1F91F,5,230
+🤘,1F918,people-body,hand-fingers-partial,sign of the horns,"finger, hand, horns, rock-on","rock on, finger, hand, horns, rock-on, rock, Devil, Devil Fingers, Heavy, Metal, Heavy Metal, rock",Julian Grüneberg,2018-04-18,,single,🤘,1F918,1,231
+🤘🏻,1F918-1F3FB,people-body,hand-fingers-partial,sign of the horns: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🤘,1F918,1,232
+🤘🏼,1F918-1F3FC,people-body,hand-fingers-partial,sign of the horns: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🤘,1F918,1,233
+🤘🏽,1F918-1F3FD,people-body,hand-fingers-partial,sign of the horns: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🤘,1F918,1,234
+🤘🏾,1F918-1F3FE,people-body,hand-fingers-partial,sign of the horns: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🤘,1F918,1,235
+🤘🏿,1F918-1F3FF,people-body,hand-fingers-partial,sign of the horns: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🤘,1F918,1,236
+🤙,1F919,people-body,hand-fingers-partial,call me hand,"call, hand","Call Me Hand, call, hand, Phone, Shaka",Julian Grüneberg,2018-04-18,,single,🤙,1F919,3,237
+🤙🏻,1F919-1F3FB,people-body,hand-fingers-partial,call me hand: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🤙,1F919,3,238
+🤙🏼,1F919-1F3FC,people-body,hand-fingers-partial,call me hand: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🤙,1F919,3,239
+🤙🏽,1F919-1F3FD,people-body,hand-fingers-partial,call me hand: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🤙,1F919,3,240
+🤙🏾,1F919-1F3FE,people-body,hand-fingers-partial,call me hand: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🤙,1F919,3,241
+🤙🏿,1F919-1F3FF,people-body,hand-fingers-partial,call me hand: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🤙,1F919,3,242
+👈️,1F448,people-body,hand-single-finger,backhand index pointing left,"backhand, finger, hand, index, point","backhand, finger, hand, index, point, point, left, Middle Finger, White left",Julian Grüneberg,2018-04-18,,single,👈️,1F448,0.6,243
+👈🏻,1F448-1F3FB,people-body,hand-single-finger,backhand index pointing left: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👈️,1F448,1,244
+👈🏼,1F448-1F3FC,people-body,hand-single-finger,backhand index pointing left: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👈️,1F448,1,245
+👈🏽,1F448-1F3FD,people-body,hand-single-finger,backhand index pointing left: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👈️,1F448,1,246
+👈🏾,1F448-1F3FE,people-body,hand-single-finger,backhand index pointing left: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👈️,1F448,1,247
+👈🏿,1F448-1F3FF,people-body,hand-single-finger,backhand index pointing left: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👈️,1F448,1,248
+👉️,1F449,people-body,hand-single-finger,backhand index pointing right,"backhand, finger, hand, index, point","backhand, finger, hand, index, point, point, right, Middle Finger, White right",Julian Grüneberg,2018-04-18,,single,👉️,1F449,0.6,249
+👉🏻,1F449-1F3FB,people-body,hand-single-finger,backhand index pointing right: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👉️,1F449,1,250
+👉🏼,1F449-1F3FC,people-body,hand-single-finger,backhand index pointing right: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👉️,1F449,1,251
+👉🏽,1F449-1F3FD,people-body,hand-single-finger,backhand index pointing right: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👉️,1F449,1,252
+👉🏾,1F449-1F3FE,people-body,hand-single-finger,backhand index pointing right: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👉️,1F449,1,253
+👉🏿,1F449-1F3FF,people-body,hand-single-finger,backhand index pointing right: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👉️,1F449,1,254
+👆️,1F446,people-body,hand-single-finger,backhand index pointing up,"backhand, finger, hand, point, up","backhand, finger, hand, index, point, up, Middle Finger, White Up",Julian Grüneberg,2018-04-18,,single,👆️,1F446,0.6,255
+👆🏻,1F446-1F3FB,people-body,hand-single-finger,backhand index pointing up: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👆️,1F446,1,256
+👆🏼,1F446-1F3FC,people-body,hand-single-finger,backhand index pointing up: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👆️,1F446,1,257
+👆🏽,1F446-1F3FD,people-body,hand-single-finger,backhand index pointing up: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👆️,1F446,1,258
+👆🏾,1F446-1F3FE,people-body,hand-single-finger,backhand index pointing up: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👆️,1F446,1,259
+👆🏿,1F446-1F3FF,people-body,hand-single-finger,backhand index pointing up: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👆️,1F446,1,260
+🖕,1F595,people-body,hand-single-finger,middle finger,"finger, hand","finger, hand, fingering",Julian Grüneberg,2018-04-18,,single,🖕,1F595,1,261
+🖕🏻,1F595-1F3FB,people-body,hand-single-finger,middle finger: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,🖕,1F595,1,262
+🖕🏼,1F595-1F3FC,people-body,hand-single-finger,middle finger: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,🖕,1F595,1,263
+🖕🏽,1F595-1F3FD,people-body,hand-single-finger,middle finger: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,🖕,1F595,1,264
+🖕🏾,1F595-1F3FE,people-body,hand-single-finger,middle finger: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,🖕,1F595,1,265
+🖕🏿,1F595-1F3FF,people-body,hand-single-finger,middle finger: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,🖕,1F595,1,266
+👇️,1F447,people-body,hand-single-finger,backhand index pointing down,"backhand, down, finger, hand, point","backhand, down, finger, hand, index, point, point, down, Middle Finger, White down",Julian Grüneberg,2018-04-18,,single,👇️,1F447,0.6,267
+👇🏻,1F447-1F3FB,people-body,hand-single-finger,backhand index pointing down: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👇️,1F447,1,268
+👇🏼,1F447-1F3FC,people-body,hand-single-finger,backhand index pointing down: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👇️,1F447,1,269
+👇🏽,1F447-1F3FD,people-body,hand-single-finger,backhand index pointing down: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👇️,1F447,1,270
+👇🏾,1F447-1F3FE,people-body,hand-single-finger,backhand index pointing down: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👇️,1F447,1,271
+👇🏿,1F447-1F3FF,people-body,hand-single-finger,backhand index pointing down: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👇️,1F447,1,272
+☝️,261D,people-body,hand-single-finger,index pointing up,"finger, hand, index, point, up","finger, hand, index, point, up",Julian Grüneberg,2018-04-18,,single,☝️,261D,0.6,274
+☝🏻,261D-1F3FB,people-body,hand-single-finger,index pointing up: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,☝️,261D,1,275
+☝🏼,261D-1F3FC,people-body,hand-single-finger,index pointing up: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,☝️,261D,1,276
+☝🏽,261D-1F3FD,people-body,hand-single-finger,index pointing up: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,☝️,261D,1,277
+☝🏾,261D-1F3FE,people-body,hand-single-finger,index pointing up: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,☝️,261D,1,278
+☝🏿,261D-1F3FF,people-body,hand-single-finger,index pointing up: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,☝️,261D,1,279
+👍️,1F44D,people-body,hand-fingers-closed,thumbs up,"+1, hand, thumb, up","Like, yes, +1, hand, thumb, up, thumbs up, thumbs up",Julian Grüneberg,2018-04-18,,single,👍️,1F44D,0.6,280
+👍🏻,1F44D-1F3FB,people-body,hand-fingers-closed,thumbs up: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👍️,1F44D,1,281
+👍🏼,1F44D-1F3FC,people-body,hand-fingers-closed,thumbs up: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👍️,1F44D,1,282
+👍🏽,1F44D-1F3FD,people-body,hand-fingers-closed,thumbs up: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👍️,1F44D,1,283
+👍🏾,1F44D-1F3FE,people-body,hand-fingers-closed,thumbs up: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👍️,1F44D,1,284
+👍🏿,1F44D-1F3FF,people-body,hand-fingers-closed,thumbs up: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👍️,1F44D,1,285
+👎️,1F44E,people-body,hand-fingers-closed,thumbs down,"-1, down, hand, thumb","Dislike no, Thumbs Down, Thumbs Down sign, -1, down, hand, thumb, thumbs",Julian Grüneberg,2018-04-18,,single,👎️,1F44E,0.6,286
+👎🏻,1F44E-1F3FB,people-body,hand-fingers-closed,thumbs down: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👎️,1F44E,1,287
+👎🏼,1F44E-1F3FC,people-body,hand-fingers-closed,thumbs down: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👎️,1F44E,1,288
+👎🏽,1F44E-1F3FD,people-body,hand-fingers-closed,thumbs down: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,👎️,1F44E,1,289
+👎🏾,1F44E-1F3FE,people-body,hand-fingers-closed,thumbs down: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,👎️,1F44E,1,290
+👎🏿,1F44E-1F3FF,people-body,hand-fingers-closed,thumbs down: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,👎️,1F44E,1,291
+✊,270A,people-body,hand-fingers-closed,raised fist,"clenched, fist, hand, punch","clenched, fist, hand, punch",Julian Grüneberg,2018-04-18,,single,✊,270A,0.6,292
+✊🏻,270A-1F3FB,people-body,hand-fingers-closed,raised fist: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,✊,270A,1,293
+✊🏼,270A-1F3FC,people-body,hand-fingers-closed,raised fist: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,✊,270A,1,294
+✊🏽,270A-1F3FD,people-body,hand-fingers-closed,raised fist: medium skin tone,,,Julian Grüneberg,2018-04-18,3,single,✊,270A,1,295
+✊🏾,270A-1F3FE,people-body,hand-fingers-closed,raised fist: medium-dark skin tone,,,Julian Grüneberg,2018-04-18,4,single,✊,270A,1,296
+✊🏿,270A-1F3FF,people-body,hand-fingers-closed,raised fist: dark skin tone,,,Julian Grüneberg,2018-04-18,5,single,✊,270A,1,297
 👊,1F44A,people-body,hand-fingers-closed,oncoming fist,"clenched, fist, hand, punch","clenched, fist, hand, punch, fist, oncoming fist, Brofist, Bro, Bump,",Julian Grüneberg,2018-04-18,,single,👊,1F44A,0.6,298
 👊🏻,1F44A-1F3FB,people-body,hand-fingers-closed,oncoming fist: light skin tone,,,Julian Grüneberg,2018-04-18,1,single,👊,1F44A,1,299
 👊🏼,1F44A-1F3FC,people-body,hand-fingers-closed,oncoming fist: medium-light skin tone,,,Julian Grüneberg,2018-04-18,2,single,👊,1F44A,1,300

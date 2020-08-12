@@ -1,5 +1,3 @@
-var finalResult, emoGroup, emoDict, lang, matchingWords, recognition;
-var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 
 function speech00(lang, matchingWords) {
 
@@ -48,10 +46,10 @@ function addResultHandler() {
 			recognition.stop();
 			//show('bStart');
 			let word = finalResult = final_transcript;
-			let correct = evaluateAnswer(word);
+			answerCorrect = evaluateAnswer(word);
+			//console.log('onresult: status wird auf result gesetzt!!!')
 			setStatus('result');
-			console.log('Result received: ' + word); // + '.\nConfidence: ' + event.results[0][0].confidence);
-			nextWord(correct);
+			console.log('==>', answerCorrect, '\nwords', matchingWords, '\nbest', bestWord, '\ngot', word); // + '.\nConfidence: ' + event.results[0][0].confidence);
 
 		}
 	};
@@ -60,7 +58,15 @@ function addEndHandler() {
 	// run when the speech recognition service has disconnected
 	// (automatically or forced with recognition.stop())
 	recognition.onend = function () {
-		console.log('Speech recognition service disconnected');
+		console.log('end!'); //Speech recognition service disconnected');
+		if (RESTARTING) {
+			doRestart();
+
+		} else if (status == 'wait') {
+			startWriteMode();
+			nextWord(false);
+		}
+		else nextWord();
 	};
 }
 function addStartHandler() {

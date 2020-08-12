@@ -334,14 +334,82 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mTextDiv(label); }
+// http://www.2ality.com/2013/09/javascript-unicode.html
+function toUTF16(codePoint) {
+  var TEN_BITS = parseInt('1111111111', 2);
+  function u(codeUnit) {
+    return '\\u'+codeUnit.toString(16).toUpperCase();
+  }
+
+  if (codePoint <= 0xFFFF) {
+    return u(codePoint);
+  }
+  codePoint -= 0x10000;
+
+  // Shift right to get to most significant 10 bits
+  var leadSurrogate = 0xD800 + (codePoint >> 10);
+
+  // Mask to get least significant 10 bits
+  var tailSurrogate = 0xDC00 + (codePoint & TEN_BITS);
+
+  return u(leadSurrogate) + u(tailSurrogate);
+}
+
+// using codePointAt, it's easy to go from emoji
+// to decimal and back.
+// // Emoji to decimal representation
+// "😀".codePointAt(0)
+// >128512
+
+// // Decimal to emoji
+// String.fromCodePoint(128512)
+// >"😀"
+
+// // going from emoji to hexadecimal is a little
+// // bit trickier. To convert from decimal to hexadecimal,
+// // we can use toUTF16.
+// // Decimal to hexadecimal
+// toUTF16(128512)
+// > "\uD83D\uDE00"
+
+// // Hexadecimal to emoji
+// "\uD83D\uDE00"
+// > "😀"
 function mEmo(key, parent, fontSize) {
 	//console.log(key,parent,fontSize);
 	if (isString(parent)) parent = mBy(parent);
 	let d = mDiv(parent);
 	let rec = emojiChars[emojiKeys[key]];
 	let decCode = hexStringToDecimal(rec.hexcode);
-	//console.log(key,rec.hexcode,decCode,);
+	let hex = rec.hexcode;
+	
 	let s1 = '&#' + decCode + ';'; //'\u{1F436}';
+	// s1 = '&#x' + hex + ';'; //'\u{1F436}';
+
+	// hex = "1F1E8-1F1ED";
+	let parts = hex.split('-');
+	let res='';
+
+	for(const p of parts){
+		decCode = hexStringToDecimal(p);
+		s1 = '&#' + decCode + ';'; //'\u{1F436}';
+		res+=s1;
+	}
+	s1=res;
+	//s1=toUTF16(hex);
+	//console.log('s1',s1)
+
+	// let emoji = hex.split("-");
+	// console.log(emoji)
+	// emoji = emoji.map(x => '&#x' + x + ';'); //String(UnicodeScalar(Int(String(x),{radix: 16}) ?? 0)))
+	// console.log(emoji)
+	// emoji = emoji.join("\u{200D}");
+	// console.log(emoji)
+
+	// console.log(emoji) // 👨‍👨‍👧‍👧
+
+
+	//console.log(key,rec.hexcode,decCode,);
 	d.innerHTML = s1;
 	d.style.fontSize = fontSize + 'pt';
 	return d;
@@ -2667,7 +2735,7 @@ function takeFromStart(ad, n) {
 		return keys.slice(0, n).map(x => (ad[x]));
 	} else return ad.slice(0, n);
 }
-function takeFromTo(ad, from,to) {
+function takeFromTo(ad, from, to) {
 
 	if (isDict(ad)) {
 		let keys = Object.keys(ad);
@@ -3771,6 +3839,21 @@ function makeStrings(obj, props, maxlen = 50, isStart = true) {
 	strs = props.map(x => makeString(obj, x)).join('\n');
 	return strs;
 }
+function multiSplit(s,seplist){
+	let res = [s];
+	for(const sep of seplist){
+		let resNew = [];
+		//console.log(res)
+		for(const s1 of res){
+			//console.log(s1)
+			let parts= s1.split(sep);
+			resNew= resNew.concat(parts);
+		}
+		res = resNew;
+	}
+	return res.filter(x=>!isEmpty(x));
+}
+
 function padSep(sep, n, args) {
 	//sep..separator string, n..length of result, args are arbitrary numbers
 	//each number in args is padded with 0's to length n, numbers are then separated by sep
@@ -3791,6 +3874,25 @@ function reverseString(s) {
 function sameCaseInsensitive(s1, s2) {
 	return s1.toLowerCase() == s2.toLowerCase();
 }
+function sepWordListFromString(s, seplist) {
+	let words = multiSplit(s, seplist);
+	return words.map(x => x.replace('"', '').trim());
+}
+function simpleWordListFromString(s, sep = [' ']) {
+	let lst = listFromString(s);
+	let res = [];
+	for (const w of lst) {
+		let parts = w.split(sep);
+		parts.map(x => addIf(res, x));
+	}
+	return res;
+}
+function listFromString(s) {
+	//let tags=s.replace('"','').trim();
+	let words = s.split(',');
+	return words.map(x => x.replace('"', '').trim());
+}
+
 function startsWith(s, sSub) {
 	//testHelpers('startWith: s='+s+', sSub='+sSub,typeof(s),typeof(sSub));
 	return s.substring(0, sSub.length) == sSub;
