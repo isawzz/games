@@ -16,32 +16,13 @@ function getGermanAnimals() {
 	choice.lang = 'D';
 	return choice;
 }
-function setGroup(group) {
-	emoGroup = group.toUpperCase();
-	let f = firstCond(emoSets, x => x.name == group).f;
-	console.log(emoGroup)
-	emoDict = {};
-	for (const k in emojiChars) {
-		let o = emojiChars[k];
-		if (nundef(o.group)) continue;
-		//console.log(o)
-		let passt = f(o);
-		if (passt) emoDict[k] = emojiChars[k];
-
-		// if (isdef(o.group) && o.group.toUpperCase() == emoGroup)
-		// 	console.log('adding emoji')
-		// 	emoDict[k] = emojiChars[k];
-	}
-	//console.log(emoDict);
-}
 function allEnglishWords() {
 	// let os=takeFromTo(emojiChars,100,103);let o = os[0];
 
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 	//key='1F1E6-1F1FC';
 	let o = emojiChars[key];
-	//console.log('emoji object', o);
-	//console.log('_________\nkey',key,'\no',o)
+	console.log('_________\nkey',key,'\no',o)
 	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
 	toBeRemoved.push(emoGroup.toLowerCase());
 
@@ -66,18 +47,41 @@ function allEnglishWords() {
 	return { words: words, key: o.annotation, lang: 'E' };
 
 }
+function getEmoSetWords(lang='E') {
+	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
+	//key='1F41C'; //ant '1F1E6-1F1FC';
+	let o = emojiChars[key];
+	//console.log('_________\nkey',key,'\no',o)
+	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
+	toBeRemoved.push(emoGroup.toLowerCase());
 
-function setSpeechWords() {
+	let valid=o[lang+'_valid_sound'];
+	valid=isEmpty(valid)?[]:[valid];
+	console.log('valid sound',valid);
+
+	let words=[];//isEmpty(valid)?[]:[valid];
+	if (isEnglish(lang)){
+		words = words.concat(sepWordListFromString(o.E, [',']));
+	} else words = words.concat(sepWordListFromString(o.D, [',']));
+
+	words = words.filter(x => x.length <= MAXWORDLENGTH);
+	if (isEmpty(words)) { delete emoDict[key]; return getEmoSetWords(); }
+	return { valid: valid, words: words, key: o.annotation, lang: lang };
+
+}
+
+function setSpeechWords(lang='E') {
 	let table = mBy('table');
 	clearElementFromChildIndex(table, 2);
 	//clearElement(table);
 
 	//hier kommen {words,key,lang} 
-	let data = allEnglishWords();// getGermanAnimals | getColoredHearts
+	let data = getEmoSetWords(lang);// getGermanAnimals | getColoredHearts
 	console.log('example data:', data.words)
 
 	lang = data.lang;
 	matchingWords = data.words;
+	validSounds = data.valid;
 	bestWord = last(matchingWords);
 	hintWord = '_'.repeat(bestWord.length);
 
@@ -143,6 +147,25 @@ function setSpeechWords() {
 
 
 
+function setGroup(group) {
+	console.log('setting group to',group)
+	emoGroup = group.toUpperCase();
+	let f = firstCond(emoSets, x => x.name == group).f;
+	console.log(emoGroup)
+	emoDict = {};
+	for (const k in emojiChars) {
+		let o = emojiChars[k];
+		if (nundef(o.group)) continue;
+		//console.log(o)
+		let passt = f(o);
+		if (passt) emoDict[k] = emojiChars[k];
+
+		// if (isdef(o.group) && o.group.toUpperCase() == emoGroup)
+		// 	console.log('adding emoji')
+		// 	emoDict[k] = emojiChars[k];
+	}
+	//console.log(emoDict);
+}
 
 
 

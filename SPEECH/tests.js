@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 async function testSpeech() {
 	// let sb = mSidebar(mBy('table'));
 	// mColor(sb, 'dimgray', 'red')
@@ -13,7 +5,7 @@ async function testSpeech() {
 	//console.log('dict',emoDict)
 	setStatus('wait');
 	score = 0;
-	interactMode = 'write';
+	//interactMode = 'write';
 	//interactMode='write';
 	//mButton('start',()=>console.log('CLICK!!!'),table)
 	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
@@ -22,7 +14,7 @@ async function testSpeech() {
 	//onClickStartButton();
 
 	let sidebar = mBy('sidebar');
-	let names = emoSets.map(x=>x.name).sort();
+	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
 		let b = mButton(name, () => onClickGroup(name), sidebar, { display: 'block', 'min-width': 100 });
@@ -30,7 +22,10 @@ async function testSpeech() {
 }
 function restart() {
 	RESTARTING=true;
-	if (isdef(recognition) && interactMode == 'speak')	recognition.stop();
+	if (isdef(recognition) && interactMode == 'speak' && isRunning)	{
+		console.log('stopping recog');
+		recognition.stop();
+	}
 	else doRestart();
 
 	
@@ -96,16 +91,21 @@ function nextWord(showButton=true) {
 //#region evaluation of answer
 function evaluateAnswer(answer) {
 	let words = matchingWords.map(x => x.toUpperCase());
+	let valid = isdef(validSounds)?validSounds.map(x=>x.toUpperCase()):[];
 	answer = answer.toUpperCase();
 	if (words.includes(answer)) {
 		setScore(score + 1);
 		successMessage();
 		hintMessage.innerHTML = answer;
 		return true;
-	// }else if (bestWord == hintWord){
-	// 	console.log('hat es NICHT erraten!');
-	// 	setScore(score - 1);
-	// 	failMessage();
+	}else if (valid.includes(answer)){
+		//this is a word that sounds just like bestWord!
+		setScore(score + 1);
+		successMessage();
+		hintMessage.innerHTML = bestWord.toUpperCase();
+		return true;
+
+	
 	} else {
 		setScore(score - 1);
 		addHint();

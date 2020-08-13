@@ -28,7 +28,7 @@ var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
 const TIMIT_SHOW = true; // true | false
-const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
+const USE_LOCAL_STORAGE = false; // true | false //localStorage is cleared when false!!!!!
 const STOP_TESTS_ON_FAIL = true; // true | false
 
 var ACTIVATE_UI = true; // true | false

@@ -342,7 +342,8 @@ async function route_iconChars() {
 
 }
 async function route_emoChars() {
-	let x = await (await fetch('/assets/openmoji.csv')).text();
+	// let x = await (await fetch('/assets/openmoji.csv')).text();
+	let x = await (await fetch('/assets/mojiReduced.csv')).text();
 	emojiChars = processCsvData(x);
 	return emojiChars;
 }

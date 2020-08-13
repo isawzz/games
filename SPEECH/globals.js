@@ -1,7 +1,10 @@
-var timit;
-var finalResult, emoGroup, emoDict, lang, matchingWords, recognition;
-var status = 'init'; // init | wait | prompt | result | error | nomatch | end
+var lang = 'E';
 var interactMode = 'speak'; // speak | write
+var selectedEmoSetNames = ['animal','drink','fruit','food','kitchen','plant','vegetable'];
+
+var timit;
+var finalResult, emoGroup, emoDict, matchingWords, validSounds, recognition, isRunning;
+var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
 var hintWord, bestWord, answerCorrect;
 var RESTARTING;
@@ -25,6 +28,7 @@ var emoSets = [
 	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
 	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
 	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	{ name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
 
 	//objects:
 	{
@@ -66,7 +70,6 @@ var farben = ['rot', 'gruen', 'blau', 'gelb', 'braun', 'violett', 'rosa', 'orang
 var colors = ['red', 'green', 'blue', 'yellow', 'brown', 'violet', 'pink', 'orange', 'black', 'white'];
 //var tiere = ['Tiger', 'Giraffe', 'Hund', 'Katze', 'Pferd', 'Elephant', 'Kuh', 'Ziege', 'Loewe'];
 var animals = ['tiger', 'giraffe', 'dog', 'cat', 'horse', 'elefant', 'cow', 'goat', 'lion'];
-
 var animalKeys = ['monkey', 'gorilla', 'orangutan', 'dog', 'cat', 'tiger', 'leopard', 'horse', 'deer', 'ox', 'cow', 'pig',
 	'goat', 'ewe', 'camel', 'elephant', 'rhinoceros', 'hippopotamus', 'mouse', 'rat', 'rabbit', 'hedgehog', 'bat', 'sloth',
 	'otter', 'skunk', 'kangaroo', 'rooster', 'penguin', 'dove', 'eagle', 'duck', 'swan', 'owl', 'flamingo', 'peacock', 'parrot',
