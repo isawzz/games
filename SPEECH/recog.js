@@ -59,7 +59,7 @@ function addEndHandler() {
 	// (automatically or forced with recognition.stop())
 	recognition.onend = function () {
 		isRunning = false;
-		console.log('end!'); //Speech recognition service disconnected');
+		//console.log('end!'); //Speech recognition service disconnected');
 		if (RESTARTING) {
 			doRestart();
 
@@ -74,7 +74,7 @@ function addStartHandler() {
 	// will run when the speech recognition 
 	// service has began listening to incoming audio 
 	recognition.onstart = function () {
-		console.log('recog.onstart!')
+		//console.log('recog.onstart!')
 		isRunning = true;
 		//console.log('Speech recognition service has started');
 	};

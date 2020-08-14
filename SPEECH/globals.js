@@ -1,6 +1,7 @@
 var lang = 'E';
 var interactMode = 'speak'; // speak | write
-var selectedEmoSetNames = ['animal','drink','fruit','food','kitchen','plant','vegetable'];
+var selectedEmoSetNames = ['animal', 'drink', 'fruit', 'food', 'kitchen', 'place', 'plant', 'transport', 'vegetable'];
+var MAXWORDLENGTH = 12;
 
 var timit;
 var finalResult, emoGroup, emoDict, matchingWords, validSounds, recognition, isRunning;
@@ -8,7 +9,6 @@ var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
 var hintWord, bestWord, answerCorrect;
 var RESTARTING;
-var MAXWORDLENGTH=8;
 
 var emoSets = [
 	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
@@ -44,8 +44,8 @@ var emoSets = [
 			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
 	},
 
-	{ name: 'place', f: o => startsWith(o.subgroup, 'place') },
-	{ name: 'transport', f: o => startsWith(o.subgroup, 'transport') },
+	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
+	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
 	{ name: 'symbols', f: o => o.group == 'symbols' },
 	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
 	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },

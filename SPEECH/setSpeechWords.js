@@ -49,20 +49,23 @@ function allEnglishWords() {
 }
 function getEmoSetWords(lang='E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
-	//key='1F41C'; //ant '1F1E6-1F1FC';
+	//key='1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	let o = emojiChars[key];
+	//console.log('_________\nkey',key,'\no',o)
 	//console.log('_________\nkey',key,'\no',o)
 	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
 	toBeRemoved.push(emoGroup.toLowerCase());
 
 	let valid=o[lang+'_valid_sound'];
 	valid=isEmpty(valid)?[]:[valid];
-	console.log('valid sound',valid);
+	//console.log('valid sound',valid);
 
 	let words=[];//isEmpty(valid)?[]:[valid];
 	if (isEnglish(lang)){
-		words = words.concat(sepWordListFromString(o.E, [',']));
-	} else words = words.concat(sepWordListFromString(o.D, [',']));
+		//console.log('o.E',o.E,'\no.D',o.D)
+
+		words = words.concat(sepWordListFromString(o.E, ['|']));
+	} else words = words.concat(sepWordListFromString(o.D, ['|']));
 
 	words = words.filter(x => x.length <= MAXWORDLENGTH);
 	if (isEmpty(words)) { delete emoDict[key]; return getEmoSetWords(); }
@@ -77,7 +80,7 @@ function setSpeechWords(lang='E') {
 
 	//hier kommen {words,key,lang} 
 	let data = getEmoSetWords(lang);// getGermanAnimals | getColoredHearts
-	console.log('example data:', data.words)
+	//console.log('example data:', data.words)
 
 	lang = data.lang;
 	matchingWords = data.words;
@@ -148,16 +151,19 @@ function setSpeechWords(lang='E') {
 
 
 function setGroup(group) {
-	console.log('setting group to',group)
+	//console.log('setting group to',group)
 	emoGroup = group.toUpperCase();
 	let f = firstCond(emoSets, x => x.name == group).f;
-	console.log(emoGroup)
+	//console.log(emoGroup)
 	emoDict = {};
 	for (const k in emojiChars) {
 		let o = emojiChars[k];
+
 		if (nundef(o.group)) continue;
-		//console.log(o)
 		let passt = f(o);
+		if (!passt) continue;
+		//console.log('_______',o);
+		//console.log('o.E',o.E,'\no.D',o.D)
 		if (passt) emoDict[k] = emojiChars[k];
 
 		// if (isdef(o.group) && o.group.toUpperCase() == emoGroup)

@@ -14,6 +14,9 @@ async function testSpeech() {
 	//onClickStartButton();
 
 	let sidebar = mBy('sidebar');
+	mTextDiv('language:',sidebar);
+	mButton(lang,onClickSetLanguage,sidebar,{width:100});
+	mTextDiv('categories:',sidebar);
 	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
@@ -45,6 +48,13 @@ function doRestart(){
 	RESTARTING = false;
 
 }
+function onClickSetLanguage(){
+	//toggle lang!
+	if (isEnglish(lang)) lang='D'; else lang='E';
+	this.innerHTML = lang;
+	restart();
+
+}
 function onClickGroup(group) {
 	setGroup(group);
 	restart();
@@ -54,7 +64,7 @@ function onClickStartButton() {
 	deactivateStartButton();
 	let btn = mBy('bStart');
 	let caption = btn.innerHTML;
-	if (caption != 'try again') setSpeechWords();
+	if (caption != 'try again') setSpeechWords(lang);
 	if (interactMode == 'speak') speech00(lang, matchingWords); //simpleSpeech();
 	//speechEngineInit();
 	//speechEngineGo(lang, matchingWords);

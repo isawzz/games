@@ -334,25 +334,26 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mTextDiv(label); }
+//#region toUTF16
 // http://www.2ality.com/2013/09/javascript-unicode.html
 function toUTF16(codePoint) {
-  var TEN_BITS = parseInt('1111111111', 2);
-  function u(codeUnit) {
-    return '\\u'+codeUnit.toString(16).toUpperCase();
-  }
+	var TEN_BITS = parseInt('1111111111', 2);
+	function u(codeUnit) {
+		return '\\u' + codeUnit.toString(16).toUpperCase();
+	}
 
-  if (codePoint <= 0xFFFF) {
-    return u(codePoint);
-  }
-  codePoint -= 0x10000;
+	if (codePoint <= 0xFFFF) {
+		return u(codePoint);
+	}
+	codePoint -= 0x10000;
 
-  // Shift right to get to most significant 10 bits
-  var leadSurrogate = 0xD800 + (codePoint >> 10);
+	// Shift right to get to most significant 10 bits
+	var leadSurrogate = 0xD800 + (codePoint >> 10);
 
-  // Mask to get least significant 10 bits
-  var tailSurrogate = 0xDC00 + (codePoint & TEN_BITS);
+	// Mask to get least significant 10 bits
+	var tailSurrogate = 0xDC00 + (codePoint & TEN_BITS);
 
-  return u(leadSurrogate) + u(tailSurrogate);
+	return u(leadSurrogate) + u(tailSurrogate);
 }
 
 // using codePointAt, it's easy to go from emoji
@@ -375,6 +376,7 @@ function toUTF16(codePoint) {
 // // Hexadecimal to emoji
 // "\uD83D\uDE00"
 // > "😀"
+//#endregion
 function mEmo(key, parent, fontSize) {
 	//console.log(key,parent,fontSize);
 	if (isString(parent)) parent = mBy(parent);
@@ -382,20 +384,20 @@ function mEmo(key, parent, fontSize) {
 	let rec = emojiChars[emojiKeys[key]];
 	let decCode = hexStringToDecimal(rec.hexcode);
 	let hex = rec.hexcode;
-	
+
 	let s1 = '&#' + decCode + ';'; //'\u{1F436}';
 	// s1 = '&#x' + hex + ';'; //'\u{1F436}';
 
 	// hex = "1F1E8-1F1ED";
 	let parts = hex.split('-');
-	let res='';
+	let res = '';
 
-	for(const p of parts){
+	for (const p of parts) {
 		decCode = hexStringToDecimal(p);
 		s1 = '&#' + decCode + ';'; //'\u{1F436}';
-		res+=s1;
+		res += s1;
 	}
-	s1=res;
+	s1 = res;
 	//s1=toUTF16(hex);
 	//console.log('s1',s1)
 
@@ -3839,19 +3841,19 @@ function makeStrings(obj, props, maxlen = 50, isStart = true) {
 	strs = props.map(x => makeString(obj, x)).join('\n');
 	return strs;
 }
-function multiSplit(s,seplist){
+function multiSplit(s, seplist) {
 	let res = [s];
-	for(const sep of seplist){
+	for (const sep of seplist) {
 		let resNew = [];
 		//console.log(res)
-		for(const s1 of res){
+		for (const s1 of res) {
 			//console.log(s1)
-			let parts= s1.split(sep);
-			resNew= resNew.concat(parts);
+			let parts = s1.split(sep);
+			resNew = resNew.concat(parts);
 		}
 		res = resNew;
 	}
-	return res.filter(x=>!isEmpty(x));
+	return res.filter(x => !isEmpty(x));
 }
 
 function padSep(sep, n, args) {
