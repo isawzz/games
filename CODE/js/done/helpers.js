@@ -416,6 +416,46 @@ function mEmo(key, parent, fontSize) {
 	d.style.fontSize = fontSize + 'pt';
 	return d;
 }
+function mEmoTrial1(key, dParent, styles, classes) {
+	//console.log(key,parent,fontSize);
+	if (isString(dParent)) dParent = mBy(dParent);
+	let d = mDiv(dParent);
+	let rec = emojiChars[emojiKeys[key]];
+	let decCode = hexStringToDecimal(rec.hexcode);
+	let hex = rec.hexcode;
+
+	let s1 = '&#' + decCode + ';'; //'\u{1F436}';
+	// s1 = '&#x' + hex + ';'; //'\u{1F436}';
+
+	// hex = "1F1E8-1F1ED";
+	let parts = hex.split('-');
+	let res = '';
+
+	for (const p of parts) {
+		decCode = hexStringToDecimal(p);
+		s1 = '&#' + decCode + ';'; //'\u{1F436}';
+		res += s1;
+	}
+	s1 = res;
+	//s1=toUTF16(hex);
+	//console.log('s1',s1)
+
+	// let emoji = hex.split("-");
+	// console.log(emoji)
+	// emoji = emoji.map(x => '&#x' + x + ';'); //String(UnicodeScalar(Int(String(x),{radix: 16}) ?? 0)))
+	// console.log(emoji)
+	// emoji = emoji.join("\u{200D}");
+	// console.log(emoji)
+
+	// console.log(emoji) // 👨‍👨‍👧‍👧
+
+
+	//console.log(key,rec.hexcode,decCode,);
+	d.innerHTML = s1;
+	if (isdef(styles)) mStyle(d,styles);
+	//d.style.fontSize = fontSize + 'pt';
+	return d;
+}
 function mEmoSimple(key, parent, fontSize) {
 	if (isString(parent)) parent = mBy(parent);
 	let d = mDiv(parent);

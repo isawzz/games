@@ -1,7 +1,7 @@
 async function testSpeech() {
 	// let sb = mSidebar(mBy('table'));
 	// mColor(sb, 'dimgray', 'red')
-	setGroup('animal');
+	setGroup(startingCategory);
 	//console.log('dict',emoDict)
 	setStatus('wait');
 	score = 0;
@@ -14,27 +14,63 @@ async function testSpeech() {
 	//onClickStartButton();
 
 	let sidebar = mBy('sidebar');
-	mTextDiv('language:',sidebar);
-	mButton(lang,onClickSetLanguage,sidebar,{width:100});
-	mTextDiv('categories:',sidebar);
+	mTextDiv('language:', sidebar);
+	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
+	mTextDiv('categories:', sidebar);
 	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
 		let b = mButton(name, () => onClickGroup(name), sidebar, { display: 'block', 'min-width': 100 });
 	}
+	mTextDiv('options:', sidebar);
+	mButtonCheckmark('pauseAfterInput', pauseAfterInput, 'PAUSE', focusOnInput, sidebar, { width: 100 });
+	//mButton(getPauseHtml(), onClickPause, sidebar, { width: 100 });
+	// mButton(pauseAfterInput?'✓\tpause':'\tpause',onClickPause,sidebar,{width:100});
+
+}
+function mButtonCheckmark(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
+	function computeCaption() {
+		let height = 20;
+		return window[flagName] ?
+			'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
+			: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
+	}
+	function onClick() {
+		window[flagName] = !window[flagName];
+		//pauseAfterInput = !pauseAfterInput;
+		//this.style.textAlign = 'left';
+		this.innerHTML = computeCaption();
+		handler(...arguments);
+		//focusOnInput();
+
+	}
+	if (nundef(window[flagName])) window[flagName] = flagInitialValue;
+
+	window[flagName + 'CaptionFunction'] = caption => {
+		//let caption = 'PAUSE';
+		let height = 20;
+		return window[flagName] ?
+			'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
+			: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
+		// '<span style="height:23px">pause</span><span style="height:23px">\u2713</span>'
+		// 	: '<span style="margin:3px"></span style="height:23px">pause</pause>';
+
+	}
+
+	return mButton(computeCaption(caption), onClick, dParent, styles, classes);
 }
 function restart() {
-	RESTARTING=true;
-	if (isdef(recognition) && interactMode == 'speak' && isRunning)	{
+	RESTARTING = true;
+	if (isdef(recognition) && interactMode == 'speak' && isRunning) {
 		console.log('stopping recog');
 		recognition.stop();
 	}
 	else doRestart();
 
-	
+
 	//onClickStartButton();
 }
-function doRestart(){
+function doRestart() {
 	score = 0;
 	interactMode = 'speak';
 	let table = mBy('table');
@@ -48,16 +84,39 @@ function doRestart(){
 	RESTARTING = false;
 
 }
-function onClickSetLanguage(){
+// function getPauseHtml() {
+// 	let caption = 'PAUSE';
+// 	let height = 20;
+// 	return pauseAfterInput ?
+// 		'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
+// 		: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
+// 	// '<span style="height:23px">pause</span><span style="height:23px">\u2713</span>'
+// 	// 	: '<span style="margin:3px"></span style="height:23px">pause</pause>';
+// }
+// function onClickPause() {
+// 	pauseAfterInput = !pauseAfterInput;
+// 	//this.style.textAlign = 'left';
+// 	this.innerHTML = getPauseHtml();
+// 	focusOnInput();
+// }
+function focusOnInput() {
+	if (nundef(inputBox)) return;
+	if (isVisible(inputBox)) {
+		console.log('input is visible!')
+		inputBox.focus();
+	}
+}
+function onClickSetLanguage() {
 	//toggle lang!
-	if (isEnglish(lang)) lang='D'; else lang='E';
+	if (isEnglish(lang)) lang = 'D'; else lang = 'E';
 	this.innerHTML = lang;
 	restart();
-
+	focusOnInput();
 }
 function onClickGroup(group) {
 	setGroup(group);
 	restart();
+	focusOnInput();
 }
 function onClickStartButton() {
 	// console.log('start');
@@ -66,9 +125,11 @@ function onClickStartButton() {
 	let caption = btn.innerHTML;
 	if (caption != 'try again') setSpeechWords(lang);
 	if (interactMode == 'speak') speech00(lang, matchingWords); //simpleSpeech();
+	focusOnInput();
 	//speechEngineInit();
 	//speechEngineGo(lang, matchingWords);
 }
+function isButtonActive() { return mBy('bStart').onclick; }
 function activateStartButton() {
 	//hide('bStart');
 	let btn = mBy('bStart');
@@ -85,46 +146,70 @@ function deactivateStartButton() {
 	// btn.classList.remove('bigCentralButtonActivation')
 
 }
-function nextWord(showButton=true) {
+function nextWord(showButton = true) {
 
 	if (showButton) {
 		let b = mBy('bStart');
 		b.innerHTML = answerCorrect || hintWord == bestWord ? 'NEXT' : 'try again';
 		activateStartButton(); //show('bStart');
 	}
-	//console.log('nextWord: status wird auf wait gesetzt!!!')
 	setStatus('wait');
-	answerCorrect = false;
+	//console.log('nextWord: status wird auf wait gesetzt!!!')
+
+	if (!pauseAfterInput && interactMode == 'write' && !answerCorrect && hintWord != bestWord) {
+		let b = mBy('bStart');
+		b.innerHTML = 'try again';
+		return;
+	}else if (pauseAfterInput){
+		answerCorrect = false;
+		return;
+	} else {
+		answerCorrect = false;
+		setTimeout(onClickStartButton, 1000);
+
+	}
+
+	// if (!pauseAfterInput) {
+	// 	if (answerCorrect) {
+	// 		answerCorrect = false;
+	// 		setTimeout(onClickStartButton, 1000);
+	// 	} else {
+	// 	}
+	// } else {
+	// 	answerCorrect = false;
+	// }
+
 }
 
 
 //#region evaluation of answer
 function evaluateAnswer(answer) {
 	let words = matchingWords.map(x => x.toUpperCase());
-	let valid = isdef(validSounds)?validSounds.map(x=>x.toUpperCase()):[];
+	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
+	console.log('valid', valid)
 	answer = answer.toUpperCase();
 	if (words.includes(answer)) {
 		setScore(score + 1);
 		successMessage();
 		hintMessage.innerHTML = answer;
 		return true;
-	}else if (valid.includes(answer)){
+	} else if (valid.includes(answer)) {
 		//this is a word that sounds just like bestWord!
 		setScore(score + 1);
 		successMessage();
 		hintMessage.innerHTML = bestWord.toUpperCase();
 		return true;
 
-	
+
 	} else {
 		setScore(score - 1);
 		addHint();
-		if (bestWord == hintWord){
+		if (bestWord == hintWord) {
 			trySomethingElseMessage();
 			console.log('NICHT ERRATEN!!!!!!!!!');
 			//hintMessage.innerHTML = "let's try something else!";
 			return false;
-		}else{
+		} else {
 			failMessage();
 
 		}
@@ -149,7 +234,7 @@ function addHint() {
 		i++;
 	}
 	//console.log('indices', indices);
-	let iNext = chooseRandom(indices);
+	let iNext = level == 0 ? hintWord.indexOf('_') : chooseRandom(indices);
 	//console.log('iNext', iNext);
 	//console.log('bestWord', bestWord);
 	hintWord = hintWord.slice(0, iNext) + bestWord[iNext] + hintWord.slice(iNext + 1, bestWord.length)

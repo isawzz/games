@@ -49,15 +49,20 @@ function allEnglishWords() {
 }
 function getEmoSetWords(lang='E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
-	//key='1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
+
+	//key = '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	let o = emojiChars[key];
 	//console.log('_________\nkey',key,'\no',o)
 	//console.log('_________\nkey',key,'\no',o)
 	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
 	toBeRemoved.push(emoGroup.toLowerCase());
 
-	let valid=o[lang+'_valid_sound'];
-	valid=isEmpty(valid)?[]:[valid];
+	let oValid=o[lang+'_valid_sound'];
+	//console.log('_____ oValid',oValid);
+	let valid;
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(o[lang+'_valid_sound'], ['|']);
+	//valid=isEmpty(valid)?[]:[valid];
 	//console.log('valid sound',valid);
 
 	let words=[];//isEmpty(valid)?[]:[valid];
@@ -89,8 +94,8 @@ function setSpeechWords(lang='E') {
 	hintWord = '_'.repeat(bestWord.length);
 
 	//picture
-	let e = mEmo(data.key, table, 200);
-	e.style.color = 'red';
+	let e = mEmoTrial1(data.key, table, {"font-size":200,bg:'green'});
+	//e.style.color = 'red';
 	mFlexLinebreak(table);
 
 	//hint
@@ -110,9 +115,12 @@ function setSpeechWords(lang='E') {
 
 	inputBox = mCreate('input');
 	inputBox.id = 'inputBox';
-	inputBox.style.fontSize = '24pt';
+	inputBox.style.fontSize = '20pt';
 	//const node = document.getElementsByClassName("input")[0];
 	inputBox.addEventListener("keyup", function (event) {
+		//event.stopPropagation = true;
+		if (pauseAfterInput) event.cancelBubble = true;
+		//console.log(event);
 		if (event.key === "Enter") {
 			let word = finalResult = inputBox.value;
 			answerCorrect = evaluateAnswer(word);

@@ -1,7 +1,10 @@
 var lang = 'E';
-var interactMode = 'speak'; // speak | write
-var selectedEmoSetNames = ['animal', 'drink', 'fruit', 'food', 'kitchen', 'place', 'plant', 'transport', 'vegetable'];
+var interactMode = 'write'; // speak | write
+var pauseAfterInput = false;
+const startingCategory = 'object';
+var selectedEmoSetNames = ['animal', 'drink', 'food', 'fruit','game', 'kitchen', 'object', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var MAXWORDLENGTH = 12;
+var level = 0;
 
 var timit;
 var finalResult, emoGroup, emoDict, matchingWords, validSounds, recognition, isRunning;
@@ -22,13 +25,19 @@ var emoSets = [
 	{ name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	{ name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
 	{ name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
+
 	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
-	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
-	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
-	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
-	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
 	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
+	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	{ name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
 	{ name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
+	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
+	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
+	{ name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
+	{ name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
+	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
+	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
 
 	//objects:
 	{
@@ -37,6 +46,7 @@ var emoSets = [
 			|| (o.group == 'travel-places' && o.subgroups == 'time')
 			|| (o.group == 'activities' && o.subgroups == 'event')
 			|| (o.group == 'activities' && o.subgroups == 'award-medal')
+			|| (o.group == 'activities' && o.subgroups == 'arts-crafts')
 			|| (o.group == 'activities' && o.subgroups == 'sport')
 			|| (o.group == 'activities' && o.subgroups == 'game')
 			|| (o.group == 'objects')
@@ -44,8 +54,6 @@ var emoSets = [
 			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
 	},
 
-	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
-	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
 	{ name: 'symbols', f: o => o.group == 'symbols' },
 	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
 	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
