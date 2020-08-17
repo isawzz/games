@@ -416,15 +416,28 @@ function mEmo(key, parent, fontSize) {
 	d.style.fontSize = fontSize + 'pt';
 	return d;
 }
+function mEmoTrial2(key, dParent, styles, classes) {
+	console.log('haaaaaaaaaaaaaaaaaaaalo', key, parent);
+	if (isString(dParent)) dParent = mBy(dParent);
+	let d = mDiv(dParent);
+	let rec = emojiChars[emojiKeys[key]];
+	let s1;
+	s1 = rec.emoji;
+	d.innerHTML = s1;
+	if (isdef(styles)) mStyle(d, styles);
+	if (isdef(classes)) mClass(d, classes);
+	return d;
+}
+
 function mEmoTrial1(key, dParent, styles, classes) {
-	//console.log(key,parent,fontSize);
+	console.log('haaaaaaaaaaaaaaaaaaaalo', key, parent);
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
 	let rec = emojiChars[emojiKeys[key]];
 	let decCode = hexStringToDecimal(rec.hexcode);
 	let hex = rec.hexcode;
 
-	let s1 = '&#' + decCode + ';'; //'\u{1F436}';
+	let s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
 	// s1 = '&#x' + hex + ';'; //'\u{1F436}';
 
 	// hex = "1F1E8-1F1ED";
@@ -436,7 +449,7 @@ function mEmoTrial1(key, dParent, styles, classes) {
 		s1 = '&#' + decCode + ';'; //'\u{1F436}';
 		res += s1;
 	}
-	s1 = res;
+	s1 = '🖱️'; //res;// + ' Emoji=Yes';
 	//s1=toUTF16(hex);
 	//console.log('s1',s1)
 
@@ -452,7 +465,7 @@ function mEmoTrial1(key, dParent, styles, classes) {
 
 	//console.log(key,rec.hexcode,decCode,);
 	d.innerHTML = s1;
-	if (isdef(styles)) mStyle(d,styles);
+	if (isdef(styles)) mStyle(d, styles);
 	//d.style.fontSize = fontSize + 'pt';
 	return d;
 }
@@ -494,6 +507,41 @@ function mStyle(elem, styles, unit = 'px') {
 		elem.style.setProperty(k, makeUnitString(styles[k], unit));
 	}
 
+}
+function mStyleX(elem, styles, unit = 'px') {
+	paramDict = {
+		bg: 'background-color',
+		fg: 'color',
+		align: 'text-align',
+		rounding: 'border-radius',
+		w: 'width',
+		h: 'height',
+		fontSize: 'font-size',
+		fz: 'font-size',
+		family: 'font-family',
+		weight: 'font-weight',
+	};
+	//console.log(':::::::::styles',styles)
+	for (const k in styles) {
+		let val = styles[k];
+		if (isdef(paramDict[k])) k = paramDict[k];
+		else if (k == 'font' && !isString(val)) {
+			//font would be specified as an object w/ size,family,variant,bold,italic
+			// NOTE: size and family MUST be present!!!!!!! in order to use font param!!!!
+			let fz = f.size; if (isNumber(fz)) fz = '' + fz + 'px';
+			let ff = f.family;
+			let fv = f.variant;
+			let fw = isdef(f.bold) ? 'bold' : isdef(f.light) ? 'light' : f.weight;
+			let fs = isdef(f.italic) ? 'italic' : f.style;
+			if (nundef(fz) || nundef(ff)) return null;
+			let s = fz + ' ' + ff;
+			if (isdef(fw)) s = fw + ' ' + s;
+			if (isdef(fv)) s = fv + ' ' + s;
+			if (isdef(fs)) s = fs + ' ' + s;
+			elem.style.setProperty(k, s);
+		}
+		elem.style.setProperty(k, makeUnitString(styles[k], unit));
+	}
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 

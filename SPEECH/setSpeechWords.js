@@ -50,7 +50,7 @@ function allEnglishWords() {
 function getEmoSetWords(lang='E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 
-	//key = '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
 	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	let o = emojiChars[key];
 	//console.log('_________\nkey',key,'\no',o)
