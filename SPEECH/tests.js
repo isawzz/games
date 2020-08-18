@@ -1,25 +1,12 @@
+
 async function testSpeech() {
-	// let sb = mSidebar(mBy('table'));
-	// mColor(sb, 'dimgray', 'red')
 	setGroup(startingCategory);
-	//console.log('dict',emoDict)
 	setStatus('wait');
 	score = 0;
-	let dScore = mDiv(table);
-	dScore.id='scoreDiv'
-	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
-	mFlexLinebreak(table);
 
-	//interactMode = 'write';
-	//interactMode='write';
-	//mButton('start',()=>console.log('CLICK!!!'),table)
-	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
-	b.style.marginTop = '12px';
-	b.id = 'bStart';
-	mFlexLinebreak(table);
-	//onClickStartButton();
+	initTable(); //button and score ui
 
-	let sidebar = mBy('sidebar');
+	let sidebar = mBy('sidebar'); //init sidebar
 	mTextDiv('language:', sidebar);
 	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
 	mTextDiv('categories:', sidebar);
@@ -28,10 +15,43 @@ async function testSpeech() {
 	for (const name of names) {
 		let b = mButton(name, () => onClickGroup(name), sidebar, { display: 'block', 'min-width': 100 });
 	}
-	mTextDiv('options:', sidebar);
-	mButtonCheckmark('pauseAfterInput', pauseAfterInput, 'PAUSE', focusOnInput, sidebar, { width: 100 });
-	//mButton(getPauseHtml(), onClickPause, sidebar, { width: 100 });
-	// mButton(pauseAfterInput?'✓\tpause':'\tpause',onClickPause,sidebar,{width:100});
+
+	initOptionsUi();
+}
+function mCheckbox(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
+	function onClick() {
+		console.log('CLICK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+		let newValue = window[flagName] = !window[flagName];
+		console.log('this',this)
+		this.firstChild.firstChild.checked = newValue;
+		if (isdef(handler)) handler(...arguments);
+	}
+	//<input class='radio' id='c_b_mm_pln1' type="checkbox" name="playerNum" onclick='onClickPlayerPresence(1)'><span id='sppl1'>player 1</span><br>
+	
+	let html = `<label><input type="checkbox" name="checkbox" value="value">${caption}</label>`;
+	let res = mTextDiv(html,dParent);
+	res.onclick = onClick;
+	//if (isdef(styles)) mStyleX(res, styles);
+	//if (isdef(classes)) { mClass(res, ...classes); }
+
+	return res;
+	
+	let x = mCreate('input');
+	x.innerHTML = caption; x.type = 'checkbox';
+
+	if (nundef(window[flagName])) window[flagName] = flagInitialValue;
+
+	x.checked = flagInitialValue;
+	x.style.display = 'inline'
+	
+
+	if (isdef(handler)) x.onclick = handler;
+	let label=mCreate('label'); if (isdef(dParent)) dParent.appendChild(label);
+	mAppend(label,x);mTextDiv(caption,label)
+	if (isdef(styles)) mStyleX(x, styles);
+	if (isdef(classes)) { mClass(x, ...classes); }
+
+	return x;
 
 }
 function mButtonCheckmark(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
@@ -46,7 +66,7 @@ function mButtonCheckmark(flagName, flagInitialValue, caption, handler, dParent,
 		//pauseAfterInput = !pauseAfterInput;
 		//this.style.textAlign = 'left';
 		this.innerHTML = computeCaption();
-		handler(...arguments);
+		if (isdef(handler)) handler(...arguments);
 		//focusOnInput();
 
 	}
@@ -81,7 +101,15 @@ function doRestart() {
 	interactMode = 'speak';
 	let table = mBy('table');
 	clearElement(table);
+
+	score = 0;
+	let dScore = mDiv(table);
+	dScore.id = 'scoreDiv';
+	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
+	mFlexLinebreak(table);
+
 	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
+	b.style.marginTop = '12px';
 	b.id = 'bStart';
 	mFlexLinebreak(table);
 	//console.log('nextWord: status wird auf wait gesetzt!!!')
@@ -151,12 +179,12 @@ function nextWord(showButton = true) {
 		let b = mBy('bStart');
 		b.innerHTML = 'try again';
 		return;
-	}else if (pauseAfterInput){
+	} else if (pauseAfterInput) {
 		answerCorrect = false;
 		return;
 	} else {
 		answerCorrect = false;
-		if (interactMode!='write') setTimeout(onClickStartButton, 1000);
+		if (interactMode != 'write') setTimeout(onClickStartButton, 1000);
 	}
 }
 
@@ -197,14 +225,14 @@ function evaluateAnswer(answer) {
 		return false;
 	}
 }
-function setScore(sc) { 
-	console.log('score',sc)
+function setScore(sc) {
+	console.log('score', sc)
 	score = sc;
-	if (score<0) scoreSpan.style.color='red';
-	else if (score>0) scoreSpan.style.color='green';
-	else scoreSpan.style.color='black';
+	if (score < 0) scoreSpan.style.color = 'red';
+	else if (score > 0) scoreSpan.style.color = 'green';
+	else scoreSpan.style.color = 'black';
 	scoreSpan.innerHTML = score;
- }
+}
 function trySomethingElseMessage() { feedbackMessage.innerHTML = "let's try something else! (score: " + score + ')'; }
 function successMessage() { feedbackMessage.innerHTML = 'CORRECT! (score is ' + score + ')'; }
 function failMessage() { feedbackMessage.innerHTML = 'Try again! (score is ' + score + ')'; }

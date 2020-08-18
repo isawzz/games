@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		/* #region example checkbox */
+		.box {
+			background: #666666;
+			color: #ffffff;
+			width: 250px;
+			padding: 10px;
+			margin: 1em auto;
+		}
+
+		p {
+			margin: 0;
+			padding: 0;
+		}
+
+		input[type="checkbox"] {
+			visibility: hidden;
+		}
+
+		label {
+			cursor: pointer;
+		}
+
+		input[type="checkbox"]+label:before {
+			border: 1px solid #333;
+			content: "\00a0";
+			display: inline-block;
+			font: 16px/1em sans-serif;
+			height: 16px;
+			margin: 0 .25em 0 0;
+			padding: 0;
+			vertical-align: top;
+			width: 16px;
+		}
+
+		input[type="checkbox"]:checked+label:before {
+			background: #fff;
+			color: #333;
+			content: "\2713";
+			text-align: center;
+		}
+
+		input[type="checkbox"]:checked+label:after {
+			font-weight: bold;
+		}
+
+		input[type="checkbox"]:focus+label::before {
+			outline: rgb(59, 153, 252) auto 5px;
+		}
+
+		/* #endregion */
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<div class="box">
+			<p>
+				<input type="checkbox" id="c1" name="cb">
+				<label for="c1">Option 01</label>
+			</p>
+			<p>
+				<input type="checkbox" id="c2" name="cb">
+				<label for="c2">Option 02</label>
+			</p>
+			<p>
+				<input type="checkbox" id="c3" name="cb">
+				<label for="c3">Option 03</label>
+			</p>
+		</div>
+	</div>
+
+</body>
+
+</html>
