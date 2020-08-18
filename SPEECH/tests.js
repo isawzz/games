@@ -6,7 +6,8 @@ async function testSpeech() {
 	setStatus('wait');
 	score = 0;
 	let dScore = mDiv(table);
-	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>12</span>";
+	dScore.id='scoreDiv'
+	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
 	mFlexLinebreak(table);
 
 	//interactMode = 'write';

@@ -8,12 +8,12 @@ html,body{
 	height: 100%;
 }
 #scoreDiv{
-	position: fixed;
+	/* position: fixed;
 	margin: 20px;
-	margin-top: 4px;
+	margin-top: 4px; */
 	font-size: 22pt;
-	right: 0%;
-	top: 0%;
+	/* right: 0%;
+	top: 0%; */
 	text-align: center;
 }
 #scoreSpan{
@@ -21,6 +21,7 @@ html,body{
 	background-color: white;
 	padding: 0px 12px; 
 	border-radius: 8px;
+	color: black;
 }
 .picButton{
 	float: right;
