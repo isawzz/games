@@ -5,10 +5,15 @@ async function testSpeech() {
 	//console.log('dict',emoDict)
 	setStatus('wait');
 	score = 0;
+	let dScore = mDiv(table);
+	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>12</span>";
+	mFlexLinebreak(table);
+
 	//interactMode = 'write';
 	//interactMode='write';
 	//mButton('start',()=>console.log('CLICK!!!'),table)
 	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
+	b.style.marginTop = '12px';
 	b.id = 'bStart';
 	mFlexLinebreak(table);
 	//onClickStartButton();
@@ -84,21 +89,6 @@ function doRestart() {
 	RESTARTING = false;
 
 }
-// function getPauseHtml() {
-// 	let caption = 'PAUSE';
-// 	let height = 20;
-// 	return pauseAfterInput ?
-// 		'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
-// 		: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
-// 	// '<span style="height:23px">pause</span><span style="height:23px">\u2713</span>'
-// 	// 	: '<span style="margin:3px"></span style="height:23px">pause</pause>';
-// }
-// function onClickPause() {
-// 	pauseAfterInput = !pauseAfterInput;
-// 	//this.style.textAlign = 'left';
-// 	this.innerHTML = getPauseHtml();
-// 	focusOnInput();
-// }
 function focusOnInput() {
 	if (nundef(inputBox)) return;
 	if (isVisible(inputBox)) {
@@ -165,20 +155,8 @@ function nextWord(showButton = true) {
 		return;
 	} else {
 		answerCorrect = false;
-		setTimeout(onClickStartButton, 1000);
-
+		if (interactMode!='write') setTimeout(onClickStartButton, 1000);
 	}
-
-	// if (!pauseAfterInput) {
-	// 	if (answerCorrect) {
-	// 		answerCorrect = false;
-	// 		setTimeout(onClickStartButton, 1000);
-	// 	} else {
-	// 	}
-	// } else {
-	// 	answerCorrect = false;
-	// }
-
 }
 
 
@@ -218,7 +196,14 @@ function evaluateAnswer(answer) {
 		return false;
 	}
 }
-function setScore(sc) { score = sc; }
+function setScore(sc) { 
+	console.log('score',sc)
+	score = sc;
+	if (score<0) scoreSpan.style.color='red';
+	else if (score>0) scoreSpan.style.color='green';
+	else scoreSpan.style.color='black';
+	scoreSpan.innerHTML = score;
+ }
 function trySomethingElseMessage() { feedbackMessage.innerHTML = "let's try something else! (score: " + score + ')'; }
 function successMessage() { feedbackMessage.innerHTML = 'CORRECT! (score is ' + score + ')'; }
 function failMessage() { feedbackMessage.innerHTML = 'Try again! (score is ' + score + ')'; }

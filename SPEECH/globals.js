@@ -1,5 +1,5 @@
 var lang = 'E';
-var interactMode = 'speak'; // speak | write
+var interactMode = 'write'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'object';
 var selectedEmoSetNames = ['animal', 'drink', 'food', 'fruit','game', 'kitchen', 'object', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];

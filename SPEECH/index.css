@@ -1,10 +1,26 @@
 html,body{
-	/* background: lightpink; */
+	background: lightpink;
 	font: 20px Arial;
-	/* padding:0;
+	padding:0;
 	margin:0;
 	color: white;
-	background-color: dimgray; */
+	background-color: dimgray;
+	height: 100%;
+}
+#scoreDiv{
+	position: fixed;
+	margin: 20px;
+	margin-top: 4px;
+	font-size: 22pt;
+	right: 0%;
+	top: 0%;
+	text-align: center;
+}
+#scoreSpan{
+	margin-left:10px;
+	background-color: white;
+	padding: 0px 12px; 
+	border-radius: 8px;
 }
 .picButton{
 	float: right;
@@ -92,9 +108,9 @@ a{
 	word-wrap: break-word;      /* IE */
 }
 
-#mainDiv, html, body {
+/* #mainDiv, html, body {
 	height: 98%;
-}
+} */
 .sidebarContainer, #mainDiv{
 	display: flex;
 	margin-top:22px;

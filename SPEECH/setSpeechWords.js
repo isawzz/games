@@ -50,7 +50,7 @@ function allEnglishWords() {
 function getEmoSetWords(lang='E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 
-	key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
 	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	let o = emojiChars[key];
 	//console.log('_________\nkey',key,'\no',o)
@@ -80,7 +80,7 @@ function getEmoSetWords(lang='E') {
 
 function setSpeechWords(lang='E') {
 	let table = mBy('table');
-	clearElementFromChildIndex(table, 2);
+	clearElementFromChildIndex(table, 4);
 	//clearElement(table);
 
 	//hier kommen {words,key,lang} 
@@ -94,7 +94,7 @@ function setSpeechWords(lang='E') {
 	hintWord = '_'.repeat(bestWord.length);
 
 	//picture
-	let e = mEmoTrial1(data.key, table, {"font-size":200,bg:'green'});
+	let e = mEmoTrial2(data.key, table, {"font-size":200}); //,bg:'green'});
 	//e.style.color = 'red';
 	mFlexLinebreak(table);
 

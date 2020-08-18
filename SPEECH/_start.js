@@ -25,14 +25,14 @@ function test01(){
 function test02(){
 	let k='1F5B1';
 	let d=mBy('table');
-	d.style.fontSize='100pt';
-	mEmoTrial2('computer mouse',table,{});
+	//d.style.fontSize='100pt';
+	let x=mEmoTrial2('computer mouse',table,{align:'center',width:250,border:'4px solid red',rounding:14,bg:'yellow',fontSize:50});
 }
 async function SPEECHStart() {
 	//let x='hal_l_'.indexOf('_');	console.log(x);return;
 
 	await loadAssets();
-	test02();return;
+	// test02();return;
 
 	// let x=multiSplit('hallo-das ist! ein string',[' ','-','!']);
 	// console.log(x)
@@ -49,6 +49,7 @@ function keyUpHandler(ev) {
 	//console.log('key released!', ev);
 	console.log('*** keyUpHandler: status',status,'key',ev.keyCode, 'input vis',isdef(inputBox)?isVisible(inputBox):'no','mode',interactMode)
 	if (ev.keyCode == '13' && interactMode == 'write' && !isVisible(inputBox)) {
+		console.log('******* FIRING!!!!!!!!!!!!!!!!!!!!')
 		fireClick(mBy('bStart'));
 		//nextWord();// && isButtonActive()) { fireClick(mBy('bStart')); }
 	}

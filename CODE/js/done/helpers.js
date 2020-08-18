@@ -424,7 +424,7 @@ function mEmoTrial2(key, dParent, styles, classes) {
 	let s1;
 	s1 = rec.emoji;
 	d.innerHTML = s1;
-	if (isdef(styles)) mStyle(d, styles);
+	if (isdef(styles)) mStyleX(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	return d;
 }
@@ -524,7 +524,8 @@ function mStyleX(elem, styles, unit = 'px') {
 	//console.log(':::::::::styles',styles)
 	for (const k in styles) {
 		let val = styles[k];
-		if (isdef(paramDict[k])) k = paramDict[k];
+		let key = k;
+		if (isdef(paramDict[k])) key = paramDict[k];
 		else if (k == 'font' && !isString(val)) {
 			//font would be specified as an object w/ size,family,variant,bold,italic
 			// NOTE: size and family MUST be present!!!!!!! in order to use font param!!!!
@@ -539,8 +540,9 @@ function mStyleX(elem, styles, unit = 'px') {
 			if (isdef(fv)) s = fv + ' ' + s;
 			if (isdef(fs)) s = fs + ' ' + s;
 			elem.style.setProperty(k, s);
+			continue;
 		}
-		elem.style.setProperty(k, makeUnitString(styles[k], unit));
+		elem.style.setProperty(key, makeUnitString(styles[k], unit));
 	}
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
