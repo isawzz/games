@@ -104,13 +104,15 @@ function setSpeechWords(lang='E') {
 	mFlexLinebreak(table);
 
 	//prompt = feedback
-	if (isEnglish(lang)) {
-		if (interactMode == 'speak') instructionMessage = mInstruction('Say the word in English', table);
-		else instructionMessage = mInstruction('Type the word in English', table);
-	} else {
-		if (interactMode == 'speak') instructionMessage = mInstruction('Sag das Wort auf Deutsch', table);
-		else instructionMessage = mInstruction("Schreib' das Wort auf Deutsch", table);
-	}
+	let msg = getPrompt();
+	instructionMessage = mInstruction(msg, table);
+	// if (isEnglish(lang)) {
+	// 	if (interactMode == 'speak') instructionMessage = mInstruction('Say the word in English', table);
+	// 	else instructionMessage = mInstruction('Type the word in English', table);
+	// } else {
+	// 	if (interactMode == 'speak') instructionMessage = mInstruction('Sag das Wort auf Deutsch', table);
+	// 	else instructionMessage = mInstruction("Schreib' das Wort auf Deutsch", table);
+	// }
 	mFlexLinebreak(table);
 
 	inputBox = mCreate('input');

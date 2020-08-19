@@ -64,6 +64,7 @@ function addEndHandler() {
 			doRestart();
 
 		} else if (status == 'wait') {
+			console.log('HIERHER!!!')
 			startWriteMode();
 			nextWord(false);
 		}

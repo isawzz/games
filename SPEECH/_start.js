@@ -15,23 +15,58 @@ async function SPEECHStart() {
 	// console.log(x);	return;
 	//console.log(emojiChars)
 	addEventListener('keyup', keyUpHandler);
-	testSpeech();
+	await testSpeech();
+	console.log('hallo')
+	testCheckbox();
 }
 function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, styles, classes){
+
+	function onClick(ev) {
+		console.log('triggered',ev)
+		window[flagName] = !window[flagName];
+		if (isdef(handler)) handler(...arguments);
+		//console.log('hallo!!!!!',window[flagName]);
+		ev.cancelBubble=true;
+		ev.stopPropagation = true;
+	}
+
+	//console.log(flagName,flagInitialValue)
+	//#region code
+	// let d=mDiv(dParent);
+	// let p = mCreate('p');
+	// let inp = mCreate('input');
+	// inp.type = 'checkbox';
+	// inp.id = flagName;
+	// inp.checked = (flagInitialValue == true);
+	// mAppend(p,inp);
+	// mAppend(d,p);
+	// let label = mCreate('label');
+	// label.for = flagName;
+	// label.innerHTML = caption;
+	// mAppend(p,label);
+	// return d;
+	//#endregion
+	let x=false; //flagInitialValue; //true;
 	let html=`
 	<p>
-		<input type="checkbox" id="${flagName}" name="cb">
+		<input type="checkbox" `+ (flagInitialValue?'checked=true':'') +` id="${flagName}">
 		<label for="${flagName}">${caption}</label>
 	</p>
 	`;
-	mTextDiv(html,dParent);
+	let d = mTextDiv(html,dParent);
+	//console.log(d)
+	let para = d.children[0];
+	para.onmouseup=onClick;
+	//console.log('input should be',inp);
+	return d;
 
 }
 function initOptionsUi() {
 	let dOptions = mTextDiv('options:', sidebar); // options
 
+	//console.log('pauseAfterInput',pauseAfterInput)
 	addYesNoOption('pauseAfterInput',pauseAfterInput,'pause', focusOnInput, dOptions, { width: 100 });
-	// addYesNoOption('speakMode',speakMode,'speak', restart, dOptions, { width: 100 });
+	addYesNoOption('speakMode',speakMode,'speak', switchModeSilently, dOptions, { width: 100 });
 }
 function initTable() {
 	let dScore = mDiv(table);
