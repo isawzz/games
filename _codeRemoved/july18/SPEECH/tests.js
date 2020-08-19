@@ -18,6 +18,71 @@ async function testSpeech() {
 
 	initOptionsUi();
 }
+function mCheckbox(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
+	function onClick() {
+		console.log('CLICK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+		let newValue = window[flagName] = !window[flagName];
+		console.log('this',this)
+		this.firstChild.firstChild.checked = newValue;
+		if (isdef(handler)) handler(...arguments);
+	}
+	//<input class='radio' id='c_b_mm_pln1' type="checkbox" name="playerNum" onclick='onClickPlayerPresence(1)'><span id='sppl1'>player 1</span><br>
+	
+	let html = `<label><input type="checkbox" name="checkbox" value="value">${caption}</label>`;
+	let res = mTextDiv(html,dParent);
+	res.onclick = onClick;
+
+	return res;
+	
+	let x = mCreate('input');
+	x.innerHTML = caption; x.type = 'checkbox';
+
+	if (nundef(window[flagName])) window[flagName] = flagInitialValue;
+
+	x.checked = flagInitialValue;
+	x.style.display = 'inline'
+	
+
+	if (isdef(handler)) x.onclick = handler;
+	let label=mCreate('label'); if (isdef(dParent)) dParent.appendChild(label);
+	mAppend(label,x);mTextDiv(caption,label)
+	if (isdef(styles)) mStyleX(x, styles);
+	if (isdef(classes)) { mClass(x, ...classes); }
+
+	return x;
+
+}
+function mButtonCheckmark(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
+	function computeCaption() {
+		let height = 20;
+		return window[flagName] ?
+			'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
+			: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
+	}
+	function onClick() {
+		window[flagName] = !window[flagName];
+		//pauseAfterInput = !pauseAfterInput;
+		//this.style.textAlign = 'left';
+		this.innerHTML = computeCaption();
+		if (isdef(handler)) handler(...arguments);
+		//focusOnInput();
+
+	}
+	if (nundef(window[flagName])) window[flagName] = flagInitialValue;
+
+	window[flagName + 'CaptionFunction'] = caption => {
+		//let caption = 'PAUSE';
+		let height = 20;
+		return window[flagName] ?
+			'<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span><span style="padding-right:8px;float:right;">\u2713</span></div>'
+			: '<div style="line-height:' + height + 'px"><span style="padding-left:8px;float:left">' + caption + '</span></div>';
+		// '<span style="height:23px">pause</span><span style="height:23px">\u2713</span>'
+		// 	: '<span style="margin:3px"></span style="height:23px">pause</pause>';
+
+	}
+
+	return mButton(computeCaption(caption), onClick, dParent, styles, classes);
+}
 function restart() {
 	RESTARTING = true;
 	if (isdef(recognition) && interactMode == 'speak' && isRunning) {
@@ -25,6 +90,7 @@ function restart() {
 		recognition.stop();
 	}
 	else doRestart();
+
 
 	focusOnInput();
 	//onClickStartButton();
@@ -237,6 +303,7 @@ function mInsertFirst(dParent) {
 
 function mSidebar(dParent, styles, classes) {
 	let d = mInsertFirst(dParent);
+	mClass(dParent, 'sidebarContainer');
 	mClass(d, 'sidebar');
 	return d;
 }

@@ -74,6 +74,8 @@ function speechEngineInit() {
 		resultMessage.textContent = 'Error occurred in recognition: ' + event.error;
 		recognition.stop();
 		interactMode = 'write';
+		var speakMode = interactMode == 'speak';
+
 		setStatus('error');
 		switchToMode('write');
 	}

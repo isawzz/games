@@ -1,13 +1,13 @@
 emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,openmoji_tags,openmoji_author,openmoji_date,skintone,skintone_combination,skintone_base_emoji,skintone_base_hexcode,unicode,order
 😀,1F600,smileys-emotion,face-smiling,grinning face,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"face, grin","smile, happy",Emily Jäger,2018-04-18,,,,,1,1
-😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,,,"face, mouth, open, smile","eyes, teeth",Emily Jäger,2018-04-18,,,,,0.6,2
-😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,,,"eye, face, mouth, open, smile","happy, teeth",Emily Jäger,2018-04-18,,,,,0.6,3
-😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,,,"eye, face, grin, smile","happy, teeth, mouth",Emily Jäger,2018-04-18,,,,,0.6,4
-😆,1F606,smileys-emotion,face-smiling,grinning squinting face,,,"face, laugh, mouth, satisfied, smile",,Emily Jäger,2018-04-18,,,,,0.6,5
-😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,,,"cold, face, open, smile, sweat",laugh,Emily Jäger,2018-04-18,,,,,0.6,6
-🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,,,"face, floor, laugh, rolling",tears,Emily Jäger,2018-04-18,,,,,3,7
+😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"face, mouth, open, smile","eyes, teeth",Emily Jäger,2018-04-18,,,,,0.6,2
+😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"eye, face, mouth, open, smile","happy, teeth",Emily Jäger,2018-04-18,,,,,0.6,3
+😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"eye, face, grin, smile","happy, teeth, mouth",Emily Jäger,2018-04-18,,,,,0.6,4
+😆,1F606,smileys-emotion,face-smiling,grinning squinting face,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"face, laugh, mouth, satisfied, smile",,Emily Jäger,2018-04-18,,,,,0.6,5
+😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"cold, face, open, smile, sweat",laugh,Emily Jäger,2018-04-18,,,,,0.6,6
+🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"face, floor, laugh, rolling",tears,Emily Jäger,2018-04-18,,,,,3,7
 😂,1F602,smileys-emotion,face-smiling,face with tears of joy,,,"face, joy, laugh, tear",,Emily Jäger,2018-04-18,,,,,0.6,8
-🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,,,"face, smile",satisfied,Emily Jäger,2018-04-18,,,,,1,9
+🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,smile|laugh|happy|grin,lachen|laecheln|lustig|froehlich,,,"face, smile",satisfied,Emily Jäger,2018-04-18,,,,,1,9
 🙃,1F643,smileys-emotion,face-smiling,upside-down face,,,"face, upside-down",turn,Emily Jäger,2018-04-18,,,,,1,10
 😉,1F609,smileys-emotion,face-smiling,winking face,,,"face, wink",eye,Emily Jäger,2018-04-18,,,,,0.6,11
 😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,,,"blush, eye, face, smile",satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
@@ -735,7 +735,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 💵,1F4B5,objects,money,dollar banknote,banknote|money|dollar,banknote|geld|dollar,,,"banknote, bill, currency, dollar, money, note",,Marius Schnabel,2018-04-18,,,,,0.6,3438
 💶,1F4B6,objects,money,euro banknote,banknote|money|euro,banknote|geld|euro,,,"banknote, bill, currency, euro, money, note",,Marius Schnabel,2018-04-18,,,,,1,3439
 💷,1F4B7,objects,money,pound banknote,banknote|money|pound,banknote|geld|pfund,,,"banknote, bill, currency, money, note, pound",,Marius Schnabel,2018-04-18,,,,,1,3440
-💳️,1F4B3,objects,money,credit card,kreditkarte,,,credit card,"card, credit, money",,Marius Schnabel,2018-04-18,,,,,0.6,3442
+💳️,1F4B3,objects,money,credit card,credit card,kreditkarte,,,credit card,"card, credit, money",,Marius Schnabel,2018-04-18,,,,,0.6,3442
 🧾,1F9FE,objects,money,receipt,bill|receipt,rechnung,,,"accounting, bookkeeping, evidence, proof",,Tonia Reinhardt,2019-05-07,,,,,11,3443
 💹,1F4B9,objects,money,chart increasing with yen, yen|chart|graph|function,yen|graph|funktion|diagramm,,,"chart, graph, growth, money, yen",,Marleen Heine,2018-11-16,,,,,0.6,3444
 ✉️,2709,objects,mail,envelope,envelope,briefkuvert|kuvert,,,"email, letter","post, message",Marius Schnabel,2018-04-18,,,,,0.6,3446
