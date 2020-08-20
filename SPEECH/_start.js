@@ -16,8 +16,8 @@ async function SPEECHStart() {
 	//console.log(emojiChars)
 	addEventListener('keyup', keyUpHandler);
 	await testSpeech();
-	console.log('hallo')
-	testCheckbox();
+	// console.log('hallo')
+	// testCheckbox();
 }
 function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, styles, classes){
 
@@ -25,7 +25,8 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 		console.log('triggered',ev)
 		window[flagName] = !window[flagName];
 		if (isdef(handler)) handler(...arguments);
-		//console.log('hallo!!!!!',window[flagName]);
+		console.log('hallo!!!!!',window[flagName]);
+
 		ev.cancelBubble=true;
 		ev.stopPropagation = true;
 	}
