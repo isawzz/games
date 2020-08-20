@@ -2,20 +2,19 @@ var lang = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'animal';
-var selectedEmoSetNames = ['animal', 'drink', 'food', 'fruit','game', 'kitchen', 'object', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
-var MAXWORDLENGTH = 12;
+var selectedEmoSetNames = ['animal', 'drink','emotion', 'food', 'fruit','game', 'kitchen', 'object', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var MAXWORDLENGTH = 8;
 var level = 0;
 
 var timit;
 var finalResult, emoGroup, emoDict, matchingWords, validSounds, recognition, isRunning;
 var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
-var hintWord, bestWord, answerCorrect;
+var hintWord, bestWord, answerCorrect, currentRecord;
 var RESTARTING;
 var speakMode = interactMode == 'speak';
 
 var emoSets = [
-	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
 	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
 	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
 	{ name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
@@ -29,6 +28,7 @@ var emoSets = [
 
 	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
 	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
 	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
 	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
 	{ name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
@@ -55,9 +55,9 @@ var emoSets = [
 			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
 	},
 
-	{ name: 'symbols', f: o => o.group == 'symbols' },
 	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
 	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
+	{ name: 'symbols', f: o => o.group == 'symbols' },
 
 	//toolbar buttons:
 	{

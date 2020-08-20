@@ -47,7 +47,7 @@ function allEnglishWords() {
 	return { words: words, key: o.annotation, lang: 'E' };
 
 }
-function getEmoSetWords(lang='E') {
+function getEmoSetWords_dep(lang='E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 
 	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
@@ -74,10 +74,73 @@ function getEmoSetWords(lang='E') {
 
 	words = words.filter(x => x.length <= MAXWORDLENGTH);
 	if (isEmpty(words)) { delete emoDict[key]; return getEmoSetWords(); }
-	return { valid: valid, words: words, key: o.annotation, lang: lang };
+	return { valid: valid, words: words, key: o.annotation, lang: lang, record: o };
 
 }
 
+function groupSizeTest(){
+	//mach alle legalen records!
+	let groupNames = selectedEmoSetNames; //emoSets.map(x=>x.name);
+	console.log(groupNames);
+
+}
+
+function getEmoSetWords(lang='E') {
+
+
+	if (isdef(emoGroup)){
+		let keys =Object.keys(emoDict);
+		console.log(keys);
+		//if 
+	}
+	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
+
+	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
+	let o = emojiChars[key];
+	
+	//console.log('_________\nkey',key,'\no',o)
+
+	let valid,words;
+	let oValid = o[lang+'_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	let oWords = o[lang];
+	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+	//console.log('_____ oValid',oValid,'\noWords',oWords);
+
+	let dWords = o.D;
+	if (isEmpty(dWords)) dWords = []; else dWords = sepWordListFromString(dWords, ['|']);
+	dWords = dWords.filter(x => x.length <= MAXWORDLENGTH);
+	let eWords = o.E;
+	if (isEmpty(eWords)) eWords = []; else eWords = sepWordListFromString(eWords, ['|']);
+	eWords = eWords.filter(x => x.length <= MAXWORDLENGTH);
+
+	//cond
+	if (isEmpty(dWords)||isEmpty(eWords)) { delete emoDict[key]; return getEmoSetWords(); }
+
+	words = isEnglish(lang)?eWords:dWords;
+
+	return { valid: valid, words: words,D:dWords,E:eWords, key: o.annotation, lang: lang, record: o };
+
+}
+function setLanguageWords(language,record){
+
+	//console.log('record',record,'language',language)
+
+	let valid;
+	let oValid = record[language+'_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	// let oWords = o[lang];
+	// if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+	//console.log('_____ oValid',oValid);//,'\noWords',oWords);
+
+	matchingWords = isEnglish(language)?record.eWords:record.dWords;
+	validSounds = valid;
+	bestWord = last(matchingWords);
+	hintWord = '_'.repeat(bestWord.length);
+	if (isdef(hintMessage)) clearElement(hintMessage);
+	
+}
 function setSpeechWords(lang='E') {
 	let table = mBy('table');
 	clearElementFromChildIndex(table, 4);
@@ -92,6 +155,7 @@ function setSpeechWords(lang='E') {
 	validSounds = data.valid;
 	bestWord = last(matchingWords);
 	hintWord = '_'.repeat(bestWord.length);
+	currentRecord = data.record;
 
 	//picture
 	let e = mEmoTrial2(data.key, table, {"font-size":200}); //,bg:'green'});

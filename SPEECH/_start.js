@@ -6,6 +6,8 @@ async function SPEECHStart() {
 	await loadAssets();
 	// test02();return;
 
+	groupSizeTest(); return;
+
 	// let x=multiSplit('hallo-das ist! ein string',[' ','-','!']);
 	// console.log(x)
 

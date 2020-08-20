@@ -417,7 +417,7 @@ function mEmo(key, parent, fontSize) {
 	return d;
 }
 function mEmoTrial2(key, dParent, styles, classes) {
-	console.log('haaaaaaaaaaaaaaaaaaaalo', key, parent);
+	//console.log('haaaaaaaaaaaaaaaaaaaalo', key, parent);
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
 	let rec = emojiChars[emojiKeys[key]];

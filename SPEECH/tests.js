@@ -63,9 +63,13 @@ function focusOnInput() {
 function onClickSetLanguage() {
 	//toggle lang!
 	if (isEnglish(lang)) lang = 'D'; else lang = 'E';
+
 	this.innerHTML = lang;
-	restart();
-	//focusOnInput();
+
+	//restart();
+	//console.log('currentRecord:',currentRecord)
+	if (isdef(currentRecord)) setLanguageWords(lang,currentRecord);
+	//if am in the middle of a hint, now need to redo hint!!!!!!!
 }
 function onClickGroup(group) {
 	setGroup(group);
@@ -128,7 +132,7 @@ function nextWord(showButton = true) {
 function evaluateAnswer(answer) {
 	let words = matchingWords.map(x => x.toUpperCase());
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
-	console.log('valid', valid)
+	//console.log('valid', valid)
 	answer = answer.toUpperCase();
 	if (words.includes(answer)) {
 		setScore(score + 1);
@@ -161,7 +165,7 @@ function evaluateAnswer(answer) {
 	}
 }
 function setScore(sc) {
-	console.log('score', sc)
+	//console.log('score', sc)
 	score = sc;
 	if (score < 0) scoreSpan.style.color = 'red';
 	else if (score > 0) scoreSpan.style.color = 'green';
@@ -196,6 +200,10 @@ function addHint() {
 	hintMessage.innerHTML = ausgabe;
 }
 //#endregion
+
+function displayHint(){
+	clearElement(hintMessage);
+}
 
 //#region helpers
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }

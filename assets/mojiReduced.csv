@@ -81,15 +81,15 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 😣,1F623,smileys-emotion,face-concerned,persevering face,persevering|persevere|insisting|stubborn,durchhalten|standhaft|stur,,,"face, persevere",,Mariella Steeb,2018-04-18,,,,,0.6,85
 😞,1F61E,smileys-emotion,face-concerned,disappointed face,disappointed,enttäuscht,,,"disappointed, face",,Mariella Steeb,2018-04-18,,,,,0.6,86
 😓,1F613,smileys-emotion,face-concerned,downcast face with sweat,sweat|sweating,schweiss|schwitzend|schwitzen,,,"cold, face, sweat",,Mariella Steeb,2018-04-18,,,,,0.6,87
-😩,1F629,smileys-emotion,face-concerned,weary face,tired|weary,abgeschlagen|niedergeschlagen|muueede,,,"face, tired, weary",distraught,Mariella Steeb,2018-04-18,,,,,0.6,88
-😫,1F62B,smileys-emotion,face-concerned,tired face,tired|weary,abgeschlagen|niedergeschlagen|muueede,,,"face, tired",exhausted,Mariella Steeb,2018-04-18,,,,,0.6,89
-🥱,1F971,smileys-emotion,face-concerned,yawning face,bored|yawning|yawn,gaaeehnen|langweilig|fad|gelangweilt,,,"bored, tired, yawn",,Laura Dworatschek,2019-05-06,,,,,12,90
-😤,1F624,smileys-emotion,face-negative,face with steam from nose,steaming,staaeeubend,,,"face, triumph, won",,Mariella Steeb,2018-04-18,,,,,0.6,91
-😡,1F621,smileys-emotion,face-negative,pouting face,mad|pouting|rage|anger|red|angry,wut|aaeerger|rot|wuueetend|beleidigt|trotzig,,,"angry, face, mad, pouting, rage, red",,Mariella Steeb,2018-04-18,,,,,0.6,92
-😠,1F620,smileys-emotion,face-negative,angry face,mad|pouting|rage|anger|red|angry,wut|aaeerger|rot|wuueetend,,,"angry, face, mad",,Mariella Steeb,2018-04-18,,,,,0.6,93
-🤬,1F92C,smileys-emotion,face-negative,face with symbols on mouth,mad|pouting|rage|anger|red|swearing|screaming|angry,wut|aaeerger|rot|schreien|bruueellen|wuueetend,,,swearing,angry,Mariella Steeb,2018-04-18,,,,,5,94
-😈,1F608,smileys-emotion,face-negative,smiling face with horns,demon|horns|malicious|sardonic|devil,daaeemonisch|hooeerner|gehooeernt|booeese|teufel,,,"face, fairy tale, fantasy, horns, smile","malicious, sardonic",Mariella Steeb,2018-04-18,,,,,1,95
-👿,1F47F,smileys-emotion,face-negative,angry face with horns,demon|horns|malicious|sardonic|devil,daaeemonisch|hooeerner|gehooeernt|booeese|teufel,,,"demon, devil, face, fantasy, imp",mean,Mariella Steeb,2018-04-18,,,,,0.6,96
+😩,1F629,smileys-emotion,face-concerned,weary face,tired|weary,abgeschlagen|niedergeschlagen|müde,,,"face, tired, weary",distraught,Mariella Steeb,2018-04-18,,,,,0.6,88
+😫,1F62B,smileys-emotion,face-concerned,tired face,tired|weary,abgeschlagen|niedergeschlagen|müde,,,"face, tired",exhausted,Mariella Steeb,2018-04-18,,,,,0.6,89
+🥱,1F971,smileys-emotion,face-concerned,yawning face,bored|yawning|yawn,gähnen|langweilig|fad|gelangweilt,,,"bored, tired, yawn",,Laura Dworatschek,2019-05-06,,,,,12,90
+😤,1F624,smileys-emotion,face-negative,face with steam from nose,steaming,stäubend,,,"face, triumph, won",,Mariella Steeb,2018-04-18,,,,,0.6,91
+😡,1F621,smileys-emotion,face-negative,pouting face,mad|pouting|rage|anger|red|angry,wut|ärger|rot|wütend|beleidigt|trotzig,,,"angry, face, mad, pouting, rage, red",,Mariella Steeb,2018-04-18,,,,,0.6,92
+😠,1F620,smileys-emotion,face-negative,angry face,mad|pouting|rage|anger|red|angry,wut|ärger|rot|wütend,,,"angry, face, mad",,Mariella Steeb,2018-04-18,,,,,0.6,93
+🤬,1F92C,smileys-emotion,face-negative,face with symbols on mouth,mad|pouting|rage|anger|red|swearing|screaming|angry,wut|ärger|rot|schreien|brüllen|wütend,,,swearing,angry,Mariella Steeb,2018-04-18,,,,,5,94
+😈,1F608,smileys-emotion,face-negative,smiling face with horns,demon|horns|malicious|sardonic|devil,dämonisch|hörner|gehörnt|böse|teufel,,,"face, fairy tale, fantasy, horns, smile","malicious, sardonic",Mariella Steeb,2018-04-18,,,,,1,95
+👿,1F47F,smileys-emotion,face-negative,angry face with horns,demon|horns|malicious|sardonic|devil,dämonisch|hörner|gehörnt|böse|teufel,,,"demon, devil, face, fantasy, imp",mean,Mariella Steeb,2018-04-18,,,,,0.6,96
 💀,1F480,smileys-emotion,face-negative,skull,zombie|death|monster|skull,schaaedel|zombie|tod,,,"death, face, fairy tale, monster",skull,Mariella Steeb,2018-04-18,,,,,0.6,97
 ☠️,2620,smileys-emotion,face-negative,skull and crossbones,zombie|death|monster|skull and bones|crossbones|pirate|skull,knochen|pirat|schaaedel|zombie|tod,,,"crossbones, death, face, monster, skull",,Mariella Steeb,2018-04-18,,,,,1,99
 💩,1F4A9,smileys-emotion,face-costume,pile of poo,pile of poo|poop|dung|poo,scheisse|haufen scheisse|scheisshaufen|kaka|exkrement,,,"dung, face, monster, poo, poop",,Mariella Steeb,2018-04-18,,,,,0.6,100
@@ -102,15 +102,15 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🤖,1F916,smileys-emotion,face-costume,robot,robot,roboter,,,"face, monster",,Mariella Steeb,2018-04-18,,,,,1,107
 😺,1F63A,smileys-emotion,cat-face,grinning cat,chessshire cat|evil cat|grinning cat|chesshire,chesshire katze|grinsende katze|katze,,,"cat, face, grinning, mouth, open, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,108
 😸,1F638,smileys-emotion,cat-face,grinning cat with smiling eyes,chessshire cat|evil cat|grinning cat|chesshire,chesshire katze|grinsende katze|katze,,,"cat, eye, face, grin, smile",grinning,Emily Jäger,2018-04-18,,,,,0.6,109
-😹,1F639,smileys-emotion,cat-face,cat with tears of joy,cat|tear,traaeene|lachende katze,,,"cat, face, joy, tear","laughing, smile",Emily Jäger,2018-04-18,,,,,0.6,110
+😹,1F639,smileys-emotion,cat-face,cat with tears of joy,cat|tear,träne|lachende katze,,,"cat, face, joy, tear","laughing, smile",Emily Jäger,2018-04-18,,,,,0.6,110
 😻,1F63B,smileys-emotion,cat-face,smiling cat with heart-eyes,heart eyes,herzaugen,,,"cat, eye, face, heart, love, smile","hearts, red",Emily Jäger,2018-04-18,,,,,0.6,111
-😼,1F63C,smileys-emotion,cat-face,cat with wry smile,ironic|wry|smile,ironisch|laaeechelnde katze,,,"cat, face, ironic, smile, wry",,Emily Jäger,2018-04-18,,,,,0.6,112
+😼,1F63C,smileys-emotion,cat-face,cat with wry smile,ironic|wry|smile,ironisch|lächelnde katze,,,"cat, face, ironic, smile, wry",,Emily Jäger,2018-04-18,,,,,0.6,112
 😽,1F63D,smileys-emotion,cat-face,kissing cat,kissing|kiss|kissing cat,kuss|katzenkuss,,,"cat, eye, face, kiss",,Emily Jäger,2018-04-18,,,,,0.6,113
-🙀,1F640,smileys-emotion,cat-face,weary cat,weary|tired,muueede katze,,,"cat, face, oh, surprised, weary",wow,Emily Jäger,2018-04-18,,,,,0.6,114
+🙀,1F640,smileys-emotion,cat-face,weary cat,weary|tired,müde katze,,,"cat, face, oh, surprised, weary",wow,Emily Jäger,2018-04-18,,,,,0.6,114
 😿,1F63F,smileys-emotion,cat-face,crying cat,crying cat,weinende katze,,,"cat, cry, face, sad, tear","unhappy, depressed",Emily Jäger,2018-04-18,,,,,0.6,115
 😾,1F63E,smileys-emotion,cat-face,pouting cat,pouting cat,schmollende katze,,,"cat, face, pouting","sad, angry",Emily Jäger,2018-04-18,,,,,0.6,116
 🙈,1F648,smileys-emotion,monkey-face,see-no-evil monkey,see-no-evil|hide,wegschauen,,,"evil, face, forbidden, monkey, see",,Mariella Steeb,2018-04-18,,,,,0.6,117
-🙉,1F649,smileys-emotion,monkey-face,hear-no-evil monkey,hear-no-evil,weghooeeren,,,"evil, face, forbidden, hear, monkey",,Mariella Steeb,2018-04-18,,,,,0.6,118
+🙉,1F649,smileys-emotion,monkey-face,hear-no-evil monkey,hear-no-evil,weghören,,,"evil, face, forbidden, hear, monkey",,Mariella Steeb,2018-04-18,,,,,0.6,118
 🙊,1F64A,smileys-emotion,monkey-face,speak-no-evil monkey,speak-no-evil,schweigen,,,"evil, face, forbidden, monkey, speak",,Mariella Steeb,2018-04-18,,,,,0.6,119
 💋,1F48B,smileys-emotion,emotion,kiss mark,kiss mark|love|kiss|lips,kussmarke|kuss|liebe|lippen,,,"kiss, lips",love,Laura Humpfer,2018-04-18,,,,,0.6,120
 💌,1F48C,smileys-emotion,emotion,love letter,love letter,liebesbrief,,,"heart, letter, love, mail",,Laura Humpfer,2018-04-18,,,,,0.6,121
@@ -127,14 +127,14 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ❤️,2764,smileys-emotion,emotion,red heart,red heart|red|heart,rotes herz|rot|herz,,,heart,"love, red",Laura Humpfer,2018-04-18,,,,,0.6,134
 🧡,1F9E1,smileys-emotion,emotion,orange heart,orange heart|orange|heart,orange herz|orange|herz,,,orange,,Laura Schießer,2019-05-06,,,,,5,135
 💛,1F49B,smileys-emotion,emotion,yellow heart,yellow heart|yellow|heart,gelbes herz|gelb|herz,,,yellow,,Laura Humpfer,2018-04-18,,,,,0.6,136
-💚,1F49A,smileys-emotion,emotion,green heart,green heart|green|heart,gruueenes herz|gruueen|herz,,,green,,Laura Humpfer,2018-04-18,,,,,0.6,137
+💚,1F49A,smileys-emotion,emotion,green heart,green heart|green|heart,grünes herz|grün|herz,,,green,,Laura Humpfer,2018-04-18,,,,,0.6,137
 💙,1F499,smileys-emotion,emotion,blue heart,blue heart|blue|heart,blaues herz|blau|herz,,,blue,,Laura Humpfer,2018-04-18,,,,,0.6,138
 💜,1F49C,smileys-emotion,emotion,purple heart,purple heart|purple|heart,lila herz|lila|violett|herz,,,purple,,Laura Humpfer,2018-04-18,,,,,0.6,139
 🤎,1F90E,smileys-emotion,emotion,brown heart,brown heart|brown|heart,braunes herz|braun|herz,,,"brown, heart",,Laura Dworatschek,2019-05-06,,,,,12,140
-🖤,1F5A4,smileys-emotion,emotion,black heart,black heart|black|cold|evil|heartless|heart,schwarzes herz|schwarz|herzlos|booeese|herz,,,"black, evil, wicked",,Laura Humpfer,2018-04-18,,,,,3,141
+🖤,1F5A4,smileys-emotion,emotion,black heart,black heart|black|cold|evil|heartless|heart,schwarzes herz|schwarz|herzlos|böse|herz,,,"black, evil, wicked",,Laura Humpfer,2018-04-18,,,,,3,141
 🤍,1F90D,smileys-emotion,emotion,white heart,white heart|white|heart,weiss herz|weiss|herz,,,"heart, white",,Laura Dworatschek,2019-05-06,,,,,12,142
 💯,1F4AF,smileys-emotion,emotion,hundred points,hundred points|100|hundred,hundert punkte|hundert|100,,,"100, full, hundred, score","perfect, excellent",Jose Avila,2018-04-18,,,,,0.6,143
-💢,1F4A2,smileys-emotion,emotion,anger symbol,angry|mad,veraaeergert|wuueetend,,,"angry, comic, mad",,Anne Frauendorf,2018-11-16,,,,,0.6,144
+💢,1F4A2,smileys-emotion,emotion,anger symbol,angry|mad,verärgert|wütend,,,"angry, comic, mad",,Anne Frauendorf,2018-11-16,,,,,0.6,144
 💥,1F4A5,smileys-emotion,emotion,collision,collision|explosion,kollision|explosion,,,"boom, comic",explosion,Laura Humpfer,2018-04-18,,,,,0.6,145
 💫,1F4AB,smileys-emotion,emotion,dizzy,dizzy,schwindlig,,,"comic, star",shootingstar,Laura Humpfer,2018-04-18,,,,,0.6,146
 💦,1F4A6,smileys-emotion,emotion,sweat droplets,sweat|sweat droplets|splashing|water|drops, schweiss|schweisstropfen|wasser|wassertropfen|spritzen|tropfen,,,"comic, splashing, sweat",,Laura Humpfer,2018-04-18,,,,,0.6,147
@@ -146,7 +146,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🗨️,1F5E8,smileys-emotion,emotion,left speech bubble,speech balloon,bubble|speech balloon|dialog,dialog|ballon|sprechblase,,,"dialog, speech",,Laura Humpfer,2018-04-18,,,,,2,158
 🗯️,1F5EF,smileys-emotion,emotion,right anger bubble,speech balloon,bubble|speech balloon|dialog,dialog|ballon|sprechblase,,,"angry, balloon, bubble, mad",,Laura Humpfer,2018-04-18,,,,,0.7,160
 💭,1F4AD,smileys-emotion,emotion,thought balloon,thought balloon|thought|thinking,denkblase|gedanke|denken,,,"balloon, bubble, comic, thought",think,Laura Humpfer,2018-04-18,,,,,1,161
-💤,1F4A4,smileys-emotion,emotion,zzz,sleepy|sleeping|night|sleep, muueede|schlafen|nacht|schlaf,,,"comic, sleep",night,Laura Humpfer,2018-04-18,,,,,0.6,162
+💤,1F4A4,smileys-emotion,emotion,zzz,sleepy|sleeping|night|sleep, müde|schlafen|nacht|schlaf,,,"comic, sleep",night,Laura Humpfer,2018-04-18,,,,,0.6,162
 👣,1F463,people-body,person-symbol,footprints,footprint,fussabdruck,,,"clothing, footprint, print","clothing, footprint, print",Julian Grüneberg,2018-04-18,,,,,0.6,2647
 🐒,1F412,animals-nature,animal-mammal,monkey,monkey,affe,,,monkey,"jungle, ape, evolution, primate",Sofie Ascherl,2018-04-18,,,,,0.6,2658
 🦍,1F98D,animals-nature,animal-mammal,gorilla,gorilla,gorilla,,,gorilla,"monkey, primate, evolution",Sofie Ascherl,2018-04-18,,,,,3,2659
@@ -282,7 +282,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🧄,1F9C4,food-drink,food-vegetable,garlic,garlic,knoblauch,,,flavoring,,Yasmin Abdullahi,2019-05-07,,,,,12,2834
 🧅,1F9C5,food-drink,food-vegetable,onion,onion,zwiebel,,,flavoring,,Yasmin Abdullahi,2019-05-07,,,,,12,2835
 🍄,1F344,food-drink,food-vegetable,mushroom,"toadstool | mushroom","schwammerl | champignon | fliegenpilz | pilz",,,toadstool,mushroom,Marius Schnabel,2018-04-18,,,,,0.6,2836
-🥜,1F95C,food-drink,food-vegetable,peanuts,"food | nut | peanut","nüsse | peanuts | erdnüsse",,,"food, nut, peanut, vegetable",,Marius Schnabel,2018-04-18,,,,,3,2837
+🥜,1F95C,food-drink,food-vegetable,peanuts,"food | nut | peanut","nüsse | nuss |erdnuss|aschantinuss | erdnüsse",,,"food, nut, peanut, vegetable",,Marius Schnabel,2018-04-18,,,,,3,2837
 🌰,1F330,food-drink,food-vegetable,chestnut,chestnut,"kastanie | maroni",,,plant,,Hend Hourani,2018-11-16,,,,,0.6,2838
 🍞,1F35E,food-drink,food-prepared,bread,bread,"toastbrot | brot",,,loaf,,Miriam Vollmeier,2018-04-18,,,,,0.6,2839
 🥐,1F950,food-drink,food-prepared,croissant,"pastry | croissant",croissant,,,"bread, breakfast, food, french, roll",,Miriam Vollmeier,2018-04-18,,,,,3,2840
