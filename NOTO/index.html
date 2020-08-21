@@ -38,15 +38,17 @@
 		function test() {
 			let key = '1F9C5'; let table = mBy('table');
 
-			let x = mTextDiv(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
+			// let x = mTextDiv(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
+
+			mSvg('/assets/svg/twemoji/'+key+'.svg',table,{w:200,h:200});
+			mSvg('/assets/svg/openmoji/'+key+'.svg',table,{w:200,h:200});
+
 
 			let decCode = hexStringToDecimal(key); let s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
 			x = mTextDiv(s1, table);
 			mStyleX(x, { fz: 200, family: 'emoColor' });
 			mClass(x, 'removeOutline');
 			//mClass(x,['c']);
-
-
 
 			decCode = hexStringToDecimal(key);
 			s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';

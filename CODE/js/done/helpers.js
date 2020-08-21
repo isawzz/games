@@ -545,6 +545,15 @@ function mStyleX(elem, styles, unit = 'px') {
 		elem.style.setProperty(key, makeUnitString(styles[k], unit));
 	}
 }
+function mSvg(path,dParent,styles,classes){
+	let d = mCreate('img');
+	d.src=path;
+	mAppend(dParent,d);
+	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(classes)) mClass(d, classes);
+	return d;
+	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
+}
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
 
 function recFlattenLists(o) {
