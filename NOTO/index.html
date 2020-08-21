@@ -6,25 +6,56 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Noto</title>
 	<link rel="stylesheet" href="/assets/font/fonts.css">
+	<style>
 
+		.b {
+			/* Less saturation so more features, shifted colour 90-degrees */
+			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
+			filter: hue-rotate(90deg);
+		}
+
+		.c {
+			/* Remove black outlines if desired by removing contrast */
+			filter: contrast(0) sepia(1) saturate(100) hue-rotate(180deg);
+		}
+		.a {
+			/* Less saturation so more features, shifted colour 90-degrees */
+			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
+			filter: sepia(1);
+		}
+		.removeOutline {
+			/* Less saturation so more features, shifted colour 90-degrees */
+			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
+			filter: contrast(.4);
+		}
+	</style>
 </head>
 
 <body>
 	<div id='table'></div>
 	<script src="/CODE/js/done/helpers.js"></script>
 	<script>
-		function test(){
-			let key = '1F9C5';
-			let e = mEmoTrial2(key, mBy('table'), {"font-size":200}); //,bg:'green'});
+		function test() {
+			let key = '1F9C5'; let table = mBy('table');
+
+			let x = mTextDiv(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
+
+			let decCode = hexStringToDecimal(key); let s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
+			x = mTextDiv(s1, table);
+			mStyleX(x, { fz: 200, family: 'emoColor' });
+			mClass(x, 'removeOutline');
+			//mClass(x,['c']);
+
+
+
+			decCode = hexStringToDecimal(key);
+			s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
+			x = mTextDiv(s1, table);
+			mStyleX(x, { fz: 200, family: 'emoColor' });
+			//let e = mEmoTrial2(key, table, {"font-size":200,bg:'green'});
 		}
+		test();
 	</script>
 </body>
 
 </html>
-
-
-
-
-
-
-
