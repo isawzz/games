@@ -6,7 +6,7 @@ async function SPEECHStart() {
 	await loadAssets();
 	// test02();return;
 
-	groupSizeTest(); return;
+	//groupSizeTest(); return; //daraus soll werden: presortGroups!!!
 
 	// let x=multiSplit('hallo-das ist! ein string',[' ','-','!']);
 	// console.log(x)

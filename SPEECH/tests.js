@@ -1,6 +1,5 @@
 
 async function testSpeech() {
-	setGroup(startingCategory);
 	setStatus('wait');
 	score = 0;
 
@@ -13,8 +12,11 @@ async function testSpeech() {
 	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
-		let b = mButton(name, () => onClickGroup(name), sidebar, { display: 'block', 'min-width': 100 });
+		let uName = name.toUpperCase();
+		let b = mButton(uName, () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100 }, ['buttonClass']);
+		b.id = 'b_' + uName;
 	}
+	setGroup(startingCategory);
 
 	initOptionsUi();
 }
@@ -68,7 +70,7 @@ function onClickSetLanguage() {
 
 	//restart();
 	//console.log('currentRecord:',currentRecord)
-	if (isdef(currentRecord)) setLanguageWords(lang,currentRecord);
+	if (isdef(currentRecord)) setLanguageWords(lang, currentRecord);
 	//if am in the middle of a hint, now need to redo hint!!!!!!!
 }
 function onClickGroup(group) {
@@ -201,7 +203,7 @@ function addHint() {
 }
 //#endregion
 
-function displayHint(){
+function displayHint() {
 	clearElement(hintMessage);
 }
 

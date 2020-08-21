@@ -46,6 +46,31 @@ html,body{
 	right:20px;
 	background-color: orange;
 }
+
+.selectedGroupButton{
+	background-color: skyblue;
+}
+
+/* #region buttonClass */
+.buttonClass{
+  border-radius: 2px;
+	margin: 2px;
+	padding:0px;
+  border: none;
+	/* background-color: #79d7e4; */
+  outline: none;
+	
+}
+.buttonClass:hover {
+	background-color: #79d7e4;
+}
+.buttonClass:hover {
+	background-color: red;
+}
+
+/* #endregion */
+
+/* #region start button */
 #bStart{
 	margin: 2px;
   border: none;
@@ -63,6 +88,7 @@ html,body{
 #bStart:active{
 	background-color: red;
 }
+/* #endregion */
 
 /* #region score */
 #scoreDiv{

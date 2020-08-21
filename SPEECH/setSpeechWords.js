@@ -82,6 +82,10 @@ function groupSizeTest(){
 	//mach alle legalen records!
 	let groupNames = selectedEmoSetNames; //emoSets.map(x=>x.name);
 	console.log(groupNames);
+	let groupDict = {};
+	for(const name of groupNames){
+		//groupDict[name]=emoSets[name];
+	}
 
 }
 
@@ -226,8 +230,17 @@ function setSpeechWords(lang='E') {
 
 function setGroup(group) {
 	//console.log('setting group to',group)
+
+	//unselect previous group button
+	if (isdef(emoGroup)){mClassRemove(mBy('b_'+emoGroup),'selectedGroupButton');}
+
 	emoGroup = group.toUpperCase();
-	let f = firstCond(emoSets, x => x.name == group).f;
+
+	//select new group button
+	mClass(mBy('b_'+emoGroup),'selectedGroupButton');
+
+
+	let f = firstCond(emoSets, x => x.name.toUpperCase() == emoGroup).f;
 	//console.log(emoGroup)
 	emoDict = {};
 	for (const k in emojiChars) {
