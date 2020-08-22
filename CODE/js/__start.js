@@ -95,7 +95,7 @@ async function _entryPoint(defs, spec, sdata) {
 	//let x=normalizeDict({_23:'bla',_28:'blabla'});console.log('result',x);return;
 
 	if (OPEN_MAIN) showMenu('main');
-	if (OPEN_TEST) showMenu('test');
+	if (OPEN_TEST) showMenu('test'); else hideMenu('test');
 	if (OPEN_OTHER) showMenu('other');
 	if (OPEN_INTERACT) showMenu('interact');
 	await testEngine.init(defs, sdata, TEST_SERIES, TEST_INDEX);

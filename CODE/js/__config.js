@@ -39,7 +39,7 @@ var ACTIVATE_UI = true; // true | false
 const OPEN_MAIN = true; // true | false
 const OPEN_TEST = false; // true | false
 const OPEN_OTHER = false; // true | false
-const OPEN_INTERACT = true; // true | false
+const OPEN_INTERACT = false; // true | false
 
 // ------------------ disregard from here -------------------------
 var IS_START = true;
