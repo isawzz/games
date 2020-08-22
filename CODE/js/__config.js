@@ -5,19 +5,20 @@ var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
 
 var DSPEC_PATH = '/assetsTEST/defaultSpec'; // defaultSpec | defaultSpecEmpty
-var RSG_SOURCE = 'main'; // test | main | direct 
+var RSG_SOURCE = 'main'; // test | main | direct (muss auf main sein fuer _A, _B...)
 
-// main
+// main: hier kann man einstellen welche assetsTEST (=main) er starten soll
 var DIR_TESTS = '_A'; // _A/ _B/
 var DIR_SERIES = '09_speech'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08 09_speech
 var TEST_SERIES = DIR_TESTS + '/' + DIR_SERIES;
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
 var TEST_INDEX = null;//2; //when != null, should override localStorage!
 
-//test
+//test (andere art von test generierung)
 var iTESTSERIES = 7;
 var iTEST = null;//2; //when null, starts at last test of series!
 
+// what rsg info should be shown:
 var SHOW_SPEC = true; // true | false
 var LEAVE_SPEC_OPEN = true; // true | false
 var OUTPUT_EACH_SPEC_STEP = true; // true | false
@@ -27,16 +28,20 @@ var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
+
+// timer output, local storage use needed fuer remember last test case number!
 const TIMIT_SHOW = false; // true | false
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const STOP_TESTS_ON_FAIL = true; // true | false
 
+//which menus (top of page) should be opened at start:
 var ACTIVATE_UI = true; // true | false
 const OPEN_MAIN = true; // true | false
-const OPEN_TEST = true; // true | false
+const OPEN_TEST = false; // true | false
 const OPEN_OTHER = false; // true | false
 const OPEN_INTERACT = true; // true | false
 
+// ------------------ disregard from here -------------------------
 var IS_START = true;
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
