@@ -6,6 +6,6 @@ players:
     language: E
     mode: write
 table:
-  currentRecord:
+  record:
     key: bee
     words: [insect, bee]

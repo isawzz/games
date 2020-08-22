@@ -1,14 +1,35 @@
+4:
+  ROOT:
+    sub:
+      - _id: score
+      - data: start
+        params:
+          bg: green
+      - _id: record
+    params:
+      orientation: v
+  score:
+    _ref: score
+    cond: 
+      name: guggi
+    data:
+      score: .score
+  record:
+    _ref: record
+    cond:
+      oid: record
+    data: .
 3:
   ROOT:
     sub:
-      - _id: sc
+      - _id: score
       - data: start
         params:
           bg: green
     params:
       orientation: v
-  sc:
-    _ref: sc
+  score:
+    _ref: score
     cond: 
       name: guggi
     data:
