@@ -20,25 +20,18 @@ function getPrompt() {
 
 }
 function updateSpeakCheckbox() {
-	//console.log('updateSpeakCheckbox mode=' + interactMode);
+	console.log('updateSpeakCheckbox mode=' + interactMode);
 	speakMode = (interactMode == 'speak');
 	let inp = mBy('speakMode');
-	//console.log('speakMode', speakMode, inp.checked);
+	console.log('speakMode', speakMode, inp.checked);
 	if (!inp.checked && speakMode || inp.checked && !speakMode ) inp.click();
 	inp.checked = speakMode;
-	//console.log('speakMode', speakMode, inp.checked);
+	console.log('speakMode', speakMode, inp.checked);
 
 }
-function deactivateSpeakmode(){
-	let id = getStandardTagId('e','speak');
-	//console.log('____________ id',id);
-	hide(id); //mBy(id)
-	startWriteMode();
-}
-function switchModeSilently(isManual=false) {
-	//console.log('switchModeSilently')
+function switchModeSilently() {
+	console.log('switchModeSilently')
 	if (interactMode == 'speak') startWriteMode(true); else startSpeakMode(true);
-	// if (isManual) updateSpeakCheckbox();
 }
 function startSpeakMode(triggered = false) {
 	//console.log('do same example with writing instead of speaking!')
@@ -47,13 +40,12 @@ function startSpeakMode(triggered = false) {
 	speakMode = interactMode == 'speak';
 	instructionMessage.innerHTML = getPrompt();
 	//if (!triggered) updateSpeakCheckbox();
-	if (!isRunning) recognition.start();
+	recognition.start();
 }
 function startWriteMode(triggered = false) {
 	//console.log('do same example with writing instead of speaking!')
-	//console.log('startWriteMode mode=' + interactMode);
+	console.log('startWriteMode mode=' + interactMode);
 	interactMode = 'write';
-	if (isRunning) recognition.stop();
 	//console.log('inputBox',inputBox)
 	//if (!triggered) updateSpeakCheckbox();
 	if (nundef(inputBox)) { restart(); }

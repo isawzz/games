@@ -21,13 +21,17 @@ async function SPEECHStart() {
 	// console.log('hallo')
 	// testCheckbox();
 }
+function getStandardTagId(elem,postfix){
+	let cat=isString(elem)?elem:getTypeOf(elem);
+	return cat+'_'+postfix;
+}
 function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, styles, classes){
 
 	function onClick(ev) {
-		console.log('triggered',ev)
+		//console.log('triggered',ev)
 		window[flagName] = !window[flagName];
 		if (isdef(handler)) handler(...arguments);
-		console.log('hallo!!!!!',window[flagName]);
+		//console.log('hallo!!!!!',window[flagName]);
 
 		ev.cancelBubble=true;
 		ev.stopPropagation = true;
@@ -49,7 +53,7 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 	// mAppend(p,label);
 	// return d;
 	//#endregion
-	let x=false; //flagInitialValue; //true;
+	//let x=false; //flagInitialValue; //true;
 	let html=`
 	<p>
 		<input type="checkbox" `+ (flagInitialValue?'checked=true':'') +` id="${flagName}">
@@ -57,6 +61,7 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 	</p>
 	`;
 	let d = mTextDiv(html,dParent);
+	d.id=getStandardTagId('e',caption);//'div_'+flagName;
 	//console.log(d)
 	let para = d.children[0];
 	para.onmouseup=onClick;
@@ -85,9 +90,9 @@ function initTable() {
 }
 function keyUpHandler(ev) {
 	//console.log('key released!', ev);
-	console.log('*** keyUpHandler: status', status, 'key', ev.keyCode, 'input vis', isdef(inputBox) ? isVisible(inputBox) : 'no', 'mode', interactMode)
+	//console.log('*** keyUpHandler: status', status, 'key', ev.keyCode, 'input vis', isdef(inputBox) ? isVisible(inputBox) : 'no', 'mode', interactMode)
 	if (ev.keyCode == '13' && interactMode == 'write' && !isVisible(inputBox)) {
-		console.log('******* FIRING!!!!!!!!!!!!!!!!!!!!')
+		//console.log('******* FIRING!!!!!!!!!!!!!!!!!!!!')
 		fireClick(mBy('bStart'));
 		//nextWord();// && isButtonActive()) { fireClick(mBy('bStart')); }
 	}

@@ -58,7 +58,7 @@ function doRestart() {
 function focusOnInput() {
 	if (nundef(inputBox)) return;
 	if (isVisible(inputBox)) {
-		console.log('input is visible!')
+		//console.log('input is visible!')
 		inputBox.focus();
 	}
 }
@@ -129,37 +129,54 @@ function nextWord(showButton = true) {
 	}
 }
 
-
+function convertUmlaute(w) {
+	//ue ü, ae ä, oe ö
+	w = replaceAll(w, 'ue', 'ü');
+	w = replaceAll(w, 'ae', 'ä');
+	w = replaceAll(w, 'oe', 'ö');
+	return w;
+}
 //#region evaluation of answer
+function countLetters(s, letter) {
+	let n = 0;
+	for (const ch of s) {
+		if (ch == '_') n++;
+	}
+	return n;
+}
+function blanksInHintWordOrWordLength(hintWord, answer) {
+	if (isdef(hintWord) && answer == bestWord.toUpperCase()) {
+		let numBlanks = countLetters(hintWord, '_');
+		return numBlanks;
+	} else { return answer.length; }
+}
 function evaluateAnswer(answer) {
+	if (lang == 'D') { answer = convertUmlaute(answer) }
 	let words = matchingWords.map(x => x.toUpperCase());
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
 	//console.log('valid', valid)
 	answer = answer.toUpperCase();
 	if (words.includes(answer)) {
-		setScore(score + 1);
+		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
 		successMessage();
 		hintMessage.innerHTML = answer;
 		return true;
 	} else if (valid.includes(answer)) {
 		//this is a word that sounds just like bestWord!
-		setScore(score + 1);
+		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
 		successMessage();
 		hintMessage.innerHTML = bestWord.toUpperCase();
 		return true;
-
-
 	} else {
 		setScore(score - 1);
 		addHint();
 		if (bestWord == hintWord) {
 			trySomethingElseMessage();
-			console.log('NICHT ERRATEN!!!!!!!!!');
+			//console.log('NICHT ERRATEN!!!!!!!!!');
 			//hintMessage.innerHTML = "let's try something else!";
 			return false;
 		} else {
 			failMessage();
-
 		}
 		//console.log('evaluateAnswer_: hintWord',hintWord,'bestWord',bestWord);
 

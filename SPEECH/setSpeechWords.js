@@ -22,14 +22,14 @@ function allEnglishWords() {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 	//key='1F1E6-1F1FC';
 	let o = emojiChars[key];
-	console.log('_________\nkey',key,'\no',o)
+	console.log('_________\nkey', key, '\no', o)
 	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
 	toBeRemoved.push(emoGroup.toLowerCase());
 
 	let anno = o.annotation;
 	anno = stringBefore(anno, ':');
-	if (anno.length>MAXWORDLENGTH){
-		console.log('problem word:',anno,key,o)
+	if (anno.length > MAXWORDLENGTH) {
+		console.log('problem word:', anno, key, o)
 	}
 
 	let tags = sepWordListFromString(o.tags, [' ', ',']);
@@ -47,7 +47,7 @@ function allEnglishWords() {
 	return { words: words, key: o.annotation, lang: 'E' };
 
 }
-function getEmoSetWords_dep(lang='E') {
+function getEmoSetWords_dep(lang = 'E') {
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
 
 	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
@@ -58,15 +58,15 @@ function getEmoSetWords_dep(lang='E') {
 	let toBeRemoved = ['marine', 'forest', 'mammal', 'medium', 'parts', 'medium-light', 'medium-dark', 'dark', 'light', 'skin', 'tone', 'on', 'button'];
 	toBeRemoved.push(emoGroup.toLowerCase());
 
-	let oValid=o[lang+'_valid_sound'];
+	let oValid = o[lang + '_valid_sound'];
 	//console.log('_____ oValid',oValid);
 	let valid;
-	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(o[lang+'_valid_sound'], ['|']);
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(o[lang + '_valid_sound'], ['|']);
 	//valid=isEmpty(valid)?[]:[valid];
 	//console.log('valid sound',valid);
 
-	let words=[];//isEmpty(valid)?[]:[valid];
-	if (isEnglish(lang)){
+	let words = [];//isEmpty(valid)?[]:[valid];
+	if (isEnglish(lang)) {
 		//console.log('o.E',o.E,'\no.D',o.D)
 
 		words = words.concat(sepWordListFromString(o.E, ['|']));
@@ -78,33 +78,128 @@ function getEmoSetWords_dep(lang='E') {
 
 }
 
-function groupSizeTest(){
+function groupSizeTest() {
 	//mach alle legalen records!
 	let groupNames = selectedEmoSetNames; //emoSets.map(x=>x.name);
 	console.log(groupNames);
 	let groupDict = {};
-	for(const name of groupNames){
+	for (const name of groupNames) {
 		//groupDict[name]=emoSets[name];
 	}
 
 }
+function getEmoSetWords(lang = 'E') {
 
-function getEmoSetWords(lang='E') {
-
-	if (isdef(emoGroup)){
-		let keys =Object.keys(emoDict);
-		console.log(keys);
+	if (isdef(emoGroup)) {
+		let keys = Object.keys(emoDict);
+		//console.log(keys);
 	}
 	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
+	//key = '1F912'; //fever
 	//key= '1F9C5'; //onion
 	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
 	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	let o = emojiChars[key];
-	
+
 	//console.log('_________\nkey',key,'\no',o)
 
-	let valid,words;
-	let oValid = o[lang+'_valid_sound'];
+	let valid, words;
+	let oValid = o[lang + '_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	let oWords = o[lang];
+	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+	//console.log('_____ oValid',oValid,'\noWords',oWords);
+
+	let dWords = o.D;
+	if (isEmpty(dWords)) dWords = []; else dWords = sepWordListFromString(dWords, ['|']);
+	let dWordsShort = dWords.filter(x => x.length <= MAXWORDLENGTH);
+	let eWords = o.E;
+	if (isEmpty(eWords)) eWords = []; else eWords = sepWordListFromString(eWords, ['|']);
+	let eWordsShort = eWords.filter(x => x.length <= MAXWORDLENGTH);
+
+	//cond
+
+	if (isEmpty(dWordsShort) || isEmpty(eWordsShort)) { delete emoDict[key]; return getEmoSetWords(); }
+
+	words = isEnglish(lang) ? eWords : dWords;
+	o.eWords = eWords;
+	o.dWords = dWords;
+
+	//console.log(words,eWords,dWords)
+
+	return { valid: valid, words: words, D: dWords, E: eWords, key: o.annotation, lang: lang, record: o };
+
+}
+function setLanguageWords(language, record) {
+
+	//console.log('record',record,'language',language)
+
+	let valid;
+	let oValid = record[language + '_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	// let oWords = o[lang];
+	// if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+	//console.log('_____ oValid',oValid);//,'\noWords',oWords);
+
+	matchingWords = isEnglish(language) ? record.eWords : record.dWords;
+	//console.log(matchingWords,getTypeOf(matchingWords))
+	validSounds = valid;
+	//console.log(language,record,matchingWords);
+
+	bestWord = lastUnderMaxLength(matchingWords);
+
+	bestWord = last(matchingWords);
+	hintWord = '_'.repeat(bestWord.length);
+	if (isdef(hintMessage)) clearElement(hintMessage);
+
+}
+function lastUnderMaxLength(lst){
+	for(let i=lst.length;i>=0;i--){
+		if (lst[i].length <= MAXWORDLENGTH) return lst[i];
+	}
+	return last(lst);
+}
+function setLanguageWords_dep(language, record) {
+
+	//console.log('record',record,'language',language)
+
+	let valid;
+	let oValid = record[language + '_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	// let oWords = o[lang];
+	// if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+	//console.log('_____ oValid',oValid);//,'\noWords',oWords);
+
+	matchingWords = isEnglish(language) ? record.eWords : record.dWords;
+	//console.log(matchingWords,getTypeOf(matchingWords))
+	validSounds = valid;
+	//console.log(language,record,matchingWords);
+
+	
+
+	bestWord = last(matchingWords);
+	hintWord = '_'.repeat(bestWord.length);
+	if (isdef(hintMessage)) clearElement(hintMessage);
+
+}
+
+function getEmoSetWords_dep2(lang = 'E') {
+
+	if (isdef(emoGroup)) {
+		let keys = Object.keys(emoDict);
+		//console.log(keys);
+	}
+	let key = chooseRandomKey(isdef(emoGroup) ? emoDict : emojiChars);
+	key = '1F912'; //fever
+	//key= '1F9C5'; //onion
+	//key = '1F5B1'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	// key='26BE'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
+	let o = emojiChars[key];
+
+	//console.log('_________\nkey',key,'\no',o)
+
+	let valid, words;
+	let oValid = o[lang + '_valid_sound'];
 	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
 	let oWords = o[lang];
 	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
@@ -118,32 +213,18 @@ function getEmoSetWords(lang='E') {
 	eWords = eWords.filter(x => x.length <= MAXWORDLENGTH);
 
 	//cond
-	if (isEmpty(dWords)||isEmpty(eWords)) { delete emoDict[key]; return getEmoSetWords(); }
+	if (isEmpty(dWords) || isEmpty(eWords)) { delete emoDict[key]; return getEmoSetWords(); }
 
-	words = isEnglish(lang)?eWords:dWords;
+	words = isEnglish(lang) ? eWords : dWords;
+	o.eWords = eWords;
+	o.dWords = dWords;
 
-	return { valid: valid, words: words,D:dWords,E:eWords, key: o.annotation, lang: lang, record: o };
+	//console.log(words,eWords,dWords)
+
+	return { valid: valid, words: words, D: dWords, E: eWords, key: o.annotation, lang: lang, record: o };
 
 }
-function setLanguageWords(language,record){
-
-	//console.log('record',record,'language',language)
-
-	let valid;
-	let oValid = record[language+'_valid_sound'];
-	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
-	// let oWords = o[lang];
-	// if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
-	//console.log('_____ oValid',oValid);//,'\noWords',oWords);
-
-	matchingWords = isEnglish(language)?record.eWords:record.dWords;
-	validSounds = valid;
-	bestWord = last(matchingWords);
-	hintWord = '_'.repeat(bestWord.length);
-	if (isdef(hintMessage)) clearElement(hintMessage);
-	
-}
-function setSpeechWords(lang='E') {
+function setSpeechWords(lang = 'E') {
 	let table = mBy('table');
 	clearElementFromChildIndex(table, 4);
 	//clearElement(table);
@@ -160,7 +241,7 @@ function setSpeechWords(lang='E') {
 	currentRecord = data.record;
 
 	//picture
-	let e = mEmoTrial2(data.key, table, {"font-size":200}); //,bg:'green'});
+	let e = mEmoTrial2(data.key, table, { "font-size": 200 }); //,bg:'green'});
 	//e.style.color = 'red';
 	mFlexLinebreak(table);
 
@@ -230,12 +311,12 @@ function setGroup(group) {
 	//console.log('setting group to',group)
 
 	//unselect previous group button
-	if (isdef(emoGroup)){mClassRemove(mBy('b_'+emoGroup),'selectedGroupButton');}
+	if (isdef(emoGroup)) { mClassRemove(mBy('b_' + emoGroup), 'selectedGroupButton'); }
 
 	emoGroup = group.toUpperCase();
 
 	//select new group button
-	mClass(mBy('b_'+emoGroup),'selectedGroupButton');
+	mClass(mBy('b_' + emoGroup), 'selectedGroupButton');
 
 
 	let f = firstCond(emoSets, x => x.name.toUpperCase() == emoGroup).f;

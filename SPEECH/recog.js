@@ -96,6 +96,8 @@ function addErrorHandler() {
 	// recognition_overlap 
 	recognition.onerror = function (event) {
 		isRunning = false;
+		deactivateSpeakmode();
+		updateSpeakCheckbox();
 		console.error(event);
 	};
 
