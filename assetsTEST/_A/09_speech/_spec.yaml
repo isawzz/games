@@ -1,225 +1,51 @@
-19: 
-  ROOT:
-    data: Tic Tac Toe
-    params:
-      orientation: v
-    sub:
-      - _id: A
-  hallo:
-    _ref: A
-    cond: 
-      obj_type: Board
-    type: grid
-  tick:
-    cond: all
-    data: .oid
-
-18: #==> HERE!!!
-  ROOT:
-    cond: 
-      obj_type: Board
-    type: grid
-  tick:
-    cond: all
-    data: .oid
-
-17:
-  ROOT:
-    cond: all
-    data: .oid
-16:
-  ROOT:
-    _id: A
-    sub:
-      - _id: B
-        data: hallo
-  hallo1:
-    data: wieso
-    _ref: A
-  hallo2:
-    _ref: B
-    params:
-      fg: red
-15:
-  ROOT:
-    _NODE: [B, A]
-    params:
-      fg: yellow
-  A:
-    data: yellow
-    params:
-      fg: red
-      bg: green
-  B:
-    data: green
-    sub:
-      - _NODE: A
-      - data: white
-    params:
-      fg: blue
-  C:
-    params:
-      fg: silver
-      bg: black
-14:
-  ROOT:
-    _NODE: [A, B, C]
-    params:
-      fg: yellow
-  A:
-    data: yellow
-    params:
-      fg: red
-  B:
-    params:
-      fg: blue
-  C:
-    params:
-      fg: silver
-      bg: black
-13:
-  ROOT:
-    _NODE: A
-    data: na geh!
-    params:
-      bg: black
-  A:
-    data: hallo
-    params:
-      fg: red
-12: #wird gemerged: _ref node override data and fg!
-  ROOT:
-    _id: A
-    _NODE: panel
-    params:
-      bg: blue
-      fg: yellow
-  hallo:
-    _ref: A
-    data: CORRECT!!
-    params:
-      fg: red
-  panel: # name matters!
-    params:
-      fg: blue
-      font-size: 24
-11: #erst A, dann B, dann node itself!
-  ROOT:
-    _NODE: [A, B]
-    data: DAS
-    params:
-      fg: red
-  A:
-    data: IST
-    params:
-      fg: blue
-  B:
-    data: RICHTIG
-    params:
-      fg: green
-      bg: white
-10: #new! data combining!
-  ROOT:
-    _id: A
-    data: hallo
-  hallo:
-    _ref: A
-    _NODE: B
-    data: YES!
-  B:
-    _ref: A
-    data: NEIN!
-    params:
-      fg: red
-9: #new! data combining!!!!
-  ROOT:
-    _id: A
-    data: hallo
-  hallo:
-    _ref: A
-    _NODE: B
-    data: YES!
-  B:
-    data: NEIN!
-    params:
-      fg: red
-8:
-  ROOT:
-    _id: A
-  hallo:
-    _ref: A
-    data: YES!
-7:
-  ROOT:
-    sub:
-      - data: 1
-      - _NODE: A
-        params:
-          fg: silver
-      - data: 3
-  A:
-    _NODE: B
-  B:
-    _NODE: C
-    params:
-      fg: blue
-  C:
-    data: 2
-    params:
-      fg: red
-6:
-  ROOT:
-    sub:
-      - data: 1
-      - _NODE: A
-      - data: 3
-  A:
-    _NODE: B
-  B:
-    data: 2
-5:
-  ROOT:
-    sub:
-      - data: 1
-      - _NODE: A
-      - data: 3
-  A:
-    data: 2
-
-4:
-  ROOT:
-    sub:
-      - data: 1
-      - _NODE: A
-  A:
-    sub:
-      - data: 2
-      - data: 3
 3:
   ROOT:
     sub:
-      - data: 1
-      - sub:
-          - data: 1.1
-          - sub:
-              - data: 1.1.1
-2:
-  ROOT:
-    sub:
-      - data: HALLO
-      - _id: A
-  A:
-    _ref: A
-    data: WELT
-1:
-  ROOT:
-    sub:
-      - data: score 0
+      - _id: sc
       - data: start
         params:
           bg: green
     params:
       orientation: v
+  sc:
+    _ref: sc
+    cond: 
+      name: guggi
+    data: 
+      score: .score
+2:
+  ROOT:
+    sub:
+      - data: score
+        _id: sc
+      - data: start
+        params:
+          bg: green
+    params:
+      orientation: v
+  sc:
+    _ref: sc
+    cond: 
+      name: guggi
+    data: .score
+1:
+  ROOT:
+    sub:
+      - _id: sc
+      - data: start
+        params:
+          bg: green
+    params:
+      orientation: v
+  sc:
+    _ref: sc
+    cond: 
+      name: guggi
+    sub:
+      - data: score
+      - data: .score
+    params:
+      bg: transparent
 0:
   ROOT:
     data: HALLO

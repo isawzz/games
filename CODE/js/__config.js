@@ -18,16 +18,16 @@ var TEST_INDEX = null;//2; //when != null, should override localStorage!
 var iTESTSERIES = 7;
 var iTEST = null;//2; //when null, starts at last test of series!
 
-var SHOW_SPEC = false; // true | false
+var SHOW_SPEC = true; // true | false
 var LEAVE_SPEC_OPEN = true; // true | false
 var OUTPUT_EACH_SPEC_STEP = true; // true | false
 var SHOW_LASTSPEC = false; // true | false
-var SHOW_RTREE = false; // true | false
+var SHOW_RTREE = true; // true | false
 var SHOW_UITREE = true; // true | false
 var SHOW_OIDNODES = false; // true | false
 var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
-const TIMIT_SHOW = true; // true | false
+const TIMIT_SHOW = false; // true | false
 const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const STOP_TESTS_ON_FAIL = true; // true | false
 

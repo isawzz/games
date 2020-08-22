@@ -1,55 +1,11 @@
 players:
-  Player1:
-    name: Player1
-    symbol: X
-    hand: [c1, c2]
-  Player2:
-    name: Player2
-    symbol: O
-    hand: [ck]
+  player:
+    name: guggi
+    score: 10
+    group: animal
+    language: E
+    mode: write
 table:
-  '0':
-    row: 1
-    col: 1
-    neighbors:
-    - 
-    - _obj: '1'
-    - 
-    - 
-    obj_type: Tick
-  '1':
-    row: 1
-    col: 2
-    neighbors:
-    - 
-    -
-    - 
-    - _obj: '0' 
-    obj_type: Tick
-  '9':
-    fields:
-      _set:
-      - _obj: '0'
-      - _obj: '1'
-    rows: 1
-    cols: 2
-    obj_type: Board
-    map:
-      _ndarray:
-      - - _obj: '0'
-        - _obj: '1'
-  ck:
-    obj_type: card
-    short_name: K
-    rel: [c1,c2]
-  cq:
-    obj_type: card
-    short_name: Q
-    rel: [c2,c3]
-  c1:
-    obj_type: card
-    short_name: A
-    rel: [c2,c3]
-  c2:
-    obj_type: card
-    short_name: 2
+  currentRecord:
+    key: bee
+    words: [insect, bee]
