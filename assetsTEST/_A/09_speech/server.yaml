@@ -1,7 +1,7 @@
 players:
   player:
     name: guggi
-    score: 10
+    score: 0
     group: animal
     language: E
     mode: write

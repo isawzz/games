@@ -11,7 +11,7 @@
     _ref: sc
     cond: 
       name: guggi
-    data: 
+    data:
       score: .score
 2:
   ROOT:

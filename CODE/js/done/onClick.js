@@ -1,7 +1,7 @@
 //#region RSG_SOURCE & menus
 function hideMenu(desc) {
 	let d = mBy('div' + desc);
-	console.log('........isVisible', desc, isVisible(d));
+	//console.log('........isVisible', desc, isVisible(d));
 	if (isVisible(d)) {
 		let b = mBy('b' + desc);
 		hide(d);
@@ -11,8 +11,8 @@ function hideMenu(desc) {
 }
 function onClickToggleInteractivity(desc) {
 	let d = mBy('div' + desc);
-	console.log('_____________isVisible', desc, isVisible(d));
-	console.log('toggle interactivity', desc, d, isVisible(d));
+	//console.log('_____________isVisible', desc, isVisible(d));
+	//console.log('toggle interactivity', desc, d, isVisible(d));
 	if (isVisible(d)) { hideMenu(desc); } else { showMenu(desc); }
 }
 function setRSG_SOURCE(val) {

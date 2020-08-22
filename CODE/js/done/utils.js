@@ -23,11 +23,11 @@ function calcContentFromData(oid, o, data, R, default_data) {
 			//bei '.' kommt da [""] raus! also immer noch 1 empty prop!
 
 			if (props.length == 1 && isEmpty(props[0])) return o;
-
 			else {
 				//console.log('___________',props)
 				let res = dPP1(o, props, R);
-				if (res) return res;
+				console.log('res',res,isdef(res))
+				if (isdef(res)) return res;
 			}
 
 		} else {
@@ -40,7 +40,7 @@ function calcContentFromData(oid, o, data, R, default_data) {
 		let content = {};
 		for (const k in data) {
 			let c = calcContentFromData(oid, o, data[k], R);
-			if (c) content[k] = c;
+			if (isdef(c)) content[k] = c;
 		}
 		return content;
 	} else if (isList(data)) {
