@@ -972,7 +972,7 @@ function recUi(n, R, area, oid, key) {
 	let o = isdef(oid) ? R.getO(oid) : null;
 	if (isdef(n1.data)) { n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data); }
 	
-	if (isdef(oid)) console.log('content',oid,n1.content)
+	//if (isdef(oid)) console.log('content',oid,n1.content)
 
 	//R.uiNodes[n1.uid] = n1; 
 	if (n1.type == 'grid') { 

@@ -26,7 +26,7 @@ function calcContentFromData(oid, o, data, R, default_data) {
 			else {
 				//console.log('___________',props)
 				let res = dPP1(o, props, R);
-				console.log('res',res,isdef(res))
+				//console.log('res',res,isdef(res))
 				if (isdef(res)) return res;
 			}
 
