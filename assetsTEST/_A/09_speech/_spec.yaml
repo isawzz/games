@@ -214,8 +214,12 @@
 1:
   ROOT:
     sub:
-      - data: HALLO
-      - data: WELT
+      - data: score 0
+      - data: start
+        params:
+          bg: green
+    params:
+      orientation: v
 0:
   ROOT:
     data: HALLO
