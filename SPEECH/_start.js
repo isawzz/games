@@ -77,6 +77,9 @@ function initOptionsUi() {
 	addYesNoOption('speakMode',speakMode,'speak', switchModeSilently, dOptions, { width: 100 });
 }
 function initTable() {
+	let table = mBy('table');
+	clearElement(table);
+
 	let dScore = mDiv(table);
 	dScore.id = 'scoreDiv'
 	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";

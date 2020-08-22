@@ -32,28 +32,11 @@ function restart() {
 	//onClickStartButton();
 }
 function doRestart() {
-	score = 0;
-	interactMode = 'speak';
-	var speakMode = interactMode == 'speak';
-
-	let table = mBy('table');
-	clearElement(table);
-
-	score = 0;
-	let dScore = mDiv(table);
-	dScore.id = 'scoreDiv';
-	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
-	mFlexLinebreak(table);
-
-	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
-	b.style.marginTop = '12px';
-	b.id = 'bStart';
-	mFlexLinebreak(table);
-	//console.log('nextWord: status wird auf wait gesetzt!!!')
-	setStatus('wait');
 	answerCorrect = false;
+	setStatus('wait');
+	score = 0;
+	initTable();
 	RESTARTING = false;
-
 }
 function focusOnInput() {
 	if (nundef(inputBox)) return;

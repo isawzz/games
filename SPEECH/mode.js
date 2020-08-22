@@ -47,7 +47,12 @@ function startSpeakMode(triggered = false) {
 	speakMode = interactMode == 'speak';
 	instructionMessage.innerHTML = getPrompt();
 	//if (!triggered) updateSpeakCheckbox();
-	if (!isRunning) recognition.start();
+	if (!isRunning) {
+		if (isdef(recognition)) recognition.start();
+		else{
+			speech00(lang, matchingWords);
+		}
+	}
 }
 function startWriteMode(triggered = false) {
 	//console.log('do same example with writing instead of speaking!')

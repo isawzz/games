@@ -1,20 +1,20 @@
 emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,openmoji_tags,openmoji_author,openmoji_date,skintone,skintone_combination,skintone_base_emoji,skintone_base_hexcode,unicode,order
-😀,1F600,smileys-emotion,face-smiling,grinning face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,face, grin,smile, happy,Emily Jäger,2018-04-18,,,,,1,1
-😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,face, mouth, open, smile,eyes, teeth,Emily Jäger,2018-04-18,,,,,0.6,2
-😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,eye, face, mouth, open, smile,happy, teeth,Emily Jäger,2018-04-18,,,,,0.6,3
-😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,teeth|smile|laugh|happy|grin,zähne|lachen|lächeln|lustig|fröhlich,,,eye, face, grin, smile,happy, teeth, mouth,Emily Jäger,2018-04-18,,,,,0.6,4
-😆,1F606,smileys-emotion,face-smiling,grinning squinting face,squint|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,face, laugh, mouth, satisfied, smile,,Emily Jäger,2018-04-18,,,,,0.6,5
-😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,tears|sweat|sweating|smile|laugh|happy|grin,träne|schwitzen|lachen|lächeln|lustig|fröhlich,,,cold, face, open, smile, sweat,laugh,Emily Jäger,2018-04-18,,,,,0.6,6
-🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,,,face, floor, laugh, rolling,tears,Emily Jäger,2018-04-18,,,,,3,7
-😂,1F602,smileys-emotion,face-smiling,face with tears of joy,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,,,face, joy, laugh, tear,,Emily Jäger,2018-04-18,,,,,0.6,8
-🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,face, smile,satisfied,Emily Jäger,2018-04-18,,,,,1,9
-🙃,1F643,smileys-emotion,face-smiling,upside-down face,upside-down|smile|laugh|happy|grin,verkehrt|lachen|lächeln|lustig|fröhlich,,,face, upside-down,turn,Emily Jäger,2018-04-18,,,,,1,10
-😉,1F609,smileys-emotion,face-smiling,winking face,upside-down|smile|laugh|happy|grin|wink,verkehrt|lachen|lächeln|lustig|fröhlich|zwinkern,,,face, wink,eye,Emily Jäger,2018-04-18,,,,,0.6,11
-😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,blush|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,,,blush, eye, face, smile,satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
-😇,1F607,smileys-emotion,face-smiling,smiling face with halo,angel|halo|smile|laugh|happy|grin,engel|heiligenschein|lachen|lächeln|lustig|fröhlich,,,angel, face, fantasy, halo, innocent,,Emily Jäger,2018-04-18,,,,,1,13
-🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,,,adore, crush, hearts, in love,,Antonia Wagner,2019-05-03,,,,,11,14
-😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,,,eye, face, love, smile,hearts, happy,Emily Jäger,2018-04-18,,,,,0.6,15
-🤩,1F929,smileys-emotion,face-affection,star-struck,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,,,eyes, face, grinning, star,surprised,Emily Jäger,2018-04-18,,,,,5,16
+😀,1F600,smileys-emotion,face-smiling,grinning face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, grin,smile, happy,Emily Jäger,2018-04-18,,,,,1,1
+😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, mouth, open, smile,eyes, teeth,Emily Jäger,2018-04-18,,,,,0.6,2
+😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,eye, face, mouth, open, smile,happy, teeth,Emily Jäger,2018-04-18,,,,,0.6,3
+😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,teeth|smile|laugh|happy|grin,zähne|lachen|lächeln|lustig|fröhlich,quinn,,eye, face, grin, smile,happy, teeth, mouth,Emily Jäger,2018-04-18,,,,,0.6,4
+😆,1F606,smileys-emotion,face-smiling,grinning squinting face,squint|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, laugh, mouth, satisfied, smile,,Emily Jäger,2018-04-18,,,,,0.6,5
+😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,tears|sweat|sweating|smile|laugh|happy|grin,träne|schwitzen|lachen|lächeln|lustig|fröhlich,quinn,,cold, face, open, smile, sweat,laugh,Emily Jäger,2018-04-18,,,,,0.6,6
+🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,quinn,,face, floor, laugh, rolling,tears,Emily Jäger,2018-04-18,,,,,3,7
+😂,1F602,smileys-emotion,face-smiling,face with tears of joy,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,quinn,,face, joy, laugh, tear,,Emily Jäger,2018-04-18,,,,,0.6,8
+🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, smile,satisfied,Emily Jäger,2018-04-18,,,,,1,9
+🙃,1F643,smileys-emotion,face-smiling,upside-down face,upside-down|smile|laugh|happy|grin,verkehrt|lachen|lächeln|lustig|fröhlich,quinn,,face, upside-down,turn,Emily Jäger,2018-04-18,,,,,1,10
+😉,1F609,smileys-emotion,face-smiling,winking face,upside-down|smile|laugh|happy|grin|wink,verkehrt|lachen|lächeln|lustig|fröhlich|zwinkern,quinn,,face, wink,eye,Emily Jäger,2018-04-18,,,,,0.6,11
+😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,blush|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,blush, eye, face, smile,satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
+😇,1F607,smileys-emotion,face-smiling,smiling face with halo,angel|halo|smile|laugh|happy|grin,engel|heiligenschein|lachen|lächeln|lustig|fröhlich,quinn,,angel, face, fantasy, halo, innocent,,Emily Jäger,2018-04-18,,,,,1,13
+🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,love|smile|laugh|happy|crush,liebe|lächeln|glücklich|fröhlich|verliebt,quinn,,adore, crush, hearts, in love,,Antonia Wagner,2019-05-03,,,,,11,14
+😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,quinn,,eye, face, love, smile,hearts, happy,Emily Jäger,2018-04-18,,,,,0.6,15
+🤩,1F929,smileys-emotion,face-affection,star-struck,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,quinn,,eyes, face, grinning, star,surprised,Emily Jäger,2018-04-18,,,,,5,16
 😘,1F618,smileys-emotion,face-affection,face blowing a kiss,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,face, kiss,love, happy,Emily Jäger,2018-04-18,,,,,0.6,17
 😗,1F617,smileys-emotion,face-affection,kissing face,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,face, kiss,,Emily Jäger,2018-04-18,,,,,1,18
 😚,1F61A,smileys-emotion,face-affection,kissing face with closed eyes,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,closed, eye, face, kiss,love, happy,Emily Jäger,2018-04-18,,,,,0.6,21
@@ -185,7 +185,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🦨,1F9A8,animals-nature,animal-mammal,skunk,skunk,stinktier,,,stink,,Yasmin Abdullahi,2019-05-07,,,,,12,2719
 🦘,1F998,animals-nature,animal-mammal,kangaroo,kangaroo,känguru,,,australia, joey, jump, marsupial,,Laura Schießer,2019-05-06,,,,,11,2720
 🦡,1F9A1,animals-nature,animal-mammal,badger,badger,wiesel,,,honey badger, pester,,Laura Schießer,2019-05-07,,,,,11,2721
-🐾,1F43E,animals-nature,animal-mammal,paws,paws,tatzen | pfoten,,,feet, paw, print,paws, feet, pet, animal,Sofie Ascherl,2018-04-18,,,,,0.6,2722
+🐾,1F43E,animals-nature,animal-mammal,paws,feet|paw|paw prints|footprints|print|paws,pfotenabdruck|fussabdruck|tatzen|pfoten,,,feet, paw, print,paws, feet, pet, animal,Sofie Ascherl,2018-04-18,,,,,0.6,2722
 🦃,1F983,animals-nature,animal-bird,turkey,turkey,truthahn,,,bird,,Selina Bauder,2018-04-18,,,,,1,2723
 🐔,1F414,animals-nature,animal-bird,chicken,hen | chicken,henne | huhn,,,bird,hen, egg,Selina Bauder,2018-04-18,,,,,0.6,2724
 🐓,1F413,animals-nature,animal-bird,rooster,chicken | rooster,huhn | hahn,,,bird,egg,Selina Bauder,2018-04-18,,,,,1,2725
@@ -237,7 +237,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 💮,1F4AE,animals-nature,plant-flower,white flower,flower,blume,,,flower,,Ricarda Krejci,2019-05-07,,,,,0.6,2781
 🏵️,1F3F5,animals-nature,plant-flower,rosette,flower,rosette | blume,,,plant,,Ricarda Krejci,2019-05-07,,,,,0.7,2783
 🌹,1F339,animals-nature,plant-flower,rose,flower | rose,blume | rose,,,flower,rose, red, nature, present, valentines day,Hilda Kalyoncu,2018-04-18,,,,,0.6,2784
-🥀,1F940,animals-nature,plant-flower,wilted flower,wilted | flower,welke blume | verwelkt | blume,,,flower, wilted,rose, wilted, flower, red, sad, plant,Hilda Kalyoncu,2018-04-18,,,,,3,2785
+🥀,1F940,animals-nature,plant-flower,wilted flower,wilted | tulip|flower,welke blume | verwelkt|tulpe | blume,,,flower, wilted,rose, wilted, flower, red, sad, plant,Hilda Kalyoncu,2018-04-18,,,,,3,2785
 🌺,1F33A,animals-nature,plant-flower,hibiscus,flower | hibiscus,blume | hibiskus,,,flower,pink,Hilda Kalyoncu,2018-04-18,,,,,0.6,2786
 🌻,1F33B,animals-nature,plant-flower,sunflower,flower | sunflower,blume | sonnenblume,,,flower, sun,sun, flower, yellow, summer,Hilda Kalyoncu,2018-04-18,,,,,0.6,2787
 🌼,1F33C,animals-nature,plant-flower,blossom,blossom | flower,blüte | blume,,,flower,yellow, nature,Hilda Kalyoncu,2018-04-18,,,,,0.6,2788
@@ -324,7 +324,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🍠,1F360,food-drink,food-asian,roasted sweet potato,sweet potato | potato,süsskartoffel | kartoffel,,,potato, roasted, sweet,,Miriam Vollmeier,2018-04-18,,,,,0.6,2880
 🍢,1F362,food-drink,food-asian,oden,kebab, seafood, skewer, stick,kebab | seafood,kebab | spiesschen,,,,Miriam Vollmeier,2018-04-18,,,,,0.6,2881
 🍣,1F363,food-drink,food-asian,sushi,sushi,sushi,sushi,,,Miriam Vollmeier,2018-04-18,,,,,0.6,2882
-🍤,1F364,food-drink,food-asian,fried shrimp,fried | prawn | shrimp | tempura,fritiert | tempura | garnele,,,fried, prawn, shrimp, tempura,,Miriam Vollmeier,2018-04-18,,,,,0.6,2883
+🍤,1F364,food-drink,food-asian,fried shrimp,fried | prawn | tempura | shrimp,fritiert | tempura | garnele,,,fried, prawn, shrimp, tempura,,Miriam Vollmeier,2018-04-18,,,,,0.6,2883
 🥠,1F960,food-drink,food-asian,fortune cookie,fortune cookie,glückskeks,,,prophecy,,Ricarda Krejci,2019-05-07,,,,,5,2888
 🦀,1F980,food-drink,food-marine,crab,crab,krabbe,,,cancer, zodiac,beach, sand, water,Selina Bauder,2018-04-18,,,,,1,2890
 🦞,1F99E,food-drink,food-marine,lobster,lobster,hummer,,,bisque, claws, seafood,,Ricarda Krejci,2019-05-07,,,,,11,2891
@@ -398,7 +398,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🕍,1F54D,travel-places,place-religious,synagogue,synagogue | church,synagoge | kirche,,,jew, jewish, religion, temple,religious, pray, building, god, faith,Martin Wehl,2018-04-18,,,,,1,2994
 ⛩️,26E9,travel-places,place-religious,shinto shrine,shinto shrine | temple,tempel,,,religion, shinto, shrine,religious, pray, building, god, faith,Martin Wehl,2018-04-18,,,,,0.7,2996
 ⛲️,26F2,travel-places,place-other,fountain,fountain,springbrunnen | brunnen,,,fountain,,Louisa Mantsch,2018-11-16,,,,,0.6,2998
-⛺️,26FA,travel-places,place-other,tent,camping | tent,camping | zelt,,,camping,nature, outdoor, adventure,Martin Wehl,2018-04-18,,,,,0.6,2999
+⛺️,26FA,travel-places,place-other,tent,camping | tent,camping | zelt,ten,,camping,nature, outdoor, adventure,Martin Wehl,2018-04-18,,,,,0.6,2999
 🏙️,1F3D9,travel-places,place-other,cityscape,skyline | cityscape | city,stadt,,,city,buildings, metropolis,Martin Wehl,2018-04-18,,,,,0.7,3003
 🌆,1F306,travel-places,place-other,cityscape at dusk,city, dusk,stadt,sonnenuntergang,,,city, dusk, evening, landscape, sunset,,Louisa Mantsch,2018-11-16,,,,,0.6,3006
 🌉,1F309,travel-places,place-other,bridge at night,bridge,brücke,,,bridge, night,,Jonas Dunkel,2019-05-07,,,,,0.6,3008

@@ -64,8 +64,8 @@ html,body{
 .buttonClass:hover {
 	background-color: #79d7e4;
 }
-.buttonClass:hover {
-	background-color: red;
+.buttonClass:active {
+	background-color: orange;
 }
 
 /* #endregion */
