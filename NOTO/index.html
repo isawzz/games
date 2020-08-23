@@ -5,9 +5,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Noto</title>
+	<script src="/_extlibs/js-yaml.min.js"></script>
 	<link rel="stylesheet" href="/assets/font/fonts.css">
 	<style>
-
 		.b {
 			/* Less saturation so more features, shifted colour 90-degrees */
 			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
@@ -18,11 +18,13 @@
 			/* Remove black outlines if desired by removing contrast */
 			filter: contrast(0) sepia(1) saturate(100) hue-rotate(180deg);
 		}
+
 		.a {
 			/* Less saturation so more features, shifted colour 90-degrees */
 			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
 			filter: sepia(1);
 		}
+
 		.removeOutline {
 			/* Less saturation so more features, shifted colour 90-degrees */
 			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
@@ -34,14 +36,37 @@
 <body>
 	<div id='table'></div>
 	<script src="/CODE/js/done/helpers.js"></script>
+	<script src="/CODE/js/__config.js"></script>
+	<script src="/CODE/js/done/assets.js"></script>
 	<script>
+		window.onload = start;
+
+		async function start() {
+			await loadAssets();
+			test01();
+		}
+
+		function test01() {
+
+			let key = 'onion'; let table = mBy('table');
+
+			// all code needed fuer emoji:
+			let info = getPicInfo(key);
+			mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+			console.log('info',key,info);
+
+			// what code is needed for iconChars???
+			
+
+			return;
+		}
 		function test() {
 			let key = '1F9C5'; let table = mBy('table');
 
 			// let x = mTextDiv(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
 
-			mSvg('/assets/svg/twemoji/'+key+'.svg',table,{w:200,h:200});
-			mSvg('/assets/svg/openmoji/'+key+'.svg',table,{w:200,h:200});
+			mSvg('/assets/svg/twemoji/' + key + '.svg', table, { w: 200, h: 200 });
+			mSvg('/assets/svg/openmoji/' + key + '.svg', table, { w: 200, h: 200 });
 
 
 			let decCode = hexStringToDecimal(key); let s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
@@ -56,7 +81,6 @@
 			mStyleX(x, { fz: 200, family: 'emoColor' });
 			//let e = mEmoTrial2(key, table, {"font-size":200,bg:'green'});
 		}
-		test();
 	</script>
 </body>
 

@@ -2,6 +2,33 @@
 var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
 var emojiChars, numEmojis, emojiKeys;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
+var symbolDict, symbolKeys, duplicateKeys;
+
+//#region pic keys
+function getPicInfo(key) {
+	//first fetch from symbolKeys
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1 }
+	if (i1.type == 'emo') {
+		//get info from emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]];
+		for (const k in i2) info[k] = i2[k];
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = String.fromCharCode('0x' + info.hexcode);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+	} else {
+		let ch = info.ch = iconChars[key];
+		//let ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = key;
+		info.hexcode = ch;
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {
@@ -20,6 +47,30 @@ async function loadAssets() {
 		emojiKeys[emojiChars[k].annotation] = k;
 	}
 	numEmojis = Object.keys(emojiKeys).length;
+
+	// console.log('emojis:');
+	// Object.keys(emojiKeys).slice(0,100).map(x=>console.log(x));
+	// console.log('icons:');
+	// iconKeys.slice(0,100).map(x=>console.log(x));
+
+	symbolDict = {};
+	for (const k in emojiKeys) {
+		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: emojiChars[emojiKeys[k]], type: 'emo' };
+	}
+	duplicateKeys = [];
+	for (const k of iconKeys) {
+		if (isdef(symbolDict[k])) {
+			duplicateKeys.push(k)
+			//console.log(k);
+			continue; // emojis haben vorrang!
+		}
+		symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
+	}
+	symbolKeys = Object.keys(symbolDict);
+
+	//console.log(duplicateKeys)
+	//console.log(symbolDict)
+	//console.log(symbolKeys.length, symbolKeys.slice(0, 20));
 
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
