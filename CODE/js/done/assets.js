@@ -5,25 +5,64 @@ var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, bo
 var symbolDict, symbolKeys, duplicateKeys;
 
 //#region pic keys
+function getRandomIconKey() {
+	let keys = Object.keys(symbolDict);
+	keys = keys.filter(x => symbolDict[x].type == 'icon');
+	return chooseRandom(keys);
+}
+function getRandomPicInfo(type) {
+	let key = getRandomPicKey(type);
+	return getPicInfo(key);
+}
+function getRandomPicKey(type = DEFAULTPICTYPE) {
+	console.log(type)
+	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
+
+	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
+	console.log(keys)
+
+	return chooseRandom(keys);
+}
+function setPicText(info) {
+	let decCode;
+	let hex = info.hexcode;
+
+	// hex = "1F1E8-1F1ED";
+	let parts = hex.split('-');
+	let res = '';
+	for (const p of parts) {
+		decCode = hexStringToDecimal(p);
+		s1 = '&#' + decCode + ';'; //'\u{1F436}';
+		res += s1;
+	}
+	s1 = res;
+	return s1;
+}
 function getPicInfo(key) {
 	//first fetch from symbolKeys
+	console.log('key', key)
 	let i1 = symbolDict[key];
-	let info = { typeInfo: i1 }
-	if (i1.type == 'emo') {
+	let info = { typeInfo: i1, type:i1.type }
+	if (i1.type != 'icon') {
 		//get info from emojiChars[emojiKeys[key]];
 		let i2 = emojiChars[emojiKeys[key]];
 		for (const k in i2) info[k] = i2[k];
+		console.log('info1', info)
+		//info.hexcode = info.record.hexcode;
 		info.key = key;
 		info.family = 'emoNoto';
-		info.text = String.fromCharCode('0x' + info.hexcode);
+		info.text = setPicText(info);
+		//info.text = String.fromCharCode('0x' + info.hexcode);
 		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+		console.log('info', info)
 	} else {
 		let ch = info.ch = iconChars[key];
 		//let ch = iconChars[key];
 		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-		let text = info.text = String.fromCharCode('0x' + ch);
+		//let text = info.text = String.fromCharCode('0x' + ch);
 		info.key = key;
 		info.hexcode = ch;
+		info.text = setPicText(info);
 
 	}
 	//console.log('info', key, info);
@@ -43,15 +82,8 @@ async function loadAssets() {
 	emojiChars = vidCache.asDict('emojiChars');
 	//console.log('emojiChars', takeFromStart(emojiChars, 10));
 	emojiKeys = {};
-	for (const k in emojiChars) {
-		emojiKeys[emojiChars[k].annotation] = k;
-	}
+	for (const k in emojiChars) { emojiKeys[emojiChars[k].annotation] = k; }
 	numEmojis = Object.keys(emojiKeys).length;
-
-	// console.log('emojis:');
-	// Object.keys(emojiKeys).slice(0,100).map(x=>console.log(x));
-	// console.log('icons:');
-	// iconKeys.slice(0,100).map(x=>console.log(x));
 
 	symbolDict = {};
 	for (const k in emojiKeys) {
@@ -59,11 +91,7 @@ async function loadAssets() {
 	}
 	duplicateKeys = [];
 	for (const k of iconKeys) {
-		if (isdef(symbolDict[k])) {
-			duplicateKeys.push(k)
-			//console.log(k);
-			continue; // emojis haben vorrang!
-		}
+		if (isdef(symbolDict[k])) { symbolDict[k].type = 'duplo'; duplicateKeys.push(k); continue; }
 		symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
 	}
 	symbolKeys = Object.keys(symbolDict);

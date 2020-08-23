@@ -30,6 +30,12 @@
 			/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
 			filter: contrast(.4);
 		}
+
+		.fa {
+			color: blue;
+			/* text-shadow: 10px 10px 10px skyblue;
+			font-size: 1.5em; */
+		}
 	</style>
 </head>
 
@@ -39,26 +45,52 @@
 	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
-		window.onload = start;
+		window.onload = async () => { await loadAssets(); test2(); }
 
-		async function start() {
-			await loadAssets();
-			test01();
+		function test2() {
+			let type = 'random';
+
+			let table = mBy('table');
+			let info = getRandomPicInfo(type);
+			console.log('info', info.key, info);
+
+			if (info.type == 'icon') {
+				console.log('text',info.text)
+				let d = mText(info.text,table,null,{ family: info.family, fz: 200, bg:'red',fg:'green',display:'inline' });
+			} else {
+				mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+			}
+
 		}
-
-		function test01() {
+		function test1() {
 
 			let key = 'onion'; let table = mBy('table');
 
 			// all code needed fuer emoji:
 			let info = getPicInfo(key);
 			mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
-			console.log('info',key,info);
+			console.log('info', key, info);
 
-			// what code is needed for iconChars???
-			
+			// all code needed fuer iconChar OR emoji:
+			let k = getRandomPicKey(); //getRandomIconKey(); //'crow'
+			info = getPicInfo(k);
+			console.log(k, info);
+			let d = mDiv(table);
+			mStyleX(d, { family: info.family, fz: 200 });
+			//mClass(d,'fa')
+			//d.style.fontFamily = info.family;
+			let hex = info.hexcode;
+			let parts = hex.split('-');
+			let res = '';
+			for (const p of parts) {
+				decCode = hexStringToDecimal(p);
+				s1 = '&#' + decCode + ';';
+				res += s1;
+			}
+			s1 = res;
+			d.innerHTML = s1;
+			//d.style.fontSize = 200 + 'pt';
 
-			return;
 		}
 		function test() {
 			let key = '1F9C5'; let table = mBy('table');

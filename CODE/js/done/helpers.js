@@ -299,13 +299,6 @@ function mHeading(msg, dParent, level, id) {
 	mAppend(dParent, p);
 	return p;
 }
-function mText(msg, dParent, id) {
-	let p = mCreate('div');
-	if (!isEmpty(msg)) p.innerHTML = msg;
-	if (isdef(id)) p.id = id;
-	mAppend(dParent, p);
-	return p;
-}
 function mFlexCenterContent(d) { mStyle(d, { 'justify-content': 'center', 'align-items': 'center' }); }
 function mFlex(d, or = 'h') {
 	d.style.display = 'flex';
@@ -398,20 +391,6 @@ function mEmo(key, parent, fontSize) {
 		res += s1;
 	}
 	s1 = res;
-	//s1=toUTF16(hex);
-	//console.log('s1',s1)
-
-	// let emoji = hex.split("-");
-	// console.log(emoji)
-	// emoji = emoji.map(x => '&#x' + x + ';'); //String(UnicodeScalar(Int(String(x),{radix: 16}) ?? 0)))
-	// console.log(emoji)
-	// emoji = emoji.join("\u{200D}");
-	// console.log(emoji)
-
-	// console.log(emoji) // 👨‍👨‍👧‍👧
-
-
-	//console.log(key,rec.hexcode,decCode,);
 	d.innerHTML = s1;
 	d.style.fontSize = fontSize + 'pt';
 	return d;
@@ -555,7 +534,15 @@ function mSvg(path,dParent,styles,classes){
 	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
 }
 function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
-
+function mText(msg, dParent, id, styleDict, classList) {
+	let d = mCreate('div');
+	if (!isEmpty(msg)) d.innerHTML = msg;
+	if (isdef(id)) d.id = id;
+	mAppend(dParent, d);
+	if (isdef(styleDict)) mStyleX(d,styleDict);
+	if (isdef(classList)) mClass(d,classList);
+	return d;
+}
 function recFlattenLists(o) {
 	for (const k in o) {
 		let cand = o[k];
