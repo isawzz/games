@@ -46,20 +46,28 @@
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
 		window.onload = async () => { await loadAssets(); test2(); }
+		function test3() {
+			let table = mBy('table');
+			let hexcode = '1F3FC'; //das ist ein skintone!
+			hexcode = '1F477'; //gibt es! der rest ist special code!
+			mSvg('/assets/svg/twemoji/' + hexcode + '.svg', table, { w: 200, h: 200 });
+		}
 
 		function test2() {
-			let type = 'random';
+			let type = 'emo';
 
 			let table = mBy('table');
 			let info = getRandomPicInfo(type);
-			info = getPicInfo('waving hand');
+			//let info = getPicInfo('woman golfing'); //'waving hand');
+			info = getPicInfo('mechanical leg');
 			console.log('info', info.key, info);
 
 			if (info.type == 'icon') {
-				console.log('text',info.text)
-				let d = mText(info.text,table,null,{ family: info.family, fz: 200, bg:'red',fg:'green',display:'inline' });
+				console.log('text', info.text)
+				let d = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
 			} else {
 				mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+
 			}
 
 		}

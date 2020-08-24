@@ -12,14 +12,15 @@ function getRandomIconKey() {
 }
 function getRandomPicInfo(type) {
 	let key = getRandomPicKey(type);
+	//console.log('haaaaaaaaaaaaaaaa')
 	return getPicInfo(key);
 }
 function getRandomPicKey(type = DEFAULTPICTYPE) {
-	console.log(type)
+	//console.log(type)
 	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
 
 	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
-	console.log(keys)
+	//console.log(keys)
 
 	return chooseRandom(keys);
 }
@@ -40,29 +41,44 @@ function setPicText(info) {
 }
 function getSkinToneKey(key) {
 	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+	let k = stringBefore(key, '-');
+	let rest = stringAfter(key, '-');
+	if (startsWith(rest,'FE0F')) rest = stringAfter(rest,'-');
+	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+
+	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
+
+	return res;
+
+
 	return key + '-1F3F' + skinTones.asian;
 }
 function getPicInfo(key) {
 	//first fetch from symbolKeys
-	console.log('key', key)
+	//console.log('key', key)
 	let i1 = symbolDict[key];
 	let info = { typeInfo: i1, type: i1.type }
 	if (i1.type != 'icon') {
 		//get info from emojiChars[emojiKeys[key]];
 		let i2 = emojiChars[emojiKeys[key]];
 		for (const k in i2) info[k] = i2[k];
-		console.log('info1', info);
+		//console.log('info1', info);
 		//info.hexcode = info.record.hexcode;
 
 		// set skin tone if this is 'people-body'
-		if (info.group == 'people-body') info.hexcode = getSkinToneKey(info.hexcode)
+		
+		if (info.group == 'people-body' && info.subgroups != 'family' && info.subgroups != 'person-fantasy') {
+			//console.log('_______________________',info)
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
 
 		info.key = key;
 		info.family = 'emoNoto';
 		info.text = setPicText(info);
 		//info.text = String.fromCharCode('0x' + info.hexcode);
 		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
-		console.log('info', info)
+		//console.log('info', info)
 	} else {
 		let ch = info.ch = iconChars[key];
 		//let ch = iconChars[key];
@@ -76,6 +92,7 @@ function getPicInfo(key) {
 	//console.log('info', key, info);
 	return info;
 }
+//#endregion
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {
@@ -95,7 +112,10 @@ async function loadAssets() {
 
 	symbolDict = {};
 	for (const k in emojiKeys) {
-		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: emojiChars[emojiKeys[k]], type: 'emo' };
+		let rec = emojiChars[emojiKeys[k]];
+		// if (rec.group == 'people-body') continue;
+		// symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
+		if (rec.group == 'people-body') symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
 	}
 	duplicateKeys = [];
 	for (const k of iconKeys) {

@@ -2,7 +2,7 @@ var lang = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'emotion';
-var selectedEmoSetNames = ['animal', 'drink', 'emotion', 'food', 'fruit', 'game', 'kitchen', 'object', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game','gesture', 'hand', 'kitchen', 'object','person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var MAXWORDLENGTH = 8;
 var level = 0;
 
