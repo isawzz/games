@@ -38,17 +38,25 @@ function setPicText(info) {
 	s1 = res;
 	return s1;
 }
+function getSkinToneKey(key) {
+	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+	return key + '-1F3F' + skinTones.asian;
+}
 function getPicInfo(key) {
 	//first fetch from symbolKeys
 	console.log('key', key)
 	let i1 = symbolDict[key];
-	let info = { typeInfo: i1, type:i1.type }
+	let info = { typeInfo: i1, type: i1.type }
 	if (i1.type != 'icon') {
 		//get info from emojiChars[emojiKeys[key]];
 		let i2 = emojiChars[emojiKeys[key]];
 		for (const k in i2) info[k] = i2[k];
-		console.log('info1', info)
+		console.log('info1', info);
 		//info.hexcode = info.record.hexcode;
+
+		// set skin tone if this is 'people-body'
+		if (info.group == 'people-body') info.hexcode = getSkinToneKey(info.hexcode)
+
 		info.key = key;
 		info.family = 'emoNoto';
 		info.text = setPicText(info);
