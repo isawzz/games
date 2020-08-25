@@ -2367,6 +2367,8 @@ function processCsvData(allText) {
 			let k = headings[i];
 			o[k] = values[i];
 		}
+		o.order = Number(last(values));
+		
 		records[o.hexcode] = o;
 		//recordsByName[o.annotation] = o.hexcode;
 	}

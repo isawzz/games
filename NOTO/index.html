@@ -45,7 +45,37 @@
 	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
-		window.onload = async () => { await loadAssets(); test2(); }
+		window.onload = async () => { await loadAssets(); test4(); }
+		function test4() {
+			// let info = showPic('table','emo',{bg:'blue',w:150,margin:25,padding:23,h:120});
+			let info = showPic2('table', { type: 'emo', key: 'bee', hex: null }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
+			console.log(info);
+		}
+		function showPic2(area, {type='emo'}, styles, classes) {
+
+			let table = mBy(area);
+			let type = keys.type; // ['emo', 'random', 'icon', 'duplo'].includes(typeHexKey) ? typeHexKey : 'random';
+			let hex = keys isEmojiKey(typeHexKey) ? typeHexKey : null;
+			let key = typeHexKey != 'random' && type == 'random' && !hex ? typeHexKey : null;
+
+			let info = key ? getPicInfo(key) : hex ? getPicInfo(emojiChars[hex].annotation) : getRandomPicInfo(type);
+			//let info = getPicInfo('woman golfing'); //'waving hand');
+			//info = getPicInfo('mechanical leg');
+			console.log('info', info.key, info);
+
+			let ui;
+			if (info.type == 'icon') {
+				console.log('text', info.text)
+				ui = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+			} else {
+				ui = mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+			}
+			if (isdef(styles)) mStyleX(ui, styles);
+			if (isdef(classes)) mClass(ui, classes);
+			info.ui = ui;
+			return info;
+		}
+
 		function test3() {
 			let table = mBy('table');
 			let hexcode = '1F3FC'; //das ist ein skintone!
@@ -53,13 +83,40 @@
 			mSvg('/assets/svg/twemoji/' + hexcode + '.svg', table, { w: 200, h: 200 });
 		}
 
+		function isEmojiKey(hex) { return isdef(emojiChars[hex]); }
+		function selectKey(func) {
+
+		}
+		function showPic(area, typeHexKey, styles, classes) {
+
+			let table = mBy(area);
+			let type = ['emo', 'random', 'icon', 'duplo'].includes(typeHexKey) ? typeHexKey : 'random';
+			let hex = isEmojiKey(typeHexKey) ? typeHexKey : null;
+			let key = typeHexKey != 'random' && type == 'random' && !hex ? typeHexKey : null;
+
+			let info = key ? getPicInfo(key) : hex ? getPicInfo(emojiChars[hex].annotation) : getRandomPicInfo(type);
+			//let info = getPicInfo('woman golfing'); //'waving hand');
+			//info = getPicInfo('mechanical leg');
+			console.log('info', info.key, info);
+
+			let ui;
+			if (info.type == 'icon') {
+				console.log('text', info.text)
+				ui = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+			} else {
+				ui = mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+			}
+			if (isdef(styles)) mStyleX(ui, styles);
+			if (isdef(classes)) mClass(ui, classes);
+			info.ui = ui;
+			return info;
+		}
 		function test2() {
 			let type = 'emo';
-
 			let table = mBy('table');
 			let info = getRandomPicInfo(type);
 			//let info = getPicInfo('woman golfing'); //'waving hand');
-			info = getPicInfo('mechanical leg');
+			//info = getPicInfo('mechanical leg');
 			console.log('info', info.key, info);
 
 			if (info.type == 'icon') {
@@ -67,7 +124,6 @@
 				let d = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
 			} else {
 				mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
-
 			}
 
 		}
