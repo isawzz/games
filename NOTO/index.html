@@ -48,20 +48,16 @@
 		window.onload = async () => { await loadAssets(); test4(); }
 		function test4() {
 			// let info = showPic('table','emo',{bg:'blue',w:150,margin:25,padding:23,h:120});
-			let info = showPic2('table', { type: 'emo', key: 'bee', hex: null }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
-			console.log(info);
+			let info = showPic2('table', { type: 'icon', key:'bee' }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
+			
 		}
-		function showPic2(area, {type='emo'}, styles, classes) {
+		function showPic2(area, { type = 'emo', key, hex }, styles, classes) {
 
 			let table = mBy(area);
-			let type = keys.type; // ['emo', 'random', 'icon', 'duplo'].includes(typeHexKey) ? typeHexKey : 'random';
-			let hex = keys isEmojiKey(typeHexKey) ? typeHexKey : null;
-			let key = typeHexKey != 'random' && type == 'random' && !hex ? typeHexKey : null;
-
 			let info = key ? getPicInfo(key) : hex ? getPicInfo(emojiChars[hex].annotation) : getRandomPicInfo(type);
 			//let info = getPicInfo('woman golfing'); //'waving hand');
 			//info = getPicInfo('mechanical leg');
-			console.log('info', info.key, info);
+			//console.log('key:', info.key, '('+info.group, info.subgroups+')', '\ninfo', info);
 
 			let ui;
 			if (info.type == 'icon') {

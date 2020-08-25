@@ -536,7 +536,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🦋,1F98B,animals-nature,animal-bug,butterfly,butterfly,schmetterling,,,insect, pretty,,Selina Bauder,2018-04-18,,,,,3,2762
 🐛,1F41B,animals-nature,animal-bug,bug,caterpillar,raupe,,,insect,,Selina Bauder,2018-04-18,,,,,0.6,2763
 🐜,1F41C,animals-nature,animal-bug,ant,ant,ameise,,,and,,insect,,Selina Bauder,2018-04-18,,,,,0.6,2764
-🐝,1F41D,animals-nature,animal-bug,honeybee,bee,biene,b|be,,bee, insect,,Selina Bauder,2018-04-18,,,,,0.6,2765
+🐝,1F41D,animals-nature,animal-bug,bee,bee,biene,b|be,,bee, insect,,Selina Bauder,2018-04-18,,,,,0.6,2765
 🐞,1F41E,animals-nature,animal-bug,ladybug,ladybug,marienkäfer,,,beetle, insect, ladybird, ladybug,,Selina Bauder,2018-04-18,,,,,0.6,2767
 🦗,1F997,animals-nature,animal-bug,cricket,bug|insect|grasshopper | cricket,insekt|grashupfer | grille | heuschreck,grasshopper,,Selina Bauder,2018-04-18,,,,,5,2768
 🕷️,1F577,animals-nature,animal-bug,spider,spider,spinne,,,insect,,Selina Bauder,2018-04-18,,,,,0.7,2771
@@ -765,7 +765,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ⛴️,26F4,travel-places,transport-water,ferry,ferry,fähre,,,boat, passenger,,Lois Proksch,2018-11-16,,,,,0.7,3077
 🛥️,1F6E5,travel-places,transport-water,motor boat,motorboat,motorboot,,,boat, motorboat,boat, passengers, ship, travel, sea, atlantic, ocean, water, motor,Ronja Bäurlen,2018-04-18,,,,,0.7,3079
 🚢,1F6A2,travel-places,transport-water,ship,ship,schiff,,,boat, passenger,boat, passengers, ship, travel, sea, atlantic, ocean, water,Ronja Bäurlen,2018-04-18,,,,,0.6,3080
-✈️,2708,travel-places,transport-air,aitplane,airplane,flugzeug,,,aeroplane,fly, airplane, aeroplane, air, sky, travel, departure, arrive,Ronja Bäurlen,2018-04-18,,,,,0.6,3082
+✈️,2708,travel-places,transport-air,airplane,airplane,flugzeug,,,aeroplane,fly, airplane, aeroplane, air, sky, travel, departure, arrive,Ronja Bäurlen,2018-04-18,,,,,0.6,3082
 🛩️,1F6E9,travel-places,transport-air,small airplane,airplane,flugzeug,,,aeroplane, airplane,fly, airplane, aeroplane, air, sky, travel, departure, arrive,Ronja Bäurlen,2018-04-18,,,,,0.7,3084
 🛫,1F6EB,travel-places,transport-air,airplane departure,airplane | departure,flugzeug | abflug,,,aeroplane, airplane, check-in, departure, departures,fly, airplane, aeroplane, air, sky, travel, departure,Ronja Bäurlen,2018-04-18,,,,,1,3085
 🛬,1F6EC,travel-places,transport-air,airplane arrival,airplane | arrival,flugzeug | ankunft,,,aeroplane, airplane, arrivals, arriving, landing,fly, airplane, aeroplane, air, sky, travel, arrive,Ronja Bäurlen,2018-04-18,,,,,1,3086

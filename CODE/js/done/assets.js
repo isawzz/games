@@ -1,8 +1,72 @@
 
 var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
-var emojiChars, numEmojis, emojiKeys;
+var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 var symbolDict, symbolKeys, duplicateKeys;
+var symBySet, symIndex, symByGroup, symBySubgroup, symByHex;
+
+//#region emoji sets
+var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var emoSets = [
+	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
+	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
+	{ name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
+	{ name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
+	{ name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
+	{ name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
+	{ name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
+	{ name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
+	{ name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
+	{ name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
+
+	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
+	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
+	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
+	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	{ name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
+	{ name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
+	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
+	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
+	{ name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
+	{ name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
+	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
+	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
+
+	//objects:
+	{
+		name: 'object', f: o =>
+			(o.group == 'food-drink' && o.subgroups == 'dishware')
+			|| (o.group == 'travel-places' && o.subgroups == 'time')
+			|| (o.group == 'activities' && o.subgroups == 'event')
+			|| (o.group == 'activities' && o.subgroups == 'award-medal')
+			|| (o.group == 'activities' && o.subgroups == 'arts-crafts')
+			|| (o.group == 'activities' && o.subgroups == 'sport')
+			|| (o.group == 'activities' && o.subgroups == 'game')
+			|| (o.group == 'objects')
+			|| (o.group == 'activities' && o.subgroups == 'event')
+			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
+	},
+
+	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
+	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
+	{ name: 'symbols', f: o => o.group == 'symbols' },
+
+	//toolbar buttons:
+	{
+		name: 'toolbar', f: o => (o.group == 'symbols' && o.subgroups == 'warning')
+			|| (o.group == 'symbols' && o.subgroups == 'arrow')
+			|| (o.group == 'symbols' && o.subgroups == 'av-symbol')
+			|| (o.group == 'symbols' && o.subgroups == 'other-symbol')
+			|| (o.group == 'symbols' && o.subgroups == 'keycap')
+	},
+
+	{ name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
+	{ name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
+	{ name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
+
+];
+//#endregion
 
 //#region pic keys
 function getRandomIconKey() {
@@ -54,7 +118,7 @@ function getSkinToneKey(key) {
 
 	return key + '-1F3F' + skinTones.asian;
 }
-function getPicInfo(key) {
+function getPicInfoType(key, type) {
 	//first fetch from symbolKeys
 	//console.log('key', key)
 	let i1 = symbolDict[key];
@@ -70,8 +134,9 @@ function getPicInfo(key) {
 		//let noSkinList = ['family','person-fantasy']
 		//if (info.subgroups=='body-parts' && )
 		console.log('===>order', i2.order, i2.order2)
-		if (info.group == 'people-body' && info.subgroups != 'family' && info.subgroups != 'person-fantasy'
-			&& (info.subgroups!='body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
 			//console.log('_______________________',info)
 			info.hexcode = getSkinToneKey(info.hexcode);
 		}
@@ -95,6 +160,113 @@ function getPicInfo(key) {
 	//console.log('info', key, info);
 	return info;
 }
+function getPicInfo(key) {
+	//first fetch from symbolKeys
+	//console.log('key', key)
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type }
+	if (i1.type != 'icon') {
+		//get info from emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]];
+		for (const k in i2) info[k] = i2[k];
+		//console.log('info1', info);
+		//info.hexcode = info.record.hexcode;
+
+		// set skin tone if this is 'people-body'
+		//let noSkinList = ['family','person-fantasy']
+		//if (info.subgroups=='body-parts' && )
+		//console.log('===>order', i2.order, i2.order2)
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			//console.log('_______________________',info)
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
+
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		//info.text = String.fromCharCode('0x' + info.hexcode);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+		//console.log('info', info)
+	} else {
+		let ch = info.ch = iconChars[key];
+		//let ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		//let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
+function makeSymbolDictX() {
+	symbolDict = {};
+	symByHex = {}; symByGroup = {};
+	symIndex = {};
+	//key soll name von set sein, val soll key sein
+	for (const k in emojiKeys) {
+		let rec = emojiChars[emojiKeys[k]];
+		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
+		lookupSet(symByGroup, [rec.group, rec.subgroups, k], symbolDict[k]);
+		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
+		symByHex[rec.hexcode] = k;
+	}
+	duplicateKeys = [];
+	for (const k of iconKeys) {
+		let hex = iconChars[k];
+		if (isdef(symbolDict[k])) {
+			symByHex['i_' + hex] = k;
+			symbolDict['i_'+k]={ dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'duplo' };
+			duplicateKeys.push(k); 
+		} else {
+			symByHex[hex] = k;
+			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
+		}
+	}
+	symbolKeys = Object.keys(symbolDict);
+	makeEmoSetIndex();
+	console.log('symbolDict', symbolDict);
+	console.log('by set', symBySet);
+	console.log('by group', symByGroup);
+	console.log('index', symIndex);
+	console.log('by hex', symByHex);
+}
+function makeEmoSetIndex() {
+	symBySet = {};
+	for (const set of emoSets) {
+		let name = set.name;
+		let f = set.f;
+		symBySet[name] = [];
+		for (const k in symbolDict) {
+			let info = symbolDict[k];
+			if (info.type == 'icon') continue;
+			let o = info.record;
+			if (nundef(o.group) || nundef(o.subgroups)) continue;
+			let passt = f(o);
+			if (!passt) continue;
+			//console.log('_______',o);
+			//console.log('o.E',o.E,'\no.D',o.D)
+			if (passt) { symBySet[name].push(k); }
+		}
+	}
+}
+
+function makeSymbolDict() {
+	symbolDict = {}; //let i = 0;
+	for (const k in emojiKeys) {
+		let rec = emojiChars[emojiKeys[k]];
+		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
+	}
+	duplicateKeys = [];
+	for (const k of iconKeys) {
+		if (isdef(symbolDict[k])) { symbolDict[k].type = 'duplo'; duplicateKeys.push(k); continue; }
+		symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
+	}
+	symbolKeys = Object.keys(symbolDict);
+}
 //#endregion
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
@@ -112,28 +284,7 @@ async function loadAssets() {
 	emojiKeys = {};
 	for (const k in emojiChars) { emojiKeys[emojiChars[k].annotation] = k; }
 	numEmojis = Object.keys(emojiKeys).length;
-
-	symbolDict = {}; //let i = 0;
-	for (const k in emojiKeys) {
-		let rec = emojiChars[emojiKeys[k]];
-		// if (rec.group == 'people-body') continue;
-		// symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
-		//if (rec.group == 'people-body') {
-			symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
-			//i += 1;
-		//}
-	}
-	duplicateKeys = [];
-	for (const k of iconKeys) {
-		if (isdef(symbolDict[k])) { symbolDict[k].type = 'duplo'; duplicateKeys.push(k); continue; }
-		symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
-	}
-	symbolKeys = Object.keys(symbolDict);
-
-	//console.log(duplicateKeys)
-	//console.log(symbolDict)
-	//console.log(symbolKeys.length, symbolKeys.slice(0, 20));
-
+	makeSymbolDictX();
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
 }

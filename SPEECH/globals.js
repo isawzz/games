@@ -2,77 +2,17 @@ var lang = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'emotion';
-var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game','gesture', 'hand', 'kitchen', 'object','person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var MAXWORDLENGTH = 8;
 var level = 0;
 
 var timit;
-var finalResult, emoGroup, emoDict, matchingWords, validSounds, recognition, isRunning;
+var finalResult, matchingWords, validSounds, recognition, isRunning;
 var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
 var hintWord, bestWord, answerCorrect, currentRecord;
 var RESTARTING;
 var speakMode = interactMode == 'speak';
 
-var emoSets = [
-	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
-	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
-	{ name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
-	{ name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
-	{ name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
-	{ name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
-	{ name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
-	{ name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
-	{ name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
-	{ name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
-
-	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
-	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
-	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
-	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
-	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
-	{ name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
-	{ name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
-	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
-	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
-	{ name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
-	{ name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
-	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
-	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
-
-	//objects:
-	{
-		name: 'object', f: o =>
-			(o.group == 'food-drink' && o.subgroups == 'dishware')
-			|| (o.group == 'travel-places' && o.subgroups == 'time')
-			|| (o.group == 'activities' && o.subgroups == 'event')
-			|| (o.group == 'activities' && o.subgroups == 'award-medal')
-			|| (o.group == 'activities' && o.subgroups == 'arts-crafts')
-			|| (o.group == 'activities' && o.subgroups == 'sport')
-			|| (o.group == 'activities' && o.subgroups == 'game')
-			|| (o.group == 'objects')
-			|| (o.group == 'activities' && o.subgroups == 'event')
-			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
-	},
-
-	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
-	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
-	{ name: 'symbols', f: o => o.group == 'symbols' },
-
-	//toolbar buttons:
-	{
-		name: 'toolbar', f: o => (o.group == 'symbols' && o.subgroups == 'warning')
-			|| (o.group == 'symbols' && o.subgroups == 'arrow')
-			|| (o.group == 'symbols' && o.subgroups == 'av-symbol')
-			|| (o.group == 'symbols' && o.subgroups == 'other-symbol')
-			|| (o.group == 'symbols' && o.subgroups == 'keycap')
-	},
-
-	{ name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
-	{ name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
-	{ name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
-
-];
 
 //#region collections of words
 var farben = ['rot', 'gruen', 'blau', 'gelb', 'braun', 'violett', 'rosa', 'orange', 'schwarz', 'weiss'];
