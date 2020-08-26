@@ -48,16 +48,36 @@
 		window.onload = async () => { await loadAssets(); test4(); }
 		function test4() {
 			// let info = showPic('table','emo',{bg:'blue',w:150,margin:25,padding:23,h:120});
-			let info = showPic2('table', { type: 'icon', key:'bee' }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
-			
+			let info = showPic2('table', { type: 'duplo' }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
+
+		}
+		function picInfo(type,keyhex,func){
+			if (nundef(keyhex) && nundef(func)){
+				//was soll er machen?	random emo
+				return getRandomPicInfo(type);
+			}
+		}
+		function getPI(type, key, hex) {
+			//list ALL possibilities!!!
+			console.log(key, 'is dupl', duplicateKeys.includes(key))
+			if ((type == 'icon' && isdef(key) && duplicateKeys.includes(key))
+				|| (isdef(hex) && hex[0] == 'i')) {
+				key = 'i_' + key; type == 'icon';
+			}
+
+			console.log('type', type, 'key', key)
+			let info = isdef(key) ? getPicInfo(key)
+				: isdef(hex) ? getPicInfo(symByHex[hex])
+					: getRandomPicInfo(type);
+			//let info = getPicInfo('woman golfing'); //'waving hand');
+			//info = getPicInfo('mechanical leg');
+			//console.log('key:', info.key, '('+info.group, info.subgroups+')', '\ninfo', info);
+			return info;
 		}
 		function showPic2(area, { type = 'emo', key, hex }, styles, classes) {
 
 			let table = mBy(area);
-			let info = key ? getPicInfo(key) : hex ? getPicInfo(emojiChars[hex].annotation) : getRandomPicInfo(type);
-			//let info = getPicInfo('woman golfing'); //'waving hand');
-			//info = getPicInfo('mechanical leg');
-			//console.log('key:', info.key, '('+info.group, info.subgroups+')', '\ninfo', info);
+			let info = getPI(type, key, hex);
 
 			let ui;
 			if (info.type == 'icon') {

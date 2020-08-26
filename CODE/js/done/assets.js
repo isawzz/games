@@ -119,7 +119,7 @@ function getSkinToneKey(key) {
 	return key + '-1F3F' + skinTones.asian;
 }
 function getPicInfoType(key, type) {
-	//first fetch from symbolKeys
+	//first fetch from symbolKeys_
 	//console.log('key', key)
 	let i1 = symbolDict[key];
 	let info = { typeInfo: i1, type: i1.type }
@@ -160,14 +160,15 @@ function getPicInfoType(key, type) {
 	//console.log('info', key, info);
 	return info;
 }
-function getPicInfo(key) {
-	//first fetch from symbolKeys
+function getPicInfoX(key) {
+	//first fetch from symbolKeys_
 	//console.log('key', key)
 	let i1 = symbolDict[key];
-	let info = { typeInfo: i1, type: i1.type }
-	if (i1.type != 'icon') {
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type',i1.type,info,i1)
+	if (i1.type == 'emo') {
 		//get info from emojiChars[emojiKeys[key]];
-		let i2 = emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
 		for (const k in i2) info[k] = i2[k];
 		//console.log('info1', info);
 		//info.hexcode = info.record.hexcode;
@@ -189,12 +190,67 @@ function getPicInfo(key) {
 		//info.text = String.fromCharCode('0x' + info.hexcode);
 		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
 		//console.log('info', info)
-	} else {
+	}else  {
+		if (info.type == 'duplo'){
+			info.type = 'icon'
+			key=key.substring(2);
+			//console.log('key corrected to',key)
+		}
 		let ch = info.ch = iconChars[key];
+		//console.log(ch)
 		//let ch = iconChars[key];
 		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 		//let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = 'i_'+key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
+function getPicInfo(key) {
+	//first fetch from symbolKeys_
+	//console.log('key', key)
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type',i1.type,info,i1)
+	if (i1.type == 'emo') {
+		//get info from emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+		for (const k in i2) info[k] = i2[k];
+		//console.log('info1', info);
+		//info.hexcode = info.record.hexcode;
+
+		// set skin tone if this is 'people-body'
+		//let noSkinList = ['family','person-fantasy']
+		//if (info.subgroups=='body-parts' && )
+		//console.log('===>order', i2.order, i2.order2)
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			//console.log('_______________________',info)
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
+
 		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		//info.text = String.fromCharCode('0x' + info.hexcode);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+		//console.log('info', info)
+	}else  {
+		if (info.type == 'duplo'){
+			info.type = 'icon'
+			key=key.substring(2);
+			//console.log('key corrected to',key)
+		}
+		let ch = info.ch = iconChars[key];
+		//console.log(ch)
+		//let ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		//let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = 'i_'+key;
 		info.hexcode = ch;
 		info.text = setPicText(info);
 
@@ -227,12 +283,13 @@ function makeSymbolDictX() {
 		}
 	}
 	symbolKeys = Object.keys(symbolDict);
+	console.log('#symbolKeys',symbolKeys.length);
 	makeEmoSetIndex();
-	console.log('symbolDict', symbolDict);
-	console.log('by set', symBySet);
-	console.log('by group', symByGroup);
-	console.log('index', symIndex);
-	console.log('by hex', symByHex);
+	// console.log('symbolDict', symbolDict);
+	// console.log('by set', symBySet);
+	// console.log('by group', symByGroup);
+	// console.log('index', symIndex);
+	// console.log('by hex', symByHex);
 }
 function makeEmoSetIndex() {
 	symBySet = {};
