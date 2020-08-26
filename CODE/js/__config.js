@@ -42,7 +42,7 @@ const OPEN_OTHER = false; // true | false
 const OPEN_INTERACT = false; // true | false
 
 // ------------------ disregard from here -------------------------
-const DEFAULTPICTYPE = 'eduplo'; // undefined | emo | eduplo | iduplo | icon | random
+const DEFAULTPICTYPE = 'all'; // all | any | emo | eduplo | icon | iduplo
 var IS_START = true;
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)

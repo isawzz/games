@@ -69,59 +69,54 @@ var emoSets = [
 //#endregion
 
 //#region pic keys
-function getRandomIconKey() {
-	let keys = Object.keys(symbolDict);
-	keys = keys.filter(x => symbolDict[x].type == 'icon');
-	return chooseRandom(keys);
+function picFilter(type, funcKeyHex) {
+
+	if (isString(funcKeyHex)) {
+		//special case (icon,bee):
+		if (isString(funcKeyHex) && type[0] == 'i' && funcKeyHex[0] != 'i' && duplicateKeys.includes(funcKeyHex)) {
+			funcKeyHex = 'i_' + funcKeyHex;
+		}
+		console.assert(isdef(symByHex[funcKeyHex]) || isdef(symbolDict[funcKeyHex]), 'key or hex is NOT a correct key!!!');
+
+		if (isdef(symbolDict[funcKeyHex])) return [funcKeyHex];
+		else if (isdef(symByHex[funcKeyHex])) return [symByHex[funcKeyHex]];
+
+	} else {
+		//hier mach die liste und return it or apply functor
+		//type can be: [all] | any | emo | eduplo | icon | iduplo
+		if (nundef(type)) type = DEFAULTPICTYPE; //see __config.js
+		if (type == 'any') type = chooseRandom(['emo', 'eduplo', 'icon', 'iduplo']); //narrow down type if any
+		console.assert(['all', 'emo', 'eduplo', 'icon', 'iduplo'].includes(type), 'incorrect type!!!!!!!!!!!!!!!')
+
+		// type is now valid!!!
+
+		let keylist = type == 'all' ? symbolKeys : symbolKeys.filter(x => symbolDict[x].type == type); //make list of keys
+
+		// now type E {all,emo,eduplo,icon,iduplo}, keylist ready and funckeyhex either function or undefined
+		console.assert(isList(keylist), 'keylist not ready!!!!!!!!!!!!!!!!!!!!')
+		console.log('type', type, '\nfuncKeyHex', funcKeyHex, '\nkeylist', keylist)
+
+		//apply funckeyhex to it!
+		if (nundef(funcKeyHex)) return keylist;
+	}
+
+
+	return [];
+
 }
-function getRandomPicInfo(type) {
-	let key = getRandomPicKey(type);
-	//console.log('haaaaaaaaaaaaaaaa')
-	return getPicInfo(key);
+function picInfo(type, keyhex, func) {
+	if (nundef(keyhex) && nundef(func)) {
+		//was soll er machen?	random emo
+		return getRandomPicInfo(type);
+	}
 }
+
+function getRandomPicInfo(type) { let key = getRandomPicKey(type); return getPicInfo(key); }
 function getRandomPicKey(type = 'emo') {
-	//console.log(type)
-
-	//
-
 	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
-	else if (type == 'eduplo'){
-
-	}
 	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
-	//console.log(keys)
 
 	return chooseRandom(keys);
-}
-function setPicText(info) {
-	let decCode;
-	let hex = info.hexcode;
-
-	// hex = "1F1E8-1F1ED";
-	let parts = hex.split('-');
-	let res = '';
-	for (const p of parts) {
-		decCode = hexStringToDecimal(p);
-		s1 = '&#' + decCode + ';'; //'\u{1F436}';
-		res += s1;
-	}
-	s1 = res;
-	return s1;
-}
-function getSkinToneKey(key) {
-	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
-
-	let k = stringBefore(key, '-');
-	let rest = stringAfter(key, '-');
-	if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
-	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
-
-	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
-
-	return res;
-
-
-	return key + '-1F3F' + skinTones.asian;
 }
 function getPicInfoType(key, type) {
 	//first fetch from symbolKeys_
@@ -165,13 +160,12 @@ function getPicInfoType(key, type) {
 	//console.log('info', key, info);
 	return info;
 }
-function getPicInfoX(key) {
+function getPicInfo(key, type) {
 	//first fetch from symbolKeys_
 	//console.log('key', key)
 	let i1 = symbolDict[key];
 	let info = { typeInfo: i1, type: i1.type };
-	console.log('type',i1.type,info,i1);
-
+	console.log('type', i1.type, info, i1)
 	if (i1.type == 'emo') {
 		//get info from emojiChars[emojiKeys[key]];
 		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
@@ -196,10 +190,10 @@ function getPicInfoX(key) {
 		//info.text = String.fromCharCode('0x' + info.hexcode);
 		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
 		//console.log('info', info)
-	}else  {
-		if (info.type == 'iduplo'){
-			info.type = 'icon';
-			key=key.substring(2);
+	} else {
+		if (info.type == 'duplo') {
+			info.type = 'icon'
+			key = key.substring(2);
 			//console.log('key corrected to',key)
 		}
 		let ch = info.ch = iconChars[key];
@@ -207,7 +201,7 @@ function getPicInfoX(key) {
 		//let ch = iconChars[key];
 		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 		//let text = info.text = String.fromCharCode('0x' + ch);
-		info.key = 'i_'+key;
+		info.key = 'i_' + key;
 		info.hexcode = ch;
 		info.text = setPicText(info);
 
@@ -215,6 +209,7 @@ function getPicInfoX(key) {
 	//console.log('info', key, info);
 	return info;
 }
+
 function makeSymbolDictX() {
 	symbolDict = {};
 	symByHex = {}; symByGroup = {};
@@ -232,15 +227,15 @@ function makeSymbolDictX() {
 		let hex = iconChars[k];
 		if (isdef(symbolDict[k])) {
 			symByHex['i_' + hex] = k;
-			symbolDict['i_'+k]={ dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'duplo' };
-			duplicateKeys.push(k); 
+			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'duplo' };
+			duplicateKeys.push(k);
 		} else {
 			symByHex[hex] = k;
 			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
 		}
 	}
 	symbolKeys = Object.keys(symbolDict);
-	console.log('#symbolKeys',symbolKeys.length);
+	//console.log('#symbolKeys', symbolKeys.length);
 	makeEmoSetIndex();
 	// console.log('symbolDict', symbolDict);
 	// console.log('by set', symBySet);
@@ -261,76 +256,44 @@ function makeEmoSetIndex() {
 			if (nundef(o.group) || nundef(o.subgroups)) continue;
 			let passt = f(o);
 			if (!passt) continue;
-			//console.log('_______',o);
-			//console.log('o.E',o.E,'\no.D',o.D)
 			if (passt) { symBySet[name].push(k); }
 		}
 	}
 }
 
-function getPicInfo(key) {
-	//first fetch from symbolKeys_
-	//console.log('key', key)
-	let i1 = symbolDict[key];
-	let info = { typeInfo: i1, type: i1.type };
-	console.log('type',i1.type,info,i1)
-	if (i1.type == 'emo') {
-		//get info from emojiChars[emojiKeys[key]];
-		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
-		for (const k in i2) info[k] = i2[k];
-		//console.log('info1', info);
-		//info.hexcode = info.record.hexcode;
+//helpers done
+function setPicText(info) {
+	let decCode;
+	let hex = info.hexcode;
 
-		// set skin tone if this is 'people-body'
-		//let noSkinList = ['family','person-fantasy']
-		//if (info.subgroups=='body-parts' && )
-		//console.log('===>order', i2.order, i2.order2)
-		let nolist = ['family', 'person-fantasy', 'person-activity']
-		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
-			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
-			//console.log('_______________________',info)
-			info.hexcode = getSkinToneKey(info.hexcode);
-		}
-
-		info.key = key;
-		info.family = 'emoNoto';
-		info.text = setPicText(info);
-		//info.text = String.fromCharCode('0x' + info.hexcode);
-		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
-		//console.log('info', info)
-	}else  {
-		if (info.type == 'duplo'){
-			info.type = 'icon'
-			key=key.substring(2);
-			//console.log('key corrected to',key)
-		}
-		let ch = info.ch = iconChars[key];
-		//console.log(ch)
-		//let ch = iconChars[key];
-		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-		//let text = info.text = String.fromCharCode('0x' + ch);
-		info.key = 'i_'+key;
-		info.hexcode = ch;
-		info.text = setPicText(info);
-
+	// hex = "1F1E8-1F1ED";
+	let parts = hex.split('-');
+	let res = '';
+	for (const p of parts) {
+		decCode = hexStringToDecimal(p);
+		s1 = '&#' + decCode + ';'; //'\u{1F436}';
+		res += s1;
 	}
-	//console.log('info', key, info);
-	return info;
+	s1 = res;
+	return s1;
 }
-function makeSymbolDict() {
-	symbolDict = {}; //let i = 0;
-	for (const k in emojiKeys) {
-		let rec = emojiChars[emojiKeys[k]];
-		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
-	}
-	duplicateKeys = [];
-	for (const k of iconKeys) {
-		if (isdef(symbolDict[k])) { symbolDict[k].type = 'duplo'; duplicateKeys.push(k); continue; }
-		symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
-	}
-	symbolKeys = Object.keys(symbolDict);
+function getSkinToneKey(key) {
+	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+	let k = stringBefore(key, '-');
+	let rest = stringAfter(key, '-');
+	if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
+	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+
+	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
+
+	return res;
+
+
+	return key + '-1F3F' + skinTones.asian;
 }
-//#endregion
+
+//#ssendregion
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {

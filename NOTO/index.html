@@ -45,17 +45,31 @@
 	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
-		window.onload = async () => { await loadAssets(); test4(); }
+		window.onload = async () => { await loadAssets(); test5(); }
+		function test5(){
+
+			let res = picFilter('iduplo'); //ok
+			//let res = picFilter('all'); //ok
+			//let res = picFilter('emo'); //ok
+			//let res = picFilter('all','f156'); //ok faIconCodes
+			// let res = picFilter('icon','bee'); //ok
+			// let res = picFilter('all','1F481-200D-2642-FE0F'); //ok
+			// let res = picFilter('icon','1F40B'); //ok =>icons hat kein solches hex!!!
+			// let res = picFilter('all','1F40B'); //ok
+			// let res = picFilter(0,'dog'); //ok
+			console.log('==>result',res)
+		}
+
+
+
+
+
+
+
 		function test4() {
 			// let info = showPic('table','emo',{bg:'blue',w:150,margin:25,padding:23,h:120});
 			let info = showPic2('table', { type: 'duplo' }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
 
-		}
-		function picInfo(type,keyhex,func){
-			if (nundef(keyhex) && nundef(func)){
-				//was soll er machen?	random emo
-				return getRandomPicInfo(type);
-			}
 		}
 		function getPI(type, key, hex) {
 			//list ALL possibilities!!!
@@ -143,6 +157,12 @@
 			}
 
 		}
+		function getRandomIconKey() {
+			let keys = Object.keys(symbolDict);
+			keys = keys.filter(x => symbolDict[x].type == 'icon');
+			return chooseRandom(keys);
+		}
+
 		function test1() {
 
 			let key = 'onion'; let table = mBy('table');
