@@ -84,31 +84,42 @@ function picFilter(type, funcKeyHex) {
 	} else {
 		//hier mach die liste und return it or apply functor
 		//type can be: [all] | any | emo | eduplo | icon | iduplo
+		let isDuplicate = false;
 		if (nundef(type)) type = DEFAULTPICTYPE; //see __config.js
-		if (type == 'any') type = chooseRandom(['emo', 'eduplo', 'icon', 'iduplo']); //narrow down type if any
-		console.assert(['all', 'emo', 'eduplo', 'icon', 'iduplo'].includes(type), 'incorrect type!!!!!!!!!!!!!!!')
+		if (type == 'any') {
+			type = chooseRandom(['emo', 'icon']); //narrow down type if any
+			isDuplicate = chooseRandom([true, false]);
+		} else if (type == 'eduplo') {
+			type = 'emo';
+			isDuplicate = true;
+		} else if (type == 'iduplo') {
+			type = 'icon';
+			isDuplicate = true;
+		}
+
+		console.assert(['all', 'emo', 'icon'].includes(type), 'incorrect type!!!!!!!!!!!!!!!')
 
 		// type is now valid!!!
-
-		let keylist = type == 'all' ? symbolKeys : symbolKeys.filter(x => symbolDict[x].type == type); //make list of keys
+		let keylist = type == 'all' ? symbolKeys
+			: isDuplicate ? symbolKeys.filter(x => symbolDict[x].type == type && symbolDict[x].isDuplicate)
+				: symbolKeys.filter(x => symbolDict[x].type == type); //make list of keys
 
 		// now type E {all,emo,eduplo,icon,iduplo}, keylist ready and funckeyhex either function or undefined
 		console.assert(isList(keylist), 'keylist not ready!!!!!!!!!!!!!!!!!!!!')
-		console.log('type', type, '\nfuncKeyHex', funcKeyHex, '\nkeylist', keylist)
+		//console.log('type', type, '\nfuncKeyHex', funcKeyHex, '\nkeylist', keylist)
 
 		//apply funckeyhex to it!
-		if (nundef(funcKeyHex)) return keylist;
+		if (nundef(funcKeyHex)) { return keylist; }
+
+
+		console.log('________________', 'there is a function!!!')
+		//console.log(keylist);
+		return keylist.filter(funcKeyHex);
 	}
 
 
 	return [];
 
-}
-function picInfo(type, keyhex, func) {
-	if (nundef(keyhex) && nundef(func)) {
-		//was soll er machen?	random emo
-		return getRandomPicInfo(type);
-	}
 }
 
 function getRandomPicInfo(type) { let key = getRandomPicKey(type); return getPicInfo(key); }
@@ -118,106 +129,59 @@ function getRandomPicKey(type = 'emo') {
 
 	return chooseRandom(keys);
 }
-function getPicInfoType(key, type) {
-	//first fetch from symbolKeys_
-	//console.log('key', key)
-	let i1 = symbolDict[key];
-	let info = { typeInfo: i1, type: i1.type }
-	if (i1.type != 'icon') {
-		//get info from emojiChars[emojiKeys[key]];
-		let i2 = emojiChars[emojiKeys[key]];
-		for (const k in i2) info[k] = i2[k];
-		//console.log('info1', info);
-		//info.hexcode = info.record.hexcode;
 
-		// set skin tone if this is 'people-body'
-		//let noSkinList = ['family','person-fantasy']
-		//if (info.subgroups=='body-parts' && )
-		console.log('===>order', i2.order, i2.order2)
-		let nolist = ['family', 'person-fantasy', 'person-activity']
-		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
-			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
-			//console.log('_______________________',info)
-			info.hexcode = getSkinToneKey(info.hexcode);
-		}
-
-		info.key = key;
-		info.family = 'emoNoto';
-		info.text = setPicText(info);
-		//info.text = String.fromCharCode('0x' + info.hexcode);
-		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
-		//console.log('info', info)
-	} else {
-		let ch = info.ch = iconChars[key];
-		//let ch = iconChars[key];
-		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-		//let text = info.text = String.fromCharCode('0x' + ch);
-		info.key = key;
-		info.hexcode = ch;
-		info.text = setPicText(info);
-
-	}
-	//console.log('info', key, info);
-	return info;
-}
-function getPicInfo(key, type) {
-	//first fetch from symbolKeys_
-	//console.log('key', key)
-	let i1 = symbolDict[key];
-	let info = { typeInfo: i1, type: i1.type };
-	console.log('type', i1.type, info, i1)
-	if (i1.type == 'emo') {
-		//get info from emojiChars[emojiKeys[key]];
-		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
-		for (const k in i2) info[k] = i2[k];
-		//console.log('info1', info);
-		//info.hexcode = info.record.hexcode;
-
-		// set skin tone if this is 'people-body'
-		//let noSkinList = ['family','person-fantasy']
-		//if (info.subgroups=='body-parts' && )
-		//console.log('===>order', i2.order, i2.order2)
-		let nolist = ['family', 'person-fantasy', 'person-activity']
-		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
-			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
-			//console.log('_______________________',info)
-			info.hexcode = getSkinToneKey(info.hexcode);
-		}
-
-		info.key = key;
-		info.family = 'emoNoto';
-		info.text = setPicText(info);
-		//info.text = String.fromCharCode('0x' + info.hexcode);
-		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
-		//console.log('info', info)
-	} else {
-		if (info.type == 'duplo') {
-			info.type = 'icon'
-			key = key.substring(2);
-			//console.log('key corrected to',key)
-		}
-		let ch = info.ch = iconChars[key];
-		//console.log(ch)
-		//let ch = iconChars[key];
-		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-		//let text = info.text = String.fromCharCode('0x' + ch);
-		info.key = 'i_' + key;
-		info.hexcode = ch;
-		info.text = setPicText(info);
-
-	}
-	//console.log('info', key, info);
-	return info;
-}
-
-function makeSymbolDictX() {
-	symbolDict = {};
-	symByHex = {}; symByGroup = {};
-	symIndex = {};
-	//key soll name von set sein, val soll key sein
+function makeInfoDict() {
+	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {
 		let rec = emojiChars[emojiKeys[k]];
-		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo' };
+		let info = {
+			key: k,
+			type: 'emo',
+			isDuplicate: false,
+			isColored: true,
+		};
+		for (const k1 in rec) info[k1] = rec[k1];
+		info.hex = hexWithSkinTone(info);
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		info.path = '/asserts/svg/twemoji/' + info.hex + '.svg';
+		symbolDict[k] = info;
+		lookupSet(symByGroup, [rec.group, rec.subgroups, k], info);
+		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
+		symByHex[info.hexcode] = k;
+		symByHex[info.hex] = k;
+	}
+	duplicateKeys = [];
+	for (const k of iconKeys) {
+		let hex = iconChars[k];
+		if (isdef(symbolDict[k])) {
+			//dieser key (eg., bee) ist bereits vorgekommen, so es gibt auch so ein emoji
+			symbolDict[k].isDuplicate = true;
+			symByHex['i_' + hex] = k;
+			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: true };
+			duplicateKeys.push(k);
+		} else {
+			symByHex[hex] = k;
+			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: false };
+		}
+	}
+	symbolKeys = Object.keys(symbolDict);
+	//console.log('#symbolKeys', symbolKeys.length);
+	makeEmoSetIndex();
+	// console.log('symbolDict', symbolDict);
+	// console.log('by set', symBySet);
+	// console.log('by group', symByGroup);
+	// console.log('index', symIndex);
+	// console.log('by hex', symByHex);
+}
+
+
+function makeSymbolDictX() {
+	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
+
+	for (const k in emojiKeys) {
+		let rec = emojiChars[emojiKeys[k]];
+		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo', isDuplicate: false };
 		lookupSet(symByGroup, [rec.group, rec.subgroups, k], symbolDict[k]);
 		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
 		symByHex[rec.hexcode] = k;
@@ -226,12 +190,16 @@ function makeSymbolDictX() {
 	for (const k of iconKeys) {
 		let hex = iconChars[k];
 		if (isdef(symbolDict[k])) {
+			//dieser key (eg., bee) ist bereits vorgekommen, so es gibt auch so ein emoji
+			symbolDict[k].isDuplicate = true;
+
+
 			symByHex['i_' + hex] = k;
-			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'duplo' };
+			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: true };
 			duplicateKeys.push(k);
 		} else {
 			symByHex[hex] = k;
-			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon' };
+			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: false };
 		}
 	}
 	symbolKeys = Object.keys(symbolDict);
@@ -266,6 +234,7 @@ function setPicText(info) {
 	let decCode;
 	let hex = info.hexcode;
 
+	console.log('info.hexcode',info,info.hexcode);
 	// hex = "1F1E8-1F1ED";
 	let parts = hex.split('-');
 	let res = '';
@@ -310,7 +279,7 @@ async function loadAssets() {
 	emojiKeys = {};
 	for (const k in emojiChars) { emojiKeys[emojiChars[k].annotation] = k; }
 	numEmojis = Object.keys(emojiKeys).length;
-	makeSymbolDictX();
+	makeInfoDict(); //makeSymbolDictX();
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
 }
@@ -681,7 +650,7 @@ async function route_initGame(game, gc, username, seed = SEED) {
 		if (isAI) {
 			await postData(SERVER + '/add/client/agent/' + plInfo.username, { agent_type: plInfo.agentType, timeout: null });
 		}
-		await fetch_wrapper(SERVER + '/add/player/' + plInfo.username + '/' + plInfo.id);
+		await fetch_wrapper(SERVER + '/add/player/' + plInfo.username + '/' + plInfo);
 	}
 	return await route_begin_status(username, seed);
 }
@@ -934,6 +903,55 @@ function _pickStringForAction(x) {
 //#endregion
 
 
+function getPicInfo_dep(key, type) {
+	//first fetch from symbolKeys_
+	//console.log('key', key)
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type', i1.type, info, i1)
+	if (i1.type == 'emo') {
+		//get info from emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+		for (const k in i2) info[k] = i2[k];
+		//console.log('info1', info);
+		//info.hexcode = info.record.hexcode;
+
+		// set skin tone if this is 'people-body'
+		//let noSkinList = ['family','person-fantasy']
+		//if (info.subgroups=='body-parts' && )
+		//console.log('===>order', i2.order, i2.order2)
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			//console.log('_______________________',info)
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
+
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		//info.text = String.fromCharCode('0x' + info.hexcode);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+		//console.log('info', info)
+	} else {
+		if (info.type == 'duplo') {
+			info.type = 'icon'
+			key = key.substring(2);
+			//console.log('key corrected to',key)
+		}
+		let ch = info.ch = iconChars[key];
+		//console.log(ch)
+		//let ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		//let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = 'i_' + key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
 
 
 

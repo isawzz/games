@@ -45,10 +45,84 @@
 	<script src="/CODE/js/__config.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
-		window.onload = async () => { await loadAssets(); test5(); }
-		function test5(){
 
-			let res = picFilter('iduplo'); //ok
+		function hexWithSkinTone(info) {
+			const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+			let hex = info.hexcode; //default case!
+			let nolist = ['family', 'person-fantasy', 'person-activity']
+			if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+				&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+
+				// hex = getSkinToneKey(info.hexcode);
+
+				let k = stringBefore(info.hexcode, '-');
+				let rest = stringAfter(info.hexcode, '-');
+				if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
+				hex = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+			}
+			return hex;
+		}
+
+		function getPicInfo(key) {
+			let i1 = symbolDict[key];
+			let info = { typeInfo: i1, type: i1.type };
+			console.log('type', i1.type, info, i1)
+			if (i1.type == 'emo') {
+				let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+				for (const k in i2) info[k] = i2[k];
+				let nolist = ['family', 'person-fantasy', 'person-activity']
+				if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+					&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+					info.hexcode = getSkinToneKey(info.hexcode);
+				}
+
+				info.key = key;
+				info.family = 'emoNoto';
+				info.text = setPicText(info);
+				info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+			} else {
+				if (info.type == 'duplo') {
+					info.type = 'icon'
+					key = key.substring(2);
+				}
+				let ch = info.ch = iconChars[key];
+				let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+				info.key = 'i_' + key;
+				info.hexcode = ch;
+				info.text = setPicText(info);
+
+			}
+			//console.log('info', key, info);
+			return info;
+		}
+
+		window.onload = async () => { await loadAssets(); test6(); }
+		function test6(){
+			let table = mBy('table');
+			let klist = picFilter('emo');
+			//console.log(klist)
+			let key = chooseRandom(klist);
+			console.log('key',key);
+			let info = symbolDict[key];
+			console.log('info',info)
+			let ui;
+			if (info.type == 'icon') {
+				console.log('text', info.text)
+				ui = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+			} else {
+				ui = mSvg(info.path, table, { w: 200, h: 200 });
+			}
+			// if (isdef(styles)) mStyleX(ui, styles);
+			// if (isdef(classes)) mClass(ui, classes);
+			info.ui = ui;
+			return info;
+
+		}
+		function test5() {
+
+			//let res = picFilter('iduplo'); //ok
+			let res = picFilter('emo', x => symbolDict[x].isDuplicate == false);
 			//let res = picFilter('all'); //ok
 			//let res = picFilter('emo'); //ok
 			//let res = picFilter('all','f156'); //ok faIconCodes
@@ -57,15 +131,8 @@
 			// let res = picFilter('icon','1F40B'); //ok =>icons hat kein solches hex!!!
 			// let res = picFilter('all','1F40B'); //ok
 			// let res = picFilter(0,'dog'); //ok
-			console.log('==>result',res)
+			console.log('==>result', res)
 		}
-
-
-
-
-
-
-
 		function test4() {
 			// let info = showPic('table','emo',{bg:'blue',w:150,margin:25,padding:23,h:120});
 			let info = showPic2('table', { type: 'duplo' }, { bg: 'blue', w: 150, margin: 25, padding: 23, h: 120 });
