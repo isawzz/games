@@ -133,6 +133,7 @@ function getRandomPicKey(type = 'emo') {
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {
+		//console.log(k)
 		let rec = emojiChars[emojiKeys[k]];
 		let info = {
 			key: k,
@@ -144,7 +145,7 @@ function makeInfoDict() {
 		info.hex = hexWithSkinTone(info);
 		info.family = 'emoNoto';
 		info.text = setPicText(info);
-		info.path = '/asserts/svg/twemoji/' + info.hex + '.svg';
+		info.path = '/assets/svg/twemoji/' + info.hex + '.svg';
 		symbolDict[k] = info;
 		lookupSet(symByGroup, [rec.group, rec.subgroups, k], info);
 		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
@@ -154,15 +155,20 @@ function makeInfoDict() {
 	duplicateKeys = [];
 	for (const k of iconKeys) {
 		let hex = iconChars[k];
+		let info = { hex: hex, hexcode: hex, key: k, isColored: false, type: 'icon', isDuplicate: false };
+		info.family = (hex[0] == 'f' || hex[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		info.text = setPicText(info);
 		if (isdef(symbolDict[k])) {
 			//dieser key (eg., bee) ist bereits vorgekommen, so es gibt auch so ein emoji
-			symbolDict[k].isDuplicate = true;
-			symByHex['i_' + hex] = k;
-			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: true };
+			symbolDict[k].isDuplicate = true; //that is the emo!!!
+			symByHex['i_' + info.hex] = k;
+			symbolDict['i_' + k] = info;
+			info.key = 'i_' + k;
+			info.isDuplicate = true;
 			duplicateKeys.push(k);
 		} else {
-			symByHex[hex] = k;
-			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: false };
+			symByHex[info.hex] = k;
+			symbolDict[k] = info;
 		}
 	}
 	symbolKeys = Object.keys(symbolDict);
@@ -220,7 +226,7 @@ function makeEmoSetIndex() {
 		for (const k in symbolDict) {
 			let info = symbolDict[k];
 			if (info.type == 'icon') continue;
-			let o = info.record;
+			let o = info;
 			if (nundef(o.group) || nundef(o.subgroups)) continue;
 			let passt = f(o);
 			if (!passt) continue;
@@ -234,7 +240,7 @@ function setPicText(info) {
 	let decCode;
 	let hex = info.hexcode;
 
-	console.log('info.hexcode',info,info.hexcode);
+	//console.log('info.hexcode',info,info.hexcode);
 	// hex = "1F1E8-1F1ED";
 	let parts = hex.split('-');
 	let res = '';
@@ -277,7 +283,14 @@ async function loadAssets() {
 	emojiChars = vidCache.asDict('emojiChars');
 	//console.log('emojiChars', takeFromStart(emojiChars, 10));
 	emojiKeys = {};
-	for (const k in emojiChars) { emojiKeys[emojiChars[k].annotation] = k; }
+
+	for (const k in emojiChars) {
+		if (nundef(k) || nundef(emojiChars[k].annotation)) {
+			//console.log('emojiChars[k]',k,emojiChars[k],'\ncontinue...');
+			continue;
+		}
+		emojiKeys[emojiChars[k].annotation] = k;
+	}
 	numEmojis = Object.keys(emojiKeys).length;
 	makeInfoDict(); //makeSymbolDictX();
 	c52C = await vidCache.load('c52', route_c52);

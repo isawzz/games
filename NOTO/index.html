@@ -50,9 +50,12 @@
 			const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
 
 			let hex = info.hexcode; //default case!
-			let nolist = ['family', 'person-fantasy', 'person-activity']
+			let nolist = ['family', 'person-fantasy', 'person-activity'];
+
+
 			if (info.group == 'people-body' && !nolist.includes(info.subgroups)
-				&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			&& (info.subgroups != 'body-parts' || !info.annotation.includes('mechan') && info.order < 404)) {
+				//if (info.subgroups == 'body-parts') console.log('order',info.order,info.annotation)
 
 				// hex = getSkinToneKey(info.hexcode);
 
@@ -98,14 +101,14 @@
 		}
 
 		window.onload = async () => { await loadAssets(); test6(); }
-		function test6(){
+		function test6() {
 			let table = mBy('table');
-			let klist = picFilter('emo');
+			let klist = picFilter();
 			//console.log(klist)
 			let key = chooseRandom(klist);
-			console.log('key',key);
+			console.log('key', key);
 			let info = symbolDict[key];
-			console.log('info',info)
+			console.log('info', info)
 			let ui;
 			if (info.type == 'icon') {
 				console.log('text', info.text)
