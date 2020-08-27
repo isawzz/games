@@ -70,7 +70,6 @@ var emoSets = [
 
 //#region pic keys
 function picFilter(type, funcKeyHex) {
-
 	if (isString(funcKeyHex)) {
 		//special case (icon,bee):
 		if (isString(funcKeyHex) && type[0] == 'i' && funcKeyHex[0] != 'i' && duplicateKeys.includes(funcKeyHex)) {
@@ -121,15 +120,34 @@ function picFilter(type, funcKeyHex) {
 	return [];
 
 }
+function picDraw(info,table,styles,classes){
+	let d=mDiv(table);
+	mClass(d,'picOuter')
+	if (info.type == 'icon' || info.type == 'emotext') {
+		//console.log('text', info.text);
+		
+		let ui = mText(info.text, d, null, { family: info.family});
+		mClass(ui,'picTextInner');
+		if (isdef(styles)) mStyleX(d, styles);
+		if (isdef(classes)) mClass(d, classes);
 
-function getRandomPicInfo(type) { let key = getRandomPicKey(type); return getPicInfo(key); }
-function getRandomPicKey(type = 'emo') {
-	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
-	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
+		
+		if (isdef(styles.w)||isdef(styles.h)){
+			//console.log('YES!')
+			mSizePic(d,styles.w,styles.h);
+		}
+		//mAppend(d,ui);
 
-	return chooseRandom(keys);
+	} else {
+		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		//mClass(ui,'picInner');
+		//mAppend(d,ui);
+	}
+	console.log('d',d);
+	info.ui = d;
+	return info;
+
 }
-
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {
@@ -181,7 +199,60 @@ function makeInfoDict() {
 	// console.log('by hex', symByHex);
 }
 
+function getPicInfo(key) {
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type', i1.type, info, i1)
+	if (i1.type == 'emo') {
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+		for (const k in i2) info[k] = i2[k];
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
 
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+	} else {
+		if (info.type == 'duplo') {
+			info.type = 'icon'
+			key = key.substring(2);
+		}
+		let ch = info.ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		info.key = 'i_' + key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
+function getRandomPicInfo(type) { let key = getRandomPicKey(type); return getPicInfo(key); }
+function getRandomPicKey(type = 'emo') {
+	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
+	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
+
+	return chooseRandom(keys);
+}
+function getSkinToneKey(key) {
+	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+	let k = stringBefore(key, '-');
+	let rest = stringAfter(key, '-');
+	if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
+	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+
+	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
+
+	return res;
+
+
+	return key + '-1F3F' + skinTones.asian;
+}
 function makeSymbolDictX() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 
@@ -236,6 +307,26 @@ function makeEmoSetIndex() {
 }
 
 //helpers done
+function hexWithSkinTone(info) {
+	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+	let hex = info.hexcode; //default case!
+	let nolist = ['family', 'person-fantasy', 'person-activity'];
+
+
+	if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+	&& (info.subgroups != 'body-parts' || !info.annotation.includes('mechan') && info.order < 404)) {
+		//if (info.subgroups == 'body-parts') console.log('order',info.order,info.annotation)
+
+		// hex = getSkinToneKey(info.hexcode);
+
+		let k = stringBefore(info.hexcode, '-');
+		let rest = stringAfter(info.hexcode, '-');
+		if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
+		hex = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+	}
+	return hex;
+}
 function setPicText(info) {
 	let decCode;
 	let hex = info.hexcode;
@@ -251,21 +342,6 @@ function setPicText(info) {
 	}
 	s1 = res;
 	return s1;
-}
-function getSkinToneKey(key) {
-	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
-
-	let k = stringBefore(key, '-');
-	let rest = stringAfter(key, '-');
-	if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
-	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
-
-	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
-
-	return res;
-
-
-	return key + '-1F3F' + skinTones.asian;
 }
 
 //#ssendregion

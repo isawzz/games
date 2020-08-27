@@ -501,6 +501,10 @@ function mStyleX(elem, styles, unit = 'px') {
 		weight: 'font-weight',
 	};
 	//console.log(':::::::::styles',styles)
+	if (isdef(styles.bg) || isdef(styles.fg)) { [styles.bg, styles.fg] = getExtendedColors(styles.bg, styles.fg); }
+
+	//console.log(styles.bg,styles.fg);
+	
 	for (const k in styles) {
 		let val = styles[k];
 		let key = k;
@@ -524,10 +528,10 @@ function mStyleX(elem, styles, unit = 'px') {
 		elem.style.setProperty(key, makeUnitString(styles[k], unit));
 	}
 }
-function mSvg(path,dParent,styles,classes){
+function mSvg(path, dParent, styles, classes) {
 	let d = mCreate('img');
-	d.src=path;
-	mAppend(dParent,d);
+	d.src = path;
+	mAppend(dParent, d);
 	if (isdef(styles)) mStyleX(d, styles);
 	if (isdef(classes)) mClass(d, classes);
 	return d;
@@ -539,8 +543,8 @@ function mText(msg, dParent, id, styleDict, classList) {
 	if (!isEmpty(msg)) d.innerHTML = msg;
 	if (isdef(id)) d.id = id;
 	mAppend(dParent, d);
-	if (isdef(styleDict)) mStyleX(d,styleDict);
-	if (isdef(classList)) mClass(d,classList);
+	if (isdef(styleDict)) mStyleX(d, styleDict);
+	if (isdef(classList)) mClass(d, classList);
 	return d;
 }
 function recFlattenLists(o) {
@@ -2368,7 +2372,7 @@ function processCsvData(allText) {
 			o[k] = values[i];
 		}
 		o.order = Number(last(values));
-		
+
 		records[o.hexcode] = o;
 		//recordsByName[o.annotation] = o.hexcode;
 	}
