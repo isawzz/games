@@ -120,22 +120,64 @@ function picFilter(type, funcKeyHex) {
 	return [];
 
 }
-function picDraw(info,table,styles,classes){
-	let d=mDiv(table);
-	mClass(d,'picOuter')
+function picDraw(info, table, styles, classes) {
 	if (info.type == 'icon' || info.type == 'emotext') {
 		//console.log('text', info.text);
-		
-		let ui = mText(info.text, d, null, { family: info.family});
-		mClass(ui,'picTextInner');
+		console.log('styles',styles);
+		console.log('classes',classes);
+		let d = mDiv(table);
+		mClass(d, 'picOuter')
+		let ui = mText(info.text, d, null, { family: info.family });
+		mClass(ui, 'picTextInner');
+		if (isdef(styles.fz)) {
+			console.log('jaaaaaaaaaaaaaaaaaaaaaaaa')
+			let sz = measureText(info.text, styles.fz, info.family);
+			let padding = isdef(styles.padding) ? styles.padding : 0;
+			wMin = sz.w + padding * 2; if (isdef(styles.w)) wMin = Math.max(wMin, styles.w);
+			hMin = sz.h + padding * 2; if (isdef(styles.h)) hMin = Math.max(hMin, styles.h);
+			console.log(wMin,hMin)
+			styles.h = hMin; styles.w = wMin;
+		} else if (isdef(styles.w) || isdef(styles.h)) {
+			console.log('hallo!!!!!')
+			if (nundef(styles.h)) styles.h=styles.w;
+			let padding = isdef(styles.padding) ? styles.padding : 0;
+			styles.fz = styles.h-2*padding;
+			styles['text-align']= 'center';
+			styles['box-sizing']='border-box';
+		}
+		//mAppend(d,ui);
+		if (isdef(styles)) mStyleX(d, styles);
+		if (isdef(classes)) mClass(d, classes);
+		console.log('d', d);
+		info.ui = d;
+		return info;
+
+	} else {
+		let d = mDiv(table);
+		mClass(d, 'picOuter')
+		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		console.log('d', d);
+		info.ui = d;
+		return info;
+	}
+
+}
+function picDraw_dep(info, table, styles, classes) {
+	let d = mDiv(table);
+	mClass(d, 'picOuter')
+	if (info.type == 'icon' || info.type == 'emotext') {
+		//console.log('text', info.text);
+
+		let ui = mText(info.text, d, null, { family: info.family });
+		mClass(ui, 'picTextInner');
 		if (isdef(styles)) mStyleX(d, styles);
 		if (isdef(classes)) mClass(d, classes);
 
-		
-		if (isdef(styles.w)||isdef(styles.h)){
-			//console.log('YES!')
-			mSizePic(d,styles.w,styles.h);
-		}
+
+		// if (isdef(styles.w) || isdef(styles.h)) {
+		// 	//console.log('YES!')
+		// 	mSizePic(d, styles.w, styles.h);
+		// }
 		//mAppend(d,ui);
 
 	} else {
@@ -143,7 +185,7 @@ function picDraw(info,table,styles,classes){
 		//mClass(ui,'picInner');
 		//mAppend(d,ui);
 	}
-	console.log('d',d);
+	console.log('d', d);
 	info.ui = d;
 	return info;
 
@@ -315,7 +357,7 @@ function hexWithSkinTone(info) {
 
 
 	if (info.group == 'people-body' && !nolist.includes(info.subgroups)
-	&& (info.subgroups != 'body-parts' || !info.annotation.includes('mechan') && info.order < 404)) {
+		&& (info.subgroups != 'body-parts' || !info.annotation.includes('mechan') && info.order < 404)) {
 		//if (info.subgroups == 'body-parts') console.log('order',info.order,info.annotation)
 
 		// hex = getSkinToneKey(info.hexcode);
