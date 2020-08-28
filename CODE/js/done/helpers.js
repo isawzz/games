@@ -170,15 +170,17 @@ function createPictoSimple({ key, w, h, unit = 'px', fg, bg, padding, cat, paren
 	if (parent) parent.appendChild(domel);
 	return domel;
 }
-function mPicSimple(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding }) {
+function mPicSimple(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding, shape }) {
 	if (nundef(w)) w = 25;
 	if (nundef(h)) h = w;
 
 	let d = document.createElement('div');
+	if (dParent) dParent.appendChild(d);
 	d.style.textAlign = 'center';
 	d.style.fontFamily = info.family;
 	d.style.fontWeight = 900;
 	d.style.fontSize = h + unit;
+	//d.style.paddintTop = Math.max(padding,h/4)+unit;
 	[bg, fg] = getExtendedColors(bg, fg);
 	if (isdef(bg)) d.style.backgroundColor = bg;
 	if (isdef(fg)) d.style.color = fg;
@@ -186,13 +188,20 @@ function mPicSimple(info, dParent, { w, h, unit = 'px', fg, bg, padding, border,
 	if (isdef(padding)) d.style.padding = padding + unit;
 	d.style.display = 'inline-block';
 	d.style.minHeight = h + 2 * padding + unit;
-	d.style.minWidth = d.style.minHeight;
+	d.style.minWidth = w + 2 * padding  + unit;
 	//d.style.textAlign = 'center';
 	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
 	if (isdef(border)) d.style.border = border;
 	if (isdef(rounding)) d.style.borderRadius = rounding + unit;
+	else if (isdef(shape) && shape == 'ellipse') {
+		let b=getBounds(d);
+
+		let vertRadius = b.height/2;
+		let horRadius = b.width/2;
+		console.log(getBounds(d))
+		d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
+	}
 	d.key = info.key;
-	if (dParent) dParent.appendChild(d);
 	return d;
 }
 
@@ -2001,15 +2010,17 @@ function generateFontString(fz, family, weight = 900) {
 	let s = '' + weight + ' ' + fz + 'px ' + family;
 	return s.trim();
 }
-function measureText(text, fz, family, weight) {
-	let sFont = weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
+function measureText(text, fz, family, weight = 900) {
+	let sFont = '' + weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
 	sFont = sFont.trim();
 	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
 	var context = canvas.getContext('2d');
 	context.font = sFont;
 	var metrics = context.measureText(text);
-	console.log(metrics);
-	return { w: metrics.width, h: metrics.height };
+	// let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+	// let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+	console.log('metrics', metrics, '\nfz', fz);
+	return { w: metrics.width, h: fz };//actualHeight };
 }
 
 //#endregion

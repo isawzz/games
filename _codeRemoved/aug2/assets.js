@@ -123,7 +123,7 @@ function picFilter(type, funcKeyHex) {
 function picDraw(info, table, styles, classes) {
 	if (info.type == 'icon' || info.type == 'emotext') {
 		console.log('text', info.text);
-		let res=mPicSimple(info, table, styles, classes);
+		let res=mPicSimple(info, table, { w:200, h:200, fg:'random', bg:'random', padding:4, border:'red', rounding:4 });
 		console.log('res',res);
 		info.ui = res;
 		return info;
@@ -890,6 +890,225 @@ function _pickStringForAction(x) {
 
 
 //#endregion
+
+
+//#region older code
+function getPicInfo_dep(key, type) {
+	//first fetch from symbolKeys_
+	//console.log('key', key)
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type', i1.type, info, i1)
+	if (i1.type == 'emo') {
+		//get info from emojiChars[emojiKeys[key]];
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+		for (const k in i2) info[k] = i2[k];
+		//console.log('info1', info);
+		//info.hexcode = info.record.hexcode;
+
+		// set skin tone if this is 'people-body'
+		//let noSkinList = ['family','person-fantasy']
+		//if (info.subgroups=='body-parts' && )
+		//console.log('===>order', i2.order, i2.order2)
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			//console.log('_______________________',info)
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
+
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		//info.text = String.fromCharCode('0x' + info.hexcode);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+		//console.log('info', info)
+	} else {
+		if (info.type == 'duplo') {
+			info.type = 'icon'
+			key = key.substring(2);
+			//console.log('key corrected to',key)
+		}
+		let ch = info.ch = iconChars[key];
+		//console.log(ch)
+		//let ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		//let text = info.text = String.fromCharCode('0x' + ch);
+		info.key = 'i_' + key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
+function picDraw_dep2(info, table, styles, classes) {
+	if (info.type == 'icon' || info.type == 'emotext') {
+		//console.log('text', info.text);
+		let res=mPicSimple(info, table, { w:200, h:200, fg:'random', bg:'random', padding:4, border:'red', rounding:4 });
+		console.log('res',res);
+
+		styles['box-sizing'] = 'border-box';
+		styles.display = 'inline-box';
+		styles.family = info.family;
+		console.log('styles', styles);
+		console.log('classes', classes);
+		let d = mDiv(table);
+		// mClass(d, 'picOuter')
+		let ui = mText(info.text, d, null, styles);
+		// mClass(ui, 'picTextInner');
+		if (isdef(styles.fz)) {
+			//console.log('jaaaaaaaaaaaaaaaaaaaaaaaa')
+			let sz = measureText(info.text, styles.fz, info.family);
+			let padding = isdef(styles.padding) ? styles.padding : 0;
+			wMin = sz.w + padding * 2; if (isdef(styles.w)) wMin = Math.max(wMin, isdef(styles.w) ? styles.w : 0);
+			hMin = sz.h + padding * 2; if (isdef(styles.h)) hMin = Math.max(hMin, isdef(styles.h) ? styles.h : 0);
+			console.log('w', wMin, 'h', hMin)
+			styles.h = hMin; styles.w = wMin;
+		} else if (isdef(styles.w) || isdef(styles.h)) {
+			console.log('hallo!!!!!')
+			if (nundef(styles.h)) styles.h = styles.w;
+			let padding = isdef(styles.padding) ? styles.padding : 0;
+			styles.fz = styles.h - 2 * padding;
+			styles['text-align'] = 'center';
+			styles['box-sizing'] = 'border-box';
+		}
+		//mAppend(d,ui);
+		if (isdef(styles)) mStyleX(d, styles);
+		if (isdef(classes)) mClass(d, classes);
+		console.log('d', d);
+		info.ui = d;
+		return info;
+
+	} else {
+		let d = mDiv(table);
+		mClass(d, 'picOuter')
+		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		console.log('d', d);
+		info.ui = d;
+		return info;
+	}
+
+}
+function picDraw_dep(info, table, styles, classes) {
+	let d = mDiv(table);
+	mClass(d, 'picOuter')
+	if (info.type == 'icon' || info.type == 'emotext') {
+		//console.log('text', info.text);
+
+		let ui = mText(info.text, d, null, { family: info.family });
+		mClass(ui, 'picTextInner');
+		if (isdef(styles)) mStyleX(d, styles);
+		if (isdef(classes)) mClass(d, classes);
+
+
+		// if (isdef(styles.w) || isdef(styles.h)) {
+		// 	//console.log('YES!')
+		// 	mSizePic(d, styles.w, styles.h);
+		// }
+		//mAppend(d,ui);
+
+	} else {
+		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		//mClass(ui,'picInner');
+		//mAppend(d,ui);
+	}
+	console.log('d', d);
+	info.ui = d;
+	return info;
+
+}
+function getPicInfo(key) {
+	let i1 = symbolDict[key];
+	let info = { typeInfo: i1, type: i1.type };
+	console.log('type', i1.type, info, i1)
+	if (i1.type == 'emo') {
+		let i2 = emojiChars[emojiKeys[key]]; //kann ich da nicht symbolDict.record verwenden???
+		for (const k in i2) info[k] = i2[k];
+		let nolist = ['family', 'person-fantasy', 'person-activity']
+		if (info.group == 'people-body' && !nolist.includes(info.subgroups)
+			&& (info.subgroups != 'body-parts' || !i2.annotation.includes('mechan') && i2.order < 404)) {
+			info.hexcode = getSkinToneKey(info.hexcode);
+		}
+
+		info.key = key;
+		info.family = 'emoNoto';
+		info.text = setPicText(info);
+		info.path = '/asserts/svg/twemoji/' + info.hexcode + '.svg';
+	} else {
+		if (info.type == 'duplo') {
+			info.type = 'icon'
+			key = key.substring(2);
+		}
+		let ch = info.ch = iconChars[key];
+		let family = info.family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+		info.key = 'i_' + key;
+		info.hexcode = ch;
+		info.text = setPicText(info);
+
+	}
+	//console.log('info', key, info);
+	return info;
+}
+function getRandomPicInfo(type) { let key = getRandomPicKey(type); return getPicInfo(key); }
+function getRandomPicKey(type = 'emo') {
+	if (nundef(type) || type[0] == 'r') return chooseRandom(symbolKeys);
+	let keys = symbolKeys.filter(x => symbolDict[x].type == type);
+
+	return chooseRandom(keys);
+}
+function getSkinToneKey(key) {
+	const skinTones = { white: 'B', asian: 'C', hispanic: 'D', indian: 'E', black: 'F' };
+
+	let k = stringBefore(key, '-');
+	let rest = stringAfter(key, '-');
+	if (startsWith(rest, 'FE0F')) rest = stringAfter(rest, '-');
+	let res = k + '-1F3F' + skinTones.asian + (isEmpty(rest) ? '' : ('-' + rest));
+
+	//console.log('key', key, '\nk', k, '\nrest', rest, '\nresult', res)
+
+	return res;
+
+
+	return key + '-1F3F' + skinTones.asian;
+}
+function makeSymbolDictX() {
+	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
+
+	for (const k in emojiKeys) {
+		let rec = emojiChars[emojiKeys[k]];
+		symbolDict[k] = { dict: emojiKeys, isColored: true, id: k, record: rec, type: 'emo', isDuplicate: false };
+		lookupSet(symByGroup, [rec.group, rec.subgroups, k], symbolDict[k]);
+		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
+		symByHex[rec.hexcode] = k;
+	}
+	duplicateKeys = [];
+	for (const k of iconKeys) {
+		let hex = iconChars[k];
+		if (isdef(symbolDict[k])) {
+			//dieser key (eg., bee) ist bereits vorgekommen, so es gibt auch so ein emoji
+			symbolDict[k].isDuplicate = true;
+
+
+			symByHex['i_' + hex] = k;
+			symbolDict['i_' + k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: true };
+			duplicateKeys.push(k);
+		} else {
+			symByHex[hex] = k;
+			symbolDict[k] = { dict: iconChars, isColored: false, id: k, record: iconChars[k], type: 'icon', isDuplicate: false };
+		}
+	}
+	symbolKeys = Object.keys(symbolDict);
+	//console.log('#symbolKeys', symbolKeys.length);
+	makeEmoSetIndex();
+	// console.log('symbolDict', symbolDict);
+	// console.log('by set', symBySet);
+	// console.log('by group', symByGroup);
+	// console.log('index', symIndex);
+	// console.log('by hex', symByHex);
+}
+//#endregion
+
 
 
 
