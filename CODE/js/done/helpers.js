@@ -222,6 +222,7 @@ function mPicSimple1(info, dParent, { w, h, unit = 'px', fg, bg, padding, border
 	dInner.style.fontSize = fz + unit;
 	let wText = measureText(text, fz, info.family, 900).w;
 	let wInner = Math.max(wText, w - 2 * padding);
+	console.log('wText', wText, 'wInner', wInner, 'w', w, 'padding', padding)
 	//let padleft = padding;
 	// console.log(wText,wInner,w,w-2*padding)
 	// if (wInner > (w-2*padding)){
@@ -248,7 +249,7 @@ function mPicSimple1(info, dParent, { w, h, unit = 'px', fg, bg, padding, border
 	if (isdef(bg)) dOuter.style.backgroundColor = bg;
 	if (isdef(fg)) dOuter.style.color = fg;
 	dInner.innerHTML = info.text;
-	if (isdef(padding)) dOuter.style.padding = ''+padding + unit; //`${padding}${unit} ${padleft}${unit}`;
+	if (isdef(padding)) dOuter.style.padding = '' + padding + unit; //`${padding}${unit} ${padleft}${unit}`;
 	//d.style.textAlign = 'center';
 	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
 	if (isdef(border)) dOuter.style.border = border;
@@ -558,6 +559,71 @@ function mPic(key) {
 	let d = mTextDiv(text);
 	d.style.setProperty('font-family', family);
 	return d;
+}
+function mPicX(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding, shape }) {
+	if (nundef(w)) w = 25;
+	if (nundef(h)) h = w;
+	if (nundef(padding)) padding = 0;
+
+	let dOuter = document.createElement('div');
+	if (dParent) dParent.appendChild(dOuter);
+	let dInner = document.createElement('div');
+	if (dOuter) dOuter.appendChild(dInner);
+
+	let text = info.text;
+
+	let hi=h-2*padding;
+	let wi=w-2*padding;
+	let sz = getTextSizeX(text,hi,info.family,900);
+	console.log('_______________erste messung fz=h-2*padding\nh',h,'\npadding',padding,'\nhi',hi,'\nsz',sz.w,sz.h);
+
+	let w1=sz.w;
+	let h1=sz.h;
+	let xh=hi/h1;
+	let xw=(w-2*padding)/w1;
+	let x=Math.min(xh,xw);
+	let fz = hi*x;
+	console.log('_______________\nxh',xh,'\nxw',xw,'\nx',x,'\nfz',fz);
+	let family = dInner.style.fontFamily = info.family;
+	let weight = dInner.style.fontWeight = 900;
+	dInner.style.fontSize = fz + unit;
+	let size = getTextSizeX(text,fz,family,weight);
+	console.log('_______________\nh',h,'\npadding',padding,'\nhi',hi,'\nx',x,'\nfz',fz,'\nsize',size);
+	//size ist size von dInner!
+	let padleft = padding;
+	let wOuter = size.w+2*padleft;
+	if (wOuter < w) padleft += (w-wOuter)/2;
+	let padtop = padding;
+	let hOuter = size.h+2*padtop;
+	if (hOuter < h) padtop += (h-hOuter)/2;
+	dOuter.style.padding = padtop + unit + ' ' + padleft + unit;
+	dOuter.style.width = w+unit;
+	dOuter.style.height = h+unit;
+
+	dInner.style.display = 'inline-block';
+	dInner.style.textAlign = 'center';
+	dInner.innerHTML = info.text;
+
+	dOuter.style.display = 'inline-block';
+	dOuter.style.boxSizing = 'border-box';
+
+	[bg, fg] = getExtendedColors(bg, fg);
+	if (isdef(bg)) dOuter.style.backgroundColor = bg;
+	if (isdef(fg)) dOuter.style.color = fg;
+
+	if (isdef(border)) dOuter.style.border = border;
+	if (isdef(rounding)) dOuter.style.borderRadius = rounding + unit;
+	else if (isdef(shape) && shape == 'ellipse') {
+		let b = getBounds(dOuter);
+		let vertRadius = b.height / 2;
+		let horRadius = b.width / 2;
+		let r = Math.min(vertRadius, horRadius);
+		console.log(b, r)
+		// d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
+		dOuter.style.borderRadius = `${r}${unit}`;
+	}
+	dOuter.key = info.key;
+	return dOuter;
 }
 function mMarginAuto(d) { d.style.setProperty('margin', 'auto'); }
 function mPos(d, x, y, unit = 'px') { mStyle(d, { left: x, top: y, position: 'absolute' }, unit); }
@@ -2044,6 +2110,29 @@ function getRelCoords(ev, elem) {
 	//console.log('coords rel to',elm,':',x,y);
 	return { x: x, y: y };
 }
+function getTextSizeX(text, fz, family, weight = 900, parentDivOrId = null, styles = {}) {
+	var d = document.createElement("div");
+	styles.fz = fz;
+	styles.family = family;
+	styles['font-weight'] = weight;
+	styles.position = 'fixed';
+	styles.opacity = 0;
+	styles.top = '-9999px';
+	mStyleX(d, styles);
+	d.innerHTML = text;
+	//newDiv.style.cssText = "position:fixed; top:-9999px; opacity:0;"
+	if (isdef(parentDivOrId)) {
+		if (isString(parentDivOrId)) parentDivOrId = document.getElementById(parentDivOrId);
+		parentDivOrId.appendChild(d);
+	} else {
+		document.body.appendChild(d);
+	}
+	height = d.clientHeight;
+	width = d.clientWidth;
+	d.parentNode.removeChild(d)
+	return { w: width, h: height };
+}
+
 function getTextSize(s = 'hallo', parentDivOrId) {
 	var newDiv = document.createElement("div");
 	newDiv.innerHTML = s;
