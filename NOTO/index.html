@@ -43,6 +43,7 @@
 	<div id='table'></div>
 	<script src="/CODE/js/done/helpers.js"></script>
 	<script src="/CODE/js/__config.js"></script>
+	<script src="/NOTO/mpic.js"></script>
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
 
@@ -56,7 +57,14 @@
 			let info = symbolDict[key];
 			console.log('info', info)
 
-			picDraw(info, table,{ w:200, h:200, fg:'random', bg:'random', padding:4, border:'red', shape:'ellipse' }); //modifies info!
+			picDraw(info, table, {
+				//align: 'left',
+				w: 300, h: 200,
+				fg: 'random', bg: 'random',
+				padding: 40,
+				border: '2px solid red',
+				shape: 'ellipse'
+			}); //modifies info!
 			//picDraw(info, table,{ w:200, h:200, fg:'random', bg:'random', padding:4, border:'red', rounding:4 }); //modifies info!
 			//info.type = 'emotext';
 			//picDraw(info, table); //, { bg: 'random', fg: 'random', w: 200, h: 200, fz: 100, padding:10});

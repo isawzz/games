@@ -120,23 +120,6 @@ function picFilter(type, funcKeyHex) {
 	return [];
 
 }
-function picDraw(info, table, styles, classes) {
-	if (info.type == 'icon' || info.type == 'emotext') {
-		console.log('text', info.text);
-		let res=mPicSimple(info, table, styles, classes);
-		console.log('res',res);
-		info.ui = res;
-		return info;
-	} else {
-		let d = mDiv(table);
-		mClass(d, 'picOuter')
-		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
-		console.log('d', d);
-		info.ui = d;
-		return info;
-	}
-
-}
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {

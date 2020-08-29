@@ -187,22 +187,83 @@ function mPicSimple(info, dParent, { w, h, unit = 'px', fg, bg, padding, border,
 	d.innerHTML = info.text;
 	if (isdef(padding)) d.style.padding = padding + unit;
 	d.style.display = 'inline-block';
-	d.style.minHeight = h + 2 * padding + unit;
-	d.style.minWidth = w + 2 * padding  + unit;
+	d.style.minHeight = h + padding + unit;
+	d.style.minWidth = w + 2 * padding + unit;
 	//d.style.textAlign = 'center';
 	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
 	if (isdef(border)) d.style.border = border;
 	if (isdef(rounding)) d.style.borderRadius = rounding + unit;
 	else if (isdef(shape) && shape == 'ellipse') {
-		let b=getBounds(d);
-
-		let vertRadius = b.height/2;
-		let horRadius = b.width/2;
-		console.log(getBounds(d))
-		d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
+		let b = getBounds(d);
+		let vertRadius = b.height / 2;
+		let horRadius = b.width / 2;
+		let r = Math.min(vertRadius, horRadius);
+		console.log(b, r)
+		// d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
+		d.style.borderRadius = `${r}${unit}`;
 	}
 	d.key = info.key;
 	return d;
+}
+function mPicSimple1(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding, shape }) {
+	if (nundef(w)) w = 25;
+	if (nundef(h)) h = w;
+	if (nundef(padding)) padding = 0;
+
+	let dOuter = document.createElement('div');
+	if (dParent) dParent.appendChild(dOuter);
+	let dInner = document.createElement('div');
+	if (dOuter) dOuter.appendChild(dInner);
+
+	let text = info.text;
+	let fz = h - 2 * padding;
+	dInner.style.fontFamily = info.family;
+	dInner.style.fontWeight = 900;
+	dInner.style.fontSize = fz + unit;
+	let wText = measureText(text, fz, info.family, 900).w;
+	let wInner = Math.max(wText, w - 2 * padding);
+	//let padleft = padding;
+	// console.log(wText,wInner,w,w-2*padding)
+	// if (wInner > (w-2*padding)){
+	// 	let diff = wInner - (w-2*padding);
+	// 	w += diff/2;
+	// }
+	let hInner = fz;
+	dInner.style.display = 'inline-block';
+	//dInner.style.minHeight = fz + unit;
+	dInner.style.minWidth = wInner + padding; // (w-2*padding) + unit;
+	dInner.style.textAlign = 'center';
+	// dInner.style.position = 'relative';
+	// dInner.style.left = padding + unit;
+	// dInner.style.right = padding + unit;
+
+	dOuter.style.display = 'inline-block';
+	dOuter.style.boxSizing = 'border-box';
+	// dInner.style.position = 'relative';
+	//dOuter.style.minHeight = h + unit;
+	//dOuter.style.minWidth = w + unit;
+
+	//d.style.paddintTop = Math.max(padding,h/4)+unit;
+	[bg, fg] = getExtendedColors(bg, fg);
+	if (isdef(bg)) dOuter.style.backgroundColor = bg;
+	if (isdef(fg)) dOuter.style.color = fg;
+	dInner.innerHTML = info.text;
+	if (isdef(padding)) dOuter.style.padding = ''+padding + unit; //`${padding}${unit} ${padleft}${unit}`;
+	//d.style.textAlign = 'center';
+	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
+	if (isdef(border)) dOuter.style.border = border;
+	if (isdef(rounding)) dOuter.style.borderRadius = rounding + unit;
+	else if (isdef(shape) && shape == 'ellipse') {
+		let b = getBounds(dOuter);
+		let vertRadius = b.height / 2;
+		let horRadius = b.width / 2;
+		let r = Math.min(vertRadius, horRadius);
+		console.log(b, r)
+		// d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
+		dOuter.style.borderRadius = `${r}${unit}`;
+	}
+	dOuter.key = info.key;
+	return dOuter;
 }
 
 //#endregion
