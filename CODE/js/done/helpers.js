@@ -572,33 +572,33 @@ function mPicX(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, roun
 
 	let text = info.text;
 
-	let hi=h-2*padding;
-	let wi=w-2*padding;
-	let sz = getTextSizeX(text,hi,info.family,900);
-	console.log('_______________erste messung fz=h-2*padding\nh',h,'\npadding',padding,'\nhi',hi,'\nsz',sz.w,sz.h);
+	let hi = h - 2 * padding;
+	let wi = w - 2 * padding;
+	let sz = getTextSizeX(text, hi, info.family, 900);
+	console.log('_______________erste messung fz=h-2*padding\nh', h, '\npadding', padding, '\nhi', hi, '\nsz', sz.w, sz.h);
 
-	let w1=sz.w;
-	let h1=sz.h;
-	let xh=hi/h1;
-	let xw=(w-2*padding)/w1;
-	let x=Math.min(xh,xw);
-	let fz = hi*x;
-	console.log('_______________\nxh',xh,'\nxw',xw,'\nx',x,'\nfz',fz);
+	let w1 = sz.w;
+	let h1 = sz.h;
+	let xh = hi / h1;
+	let xw = (w - 2 * padding) / w1;
+	let x = Math.min(xh, xw);
+	let fz = hi * x;
+	console.log('_______________\nxh', xh, '\nxw', xw, '\nx', x, '\nfz', fz);
 	let family = dInner.style.fontFamily = info.family;
 	let weight = dInner.style.fontWeight = 900;
 	dInner.style.fontSize = fz + unit;
-	let size = getTextSizeX(text,fz,family,weight);
-	console.log('_______________\nh',h,'\npadding',padding,'\nhi',hi,'\nx',x,'\nfz',fz,'\nsize',size);
+	let size = getTextSizeX(text, fz, family, weight);
+	console.log('_______________\nh', h, '\npadding', padding, '\nhi', hi, '\nx', x, '\nfz', fz, '\nsize', size);
 	//size ist size von dInner!
 	let padleft = padding;
-	let wOuter = size.w+2*padleft;
-	if (wOuter < w) padleft += (w-wOuter)/2;
+	let wOuter = size.w + 2 * padleft;
+	if (wOuter < w) padleft += (w - wOuter) / 2;
 	let padtop = padding;
-	let hOuter = size.h+2*padtop;
-	if (hOuter < h) padtop += (h-hOuter)/2;
+	let hOuter = size.h + 2 * padtop;
+	if (hOuter < h) padtop += (h - hOuter) / 2;
 	dOuter.style.padding = padtop + unit + ' ' + padleft + unit;
-	dOuter.style.width = w+unit;
-	dOuter.style.height = h+unit;
+	dOuter.style.width = w + unit;
+	dOuter.style.height = h + unit;
 
 	dInner.style.display = 'inline-block';
 	dInner.style.textAlign = 'center';
@@ -2110,6 +2110,20 @@ function getRelCoords(ev, elem) {
 	//console.log('coords rel to',elm,':',x,y);
 	return { x: x, y: y };
 }
+function getSizeWithStyles(text, styles) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	let cStyles = jsCopy(styles)
+	cStyles.position = 'fixed';
+	cStyles.opacity = 0;
+	cStyles.top = '-9999px';
+	mStyleX(d, cStyles);
+	d.innerHTML = text;
+	height = d.clientHeight;
+	width = d.clientWidth;
+	d.parentNode.removeChild(d)
+	return { w: width, h: height };
+}
 function getTextSizeX(text, fz, family, weight = 900, parentDivOrId = null, styles = {}) {
 	var d = document.createElement("div");
 	styles.fz = fz;
@@ -2118,6 +2132,7 @@ function getTextSizeX(text, fz, family, weight = 900, parentDivOrId = null, styl
 	styles.position = 'fixed';
 	styles.opacity = 0;
 	styles.top = '-9999px';
+	styles.w = 200;
 	mStyleX(d, styles);
 	d.innerHTML = text;
 	//newDiv.style.cssText = "position:fixed; top:-9999px; opacity:0;"

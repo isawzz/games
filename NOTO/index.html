@@ -47,7 +47,25 @@
 	<script src="/CODE/js/done/assets.js"></script>
 	<script>
 
-		window.onload = async () => { await loadAssets(); test6(); }
+		window.onload = async () => { await loadAssets(); test8(); }
+		function test8() {
+			let table = mBy('table');
+
+			let styles = {};
+			styles.fz = '25px';
+			styles.family = 'arial';
+			styles['font-weight'] = 'normal';
+			styles.display = 'inline-block';
+			styles.bg = 'red';
+			styles.w = 200;
+			let size = getSizeWithStyles('hallo',jsCopy(styles));
+
+			let d=mText('hallo',table, null, styles); //,null,styles);
+			//mStyles(d,styles);
+			let b=getBounds(d);
+			console.log(size, b);
+
+		}
 		function test6() {
 			let table = mBy('table');
 			let klist = picFilter('icon');
