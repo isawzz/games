@@ -2113,7 +2113,8 @@ function getRelCoords(ev, elem) {
 function getSizeWithStyles(text, styles) {
 	var d = document.createElement("div");
 	document.body.appendChild(d);
-	let cStyles = jsCopy(styles)
+	//console.log(styles);
+	let cStyles = jsCopy(styles);
 	cStyles.position = 'fixed';
 	cStyles.opacity = 0;
 	cStyles.top = '-9999px';

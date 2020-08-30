@@ -26,56 +26,80 @@ function picDraw(info, dParent, styles, classes) {
 
 }
 
-function fitText(text,rect,dParent,styles,classes){
+function fitsWithFont(text, styles, w, h, fz) {
+	styles.fz = fz;
+	let size = getSizeWithStyles(text, styles);
+	if (isdef(styles.w)) return size.h <= h;
+	else if (isdef(styles.h)) return size.w <= w;
 
-	//zuerst mach ein div
-	let l=rect.cx-(rect.w/2);
-	let t=rect.cy-(rect.h/2);
-	let d = mDivPosAbs(l,t,dParent);
+}
+function textTooBigByFactor(text, styles, w, h, fz) {
+	styles.fz = fz;
+	let size = getSizeWithStyles(text, styles);
+	if (isdef(styles.w) && size.h > h + 1) {
+		console.log('h', h, '\nsz', size.h, '\nfactor', h / size.h);
+		return h / size.h;
+	} else if (isdef(styles.h) && size.w > w + 1) {
+		return w / size.w;
+	} else return 0;
 
-	//versuch es so: limit only width of div und dann measure text
-	//measure height
+}
+function textCorrectionFactor(text, styles, w, h, fz) {
+	styles.fz = fz;
+	let size = getSizeWithStyles(text, styles);
+	if (isdef(styles.w) && Math.abs(size.h - h) > fz) {
+		//console.log('h',h,'\nsz',size.h,'\nfactor',h/size.h);
+		return size.h / h;
+	} else if (isdef(styles.h) && Math.abs(size.w - w) > fz) {
+		return size.w / w;
+	} else return 0;
 
-	//danach mach den font immer kleiner kleiner kleiner
-	//bis er passt
+}
 
-	d.style.maxWidth = rect.w+'px';
+function fontTransition(fz, over) {
+	console.log(over)
+	if (over > 1.5) over = 1.5;
+	else if (over < .5) over = 0.5;
+	else if (over > 1) return fz - 1; else if (over < 1) return fz + 1;
+	//if (over>=1) over=.9;else if (over<.5) over = .5;
+	return fz /over;
+}
+function fitText(text, rect, dParent, styles, classes) {
+	let l = rect.cx - (rect.w / 2); let t = rect.cy - (rect.h / 2); let d = mDivPosAbs(l, t, dParent);
+	styles.family = 'arial'; styles['font-weight'] = 'normal'; styles.display = 'inline-block'; styles.w = rect.w; styles.bg = 'red'; let fz = 25;
 
-	let fz=20;
-	let family='arial';
-	let weight='normal';
-	d.style.fontSize =fz; 
-	d.style.fontFamily = family;
-	d.style.fontWeight = 900;
-	let size = getTextSizeX(text, fz, family, weight = 900, d,{});
-	console.log('size',size);
+	let over = textCorrectionFactor(text, styles, rect.w, rect.h, fz); let MAX = 20; let cnt = 0;
+	let oldFz=0;let oldOldFz=0;
+	while (over > 0 && fz >= 8) {
+		cnt += 1; if (cnt > MAX) { console.log('MAX reached!!!'); break; }
+		//console.log('over',over);
+		if (over == 0) break; //perfect font!
+		oldOldFz=oldFz;
+		oldFz = fz;
+		fz = Math.round(fontTransition(fz, over));
+		if (oldFz == fz || oldOldFz == fz) break;
 
-	let b=getBounds(d);
-	console.log('bounds',b)
+		//fz=Math.floor(fz*over);
+		//console.log('using over',over);
+		let newOver = textCorrectionFactor(text, styles, rect.w, rect.h, fz);
+		let change = over - newOver;
+		console.log('change', change, 'fz change from', oldFz, 'to', fz);
+		over = newOver;
+		//fz=fz*over;
+	}
 
-	let h=getBounds(d).height;
-	console.log(h,rect.h)
-
-	//mSize(d,rect.w,rect.h);
-	mColor(d,'red');
-
-
+	console.log(fz)
+	//styles.fz=25;
 	d.innerHTML = text;
+	mStyleX(d, styles);
 
-	mStyleX(d,styles);
+	let b = getBounds(d);
+	console.log('bounds', b)
 
-}
-function test7(){
-	let table = mBy('table');
-	let rect = {w:200,h:100,cx:120,cy:100};
-	let text = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-
-	fitText(longtext,rect,table,{padding:5,'box-sizing':'border-box'});
-
+	let h = getBounds(d).height;
+	console.log(h, rect.h)
 
 }
-
 
 
 
