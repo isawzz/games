@@ -662,7 +662,10 @@ function mStyleX(elem, styles, unit = 'px') {
 		weight: 'font-weight',
 	};
 	//console.log(':::::::::styles',styles)
-	if (isdef(styles.bg) || isdef(styles.fg)) { [styles.bg, styles.fg] = getExtendedColors(styles.bg, styles.fg); }
+	let bg, fg;
+	if (isdef(styles.bg) || isdef(styles.fg)) {
+		[bg, fg] = getExtendedColors(styles.bg, styles.fg);
+	}
 
 	//console.log(styles.bg,styles.fg);
 
@@ -685,8 +688,12 @@ function mStyleX(elem, styles, unit = 'px') {
 			if (isdef(fs)) s = fs + ' ' + s;
 			elem.style.setProperty(k, s);
 			continue;
+		} else if (k == 'border') {
+			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		}
-		elem.style.setProperty(key, makeUnitString(styles[k], unit));
+		if (key == 'background-color') elem.style.backgroundColor = bg;
+		else if (key == 'color') elem.style.color = fg;
+		else elem.style.setProperty(key, makeUnitString(val, unit));
 	}
 }
 function mSvg(path, dParent, styles, classes) {

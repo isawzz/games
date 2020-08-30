@@ -1,12 +1,67 @@
 var table = mBy('table');
-window.onload = async () => { await loadAssets(); test9(); }
+window.onload = async () => { await loadAssets(); test13(); }
+
+function test13() {
+
+	// console.log('hallo'.indexOf(' '));
+	// console.log('ha llo'.indexOf(' '));
+	// console.log('hallo '.indexOf(' '));
+
+	let c = blankCard();
+	mAppend(table, c);
+
+	let res = picDrawRandom('emo', null, c, { w: 20, h: 20, padding: 4 });
+
+
+}
+
+function test12() {
+	let res = picDrawRandom('emo', null, table, { w: 200, h: 200 });
+}
+
+function test11() {
+	let styles = {
+		family: 'arial',
+		'font-weight': 900,
+		bg: 'random',
+		fg: 'contrast',
+		padding: 15,
+		'box-sizing': 'border-box'
+	};
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+
+	let rect = { w: 140, h: 200, cx: 80, cy: 100 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+
+	rect = { w: 100, h: 200, cx: 220, cy: 100 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+
+	rect = { w: 140, h: 140, cx: 120, cy: 300 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+}
+
+function test10() {
+	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+	let styles = {
+		family: 'arial',
+		'font-weight': 900,
+		w: rect.w,
+		bg: 'random',
+		padding: 15,
+		'box-sizing': 'border-box'
+	};
+
+	fitText(longtext, rect, table, styles);
+}
 
 function test9() {
 	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
 	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
 	fitText(longtext, rect, table, { padding: 15, 'box-sizing': 'border-box' });
-
-
 }
 function test8() {
 	let table = mBy('table');
@@ -15,8 +70,6 @@ function test8() {
 	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
 
 	fitText(longtext, rect, table, { padding: 5, 'box-sizing': 'border-box' });
-
-
 }
 
 function test7() {

@@ -69,57 +69,6 @@ var emoSets = [
 //#endregion
 
 //#region pic keys
-function picFilter(type, funcKeyHex) {
-	if (isString(funcKeyHex)) {
-		//special case (icon,bee):
-		if (isString(funcKeyHex) && type[0] == 'i' && funcKeyHex[0] != 'i' && duplicateKeys.includes(funcKeyHex)) {
-			funcKeyHex = 'i_' + funcKeyHex;
-		}
-		console.assert(isdef(symByHex[funcKeyHex]) || isdef(symbolDict[funcKeyHex]), 'key or hex is NOT a correct key!!!');
-
-		if (isdef(symbolDict[funcKeyHex])) return [funcKeyHex];
-		else if (isdef(symByHex[funcKeyHex])) return [symByHex[funcKeyHex]];
-
-	} else {
-		//hier mach die liste und return it or apply functor
-		//type can be: [all] | any | emo | eduplo | icon | iduplo
-		let isDuplicate = false;
-		if (nundef(type)) type = DEFAULTPICTYPE; //see __config.js
-		if (type == 'any') {
-			type = chooseRandom(['emo', 'icon']); //narrow down type if any
-			isDuplicate = chooseRandom([true, false]);
-		} else if (type == 'eduplo') {
-			type = 'emo';
-			isDuplicate = true;
-		} else if (type == 'iduplo') {
-			type = 'icon';
-			isDuplicate = true;
-		}
-
-		console.assert(['all', 'emo', 'icon'].includes(type), 'incorrect type!!!!!!!!!!!!!!!')
-
-		// type is now valid!!!
-		let keylist = type == 'all' ? symbolKeys
-			: isDuplicate ? symbolKeys.filter(x => symbolDict[x].type == type && symbolDict[x].isDuplicate)
-				: symbolKeys.filter(x => symbolDict[x].type == type); //make list of keys
-
-		// now type E {all,emo,eduplo,icon,iduplo}, keylist ready and funckeyhex either function or undefined
-		console.assert(isList(keylist), 'keylist not ready!!!!!!!!!!!!!!!!!!!!')
-		//console.log('type', type, '\nfuncKeyHex', funcKeyHex, '\nkeylist', keylist)
-
-		//apply funckeyhex to it!
-		if (nundef(funcKeyHex)) { return keylist; }
-
-
-		console.log('________________', 'there is a function!!!')
-		//console.log(keylist);
-		return keylist.filter(funcKeyHex);
-	}
-
-
-	return [];
-
-}
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {
