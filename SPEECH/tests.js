@@ -120,13 +120,6 @@ function convertUmlaute(w) {
 	return w;
 }
 //#region evaluation of answer
-function countLetters(s, letter) {
-	let n = 0;
-	for (const ch of s) {
-		if (ch == '_') n++;
-	}
-	return n;
-}
 function blanksInHintWordOrWordLength(hintWord, answer) {
 	if (isdef(hintWord) && answer == bestWord.toUpperCase()) {
 		let numBlanks = countLetters(hintWord, '_');

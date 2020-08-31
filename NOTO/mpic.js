@@ -1,14 +1,14 @@
-function blankCard(){
-	let c=mDiv();
-	let styles = {w:70,h:110,bg:'beige',rounding:12,border:'grey'};
-	mStyleX(c,styles)
+function blankCard() {
+	let c = mDiv();
+	let styles = { w: 70, h: 110, bg: 'beige', rounding: 12, border: 'grey' };
+	mStyleX(c, styles)
 	return c;
 }
-function picPosTL(key,dParent,w,h,padding){
+function picPosTL(key, dParent, w, h, padding) {
 	let info = picInfo(key);
-	mAppend(dParent,ui);
-	mSize(ui,w,h);
-	mPosAbs(ui,padding,padding)
+	mAppend(dParent, ui);
+	mSize(ui, w, h);
+	mPosAbs(ui, padding, padding)
 }
 function picFilter(type, funcKeyHex) {
 	if (isString(funcKeyHex)) {
@@ -65,7 +65,7 @@ function picKey(type, funcKeyHex) {
 	let lst = picFilter(type, funcKeyHex);
 	return chooseRandom(lst);
 }
-function picInfo(key) { return symbolDict[key]; }
+function picInfo(key) { return isdef(symbolDict[key]) ? symbolDict[key] : symByHex[key] ? symByHex[key] : searchSymbol(key); }
 function picInfoRandom(type, funcKeyHex) {
 	let key = picKey(type, funcKeyHex);
 	return picInfo(key);
@@ -91,20 +91,125 @@ function picDraw(info, dParent, styles, classes) {
 		let d = mDiv(dParent);
 		mClass(d, 'picOuter')
 		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
-		if (isdef(styles)) mStyleX(d,styles)
+		if (isdef(styles)) mStyleX(d, styles)
 		console.log('d', d);
 		info.ui = d;
 		return info;
 	}
 
 }
-function picDrawKey(key,dParent, styles, classes) {
-	
+function picDrawKey(key, dParent, styles, classes) {
+	let info = picInfo(key);
+	picDraw(info, dParent, styles, classes);
 }
 function picDrawRandom(type, funcKeyHex, dParent, styles, classes) {
 	let info = picInfoRandom(type, funcKeyHex);
 	picDraw(info, dParent, styles, classes);
 
+}
+//brauche function die fuer dict sucht welche keys ALLE words aus einer liste enthalten!
+//returns ALL dict values that fulfill this cond
+function allWordsContainedInKeys(dict, list) {
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		for (const w of list) {
+			if (!k.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function allWordsContainedInProps(dict, list, props) {
+	// if all words in list are included by any of the properties, this info is valid!
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		let propString = '';
+		for (const p of props) { propString += dict[k][p]; }
+		for (const w of list) {
+			if (!propString.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function allWordsContainedInPropsAsWord(dict, list,props) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		// k.split(/[- ,]+/); //k.split();
+		let keywordList = [];
+		for (const p of props) {
+			//console.log(dict[k][p])
+			if (nundef(dict[k][p])) continue;
+			let keywords = splitAtWhiteSpace(dict[k][p]);
+			keywordList = keywordList.concat(keywords);
+		}
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (!keywordList.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function anyWordContainedInKeys(dict, list) {
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		for (const w of list) {
+			if (k.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function anyWordContainedInKeysAsWord(dict, list) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (keywords.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function allWordsContainedInKeysAsWord(dict, list) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (!keywords.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function searchSymbol(keyOrList, op) {
+	function searchFunc(info) {
+		if (info.key.includes(keyOrList)) {
+			console.log('key contains', keyOrList);
+			return true;
+		} else return false;
+	}
+	let list = [];
+	if (isdef(op)) {
+		//console.log('halllo', op, symbolDict, keyOrList)
+		list = op(symbolDict, keyOrList);
+	} else list = allCondDict(symbolDict, searchFunc); //x=>(isdef(x.E && x.E.includes(key)) || (isdef(x.D) && x.D.includes(key)) || x.key.includes(key)));
+	return list;
 }
 
 function fitsWithFont(text, styles, w, h, fz) {

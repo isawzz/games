@@ -525,18 +525,6 @@ function mEmoTrial1(key, dParent, styles, classes) {
 		res += s1;
 	}
 	s1 = '🖱️'; //res;// + ' Emoji=Yes';
-	//s1=toUTF16(hex);
-	//console.log('s1',s1)
-
-	// let emoji = hex.split("-");
-	// console.log(emoji)
-	// emoji = emoji.map(x => '&#x' + x + ';'); //String(UnicodeScalar(Int(String(x),{radix: 16}) ?? 0)))
-	// console.log(emoji)
-	// emoji = emoji.join("\u{200D}");
-	// console.log(emoji)
-
-	// console.log(emoji) // 👨‍👨‍👧‍👧
-
 
 	//console.log(key,rec.hexcode,decCode,);
 	d.innerHTML = s1;
@@ -4027,6 +4015,47 @@ function tossCoin(percent) {
 //#endregion
 
 //#region string functions
+function convertUmlaute(w) {
+	//ue ü, ae ä, oe ö
+	w = replaceAll(w, 'ue', 'ü');
+	w = replaceAll(w, 'ae', 'ä');
+	w = replaceAll(w, 'oe', 'ö');
+	return w;
+}
+function toUmlaut(w) {
+	//ue ü, ae ä, oe ö
+	if (isList(w)) {
+		let res = [];
+		for (const w1 of w) res.push(toUmlaut(w1));
+		return res;
+	} else {
+		w = replaceAll(w, 'ue', 'ü');
+		w = replaceAll(w, 'ae', 'ä');
+		w = replaceAll(w, 'oe', 'ö');
+		return w;
+	}
+}
+function fromUmlaut(w) {
+	if (isList(w)) {
+		let res = [];
+		for (const w1 of w) res.push(fromUmlaut(w1));
+		return res;
+	} else {
+		//ue ü, ae ä, oe ö
+		w = replaceAll(w, 'ü', 'ue');
+		w = replaceAll(w, 'ä', 'ae');
+		w = replaceAll(w, 'ö', 'oe');
+		return w;
+	}
+}
+function countLetters(s, letter) {
+	let n = 0;
+	for (const ch of s) {
+		if (ch == letter) n++;
+	}
+	return n;
+}
+
 function allIntegers(s) {
 	//returns array of all numbers within string s
 	return s.match(/\d+\.\d+|\d+\b|\d+(?=\w)/g).map(v => {
@@ -4170,7 +4199,7 @@ function multiSplit(s, seplist) {
 	}
 	return res.filter(x => !isEmpty(x));
 }
-
+function splitAtWhiteSpace(s) { return s.split(/[-/ ,]+/); }
 function padSep(sep, n, args) {
 	//sep..separator string, n..length of result, args are arbitrary numbers
 	//each number in args is padded with 0's to length n, numbers are then separated by sep

@@ -3,6 +3,19 @@ window.onload = async () => { await loadAssets(); test13(); }
 
 function test13() {
 
+	// let infolist = searchSymbol('heart');	console.log(infolist); return;
+	// let infolist = allWordsContainedInKeys(symbolDict,['heart','red']);	console.log(infolist); return;
+	// let infolist = allWordsContainedInKeysAsWord (symbolDict,['heart','red']);	console.log(infolist); return;
+	// let infolist = searchSymbol(['heart','red'],allWordsContainedInKeysAsWord);	console.log(infolist); return;
+	// let infolist = searchSymbol(['heart','red'],anyWordContainedInKeysAsWord);	console.log(infolist); return;
+	//let infolist = searchSymbol(['hea','red'],anyWordContainedInKeys);	console.log(infolist); return;
+	// let infolist = allWordsContainedInProps(symbolDict,['heart'],['E','D']);console.log(infolist.map(x=>x.D)); return;
+	//let infolist = allWordsContainedInProps(symbolDict,toUmlaut(['froehlich']),['E','D']);console.log(infolist.map(x=>x.D)); return;
+	//console.log(fromUmlaut(['über','ähnlich'])); return;
+	//console.log(toUmlaut(['über','ähnlich'])); return;
+	// let infolist = allWordsContainedInProps(symbolDict,toUmlaut(['froh']),['E','D']);console.log(infolist.map(x=>x.D)); return;
+	let infolist = allWordsContainedInPropsAsWord(symbolDict,['red'],['E','D']);console.log(infolist); return;
+
 	// console.log('hallo'.indexOf(' '));
 	// console.log('ha llo'.indexOf(' '));
 	// console.log('hallo '.indexOf(' '));
@@ -10,6 +23,7 @@ function test13() {
 	let c = blankCard();
 	mAppend(table, c);
 
+	//let res = pic
 	let res = picDrawRandom('emo', null, c, { w: 20, h: 20, padding: 4 });
 
 

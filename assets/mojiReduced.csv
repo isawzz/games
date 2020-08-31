@@ -1,20 +1,20 @@
 emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,openmoji_tags,openmoji_author,openmoji_date,skintone,skintone_combination,skintone_base_emoji,skintone_base_hexcode,unicode,order,order2
-😀,1F600,smileys-emotion,face-smiling,grinning face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, grin,smile, happy,Emily Jäger,2018-04-18,,,,,1,1
-😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, mouth, open, smile,eyes, teeth,Emily Jäger,2018-04-18,,,,,0.6,2
-😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,eye, face, mouth, open, smile,happy, teeth,Emily Jäger,2018-04-18,,,,,0.6,3
-😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,teeth|smile|laugh|happy|grin,zähne|lachen|lächeln|lustig|fröhlich,quinn,,eye, face, grin, smile,happy, teeth, mouth,Emily Jäger,2018-04-18,,,,,0.6,4
-😆,1F606,smileys-emotion,face-smiling,grinning squinting face,squint|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, laugh, mouth, satisfied, smile,,Emily Jäger,2018-04-18,,,,,0.6,5
-😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,tears|sweat|sweating|smile|laugh|happy|grin,träne|schwitzen|lachen|lächeln|lustig|fröhlich,quinn,,cold, face, open, smile, sweat,laugh,Emily Jäger,2018-04-18,,,,,0.6,6
-🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,quinn,,face, floor, laugh, rolling,tears,Emily Jäger,2018-04-18,,,,,3,7
-😂,1F602,smileys-emotion,face-smiling,face with tears of joy,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|fröhlich,quinn,,face, joy, laugh, tear,,Emily Jäger,2018-04-18,,,,,0.6,8
-🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,face, smile,satisfied,Emily Jäger,2018-04-18,,,,,1,9
-🙃,1F643,smileys-emotion,face-smiling,upside-down face,upside-down|smile|laugh|happy|grin,verkehrt|lachen|lächeln|lustig|fröhlich,quinn,,face, upside-down,turn,Emily Jäger,2018-04-18,,,,,1,10
-😉,1F609,smileys-emotion,face-smiling,winking face,upside-down|smile|laugh|happy|grin|wink,verkehrt|lachen|lächeln|lustig|fröhlich|zwinkern,quinn,,face, wink,eye,Emily Jäger,2018-04-18,,,,,0.6,11
-😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,blush|smile|laugh|happy|grin,lachen|lächeln|lustig|fröhlich,quinn,,blush, eye, face, smile,satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
-😇,1F607,smileys-emotion,face-smiling,smiling face with halo,angel|halo|smile|laugh|happy|grin,engel|heiligenschein|lachen|lächeln|lustig|fröhlich,quinn,,angel, face, fantasy, halo, innocent,,Emily Jäger,2018-04-18,,,,,1,13
-🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,love|smile|laugh|happy|crush,liebe|lächeln|glücklich|fröhlich|verliebt,quinn,,adore, crush, hearts, in love,,Antonia Wagner,2019-05-03,,,,,11,14
-😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,quinn,,eye, face, love, smile,hearts, happy,Emily Jäger,2018-04-18,,,,,0.6,15
-🤩,1F929,smileys-emotion,face-affection,star-struck,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|fröhlich,quinn,,eyes, face, grinning, star,surprised,Emily Jäger,2018-04-18,,,,,5,16
+😀,1F600,smileys-emotion,face-smiling,grinning face,smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,face, grin,smile, happy,Emily Jäger,2018-04-18,,,,,1,1
+😃,1F603,smileys-emotion,face-smiling,grinning face with big eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,face, mouth, open, smile,eyes, teeth,Emily Jäger,2018-04-18,,,,,0.6,2
+😄,1F604,smileys-emotion,face-smiling,grinning face with smiling eyes,smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,eye, face, mouth, open, smile,happy, teeth,Emily Jäger,2018-04-18,,,,,0.6,3
+😁,1F601,smileys-emotion,face-smiling,beaming face with smiling eyes,teeth|smile|laugh|happy|grin,zähne|lachen|lächeln|lustig|froh|fröhlich,quinn,,eye, face, grin, smile,happy, teeth, mouth,Emily Jäger,2018-04-18,,,,,0.6,4
+😆,1F606,smileys-emotion,face-smiling,grinning squinting face,squint|smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,face, laugh, mouth, satisfied, smile,,Emily Jäger,2018-04-18,,,,,0.6,5
+😅,1F605,smileys-emotion,face-smiling,grinning face with sweat,tears|sweat|sweating|smile|laugh|happy|grin,träne|schwitzen|lachen|lächeln|lustig|froh|fröhlich,quinn,,cold, face, open, smile, sweat,laugh,Emily Jäger,2018-04-18,,,,,0.6,6
+🤣,1F923,smileys-emotion,face-smiling,rolling on the floor laughing,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|froh|fröhlich,quinn,,face, floor, laugh, rolling,tears,Emily Jäger,2018-04-18,,,,,3,7
+😂,1F602,smileys-emotion,face-smiling,face with tears of joy,lol|smile|laugh|happy|grin,lol|lachen|lächeln|lustig|froh|fröhlich,quinn,,face, joy, laugh, tear,,Emily Jäger,2018-04-18,,,,,0.6,8
+🙂,1F642,smileys-emotion,face-smiling,slightly smiling face,smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,face, smile,satisfied,Emily Jäger,2018-04-18,,,,,1,9
+🙃,1F643,smileys-emotion,face-smiling,upside-down face,upside-down|smile|laugh|happy|grin,verkehrt|lachen|lächeln|lustig|froh|fröhlich,quinn,,face, upside-down,turn,Emily Jäger,2018-04-18,,,,,1,10
+😉,1F609,smileys-emotion,face-smiling,winking face,upside-down|smile|laugh|happy|grin|wink,verkehrt|lachen|lächeln|lustig|froh|fröhlich|zwinkern,quinn,,face, wink,eye,Emily Jäger,2018-04-18,,,,,0.6,11
+😊,1F60A,smileys-emotion,face-smiling,smiling face with smiling eyes,blush|smile|laugh|happy|grin,lachen|lächeln|lustig|froh|fröhlich,quinn,,blush, eye, face, smile,satisfied,Emily Jäger,2018-04-18,,,,,0.6,12
+😇,1F607,smileys-emotion,face-smiling,smiling face with halo,angel|halo|smile|laugh|happy|grin,engel|heiligenschein|lachen|lächeln|lustig|froh|fröhlich,quinn,,angel, face, fantasy, halo, innocent,,Emily Jäger,2018-04-18,,,,,1,13
+🥰,1F970,smileys-emotion,face-affection,smiling face with hearts,love|smile|laugh|happy|crush,liebe|lächeln|glücklich|froh|fröhlich|verliebt,quinn,,adore, crush, hearts, in love,,Antonia Wagner,2019-05-03,,,,,11,14
+😍,1F60D,smileys-emotion,face-affection,smiling face with heart-eyes,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|froh|fröhlich,quinn,,eye, face, love, smile,hearts, happy,Emily Jäger,2018-04-18,,,,,0.6,15
+🤩,1F929,smileys-emotion,face-affection,star-struck,crush|love|smile|laugh|happy|grin,verliebt|liebe|lächeln|glücklich|froh|fröhlich,quinn,,eyes, face, grinning, star,surprised,Emily Jäger,2018-04-18,,,,,5,16
 😘,1F618,smileys-emotion,face-affection,face blowing a kiss,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,face, kiss,love, happy,Emily Jäger,2018-04-18,,,,,0.6,17
 😗,1F617,smileys-emotion,face-affection,kissing face,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,face, kiss,,Emily Jäger,2018-04-18,,,,,1,18
 😚,1F61A,smileys-emotion,face-affection,kissing face with closed eyes,crush|love|happy|kiss,verliebt|liebe|bussi|kuss,,,closed, eye, face, kiss,love, happy,Emily Jäger,2018-04-18,,,,,0.6,21
@@ -200,7 +200,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👶,1F476,people-body,person,baby,baby,baby,,,young,"human, person",Johanna Wellnitz,2018-04-18,,single,👶,1F476,0.6,414
 🧒,1F9D2,people-body,person,child,child,kind,,"gender-neutral, unspecified gender, young","human, person",Johanna Wellnitz,2018-04-18,,single,🧒,1F9D2,5,420
 👦,1F466,people-body,person,boy,boy,junge|bub,,,young,"human, person",Johanna Wellnitz,2018-04-18,,single,👦,1F466,0.6,426
-👧,1F467,people-body,person,girl,girl,maaeedchen,"virgo, young, zodiac","human, person",Johanna Wellnitz,2018-04-18,,single,👧,1F467,0.6,432
+👧,1F467,people-body,person,girl,girl,maaeedchen,,,"virgo, young, zodiac","human, person",Johanna Wellnitz,2018-04-18,,single,👧,1F467,0.6,432
 🧑,1F9D1,people-body,person,person,"adult, gender-neutral, unspecified gender","human, person",Johanna Wellnitz,2018-04-18,,single,🧑,1F9D1,5,438
 👱,1F471,people-body,person,person: blond hair,"blond, blond-haired person, hair",,Anne Frauendorf,2018-11-16,,single,👱,1F471,0.6,444
 👨,1F468,people-body,person,man,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👨,1F468,0.6,450
@@ -210,7 +210,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👨‍🦳,1F468-200D-1F9B3,people-body,person,man: white hair,"adult, man, white hair",,Nadine Bartel,2019-05-06,,single,👨‍🦳,1F468-200D-1F9B3,11,474
 👨‍🦲,1F468-200D-1F9B2,people-body,person,man: bald,"adult, bald, man",,Nadine Bartel,2019-05-06,,single,👨‍🦲,1F468-200D-1F9B2,11,480
 👩,1F469,people-body,person,woman,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👩,1F469,0.6,486
-👩‍🦰,1F469-200D-1F9B0,people-body,person,woman: red hair,"adult, red hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦰,1F469-200D-1F9B0,11,492
+👩‍🦰,1F469-200D-1F9B0,people-body,person,woman: red hair,adult| red hair| woman,rote haare|rothaarig|rothaarige frau|frau,,,Nadine Bartel,2019-05-06,,single,👩‍🦰,1F469-200D-1F9B0,11,492
 🧑‍🦰,1F9D1-200D-1F9B0,people-body,person,person: red hair,"adult, gender-neutral, person, red hair, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦰,1F9D1-200D-1F9B0,12.1,498
 👩‍🦱,1F469-200D-1F9B1,people-body,person,woman: curly hair,"adult, curly hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦱,1F469-200D-1F9B1,11,504
 🧑‍🦱,1F9D1-200D-1F9B1,people-body,person,person: curly hair,"adult, curly hair, gender-neutral, person, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦱,1F9D1-200D-1F9B1,12.1,510
@@ -1278,21 +1278,21 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ✳️,2733,symbols,other-symbol,eight-spoked asterisk,*, asterisk,,Selina Lange,2019-05-06,,,,,0.6,3771
 ✴️,2734,symbols,other-symbol,eight-pointed star,*, star,,Selina Lange,2019-05-06,,,,,0.6,3773
 ❇️,2747,symbols,other-symbol,sparkle,*,,Selina Lange,2019-05-06,,,,,0.6,3775
-©️,00A9,symbols,other-symbol,copyright,c,copyright, c, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3777
-®️,00AE,symbols,other-symbol,registered,r,registered, r, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3779
+©️,A9,symbols,other-symbol,copyright,c,copyright, c, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3777
+®️,AE,symbols,other-symbol,registered,r,registered, r, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3779
 ™️,2122,symbols,other-symbol,trade mark,mark, tm, trademark,,Carlin MacKenzie,2020-06-06,,,,,0.6,3781
-#️⃣,0023-FE0F-20E3,symbols,keycap,keycap: #,keycap,,Selina Lange,2019-05-06,,,,,0.6,3782
-*️⃣,002A-FE0F-20E3,symbols,keycap,keycap: *,keycap,,Selina Lange,2019-05-06,,,,,2,3784
-0️⃣,0030-FE0F-20E3,symbols,keycap,keycap: 0,keycap,,Selina Lange,2019-05-06,,,,,0.6,3786
-1️⃣,0031-FE0F-20E3,symbols,keycap,keycap: 1,keycap,,Selina Lange,2019-05-06,,,,,0.6,3788
-2️⃣,0032-FE0F-20E3,symbols,keycap,keycap: 2,keycap,,Selina Lange,2019-05-06,,,,,0.6,3790
-3️⃣,0033-FE0F-20E3,symbols,keycap,keycap: 3,keycap,,Selina Lange,2019-05-06,,,,,0.6,3792
-4️⃣,0034-FE0F-20E3,symbols,keycap,keycap: 4,keycap,,Selina Lange,2019-05-06,,,,,0.6,3794
-5️⃣,0035-FE0F-20E3,symbols,keycap,keycap: 5,keycap,,Selina Lange,2019-05-06,,,,,0.6,3796
-6️⃣,0036-FE0F-20E3,symbols,keycap,keycap: 6,keycap,,Selina Lange,2019-05-06,,,,,0.6,3798
-7️⃣,0037-FE0F-20E3,symbols,keycap,keycap: 7,keycap,,Selina Lange,2019-05-06,,,,,0.6,3800
-8️⃣,0038-FE0F-20E3,symbols,keycap,keycap: 8,keycap,,Selina Lange,2019-05-06,,,,,0.6,3802
-9️⃣,0039-FE0F-20E3,symbols,keycap,keycap: 9,keycap,,Selina Lange,2019-05-06,,,,,0.6,3804
+#️⃣,23-FE0F-20E3,symbols,keycap,keycap: #,keycap,,Selina Lange,2019-05-06,,,,,0.6,3782
+*️⃣,2A-FE0F-20E3,symbols,keycap,keycap: *,keycap,,Selina Lange,2019-05-06,,,,,2,3784
+0️⃣,30-FE0F-20E3,symbols,keycap,keycap: 0,keycap,,Selina Lange,2019-05-06,,,,,0.6,3786
+1️⃣,31-FE0F-20E3,symbols,keycap,keycap: 1,keycap,,Selina Lange,2019-05-06,,,,,0.6,3788
+2️⃣,32-FE0F-20E3,symbols,keycap,keycap: 2,keycap,,Selina Lange,2019-05-06,,,,,0.6,3790
+3️⃣,33-FE0F-20E3,symbols,keycap,keycap: 3,keycap,,Selina Lange,2019-05-06,,,,,0.6,3792
+4️⃣,34-FE0F-20E3,symbols,keycap,keycap: 4,keycap,,Selina Lange,2019-05-06,,,,,0.6,3794
+5️⃣,35-FE0F-20E3,symbols,keycap,keycap: 5,keycap,,Selina Lange,2019-05-06,,,,,0.6,3796
+6️⃣,36-FE0F-20E3,symbols,keycap,keycap: 6,keycap,,Selina Lange,2019-05-06,,,,,0.6,3798
+7️⃣,37-FE0F-20E3,symbols,keycap,keycap: 7,keycap,,Selina Lange,2019-05-06,,,,,0.6,3800
+8️⃣,38-FE0F-20E3,symbols,keycap,keycap: 8,keycap,,Selina Lange,2019-05-06,,,,,0.6,3802
+9️⃣,39-FE0F-20E3,symbols,keycap,keycap: 9,keycap,,Selina Lange,2019-05-06,,,,,0.6,3804
 🔟,1F51F,symbols,keycap,keycap: 10,keycap,,Selina Lange,2019-05-06,,,,,0.6,3806
 🔠,1F520,symbols,alphanum,input latin uppercase,abcd, input, latin, letters, uppercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3807
 🔡,1F521,symbols,alphanum,input latin lowercase,abcd, input, latin, letters, lowercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3808
