@@ -3047,6 +3047,130 @@ function takeFromTo(ad, from, to) {
 		return keys.slice(from, to).map(x => (ad[x]));
 	} else return ad.slice(from, to);
 }
+function allWordsContainedInKeys(dict, list) {
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		for (const w of list) {
+			if (!k.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function allWordsContainedInProps(dict, list, props) {
+	// if all words in list are included by any of the properties, this info is valid!
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		let propString = '';
+		for (const p of props) { propString += dict[k][p]; }
+		for (const w of list) {
+			if (!propString.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function anyWordContainedInProps(dict, list, props) {
+	// if all words in list are included by any of the properties, this info is valid!
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		let propString = '';
+		for (const p of props) { propString += dict[k][p]; }
+		for (const w of list) {
+			if (propString.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function allWordsContainedInPropsAsWord(dict, list,props) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		// k.split(/[- ,]+/); //k.split();
+		let keywordList = [];
+		for (const p of props) {
+			//console.log(dict[k][p])
+			if (nundef(dict[k][p])) continue;
+			let keywords = splitAtWhiteSpace(dict[k][p]);
+			keywordList = keywordList.concat(keywords);
+		}
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (!keywordList.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function anyWordContainedInPropsAsWord(dict, list,props) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		// k.split(/[- ,]+/); //k.split();
+		let keywordList = [];
+		for (const p of props) {
+			//console.log(dict[k][p])
+			if (nundef(dict[k][p])) continue;
+			let keywords = splitAtWhiteSpace(dict[k][p]);
+			keywordList = keywordList.concat(keywords);
+		}
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (keywordList.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function anyWordContainedInKeys(dict, list) {
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		for (const w of list) {
+			if (k.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	return res;
+}
+function anyWordContainedInKeysAsWord(dict, list) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = false;
+		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (keywords.includes(w)) { isMatch = true; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
+function allWordsContainedInKeysAsWord(dict, list) {
+	//console.log(list)
+	let res = [];
+	for (const k in dict) {
+		let isMatch = true;
+		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
+		//console.log('keywords',keywords);
+		for (const w of list) {
+			if (!keywords.includes(w)) { isMatch = false; break; }
+		}
+		if (isMatch) res.push(dict[k]);
+	}
+	//console.log(res)
+	return res;
+}
 
 function addIf(arr, el) {
 	if (!arr.includes(el)) arr.push(el);

@@ -201,40 +201,30 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🧒,1F9D2,people-body,person,child,child,kind,,"gender-neutral, unspecified gender, young","human, person",Johanna Wellnitz,2018-04-18,,single,🧒,1F9D2,5,420
 👦,1F466,people-body,person,boy,boy,junge|bub,,,young,"human, person",Johanna Wellnitz,2018-04-18,,single,👦,1F466,0.6,426
 👧,1F467,people-body,person,girl,girl,maaeedchen,,,"virgo, young, zodiac","human, person",Johanna Wellnitz,2018-04-18,,single,👧,1F467,0.6,432
-🧑,1F9D1,people-body,person,person,"adult, gender-neutral, unspecified gender","human, person",Johanna Wellnitz,2018-04-18,,single,🧑,1F9D1,5,438
-👱,1F471,people-body,person,person: blond hair,"blond, blond-haired person, hair",,Anne Frauendorf,2018-11-16,,single,👱,1F471,0.6,444
-👨,1F468,people-body,person,man,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👨,1F468,0.6,450
-🧔,1F9D4,people-body,person,man: beard,"beard, man, person","beard, man, facial hair, man, manly",Lisa Thiel,2018-04-18,,single,🧔,1F9D4,5,456
-👨‍🦰,1F468-200D-1F9B0,people-body,person,man: red hair,"adult, man, red hair",,Nadine Bartel,2019-05-06,,single,👨‍🦰,1F468-200D-1F9B0,11,462
-👨‍🦱,1F468-200D-1F9B1,people-body,person,man: curly hair,"adult, curly hair, man",,Nadine Bartel,2019-05-06,,single,👨‍🦱,1F468-200D-1F9B1,11,468
-👨‍🦳,1F468-200D-1F9B3,people-body,person,man: white hair,"adult, man, white hair",,Nadine Bartel,2019-05-06,,single,👨‍🦳,1F468-200D-1F9B3,11,474
-👨‍🦲,1F468-200D-1F9B2,people-body,person,man: bald,"adult, bald, man",,Nadine Bartel,2019-05-06,,single,👨‍🦲,1F468-200D-1F9B2,11,480
-👩,1F469,people-body,person,woman,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👩,1F469,0.6,486
-👩‍🦰,1F469-200D-1F9B0,people-body,person,woman: red hair,adult| red hair| woman,rote haare|rothaarig|rothaarige frau|frau,,,Nadine Bartel,2019-05-06,,single,👩‍🦰,1F469-200D-1F9B0,11,492
-🧑‍🦰,1F9D1-200D-1F9B0,people-body,person,person: red hair,"adult, gender-neutral, person, red hair, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦰,1F9D1-200D-1F9B0,12.1,498
-👩‍🦱,1F469-200D-1F9B1,people-body,person,woman: curly hair,"adult, curly hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦱,1F469-200D-1F9B1,11,504
-🧑‍🦱,1F9D1-200D-1F9B1,people-body,person,person: curly hair,"adult, curly hair, gender-neutral, person, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦱,1F9D1-200D-1F9B1,12.1,510
-👩‍🦳,1F469-200D-1F9B3,people-body,person,woman: white hair,"adult, white hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦳,1F469-200D-1F9B3,11,516
-🧑‍🦳,1F9D1-200D-1F9B3,people-body,person,person: white hair,"adult, gender-neutral, person, unspecified gender, white hair",,Benedikt Groß,2020-01-15,,single,🧑‍🦳,1F9D1-200D-1F9B3,12.1,522
-👩‍🦲,1F469-200D-1F9B2,people-body,person,woman: bald,"adult, bald, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦲,1F469-200D-1F9B2,11,528
-🧑‍🦲,1F9D1-200D-1F9B2,people-body,person,person: bald,"adult, bald, gender-neutral, person, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦲,1F9D1-200D-1F9B2,12.1,534
+🧑,1F9D1,people-body,person,person,person|man,person|mensch,,,"adult, gender-neutral, unspecified gender","human, person",Johanna Wellnitz,2018-04-18,,single,🧑,1F9D1,5,438
+👱,1F471,people-body,person,person: blond hair,boy|blond-haired|blond hair|blond,blonde haare|blondhaarig|blond|bub,,,"blond, blond-haired person, hair",,Anne Frauendorf,2018-11-16,,single,👱,1F471,0.6,444
+👨,1F468,people-body,person,man,man|human|person,mann|mensch|person,,,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👨,1F468,0.6,450
+🧔,1F9D4,people-body,person,man: beard,beard|man with beard|beard,mann mit bart|baaeertiger mann|mann|bart,,,"beard, man, person","beard, man, facial hair, man, manly",Lisa Thiel,2018-04-18,,single,🧔,1F9D4,5,456
+👨‍🦰,1F468-200D-1F9B0,people-body,person,man: red hair,man|man with red hair|red haired man|red hair,mann|rothaariger mann|rote haare|rothaarig,,,"adult, man, red hair",,Nadine Bartel,2019-05-06,,single,👨‍🦰,1F468-200D-1F9B0,11,462
+👨‍🦱,1F468-200D-1F9B1,people-body,person,man: curly hair,curly hair|man,mann|man mit locken|locken,,,"adult, curly hair, man",,Nadine Bartel,2019-05-06,,single,👨‍🦱,1F468-200D-1F9B1,11,468
+👨‍🦳,1F468-200D-1F9B3,people-body,person,man: white hair,white hair|old man|old|white-haired man,mann mit weissem haar|weisshaaeeriger mann|alt|alter mann|weisshaaeerig,,,"adult, man, white hair",,Nadine Bartel,2019-05-06,,single,👨‍🦳,1F468-200D-1F9B3,11,474
+👨‍🦲,1F468-200D-1F9B2,people-body,person,man: bald,bald,glatzkopf|mann mit glatze|glatze,,,"adult, bald, man",,Nadine Bartel,2019-05-06,,single,👨‍🦲,1F468-200D-1F9B2,11,480
+👩,1F469,people-body,person,woman,woman,frau,,,adult,"human, person",Johanna Wellnitz,2018-04-18,,single,👩,1F469,0.6,486
+👩‍🦰,1F469-200D-1F9B0,people-body,person,woman: red hair,red hair|woman with red hair|red-haired woman|woman,rothaarige frau|rote haare|rothaarig,,,adult| red hair| woman,rote haare|rothaarig|rothaarige frau|frau,,,Nadine Bartel,2019-05-06,,single,👩‍🦰,1F469-200D-1F9B0,11,492
+🧑‍🦰,1F9D1-200D-1F9B0,people-body,person,person: red hair,red hair|woman with red hair|red-haired person|person,rothaarige person|rote haare|rothaarig,,,"adult, gender-neutral, person, red hair, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦰,1F9D1-200D-1F9B0,12.1,498
+👩‍🦱,1F469-200D-1F9B1,people-body,person,woman: curly hair,curly hair|woman with curly hair|curly-haired woman|woman|curls,frau mit lockigem haar|lockige frau|lockige haare|locken|lockig,,,"adult, curly hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦱,1F469-200D-1F9B1,11,504
+🧑‍🦱,1F9D1-200D-1F9B1,people-body,person,person: curly hair,curly hair|woman with curly hair|curly-haired person|person|curls,person mit lockigem haar|lockige person|lockige haare|locken|lockig,,,"adult, curly hair, gender-neutral, person, unspecified gender",,Benedikt Groß,2020-01-15,,single,🧑‍🦱,1F9D1-200D-1F9B1,12.1,510
+👩‍🦳,1F469-200D-1F9B3,people-body,person,woman: white hair,woman with white hair|white-haired woman|old woman|white hair,alte frau|frau mit weissem haar|weisshaarige frau|weisse haare|weisshaarig,,,"adult, white hair, woman",,Nadine Bartel,2019-05-06,,single,👩‍🦳,1F469-200D-1F9B3,11,516
+🧑‍🦳,1F9D1-200D-1F9B3,people-body,person,person: white hair,white hair|woman with white hair|white-haired person|white-haired,person mit weissem haar|weisshaarige person|weisse haare|weisshaarig,,,"adult, gender-neutral, person, unspecified gender, white hair",,Benedikt Groß,2020-01-15,,single,🧑‍🦳,1F9D1-200D-1F9B3,12.1,522
 👱‍♀️,1F471-200D-2640-FE0F,people-body,person,woman: blond hair,"blond-haired woman, blonde, hair, woman",,Nadine Bartel,2019-05-06,,single,👱‍♀️,1F471-200D-2640-FE0F,4,540
-👱‍♂️,1F471-200D-2642-FE0F,people-body,person,man: blond hair,"blond, blond-haired man, hair, man",,Nadine Bartel,2019-05-06,,single,👱‍♂️,1F471-200D-2642-FE0F,4,552
-🧓,1F9D3,people-body,person,older person,"adult, gender-neutral, old, unspecified gender","human, person",Johanna Wellnitz,2018-04-18,,single,🧓,1F9D3,5,564
-👴,1F474,people-body,person,old man,"adult, man, old","grandpa, human, person",Johanna Wellnitz,2018-04-18,,single,👴,1F474,0.6,570
-👵,1F475,people-body,person,old woman,"adult, old, woman","grandma, human, person",Johanna Wellnitz,2018-04-18,,single,👵,1F475,0.6,576
-🙍,1F64D,people-body,person-gesture,person frowning,"frown, gesture","negative, angry, head, face",Johanna Wellnitz,2018-04-18,,single,🙍,1F64D,0.6,582
-🙍‍♂️,1F64D-200D-2642-FE0F,people-body,person-gesture,man frowning,"frowning, gesture, man",,Rifat Erdogan,2019-05-06,,single,🙍‍♂️,1F64D-200D-2642-FE0F,4,588
-🙍‍♀️,1F64D-200D-2640-FE0F,people-body,person-gesture,woman frowning,"frowning, gesture, woman",,Rifat Erdogan,2019-05-06,,single,🙍‍♀️,1F64D-200D-2640-FE0F,4,600
-🙎,1F64E,people-body,person-gesture,person pouting,"gesture, pouting","sad, negative, head, face",Johanna Wellnitz,2018-04-18,,single,🙎,1F64E,0.6,612
-🙎‍♂️,1F64E-200D-2642-FE0F,people-body,person-gesture,man pouting,"gesture, man, pouting",,Rifat Erdogan,2019-05-06,,single,🙎‍♂️,1F64E-200D-2642-FE0F,4,618
-🙎‍♀️,1F64E-200D-2640-FE0F,people-body,person-gesture,woman pouting,"gesture, pouting, woman",,Rifat Erdogan,2019-05-06,,single,🙎‍♀️,1F64E-200D-2640-FE0F,4,630
-🙅,1F645,people-body,person-gesture,person gesturing NO,"forbidden, gesture, hand, person gesturing no, prohibited","human, head, face",Johanna Wellnitz,2018-04-18,,single,🙅,1F645,0.6,642
-🙅‍♂️,1F645-200D-2642-FE0F,people-body,person-gesture,man gesturing NO,"forbidden, gesture, hand, man, man gesturing no, prohibited",,Rifat Erdogan,2019-05-06,,single,🙅‍♂️,1F645-200D-2642-FE0F,4,648
-🙅‍♀️,1F645-200D-2640-FE0F,people-body,person-gesture,woman gesturing NO,"forbidden, gesture, hand, prohibited, woman, woman gesturing no",,Rifat Erdogan,2019-05-06,,single,🙅‍♀️,1F645-200D-2640-FE0F,4,660
-🙆,1F646,people-body,person-gesture,person gesturing OK,"gesture, hand, ok, person gesturing ok","human, head, face",Johanna Wellnitz,2018-04-18,,single,🙆,1F646,0.6,672
-🙆‍♂️,1F646-200D-2642-FE0F,people-body,person-gesture,man gesturing OK,"gesture, hand, man, man gesturing ok, ok",,Rifat Erdogan,2019-05-06,,single,🙆‍♂️,1F646-200D-2642-FE0F,4,678
-🙆‍♀️,1F646-200D-2640-FE0F,people-body,person-gesture,woman gesturing OK,"gesture, hand, ok, woman, woman gesturing ok",,Rifat Erdogan,2019-05-06,,single,🙆‍♀️,1F646-200D-2640-FE0F,4,690
+👱‍♂️,1F471-200D-2642-FE0F,people-body,person,man: blond hair,blond-haired woman|woman with blond hair|blond-haired|blond hair|blond,blonde haare|frau mit blonden haaren|blondine|blondhaarige frau|blond,,,"blond, blond-haired man, hair, man",,Nadine Bartel,2019-05-06,,single,👱‍♂️,1F471-200D-2642-FE0F,4,552
+🧓,1F9D3,people-body,person,older person,woman with white hair|white-haired woman|old woman|white hair,alte frau|frau mit weissem haar|weisshaarige frau|weisse haare|weisshaarig,,,"adult, gender-neutral, old, unspecified gender","human, person",Johanna Wellnitz,2018-04-18,,single,🧓,1F9D3,5,564
+👴,1F474,people-body,person,old man,man with white hair|white-haired man|old man|white hair,alter mann|mann mit weissem haar|weisshaariger mann|weisse haare|weisshaarig,,,"adult, man, old","grandpa, human, person",Johanna Wellnitz,2018-04-18,,single,👴,1F474,0.6,570
+👵,1F475,people-body,person,old woman,woman with white hair|white-haired woman|old woman|white hair,alte frau|frau mit weissem haar|weisshaarige frau|weisse haare|weisshaarig,,,"adult, old, woman","grandma, human, person",Johanna Wellnitz,2018-04-18,,single,👵,1F475,0.6,576
+🙍,1F64D,people-body,person-gesture,person frowning,frowning,stirn runzeln|stirnrunzeln,,,"frown, gesture","negative, angry, head, face",Johanna Wellnitz,2018-04-18,,single,🙍,1F64D,0.6,582
+🙎,1F64E,people-body,person-gesture,person pouting,pouting,trotzig|beleidigt,,,"gesture, pouting","sad, negative, head, face",Johanna Wellnitz,2018-04-18,,single,🙎,1F64E,0.6,612
+🙅,1F645,people-body,person-gesture,person gesturing NO,forbidden|person gesturing no|no|prohibited,verneinen|verboten|nein,,,"forbidden, gesture, hand, person gesturing no, prohibited","human, head, face",Johanna Wellnitz,2018-04-18,,single,🙅,1F645,0.6,642
+🙆,1F646,people-body,person-gesture,person gesturing OK, ok,einverstanden|ok,,,"gesture, hand, ok, person gesturing ok","human, head, face",Johanna Wellnitz,2018-04-18,,single,🙆,1F646,0.6,672
 💁,1F481,people-body,person-gesture,person tipping hand,"hand, help, information, sassy, tipping","human, head, face",Johanna Wellnitz,2018-04-18,,single,💁,1F481,0.6,702
 💁‍♂️,1F481-200D-2642-FE0F,people-body,person-gesture,man tipping hand,"man, sassy, tipping hand",,Rifat Erdogan,2019-05-06,,single,💁‍♂️,1F481-200D-2642-FE0F,4,708
 💁‍♀️,1F481-200D-2640-FE0F,people-body,person-gesture,woman tipping hand,"sassy, tipping hand, woman",,Rifat Erdogan,2019-05-06,,single,💁‍♀️,1F481-200D-2640-FE0F,4,720

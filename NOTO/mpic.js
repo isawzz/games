@@ -10,7 +10,64 @@ function picPosTL(key, dParent, w, h, padding) {
 	mSize(ui, w, h);
 	mPosAbs(ui, padding, padding)
 }
+function subdictOf(dict1, keylist) {
+	let res = {};
+	for (const k of keylist) {
+		res[k] = dict1[k];
+	}
+	return res;
+}
+function picSearch(keywordList, type = null, propList = null, isAnd = false, justCompleteWords = false) {
+	let keylist = picFilter(type);
+	let dict = subdictOf(symbolDict, keylist);
+	// let dict ={};
+	// for(const k of keylist){
+	// 	dict[k]=symbolDict[k];
+	// }
+	if (!isList(keywordList)) keywordList = [keywordList];
+	if (propList && !isList(propList)) propList = [propList];
+	let infolist = [];
+	if (propList) {
+		if (isAnd) {
+			if (justCompleteWords) {
+				infolist = allWordsContainedInPropsAsWord(dict, keywordList, propList);
+			} else {
+				infolist = allWordsContainedInProps(dict, keywordList, propList);
+			}
+		} else {
+			if (justCompleteWords) {
+				infolist = anyWordContainedInPropsAsWord(dict, keywordList, propList);
+			} else {
+				infolist = anyWordContainedInProps(dict, keywordList, propList);
+			}
+		}
+	} else {
+		if (isAnd) {
+			if (justCompleteWords) {
+				infolist = allWordsContainedInKeysAsWord(dict, keywordList, propList);
+			} else {
+				infolist = allWordsContainedInKeys(dict, keywordList, propList);
+			}
+		} else {
+			if (justCompleteWords) {
+				infolist = anyWordContainedInKeysAsWord(dict, keywordList, propList);
+			} else {
+				infolist = anyWordContainedInKeys(dict, keywordList, propList);
+			}
+		}
+	}
+	return infolist;
+}
+function picRandomSearch() {
+	7
+	let infolist = picSearch(...arguments);
+	if (infolist.length > 1) return chooseRandom(infolist);
+	else if (infolist.length == 1) return infolist[0];
+	else return null;
+}
 function picFilter(type, funcKeyHex) {
+	//returns  list of keys from symbolDict that match type,funcKeyHex
+	// if funcKeyHex is a function, it takes a key and returns true or false!
 	if (isString(funcKeyHex)) {
 		//special case (icon,bee):
 		if (isString(funcKeyHex) && type[0] == 'i' && funcKeyHex[0] != 'i' && duplicateKeys.includes(funcKeyHex)) {
@@ -109,95 +166,7 @@ function picDrawRandom(type, funcKeyHex, dParent, styles, classes) {
 }
 //brauche function die fuer dict sucht welche keys ALLE words aus einer liste enthalten!
 //returns ALL dict values that fulfill this cond
-function allWordsContainedInKeys(dict, list) {
-	let res = [];
-	for (const k in dict) {
-		let isMatch = true;
-		for (const w of list) {
-			if (!k.includes(w)) { isMatch = false; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	return res;
-}
-function allWordsContainedInProps(dict, list, props) {
-	// if all words in list are included by any of the properties, this info is valid!
-	let res = [];
-	for (const k in dict) {
-		let isMatch = true;
-		let propString = '';
-		for (const p of props) { propString += dict[k][p]; }
-		for (const w of list) {
-			if (!propString.includes(w)) { isMatch = false; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	return res;
-}
-function allWordsContainedInPropsAsWord(dict, list,props) {
-	//console.log(list)
-	let res = [];
-	for (const k in dict) {
-		let isMatch = true;
-		// k.split(/[- ,]+/); //k.split();
-		let keywordList = [];
-		for (const p of props) {
-			//console.log(dict[k][p])
-			if (nundef(dict[k][p])) continue;
-			let keywords = splitAtWhiteSpace(dict[k][p]);
-			keywordList = keywordList.concat(keywords);
-		}
-		//console.log('keywords',keywords);
-		for (const w of list) {
-			if (!keywordList.includes(w)) { isMatch = false; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	//console.log(res)
-	return res;
-}
-function anyWordContainedInKeys(dict, list) {
-	let res = [];
-	for (const k in dict) {
-		let isMatch = false;
-		for (const w of list) {
-			if (k.includes(w)) { isMatch = true; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	return res;
-}
-function anyWordContainedInKeysAsWord(dict, list) {
-	//console.log(list)
-	let res = [];
-	for (const k in dict) {
-		let isMatch = false;
-		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
-		//console.log('keywords',keywords);
-		for (const w of list) {
-			if (keywords.includes(w)) { isMatch = true; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	//console.log(res)
-	return res;
-}
-function allWordsContainedInKeysAsWord(dict, list) {
-	//console.log(list)
-	let res = [];
-	for (const k in dict) {
-		let isMatch = true;
-		let keywords = splitAtWhiteSpace(k);// k.split(/[- ,]+/); //k.split();
-		//console.log('keywords',keywords);
-		for (const w of list) {
-			if (!keywords.includes(w)) { isMatch = false; break; }
-		}
-		if (isMatch) res.push(dict[k]);
-	}
-	//console.log(res)
-	return res;
-}
-function searchSymbol(keyOrList, op) {
+function searchSymbol(keyOrList, op, type, props) {
 	function searchFunc(info) {
 		if (info.key.includes(keyOrList)) {
 			console.log('key contains', keyOrList);
@@ -205,10 +174,11 @@ function searchSymbol(keyOrList, op) {
 		} else return false;
 	}
 	let list = [];
+	let dict = isdef(type) ? subdictOf(symbolDict, type) : symbolDict;
 	if (isdef(op)) {
 		//console.log('halllo', op, symbolDict, keyOrList)
-		list = op(symbolDict, keyOrList);
-	} else list = allCondDict(symbolDict, searchFunc); //x=>(isdef(x.E && x.E.includes(key)) || (isdef(x.D) && x.D.includes(key)) || x.key.includes(key)));
+		list = op(dict, keyOrList, props);
+	} else list = allCondDict(dict, searchFunc); //x=>(isdef(x.E && x.E.includes(key)) || (isdef(x.D) && x.D.includes(key)) || x.key.includes(key)));
 	return list;
 }
 
