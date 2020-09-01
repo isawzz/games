@@ -3060,15 +3060,21 @@ function allWordsContainedInKeys(dict, list) {
 }
 function allWordsContainedInProps(dict, list, props) {
 	// if all words in list are included by any of the properties, this info is valid!
+	//console.log(dict)
 	let res = [];
 	for (const k in dict) {
 		let isMatch = true;
 		let propString = '';
-		for (const p of props) { propString += dict[k][p]; }
+		for (const p of props) { 
+			propString += dict[k][p]+' '; 
+		}
 		for (const w of list) {
 			if (!propString.includes(w)) { isMatch = false; break; }
 		}
-		if (isMatch) res.push(dict[k]);
+		if (isMatch) {
+			//console.log(k,dict[k],props, propString);
+			res.push(dict[k]);
+		}
 	}
 	return res;
 }
@@ -3719,6 +3725,15 @@ function simpleRep(val) {
 		}
 		return s.join(', ');
 	}
+}
+function subdictOf(dict1, keylist) {
+	let res = {};
+	//if (!isList(keylist)) keylist=[keylist];
+	//console.log(keylist)
+	for (const k of keylist) {
+		res[k] = dict1[k];
+	}
+	return res;
 }
 function union(lst1, lst2) {
 	return [...new Set([...lst1, ...lst2])];

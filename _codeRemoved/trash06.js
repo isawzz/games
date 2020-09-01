@@ -1,4 +1,23 @@
 //#july18
+//brauche function die fuer dict sucht welche keys ALLE words aus einer liste enthalten!
+//returns ALL dict values that fulfill this cond
+function searchSymbol(keyOrList, type, op) {
+	function searchFunc(info) {
+		if (info.key.includes(keyOrList)) {
+			console.log('key contains', keyOrList);
+			return true;
+		} else return false;
+	}
+	let list = [];
+	//console.log(type)
+	let dict = isdef(type) ? picFilterDict(type) : symbolDict;
+	if (isdef(op)) {
+		//console.log('halllo', op, symbolDict, keyOrList)
+		list = op(dict, keyOrList, props);
+	} else list = allCondDict(dict, searchFunc); //x=>(isdef(x.E && x.E.includes(key)) || (isdef(x.D) && x.D.includes(key)) || x.key.includes(key)));
+	return list;
+}
+
 function setGroup_dep(group) {
 	emoGroup = group.toUpperCase();
 	emoDict = {};

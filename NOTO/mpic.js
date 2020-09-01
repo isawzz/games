@@ -10,51 +10,43 @@ function picPosTL(key, dParent, w, h, padding) {
 	mSize(ui, w, h);
 	mPosAbs(ui, padding, padding)
 }
-function subdictOf(dict1, keylist) {
-	let res = {};
-	for (const k of keylist) {
-		res[k] = dict1[k];
-	}
-	return res;
-}
-function picSearch(keywordList, type = null, propList = null, isAnd = false, justCompleteWords = false) {
-	let keylist = picFilter(type);
-	let dict = subdictOf(symbolDict, keylist);
-	// let dict ={};
-	// for(const k of keylist){
-	// 	dict[k]=symbolDict[k];
-	// }
+function picSearch(keywordList, type = null, propListOrFunc = null, isAnd = false, justCompleteWords = false) {
+	let dict = picFilterDict(type);
 	if (!isList(keywordList)) keywordList = [keywordList];
-	if (propList && !isList(propList)) propList = [propList];
+	if (isString(propListOrFunc)) propListOrFunc = [propListOrFunc];
+
 	let infolist = [];
-	if (propList) {
+	if (isList(propListOrFunc)) {
 		if (isAnd) {
 			if (justCompleteWords) {
-				infolist = allWordsContainedInPropsAsWord(dict, keywordList, propList);
+				infolist = allWordsContainedInPropsAsWord(dict, keywordList, propListOrFunc);
 			} else {
-				infolist = allWordsContainedInProps(dict, keywordList, propList);
+				infolist = allWordsContainedInProps(dict, keywordList, propListOrFunc);
 			}
 		} else {
 			if (justCompleteWords) {
-				infolist = anyWordContainedInPropsAsWord(dict, keywordList, propList);
+				infolist = anyWordContainedInPropsAsWord(dict, keywordList, propListOrFunc);
 			} else {
-				infolist = anyWordContainedInProps(dict, keywordList, propList);
+				infolist = anyWordContainedInProps(dict, keywordList, propListOrFunc);
+			}
+		}
+	} else if (!propListOrFunc) {
+		if (isAnd) {
+			if (justCompleteWords) {
+				infolist = allWordsContainedInKeysAsWord(dict, keywordList, propListOrFunc);
+			} else {
+				infolist = allWordsContainedInKeys(dict, keywordList, propListOrFunc);
+			}
+		} else {
+			if (justCompleteWords) {
+				infolist = anyWordContainedInKeysAsWord(dict, keywordList, propListOrFunc);
+			} else {
+				infolist = anyWordContainedInKeys(dict, keywordList, propListOrFunc);
 			}
 		}
 	} else {
-		if (isAnd) {
-			if (justCompleteWords) {
-				infolist = allWordsContainedInKeysAsWord(dict, keywordList, propList);
-			} else {
-				infolist = allWordsContainedInKeys(dict, keywordList, propList);
-			}
-		} else {
-			if (justCompleteWords) {
-				infolist = anyWordContainedInKeysAsWord(dict, keywordList, propList);
-			} else {
-				infolist = anyWordContainedInKeys(dict, keywordList, propList);
-			}
-		}
+		//propList is a function!
+		infolist = propListOrFunc(dict, keywordList);
 	}
 	return infolist;
 }
@@ -64,6 +56,11 @@ function picRandomSearch() {
 	if (infolist.length > 1) return chooseRandom(infolist);
 	else if (infolist.length == 1) return infolist[0];
 	else return null;
+}
+function picFilterDict(type, funcKeyHex) {
+	let keylist = picFilter(type, funcKeyHex);
+	return subdictOf(symbolDict, keylist);
+
 }
 function picFilter(type, funcKeyHex) {
 	//returns  list of keys from symbolDict that match type,funcKeyHex
@@ -106,6 +103,7 @@ function picFilter(type, funcKeyHex) {
 		//console.log('type', type, '\nfuncKeyHex', funcKeyHex, '\nkeylist', keylist)
 
 		//apply funckeyhex to it!
+		keylist.sort();
 		if (nundef(funcKeyHex)) { return keylist; }
 
 
@@ -122,38 +120,73 @@ function picKey(type, funcKeyHex) {
 	let lst = picFilter(type, funcKeyHex);
 	return chooseRandom(lst);
 }
-function picInfo(key) { return isdef(symbolDict[key]) ? symbolDict[key] : symByHex[key] ? symByHex[key] : searchSymbol(key); }
+function picInfo(key) {
+	if (isdef(symbolDict[key])) return symbolDict[key];
+	else if (isdef(symByHex[key])) return symbolDict[symByHex[key]];
+	else {
+		let infolist = picSearch(key);
+		console.log('result from picSearch(' + key + ')', infolist);
+		if (infolist.length == 0) return null;
+		else return chooseRandom(infolist);
+	}
+}
 function picInfoRandom(type, funcKeyHex) {
 	let key = picKey(type, funcKeyHex);
 	return picInfo(key);
 }
-function picDraw(info, dParent, styles, classes) {
-	if (info.type == 'icon' || info.type == 'emotext') {
-		console.log('text', info.text);
-
-		let res = mPicX(info, dParent, styles, classes);
-		//von styles kann einige wegnehmen!
-		if (isdef(styles)) {
-			let addStyles = {};
-			for (const k in styles) {
-				if (['bg', 'fg', 'rounding', 'w', 'h', 'padding', 'border'].includes(k)) continue;
-				addStyles[k] = styles[k];
-			}
-			//mStyleX(res, addStyles);
+function picDrawText(infoKey, dParent, styles, classes) {
+	let info = isString(infoKey)?picInfo(infoKey):infoKey;
+	console.log('------------text', info.text);
+	let res = mPicX(info, dParent, styles, classes);
+	//von styles kann einige wegnehmen!
+	if (isdef(styles)) {
+		let addStyles = {};
+		for (const k in styles) {
+			if (['bg', 'fg', 'rounding', 'w', 'h', 'padding', 'border'].includes(k)) continue;
+			addStyles[k] = styles[k];
 		}
-		console.log('res', res);
-		info.ui = res;
-		return info;
-	} else {
-		let d = mDiv(dParent);
-		mClass(d, 'picOuter')
-		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
-		if (isdef(styles)) mStyleX(d, styles)
-		console.log('d', d);
-		info.ui = d;
-		return info;
+		//mStyleX(res, addStyles);
 	}
+	console.log('res', res);
+	info.ui = res;
+	return info;
+}
+function picDrawTextX(infoKey, dParent, styles, classes) {
+	let info = isString(infoKey)?picInfo(infoKey):infoKey;
+	console.log('------------text', info.text);
+	let res = mPicX(info, dParent, styles, classes);
+	//von styles kann einige wegnehmen!
+	if (isdef(styles)) {
+		let addStyles = {};
+		for (const k in styles) {
+			if (['bg', 'fg', 'rounding', 'w', 'h', 'padding', 'border'].includes(k)) continue;
+			addStyles[k] = styles[k];
+		}
+		//mStyleX(res, addStyles);
+	}
+	console.log('res', res);
+	info.ui = res;
+	return info;
+}
+function picDrawImage(info, dParent, styles, classes) {
+	let d = mDiv(dParent);
+	mClass(d, 'picOuter')
+	let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+	if (isdef(styles)) mStyleX(d, styles)
+	console.log('d', d);
+	info.ui = d;
+	return info;
+}
+function picDraw(info, dParent, styles, classes) {
 
+	if (info.type == 'icon' || info.type == 'emotext') { return picDrawText(info, dParent, styles, classes); }
+	else { return picDrawImage(info, dParent, styles, classes); }
+
+}
+function picDrawKeyAsType(key, type, dParent, styles, classes) {
+	let info = picInfo(key);
+	info.type = type;
+	picDraw(info, dParent, styles, classes);
 }
 function picDrawKey(key, dParent, styles, classes) {
 	let info = picInfo(key);
@@ -164,24 +197,6 @@ function picDrawRandom(type, funcKeyHex, dParent, styles, classes) {
 	picDraw(info, dParent, styles, classes);
 
 }
-//brauche function die fuer dict sucht welche keys ALLE words aus einer liste enthalten!
-//returns ALL dict values that fulfill this cond
-function searchSymbol(keyOrList, op, type, props) {
-	function searchFunc(info) {
-		if (info.key.includes(keyOrList)) {
-			console.log('key contains', keyOrList);
-			return true;
-		} else return false;
-	}
-	let list = [];
-	let dict = isdef(type) ? subdictOf(symbolDict, type) : symbolDict;
-	if (isdef(op)) {
-		//console.log('halllo', op, symbolDict, keyOrList)
-		list = op(dict, keyOrList, props);
-	} else list = allCondDict(dict, searchFunc); //x=>(isdef(x.E && x.E.includes(key)) || (isdef(x.D) && x.D.includes(key)) || x.key.includes(key)));
-	return list;
-}
-
 function fitsWithFont(text, styles, w, h, fz) {
 	styles.fz = fz;
 	let size = getSizeWithStyles(text, styles);
@@ -226,7 +241,7 @@ function textCorrectionFactor(text, styles, w, h, fz) {
 }
 
 function fontTransition(fz, over) {
-	console.log(over)
+	//console.log(over)
 	if (over > 1.5) over = 1.5;
 	else if (over < .5) over = 0.5;
 	else if (over > 1) return fz - 1; else if (over < 1) return fz + 1;
@@ -242,7 +257,11 @@ function fitTL(text, w, h, dParent, styles) {
 }
 
 function fitText(text, rect, dParent, styles, classes) {
-	let l = rect.cx - (rect.w / 2); let t = rect.cy - (rect.h / 2); let d = mDivPosAbs(l, t, dParent);
+	let l = rect.cx - (rect.w / 2); 
+	let t = rect.cy - (rect.h / 2); 
+	
+	let d = mDivPosAbs(l, t, dParent);
+	
 	styles.display = 'inline-block';
 	styles.w = rect.w;
 
