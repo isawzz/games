@@ -1,7 +1,13 @@
-var table = mBy('table');var RECT= { w: 200, h: 200, cx: 80, cy: 100 };
-window.onload = async () => { await loadAssets(); test20(); }
+var table = mBy('table');var RECT= { w: 200, h: 200, cx: 120, cy: 120 };
+window.onload = async () => { await loadAssets(); test21(); }
 
 //#region picDraw mit fitTxt verbinden
+function test21(){
+	showFont('AlgerianRegular');
+	showFont('verdana');
+	showFont('tahoma');
+	//fitTextH('hallo',table);
+}
 function getSizeWithStylesX(text, styles) {
 	var d = document.createElement("div");
 	document.body.appendChild(d);
@@ -27,7 +33,7 @@ function getSizeWithStylesX(text, styles) {
 function test20(){
 	// let info = picInfo('man');
 	// fitText(info.text,RECT,table,{family:info.family,bg:'blue',align:'center'});
-	fitTextXX('hallo',RECT,table,{bg:'blue'});
+	fitText01('hallo',RECT,table,{bg:'blue',padding:20});
 }
 
 //#region picDraw trial 2!

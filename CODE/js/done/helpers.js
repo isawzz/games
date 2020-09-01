@@ -641,6 +641,14 @@ function mStyleX(elem, styles, unit = 'px') {
 		bg: 'background-color',
 		fg: 'color',
 		align: 'text-align',
+		matop: 'margin-top',
+		maleft: 'margin-left',
+		mabottom: 'margin-bottom',
+		maright: 'margin-right',
+		patop: 'padding-top',
+		paleft: 'padding-left',
+		pabottom: 'padding-bottom',
+		paright: 'padding-right',
 		rounding: 'border-radius',
 		w: 'width',
 		h: 'height',
@@ -653,6 +661,12 @@ function mStyleX(elem, styles, unit = 'px') {
 	let bg, fg;
 	if (isdef(styles.bg) || isdef(styles.fg)) {
 		[bg, fg] = getExtendedColors(styles.bg, styles.fg);
+	}
+	if (isdef(styles.vmargin) && isdef(styles.hmargin)) {
+		styles.margin = vmargin + unit + ' ' + hmargin + unit;
+	}
+	if (isdef(styles.vpadding) && isdef(styles.hpadding)) {
+		styles.padding = vpadding + unit + ' ' + hpadding + unit;
 	}
 
 	//console.log(styles.bg,styles.fg);
@@ -3065,8 +3079,8 @@ function allWordsContainedInProps(dict, list, props) {
 	for (const k in dict) {
 		let isMatch = true;
 		let propString = '';
-		for (const p of props) { 
-			propString += dict[k][p]+' '; 
+		for (const p of props) {
+			propString += dict[k][p] + ' ';
 		}
 		for (const w of list) {
 			if (!propString.includes(w)) { isMatch = false; break; }
@@ -3092,7 +3106,7 @@ function anyWordContainedInProps(dict, list, props) {
 	}
 	return res;
 }
-function allWordsContainedInPropsAsWord(dict, list,props) {
+function allWordsContainedInPropsAsWord(dict, list, props) {
 	//console.log(list)
 	let res = [];
 	for (const k in dict) {
@@ -3114,7 +3128,7 @@ function allWordsContainedInPropsAsWord(dict, list,props) {
 	//console.log(res)
 	return res;
 }
-function anyWordContainedInPropsAsWord(dict, list,props) {
+function anyWordContainedInPropsAsWord(dict, list, props) {
 	//console.log(list)
 	let res = [];
 	for (const k in dict) {
