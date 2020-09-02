@@ -37,7 +37,7 @@ async function createDocs(collapsed = true) {
 	//console.log('collapsed', collapsed)
 	createCollapsibles(dv, DOC_dvIndex, collapsed);
 
-	setCurrentPath('helpers.js');
+	setCurrentPath('helpersX.js');
 
 	//new ResizeObserver(outputsize).observe(textbox)
 	//resizeObserver.observe(mBy('sidebar'));
@@ -119,7 +119,8 @@ function createCollapsibles(dv, lst, collapsed) {
 			fSignature.classList.add('signature');
 
 			let fComments = mDiv(fDiv);
-			fComments.innerHTML = comments;
+			// // fComments.innerHTML = comments;
+			if (!isEmpty(comments)) addComment(comments, fComments);
 			fComments.classList.add('comments');
 		}
 
@@ -195,38 +196,23 @@ function genCollapsible(path, info) {
 	let b = mButton(caption, null, dParent, {}, classes);
 	b.id = info.idLink;
 
-	//let bView = mButton('view', e => showCollapsibleContent(e), b, { float: 'right' }, null);
-	let bView = mPicButtonSimple('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, null);
-
-	//let bView = mPicButton('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, null);
+	let bView = mPicButtonSimple('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, ['picButton']);
 
 	bView.addEventListener('mouseenter', ev => {
-		let domel = ev.target;
-		domel.origColor = domel.style.backgroundColor;
-		//domel.style.backgroundColor = 'red';
-		//mStyle(domel,{'background-color':'green'});
-		domel.classList.remove('picButton');
-		domel.classList.add('picButtonHover');
-		console.log('==>classList',domel.classList);
-		//mClass(domel,'picButtonHover');
-		//ev.cancelBubble = true; 
-		ev.stopPropagation = true; 
-		//ev.defaultPrevented = true;
-		//console.log('entering view button', '\nevent', ev, '\nbutton', this);
+		// let domel = ev.target;
+		// domel.classList.remove('picButton');
+		// domel.classList.add('picButtonHover');
+		// console.log('==>classList',domel.classList);//,'\norig color',domel.origColor,domel);
+		ev.stopPropagation = true;
 	});
 	bView.addEventListener('mouseleave', ev => {
-		let domel = ev.target;
-		domel.classList.add('picButton');
-		domel.classList.remove('picButtonHover')
-		// domel.style.backgroundColor = domel.origColor; //'violet';
-		//ev.cancelBubble = true; 
-		ev.stopPropagation = true; 
-		//ev.defaultPrevented = true;
-		// console.log('leaving view button', '\nevent', ev, '\nbutton', this);
+		// let domel = ev.target;
+		// domel.classList.remove('picButtonHover')
+		// domel.classList.add('picButton');
+		// console.log('==>classList',domel.classList);
+		ev.stopPropagation = true;
 	});
 
-	//console.log('haaaaaaaaaaaaaaaaalo',b.style.padding)
 	b.style.padding = '4px';
-
 	return b;
 }

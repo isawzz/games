@@ -1,8 +1,8 @@
 var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 120, cy: 120 };
-window.onload = async () => { await loadAssets(); test21(); }
+window.onload = async () => { await loadAssets(); test16(); }
 
 function test22() {
-
+	amCard(table); // should make a blank card
 }
 
 
@@ -62,16 +62,19 @@ function test17() {
 
 }
 
-//#region picSearch
+//#region picSearch_
 function startsWithOneOf(s, list) {
 	for (const k of list) { if (startsWith(s, k)) return true; }
 	return false;
 }
 function testFunc1(dict, keywords) {
+	
 	//let res = allCondDict(dict, x => {console.log(x);return keywords.includes(x.key);});
-	let res = allCondDict(dict, x => startsWithOneOf(x.key, keywords));
+	//let res = allCondDict(dict, x => startsWithOneOf(x.key, keywords));
+	// let keys =Object.keys(dict);	keys.sort();
+	let res = allCondX(dict, x => startsWithOneOf(x.key, keywords));
 	console.log(res);
-	return subdictOf(dict, res);
+	return res;// subdictOf(dict, res);
 }
 function test16() {
 	let dict = picFilterDict('eduplo'); //richtig
@@ -79,6 +82,7 @@ function test16() {
 	//let infolist = picSearch(['cu'], 'eduplo', ['E', 'D']); //, false, false); //ok!
 	//let infolist = picSearch('cu','emo','key'); //ok!
 	let infolist = picSearch('a', 'eduplo', testFunc1); //ok!
+
 	console.log(infolist); return;
 
 }

@@ -207,6 +207,7 @@ function testIndenting() {
 }
 
 function mMultiline(s, tabvalue, dParent, styles, classes) {
+	console.log(s)
 	let spc = '&nbsp;';
 	let lines = s.split('\n');
 	let html = '';

@@ -22,7 +22,7 @@ async function createVault() {
 	//console.log(typeof listOfFiles, listOfFiles)
 	//vault.map(x=>//console.log(x));
 
-	listOfFiles = ['/CODE/helpers.js','/RSG/js/_rParse.js'];
+	listOfFiles = ['/CODE/helpers.js','/CODE/helpersX.js','/RSG/js/_rParse.js'];
 	//console.log(listOfFiles)
 	let vault = await documentVault(listOfFiles);
 	return vault;

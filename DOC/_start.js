@@ -1,10 +1,9 @@
 window.onload = DOCStart;
-
 var timit;
 
 async function DOCStart() {
 
-	testSpeech(); return;
+	//testSpeech(); return;
 	//testDec();return;
 	//testFetchCsvAsTextAndSearch(); return;
 	//testFetchIndexHtmlAsTextAndSearch(); return;

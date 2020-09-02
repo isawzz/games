@@ -10,48 +10,7 @@ function picPosTL(key, dParent, w, h, padding) {
 	mSize(ui, w, h);
 	mPosAbs(ui, padding, padding)
 }
-function picSearch(keywordList, type = null, propListOrFunc = null, isAnd = false, justCompleteWords = false) {
-	let dict = picFilterDict(type);
-	if (!isList(keywordList)) keywordList = [keywordList];
-	if (isString(propListOrFunc)) propListOrFunc = [propListOrFunc];
-
-	let infolist = [];
-	if (isList(propListOrFunc)) {
-		if (isAnd) {
-			if (justCompleteWords) {
-				infolist = allWordsContainedInPropsAsWord(dict, keywordList, propListOrFunc);
-			} else {
-				infolist = allWordsContainedInProps(dict, keywordList, propListOrFunc);
-			}
-		} else {
-			if (justCompleteWords) {
-				infolist = anyWordContainedInPropsAsWord(dict, keywordList, propListOrFunc);
-			} else {
-				infolist = anyWordContainedInProps(dict, keywordList, propListOrFunc);
-			}
-		}
-	} else if (!propListOrFunc) {
-		if (isAnd) {
-			if (justCompleteWords) {
-				infolist = allWordsContainedInKeysAsWord(dict, keywordList, propListOrFunc);
-			} else {
-				infolist = allWordsContainedInKeys(dict, keywordList, propListOrFunc);
-			}
-		} else {
-			if (justCompleteWords) {
-				infolist = anyWordContainedInKeysAsWord(dict, keywordList, propListOrFunc);
-			} else {
-				infolist = anyWordContainedInKeys(dict, keywordList, propListOrFunc);
-			}
-		}
-	} else {
-		//propList is a function!
-		infolist = propListOrFunc(dict, keywordList);
-	}
-	return infolist;
-}
 function picRandomSearch() {
-	7
 	let infolist = picSearch(...arguments);
 	if (infolist.length > 1) return chooseRandom(infolist);
 	else if (infolist.length == 1) return infolist[0];

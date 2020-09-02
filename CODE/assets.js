@@ -3,7 +3,7 @@ var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCa
 var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 var symbolDict, symbolKeys, duplicateKeys;
-var symBySet, symIndex, symByGroup, symBySubgroup, symByHex;
+var symBySet, symIndex, symByGroup, symByHex;
 
 //#region emoji sets
 var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
