@@ -6,9 +6,9 @@ async function testSpeech() {
 	initTable(); //button and score ui
 
 	let sidebar = mBy('sidebar'); //init sidebar
-	mTextDiv('language:', sidebar);
+	mText('language:', sidebar);
 	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
-	mTextDiv('categories:', sidebar);
+	mText('categories:', sidebar);
 	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {

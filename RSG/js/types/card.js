@@ -5,10 +5,10 @@ function mCard(n, R, uidParent) {
 	//fuer solution 2:
 	let uiWrapper = mDiv(dParent);
 	addClass(uiWrapper, 'cardWrapper');
-	let ui = mTextDiv(n.content, uiWrapper);
+	let ui = mText(n.content, uiWrapper);
 	addClass(ui, 'cardStyle');
 
-	// let ui = mTextDiv(n.content, dParent);
+	// let ui = mText(n.content, dParent);
 	// addClass(ui,'cardStyle'); 
 
 	// let params = decodeParams(n,{},R);

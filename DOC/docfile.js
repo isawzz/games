@@ -2,7 +2,7 @@
 async function createVault() {
 	//zuerst vault holen und zwar aus index.html!
 	//fetch index.html als text
-	let sIndex = await fetchFileAsText('/CODE/index.html');
+	let sIndex = await fetchFileAsText('/RSG/index.html');
 
 	// wie krieg ich vault?
 	let lines = sIndex.split('\n');
@@ -22,7 +22,7 @@ async function createVault() {
 	//console.log(typeof listOfFiles, listOfFiles)
 	//vault.map(x=>//console.log(x));
 
-	listOfFiles = ['/CODE/js/done/helpers.js','/CODE/js/_rParse.js'];
+	listOfFiles = ['/CODE/helpers.js','/RSG/js/_rParse.js'];
 	//console.log(listOfFiles)
 	let vault = await documentVault(listOfFiles);
 	return vault;

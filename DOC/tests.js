@@ -32,7 +32,8 @@ async function testSpeech(){
 	mFlexLinebreak(table);
 	hintMessage = mHeading('HALLO',table,1,'hint');
 	mFlexLinebreak(table);
-	resultMessage = mText('jajaja',table,'result');
+	resultMessage = mText('jajaja',table); 
+	resultMessage.id ='result';
 	resultMessage.style.marginTop='200px';
 	resultMessage.style.fontSize='20pt';
 
@@ -111,13 +112,13 @@ function mHeading(msg,dParent,level,id){
 	mAppend(dParent,p);
 	return p;
 }
-function mText(msg,dParent,id){
-	let p=mCreate('div');
-	if (!isEmpty(msg)) p.innerHTML=msg;
-	if (isdef(id)) p.id=id;
-	mAppend(dParent,p);
-	return p;
-}
+// function mText_(msg,dParent,id){
+// 	let p=mCreate('div');
+// 	if (!isEmpty(msg)) p.innerHTML=msg;
+// 	if (isdef(id)) p.id=id;
+// 	mAppend(dParent,p);
+// 	return p;
+// }
 async function testFetchCsvAsTextAndSearch() {
 	// let x = await (await fetch('/assets/openmoji.csv')).text();
 	// let res = processCsvData(x);
@@ -202,7 +203,7 @@ function testIndenting() {
 		html += x + '<br>';
 		console.log(x)
 	}
-	let d1 = mTextDiv(html, d)
+	let d1 = mText(html, d)
 }
 
 function mMultiline(s, tabvalue, dParent, styles, classes) {
@@ -216,7 +217,7 @@ function mMultiline(s, tabvalue, dParent, styles, classes) {
 		let x = spc.repeat(n) + line;
 		html += x + '<br>';
 	}
-	let d1 = mTextDiv(html, dParent);
+	let d1 = mText(html, dParent);
 	if (isdef(styles)) mStyle(d1, styles);
 	if (isdef(classes)) mClass(d1, ...classes);
 
@@ -300,7 +301,7 @@ async function testFetchIndexHtmlAsTextAndSearch() {
 
 async function testDirList() {
 
-	let x = await (await fetch('/CODE/js')).text();
+	let x = await (await fetch('/RSG/js')).text();
 
 	//console.log('x',stringAfter(x,'<a href="/'));
 	while (!isEmpty(x)) {
@@ -323,7 +324,7 @@ async function testDirList() {
 	return;
 
 	var request = new XMLHttpRequest();
-	request.open('GET', '/CODE/', true);
+	request.open('GET', '/RSG/', true);
 
 	let resp;
 	request.onload = function () {

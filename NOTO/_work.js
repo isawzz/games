@@ -1,3 +1,18 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#region dep start over!
 function showFont(family) {
 	let gap=5;
 	mStyleX(table,{bg:'random',padding:gap})
@@ -8,7 +23,6 @@ function showFont(family) {
 
 
 }
-
 function fitTextH(text, dParent, styles) {
 	// styles = {bg:'green',fz:30,family:'lucida sans'}
 	// let [l,t,w,h]=[0,0,100,100];
@@ -20,7 +34,6 @@ function fitTextH(text, dParent, styles) {
 	mStyleX(d, styles);
 	return d;
 }
-
 function fitText01(text, rect, dParent, styles, classes) {
 	let [l, t, d] = prelims(rect, dParent, styles);
 	//console.log(l,t,d);
@@ -56,10 +69,27 @@ function fitText01(text, rect, dParent, styles, classes) {
 	mStyleX(d, styles);
 
 }
+function getSizeWithStylesX(text, styles) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	//console.log(styles);
+	let cStyles = jsCopy(styles);
+	cStyles.position = 'fixed';
+	cStyles.opacity = 0;
+	cStyles.top = '-9999px';
+	mStyleX(d, cStyles);
+	d.innerHTML = text;
+	let height = d.clientHeight;
+	let width = d.clientWidth;
 
+	let scrollWidth = d.scrollWidth;
+	let scrollHeight = d.scrollHeight;
 
+	console.log('w',width,'scrollW',scrollWidth);
 
-
+	d.parentNode.removeChild(d)
+	return { w: width, h: height, wScroll: scrollWidth, hScroll: scrollHeight };
+}
 function prelims(rect, dParent, styles) {
 	//console.log(rect)
 	let l = rect.cx - (rect.w / 2);
@@ -108,7 +138,6 @@ function fontCorrection(text, styles, w, h, fz) {
 		// 	return size.w / w;
 	} else return 0;
 }
-
 function fitTextXX(text, rect, dParent, styles, classes) {
 	let [l, t, d] = prelims(rect, dParent, styles);
 

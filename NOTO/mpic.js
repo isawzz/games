@@ -1,5 +1,5 @@
-function blankCard() {
-	let c = mDiv();
+function blankCard(dParent) {
+	let c = mDiv(dParent);
 	let styles = { w: 70, h: 110, bg: 'beige', rounding: 12, border: 'grey' };
 	mStyleX(c, styles)
 	return c;
@@ -171,7 +171,7 @@ function picDrawTextX(infoKey, dParent, styles, classes) {
 function picDrawImage(info, dParent, styles, classes) {
 	let d = mDiv(dParent);
 	mClass(d, 'picOuter')
-	let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+	let ui = mImg(info.path, d); //, { w: 200, h: 200 });
 	if (isdef(styles)) mStyleX(d, styles)
 	console.log('d', d);
 	info.ui = d;

@@ -68,7 +68,7 @@ var emoSets = [
 ];
 //#endregion
 
-//#region pic keys
+//#region symbolDict
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
 	for (const k in emojiKeys) {
@@ -119,7 +119,6 @@ function makeInfoDict() {
 	// console.log('index', symIndex);
 	// console.log('by hex', symByHex);
 }
-
 
 //helpers done
 function hexWithSkinTone(info) {
@@ -176,7 +175,7 @@ function setPicText(info) {
 	return s1;
 }
 
-//#ssendregion
+//#endregion
 
 //#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {
@@ -552,7 +551,7 @@ async function route_test_userSpec(url) {
 async function route_userCode(game, fname) {
 	try {
 		//let codePath = '/games/' + game + '/_rsg/' + fname + '.js';
-		let url = '/code/' + game + (isdef(fname) ? '/' + fname : '');
+		let url = '/RSG/' + game + (isdef(fname) ? '/' + fname : '');
 		let text = await route_server_text(url);
 
 		return { asText: text };

@@ -588,7 +588,7 @@ function testVCentered() {
 	let d = mDiv(dTable);
 	mSize(d, 100, 100);
 	mColor(d, 'blue');
-	let d1 = mTextDiv('HALLO', d);
+	let d1 = mText('HALLO', d);
 	mCenterV(d1);
 }
 function testSaveLoadUiTree() {
@@ -675,8 +675,8 @@ function testGetElements() {
 //#region docfile tests
 
 async function testDocumentFile(){
-	//let res = await fetchFileAsText('/CODE/js/_rParse.js');	console.log('res', typeof res, res); return;
-	let akku = await documentFile('/CODE/js/done/docs/docfile.js');
+	//let res = await fetchFileAsText('/RSG/js/_rParse.js');	console.log('res', typeof res, res); return;
+	let akku = await documentFile('/RSG/js/done/docs/docfile.js');
 	let keys=Object.keys(akku);
 	keys.sort();
 	keys.map(x => console.log('signature:',x,'\ncomment block:\n',akku[x]));
@@ -686,20 +686,20 @@ async function testDocumentFile(){
 }
 async function testDocumentVault(){
 	let vault = [
-		"/CODE/js/R/binding.js",
-		"/CODE/js/R/rsgTypes.js",
-		"/CODE/js/testing/engine.js",
-		"/CODE/js/testing/onClick.js",
-		"/CODE/js/testing/SimpleGrid.js",
-		"/CODE/js/testing/testBoard.js",
-		"/CODE/js/testing/testCards.js",
-		"/CODE/js/testing/testFactory.js",
-		"/CODE/js/testing/testData.js",
-		"/CODE/js/testing/testing.js",
-		"/CODE/js/done/activator.js",
-		"/CODE/js/done/assets.js",
-		"/CODE/js/done/index.js",
-		"/CODE/js/done/utils.js",
+		"/RSG/js/R/binding.js",
+		"/RSG/js/R/rsgTypes.js",
+		"/RSG/js/testing/engine.js",
+		"/RSG/js/testing/onClick.js",
+		"/RSG/js/testing/SimpleGrid.js",
+		"/RSG/js/testing/testBoard.js",
+		"/RSG/js/testing/testCards.js",
+		"/RSG/js/testing/testFactory.js",
+		"/RSG/js/testing/testData.js",
+		"/RSG/js/testing/testing.js",
+		"/RSG/js/done/activator.js",
+		"/CODE/assets.js",
+		"/RSG/js/done/index.js",
+		"/RSG/js/done/utils.js",
 	];
 	//let res = await documentVault(vault);
 	console.log(res);

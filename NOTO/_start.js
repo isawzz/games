@@ -1,49 +1,42 @@
-var table = mBy('table');var RECT= { w: 200, h: 200, cx: 120, cy: 120 };
+var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 120, cy: 120 };
 window.onload = async () => { await loadAssets(); test21(); }
 
+function test22() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //#region picDraw mit fitTxt verbinden
-function test21(){
+function test21() {
 	showFont('AlgerianRegular');
 	showFont('verdana');
 	showFont('tahoma');
 	//fitTextH('hallo',table);
 }
-function getSizeWithStylesX(text, styles) {
-	var d = document.createElement("div");
-	document.body.appendChild(d);
-	//console.log(styles);
-	let cStyles = jsCopy(styles);
-	cStyles.position = 'fixed';
-	cStyles.opacity = 0;
-	cStyles.top = '-9999px';
-	mStyleX(d, cStyles);
-	d.innerHTML = text;
-	let height = d.clientHeight;
-	let width = d.clientWidth;
-
-	let scrollWidth = d.scrollWidth;
-	let scrollHeight = d.scrollHeight;
-
-	console.log('w',width,'scrollW',scrollWidth);
-
-	d.parentNode.removeChild(d)
-	return { w: width, h: height, wScroll: scrollWidth, hScroll: scrollHeight };
-}
-
-function test20(){
+function test20() {
 	// let info = picInfo('man');
 	// fitText(info.text,RECT,table,{family:info.family,bg:'blue',align:'center'});
-	fitText01('hallo',RECT,table,{bg:'blue',padding:20});
+	fitText01('hallo', RECT, table, { bg: 'blue', padding: 20 });
 }
 
 //#region picDraw trial 2!
-function test19(){
-	picDrawText('man',table,{w:100,h:100,bg:'blue',align:'center'});
+function test19() {
+	picDrawText('man', table, { w: 100, h: 100, bg: 'blue', align: 'center' });
 
 }
-function test18(){
-	let info = picInfo('red heart');	info.type = 'emotext';
-	picDraw(info,table,{w:100,h:100,bg:'blue',align:'center'})
+function test18() {
+	let info = picInfo('red heart'); info.type = 'emotext';
+	picDraw(info, table, { w: 100, h: 100, bg: 'blue', align: 'center' })
 
 }
 
@@ -52,7 +45,7 @@ function test17() {
 	let info = picInfo('red heart');
 	info.type = 'emotext';
 
-	picDraw(info, table, { w: 200, h: 200, bg: 'yellow',align:'center' }); 
+	picDraw(info, table, { w: 200, h: 200, bg: 'yellow', align: 'center' });
 
 	let c = blankCard();
 	//mAppend(table, c);
@@ -155,7 +148,6 @@ function test11() {
 	styles.w = rect.w;
 	fitText(longtext, rect, table, styles);
 }
-
 function test10() {
 	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
 	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
@@ -170,7 +162,6 @@ function test10() {
 
 	fitText(longtext, rect, table, styles);
 }
-
 function test9() {
 	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
 	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
@@ -185,7 +176,7 @@ function test8() {
 	fitText(longtext, rect, table, { padding: 5, 'box-sizing': 'border-box' });
 }
 
-//mText
+//mText_
 function test7() {
 	let styles = {};
 	styles.fz = '25px';
@@ -196,7 +187,7 @@ function test7() {
 	styles.w = 200;
 	let size = getSizeWithStyles('hallo', jsCopy(styles));
 
-	let d = mText('hallo', table, null, styles); //,null,styles);
+	let d = mText('hallo', table, styles); //,null,styles);
 	//mStyles(d,styles);
 	let b = getBounds(d);
 	console.log(size, b);
@@ -272,27 +263,22 @@ function showPic2(area, { type = 'emo', key, hex }, styles, classes) {
 	let ui;
 	if (info.type == 'icon') {
 		console.log('text', info.text)
-		ui = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+		ui = mText(info.text, table, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
 	} else {
-		ui = mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+		ui = mImg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
 	}
 	if (isdef(styles)) mStyleX(ui, styles);
 	if (isdef(classes)) mClass(ui, classes);
 	info.ui = ui;
 	return info;
 }
-
 function test3() {
 	let table = mBy('table');
 	let hexcode = '1F3FC'; //das ist ein skintone!
 	hexcode = '1F477'; //gibt es! der rest ist special code!
-	mSvg('/assets/svg/twemoji/' + hexcode + '.svg', table, { w: 200, h: 200 });
+	mImg('/assets/svg/twemoji/' + hexcode + '.svg', table, { w: 200, h: 200 });
 }
-
 function isEmojiKey(hex) { return isdef(emojiChars[hex]); }
-function selectKey(func) {
-
-}
 function showPic(area, typeHexKey, styles, classes) {
 
 	let table = mBy(area);
@@ -308,9 +294,9 @@ function showPic(area, typeHexKey, styles, classes) {
 	let ui;
 	if (info.type == 'icon') {
 		console.log('text', info.text)
-		ui = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+		ui = mText(info.text, table, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
 	} else {
-		ui = mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+		ui = mImg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
 	}
 	if (isdef(styles)) mStyleX(ui, styles);
 	if (isdef(classes)) mClass(ui, classes);
@@ -327,9 +313,9 @@ function test2() {
 
 	if (info.type == 'icon') {
 		console.log('text', info.text)
-		let d = mText(info.text, table, null, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
+		let d = mText(info.text, table, { family: info.family, fz: 200, bg: 'red', fg: 'green', display: 'inline' });
 	} else {
-		mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+		mImg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
 	}
 
 }
@@ -338,14 +324,13 @@ function getRandomIconKey() {
 	keys = keys.filter(x => symbolDict[x].type == 'icon');
 	return chooseRandom(keys);
 }
-
 function test1() {
 
 	let key = 'onion'; let table = mBy('table');
 
 	// all code needed fuer emoji:
 	let info = getPicInfo(key);
-	mSvg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
+	mImg('/assets/svg/twemoji/' + info.hexcode + '.svg', table, { w: 200, h: 200 });
 	console.log('info', key, info);
 
 	// all code needed fuer iconChar OR emoji:
@@ -372,21 +357,21 @@ function test1() {
 function test() {
 	let key = '1F9C5'; let table = mBy('table');
 
-	// let x = mTextDiv(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
+	// let x = mText(key, table); mStyleX(x, { fz: 100, family: 'emoColor' });
 
-	mSvg('/assets/svg/twemoji/' + key + '.svg', table, { w: 200, h: 200 });
-	mSvg('/assets/svg/openmoji/' + key + '.svg', table, { w: 200, h: 200 });
+	mImg('/assets/svg/twemoji/' + key + '.svg', table, { w: 200, h: 200 });
+	mImg('/assets/svg/openmoji/' + key + '.svg', table, { w: 200, h: 200 });
 
 
 	let decCode = hexStringToDecimal(key); let s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
-	x = mTextDiv(s1, table);
+	x = mText(s1, table);
 	mStyleX(x, { fz: 200, family: 'emoColor' });
 	mClass(x, 'removeOutline');
 	//mClass(x,['c']);
 
 	decCode = hexStringToDecimal(key);
 	s1 = '&#' + decCode + ';'; // Emoji=Yes;'; //'\u{1F436}';
-	x = mTextDiv(s1, table);
+	x = mText(s1, table);
 	mStyleX(x, { fz: 200, family: 'emoColor' });
 	//let e = mEmoTrial2(key, table, {"font-size":200,bg:'green'});
 }

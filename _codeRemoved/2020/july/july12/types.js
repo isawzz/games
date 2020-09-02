@@ -26,7 +26,7 @@ function mInvisible(n, uidParent, R) {
 	//if (n.data) { console.log('habe data', n.data) }
 	if (n.content) {
 		//console.log('habe content!!!', n.content); 
-		mTextDiv(n.content, d);
+		mText(n.content, d);
 	}
 	//n.idUiParent = d.id;
 	return d;
@@ -152,7 +152,7 @@ function addTitleToGrid(n, d) {
 	//return;
 	if (n.content && n.params.padding) {
 		//console.log('habe content!!!', n.content); 
-		let d1 = mTextDiv(n.content, d);
+		let d1 = mText(n.content, d);
 		d1.style.display = 'block';
 		d1.style.backgroundColor = 'black';
 		d1.style.position = 'absolute';
@@ -191,7 +191,7 @@ function mPanel(n, uidParent, R) {
 
 	//content
 	if (isdef(n.content)) {
-		let d1 = mTextDiv(n.content, ui);
+		let d1 = mText(n.content, ui);
 	}
 
 	return ui;
@@ -268,7 +268,7 @@ function mCard52_Wrapper(n, uidParent, R) {
 	//ui.style.borderRadius='3px';
 	mAppend(uiWrapper, ui);
 
-	// let ui = mTextDiv(n.content, uiWrapper);
+	// let ui = mText(n.content, uiWrapper);
 	// mAppend(d,ui);
 
 
@@ -280,7 +280,7 @@ function mTitle(n, uidParent, R) {
 	let dParent = mBy(n.idUiParent);
 
 	//console.log(n,dParent)
-	let ui = mTextDiv(n.content, dParent);
+	let ui = mText(n.content, dParent);
 
 	// let params = decodeParams(n,{},R);
 	// mStyle(ui, params);
@@ -357,7 +357,7 @@ function mSimplestInvisible(n, uidParent, R) {
 	//if (n.data) { console.log('habe data', n.data) }
 	if (n.content) {
 		//console.log('habe content!!!', n.content); 
-		mTextDiv(n.content, d);
+		mText(n.content, d);
 	}
 	//n.idUiParent = d.id;
 	return d;
@@ -373,7 +373,7 @@ function mSimplest(n, uidParent, R) {
 		// let para = document.createElement('p');
 		// para.innerHTML = 'hallo';
 		// ui.appendChild(para);
-		//ui = mTextDiv(n.content,dParent);
+		//ui = mText(n.content,dParent);
 	} else {
 		ui = mDiv(dParent);
 	}

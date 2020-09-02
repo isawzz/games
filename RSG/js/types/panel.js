@@ -16,7 +16,7 @@ function mPanel(n, R, area) {
 
 	//content
 	if (isdef(n.content)) {
-		let d1 = mTextDiv(n.content, ui);
+		let d1 = mText(n.content, ui);
 	}
 
 	return ui;

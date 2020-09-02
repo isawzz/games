@@ -130,7 +130,7 @@ function picDraw(info, table, styles, classes) {
 	} else {
 		let d = mDiv(table);
 		mClass(d, 'picOuter')
-		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		let ui = mImg(info.path, d); //, { w: 200, h: 200 });
 		console.log('d', d);
 		info.ui = d;
 		return info;
@@ -955,7 +955,7 @@ function picDraw_dep2(info, table, styles, classes) {
 		console.log('classes', classes);
 		let d = mDiv(table);
 		// mClass(d, 'picOuter')
-		let ui = mText(info.text, d, null, styles);
+		let ui = mText(info.text, d, styles);
 		// mClass(ui, 'picTextInner');
 		if (isdef(styles.fz)) {
 			//console.log('jaaaaaaaaaaaaaaaaaaaaaaaa')
@@ -983,7 +983,7 @@ function picDraw_dep2(info, table, styles, classes) {
 	} else {
 		let d = mDiv(table);
 		mClass(d, 'picOuter')
-		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		let ui = mImg(info.path, d); //, { w: 200, h: 200 });
 		console.log('d', d);
 		info.ui = d;
 		return info;
@@ -996,7 +996,7 @@ function picDraw_dep(info, table, styles, classes) {
 	if (info.type == 'icon' || info.type == 'emotext') {
 		//console.log('text', info.text);
 
-		let ui = mText(info.text, d, null, { family: info.family });
+		let ui = mText(info.text, d, { family: info.family });
 		mClass(ui, 'picTextInner');
 		if (isdef(styles)) mStyleX(d, styles);
 		if (isdef(classes)) mClass(d, classes);
@@ -1009,7 +1009,7 @@ function picDraw_dep(info, table, styles, classes) {
 		//mAppend(d,ui);
 
 	} else {
-		let ui = mSvg(info.path, d); //, { w: 200, h: 200 });
+		let ui = mImg(info.path, d); //, { w: 200, h: 200 });
 		//mClass(ui,'picInner');
 		//mAppend(d,ui);
 	}

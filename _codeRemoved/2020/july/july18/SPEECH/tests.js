@@ -7,9 +7,9 @@ async function testSpeech() {
 	initTable(); //button and score ui
 
 	let sidebar = mBy('sidebar'); //init sidebar
-	mTextDiv('language:', sidebar);
+	mText('language:', sidebar);
 	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
-	mTextDiv('categories:', sidebar);
+	mText('categories:', sidebar);
 	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
@@ -29,7 +29,7 @@ function mCheckbox(flagName, flagInitialValue, caption, handler, dParent, styles
 	//<input class='radio' id='c_b_mm_pln1' type="checkbox" name="playerNum" onclick='onClickPlayerPresence(1)'><span id='sppl1'>player 1</span><br>
 	
 	let html = `<label><input type="checkbox" name="checkbox" value="value">${caption}</label>`;
-	let res = mTextDiv(html,dParent);
+	let res = mText(html,dParent);
 	res.onclick = onClick;
 
 	return res;
@@ -45,7 +45,7 @@ function mCheckbox(flagName, flagInitialValue, caption, handler, dParent, styles
 
 	if (isdef(handler)) x.onclick = handler;
 	let label=mCreate('label'); if (isdef(dParent)) dParent.appendChild(label);
-	mAppend(label,x);mTextDiv(caption,label)
+	mAppend(label,x);mText(caption,label)
 	if (isdef(styles)) mStyleX(x, styles);
 	if (isdef(classes)) { mClass(x, ...classes); }
 

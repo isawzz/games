@@ -33,7 +33,7 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 	return el;
 }
 function createText({ s, parent, style, classes }) {
-	let d = mTextDiv(s, parent);
+	let d = mText(s, parent);
 	if (isdef(style)) mStyle(d, style);
 	if (isdef(classes)) mClass(d, ...classes);
 }
@@ -422,7 +422,7 @@ function mFlexWrapGrow(d) { d.style.display = 'flex'; d.style.flexWrap = 'wrap';
 function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
-function mLabel(label) { return mTextDiv(label); }
+function mLabel(label) { return mText(label); }
 //#region toUTF16
 // http://www.2ality.com/2013/09/javascript-unicode.html
 function toUTF16(codePoint) {
@@ -544,7 +544,7 @@ function mPic(key) {
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 	let text = String.fromCharCode('0x' + ch);
-	let d = mTextDiv(text);
+	let d = mText(text);
 	d.style.setProperty('font-family', family);
 	return d;
 }
@@ -637,7 +637,7 @@ function mStyle(elem, styles, unit = 'px') {
 
 }
 function mStyleX(elem, styles, unit = 'px') {
-	paramDict = {
+	const paramDict = {
 		bg: 'background-color',
 		fg: 'color',
 		align: 'text-align',
@@ -698,7 +698,7 @@ function mStyleX(elem, styles, unit = 'px') {
 		else elem.style.setProperty(key, makeUnitString(val, unit));
 	}
 }
-function mSvg(path, dParent, styles, classes) {
+function mImg(path, dParent, styles, classes) {
 	let d = mCreate('img');
 	d.src = path;
 	mAppend(dParent, d);
@@ -707,14 +707,13 @@ function mSvg(path, dParent, styles, classes) {
 	return d;
 	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
 }
-function mTextDiv(text, dParent = null) { let d = mDiv(dParent); d.innerHTML = text; return d; }
-function mText(msg, dParent, id, styleDict, classList) {
-	let d = mCreate('div');
-	if (!isEmpty(msg)) d.innerHTML = msg;
-	if (isdef(id)) d.id = id;
-	mAppend(dParent, d);
-	if (isdef(styleDict)) mStyleX(d, styleDict);
-	if (isdef(classList)) mClass(d, classList);
+function mText(text, dParent, styles, classes) {
+	let d = mDiv(dParent);
+	if (!isEmpty(text)) d.innerHTML = text;
+	//if (isdef(id)) d.id = id;
+	//mAppend(dParent, d);
+	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(classes)) mClass(d, classes);
 	return d;
 }
 function recFlattenLists(o) {
@@ -739,7 +738,7 @@ function mDictionary(o, { dParent, title, flattenLists = true, className = 'node
 	mYaml(d, oCopy);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(title)) mInsert(d, mText(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
@@ -758,7 +757,7 @@ function mDictionary_dep(o, { dParent, title, flattenLists = true, className = '
 	mYaml(d, oCopy);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(title)) mInsert(d, mText(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
@@ -782,7 +781,7 @@ function mNodeFilter(o, { sort, dParent, title, lstFlatten, lstOmit, lstShow, cl
 	mYaml(d, oCopy);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(title)) mInsert(d, mText(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	return d;
 }
@@ -791,7 +790,7 @@ function mNode(o, dParent, title, isSized = false) {
 	mYaml(d, o);
 	let pre = d.getElementsByTagName('pre')[0];
 	pre.style.fontFamily = 'inherit';
-	if (isdef(title)) mInsert(d, mTextDiv(title));
+	if (isdef(title)) mInsert(d, mText(title));
 	if (isdef(dParent)) mAppend(dParent, d);
 	if (isDict(o)) d.style.textAlign = 'left';
 	if (isSized) addClass(d, 'centered');

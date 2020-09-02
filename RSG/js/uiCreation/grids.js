@@ -5,7 +5,7 @@ function generalGrid(nuiBoard, R,area) {
 	// *** stage 1 create parent *** 
 	let bParams = nuiBoard.params = detectBoardParams(nuiBoard, R);
 
-	//console.log('area',area); mTextDiv('HALLO',mBy(area));
+	//console.log('area',area); mText('HALLO',mBy(area));
 
 	let ui = nuiBoard.ui = createUi(nuiBoard, R,area);
 	//console.log('board params', nuiBoard.params)

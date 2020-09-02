@@ -67,7 +67,7 @@ function testIndenting() {
 		html += x + '<br>';
 		console.log(x)
 	}
-	let d1 = mTextDiv(html, d)
+	let d1 = mText(html, d)
 }
 
 function mMultiline(s, tabvalue, dParent, styles, classes) {
@@ -81,7 +81,7 @@ function mMultiline(s, tabvalue, dParent, styles, classes) {
 		let x = spc.repeat(n) + line;
 		html += x + '<br>';
 	}
-	let d1 = mTextDiv(html, dParent);
+	let d1 = mText(html, dParent);
 	if (isdef(styles)) mStyle(d1, styles);
 	if (isdef(classes)) mClass(d1, ...classes);
 

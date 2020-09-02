@@ -24,11 +24,11 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 		<label for="${flagName}">${caption}</label>
 	</p>
 	`;
-	mTextDiv(html,dParent);
+	mText(html,dParent);
 
 }
 function initOptionsUi() {
-	let dOptions = mTextDiv('options:', sidebar); // options
+	let dOptions = mText('options:', sidebar); // options
 
 	addYesNoOption('pauseAfterInput',pauseAfterInput,'pause', focusOnInput, dOptions, { width: 100 });
 	// addYesNoOption('speakMode',speakMode,'speak', restart, dOptions, { width: 100 });
@@ -38,7 +38,7 @@ function initOptionsUi() {
 	// 	<label for="c1">Option 01</label>
 	// </p>
 	// `;
-	// mTextDiv(html,dOptions);
+	// mText(html,dOptions);
 
 	//mCheckbox('pauseAfterInput', pauseAfterInput, 'pause', focusOnInput, sidebar, { width: 100, bg: 'pink' });
 	//mButtonCheckmark('pauseAfterInput', pauseAfterInput, 'PAUSE', focusOnInput, sidebar, { width: 100 });
@@ -84,9 +84,9 @@ function test01() {
 	em = String.fromCodePoint(0x1F5B1);
 	let table = mBy('table');
 	table.style.backgroundColor = 'red';
-	//mTextDiv('hallo',table);
+	//mText('hallo',table);
 	table.style.fontSize = '100px';
-	mTextDiv(em, table);
+	mText(em, table);
 	mPara(em, table);
 	// let p=mCreate('p');
 	// p.innerHTML = em;

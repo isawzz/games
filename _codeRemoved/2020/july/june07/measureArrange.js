@@ -222,7 +222,7 @@ function makeUiOnBoardMember(n, uidParent, R) {
 	let directParent = mBy(uidParent); //parent of robber
 	console.log('\ndivParent is', divParent, '\ndirectParent is', directParent, '\nn.content', n.content);
 
-	//ui = mTextDiv(n.content	); 
+	//ui = mText(n.content	); 
 	//ui = isdef(n.content)?mNode(n.content, divParent):mDiv(divParent);
 	ui = mNode(n.content, divParent);
 

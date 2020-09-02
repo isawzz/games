@@ -42,7 +42,7 @@ function mCard52(n, R, uidParent) {
 	n.potentialOverlap = true;
 	// mAppend(uiWrapper, ui);
 
-	// let ui = mTextDiv(n.content, uiWrapper);
+	// let ui = mText(n.content, uiWrapper);
 	// mAppend(d,ui);
 
 
