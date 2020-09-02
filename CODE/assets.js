@@ -177,7 +177,7 @@ function setPicText(info) {
 
 //#endregion
 
-//#region API: loadAssets, loadSpec (also merges), loadCode (also activates), loadInitialServerData
+//#region API: loadAssets, loadSpec_ (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
 	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));

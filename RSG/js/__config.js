@@ -30,8 +30,6 @@ var SHOW_DICTIONARIES = false; // true | false
 var SHOW_IDS_REFS = false; // true | false
 
 // timer output, local storage use needed fuer remember last test case number!
-const TIMIT_SHOW = false; // true | false
-const USE_LOCAL_STORAGE = true; // true | false //localStorage is cleared when false!!!!!
 const STOP_TESTS_ON_FAIL = true; // true | false
 
 //which menus (top of page) should be opened at start:
@@ -55,8 +53,8 @@ var CYCLES = 0;
 // var TEST_SERIES = DIR_TESTS + '01_huge'; // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08
 //var DSPEC_PATH = '/assetsTEST/'+ DIR_TESTS + 'defaultSpec'; // defaultSpec | defaultSpecEmpty
 var TEST_DIR = '01mini'; // 01mini 02ttt 03catan 04extrem 05refs 06fe 07aristo
-var SPEC_PATH = '/DATA/' + TEST_DIR + '/_spec';
-//var SERVERDATA_PATH = '/DATA/' + TEST_DIR + '/server';
+var SPEC_PATH = '/RSG/_data/' + TEST_DIR + '/_spec';
+//var SERVERDATA_PATH = '/RSG/_data/' + TEST_DIR + '/server';
 
 const TESTING = true; // true | false //uses files from tests, DOES NOT send routes to server, instead: server stub
 
