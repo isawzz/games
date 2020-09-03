@@ -22,7 +22,9 @@ async function createVault() {
 	//console.log(typeof listOfFiles, listOfFiles)
 	//vault.map(x=>//console.log(x));
 
-	listOfFiles = ['/CODE/helpers.js','/CODE/helpersX.js','/RSG/js/_rParse.js'];
+	let files = ['assetHelpers','assets','helpers','helpersX'];
+	listOfFiles = files.map(x=>'/CODE/'+x+'.js');
+	// listOfFiles = ['/CODE/helpers.js','/CODE/helpersX.js','/RSG/js/_rParse.js'];
 	//console.log(listOfFiles)
 	let vault = await documentVault(listOfFiles);
 	return vault;
@@ -56,6 +58,7 @@ async function documentFile(url) {
 	//fcode.map(x=>console.log(x));
 	let code={};
 	for(const w of fcode){
+		//console.log('_______________',w)
 		let trimmed = w.trim();
 		let name = firstWord(trimmed);
 		//console.log('first word of',trimmed,'is',name);
@@ -63,6 +66,7 @@ async function documentFile(url) {
 		if (!isEmpty(name)) code[name]=trimmed;
 	}
 
+	//console.log(getKeys(code))
 
 
 	let lines = res.split('\n');
@@ -72,17 +76,19 @@ async function documentFile(url) {
 	let lastKey;
 	let topComment = '';
 	while (i < lines.length) {
-		let res = skipToLine(lines, i, ['function', '//#region doc ']);
-		if (nundef(res.option)) {
+		let result = skipToLine(lines, i, ['function', '//#region doc ']);
+		//console.log(result)
+		if (nundef(result.option)) {
 			//rest must be collected!
 			break;
-		} else if (res.option == 'function') {
+		} else if (result.option == 'function') {
 			//what if find function?
-			let line = lines[res.index];
+			let line = lines[result.index];
 			let lineTrimmed = line.trim();
 			if (startsWith(lineTrimmed, 'function') || startsWith(lineTrimmed, 'async')) {
 				let line1 = stringAfter(line, 'function ');
-				line1 = stringBefore(line1, '{').trim();
+				if (line1.includes(')')) line1=stringBefore(line1, ')').trim() + ')';
+			
 				//akku[line1] = '';
 
 				let entry = akku[line1] = { name: firstWord(line1), index: iFunc, comments: '', path: url }; 
@@ -95,7 +101,7 @@ async function documentFile(url) {
 		} else {
 			//what if find //#region doc?
 			//console.log(res.option,lastKey,lines[res.index])
-			let iStart = res.index + 1;
+			let iStart = result.index + 1;
 			let resend = skipToLine(lines, iStart, ['//#endregion']);
 			let iEnd = resend.index;
 			let block = copyLinesFromTo(lines, iStart, iEnd, '/*', '*/');
@@ -105,7 +111,7 @@ async function documentFile(url) {
 			lastKey = null;
 
 		}
-		i = res.index + 1;
+		i = result.index + 1;
 	}
 	//console.log(akku)
 	return { funcDict: akku, topComment: topComment };
@@ -121,5 +127,5 @@ function test0000000() {
 	//#endregion
 	return 4;
 }
-//#endregion
+//###endregion
 

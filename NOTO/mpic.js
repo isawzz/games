@@ -10,6 +10,8 @@ function picPosTL(key, dParent, w, h, padding) {
 	mSize(ui, w, h);
 	mPosAbs(ui, padding, padding)
 }
+
+//#region skipped
 function picRandomSearch() {
 	let infolist = picSearch(...arguments);
 	if (infolist.length > 1) return chooseRandom(infolist);
@@ -79,20 +81,13 @@ function picKey(type, funcKeyHex) {
 	let lst = picFilter(type, funcKeyHex);
 	return chooseRandom(lst);
 }
-function picInfo(key) {
-	if (isdef(symbolDict[key])) return symbolDict[key];
-	else if (isdef(symByHex[key])) return symbolDict[symByHex[key]];
-	else {
-		let infolist = picSearch(key);
-		console.log('result from picSearch(' + key + ')', infolist);
-		if (infolist.length == 0) return null;
-		else return chooseRandom(infolist);
-	}
-}
+
 function picInfoRandom(type, funcKeyHex) {
 	let key = picKey(type, funcKeyHex);
 	return picInfo(key);
 }
+//#endregion
+
 function picDrawText(infoKey, dParent, styles, classes) {
 	let info = isString(infoKey)?picInfo(infoKey):infoKey;
 	console.log('------------text', info.text);
@@ -256,6 +251,55 @@ function fitText(text, rect, dParent, styles, classes) {
 }
 
 
+function picSearch_dep(keywords, type = null, propsOrFunc = null, isAnd = false, justCompleteWords = false) {
+	//#region doc
+	/*
+usage: ilist=picSearch(['x','y','z'],'all',)
+keywords ... list of strings or just 1 string
+type ... E [all,eduplo,iduplo,emo,icon]
+props
+returns list of info
+	*/
+	//#endregion
+	let dict = picFilterDict(type);
+	if (!isList(keywords)) keywords = [keywords];
+	if (isString(propsOrFunc)) propsOrFunc = [propsOrFunc];
+
+	let infolist = [];
+	if (isList(propsOrFunc)) {
+		if (isAnd) {
+			if (justCompleteWords) {
+				infolist = allWordsContainedInPropsAsWord(dict, keywords, propsOrFunc);
+			} else {
+				infolist = allWordsContainedInProps(dict, keywords, propsOrFunc);
+			}
+		} else {
+			if (justCompleteWords) {
+				infolist = anyWordContainedInPropsAsWord(dict, keywords, propsOrFunc);
+			} else {
+				infolist = anyWordContainedInProps(dict, keywords, propsOrFunc);
+			}
+		}
+	} else if (!propsOrFunc) {
+		if (isAnd) {
+			if (justCompleteWords) {
+				infolist = allWordsContainedInKeysAsWord(dict, keywords, propsOrFunc);
+			} else {
+				infolist = allWordsContainedInKeys(dict, keywords, propsOrFunc);
+			}
+		} else {
+			if (justCompleteWords) {
+				infolist = anyWordContainedInKeysAsWord(dict, keywords, propsOrFunc);
+			} else {
+				infolist = anyWordContainedInKeys(dict, keywords, propsOrFunc);
+			}
+		}
+	} else {
+		//propList is a function!
+		infolist = propsOrFunc(dict, keywords);
+	}
+	return infolist;
+}
 
 
 

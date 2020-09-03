@@ -40,7 +40,6 @@ const OPEN_OTHER = false; // true | false
 const OPEN_INTERACT = false; // true | false
 
 // ------------------ disregard from here -------------------------
-const DEFAULTPICTYPE = 'all'; // all | any | emo | eduplo | icon | iduplo
 var IS_START = true;
 var SPEC = null; //merged userSpec and defaultSpec
 var DEFS = null; //defaults (defaultSpec.defaults as separate dict)
@@ -79,8 +78,6 @@ const CLEAR_BETWEEN_TESTS = true; // true | false
 const SHOW_TRACE = true; // true | false
 
 const VERBOSE = true; // true | false
-const SHOW_SERVER_ROUTE = false; // true | false
-const SHOW_SERVER_RETURN = false; // true | false
 const SHOW_CODE = false; // true | false
 const SHOW_SERVERDATA = false; // true | false
 const SHOW_DEFS = false; // true | false

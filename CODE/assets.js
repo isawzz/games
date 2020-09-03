@@ -2,8 +2,8 @@
 var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
 var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict;
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
-var symbolDict, symbolKeys, duplicateKeys;
-var symBySet, symIndex, symByGroup, symByHex;
+var symbolDict, symByGroup, symByType; // info dicts
+var symBySet, symIndex, symByHex, symbolKeys, duplicateKeys; //nur lauter keys
 
 //#region emoji sets
 var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
@@ -70,7 +70,7 @@ var emoSets = [
 
 //#region symbolDict
 function makeInfoDict() {
-	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {};
+	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {}; symByType = {};
 	for (const k in emojiKeys) {
 		//console.log(k)
 		let rec = emojiChars[emojiKeys[k]];
@@ -90,16 +90,20 @@ function makeInfoDict() {
 		lookupAddIfToList(symIndex, [rec.group, rec.subgroups], k);
 		symByHex[info.hexcode] = k;
 		symByHex[info.hex] = k;
+		lookupSet(symByType, ['emo', k], info);
 	}
 	duplicateKeys = [];
 	for (const k of iconKeys) {
 		let hex = iconChars[k];
-		let info = { hex: hex, hexcode: hex, key: k, isColored: false, type: 'icon', isDuplicate: false };
+		let info = { key: k, type: 'icon', isDuplicate: false, isColored: false, hex: hex, hexcode: hex };
 		info.family = (hex[0] == 'f' || hex[0] == 'F') ? 'pictoFa' : 'pictoGame';
 		info.text = setPicText(info);
+		lookupSet(symByType, ['icon', k], info);
 		if (isdef(symbolDict[k])) {
 			//dieser key (eg., bee) ist bereits vorgekommen, so es gibt auch so ein emoji
 			symbolDict[k].isDuplicate = true; //that is the emo!!!
+			lookupSet(symByType, ['eduplo', k], symbolDict[k]);
+			lookupSet(symByType, ['iduplo', k], info);
 			symByHex['i_' + info.hex] = k;
 			symbolDict['i_' + k] = info;
 			info.key = 'i_' + k;

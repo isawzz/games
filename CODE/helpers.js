@@ -2059,6 +2059,7 @@ class MaxWidthPreserver {
 		this.resizeObserver.observe(mBy(id));
 		entry.minWidth = firstNumber(cs.width);
 	}
+	reset(id){this.entries[id].elem.styles.minWidth = this.entries[id].minWidth = 0; }
 }
 
 var maxWidthPreserver = new MaxWidthPreserver();

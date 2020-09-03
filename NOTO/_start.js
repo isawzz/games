@@ -1,5 +1,21 @@
 var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 120, cy: 120 };
-window.onload = async () => { await loadAssets(); test16(); }
+window.onload = async () => { await loadAssets(); test24(); }
+
+function test24(){
+	let x=maPicText('hallo');
+	//x=maPicText('red heart',table)
+	console.log('result',x)
+
+}
+function test23() {
+	let infolist;
+	infolist = picSearch({ keywords: 'abacus', type: 'emo', props: 'key' }); //ok!
+	infolist = picSearch({ keywords: ['m'], type: 'eduplo', func: (d, kw) => allCondX(d, x => startsWithOneOf(x.key, kw)) }); //ok!
+	infolist = picSearch({ type: 'all', func: (d, kw) => allCondX(d, x => /^a\w*r$/.test(x.key)) }); //ok!
+
+	console.log(infolist);
+
+}
 
 function test22() {
 	amCard(table); // should make a blank card
@@ -64,11 +80,12 @@ function test17() {
 
 //#region picSearch_
 function startsWithOneOf(s, list) {
+	//console.log(s,list)
 	for (const k of list) { if (startsWith(s, k)) return true; }
 	return false;
 }
 function testFunc1(dict, keywords) {
-	
+
 	//let res = allCondDict(dict, x => {console.log(x);return keywords.includes(x.key);});
 	//let res = allCondDict(dict, x => startsWithOneOf(x.key, keywords));
 	// let keys =Object.keys(dict);	keys.sort();

@@ -37,11 +37,11 @@ async function createDocs(collapsed = true) {
 	//console.log('collapsed', collapsed)
 	createCollapsibles(dv, DOC_dvIndex, collapsed);
 
-	setCurrentPath('helpersX.js');
+	setCurrentPath('assetHelpers.js');
 
 	//new ResizeObserver(outputsize).observe(textbox)
 	//resizeObserver.observe(mBy('sidebar'));
-	maxWidthPreserver.add('sidebar');
+	//maxWidthPreserver.add('sidebar');
 }
 
 function setCurrentPath(fname) {
@@ -146,6 +146,7 @@ function collapseAll() {
 		let elem = coll[i];
 		if (isVisible(getLinkContainerId(elem.id))) fireClick(elem);
 	}
+	//maxWidthPreserver.reset('sidebar');
 }
 function onClickFilter() {
 	console.log('clicked filter!')

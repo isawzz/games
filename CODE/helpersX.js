@@ -12,6 +12,7 @@ func ... takes array elem or dict key and returns true or false
 =>list of elements (with key:key in case of dictionary, unless this prop already exists?)
 	*/
 	//#endregion 
+	//console.log('ad',ad,'func',func)
 	let res = [];
 	if (nundef(ad)) return res;
 	else if (isDict(ad)) {
