@@ -89,7 +89,7 @@ function picInfoRandom(type, funcKeyHex) {
 //#endregion
 
 function picDrawText(infoKey, dParent, styles, classes) {
-	let info = isString(infoKey)?picInfo(infoKey):infoKey;
+	let info = isString(infoKey) ? picInfo(infoKey) : infoKey;
 	console.log('------------text', info.text);
 	let res = mPicX(info, dParent, styles, classes);
 	//von styles kann einige wegnehmen!
@@ -106,7 +106,7 @@ function picDrawText(infoKey, dParent, styles, classes) {
 	return info;
 }
 function picDrawTextX(infoKey, dParent, styles, classes) {
-	let info = isString(infoKey)?picInfo(infoKey):infoKey;
+	let info = isString(infoKey) ? picInfo(infoKey) : infoKey;
 	console.log('------------text', info.text);
 	let res = mPicX(info, dParent, styles, classes);
 	//von styles kann einige wegnehmen!
@@ -210,45 +210,6 @@ function fitTL(text, w, h, dParent, styles) {
 
 }
 
-function fitText(text, rect, dParent, styles, classes) {
-	let l = rect.cx - (rect.w / 2); 
-	let t = rect.cy - (rect.h / 2); 
-	
-	let d = mDivPosAbs(l, t, dParent);
-	
-	styles.display = 'inline-block';
-	styles.w = rect.w;
-
-	let fz = 20;
-	let over = textCorrectionFactor(text, styles, rect.w, rect.h, fz); let MAX = 20; let cnt = 0;
-	let oldFz = 0; let oldOldFz = 0;
-	while (over > 0 && fz >= 8) {
-		cnt += 1; if (cnt > MAX) { console.log('MAX reached!!!'); break; }
-		//console.log('over',over);
-		if (over == 0) break; //perfect font!
-		oldOldFz = oldFz;
-		oldFz = fz;
-		fz = Math.round(fontTransition(fz, over));
-		if (oldFz == fz || oldOldFz == fz) break;
-
-		//fz=Math.floor(fz*over);
-		//console.log('using over',over);
-		let newOver = textCorrectionFactor(text, styles, rect.w, rect.h, fz);
-		let change = over - newOver;
-		console.log('change', change, 'fz change from', oldFz, 'to', fz);
-		over = newOver;
-		//fz=fz*over;
-	}
-
-	console.log(fz)
-	//styles.fz=25;
-	d.innerHTML = text;
-	mStyleX(d, styles);
-
-	let b = getBounds(d);
-	console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
-
-}
 
 
 function picSearch_dep(keywords, type = null, propsOrFunc = null, isAnd = false, justCompleteWords = false) {

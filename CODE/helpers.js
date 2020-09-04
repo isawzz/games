@@ -2059,7 +2059,7 @@ class MaxWidthPreserver {
 		this.resizeObserver.observe(mBy(id));
 		entry.minWidth = firstNumber(cs.width);
 	}
-	reset(id){this.entries[id].elem.styles.minWidth = this.entries[id].minWidth = 0; }
+	reset(id) { this.entries[id].elem.styles.minWidth = this.entries[id].minWidth = 0; }
 }
 
 var maxWidthPreserver = new MaxWidthPreserver();
@@ -2135,6 +2135,35 @@ function getSizeWithStyles(text, styles) {
 	d.parentNode.removeChild(d)
 	return { w: width, h: height };
 }
+function getWordSize(text, fz, family, weight = 900) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	//console.log(styles);
+
+	d.innerHTML = text;
+	d.style.fontSize = fz+'px';
+	//d.styles.opacity = 0;
+	d.style.position = 'fixed';
+	//d.style.top = '-9999px';
+	d.style.fontFamily = family;
+	d.style.fontWeight = 900;
+
+	// let cStyles = {
+	// 	font: generateFontString(fz, family, weight),
+	// 	position: 'fixed',
+	// 	opacity: 0,
+	// 	top: '-9999px'
+
+	// };
+
+	// mStyleX(d, cStyles);
+	let b=getBounds(d);
+	height = d.clientHeight;
+	width = d.clientWidth;
+	console.log(b.width,b.height,'vs',width,height)
+	//d.parentNode.removeChild(d)
+	return { w: width, h: height };
+}
 function getTextSizeX(text, fz, family, weight = 900, parentDivOrId = null, styles = {}) {
 	var d = document.createElement("div");
 	styles.fz = fz;
@@ -2193,10 +2222,24 @@ function measureText(text, fz, family, weight = 900) {
 	var context = canvas.getContext('2d');
 	context.font = sFont;
 	var metrics = context.measureText(text);
-	// let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
-	// let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-	console.log('metrics', metrics, '\nfz', fz);
+	//let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+	let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+	//console.log('metrics', metrics, '\nfz', fz);
+	//console.log(metrics.width,actualHeight,fz)
 	return { w: metrics.width, h: fz };//actualHeight };
+}
+function measureTextX(text, fz, family, weight = 900) {
+	let sFont = '' + weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
+	sFont = sFont.trim();
+	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+	var context = canvas.getContext('2d');
+	context.font = sFont;
+	var metrics = context.measureText(text);
+	//let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+	let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+	//console.log('metrics', metrics, '\nfz', fz);
+	console.log(metrics.width,actualHeight,fz)
+	return { w: metrics.width, h: actualHeight, fz:fz };//actualHeight };
 }
 
 //#endregion

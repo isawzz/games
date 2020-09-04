@@ -1,3 +1,189 @@
+function wordCorrectionFactor(text, styles, w, h, fz) {
+	styles.fz = fz;
+	//styles.w = w;
+	//styles.h = h;
+	let size = getSizeWithStyles(text, styles);
+	//console.log(size)
+	let hFactor = 1; let wFactor = 1;
+	if (size.h > h - 1) {
+		//console.log('h',h,'\nsz',size.h,'\nfactor',h/size.h);
+		hFactor = size.h / h;
+		// } else if (isdef(styles.h) && Math.abs(size.w - w) > fz) {
+		// 	return size.w / w;
+	}
+	if (size.w > w - 1) {
+		//console.log('h',h,'\nsz',size.h,'\nfactor',h/size.h);
+		wFactor = size.w / w;
+		// } else if (isdef(styles.h) && Math.abs(size.w - w) > fz) {
+		// 	return size.w / w;
+	}
+	//console.log(wFactor, hFactor)
+	if (size.w < w && size.h < h) return 0;
+	else return Math.max(hFactor, wFactor);
+
+
+}
+function fitWord(text, rect, dParent, styles, classes) {
+
+	let d = mDiv(dParent)
+
+	styles.display = 'inline-block';
+	//styles.w = rect.w;
+
+	let fz = rect.h;
+	let over = wordCorrectionFactor(text, styles, rect.w, rect.h, fz); let MAX = 20; let cnt = 0;
+	//console.log('over', over)
+	let oldFz = 0; let oldOldFz = 0;
+	while (over > 0 && fz >= 8) {
+		cnt += 1; if (cnt > MAX) { console.log('MAX reached!!!'); break; }
+		//console.log('over',over);
+		if (over == 0) break; //perfect font!
+		oldOldFz = oldFz;
+		oldFz = fz;
+		fz = Math.round(fontTransition(fz, over));
+		//console.log('oldFz', oldFz, 'fz', fz)
+		if (oldFz == fz || oldOldFz == fz) break;
+
+		//fz=Math.floor(fz*over);
+		//console.log('using over',over);
+		let newOver = wordCorrectionFactor(text, styles, rect.w, rect.h, fz);
+		let change = over - newOver;
+		//console.log('change', change, 'fz change from', oldFz, 'to', fz);
+		over = newOver;
+		//fz=fz*over;
+	}
+
+	//console.log(fz)
+	//styles.fz=25;
+	d.innerHTML = text;
+	mStyleX(d, styles);
+
+	let b = getBounds(d);
+	//console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
+
+	return d;
+}
+
+function fitText(text, rect, dParent, styles, classes) {
+	let l = rect.cx - (rect.w / 2);
+	let t = rect.cy - (rect.h / 2);
+
+	let d = mDivPosAbs(l, t, dParent);
+
+	styles.display = 'inline-block';
+	styles.w = rect.w;
+
+	let fz = 20;
+	let over = textCorrectionFactor(text, styles, rect.w, rect.h, fz); let MAX = 20; let cnt = 0;
+	let oldFz = 0; let oldOldFz = 0;
+	while (over > 0 && fz >= 8) {
+		cnt += 1; if (cnt > MAX) { console.log('MAX reached!!!'); break; }
+		//console.log('over',over);
+		if (over == 0) break; //perfect font!
+		oldOldFz = oldFz;
+		oldFz = fz;
+		fz = Math.round(fontTransition(fz, over));
+		if (oldFz == fz || oldOldFz == fz) break;
+
+		//fz=Math.floor(fz*over);
+		//console.log('using over',over);
+		let newOver = textCorrectionFactor(text, styles, rect.w, rect.h, fz);
+		let change = over - newOver;
+		console.log('change', change, 'fz change from', oldFz, 'to', fz);
+		over = newOver;
+		//fz=fz*over;
+	}
+
+	console.log(fz)
+	//styles.fz=25;
+	d.innerHTML = text;
+	mStyleX(d, styles);
+
+	let b = getBounds(d);
+	console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getWordSize(text, fz, family, weight = 900) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	d.style.fontSize = fz + 'px';
+	//d.styles.opacity = 0;
+	//d.style.position = 'fixed';
+	//d.style.top = '-9999px';
+	d.style.display = 'inline-block';
+	d.style.backgroundColor = 'green';
+	d.style.fontFamily = family;
+	d.style.fontWeight = 'bold';
+	d.innerHTML = text;
+
+	// let cStyles = {
+	// 	font: generateFontString(fz, family, weight),
+	// 	position: 'fixed',
+	// 	opacity: 0,
+	// 	top: '-9999px'
+
+	// };
+
+	// mStyleX(d, cStyles);
+	let b = getBounds(d);
+	height = d.clientHeight;
+	width = d.clientWidth;
+	console.log(b.width, b.height, 'vs', width, height)
+	//d.parentNode.removeChild(d)
+	return { w: width, h: height };
+}
+function findFittingFontSize(text, family, w, h) {
+	// let fmax = Math.floor(h);
+	// let fmin = 8;
+	// let MAX = 100; let cnt = 0;
+	let fz = h;
+	//let sz = getWordSize(text, fmax, family, 'bold');
+	let sz = measureText(text, fz, family, 900);
+	let szx = measureTextX(text, fz, family, 900);
+	console.log(text, sz, szx);
+
+
+	// while (fmax > fmin) {
+	// 	if (cnt > MAX) break; cnt += 1;
+	// 	sz = getWordSize(text, fmax, family, 900);
+	// 	console.log(sz);
+
+	// 	if (sz.w > w - 1 || sz.h > h - 1) { fmax -= 1; } else break;
+	// 	console.log('sz', sz, w - 1, h - 1, 'fmax', fmax)
+	// 	break;
+	// }
+	//console.log('ideal font:', fmax);
+	//return [sz.w, sz.h, sz.fz];
+}
 
 
 
@@ -17,9 +203,9 @@
 
 //#region dep start over!
 function showFont(family) {
-	let gap=5;
-	mStyleX(table,{bg:'random',padding:gap})
-	styles = { margin: gap, padding:gap, bg: 'random', fg: 'contrast', fz: 30, family: family }
+	let gap = 5;
+	mStyleX(table, { bg: 'random', padding: gap })
+	styles = { margin: gap, padding: gap, bg: 'random', fg: 'contrast', fz: 30, family: family }
 	let d = fitTextH('hallo', table, styles);
 	let b = getBounds(d);
 	console.log('w,h', Math.round(b.width), Math.round(b.height));
@@ -88,7 +274,7 @@ function getSizeWithStylesX(text, styles) {
 	let scrollWidth = d.scrollWidth;
 	let scrollHeight = d.scrollHeight;
 
-	console.log('w',width,'scrollW',scrollWidth);
+	console.log('w', width, 'scrollW', scrollWidth);
 
 	d.parentNode.removeChild(d)
 	return { w: width, h: height, wScroll: scrollWidth, hScroll: scrollHeight };

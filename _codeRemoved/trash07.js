@@ -45,7 +45,66 @@ function genCollapsible(path, info) {
 }
 //#endregion
 
+//#region NOTO
+function maPicText_dep(o, dParent, styles, classes) {
+	//#region doc 
+	/*	
+usage: info* = maPicText('hallo',table);
 
+o ... string or info or param for picSearch
+dParent ... div object
+styles ... dict of styles
+classes ... list of classes
+
+effect: draws info object as TEXT (so for emo this means: emoNoto font text)
+
+returns info* ... info with ui (so info.ui will be a div)
+	*/
+	//#endregion 
+	let info = isdef(o.hexcode) ? o : isString(o) ? picInfo(o) : picSearch(o);
+	if (isList(info)) info = first(info);
+	if (nundef(info)) return 'NOT POSSIBLE';
+
+	let [w, h] = [100, 100];
+	let [x, y] = [100, 100];
+
+	let d = mDiv(dParent);
+	d.style.position = 'relative';
+	d.style.backgroundColor = 'red';
+	let dt = mDiv(d);
+	dt.style.position = 'absolute';
+	dt.style.color = 'white';
+	dt.style.backgroundColor = 'blue';
+
+
+
+	let [w1, h1, fz] = findFittingFontSize(info.text, info.family, w, h);
+	console.log('fz', fz, 'w,h', w, h, 'inner size: w1,h1', w1, h1);
+
+	dt.style.fontSize = fz + 'px';//h * 6 / 7 + 'px';
+	// dt.style.height = h + 'px';
+	// dt.style.width = w + 'px';
+
+	let [padx, pady] = [10, 10];
+	d.style.height = h + 2 * pady + 'px';
+	d.style.width = w + 2 * padx + 'px';
+	let l = (w - w1) / 2 + padx;
+	let t = (h - h1) / 2 + pady;
+	dt.style.left = l + 'px';
+	dt.style.top = t + 'px';
+
+	dt.style.fontFamily = info.family;
+	dt.innerHTML = info.text;
+
+
+	//console.log(info);
+	//jetzt hab ein info
+
+
+	return info;
+}
+
+//#endregion
 
 
 

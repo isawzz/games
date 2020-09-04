@@ -1,30 +1,68 @@
 //uses assets! =>load after assets!
 //#region maPic
+function maPicText(info, dParent, styles = {}, classes) {
 
-function maPicText(o, dParent, styles, classes) {
-	//#region doc 
-	/*	
-usage: info* = maPicText('hallo',table);
+	let wTotal = isdef(styles.w) ? styles.w : 100;
+	let hTotal = isdef(styles.h) ? styles.h : 100;
+	// let padding = isdef(styles.padding) ? styles.padding : 0;
+	// wTotal -= 2*padding;
+	// hTotal -= 2*padding; //TODO koennte padx,pady machen!!!
+	let rect = { w: wTotal, h: hTotal, cx: 120, cy: 100 };
+	let text = info.text;
 
-o ... string or info or param for picSearch
-dParent ... div object
-styles ... dict of styles
-classes ... list of classes
+	let fg = isdef(styles.fg) ? styles.fg : null;
 
-effect: draws info object as TEXT (so for emo this means: emoNoto font text)
+	let l = rect.cx - (rect.w / 2);
+	let t = rect.cy - (rect.h / 2);
+	let d;
+	if (isdef(styles.x) || isdef(styles.y) || isdef(styles.left) || isdef(styles.top)) d = mDivPosAbs(l, t, dParent);
+	else d = mDiv(dParent);
+	// d.style.boxSizing = 'border-box';
+	//d.style.display = 'inline';
 
-returns info* ... info with ui (so info.ui will be a div)
-	*/
-	//#endregion 
-	let info = isdef(o.hexcode)?o:isString(o)?picInfo(o):picSearch(o);
-	if (isList(info)) info=first(info);
-	if (nundef(info)) return 'NOT POSSIBLE';
+	let dInner = fitWord(text, rect, d, {padding:0, bg: 'green', fg: fg, family: info.family, weight: 900 });//, padding: 0}); //, 'box-sizing': 'border-box' });
+	
+	
+	
+	let b = getBounds(dInner);
+	console.log('inner bounds', b.width, b.height)
+	console.log()
 
-	//console.log(info);
+	//jetzt muss ich padding machen
+	let padx=(wTotal-b.width)/2;
+	let pady=(hTotal-b.height)/2;
+	// console.log('padx',padx,'pady',pady);
+
+	// let newStyles = jsCopy(styles);
+	// if (isdef(newStyles.padding)) delete newStyles.padding;
+	// mStyleX(d,newStyles);
+	d.style.width = wTotal+'px';
+	d.style.height = hTotal+'px';
+	d.style.backgroundColor = 'red';
+	d.style.padding = pady+'px '+padx+'px';
+
+	info.ui = d;
+	info.inner = dInner;
+
+	let b1 = getBounds(dInner);
+	console.log('inner bounds', b1.width, b1.height);
+	console.log('...........',dInner.clientWidth,dInner.clientHeight)
+	console.log(getBounds(dInner))
+	setTimeout(()=>console.log(getBounds(dInner)),500)
+
+	// d.style.display = 'inline-table';
+	// d.style.width = wTotal+'px';
+
 	return info;
 }
 
+
 //#region pic helpers
+function picRandom(type, keywords) {
+	let infolist = picSearch({ type: type, keywords: keywords });
+	//console.log(infolist)
+	return chooseRandom(infolist);
+}
 function picSearch({ keywords, type, func, props, isAnd, justCompleteWords }) {
 	//#region doc 
 	/*	
@@ -44,6 +82,7 @@ returns list of info
 	//#endregion 
 	let dict = nundef(type) || type == 'all' ? symbolDict : symByType[type];
 	//console.log('_____________',keywords,type,dict,func)
+	if (nundef(keywords)) return isdef(func) ? func(dict) : dict2list(dict);
 	if (!isList(keywords)) keywords = [keywords];
 	if (isString(props)) props = [props];
 
@@ -96,7 +135,7 @@ returns info
 	if (isdef(symbolDict[key])) return symbolDict[key];
 	else if (isdef(symByHex[key])) return symbolDict[symByHex[key]];
 	else {
-		let infolist = picSearch({keywords:key});
+		let infolist = picSearch({ keywords: key });
 		//console.log('result from picSearch(' + key + ')', infolist);
 		if (infolist.length == 0) return null;
 		else return chooseRandom(infolist);

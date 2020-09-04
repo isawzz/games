@@ -1,10 +1,427 @@
-var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 120, cy: 120 };
-window.onload = async () => { await loadAssets(); test24(); }
+var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 100, cy: 100 };
+window.onload = async () => { await loadAssets(); t88(); }
+function check(){
+	console.log(getBounds(mBy('table').firstChild.firstChild))
+}
+//_________________________88
+function innerFit(d){
+	let child = d.firstChild;
+	let bChild=getBounds(child);
+	let b=getBounds(d);
+	let padding = firstNumber(d.style.padding);
+	let wdes = b.width;
+	let hdes = b.height;
+	let wdesChild = wdes-2*padding;
+	let hdesChild = hdes-2*padding;
+	let wChild = bChild.width;
+	let hChild = bChild.height;
+	// padx soll sein padding + wdesChild - bChild.width;
+	let padx = Math.floor(padding + (wdesChild - bChild.width)/2);
+	let pady = Math.floor(padding + (hdesChild - bChild.height)/2);
+	console.log('bChild',bChild,'\npadding',padding,'\nwdes',wdes,'\nhdes',hdes,'\nwdesChild',wdesChild,'\nhdesChild',hdesChild,
+	'\nwChild',wChild,'\nhChild',hChild,'\npadx',padx,'\npady',pady);
+	d.style.padding = pady+'px '+padx+'px';
+}
+function t88() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let list = ['horse',"fire-dash",'horse',chooseRandom(symbolKeys),chooseRandom(symbolKeys),chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 
-function test24(){
-	let x=maPicText('hallo');
+	let [w,h,padding]=[100,100,50];
+	let szInner = {w:}
+	let outerStyles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' };
+	let innerStyles = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' };
+
+	for (const k of list) {
+		let info= addPic88(k, table, outerStyles,innerStyles);
+		setTimeout(()=>innerFit(info.ui),1);
+		// console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
+		// info.ui.focus();
+		// let hc=getComputedStyle(info.uiInner).getPropertyValue('height');console.log('hc',hc);
+		// setTimeout(()=>check(),1000);//
+	}
+}
+function addPic88(k, table, outerStyles, innerStyles) {
+	let info = picInfo(k);
+	let fz = 50;
+	
+	// let d = mPic90(info,table, fz);
+	let d = mDiv(table); mStyleX(d, outerStyles);
+	let d1 = mDiv(d); mStyleX(d1, innerStyles);
+	d1.innerHTML = info.text;
+
+	let hc=getComputedStyle(d.firstChild).getPropertyValue('height');console.log('hc',hc);
+	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
+	let i = 0;
+	while (bw > 50 || bh > 50) {
+		//console.log('round', i, 'w', bw, 'h', bh)
+		fz -= 1;
+		if (fz < 9) break;
+
+		//fz of d.firstChild
+		let child = d.firstChild;
+		child.style.fontSize = fz + 'px';
+		hc=getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
+		b = getBounds(child); bw = b.width; bh = b.height;
+		//console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+		//padding of d
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+
+}
+//_________________________89
+function innerFit(d){
+	let child = d.firstChild;
+	let bChild=getBounds(child);
+	let b=getBounds(d);
+	let padding = firstNumber(d.style.padding);
+	let wdes = b.width;
+	let hdes = b.height;
+	let wdesChild = wdes-2*padding;
+	let hdesChild = hdes-2*padding;
+	let wChild = bChild.width;
+	let hChild = bChild.height;
+	// padx soll sein padding + wdesChild - bChild.width;
+	let padx = Math.floor(padding + (wdesChild - bChild.width)/2);
+	let pady = Math.floor(padding + (hdesChild - bChild.height)/2);
+	console.log('bChild',bChild,'\npadding',padding,'\nwdes',wdes,'\nhdes',hdes,'\nwdesChild',wdesChild,'\nhdesChild',hdesChild,
+	'\nwChild',wChild,'\nhChild',hChild,'\npadx',padx,'\npady',pady);
+	d.style.padding = pady+'px '+padx+'px';
+}
+function t89() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	//let list = ["fire-dash",'horse',"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let list = ['horse',"fire-dash",'horse',chooseRandom(symbolKeys),chooseRandom(symbolKeys),chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	// let info = picInfo("fire-dash");mPic95(info)
+	for (const k of list) {
+		let info= addPic89(k, table);
+		setTimeout(()=>innerFit(info.ui),1);
+		// console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
+		// info.ui.focus();
+		// let hc=getComputedStyle(info.uiInner).getPropertyValue('height');console.log('hc',hc);
+		// setTimeout(()=>check(),1000);//
+	}
+}
+function addPic89(k, table) {
+	let info = picInfo(k);
+	let fz = 50;
+	
+	// let d = mPic90(info,table, fz);
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+
+	let hc=getComputedStyle(d.firstChild).getPropertyValue('height');console.log('hc',hc);
+	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
+	let i = 0;
+	while (bw > 50 || bh > 50) {
+		//console.log('round', i, 'w', bw, 'h', bh)
+		fz -= 1;
+		if (fz < 9) break;
+
+		//fz of d.firstChild
+		let child = d.firstChild;
+		child.style.fontSize = fz + 'px';
+		hc=getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
+		b = getBounds(child); bw = b.width; bh = b.height;
+		//console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+		//padding of d
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+
+}
+//_________________________90
+function t90() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	//let list = ["fire-dash",'horse',"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let list = ['horse',"fire-dash",'horse'];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	// let info = picInfo("fire-dash");mPic95(info)
+	for (const k of list) {
+		let info= addPic90a(k, table);
+		console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
+		let hc=getComputedStyle(info.uiInner).getPropertyValue('height');
+		console.log('hc',hc);
+		break;
+	}
+}
+function addPic90a(k, table) {
+	let info = picInfo(k);
+	let fz = 50;
+	let d = mPic90(info,table, fz);
+	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
+	let i = 0;
+	while (bw > 50 || bh > 50) {
+		console.log('round', i, 'w', bw, 'h', bh)
+		fz -= 1;
+		if (fz < 9) break;
+
+		//fz of d.firstChild
+		let child = d.firstChild;
+		child.style.fontSize = fz + 'px';
+		b = getBounds(child); bw = b.width; bh = b.height;
+		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+		//padding of d
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+
+}
+function addPic90b(k, table) {
+	let info = picInfo(k);
+	let fz = 50;
+
+	let d = mDiv(dParent); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+
+	let b = getBounds(d.firstChild);
+	let i = 0;
+	while (b.width > 50 || b.height > 50) {
+		console.log('round', i, 'w', b.width, 'h', b.height)
+		fz -= 1;
+		if (fz < 9) break;
+
+		d.remove();
+
+		let d = mDiv(dParent); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+		let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+		d1.innerHTML = info.text;
+
+		let child = d.firstChild;
+		b = getBounds(child);
+		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+}
+function mPic90(info, dParent, fz) {
+	let d = mDiv(dParent); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	return d;
+}
+//_________________________91 no
+function t91() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let list = ["fire-dash"];//,'sherlock-holmes','horse']
+	// let info = picInfo("fire-dash");mPic95(info)
+	for (const k of list) {
+		let info= addPic91a(k, table);
+		console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
+		let hc=getComputedStyle(info.uiInner).getPropertyValue('height');
+		console.log('hc',hc)
+	}
+}
+function addPic91a(k, table) {
+	let info = picInfo(k);
+	let fz = 50;
+	let d = mPic91(info,table, fz);
+	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
+	let i = 0;
+	while (bw > 50 || bh > 50) {
+		console.log('round', i, 'w', bw, 'h', bh)
+		fz -= 1;
+		if (fz < 9) break;
+
+		//fz of d.firstChild
+		let child = d.firstChild;
+		child.style.fontSize = fz + 'px';
+		b = getBounds(child); bw = b.width; bh = b.height;
+		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+		//padding of d
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+
+}
+function addPic91b(k, table) {
+	let info = picInfo(k);
+	let fz = 50;
+	let d = mPic93(info, fz);
+	let b = getBounds(d.firstChild);
+	let i = 0;
+	while (b.width > 50 || b.height > 50) {
+		console.log('round', i, 'w', b.width, 'h', b.height)
+		fz -= 1;
+		if (fz < 9) break;
+
+		d.remove();
+		d = mPic91(info,table, fz);
+		let child = d.firstChild;
+		b = getBounds(child);
+		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+	}
+	console.log(b.width, b.height, fz, info.type, info.key);
+	info.ui=d;
+	info.uiInner = d.firstChild;
+	return info;
+}
+function mPic91(info, dParent, fz) {
+	let d = mDiv(dParent); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	return d;
+}
+//_________________________92 no
+function t92() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+
+	let list = ["fire-dash"];//,'sherlock-holmes','horse']
+	// let info = picInfo("fire-dash");mPic95(info)
+	for (const k of list) {
+		let info = picInfo(k);
+		let fz = 50;
+		let d = mPic92(info, fz);
+		let b = getBounds(d.firstChild); 
+		let i = 0;
+		while (b.width > 50 || b.height > 50) {
+			console.log('round', i, 'w', bw, 'h', bh)
+			fz -= 1;
+			if (fz < 9) break;
+
+			// //fz of d.firstChild
+			// let child = d.firstChild;
+			// child.style.fontSize = fz + 'px';
+			// b = getBounds(child); bw = b.width; bh = b.height;
+			// console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+			// //padding of d
+
+			d.remove();
+			d = mPic93(info, fz);
+			let b = getBounds(d.firstChild); 
+			console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
+
+			break;
+		}
+		console.log(b.width, b.height, fz, info.type, info.key);
+
+	}
+}
+function mPic92(info, fz) {
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	return d;
+}
+
+function t93() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let info = picInfo("fire-dash"); mPic95(info)
+	for (let i = 0; i < 4; i++) {
+		let info = picRandom('all');
+		let fz = 50;
+		let d = mPic93(info, fz);
+
+		let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
+		while (bw > 50 || bh > 50) {
+			fz -= 1;
+			if (fz < 9) break;
+			d.remove();
+			d = mPic93(info, fz);
+			b = getBounds(d.firstChild); bw = b.width; bh = b.height;
+			console.log(b.width, b.height, fz, info.type, info.key);
+		}
+		console.log(b.width, b.height, fz, info.type, info.key);
+
+	}
+}
+function mPic93(info, fz) {
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	return d;
+}
+function t94() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let info = picInfo("fire-dash"); mPic95(info)
+	for (let i = 0; i < 3; i++) {
+		let info = picRandom();
+		let d = mPic94(info);
+		let b = getBounds(d.firstChild);
+		console.log(b.width, b.height)
+	}
+}
+function mPic94(info) {
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: 40, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	return d;
+}
+function t95() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let info = picInfo("fire-dash"); mPic95(info)
+	for (let i = 0; i < 3; i++) {
+		let info = picRandom();
+		mPic95(info);
+	}
+}
+function mPic95(info) {
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: 40, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+}
+
+function t96() {
+	let info = picInfo("fire-dash");
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: 40, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
+	d1.innerHTML = info.text;
+	//let b=
+
+
+
+}
+//text is slightly elevated!
+function t97() {
+
+	let info = picInfo("fire-dash");
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { fz: 40, family: info.family, align: 'center', bg: 'blue', fg: 'white', w: 50, h: 50 }; mStyleX(d1, styles1);
+
+
+	d1.innerHTML = info.text;
+
+
+
+}
+function t98() {
+	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
+	let d1 = mDiv(d); let styles1 = { bg: 'blue', w: 50, h: 50 }; mStyleX(d1, styles1);
+
+}
+
+function t99() {
+	let d = mDiv(table);
+	let styles = { bg: 'red', w: 100, h: 100 };
+	mStyleX(d, styles);
+}
+
+function test25() {
+	let info = picInfo("fire-dash");
+	let x = maPicText(info, table, { bg: 'green', fg: 'orange', w: 100, h: 100 });
+	console.log('result', x, x.ui)
+	info = picInfo("fire-dash");
+	x = maPicText(info, table, { bg: 'green', fg: 'orange', w: 100, h: 100 });
+	console.log('result', x, x.ui)
+	x = maPicText(picRandom(), table, { bg: 'green', fg: 'orange', w: 100, h: 100 });
+}
+
+function test24() {
+	let info = picInfo('das');
+	let x = maPicText(info, table, { bg: 'green', fg: 'orange', w: 100, h: 100 });
 	//x=maPicText('red heart',table)
-	console.log('result',x)
+	console.log('result', x, x.ui)
 
 }
 function test23() {
@@ -20,16 +437,6 @@ function test23() {
 function test22() {
 	amCard(table); // should make a blank card
 }
-
-
-
-
-
-
-
-
-
-
 
 
 //#region picDraw mit fitTxt verbinden
@@ -54,6 +461,79 @@ function test18() {
 	let info = picInfo('red heart'); info.type = 'emotext';
 	picDraw(info, table, { w: 100, h: 100, bg: 'blue', align: 'center' })
 
+}
+
+
+
+
+//fitWord, maPicText
+function test83() {
+	let info = picRandom('all');
+	maPicText(info, table, { w: 200, h: 200, bg: 'red' });
+}
+
+function test82() {
+	let rect = { w: 100, h: 100, cx: 120, cy: 100 };
+	let info = picRandom('all');
+	let text = info.text;
+	fitWord(text, rect, table, { bg: 'blue', family: info.family, weight: 900 });//, padding: 0}); //, 'box-sizing': 'border-box' });
+}
+function test81() {
+	let rect = { w: 100, h: 100, cx: 120, cy: 100 };
+	let info = picInfo('red heart');
+	let text = info.text;
+	fitText(text, rect, table, { bg: 'blue', family: info.family, weight: 900 });//, padding: 0}); //, 'box-sizing': 'border-box' });
+}
+
+//fitText
+function test11() {
+	let styles = {
+		family: 'arial',
+		'font-weight': 900,
+		bg: 'random',
+		fg: 'contrast',
+		padding: 15,
+		'box-sizing': 'border-box'
+	};
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+
+	let rect = { w: 140, h: 200, cx: 80, cy: 100 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+
+	rect = { w: 100, h: 200, cx: 220, cy: 100 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+
+	rect = { w: 140, h: 140, cx: 120, cy: 300 };
+	styles.w = rect.w;
+	fitText(longtext, rect, table, styles);
+}
+function test10() {
+	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+	let styles = {
+		family: 'arial',
+		'font-weight': 900,
+		w: rect.w,
+		bg: 'random',
+		padding: 15,
+		'box-sizing': 'border-box'
+	};
+
+	fitText(longtext, rect, table, styles);
+}
+function test9() {
+	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+	fitText(longtext, rect, table, { padding: 15, 'box-sizing': 'border-box' });
+}
+function test8() {
+	let rect = { w: 100, h: 100, cx: 120, cy: 100 };
+	let text = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
+
+	fitText(longtext, rect, table, { padding: 5, 'box-sizing': 'border-box' });
 }
 
 //#region blankCard
@@ -145,57 +625,6 @@ function test12() {
 	let res = picDrawRandom('emo', null, table, { w: 200, h: 200 });
 }
 
-//fitText
-function test11() {
-	let styles = {
-		family: 'arial',
-		'font-weight': 900,
-		bg: 'random',
-		fg: 'contrast',
-		padding: 15,
-		'box-sizing': 'border-box'
-	};
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-
-	let rect = { w: 140, h: 200, cx: 80, cy: 100 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
-
-	rect = { w: 100, h: 200, cx: 220, cy: 100 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
-
-	rect = { w: 140, h: 140, cx: 120, cy: 300 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
-}
-function test10() {
-	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	let styles = {
-		family: 'arial',
-		'font-weight': 900,
-		w: rect.w,
-		bg: 'random',
-		padding: 15,
-		'box-sizing': 'border-box'
-	};
-
-	fitText(longtext, rect, table, styles);
-}
-function test9() {
-	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	fitText(longtext, rect, table, { padding: 15, 'box-sizing': 'border-box' });
-}
-function test8() {
-	let table = mBy('table');
-	let rect = { w: 100, h: 100, cx: 120, cy: 100 };
-	let text = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-
-	fitText(longtext, rect, table, { padding: 5, 'box-sizing': 'border-box' });
-}
 
 //mText_
 function test7() {
