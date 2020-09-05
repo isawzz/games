@@ -91,6 +91,7 @@ function addPic88(info, dParent, outerStyles, innerStyles) {
 }
 //_________________________89
 function centerFit(d, child) {
+	console.log('hallooooooooooooooooooooooooooooooooo')
 	let bChild = getBounds(child);
 	let b = getBounds(d);
 	let padding = firstNumber(d.style.padding);

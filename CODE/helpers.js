@@ -694,7 +694,9 @@ function mStyleX(elem, styles, unit = 'px') {
 		} else if (k == 'border') {
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		}
-		if (key == 'background-color') elem.style.backgroundColor = bg;
+
+		if (key == 'font-weight') { elem.style.setProperty(key, val); continue; }
+		else if (key == 'background-color') elem.style.backgroundColor = bg;
 		else if (key == 'color') elem.style.color = fg;
 		else elem.style.setProperty(key, makeUnitString(val, unit));
 	}
@@ -2132,10 +2134,21 @@ function getSizeWithStyles(text, styles) {
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
-	d.parentNode.removeChild(d)
+	//console.log(d)
+	d.parentNode.removeChild(d);
 	return { w: width, h: height };
 }
 function getWordSize(text, fz, family, weight = 900) {
+	let st = {
+		fz: fz,
+		display: 'inline-block',
+		bg: 'green',
+		family: family,
+		weight: weight, //900, //'bold', //weight, //'bold',
+	};
+	return getSizeWithStyles(text, st);
+}
+function getWordSize2(text, fz, family, weight = 900) {
 	var d = document.createElement("div");
 	document.body.appendChild(d);
 	d.style.fontSize = fz + 'px';
@@ -2145,10 +2158,11 @@ function getWordSize(text, fz, family, weight = 900) {
 	d.style.display = 'inline-block';
 	d.style.backgroundColor = 'green';
 	d.style.fontFamily = family;
-	d.style.fontWeight = 'bold';
+	d.style.fontWeight = weight; //'bold';
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
+	//console.log(d)
 	d.parentNode.removeChild(d)
 	return { w: width, h: height };
 }
