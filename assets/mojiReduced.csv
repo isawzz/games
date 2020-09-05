@@ -1137,224 +1137,207 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ⚰️,26B0,objects,other-object,coffin,coffin,sarg,,,death,funeral, dead,Marius Schnabel,2018-04-18,,,,,1,3587
 ⚱️,26B1,objects,other-object,funeral urn,funeral urn|urn,urne,,,ashes, death, funeral, urn,,Marleen Heine,2018-11-16,,,,,1,3590
 🗿,1F5FF,objects,other-object,moai,moai|statue,osterinsel|statue,,,face, moyai, statue,stone, easter island,Marius Schnabel,2018-04-18,,,,,0.6,3591
-🏧,1F3E7,symbols,transport-sign,ATM sign,ATM,ATM,,,atm, atm sign, automated, bank, teller,,Tonia Reinhardt,2019-05-07,,,,,0.6,3593
-🚮,1F6AE,symbols,transport-sign,litter in bin sign,litter, litter bin,trash, litter, bin, garbage, can, throw, away,Ronja Bäurlen,2018-04-18,,,,,1,3594
-🚰,1F6B0,symbols,transport-sign,potable water,drinking, potable, water,water, faucet, tap, glass,Guemil Project,2019-01-14,,,,,1,3595
-♿️,267F,symbols,transport-sign,wheelchair symbol,access,disabled person, wheel chair, toilet, restroom,Guemil Project,2019-01-14,,,,,0.6,3596
-🚹️,1F6B9,symbols,transport-sign,men’s room,lavatory, man, restroom, wc,man, restroom, guy, dude, male, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3597
-🚺️,1F6BA,symbols,transport-sign,women’s room,lavatory, restroom, wc, woman,woman, female, restroom, chick, women, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3598
-🚻,1F6BB,symbols,transport-sign,restroom,lavatory, wc,unisex, restroom, male, toilet, woman, female,Ronja Bäurlen,2018-04-18,,,,,0.6,3599
-🚼️,1F6BC,symbols,transport-sign,baby symbol,baby, changing,baby, changing, station, restroom, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3600
-🚾,1F6BE,symbols,transport-sign,water closet,closet, lavatory, restroom, water, wc,restroom, WC, toilet, water, closet,Ronja Bäurlen,2018-04-18,,,,,0.6,3601
-🛂,1F6C2,symbols,transport-sign,passport control,control, passport,,Tonia Reinhardt,2019-05-07,,,,,1,3602
-🛃,1F6C3,symbols,transport-sign,customs,customs,,Tonia Reinhardt,2019-05-07,,,,,1,3603
-🛄,1F6C4,symbols,transport-sign,baggage claim,baggage, claim,,Vincent Seitz,2018-11-16,,,,,1,3604
-🛅,1F6C5,symbols,transport-sign,left luggage,baggage, locker, luggage,,Vincent Seitz,2018-11-16,,,,,1,3605
-⚠️,26A0,symbols,warning,warning,warning,,Miriam Vollmeier,2018-04-18,,,,,0.6,3607
-🚸,1F6B8,symbols,warning,children crossing,child, crossing, pedestrian, traffic,,Tonia Reinhardt,2019-05-07,,,,,1,3608
-⛔️,26D4,symbols,warning,no entry,entry, forbidden, no, not, prohibited, traffic,,Miriam Vollmeier,2018-04-18,,,,,0.6,3609
-🚫,1F6AB,symbols,warning,prohibited,entry, forbidden, no, not,,Miriam Vollmeier,2018-04-18,,,,,0.6,3610
-🚳,1F6B3,symbols,warning,no bicycles,bicycle, bike, forbidden, no, prohibited,,Miriam Vollmeier,2018-04-18,,,,,1,3611
-🚭️,1F6AD,symbols,warning,no smoking,forbidden, no, not, prohibited, smoking,,Miriam Vollmeier,2018-04-18,,,,,0.6,3612
-🚯,1F6AF,symbols,warning,no littering,forbidden, litter, no, not, prohibited,,Vincent Seitz,2018-11-16,,,,,1,3613
-🚱,1F6B1,symbols,warning,non-potable water,non-drinking, non-potable, water,,Vincent Seitz,2018-11-16,,,,,1,3614
-🚷,1F6B7,symbols,warning,no pedestrians,forbidden, no, not, pedestrian, prohibited,,Vincent Seitz,2018-11-16,,,,,1,3615
-📵,1F4F5,symbols,warning,no mobile phones,cell, forbidden, mobile, no, phone,,Miriam Vollmeier,2018-04-18,,,,,1,3616
-🔞,1F51E,symbols,warning,no one under eighteen,18, age restriction, eighteen, prohibited, underage,,Miriam Vollmeier,2018-04-18,,,,,0.6,3617
-☢️,2622,symbols,warning,radioactive,sign,,Vincent Seitz,2018-11-16,,,,,1,3619
-☣️,2623,symbols,warning,biohazard,sign,,Selina Lange,2019-05-06,,,,,1,3621
-⬆️,2B06,symbols,arrow,up arrow,arrow, cardinal, direction, north,up, above,Guemil Project,2019-01-14,,,,,0.6,3623
-↗️,2197,symbols,arrow,up-right arrow,arrow, direction, intercardinal, northeast,diagonal, right up,Guemil Project,2019-01-14,,,,,0.6,3625
-➡️,27A1,symbols,arrow,right arrow,arrow, cardinal, direction, east,right, soon, future,Guemil Project,2019-01-14,,,,,0.6,3627
-↘️,2198,symbols,arrow,down-right arrow,arrow, direction, intercardinal, southeast,diagonal, right down,Guemil Project,2019-01-14,,,,,0.6,3629
-⬇️,2B07,symbols,arrow,down arrow,arrow, cardinal, direction, down, south,down, underneath,Guemil Project,2019-01-14,,,,,0.6,3631
-↙️,2199,symbols,arrow,down-left arrow,arrow, direction, intercardinal, southwest,diagonal, left down,Guemil Project,2019-01-14,,,,,0.6,3633
-⬅️,2B05,symbols,arrow,left arrow,arrow, cardinal, direction, west,left, past,Guemil Project,2019-01-14,,,,,0.6,3635
-↖️,2196,symbols,arrow,up-left arrow,arrow, direction, intercardinal, northwest,diagonal, left up,Guemil Project,2019-01-14,,,,,0.6,3637
-↕️,2195,symbols,arrow,up-down arrow,arrow,directions, opposite, up and down,Jose Avila,2018-04-18,,,,,0.6,3639
-↔️,2194,symbols,arrow,left-right arrow,arrow,directions, opposite, left and right,Jose Avila,2018-04-18,,,,,0.6,3641
-↩️,21A9,symbols,arrow,right arrow curving left,arrow,directions, turn around,Jose Avila,2018-04-18,,,,,0.6,3643
-↪️,21AA,symbols,arrow,left arrow curving right,arrow,directions, turn around,Jose Avila,2018-04-18,,,,,0.6,3645
-⤴️,2934,symbols,arrow,right arrow curving up,arrow,direction, curve up,Jose Avila,2018-04-18,,,,,0.6,3647
-⤵️,2935,symbols,arrow,right arrow curving down,arrow, down,direction, curve down,Jose Avila,2018-04-18,,,,,0.6,3649
-🔃,1F503,symbols,arrow,clockwise vertical arrows,arrow, clockwise, reload,,Vincent Seitz,2018-11-16,,,,,0.6,3650
-🔄,1F504,symbols,arrow,counterclockwise arrows button,anticlockwise, arrow, counterclockwise, withershins,cycle,Jose Avila,2018-04-18,,,,,1,3651
-🔙,1F519,symbols,arrow,BACK arrow,arrow, back, back arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3652
-🔚,1F51A,symbols,arrow,END arrow,arrow, end, end arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3653
-🔛,1F51B,symbols,arrow,ON! arrow,arrow, mark, on, on! arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3654
-🔜,1F51C,symbols,arrow,SOON arrow,arrow, soon, soon arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3655
-🔝,1F51D,symbols,arrow,TOP arrow,arrow, top, top arrow, up,,Vincent Seitz,2018-11-16,,,,,0.6,3656
-🛐,1F6D0,symbols,religion,place of worship,religion, worship,pray,Jose Avila,2018-04-18,,,,,1,3657
-⚛️,269B,symbols,religion,atom symbol,atheist, atom,,Jose Avila,2018-04-18,,,,,1,3659
-🕉️,1F549,symbols,religion,om,hindu, religion,,Sina Chlod,2018-11-16,,,,,0.7,3661
-✡️,2721,symbols,religion,star of David,david, jew, jewish, religion, star, star of david,,Sina Chlod,2018-11-16,,,,,0.7,3663
-☸️,2638,symbols,religion,wheel of dharma,buddhist, dharma, religion, wheel,,Sina Chlod,2018-11-16,,,,,0.7,3665
-☯️,262F,symbols,religion,yin yang,religion, tao, taoist, yang, yin,balance,Jose Avila,2018-04-18,,,,,0.7,3667
-✝️,271D,symbols,religion,latin cross,christian, cross, religion,,Jose Avila,2018-04-18,,,,,0.7,3669
-☦️,2626,symbols,religion,orthodox cross,christian, cross, religion,,Sina Chlod,2018-11-16,,,,,1,3671
-☪️,262A,symbols,religion,star and crescent,islam, muslim, religion,,Jose Avila,2018-04-18,,,,,0.7,3673
-☮️,262E,symbols,religion,peace symbol,peace,,Jose Avila,2018-04-18,,,,,1,3675
-🕎,1F54E,symbols,religion,menorah,candelabrum, candlestick, religion,,Sina Chlod,2018-11-16,,,,,1,3676
-🔯,1F52F,symbols,religion,dotted six-pointed star,fortune, star,,Sina Chlod,2018-11-16,,,,,0.6,3677
-♈️,2648,symbols,zodiac,Aries,aries, ram, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3678
-♉️,2649,symbols,zodiac,Taurus,bull, ox, taurus, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3679
-♊️,264A,symbols,zodiac,Gemini,gemini, twins, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3680
-♋️,264B,symbols,zodiac,Cancer,cancer, crab, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3681
-♌️,264C,symbols,zodiac,Leo,leo, lion, zodiac,,Selina Lange,2019-05-06,,,,,0.6,3682
-♍️,264D,symbols,zodiac,Virgo,virgo, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3683
-♎️,264E,symbols,zodiac,Libra,balance, justice, libra, scales, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3684
-♏️,264F,symbols,zodiac,Scorpio,scorpio, scorpion, scorpius, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3685
-♐️,2650,symbols,zodiac,Sagittarius,archer, sagittarius, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3686
-♑️,2651,symbols,zodiac,Capricorn,capricorn, goat, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3687
-♒️,2652,symbols,zodiac,Aquarius,aquarius, bearer, water, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3688
-♓️,2653,symbols,zodiac,Pisces,fish, pisces, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3689
-⛎,26CE,symbols,zodiac,Ophiuchus,bearer, ophiuchus, serpent, snake, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3690
-🔀,1F500,symbols,av-symbol,shuffle tracks button,arrow, crossed,random,Jose Avila,2018-04-18,,,,,1,3691
-🔁,1F501,symbols,av-symbol,repeat button,arrow, clockwise, repeat,cycle,Jose Avila,2018-04-18,,,,,1,3692
-🔂,1F502,symbols,av-symbol,repeat single button,arrow, clockwise, once,,Jose Avila,2018-04-18,,,,,1,3693
-▶️,25B6,symbols,av-symbol,play button,arrow, play, right, triangle,,Jose Avila,2018-04-18,,,,,0.6,3695
-⏩️,23E9,symbols,av-symbol,fast-forward button,arrow, double, fast, forward,,Jose Avila,2018-04-18,,,,,0.6,3696
-⏭️,23ED,symbols,av-symbol,next track button,arrow, next scene, next track, triangle,,Jose Avila,2018-04-18,,,,,0.7,3698
-⏯️,23EF,symbols,av-symbol,play or pause button,arrow, pause, play, right, triangle,,Jose Avila,2018-04-18,,,,,1,3700
-◀️,25C0,symbols,av-symbol,reverse button,arrow, left, reverse, triangle,,Jose Avila,2018-04-18,,,,,0.6,3702
-⏪️,23EA,symbols,av-symbol,fast reverse button,arrow, double, rewind,,Jose Avila,2018-04-18,,,,,0.6,3703
-⏮️,23EE,symbols,av-symbol,last track button,arrow, previous scene, previous track, triangle,,Jose Avila,2018-04-18,,,,,0.7,3705
-🔼,1F53C,symbols,av-symbol,upwards button,arrow, button, red,improve,Jose Avila,2018-04-18,,,,,0.6,3706
-⏫,23EB,symbols,av-symbol,fast up button,arrow, double,,Jose Avila,2018-04-18,,,,,0.6,3707
-🔽,1F53D,symbols,av-symbol,downwards button,arrow, button, down, red,decline, decrease,Jose Avila,2018-04-18,,,,,0.6,3708
-⏬,23EC,symbols,av-symbol,fast down button,arrow, double, down,,Jose Avila,2018-04-18,,,,,0.6,3709
-⏸️,23F8,symbols,av-symbol,pause button,bar, double, pause, vertical,,Jose Avila,2018-04-18,,,,,0.7,3711
-⏹️,23F9,symbols,av-symbol,stop button,square, stop,,Jose Avila,2018-04-18,,,,,0.7,3713
-⏺️,23FA,symbols,av-symbol,record button,circle, record,,Jose Avila,2018-04-18,,,,,0.7,3715
-⏏️,23CF,symbols,av-symbol,eject button,eject,,Carlin MacKenzie,2020-06-05,,,,,1,3717
-🎦,1F3A6,symbols,av-symbol,cinema,camera, film, movie,,Jose Avila,2018-04-18,,,,,0.6,3718
-🔅,1F505,symbols,av-symbol,dim button,brightness, dim, low,,Jose Avila,2018-04-18,,,,,1,3719
-🔆,1F506,symbols,av-symbol,bright button,bright, brightness,,Jose Avila,2018-04-18,,,,,1,3720
-📶,1F4F6,symbols,av-symbol,antenna bars,antenna, bar, cell, mobile, phone,,Jose Avila,2018-04-18,,,,,0.6,3721
-📳,1F4F3,symbols,av-symbol,vibration mode,cell, mobile, mode, phone, telephone, vibration,silent mode,Jose Avila,2018-04-18,,,,,0.6,3722
-📴,1F4F4,symbols,av-symbol,mobile phone off,cell, mobile, off, phone, telephone,caos,Jose Avila,2018-04-18,,,,,0.6,3723
-♀️,2640,symbols,gender,female sign,woman,woman, sign, gender,Hilda Kalyoncu,2018-04-18,,,,,4,3725
-♂️,2642,symbols,gender,male sign,man,man, sign, gender,Hilda Kalyoncu,2018-04-18,,,,,4,3727
-⚧️,26A7,symbols,gender,transgender symbol,transgender,LGBT, trans, queer, gender,Carlin MacKenzie,2020-03-12,,,,,13,3729
-✖️,2716,symbols,math,multiply,cancel, multiplication, sign, x, ×,multiplication, x, cancel, wrong,Hilda Kalyoncu,2018-04-18,,,,,0.6,3731
-➕,2795,symbols,math,plus,+, math, sign,math, plus, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3732
-➖,2796,symbols,math,minus,-, math, sign, −,math, minus, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3733
-➗,2797,symbols,math,divide,division, math, sign, ÷,math, division, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3734
-♾️,267E,symbols,math,infinity,forever, unbounded, universal,,Selina Lange,2019-05-06,,,,,11,3736
-‼️,203C,symbols,punctuation,double exclamation mark,!, !!, bangbang, exclamation, mark,,Selina Lange,2019-05-06,,,,,0.6,3738
-⁉️,2049,symbols,punctuation,exclamation question mark,!, !?, ?, exclamation, interrobang, mark, punctuation, question,,Selina Lange,2019-05-06,,,,,0.6,3740
-❓️,2753,symbols,punctuation,question mark,?, mark, punctuation, question,question, punctation,Selina Lange,2019-05-06,,,,,0.6,3741
-❔,2754,symbols,punctuation,white question mark,?, mark, outlined, punctuation, question,punctation, mark, question, white,Selina Lange,2019-05-06,,,,,0.6,3742
-❕,2755,symbols,punctuation,white exclamation mark,!, exclamation, mark, outlined, punctuation,exclamation, mark, punctation, white,Hilda Kalyoncu,2018-04-18,,,,,0.6,3743
-❗️,2757,symbols,punctuation,exclamation mark,!, exclamation, mark, punctuation,exclamation, mark, punctation,Hilda Kalyoncu,2018-04-18,,,,,0.6,3744
-〰️,3030,symbols,punctuation,wavy dash,dash, punctuation, wavy,dash, punctuation, wavy,Hilda Kalyoncu,2018-04-18,,,,,0.6,3746
-💱,1F4B1,symbols,currency,currency exchange,bank, currency, exchange, money,,Marleen Heine,2018-11-16,,,,,0.6,3747
-💲,1F4B2,symbols,currency,heavy dollar sign,currency, dollar, money,,Marleen Heine,2018-11-16,,,,,0.6,3748
-⚕️,2695,symbols,other-symbol,medical symbol,aesculapius, medicine, staff,medical, staff,Hilda Kalyoncu,2018-04-18,,,,,4,3750
-♻️,267B,symbols,other-symbol,recycling symbol,recycle,recycle, nature,Hilda Kalyoncu,2018-04-18,,,,,0.6,3752
-⚜️,269C,symbols,other-symbol,fleur-de-lis,fleur-de-lis,,Selina Lange,2019-05-06,,,,,1,3754
-🔱,1F531,symbols,other-symbol,trident emblem,anchor, emblem, ship, tool, trident,trident, emblem,Hilda Kalyoncu,2018-04-18,,,,,0.6,3755
-📛,1F4DB,symbols,other-symbol,name badge,badge, name,,Selina Lange,2019-05-06,,,,,0.6,3756
-🔰,1F530,symbols,other-symbol,Japanese symbol for beginner,beginner, chevron, japanese, japanese symbol for beginner, leaf,,Selina Lange,2019-05-06,,,,,0.6,3757
-⭕️,2B55,symbols,other-symbol,hollow red circle,circle, large, o, red,circle, red,Hilda Kalyoncu,2018-04-18,,,,,0.6,3758
-✅,2705,symbols,other-symbol,check mark button,button, check, mark, ✓,check, mark, white, right,Hilda Kalyoncu,2018-04-18,,,,,0.6,3759
-☑️,2611,symbols,other-symbol,check box with check,box, check, ✓,check, right, box,Hilda Kalyoncu,2018-04-18,,,,,0.6,3761
-✔️,2714,symbols,other-symbol,check mark,check, mark, ✓,check, mark, right, todo,Carlin MacKenzie,2020-05-12,,,,,0.6,3763
-❌,274C,symbols,other-symbol,cross mark,cancel, cross, mark, multiplication, multiply, x, ×,cancel, wrong, multiply, x,,Hilda Kalyoncu,2018-04-18,,,,,0.6,3764
-❎,274E,symbols,other-symbol,cross mark button,mark, square, x, ×,mark, square, button,Hilda Kalyoncu,2018-04-18,,,,,0.6,3765
-➰,27B0,symbols,other-symbol,curly loop,curl, loop,,Selina Lange,2019-05-06,,,,,0.6,3766
-➿,27BF,symbols,other-symbol,double curly loop,curl, double, loop,,Selina Lange,2019-05-06,,,,,1,3767
-〽️,303D,symbols,other-symbol,part alternation mark,mark, part,,Selina Lange,2019-05-06,,,,,0.6,3769
-✳️,2733,symbols,other-symbol,eight-spoked asterisk,*, asterisk,,Selina Lange,2019-05-06,,,,,0.6,3771
-✴️,2734,symbols,other-symbol,eight-pointed star,*, star,,Selina Lange,2019-05-06,,,,,0.6,3773
-❇️,2747,symbols,other-symbol,sparkle,*,,Selina Lange,2019-05-06,,,,,0.6,3775
-©️,A9,symbols,other-symbol,copyright,c,copyright, c, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3777
-®️,AE,symbols,other-symbol,registered,r,registered, r, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3779
-™️,2122,symbols,other-symbol,trade mark,mark, tm, trademark,,Carlin MacKenzie,2020-06-06,,,,,0.6,3781
-#️⃣,23-FE0F-20E3,symbols,keycap,keycap: #,keycap,,Selina Lange,2019-05-06,,,,,0.6,3782
-*️⃣,2A-FE0F-20E3,symbols,keycap,keycap: *,keycap,,Selina Lange,2019-05-06,,,,,2,3784
-0️⃣,30-FE0F-20E3,symbols,keycap,keycap: 0,keycap,,Selina Lange,2019-05-06,,,,,0.6,3786
-1️⃣,31-FE0F-20E3,symbols,keycap,keycap: 1,keycap,,Selina Lange,2019-05-06,,,,,0.6,3788
-2️⃣,32-FE0F-20E3,symbols,keycap,keycap: 2,keycap,,Selina Lange,2019-05-06,,,,,0.6,3790
-3️⃣,33-FE0F-20E3,symbols,keycap,keycap: 3,keycap,,Selina Lange,2019-05-06,,,,,0.6,3792
-4️⃣,34-FE0F-20E3,symbols,keycap,keycap: 4,keycap,,Selina Lange,2019-05-06,,,,,0.6,3794
-5️⃣,35-FE0F-20E3,symbols,keycap,keycap: 5,keycap,,Selina Lange,2019-05-06,,,,,0.6,3796
-6️⃣,36-FE0F-20E3,symbols,keycap,keycap: 6,keycap,,Selina Lange,2019-05-06,,,,,0.6,3798
-7️⃣,37-FE0F-20E3,symbols,keycap,keycap: 7,keycap,,Selina Lange,2019-05-06,,,,,0.6,3800
-8️⃣,38-FE0F-20E3,symbols,keycap,keycap: 8,keycap,,Selina Lange,2019-05-06,,,,,0.6,3802
-9️⃣,39-FE0F-20E3,symbols,keycap,keycap: 9,keycap,,Selina Lange,2019-05-06,,,,,0.6,3804
-🔟,1F51F,symbols,keycap,keycap: 10,keycap,,Selina Lange,2019-05-06,,,,,0.6,3806
-🔠,1F520,symbols,alphanum,input latin uppercase,abcd, input, latin, letters, uppercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3807
-🔡,1F521,symbols,alphanum,input latin lowercase,abcd, input, latin, letters, lowercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3808
-🔢,1F522,symbols,alphanum,input numbers,1234, input, numbers,numbers,Jose Avila,2018-04-18,,,,,0.6,3809
-🔣,1F523,symbols,alphanum,input symbols,input, 〒♪&%,ampersand, music, note, percentage,Jose Avila,2018-04-18,,,,,0.6,3810
-🔤,1F524,symbols,alphanum,input latin letters,abc, alphabet, input, latin, letters,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3811
-🅰️,1F170,symbols,alphanum,A button (blood type),a, a button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3813
-🆎,1F18E,symbols,alphanum,AB button (blood type),ab, ab button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3814
-🅱️,1F171,symbols,alphanum,B button (blood type),b, b button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3816
-🆑,1F191,symbols,alphanum,CL button,cl, cl button,,Laura Dworatschek,2019-05-06,,,,,0.6,3817
-🆒,1F192,symbols,alphanum,COOL button,cool, cool button,popular, nice,Jose Avila,2018-04-18,,,,,0.6,3818
-🆓,1F193,symbols,alphanum,FREE button,free, free button,,Laura Dworatschek,2019-05-06,,,,,0.6,3819
-🆔,1F194,symbols,alphanum,ID button,id, id button, identity,id card,Jose Avila,2018-04-18,,,,,0.6,3822
-Ⓜ️,24C2,symbols,alphanum,circled M,circle, circled m, m,,Laura Dworatschek,2019-05-06,,,,,0.6,3824
-🆕,1F195,symbols,alphanum,NEW button,new, new button,modern, recent,Jose Avila,2018-04-18,,,,,0.6,3825
-🆖,1F196,symbols,alphanum,NG button,ng, ng button,,Laura Dworatschek,2019-05-06,,,,,0.6,3826
-🅾️,1F17E,symbols,alphanum,O button (blood type),blood type, o, o button (blood type),,Laura Dworatschek,2019-05-06,,,,,0.6,3828
-🆗,1F197,symbols,alphanum,OK button,ok, ok button,okay,Jose Avila,2018-04-18,,,,,0.6,3829
-🅿️,1F17F,symbols,alphanum,P button,p button, parking,place, drive,Jose Avila,2018-04-18,,,,,0.6,3831
-🆘,1F198,symbols,alphanum,SOS button,help, sos, sos button,emergency, warning,Jose Avila,2018-04-18,,,,,0.6,3832
-🆙,1F199,symbols,alphanum,UP! button,mark, up, up! button,,Laura Dworatschek,2019-05-06,,,,,0.6,3833
-🆚,1F19A,symbols,alphanum,VS button,versus, vs, vs button,against,Jose Avila,2018-04-18,,,,,0.6,3834
-🈁,1F201,symbols,alphanum,Japanese “here” button,japanese, japanese “here” button, katakana, “here”, ココ,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3835
-🈂️,1F202,symbols,alphanum,Japanese “service charge” button,japanese, japanese “service charge” button, katakana, “service charge”, サ,japanese,Jose Avila,2018-04-18,,,,,0.6,3837
-🈷️,1F237,symbols,alphanum,Japanese “monthly amount” button,ideograph, japanese, japanese “monthly amount” button, “monthly amount”, 月,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3839
-🈶,1F236,symbols,alphanum,Japanese “not free of charge” button,ideograph, japanese, japanese “not free of charge” button, “not free of charge”, 有,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3840
-🈯️,1F22F,symbols,alphanum,Japanese “reserved” button,ideograph, japanese, japanese “reserved” button, “reserved”, 指,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3841
-🉐,1F250,symbols,alphanum,Japanese “bargain” button,ideograph, japanese, japanese “bargain” button, “bargain”, 得,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3842
-🈹,1F239,symbols,alphanum,Japanese “discount” button,ideograph, japanese, japanese “discount” button, “discount”, 割,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3843
-🈚️,1F21A,symbols,alphanum,Japanese “free of charge” button,ideograph, japanese, japanese “free of charge” button, “free of charge”, 無,,Yasmin Abdullahi,2019-05-07,,,,,0.6,3844
-🈲,1F232,symbols,alphanum,Japanese “prohibited” button,ideograph, japanese, japanese “prohibited” button, “prohibited”, 禁,,Evelyn Soos,2019-05-04,,,,,0.6,3845
-🉑,1F251,symbols,alphanum,Japanese “acceptable” button,ideograph, japanese, japanese “acceptable” button, “acceptable”, 可,,Evelyn Soos,2019-05-04,,,,,0.6,3846
-🈸,1F238,symbols,alphanum,Japanese “application” button,ideograph, japanese, japanese “application” button, “application”, 申,,Evelyn Soos,2019-05-04,,,,,0.6,3847
-🈴,1F234,symbols,alphanum,Japanese “passing grade” button,ideograph, japanese, japanese “passing grade” button, “passing grade”, 合,,Evelyn Soos,2019-05-04,,,,,0.6,3848
-🈳,1F233,symbols,alphanum,Japanese “vacancy” button,ideograph, japanese, japanese “vacancy” button, “vacancy”, 空,,Evelyn Soos,2019-05-04,,,,,0.6,3849
-㊗️,3297,symbols,alphanum,Japanese “congratulations” button,ideograph, japanese, japanese “congratulations” button, “congratulations”, 祝,japanese, compliments,Jose Avila,2018-04-18,,,,,0.6,3851
-㊙️,3299,symbols,alphanum,Japanese “secret” button,ideograph, japanese, japanese “secret” button, “secret”, 秘,japanese, mysterious,Jose Avila,2018-04-18,,,,,0.6,3853
-🈺,1F23A,symbols,alphanum,Japanese “open for business” button,ideograph, japanese, japanese “open for business” button, “open for business”, 営,,Evelyn Soos,2019-05-04,,,,,0.6,3854
-🈵,1F235,symbols,alphanum,Japanese “no vacancy” button,ideograph, japanese, japanese “no vacancy” button, “no vacancy”, 満,,Evelyn Soos,2019-05-04,,,,,0.6,3855
-🔴,1F534,symbols,geometric,red circle,circle, geometric, red,,Ricarda Krejci,2019-05-07,,,,,0.6,3856
-🟠,1F7E0,symbols,geometric,orange circle,circle, orange,,Sam Eckert,2019-05-06,,,,,12,3857
-🟡,1F7E1,symbols,geometric,yellow circle,circle, yellow,,Sam Eckert,2019-05-06,,,,,12,3858
-🟢,1F7E2,symbols,geometric,green circle,circle, green,,Sam Eckert,2019-05-06,,,,,12,3859
-🔵,1F535,symbols,geometric,blue circle,blue, circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3860
-🟣,1F7E3,symbols,geometric,purple circle,circle, purple,,Sam Eckert,2019-05-06,,,,,12,3861
-🟤,1F7E4,symbols,geometric,brown circle,brown, circle,,Sam Eckert,2019-05-06,,,,,12,3862
-⚫️,26AB,symbols,geometric,black circle,circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3863
-⚪️,26AA,symbols,geometric,white circle,circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3864
-🟥,1F7E5,symbols,geometric,red square,red, square,,Sam Eckert,2019-05-06,,,,,12,3865
-🟧,1F7E7,symbols,geometric,orange square,orange, square,,Sam Eckert,2019-05-06,,,,,12,3866
-🟨,1F7E8,symbols,geometric,yellow square,square, yellow,,Sam Eckert,2019-05-06,,,,,12,3867
-🟩,1F7E9,symbols,geometric,green square,green, square,,Sam Eckert,2019-05-06,,,,,12,3868
-🟦,1F7E6,symbols,geometric,blue square,blue, square,,Sam Eckert,2019-05-06,,,,,12,3869
-🟪,1F7EA,symbols,geometric,purple square,purple, square,,Sam Eckert,2019-05-06,,,,,12,3870
-🟫,1F7EB,symbols,geometric,brown square,brown, square,,Sam Eckert,2019-05-06,,,,,12,3871
-⬛️,2B1B,symbols,geometric,black large square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3872
-⬜️,2B1C,symbols,geometric,white large square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3873
-◼️,25FC,symbols,geometric,black medium square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3875
-◻️,25FB,symbols,geometric,white medium square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3877
-◾️,25FE,symbols,geometric,black medium-small square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3878
-◽️,25FD,symbols,geometric,white medium-small square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3879
-▪️,25AA,symbols,geometric,black small square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3881
-▫️,25AB,symbols,geometric,white small square,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3883
-🔶,1F536,symbols,geometric,large orange diamond,diamond, geometric, orange,,Laura Schießer,2019-05-06,,,,,0.6,3884
-🔷,1F537,symbols,geometric,large blue diamond,blue, diamond, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3885
-🔸,1F538,symbols,geometric,small orange diamond,diamond, geometric, orange,,Ricarda Krejci,2019-05-07,,,,,0.6,3886
-🔹,1F539,symbols,geometric,small blue diamond,blue, diamond, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3887
-🔺,1F53A,symbols,geometric,red triangle pointed up,geometric, red,arrow,Lisa Schulz,2018-04-18,,,,,0.6,3888
-🔻,1F53B,symbols,geometric,red triangle pointed down,down, geometric, red,arrow,Lisa Schulz,2018-04-18,,,,,0.6,3889
-💠,1F4A0,symbols,geometric,diamond with a dot,comic, diamond, geometric, inside,,Ricarda Krejci,2019-05-07,,,,,0.6,3890
-🔘,1F518,symbols,geometric,radio button,button, geometric, radio,,Lisa Schulz,2018-04-18,,,,,0.6,3891
-🔳,1F533,symbols,geometric,white square button,button, geometric, outlined, square,,Ricarda Krejci,2019-05-07,,,,,0.6,3892
-🔲,1F532,symbols,geometric,black square button,button, geometric, square,,Ricarda Krejci,2019-05-07,,,,,0.6,3893
-🏁,1F3C1,flags,flag,chequered flag,checkered, chequered, racing,black, white, grid, racing,Aileen Gedrat,2018-11-16,,,,,0.6,3894
-🚩,1F6A9,flags,flag,triangular flag,post,,Aileen Gedrat,2018-11-16,,,,,0.6,3895
+🏧,1F3E7,symbols,transport-sign,ATM sign,,,,,ATM,ATM,,,atm, atm sign, automated, bank, teller,,Tonia Reinhardt,2019-05-07,,,,,0.6,3593
+🚮,1F6AE,symbols,transport-sign,litter in bin sign,,,,,litter, litter bin,trash, litter, bin, garbage, can, throw, away,Ronja Bäurlen,2018-04-18,,,,,1,3594
+🚰,1F6B0,symbols,transport-sign,potable water,,,,,drinking, potable, water,water, faucet, tap, glass,Guemil Project,2019-01-14,,,,,1,3595
+♿️,267F,symbols,transport-sign,wheelchair symbol,,,,,access,disabled person, wheel chair, toilet, restroom,Guemil Project,2019-01-14,,,,,0.6,3596
+🚹️,1F6B9,symbols,transport-sign,men’s room,,,,,lavatory, man, restroom, wc,man, restroom, guy, dude, male, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3597
+🚺️,1F6BA,symbols,transport-sign,women’s room,,,,,lavatory, restroom, wc, woman,woman, female, restroom, chick, women, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3598
+🚻,1F6BB,symbols,transport-sign,restroom,,,,,lavatory, wc,unisex, restroom, male, toilet, woman, female,Ronja Bäurlen,2018-04-18,,,,,0.6,3599
+🚼️,1F6BC,symbols,transport-sign,baby symbol,,,,,baby, changing,baby, changing, station, restroom, toilet,Ronja Bäurlen,2018-04-18,,,,,0.6,3600
+🚾,1F6BE,symbols,transport-sign,water closet,,,,,closet, lavatory, restroom, water, wc,restroom, WC, toilet, water, closet,Ronja Bäurlen,2018-04-18,,,,,0.6,3601
+🛂,1F6C2,symbols,transport-sign,passport control,,,,,control, passport,,Tonia Reinhardt,2019-05-07,,,,,1,3602
+🛃,1F6C3,symbols,transport-sign,customs,,,,,customs,,Tonia Reinhardt,2019-05-07,,,,,1,3603
+🛄,1F6C4,symbols,transport-sign,baggage claim,,,,,baggage, claim,,Vincent Seitz,2018-11-16,,,,,1,3604
+🛅,1F6C5,symbols,transport-sign,left luggage,,,,,baggage, locker, luggage,,Vincent Seitz,2018-11-16,,,,,1,3605
+⚠️,26A0,symbols,warning,warning,,,,,warning,,Miriam Vollmeier,2018-04-18,,,,,0.6,3607
+🚸,1F6B8,symbols,warning,children crossing,,,,,child, crossing, pedestrian, traffic,,Tonia Reinhardt,2019-05-07,,,,,1,3608
+⛔️,26D4,symbols,warning,no entry,,,,,entry, forbidden, no, not, prohibited, traffic,,Miriam Vollmeier,2018-04-18,,,,,0.6,3609
+🚫,1F6AB,symbols,warning,prohibited,,,,,entry, forbidden, no, not,,Miriam Vollmeier,2018-04-18,,,,,0.6,3610
+🚳,1F6B3,symbols,warning,no bicycles,,,,,bicycle, bike, forbidden, no, prohibited,,Miriam Vollmeier,2018-04-18,,,,,1,3611
+🚭️,1F6AD,symbols,warning,no smoking,,,,,forbidden, no, not, prohibited, smoking,,Miriam Vollmeier,2018-04-18,,,,,0.6,3612
+🚯,1F6AF,symbols,warning,no littering,,,,,forbidden, litter, no, not, prohibited,,Vincent Seitz,2018-11-16,,,,,1,3613
+🚱,1F6B1,symbols,warning,non-potable water,,,,,non-drinking, non-potable, water,,Vincent Seitz,2018-11-16,,,,,1,3614
+🚷,1F6B7,symbols,warning,no pedestrians,,,,,forbidden, no, not, pedestrian, prohibited,,Vincent Seitz,2018-11-16,,,,,1,3615
+📵,1F4F5,symbols,warning,no mobile phones,,,,,cell, forbidden, mobile, no, phone,,Miriam Vollmeier,2018-04-18,,,,,1,3616
+🔞,1F51E,symbols,warning,no one under eighteen,,,,,18, age restriction, eighteen, prohibited, underage,,Miriam Vollmeier,2018-04-18,,,,,0.6,3617
+☢️,2622,symbols,warning,radioactive,,,,,sign,,Vincent Seitz,2018-11-16,,,,,1,3619
+☣️,2623,symbols,warning,biohazard,,,,,sign,,Selina Lange,2019-05-06,,,,,1,3621
+⬆️,2B06,symbols,arrow,up arrow,,,,,arrow, cardinal, direction, north,up, above,Guemil Project,2019-01-14,,,,,0.6,3623
+↗️,2197,symbols,arrow,up-right arrow,,,,,arrow, direction, intercardinal, northeast,diagonal, right up,Guemil Project,2019-01-14,,,,,0.6,3625
+➡️,27A1,symbols,arrow,right arrow,,,,,arrow, cardinal, direction, east,right, soon, future,Guemil Project,2019-01-14,,,,,0.6,3627
+↘️,2198,symbols,arrow,down-right arrow,,,,,arrow, direction, intercardinal, southeast,diagonal, right down,Guemil Project,2019-01-14,,,,,0.6,3629
+⬇️,2B07,symbols,arrow,down arrow,,,,,arrow, cardinal, direction, down, south,down, underneath,Guemil Project,2019-01-14,,,,,0.6,3631
+↙️,2199,symbols,arrow,down-left arrow,,,,,arrow, direction, intercardinal, southwest,diagonal, left down,Guemil Project,2019-01-14,,,,,0.6,3633
+⬅️,2B05,symbols,arrow,left arrow,,,,,arrow, cardinal, direction, west,left, past,Guemil Project,2019-01-14,,,,,0.6,3635
+↖️,2196,symbols,arrow,up-left arrow,,,,,arrow, direction, intercardinal, northwest,diagonal, left up,Guemil Project,2019-01-14,,,,,0.6,3637
+↕️,2195,symbols,arrow,up-down arrow,,,,,arrow,directions, opposite, up and down,Jose Avila,2018-04-18,,,,,0.6,3639
+↔️,2194,symbols,arrow,left-right arrow,,,,,arrow,directions, opposite, left and right,Jose Avila,2018-04-18,,,,,0.6,3641
+↩️,21A9,symbols,arrow,right arrow curving left,,,,,arrow,directions, turn around,Jose Avila,2018-04-18,,,,,0.6,3643
+↪️,21AA,symbols,arrow,left arrow curving right,,,,,arrow,directions, turn around,Jose Avila,2018-04-18,,,,,0.6,3645
+⤴️,2934,symbols,arrow,right arrow curving up,,,,,arrow,direction, curve up,Jose Avila,2018-04-18,,,,,0.6,3647
+⤵️,2935,symbols,arrow,right arrow curving down,,,,,arrow, down,direction, curve down,Jose Avila,2018-04-18,,,,,0.6,3649
+🔃,1F503,symbols,arrow,clockwise vertical arrows,,,,,arrow, clockwise, reload,,Vincent Seitz,2018-11-16,,,,,0.6,3650
+🔄,1F504,symbols,arrow,counterclockwise arrows button,,,,,anticlockwise, arrow, counterclockwise, withershins,cycle,Jose Avila,2018-04-18,,,,,1,3651
+🔙,1F519,symbols,arrow,BACK arrow,,,,,arrow, back, back arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3652
+🔚,1F51A,symbols,arrow,END arrow,,,,,arrow, end, end arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3653
+🔛,1F51B,symbols,arrow,ON! arrow,,,,,arrow, mark, on, on! arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3654
+🔜,1F51C,symbols,arrow,SOON arrow,,,,,arrow, soon, soon arrow,,Vincent Seitz,2018-11-16,,,,,0.6,3655
+🔝,1F51D,symbols,arrow,TOP arrow,,,,,arrow, top, top arrow, up,,Vincent Seitz,2018-11-16,,,,,0.6,3656
+🛐,1F6D0,symbols,religion,place of worship,,,,,religion, worship,pray,Jose Avila,2018-04-18,,,,,1,3657
+⚛️,269B,symbols,religion,atom symbol,,,,,atheist, atom,,Jose Avila,2018-04-18,,,,,1,3659
+🕉️,1F549,symbols,religion,om,,,,,hindu, religion,,Sina Chlod,2018-11-16,,,,,0.7,3661
+✡️,2721,symbols,religion,star of David,,,,,david, jew, jewish, religion, star, star of david,,Sina Chlod,2018-11-16,,,,,0.7,3663
+☸️,2638,symbols,religion,wheel of dharma,,,,,buddhist, dharma, religion, wheel,,Sina Chlod,2018-11-16,,,,,0.7,3665
+☯️,262F,symbols,religion,yin yang,,,,,religion, tao, taoist, yang, yin,balance,Jose Avila,2018-04-18,,,,,0.7,3667
+✝️,271D,symbols,religion,latin cross,,,,,christian, cross, religion,,Jose Avila,2018-04-18,,,,,0.7,3669
+☦️,2626,symbols,religion,orthodox cross,,,,,christian, cross, religion,,Sina Chlod,2018-11-16,,,,,1,3671
+☪️,262A,symbols,religion,star and crescent,,,,,islam, muslim, religion,,Jose Avila,2018-04-18,,,,,0.7,3673
+☮️,262E,symbols,religion,peace symbol,,,,,peace,,Jose Avila,2018-04-18,,,,,1,3675
+🕎,1F54E,symbols,religion,menorah,,,,,candelabrum, candlestick, religion,,Sina Chlod,2018-11-16,,,,,1,3676
+🔯,1F52F,symbols,religion,dotted six-pointed star,,,,,fortune, star,,Sina Chlod,2018-11-16,,,,,0.6,3677
+♈️,2648,symbols,zodiac,Aries,,,,,aries, ram, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3678
+♉️,2649,symbols,zodiac,Taurus,,,,,bull, ox, taurus, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3679
+♊️,264A,symbols,zodiac,Gemini,,,,,gemini, twins, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3680
+♋️,264B,symbols,zodiac,Cancer,,,,,cancer, crab, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3681
+♌️,264C,symbols,zodiac,Leo,,,,,leo, lion, zodiac,,Selina Lange,2019-05-06,,,,,0.6,3682
+♍️,264D,symbols,zodiac,Virgo,,,,,virgo, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3683
+♎️,264E,symbols,zodiac,Libra,,,,,balance, justice, libra, scales, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3684
+♏️,264F,symbols,zodiac,Scorpio,,,,,scorpio, scorpion, scorpius, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3685
+♐️,2650,symbols,zodiac,Sagittarius,,,,,archer, sagittarius, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3686
+♑️,2651,symbols,zodiac,Capricorn,,,,,capricorn, goat, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3687
+♒️,2652,symbols,zodiac,Aquarius,,,,,aquarius, bearer, water, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3688
+♓️,2653,symbols,zodiac,Pisces,,,,,fish, pisces, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3689
+⛎,26CE,symbols,zodiac,Ophiuchus,,,,,bearer, ophiuchus, serpent, snake, zodiac,,Sina Chlod,2018-11-16,,,,,0.6,3690
+🔀,1F500,symbols,av-symbol,shuffle tracks button,,,,,arrow, crossed,random,Jose Avila,2018-04-18,,,,,1,3691
+🔁,1F501,symbols,av-symbol,repeat button,,,,,arrow, clockwise, repeat,cycle,Jose Avila,2018-04-18,,,,,1,3692
+🔂,1F502,symbols,av-symbol,repeat single button,,,,,arrow, clockwise, once,,Jose Avila,2018-04-18,,,,,1,3693
+▶️,25B6,symbols,av-symbol,play button,,,,,arrow, play, right, triangle,,Jose Avila,2018-04-18,,,,,0.6,3695
+⏩️,23E9,symbols,av-symbol,fast-forward button,,,,,arrow, double, fast, forward,,Jose Avila,2018-04-18,,,,,0.6,3696
+⏭️,23ED,symbols,av-symbol,next track button,,,,,arrow, next scene, next track, triangle,,Jose Avila,2018-04-18,,,,,0.7,3698
+⏯️,23EF,symbols,av-symbol,play or pause button,,,,,arrow, pause, play, right, triangle,,Jose Avila,2018-04-18,,,,,1,3700
+◀️,25C0,symbols,av-symbol,reverse button,,,,,arrow, left, reverse, triangle,,Jose Avila,2018-04-18,,,,,0.6,3702
+⏪️,23EA,symbols,av-symbol,fast reverse button,,,,,arrow, double, rewind,,Jose Avila,2018-04-18,,,,,0.6,3703
+⏮️,23EE,symbols,av-symbol,last track button,,,,,arrow, previous scene, previous track, triangle,,Jose Avila,2018-04-18,,,,,0.7,3705
+🔼,1F53C,symbols,av-symbol,upwards button,,,,,arrow, button, red,improve,Jose Avila,2018-04-18,,,,,0.6,3706
+⏫,23EB,symbols,av-symbol,fast up button,,,,,arrow, double,,Jose Avila,2018-04-18,,,,,0.6,3707
+🔽,1F53D,symbols,av-symbol,downwards button,,,,,arrow, button, down, red,decline, decrease,Jose Avila,2018-04-18,,,,,0.6,3708
+⏬,23EC,symbols,av-symbol,fast down button,,,,,arrow, double, down,,Jose Avila,2018-04-18,,,,,0.6,3709
+⏸️,23F8,symbols,av-symbol,pause button,,,,,bar, double, pause, vertical,,Jose Avila,2018-04-18,,,,,0.7,3711
+⏹️,23F9,symbols,av-symbol,stop button,,,,,square, stop,,Jose Avila,2018-04-18,,,,,0.7,3713
+⏺️,23FA,symbols,av-symbol,record button,,,,,circle, record,,Jose Avila,2018-04-18,,,,,0.7,3715
+⏏️,23CF,symbols,av-symbol,eject button,,,,,eject,,Carlin MacKenzie,2020-06-05,,,,,1,3717
+🎦,1F3A6,symbols,av-symbol,cinema,,,,,camera, film, movie,,Jose Avila,2018-04-18,,,,,0.6,3718
+🔅,1F505,symbols,av-symbol,dim button,,,,,brightness, dim, low,,Jose Avila,2018-04-18,,,,,1,3719
+🔆,1F506,symbols,av-symbol,bright button,,,,,bright, brightness,,Jose Avila,2018-04-18,,,,,1,3720
+📶,1F4F6,symbols,av-symbol,antenna bars,,,,,antenna, bar, cell, mobile, phone,,Jose Avila,2018-04-18,,,,,0.6,3721
+📳,1F4F3,symbols,av-symbol,vibration mode,,,,,cell, mobile, mode, phone, telephone, vibration,silent mode,Jose Avila,2018-04-18,,,,,0.6,3722
+📴,1F4F4,symbols,av-symbol,mobile phone off,,,,,cell, mobile, off, phone, telephone,caos,Jose Avila,2018-04-18,,,,,0.6,3723
+♀️,2640,symbols,gender,female sign,,,,,woman,woman, sign, gender,Hilda Kalyoncu,2018-04-18,,,,,4,3725
+♂️,2642,symbols,gender,male sign,,,,,man,man, sign, gender,Hilda Kalyoncu,2018-04-18,,,,,4,3727
+⚧️,26A7,symbols,gender,transgender symbol,,,,,transgender,LGBT, trans, queer, gender,Carlin MacKenzie,2020-03-12,,,,,13,3729
+✖️,2716,symbols,math,multiply,,,,,cancel, multiplication, sign, x, ×,multiplication, x, cancel, wrong,Hilda Kalyoncu,2018-04-18,,,,,0.6,3731
+➕,2795,symbols,math,plus,,,,,+, math, sign,math, plus, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3732
+➖,2796,symbols,math,minus,,,,,-, math, sign, −,math, minus, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3733
+➗,2797,symbols,math,divide,,,,,division, math, sign, ÷,math, division, sign,Hilda Kalyoncu,2018-04-18,,,,,0.6,3734
+♾️,267E,symbols,math,infinity,,,,,forever, unbounded, universal,,Selina Lange,2019-05-06,,,,,11,3736
+‼️,203C,symbols,punctuation,double exclamation mark,,,,,!, !!, bangbang, exclamation, mark,,Selina Lange,2019-05-06,,,,,0.6,3738
+⁉️,2049,symbols,punctuation,exclamation question mark,,,,,!, !?, ?, exclamation, interrobang, mark, punctuation, question,,Selina Lange,2019-05-06,,,,,0.6,3740
+❓️,2753,symbols,punctuation,question mark,,,,,?, mark, punctuation, question,question, punctation,Selina Lange,2019-05-06,,,,,0.6,3741
+❔,2754,symbols,punctuation,white question mark,,,,,?, mark, outlined, punctuation, question,punctation, mark, question, white,Selina Lange,2019-05-06,,,,,0.6,3742
+❕,2755,symbols,punctuation,white exclamation mark,,,,,!, exclamation, mark, outlined, punctuation,exclamation, mark, punctation, white,Hilda Kalyoncu,2018-04-18,,,,,0.6,3743
+❗️,2757,symbols,punctuation,exclamation mark,,,,,!, exclamation, mark, punctuation,exclamation, mark, punctation,Hilda Kalyoncu,2018-04-18,,,,,0.6,3744
+〰️,3030,symbols,punctuation,wavy dash,,,,,dash, punctuation, wavy,dash, punctuation, wavy,Hilda Kalyoncu,2018-04-18,,,,,0.6,3746
+💱,1F4B1,symbols,currency,currency exchange,,,,,bank, currency, exchange, money,,Marleen Heine,2018-11-16,,,,,0.6,3747
+💲,1F4B2,symbols,currency,heavy dollar sign,,,,,currency, dollar, money,,Marleen Heine,2018-11-16,,,,,0.6,3748
+⚕️,2695,symbols,other-symbol,medical symbol,,,,,aesculapius, medicine, staff,medical, staff,Hilda Kalyoncu,2018-04-18,,,,,4,3750
+♻️,267B,symbols,other-symbol,recycling symbol,,,,,recycle,recycle, nature,Hilda Kalyoncu,2018-04-18,,,,,0.6,3752
+⚜️,269C,symbols,other-symbol,fleur-de-lis,,,,,fleur-de-lis,,Selina Lange,2019-05-06,,,,,1,3754
+🔱,1F531,symbols,other-symbol,trident emblem,,,,,anchor, emblem, ship, tool, trident,trident, emblem,Hilda Kalyoncu,2018-04-18,,,,,0.6,3755
+📛,1F4DB,symbols,other-symbol,name badge,,,,,badge, name,,Selina Lange,2019-05-06,,,,,0.6,3756
+🔰,1F530,symbols,other-symbol,Japanese symbol for beginner,,,,,beginner, chevron, japanese, japanese symbol for beginner, leaf,,Selina Lange,2019-05-06,,,,,0.6,3757
+⭕️,2B55,symbols,other-symbol,hollow red circle,,,,,circle, large, o, red,circle, red,Hilda Kalyoncu,2018-04-18,,,,,0.6,3758
+✅,2705,symbols,other-symbol,check mark button,,,,,button, check, mark, ✓,check, mark, white, right,Hilda Kalyoncu,2018-04-18,,,,,0.6,3759
+☑️,2611,symbols,other-symbol,check box with check,,,,,box, check, ✓,check, right, box,Hilda Kalyoncu,2018-04-18,,,,,0.6,3761
+✔️,2714,symbols,other-symbol,check mark,,,,,check, mark, ✓,check, mark, right, todo,Carlin MacKenzie,2020-05-12,,,,,0.6,3763
+❌,274C,symbols,other-symbol,cross mark,,,,,cancel, cross, mark, multiplication, multiply, x, ×,cancel, wrong, multiply, x,,Hilda Kalyoncu,2018-04-18,,,,,0.6,3764
+❎,274E,symbols,other-symbol,cross mark button,,,,,mark, square, x, ×,mark, square, button,Hilda Kalyoncu,2018-04-18,,,,,0.6,3765
+➰,27B0,symbols,other-symbol,curly loop,,,,,curl, loop,,Selina Lange,2019-05-06,,,,,0.6,3766
+➿,27BF,symbols,other-symbol,double curly loop,,,,,curl, double, loop,,Selina Lange,2019-05-06,,,,,1,3767
+〽️,303D,symbols,other-symbol,part alternation mark,,,,,mark, part,,Selina Lange,2019-05-06,,,,,0.6,3769
+✳️,2733,symbols,other-symbol,eight-spoked asterisk,,,,,*, asterisk,,Selina Lange,2019-05-06,,,,,0.6,3771
+✴️,2734,symbols,other-symbol,eight-pointed star,,,,,*, star,,Selina Lange,2019-05-06,,,,,0.6,3773
+❇️,2747,symbols,other-symbol,sparkle,,,,,*,,Selina Lange,2019-05-06,,,,,0.6,3775
+©️,A9,symbols,other-symbol,copyright,,,,,c,copyright, c, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3777
+®️,AE,symbols,other-symbol,registered,,,,,r,registered, r, sign,Carlin MacKenzie,2020-06-06,,,,,0.6,3779
+™️,2122,symbols,other-symbol,trade mark,,,,,mark, tm, trademark,,Carlin MacKenzie,2020-06-06,,,,,0.6,3781
+#️⃣,23-FE0F-20E3,symbols,keycap,keycap: #,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3782
+*️⃣,2A-FE0F-20E3,symbols,keycap,keycap: *,,,,,keycap,,Selina Lange,2019-05-06,,,,,2,3784
+0️⃣,30-FE0F-20E3,symbols,keycap,keycap: 0,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3786
+1️⃣,31-FE0F-20E3,symbols,keycap,keycap: 1,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3788
+2️⃣,32-FE0F-20E3,symbols,keycap,keycap: 2,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3790
+3️⃣,33-FE0F-20E3,symbols,keycap,keycap: 3,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3792
+4️⃣,34-FE0F-20E3,symbols,keycap,keycap: 4,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3794
+5️⃣,35-FE0F-20E3,symbols,keycap,keycap: 5,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3796
+6️⃣,36-FE0F-20E3,symbols,keycap,keycap: 6,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3798
+7️⃣,37-FE0F-20E3,symbols,keycap,keycap: 7,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3800
+8️⃣,38-FE0F-20E3,symbols,keycap,keycap: 8,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3802
+9️⃣,39-FE0F-20E3,symbols,keycap,keycap: 9,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3804
+🔟,1F51F,symbols,keycap,keycap: 10,,,,,keycap,,Selina Lange,2019-05-06,,,,,0.6,3806
+🔠,1F520,symbols,alphanum,input latin uppercase,,,,,abcd, input, latin, letters, uppercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3807
+🔡,1F521,symbols,alphanum,input latin lowercase,,,,,abcd, input, latin, letters, lowercase,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3808
+🔢,1F522,symbols,alphanum,input numbers,,,,,1234, input, numbers,numbers,Jose Avila,2018-04-18,,,,,0.6,3809
+🔣,1F523,symbols,alphanum,input symbols,,,,,input, 〒♪&%,ampersand, music, note, percentage,Jose Avila,2018-04-18,,,,,0.6,3810
+🔤,1F524,symbols,alphanum,input latin letters,,,,,abc, alphabet, input, latin, letters,letters, alphabet,Jose Avila,2018-04-18,,,,,0.6,3811
+🅰️,1F170,symbols,alphanum,A button (blood type),,,,,a, a button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3813
+🆎,1F18E,symbols,alphanum,AB button (blood type),,,,,ab, ab button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3814
+🅱️,1F171,symbols,alphanum,B button (blood type),,,,,b, b button (blood type), blood type,,Laura Dworatschek,2019-05-06,,,,,0.6,3816
+🆑,1F191,symbols,alphanum,CL button,,,,,cl, cl button,,Laura Dworatschek,2019-05-06,,,,,0.6,3817
+🆒,1F192,symbols,alphanum,COOL button,,,,,cool, cool button,popular, nice,Jose Avila,2018-04-18,,,,,0.6,3818
+🆓,1F193,symbols,alphanum,FREE button,,,,,free, free button,,Laura Dworatschek,2019-05-06,,,,,0.6,3819
+🆔,1F194,symbols,alphanum,ID button,,,,,id, id button, identity,id card,Jose Avila,2018-04-18,,,,,0.6,3822
+Ⓜ️,24C2,symbols,alphanum,circled M,,,,,circle, circled m, m,,Laura Dworatschek,2019-05-06,,,,,0.6,3824
+🆕,1F195,symbols,alphanum,NEW button,,,,,new, new button,modern, recent,Jose Avila,2018-04-18,,,,,0.6,3825
+🆖,1F196,symbols,alphanum,NG button,,,,,ng, ng button,,Laura Dworatschek,2019-05-06,,,,,0.6,3826
+🅾️,1F17E,symbols,alphanum,O button (blood type),,,,,blood type, o, o button (blood type),,Laura Dworatschek,2019-05-06,,,,,0.6,3828
+🆗,1F197,symbols,alphanum,OK button,,,,,ok, ok button,okay,Jose Avila,2018-04-18,,,,,0.6,3829
+🅿️,1F17F,symbols,alphanum,P button,,,,,p button, parking,place, drive,Jose Avila,2018-04-18,,,,,0.6,3831
+🆘,1F198,symbols,alphanum,SOS button,,,,,help, sos, sos button,emergency, warning,Jose Avila,2018-04-18,,,,,0.6,3832
+🆙,1F199,symbols,alphanum,UP! button,,,,,mark, up, up! button,,Laura Dworatschek,2019-05-06,,,,,0.6,3833
+🆚,1F19A,symbols,alphanum,VS button,,,,,versus, vs, vs button,against,Jose Avila,2018-04-18,,,,,0.6,3834
+🔴,1F534,symbols,geometric,red circle,,,,,circle, geometric, red,,Ricarda Krejci,2019-05-07,,,,,0.6,3856
+🟠,1F7E0,symbols,geometric,orange circle,,,,,circle, orange,,Sam Eckert,2019-05-06,,,,,12,3857
+🟡,1F7E1,symbols,geometric,yellow circle,,,,,circle, yellow,,Sam Eckert,2019-05-06,,,,,12,3858
+🟢,1F7E2,symbols,geometric,green circle,,,,,circle, green,,Sam Eckert,2019-05-06,,,,,12,3859
+🔵,1F535,symbols,geometric,blue circle,,,,,blue, circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3860
+🟣,1F7E3,symbols,geometric,purple circle,,,,,circle, purple,,Sam Eckert,2019-05-06,,,,,12,3861
+🟤,1F7E4,symbols,geometric,brown circle,,,,,brown, circle,,Sam Eckert,2019-05-06,,,,,12,3862
+⚫️,26AB,symbols,geometric,black circle,,,,,circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3863
+⚪️,26AA,symbols,geometric,white circle,,,,,circle, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3864
+🟥,1F7E5,symbols,geometric,red square,,,,,red, square,,Sam Eckert,2019-05-06,,,,,12,3865
+🟧,1F7E7,symbols,geometric,orange square,,,,,orange, square,,Sam Eckert,2019-05-06,,,,,12,3866
+🟨,1F7E8,symbols,geometric,yellow square,,,,,square, yellow,,Sam Eckert,2019-05-06,,,,,12,3867
+🟩,1F7E9,symbols,geometric,green square,,,,,green, square,,Sam Eckert,2019-05-06,,,,,12,3868
+🟦,1F7E6,symbols,geometric,blue square,,,,,blue, square,,Sam Eckert,2019-05-06,,,,,12,3869
+🟪,1F7EA,symbols,geometric,purple square,,,,,purple, square,,Sam Eckert,2019-05-06,,,,,12,3870
+🟫,1F7EB,symbols,geometric,brown square,,,,,brown, square,,Sam Eckert,2019-05-06,,,,,12,3871
+⬛️,2B1B,symbols,geometric,black large square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3872
+⬜️,2B1C,symbols,geometric,white large square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3873
+◼️,25FC,symbols,geometric,black medium square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3875
+◻️,25FB,symbols,geometric,white medium square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3877
+◾️,25FE,symbols,geometric,black medium-small square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3878
+◽️,25FD,symbols,geometric,white medium-small square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3879
+▪️,25AA,symbols,geometric,black small square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3881
+▫️,25AB,symbols,geometric,white small square,,,,,geometric, square,,Laura Schießer,2019-05-06,,,,,0.6,3883
+🔶,1F536,symbols,geometric,large orange diamond,diamond,,,,, geometric, orange,,Laura Schießer,2019-05-06,,,,,0.6,3884
+🔷,1F537,symbols,geometric,large blue diamond,blue,,,,, diamond, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3885
+🔸,1F538,symbols,geometric,small orange diamond,,,,,diamond, geometric, orange,,Ricarda Krejci,2019-05-07,,,,,0.6,3886
+🔹,1F539,symbols,geometric,small blue diamond,,,,,blue, diamond, geometric,,Ricarda Krejci,2019-05-07,,,,,0.6,3887
+🔺,1F53A,symbols,geometric,red triangle pointed up,,,,,geometric, red,arrow,Lisa Schulz,2018-04-18,,,,,0.6,3888
+🔻,1F53B,symbols,geometric,red triangle pointed down,,,,,down, geometric, red,arrow,Lisa Schulz,2018-04-18,,,,,0.6,3889
+💠,1F4A0,symbols,geometric,diamond with a dot,comic,,,,, diamond, geometric, inside,,Ricarda Krejci,2019-05-07,,,,,0.6,3890
+🔘,1F518,symbols,geometric,radio button,button,,,,, geometric, radio,,Lisa Schulz,2018-04-18,,,,,0.6,3891
+🔳,1F533,symbols,geometric,white square button,,,,,button, geometric, outlined, square,,Ricarda Krejci,2019-05-07,,,,,0.6,3892
+🔲,1F532,symbols,geometric,black square button,,,,,button, geometric, square,,Ricarda Krejci,2019-05-07,,,,,0.6,3893
+🏁,1F3C1,flags,flag,chequered flag,,,,,checkered, chequered, racing,black, white, grid, racing,Aileen Gedrat,2018-11-16,,,,,0.6,3894
+🚩,1F6A9,flags,flag,triangular flag,,,,,post,,Aileen Gedrat,2018-11-16,,,,,0.6,3895

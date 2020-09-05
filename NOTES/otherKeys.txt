@@ -1,0 +1,18 @@
+_start.js:52 2 "exclamation question mark" "emo" 43
+_start.js:52 2 "trade mark" "emo" 43
+_start.js:52 3 "left-right arrow" "emo" 43
+_start.js:52 4 "up-down arrow" "emo" 43
+_start.js:52 5 "up-left arrow" "emo" 40
+_start.js:52 6 "up-right arrow" "emo" 40
+_start.js:52 7 "down-right arrow" "emo" 40
+_start.js:52 8 "down-left arrow" "emo" 40
+_start.js:52 9 "keyboard" "emo" 38
+_start.js:52 10 "female sign" "emo" 43
+_start.js:52 11 "male sign" "emo" 43
+_start.js:52 12 "spade suit" "emo" 43
+_start.js:52 13 "club suit" "emo" 43
+_start.js:52 14 "heart suit" "emo" 43
+_start.js:52 15 "diamond suit" "emo" 43
+_start.js:52 16 "right arrow curving up" "emo" 40
+_start.js:52 17 "right arrow curving down" "emo" 40
+_start.js:52 18 "wavy dash" "emo" 38
