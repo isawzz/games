@@ -2138,10 +2138,28 @@ function getSizeWithStyles(text, styles) {
 function getWordSize(text, fz, family, weight = 900) {
 	var d = document.createElement("div");
 	document.body.appendChild(d);
+	d.style.fontSize = fz + 'px';
+	d.style.opacity = 0;
+	d.style.position = 'fixed';
+	d.style.top = '-9999px';
+	d.style.display = 'inline-block';
+	d.style.backgroundColor = 'green';
+	d.style.fontFamily = family;
+	d.style.fontWeight = 'bold';
+	d.innerHTML = text;
+	height = d.clientHeight;
+	width = d.clientWidth;
+	d.parentNode.removeChild(d)
+	return { w: width, h: height };
+}
+function getWordSize_dep(text, fz, family, weight = 900) {
+	console.log('hier!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+	var d = document.createElement("div");
+	document.body.appendChild(d);
 	//console.log(styles);
 
 	d.innerHTML = text;
-	d.style.fontSize = fz+'px';
+	d.style.fontSize = fz + 'px';
 	//d.styles.opacity = 0;
 	d.style.position = 'fixed';
 	//d.style.top = '-9999px';
@@ -2157,10 +2175,10 @@ function getWordSize(text, fz, family, weight = 900) {
 	// };
 
 	// mStyleX(d, cStyles);
-	let b=getBounds(d);
+	let b = getBounds(d);
 	height = d.clientHeight;
 	width = d.clientWidth;
-	console.log(b.width,b.height,'vs',width,height)
+	console.log(b.width, b.height, 'vs', width, height)
 	//d.parentNode.removeChild(d)
 	return { w: width, h: height };
 }
@@ -2238,8 +2256,8 @@ function measureTextX(text, fz, family, weight = 900) {
 	//let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
 	let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 	//console.log('metrics', metrics, '\nfz', fz);
-	console.log(metrics.width,actualHeight,fz)
-	return { w: metrics.width, h: actualHeight, fz:fz };//actualHeight };
+	console.log(metrics.width, actualHeight, fz)
+	return { w: metrics.width, h: actualHeight, fz: fz };//actualHeight };
 }
 
 //#endregion

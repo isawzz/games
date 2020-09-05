@@ -1,58 +1,21 @@
 //uses assets! =>load after assets!
 //#region maPic
-function maPicText(info, dParent, styles = {}, classes) {
-
-	let wTotal = isdef(styles.w) ? styles.w : 100;
-	let hTotal = isdef(styles.h) ? styles.h : 100;
-	// let padding = isdef(styles.padding) ? styles.padding : 0;
-	// wTotal -= 2*padding;
-	// hTotal -= 2*padding; //TODO koennte padx,pady machen!!!
-	let rect = { w: wTotal, h: hTotal, cx: 120, cy: 100 };
-	let text = info.text;
-
-	let fg = isdef(styles.fg) ? styles.fg : null;
-
-	let l = rect.cx - (rect.w / 2);
-	let t = rect.cy - (rect.h / 2);
-	let d;
-	if (isdef(styles.x) || isdef(styles.y) || isdef(styles.left) || isdef(styles.top)) d = mDivPosAbs(l, t, dParent);
-	else d = mDiv(dParent);
-	// d.style.boxSizing = 'border-box';
-	//d.style.display = 'inline';
-
-	let dInner = fitWord(text, rect, d, {padding:0, bg: 'green', fg: fg, family: info.family, weight: 900 });//, padding: 0}); //, 'box-sizing': 'border-box' });
-	
-	
-	
-	let b = getBounds(dInner);
-	console.log('inner bounds', b.width, b.height)
-	console.log()
-
-	//jetzt muss ich padding machen
-	let padx=(wTotal-b.width)/2;
-	let pady=(hTotal-b.height)/2;
-	// console.log('padx',padx,'pady',pady);
-
-	// let newStyles = jsCopy(styles);
-	// if (isdef(newStyles.padding)) delete newStyles.padding;
-	// mStyleX(d,newStyles);
-	d.style.width = wTotal+'px';
-	d.style.height = hTotal+'px';
-	d.style.backgroundColor = 'red';
-	d.style.padding = pady+'px '+padx+'px';
-
+function maPicText(info, dParent, outerStyles, innerStyles, classes) {
+	let d = mDiv(dParent); mStyleX(d, outerStyles);
+	let d1 = mDiv(d); mStyleX(d1, innerStyles);
+	d1.innerHTML = info.text;
+	let fz = innerStyles.fz;
+	let [wdes, hdes] = [outerStyles.w - 2 * outerStyles.padding, outerStyles.h - 2 * outerStyles.padding];
+	let size = getWordSize(info.text, fz, info.family);
+	while (size.w > wdes || size.h > hdes) {
+		fz -= 1;
+		if (fz < 9) break;
+		let child = d.firstChild;
+		child.style.fontSize = fz + 'px';
+		size = getWordSize(info.text, fz, info.family);
+	}
 	info.ui = d;
-	info.inner = dInner;
-
-	let b1 = getBounds(dInner);
-	console.log('inner bounds', b1.width, b1.height);
-	console.log('...........',dInner.clientWidth,dInner.clientHeight)
-	console.log(getBounds(dInner))
-	setTimeout(()=>console.log(getBounds(dInner)),500)
-
-	// d.style.display = 'inline-table';
-	// d.style.width = wTotal+'px';
-
+	info.uiInner = d.firstChild;
 	return info;
 }
 

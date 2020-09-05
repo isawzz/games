@@ -1,58 +1,65 @@
 var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 100, cy: 100 };
 window.onload = async () => { await loadAssets(); t88(); }
-function check(){
+function check() {
 	console.log(getBounds(mBy('table').firstChild.firstChild))
 }
-//_________________________88
-function innerFit(d){
+const problemKeys = ['fire-dash', 'horse', 'warehouse']
+//_________________________88 success!!! addPic88 >> maPicText
+function centerFit(d) {
 	let child = d.firstChild;
-	let bChild=getBounds(child);
-	let b=getBounds(d);
+	let bChild = getBounds(child);
+	let b = getBounds(d);
 	let padding = firstNumber(d.style.padding);
 	let wdes = b.width;
 	let hdes = b.height;
-	let wdesChild = wdes-2*padding;
-	let hdesChild = hdes-2*padding;
+	let wdesChild = wdes - 2 * padding;
+	let hdesChild = hdes - 2 * padding;
 	let wChild = bChild.width;
 	let hChild = bChild.height;
 	// padx soll sein padding + wdesChild - bChild.width;
-	let padx = Math.floor(padding + (wdesChild - bChild.width)/2);
-	let pady = Math.floor(padding + (hdesChild - bChild.height)/2);
-	console.log('bChild',bChild,'\npadding',padding,'\nwdes',wdes,'\nhdes',hdes,'\nwdesChild',wdesChild,'\nhdesChild',hdesChild,
-	'\nwChild',wChild,'\nhChild',hChild,'\npadx',padx,'\npady',pady);
-	d.style.padding = pady+'px '+padx+'px';
+	let padx = Math.floor(padding + (wdesChild - bChild.width) / 2);
+	let pady = Math.floor(padding + (hdesChild - bChild.height) / 2);
+	console.log('bChild', bChild, '\npadding', padding, '\nwdes', wdes, '\nhdes', hdes, '\nwdesChild', wdesChild, '\nhdesChild', hdesChild,
+		'\nwChild', wChild, '\nhChild', hChild, '\npadx', padx, '\npady', pady);
+	d.style.padding = pady + 'px ' + padx + 'px';
 }
 function t88() {
-	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
-	let list = ['horse',"fire-dash",'horse',chooseRandom(symbolKeys),chooseRandom(symbolKeys),chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
+	let list = Array(15);//.fill(chooseRandom(symbolKeys));// ['warehouse', "fire-dash", chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	list = list.map(x => chooseRandom(symbolKeys));
 
-	let [w,h,padding]=[100,100,50];
-	let szInner = {w:}
-	let outerStyles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' };
-	let innerStyles = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' };
+	let szOuter = { w: 100, h: 100 };
+	let padding = 25;
+	let szInner = { w: szOuter.w - 2 * padding, h: szOuter.h - 2 * padding };
+
+	let outerStyles = { bg: 'red', w: szOuter.w, h: szOuter.h, padding: padding, 'box-sizing': 'border-box' };
+	let innerStyles = { fz: szInner.h, align: 'center', bg: 'blue', fg: 'white' };
 
 	for (const k of list) {
-		let info= addPic88(k, table, outerStyles,innerStyles);
-		setTimeout(()=>innerFit(info.ui),1);
-		// console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
-		// info.ui.focus();
-		// let hc=getComputedStyle(info.uiInner).getPropertyValue('height');console.log('hc',hc);
-		// setTimeout(()=>check(),1000);//
+		let info = picInfo(k);
+		innerStyles.family = info.family;
+		info = maPicText(info, table, outerStyles, innerStyles);
+		let txt=fitText(info.key,{ w: 100, h: 20, cx: 50, cy: 87 },info.ui,{fg:'white',align:'center',fz:13});
+		//setTimeout(() => centerFit(info.ui, info.ui.firstChild), 1); //wenn will dass in center gefitted wird
+		//break;
 	}
 }
-function addPic88(k, table, outerStyles, innerStyles) {
-	let info = picInfo(k);
-	let fz = 50;
-	
+function addPic88(info, dParent, outerStyles, innerStyles) {
+	// let info = picInfo(k);
+	// let fz = 50;
+
 	// let d = mPic90(info,table, fz);
-	let d = mDiv(table); mStyleX(d, outerStyles);
+	let d = mDiv(dParent); mStyleX(d, outerStyles);
 	let d1 = mDiv(d); mStyleX(d1, innerStyles);
 	d1.innerHTML = info.text;
 
-	let hc=getComputedStyle(d.firstChild).getPropertyValue('height');console.log('hc',hc);
+	let fz = innerStyles.fz;
+	let [wdes, hdes] = [outerStyles.w - 2 * outerStyles.padding, outerStyles.h - 2 * outerStyles.padding];
+
+	let hc = getComputedStyle(d.firstChild).getPropertyValue('height'); console.log('hc', hc);
 	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
 	let i = 0;
-	while (bw > 50 || bh > 50) {
+	while (bw > wdes || bh > hdes) {
 		//console.log('round', i, 'w', bw, 'h', bh)
 		fz -= 1;
 		if (fz < 9) break;
@@ -60,44 +67,43 @@ function addPic88(k, table, outerStyles, innerStyles) {
 		//fz of d.firstChild
 		let child = d.firstChild;
 		child.style.fontSize = fz + 'px';
-		hc=getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
+		hc = getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
 		b = getBounds(child); bw = b.width; bh = b.height;
 		//console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
 		//padding of d
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 
 }
 //_________________________89
-function innerFit(d){
-	let child = d.firstChild;
-	let bChild=getBounds(child);
-	let b=getBounds(d);
+function centerFit(d, child) {
+	let bChild = getBounds(child);
+	let b = getBounds(d);
 	let padding = firstNumber(d.style.padding);
 	let wdes = b.width;
 	let hdes = b.height;
-	let wdesChild = wdes-2*padding;
-	let hdesChild = hdes-2*padding;
+	let wdesChild = wdes - 2 * padding;
+	let hdesChild = hdes - 2 * padding;
 	let wChild = bChild.width;
 	let hChild = bChild.height;
 	// padx soll sein padding + wdesChild - bChild.width;
-	let padx = Math.floor(padding + (wdesChild - bChild.width)/2);
-	let pady = Math.floor(padding + (hdesChild - bChild.height)/2);
-	console.log('bChild',bChild,'\npadding',padding,'\nwdes',wdes,'\nhdes',hdes,'\nwdesChild',wdesChild,'\nhdesChild',hdesChild,
-	'\nwChild',wChild,'\nhChild',hChild,'\npadx',padx,'\npady',pady);
-	d.style.padding = pady+'px '+padx+'px';
+	let padx = Math.floor(padding + (wdesChild - bChild.width) / 2);
+	let pady = Math.floor(padding + (hdesChild - bChild.height) / 2);
+	//console.log('bChild', bChild);
+	//console.log('\npadding', padding, '\nwdes', wdes, '\nhdes', hdes, '\nwdesChild', wdesChild, '\nhdesChild', hdesChild, '\nwChild', wChild, '\nhChild', hChild, '\npadx', padx, '\npady', pady);
+	d.style.padding = pady + 'px ' + padx + 'px';
 }
 function t89() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
 	//let list = ["fire-dash",'horse',"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
-	let list = ['horse',"fire-dash",'horse',chooseRandom(symbolKeys),chooseRandom(symbolKeys),chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let list = ['horse', "fire-dash", 'horse', chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 	// let info = picInfo("fire-dash");mPic95(info)
 	for (const k of list) {
-		let info= addPic89(k, table);
-		setTimeout(()=>innerFit(info.ui),1);
+		let info = addPic89(k, table);
+		setTimeout(() => centerFit(info.ui), 1);
 		// console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
 		// info.ui.focus();
 		// let hc=getComputedStyle(info.uiInner).getPropertyValue('height');console.log('hc',hc);
@@ -107,13 +113,13 @@ function t89() {
 function addPic89(k, table) {
 	let info = picInfo(k);
 	let fz = 50;
-	
+
 	// let d = mPic90(info,table, fz);
 	let d = mDiv(table); let styles = { bg: 'red', w: 100, h: 100, padding: 25, 'box-sizing': 'border-box' }; mStyleX(d, styles);
 	let d1 = mDiv(d); let styles1 = { fz: fz, family: info.family, align: 'center', bg: 'blue', fg: 'white' }; mStyleX(d1, styles1);
 	d1.innerHTML = info.text;
 
-	let hc=getComputedStyle(d.firstChild).getPropertyValue('height');console.log('hc',hc);
+	let hc = getComputedStyle(d.firstChild).getPropertyValue('height'); console.log('hc', hc);
 	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
 	let i = 0;
 	while (bw > 50 || bh > 50) {
@@ -124,13 +130,13 @@ function addPic89(k, table) {
 		//fz of d.firstChild
 		let child = d.firstChild;
 		child.style.fontSize = fz + 'px';
-		hc=getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
+		hc = getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
 		b = getBounds(child); bw = b.width; bh = b.height;
 		//console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
 		//padding of d
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 
@@ -139,20 +145,20 @@ function addPic89(k, table) {
 function t90() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
 	//let list = ["fire-dash",'horse',"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
-	let list = ['horse',"fire-dash",'horse'];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let list = ['horse', "fire-dash", 'horse'];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 	// let info = picInfo("fire-dash");mPic95(info)
 	for (const k of list) {
-		let info= addPic90a(k, table);
-		console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
-		let hc=getComputedStyle(info.uiInner).getPropertyValue('height');
-		console.log('hc',hc);
+		let info = addPic90a(k, table);
+		console.log(info, info.uiInner.clientWidth, info.uiInner.clientHeight);
+		let hc = getComputedStyle(info.uiInner).getPropertyValue('height');
+		console.log('hc', hc);
 		break;
 	}
 }
 function addPic90a(k, table) {
 	let info = picInfo(k);
 	let fz = 50;
-	let d = mPic90(info,table, fz);
+	let d = mPic90(info, table, fz);
 	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
 	let i = 0;
 	while (bw > 50 || bh > 50) {
@@ -168,7 +174,7 @@ function addPic90a(k, table) {
 		//padding of d
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 
@@ -199,7 +205,7 @@ function addPic90b(k, table) {
 		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 }
@@ -215,16 +221,16 @@ function t91() {
 	let list = ["fire-dash"];//,'sherlock-holmes','horse']
 	// let info = picInfo("fire-dash");mPic95(info)
 	for (const k of list) {
-		let info= addPic91a(k, table);
-		console.log(info,info.uiInner.clientWidth,info.uiInner.clientHeight);
-		let hc=getComputedStyle(info.uiInner).getPropertyValue('height');
-		console.log('hc',hc)
+		let info = addPic91a(k, table);
+		console.log(info, info.uiInner.clientWidth, info.uiInner.clientHeight);
+		let hc = getComputedStyle(info.uiInner).getPropertyValue('height');
+		console.log('hc', hc)
 	}
 }
 function addPic91a(k, table) {
 	let info = picInfo(k);
 	let fz = 50;
-	let d = mPic91(info,table, fz);
+	let d = mPic91(info, table, fz);
 	let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
 	let i = 0;
 	while (bw > 50 || bh > 50) {
@@ -240,7 +246,7 @@ function addPic91a(k, table) {
 		//padding of d
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 
@@ -257,13 +263,13 @@ function addPic91b(k, table) {
 		if (fz < 9) break;
 
 		d.remove();
-		d = mPic91(info,table, fz);
+		d = mPic91(info, table, fz);
 		let child = d.firstChild;
 		b = getBounds(child);
 		console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
 	}
 	console.log(b.width, b.height, fz, info.type, info.key);
-	info.ui=d;
+	info.ui = d;
 	info.uiInner = d.firstChild;
 	return info;
 }
@@ -283,7 +289,7 @@ function t92() {
 		let info = picInfo(k);
 		let fz = 50;
 		let d = mPic92(info, fz);
-		let b = getBounds(d.firstChild); 
+		let b = getBounds(d.firstChild);
 		let i = 0;
 		while (b.width > 50 || b.height > 50) {
 			console.log('round', i, 'w', bw, 'h', bh)
@@ -299,7 +305,7 @@ function t92() {
 
 			d.remove();
 			d = mPic93(info, fz);
-			let b = getBounds(d.firstChild); 
+			let b = getBounds(d.firstChild);
 			console.log('w', b.width, 'h', b.height, 'fz', fz, info.type, info.key);
 
 			break;

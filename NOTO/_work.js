@@ -68,12 +68,15 @@ function fitText(text, rect, dParent, styles, classes) {
 	let l = rect.cx - (rect.w / 2);
 	let t = rect.cy - (rect.h / 2);
 
+	// console.log(dParent);
+	// console.log(dParent.style.position)
+	if (dParent.style.position !='absolute') dParent.style.position = 'relative';
 	let d = mDivPosAbs(l, t, dParent);
 
 	styles.display = 'inline-block';
 	styles.w = rect.w;
 
-	let fz = 20;
+	let fz = 20; if (isdef(styles.fz)) fz=styles.fz;
 	let over = textCorrectionFactor(text, styles, rect.w, rect.h, fz); let MAX = 20; let cnt = 0;
 	let oldFz = 0; let oldOldFz = 0;
 	while (over > 0 && fz >= 8) {
@@ -94,14 +97,14 @@ function fitText(text, rect, dParent, styles, classes) {
 		//fz=fz*over;
 	}
 
-	console.log(fz)
+	//console.log(fz)
 	//styles.fz=25;
 	d.innerHTML = text;
 	mStyleX(d, styles);
 
 	let b = getBounds(d);
-	console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
-
+	//console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
+	return d;
 }
 
 
@@ -132,35 +135,6 @@ function fitText(text, rect, dParent, styles, classes) {
 
 
 
-function getWordSize(text, fz, family, weight = 900) {
-	var d = document.createElement("div");
-	document.body.appendChild(d);
-	d.style.fontSize = fz + 'px';
-	//d.styles.opacity = 0;
-	//d.style.position = 'fixed';
-	//d.style.top = '-9999px';
-	d.style.display = 'inline-block';
-	d.style.backgroundColor = 'green';
-	d.style.fontFamily = family;
-	d.style.fontWeight = 'bold';
-	d.innerHTML = text;
-
-	// let cStyles = {
-	// 	font: generateFontString(fz, family, weight),
-	// 	position: 'fixed',
-	// 	opacity: 0,
-	// 	top: '-9999px'
-
-	// };
-
-	// mStyleX(d, cStyles);
-	let b = getBounds(d);
-	height = d.clientHeight;
-	width = d.clientWidth;
-	console.log(b.width, b.height, 'vs', width, height)
-	//d.parentNode.removeChild(d)
-	return { w: width, h: height };
-}
 function findFittingFontSize(text, family, w, h) {
 	// let fmax = Math.floor(h);
 	// let fmin = 8;
