@@ -92,7 +92,7 @@ function fitText(text, rect, dParent, styles, classes) {
 		//console.log('using over',over);
 		let newOver = textCorrectionFactor(text, styles, rect.w, rect.h, fz);
 		let change = over - newOver;
-		console.log('change', change, 'fz change from', oldFz, 'to', fz);
+		//console.log('change', change, 'fz change from', oldFz, 'to', fz);
 		over = newOver;
 		//fz=fz*over;
 	}

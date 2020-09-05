@@ -23,10 +23,13 @@ function centerFit(d) {
 		'\nwChild', wChild, '\nhChild', hChild, '\npadx', padx, '\npady', pady);
 	d.style.padding = pady + 'px ' + padx + 'px';
 }
+let listOther=['student','astronaut','teacher','judge','farmer','cook','mechanic','factory worker','office worker','scientist',
+'technologist','singer','artist','pilot','firefighter','family','volcano'];
 function t88() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
-	let list = Array(15);//.fill(chooseRandom(symbolKeys));// ['warehouse', "fire-dash", chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
-	list = list.map(x => chooseRandom(symbolKeys));
+	//let list = Array(15).map(x => chooseRandom(symbolKeys)); //.fill(chooseRandom(symbolKeys));// ['warehouse', "fire-dash", chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
+	let list = symbolKeys;
+	//list = list.map(x => chooseRandom(symbolKeys));
 
 	let szOuter = { w: 100, h: 100 };
 	let padding = 25;
@@ -35,11 +38,19 @@ function t88() {
 	let outerStyles = { bg: 'red', w: szOuter.w, h: szOuter.h, padding: padding, 'box-sizing': 'border-box' };
 	let innerStyles = { fz: szInner.h, align: 'center', bg: 'blue', fg: 'white' };
 
-	for (const k of list) {
+	let cntFalse = 0;
+
+	for (const k of list.slice(0,100)) {
 		let info = picInfo(k);
 		innerStyles.family = info.family;
 		info = maPicText(info, table, outerStyles, innerStyles);
-		let txt=fitText(info.key,{ w: 100, h: 20, cx: 50, cy: 87 },info.ui,{fg:'white',align:'center',fz:13});
+		let txt = fitText(info.key, { w: 100, h: 20, cx: 50, cy: 87 }, info.ui, { fg: 'white', align: 'center', fz: 13 });
+
+		let fz = firstNumber(info.ui.firstChild.style.fontSize);
+		if (info.type[0] == 'e' && (fz < 36 || fz > 37) || info.type[0] == 'i' && fz != 43) {
+			cntFalse += 1;
+			console.log(cntFalse, info.key, info.type, fz);
+		}
 		//setTimeout(() => centerFit(info.ui, info.ui.firstChild), 1); //wenn will dass in center gefitted wird
 		//break;
 	}
