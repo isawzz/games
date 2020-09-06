@@ -1,3 +1,13 @@
+
+.warehouse{
+	font-size: 50px;
+	/* font-family: pictofa; */
+	font-weight: 900;
+	background-color: blue;
+
+}
+
+
 /* #region filters */
 .b {
 	/* Less saturation so more features, shifted colour 90-degrees */

@@ -1,31 +1,5 @@
 //uses assets! =>load after assets!
 //#region maPic
-function maPicText(info, dParent, outerStyles, innerStyles, classes) {
-	let d = mDiv(dParent); mStyleX(d, outerStyles);
-	let d1 = mDiv(d); mStyleX(d1, innerStyles);
-	d1.innerHTML = info.text;
-	let fz = innerStyles.fz;
-	let [wdes, hdes] = [outerStyles.w - 2 * outerStyles.padding, outerStyles.h - 2 * outerStyles.padding];
-	let size = getWordSize(info.text, fz, info.family);
-	let size2 = getWordSize2(info.text, fz, info.family);
-	if (size.w != size2.w || size.h != size2.h) {
-		console.log('DIFFERENT OUTCOME getWordSize!!!!!!!!!!!!', size, size2);
-	}
-	while (size.w > wdes || size.h > hdes) {
-		fz -= 1;
-		if (fz < 9) break;
-		let child = d.firstChild;
-		child.style.fontSize = fz + 'px';
-		size = getWordSize(info.text, fz, info.family);
-		let size2 = getWordSize2(info.text, fz, info.family);
-		if (size.w != size2.w || size.h != size2.h) {
-			console.log('DIFFERENT OUTCOME getWordSize!!!!!!!!!!!!', size, size2);
-		}
-	}
-	info.ui = d;
-	info.uiInner = d.firstChild;
-	return info;
-}
 
 
 //#region pic helpers

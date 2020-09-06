@@ -30,6 +30,7 @@ function t88() {
 	//let list = Array(15).map(x => chooseRandom(symbolKeys)); //.fill(chooseRandom(symbolKeys));// ['warehouse', "fire-dash", chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 	let list = symbolKeys;
 	//list = list.map(x => chooseRandom(symbolKeys));
+	list = ['warehouse']
 
 	let szOuter = { w: 100, h: 100 };
 	let padding = 25;
@@ -44,6 +45,7 @@ function t88() {
 		let info = picInfo(k);
 		innerStyles.family = info.family;
 		info = maPicText(info, table, outerStyles, innerStyles);
+		//info = addPic88(info, table, outerStyles, innerStyles)
 		let txt = fitText(info.key, { w: 100, h: 20, cx: 50, cy: 87 }, info.ui, { fg: 'white', align: 'center', fz: 13 });
 
 		let fz = firstNumber(info.ui.firstChild.style.fontSize);
@@ -113,6 +115,7 @@ function t89() {
 	//let list = ["fire-dash",'horse',"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 	let list = ['horse', "fire-dash", 'horse', chooseRandom(symbolKeys), chooseRandom(symbolKeys), chooseRandom(symbolKeys)];//,"fire-dash",'horse','horse'];//,'sherlock-holmes','horse']
 	// let info = picInfo("fire-dash");mPic95(info)
+	list=['warehouse']
 	for (const k of list) {
 		let info = addPic89(k, table);
 		setTimeout(() => centerFit(info.ui), 1);

@@ -2192,7 +2192,7 @@ function getWordSize_dep(text, fz, family, weight = 900) {
 	let b = getBounds(d);
 	height = d.clientHeight;
 	width = d.clientWidth;
-	console.log(b.width, b.height, 'vs', width, height)
+	//console.log(b.width, b.height, 'vs', width, height)
 	//d.parentNode.removeChild(d)
 	return { w: width, h: height };
 }
@@ -2219,6 +2219,28 @@ function getTextSizeX(text, fz, family, weight = 900, parentDivOrId = null, styl
 	d.parentNode.removeChild(d)
 	return { w: width, h: height };
 }
+function getTextSizeX1(text, fz, family, weight = 900, parentDivOrId = null, styles = {}) {
+	var d = document.createElement("div");
+	styles.fz = fz;
+	styles.family = family;
+	styles['font-weight'] = weight;
+	styles.position = 'fixed';
+	styles.opacity = 0;
+	styles.top = '-9999px';
+	mStyleX(d, styles);
+	d.innerHTML = text;
+	//newDiv.style.cssText = "position:fixed; top:-9999px; opacity:0;"
+	if (isdef(parentDivOrId)) {
+		if (isString(parentDivOrId)) parentDivOrId = document.getElementById(parentDivOrId);
+		parentDivOrId.appendChild(d);
+	} else {
+		document.body.appendChild(d);
+	}
+	height = d.clientHeight;
+	width = d.clientWidth;
+	//d.parentNode.removeChild(d)
+	return { w: width, h: height, d:d };
+}
 
 function getTextSize(s = 'hallo', parentDivOrId) {
 	var newDiv = document.createElement("div");
@@ -2235,22 +2257,23 @@ function getTextSize(s = 'hallo', parentDivOrId) {
 	newDiv.parentNode.removeChild(newDiv)
 	return { w: width, h: height };
 }
-function getTextWidth(text, font) {
-	// re-use canvas object for better performance
-	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
-	var context = canvas.getContext('2d');
-	context.font = font;
-	var metrics = context.measureText(text);
-	return metrics.width;
-}
+// function getTextWidth(text, font) {
+// 	// re-use canvas object for better performance
+// 	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+// 	var context = canvas.getContext('2d');
+// 	context.font = font;
+// 	var metrics = context.measureText(text);
+// 	return metrics.width;
+// }
 function generateFontString(fz, family, weight = 900) {
 	let s = '' + weight + ' ' + fz + 'px ' + family;
 	return s.trim();
 }
-function measureText(text, fz, family, weight = 900) {
+function measureText1(text, fz, family, weight = 900) {
+	console.log(text,fz,family)
 	let sFont = '' + weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
 	sFont = sFont.trim();
-	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+	var canvas = document.createElement('canvas'); //measureText.canvas || (measureText.canvas = document.createElement('canvas'));
 	var context = canvas.getContext('2d');
 	context.font = sFont;
 	var metrics = context.measureText(text);
@@ -2258,7 +2281,7 @@ function measureText(text, fz, family, weight = 900) {
 	let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
 	//console.log('metrics', metrics, '\nfz', fz);
 	//console.log(metrics.width,actualHeight,fz)
-	return { w: metrics.width, h: fz };//actualHeight };
+	return { w: metrics.width, h: actualHeight };
 }
 function measureTextX(text, fz, family, weight = 900) {
 	let sFont = '' + weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
@@ -4242,7 +4265,8 @@ function tossCoin(percent) {
 	//r ist jetzt zahl zwischen 0 und 100
 	return r < percent;
 }
-
+function coin(){return tossCoin(50);}
+function yesNo(){return tossCoin(50);}
 //#endregion
 
 //#region string functions

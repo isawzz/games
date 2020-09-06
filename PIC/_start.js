@@ -1,124 +1,153 @@
-var table = mBy('table'); var RECT = { w: 200, h: 200, cx: 100, cy: 100 };
-const problemKeys = ['fire-dash', 'horse', 'warehouse']
+var table = mBy('table');
+var sammelDict = {};
+var UIS = {};
+const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
 const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker', 'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'family', 'volcano'];
 
-window.onload = async () => { await loadAssets(); test5_maPicText(); }
+const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];
+const keysForEmo = ['annotation', 'emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
+const keysIgnore = ['skintone_base_emoji','skintone_base_hexcode','unicode','order','order2'];
 
-//getWordSize
-function test6_getWordSize() {
-	let text = 'hallo'; let fz = 20; let family = 'arial';
-	size = getWordSize(text, fz, family);
-	let size2 = getWordSize2(text, fz, family);
-	if (size.w != size2.w || size.h != size2.h) {
-		console.log('DIFFERENT OUTCOME getWordSize!!!!!!!!!!!!', size, size2);
-	}
+window.onload = async () => { await loadAssets(); start(); }
+async function start() {
 
+	await sammelDictFromCsv();
+	
+	//test firstNumber
+	//let x = firstNumber(0.6); //'ABDsssdf_-1');	console.log(x)
+	//let x = isNumber(0.6)
+	//console.log(x)
+	
+	//console.log(symbolKeys.length);
+	//let mod = await correctSammelDict();//10);
+	//console.log(mod);
 }
-
-//maPicText
-function test5_maPicText() {
-	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'green', padding: 4 }; mStyleX(table, tableStyle);
-
-	let list = Array(150).map(x => chooseRandom(symbolKeys)); 
-	//let list = symbolKeys.slice(0, 5);
-
-	let szOuter = { w: 100, h: 100 };
-	let padding = 25;
-	let szInner = { w: szOuter.w - 2 * padding, h: szOuter.h - 2 * padding };
-
-	let outerStyles = { bg: 'red', w: szOuter.w, h: szOuter.h, padding: padding, 'box-sizing': 'border-box' };
-	let innerStyles = { fz: szInner.h, align: 'center', bg: 'blue', fg: 'white' };
-
-	let cntFalse = 0;
-
-	for (const k of list) {
-		let info = picInfo(k);
-		innerStyles.family = info.family;
-		info = maPicText(info, table, outerStyles, innerStyles);
-		let txt = fitText(info.key, { w: 100, h: 20, cx: 50, cy: 87 }, info.ui, { fg: 'white', align: 'center', fz: 13 });
-
-		let fz = firstNumber(info.ui.firstChild.style.fontSize);
-		if (info.type[0] == 'e' && (fz < 36 || fz > 37) || info.type[0] == 'i' && fz != 43) {
-			cntFalse += 1;
-			console.log(cntFalse, info.key, info.type, fz);
+async function sammelDictFromCsv(){
+	// await loadAssets();
+	symbolKeys.sort();
+	sammelDict = {};
+	let i=0;
+	for (const k of symbolKeys) {
+		i += 1; 
+		let info = symbolDict[k];
+		info.index = i;
+		if (info.type != 'emo') { sammelDict[k] = jsCopy(info); continue; }
+		let tags = [];
+		sammelDict[k] = {};
+		for (const k1 in info) {
+			if (keysForAll.includes(k1) || keysForEmo.includes(k1)) { sammelDict[k][k1] = info[k1]; }
+			else if (keysIgnore.includes(k1)) continue;
+			else {
+				let val = info[k1];
+				if (isNumber(val) || !isString(val)) { continue; }
+				val = val.trim();
+				if (isEmpty(val)) { continue; }
+				if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { continue; }
+				if (firstNumber(val)) {  continue; }
+				if (val.length == 1) {continue;}
+				//if (k1=='openmoji_author' || k1 == 'openmoji_date') console.log('emoji:',val,val.length); //,val[0],info.emoji);
+				//if (val[0] =='�') {console.log('==>das ist ein emoji!!!',val);}
+				if (info[k1][0] == info.emoji[0]) {continue; }
+				val=val.replace('"','');
+				console.log('durchgekommen:',val,'('+k1+')');
+				addIf(tags,val);
+			}
 		}
-		//setTimeout(() => centerFit(info.ui, info.ui.firstChild), 1); //wenn will dass in center gefitted wird
-		//break;
+		sammelDict[k].tags = tags;
 	}
+	console.log('DONE!');
+
 }
-//fitText
-function test5_fitText() {
-	let styles = {
-		family: 'arial',
-		'font-weight': 900,
-		bg: 'random',
-		fg: 'contrast',
-		padding: 15,
-		'box-sizing': 'border-box'
-	};
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-
-	let rect = { w: 140, h: 200, cx: 80, cy: 100 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
-
-	rect = { w: 100, h: 200, cx: 220, cy: 100 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
-
-	rect = { w: 140, h: 140, cx: 120, cy: 300 };
-	styles.w = rect.w;
-	fitText(longtext, rect, table, styles);
+async function correctSammelDict(n) {
+	sammelDict = await loadSammelDict();
+	//console.log(sammelDict);
+	let modifiedRecords = {};
+	//makeSymYaml();
+	//jetzt hab ich das sammelDict und kann fuer die emos corrections machen!!!
+	symbolKeys = Object.keys(sammelDict);
+	let MAX = isdef(n) ? n : symbolKeys.length;
+	let i = -1;
+	symbolKeys.sort();
+	for (const k of symbolKeys) {
+		i += 1; if (i >= MAX) break;
+		let info = sammelDict[k];
+		info.index = i;
+		if (info.type != 'emo') { modifiedRecords[k] = jsCopy(info); continue; }
+		let tags = [];
+		//let tbdel = [];
+		modifiedRecords[k] = {};
+		for (const k1 in info) {
+			//console.log(k1)
+			if (keysForAll.includes(k1) || keysForEmo.includes(k1)) { modifiedRecords[k][k1] = info[k1]; }
+			else {
+				let val = info[k1];
+				if (!isString(val)) { continue; }
+				//console.log(val)
+				val = val.trim();
+				//console.log(val);
+				if (isEmpty(val)) { continue; }
+				if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { console.log(val); continue; }
+				if (firstNumber(val)) {  continue; }
+				console.log('durchgekommen:',val)
+				tags.push(val);
+			}
+		}
+		modifiedRecords[k].tags = tags;
+		//tbdel.map(x => delete info[x])
+		// if (!isEmpty(tags)) { console.log(k, tags); }
+		//order ist sowieso mist, hau ich gleich raus
+		//brauch eigentlich NUR die 
+	}
+	// if (MAX>0)
+	console.log('DONE!');
+	if (MAX == symbolKeys.length) {sammelDict = modifiedRecords; saveSammelDict();}
+	return modifiedRecords;
 }
-function test4_fitText() {
-	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	let styles = {
-		family: 'arial',
-		'font-weight': 900,
-		w: rect.w,
-		bg: 'random',
-		padding: 15,
-		'box-sizing': 'border-box'
-	};
 
-	fitText(longtext, rect, table, styles);
-}
-function test3_fitText() {
-	let rect = { w: 140, h: 200, cx: 120, cy: 100 };
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	fitText(longtext, rect, table, { padding: 15, 'box-sizing': 'border-box' });
-}
-function test2_fitText() {
-	let rect = { w: 100, h: 100, cx: 120, cy: 100 };
-	let text = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-	let longtext = 'hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren! hallo das ist ein total bloeder text aber genau lang genug um das auszuprobieren!';
-
-	fitText(longtext, rect, table, { padding: 5, 'box-sizing': 'border-box' });
-}
-//#region blankCard
-function test1_blankCard() {
-	// let infolist = allWordsContainedInKeys(symbolDict,['heart','red']); console.log(infolist); return;
-	// let infolist = allWordsContainedInKeysAsWord (symbolDict,['heart','red']);	console.log(infolist); return;
-	// let infolist = allWordsContainedInProps(symbolDict,['heart'],['E','D']);console.log(infolist.map(x=>x.D)); return;
-	// let infolist = allWordsContainedInProps(symbolDict,toUmlaut(['froehlich']),['E','D']);console.log(infolist.map(x=>x.D)); return;
-	// console.log(fromUmlaut(['über','ähnlich'])); return;
-	// console.log(toUmlaut(['über','ähnlich'])); return;
-	// let infolist = allWordsContainedInProps(symbolDict,toUmlaut(['froh']),['E','D']);console.log(infolist.map(x=>x.D)); return;
-	// let infolist = allWordsContainedInPropsAsWord(symbolDict,['red'],['E','D']);console.log(infolist); return;
-	// let infolist = anyWordContainedInProps(symbolDict,['herz'],['D']);console.log(infolist); return;
-	// console.log('hallo'.indexOf(' '));
-	// console.log('ha llo'.indexOf(' '));
-	// console.log('hallo '.indexOf(' '));
-
-	let c = blankCard();
-	mAppend(table, c);
-
-	let info = picInfo()
-
-	//let res = pic
-	let res = picDrawRandom('emo', null, c, { w: 20, h: 20, padding: 4 });
-
+async function loadSammelDict() {
+	let url = '/assets/sammelDict2.yaml';
+	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
+	return response;
 
 }
 
+function saveSammelDict() {
+	//console.log(sammelDict)
+	let y = jsonToYaml(sammelDict);
+
+	downloadTextFile(y, 'sammelDict');
+}
+function berechnungen(info) {
+	let elem = UIS[info.key];
+	console.log(elem.getBoundingClientRect(elem));
+	let b = elem.getBoundingClientRect(elem);
+	info.fz = 100;
+	info.w = Math.round(b.width);
+	info.h = Math.round(b.height);
+}
+function recordInfo() {
+	console.log('start recording...')
+	for (const k in sammelDict) { berechnungen(sammelDict[k]); }
+	saveSammelDict();
+
+}
+function makeSymYaml() {
+	let list = symbolKeys;
+	for (const k of list) {
+		showAndSave(k);
+	}
+	setTimeout(recordInfo, 1000);
+}
+function showAndSave(key) {
+	let info = picInfo(key);
+	sammelDict[info.key] = info;
+	var element = mDiv(table);
+	let style = { display: 'inline', bg: 'yellow', fz: 100, padding: 0, margin: 0 };
+	mStyleX(element, style);
+	UIS[key] = element;
+	// let decCode = hexStringToDecimal('f494'); //warehouse
+	// let text = '&#' + decCode + ';';
+	// let family = 'pictoFa';
+	element.style.fontFamily = info.family;
+	element.innerHTML = info.text;
+}
