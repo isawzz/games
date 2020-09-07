@@ -1,42 +1,51 @@
-$.fn.resizeText = function (options) {
+function maPic(infokey, dParent, styles, isText = true) {
+	//koennte auch im endeffekt die styles aendern
+	let info = isString(infokey) ? picInfo(infokey) : infokey;
 
-	var settings = $.extend({ maxfont: 40, minfont: 4 }, options);
+	//console.log(info)
 
-	var style = $('<style>').html('.nodelays ' +
-		'{ ' +
-		'-moz-transition: none !important; ' +
-		'-webkit-transition: none !important;' +
-		'-o-transition: none !important; ' +
-		'transition: none !important;' +
-		'}');
+	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
+	outerStyles.display = 'inline-block';
+	let innerStyles = { family: info.family };
+	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
-	function shrink(el, fontsize, minfontsize) {
-		if (fontsize < minfontsize) return;
+	let dOuter = mDiv(table);
+	let d = mDiv(dOuter);
+	d.innerHTML = info.text;
 
-		el.style.fontSize = fontsize + 'px';
+	let wdes, hdes, fz, wreal, hreal;
 
-		if (el.scrollHeight > el.offsetHeight) shrink(el, fontsize - 1, minfontsize);
+	if (isdef(styles.w) && isdef(styles.h)) {
+		[wdes, hdes] = [styles.w, styles.h];
+
+		let fw = wdes / info.w;
+		let fh = hdes / info.h;
+		let f = Math.min(fw, fh);
+		fz = f * info.fz;
+		wreal = f * info.w;
+		hreal = f * info.h;
+
+		padw += (wdes - wreal) / 2;
+		padh += (hdes - hreal) / 2;
+	} else if (isdef(styles.w)) {
+
 	}
 
-	$('head').append(style);
+	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
 
-	$(this).each(function (index, el) {
-		var element = $(el);
+	innerStyles.fz = fz;
+	innerStyles.weight = 900;
+	innerStyles.w = wreal;
+	innerStyles.h = hreal;
+	mStyleX(d, innerStyles);
 
-		element.addClass('nodelays');
+	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
+	outerStyles.w=wreal;
+	outerStyles.h=hreal;
+	//console.log(outerStyles)
+	mStyleX(dOuter, outerStyles);
 
-		shrink(el, settings.maxfont, settings.minfont);
-
-		element.removeClass('nodelays');
-	});
-
-	style.remove();
 }
-
-
-
-
-
 
 
 
@@ -279,8 +288,6 @@ function fitTextXX(text, rect, dParent, styles, classes) {
 
 }
 
-
-
 //#region old
 function fitTextX(text, rect, dParent, styles, classes) {
 	let [l, t, d] = prelims(rect, dParent, styles);
@@ -315,7 +322,6 @@ function fitTextX(text, rect, dParent, styles, classes) {
 	//console.log('bounds', b.width, b.height, 'rect', rect.w, rect.h)
 
 }
-
 function textCorrectionFactorX(text, styles, w, h, fz) {
 	styles.fz = fz;
 	//styles.w = w;

@@ -94,8 +94,7 @@ function createPictoX(parent, style, classes, titleOptions, pictoOptions, captio
 	if (isdef(captionOptions)) { captionOptions.parent = d; createText(captionOptions); }
 	return d;
 }
-function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
-	padding, cat, parent, border, rounding = 4 }) {
+function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,	padding, cat, parent, border, rounding = 4 }) {
 	if (nundef(key)) key = getRandomKey(iconChars);
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
@@ -2721,10 +2720,10 @@ function downloadFile(jsonObject, filenameNoExt) {
 		new Blob([json_str], { type: "" }));
 
 }
-function downloadTextFile(s, filenameNoExt) {
+function downloadTextFile(s, filenameNoExt, ext='txt') {
 	//json_str = JSON.stringify(jsonObject);
 	saveFileAtClient(
-		filenameNoExt + ".txt",
+		filenameNoExt + "."+ext,
 		"data:application/text",
 		new Blob([s], { type: "" }));
 

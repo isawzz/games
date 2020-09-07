@@ -1,3 +1,102 @@
+//#region PIC
+$.fn.resizeText = function (options) {
+
+	var settings = $.extend({ maxfont: 40, minfont: 4 }, options);
+
+	var style = $('<style>').html('.nodelays ' +
+		'{ ' +
+		'-moz-transition: none !important; ' +
+		'-webkit-transition: none !important;' +
+		'-o-transition: none !important; ' +
+		'transition: none !important;' +
+		'}');
+
+	function shrink(el, fontsize, minfontsize) {
+		if (fontsize < minfontsize) return;
+
+		el.style.fontSize = fontsize + 'px';
+
+		if (el.scrollHeight > el.offsetHeight) shrink(el, fontsize - 1, minfontsize);
+	}
+
+	$('head').append(style);
+
+	$(this).each(function (index, el) {
+		var element = $(el);
+
+		element.addClass('nodelays');
+
+		shrink(el, settings.maxfont, settings.minfont);
+
+		element.removeClass('nodelays');
+	});
+
+	style.remove();
+}
+
+
+
+
+
+//#endregion
+
+//#region PIC sammelDict - symbolDict
+async function correctExistingSammelDict(filename, n) {
+	let mod = await correctSammelDict(filename, 10);
+	console.log(mod);
+}
+async function komplettNeuesSammelDict() {
+	await sammelDictFromCsv();
+	saveSammelDict();
+}
+async function correctSammelDict(filename, n) {
+	sammelDict = await route_symbolDict(filename);
+	//console.log(sammelDict);
+	let modifiedRecords = {};
+	//makeSymYaml();
+	//jetzt hab ich das sammelDict und kann fuer die emos corrections machen!!!
+	symbolKeys = Object.keys(sammelDict);
+	let MAX = isdef(n) ? n : symbolKeys.length;
+	let i = -1;
+	symbolKeys.sort();
+	for (const k of symbolKeys) {
+		i += 1; if (i >= MAX) break;
+		let info = sammelDict[k];
+		info.index = i;
+		if (info.type != 'emo') { modifiedRecords[k] = jsCopy(info); continue; }
+		let tags = [];
+		//let tbdel = [];
+		modifiedRecords[k] = {};
+		for (const k1 in info) {
+			//console.log(k1)
+			if (keysForAll.includes(k1) || keysForEmo.includes(k1)) { modifiedRecords[k][k1] = info[k1]; }
+			else {
+				let val = info[k1];
+				if (!isString(val)) { continue; }
+				//console.log(val)
+				val = val.trim();
+				//console.log(val);
+				if (isEmpty(val)) { continue; }
+				if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { console.log(val); continue; }
+				if (firstNumber(val)) { continue; }
+				console.log('durchgekommen:', val)
+				tags.push(val);
+			}
+		}
+		modifiedRecords[k].tags = tags;
+		//tbdel.map(x => delete info[x])
+		// if (!isEmpty(tags)) { console.log(k, tags); }
+		//order ist sowieso mist, hau ich gleich raus
+		//brauch eigentlich NUR die 
+	}
+	// if (MAX>0)
+	console.log('DONE!');
+	if (MAX == symbolKeys.length) { sammelDict = modifiedRecords; saveSammelDict(); }
+	return modifiedRecords;
+}
+
+//#endregion
+
 //#region DOC
 function genCollapsible(path, info) {
 	let caption = stringAfterLast(path, '/');
@@ -8,8 +107,8 @@ function genCollapsible(path, info) {
 
 	//let bView = mButton('view', e => showCollapsibleContent(e), b, { float: 'right' }, null);
 	let bView = mPicButtonSimple('search', e => showCollapsibleContent(e), b,
-	//  { float: 'right', margin: 0, 'background-color': 'dimgray' }, null);
-	 { float: 'right', margin: 0 }, null);
+		//  { float: 'right', margin: 0, 'background-color': 'dimgray' }, null);
+		{ float: 'right', margin: 0 }, null);
 
 	//let bView = mPicButton('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, null);
 
@@ -19,10 +118,10 @@ function genCollapsible(path, info) {
 		//domel.style.backgroundColor = 'red';
 		domel.classList.remove('picButton');
 		domel.classList.add('picButtonHover');
-		console.log('==>classList',domel.classList);//,'\norig color',domel.origColor,domel);
+		console.log('==>classList', domel.classList);//,'\norig color',domel.origColor,domel);
 		//mClass(domel,'picButtonHover');
 		//ev.cancelBubble = true; 
-		ev.stopPropagation = true; 
+		ev.stopPropagation = true;
 		//ev.defaultPrevented = true;
 		//console.log('entering view button', '\nevent', ev, '\nbutton', this);
 	});
@@ -30,10 +129,10 @@ function genCollapsible(path, info) {
 		let domel = ev.target;
 		domel.classList.remove('picButtonHover')
 		domel.classList.add('picButton');
-		console.log('==>classList',domel.classList);
+		console.log('==>classList', domel.classList);
 		// domel.style.backgroundColor = domel.origColor; //'violet';
 		//ev.cancelBubble = true; 
-		ev.stopPropagation = true; 
+		ev.stopPropagation = true;
 		//ev.defaultPrevented = true;
 		// console.log('leaving view button', '\nevent', ev, '\nbutton', this);
 	});
@@ -57,7 +156,7 @@ function maPicText(info, dParent, outerStyles, innerStyles, classes) {
 
 	// let hc = getComputedStyle(d.firstChild).getPropertyValue('height'); //console.log('hc', hc);
 	// let b = getBounds(d.firstChild); let bw = b.width; let bh = b.height;
-	let size=getWordSize(info.text, fz, info.family);
+	let size = getWordSize(info.text, fz, info.family);
 	// let i = 0;
 	// let a={d:d,child:d1};
 	//console.log('a',a)
@@ -69,7 +168,7 @@ function maPicText(info, dParent, outerStyles, innerStyles, classes) {
 		//fz of d.firstChild
 		let child = d.firstChild;
 		child.style.fontSize = fz + 'px';
-		size=getWordSize(info.text, fz, info.family);
+		size = getWordSize(info.text, fz, info.family);
 		//console.log('size',size,'fz',fz);
 		// hc = getComputedStyle(d.firstChild).getPropertyValue('height');//console.log('hc',hc);
 		// b = getBounds(child); bw = b.width; bh = b.height;

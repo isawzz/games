@@ -52,7 +52,7 @@ function mPictoWrapper(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
 	//console.log('haloooooooooooooooooo')
-	//content should be key to iconChars
+	//content should be key to iconChars_
 	let uiWrapper = mDiv(dParent);
 	addClass(uiWrapper, 'cardWrapper');
 

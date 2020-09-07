@@ -1,11 +1,113 @@
 
-var vidCache, allGames, playerConfig, iconChars, numIcons, iconKeys, c52, testCards; //session data
-var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict;
+var vidCache, allGames, playerConfig, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
-var symbolDict, symByGroup, symByType; // info dicts
-var symBySet, symIndex, symByHex, symbolKeys, duplicateKeys; //nur lauter keys
 
-//#region emoji sets
+var symbolDict, symbolKeys; //gibt es immer
+
+//these are only produced lazily!
+var symKeysByType, symKeysBySet;//hier sind key lists
+var symByType, symBySet;//hier sind info dicts
+
+
+//#region emoji sets, symbolDict from raw
+
+const MAX_ANNOTATION_LENGTH = 25;
+const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];
+const keysForEmo = ['annotation', 'emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
+const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
+
+
+//#region new symbolDict code
+async function symbolDictFromCsv() {
+	USE_LOCAL_STORAGE = false;
+	await loadRawAssets();
+	symbolKeys.sort();
+	let tempDict = {};
+	let i = 0;
+	for (const k of symbolKeys) {
+		i += 1;
+		let info = symbolDict[k];
+		info.index = i;
+		if (info.type != 'emo') { tempDict[k] = jsCopy(info); continue; }
+		let tags = [];
+		tempDict[k] = {};
+		for (const k1 in info) {
+			let val = info[k1];
+			if (isNumber(val) || !isString(val)) { continue; }
+			val = val.replace('"', '').trim();
+			if (keysForAll.includes(k1) || keysForEmo.includes(k1)) { tempDict[k][k1] = val; }
+			else if (keysIgnore.includes(k1)) continue;
+			else {
+				if (isEmpty(val)) { continue; }
+				if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { continue; }
+				if (firstNumber(val)) { continue; }
+				if (val.length == 1) { continue; }
+				//if (k1=='openmoji_author' || k1 == 'openmoji_date') console.log('emoji:',val,val.length); //,val[0],info.emoji);
+				//if (val[0] =='�') {console.log('==>das ist ein emoji!!!',val);}
+				if (info[k1][0] == info.emoji[0]) { continue; }
+				//console.log('durchgekommen:', val, '(' + k1 + ')');
+				addIf(tags, val);
+			}
+			if (k1 == 'key') {
+				if (val.length > MAX_ANNOTATION_LENGTH) {
+					val = stringBefore(val, ':').trim();
+					console.log(val);
+				}
+				tempDict.annotation = val;
+			}
+		}
+		tempDict[k].tags = tags;
+	}
+	console.log('DONE!');
+	symbolDict = tempDict;
+
+	saveSymbolDict();
+}
+function addMeasurementsToSymbolDict() {
+	let list = symbolKeys;
+	console.log('---------------symbolKeys', list)
+	for (const k of list) { showAndSave(k); }
+	setTimeout(recordInfo, 2000);
+}
+
+//symbolDict helpers
+function saveSymbolDict() {
+	//console.log(symbolDict_)
+	let y = jsonToYaml(symbolDict);
+
+	downloadTextFile(y, 'symbolDict', 'yaml');
+}
+function berechnungen(info) {
+	let elem = UIS[info.key];
+	console.log(elem.getBoundingClientRect(elem));
+	let b = elem.getBoundingClientRect(elem);
+	info.fz = 100;
+	info.w = Math.round(b.width);
+	info.h = Math.round(b.height);
+}
+function recordInfo() {
+	console.log('start recording...')
+	for (const k in symbolDict) { berechnungen(symbolDict[k]); }
+	saveSymbolDict();
+
+}
+function showAndSave(key) {
+	let info = picInfo(key);
+	console.log(info)
+	//sammelDict_[info.key] = info;
+	var element = mDiv(table);
+	let style = { display: 'inline', bg: 'yellow', fz: 100, padding: 0, margin: 0 };
+	mStyleX(element, style);
+	UIS[key] = element;
+	// let decCode = hexStringToDecimal('f494'); //warehouse
+	// let text = '&#' + decCode + ';';
+	// let family = 'pictoFa';
+	element.style.fontFamily = info.family;
+	element.innerHTML = info.text;
+}
+//#endregion
+
+//#region emoSets
 var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var emoSets = [
 	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
@@ -68,7 +170,10 @@ var emoSets = [
 ];
 //#endregion
 
-//#region symbolDict
+//#region symbolDict from raw assets: old code
+var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict, iconChars, numIcons, iconKeys;
+var symIndex, symByHex, duplicateKeys, symByGroup; //last 2 liefern info!
+
 function makeInfoDict() {
 	symbolDict = {}; symByHex = {}; symByGroup = {}; symIndex = {}; symByType = {};
 	for (const k in emojiKeys) {
@@ -146,7 +251,7 @@ function hexWithSkinTone(info) {
 	return hex;
 }
 function makeEmoSetIndex() {
-	symBySet = {};
+	symBySet = {}; symKeysBySet = {};
 	for (const set of emoSets) {
 		let name = set.name;
 		let f = set.f;
@@ -158,7 +263,7 @@ function makeEmoSetIndex() {
 			if (nundef(o.group) || nundef(o.subgroups)) continue;
 			let passt = f(o);
 			if (!passt) continue;
-			if (passt) { symBySet[name].push(k); }
+			if (passt) { lookupSet(symBySet, [name, k], info); lookupAddToList(symKeysBySet, [name], k); }
 		}
 	}
 }
@@ -178,11 +283,33 @@ function setPicText(info) {
 	s1 = res;
 	return s1;
 }
+//#endregion
 
 //#endregion
 
 //#region API: loadAssets, loadSpec_ (also merges), loadCode (also activates), loadInitialServerData
 async function loadAssets() {
+
+	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
+	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));
+	testCards = vidCache.asDict('testCards');
+	c52C = await vidCache.load('c52', route_c52);
+	c52 = vidCache.asDict('c52');
+
+	//einfach nur symbolDict laden als symbolDict
+	symbolDictC = await vidCache.load('symbolDict', route_symbolDict);
+	symbolDict = vidCache.asDict('symbolDict');
+	symbolKeys = Object.keys(symbolDict);
+
+}
+async function route_symbolDict(filename = 'symbolDict') {
+	let url = '/assets/' + filename + '.yaml';
+	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
+	return response;
+
+}
+
+async function loadRawAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
 	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));
 	testCards = vidCache.asDict('testCards');
@@ -512,8 +639,8 @@ async function route_c52() {
 	return await route_rsg_asset('c52_blackBorder', 'yaml');
 }
 async function route_iconChars() {
-	let gaIcons = await route_rsg_asset('gameIconCodes');
-	let faIcons = await route_rsg_asset('faIconCodes');
+	let gaIcons = await route_rsg_raw_asset('gameIconCodes');
+	let faIcons = await route_rsg_raw_asset('faIconCodes');
 	let dIcons = {};
 	for (const k in faIcons) {
 		dIcons[k] = faIcons[k];
@@ -526,7 +653,7 @@ async function route_iconChars() {
 }
 async function route_emoChars() {
 	// let x = await (await fetch('/assets/openmoji.csv')).text();
-	let x = await (await fetch('/assets/mojiReduced.csv')).text();
+	let x = await (await fetch('/assets/raw/mojiReduced.csv')).text();
 	emojiChars = processCsvData(x);
 	return emojiChars;
 }
@@ -587,6 +714,11 @@ async function route_begin_status(username, seed = SEED) {
 async function route_status(username) { return await route_server_js('/status/' + username); }
 async function route_rsg_asset(filename, ext = 'yml') {
 	let url = '/assets/' + filename + '.' + ext;
+	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
+	return response;
+}
+async function route_rsg_raw_asset(filename, ext = 'yml') {
+	let url = '/assets/raw/' + filename + '.' + ext;
 	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
 	return response;
 }
@@ -690,6 +822,7 @@ async function fetch_wrapper(url) {
 var allGamesC = null;
 var playerConfigC = null;
 var iconCharsC = null;
+var symbolDictC = null;
 var emoCharsC = null;
 var c52C = null;
 var testCardsC = null

@@ -241,7 +241,7 @@ function mTitle(n, R, uidParent) {
 }
 
 
-//#region old functions
+//#region old functions: IRRELEVANT!
 function layoutHand(n) {
 	if (isdef(n.params.overlap) && n.children.length > 1) {
 		let cards = n.children.map(x => x.ui);

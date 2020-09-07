@@ -8,7 +8,7 @@ function picRandom(type, keywords) {
 	//console.log(infolist)
 	return chooseRandom(infolist);
 }
-function picSearch({ keywords, type, func, props, isAnd, justCompleteWords }) {
+function picSearch({ keywords, type, func, set, group, subgroup, props, isAnd, justCompleteWords }) {
 	//#region doc 
 	/*	
 usage: ilist = picSearch({ type: 'all', func: (d, kw) => allCondX(d, x => /^a\w*r$/.test(x.key)) });
@@ -25,7 +25,26 @@ justCompleteWords ... matches have to be complete words
 returns list of info
 	*/
 	//#endregion 
-	let dict = nundef(type) || type == 'all' ? symbolDict : symByType[type];
+
+	if (isdef(set) && nundef(symBySet)) { makeEmoSetIndex(); }
+
+	if (isdef(type) && type != 'all' && nundef(symByType)) {
+		//console.log('doing it ONCE only!')
+		symByType = { emo: {}, eduplo: {}, icon: {}, iduplo: {} };
+		symKeysByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
+		for (const k in symbolDict) {
+			let info = symbolDict[k];
+			if (info.type == 'emo' && info.isDuplicate) { symByType.eduplo[k] = info; symKeysByType.eduplo.push(k); }
+			else if (info.type == 'icon' && info.isDuplicate) { symByType.iduplo[k] = info; symKeysByType.iduplo.push(k); }
+			else if (info.type == 'emo') { symByType.emo[k] = info; symKeysByType.emo.push(k); }
+			else if (info.type == 'icon') { symByType.icon[k] = info; symKeysByType.icon.push(k); }
+		}
+	}
+
+	let dict = isdef(set)? symBySet[set] : nundef(type) || type == 'all' ? symbolDict : symByType[type];
+	
+	//console.log(dict);
+
 	//console.log('_____________',keywords,type,dict,func)
 	if (nundef(keywords)) return isdef(func) ? func(dict) : dict2list(dict);
 	if (!isList(keywords)) keywords = [keywords];
@@ -78,7 +97,7 @@ returns info
 	*/
 	//#endregion 
 	if (isdef(symbolDict[key])) return symbolDict[key];
-	else if (isdef(symByHex[key])) return symbolDict[symByHex[key]];
+	else if (isdef(symByHex) && isdef(symByHex[key])) return symbolDict[symByHex[key]];
 	else {
 		let infolist = picSearch({ keywords: key });
 		//console.log('result from picSearch(' + key + ')', infolist);

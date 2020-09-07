@@ -1,4 +1,12 @@
 
+
+
+
+
+
+
+
+//#region fitText code 
 function centerFit(d, child) {
 	let bChild = getBounds(child);
 	let b = getBounds(d);
