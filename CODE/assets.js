@@ -10,53 +10,60 @@ var symByType, symBySet;//hier sind info dicts
 //#region new symbolDict code
 const MAX_ANNOTATION_LENGTH = 25;
 const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];
-const keysForEmo = ['annotation', 'emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
-const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
+const keysForEmo = ['emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
+//const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
 
-async function symbolDictFromCsv() {
+async function symbolDictFromCsv(saveAtEnd=true) {
 	USE_LOCAL_STORAGE = false;
+	symbolDict = {};
 	await loadRawAssets();
+
 	symbolKeys.sort();
 	let tempDict = {};
 	let i = 0;
 	for (const k of symbolKeys) {
 		i += 1;
 		let info = symbolDict[k];
+		console.assert(k == info.key, 'key != symbolDict key!!!', k, info.key);
+		// if (k == 'red heart') {
+		// 	console.log(info)
+		// }
 		info.index = i;
 		if (info.type != 'emo') { tempDict[k] = jsCopy(info); continue; }
 		let tags = [];
-		tempDict[k] = {};
+		tempDict[k] = {}; //{ hex: info.hex, hexcode: info.hexcode };
 		for (const k1 in info) {
 			let val = info[k1];
+
+			if (keysForAll.includes(k1)) {
+				tempDict[k][k1] = val;
+				if (k1 == 'key') {
+					if (val.length > MAX_ANNOTATION_LENGTH) { val = stringBefore(val, ':').trim(); }
+					tempDict.annotation = val;
+				}
+				continue;
+			}
 			if (isNumber(val) || !isString(val)) { continue; }
 			val = val.replace('"', '').trim();
-			if (keysForAll.includes(k1) || keysForEmo.includes(k1)) { tempDict[k][k1] = val; }
-			else if (keysIgnore.includes(k1)) continue;
-			else {
-				if (isEmpty(val)) { continue; }
-				if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { continue; }
-				if (firstNumber(val)) { continue; }
-				if (val.length == 1) { continue; }
-				//if (k1=='openmoji_author' || k1 == 'openmoji_date') console.log('emoji:',val,val.length); //,val[0],info.emoji);
-				//if (val[0] =='�') {console.log('==>das ist ein emoji!!!',val);}
-				if (info[k1][0] == info.emoji[0]) { continue; }
-				//console.log('durchgekommen:', val, '(' + k1 + ')');
-				addIf(tags, val);
-			}
-			if (k1 == 'key') {
-				if (val.length > MAX_ANNOTATION_LENGTH) {
-					val = stringBefore(val, ':').trim();
-					console.log(val);
-				}
-				tempDict.annotation = val;
-			}
+			if (keysForEmo.includes(k1)) { tempDict[k][k1] = val; continue; }
+
+			//ab hier just filter for tags!
+			if (isEmpty(val)) { continue; }
+			if ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(val[0])) { continue; }
+			if (firstNumber(val)) { continue; }
+			if (val.length == 1) { continue; }
+			//if (k1=='openmoji_author' || k1 == 'openmoji_date') console.log('emoji:',val,val.length); //,val[0],info.emoji);
+			//if (val[0] =='�') {console.log('==>das ist ein emoji!!!',val);}
+			if (info[k1][0] == info.emoji[0]) { continue; }
+			//console.log('durchgekommen:', val, '(' + k1 + ')');
+			addIf(tags, val);
 		}
 		tempDict[k].tags = tags;
 	}
 	console.log('DONE!');
 	symbolDict = tempDict;
 
-	saveSymbolDict();
+	if (saveAtEnd) saveSymbolDict();
 }
 function addMeasurementsToSymbolDict() {
 	let list = symbolKeys;
@@ -64,7 +71,7 @@ function addMeasurementsToSymbolDict() {
 	for (const k of list) { showAndSave(k); }
 	setTimeout(recordInfo, 2000);
 }
-function addAnnotationsToSymbolDict() {
+function addAnnotationsToSymbolDict(saveAtEnd=true) {
 	let list = symbolKeys;
 	console.log('---------------symbolKeys', list)
 	for (const k of list) {
@@ -86,8 +93,8 @@ function addAnnotationsToSymbolDict() {
 		} else if (anno.includes('with')) {
 			anno = stringAfter(anno, 'with');
 		}
-		if (startsWith(anno, 'in ')){
-			anno = stringAfter(anno,' ');
+		if (startsWith(anno, 'in ')) {
+			anno = stringAfter(anno, ' ');
 		}
 		if (anno.includes(':')) {
 			anno = stringAfter(anno, ':');
@@ -98,7 +105,7 @@ function addAnnotationsToSymbolDict() {
 		console.log(anno);
 		//console.log('anno', anno, 'k', k, 'subgroups', info.subgroups);
 	}
-	//saveSymbolDict();
+	if (saveAtEnd) saveSymbolDict();
 }
 
 //symbolDict helpers
@@ -141,7 +148,7 @@ function recordInfo() {
 		let info = symbolDict[k];
 		//console.log(typeof info);
 		if (isString(info)) toBeRemoved.push(k);
-		else berechnungen(symbolDict[k]); 
+		else berechnungen(symbolDict[k]);
 	}
 	for (const k of toBeRemoved) delete symbolDict[k];
 
@@ -247,6 +254,12 @@ function makeInfoDict() {
 			isColored: true,
 		};
 		for (const k1 in rec) info[k1] = rec[k1];
+		if (nundef(info.hexcode)) {
+			console.log('missing hexcode', k, info)
+		} 
+		// else if (k == 'red heart') {
+		// 	console.log('should be ok', info);
+		// }
 		info.hex = hexWithSkinTone(info);
 		info.family = 'emoNoto';
 		info.text = setPicText(info);

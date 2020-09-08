@@ -5,11 +5,70 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
 
 window.onload = async () => { await loadAssets(); start(); }
+
+async function reconstruct(){
+	await symbolDictFromCsv(false);
+	setTimeout(()=>reconstruct1(),1000);
+}
+function reconstruct1(){
+	addAnnotationsToSymbolDict(false);
+	setTimeout(()=>reconstruct2(),1000);
+}
+function reconstruct2(){
+	addMeasurementsToSymbolDict();
+}
 async function start() {
-	test7_h_fz();
+
+	reconstruct();
+	// await symbolDictFromCsv();
+	
+	// addMeasurementsToSymbolDict();
+
+	// addAnnotationsToSymbolDict();
+	// saveSymbolDict();
+
+	return;
+	test12_1_liners_img();
+
+	for(const k of symbolKeys){
+		let info = symbolDict[k];
+		if (info.type == 'emo'){
+			if (nundef(info.tags)) console.log('!!!!!!!!!!!!!!!!!!!!!',k);// && isEmpty(info.tags)){
+			else if (isEmpty(info.tags)) console.log('---empty',k);
+		}
+		//console.log(k,symbolDict[k].tags)
+	}
 }
 
 //#region tests maPic
+function test12_1_liners_img() {
+	mFlex(table)
+	maPic('red heart', table, { w: 50, h: 50, padding: 10,margin:2, bg: 'yellow' },false); 
+	maPic('red heart', table, { w: 50, h: 50, padding: 10,margin:2, bg: 'yellow' }); 
+	// maPic('crow', table, { w: 100, h: 50, bg: 'red' }); 
+	// maPic('student',table,{w:100,h:100});
+
+}
+function test11_w_h_fz(){
+	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { w: 50, h:50, fz: 24, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
+}
+function test10_fz(){
+	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { fz: 30, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
+}
+function test9_w(){
+	let tableStyles = { display: 'flex', 'flex-direction': 'column', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { w: 100, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
+}
+function test8_h(){
+	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
+}
 function test7_h_fz(){
 	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
 	let styles = { h: 50, fz: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};

@@ -1,10 +1,16 @@
 
-
 function maPic(infokey, dParent, styles, isText = true) {
 	//koennte auch im endeffekt die styles aendern
 	let info = isString(infokey) ? picInfo(infokey) : infokey;
 
 	//console.log(info)
+
+	if (!isText && info.type == 'emo'){
+		let ui = mImg('/assets/svg/twemoji/' + info.hexcode + '.svg', dParent);
+		if (isdef(styles)) mStyleX(ui, styles);		
+		return ui;
+	}
+
 
 	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
 	outerStyles.display = 'inline-block';
@@ -15,47 +21,44 @@ function maPic(infokey, dParent, styles, isText = true) {
 	let d = mDiv(dOuter);
 	d.innerHTML = info.text;
 
-	let wdes, hdes, fzdes, wreal, hreal, fzreal;
+	let wdes, hdes, fzdes, wreal, hreal, fzreal, f;
 
-	if (isdef(styles.w) && isdef(styles.h)) {
-		[wdes, hdes] = [styles.w, styles.h];
-
+	if (isdef(styles.w) && isdef(styles.h) && isdef(styles.fz)) {
+		[wdes, hdes, fzdes] = [styles.w, styles.h, styles.fz];
 		let fw = wdes / info.w;
 		let fh = hdes / info.h;
-		let f = Math.min(fw, fh);
-		fzreal = f * info.fz;
-		wreal = f * info.w;
-		hreal = f * info.h;
-
-		padw += (wdes - wreal) / 2;
-		padh += (hdes - hreal) / 2;
+		let ffz = fzdes / info.fz;
+		f = Math.min(fw, fh, ffz);
+	} else if (isdef(styles.w) && isdef(styles.h)) {
+		[wdes, hdes] = [styles.w, styles.h];
+		let fw = wdes / info.w;
+		let fh = hdes / info.h;
+		f = Math.min(fw, fh);
 	} else if (isdef(styles.w) && isdef(styles.fz)) {
 		[wdes, fzdes] = [styles.w, styles.fz];
-
 		let fw = wdes / info.w;
 		let ffz = fzdes / info.fz;
-		let f = Math.min(fw, ffz);
-		fzreal = f * info.fz;
-		wreal = f * info.w;
-		hreal = f * info.h;
-
-		padw += (wdes - wreal) / 2;
-		padh += 0;
-
+		f = Math.min(fw, ffz);
 	} else if (isdef(styles.h) && isdef(styles.fz)) {
 		[hdes, fzdes] = [styles.h, styles.fz];
-
 		let fh = hdes / info.h;
 		let ffz = fzdes / info.fz;
-		let f = Math.min(fw, ffz);
-		fzreal = f * info.fz;
-		wreal = f * info.w;
-		hreal = f * info.h;
-
-		padw += 0;
-		padh += (hdes - hreal) / 2;
-
+		f = Math.min(fh, ffz);
+	} else if (isdef(styles.h)) {
+		hdes = styles.h;
+		f = hdes / info.h;
+	} else if (isdef(styles.w)) {
+		wdes = styles.w;
+		f = wdes / info.w;
+	} else if (isdef(styles.fz)) {
+		fzdes = styles.fz;
+		f = fzdes / info.fz;
 	}
+	fzreal = f * info.fz;
+	wreal = f * info.w;
+	hreal = f * info.h;
+	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
+	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
 
 	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
 
@@ -71,56 +74,10 @@ function maPic(infokey, dParent, styles, isText = true) {
 	//console.log(outerStyles)
 	mStyleX(dOuter, outerStyles);
 
-}
-
-
-
-function maPic_1(infokey, dParent, styles, isText = true) {
-	//koennte auch im endeffekt die styles aendern
-	let info = isString(infokey) ? picInfo(infokey) : infokey;
-
-	//console.log(info)
-
-	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
-	outerStyles.display = 'inline-block';
-	let innerStyles = { family: info.family };
-	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
-
-	let dOuter = mDiv(dParent);
-	let d = mDiv(dOuter);
-	d.innerHTML = info.text;
-
-	let wdes, hdes, fzdes, fz, wreal, hreal;
-
-	if (isdef(styles.w) && isdef(styles.h)) {
-		[wdes, hdes] = [styles.w, styles.h];
-
-		let fw = wdes / info.w;
-		let fh = hdes / info.h;
-		let f = Math.min(fw, fh);
-		fz = f * info.fz;
-		wreal = f * info.w;
-		hreal = f * info.h;
-
-		padw += (wdes - wreal) / 2;
-		padh += (hdes - hreal) / 2;
-	}
-
-	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
-
-	innerStyles.fz = fz;
-	innerStyles.weight = 900;
-	innerStyles.w = wreal;
-	innerStyles.h = hreal;
-	mStyleX(d, innerStyles);
-
-	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
-	outerStyles.w = wreal;
-	outerStyles.h = hreal;
-	//console.log(outerStyles)
-	mStyleX(dOuter, outerStyles);
+	return dOuter;	
 
 }
+
 
 
 
