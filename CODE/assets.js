@@ -64,6 +64,42 @@ function addMeasurementsToSymbolDict() {
 	for (const k of list) { showAndSave(k); }
 	setTimeout(recordInfo, 2000);
 }
+function addAnnotationsToSymbolDict() {
+	let list = symbolKeys;
+	console.log('---------------symbolKeys', list)
+	for (const k of list) {
+		//console.log(k);
+		let info = symbolDict[k];
+
+		let anno = info.key;
+
+		//console.log(k,info,anno)
+
+		if (info.type == 'emo'
+			&& (isEmosetMember('role', info) || isEmosetMember('activity', info) || isEmosetMember('sport', info))
+			&& (startsWith(anno, 'man') || startsWith(anno, 'woman'))) {
+			anno = stringAfter(anno, ' ');
+		} else if (anno.includes('button')) {
+			anno = anno.replace('button', '');
+		} else if (endsWith(anno, 'face')) {
+			anno = stringBefore(anno, 'face')
+		} else if (anno.includes('with')) {
+			anno = stringAfter(anno, 'with');
+		}
+		if (startsWith(anno, 'in ')){
+			anno = stringAfter(anno,' ');
+		}
+		if (anno.includes(':')) {
+			anno = stringAfter(anno, ':');
+		}
+		anno = anno.replaceAll('-', ' ').trim();
+		info.annotation = anno;
+
+		console.log(anno);
+		//console.log('anno', anno, 'k', k, 'subgroups', info.subgroups);
+	}
+	//saveSymbolDict();
+}
 
 //symbolDict helpers
 function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }

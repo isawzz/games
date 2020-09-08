@@ -6,12 +6,23 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 
 window.onload = async () => { await loadAssets(); start(); }
 async function start() {
-	test4_15_roles_grid();
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles);
+	// test4_15_roles_grid();
 }
 
 //#region tests maPic
 function test5_emo(){
-	
+
+}
+function test5_flex_style(styles) {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	mStyleX(table, tableStyle);
+
+	let N = 10;
+	for (let i = 0; i < N; i++) {
+		maPic(picRandom(), table, styles);
+	}
 }
 function test4_15_roles_grid(){
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
@@ -19,9 +30,9 @@ function test4_15_roles_grid(){
 
 	let container = mDiv(table);
 	let containerStyle = { display: 'inline-block' };
-	mStyleX(container, containerStyle);
+	//mStyleX(container, containerStyle);
 	let parentStyle = { display: 'grid', 'grid-template-columns': 'repeat(4, auto)', gap: '4px', padding: 4, bg:'silver',rounding:5 };
-	let dParent= mDiv(container);
+	let dParent= mDiv(table);//container);
 	mStyleX(dParent, parentStyle);
 
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };

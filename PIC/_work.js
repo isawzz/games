@@ -1,39 +1,3 @@
-function addAnnotationsToSymbolDict() {
-	let list = symbolKeys;
-	console.log('---------------symbolKeys', list)
-	for (const k of list) {
-		//console.log(k);
-		let info = symbolDict[k];
-
-		let anno = info.key;
-
-		//console.log(k,info,anno)
-
-		if (info.type == 'emo'
-			&& (isEmosetMember('role', info) || isEmosetMember('activity', info) || isEmosetMember('sport', info))
-			&& (startsWith(anno, 'man') || startsWith(anno, 'woman'))) {
-			anno = stringAfter(anno, ' ');
-		} else if (anno.includes('button')) {
-			anno = anno.replace('button', '');
-		} else if (endsWith(anno, 'face')) {
-			anno = stringBefore(anno, 'face')
-		} else if (anno.includes('with')) {
-			anno = stringAfter(anno, 'with');
-		}
-		if (startsWith(anno, 'in ')){
-			anno = stringAfter(anno,' ');
-		}
-		if (anno.includes(':')) {
-			anno = stringAfter(anno, ':');
-		}
-		anno = anno.replaceAll('-', ' ').trim();
-		info.annotation = anno;
-
-		console.log(anno);
-		//console.log('anno', anno, 'k', k, 'subgroups', info.subgroups);
-	}
-	//saveSymbolDict();
-}
 
 
 function maPic(infokey, dParent, styles, isText = true) {
@@ -51,7 +15,82 @@ function maPic(infokey, dParent, styles, isText = true) {
 	let d = mDiv(dOuter);
 	d.innerHTML = info.text;
 
-	let wdes, hdes, fz, wreal, hreal;
+	let wdes, hdes, fzdes, wreal, hreal, fzreal;
+
+	if (isdef(styles.w) && isdef(styles.h)) {
+		[wdes, hdes] = [styles.w, styles.h];
+
+		let fw = wdes / info.w;
+		let fh = hdes / info.h;
+		let f = Math.min(fw, fh);
+		fzreal = f * info.fz;
+		wreal = f * info.w;
+		hreal = f * info.h;
+
+		padw += (wdes - wreal) / 2;
+		padh += (hdes - hreal) / 2;
+	} else if (isdef(styles.w) && isdef(styles.fz)) {
+		[wdes, fzdes] = [styles.w, styles.fz];
+
+		let fw = wdes / info.w;
+		let ffz = fzdes / info.fz;
+		let f = Math.min(fw, ffz);
+		fzreal = f * info.fz;
+		wreal = f * info.w;
+		hreal = f * info.h;
+
+		padw += (wdes - wreal) / 2;
+		padh += 0;
+
+	}else if (isdef(styles.h) && isdef(styles.fz)) {
+		[hdes, fzdes] = [styles.h, styles.fz];
+
+		let fw = wdes / info.w;
+		let ffz = fzdes / info.fz;
+		let f = Math.min(fw, ffz);
+		fzreal = f * info.fz;
+		wreal = f * info.w;
+		hreal = f * info.h;
+
+		padw += (wdes - wreal) / 2;
+		padh += 0;
+
+	}
+
+	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
+
+	innerStyles.fz = fzreal;
+	innerStyles.weight = 900;
+	innerStyles.w = wreal;
+	innerStyles.h = hreal;
+	mStyleX(d, innerStyles);
+
+	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
+	outerStyles.w = wreal;
+	outerStyles.h = hreal;
+	//console.log(outerStyles)
+	mStyleX(dOuter, outerStyles);
+
+}
+
+
+
+function maPic_1(infokey, dParent, styles, isText = true) {
+	//koennte auch im endeffekt die styles aendern
+	let info = isString(infokey) ? picInfo(infokey) : infokey;
+
+	//console.log(info)
+
+	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
+	outerStyles.display = 'inline-block';
+	let innerStyles = { family: info.family };
+	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
+
+	let dOuter = mDiv(dParent);
+	let d = mDiv(dOuter);
+	d.innerHTML = info.text;
+
+	let wdes, hdes, fzdes, fz, wreal, hreal;
 
 	if (isdef(styles.w) && isdef(styles.h)) {
 		[wdes, hdes] = [styles.w, styles.h];
@@ -65,9 +104,7 @@ function maPic(infokey, dParent, styles, isText = true) {
 
 		padw += (wdes - wreal) / 2;
 		padh += (hdes - hreal) / 2;
-	} else if (isdef(styles.w)) {
-
-	}
+	} 
 
 	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
 
@@ -84,9 +121,6 @@ function maPic(infokey, dParent, styles, isText = true) {
 	mStyleX(dOuter, outerStyles);
 
 }
-
-
-
 
 
 

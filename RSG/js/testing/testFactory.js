@@ -263,8 +263,44 @@ function recPosRegularUiTree(uid, R) {
 	for (const ch of n.children) { recPosRegularUiTree(ch, R); }
 
 	let num = n.children.length;
-	if ([2, 4, 6, 8, 9, 12, 16, 20].includes(num)) arrangeChildrenAsQuad(n, R);
-	else if (num > 1 && num < 10) arrangeChildrenAsCircle(n, R);
+	if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) arrangeChildrenAsQuad(n, R);
+	else if ([3, 8, 15,24,35,48, 63].includes(num)) {
+		let lower = Math.floor(Math.sqrt(num));
+		console.assert(num == lower*(lowe+2),'RECHNUNG FALSCH IN recPosRegularUiTree');
+		arrangeChildrenAsMatrix(n,R,lower,lower+2);
+	}	else if (num > 1 && num < 10) arrangeChildrenAsCircle(n, R);
+}
+function arrangeChildrenAsMatrix(n, R, rows, cols) {
+	//console.log('arrangeChildrenAsQuad', n.children);
+	let children = n.children.map(x => R.uiNodes[x]);
+	let num = children.length;
+	let size = 20;
+	let padding = 4;
+	let i = 0;
+
+	//calc max size of children first! set size accordingly!
+	for (const n1 of children) {
+		let b = getBounds(n1.ui);
+		//console.log('uid', n1.uid, 'w', b.width)
+		let newMax = Math.max(Math.max(b.width, b.height), size);
+		if (newMax > size) {
+			//console.log('got new max:', newMax);
+			size = newMax;
+		}
+	}
+
+	let [y0, wTitle] = calcParentContentYOffsetAndWidth(n, padding);
+
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			let n1 = children[i]; i += 1;
+			n1.params.size = { w: size - 1, h: size - 1 };
+			n1.params.pos = { x: padding + r * size, y: y0 + c * size };
+			n1.params.sizing = 'fixed';
+
+		}
+	}
+
 }
 function arrangeChildrenAsQuad(n, R) {
 	//console.log('arrangeChildrenAsQuad', n.children);
