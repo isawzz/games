@@ -278,8 +278,8 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🎅,1F385,people-body,person-fantasy,Santa Claus,,,,,"celebration,christmas,claus,father,santa,santa claus","christmas,holiday,jolly,happy,saint nicholas,santa claus,xmas,celebration",Lisa Thiel,2018-04-18,,single,🎅,1F385,0.6,1505
 🦸,1F9B8,people-body,person-fantasy,superhero,,,,,"good,hero,heroine,superpower",,Nadine Bartel,2019-05-06,,single,🦸,1F9B8,11,1523
 🦹,1F9B9,people-body,person-fantasy,supervillain,,,,,"criminal,evil,superpower,villain",,Nadine Bartel,2019-05-06,,single,🦹,1F9B9,11,1553
-🧙‍♂️,1F9D9-200D-2642-FE0F,people-body,person-fantasy,man mage,,,,,"sorcerer,wizard",,Nadine Bartel,2019-05-06,,single,🧙‍♂️,1F9D9-200D-2642-FE0F,5,1589
-🧙‍♀️,1F9D9-200D-2640-FE0F,people-body,person-fantasy,woman mage,,,,,"sorceress,witch",,Nadine Bartel,2019-05-06,,single,🧙‍♀️,1F9D9-200D-2640-FE0F,5,1601
+🧙‍♂️,1F9D9-200D-2642-FE0F,people-body,person-fantasy,wizard,mage|wizard,zauberer,,,"sorcerer,wizard",,Nadine Bartel,2019-05-06,,single,🧙‍♂️,1F9D9-200D-2642-FE0F,5,1589
+🧙‍♀️,1F9D9-200D-2640-FE0F,people-body,person-fantasy,with,sorceress|witch,zauberin|hexe|fee,,,,,Nadine Bartel,2019-05-06,,single,🧙‍♀️,1F9D9-200D-2640-FE0F,5,1601
 🧚,1F9DA,people-body,person-fantasy,fairy,,,,,"oberon,puck,titania",,Nadine Bartel,2019-05-06,,single,🧚,1F9DA,5,1613
 🧚‍♂️,1F9DA-200D-2642-FE0F,people-body,person-fantasy,man fairy,,,,,"oberon,puck",,Nadine Bartel,2019-05-06,,single,🧚‍♂️,1F9DA-200D-2642-FE0F,5,1619
 🧚‍♀️,1F9DA-200D-2640-FE0F,people-body,person-fantasy,woman fairy,,,,,titania,,Nadine Bartel,2019-05-06,,single,🧚‍♀️,1F9DA-200D-2640-FE0F,5,1631
@@ -567,7 +567,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🔪,1F52A,food-drink,dishware,kitchen knife,kitchen knife | knife,küchenmesser | messer,,,cooking,hocho,knife,tool,weapon,eat,Jonas Roßner,2018-04-18,,,,,0.6,2933
 🏺,1F3FA,food-drink,dishware,amphora,amphora,amphore,,,aquarius,cooking,drink,jug,zodiac,,Hend Hourani,2018-11-16,,,,,1,2934
 🌍️,1F30D,travel-places,place-map,globe showing Europe-Africa,map | earth | globe | europe | africa | world,afrika | europa | globus | weltkugel | erde,,,africa,earth,europe,globe,globe showing europe-africa,world,geographic,continent,global,planet,Martin Wehl,2018-04-18,,,,,0.7,2935
-🌎️,1F30E,travel-place,americas,s,place-map,globe showing Americas,map | earth | globe | america | americas | world,amerika | globus | weltkugel | erde,,,americas,earth,globe,globe showing americas,world,geographic,continent,global,planet,Martin Wehl,2018-04-18,,,,,0.7,2936
+🌎️,1F30E,travel-places,place-map,globe showing Americas,map | earth | globe | america | americas | world,amerika | globus | weltkugel | erde,,,americas,earth,globe,globe showing americas,world,geographic,continent,global,planet,Martin Wehl,2018-04-18,,,,,0.7,2936
 🌏️,1F30F,travel-places,place-map,globe showing Asia-Australia,map | earth | globe | asia | australia | world,asien | australien | globus | weltkugel | erde,,,asia,australia,earth,globe,globe showing asia-australia,world,geographic,continent,global,planet,Martin Wehl,2018-04-18,,,,,0.6,2937
 🗺️,1F5FA,travel-places,place-map,world map,magnetic | navigation | orienteering | map | world,erde | welt | landkarte | weltkarte,map,world,geographic,continent,global,planet,earth,Martin Wehl,2018-04-18,,,,,0.7,2940
 🗾,1F5FE,travel-places,place-map,map of Japan,map | map of japan | japan,landkarte | japan,,,japan,map,map of japan,,Louisa Mantsch,2018-11-16,,,,,0.6,2941

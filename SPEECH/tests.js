@@ -9,7 +9,7 @@ async function testSpeech() {
 	mText('language:', sidebar);
 	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
 	mText('categories:', sidebar);
-	let names = selectedEmoSetNames; //emoSets.map(x=>x.name).sort();
+	let names = selectedEmoSetNames; //Object.keys(emoSets).map(x=>x.name).sort();
 	//console.log(names);
 	for (const name of names) {
 		let uName = name.toUpperCase();

@@ -80,7 +80,7 @@ function getEmoSetWords_dep(lang = 'E') {
 
 function groupSizeTest() {
 	//mach alle legalen records!
-	let groupNames = selectedEmoSetNames; //emoSets.map(x=>x.name);
+	let groupNames = selectedEmoSetNames; //Object.keys(emoSets).map(x=>x.name);
 	console.log(groupNames);
 	let groupDict = {};
 	for (const name of groupNames) {
@@ -319,7 +319,7 @@ function setGroup(group) {
 	mClass(mBy('b_' + emoGroup), 'selectedGroupButton');
 
 
-	let f = firstCond(emoSets, x => x.name.toUpperCase() == emoGroup).f;
+	let f = firstCondDict(emoSets, x => x.name.toUpperCase() == emoGroup).f;
 	//console.log(emoGroup)
 	emoDict = {};
 	for (const k in emojiChars) {

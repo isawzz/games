@@ -3,21 +3,16 @@ var vidCache, allGames, playerConfig, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
 var symbolDict, symbolKeys; //gibt es immer
-
 //these are only produced lazily!
 var symKeysByType, symKeysBySet;//hier sind key lists
 var symByType, symBySet;//hier sind info dicts
 
-
-//#region emoji sets, symbolDict from raw
-
+//#region new symbolDict code
 const MAX_ANNOTATION_LENGTH = 25;
 const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];
 const keysForEmo = ['annotation', 'emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
 const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
 
-
-//#region new symbolDict code
 async function symbolDictFromCsv() {
 	USE_LOCAL_STORAGE = false;
 	await loadRawAssets();
@@ -71,6 +66,22 @@ function addMeasurementsToSymbolDict() {
 }
 
 //symbolDict helpers
+function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }
+function ensureSymByType() {
+	if (nundef(symByType)) {
+		//console.log('doing it ONCE only!')
+		symByType = { emo: {}, eduplo: {}, icon: {}, iduplo: {} };
+		symKeysByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
+		for (const k in symbolDict) {
+			let info = symbolDict[k];
+			if (info.type == 'emo' && info.isDuplicate) { symByType.eduplo[k] = info; symKeysByType.eduplo.push(k); }
+			else if (info.type == 'icon' && info.isDuplicate) { symByType.iduplo[k] = info; symKeysByType.iduplo.push(k); }
+			else if (info.type == 'emo') { symByType.emo[k] = info; symKeysByType.emo.push(k); }
+			else if (info.type == 'icon') { symByType.icon[k] = info; symKeysByType.icon.push(k); }
+		}
+	}
+
+}
 function saveSymbolDict() {
 	//console.log(symbolDict_)
 	let y = jsonToYaml(symbolDict);
@@ -78,16 +89,26 @@ function saveSymbolDict() {
 	downloadTextFile(y, 'symbolDict', 'yaml');
 }
 function berechnungen(info) {
+	if (isString(info)) return;
 	let elem = UIS[info.key];
-	console.log(elem.getBoundingClientRect(elem));
+	//console.log(typeof info, info, info.key, elem)
+	//console.log(elem.getBoundingClientRect(elem));
 	let b = elem.getBoundingClientRect(elem);
 	info.fz = 100;
 	info.w = Math.round(b.width);
 	info.h = Math.round(b.height);
 }
 function recordInfo() {
-	console.log('start recording...')
-	for (const k in symbolDict) { berechnungen(symbolDict[k]); }
+	console.log('start recording...');
+	let toBeRemoved = [];
+	for (const k in symbolDict) {
+		let info = symbolDict[k];
+		//console.log(typeof info);
+		if (isString(info)) toBeRemoved.push(k);
+		else berechnungen(symbolDict[k]); 
+	}
+	for (const k of toBeRemoved) delete symbolDict[k];
+
 	saveSymbolDict();
 
 }
@@ -107,36 +128,37 @@ function showAndSave(key) {
 }
 //#endregion
 
-//#region emoSets
-var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
-var emoSets = [
-	{ name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
-	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
-	{ name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
-	{ name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
-	{ name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
-	{ name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
-	{ name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
-	{ name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
-	{ name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
-	{ name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
+//#region emoSets_
 
-	{ name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
-	{ name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
-	{ name: 'emotion', f: o => o.group == 'smileys-emotion' },
-	{ name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
-	{ name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
-	{ name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
-	{ name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
-	{ name: 'place', f: o => startsWith(o.subgroups, 'place') },
-	{ name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
-	{ name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
-	{ name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
-	{ name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
-	{ name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
+var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var emoSets = {
+	hand: { name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
+	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
+	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
+	person: { name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
+	gesture: { name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
+	role: { name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
+	fantasy: { name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
+	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
+	sport: { name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
+	family: { name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
+
+	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
+	drink: { name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	emotion: { name: 'emotion', f: o => o.group == 'smileys-emotion' },
+	food: { name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
+	fruit: { name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	game: { name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
+	kitchen: { name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
+	place: { name: 'place', f: o => startsWith(o.subgroups, 'place') },
+	plant: { name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
+	sports: { name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
+	time: { name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
+	transport: { name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
+	vegetable: { name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
 
 	//objects:
-	{
+	object: {
 		name: 'object', f: o =>
 			(o.group == 'food-drink' && o.subgroups == 'dishware')
 			|| (o.group == 'travel-places' && o.subgroups == 'time')
@@ -150,12 +172,12 @@ var emoSets = [
 			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
 	},
 
-	{ name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
-	{ name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
-	{ name: 'symbols', f: o => o.group == 'symbols' },
+	shapes: { name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
+	sternzeichen: { name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
+	symbols: { name: 'symbols', f: o => o.group == 'symbols' },
 
 	//toolbar buttons:
-	{
+	toolbar: {
 		name: 'toolbar', f: o => (o.group == 'symbols' && o.subgroups == 'warning')
 			|| (o.group == 'symbols' && o.subgroups == 'arrow')
 			|| (o.group == 'symbols' && o.subgroups == 'av-symbol')
@@ -163,11 +185,14 @@ var emoSets = [
 			|| (o.group == 'symbols' && o.subgroups == 'keycap')
 	},
 
-	{ name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
-	{ name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
-	{ name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
+	math: { name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
+	punctuation: { name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
+	misc: { name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
 
-];
+};
+
+function isEmosetMember(name, info) { return emoSets[name].f(info); }
+
 //#endregion
 
 //#region symbolDict from raw assets: old code
@@ -252,7 +277,8 @@ function hexWithSkinTone(info) {
 }
 function makeEmoSetIndex() {
 	symBySet = {}; symKeysBySet = {};
-	for (const set of emoSets) {
+	for (const k in emoSets) {
+		let set = emoSets[k];
 		let name = set.name;
 		let f = set.f;
 		symBySet[name] = [];
@@ -283,8 +309,6 @@ function setPicText(info) {
 	s1 = res;
 	return s1;
 }
-//#endregion
-
 //#endregion
 
 //#region API: loadAssets, loadSpec_ (also merges), loadCode (also activates), loadInitialServerData

@@ -26,20 +26,9 @@ returns list of info
 	*/
 	//#endregion 
 
-	if (isdef(set) && nundef(symBySet)) { makeEmoSetIndex(); }
+	if (isdef(set)) ensureSymBySet();
 
-	if (isdef(type) && type != 'all' && nundef(symByType)) {
-		//console.log('doing it ONCE only!')
-		symByType = { emo: {}, eduplo: {}, icon: {}, iduplo: {} };
-		symKeysByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
-		for (const k in symbolDict) {
-			let info = symbolDict[k];
-			if (info.type == 'emo' && info.isDuplicate) { symByType.eduplo[k] = info; symKeysByType.eduplo.push(k); }
-			else if (info.type == 'icon' && info.isDuplicate) { symByType.iduplo[k] = info; symKeysByType.iduplo.push(k); }
-			else if (info.type == 'emo') { symByType.emo[k] = info; symKeysByType.emo.push(k); }
-			else if (info.type == 'icon') { symByType.icon[k] = info; symKeysByType.icon.push(k); }
-		}
-	}
+	if (isdef(type) && type != 'all') ensureSymByType();
 
 	let dict = isdef(set)? symBySet[set] : nundef(type) || type == 'all' ? symbolDict : symByType[type];
 	

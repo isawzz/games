@@ -1,3 +1,41 @@
+function addAnnotationsToSymbolDict() {
+	let list = symbolKeys;
+	console.log('---------------symbolKeys', list)
+	for (const k of list) {
+		//console.log(k);
+		let info = symbolDict[k];
+
+		let anno = info.key;
+
+		//console.log(k,info,anno)
+
+		if (info.type == 'emo'
+			&& (isEmosetMember('role', info) || isEmosetMember('activity', info) || isEmosetMember('sport', info))
+			&& (startsWith(anno, 'man') || startsWith(anno, 'woman'))) {
+			anno = stringAfter(anno, ' ');
+		} else if (anno.includes('button')) {
+			anno = anno.replace('button', '');
+		} else if (endsWith(anno, 'face')) {
+			anno = stringBefore(anno, 'face')
+		} else if (anno.includes('with')) {
+			anno = stringAfter(anno, 'with');
+		}
+		if (startsWith(anno, 'in ')){
+			anno = stringAfter(anno,' ');
+		}
+		if (anno.includes(':')) {
+			anno = stringAfter(anno, ':');
+		}
+		anno = anno.replaceAll('-', ' ').trim();
+		info.annotation = anno;
+
+		console.log(anno);
+		//console.log('anno', anno, 'k', k, 'subgroups', info.subgroups);
+	}
+	//saveSymbolDict();
+}
+
+
 function maPic(infokey, dParent, styles, isText = true) {
 	//koennte auch im endeffekt die styles aendern
 	let info = isString(infokey) ? picInfo(infokey) : infokey;
@@ -9,7 +47,7 @@ function maPic(infokey, dParent, styles, isText = true) {
 	let innerStyles = { family: info.family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
-	let dOuter = mDiv(table);
+	let dOuter = mDiv(dParent);
 	let d = mDiv(dOuter);
 	d.innerHTML = info.text;
 
@@ -40,8 +78,8 @@ function maPic(infokey, dParent, styles, isText = true) {
 	mStyleX(d, innerStyles);
 
 	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
-	outerStyles.w=wreal;
-	outerStyles.h=hreal;
+	outerStyles.w = wreal;
+	outerStyles.h = hreal;
 	//console.log(outerStyles)
 	mStyleX(dOuter, outerStyles);
 

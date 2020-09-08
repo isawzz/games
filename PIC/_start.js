@@ -1,26 +1,53 @@
 var table = mBy('table');
 var UIS = {};
 const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
-const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker', 'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'family', 'volcano'];
+const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',  'mechanic', 'factory worker', 
+'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
 
 window.onload = async () => { await loadAssets(); start(); }
 async function start() {
+	test4_15_roles_grid();
+}
+
+//#region tests maPic
+function test5_emo(){
+	
+}
+function test4_15_roles_grid(){
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
 	mStyleX(table, tableStyle);
+
+	let container = mDiv(table);
+	let containerStyle = { display: 'inline-block' };
+	mStyleX(container, containerStyle);
+	let parentStyle = { display: 'grid', 'grid-template-columns': 'repeat(4, auto)', gap: '4px', padding: 4, bg:'silver',rounding:5 };
+	let dParent= mDiv(container);
+	mStyleX(dParent, parentStyle);
 
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
 	for (const k of listOther) {
 		//let info = picRandom('emo', k);
 		let info = first(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
-		maPic(info, table, styles);
+		maPic(info, dParent, styles);
 	}
-
-
-	//maPic('student',table,{w:100,h:100});
 }
+function test3_15_roles_grid(){
 
-//#region tests maPic
+	let tableStyle = { display: 'inline-block', bg: 'grey' };
+	mStyleX(table, tableStyle);
+	let parentStyle = { display: 'grid', 'grid-template-columns': 'repeat(5, auto)', gap: '4px', bg: 'grey', padding: 4 };
+	let dParent= mDiv(table);
+	mStyleX(dParent, parentStyle);
+
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	for (const k of listOther) {
+		//let info = picRandom('emo', k);
+		let info = first(picSearch({ set: 'role', keywords: k }));
+		if (nundef(info)) continue;
+		maPic(info, dParent, styles);
+	}
+}
 function test2_10_flex() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
 	mStyleX(table, tableStyle);
@@ -32,8 +59,10 @@ function test2_10_flex() {
 	}
 }
 function test1_1_liners() {
-	maPic('red heart', table, { w: 50, h: 50, padding: 10, bg: 'yellow' }); return;
-	maPic('crow', table, { w: 100, h: 50, bg: 'red' }); return;
+	maPic('red heart', table, { w: 50, h: 50, padding: 10, bg: 'yellow' }); 
+	// maPic('crow', table, { w: 100, h: 50, bg: 'red' }); 
+	// maPic('student',table,{w:100,h:100});
+
 }
 function test0_manual() {
 	let info = picInfo('crow');
@@ -71,11 +100,15 @@ function test0_manual() {
 
 //#region reconstructing and correcting symbolDict
 function starterForSymbolDict() {
-	//await symbolDictFromCsv();
-	//addMeasurementsToSymbolDict();
+	// await symbolDictFromCsv();
+	
+	// addMeasurementsToSymbolDict();
+
+	// addAnnotationsToSymbolDict();
+	// saveSymbolDict();
+
 	//console.log(symbolKeys.length);
 	//console.log(symbolDict);
-
 }
 //#endregion
 
