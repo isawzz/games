@@ -42,18 +42,18 @@ function maPic(infokey, dParent, styles, isText = true) {
 		padw += (wdes - wreal) / 2;
 		padh += 0;
 
-	}else if (isdef(styles.h) && isdef(styles.fz)) {
+	} else if (isdef(styles.h) && isdef(styles.fz)) {
 		[hdes, fzdes] = [styles.h, styles.fz];
 
-		let fw = wdes / info.w;
+		let fh = hdes / info.h;
 		let ffz = fzdes / info.fz;
 		let f = Math.min(fw, ffz);
 		fzreal = f * info.fz;
 		wreal = f * info.w;
 		hreal = f * info.h;
 
-		padw += (wdes - wreal) / 2;
-		padh += 0;
+		padw += 0;
+		padh += (hdes - hreal) / 2;
 
 	}
 
@@ -104,7 +104,7 @@ function maPic_1(infokey, dParent, styles, isText = true) {
 
 		padw += (wdes - wreal) / 2;
 		padh += (hdes - hreal) / 2;
-	} 
+	}
 
 	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!')
 

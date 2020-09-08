@@ -6,18 +6,22 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 
 window.onload = async () => { await loadAssets(); start(); }
 async function start() {
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
-	test5_flex_style(styles);
-	// test4_15_roles_grid();
+	test7_h_fz();
 }
 
 //#region tests maPic
-function test5_emo(){
-
+function test7_h_fz(){
+	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { h: 50, fz: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
 }
-function test5_flex_style(styles) {
-	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
-	mStyleX(table, tableStyle);
+function test6_w_fz(){
+	let tableStyles = { display: 'flex', 'flex-direction': 'column', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	let styles = { w: 50, fz: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	test5_flex_style(styles,tableStyles);
+}
+function test5_flex_style(styles,tableStyles) {
+	mStyleX(table, tableStyles);
 
 	let N = 10;
 	for (let i = 0; i < N; i++) {
