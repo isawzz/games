@@ -377,7 +377,7 @@ function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
-function mDiv(dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); return d; }
+function mDiv(dParent = null,styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d,styles); return d; }
 function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }

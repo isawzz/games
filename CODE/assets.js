@@ -13,6 +13,18 @@ const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'fa
 const keysForEmo = ['emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
 //const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
 
+async function reconstruct(){
+	await symbolDictFromCsv(false);
+	setTimeout(()=>reconstruct1(),1000);
+}
+function reconstruct1(){
+	addAnnotationsToSymbolDict(false);
+	setTimeout(()=>reconstruct2(),1000);
+}
+function reconstruct2(){
+	addMeasurementsToSymbolDict();
+}
+
 async function symbolDictFromCsv(saveAtEnd=true) {
 	USE_LOCAL_STORAGE = false;
 	symbolDict = {};
@@ -29,7 +41,13 @@ async function symbolDictFromCsv(saveAtEnd=true) {
 		// 	console.log(info)
 		// }
 		info.index = i;
-		if (info.type != 'emo') { tempDict[k] = jsCopy(info); continue; }
+		if (info.type != 'emo') { 
+			tempDict[k] = jsCopy(info); 
+			if (info.type == 'icon'){
+				tempDict[k].tags= k.split('-');
+			}
+			continue; 
+		}
 		let tags = [];
 		tempDict[k] = {}; //{ hex: info.hex, hexcode: info.hexcode };
 		for (const k1 in info) {
@@ -102,7 +120,7 @@ function addAnnotationsToSymbolDict(saveAtEnd=true) {
 		anno = anno.replaceAll('-', ' ').trim();
 		info.annotation = anno;
 
-		console.log(anno);
+		//console.log(anno);
 		//console.log('anno', anno, 'k', k, 'subgroups', info.subgroups);
 	}
 	if (saveAtEnd) saveSymbolDict();
@@ -157,7 +175,7 @@ function recordInfo() {
 }
 function showAndSave(key) {
 	let info = picInfo(key);
-	console.log(info)
+	//console.log(info)
 	//sammelDict_[info.key] = info;
 	var element = mDiv(table);
 	let style = { display: 'inline', bg: 'yellow', fz: 100, padding: 0, margin: 0 };
