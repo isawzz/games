@@ -2,10 +2,33 @@
 var vidCache, allGames, playerConfig, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
-var symbolDict, symbolKeys; //gibt es immer
-//these are only produced lazily!
-var symKeysByType, symKeysBySet;//hier sind key lists
+var symbolDict, symbolKeys, symbolList; //gibt es immer
+
+//the following are only produced lazily! (see ensure)
+// byType hat keys: emo, icon, eduplo, iduplo!!!
 var symByType, symBySet;//hier sind info dicts
+var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
+var symListByType, symListBySet;//hier sind info lists (dict by key)
+
+//#region ensure
+function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }
+function ensureSymByType() {
+	if (nundef(symByType)) {
+		//console.log('doing it ONCE only!')
+		symByType = { emo: {}, eduplo: {}, icon: {}, iduplo: {} };
+		symKeysByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
+		symListByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
+		for (const k in symbolDict) {
+			let info = symbolDict[k];
+			if (info.type == 'emo' && info.isDuplicate) { symByType.eduplo[k] = info; symListByType.eduplo.push(info); symKeysByType.eduplo.push(k); }
+			else if (info.type == 'icon' && info.isDuplicate) { symByType.iduplo[k] = info; symListByType.iduplo.push(info); symKeysByType.iduplo.push(k); }
+			else if (info.type == 'emo') { symByType.emo[k] = info; symListByType.emo.push(info); symKeysByType.emo.push(k); }
+			else if (info.type == 'icon') { symByType.icon[k] = info; symListByType.icon.push(info); symKeysByType.icon.push(k); }
+		}
+	}
+
+}
+//#endregion
 
 //#region new symbolDict code
 const MAX_ANNOTATION_LENGTH = 25;
@@ -13,21 +36,54 @@ const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'fa
 const keysForEmo = ['emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
 //const keysIgnore = ['annotation', 'skintone_base_emoji', 'skintone_base_hexcode', 'unicode', 'order', 'order2'];
 
-async function reconstruct(){
+async function reconstructX() {
+	console.log('start rec 0');
 	await symbolDictFromCsv(false);
-	setTimeout(()=>reconstruct1(),1000);
+	setTimeout(reconstructX1, 1000);
 }
-function reconstruct1(){
+function reconstructX1() {
+	console.log('start rec 1');
 	addAnnotationsToSymbolDict(false);
-	setTimeout(()=>reconstruct2(),1000);
+	setTimeout(reconstructX2, 1000);
 }
-function reconstruct2(){
-	addMeasurementsToSymbolDict();
+function reconstructX2() {
+	console.log('start rec 2');
+	let list = symbolKeys;
+	for (const k of list) { showAndSave(k); }
+	setTimeout(reconstructX3,2000);
+}
+function reconstructX3() {
+	console.log('start rec 3');
+	let toBeRemoved = [];
+	for (const k in symbolDict) {
+		let info = symbolDict[k];
+		if (isString(info)) toBeRemoved.push(k);
+		else berechnungen(symbolDict[k]);
+	}
+	for (const k of toBeRemoved) delete symbolDict[k];
+	saveSymbolDict();
+	SIGI=true;
 }
 
-async function symbolDictFromCsv(saveAtEnd=true) {
+async function reconstruct(callback=null) {
+	console.log('start rec 0');
+	await symbolDictFromCsv(false);
+	setTimeout(() => reconstruct1(callback), 1000);
+}
+function reconstruct1(callback=null) {
+	console.log('start rec 1');
+	addAnnotationsToSymbolDict(false);
+	setTimeout(() => reconstruct2(callback), 1000);
+}
+function reconstruct2(callback=null) {
+	console.log('start rec 2');
+	addMeasurementsToSymbolDict(callback);
+
+}
+
+async function symbolDictFromCsv(saveAtEnd = true) {
 	USE_LOCAL_STORAGE = false;
-	symbolDict = {};
+	symbolDict = {};symbolList=[];
 	await loadRawAssets();
 
 	symbolKeys.sort();
@@ -41,12 +97,12 @@ async function symbolDictFromCsv(saveAtEnd=true) {
 		// 	console.log(info)
 		// }
 		info.index = i;
-		if (info.type != 'emo') { 
-			tempDict[k] = jsCopy(info); 
-			if (info.type == 'icon'){
-				tempDict[k].tags= k.split('-');
+		if (info.type != 'emo') {
+			tempDict[k] = jsCopy(info);
+			if (info.type == 'icon') {
+				tempDict[k].tags = k.split('-');
 			}
-			continue; 
+			continue;
 		}
 		let tags = [];
 		tempDict[k] = {}; //{ hex: info.hex, hexcode: info.hexcode };
@@ -80,18 +136,26 @@ async function symbolDictFromCsv(saveAtEnd=true) {
 	}
 	console.log('DONE!');
 	symbolDict = tempDict;
+	symbolList = dict2list(symbolDict);
 
 	if (saveAtEnd) saveSymbolDict();
 }
-function addMeasurementsToSymbolDict() {
+function addMeasurementsToSymbolDict(callback=null) {
 	let list = symbolKeys;
-	console.log('---------------symbolKeys', list)
+	//console.log('---------------symbolKeys', list)
 	for (const k of list) { showAndSave(k); }
-	setTimeout(recordInfo, 2000);
+	//setTimeout(recordInfo,2000);
+	setTimeout(()=>{
+		recordInfo();
+		if (callback) {
+			console.log('2. ...calling callback!!!!!!!!!!!!!!!!! USE_LOCL_STORAGE',USE_LOCAL_STORAGE,'\nsymbolDict');
+			callback();
+		}
+	}, 2000);
 }
-function addAnnotationsToSymbolDict(saveAtEnd=true) {
+function addAnnotationsToSymbolDict(saveAtEnd = true) {
 	let list = symbolKeys;
-	console.log('---------------symbolKeys', list)
+	//console.log('---------------symbolKeys', list)
 	for (const k of list) {
 		//console.log(k);
 		let info = symbolDict[k];
@@ -127,22 +191,6 @@ function addAnnotationsToSymbolDict(saveAtEnd=true) {
 }
 
 //symbolDict helpers
-function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }
-function ensureSymByType() {
-	if (nundef(symByType)) {
-		//console.log('doing it ONCE only!')
-		symByType = { emo: {}, eduplo: {}, icon: {}, iduplo: {} };
-		symKeysByType = { emo: [], eduplo: [], icon: [], iduplo: [] };
-		for (const k in symbolDict) {
-			let info = symbolDict[k];
-			if (info.type == 'emo' && info.isDuplicate) { symByType.eduplo[k] = info; symKeysByType.eduplo.push(k); }
-			else if (info.type == 'icon' && info.isDuplicate) { symByType.iduplo[k] = info; symKeysByType.iduplo.push(k); }
-			else if (info.type == 'emo') { symByType.emo[k] = info; symKeysByType.emo.push(k); }
-			else if (info.type == 'icon') { symByType.icon[k] = info; symKeysByType.icon.push(k); }
-		}
-	}
-
-}
 function saveSymbolDict() {
 	//console.log(symbolDict_)
 	let y = jsonToYaml(symbolDict);
@@ -274,7 +322,7 @@ function makeInfoDict() {
 		for (const k1 in rec) info[k1] = rec[k1];
 		if (nundef(info.hexcode)) {
 			console.log('missing hexcode', k, info)
-		} 
+		}
 		// else if (k == 'red heart') {
 		// 	console.log('should be ok', info);
 		// }
@@ -312,8 +360,9 @@ function makeInfoDict() {
 		}
 	}
 	symbolKeys = Object.keys(symbolDict);
+	symbolList = dict2list(symbolDict);
 	//console.log('#symbolKeys', symbolKeys.length);
-	makeEmoSetIndex();
+	//makeEmoSetIndex();
 	// console.log('symbolDict', symbolDict);
 	// console.log('by set', symBySet);
 	// console.log('by group', symByGroup);
@@ -343,20 +392,26 @@ function hexWithSkinTone(info) {
 	return hex;
 }
 function makeEmoSetIndex() {
-	symBySet = {}; symKeysBySet = {};
+	if (isdef(symBySet)) return;
+
+	symBySet = {}; symKeysBySet = {}; symListBySet = {};
 	for (const k in emoSets) {
 		let set = emoSets[k];
 		let name = set.name;
 		let f = set.f;
 		symBySet[name] = [];
-		for (const k in symbolDict) {
-			let info = symbolDict[k];
+		for (const k1 in symbolDict) {
+			let info = symbolDict[k1];
 			if (info.type == 'icon') continue;
 			let o = info;
 			if (nundef(o.group) || nundef(o.subgroups)) continue;
 			let passt = f(o);
 			if (!passt) continue;
-			if (passt) { lookupSet(symBySet, [name, k], info); lookupAddToList(symKeysBySet, [name], k); }
+			if (passt) { 
+				//if (k=='role') console.log(k,k1);
+				lookupSet(symBySet, [name, k1], info); 
+				lookupAddToList(symKeysBySet, [name], k1); 
+				lookupAddToList(symListBySet, [name], info); }
 		}
 	}
 }
@@ -391,15 +446,9 @@ async function loadAssets() {
 	symbolDictC = await vidCache.load('symbolDict', route_symbolDict);
 	symbolDict = vidCache.asDict('symbolDict');
 	symbolKeys = Object.keys(symbolDict);
+	symbolList = dict2list(symbolDict);
 
 }
-async function route_symbolDict(filename = 'symbolDict') {
-	let url = '/assets/' + filename + '.yaml';
-	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
-	return response;
-
-}
-
 async function loadRawAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
 	testCardsC = await vidCache.load('testCards', async () => await route_rsg_asset('testCards', 'yaml'));
@@ -410,9 +459,7 @@ async function loadRawAssets() {
 	numIcons = iconKeys.length;
 	emojiCharsC = await vidCache.load('emojiChars', route_emoChars);
 	emojiChars = vidCache.asDict('emojiChars');
-	//console.log('emojiChars', takeFromStart(emojiChars, 10));
 	emojiKeys = {};
-
 	for (const k in emojiChars) {
 		if (nundef(k) || nundef(emojiChars[k].annotation)) {
 			//console.log('emojiChars[k]',k,emojiChars[k],'\ncontinue...');
@@ -421,9 +468,31 @@ async function loadRawAssets() {
 		emojiKeys[emojiChars[k].annotation] = k;
 	}
 	numEmojis = Object.keys(emojiKeys).length;
-	makeInfoDict(); //makeSymbolDictX();
+	makeInfoDict(); 
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
+}
+// async function loadAndProcessRawAssetsX(callback){
+// 	//after calling this function, need to transfer symbolDict.yaml from Downloads to assets!!!!!
+// 	//let savedUseLocalStorage = USE_LOCAL_STORAGE;
+// 	await reconstructX1(()=>{
+// 		USE_LOCAL_STORAGE = savedUseLocalStorage;
+// 		console.log('3. USE_LOCAL_STORAGE reverted to',USE_LOCAL_STORAGE)
+// 		if (callback) callback();
+// 	});
+	
+
+// }
+async function loadAndProcessRawAssets(callback){
+	//after calling this function, need to transfer symbolDict.yaml from Downloads to assets!!!!!
+	let savedUseLocalStorage = USE_LOCAL_STORAGE;
+	await reconstruct(()=>{
+		USE_LOCAL_STORAGE = savedUseLocalStorage;
+		console.log('3. USE_LOCAL_STORAGE reverted to',USE_LOCAL_STORAGE)
+		if (callback) callback();
+	});
+	
+
 }
 async function loadGameInfo(useAllGamesStub = true) {
 	if (useAllGamesStub) {
@@ -747,6 +816,12 @@ async function route_emoChars() {
 	let x = await (await fetch('/assets/raw/mojiReduced.csv')).text();
 	emojiChars = processCsvData(x);
 	return emojiChars;
+}
+async function route_symbolDict(filename = 'symbolDict') {
+	let url = '/assets/' + filename + '.yaml';
+	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
+	return response;
+
 }
 async function route_userSpec(game, fname) {
 	try {

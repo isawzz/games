@@ -197,7 +197,7 @@ function genCollapsible(path, info) {
 	let b = mButton(caption, null, dParent, {}, classes);
 	b.id = info.idLink;
 
-	let bView = mPicButtonSimple('search', e => showCollapsibleContent(e), b, { float: 'right', margin: 0 }, ['picButton']);
+	let bView = maPicButtonSimple('search', e => showCollapsibleContent(e), b, { float: 'right', w:25, padding:2, margin: 2, rounding:4 });
 
 	bView.addEventListener('mouseenter', ev => {
 		// let domel = ev.target;

@@ -1,6 +1,6 @@
 
 class RSG {
-	constructor(sp, defs) { 
+	constructor(sp, defs) {
 		this.sp = sp;
 
 		this.lastSpec = this.sp; //just points to last spec produced in last step performed
@@ -155,9 +155,9 @@ class RSG {
 	removeR(oid, key) { let r = lookup(this._sd, [oid, 'rsg']); if (r) removeInPlace(r, key); }
 
 	// getters
-	getUidWithParent(oid,uidParent){
+	getUidWithParent(oid, uidParent) {
 		let uids = this.oid2uids[oid];
-		for(const uid of uids){if (R.uiNodes[uid].uidParent == uidParent) return uid; }
+		for (const uid of uids) { if (R.uiNodes[uid].uidParent == uidParent) return uid; }
 		return null;
 	}
 	getUI(uid) { return lookup(this.UIS, [uid, 'ui']); }
@@ -588,7 +588,7 @@ function RsortIds(workingSpec, R) {
 			//console.log('__________________>akku', akku);
 			if (isEmpty(akku)) {
 				ref.hasid = false;
-				if (nundef(noid[name])) noid[name] = []; 
+				if (nundef(noid[name])) noid[name] = [];
 				noid[name].push(ref);
 			} else {
 				ref.hasid = true;
@@ -628,7 +628,7 @@ function RsortIds(workingSpec, R) {
 function replaceIdName(sssname, R, workingSpec) {
 	//let orig = R.lastSpec;
 	// let workingSpec = R.workingSpec; //das ist die spec die veraendert wird!!!
-	let newSpecNodeUids={};
+	let newSpecNodeUids = {};
 	//let new
 
 	for (const id of R.idarr) {
@@ -646,7 +646,7 @@ function replaceIdName(sssname, R, workingSpec) {
 
 			let idnode = obj[key];
 			let uid = getUID('sp');
-			newSpecNodeUids[uid]={uid:uid,ref:ref,id:id};
+			newSpecNodeUids[uid] = { uid: uid, ref: ref, id: id };
 			//console.log('key',key,'\nidnode',idnode)
 			//#region other versions
 
@@ -702,7 +702,7 @@ function replaceIdName(sssname, R, workingSpec) {
 			delete merged._ref; //*** */
 			delete merged._id; //*** */
 			workingSpec[uid] = merged;
-			
+
 		}
 
 		//console.log('==>\nobj', obj, '\nkey', key, '\n?', obj[key]._NODE)
@@ -745,7 +745,7 @@ function replaceIdName(sssname, R, workingSpec) {
 	}
 
 	//console.log('_________GEN:',gen);
-	
+
 	return newSpecNodeUids;
 
 
@@ -867,7 +867,7 @@ function recTree(n, rParent, R, oid, key) {
 	let n1 = {};
 
 	let chanav;
-	[n,chanav] = mixinChannel(n, rParent, R);
+	[n, chanav] = mixinChannel(n, rParent, R);
 	//console.log('uid',uid,'chanav',chanav)
 
 	let expandProp = '_NODE'; let nodeName = n[expandProp];
@@ -938,7 +938,7 @@ function buildChanav(n, rParent) {
 function mixinChannel(n, rParent, R) {
 	//determin channel: for now first available channel that is implemented
 	//if none, none
-	let chanav = buildChanav(n,rParent); // rParent ? rParent.chanav : R.initialChannels;
+	let chanav = buildChanav(n, rParent); // rParent ? rParent.chanav : R.initialChannels;
 	chanavList = isList(chanav) ? chanav : isString(chanav) ? [chanav] : [];
 	let chanimpl = n.channels;
 	chanimpl = isDict(chanimpl) ? Object.keys(chanimpl) : isList(chanimpl) ? chanimpl : isString(chanimpl) ? [chanimpl] : [];
@@ -958,7 +958,7 @@ function mixinChannel(n, rParent, R) {
 		//console.log('nach merge:', jsCopy(n));
 	}
 
-	return [n,chanav];
+	return [n, chanav];
 }
 
 
@@ -968,17 +968,17 @@ function mixinChannel(n, rParent, R) {
 //#region uitree generation
 function recUi(n, R, area, oid, key) {
 
-	let n1 =R.uiNodes[n.uid] =  jsCopy(n);// ONLY DONE HERE!!!!!!!
+	let n1 = R.uiNodes[n.uid] = jsCopy(n);// ONLY DONE HERE!!!!!!!
 	let o = isdef(oid) ? R.getO(oid) : null;
 	if (isdef(n1.data)) { n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data); }
-	
+
 	//if (isdef(oid)) console.log('content',oid,n1.content)
 
 	//R.uiNodes[n1.uid] = n1; 
-	if (n1.type == 'grid') { 
-		createBoard(n1, R, area); 
+	if (n1.type == 'grid') {
+		createBoard(n1, R, area);
 		//return n1;
-	}	else {
+	} else {
 		let lst = getElements(n1.content);
 		if (isdef(lst) && !isEmpty(lst)) {
 			let o = R.getO(lst[0]);
@@ -994,8 +994,8 @@ function recUi(n, R, area, oid, key) {
 			let rTreePanel = R.rNodes[n1.uid];
 			n1.children = rTreePanel.children;
 
-		} else { 
-			n1.ui = createUi(n1, R, area); 
+		} else {
+			n1.ui = createUi(n1, R, area);
 		}
 	}
 
@@ -1049,7 +1049,7 @@ function handleListOfConstants(lst, n1, area, R) {
 //#endregion
 
 //#region sieve oids with loc (einhaengen_ von server objects mit loc prop)
-var TESTVAR=0;
+var TESTVAR = 0;
 
 function calcCycles(R) {
 	let oids = jsCopy(R.locOids);
@@ -1098,16 +1098,16 @@ function calcCycles(R) {
 		//console.log('orig',jsCopy(c));
 		c.oids.reverse();
 		let removed;
-		if (!c.isCycle) { removed=c.oids.shift(); }
+		if (!c.isCycle) { removed = c.oids.shift(); }
 		//console.log('wird:',c);
 		//safety check! all cycle elements must have loc, removed one does NOT have loc!
-		for(const oid of c.oids){
-			if (nundef(R.getO(oid)).loc){
-				alert('SORT CYCLES SAFETY CHECK FAILED! no loc in '+oid);
+		for (const oid of c.oids) {
+			if (nundef(R.getO(oid)).loc) {
+				alert('SORT CYCLES SAFETY CHECK FAILED! no loc in ' + oid);
 			}
 		}
-		if (isdef(removed && isdef(R.getO(removed)).loc)){
-			alert('SORT CYCLES SAFETY CHECK FAILED! removed has loc'+removed);
+		if (isdef(removed && isdef(R.getO(removed)).loc)) {
+			alert('SORT CYCLES SAFETY CHECK FAILED! removed has loc' + removed);
 		}
 
 	}
@@ -1132,7 +1132,8 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 			//console.log('none of the locOids in', cycle, 'has a rep!');
 			return;
 		}
-		locOids = jsCopy(cycle).rotate(i);
+		// locOids = jsCopy(cycle);
+		locOids = arrRotate(cycle, i);
 		//console.log('cycle orig:', cycle, 'shifted:', locOids);
 	}
 
@@ -1150,10 +1151,10 @@ function processLocOids(cycle, max_cycles, isCyclic, R) {
 		let changed = false;
 		for (const oid of locOids) {
 			let top = einhaengen(oid, R.getO(oid), R);
-			if (!isEmpty(top)) { 
-			//console.log('oid', oid, '\ntop', top, '\noid2uids', R.oid2uids[oid]);
-			changed = true; 
-			} 
+			if (!isEmpty(top)) {
+				//console.log('oid', oid, '\ntop', top, '\noid2uids', R.oid2uids[oid]);
+				changed = true;
+			}
 		}
 		//TESTVAR+=1;console.log('*********sieving:',TESTVAR);
 		if (!changed) { break; }
@@ -1195,9 +1196,9 @@ function parentHasChannelForThisOid(n, oid) {
 	if (nundef(channels)) return true; //per default ALL channels are valid!
 
 }
-function parentHasThisChildAlready(uidParent,oid){
+function parentHasThisChildAlready(uidParent, oid) {
 	//console.log('parentHasThisChildAlready','uidParent',uidParent,'oid',oid);
-	let n=R.rNodes[uidParent];
+	let n = R.rNodes[uidParent];
 	if (nundef(n.children)) return false; //FOUND!
 	let hasThisChild = false;
 	for (const chuid of n.children) {

@@ -203,6 +203,7 @@ async function onClickVerifySoFar() { isTraceOn = false; verifySequence(0, testE
 
 async function onTestSeriesChanged() {
 
+	//console.log('ttttttttttttttttttttt')
 	//achtung!!! er muss die richtigen sdata laden!!!!!!!!!
 	let series = mBy('selSeries').value;
 	if (series == 'none') return;

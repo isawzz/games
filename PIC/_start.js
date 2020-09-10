@@ -4,25 +4,99 @@ const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
 const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker',
 	'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
 
-window.onload = async () => { await loadAssets(); start(); }
+window.onload = async () => { start(); }
+
+function argDetection(s) {
+	//returns an object with all search params set
+	//convenience um mir die {key: ...} schreibweise zu ersparen
+	if (typeof s == 'function') return { func: s };
+	if (s == 'emo' || s == 'icon') return { type: s };
+	if (s == 'eduplo' || s == 'iduplo') return { type: (s[0] == 'e' ? 'emo' : 'icon'), isDuplicate: true };
+	if (isdef(emoSets[s])) return { set: s };
+	//extended options!
+	if (groupNames & isdef(groupNames[s])) return { group: s };
+	if (subgroupNames & isdef(subgroupNames[s])) return { subgroup: s };
+	return { keywords: s };
+}
+
+function toInfolist(descriptor) {
+	if (arguments.length > 1) {
+		let params = {};
+		for (const arg of arguments) {
+			let newParams = argDetection(arg);
+			for (const k in newParams) params[k] = newParams[k];
+		}
+		return picSearch(params);
+	}
+	if (isString(descriptor)) {
+		//frage: was soll das sein???
+		//nimm es als keywords or type
+		params = argDetection(descriptor); return picSearch(params);
+	} else if (isDict(descriptor)) {
+		//search params
+		return picSearch(descriptor);
+	} else if (isList(descriptor)) {
+		//is schon eine infolist
+		return descriptor;
+	} else if (isNumber(descriptor)) {
+		return picRandom({ n: descriptor, })
+		//kann es eine number sein? 
+	}
+}
+
+function maPicGrid(infolist, dParent, styles, { rows, cols } = {}) {
+	//infolist koennte auch ein search descriptor sein!
+
+}
+
+// example 1:
+// function timeout(ms) {	return new Promise(resolve => setTimeout(resolve, ms));}
+// async function sleep(fn, ...args) {	await timeout(3000);	return fn(...args);}
+// function awaitTimeout() {	SIGI = false;	loadAndProcessRawAssets();}
+
+async function dothings() {
+	SIGI = false;
+	await reconstructX(); //this one contains multiple setTimeouts!
+	while (!SIGI) {
+		await sleepX(3000);
+	}
+	//here weiter
+	console.log('...continue: before setting USE_LOCAL_STORAGE back to true!',USE_LOCAL_STORAGE);
+	USE_LOCAL_STORAGE = true;
+	console.log('...and: USE_LOCAL_STORAGE',true);
+	clearElement(table);
+	// maPic('red heart', table, { w: 50, h: 50, padding: 10, bg: 'yellow' });
+	await loadAssets(); //wird natuerlich die alten verwenden aber ok
+	test15_zwei_grids();
+	test16_openMojis();
+}
+
+async function testLoadAndProcessRawAssets() {
+	console.log('1. vor loadAndProcessRawAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+	await loadAndProcessRawAssets(async () => {
+		console.log('4. this IS callback!!! nach loadAndProcessRawAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		clearElement(table);
+		//maPic('red heart', table, { w: 50, h: 50, padding: 10, bg: 'yellow' });
+		test15_zwei_grids();
+		console.log('vor loadAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		await loadAssets(); //wird natuerlich die alten verwenden aber ok
+		console.log('nach loadAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		test16_openMojis();
+	});
+
+
+}
 
 async function start() {
-	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
-	mStyleX(table, tableStyle);
+	await dothings(); return;
 
-	let parentStyle = { display: 'grid', 'grid-template-columns': 'repeat(4, auto)', gap: '4px', padding: 4, bg: 'silver', rounding: 5 };
-	let dParent = mDiv(table);
-	mStyleX(dParent, parentStyle);
+	await testLoadAndProcessRawAssets(); return;
 
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	for (const k of listOther) {
-		//let info = picRandom('emo', k);
-		let info = first(picSearch({ set: 'role', keywords: k }));
-		if (nundef(info)) continue;
-		maPicLabel(info,dParent);
-	}
+	let timit = new TimeIt('*timer', true);
+	await loadAssets();
+	timit.show('assets loaded');
 
-
+	timit.show();
 
 	// //await reconstruct(); return;
 	// table.style.width='100%';
@@ -31,19 +105,40 @@ async function start() {
 }
 
 //#region tests maPic
+
+function test16_openMojis() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	mStyleX(table, tableStyle);
+
+	let parentStyle = { display: 'grid', 'grid-template-columns': 'repeat(4, auto)', gap: '4px', padding: 4, bg: 'silver', rounding: 5 };
+	let dParent = mDiv(table);
+	mStyleX(dParent, parentStyle);
+
+	let styles = { w: 50, h: 50, bg: 'random', fg: 'random' }; //{ w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	// for (const k of arr = Array(36).fill(2)) {
+	// 	let list = picSearch({ set: 'role' });
+	// 	let info = chooseRandom(list);
+	for (const k of listOther) {
+		let info = first(picSearch({ set: 'role', keywords: k }));
+		if (nundef(info)) continue;
+		maPicLabel(info, dParent, styles, false, true);
+	}
+
+}
 function test15_zwei_grids() {
 	test13_15_roles_grid_img();
 	test4_15_roles_grid();
 }
-function maPicLabel(info,dParent){
-	let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin:2 });//mStyleX(d,{align:'center'})
-	maPic(info, d, { w: 50, h: 50, bg: 'random', fg: 'random' });
+function maPicLabel(info, dParent, styles, isText = true, isOmoji = false) {
+	//info, dParent, styles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
+	maPic(info, d, styles, isText, isOmoji);
 	mText(info.annotation, d);
 	d.style.textAlign = 'center';
 	return d;
 }
 function test14_mit_label() {
-	let d = mDiv(table, { bg: 'random', padding: 4, fg: 'contrast', margin:2 });//mStyleX(d,{align:'center'})
+	let d = mDiv(table, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
 	let info = picRandom();
 	maPic(info, d, { w: 50, h: 50, bg: 'random', fg: 'random' });
 	mText(info.annotation, d);

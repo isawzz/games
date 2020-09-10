@@ -94,7 +94,7 @@ function createPictoX(parent, style, classes, titleOptions, pictoOptions, captio
 	if (isdef(captionOptions)) { captionOptions.parent = d; createText(captionOptions); }
 	return d;
 }
-function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,	padding, cat, parent, border, rounding = 4 }) {
+function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg, padding, cat, parent, border, rounding = 4 }) {
 	if (nundef(key)) key = getRandomKey(iconChars);
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
@@ -316,6 +316,7 @@ function mPicButton(key, handler, dParent, styles, classes) {
 	return x;
 }
 function mPicButtonSimple(key, handler, dParent, styles, classes) {
+	
 	let x = createPictoSimple({ key: key, cat: 'd', parent: dParent });
 	if (isdef(handler)) x.onclick = handler;
 	if (isdef(styles)) { mStyle(x, styles); }
@@ -377,7 +378,7 @@ function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
-function mDiv(dParent = null,styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d,styles); return d; }
+function mDiv(dParent = null, styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d, styles); return d; }
 function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
@@ -1077,6 +1078,16 @@ class ScriptLoader {
 		})
 	}
 }
+//#endregion
+
+//#region control flow sleep___
+const sleep = m => new Promise(r => setTimeout(r, m))
+function sleepX(msecs) {
+
+	return new Promise(r => setTimeout(r, msecs));
+}
+
+
 //#endregion
 
 //#region Timit
@@ -2238,7 +2249,7 @@ function getTextSizeX1(text, fz, family, weight = 900, parentDivOrId = null, sty
 	height = d.clientHeight;
 	width = d.clientWidth;
 	//d.parentNode.removeChild(d)
-	return { w: width, h: height, d:d };
+	return { w: width, h: height, d: d };
 }
 
 function getTextSize(s = 'hallo', parentDivOrId) {
@@ -2256,20 +2267,20 @@ function getTextSize(s = 'hallo', parentDivOrId) {
 	newDiv.parentNode.removeChild(newDiv)
 	return { w: width, h: height };
 }
-// function getTextWidth(text, font) {
-// 	// re-use canvas object for better performance
-// 	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
-// 	var context = canvas.getContext('2d');
-// 	context.font = font;
-// 	var metrics = context.measureText(text);
-// 	return metrics.width;
-// }
+function getTextWidth(text, font) {
+	// re-use canvas object for better performance
+	var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+	var context = canvas.getContext('2d');
+	context.font = font;
+	var metrics = context.measureText(text);
+	return metrics.width;
+}
 function generateFontString(fz, family, weight = 900) {
 	let s = '' + weight + ' ' + fz + 'px ' + family;
 	return s.trim();
 }
 function measureText1(text, fz, family, weight = 900) {
-	console.log(text,fz,family)
+	console.log(text, fz, family)
 	let sFont = '' + weight + ' ' + fz + 'px ' + family; //"bold 12pt arial"
 	sFont = sFont.trim();
 	var canvas = document.createElement('canvas'); //measureText.canvas || (measureText.canvas = document.createElement('canvas'));
@@ -2720,10 +2731,10 @@ function downloadFile(jsonObject, filenameNoExt) {
 		new Blob([json_str], { type: "" }));
 
 }
-function downloadTextFile(s, filenameNoExt, ext='txt') {
+function downloadTextFile(s, filenameNoExt, ext = 'txt') {
 	//json_str = JSON.stringify(jsonObject);
 	saveFileAtClient(
-		filenameNoExt + "."+ext,
+		filenameNoExt + "." + ext,
 		"data:application/text",
 		new Blob([s], { type: "" }));
 
@@ -3308,21 +3319,17 @@ function any(arr, cond) {
 function anyStartsWith(arr, prefix) {
 	return any(arr, el => startsWith(el, prefix));
 }
-Array.prototype.rotate = (function () {
+function arrRotate(arr, count) {
 	// usage:
-	// let arr = [1,2,3,4,5];let arr1=jsCopy(arr).rotate(2);
+	// let arr = [1,2,3,4,5];let arr1=jsCopy(arr); arr2=arrRotate(arr1,2);
 	var unshift = Array.prototype.unshift,
 		splice = Array.prototype.splice;
+	var len = arr.length >>> 0, count = count >> 0;
 
-	return function (count) {
-		var len = this.length >>> 0,
-			count = count >> 0;
-
-		unshift.apply(this, splice.call(this, count % len, len));
-		return this;
-	};
-})();
-
+	let arr1 = jsCopy(arr);
+	unshift.apply(arr1, splice.call(arr1, count % len, len));
+	return arr1;
+}
 function arrChildren(elem) { return [...elem.children]; }
 function arrCreate(n, func) {
 	//creates an array and init
@@ -3390,7 +3397,11 @@ function dict2olist(d, keyName = 'id') {
 		let val = d[key];
 		let o;
 		//console.log(val);
-		if (isDict(val)) { o = jsCopy(val); } else { o = { value: val }; }
+		if (isDict(val)) { o = jsCopy(val); }
+		else {
+			//console.log('HAAAAAAAAAAAAAALLLLLLLLO', key, val)
+			o = { value: val };
+		}
 		o[keyName] = key;
 		res.push(o);
 	}
@@ -4264,8 +4275,8 @@ function tossCoin(percent) {
 	//r ist jetzt zahl zwischen 0 und 100
 	return r < percent;
 }
-function coin(){return tossCoin(50);}
-function yesNo(){return tossCoin(50);}
+function coin() { return tossCoin(50); }
+function yesNo() { return tossCoin(50); }
 //#endregion
 
 //#region string functions

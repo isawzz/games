@@ -6,3 +6,6 @@ const DEFAULTPICTYPE = 'all'; // all | any | emo | eduplo | icon | iduplo
 
 const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
+
+var SIGI;
+
