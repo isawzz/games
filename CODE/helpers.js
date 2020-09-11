@@ -296,34 +296,6 @@ function mButton(caption, handler, dParent, styles, classes) {
 	}
 	return x;
 }
-function mPicButton(key, handler, dParent, styles, classes) {
-	let x = createPicto({
-		key: key, w: 20, h: 20, unit: 'px', fg: 'yellow', bg: 'violet',
-		padding: 2, margin: 0, cat: 'd', parent: dParent, rounding: 4
-	});
-	//return x;
-	// let x = mCreate('button');
-	// x.innerHTML = caption;
-	if (isdef(handler)) x.onclick = handler;
-	// if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) {
-		//console.log('style of picButton', styles)
-		mStyle(x, styles);
-		//mClass(dParent,'vCentered')
-	}
-	if (isdef(classes)) { mClass(x, ...classes); }
-	else mClass(x, 'picButton');
-	return x;
-}
-function mPicButtonSimple(key, handler, dParent, styles, classes) {
-	
-	let x = createPictoSimple({ key: key, cat: 'd', parent: dParent });
-	if (isdef(handler)) x.onclick = handler;
-	if (isdef(styles)) { mStyle(x, styles); }
-	if (isdef(classes)) { mClass(x, ...classes); }
-	//else mClass(x, 'picButton');
-	return x;
-}
 function mLink(content, href, dParent, styles, classes) {
 	let x = mCreate('a');
 	x.innerHTML = content;
@@ -695,10 +667,16 @@ function mStyleX(elem, styles, unit = 'px') {
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		}
 
+		//console.log(key,val,isNaN(val));if (isNaN(val) && key!='font-size') continue;
+
 		if (key == 'font-weight') { elem.style.setProperty(key, val); continue; }
 		else if (key == 'background-color') elem.style.backgroundColor = bg;
 		else if (key == 'color') elem.style.color = fg;
-		else elem.style.setProperty(key, makeUnitString(val, unit));
+		else {
+			//console.log('set property',key,makeUnitString(val,unit),val,isNaN(val));
+			//if ()
+			elem.style.setProperty(key, makeUnitString(val, unit));
+		}
 	}
 }
 function mImg(path, dParent, styles, classes) {
@@ -1081,9 +1059,19 @@ class ScriptLoader {
 //#endregion
 
 //#region control flow sleep___
+
 const sleep = m => new Promise(r => setTimeout(r, m))
 function sleepX(msecs) {
+	//#region doc 
+	/*	
+example: 
+	flag = false;
+	functionWithSetTimeouts (after last timeout flag should be set)
+	while (!flag) { await sleepX(3000); }
+	... continuing code after last timeout!
 
+	*/
+	//#endregion 
 	return new Promise(r => setTimeout(r, msecs));
 }
 
@@ -3287,6 +3275,7 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 	//console.log(res)
 	return res;
 }
+//#endregion
 
 //#region objects, dictionaries, lists, arrays
 function takeFromStart(ad, n) {

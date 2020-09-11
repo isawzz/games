@@ -99,7 +99,7 @@ function ensureSymByType() {
 }
 //#endregion
 
-//#region reconstruct helpers
+//#region new symbolDict code
 const MAX_ANNOTATION_LENGTH = 25;
 const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];
 const keysForEmo = ['emoji', 'group', 'subgroups', 'E', 'D', 'E_valid_sound', 'D_valid_sound', 'path'];
@@ -200,7 +200,6 @@ function addAnnotationsToSymbolDict(saveAtEnd = true) {
 	if (saveAtEnd) saveSymbolDict();
 }
 
-//standalone: could be eliminated!
 function addMeasurementsToSymbolDict(callback = null) {
 	let list = symbolKeys;
 	//console.log('---------------symbolKeys', list)
@@ -299,7 +298,7 @@ function reconstructX4() {
 }
 //#endregion
 
-//#region symbolDict from raw assets: helpers!
+//#region symbolDict from raw assets: old code
 var emojiChars, numEmojis, emojiKeys, emoGroup, emoDict, iconChars, numIcons, iconKeys;
 var symIndex, symByHex, duplicateKeys, symByGroup; //last 2 liefern info!
 
@@ -467,6 +466,28 @@ async function loadRawAssets() {
 	makeInfoDict();
 	c52C = await vidCache.load('c52', route_c52);
 	c52 = vidCache.asDict('c52');
+}
+// async function loadAndProcessRawAssetsX(callback){
+// 	//after calling this function, need to transfer symbolDict.yaml from Downloads to assets!!!!!
+// 	//let savedUseLocalStorage = USE_LOCAL_STORAGE;
+// 	await reconstructX1(()=>{
+// 		USE_LOCAL_STORAGE = savedUseLocalStorage;
+// 		console.log('3. USE_LOCAL_STORAGE reverted to',USE_LOCAL_STORAGE)
+// 		if (callback) callback();
+// 	});
+
+
+// }
+async function loadAndProcessRawAssets(callback) {
+	//after calling this function, need to transfer symbolDict.yaml from Downloads to assets!!!!!
+	let savedUseLocalStorage = USE_LOCAL_STORAGE;
+	await reconstruct(() => {
+		USE_LOCAL_STORAGE = savedUseLocalStorage;
+		console.log('3. USE_LOCAL_STORAGE reverted to', USE_LOCAL_STORAGE)
+		if (callback) callback();
+	});
+
+
 }
 async function loadGameInfo(useAllGamesStub = true) {
 	if (useAllGamesStub) {

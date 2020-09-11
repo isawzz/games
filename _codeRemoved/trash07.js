@@ -1,4 +1,25 @@
 //#region maPic
+function maPicInlineGrid(infolist, dParent, styles, containerStyles, { rows, cols } = {}) {
+	//TODO: infolist koennte auch ein search descriptor sein!
+	// let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	// mStyleX(dParent, tableStyle);
+
+	let dims = calcRowsCols(infolist.length, rows, cols);
+	console.log('dims', dims);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = 'inline-grid';
+	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
+
+	let dGrid = mDiv(dParent);//container);
+
+	for (const info of infolist) {
+		maPic(info, dGrid, styles);
+	}
+
+	mStyleX(dGrid, parentStyle);
+	return dGrid;
+}
 function maPic_2(infokey, dParent, styles, isText = true) {
 	//koennte auch im endeffekt die styles aendern
 	let info = isString(infokey) ? picInfo(infokey) : infokey;

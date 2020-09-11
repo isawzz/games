@@ -53,9 +53,13 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	} else if (isdef(styles.w)) {
 		wdes = styles.w;
 		f = wdes / info.w;
-	} else if (isdef(styles.fz)) {
-		fzdes = styles.fz;
-		f = fzdes / info.fz;
+		// } else if (isdef(styles.fz)) {
+		// 	fzdes = styles.fz;
+		// 	f = fzdes / info.fz;
+	} else {
+		mStyleX(d, innerStyles);
+		mStyleX(dOuter, outerStyles);
+		return dOuter;
 	}
 	fzreal = f * info.fz;
 	wreal = f * info.w;
@@ -63,10 +67,11 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
 
-	if (!(padw >= 0 && padh >= 0)){
+	if (!(padw >= 0 && padh >= 0)) {
 		console.log(info)
 	}
-	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!',padw,padh,info, '\ninfokey',infokey)
+	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
+	console.log('fzreal', fzreal, 'wreal', wreal, 'hreal', hreal, 'padw', padw, 'padh', padh);
 
 	innerStyles.fz = fzreal;
 	innerStyles.weight = 900;
@@ -83,7 +88,86 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	return dOuter;
 
 }
+function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
+	let x = maPic(key, dParent, styles);
+	if (isdef(handler)) x.onclick = handler;
+	mClass(x, classColors);
+	return x;
+}
+function maPicGrid(infolist, dParent, styles, containerStyles, { rows, cols, isInline = false } = {}) {
+	let dims = calcRowsCols(infolist.length, rows, cols);
+	console.log('dims', dims);
 
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = isInline ? 'inline-grid' : 'grid';
+	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
+
+	let dGrid = mDiv(dParent);
+
+	for (const info of infolist) { maPic(info, dGrid, styles); }
+
+	mStyleX(dGrid, parentStyle);
+	return dGrid;
+
+}
+function maPicFlex(infolist, dParent, styles, containerStyles) {
+	let parentStyle = jsCopy(containerStyles);
+	if (containerStyles.orientation == 'v') parentStyle['flex-direction']='column';
+	parentStyle.display = 'flex';
+	parentStyle.flex = '0 0 auto';
+	parentStyle['flex-wrap'] = 'wrap';
+	
+	let dGrid = mDiv(dParent);
+
+	for (const info of infolist) { maPic(info, dGrid, styles); }
+
+	mStyleX(dGrid, parentStyle);
+	return dGrid;
+
+}
+function maPicFlex_dep(infolist, dParent, styles, containerStyles) {
+	//TODO: infolist koennte auch ein search descriptor sein!
+	// let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	// mStyleX(dParent, tableStyle);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = 'flex';
+
+	// if (wrap) parentStyle['flex-wrap'] = 'wrap';
+	// if (orientation == 'v') parentStyle['flex-direction'] = 'column';
+	// if (isdef(wContainer)) parentStyle.w = wContainer;
+	// if (isdef(hContainer)) parentStyle.h = hContainer;
+
+	let container = mDiv(dParent);//container);
+	// mStyleX(container, parentStyle);
+
+	for (const info of infolist) {
+		maPic(info, container, styles);
+	}
+	mStyleX(container, parentStyle);
+	// mFlexWrap(container)
+
+
+}
+function maPicFlex1(infolist, dParent, styles, { wContainer, hContainer, orientation, wrap = true, gap = 4 } = {}) {
+	//TODO: infolist koennte auch ein search descriptor sein!
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	mStyleX(dParent, tableStyle);
+
+	let parentStyle = { display: 'flex', gap: gap };
+	if (wrap) parentStyle['flex-wrap'] = 'wrap';
+	if (orientation == 'v') parentStyle['flex-direction'] = 'column';
+	if (isdef(wContainer)) parentStyle.w = wContainer;
+	if (isdef(hContainer)) parentStyle.h = hContainer;
+
+	let dGrid = mDiv(dParent);//container);
+	mStyleX(dGrid, parentStyle);
+
+	for (const info of infolist) {
+		maPic(info, dGrid, styles);
+	}
+
+}
 
 //#region pic helpers
 function picInfo(key) {
@@ -105,12 +189,11 @@ returns info
 		else return chooseRandom(infolist);
 	}
 }
-function picRandom(type, keywords) {
+function picRandom(type, keywords, n = 1) {
 	let infolist = picSearch({ type: type, keywords: keywords });
 	//console.log(infolist)
-	return chooseRandom(infolist);
+	return n == 1 ? chooseRandom(infolist) : choose(infolist, n);
 }
-
 function picSearch({ keywords, type, func, set, group, subgroup, props, isAnd, justCompleteWords }) {
 	//#region doc 
 	/*	
@@ -133,6 +216,8 @@ returns list of info
 
 	if (isdef(type) && type != 'all') ensureSymByType();
 
+	//if (type == 'icon') console.log(symByType,'\n=>list',symListByType)
+
 	let [dict, list] = isdef(set) ? [symBySet[set], symListBySet[set]]
 		: nundef(type) || type == 'all' ? [symbolDict, symbolList] : [symByType[type], symListByType[type]];
 
@@ -140,7 +225,7 @@ returns list of info
 
 	//console.log('_____________',keywords,type,dict,func)
 	//if (nundef(keywords)) return isdef(func) ? func(dict) : dict2list(dict);
-	if (set=='role' && firstCond(dict2list(dict),x=>x.id=='rotate')) console.log('===>',symBySet[set],dict,dict2list(dict));
+	if (set == 'role' && firstCond(dict2list(dict), x => x.id == 'rotate')) console.log('===>', symBySet[set], dict, dict2list(dict));
 
 	if (nundef(keywords)) return isdef(func) ? func(dict) : list;
 	if (!isList(keywords)) keywords = [keywords];
@@ -182,38 +267,39 @@ returns list of info
 	}
 	return infolist;
 }
-
-//#region aus helpers alte pic buttons!
-function maPicButton(key, handler, dParent, styles, classes) {
-	let x = createPicto({
-		key: key, w: 20, h: 20, unit: 'px', fg: 'yellow', bg: 'violet',
-		padding: 2, margin: 0, cat: 'd', parent: dParent, rounding: 4
-	});
-	//return x;
-	// let x = mCreate('button');
-	// x.innerHTML = caption;
-	if (isdef(handler)) x.onclick = handler;
-	// if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) {
-		//console.log('style of picButton', styles)
-		mStyle(x, styles);
-		//mClass(dParent,'vCentered')
+function calcRowsCols(num, rows, cols) {
+	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
+	console.log(num, rows, cols);
+	let shape = 'rect';
+	if (isdef(rows) && isdef(cols)) {
+		//do nothing!
+	} else if (isdef(rows)) {
+		cols = Math.ceil(num / rows);
+	} else if (isdef(cols)) {
+		rows = Math.ceil(total / cols);
+	} else if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
+		rows = Math.ceil(Math.sqrt(num));
+		cols = Math.floor(Math.sqrt(num));
 	}
-	if (isdef(classes)) { mClass(x, ...classes); }
-	else mClass(x, 'picButton');
-	return x;
+	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
+		let lower = Math.floor(Math.sqrt(num));
+		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
+		rows = lower
+		cols = lower + 2;
+	} else if (num > 1 && num < 10) {
+		shape = 'circle';
+	} else if (num > 16 && 0 == num % 4) {
+		rows = 4; cols = num / 4;
+	} else if (num > 9 && 0 == num % 3) {
+		rows = 3; cols = num / 3;
+	} else if (0 == num % 2) {
+		rows = 2; cols = num / 2;
+	} else {
+		rows = 1; cols = num;
+	}
+	console.log(rows, cols, shape);
+	return { rows: rows, cols: cols, recommendedShape: shape };
 }
-function maPicButtonSimple(key, handler, dParent, styles, classes) {
-	let x = maPic(key,dParent,styles); 
-	if (isdef(handler)) x.onclick = handler;
-	if (isdef(classes)) { mClass(x, ...classes); } //achtung!
-	else mClass(x, 'picButton');
-	return x;
-}
-//#endregion
-
-
-
 
 
 

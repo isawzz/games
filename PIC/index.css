@@ -1,47 +1,6 @@
-
-.warehouse{
-	font-size: 50px;
-	/* font-family: pictofa; */
-	font-weight: 900;
-	background-color: blue;
-
+html,body{
+	height:100%;
+	margin:0;
+	padding:0;
+	background-color: grey;
 }
-
-
-/* #region filters */
-.b {
-	/* Less saturation so more features, shifted colour 90-degrees */
-	/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
-	filter: hue-rotate(90deg);
-}
-
-.c {
-	/* Remove black outlines if desired by removing contrast */
-	filter: contrast(0) sepia(1) saturate(100) hue-rotate(180deg);
-}
-
-.a {
-	/* Less saturation so more features, shifted colour 90-degrees */
-	/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
-	filter: sepia(1);
-}
-
-.removeOutline {
-	/* Less saturation so more features, shifted colour 90-degrees */
-	/* filter: sepia(1) saturate(5) hue-rotate(90deg); */
-	filter: contrast(.4);
-}
-
-.fa {
-	color: blue;
-	/* text-shadow: 10px 10px 10px skyblue;
-	font-size: 1.5em; */
-}
-/* #endregion */
-
-/* #region schoene farben */
-.schoenesGruen{
-	background-color: rgb(54, 192, 96);
-}
-/* #endregion */
-

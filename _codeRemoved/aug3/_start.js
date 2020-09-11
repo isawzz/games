@@ -1,3 +1,4 @@
+//from PIC!!!!!!!!!!!!!!!!
 var table = mBy('table');
 var UIS = {};
 const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
@@ -7,82 +8,16 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 window.onload = async () => { start(); }
 
 async function start() {
+
 	await loadAssets(); // load from symbolDict
-	// SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	// SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } //load from scratch
 
-	// test10_fz();
-
-	// let d=maPic(picRandom(), table, { fz:36, bg: 'random', fg: 'random' });
-
-	// test17_grid(10);
-	// test17_grid(9);
-	// test19_grid_justify_items_stretch(12);
-	// test18_inlineGrid(10);
-	// test18_inlineGrid(9);
-	// test20_grid_place_content(); //geht voll!!!
-	test21_flex_mit_flex_table();
+	clearElement(table);
+	for (let i = 0; i < 20; i++) test14_mit_label();
 }
 
-//#region tests maPicFlex
-function test19_flex() {
-	//how to get n icon infos?
-	table.style.backgroundColor = 'yellow';
-	table.style.height = '50%';
-	//table.style.width = 'min-content';
-	//table.style.flex='0 0 auto';
-	let list = picRandom('icon', null, 10);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { w: 'min-content', h: '50%', bg: 'silver', flex: '0 0 auto', 'flex-direction': 'column', 'flex-wrap': 'wrap', gap: 4 };
-	maPicFlex(list, table, styles, containerStyles);
-}
-//#endregion
+//#region tests maPic
 
-//#region tests maPicGrid, ...
-function test21_flex_mit_flex_table(n = 12) {
-	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: 4, bg: 'grey', padding: 4 };
-
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, margin: 4, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { bg: 'grey', w: 160 };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicFlex(list, table, styles, containerStyles);
-	mStyleX(table, tableStyle);
-}
-function test20_flex(n = 12) {
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { orientation: 'v', h: 220, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicFlex(list, table, styles, containerStyles);
-}
-function test20_grid_place_content(n = 12) {
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicGrid(list, table, styles, containerStyles);
-}
-function test19_grid_justify_items_stretch(n) {  //das ist eh der default!!!!! SUPER!
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { align: 'center', fz: 40, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicGrid(list, table, styles, containerStyles);
-}
-function test18_inlineGrid(n = 12) {
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicGrid(list, table, styles, containerStyles, { isInline: true });
-}
-function test17_grid(n = 12) {
-	//how to get n icon infos?
-	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let dOuter = maPicGrid(list, table, styles, containerStyles);
-}
 function test16_openMojis() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
 	mStyleX(table, tableStyle);
@@ -106,10 +41,6 @@ function test15_zwei_grids() {
 	test13_15_roles_grid_img();
 	test4_15_roles_grid();
 }
-
-//#endregion
-
-//#region tests maPic, maPicLabel
 function maPicLabel(info, dParent, styles, isText = true, isOmoji = false) {
 	//info, dParent, styles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
@@ -119,14 +50,12 @@ function maPicLabel(info, dParent, styles, isText = true, isOmoji = false) {
 	return d;
 }
 function test14_mit_label() {
-	for (let i = 0; i < 8; i++) {
-		let d = mDiv(table, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
-		let info = picRandom('icon');
-		maPic(info, d, { w: 50, h: 50, bg: 'random', fg: 'random' });
-		mText(info.annotation, d);
-		d.style.textAlign = 'center';
-	}
-	mFlex(table); //=>deshalb wird es row statt column!
+	let d = mDiv(table, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
+	let info = picRandom('icon');
+	maPic(info, d, { w: 50, h: 50, bg: 'random', fg: 'random' });
+	mText(info.annotation, d);
+	d.style.textAlign = 'center';
+	mFlex(table);
 }
 function test13_15_roles_grid_img() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
@@ -159,7 +88,7 @@ function test11_w_h_fz() {
 }
 function test10_fz() {
 	let tableStyles = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
-	let styles = { fz: 30, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
+	let styles = { fz: 30, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 }; //,maleft:2};
 	test5_flex_style(styles, tableStyles);
 }
 function test9_w() {
@@ -304,10 +233,24 @@ function testTags() {
 	}
 
 }
+function starterForSymbolDict() {
+	//await reconstruct(); return; // complete process von raw => complete symbolDict (in downloads)
+
+	// await symbolDictFromCsv();
+
+	// addMeasurementsToSymbolDict();
+
+	// addAnnotationsToSymbolDict();
+	// saveSymbolDict();
+
+	//console.log(symbolKeys.length);
+	//console.log(symbolDict);
+}
+
 
 //#endregion
 
-//#region misc tests
+//#region starters:
 function miscTests() {
 	//let x = firstNumber(0.6); //'ABDsssdf_-1');	console.log(x)
 	let x = isNumber(0.6)
@@ -316,6 +259,40 @@ function miscTests() {
 //#endregion
 
 
+//#region deprecated code
+//from assets
+async function reconstruct(callback = null) {
+	console.log('start rec 0');
+	await symbolDictFromCsv(false);
+	setTimeout(() => reconstruct1(callback), 1000);
+}
+function reconstruct1(callback = null) {
+	console.log('start rec 1');
+	addAnnotationsToSymbolDict(false);
+	setTimeout(() => reconstruct2(callback), 1000);
+}
+function reconstruct2(callback = null) {
+	console.log('start rec 2');
+	addMeasurementsToSymbolDict(callback);
+
+}
+
+async function testLoadAndProcessRawAssets() {
+	console.log('1. vor loadAndProcessRawAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+	await loadAndProcessRawAssets(async () => {
+		console.log('4. this IS callback!!! nach loadAndProcessRawAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		clearElement(table);
+		//maPic('red heart', table, { w: 50, h: 50, padding: 10, bg: 'yellow' });
+		test15_zwei_grids();
+		console.log('vor loadAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		await loadAssets(); //wird natuerlich die alten verwenden aber ok
+		console.log('nach loadAssets: USE_LOCAL_STORAGE', USE_LOCAL_STORAGE);
+		test16_openMojis();
+	});
+
+
+}
+//#endregion
 
 
 
