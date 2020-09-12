@@ -287,15 +287,15 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🧝,1F9DD,people-body,person-fantasy,elf,elf,elf,,,magical,magical,mystic,bow,arrow,pointy ears,Lisa Thiel,2018-04-18,,single,🧝,1F9DD,5,1703
 🧞,1F9DE,people-body,person-fantasy,genie,genie,geist,,,djinn,djinn,magic lamp,wish,magic,Lisa Thiel,2018-04-18,,,,,5,1733
 🧟,1F9DF,people-body,person-fantasy,zombie,zombie,zombie,,,undead,walking dead,undead,walking dead,brain,decayed,Lisa Thiel,2018-04-18,,,,,5,1738
-💆,1F486,people-body,person-activity,person getting massage,massage,massage,,,face,massage,salon,human,person,Johanna Wellnitz,2018-04-18,,single,💆,1F486,0.6,1743
-💇,1F487,people-body,person-activity,person getting haircut,haircut,haareschneiden,,,barber,beauty,haircut,parlor,human,person,Johanna Wellnitz,2018-04-18,,single,💇,1F487,0.6,1773
-🚶,1F6B6,people-body,person-activity,person walking,walking,gehen,,,hike,walk,walking,human,person,Johanna Wellnitz,2018-04-18,,single,🚶,1F6B6,0.6,1803
+💆,1F486,people-body,person-activity,massage,massage,massage,,,face,massage,salon,human,person,Johanna Wellnitz,2018-04-18,,single,💆,1F486,0.6,1743
+💇,1F487,people-body,person-activity,haircut,haircut,haareschneiden,,,barber,beauty,haircut,parlor,human,person,Johanna Wellnitz,2018-04-18,,single,💇,1F487,0.6,1773
+🚶,1F6B6,people-body,person-activity,walking,walking,gehen,,,hike,walk,walking,human,person,Johanna Wellnitz,2018-04-18,,single,🚶,1F6B6,0.6,1803
 🚶‍♂️,1F6B6-200D-2642-FE0F,people-body,person-activity,man walking,walking,gehen,,,hike,man,walk,human,person,Johanna Wellnitz,2018-04-18,,single,🚶‍♂️,1F6B6-200D-2642-FE0F,4,1809
 🚶‍♀️,1F6B6-200D-2640-FE0F,people-body,person-activity,woman walking,walking,gehen,,,hike,walk,woman,human,person,Johanna Wellnitz,2018-04-18,,single,🚶‍♀️,1F6B6-200D-2640-FE0F,4,1821
-🧍,1F9CD,people-body,person-activity,person standing,standing,stehen,,,stand,standing,,Laura Dworatschek,2019-05-06,,single,🧍,1F9CD,12,1833
+🧍,1F9CD,people-body,person-activity,standing,standing,stehen,,,stand,standing,,Laura Dworatschek,2019-05-06,,single,🧍,1F9CD,12,1833
 🧍‍♂️,1F9CD-200D-2642-FE0F,people-body,person-activity,man standing,man,mann,,,man,standing,,Laura Dworatschek,2019-05-06,,single,🧍‍♂️,1F9CD-200D-2642-FE0F,12,1839
 🧍‍♀️,1F9CD-200D-2640-FE0F,people-body,person-activity,woman standing,woman,frau,,,standing,woman,,Laura Dworatschek,2019-05-06,,single,🧍‍♀️,1F9CD-200D-2640-FE0F,12,1851
-🧎,1F9CE,people-body,person-activity,person kneeling,kneeling,knien,,,kneel,kneeling,,Laura Dworatschek,2019-05-06,,single,🧎,1F9CE,12,1863
+🧎,1F9CE,people-body,person-activity,kneeling,kneeling,knien,,,kneel,kneeling,,Laura Dworatschek,2019-05-06,,single,🧎,1F9CE,12,1863
 🧎‍♂️,1F9CE-200D-2642-FE0F,people-body,person-activity,man kneeling,kneeling,knien,,,kneeling,man,,Laura Dworatschek,2019-05-06,,single,🧎‍♂️,1F9CE-200D-2642-FE0F,12,1869
 🧎‍♀️,1F9CE-200D-2640-FE0F,people-body,person-activity,woman kneeling,kneeling,knien,,,kneeling,woman,,Laura Dworatschek,2019-05-06,,single,🧎‍♀️,1F9CE-200D-2640-FE0F,12,1881
 👨‍🦯,1F468-200D-1F9AF,people-body,person-activity,man blind,blind,blind,,,accessibility,blind,man,,Yasmin Abdullahi,2019-05-07,,single,👨‍🦯,1F468-200D-1F9AF,12,1899
@@ -304,39 +304,39 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👩‍🦼,1F469-200D-1F9BC,people-body,person-activity,woman in motorized wheelchair,wheelchair,rollstuhl,,,accessibility,wheelchair,woman,,Laura Dworatschek,2019-05-06,,single,👩‍🦼,1F469-200D-1F9BC,12,1923
 👨‍🦽,1F468-200D-1F9BD,people-body,person-activity,man in manual wheelchair,wheelchair,rollstuhl,,,accessibility,man,wheelchair,,Yasmin Abdullahi,2019-05-07,,single,👨‍🦽,1F468-200D-1F9BD,12,1935
 👩‍🦽,1F469-200D-1F9BD,people-body,person-activity,woman in manual wheelchair,wheelchair,rollstuhl,,,accessibility,wheelchair,woman,,Yasmin Abdullahi,2019-05-07,,single,👩‍🦽,1F469-200D-1F9BD,12,1941
-🏃,1F3C3,people-body,person-activity,person running,running,laufen,,,marathon,running,human,person,Johanna Wellnitz,2018-04-18,,single,🏃,1F3C3,0.6,1947
+🏃,1F3C3,people-body,person-activity,running,running,laufen,,,marathon,running,human,person,Johanna Wellnitz,2018-04-18,,single,🏃,1F3C3,0.6,1947
 🏃‍♂️,1F3C3-200D-2642-FE0F,people-body,person-activity,man running,running,laufen,,,man,marathon,racing,running,,Rifat Erdogan,2019-05-06,,single,🏃‍♂️,1F3C3-200D-2642-FE0F,4,1953
 🏃‍♀️,1F3C3-200D-2640-FE0F,people-body,person-activity,woman running,running,laufen,,,marathon,racing,running,woman,,Rifat Erdogan,2019-05-06,,single,🏃‍♀️,1F3C3-200D-2640-FE0F,4,1965
 💃,1F483,people-body,person-activity,woman dancing,dancing,tanzen,,,dancing,woman,human,person,Johanna Wellnitz,2018-04-18,,single,💃,1F483,0.6,1977
 🕺,1F57A,people-body,person-activity,man dancing,dancing,tanzen,,,dance,man,human,person,Johanna Wellnitz,2018-04-18,,single,🕺,1F57A,3,1983
-🕴️,1F574,people-body,person-activity,person in suit levitating,levitating,levitation,,,business,person,suit,,Florian Nagel,2019-05-07,,single,🕴️,1F574,0.7,1990
-👯,1F46F,people-body,person-activity,people with bunny ears,bunny ears,hasenohren,,,bunny ear,dancer,partying,human,person,Johanna Wellnitz,2018-04-18,,,,,0.6,1996
-🧖,1F9D6,people-body,person-activity,person in steamy room,steamroom|steam,damf,,,sauna,steam room,,Florian Nagel,2019-05-13,,single,🧖,1F9D6,5,2001
-🧗,1F9D7,people-body,person-activity,person climbing,climbing,klettern,,,climber,human,person,Johanna Wellnitz,2018-04-18,,single,🧗,1F9D7,5,2031
-🤺,1F93A,people-body,person-sport,person fencing,fencing,fechten,,,fencer,fencing,sword,epee,sports,Johanna Wellnitz,2018-04-18,,,,,3,2061
+🕴️,1F574,people-body,person-activity,levitating,levitating,levitation,,,business,person,suit,,Florian Nagel,2019-05-07,,single,🕴️,1F574,0.7,1990
+👯,1F46F,people-body,person-activity,bunny ears,bunny ears,hasenohren,,,bunny ear,dancer,partying,human,person,Johanna Wellnitz,2018-04-18,,,,,0.6,1996
+🧖,1F9D6,people-body,person-activity,steamy room,steamroom|steam,damf,,,sauna,steam room,,Florian Nagel,2019-05-13,,single,🧖,1F9D6,5,2001
+🧗,1F9D7,people-body,person-activity,climbing,climbing,klettern,,,climber,human,person,Johanna Wellnitz,2018-04-18,,single,🧗,1F9D7,5,2031
+🤺,1F93A,people-body,person-sport,fencing,fencing,fechten,,,fencer,fencing,sword,epee,sports,Johanna Wellnitz,2018-04-18,,,,,3,2061
 🏇,1F3C7,people-body,person-sport,horse racing,jockey,jockey,,,horse,jockey,racehorse,racing,animal,sports,Johanna Wellnitz,2018-04-18,,single,🏇,1F3C7,1,2062
 ⛷️,26F7,people-body,person-sport,skier,skiing,schi,,,ski,snow,winter,sports,Johanna Wellnitz,2018-04-18,,,,,0.7,2069
 🏂️,1F3C2,people-body,person-sport,snowboarder,snowboarding|snowboard,snowboard,,,ski,snow,snowboard,winter,sports,Johanna Wellnitz,2018-04-18,,single,🏂️,1F3C2,0.6,2070
 🏌️,1F3CC,people-body,person-sport,person golfing,golfing|golf,golf,,,ball,golf,sports,Johanna Wellnitz,2018-04-18,,single,🏌️,1F3CC,0.7,2077
 🏌️‍♂️,1F3CC-FE0F-200D-2642-FE0F,people-body,person-sport,man golfing,golfing|golf,golf,,,golf,man,,Florian Nagel,2019-05-07,,single,🏌️‍♂️,1F3CC-FE0F-200D-2642-FE0F,4,2083
 🏌️‍♀️,1F3CC-FE0F-200D-2640-FE0F,people-body,person-sport,woman golfing,golfing|golf,golf,,,golf,woman,,Florian Nagel,2019-05-07,,single,🏌️‍♀️,1F3CC-FE0F-200D-2640-FE0F,4,2097
-🏄️,1F3C4,people-body,person-sport,person surfing,surfing,surfen,,,surfing,water,ocean,sea,wave,surfer,sports,Johanna Wellnitz,2018-04-18,,single,🏄️,1F3C4,0.6,2111
+🏄️,1F3C4,people-body,person-sport,surfing,surfing,surfen,,,surfing,water,ocean,sea,wave,surfer,sports,Johanna Wellnitz,2018-04-18,,single,🏄️,1F3C4,0.6,2111
 🏄‍♂️,1F3C4-200D-2642-FE0F,people-body,person-sport,man surfing,surfing,surfen,,,man,surfing,,Florian Nagel,2019-05-07,,single,🏄‍♂️,1F3C4-200D-2642-FE0F,4,2117
 🏄‍♀️,1F3C4-200D-2640-FE0F,people-body,person-sport,woman surfing,surfing,surfen,,,surfing,woman,,Florian Nagel,2019-05-07,,single,🏄‍♀️,1F3C4-200D-2640-FE0F,4,2129
-🚣,1F6A3,people-body,person-sport,person rowing boat,rowing,rudern,,,boat,rowboat,sports,kayak,canoe,water,Johanna Wellnitz,2018-04-18,,single,🚣,1F6A3,1,2141
-🏊️,1F3CA,people-body,person-sport,person swimming,swim|swimming,schwimmen,,,swim,sports,water,Johanna Wellnitz,2018-04-18,,single,🏊️,1F3CA,0.6,2171
-⛹️,26F9,people-body,person-sport,person bouncing ball,bouncing ball|ball,ball,,,ball,dribble,sports,Johanna Wellnitz,2018-04-18,,single,⛹️,26F9,0.7,2202
-🏋️,1F3CB,people-body,person-sport,person lifting weights,weight lifting,gewichtheben,,,lifter,weight,sports,power,Johanna Wellnitz,2018-04-18,,single,🏋️,1F3CB,0.7,2237
-🚴,1F6B4,people-body,person-sport,person biking,biking,radfahren,,,bicycle,biking,cyclist,sports,Johanna Wellnitz,2018-04-18,,single,🚴,1F6B4,1,2271
-🚵,1F6B5,people-body,person-sport,person mountain biking,biking,radfahren,,,bicycle,bicyclist,bike,cyclist,mountain,,Anne Frauendorf,2018-11-16,,single,🚵,1F6B5,1,2301
-🤸,1F938,people-body,person-sport,person cartwheeling,cartwheeling|cartwheel,radschlagen|rad|radschlag,,,cartwheel,gymnastics,sports,Johanna Wellnitz,2018-04-18,,single,🤸,1F938,3,2331
-🤼,1F93C,people-body,person-sport,people wrestling,wrestling,wrestling,,,wrestle,wrestler,fighting,sports,Johanna Wellnitz,2018-04-18,,,,,3,2361
-🤽,1F93D,people-body,person-sport,person playing water polo,water polo|polo,polo,,,polo,water,sports,Johanna Wellnitz,2018-04-18,,single,🤽,1F93D,3,2366
-🤾,1F93E,people-body,person-sport,person playing handball,handball,handball,,,ball,handball,sports,indoor,Johanna Wellnitz,2018-04-18,,single,🤾,1F93E,3,2396
-🤹,1F939,people-body,person-sport,person juggling,juggling,jonglieren,,,balance,juggle,multitask,skill,artist,Johanna Wellnitz,2018-04-18,,single,🤹,1F939,3,2426
-🧘,1F9D8,people-body,person-resting,person in lotus position,lotus position|meditating|yoga,lotussitze|yoga|meditieren,,,meditation,yoga,human,person,exercise,Johanna Wellnitz,2018-04-18,,single,🧘,1F9D8,5,2456
-🛀,1F6C0,people-body,person-resting,person taking bath,bathtub,badewanne|bad,,,bath,bathtub,,Anne Frauendorf,2018-11-16,,single,🛀,1F6C0,0.6,2486
-🛌,1F6CC,people-body,person-resting,person in bed,bed,bett,,,hotel,sleep,human,person,Johanna Wellnitz,2018-04-18,,single,🛌,1F6CC,1,2492
+🚣,1F6A3,people-body,person-sport,rowing boat,rowing,rudern,,,boat,rowboat,sports,kayak,canoe,water,Johanna Wellnitz,2018-04-18,,single,🚣,1F6A3,1,2141
+🏊️,1F3CA,people-body,person-sport,swimming,swim|swimming,schwimmen,,,swim,sports,water,Johanna Wellnitz,2018-04-18,,single,🏊️,1F3CA,0.6,2171
+⛹️,26F9,people-body,person-sport,bouncing ball,bouncing ball|ball,ball,,,ball,dribble,sports,Johanna Wellnitz,2018-04-18,,single,⛹️,26F9,0.7,2202
+🏋️,1F3CB,people-body,person-sport,lifting weights,weight lifting,gewichtheben,,,lifter,weight,sports,power,Johanna Wellnitz,2018-04-18,,single,🏋️,1F3CB,0.7,2237
+🚴,1F6B4,people-body,person-sport,biking,biking,radfahren,,,bicycle,biking,cyclist,sports,Johanna Wellnitz,2018-04-18,,single,🚴,1F6B4,1,2271
+🚵,1F6B5,people-body,person-sport,mountain biking,biking,radfahren,,,bicycle,bicyclist,bike,cyclist,mountain,,Anne Frauendorf,2018-11-16,,single,🚵,1F6B5,1,2301
+🤸,1F938,people-body,person-sport,cartwheeling,cartwheeling|cartwheel,radschlagen|rad|radschlag,,,cartwheel,gymnastics,sports,Johanna Wellnitz,2018-04-18,,single,🤸,1F938,3,2331
+🤼,1F93C,people-body,person-sport,wrestling,wrestling,wrestling,,,wrestle,wrestler,fighting,sports,Johanna Wellnitz,2018-04-18,,,,,3,2361
+🤽,1F93D,people-body,person-sport,water polo,water polo|polo,polo,,,polo,water,sports,Johanna Wellnitz,2018-04-18,,single,🤽,1F93D,3,2366
+🤾,1F93E,people-body,person-sport,handball,handball,handball,,,ball,handball,sports,indoor,Johanna Wellnitz,2018-04-18,,single,🤾,1F93E,3,2396
+🤹,1F939,people-body,person-sport,juggling,juggling,jonglieren,,,balance,juggle,multitask,skill,artist,Johanna Wellnitz,2018-04-18,,single,🤹,1F939,3,2426
+🧘,1F9D8,people-body,person-resting,lotus position,lotus position|meditating|yoga,lotussitze|yoga|meditieren,,,meditation,yoga,human,person,exercise,Johanna Wellnitz,2018-04-18,,single,🧘,1F9D8,5,2456
+🛀,1F6C0,people-body,person-resting,taking bath,bathtub,badewanne|bad,,,bath,bathtub,,Anne Frauendorf,2018-11-16,,single,🛀,1F6C0,0.6,2486
+🛌,1F6CC,people-body,person-resting,resting,bed,bett,,,hotel,sleep,human,person,Johanna Wellnitz,2018-04-18,,single,🛌,1F6CC,1,2492
 🧑‍🤝‍🧑,1F9D1-200D-1F91D-200D-1F9D1,people-body,family,people holding hands,holding hands,handhalten,,,couple,hand,hold,holding hands,person,,Fanny Jung,2019-05-06,,single,🧑‍🤝‍🧑,1F9D1-200D-1F91D-200D-1F9D1,12,2498
 👭,1F46D,people-body,family,women holding hands,holding hands,handhalten,,,couple,hand,holding hands,women,together,girlfriend,lesbian,homosexual,Lisa Schulz,2018-04-18,,single,👭,1F46D,1,2524
 👫,1F46B,people-body,family,woman and man holding hands,holding hands,handhalten,,,couple,hand,hold,holding hands,man,woman,together,heterosexual,straight,Lisa Schulz,2018-04-18,,single,👫,1F46B,0.6,2550

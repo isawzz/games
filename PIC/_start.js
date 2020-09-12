@@ -27,12 +27,19 @@ async function start() {
 	//test29_mpl(100,'algerianregular');
 	test27_hybrid_elems(); //NOPE!
 	//test16_openMojis(); //OK
-
+	//test30_personPlayingHandball();
 
 }
 
 //#region tests layout....
-function test29_mpl(sz,family) {
+function test30_personPlayingHandball() {
+	let info = picInfo('handball');
+	let [g, p, t] = getHarmoniousStyles(50, 'arial', 'hotpink', 'random');
+	let d = maPicLabel(info, table, g, p, t, false, true);
+	let txt = d.children[1];
+	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
+}
+function test29_mpl(sz, family) {
 	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
 	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
 
@@ -62,16 +69,16 @@ function test28_maPicLabelParams() {
 }
 function test27_hybrid_elems() {
 	let list = picRandom('emo', null, 20);
-	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink' };
+	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink', padding: 8, 'box-sizing': 'border-box' };
 	let container = mDiv(table);
-	
+
 	//let picLabelStyles = { h: 50, bg: 'random', fg: 'random' };
-	let [g,p,t]=getHarmoniousStyles(50,'arial','hotpink','random');
+	let [g, p, t] = getHarmoniousStyles(50, 'arial', 'hotpink', 'random');
 
 	let elems = [];
 	for (const info of list) {
-		let el = coin() ? maPicLabel(info, container, g,p,t, false, true)
-			: maPic(info, container, picStyles);
+		let el = coin() ? maPicLabel(info, container, g, p, t, false, true)
+			: maPic(info, container, picStyles, false, true);
 		elems.push(el);
 	}
 	let containerStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
@@ -215,8 +222,8 @@ function test16_openMojis() {
 	for (const k of listOther) {
 		let info = first(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
-		let [g,p,t]=getSimpleStyles(50,undefined,'random','random');
-		result=maPicLabel(info, dParent, g,p,t, false, true);
+		let [g, p, t] = getSimpleStyles(50, undefined, 'random', 'random');
+		result = maPicLabel(info, dParent, g, p, t, false, true);
 		//result=maPicLabel_dep(info, dParent, styles, false, true);
 	}
 	console.log(result)

@@ -154,7 +154,7 @@ function getSimpleStyles(sz, family, bg, fg) {
 function maPicLabel(info, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	maPic(info, d, picStyles, isText, isOmoji);
-	mText(info.annotation, d, textStyles);
+	mText(info.annotation, d, textStyles,['truncate']);
 	mStyleX(d, containerStyles);
 	return d;
 }

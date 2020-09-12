@@ -458,10 +458,13 @@ async function loadRawAssets() {
 	emojiKeys = {};
 	for (const k in emojiChars) {
 		if (nundef(k) || nundef(emojiChars[k].annotation)) {
+			//exclude headings from records!!!!!
 			//console.log('emojiChars[k]',k,emojiChars[k],'\ncontinue...');
 			continue;
 		}
-		emojiKeys[emojiChars[k].annotation] = k;
+		let newKey = emojiChars[k].annotation;
+		if (isdef(emojiKeys[newKey])) console.log('DUPLICATE KEY PROBLEM!!!!!!!!!',newKey)
+		emojiKeys[newKey] = k;
 	}
 	numEmojis = Object.keys(emojiKeys).length;
 	makeInfoDict();
