@@ -65248,6 +65248,31 @@ nails:
   fz: 100
   w: 100
   h: 103
+namaste:
+  key: namaste
+  type: emo
+  isDuplicate: false
+  isColored: true
+  emoji: "\U0001F932"
+  hexcode: 1F932
+  group: people-body
+  subgroups: hands
+  E: namaste|prayer
+  D: namaste|beten
+  hex: 1F932-1F3FC
+  family: emoNoto
+  text: '&#129330;'
+  path: /assets/svg/twemoji/1F932-1F3FC.svg
+  tags:
+    - namaste
+    - prayer
+    - pray
+    - god
+    - single
+  annotation: namaste
+  fz: 100
+  w: 125
+  h: 111
 name badge:
   key: name badge
   type: emo
@@ -65303,7 +65328,7 @@ nautilus-shell:
   hexcode: E53E
   family: pictoGame
   text: '&#58686;'
-  index: 3572
+  index: 3573
   tags:
     - nautilus
     - shell
@@ -65320,7 +65345,7 @@ neck-bite:
   hexcode: ED82
   family: pictoGame
   text: '&#60802;'
-  index: 3573
+  index: 3574
   tags:
     - neck
     - bite
@@ -65337,7 +65362,7 @@ necklace:
   hexcode: E8A9
   family: pictoGame
   text: '&#59561;'
-  index: 3574
+  index: 3575
   tags:
     - necklace
   annotation: necklace
@@ -65353,7 +65378,7 @@ necklace-display:
   hexcode: E88F
   family: pictoGame
   text: '&#59535;'
-  index: 3575
+  index: 3576
   tags:
     - necklace
     - display
@@ -65395,7 +65420,7 @@ needle-drill:
   hexcode: E8D1
   family: pictoGame
   text: '&#59601;'
-  index: 3577
+  index: 3578
   tags:
     - needle
     - drill
@@ -65412,7 +65437,7 @@ needle-jaws:
   hexcode: EA33
   family: pictoGame
   text: '&#59955;'
-  index: 3578
+  index: 3579
   tags:
     - needle
     - jaws
@@ -65429,7 +65454,7 @@ nefertiti:
   hexcode: E19E
   family: pictoGame
   text: '&#57758;'
-  index: 3579
+  index: 3580
   tags:
     - nefertiti
   annotation: nefertiti
@@ -65471,7 +65496,7 @@ nest-birds:
   hexcode: E670
   family: pictoGame
   text: '&#58992;'
-  index: 3581
+  index: 3582
   tags:
     - nest
     - birds
@@ -65488,7 +65513,7 @@ nest-eggs:
   hexcode: E671
   family: pictoGame
   text: '&#58993;'
-  index: 3582
+  index: 3583
   tags:
     - nest
     - eggs
@@ -65505,7 +65530,7 @@ nested-eclipses:
   hexcode: ECC3
   family: pictoGame
   text: '&#60611;'
-  index: 3583
+  index: 3584
   tags:
     - nested
     - eclipses
@@ -65522,7 +65547,7 @@ nested-hearts:
   hexcode: E91B
   family: pictoGame
   text: '&#59675;'
-  index: 3584
+  index: 3585
   tags:
     - nested
     - hearts
@@ -65539,7 +65564,7 @@ nested-hexagons:
   hexcode: E09C
   family: pictoGame
   text: '&#57500;'
-  index: 3585
+  index: 3586
   tags:
     - nested
     - hexagons
@@ -65556,7 +65581,7 @@ network-bars:
   hexcode: EB40
   family: pictoGame
   text: '&#60224;'
-  index: 3586
+  index: 3587
   tags:
     - network
     - bars
@@ -65573,7 +65598,7 @@ network-wired:
   hexcode: f6ff
   family: pictoFa
   text: '&#63231;'
-  index: 3587
+  index: 3588
   tags:
     - network
     - wired
@@ -65590,7 +65615,7 @@ neuter:
   hexcode: f22c
   family: pictoFa
   text: '&#61996;'
-  index: 3588
+  index: 3589
   tags:
     - neuter
   annotation: neuter
@@ -65631,7 +65656,7 @@ new-born:
   hexcode: E672
   family: pictoGame
   text: '&#58994;'
-  index: 3590
+  index: 3591
   tags:
     - new
     - born
@@ -65648,7 +65673,7 @@ new-shoot:
   hexcode: EABE
   family: pictoGame
   text: '&#60094;'
-  index: 3591
+  index: 3592
   tags:
     - new
     - shoot
@@ -65713,7 +65738,7 @@ next-button:
   hexcode: EB95
   family: pictoGame
   text: '&#60309;'
-  index: 3594
+  index: 3595
   tags:
     - next
     - button
@@ -65730,7 +65755,7 @@ night-sky:
   hexcode: EC7E
   family: pictoGame
   text: '&#60542;'
-  index: 3595
+  index: 3596
   tags:
     - night
     - sky
@@ -65747,7 +65772,7 @@ night-sleep:
   hexcode: E425
   family: pictoGame
   text: '&#58405;'
-  index: 3596
+  index: 3597
   tags:
     - night
     - sleep
@@ -65764,7 +65789,7 @@ night-vision:
   hexcode: E8E3
   family: pictoGame
   text: '&#59619;'
-  index: 3597
+  index: 3598
   tags:
     - night
     - vision
@@ -65825,7 +65850,7 @@ ninja-armor:
   hexcode: E8E4
   family: pictoGame
   text: '&#59620;'
-  index: 3600
+  index: 3601
   tags:
     - ninja
     - armor
@@ -65842,7 +65867,7 @@ ninja-head:
   hexcode: E75B
   family: pictoGame
   text: '&#59227;'
-  index: 3601
+  index: 3602
   tags:
     - ninja
     - head
@@ -65859,7 +65884,7 @@ ninja-heroic-stance:
   hexcode: E844
   family: pictoGame
   text: '&#59460;'
-  index: 3602
+  index: 3603
   tags:
     - ninja
     - heroic
@@ -65877,7 +65902,7 @@ ninja-mask:
   hexcode: E77E
   family: pictoGame
   text: '&#59262;'
-  index: 3603
+  index: 3604
   tags:
     - ninja
     - mask
@@ -65894,7 +65919,7 @@ ninja-star:
   hexcode: E26B
   family: pictoGame
   text: '&#57963;'
-  index: 3604
+  index: 3605
   tags:
     - ninja
     - star
@@ -65911,7 +65936,7 @@ ninja-velociraptor:
   hexcode: E78F
   family: pictoGame
   text: '&#59279;'
-  index: 3605
+  index: 3606
   tags:
     - ninja
     - velociraptor
@@ -66096,7 +66121,7 @@ nodular:
   hexcode: E0FC
   family: pictoGame
   text: '&#57596;'
-  index: 3613
+  index: 3614
   tags:
     - nodular
   annotation: nodular
@@ -66134,7 +66159,7 @@ noodle-ball:
   hexcode: ECC8
   family: pictoGame
   text: '&#60616;'
-  index: 3615
+  index: 3616
   tags:
     - noodle
     - ball
@@ -66151,7 +66176,7 @@ noodles:
   hexcode: EBD2
   family: pictoGame
   text: '&#60370;'
-  index: 3616
+  index: 3617
   tags:
     - noodles
   annotation: noodles
@@ -66167,7 +66192,7 @@ north-star-shuriken:
   hexcode: E265
   family: pictoGame
   text: '&#57957;'
-  index: 3617
+  index: 3618
   tags:
     - north
     - star
@@ -66209,7 +66234,7 @@ nose-front:
   hexcode: E766
   family: pictoGame
   text: '&#59238;'
-  index: 3619
+  index: 3620
   tags:
     - nose
     - front
@@ -66226,7 +66251,7 @@ nose-side:
   hexcode: E767
   family: pictoGame
   text: '&#59239;'
-  index: 3620
+  index: 3621
   tags:
     - nose
     - side
@@ -66243,7 +66268,7 @@ not-equal:
   hexcode: f53e
   family: pictoFa
   text: '&#62782;'
-  index: 3621
+  index: 3622
   tags:
     - not
     - equal
@@ -66309,7 +66334,7 @@ notes-medical:
   hexcode: f481
   family: pictoFa
   text: '&#62593;'
-  index: 3624
+  index: 3625
   tags:
     - notes
     - medical
@@ -66326,7 +66351,7 @@ nothing-to-say:
   hexcode: E63D
   family: pictoGame
   text: '&#58941;'
-  index: 3625
+  index: 3626
   tags:
     - nothing
     - to
@@ -66344,7 +66369,7 @@ nuclear:
   hexcode: E0FD
   family: pictoGame
   text: '&#57597;'
-  index: 3626
+  index: 3627
   tags:
     - nuclear
   annotation: nuclear
@@ -66360,7 +66385,7 @@ nuclear-bomb:
   hexcode: E2F0
   family: pictoGame
   text: '&#58096;'
-  index: 3627
+  index: 3628
   tags:
     - nuclear
     - bomb
@@ -66377,7 +66402,7 @@ nuclear-plant:
   hexcode: E654
   family: pictoGame
   text: '&#58964;'
-  index: 3628
+  index: 3629
   tags:
     - nuclear
     - plant
@@ -66394,7 +66419,7 @@ nun-face:
   hexcode: E1D0
   family: pictoGame
   text: '&#57808;'
-  index: 3629
+  index: 3630
   tags:
     - nun
     - face
@@ -66411,7 +66436,7 @@ nunchaku:
   hexcode: E288
   family: pictoGame
   text: '&#57992;'
-  index: 3630
+  index: 3631
   tags:
     - nunchaku
   annotation: nunchaku
@@ -66427,7 +66452,7 @@ nurse-female:
   hexcode: E768
   family: pictoGame
   text: '&#59240;'
-  index: 3631
+  index: 3632
   tags:
     - nurse
     - female
@@ -66444,7 +66469,7 @@ nurse-male:
   hexcode: E769
   family: pictoGame
   text: '&#59241;'
-  index: 3632
+  index: 3633
   tags:
     - nurse
     - male
@@ -66485,7 +66510,7 @@ o-brick:
   hexcode: ED96
   family: pictoGame
   text: '&#60822;'
-  index: 3634
+  index: 3635
   tags:
     - o
     - brick
@@ -66502,7 +66527,7 @@ oak:
   hexcode: E73F
   family: pictoGame
   text: '&#59199;'
-  index: 3635
+  index: 3636
   tags:
     - oak
   annotation: oak
@@ -66518,7 +66543,7 @@ oak-leaf:
   hexcode: E720
   family: pictoGame
   text: '&#59168;'
-  index: 3636
+  index: 3637
   tags:
     - oak
     - leaf
@@ -66535,7 +66560,7 @@ oasis:
   hexcode: E6F5
   family: pictoGame
   text: '&#59125;'
-  index: 3637
+  index: 3638
   tags:
     - oasis
   annotation: oasis
@@ -66551,7 +66576,7 @@ oat:
   hexcode: EABF
   family: pictoGame
   text: '&#60095;'
-  index: 3638
+  index: 3639
   tags:
     - oat
   annotation: oat
@@ -66567,7 +66592,7 @@ obelisk:
   hexcode: E7D8
   family: pictoGame
   text: '&#59352;'
-  index: 3639
+  index: 3640
   tags:
     - obelisk
   annotation: obelisk
@@ -66583,7 +66608,7 @@ object-group:
   hexcode: f247
   family: pictoFa
   text: '&#62023;'
-  index: 3640
+  index: 3641
   tags:
     - object
     - group
@@ -66600,7 +66625,7 @@ object-ungroup:
   hexcode: f248
   family: pictoFa
   text: '&#62024;'
-  index: 3641
+  index: 3642
   tags:
     - object
     - ungroup
@@ -66617,7 +66642,7 @@ observatory:
   hexcode: E7D9
   family: pictoGame
   text: '&#59353;'
-  index: 3642
+  index: 3643
   tags:
     - observatory
   annotation: observatory
@@ -66633,7 +66658,7 @@ ocarina:
   hexcode: E58A
   family: pictoGame
   text: '&#58762;'
-  index: 3643
+  index: 3644
   tags:
     - ocarina
   annotation: ocarina
@@ -66649,7 +66674,7 @@ occupy:
   hexcode: E491
   family: pictoGame
   text: '&#58513;'
-  index: 3644
+  index: 3645
   tags:
     - occupy
   annotation: occupy
@@ -66665,7 +66690,7 @@ octogonal-eye:
   hexcode: ECD7
   family: pictoGame
   text: '&#60631;'
-  index: 3645
+  index: 3646
   tags:
     - octogonal
     - eye
@@ -66682,7 +66707,7 @@ octoman:
   hexcode: E873
   family: pictoGame
   text: '&#59507;'
-  index: 3646
+  index: 3647
   tags:
     - octoman
   annotation: octoman
@@ -66773,7 +66798,7 @@ office-chair:
   hexcode: EC5A
   family: pictoGame
   text: '&#60506;'
-  index: 3650
+  index: 3651
   tags:
     - office
     - chair
@@ -66790,7 +66815,7 @@ offshore-platform:
   hexcode: E54E
   family: pictoGame
   text: '&#58702;'
-  index: 3651
+  index: 3652
   tags:
     - offshore
     - platform
@@ -66856,7 +66881,7 @@ oil-can:
   hexcode: f613
   family: pictoFa
   text: '&#62995;'
-  index: 3654
+  index: 3655
   tags:
     - oil
     - can
@@ -66873,7 +66898,7 @@ oil-drum:
   hexcode: E9A2
   family: pictoGame
   text: '&#59810;'
-  index: 3655
+  index: 3656
   tags:
     - oil
     - drum
@@ -66890,7 +66915,7 @@ oil-pump:
   hexcode: E7DA
   family: pictoGame
   text: '&#59354;'
-  index: 3656
+  index: 3657
   tags:
     - oil
     - pump
@@ -66907,7 +66932,7 @@ oil-rig:
   hexcode: E7DB
   family: pictoGame
   text: '&#59355;'
-  index: 3657
+  index: 3658
   tags:
     - oil
     - rig
@@ -66924,7 +66949,7 @@ oily-spiral:
   hexcode: E9D0
   family: pictoGame
   text: '&#59856;'
-  index: 3658
+  index: 3659
   tags:
     - oily
     - spiral
@@ -67020,7 +67045,7 @@ old-king:
   hexcode: E75A
   family: pictoGame
   text: '&#59226;'
-  index: 3662
+  index: 3663
   tags:
     - old
     - king
@@ -67037,7 +67062,7 @@ old-lantern:
   hexcode: E6CC
   family: pictoGame
   text: '&#59084;'
-  index: 3663
+  index: 3664
   tags:
     - old
     - lantern
@@ -67054,7 +67079,7 @@ old-microphone:
   hexcode: E58B
   family: pictoGame
   text: '&#58763;'
-  index: 3664
+  index: 3665
   tags:
     - old
     - microphone
@@ -67071,7 +67096,7 @@ old-wagon:
   hexcode: E5F6
   family: pictoGame
   text: '&#58870;'
-  index: 3665
+  index: 3666
   tags:
     - old
     - wagon
@@ -67115,7 +67140,7 @@ olive:
   hexcode: E5C4
   family: pictoGame
   text: '&#58820;'
-  index: 3667
+  index: 3668
   tags:
     - olive
   annotation: olive
@@ -67152,7 +67177,7 @@ omega:
   hexcode: E0D9
   family: pictoGame
   text: '&#57561;'
-  index: 3669
+  index: 3670
   tags:
     - omega
   annotation: omega
@@ -67168,7 +67193,7 @@ on-sight:
   hexcode: EA8C
   family: pictoGame
   text: '&#60044;'
-  index: 3670
+  index: 3671
   tags:
     - 'on'
     - sight
@@ -67185,7 +67210,7 @@ on-target:
   hexcode: E238
   family: pictoGame
   text: '&#57912;'
-  index: 3671
+  index: 3672
   tags:
     - 'on'
     - target
@@ -67273,7 +67298,7 @@ one-eyed:
   hexcode: E77F
   family: pictoGame
   text: '&#59263;'
-  index: 3675
+  index: 3676
   tags:
     - one
     - eyed
@@ -67334,7 +67359,7 @@ oni:
   hexcode: E4DE
   family: pictoGame
   text: '&#58590;'
-  index: 3678
+  index: 3679
   tags:
     - oni
   annotation: oni
@@ -67449,7 +67474,7 @@ open-book:
   hexcode: EBAC
   family: pictoGame
   text: '&#60332;'
-  index: 3683
+  index: 3684
   tags:
     - open
     - book
@@ -67466,7 +67491,7 @@ open-chest:
   hexcode: E9A3
   family: pictoGame
   text: '&#59811;'
-  index: 3684
+  index: 3685
   tags:
     - open
     - chest
@@ -67483,7 +67508,7 @@ open-folder:
   hexcode: EB96
   family: pictoGame
   text: '&#60310;'
-  index: 3685
+  index: 3686
   tags:
     - open
     - folder
@@ -67500,7 +67525,7 @@ open-gate:
   hexcode: EC8A
   family: pictoGame
   text: '&#60554;'
-  index: 3686
+  index: 3687
   tags:
     - open
     - gate
@@ -67517,7 +67542,7 @@ open-palm:
   hexcode: E98B
   family: pictoGame
   text: '&#59787;'
-  index: 3687
+  index: 3688
   tags:
     - open
     - palm
@@ -67534,7 +67559,7 @@ open-treasure-chest:
   hexcode: E9A4
   family: pictoGame
   text: '&#59812;'
-  index: 3688
+  index: 3689
   tags:
     - open
     - treasure
@@ -67552,7 +67577,7 @@ open-wound:
   hexcode: ED87
   family: pictoGame
   text: '&#60807;'
-  index: 3689
+  index: 3690
   tags:
     - open
     - wound
@@ -67569,7 +67594,7 @@ opened-food-can:
   hexcode: E997
   family: pictoGame
   text: '&#59799;'
-  index: 3690
+  index: 3691
   tags:
     - opened
     - food
@@ -67587,7 +67612,7 @@ opening-shell:
   hexcode: E412
   family: pictoGame
   text: '&#58386;'
-  index: 3691
+  index: 3692
   tags:
     - opening
     - shell
@@ -67604,7 +67629,7 @@ ophiuchus:
   hexcode: E09D
   family: pictoGame
   text: '&#57501;'
-  index: 3692
+  index: 3693
   tags:
     - ophiuchus
   annotation: ophiuchus
@@ -67620,7 +67645,7 @@ oppidum:
   hexcode: E4B4
   family: pictoGame
   text: '&#58548;'
-  index: 3693
+  index: 3694
   tags:
     - oppidum
   annotation: oppidum
@@ -67636,7 +67661,7 @@ opposite-hearts:
   hexcode: E157
   family: pictoGame
   text: '&#57687;'
-  index: 3694
+  index: 3695
   tags:
     - opposite
     - hearts
@@ -67653,7 +67678,7 @@ oppression:
   hexcode: E63E
   family: pictoGame
   text: '&#58942;'
-  index: 3695
+  index: 3696
   tags:
     - oppression
   annotation: oppression
@@ -67695,7 +67720,7 @@ orange:
   hexcode: ECEA
   family: pictoGame
   text: '&#60650;'
-  index: 3697
+  index: 3698
   tags:
     - orange
   annotation: orange
@@ -67798,7 +67823,7 @@ orange-slice:
   hexcode: ECE9
   family: pictoGame
   text: '&#60649;'
-  index: 3702
+  index: 3703
   tags:
     - orange
     - slice
@@ -67837,7 +67862,7 @@ orb-direction:
   hexcode: E239
   family: pictoGame
   text: '&#57913;'
-  index: 3704
+  index: 3705
   tags:
     - orb
     - direction
@@ -67854,7 +67879,7 @@ orb-wand:
   hexcode: E2F7
   family: pictoGame
   text: '&#58103;'
-  index: 3705
+  index: 3706
   tags:
     - orb
     - wand
@@ -67871,7 +67896,7 @@ orbit:
   hexcode: E48D
   family: pictoGame
   text: '&#58509;'
-  index: 3706
+  index: 3707
   tags:
     - orbit
   annotation: orbit
@@ -67887,7 +67912,7 @@ orbital:
   hexcode: E0DA
   family: pictoGame
   text: '&#57562;'
-  index: 3707
+  index: 3708
   tags:
     - orbital
   annotation: orbital
@@ -67903,7 +67928,7 @@ orbital-rays:
   hexcode: EA80
   family: pictoGame
   text: '&#60032;'
-  index: 3708
+  index: 3709
   tags:
     - orbital
     - rays
@@ -67920,7 +67945,7 @@ orc-head:
   hexcode: E1DC
   family: pictoGame
   text: '&#57820;'
-  index: 3709
+  index: 3710
   tags:
     - orc
     - head
@@ -67937,7 +67962,7 @@ ore:
   hexcode: EB1A
   family: pictoGame
   text: '&#60186;'
-  index: 3710
+  index: 3711
   tags:
     - ore
   annotation: ore
@@ -67953,7 +67978,7 @@ organigram:
   hexcode: EB41
   family: pictoGame
   text: '&#60225;'
-  index: 3711
+  index: 3712
   tags:
     - organigram
   annotation: organigram
@@ -67991,7 +68016,7 @@ ostrich:
   hexcode: E673
   family: pictoGame
   text: '&#58995;'
-  index: 3713
+  index: 3714
   tags:
     - ostrich
   annotation: ostrich
@@ -68031,7 +68056,7 @@ ouroboros:
   hexcode: E3CB
   family: pictoGame
   text: '&#58315;'
-  index: 3715
+  index: 3716
   tags:
     - ouroboros
   annotation: ouroboros
@@ -68047,7 +68072,7 @@ outback-hat:
   hexcode: E19F
   family: pictoGame
   text: '&#57759;'
-  index: 3716
+  index: 3717
   tags:
     - outback
     - hat
@@ -68092,7 +68117,7 @@ outdent:
   hexcode: f03b
   family: pictoFa
   text: '&#61499;'
-  index: 3718
+  index: 3719
   tags:
     - outdent
   annotation: outdent
@@ -68108,7 +68133,7 @@ over-infinity:
   hexcode: E0DB
   family: pictoGame
   text: '&#57563;'
-  index: 3719
+  index: 3720
   tags:
     - over
     - infinity
@@ -68125,7 +68150,7 @@ overdose:
   hexcode: E926
   family: pictoGame
   text: '&#59686;'
-  index: 3720
+  index: 3721
   tags:
     - overdose
   annotation: overdose
@@ -68141,7 +68166,7 @@ overdrive:
   hexcode: E950
   family: pictoGame
   text: '&#59728;'
-  index: 3721
+  index: 3722
   tags:
     - overdrive
   annotation: overdrive
@@ -68157,7 +68182,7 @@ overhead:
   hexcode: E1E9
   family: pictoGame
   text: '&#57833;'
-  index: 3722
+  index: 3723
   tags:
     - overhead
   annotation: overhead
@@ -68173,7 +68198,7 @@ overkill:
   hexcode: E78A
   family: pictoGame
   text: '&#59274;'
-  index: 3723
+  index: 3724
   tags:
     - overkill
   annotation: overkill
@@ -68189,7 +68214,7 @@ overlord-helm:
   hexcode: E1A0
   family: pictoGame
   text: '&#57760;'
-  index: 3724
+  index: 3725
   tags:
     - overlord
     - helm
@@ -68206,7 +68231,7 @@ overmind:
   hexcode: E0FE
   family: pictoGame
   text: '&#57598;'
-  index: 3725
+  index: 3726
   tags:
     - overmind
   annotation: overmind
@@ -68298,7 +68323,7 @@ oyster-pearl:
   hexcode: E890
   family: pictoGame
   text: '&#59536;'
-  index: 3729
+  index: 3730
   tags:
     - oyster
     - pearl
@@ -68315,7 +68340,7 @@ p90:
   hexcode: EC3B
   family: pictoGame
   text: '&#60475;'
-  index: 3730
+  index: 3731
   tags:
     - p90
   annotation: p90
@@ -68356,7 +68381,7 @@ packed-planks:
   hexcode: E721
   family: pictoGame
   text: '&#59169;'
-  index: 3732
+  index: 3733
   tags:
     - packed
     - planks
@@ -68373,7 +68398,7 @@ paddles:
   hexcode: E52D
   family: pictoGame
   text: '&#58669;'
-  index: 3733
+  index: 3734
   tags:
     - paddles
   annotation: paddles
@@ -68389,7 +68414,7 @@ padlock:
   hexcode: EC99
   family: pictoGame
   text: '&#60569;'
-  index: 3734
+  index: 3735
   tags:
     - padlock
   annotation: padlock
@@ -68405,7 +68430,7 @@ padlock-open:
   hexcode: EC96
   family: pictoGame
   text: '&#60566;'
-  index: 3735
+  index: 3736
   tags:
     - padlock
     - open
@@ -68495,7 +68520,7 @@ pagoda:
   hexcode: E7DC
   family: pictoGame
   text: '&#59356;'
-  index: 3739
+  index: 3740
   tags:
     - pagoda
   annotation: pagoda
@@ -68511,7 +68536,7 @@ paint-brush:
   hexcode: EB61
   family: pictoGame
   text: '&#60257;'
-  index: 3740
+  index: 3741
   tags:
     - paint
     - brush
@@ -68528,7 +68553,7 @@ paint-bucket:
   hexcode: EB62
   family: pictoGame
   text: '&#60258;'
-  index: 3741
+  index: 3742
   tags:
     - paint
     - bucket
@@ -68545,7 +68570,7 @@ paint-roller:
   hexcode: EB63
   family: pictoGame
   text: '&#60259;'
-  index: 3742
+  index: 3743
   tags:
     - paint
     - roller
@@ -68587,7 +68612,7 @@ painted-pottery:
   hexcode: E8FB
   family: pictoGame
   text: '&#59643;'
-  index: 3744
+  index: 3745
   tags:
     - painted
     - pottery
@@ -68604,7 +68629,7 @@ palette:
   hexcode: EB97
   family: pictoGame
   text: '&#60311;'
-  index: 3745
+  index: 3746
   tags:
     - palette
   annotation: palette
@@ -68620,7 +68645,7 @@ palisade:
   hexcode: E5C5
   family: pictoGame
   text: '&#58821;'
-  index: 3746
+  index: 3747
   tags:
     - palisade
   annotation: palisade
@@ -68636,7 +68661,7 @@ pallet:
   hexcode: f482
   family: pictoFa
   text: '&#62594;'
-  index: 3747
+  index: 3748
   tags:
     - pallet
   annotation: pallet
@@ -68652,7 +68677,7 @@ palm:
   hexcode: E980
   family: pictoGame
   text: '&#59776;'
-  index: 3748
+  index: 3749
   tags:
     - palm
   annotation: palm
@@ -68696,7 +68721,7 @@ palm-tree:
   hexcode: E722
   family: pictoGame
   text: '&#59170;'
-  index: 3750
+  index: 3751
   tags:
     - palm
     - tree
@@ -68704,32 +68729,6 @@ palm-tree:
   fz: 100
   w: 100
   h: 103
-palms up together:
-  key: palms up together
-  type: emo
-  isDuplicate: false
-  isColored: true
-  emoji: "\U0001F932"
-  hexcode: 1F932
-  group: people-body
-  subgroups: hands
-  E: prayer
-  D: prayer
-  E_valid_sound: beten
-  hex: 1F932-1F3FC
-  family: emoNoto
-  text: '&#129330;'
-  path: /assets/svg/twemoji/1F932-1F3FC.svg
-  tags:
-    - palms up together
-    - prayer
-    - pray
-    - god
-    - single
-  annotation: palms up together
-  fz: 100
-  w: 125
-  h: 111
 pan-flute:
   key: pan-flute
   type: icon

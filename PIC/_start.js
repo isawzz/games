@@ -8,51 +8,166 @@ window.onload = async () => { start(); }
 
 async function start() {
 	await loadAssets(); // load from symbolDict
-	// SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 
+	//#region past test calls
 	// test10_fz();
-
 	// let d=maPic(picRandom(), table, { fz:36, bg: 'random', fg: 'random' });
-
 	// test17_grid(10);
 	// test17_grid(9);
 	// test19_grid_justify_items_stretch(12);
 	// test18_inlineGrid(10);
 	// test18_inlineGrid(9);
 	// test20_grid_place_content(); //geht voll!!!
-	test21_flex_mit_flex_table();
+	// test21_flex_mit_flex_table();
+	// test25_layoutGrid();
+	// test26_layoutFlex();
+	//#endregion
+	//test28_maPicLabelParams();
+	//test29_mpl(100,'algerianregular');
+	test27_hybrid_elems(); //NOPE!
+	//test16_openMojis(); //OK
+
+
 }
 
-//#region tests maPicFlex
-function test19_flex() {
-	//how to get n icon infos?
-	table.style.backgroundColor = 'yellow';
-	table.style.height = '50%';
-	//table.style.width = 'min-content';
-	//table.style.flex='0 0 auto';
-	let list = picRandom('icon', null, 10);
-	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { w: 'min-content', h: '50%', bg: 'silver', flex: '0 0 auto', 'flex-direction': 'column', 'flex-wrap': 'wrap', gap: 4 };
-	maPicFlex(list, table, styles, containerStyles);
+//#region tests layout....
+function test29_mpl(sz,family) {
+	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
+	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
+
+	let styles = { w: sz, h: sz, bg: 'blue', fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
+	let picStyles = { h: sz * fpic, bg: 'random' };
+	let info = picInfo('namaste');
+	//console.log(info);
+	let d = maPicLabel(info, table, styles, picStyles, textStyles, false, true);
+	let txt = d.children[1];
+	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
+	mClass(txt, 'truncate');
 }
-//#endregion
+function test28_maPicLabelParams() {
+	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
+	let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'arial'; let ftop = 1 / 9; let fbot = 1 / 12;
+
+	let styles = { w: sz, h: sz, bg: 'blue', fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
+	let picStyles = { h: sz * fpic, bg: 'random' };
+	let info = picInfo('namaste');
+	//console.log(info);
+	let d = maPicLabel(info, table, styles, picStyles, textStyles, false, true);
+	let txt = d.children[1];
+	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
+	mClass(txt, 'truncate');
+}
+function test27_hybrid_elems() {
+	let list = picRandom('emo', null, 20);
+	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink' };
+	let container = mDiv(table);
+	
+	//let picLabelStyles = { h: 50, bg: 'random', fg: 'random' };
+	let [g,p,t]=getHarmoniousStyles(50,'arial','hotpink','random');
+
+	let elems = [];
+	for (const info of list) {
+		let el = coin() ? maPicLabel(info, container, g,p,t, false, true)
+			: maPic(info, container, picStyles);
+		elems.push(el);
+	}
+	let containerStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, container, containerStyles, { isInline: true });
+	console.log(size);
+
+
+}
+
+function test26_layoutFlex(n = 11, rows = 2) {
+	let list = picRandom('icon', null, n);
+	let styles = { w: 50, h: 50, margin: 4, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let container = mDiv(table);
+	let elems = list.map(x => maPic(x, container, styles));
+	let containerStyles = { padding: 4, bg: 'dimgray', w: 170, 'place-content': 'center' };
+	//let containerStyles = { h: 170, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutFlex(elems, container, containerStyles);
+	console.log(size);
+}
+function test25_layoutGrid(n = 11, rows = 2) {
+	let list = picRandom('icon', null, n);
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let container = mDiv(table);
+	let elems = list.map(x => maPic(x, container, styles));
+	let containerStyles = { h: 170, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, container, containerStyles, { rows: rows });
+	console.log(size);
+}
 
 //#region tests maPicGrid, ...
-function test21_flex_mit_flex_table(n = 12) {
+function test24_2Variants() {
+	//diese beiden:
+	test23_2flex__OHNE_TABLE_FLEX();
+	test24_INLINE_grid_rows();
+
+	//sollten genau dasselbe ergebnis liefern wie diese beiden:
+	// test23_2flex__MIT_TABLE_FLEX();
+	// test24_grid_rows(11);
+
+}
+function test24_INLINE_grid_rows(n = 11, rows = 2) {
+	//how to get n icon infos?
+	let list = picRandom('icon', null, n);
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let containerStyles = { h: 170, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter = maPicGrid(list, table, styles, containerStyles, { rows: rows, isInline: true });
+}
+function test24_grid_rows(n = 11, rows = 2) {
+	//how to get n icon infos?
+	let list = picRandom('icon', null, n);
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let containerStyles = { h: 170, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter = maPicGrid(list, table, styles, containerStyles, { rows: rows });
+}
+function test23_2flex__OHNE_TABLE_FLEX() {
+	let list = picRandom('icon', null, 11);
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let containerStyles = { padding: 4, gap: 4, bg: 'dimgray', w: 170, 'place-content': 'center' };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter = maPicFlex(list, table, styles, containerStyles);
+	let cs = { padding: 4, gap: 4, bg: 'silver', h: 170, orientation: 'v' };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter2 = maPicFlex(list, table, styles, cs);
+}
+function test23_2flex__MIT_TABLE_FLEX() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: 4, bg: 'grey', padding: 4 };
+	mStyleX(table, tableStyle);
+	let list = picRandom('icon', null, 11);
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let containerStyles = { padding: 4, gap: 4, bg: 'dimgray', w: 170, 'place-content': 'center' };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter = maPicFlex(list, table, styles, containerStyles);
+	let cs = { padding: 4, gap: 4, bg: 'silver', h: 170, orientation: 'v' };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let dOuter2 = maPicFlex(list, table, styles, cs);
+}
+function test22_2flex() {
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: 4, bg: 'grey', padding: 4 };
+	mStyleX(table, tableStyle);
+	test20_flex();
+	test21_flex_mit_flex_table();
+}
+function test21_flex_mit_flex_table(n = 12) { //SAME AS test20_flex!!!!!!!!!!!!!!!!!
 
 	//how to get n icon infos?
 	let list = picRandom('icon', null, n);
-	let styles = { w: 50, h: 50, margin: 4, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { bg: 'grey', w: 160 };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
+	let containerStyles = { gap: 4, bg: 'dimgray', w: 170 };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let dOuter = maPicFlex(list, table, styles, containerStyles);
-	mStyleX(table, tableStyle);
+
+	//brauch ich garnicht!
+	//let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: 4, bg: 'grey', padding: 4 };
+	//mStyleX(table, tableStyle);
 }
 function test20_flex(n = 12) {
 	//how to get n icon infos?
 	let list = picRandom('icon', null, n);
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
-	let containerStyles = { orientation: 'v', h: 220, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let containerStyles = { gap: 4, bg: 'silver', w: 170 };// orientation:'v',h:220,'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	// let containerStyles = { orientation: 'v', h: 220, 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let dOuter = maPicFlex(list, table, styles, containerStyles);
 }
 function test20_grid_place_content(n = 12) {
@@ -83,6 +198,7 @@ function test17_grid(n = 12) {
 	let containerStyles = { gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let dOuter = maPicGrid(list, table, styles, containerStyles);
 }
+
 function test16_openMojis() {
 	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
 	mStyleX(table, tableStyle);
@@ -95,12 +211,15 @@ function test16_openMojis() {
 	// for (const k of arr = Array(36).fill(2)) {
 	// 	let list = picSearch({ set: 'role' });
 	// 	let info = chooseRandom(list);
+	let result;
 	for (const k of listOther) {
 		let info = first(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
-		maPicLabel(info, dParent, styles, false, true);
+		let [g,p,t]=getSimpleStyles(50,undefined,'random','random');
+		result=maPicLabel(info, dParent, g,p,t, false, true);
+		//result=maPicLabel_dep(info, dParent, styles, false, true);
 	}
-
+	console.log(result)
 }
 function test15_zwei_grids() {
 	test13_15_roles_grid_img();
@@ -109,15 +228,7 @@ function test15_zwei_grids() {
 
 //#endregion
 
-//#region tests maPic, maPicLabel
-function maPicLabel(info, dParent, styles, isText = true, isOmoji = false) {
-	//info, dParent, styles, isText = true, isOmoji = false) {
-	let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
-	maPic(info, d, styles, isText, isOmoji);
-	mText(info.annotation, d);
-	d.style.textAlign = 'center';
-	return d;
-}
+//#region tests maPic_, maPicLabel_
 function test14_mit_label() {
 	for (let i = 0; i < 8; i++) {
 		let d = mDiv(table, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})

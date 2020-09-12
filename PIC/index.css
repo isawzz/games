@@ -4,3 +4,25 @@ html,body{
 	padding:0;
 	background-color: grey;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.truncate:hover {
+	overflow: visible;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

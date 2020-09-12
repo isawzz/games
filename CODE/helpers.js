@@ -1,4 +1,4 @@
-//#region DOM constants, shape functions
+//#region _DOM constants, shape functions
 const MSCATS = { rect: 'g', g: 'g', circle: 'g', text: 'g', polygon: 'g', line: 'g', body: 'd', svg: 'd', div: 'd', p: 'd', table: 'd', button: 'd', a: 'd', span: 'd', image: 'd', paragraph: 'd', anchor: 'd' };
 const SHAPEFUNCS = {
 	'circle': agCircle,
@@ -269,7 +269,7 @@ function mPicSimple1(info, dParent, { w, h, unit = 'px', fg, bg, padding, border
 
 //#endregion
 
-//#region DOM 1 liners A list divs
+//#region _DOM 1 liners A list divs
 function applyCssStyles(ui, params) {
 	let domType = getTypeOf(ui);
 	if (domType == 'g') {
@@ -670,7 +670,7 @@ function mStyleX(elem, styles, unit = 'px') {
 		//console.log(key,val,isNaN(val));if (isNaN(val) && key!='font-size') continue;
 
 		if (key == 'font-weight') { elem.style.setProperty(key, val); continue; }
-		else if (key == 'background-color') elem.style.backgroundColor = bg;
+		else if (key == 'background-color') elem.style.background = bg;
 		else if (key == 'color') elem.style.color = fg;
 		else {
 			//console.log('set property',key,makeUnitString(val,unit),val,isNaN(val));
@@ -790,7 +790,7 @@ function mYaml(d, js) {
 }
 //#endregion
 
-//#region SVG/g 1 liners A list shapes
+//#region _SVG/g 1 liners A list shapes
 function gCreate(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
 function gPos(g, x, y) { g.style.transform = `translate(${x}px, ${y}px)`; }
 function gSize(g, w, h, shape = null, iChild = 0) {
@@ -1076,63 +1076,6 @@ example:
 }
 
 
-//#endregion
-
-//#region Timit
-class TimeIt {
-	constructor(msg, showOutput = true) {
-		this.showOutput = showOutput;
-		this.init(msg);
-	}
-	getTotalTimeElapsed() {
-		let tNew = new Date();
-		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
-		return tDiffStart;
-	}
-	tacit() { this.showOutput = false; }
-	timeStamp(name) {
-		let tNew = new Date(); //new Date().getTime() - this.t;
-		let tDiff = tNew.getTime() - this.namedTimestamps.start.getTime();// this.t.getTime();
-		if (this.showOutput) console.log('___', tDiff, 'msecs * to', name);
-		this.t = tNew;
-		this.namedTimestamps[name] = tNew;
-	}
-	reset() { this.init('timing start') }
-	init(msg) {
-		this.t = new Date();
-		if (this.showOutput) console.log('___', msg);
-		this.namedTimestamps = { start: this.t };
-	}
-	showSince(name, msg = 'now') {
-		let tNew = new Date(); //new Date().getTime() - this.t;
-		let tNamed = this.namedTimestamps[name];
-		if (this.showOutput) if (!tNamed) { console.log(name, 'is not a timestamp!'); return; } //new Date().getTime() - this.t;
-		let tDiff = tNew.getTime() - tNamed.getTime();
-		if (this.showOutput) console.log('___', tDiff, 'msecs', name, 'to', msg);
-		this.t = tNew;
-	}
-	format(t) { return '___' + t.getSeconds() + ':' + t.getMilliseconds(); }
-	show(msg) { this.showTime(msg); }
-	showTime(msg) {
-		//shows ticks diff to last call of show
-		let tNew = new Date(); //new Date().getTime() - this.t;
-		let tDiff = tNew.getTime() - this.t.getTime();
-		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
-		//if (this.showOutput) console.log(this.format(tNew), ':', tDiff, 'msecs to', msg, '(' + tDiffStart, 'total)');
-		if (this.showOutput) console.log('___ ', tDiff, 'msecs to', msg, '(' + tDiffStart, 'total)');
-		this.t = tNew;
-	}
-	start_of_cycle(msg) {
-		this.init(msg);
-	}
-	end_of_cycle(msg) {
-		//shows ticks diff to last call of show
-		let tNew = new Date(); //new Date().getTime() - this.t;
-		let tDiff = tNew.getTime() - this.t.getTime();
-		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
-		if (this.showOutput) console.log('___ ' + tDiff + ' msecs', msg, 'to EOC (total: ' + tDiffStart + ')');
-	}
-}
 //#endregion
 
 //#region colors
@@ -2957,6 +2900,7 @@ function getTriangleDownPoly(x, y, w, h) {
 	let tridown = [[-0.5, 0.5], [0.5, 0.5], [-0.5, 0.5]];
 	return getPoly(tridown, x, y, w, h);
 }
+
 //#endregion
 
 //#region id helpers
@@ -3031,6 +2975,43 @@ function wlog() {
 
 
 
+
+//#endregion
+
+//#region layout helpers
+function calcRowsCols(num, rows, cols) {
+	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
+	console.log(num, rows, cols);
+	let shape = 'rect';
+	if (isdef(rows) && isdef(cols)) {
+		//do nothing!
+	} else if (isdef(rows)) {
+		cols = Math.ceil(num / rows);
+	} else if (isdef(cols)) {
+		rows = Math.ceil(total / cols);
+	} else if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
+		rows = Math.ceil(Math.sqrt(num));
+		cols = Math.floor(Math.sqrt(num));
+	}
+	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
+		let lower = Math.floor(Math.sqrt(num));
+		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
+		rows = lower
+		cols = lower + 2;
+	} else if (num > 1 && num < 10) {
+		shape = 'circle';
+	} else if (num > 16 && 0 == num % 4) {
+		rows = 4; cols = num / 4;
+	} else if (num > 9 && 0 == num % 3) {
+		rows = 3; cols = num / 3;
+	} else if (0 == num % 2) {
+		rows = 2; cols = num / 2;
+	} else {
+		rows = 1; cols = num;
+	}
+	console.log(rows, cols, shape);
+	return { rows: rows, cols: cols, recommendedShape: shape };
+}
 
 //#endregion
 
@@ -4533,6 +4514,63 @@ function toLetterList(s) {
 }
 function trim(str) {
 	return str.replace(/^\s+|\s+$/gm, '');
+}
+//#endregion
+
+//#region Timit
+class TimeIt {
+	constructor(msg, showOutput = true) {
+		this.showOutput = showOutput;
+		this.init(msg);
+	}
+	getTotalTimeElapsed() {
+		let tNew = new Date();
+		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
+		return tDiffStart;
+	}
+	tacit() { this.showOutput = false; }
+	timeStamp(name) {
+		let tNew = new Date(); //new Date().getTime() - this.t;
+		let tDiff = tNew.getTime() - this.namedTimestamps.start.getTime();// this.t.getTime();
+		if (this.showOutput) console.log('___', tDiff, 'msecs * to', name);
+		this.t = tNew;
+		this.namedTimestamps[name] = tNew;
+	}
+	reset() { this.init('timing start') }
+	init(msg) {
+		this.t = new Date();
+		if (this.showOutput) console.log('___', msg);
+		this.namedTimestamps = { start: this.t };
+	}
+	showSince(name, msg = 'now') {
+		let tNew = new Date(); //new Date().getTime() - this.t;
+		let tNamed = this.namedTimestamps[name];
+		if (this.showOutput) if (!tNamed) { console.log(name, 'is not a timestamp!'); return; } //new Date().getTime() - this.t;
+		let tDiff = tNew.getTime() - tNamed.getTime();
+		if (this.showOutput) console.log('___', tDiff, 'msecs', name, 'to', msg);
+		this.t = tNew;
+	}
+	format(t) { return '___' + t.getSeconds() + ':' + t.getMilliseconds(); }
+	show(msg) { this.showTime(msg); }
+	showTime(msg) {
+		//shows ticks diff to last call of show
+		let tNew = new Date(); //new Date().getTime() - this.t;
+		let tDiff = tNew.getTime() - this.t.getTime();
+		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
+		//if (this.showOutput) console.log(this.format(tNew), ':', tDiff, 'msecs to', msg, '(' + tDiffStart, 'total)');
+		if (this.showOutput) console.log('___ ', tDiff, 'msecs to', msg, '(' + tDiffStart, 'total)');
+		this.t = tNew;
+	}
+	start_of_cycle(msg) {
+		this.init(msg);
+	}
+	end_of_cycle(msg) {
+		//shows ticks diff to last call of show
+		let tNew = new Date(); //new Date().getTime() - this.t;
+		let tDiff = tNew.getTime() - this.t.getTime();
+		let tDiffStart = tNew.getTime() - this.namedTimestamps.start.getTime();
+		if (this.showOutput) console.log('___ ' + tDiff + ' msecs', msg, 'to EOC (total: ' + tDiffStart + ')');
+	}
 }
 //#endregion
 

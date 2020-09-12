@@ -1,4 +1,139 @@
 //#region maPic
+function maPicLabelX(info, dParent, picStyles, textStyles, containerStyles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent);//mStyleX(d,{align:'center'})
+	maPic(info, d, picStyles, isText, isOmoji);
+	mText(info.annotation, d, textStyles);
+	mStyleX(d,containerStyles);
+	//d.style.textAlign = 'center';
+	return d;
+}
+function maPicLabelXX(info, dParent, picStyles, textStyles, containerStyles, isText = true, isOmoji = false) {
+	//info, dParent, styles, isText = true, isOmoji = false) {
+	//let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
+	let d = mDiv(dParent);//mStyleX(d,{align:'center'})
+	let hTotal = containerStyles.h;
+	let wTotal = containerStyles.w;
+	containerStyles['box-sizing'] = 'border-box';
+	if (nundef(hTotal) && isdef(wTotal)) hTotal = wTotal;
+	let gap = containerStyles.padding;
+	if (nundef(gap)) gap = picStyles.margin;
+	if (nundef(gap)) gap = textStyles.margin;
+	if (nundef(gap)) gap = containerStyles.rounding;
+	if (nundef(gap)) gap = 2; //for aesthetical reasons this is the min gap.
+
+	let fz = textStyles.fz;
+	let pfact = 1 / 1.4;
+	let tfact = 1 - pfact;
+	let fzfact = 1 / 1.5;
+	let hText = textStyles.h;
+	if (nundef(hText) && isdef(fz)) hText = fz / fzfact + 2 * gap;
+	if (nundef(hText)) hText = (hTotal * tfact) - gap;
+	if (nundef(fz)) fz = hText * fzfact;
+
+	let hPic = picStyles.h;
+	if (nundef(hPic)) hPic = hTotal * pfact - gap;
+	textStyles.h = hText;
+	textStyles.fz = fz;
+	containerStyles.padding = `${gap * 1.3}px ${gap}px ${gap}px ${gap}px`; //gap;
+
+	picStyles.h = hPic;
+	//picStyles.mtop = 8;
+	//console.log('textStyles',textStyles)
+	maPic(info, d, picStyles, isText, isOmoji);
+	mText(info.annotation, d, textStyles);
+	containerStyles.align = 'center';
+	mStyleX(d, containerStyles);
+	//d.style.textAlign = 'center';
+
+	return d;
+}
+
+function maPicLabel(info, dParent, styles, isText = true, isOmoji = false) {
+	//info, dParent, styles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent, { bg: 'random', padding: 4, fg: 'contrast', margin: 2 });//mStyleX(d,{align:'center'})
+	maPic(info, d, styles, isText, isOmoji);
+	mText(info.annotation, d);
+	d.style.textAlign = 'center';
+	return d;
+}
+function maPicGrid(infolist, dParent, styles, containerStyles, { rows, cols, isInline = false } = {}) {
+	let dims = calcRowsCols(infolist.length, rows, cols);
+	console.log('dims', dims);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = isInline ? 'inline-grid' : 'grid';
+	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
+
+	let dGrid = mDiv(dParent);
+
+	for (const info of infolist) { maPic(info, dGrid, styles); }
+
+	mStyleX(dGrid, parentStyle);
+	return dGrid;
+
+}
+function maPicFlex(infolist, dParent, styles, containerStyles) {
+	let parentStyle = jsCopy(containerStyles);
+	if (containerStyles.orientation == 'v') {
+		// console.log('vertical!');
+		// parentStyle['flex-flow']='row wrap';
+		parentStyle['writing-mode'] = 'vertical-lr';
+	}
+	parentStyle.display = 'flex';
+	parentStyle.flex = '0 0 auto';
+	parentStyle['flex-wrap'] = 'wrap';
+
+	let dGrid = mDiv(dParent);
+
+	for (const info of infolist) { maPic(info, dGrid, styles); }
+
+	mStyleX(dGrid, parentStyle);
+	return dGrid;
+
+}
+function maPicFlex_dep(infolist, dParent, styles, containerStyles) {
+	//TODO: infolist koennte auch ein search descriptor sein!
+	// let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	// mStyleX(dParent, tableStyle);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = 'flex';
+
+	// if (wrap) parentStyle['flex-wrap'] = 'wrap';
+	// if (orientation == 'v') parentStyle['flex-direction'] = 'column';
+	// if (isdef(wContainer)) parentStyle.w = wContainer;
+	// if (isdef(hContainer)) parentStyle.h = hContainer;
+
+	let container = mDiv(dParent);//container);
+	// mStyleX(container, parentStyle);
+
+	for (const info of infolist) {
+		maPic(info, container, styles);
+	}
+	mStyleX(container, parentStyle);
+	// mFlexWrap(container)
+
+
+}
+function maPicFlex1(infolist, dParent, styles, { wContainer, hContainer, orientation, wrap = true, gap = 4 } = {}) {
+	//TODO: infolist koennte auch ein search descriptor sein!
+	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
+	mStyleX(dParent, tableStyle);
+
+	let parentStyle = { display: 'flex', gap: gap };
+	if (wrap) parentStyle['flex-wrap'] = 'wrap';
+	if (orientation == 'v') parentStyle['flex-direction'] = 'column';
+	if (isdef(wContainer)) parentStyle.w = wContainer;
+	if (isdef(hContainer)) parentStyle.h = hContainer;
+
+	let dGrid = mDiv(dParent);//container);
+	mStyleX(dGrid, parentStyle);
+
+	for (const info of infolist) {
+		maPic(info, dGrid, styles);
+	}
+
+}
 function maPicInlineGrid(infolist, dParent, styles, containerStyles, { rows, cols } = {}) {
 	//TODO: infolist koennte auch ein search descriptor sein!
 	// let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };

@@ -1,6 +1,47 @@
 //uses assets! =>load after assets!
 var cachedInfolists = {};
 
+//#region layouts
+function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
+	console.log(elist, elist.length)
+	let dims = calcRowsCols(elist.length, rows, cols);
+	console.log('dims', dims);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = isInline ? 'inline-grid' : 'grid';
+	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
+	parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
+
+	console.log('parentStyle', parentStyle)
+
+	mStyleX(dGrid, parentStyle);
+	let b = getBounds(dGrid);
+	return { w: b.width, h: b.height };
+
+}
+function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
+	console.log(elist, elist.length)
+	let dims = calcRowsCols(elist.length, rows, cols);
+	console.log('dims', dims);
+
+	let parentStyle = jsCopy(containerStyles);
+	if (containerStyles.orientation == 'v') {
+		// console.log('vertical!');
+		// parentStyle['flex-flow']='row wrap';
+		parentStyle['writing-mode'] = 'vertical-lr';
+	}
+	parentStyle.display = 'flex';
+	parentStyle.flex = '0 0 auto';
+	parentStyle['flex-wrap'] = 'wrap';
+	// parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
+
+	mStyleX(dGrid, parentStyle);
+	let b = getBounds(dGrid);
+	return { w: b.width, h: b.height };
+
+}
+
+
 //#region maPic
 function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
@@ -9,7 +50,9 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	// as img
 	if (!isText && info.type == 'emo') {
 		let dir = isOmoji ? 'openmoji' : 'twemoji';
-		let ui = mImg('/assets/svg/' + dir + '/' + info.hexcode + '.svg', dParent);
+		let hex = info.hexcode;
+		if (isOmoji && hex.indexOf('-') == 2) hex = '00' + hex;
+		let ui = mImg('/assets/svg/' + dir + '/' + hex + '.svg', dParent);
 		if (isdef(styles)) mStyleX(ui, styles);
 		return ui;
 	}
@@ -94,79 +137,35 @@ function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
 	mClass(x, classColors);
 	return x;
 }
-function maPicGrid(infolist, dParent, styles, containerStyles, { rows, cols, isInline = false } = {}) {
-	let dims = calcRowsCols(infolist.length, rows, cols);
-	console.log('dims', dims);
-
-	let parentStyle = jsCopy(containerStyles);
-	parentStyle.display = isInline ? 'inline-grid' : 'grid';
-	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
-
-	let dGrid = mDiv(dParent);
-
-	for (const info of infolist) { maPic(info, dGrid, styles); }
-
-	mStyleX(dGrid, parentStyle);
-	return dGrid;
-
+function getHarmoniousStyles(sz, family, bgFrame = 'blue', bgPic = 'random') {
+	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
+	let styles = { w: sz, h: sz, bg: bgFrame, fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
+	let picStyles = { h: sz * fpic, bg: bgPic };
+	return [styles, picStyles, textStyles];
 }
-function maPicFlex(infolist, dParent, styles, containerStyles) {
-	let parentStyle = jsCopy(containerStyles);
-	if (containerStyles.orientation == 'v') parentStyle['flex-direction']='column';
-	parentStyle.display = 'flex';
-	parentStyle.flex = '0 0 auto';
-	parentStyle['flex-wrap'] = 'wrap';
-	
-	let dGrid = mDiv(dParent);
-
-	for (const info of infolist) { maPic(info, dGrid, styles); }
-
-	mStyleX(dGrid, parentStyle);
-	return dGrid;
-
+function getSimpleStyles(sz, family, bg, fg) {
+	let styles = { bg: bg, fg: 'contrast', align: 'center', 'box-sizing': 'border-box', padding: 4, margin: 2 };
+	let textStyles = { family: family };
+	let picStyles = { w: sz, h: sz, bg: fg };
+	return [styles, picStyles, textStyles];
 }
-function maPicFlex_dep(infolist, dParent, styles, containerStyles) {
-	//TODO: infolist koennte auch ein search descriptor sein!
-	// let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
-	// mStyleX(dParent, tableStyle);
 
-	let parentStyle = jsCopy(containerStyles);
-	parentStyle.display = 'flex';
-
-	// if (wrap) parentStyle['flex-wrap'] = 'wrap';
-	// if (orientation == 'v') parentStyle['flex-direction'] = 'column';
-	// if (isdef(wContainer)) parentStyle.w = wContainer;
-	// if (isdef(hContainer)) parentStyle.h = hContainer;
-
-	let container = mDiv(dParent);//container);
-	// mStyleX(container, parentStyle);
-
-	for (const info of infolist) {
-		maPic(info, container, styles);
-	}
-	mStyleX(container, parentStyle);
-	// mFlexWrap(container)
-
-
+function maPicLabel(info, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent);
+	maPic(info, d, picStyles, isText, isOmoji);
+	mText(info.annotation, d, textStyles);
+	mStyleX(d, containerStyles);
+	return d;
 }
-function maPicFlex1(infolist, dParent, styles, { wContainer, hContainer, orientation, wrap = true, gap = 4 } = {}) {
-	//TODO: infolist koennte auch ein search descriptor sein!
-	let tableStyle = { display: 'flex', flex: '0 0 auto', 'flex-wrap': 'wrap', gap: '4px', bg: 'grey', padding: 4 };
-	mStyleX(dParent, tableStyle);
 
-	let parentStyle = { display: 'flex', gap: gap };
-	if (wrap) parentStyle['flex-wrap'] = 'wrap';
-	if (orientation == 'v') parentStyle['flex-direction'] = 'column';
-	if (isdef(wContainer)) parentStyle.w = wContainer;
-	if (isdef(hContainer)) parentStyle.h = hContainer;
-
-	let dGrid = mDiv(dParent);//container);
-	mStyleX(dGrid, parentStyle);
-
-	for (const info of infolist) {
-		maPic(info, dGrid, styles);
-	}
-
+function maPicLabel_dep(info, dParent, styles, isText = true, isOmoji = false) {
+	//info, dParent, styles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent, { bg: 'random', fg: 'contrast', padding: 4, margin: 2 });//mStyleX(d,{align:'center'})
+	maPic(info, d, styles, isText, isOmoji);
+	mText(info.annotation, d);
+	d.style.textAlign = 'center';
+	return d;
 }
 
 //#region pic helpers
@@ -267,39 +266,8 @@ returns list of info
 	}
 	return infolist;
 }
-function calcRowsCols(num, rows, cols) {
-	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
-	console.log(num, rows, cols);
-	let shape = 'rect';
-	if (isdef(rows) && isdef(cols)) {
-		//do nothing!
-	} else if (isdef(rows)) {
-		cols = Math.ceil(num / rows);
-	} else if (isdef(cols)) {
-		rows = Math.ceil(total / cols);
-	} else if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
-		rows = Math.ceil(Math.sqrt(num));
-		cols = Math.floor(Math.sqrt(num));
-	}
-	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
-		let lower = Math.floor(Math.sqrt(num));
-		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
-		rows = lower
-		cols = lower + 2;
-	} else if (num > 1 && num < 10) {
-		shape = 'circle';
-	} else if (num > 16 && 0 == num % 4) {
-		rows = 4; cols = num / 4;
-	} else if (num > 9 && 0 == num % 3) {
-		rows = 3; cols = num / 3;
-	} else if (0 == num % 2) {
-		rows = 2; cols = num / 2;
-	} else {
-		rows = 1; cols = num;
-	}
-	console.log(rows, cols, shape);
-	return { rows: rows, cols: cols, recommendedShape: shape };
-}
+
+//#region helpers
 
 
 
