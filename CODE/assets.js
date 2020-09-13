@@ -97,6 +97,19 @@ function ensureSymByType() {
 	}
 
 }
+function ensureSymByHex() {
+	if (nundef(symByHex)) {
+		//console.log('doing it ONCE only!')
+		symByHex = {};
+		symKeysByHex = [];
+		for (const k in symbolDict) {
+			let info = symbolDict[k];
+			symByHex[info.hexcode]=info;
+		}
+		symKeysByHex = Object.keys(symByHex);
+	}
+
+}
 //#endregion
 
 //#region reconstruct helpers

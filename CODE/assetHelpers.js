@@ -3,16 +3,16 @@ var cachedInfolists = {};
 
 //#region layouts
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
-	console.log(elist, elist.length)
+	//console.log(elist, elist.length)
 	let dims = calcRowsCols(elist.length, rows, cols);
-	console.log('dims', dims);
+	//console.log('dims', dims);
 
 	let parentStyle = jsCopy(containerStyles);
 	parentStyle.display = isInline ? 'inline-grid' : 'grid';
 	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
 	parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
 
-	console.log('parentStyle', parentStyle)
+	//console.log('parentStyle', parentStyle)
 
 	mStyleX(dGrid, parentStyle);
 	let b = getBounds(dGrid);
@@ -46,6 +46,7 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	let info = isString(infokey) ? picInfo(infokey) : infokey;
+	//console.log(infokey)
 
 	// as img
 	if (!isText && info.type == 'emo') {
@@ -137,11 +138,37 @@ function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
 	mClass(x, classColors);
 	return x;
 }
-function getHarmoniousStyles(sz, family, bgFrame = 'blue', bgPic = 'random') {
+function getHarmoniousStylesXX(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, padding);
+	pabot = Math.max(pabot, padding);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStylesX(sz, family, bg = 'blue', fg = 'random', hasText = true, setWidth = false) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => sz * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+
+	console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: sz, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (setWidth) styles.w = sz; else styles.paleft = styles.paright = 4;
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStyles(sz, family, bg = 'blue', fg = 'random', hasText = true) {
 	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
-	let styles = { w: sz, h: sz, bg: bgFrame, fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
+	let styles = { w: sz, h: sz, bg: bg, fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
 	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
-	let picStyles = { h: sz * fpic, bg: bgPic };
+	let picStyles = { h: sz * fpic, bg: fg };
 	return [styles, picStyles, textStyles];
 }
 function getSimpleStyles(sz, family, bg, fg) {
@@ -154,7 +181,14 @@ function getSimpleStyles(sz, family, bg, fg) {
 function maPicLabel(info, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	maPic(info, d, picStyles, isText, isOmoji);
-	mText(info.annotation, d, textStyles,['truncate']);
+	// mText(info.annotation, d, textStyles, ['truncate']);
+	mText(info.annotation, d, textStyles, ['might-overflow']);
+	mStyleX(d, containerStyles);
+	return d;
+}
+function maPicFrame(info, dParent, containerStyles, picStyles, isText = true, isOmoji = false) {
+	let d = mDiv(dParent);
+	maPic(info, d, picStyles, isText, isOmoji);
 	mStyleX(d, containerStyles);
 	return d;
 }
@@ -180,12 +214,16 @@ returns info
 	*/
 	//#endregion 
 	if (isdef(symbolDict[key])) return symbolDict[key];
-	else if (isdef(symByHex) && isdef(symByHex[key])) return symbolDict[symByHex[key]];
 	else {
-		let infolist = picSearch({ keywords: key });
-		//console.log('result from picSearch(' + key + ')', infolist);
-		if (infolist.length == 0) return null;
-		else return chooseRandom(infolist);
+		ensureSymByHex();
+		let info = symByHex[key];
+		if (isdef(info)) {return info;}
+		else {
+			let infolist = picSearch({ keywords: key });
+			//console.log('result from picSearch(' + key + ')', infolist);
+			if (infolist.length == 0) return null;
+			else return chooseRandom(infolist);
+		}
 	}
 }
 function picRandom(type, keywords, n = 1) {

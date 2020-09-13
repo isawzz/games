@@ -22,16 +22,129 @@ async function start() {
 	// test21_flex_mit_flex_table();
 	// test25_layoutGrid();
 	// test26_layoutFlex();
-	//#endregion
-	//test28_maPicLabelParams();
-	//test29_mpl(100,'algerianregular');
-	test27_hybrid_elems(); //NOPE!
-	//test16_openMojis(); //OK
-	//test30_personPlayingHandball();
+	// test28_maPicLabelParams();
+	// test29_mpl(100,'algerianregular');
+	// test16_openMojis(); //OK
+	// test30_personPlayingHandball();
+	// test27_hybrid_elems(); //OK
+	// test28_maPicLabelParams(); ok
+	// test29_mpl(); //ok
 
+	//#endregion
+
+	// test31_hybrids();
+	// test32_keycap();
+	// testKey('people holding hands');
+	// testHex('1F9D1-200D-1F91D-200D-1F9D1');
+	// test33();
+	// test34_emoImages();
+
+	test_emoFonts();
+}
+
+function randomHybridGrid(n, picLabelStyles, picStyles, isText = false, isOmoji = true) {
+	let list = isList(n) ? n : picRandom('emo', null, n);
+	let dGrid = mDiv(table);
+	let elems = [];
+	for (const info of list) {
+		let el = coin() ? maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
+			: maPicFrame(info, dGrid, picStyles[0], picStyles[1], isText, isOmoji);
+		elems.push(el);
+	}
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, dGrid, gridStyles, { isInline: true });
+	//console.log(size);
+}
+function test_emoFonts() {
+	let textlist = ['&#x25c0;',
+		'&#x2708; ',
+		'&#129489;&#8205;&#129309;&#8205;&#129489;',
+		'&#129489;',
+		'&#129309;',
+	];
+	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto'];
+	mFlex(table);
+	for (const family of fonts) {
+		let d = mDiv(table);
+		d.innerHTML = family;
+		for (const text of textlist) {
+			d = mDiv(table);
+			let styles = { fz: 40, border: 'black', margin: 4, w: 50, align: 'center',family:family };
+			mStyleX(d, styles);
+			d.innerHTML = text;
+		}
+		mFlexLinebreak(table);
+	}
+}
+function testHex(hex, isText = true, isOmoji = false) {
+	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink', padding: 8, 'box-sizing': 'border-box' };
+	let info = picInfo(hex);
+	console.log('info', info, info.text);
+	let parts = info.text.split(';');
+	let d = mDiv(table);
+	d.innerHTML = info.text;
+	//d.style.fontFamily=info.family;Segoe UI emoji
+	d.style.fontFamily = 'emoNoto'; //'Segoe UI symbol';//'Segoe UI emoji';
+	d.style.fontSize = '400px';
+	d.style.fontWeight = 100; //'light';
+	//maPic(info, table, picStyles, isText, isOmoji);
+}
+function testKey(key, isText = true, isOmoji = false) {
+	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink', padding: 8, 'box-sizing': 'border-box' };
+	let info = picInfo(key);
+	console.log(info);
+	maPic(info, table, picStyles, isText, isOmoji);
 }
 
 //#region tests layout....
+function test34_emoImages() {
+	ensureSymByType();
+	let dGrid = mDiv(table);
+	let elems = [];
+	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+
+	for (const k of symKeysByType['emo'].slice(100, 1000)) {
+		break;
+		let info = symByType['emo'][k];
+		//console.log(info);
+		for (const x of [{ isText: false, isOmoji: true }, { isText: false, isOmoji: false }, { isText: true, isOmoji: true }]) {
+			let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], x.isText, x.isOmoji);
+			elems.push(el);
+		}
+	}
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, dGrid, gridStyles, { isInline: true, cols: 3 });
+}
+function test33() {
+	let info = picInfo('trade mark');
+	console.log(symbolDict['trade mark'])
+	console.log(info);
+}
+function test32_keycap() {
+	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	let omojikeys = ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
+	let infolist = omojikeys.map(x => picInfo(x));
+	randomHybridGrid(infolist, picLabelStyles, picStyles, false, true);
+	let twekeys = ['copyright', 'registered', 'trade mark'];
+	infolist = twekeys.map(x => picInfo(x));
+	console.log(infolist)
+	randomHybridGrid(infolist, picLabelStyles, picStyles, false, false);
+}
+function test31_hybrids() {
+	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	randomHybridGrid(8, picLabelStyles, picStyles, false, false);
+
+	picLabelStyles = getHarmoniousStylesX(100, 'arial', 'random', 'random', true, true);
+	picStyles = getHarmoniousStylesX(100, 'arial', 'random', 'random', false, true);
+	randomHybridGrid(8, picLabelStyles, picStyles);
+
+	picLabelStyles = getHarmoniousStyles(100, 'arial', 'random', 'random', true);
+	picStyles = getHarmoniousStyles(100, 'arial', 'random', 'random', false);
+	randomHybridGrid(8, picLabelStyles, picStyles);
+}
+
 function test30_personPlayingHandball() {
 	let info = picInfo('handball');
 	let [g, p, t] = getHarmoniousStyles(50, 'arial', 'hotpink', 'random');
@@ -39,7 +152,7 @@ function test30_personPlayingHandball() {
 	let txt = d.children[1];
 	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
 }
-function test29_mpl(sz, family) {
+function test29_mpl(sz = 50, family = 'arial') {
 	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
 	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
 
@@ -50,8 +163,7 @@ function test29_mpl(sz, family) {
 	//console.log(info);
 	let d = maPicLabel(info, table, styles, picStyles, textStyles, false, true);
 	let txt = d.children[1];
-	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
-	mClass(txt, 'truncate');
+	//console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
 }
 function test28_maPicLabelParams() {
 	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
@@ -65,25 +177,26 @@ function test28_maPicLabelParams() {
 	let d = maPicLabel(info, table, styles, picStyles, textStyles, false, true);
 	let txt = d.children[1];
 	console.log('result', d, '\n\n', d.firstChild, '\n\n', txt);
-	mClass(txt, 'truncate');
 }
 function test27_hybrid_elems() {
 	let list = picRandom('emo', null, 20);
-	let picStyles = { h: 50, bg: 'hotpink', fg: 'pink', padding: 8, 'box-sizing': 'border-box' };
+	//let picStyles = { h: 50, bg: 'hotpink', fg: 'pink', padding: 8, 'box-sizing': 'border-box' };
 	let container = mDiv(table);
 
 	//let picLabelStyles = { h: 50, bg: 'random', fg: 'random' };
-	let [g, p, t] = getHarmoniousStyles(50, 'arial', 'hotpink', 'random');
+	let [g, p, t] = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	let [g1, p1] = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
 
 	let elems = [];
 	for (const info of list) {
 		let el = coin() ? maPicLabel(info, container, g, p, t, false, true)
-			: maPic(info, container, picStyles, false, true);
+			: maPicFrame(info, container, g1, p1, false, true);
+		// : maPic(info, container, picStyles, false, true);
 		elems.push(el);
 	}
 	let containerStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let size = layoutGrid(elems, container, containerStyles, { isInline: true });
-	console.log(size);
+	//console.log(size);
 
 
 }

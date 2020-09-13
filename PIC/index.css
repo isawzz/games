@@ -11,10 +11,32 @@ html,body{
   text-overflow: ellipsis;
 }
 .truncate:hover {
+	/* font-size: 8pt; */
+	cursor: none;
+	white-space: normal;
 	overflow: visible;
+	background: dimgray;
+	border-radius: 4px;
+	color: white;
+	/* filter: invert(100%);	 */
+	z-index: 100;
+	/* height: 100px; */
+	position: relative;
 }
 
+.might-overflow {
+	cursor: default;
+	text-overflow: ellipsis;
+	overflow : hidden;
+	white-space: nowrap;
+}
 
+.might-overflow:hover {
+	cursor: default;
+	text-overflow: clip;
+	white-space: normal;
+	/* word-break: break-all; */
+}
 
 
 

@@ -694,6 +694,7 @@ function mText(text, dParent, styles, classes) {
 	//if (isdef(id)) d.id = id;
 	//mAppend(dParent, d);
 	if (isdef(styles)) mStyleX(d, styles);
+
 	if (isdef(classes)) mClass(d, classes);
 	return d;
 }
@@ -2981,14 +2982,14 @@ function wlog() {
 //#region layout helpers
 function calcRowsCols(num, rows, cols) {
 	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
-	console.log(num, rows, cols);
+	//console.log(num, rows, cols);
 	let shape = 'rect';
 	if (isdef(rows) && isdef(cols)) {
 		//do nothing!
 	} else if (isdef(rows)) {
 		cols = Math.ceil(num / rows);
 	} else if (isdef(cols)) {
-		rows = Math.ceil(total / cols);
+		rows = Math.ceil(num / cols);
 	} else if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
 		rows = Math.ceil(Math.sqrt(num));
 		cols = Math.floor(Math.sqrt(num));
@@ -3009,7 +3010,7 @@ function calcRowsCols(num, rows, cols) {
 	} else {
 		rows = 1; cols = num;
 	}
-	console.log(rows, cols, shape);
+	//console.log(rows, cols, shape);
 	return { rows: rows, cols: cols, recommendedShape: shape };
 }
 

@@ -162,10 +162,6 @@ a{
 	flex-wrap:wrap;
 	justify-content:center;
 }
-.linebreak {
-  flex-basis: 100%;
-  height: 0;
-}
 
 /* #region centering */
 .centeredTL {
