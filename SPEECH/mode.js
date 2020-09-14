@@ -10,7 +10,7 @@ function testCheckbox() {
 }
 
 function getPrompt() {
-	if (isEnglish(lang)) {
+	if (isEnglish(currentLanguage)) {
 		if (interactMode == 'speak') return 'Say the word in English';
 		else return 'Type the word in English';
 	} else {
@@ -24,18 +24,18 @@ function updateSpeakCheckbox() {
 	speakMode = (interactMode == 'speak');
 	let inp = mBy('speakMode');
 	//console.log('speakMode', speakMode, inp.checked);
-	if (!inp.checked && speakMode || inp.checked && !speakMode ) inp.click();
+	if (!inp.checked && speakMode || inp.checked && !speakMode) inp.click();
 	inp.checked = speakMode;
 	//console.log('speakMode', speakMode, inp.checked);
 
 }
-function deactivateSpeakmode(){
-	let id = getStandardTagId('e','speak');
+function deactivateSpeakmode() {
+	let id = getStandardTagId('e', 'speak');
 	//console.log('____________ id',id);
 	hide(id); //mBy(id)
 	startWriteMode();
 }
-function switchModeSilently(isManual=false) {
+function switchModeSilently(isManual = false) {
 	//console.log('switchModeSilently')
 	if (interactMode == 'speak') startWriteMode(true); else startSpeakMode(true);
 	// if (isManual) updateSpeakCheckbox();
@@ -49,8 +49,8 @@ function startSpeakMode(triggered = false) {
 	//if (!triggered) updateSpeakCheckbox();
 	if (!isRunning) {
 		if (isdef(recognition)) recognition.start();
-		else{
-			speech00(lang, matchingWords);
+		else {
+			speech00(currentLanguage, matchingWords);
 		}
 	}
 }

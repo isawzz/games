@@ -2,8 +2,25 @@ window.onload = SPEECHStart;
 
 async function SPEECHStart() {
 	await loadAssets();
+	ensureSymBySet();
 	addEventListener('keyup', keyUpHandler);
-	await testSpeech();
+	setStatus('wait');
+	score = 0;
+	initTable(); 
+	let sidebar = mBy('sidebar'); 
+	mText('language:', sidebar);
+	mButton(currentLanguage, onClickSetLanguage, sidebar, { width: 100 });
+	mText('categories:', sidebar);
+	let names = selectedEmoSetNames; 
+	//console.log(names);
+	for (const name of names) {
+		let uName = name;
+		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100 }, ['buttonClass']);
+		b.id = 'b_' + uName;
+	}
+	setGroup(startingCategory);
+	initOptionsUi();
+	if (immediateStart) onClickStartButton();
 }
 function getStandardTagId(elem,postfix){
 	let cat=isString(elem)?elem:getTypeOf(elem);

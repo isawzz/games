@@ -359,7 +359,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🦌,1F98C,animals-nature,animal-mammal,deer,elk|deer,elch|hirsch,dear,,deer,forest,hunt,antler,Sofie Ascherl,2018-04-18,,,,,3,2680
 🐂,1F402,animals-nature,animal-mammal,ox,taurus|ox| bull,büffel | ochs | stier,,,bull,taurus,zodiac,strong,farm,acre,horns,beef,Sofie Ascherl,2018-04-18,,,,,1,2683
 🐃,1F403,animals-nature,animal-mammal,buffalo,water buffalo | bison,bison| büffel,,,buffalo,water,black,horns,beef,Sofie Ascherl,2018-04-18,,,,,1,2684
-🐄,1F404,animals-nature,animal-mammal,cow,cow,kuh,,,cow,farm,milk,beef,grass,dairy,horns,cheese,Sofie Ascherl,2018-04-18,,,,,1,2685
+🐄,1F404,animals-nature,animal-mammal,cow,cow,kuh,call,,cow,farm,milk,beef,grass,dairy,horns,cheese,Sofie Ascherl,2018-04-18,,,,,1,2685
 🐖,1F416,animals-nature,animal-mammal,pig,pig,schwein,,,sow,pork,farm,pink,meat,oink,Sofie Ascherl,2018-04-18,,,,,1,2687
 🐏,1F40F,animals-nature,animal-mammal,ram,ram,bock,,,aries,male,sheep,zodiac,horns,grass,hooves,wool,Sofie Ascherl,2018-04-18,,,,,1,2690
 🐑,1F411,animals-nature,animal-mammal,sheep,ewe| sheep,schaf,,,female,sheep,horns,grass,hooves,wool,farm,Sofie Ascherl,2018-04-18,,,,,0.6,2691
@@ -422,7 +422,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🐌,1F40C,animals-nature,animal-bug,snail,snail,schnecke,,,snail,,Selina Bauder,2018-04-18,,,,,0.6,2761
 🦋,1F98B,animals-nature,animal-bug,butterfly,butterfly,schmetterling,,,insect,pretty,,Selina Bauder,2018-04-18,,,,,3,2762
 🐛,1F41B,animals-nature,animal-bug,bug,caterpillar,raupe,,,insect,,Selina Bauder,2018-04-18,,,,,0.6,2763
-🐜,1F41C,animals-nature,animal-bug,ant,ant,ameise,,,and,,insect,,Selina Bauder,2018-04-18,,,,,0.6,2764
+🐜,1F41C,animals-nature,animal-bug,ant,ant,ameise,aunt,,and,,insect,,Selina Bauder,2018-04-18,,,,,0.6,2764
 🐝,1F41D,animals-nature,animal-bug,bee,bee,biene,b|be,,bee,insect,,Selina Bauder,2018-04-18,,,,,0.6,2765
 🐞,1F41E,animals-nature,animal-bug,ladybug,ladybug,marienkäfer,,,beetle,insect,ladybird,ladybug,,Selina Bauder,2018-04-18,,,,,0.6,2767
 🦗,1F997,animals-nature,animal-bug,cricket,bug|insect|grasshopper | cricket,insekt|grashupfer | grille | heuschreck,grasshopper,,Selina Bauder,2018-04-18,,,,,5,2768

@@ -138,6 +138,14 @@ function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
 	mClass(x, classColors);
 	return x;
 }
+function maPicSimpleEmoHexText(hex, parent, fontSize) {
+	if (isString(parent)) parent = mBy(parent);
+	let d = mDiv(parent);
+	let s1 = '&#' + hex + ';'; //'\u{1F436}';
+	d.innerHTML = s1;
+	d.style.fontSize = fontSize + 'pt';
+	return d;
+}
 function getHarmoniousStylesXX(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
 	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
 	numbers = numbers.map(x => h * x / 100);
@@ -217,7 +225,7 @@ returns info
 	else {
 		ensureSymByHex();
 		let info = symByHex[key];
-		if (isdef(info)) {return info;}
+		if (isdef(info)) { return info; }
 		else {
 			let infolist = picSearch({ keywords: key });
 			//console.log('result from picSearch(' + key + ')', infolist);
@@ -304,6 +312,22 @@ returns list of info
 	}
 	return infolist;
 }
+// function picRandomSet(setname){
+// 	//#region doc 
+// 	/*	
+// usage: ilist = picRandomSet('animal');
+
+// setname ... see assets/emoSets, assumes a valid setname
+
+// returns info
+// 	*/
+// 	//#endregion 
+
+// 	ensureSymBySet();
+// 	setname = setname.toLowerCase();
+// 	//console.log(symBySet,symKeysBySet,setname,symKeysBySet[setname])
+// 	return symBySet[setname][chooseRandom(symKeysBySet[setname])];
+// }
 
 //#region helpers
 

@@ -1,7 +1,8 @@
-var lang = 'E';
+var currentLanguage = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
-const startingCategory = 'emotion';
+const startingCategory = 'animal';
+const immediateStart = true; //fires onClickStartButton 
 var MAXWORDLENGTH = 8;
 var level = 0;
 
@@ -9,9 +10,10 @@ var timit;
 var finalResult, matchingWords, validSounds, recognition, isRunning;
 var status = 'init'; // init | wait | prompt | result | error | nomatch | end
 var hintMessage, feedbackMessage, instructionMessage, score, level, inputBox;
-var hintWord, bestWord, answerCorrect, currentRecord;
+var hintWord, bestWord, answerCorrect, currentInfo;
 var RESTARTING;
 var speakMode = interactMode == 'speak';
+var emoGroup,emoGroupKeys;
 
 
 //#region collections of words

@@ -1,25 +1,4 @@
 
-async function testSpeech() {
-	setStatus('wait');
-	score = 0;
-
-	initTable(); //button and score ui
-
-	let sidebar = mBy('sidebar'); //init sidebar
-	mText('language:', sidebar);
-	mButton(lang, onClickSetLanguage, sidebar, { width: 100 });
-	mText('categories:', sidebar);
-	let names = selectedEmoSetNames; //Object.keys(emoSets).map(x=>x.name).sort();
-	//console.log(names);
-	for (const name of names) {
-		let uName = name.toUpperCase();
-		let b = mButton(uName, () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100 }, ['buttonClass']);
-		b.id = 'b_' + uName;
-	}
-	setGroup(startingCategory);
-
-	initOptionsUi();
-}
 function restart() {
 	RESTARTING = true;
 	if (isdef(recognition) && interactMode == 'speak' && isRunning) {
@@ -47,13 +26,13 @@ function focusOnInput() {
 }
 function onClickSetLanguage() {
 	//toggle lang!
-	if (isEnglish(lang)) lang = 'D'; else lang = 'E';
+	if (isEnglish(currentLanguage)) currentLanguage = 'D'; else currentLanguage = 'E';
 
-	this.innerHTML = lang;
+	this.innerHTML = currentLanguage;
 
 	//restart();
-	//console.log('currentRecord:',currentRecord)
-	if (isdef(currentRecord)) setLanguageWords(lang, currentRecord);
+	console.log('currentInfo:',currentInfo)
+	if (isdef(currentInfo)) setLanguageWords(currentLanguage, currentInfo);
 	//if am in the middle of a hint, now need to redo hint!!!!!!!
 }
 function onClickGroup(group) {
@@ -66,8 +45,8 @@ function onClickStartButton() {
 	deactivateStartButton();
 	let btn = mBy('bStart');
 	let caption = btn.innerHTML;
-	if (caption != 'try again') setSpeechWords(lang);
-	if (interactMode == 'speak') speech00(lang, matchingWords); //simpleSpeech();
+	if (caption != 'try again') setSpeechWords(currentLanguage);
+	if (interactMode == 'speak') speech00(currentLanguage, matchingWords); //simpleSpeech();
 	focusOnInput();
 	//speechEngineInit();
 	//speechEngineGo(lang, matchingWords);
@@ -127,7 +106,7 @@ function blanksInHintWordOrWordLength(hintWord, answer) {
 	} else { return answer.length; }
 }
 function evaluateAnswer(answer) {
-	if (lang == 'D') { answer = convertUmlaute(answer) }
+	if (currentLanguage == 'D') { answer = convertUmlaute(answer) }
 	let words = matchingWords.map(x => x.toUpperCase());
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
 	//console.log('valid', valid)
