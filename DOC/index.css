@@ -156,12 +156,6 @@ a{
   overflow: hidden;
   background-color: #f1f1f1;
 }
-.flexWrap{
-	display:flex;
-	flex:1;
-	flex-wrap:wrap;
-	justify-content:center;
-}
 
 /* #region centering */
 .centeredTL {

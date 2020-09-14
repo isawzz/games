@@ -47,6 +47,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	let info = isString(infokey) ? picInfo(infokey) : infokey;
 	//console.log(infokey)
+	//console.log('isText', isText, 'isOmoji', isOmoji);
 
 	// as img
 	if (!isText && info.type == 'emo') {

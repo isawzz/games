@@ -388,9 +388,9 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🦃,1F983,animals-nature,animal-bird,turkey,turkey,truthahn,,,bird,,Selina Bauder,2018-04-18,,,,,1,2723
 🐔,1F414,animals-nature,animal-bird,chicken,hen | chicken,henne | huhn,,,bird,hen,egg,Selina Bauder,2018-04-18,,,,,0.6,2724
 🐓,1F413,animals-nature,animal-bird,rooster,chicken | rooster,huhn | hahn,,,bird,egg,Selina Bauder,2018-04-18,,,,,1,2725
-🐣,1F423,animals-nature,animal-bird,hatching chick,egg|hatching | chick,ei | küken,,,baby,bird,chick,hatching,baby,egg,Selina Bauder,2018-04-18,,,,,0.6,2726
-🐤,1F424,animals-nature,animal-bird,baby chick,chick,küken,,,baby,bird,chick,small,baby,egg,Selina Bauder,2018-04-18,,,,,0.6,2727
-🐥,1F425,animals-nature,animal-bird,front-facing baby chick,chick,küken,,,baby,bird,chick,,Selina Bauder,2018-04-18,,,,,0.6,2728
+🐣,1F423,animals-nature,animal-bird,hatching chick,egg|hatching | chick,ei | küken,trick|cheek,,baby,bird,chick,hatching,baby,egg,Selina Bauder,2018-04-18,,,,,0.6,2726
+🐤,1F424,animals-nature,animal-bird,baby chick,chick,küken,trick|cheek,,baby,bird,chick,small,baby,egg,Selina Bauder,2018-04-18,,,,,0.6,2727
+🐥,1F425,animals-nature,animal-bird,front-facing baby chick,chick,küken,trick|cheek,,baby,bird,chick,,Selina Bauder,2018-04-18,,,,,0.6,2728
 🐦️,1F426,animals-nature,animal-bird,bird,bird,vogel,,,bird,fly,colourful,Selina Bauder,2018-04-18,,,,,0.6,2729
 🐧,1F427,animals-nature,animal-bird,penguin,penguin,pinguin,,,bird,,Selina Bauder,2018-04-18,,,,,0.6,2730
 🕊️,1F54A,animals-nature,animal-bird,dove,bird | dove,vogel | taube,,,bird,fly,peace,fly,Selina Bauder,2018-04-18,,,,,0.7,2732

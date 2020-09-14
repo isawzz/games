@@ -20,7 +20,7 @@ function getEmoSetWords(lang = 'E') {
 	//key = 'mouse'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
 	// key='baseball'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	//key = 'adhesive bandage';
-	key = 'hippopotamus';
+	//key = 'hippopotamus';
 	//#endregion
 
 	let info = picInfo(key);
@@ -77,6 +77,8 @@ function setLanguageWords(language, info) {
 	hintWord = '_'.repeat(bestWord.length);
 	if (isdef(hintMessage)) clearElement(hintMessage);
 
+	instructionMessage.innerHTML = getPrompt();
+
 }
 function setSpeechWords(l = 'E') {
 	let table = mBy('table');
@@ -91,7 +93,7 @@ function setSpeechWords(l = 'E') {
 	hintWord = '_'.repeat(bestWord.length);
 
 	//picture
-	let d = maPic(currentInfo, table, { fz: 200 });
+	let d = maPic(currentInfo, table, { fz: 250,matop:50 },false,true);
 	mFlexLinebreak(table);
 
 	//hint

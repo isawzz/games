@@ -124,12 +124,6 @@ pre{
 }
 /* #endregion */
 
-.flexWrap{
-	display:flex;
-	flex:1;
-	flex-wrap:wrap;
-	justify-content:center;
-}
 .myclass table {
 	table-layout: auto !important;
 }

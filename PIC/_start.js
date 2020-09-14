@@ -42,19 +42,6 @@ async function start() {
 	test_emoFonts();
 }
 
-function randomHybridGrid(n, picLabelStyles, picStyles, isText = false, isOmoji = true) {
-	let list = isList(n) ? n : picRandom('emo', null, n);
-	let dGrid = mDiv(table);
-	let elems = [];
-	for (const info of list) {
-		let el = coin() ? maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
-			: maPicFrame(info, dGrid, picStyles[0], picStyles[1], isText, isOmoji);
-		elems.push(el);
-	}
-	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let size = layoutGrid(elems, dGrid, gridStyles, { isInline: true });
-	//console.log(size);
-}
 function test_emoFonts() {
 	let textlist = ['&#x25c0;',
 		'&#x2708; ',
@@ -62,18 +49,19 @@ function test_emoFonts() {
 		'&#129489;',
 		'&#129309;',
 	];
-	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto'];
-	mFlex(table);
+	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto','emoColor','emoBlack'];
+	mStyleX(table,{display:'flex','flex-flow':'row wrap'});
+	//mClass(table,'flexWrap');
 	for (const family of fonts) {
-		let d = mDiv(table);
-		d.innerHTML = family;
+		let d = mDiv(table,{w:100,align:'right'});
+		d.innerHTML = family+':';
 		for (const text of textlist) {
 			d = mDiv(table);
-			let styles = { fz: 40, border: 'black', margin: 4, w: 50, align: 'center',family:family };
+			let styles = { fz: 40, border: 'black', margin: 4, align: 'center',family:family}; //, bg:'random',fg:'contrast' };
 			mStyleX(d, styles);
 			d.innerHTML = text;
 		}
-		mFlexLinebreak(table);
+		mLinebreak(table);
 	}
 }
 function testHex(hex, isText = true, isOmoji = false) {
@@ -376,7 +364,7 @@ function test13_15_roles_grid_img() {
 	}
 }
 function test12_1_liners_img() {
-	mFlex(table)
+	mFlexWrap(table)
 	maPic('red heart', table, { w: 50, h: 50, padding: 10, margin: 2, bg: 'yellow' }, false);
 	maPic('red heart', table, { w: 50, h: 50, padding: 10, margin: 2, bg: 'yellow' });
 	// maPic('crow', table, { w: 100, h: 50, bg: 'red' }); 
