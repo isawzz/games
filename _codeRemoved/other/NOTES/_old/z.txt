@@ -1,0 +1,237 @@
+__________________________________
+1. data can be literal,list,object,path
+
+2. type, _id, _ref, _source can be string or list of string
+
+3. cond ist always object
+	=>this node is replicated for each oid qualifying
+	key: eval function,
+	value: data
+
+4. RHS path .[prop.]*prop refers to serverData object
+
+5. LHS path prop[.prop]* refers to rsg object (=node)
+
+6. node 
+	- must have a type (default:panel), 
+	- has meta (ignored for now)
+	- can be named (spec nodes)
+	- has a parent (node)
+	- has children (nodes) =>koennen multiple types of children sein, but for now it is just sub for panel und elm for list
+	- has a relative address within parent
+	- may have absolute address (just a of path from ROOT)
+	- has a component: pool referring to all oids for which this node is instantiated
+		(static object pool=null or undefined)
+		pool inherited from parent or set
+	- has a data component
+	- may have params: all visual directives as needed/processable per type
+	- may have other key/values as type (sub, elm, dict, ...)
+
+7. address can be 
+	key (if parent is object) or 
+	index (if parent is list)
+
+8. oid is serverData object ID
+
+9. type
+	can be standard type (panel, list, info for now)
+	or node name (named spec node)
+
+_________________
+process:
+
+//during tree building process, will keep a list of nodes
+//for each node in SPEC (bl[spName]), generations of nodes produced in each
+//pass, the last of which is the starting point for next
+//generation
+
+//at the end of this process, bl.ROOT will hold complete rsg presentation and
+//can then be presented
+
+orthogonal processes:
+- stages: each node evolves to new node
+- 
+
+example of final node:
+	//welches object will ich eigentlich?
+	let nRes1 ={
+		type: ['info'], //copy of type as list
+		data: 'hallo', //copy of data
+		
+		cond: null, //object
+		_source: null, //rsg node to pull pool filtered by source from
+		// may change! therefore this should be a string
+		_id: [],
+		_ref: [],
+
+		area:'table1', //name of domel
+		host: mBy('table1'), //domel
+		parent: null, //because ROOT of tree,
+		//or node that has host as ui
+
+		spName:'ROOT', //find self in sp.ROOT
+		pool:[], //no associated serverData
+		oid: null, //server object associated to this instance
+		//data could be path within that object!
+
+		ui:null,//to be created by type class
+		params:{bg:'blue',fg:'white'}, //defaults set for each type class
+		// visual props either from node or defaults
+
+		uid: getUID(), //unique id where node can be found in all nodes dict held by rsg
+	};
+
+=>koennte schon in preprocessing 
+=>new and removed nodes kennzeichnen!
+achtung! removed allein ist nicht genug!
+es kann ja auch eine hand changen!
+es kann auch eine property removed werden!
+=>auch mod nodes kann ich presenten!
+
+=>erkenne new object daran dass es keine RSG component hat
+=>woran erkenne ich removed object?or property???
+
+frage: kann ein einziger node mehrere props darstellen?
+wenn ich es so mache dass per node and prop 1 node ist dann nicht!
+dann bekomme aber ca 20K objects
+
+max:200K key-value pairs easily!
+100x10x10=10K-100K kann es schon werden
+
+...wenn ROOT fertig ist:
+
+if pool non empty:
+  foreach oid in pool
+		createUI(ROOT,oid)
+
+each building is a panel with 2 sub
+
+type: list
+_id: a
+
++
+
+cond:
+	obj_type: market
+_ref: a
+data: .neutral
+
+=
+
+cond:
+	obj_type: market
+type: list
+data: .neutral
+
+.prop ist object,list, or id
+wenn es list ist: 
+foreach o aus list:
+  take o._rsg
+
+all_cards:
+  cond:
+    obj_type: card
+  type: info # leaf component
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________
+ROOT:
+  type: info
+  data: hallo welt
+
+nur 1 node: create info object in parentArea, data is literal
+
+ROOT:
+  type: info
+  data: hallo welt
+	parentArea: result
+
+present:
+	params = {}
+	n.ui = mInfo('hallo welt',params, mBy('results'))
+
+1 final node:
+
+ROOT:
+  type: info
+  data: hallo welt
+  content: hallo welt
+	parentArea: result
+	parent: null
+	address: . #address relative to ROOT
+	params: #defaults for info
+	n.ui: mInfo('hallo welt',params, mBy('results'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

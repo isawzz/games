@@ -1,0 +1,10 @@
+_id: 	cp	co	pt	elp	elo	elr
+case 1. 0	0	list 0	0	0
+ok - make example
+
+was soll geschehen?
+for each el in list
+	ch=el
+	ch does not get pool or oid from parent
+	just create this node ch as is
+	inherits? 

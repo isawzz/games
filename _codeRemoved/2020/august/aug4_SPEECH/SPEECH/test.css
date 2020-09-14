@@ -1,0 +1,155 @@
+
+html,body{
+	font: 20px Arial;
+	padding:0;
+	margin:0;
+	color: white;
+	background-color: dimgray;
+	height: 100%;
+}
+.flexWrap{
+	display:flex;
+	flex:1;
+	flex-wrap:wrap;
+	justify-content:center;
+	align-content: flex-start;
+}
+
+#md{
+	height: 98%;
+	/* display: flex; */
+	box-sizing: border-box;
+	padding: 3% 1%;
+}
+#sidebar{
+	float: left;
+	flex: 0 0 auto;
+	padding:4px;
+	height: 100%;
+	background-color: red;
+}
+#table{
+	flex: 0 0 auto;
+	background-color: orange;
+	/* width: 100%; */
+	padding:4px;
+	height: 100%;
+}
+#status{
+	flex: 0 0 auto;
+	position:absolute;
+	bottom:40px;
+	right:20px;
+	background-color: orange;
+}
+
+.selectedGroupButton{
+	background-color: skyblue;
+}
+
+/* #region buttonClass */
+.buttonClass{
+  border-radius: 2px;
+	margin: 2px;
+	padding:0px;
+  border: none;
+	/* background-color: #79d7e4; */
+  outline: none;
+	
+}
+.buttonClass:hover {
+	background-color: #79d7e4;
+}
+.buttonClass:active {
+	background-color: orange;
+}
+
+/* #endregion */
+
+/* #region start button */
+#bStart{
+	margin: 2px;
+  border: none;
+  outline: none;
+	border-radius: 8px;
+	padding: 4px 16px;
+	font-size: 32px;
+	background-color: springgreen;
+	/* align-self: flex-start;
+	justify-self: flex-start; */
+}
+#bStart:hover{
+	background-color: #79d7e4;
+}
+#bStart:active{
+	background-color: red;
+}
+/* #endregion */
+
+/* #region score */
+#scoreDiv{
+	font-size: 22pt;
+	text-align: center;
+}
+#scoreSpan{
+	margin-left:10px;
+	background-color: white;
+	padding: 0px 12px; 
+	border-radius: 8px;
+	color: black;
+}
+
+
+/* #endregion */
+
+/* #region example checkbox */
+.box {
+	background: #666666;
+	color: #ffffff;
+	width: 250px;
+	/* padding: 10px; */
+	/* margin: 1em auto; */
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+input[type="checkbox"] {
+	visibility: hidden;
+	display: none;
+}
+
+label {
+	cursor: pointer;
+}
+
+input[type="checkbox"]+label:before {
+	border: 1px solid #333;
+	content: "\00a0";
+	display: inline-block;
+	font: 16px/1em sans-serif;
+	height: 16px;
+	margin: 2px .25em 0 0;
+	padding: 0;
+	vertical-align: top;
+	width: 16px;
+}
+
+input[type="checkbox"]:checked+label:before {
+	background: #fff;
+	color: #333;
+	content: "\2713";
+	text-align: center;
+}
+
+input[type="checkbox"]:checked+label:after {
+	font-weight: bold;
+}
+
+input[type="checkbox"]:focus+label::before {
+	outline: rgb(59, 153, 252) auto 5px;
+}
+
+/* #endregion */
