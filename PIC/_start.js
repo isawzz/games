@@ -8,6 +8,8 @@ window.onload = async () => { start(); }
 
 async function start() {
 	await loadAssets(); // load from symbolDict
+	ensureSymBySet();
+	ensureSymByType();
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 
 	//#region past test calls
@@ -38,22 +40,54 @@ async function start() {
 
 	//#endregion
 	//test_emoFonts();
-
-	perf01();
+	//testKey('sheep')
+	//perf01('vegetable');
+	await makeHugeSvgFile();
 }
-function range(f,t,st){let arr=[];for(let i=f;i>=t;i+=st)arr.push(i); return arr;}
-function loop(n){return range(1,n,1);}
-function perf01(){
-	mStyleX(table,{display:'flex','flex-flow':'row wrap'});
-	let info=picRandom('emo');
-	let timit = new TimeIt();
-
-	for(const i of loop(10)){
-		maPic(info,table,{},true);
+function range(f, t, st=1) { 
+	let arr = []; 
+	//console.log(f,t)
+	for (let i = f; i <= t; i += st) {
+		//console.log('dsdsdshallo')
+		arr.push(i); 
 	}
-	
+	return arr; 
+}
+function loop(n) { return range(1, n); }
+function perf01(name) {
+	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
+	let n = 100;
+	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
+	// let info = picRandom('emo');
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'white' };
+	//console.log(info);
+	let timit = new TimeIt('hallo');
+	//console.log(loop(10))
+	for (const info of infolist) {
+		maPic(info, table, styles, true, 'segoe ui emoji');
+	}
+	timit.show('nach text segoe:');
+	for (const info of infolist) {
+		maPic(info, table, styles, true, 'firemo'); 
+	}
+	timit.show('nach text firemo:');
+	for (const info of infolist) {
+		maPic(info, table, styles, true);
+	}
+	timit.show('nach text emoNoto:');
+	// for (const info of infolist) {
+	// 	maPic(info, table, styles, false);
+	// }
+	// timit.show('nach img openmoji:');
+	// for (const info of infolist) {
+	// 	maPic(info, table, styles, false, true);
+	// }
+	// timit.show('nach img openmoji:');
 
-
+}
+function testO(info){
+	let styles = { w: 50, h: 50, bg: 'random', fg: 'random' };
+	maPicLabel(info, dParent, styles, false, true);
 }
 
 function test_emoFonts() {
@@ -63,15 +97,15 @@ function test_emoFonts() {
 		'&#129489;',
 		'&#129309;',
 	];
-	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto','emoColor','emoBlack'];
-	mStyleX(table,{display:'flex','flex-flow':'row wrap'});
+	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto', 'emoColor', 'emoBlack'];
+	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	//mClass(table,'flexWrap');
 	for (const family of fonts) {
-		let d = mDiv(table,{w:100,align:'right'});
-		d.innerHTML = family+':';
+		let d = mDiv(table, { w: 100, align: 'right' });
+		d.innerHTML = family + ':';
 		for (const text of textlist) {
 			d = mDiv(table);
-			let styles = { fz: 40, border: 'black', margin: 4, align: 'center',family:family}; //, bg:'random',fg:'contrast' };
+			let styles = { fz: 40, border: 'black', margin: 4, align: 'center', family: family }; //, bg:'random',fg:'contrast' };
 			mStyleX(d, styles);
 			d.innerHTML = text;
 		}

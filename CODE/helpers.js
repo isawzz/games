@@ -2360,7 +2360,11 @@ function processCsvData(allText) {
 //localStorage save and load:
 function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
 function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
-
+async function loadAsText(url) {
+	let f = await fetch(url);
+	let txt = await f.text();
+	return txt;
+}
 async function fetchFileAsText(url) {
 	let f = await fetch(url);
 	let txt = await f.text();
@@ -2382,6 +2386,16 @@ function downloadTextFile(s, filenameNoExt, ext = 'txt') {
 		new Blob([s], { type: "" }));
 
 }
+function downloadAsText(s,filename, ext = 'txt'){
+	downloadTextFile(s,filename,ext);
+}
+function downloadAsYaml(o,filename) {
+	//console.log(symbolDict_)
+	let y = jsonToYaml(o);
+
+	downloadTextFile(y, 'filename', 'yaml');
+}
+
 function downloadHtmlFile(html, filenameNoExt) {
 	//json_str = JSON.stringify(jsonObject);
 	saveFileAtClient(

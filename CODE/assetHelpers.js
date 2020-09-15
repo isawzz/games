@@ -62,7 +62,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	// as text
 	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
 	outerStyles.display = 'inline-block';
-	let innerStyles = { family: info.family };
+	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : info.family;
+	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
 	let dOuter = mDiv(dParent);
@@ -116,7 +117,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 		console.log(info)
 	}
 	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
-	console.log('fzreal', fzreal, 'wreal', wreal, 'hreal', hreal, 'padw', padw, 'padh', padh);
+	//console.log('fzreal', fzreal, 'wreal', wreal, 'hreal', hreal, 'padw', padw, 'padh', padh);
 
 	innerStyles.fz = fzreal;
 	innerStyles.weight = 900;

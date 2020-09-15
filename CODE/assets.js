@@ -229,6 +229,7 @@ function addMeasurementsToSymbolDict(callback = null) {
 }
 
 //symbolDict helpers
+
 function saveSymbolDict() {
 	//console.log(symbolDict_)
 	let y = jsonToYaml(symbolDict);
