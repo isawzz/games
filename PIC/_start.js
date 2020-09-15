@@ -29,9 +29,6 @@ async function start() {
 	// test27_hybrid_elems(); //OK
 	// test28_maPicLabelParams(); ok
 	// test29_mpl(); //ok
-
-	//#endregion
-
 	// test31_hybrids();
 	// test32_keycap();
 	// testKey('people holding hands');
@@ -39,7 +36,24 @@ async function start() {
 	// test33();
 	// test34_emoImages();
 
-	test_emoFonts();
+	//#endregion
+	//test_emoFonts();
+
+	perf01();
+}
+function range(f,t,st){let arr=[];for(let i=f;i>=t;i+=st)arr.push(i); return arr;}
+function loop(n){return range(1,n,1);}
+function perf01(){
+	mStyleX(table,{display:'flex','flex-flow':'row wrap'});
+	let info=picRandom('emo');
+	let timit = new TimeIt();
+
+	for(const i of loop(10)){
+		maPic(info,table,{},true);
+	}
+	
+
+
 }
 
 function test_emoFonts() {
