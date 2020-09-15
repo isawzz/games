@@ -1,11 +1,11 @@
-
-async function makeHugeSvgFile() {
+async function makeExtraSvgFiles() {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let ftext = '';
 	let di = symbolDict;
+	let twodi={}; //let twdi={};
 	let MAX = 10; let cnt = 0;
 	for (const k in symbolDict) {
-		if (cnt > MAX) break; cnt += 1;
+		if (MAX && cnt > MAX) break; cnt += 1;
 		let info = symbolDict[k];
 		if (info.type != 'emo') continue;
 		//console.log(info)
@@ -18,12 +18,43 @@ async function makeHugeSvgFile() {
 			let text = await loadAsText(path);
 			text = stringBefore(text, '<!-- Code');
 			text += '</svg>';
-			let d = mDiv(table, { w: 100, h: 100 });
-			d.innerHTML = text;
-			info[dir.substring(0, 2) + 'Svg'] = text;
+			// let d = mDiv(table, { w: 100, h: 100 });
+			// d.innerHTML = text;
+			lookupSet(twodi,[k,dir.substring(0, 2) + 'Svg'],text);
+			console.log('svg',k,text.substring(0, 20))
+		}
+	}
+	downloadAsYaml(twodi, 'twoDict');
+	console.log('DONE!')
+}
+
+async function makeHugeSvgFile() {
+	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
+	let ftext = '';
+	let di = symbolDict;
+	let MAX = 0; let cnt = 0;
+	for (const k in symbolDict) {
+		if (MAX && cnt > MAX) break; cnt += 1;
+		let info = symbolDict[k];
+		if (info.type != 'emo') continue;
+		//console.log(info)
+		for (const dir of ['openmoji', 'twemoji']) {
+
+			let hex = info.hexcode;
+			if (dir == 'openmoji' && hex.indexOf('-') == 2) hex = '00' + hex;
+			let path = '/assets/svg/' + dir + '/' + hex + '.svg';
+
+			let text = await loadAsText(path);
+			text = stringBefore(text, '<!-- Code');
+			text += '</svg>';
+			// let d = mDiv(table, { w: 100, h: 100 });
+			// d.innerHTML = text;
+			symbolDict[k][dir.substring(0, 2) + 'Svg'] = text;
+			console.log('svg',k,text.substring(0, 20))
 		}
 	}
 	downloadAsYaml(symbolDict, 'symbolDict');
+	console.log('DONE!')
 }
 async function makeHugeSvgFile2(isOmoji = true) {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });

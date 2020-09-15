@@ -37,12 +37,16 @@ async function start() {
 	// testHex('1F9D1-200D-1F91D-200D-1F9D1');
 	// test33();
 	// test34_emoImages();
-
-	//#endregion
 	//test_emoFonts();
 	//testKey('sheep')
 	//perf01('vegetable');
-	await makeHugeSvgFile();
+	//await makeHugeSvgFile();
+
+	//#endregion
+
+	//let x=range(1,56,4);console.log(x);
+	await makeExtraSvgFiles();
+
 }
 function range(f, t, st=1) { 
 	let arr = []; 
