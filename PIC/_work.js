@@ -3,7 +3,7 @@ async function makeExtraSvgFiles() {
 	let ftext = '';
 	let di = symbolDict;
 	let twodi={}; //let twdi={};
-	let MAX = 10; let cnt = 0;
+	let MAX = 0; let cnt = 0;
 	for (const k in symbolDict) {
 		if (MAX && cnt > MAX) break; cnt += 1;
 		let info = symbolDict[k];
@@ -24,7 +24,7 @@ async function makeExtraSvgFiles() {
 			console.log('svg',k,text.substring(0, 20))
 		}
 	}
-	downloadAsYaml(twodi, 'twoDict');
+	downloadAsYaml(twodi, 'svgDict');
 	console.log('DONE!')
 }
 

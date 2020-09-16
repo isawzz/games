@@ -3,12 +3,14 @@ var vidCache, allGames, playerConfig, c52, testCards; //session data
 var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, boats; //new game data
 
 var symbolDict, symbolKeys, symbolList; //gibt es immer
+var svgDict, svgKeys, svgList; //?
 
 //the following are only produced lazily! (see ensure)
 // byType hat keys: emo, icon, eduplo, iduplo!!!
 var symByType, symBySet;//hier sind info dicts
 var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
+var svgDict, svgKeys, svgList; //?
 
 //#endregion
 
@@ -458,6 +460,12 @@ async function loadAssets() {
 	symbolKeys = Object.keys(symbolDict);
 	symbolList = dict2list(symbolDict);
 
+	svgDictC = await vidCache.load('svgDict', route_svgDict);
+	svgDict = vidCache.asDict('svgDict');
+	svgKeys = Object.keys(svgDict);
+	svgList = dict2list(svgDict);
+
+
 }
 async function loadRawAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);
@@ -814,6 +822,12 @@ async function route_symbolDict(filename = 'symbolDict') {
 	return response;
 
 }
+async function route_svgDict(filename = 'svgDict') {
+	let url = '/assets/' + filename + '.yaml';
+	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
+	return response;
+
+}
 async function route_userSpec(game, fname) {
 	try {
 		let url = '/spec/' + game + (isdef(fname) ? '/' + fname : '');
@@ -980,6 +994,7 @@ var allGamesC = null;
 var playerConfigC = null;
 var iconCharsC = null;
 var symbolDictC = null;
+var svgDictC = null;
 var emoCharsC = null;
 var c52C = null;
 var testCardsC = null

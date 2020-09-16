@@ -7,10 +7,11 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 window.onload = async () => { start(); }
 
 async function start() {
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
 	ensureSymBySet();
 	ensureSymByType();
-	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	//await makeExtraSvgFiles();
 
 	//#region past test calls
 	// test10_fz();
@@ -39,13 +40,12 @@ async function start() {
 	// test34_emoImages();
 	//test_emoFonts();
 	//testKey('sheep')
-	//perf01('vegetable');
 	//await makeHugeSvgFile();
 
 	//#endregion
 
 	//let x=range(1,56,4);console.log(x);
-	await makeExtraSvgFiles();
+	perf01('vegetable');
 
 }
 function range(f, t, st=1) { 
@@ -63,7 +63,7 @@ function perf01(name) {
 	let n = 100;
 	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
 	// let info = picRandom('emo');
-	let styles = { w: 100, h: 100, bg: 'blue', fg: 'white' };
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'white', margin:4 };
 	//console.log(info);
 	let timit = new TimeIt('hallo');
 	//console.log(loop(10))
@@ -71,10 +71,12 @@ function perf01(name) {
 		maPic(info, table, styles, true, 'segoe ui emoji');
 	}
 	timit.show('nach text segoe:');
+	mLinebreak(table);
 	for (const info of infolist) {
 		maPic(info, table, styles, true, 'firemo'); 
 	}
 	timit.show('nach text firemo:');
+	mLinebreak(table);
 	for (const info of infolist) {
 		maPic(info, table, styles, true);
 	}
