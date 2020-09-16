@@ -4,13 +4,11 @@ const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
 const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker',
 	'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
 
-window.onload = async () => { start(); }
+window.onload = async () => { await start(); }
 
 async function start() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
-	ensureSymBySet();
-	ensureSymByType();
 	//await makeExtraSvgFiles();
 
 	//#region past test calls
@@ -41,10 +39,12 @@ async function start() {
 	//test_emoFonts();
 	//testKey('sheep')
 	//await makeHugeSvgFile();
+	//let x=range(1,56,4);console.log(x);
+	//let x=loop(10);console.log(x);
 
 	//#endregion
 
-	//let x=range(1,56,4);console.log(x);
+	await ensureSvgDict();
 	perf01('vegetable');
 
 }
@@ -58,7 +58,26 @@ function range(f, t, st=1) {
 	return arr; 
 }
 function loop(n) { return range(1, n); }
+async function perfLoading(){
+	let timit = new TimeIt('hallo '+USE_LOCAL_STORAGE);
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	//timit.show('nach reconstruct...'+USE_LOCAL_STORAGE);
+	await loadAssets(); // load from symbolDict
+	timit.show('nach loadAssets');
+	USE_LOCAL_STORAGE=false;
+	await loadAssets(); // load from symbolDict
+	timit.show('nach re-loadAssets');
+	USE_LOCAL_STORAGE=true;
+
+	ensureSymBySet();
+	ensureSymByType();
+	timit.show('nach load by set,type')
+	await ensureSvgDict();
+	timit.show('nach load svgDict')
+}
 function perf01(name) {
+	ensureSymBySet();
+	//ensureSvgDict();
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
@@ -81,14 +100,14 @@ function perf01(name) {
 		maPic(info, table, styles, true);
 	}
 	timit.show('nach text emoNoto:');
-	// for (const info of infolist) {
-	// 	maPic(info, table, styles, false);
-	// }
-	// timit.show('nach img openmoji:');
-	// for (const info of infolist) {
-	// 	maPic(info, table, styles, false, true);
-	// }
-	// timit.show('nach img openmoji:');
+	for (const info of infolist) {
+		maPic(info, table, styles, false);
+	}
+	timit.show('nach img openmoji:');
+	for (const info of infolist) {
+		maPic(info, table, styles, false, true);
+	}
+	timit.show('nach img openmoji:');
 
 }
 function testO(info){

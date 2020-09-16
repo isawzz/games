@@ -82,6 +82,13 @@ function isEmosetMember(name, info) { return emoSets[name].f(info); }
 //#endregion
 
 //#region ensure
+function ensureAssets(set=true,type=true,hex=false,svg=false){
+	if (set) ensureSymBySet();
+	if (type) ensureSymByType();
+	if (hex) ensureSymByHex();
+	if (svg) ensureSvgDict();
+}
+async function ensureAllAssets(){ensureAllAssets(true,true,true,true);}
 function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }
 function ensureSymByType() {
 	if (nundef(symByType)) {
@@ -111,6 +118,14 @@ function ensureSymByHex() {
 		symKeysByHex = Object.keys(symByHex);
 	}
 
+}
+async function ensureSvgDict() {
+	if (nundef(svgDict)) {
+		svgDictC = await vidCache.load('svgDict', route_svgDict, true, false);
+		svgDict = vidCache.asDict('svgDict');
+		svgKeys = Object.keys(svgDict);
+		svgList = dict2list(svgDict);
+	}
 }
 //#endregion
 
@@ -459,11 +474,6 @@ async function loadAssets() {
 	symbolDict = vidCache.asDict('symbolDict');
 	symbolKeys = Object.keys(symbolDict);
 	symbolList = dict2list(symbolDict);
-
-	svgDictC = await vidCache.load('svgDict', route_svgDict);
-	svgDict = vidCache.asDict('svgDict');
-	svgKeys = Object.keys(svgDict);
-	svgList = dict2list(svgDict);
 
 
 }

@@ -51,6 +51,9 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	// as img
 	if (!isText && info.type == 'emo') {
+
+		//ensureSvgDict(); geht NICHT weil ja awaited werden muss!!!!!!!
+
 		let dir = isOmoji ? 'openmoji' : 'twemoji';
 		let hex = info.hexcode;
 		if (isOmoji && hex.indexOf('-') == 2) hex = '00' + hex;

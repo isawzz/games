@@ -1,3 +1,13 @@
+
+function getSvgKeyFor(key,isOmoji){
+	ensureSvgDict();
+	return  0;
+}
+function saveSvgFor(twodi,k,isOmoji,text){
+	let dir = isOmoji?'openmoji':'twemoji';
+
+}
+
 async function makeExtraSvgFiles() {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let ftext = '';
