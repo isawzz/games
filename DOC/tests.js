@@ -112,19 +112,7 @@ function mHeading(msg,dParent,level,id){
 	mAppend(dParent,p);
 	return p;
 }
-// function mText_(msg,dParent,id){
-// 	let p=mCreate('div');
-// 	if (!isEmpty(msg)) p.innerHTML=msg;
-// 	if (isdef(id)) p.id=id;
-// 	mAppend(dParent,p);
-// 	return p;
-// }
 async function testFetchCsvAsTextAndSearch() {
-	// let x = await (await fetch('/assets/openmoji.csv')).text();
-	// let res = processCsvData(x);
-	// let records = emojiChars = res.records;
-	// let byName = emojiKeys = res.recordsByName;
-	// let num = numEmojis = Object.keys(byName).length;
 	timit = new TimeIt('*timer', TIMIT_SHOW);
 
 	await loadAssets();
@@ -151,17 +139,6 @@ function testRegexSplit() {
 	//in jedem parseFile mach dieses dict und gib jedem funcDict ein property code
 }
 
-async function testIconViewer() {
-	await loadAssets();
-	let d = mDiv(mBy('table'));
-	mColor(d, 'orange');
-	mFlexWrap(d);
-	let n = 4;
-	for (const k in iconChars) {
-		let pic = createPictoX(d, { 'text-align': 'center', border: '1px solid red', margin: 4, 'background-color': 'green' }, null, { s: k }, { key: k }, { s: k });
-		//n -= 1; if (n <= 0) break;
-	}
-}
 function testMultiline() {
 	let d = mDiv(mBy('table'));
 	mSize(d, 200, 200);
@@ -275,29 +252,6 @@ function testDec(){
 	console.log('x',hexStringToDecimal('1A'));
 	console.log('x',hexStringToDecimal('1F499'));
 	console.log('x',hexStringToDecimal('1F981'));
-}
-async function testFetchIndexHtmlAsTextAndSearch() {
-	let x = await (await fetch('/EMOJI/indexTest.html')).text();
-	let syms = x.split("copyToClipboard('");
-
-	syms = syms.slice(1, syms.length - 2);
-	//syms.map(x=>console.log(x));
-	let emoChars = {};
-	for (const s of syms) {
-		let t = stringAfter(s, 'title="');
-		t = stringBefore(t, '"');
-		let name = stringBefore(t, ' - ');
-		let unicode = stringAfter(t, ' - ');
-		//console.log('name',name,'unicode',unicode);
-		let fname = unicode; //stringAfter(s,'src="');	fname=stringBefore(t,'"');
-		emoChars[name] = unicode;
-		if (unicode.length > 5 || unicode == '1F425') {
-			console.log(s);
-		}
-	}
-	console.log(emoChars);
-	await loadAssets();
-	console.log(iconChars);
 }
 
 async function testDirList() {

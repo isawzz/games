@@ -12,7 +12,6 @@ async function DOCStart() {
 	// let vault = await documentVault(['/RSG/js/_rParse.js']);
 	// console.log(vault); return;
 	//testRegexSplit(); return;
-	//testIconViewer(); return;
 	//testMultiline(); return;
 	//testIndenting();return;
 	await loadAssets();

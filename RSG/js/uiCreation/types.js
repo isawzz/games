@@ -274,26 +274,6 @@ function pictoDiv(key, color, w, h) {
 
 function picDiv(size) { return o => pictoDiv(o.key, o.color, size, size); }
 
-function makePictoPiece(mk, o, sz, color) {
-
-	//console.log('unit',unit,'percent',percent,'sz',sz);
-	let [w, h] = [sz, sz];
-
-	let sym = o.obj_type;
-	if (sym in SPEC.symbol) { sym = SPEC.symbol[sym]; }
-	if (!(sym in iconChars)) {
-		//console.log("didn't find key", sym);
-		symNew = Object.keys(iconChars)[randomNumber(5, 120)]; //abstract symbols
-		//console.log('will rep', sym, 'by', symNew)
-		SPEC.symbol[sym] = symNew;
-		sym = symNew;
-	}
-	//console.log(iconChars,sym,iconChars[sym])
-	mk.ellipse({ w: w, h: h, fill: color, alpha: .3 });
-	let pictoColor = color == 'black' ? randomColor() : color;
-	mk.pictoImage(sym, pictoColor, sz * 2 / 3); //colorDarker(color),sz*2/3);
-}
-
 
 //#region unused: mSimplest... isContainerType...
 const RCONTAINERPROP = {

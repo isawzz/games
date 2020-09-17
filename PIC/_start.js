@@ -44,20 +44,9 @@ async function start() {
 
 	//#endregion
 
-	await ensureSvgDict();
-	perf01('vegetable');
+	await perf01('animal');
 
 }
-function range(f, t, st=1) { 
-	let arr = []; 
-	//console.log(f,t)
-	for (let i = f; i <= t; i += st) {
-		//console.log('dsdsdshallo')
-		arr.push(i); 
-	}
-	return arr; 
-}
-function loop(n) { return range(1, n); }
 async function perfLoading(){
 	let timit = new TimeIt('hallo '+USE_LOCAL_STORAGE);
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
@@ -75,35 +64,47 @@ async function perfLoading(){
 	await ensureSvgDict();
 	timit.show('nach load svgDict')
 }
-function perf01(name) {
+async function perf01(name) {
+	let timit = new TimeIt('hallo');
+	await ensureSvgDict();
+	timit.show('nach load svgDict:');
 	ensureSymBySet();
-	//ensureSvgDict();
+	timit.show('nach load sets:');
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
-	// let info = picRandom('emo');
 	let styles = { w: 100, h: 100, bg: 'blue', fg: 'white', margin:4 };
-	//console.log(info);
-	let timit = new TimeIt('hallo');
-	//console.log(loop(10))
 	for (const info of infolist) {
 		maPic(info, table, styles, true, 'segoe ui emoji');
 	}
 	timit.show('nach text segoe:');
 	mLinebreak(table);
-	for (const info of infolist) {
-		maPic(info, table, styles, true, 'firemo'); 
-	}
-	timit.show('nach text firemo:');
-	mLinebreak(table);
+
+	// das ist ein black font!
+	// for (const info of infolist) {
+	// 	maPic(info, table, styles, true, 'firemo'); 
+	// }
+	// timit.show('nach text firemo:');
+	// mLinebreak(table);
+
 	for (const info of infolist) {
 		maPic(info, table, styles, true);
 	}
 	timit.show('nach text emoNoto:');
+	mLinebreak(table);
+
+	for (const info of infolist) {
+		maPic(info, table, styles, true, true);
+	}
+	timit.show('nach text emoNoto:');
+	mLinebreak(table);
+
 	for (const info of infolist) {
 		maPic(info, table, styles, false);
 	}
 	timit.show('nach img openmoji:');
+	mLinebreak(table);
+
 	for (const info of infolist) {
 		maPic(info, table, styles, false, true);
 	}

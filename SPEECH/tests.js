@@ -186,30 +186,6 @@ function setStatus(st) {
 	status = st;
 }
 
-function testSidebar() {
-	let sidebar = mBy('sidebar');
-	let captions = [];
-	for (const k in emojiChars) {
-		let o = emojiChars[k];
-		addIf(captions, o.group);
-	}
-	for (const t of captions) {
-		mButton(t, () => setGroup(t), sidebar, { display: 'block' }); //, styles, classes);//(sidebar)	
-	}
-	// let table = mBy('table');	//console.log(table); return;
-	// mColor(table,'green')
-	// let d=mDiv(table);
-	// mSize(d,200,200);
-	// mColor(d,'red'); //return;
-	// let parent=d;
-	// let sb=mSidebar(table); //d);
-	// mColor(sb,'dimgray','red');
-	// //sb.innerHTML='hallo';
-	// sb.style.minWidth='100px';
-	// sb.style.minHeight='100%';
-
-}
-
 function mInsertFirst(dParent) {
 	let d = mCreate('div');
 	dParent.insertBefore(d, dParent.firstChild);

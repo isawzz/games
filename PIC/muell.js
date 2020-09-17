@@ -52,8 +52,6 @@ function centerFit(d, child) {
 	//console.log('\npadding', padding, '\nwdes', wdes, '\nhdes', hdes, '\nwdesChild', wdesChild, '\nhdesChild', hdesChild, '\nwChild', wChild, '\nhChild', hChild, '\npadx', padx, '\npady', pady);
 	d.style.padding = pady + 'px ' + padx + 'px';
 }
-function isEmojiKey(hex) { return isdef(emojiChars[hex]); }
-
 function fitText(text, rect, dParent, styles, classes) {
 	let l = rect.cx - (rect.w / 2);
 	let t = rect.cy - (rect.h / 2);

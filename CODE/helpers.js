@@ -32,240 +32,6 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 
 	return el;
 }
-function createText({ s, parent, style, classes }) {
-	let d = mText(s, parent);
-	if (isdef(style)) mStyle(d, style);
-	if (isdef(classes)) mClass(d, ...classes);
-}
-function createEmoji({ key, w, h, unit = 'px', fg, bg, padding, cat, parent, border, rounding }) {
-	let emoji = emojiChars[emojiKeys[key]];
-	console.log('emoji', emoji);
-	if (nundef(key)) key = getRandomKey(emojiChars);
-	let ch = emoji.hexcode;
-	console.log('ch', ch)
-	let family = 'emoColor';// (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-	let text = emoji.emoji;// String.fromCharCode('0x' + ch);
-	if (isdef(parent) && isString(parent)) parent = mBy(parent);
-	console.log(parent);
-	console.log(typeof text, text)
-	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
-	let domel;
-	//console.log(parent, cat)
-	if (cat == 'd') {
-		let d = document.createElement('div');
-		d.style.textAlign = 'center';
-		//d.style.fontFamily = family;
-		//d.style.fontWeight = 900;
-		//d.style.fontSize = h + unit;
-		if (isdef(bg)) {
-			console.log('bg', bg);
-			d.style.backgroundColor = bg;
-		}
-		//if (isdef(fg)) d.style.color = fg;
-		d.innerHTML = text;
-		domel = d;
-		if (isdef(padding)) d.style.padding = padding + unit;
-		d.style.display = 'inline-block';
-		d.style.height = h + 2 * padding + unit;
-		d.style.width = d.style.height;
-		//d.style.textAlign = 'center';
-		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
-		if (isdef(border)) d.style.border = border;
-		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
-	} else {
-		//create a g element
-		//add a rectangle element w/ or wo/ stroke and rounding
-		//add a text element
-
-	}
-	domel.key = key;
-	if (parent) parent.appendChild(domel);
-	return domel;
-}
-function createPictoX(parent, style, classes, titleOptions, pictoOptions, captionOptions) {
-	// { key, w = 60, h = 60, unit = 'px', fg = 'blue', bg,
-	// 	padding = 6, cat, parent, border = '1px solid red', rounding = 4, title, caption }) {
-	let d = mDiv(parent);
-	if (isdef(style)) mStyle(d, style);
-	if (isdef(classes)) mClass(d, ...classes);
-	//d.style.textAlign = 'center';
-	if (isdef(titleOptions)) { titleOptions.parent = d; createText(titleOptions); }
-	if (isdef(pictoOptions)) { pictoOptions.parent = d; createPicto(pictoOptions); }
-	if (isdef(captionOptions)) { captionOptions.parent = d; createText(captionOptions); }
-	return d;
-}
-function createPicto({ key, w = 60, h = 60, unit = 'px', fg = 'blue', bg, padding, cat, parent, border, rounding = 4 }) {
-	if (nundef(key)) key = getRandomKey(iconChars);
-	let ch = iconChars[key];
-	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-	let text = String.fromCharCode('0x' + ch);
-	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
-	let domel;
-	//console.log(parent, cat)
-	if (cat == 'd') {
-		let d = document.createElement('div');
-		d.style.textAlign = 'center';
-		d.style.fontFamily = family;
-		d.style.fontWeight = 900;
-		d.style.fontSize = h + unit;
-		if (isdef(bg)) d.style.backgroundColor = bg;
-		if (isdef(fg)) d.style.color = fg;
-		d.innerHTML = text;
-		domel = d;
-		if (isdef(padding)) d.style.padding = padding + unit;
-		d.style.display = 'inline-block';
-		d.style.height = h + 2 * padding + unit;
-		d.style.width = d.style.height;
-		//d.style.textAlign = 'center';
-		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
-		if (isdef(border)) d.style.border = border;
-		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
-	} else {
-		//create a g element
-		//add a rectangle element w/ or wo/ stroke and rounding
-		//add a text element
-
-	}
-	domel.key = key;
-	if (parent) parent.appendChild(domel);
-	return domel;
-}
-function createPictoSimple({ key, w, h, unit = 'px', fg, bg, padding, cat, parent, border, rounding }) {
-	if (nundef(key)) key = getRandomKey(iconChars);
-	let ch = iconChars[key];
-	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
-	let text = String.fromCharCode('0x' + ch);
-	cat = isdef(cat) ? cat : isdef(parent) ? getTypeOf(parent) == 'div' ? 'd' : 'g' : isdef(cat) ? cat : 'd';
-	if (nundef(w)) w = 25;
-	if (nundef(h)) h = w;
-
-	let domel;
-	//console.log(parent, cat)
-	if (cat == 'd') {
-		let d = document.createElement('div');
-		d.style.textAlign = 'center';
-		d.style.fontFamily = family;
-		d.style.fontWeight = 900;
-		d.style.fontSize = h + unit;
-		if (isdef(bg)) d.style.backgroundColor = bg;
-		//d.style.backgroundColor='red';
-		if (isdef(fg)) d.style.color = fg;
-		d.innerHTML = text;
-		domel = d;
-		if (isdef(padding)) d.style.padding = padding + unit;
-		d.style.display = 'inline-block';
-		d.style.height = h + 2 * padding + unit;
-		d.style.width = d.style.height;
-		//d.style.textAlign = 'center';
-		//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
-		if (isdef(border)) d.style.border = border;
-		if (isdef(rounding)) d.style.borderRadius = rounding + unit;
-	} else {
-		//create a g element
-		//add a rectangle element w/ or wo/ stroke and rounding
-		//add a text element
-
-	}
-	domel.key = key;
-	if (parent) parent.appendChild(domel);
-	return domel;
-}
-function mPicSimple(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding, shape }) {
-	if (nundef(w)) w = 25;
-	if (nundef(h)) h = w;
-
-	let d = document.createElement('div');
-	if (dParent) dParent.appendChild(d);
-	d.style.textAlign = 'center';
-	d.style.fontFamily = info.family;
-	d.style.fontWeight = 900;
-	d.style.fontSize = h + unit;
-	//d.style.paddintTop = Math.max(padding,h/4)+unit;
-	[bg, fg] = getExtendedColors(bg, fg);
-	if (isdef(bg)) d.style.backgroundColor = bg;
-	if (isdef(fg)) d.style.color = fg;
-	d.innerHTML = info.text;
-	if (isdef(padding)) d.style.padding = padding + unit;
-	d.style.display = 'inline-block';
-	d.style.minHeight = h + padding + unit;
-	d.style.minWidth = w + 2 * padding + unit;
-	//d.style.textAlign = 'center';
-	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
-	if (isdef(border)) d.style.border = border;
-	if (isdef(rounding)) d.style.borderRadius = rounding + unit;
-	else if (isdef(shape) && shape == 'ellipse') {
-		let b = getBounds(d);
-		let vertRadius = b.height / 2;
-		let horRadius = b.width / 2;
-		let r = Math.min(vertRadius, horRadius);
-		console.log(b, r)
-		// d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
-		d.style.borderRadius = `${r}${unit}`;
-	}
-	d.key = info.key;
-	return d;
-}
-function mPicSimple1(info, dParent, { w, h, unit = 'px', fg, bg, padding, border, rounding, shape }) {
-	if (nundef(w)) w = 25;
-	if (nundef(h)) h = w;
-	if (nundef(padding)) padding = 0;
-
-	let dOuter = document.createElement('div');
-	if (dParent) dParent.appendChild(dOuter);
-	let dInner = document.createElement('div');
-	if (dOuter) dOuter.appendChild(dInner);
-
-	let text = info.text;
-	let fz = h - 2 * padding;
-	dInner.style.fontFamily = info.family;
-	dInner.style.fontWeight = 900;
-	dInner.style.fontSize = fz + unit;
-	let wText = measureText(text, fz, info.family, 900).w;
-	let wInner = Math.max(wText, w - 2 * padding);
-	console.log('wText', wText, 'wInner', wInner, 'w', w, 'padding', padding)
-	//let padleft = padding;
-	// console.log(wText,wInner,w,w-2*padding)
-	// if (wInner > (w-2*padding)){
-	// 	let diff = wInner - (w-2*padding);
-	// 	w += diff/2;
-	// }
-	let hInner = fz;
-	dInner.style.display = 'inline-block';
-	//dInner.style.minHeight = fz + unit;
-	dInner.style.minWidth = wInner + padding; // (w-2*padding) + unit;
-	dInner.style.textAlign = 'center';
-	// dInner.style.position = 'relative';
-	// dInner.style.left = padding + unit;
-	// dInner.style.right = padding + unit;
-
-	dOuter.style.display = 'inline-block';
-	dOuter.style.boxSizing = 'border-box';
-	// dInner.style.position = 'relative';
-	//dOuter.style.minHeight = h + unit;
-	//dOuter.style.minWidth = w + unit;
-
-	//d.style.paddintTop = Math.max(padding,h/4)+unit;
-	[bg, fg] = getExtendedColors(bg, fg);
-	if (isdef(bg)) dOuter.style.backgroundColor = bg;
-	if (isdef(fg)) dOuter.style.color = fg;
-	dInner.innerHTML = info.text;
-	if (isdef(padding)) dOuter.style.padding = '' + padding + unit; //`${padding}${unit} ${padleft}${unit}`;
-	//d.style.textAlign = 'center';
-	//console.log('padding', padding, 'unit', unit, 'w', d.style.width, 'h', d.style.height);
-	if (isdef(border)) dOuter.style.border = border;
-	if (isdef(rounding)) dOuter.style.borderRadius = rounding + unit;
-	else if (isdef(shape) && shape == 'ellipse') {
-		let b = getBounds(dOuter);
-		let vertRadius = b.height / 2;
-		let horRadius = b.width / 2;
-		let r = Math.min(vertRadius, horRadius);
-		console.log(b, r)
-		// d.style.borderRadius = `${horRadius}${unit} ${vertRadius}${unit} ${horRadius}${unit} ${vertRadius}${unit}`;
-		dOuter.style.borderRadius = `${r}${unit}`;
-	}
-	dOuter.key = info.key;
-	return dOuter;
-}
 
 //#endregion
 
@@ -375,7 +141,7 @@ function mLabel(label) { return mText(label); }
 function mLinebreak(dParent) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
-	console.log('parent style',dParent.style.display)
+	//console.log('parent style',dParent.style.display)
 	if (dParent.style.display == 'flex') mClass(d, 'linebreak');
 	else d.innerHTML = '<br>';
 	return d;
@@ -2985,6 +2751,16 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 //#endregion
 
 //#region objects, dictionaries, lists, arrays
+function range(f, t, st=1) { 
+	let arr = []; 
+	//console.log(f,t)
+	for (let i = f; i <= t; i += st) {
+		//console.log('dsdsdshallo')
+		arr.push(i); 
+	}
+	return arr; 
+}
+function loop(n) { return range(1, n); }
 function takeFromStart(ad, n) {
 	if (isDict(ad)) {
 		let keys = Object.keys(ad);
@@ -2998,7 +2774,6 @@ function takeFromTo(ad, from, to) {
 		return keys.slice(from, to).map(x => (ad[x]));
 	} else return ad.slice(from, to);
 }
-
 function addIf(arr, el) {
 	if (!arr.includes(el)) arr.push(el);
 }
