@@ -2152,10 +2152,10 @@ function downloadTextFile(s, filenameNoExt, ext = 'txt') {
 		new Blob([s], { type: "" }));
 
 }
-function downloadAsText(s,filename, ext = 'txt'){
-	downloadTextFile(s,filename,ext);
+function downloadAsText(s, filename, ext = 'txt') {
+	downloadTextFile(s, filename, ext);
 }
-function downloadAsYaml(o,filename) {
+function downloadAsYaml(o, filename) {
 	//console.log(symbolDict_)
 	let y = jsonToYaml(o);
 
@@ -2751,16 +2751,17 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 //#endregion
 
 //#region objects, dictionaries, lists, arrays
-function range(f, t, st=1) { 
-	let arr = []; 
+function range(f, t, st = 1) {
+	let arr = [];
 	//console.log(f,t)
 	for (let i = f; i <= t; i += st) {
 		//console.log('dsdsdshallo')
-		arr.push(i); 
+		arr.push(i);
 	}
-	return arr; 
+	return arr;
 }
 function loop(n) { return range(1, n); }
+function arrTake(arr, n) { return takeFromStart(arr, n); }
 function takeFromStart(ad, n) {
 	if (isDict(ad)) {
 		let keys = Object.keys(ad);

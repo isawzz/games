@@ -73,30 +73,30 @@ async function perf01(name) {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
-	let styles = { w: 100, h: 100, bg: 'blue', fg: 'white', margin:4 };
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'red', margin:4, align:'center' };
+
+	infolist = arrTake(infolist,12);
+
+	//segoe ui emoji
+	mText('font: segoe');
 	for (const info of infolist) {
 		maPic(info, table, styles, true, 'segoe ui emoji');
 	}
 	timit.show('nach text segoe:');
 	mLinebreak(table);
 
-	// das ist ein black font!
-	// for (const info of infolist) {
-	// 	maPic(info, table, styles, true, 'firemo'); 
-	// }
-	// timit.show('nach text firemo:');
-	// mLinebreak(table);
-
+	mText('font: emoNoto');
 	for (const info of infolist) {
 		maPic(info, table, styles, true);
 	}
 	timit.show('nach text emoNoto:');
 	mLinebreak(table);
 
+	mText('font: emoOpen');
 	for (const info of infolist) {
 		maPic(info, table, styles, true, true);
 	}
-	timit.show('nach text emoNoto:');
+	timit.show('nach text emoOpen:');
 	mLinebreak(table);
 
 	for (const info of infolist) {
@@ -123,7 +123,7 @@ function test_emoFonts() {
 		'&#129489;',
 		'&#129309;',
 	];
-	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto', 'openmoColor', 'openmoBlack'];
+	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto', 'emoOpen', 'openmoBlack'];
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	//mClass(table,'flexWrap');
 	for (const family of fonts) {

@@ -65,7 +65,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	// as text
 	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
 	outerStyles.display = 'inline-block';
-	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : info.family;
+	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : isOmoji == true ? 'openmoBlack' : info.family;
+	console.log('family', family)
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 

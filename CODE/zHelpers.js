@@ -142,7 +142,7 @@ function createEmoji({ key, w, h, unit = 'px', fg, bg, padding, cat, parent, bor
 	if (nundef(key)) key = getRandomKey(emojiChars);
 	let ch = emoji.hexcode;
 	console.log('ch', ch)
-	let family = 'openmoColor';// (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
+	let family = 'emoOpen';// (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 	let text = emoji.emoji;// String.fromCharCode('0x' + ch);
 	if (isdef(parent) && isString(parent)) parent = mBy(parent);
 	console.log(parent);
