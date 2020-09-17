@@ -18,7 +18,7 @@ function mPicto(n, R, uidParent) {
 
 	//ui = createPicto({key:key,w:w,h:h,fg:fg,bg:bg,parent:dParent})
 
-	// ui = mPic(key);
+	// ui = maPicSimple(key);
 	// ui.style.backgroundColor = randomColor();
 	// ui.style.color = colorIdealText(ui.style.backgroundColor);
 	// ui.style.minWidth = w+'px'; //n.params.size.w+'px';
@@ -57,7 +57,7 @@ function mPictoWrapper(n, R, uidParent) {
 	addClass(uiWrapper, 'cardWrapper');
 
 	let key = n.content; //key='crow';
-	let ui = mPic(key);
+	let ui = maPicSimple(key);
 	mAppend(uiWrapper, ui);
 	addClass(ui, 'pictoStyle');
 

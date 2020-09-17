@@ -137,6 +137,12 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	return dOuter;
 
 }
+function maPicSimple(key) {
+	let info = picInfo(key);
+	let d = mText(info.text);
+	d.style.setProperty('font-family', info.family);
+	return d;
+}
 function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
 	let x = maPic(key, dParent, styles);
 	if (isdef(handler)) x.onclick = handler;

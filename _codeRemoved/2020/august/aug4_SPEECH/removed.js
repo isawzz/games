@@ -176,7 +176,7 @@ function mEmoTrial1(key, dParent, styles, classes) {
 	//d.style.fontSize = fontSize + 'pt';
 	return d;
 }
-function mPic(key) {
+function maPicSimple(key) {
 	let ch = iconChars[key];
 	let family = (ch[0] == 'f' || ch[0] == 'F') ? 'pictoFa' : 'pictoGame';
 	let text = String.fromCharCode('0x' + ch);

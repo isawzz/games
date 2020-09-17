@@ -289,7 +289,7 @@ function mPicto(n, uidParent, R) {
 	addClass(uiWrapper, 'cardWrapper');
 
 	let key = n.content; //key='crow';
-	let ui = mPic(key);
+	let ui = maPicSimple(key);
 	mAppend(uiWrapper, ui);
 	addClass(ui, 'pictoStyle');
 
@@ -358,7 +358,7 @@ function layoutHand(n) {
 		n.ui.style.maxWidth = '' + (wTotal + 2) + 'px';
 	}
 }
-function pictoDiv(key, color, w, h) { let d = mPic(key); mColor(d, color); mSizePic(d, w, h); return d; }
+function pictoDiv(key, color, w, h) { let d = maPicSimple(key); mColor(d, color); mSizePic(d, w, h); return d; }
 
 function picDiv(size) { return o => pictoDiv(o.key, o.color, size, size); }
 

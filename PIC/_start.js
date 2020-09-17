@@ -123,7 +123,7 @@ function test_emoFonts() {
 		'&#129489;',
 		'&#129309;',
 	];
-	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto', 'emoColor', 'emoBlack'];
+	let fonts = ['arial', 'segoe UI', 'segoe UI symbol', 'segoe UI emoji', 'emoNoto', 'openmoColor', 'openmoBlack'];
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	//mClass(table,'flexWrap');
 	for (const family of fonts) {

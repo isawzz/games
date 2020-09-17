@@ -266,7 +266,7 @@ function layoutHand(n) {
 	}
 }
 function pictoDiv(key, color, w, h) {
-	let d = mPic(key);
+	let d = maPicSimple(key);
 	mColor(d, color);
 	mSizePic(d, w, h);
 	return d;
