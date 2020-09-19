@@ -2941,8 +2941,21 @@ function firstCond(arr, func) {
 	if (nundef(arr)) return null;
 	for (const a of arr) {
 		if (func(a)) return a;
+
 	}
 	return null;
+}
+function firstNCond(n,arr, func) {
+	//return first elem that fulfills condition
+	if (nundef(arr)) return [];
+	let result = [];
+	let cnt=0;
+	for (const a of arr) {
+		cnt+=1;if (cnt>n) break;
+		if (func(a)) result.push(a);
+
+	}
+	return result;
 }
 function allCondDictKV(d, func) {
 	let res = [];
