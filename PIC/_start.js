@@ -7,8 +7,8 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 window.onload = async () => { await start(); }
 
 async function start() {
-	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
-	await loadAssets(); // load from symbolDict
+	SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	//await loadAssets(); // load from symbolDict
 	//await makeExtraSvgFiles();
 
 	//#region past test calls
@@ -73,23 +73,25 @@ async function perf01(name) {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
-	let styles = { w: 100, h: 100, bg: 'blue', fg: 'red', margin:4, align:'center' };
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin:4, align:'center' };
 
-	infolist = arrTake(infolist,12);
+	infolist = arrTake(infolist,2);
+
+	//orig font text: sizing should be correct!!!
+	mText('font: emoNoto');
+	for (const info of infolist) {
+		maPic(info, table, styles, true);
+	}
+	timit.show('nach text emoNoto:');
+	mLinebreak(table);
 
 	//segoe ui emoji
 	mText('font: segoe');
 	for (const info of infolist) {
 		maPic(info, table, styles, true, 'segoe ui emoji');
 	}
+	return;
 	timit.show('nach text segoe:');
-	mLinebreak(table);
-
-	mText('font: emoNoto');
-	for (const info of infolist) {
-		maPic(info, table, styles, true);
-	}
-	timit.show('nach text emoNoto:');
 	mLinebreak(table);
 
 	mText('font: emoOpen');

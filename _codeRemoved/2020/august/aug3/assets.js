@@ -203,7 +203,7 @@ function addAnnotationsToSymbolDict(saveAtEnd = true) {
 function addMeasurementsToSymbolDict(callback = null) {
 	let list = symbolKeys;
 	//console.log('---------------symbolKeys', list)
-	for (const k of list) { showAndSave(k); }
+	for (const k of list) { addElemsForMeasure(k); }
 	//setTimeout(recordInfo,2000);
 	setTimeout(() => {
 		recordInfo();
@@ -245,7 +245,7 @@ function recordInfo() {
 	saveSymbolDict();
 
 }
-function showAndSave(key) {
+function addElemsForMeasure(key) {
 	let info = picInfo(key);
 	//console.log(info)
 	//sammelDict_[info.key] = info;
@@ -277,7 +277,7 @@ function reconstructX1() {
 function reconstructX2() {
 	//console.log('start rec 2');
 	let list = symbolKeys;
-	for (const k of list) { showAndSave(k); }
+	for (const k of list) { addElemsForMeasure(k); }
 	setTimeout(reconstructX3, 2000);
 }
 function reconstructX3() {

@@ -82,13 +82,13 @@ function isEmosetMember(name, info) { return emoSets[name].f(info); }
 //#endregion
 
 //#region ensure
-function ensureAssets(set=true,type=true,hex=false,svg=false){
+function ensureAssets(set = true, type = true, hex = false, svg = false) {
 	if (set) ensureSymBySet();
 	if (type) ensureSymByType();
 	if (hex) ensureSymByHex();
 	if (svg) ensureSvgDict();
 }
-async function ensureAllAssets(){ensureAllAssets(true,true,true,true);}
+async function ensureAllAssets() { ensureAllAssets(true, true, true, true); }
 function ensureSymBySet() { if (nundef(symBySet)) { makeEmoSetIndex(); } }
 function ensureSymByType() {
 	if (nundef(symByType)) {
@@ -113,7 +113,7 @@ function ensureSymByHex() {
 		symKeysByHex = [];
 		for (const k in symbolDict) {
 			let info = symbolDict[k];
-			symByHex[info.hexcode]=info;
+			symByHex[info.hexcode] = info;
 		}
 		symKeysByHex = Object.keys(symByHex);
 	}
@@ -234,7 +234,7 @@ function addAnnotationsToSymbolDict(saveAtEnd = true) {
 function addMeasurementsToSymbolDict(callback = null) {
 	let list = symbolKeys;
 	//console.log('---------------symbolKeys', list)
-	for (const k of list) { showAndSave(k); }
+	for (const k of list) { addElemsForMeasure(k); }
 	//setTimeout(recordInfo,2000);
 	setTimeout(() => {
 		recordInfo();
@@ -277,7 +277,7 @@ function recordInfo() {
 	saveSymbolDict();
 
 }
-function showAndSave(key) {
+function addElemsForMeasure(key) {
 	let info = picInfo(key);
 	//console.log(info)
 	//sammelDict_[info.key] = info;
@@ -290,6 +290,21 @@ function showAndSave(key) {
 	// let family = 'pictoFa';
 	element.style.fontFamily = info.family;
 	element.innerHTML = info.text;
+
+	if (info.type == 'emo') {
+		//also add elem for openMoji font 
+		//also add info for segoe ui emoji
+		// let fontlist = ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol'];
+		for (family of EMOFONTLIST) {
+			// let family = 'segoe ui emoji';
+			let el2 = mDiv(table);
+			el2.innerHTML = info.text;
+			console.log(el2)
+			mStyleX(el2, style);
+			UIS[key + '_' + family] = el2;
+			el2.style.fontFamily = family;
+		}
+	}
 }
 //#endregion
 
@@ -297,19 +312,23 @@ function showAndSave(key) {
 async function reconstructX() {
 	//console.log('start rec 0');
 	await symbolDictFromCsv(false);
-	setTimeout(reconstructX1, 0);
+	// 	setTimeout(reconstructX1, 0);
 
-}
-function reconstructX1() {
-	symByType = symBySet = null;
-	//console.log('start rec 1');
+	// }
+	// function reconstructX1() {
+	// 	symByType = symBySet = null;
+	// 	//console.log('start rec 1');
 	addAnnotationsToSymbolDict(false);
-	setTimeout(reconstructX2, 0);
-}
-function reconstructX2() {
-	//console.log('start rec 2');
+	// 	setTimeout(reconstructX2, 0);
+	// }
+	// function reconstructX2() {
+	// 	//console.log('start rec 2');
 	let list = symbolKeys;
-	for (const k of list) { showAndSave(k); }
+
+
+	for (const k of list) {
+		addElemsForMeasure(k);
+	}
 	setTimeout(reconstructX3, 2000);
 }
 function reconstructX3() {
@@ -495,7 +514,7 @@ async function loadRawAssets() {
 			continue;
 		}
 		let newKey = emojiChars[k].annotation;
-		if (isdef(emojiKeys[newKey])) console.log('DUPLICATE KEY PROBLEM!!!!!!!!!',newKey)
+		if (isdef(emojiKeys[newKey])) console.log('DUPLICATE KEY PROBLEM!!!!!!!!!', newKey)
 		emojiKeys[newKey] = k;
 	}
 	numEmojis = Object.keys(emojiKeys).length;
