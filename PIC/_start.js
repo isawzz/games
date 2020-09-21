@@ -73,7 +73,8 @@ async function perf01(name) {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name) ? symListBySet[name] : loop(n).map(x => picRandom('emo'))
-	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin: 4, align: 'center' };
+	let styles = { w: 100, h: 100, bg: 'blue', 
+	fg: 'gold', margin: 4, align: 'center' };
 
 	infolist = arrTake(infolist, 1);
 
@@ -84,6 +85,9 @@ async function perf01(name) {
 	}
 	//timit.show('nach text emoNoto:');
 	mLinebreak(table);
+
+	throw new Error();
+
 
 	//segoe ui emoji
 	for (const ff of ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
@@ -96,7 +100,6 @@ async function perf01(name) {
 		mLinebreak(table);
 	}
 
-	//throw new Error();
 
 	mText('font: emoOpen', table);
 	for (const info of infolist) {

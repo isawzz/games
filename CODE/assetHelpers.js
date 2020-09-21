@@ -75,7 +75,6 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	let wInfo = info.w[i];
 	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
 	let hInfo = info.h[i];
-	console.log('====>>>>', family, wInfo, hInfo);
 
 
 
@@ -130,6 +129,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	hreal = f * hInfo;
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
+	console.log('====>>>>', family, '\nw.info',wInfo, 
+	'\nh.info',hInfo,'\nfactor',f,'\nw',wreal,'\nh',hreal);
 
 	if (!(padw >= 0 && padh >= 0)) {
 		console.log(info)
