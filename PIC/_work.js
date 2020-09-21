@@ -1,4 +1,5 @@
 //#region reconstructX_
+var TESTMAX=0;
 async function reconstructX() {
 	//console.log('start rec 0');
 	await symbolDictFromCsv(false);
@@ -14,11 +15,9 @@ async function reconstructX() {
 	// function reconstructX2() {
 	// 	//console.log('start rec 2');
 	let list = symbolKeys;
-
-	let TESTMAX = 2; let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
-	console.log('kkkkkkkkkkkkkkkkkk')
-	list1.map(x => console.log(symbolDict[x])); return;
+	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
 	for (const k of list) {
+		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
 
 		addElemsForMeasure(k);
 	}
@@ -27,7 +26,10 @@ async function reconstructX() {
 function reconstructX3() {
 	//console.log('start rec 3');
 	let toBeRemoved = [];
-	for (const k in symbolDict) {
+	let list = symbolKeys;
+	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
+	for (const k of list) {
+		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
 		let info = symbolDict[k];
 		if (isString(info)) toBeRemoved.push(k);
 		else berechnungen(symbolDict[k]);

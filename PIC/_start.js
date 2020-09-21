@@ -44,7 +44,7 @@ async function start() {
 
 	//#endregion
 
-	await perf01('animal');
+	//await perf01('animal');
 
 }
 async function perfLoading(){

@@ -253,16 +253,6 @@ function saveSymbolDict() {
 
 	downloadTextFile(y, 'symbolDict', 'yaml');
 }
-function berechnungen(info) {
-	if (isString(info)) return;
-	let elem = UIS[info.key];
-	//console.log(typeof info, info, info.key, elem)
-	//console.log(elem.getBoundingClientRect(elem));
-	let b = elem.getBoundingClientRect(elem);
-	info.fz = 100;
-	info.w = Math.round(b.width);
-	info.h = Math.round(b.height);
-}
 function recordInfo() {
 	console.log('start recording...');
 	let toBeRemoved = [];
@@ -276,6 +266,37 @@ function recordInfo() {
 
 	saveSymbolDict();
 
+}
+function berechnungen(info) {
+	if (isString(info)) return;
+	let elem = UIS[info.key];
+	//console.log(typeof info, info, info.key, elem)
+	//console.log(elem.getBoundingClientRect(elem));
+	let b = elem.getBoundingClientRect(elem);
+	info.fz = 100;
+	info.w = [Math.round(b.width)];
+	info.h = [Math.round(b.height)];
+	if (info.type == 'emo') {
+		for (family of EMOFONTLIST) {
+			let fontKey = makeFontKey(info.key, family)
+			elem = UIS[fontKey];
+			let b = elem.getBoundingClientRect(elem);
+
+			//info.fz = 100;
+			info.w.push(Math.round(b.width));
+			info.h.push(Math.round(b.height));
+		}
+	}
+}
+function berechnungen_dep(info) {
+	if (isString(info)) return;
+	let elem = UIS[info.key];
+	//console.log(typeof info, info, info.key, elem)
+	//console.log(elem.getBoundingClientRect(elem));
+	let b = elem.getBoundingClientRect(elem);
+	info.fz = 100;
+	info.w = Math.round(b.width);
+	info.h = Math.round(b.height);
 }
 function addElemsForMeasure(key) {
 	let info = picInfo(key);
@@ -301,10 +322,13 @@ function addElemsForMeasure(key) {
 			el2.innerHTML = info.text;
 			console.log(el2)
 			mStyleX(el2, style);
-			UIS[key + '_' + family] = el2;
+			UIS[makeFontKey(key, family)] = el2;
 			el2.style.fontFamily = family;
 		}
 	}
+}
+function makeFontKey(key, family) {
+	return key + '_' + family
 }
 //#endregion
 
