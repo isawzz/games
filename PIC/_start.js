@@ -7,8 +7,8 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 window.onload = async () => { await start(); }
 
 async function start() {
-	SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
-	//await loadAssets(); // load from symbolDict
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
+	await loadAssets(); // load from symbolDict
 	//await makeExtraSvgFiles();
 
 	//#region past test calls
@@ -44,19 +44,19 @@ async function start() {
 
 	//#endregion
 
-	//await perf01('animal');
+	await perf01('animal');
 
 }
-async function perfLoading(){
-	let timit = new TimeIt('hallo '+USE_LOCAL_STORAGE);
+async function perfLoading() {
+	let timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	//timit.show('nach reconstruct...'+USE_LOCAL_STORAGE);
 	await loadAssets(); // load from symbolDict
 	timit.show('nach loadAssets');
-	USE_LOCAL_STORAGE=false;
+	USE_LOCAL_STORAGE = false;
 	await loadAssets(); // load from symbolDict
 	timit.show('nach re-loadAssets');
-	USE_LOCAL_STORAGE=true;
+	USE_LOCAL_STORAGE = true;
 
 	ensureSymBySet();
 	ensureSymByType();
@@ -65,55 +65,61 @@ async function perfLoading(){
 	timit.show('nach load svgDict')
 }
 async function perf01(name) {
-	let timit = new TimeIt('hallo');
+	//let timit = new TimeIt('hallo');
 	await ensureSvgDict();
-	timit.show('nach load svgDict:');
+	//timit.show('nach load svgDict:');
 	ensureSymBySet();
-	timit.show('nach load sets:');
+	//timit.show('nach load sets:');
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
-	let infolist = isdef(name)? symListBySet[name]: loop(n).map(x=>picRandom('emo'))
-	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin:4, align:'center' };
+	let infolist = isdef(name) ? symListBySet[name] : loop(n).map(x => picRandom('emo'))
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin: 4, align: 'center' };
 
-	infolist = arrTake(infolist,2);
+	infolist = arrTake(infolist, 1);
 
 	//orig font text: sizing should be correct!!!
-	mText('font: emoNoto');
+	mText('font: emoNoto', table);
 	for (const info of infolist) {
 		maPic(info, table, styles, true);
 	}
-	timit.show('nach text emoNoto:');
+	//timit.show('nach text emoNoto:');
 	mLinebreak(table);
 
 	//segoe ui emoji
-	mText('font: segoe');
-	for (const info of infolist) {
-		maPic(info, table, styles, true, 'segoe ui emoji');
+	for (const ff of ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
+		mText('font: '+ff, table);
+		for (const info of infolist) {
+			maPic(info, table, styles, true, ff);
+		}
+		//return;
+		//timit.show('nach font:',ff);
+		mLinebreak(table);
 	}
-	return;
-	timit.show('nach text segoe:');
-	mLinebreak(table);
 
-	mText('font: emoOpen');
+	//throw new Error();
+
+	mText('font: emoOpen', table);
 	for (const info of infolist) {
 		maPic(info, table, styles, true, true);
 	}
-	timit.show('nach text emoOpen:');
+	//timit.show('nach text emoOpen:');
 	mLinebreak(table);
 
+	mText('img: twemoji', table);
 	for (const info of infolist) {
 		maPic(info, table, styles, false);
 	}
-	timit.show('nach img openmoji:');
+	//timit.show('nach img twemoji:');
 	mLinebreak(table);
 
+	mText('img: openmoji', table);
 	for (const info of infolist) {
 		maPic(info, table, styles, false, true);
 	}
-	timit.show('nach img openmoji:');
+	//timit.show('nach img openmoji:');
 
 }
-function testO(info){
+function testO(info) {
 	let styles = { w: 50, h: 50, bg: 'random', fg: 'random' };
 	maPicLabel(info, dParent, styles, false, true);
 }

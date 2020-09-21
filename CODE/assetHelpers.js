@@ -66,7 +66,20 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
 	outerStyles.display = 'inline-block';
 	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : isOmoji == true ? 'openmoBlack' : info.family;
-	console.log('family', family,'orig', info.family)
+
+	// let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family)+1;
+	// console.log('i is', i,'\n',info.w,'\n',info.family,'\n',family,'\n',EMOFONTLIST)
+
+	// let iwInfo = (family == info.family) ? 0 : info.w.indexOf(family);
+	let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family)+1;
+	let wInfo = info.w[i];
+	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
+	let hInfo = info.h[i];
+	console.log('====>>>>', family, wInfo, hInfo);
+
+
+
+	console.log('family', family, 'orig', info.family)
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
@@ -79,31 +92,31 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	if (isdef(styles.w) && isdef(styles.h) && isdef(styles.fz)) {
 		[wdes, hdes, fzdes] = [styles.w, styles.h, styles.fz];
-		let fw = wdes / info.w;
-		let fh = hdes / info.h;
+		let fw = wdes / wInfo;
+		let fh = hdes / hInfo;
 		let ffz = fzdes / info.fz;
 		f = Math.min(fw, fh, ffz);
 	} else if (isdef(styles.w) && isdef(styles.h)) {
 		[wdes, hdes] = [styles.w, styles.h];
-		let fw = wdes / info.w;
-		let fh = hdes / info.h;
+		let fw = wdes / wInfo;
+		let fh = hdes / hInfo;
 		f = Math.min(fw, fh);
 	} else if (isdef(styles.w) && isdef(styles.fz)) {
 		[wdes, fzdes] = [styles.w, styles.fz];
-		let fw = wdes / info.w;
+		let fw = wdes / wInfo;
 		let ffz = fzdes / info.fz;
 		f = Math.min(fw, ffz);
 	} else if (isdef(styles.h) && isdef(styles.fz)) {
 		[hdes, fzdes] = [styles.h, styles.fz];
-		let fh = hdes / info.h;
+		let fh = hdes / hInfo;
 		let ffz = fzdes / info.fz;
 		f = Math.min(fh, ffz);
 	} else if (isdef(styles.h)) {
 		hdes = styles.h;
-		f = hdes / info.h;
+		f = hdes / hInfo;
 	} else if (isdef(styles.w)) {
 		wdes = styles.w;
-		f = wdes / info.w;
+		f = wdes / wInfo;
 		// } else if (isdef(styles.fz)) {
 		// 	fzdes = styles.fz;
 		// 	f = fzdes / info.fz;
@@ -113,8 +126,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 		return dOuter;
 	}
 	fzreal = f * info.fz;
-	wreal = f * info.w;
-	hreal = f * info.h;
+	wreal = f * wInfo;
+	hreal = f * hInfo;
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
 

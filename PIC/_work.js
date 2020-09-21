@@ -1,5 +1,5 @@
 //#region reconstructX_
-var TESTMAX=0;
+var TESTMAX=20000;
 async function reconstructX() {
 	//console.log('start rec 0');
 	await symbolDictFromCsv(false);

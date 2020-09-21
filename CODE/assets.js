@@ -320,7 +320,7 @@ function addElemsForMeasure(key) {
 			// let family = 'segoe ui emoji';
 			let el2 = mDiv(table);
 			el2.innerHTML = info.text;
-			console.log(el2)
+			//console.log(el2)
 			mStyleX(el2, style);
 			UIS[makeFontKey(key, family)] = el2;
 			el2.style.fontFamily = family;
