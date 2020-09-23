@@ -84,12 +84,12 @@ function initTable() {
 	let dScore = mDiv(table);
 	dScore.id = 'scoreDiv'
 	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
-	mFlexLinebreak(table);
+	mLinebreak(table);
 
 	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
 	b.style.marginTop = '12px';
 	b.id = 'bStart';
-	mFlexLinebreak(table);
+	mLinebreak(table);
 
 }
 function keyUpHandler(ev) {

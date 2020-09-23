@@ -44,8 +44,8 @@ async function start() {
 
 	//#endregion
 
-	await perf01('animal');
-
+	//await perf01('animal');
+	await perf02('animal');
 }
 async function perfLoading() {
 	let timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
@@ -64,6 +64,16 @@ async function perfLoading() {
 	await ensureSvgDict();
 	timit.show('nach load svgDict')
 }
+async function perf02(setname='animal') {
+	await ensureSvgDict();
+	ensureSymBySet();
+	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin: 4, align: 'center' };
+	let info = picSet(setname);
+	info = picInfo('bird'); //picInfo('llama');
+	console.log('key',info.key)
+	maPic4(info,table,styles);
+}
+
 async function perf01(name) {
 	//let timit = new TimeIt('hallo');
 	await ensureSvgDict();
@@ -73,10 +83,12 @@ async function perf01(name) {
 	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
 	let n = 100;
 	let infolist = isdef(name) ? symListBySet[name] : loop(n).map(x => picRandom('emo'))
-	let styles = { w: 100, h: 100, bg: 'blue', 
-	fg: 'gold', margin: 4, align: 'center' };
+	let styles = {
+		w: 100, h: 100, bg: 'blue',
+		fg: 'gold', margin: 4, align: 'center'
+	};
 
-	infolist = arrTake(infolist, 1);
+	infolist = arrTake(infolist, 100);
 
 	//orig font text: sizing should be correct!!!
 	mText('font: emoNoto', table);
@@ -86,18 +98,25 @@ async function perf01(name) {
 	//timit.show('nach text emoNoto:');
 	mLinebreak(table);
 
-	throw new Error();
+	// mText('font: quivira', table);
+	// for (const info of infolist) {
+	// 	maPic(info, table, styles, true, 'quivira');
+	// }
+	// //timit.show('nach text emoNoto:');
+	// mLinebreak(table);
 
 
 	//segoe ui emoji
-	for (const ff of ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
-		mText('font: '+ff, table);
+	for (const ff of EMOFONTLIST) {  //['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
+		if (ff == 'emoOpen') continue;
+		mText('font: ' + ff, table);
 		for (const info of infolist) {
 			maPic(info, table, styles, true, ff);
 		}
 		//return;
 		//timit.show('nach font:',ff);
 		mLinebreak(table);
+		//throw new Error();
 	}
 
 

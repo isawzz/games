@@ -136,7 +136,7 @@ function fitTextH(text, dParent, styles) {
 	let d = mDiv(dParent);
 	d.innerHTML = text;
 	styles.display = 'inline-block';
-	mFlexLinebreak(table);
+	mLinebreak(table);
 	mStyleX(d, styles);
 	return d;
 }

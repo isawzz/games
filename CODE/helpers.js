@@ -55,7 +55,7 @@ function mButton(caption, handler, dParent, styles, classes) {
 	x.innerHTML = caption;
 	if (isdef(handler)) x.onclick = handler;
 	if (isdef(dParent)) dParent.appendChild(x);
-	if (isdef(styles)) mStyle(x, styles);
+	if (isdef(styles)) mStyleX(x, styles);
 	if (isdef(classes)) {
 		//console.log('setting classes',classes,...classes)
 		mClass(x, ...classes);
@@ -142,6 +142,9 @@ function mLinebreak(dParent) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
 	//console.log('parent style',dParent.style.display)
+
+	console.log(dParent.classList, Array.from(dParent.classList))
+
 	if (dParent.style.display == 'flex') mClass(d, 'linebreak');
 	else d.innerHTML = '<br>';
 	return d;

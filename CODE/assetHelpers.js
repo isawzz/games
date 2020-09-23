@@ -65,20 +65,21 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	// as text
 	let outerStyles = isdef(styles) ? jsCopy(styles) : {};
 	outerStyles.display = 'inline-block';
-	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : isOmoji == true ? 'openmoBlack' : info.family;
+	let family = info.type == 'emo' && isString(isOmoji) ? isOmoji : isOmoji == true ? 'emoOpen' : info.family;
 
 	// let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family)+1;
 	// console.log('i is', i,'\n',info.w,'\n',info.family,'\n',family,'\n',EMOFONTLIST)
 
 	// let iwInfo = (family == info.family) ? 0 : info.w.indexOf(family);
-	let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family)+1;
+	let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family) + 1;
+	if (i < 0) {
+		i = 1; console.log('iiiiiii', i, family, info.family);
+	}
 	let wInfo = info.w[i];
 	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
 	let hInfo = info.h[i];
 
-
-
-	console.log('family', family, 'orig', info.family)
+	// console.log('family', family, 'orig', info.family)
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
@@ -129,8 +130,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	hreal = f * hInfo;
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
-	console.log('====>>>>', family, '\nw.info',wInfo, 
-	'\nh.info',hInfo,'\nfactor',f,'\nw',wreal,'\nh',hreal);
+	console.log('====>>>>', family, '\nw.info', wInfo, '\nh.info', hInfo, '\nfactor', f, '\nw', wreal, '\nh', hreal);
 
 	if (!(padw >= 0 && padh >= 0)) {
 		console.log(info)
@@ -227,7 +227,18 @@ function maPicFrame(info, dParent, containerStyles, picStyles, isText = true, is
 	mStyleX(d, containerStyles);
 	return d;
 }
+function maPic4(info, dParent, styles) {
+	//uses svgDict! and symBySet
+	mStyleX(dParent, { display: 'flex', 'flex-flow': 'row wrap' });
+	//let info = picInfo(key);
+	maPic(info, table, styles, true);
+	maPic(info, table, styles, true, 'segoe ui emoji');
+	maPic(info, table, styles, false);
+	maPic(info, table, styles, false, true);
+	mLinebreak(table);
 
+
+}
 function maPicLabel_dep(info, dParent, styles, isText = true, isOmoji = false) {
 	//info, dParent, styles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent, { bg: 'random', fg: 'contrast', padding: 4, margin: 2 });//mStyleX(d,{align:'center'})
@@ -338,6 +349,15 @@ returns list of info
 		infolist = func(dict, keywords);
 	}
 	return infolist;
+}
+function picSet(setname) {
+	//if no key is give, just get a random pic from this set
+	ensureSymBySet();
+	return chooseRandom(symListBySet[setname]);
+	// if (isdef(key)) {
+	// 	if (isdef(symBySet[setname][key])) return symbolDict[key];
+	// 	else return picSearch({ set: setname, keywords: [key] });
+	// } else return chooseRandom(symListBySet[name]);
 }
 // function picRandomSet(setname){
 // 	//#region doc 

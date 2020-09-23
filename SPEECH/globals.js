@@ -1,5 +1,5 @@
 var currentLanguage = 'E';
-var interactMode = 'speak'; // speak | write
+var interactMode = 'write'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'animal';
 const immediateStart = true; //fires onClickStartButton 

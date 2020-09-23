@@ -92,19 +92,23 @@ function setSpeechWords(l = 'E') {
 	bestWord = last(matchingWords);
 	hintWord = '_'.repeat(bestWord.length);
 
+	//mLinebreak(table);
+
 	//picture
-	let d = maPic(currentInfo, table, { fz: 250,matop:50 },false,true);
-	mFlexLinebreak(table);
+	//let d = maPic(currentInfo, table, { fz: 250,matop:50 },false,true);
+	let d = maPic4(currentInfo,table,{ w: 200,matop:50 });
+
+	mLinebreak(table);
 
 	//hint
 	hintMessage = mHeading('', table, 1, 'hint');
 	hintMessage.style.fontSize = '40pt';
-	mFlexLinebreak(table);
+	mLinebreak(table);
 
 	//prompt = feedback
 	let msg = getPrompt();
 	instructionMessage = mInstruction(msg, table);
-	mFlexLinebreak(table);
+	mLinebreak(table);
 
 	inputBox = mCreate('input');
 	inputBox.id = 'inputBox';
