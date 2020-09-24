@@ -2,10 +2,6 @@
 	font-family: 'AlgerianRegular';
 	src: url('/assets/font/ALGER.ttf') format("truetype");
 }
-@font-face {
-	font-family: 'quivira';
-	src: url('/assets/font/quivira.otf') format("truetype");
-}
 /* fonts for icon symbols symbolDict type='icon' */
 @font-face{
 	font-family: 'pictoFa';

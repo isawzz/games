@@ -9,4 +9,6 @@ const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 
 var SIGI;
+var UIS = {};
+
 

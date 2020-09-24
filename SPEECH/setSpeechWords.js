@@ -21,6 +21,7 @@ function getEmoSetWords(lang = 'E') {
 	// key='baseball'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
 	//key = 'adhesive bandage';
 	//key = 'hippopotamus';
+	// key = 'llama';
 	//#endregion
 
 	let info = picInfo(key);

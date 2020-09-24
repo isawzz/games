@@ -129,6 +129,53 @@ async function ensureSvgDict() {
 }
 //#endregion
 
+//#region reconstructX_
+var TESTMAX=20000;
+async function reconstructX() {
+	//console.log('start rec 0');
+	await symbolDictFromCsv(false);
+	// 	setTimeout(reconstructX1, 0);
+
+	// }
+	// function reconstructX1() {
+	// 	symByType = symBySet = null;
+	// 	//console.log('start rec 1');
+	addAnnotationsToSymbolDict(false);
+	// 	setTimeout(reconstructX2, 0);
+	// }
+	// function reconstructX2() {
+	// 	//console.log('start rec 2');
+	let list = symbolKeys;
+	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
+	for (const k of list) {
+		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
+
+		addElemsForMeasure(k);
+	}
+	setTimeout(reconstructX3, 2000);
+}
+function reconstructX3() {
+	//console.log('start rec 3');
+	let toBeRemoved = [];
+	let list = symbolKeys;
+	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
+	for (const k of list) {
+		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
+		let info = symbolDict[k];
+		if (isString(info)) toBeRemoved.push(k);
+		else berechnungen(symbolDict[k]);
+	}
+	for (const k of toBeRemoved) delete symbolDict[k];
+	setTimeout(reconstructX4, 0);
+}
+function reconstructX4() {
+	USE_LOCAL_STORAGE = true;
+	saveSymbolDict();
+	SIGI = true;
+}
+//#endregion
+
+
 //#region reconstruct helpers
 const MAX_ANNOTATION_LENGTH = 25;
 const keysForAll = ['key', 'fz', 'w', 'h', 'type', 'hex', 'hexcode', 'text', 'family', 'isDuplicate', 'isColored'];

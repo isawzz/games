@@ -1,5 +1,4 @@
 var table = mBy('table');
-var UIS = {};
 const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
 const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker',
 	'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
@@ -97,14 +96,6 @@ async function perf01(name) {
 	}
 	//timit.show('nach text emoNoto:');
 	mLinebreak(table);
-
-	// mText('font: quivira', table);
-	// for (const info of infolist) {
-	// 	maPic(info, table, styles, true, 'quivira');
-	// }
-	// //timit.show('nach text emoNoto:');
-	// mLinebreak(table);
-
 
 	//segoe ui emoji
 	for (const ff of EMOFONTLIST) {  //['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
