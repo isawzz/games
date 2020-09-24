@@ -16,6 +16,7 @@ function doRestart() {
 	score = 0;
 	initTable();
 	RESTARTING = false;
+	onClickStartButton();
 }
 function focusOnInput() {
 	if (nundef(inputBox)) return;
@@ -42,7 +43,7 @@ function onClickGroup(group) {
 }
 function onClickStartButton() {
 	// console.log('start');
-	deactivateStartButton();
+	//deactivateStartButton();
 	let btn = mBy('bStart');
 	let caption = btn.innerHTML;
 	if (caption != 'try again') setSpeechWords(currentLanguage);
