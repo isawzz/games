@@ -99118,7 +99118,7 @@ sheaf of rice:
   hexcode: 1F33E
   group: animals-nature
   subgroups: plant-other
-  E: grain
+  E: rice|wheat|grain
   D: getreide
   hex: 1F33E
   family: emoNoto
@@ -99152,7 +99152,7 @@ sheep:
   hexcode: 1F411
   group: animals-nature
   subgroups: animal-mammal
-  E: ewe| sheep
+  E: ewe|sheep
   D: schaf
   hex: 1F411
   family: emoNoto

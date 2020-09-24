@@ -112,6 +112,11 @@ function mCenter(d) {
 }
 function mCenterText(d) { d.style.textAlign = 'center'; }
 function mNull(d, attr) { d.removeAttribute(attr); }
+function mHasClass(el, className) {
+	if (el.classList) return el.classList.contains(className);
+	else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+}
+
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
@@ -143,9 +148,9 @@ function mLinebreak(dParent) {
 	let d = mDiv(dParent);
 	//console.log('parent style',dParent.style.display)
 
-	console.log(dParent.classList, Array.from(dParent.classList))
+	//console.log(dParent.classList, Array.from(dParent.classList))
 
-	if (dParent.style.display == 'flex') mClass(d, 'linebreak');
+	if (dParent.style.display == 'flex' ||mHasClass(dParent,'flexWrap')) mClass(d, 'linebreak');
 	else d.innerHTML = '<br>';
 	return d;
 }

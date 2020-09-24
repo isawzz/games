@@ -148,7 +148,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 💭,1F4AD,smileys-emotion,emotion,thought balloon,thought balloon|thought|thinking,denkblase|gedanke|denken,,,balloon,bubble,comic,thought,think,Laura Humpfer,2018-04-18,,,,,1,161
 💤,1F4A4,smileys-emotion,emotion,zzz,sleepy|sleeping|night|sleep,müde|schlafen|nacht|schlaf,,,comic,sleep,night,Laura Humpfer,2018-04-18,,,,,0.6,162
 👋,1F44B,people-body,hand-fingers-open,waving hand,waving|waving hand|wave,winkende hand|winken,,,hand,wave,waving,Hello,Goodbye,Waving Hand Sign,Wave,Julian Grüneberg,2018-04-18,,single,👋,1F44B,0.6,163
-🤚,1F91A,people-body,hand-fingers-open,raised back of hand,back of hand|backhand,handruueecken,,,backhand,raised,Backhand,raised,hand,Julian Grüneberg,2018-04-18,,single,🤚,1F91A,3,169
+🤚,1F91A,people-body,hand-fingers-open,raised back of hand,back of hand|backhand,handrücken,,,backhand,raised,Backhand,raised,hand,Julian Grüneberg,2018-04-18,,single,🤚,1F91A,3,169
 🖐️,1F590,people-body,hand-fingers-open,hand with fingers splayed,splayed fingers|fingers|splaying|splay,spreizen|finger,,,finger,hand,splayed,Five Hand,Hand,Five,Splayed,Julian Grüneberg,2018-04-18,,single,🖐️,1F590,0.7,176
 ✋,270B,people-body,hand-fingers-open,raised hand,raised hand,gehobene hand,,,hand,raise,raised,raised hand,hand,Julian Grüneberg,2018-04-18,,single,✋,270B,0.6,182
 🖖,1F596,people-body,hand-fingers-open,vulcan salute,vulcan salute,vulkan gruss,,,finger,hand,spock,vulcan,finger,hand,spock,vulcan,Julian Grüneberg,2018-04-18,,single,🖖,1F596,1,188
@@ -157,7 +157,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ✌️,270C,people-body,hand-fingers-partial,victory hand,victory,sieg,,,hand,v,victory,hand,v,victory,Air Quotes,quotes,Peace,Peace Sign,V Sign,Julian Grüneberg,2018-04-18,,single,✌️,270C,0.6,213
 🤞,1F91E,people-body,hand-fingers-partial,crossed fingers,crossed fingers,kreuz,,,cross,finger,hand,luck,Fingers Crossed,crossed,fingers,Good Luck,luck,Julian Grüneberg,2018-04-18,,single,🤞,1F91E,3,219
 🤟,1F91F,people-body,hand-fingers-partial,love-you gesture,i love you|love,ich liebe dich|liebe,,,hand,ily,hand,love,heavy metal,Julian Grüneberg,2018-04-18,,single,🤟,1F91F,5,225
-🤘,1F918,people-body,hand-fingers-partial,sign of the horns,horns,hooeerner,,,finger,hand,horns,rock-on,rock on,finger,hand,horns,rock-on,rock,Devil,Devil Fingers,Heavy,Metal,Heavy Metal,rock,Julian Grüneberg,2018-04-18,,single,🤘,1F918,1,231
+🤘,1F918,people-body,hand-fingers-partial,sign of the horns,horns,hörner,,,finger,hand,horns,rock-on,rock on,finger,hand,horns,rock-on,rock,Devil,Devil Fingers,Heavy,Metal,Heavy Metal,rock,Julian Grüneberg,2018-04-18,,single,🤘,1F918,1,231
 🤙,1F919,people-body,hand-fingers-partial,call me hand,call me|call,telephonieren|ruf an|anruf,,,call,hand,Call Me Hand,call,hand,Phone,Shaka,Julian Grüneberg,2018-04-18,,single,🤙,1F919,3,237
 👈️,1F448,people-body,hand-single-finger,backhand index pointing left,left,links,,,backhand,finger,hand,index,point,backhand,finger,hand,index,point,point,left,Middle Finger,White left,Julian Grüneberg,2018-04-18,,single,👈️,1F448,0.6,243
 👉️,1F449,people-body,hand-single-finger,backhand index pointing right,right,rechts,,,backhand,finger,hand,index,point,backhand,finger,hand,index,point,point,right,Middle Finger,White right,Julian Grüneberg,2018-04-18,,single,👉️,1F449,0.6,249
@@ -173,12 +173,12 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🤜,1F91C,people-body,hand-fingers-closed,right-facing fist,fist,faust,,,fist,rightwards,Right,fist,rightwards,right-Facing Fist,Julian Grüneberg,2018-04-18,,single,🤜,1F91C,3,310
 👏,1F44F,people-body,hands,clapping hands,clapping hands|clapping|clap,klatschen,,,clap,hand,clap,hand,clapping hands,Applause,Clap,Clapping,Golf Clap,Round Of Applause,Julian Grüneberg,2018-04-18,,single,👏,1F44F,0.6,316
 🙌,1F64C,people-body,hands,raising hands,party|celebration|celebrating|raising hands,fest|party|feiern,celebration,gesture,hand,hooray,raised,Raising Hands,Raising,Hands,celebration,gesture,hand,hooray,raised,Arms In The Air,Banzai,Festivus Miracle,Hallelujah,Praise Hands,Two Hands,Julian Grüneberg,2018-04-18,,single,🙌,1F64C,0.6,322
-👐,1F450,people-body,hands,open hands,open hands,offene haaeende,,,hand,open,Hug,Open Hands,Open,Hands,Jazz Hands,Jazz,Julian Grüneberg,2018-04-18,,single,👐,1F450,0.6,328
+👐,1F450,people-body,hands,open hands,open hands,offene hände,,,hand,open,Hug,Open Hands,Open,Hands,Jazz Hands,Jazz,Julian Grüneberg,2018-04-18,,single,👐,1F450,0.6,328
 🤲,1F932,people-body,hands,namaste,namaste|prayer,namaste|beten,,,prayer,pray,god,Julian Grüneberg,2018-04-18,,single,🤲,1F932,5,334
-🤝,1F91D,people-body,hands,handshake,handshake,haaeendeschuueetteln,,,agreement,hand,meeting,shake,Shaking Hands,agreement,hand,meeting,shake,hello,bye,goodbye,Julian Grüneberg,2018-04-18,,,,,3,340
+🤝,1F91D,people-body,hands,handshake,handshake,händeschütteln,,,agreement,hand,meeting,shake,Shaking Hands,agreement,hand,meeting,shake,hello,bye,goodbye,Julian Grüneberg,2018-04-18,,,,,3,340
 🙏,1F64F,people-body,hands,folded hands,folded hands|please|thanks|bow|praying|pray,gruss|verbeugen|verbeugung|bitte|danke|beten,,,ask,hand,please,pray,thanks,ask,bow,folded,gesture,hand,please,pray,thanks,Julian Grüneberg,2018-04-18,,single,🙏,1F64F,0.6,341
 ✍️,270D,people-body,hand-prop,writing hand,writing|write,schreiben,,,hand,write,Writing Hand,Writing,Write,Julian Grüneberg,2018-04-18,,single,✍️,270D,0.7,348
-💅,1F485,people-body,hand-prop,nail polish,nail polish|cosmetics|manicure,naaeegel polieren|manikuueere|kosmetik,,,care,cosmetics,manicure,nail,polish,,Laura Schießer,2019-05-06,,single,💅,1F485,0.6,354
+💅,1F485,people-body,hand-prop,nail polish,nail polish|cosmetics|manicure,nägel polieren|maniküre|kosmetik,,,care,cosmetics,manicure,nail,polish,,Laura Schießer,2019-05-06,,single,💅,1F485,0.6,354
 🤳,1F933,people-body,hand-prop,selfie,selfie,selfie,,,camera,phone,camera,phone,Julian Grüneberg,2018-04-18,,single,🤳,1F933,3,360
 💪,1F4AA,people-body,body-parts,flexed biceps,biceps,bizeps,,,biceps,comic,flex,muscle,Flexed Biceps,Biceps,Flexed,flex,muscle,Feats of Strength,strength,feats,Strong,lisa schulz,julian grüneberg,Julian Grüneberg,2018-04-18,,single,💪,1F4AA,0.6,366
 🦾,1F9BE,people-body,body-parts,mechanical arm,mechanical arm,mechanischer arm,,,accessibility,prosthetic,,Laura Dworatschek,2019-05-06,,,,,12,372
@@ -186,7 +186,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🦵,1F9B5,people-body,body-parts,leg,leg,bein,,,kick,limb,,Laura Schießer,2019-05-06,,single,🦵,1F9B5,11,374
 🦶,1F9B6,people-body,body-parts,foot,foot,fuss,,,kick,stomp,,Daniel Utz,2020-03-11,,single,🦶,1F9B6,11,380
 👂️,1F442,people-body,body-parts,ear,ear,ohr,,,body,ear,hear,listen,Julian Grüneberg,2018-04-18,,single,👂️,1F442,0.6,386
-🦻,1F9BB,people-body,body-parts,ear with hearing aid,hearing aid,hooeergeraaeet|taub,,,accessibility,hard of hearing,,Laura Dworatschek,2019-05-06,,single,🦻,1F9BB,12,392
+🦻,1F9BB,people-body,body-parts,ear with hearing aid,hearing aid,hörgerät|taub,,,accessibility,hard of hearing,,Laura Dworatschek,2019-05-06,,single,🦻,1F9BB,12,392
 👃,1F443,people-body,body-parts,nose,nose,nase,,,body,nose,smell,Julian Grüneberg,2018-04-18,,single,👃,1F443,0.6,398
 🧠,1F9E0,people-body,body-parts,brain,brain,gehirn,,,intelligent,brain,intelligent,clever,Julian Grüneberg,2018-04-18,,,,,5,404
 🫀,1FAC0,people-body,body-parts,anatomical heart,heart,herz,,,anatomical,cardiology,heart,organ,pulse,pump,blood,beat,organ,Tonia Reinhardt,2010-01-31,,,,,13,405
@@ -200,14 +200,14 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👶,1F476,people-body,person,baby,baby,baby,,,young,human,person,Johanna Wellnitz,2018-04-18,,single,👶,1F476,0.6,414
 🧒,1F9D2,people-body,person,child,child,kind,,gender-neutral,unspecified gender,young,human,person,Johanna Wellnitz,2018-04-18,,single,🧒,1F9D2,5,420
 👦,1F466,people-body,person,boy,boy,junge|bub,,,young,human,person,Johanna Wellnitz,2018-04-18,,single,👦,1F466,0.6,426
-👧,1F467,people-body,person,girl,girl,maaeedchen,,,virgo,young,zodiac,human,person,Johanna Wellnitz,2018-04-18,,single,👧,1F467,0.6,432
+👧,1F467,people-body,person,girl,girl,mädchen,,,virgo,young,zodiac,human,person,Johanna Wellnitz,2018-04-18,,single,👧,1F467,0.6,432
 🧑,1F9D1,people-body,person,person,person|man,person|mensch,,,adult,gender-neutral,unspecified gender,human,person,Johanna Wellnitz,2018-04-18,,single,🧑,1F9D1,5,438
 👱,1F471,people-body,person,person: blond hair,boy|blond-haired|blond hair|blond,blonde haare|blondhaarig|blond|bub,,,blond,blond-haired person,hair,,Anne Frauendorf,2018-11-16,,single,👱,1F471,0.6,444
 👨,1F468,people-body,person,man,man|human|person,mann|mensch|person,,,adult,human,person,Johanna Wellnitz,2018-04-18,,single,👨,1F468,0.6,450
-🧔,1F9D4,people-body,person,man: beard,beard|man with beard|beard,mann mit bart|baaeertiger mann|mann|bart,,,beard,man,person,beard,man,facial hair,man,manly,Lisa Thiel,2018-04-18,,single,🧔,1F9D4,5,456
+🧔,1F9D4,people-body,person,man: beard,beard|man with beard|beard,mann mit bart|bärtiger mann|mann|bart,,,beard,man,person,beard,man,facial hair,man,manly,Lisa Thiel,2018-04-18,,single,🧔,1F9D4,5,456
 👨‍🦰,1F468-200D-1F9B0,people-body,person,man: red hair,man|man with red hair|red haired man|red hair,mann|rothaariger mann|rote haare|rothaarig,,,adult,man,red hair,,Nadine Bartel,2019-05-06,,single,👨‍🦰,1F468-200D-1F9B0,11,462
 👨‍🦱,1F468-200D-1F9B1,people-body,person,man: curly hair,curly hair|man,mann|man mit locken|locken,,,adult,curly hair,man,,Nadine Bartel,2019-05-06,,single,👨‍🦱,1F468-200D-1F9B1,11,468
-👨‍🦳,1F468-200D-1F9B3,people-body,person,man: white hair,white hair|old man|old|white-haired man,mann mit weissem haar|weisshaaeeriger mann|alt|alter mann|weisshaaeerig,,,adult,man,white hair,,Nadine Bartel,2019-05-06,,single,👨‍🦳,1F468-200D-1F9B3,11,474
+👨‍🦳,1F468-200D-1F9B3,people-body,person,man: white hair,white hair|old man|old|white-haired man,mann mit weissem haar|weisshäriger mann|alt|alter mann|weisshärig,,,adult,man,white hair,,Nadine Bartel,2019-05-06,,single,👨‍🦳,1F468-200D-1F9B3,11,474
 👨‍🦲,1F468-200D-1F9B2,people-body,person,man: bald,bald,glatzkopf|mann mit glatze|glatze,,,adult,bald,man,,Nadine Bartel,2019-05-06,,single,👨‍🦲,1F468-200D-1F9B2,11,480
 👩,1F469,people-body,person,woman,woman,frau,,,adult,human,person,Johanna Wellnitz,2018-04-18,,single,👩,1F469,0.6,486
 👩‍🦰,1F469-200D-1F9B0,people-body,person,woman: red hair,red hair|woman with red hair|red-haired woman|woman,rothaarige frau|rote haare|rothaarig,,,adult| red hair| woman,rote haare|rothaarig|rothaarige frau|frau,,,Nadine Bartel,2019-05-06,,single,👩‍🦰,1F469-200D-1F9B0,11,492
@@ -250,17 +250,17 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👩‍🔬,1F469-200D-1F52C,people-body,person-role,woman scientist,scientist,wissenschaftler,,,biologist,chemist,engineer,physicist,scientist,woman,biologist,chemist,engineer,woman,mathematician,physicist,scientist,experiment,laboratory,lab,erlenmeyer flask,safety glasses,Lisa Thiel,2018-04-18,,single,👩‍🔬,1F469-200D-1F52C,4,1092
 👨‍💻,1F468-200D-1F4BB,people-body,person-role,man technologist,engineer|coder|developer,ingenieur|programmierer,,,coder,developer,inventor,man,software,technologist,coder,developer,inventor,man,software,technologist,tablet,graphs,glasses,smart,clever,coding,code,Lisa Thiel,2018-04-18,,single,👨‍💻,1F468-200D-1F4BB,4,1104
 👩‍💻,1F469-200D-1F4BB,people-body,person-role,woman technologist,engineer|coder|developer,ingenieur|programmierer,,,coder,developer,inventor,software,technologist,woman,coder,developer,inventor,woman,software,technologist,tablet,graphs,glasses,smart,clever,coding,code,Lisa Thiel,2018-04-18,,single,👩‍💻,1F469-200D-1F4BB,4,1110
-👨‍🎤,1F468-200D-1F3A4,people-body,person-role,man singer,singer,saaeenger,,,actor,entertainer,man,rock,singer,star,actor,entertainer,man,rock,singer,star,microphone,musician,Lisa Thiel,2018-04-18,,single,👨‍🎤,1F468-200D-1F3A4,4,1122
-👩‍🎤,1F469-200D-1F3A4,people-body,person-role,woman singer,singer,saaeenger,,,actor,entertainer,rock,singer,star,woman,actor,entertainer,woman,rock,singer,star,microphone,musician,glamour,glamorous,dress,wavy hair,Lisa Thiel,2018-04-18,,single,👩‍🎤,1F469-200D-1F3A4,4,1128
-👨‍🎨,1F468-200D-1F3A8,people-body,person-role,man artist,artist,kuueenstler,,,artist,man,palette,artist,man,palette,brush,beret,french hat,colors,painter,art,drawing,painting,illustrator,illustrating,creative,creativity,Lisa Thiel,2018-04-18,,single,👨‍🎨,1F468-200D-1F3A8,4,1140
-👩‍🎨,1F469-200D-1F3A8,people-body,person-role,woman artist,artist,kuueenstler,,,artist,palette,woman,artist,woman,palette,brush,beret,french hat,colors,painter,art,drawing,painting,illustrator,illustrating,creative,creativity,Lisa Thiel,2018-04-18,,single,👩‍🎨,1F469-200D-1F3A8,4,1146
+👨‍🎤,1F468-200D-1F3A4,people-body,person-role,man singer,singer,sänger,,,actor,entertainer,man,rock,singer,star,actor,entertainer,man,rock,singer,star,microphone,musician,Lisa Thiel,2018-04-18,,single,👨‍🎤,1F468-200D-1F3A4,4,1122
+👩‍🎤,1F469-200D-1F3A4,people-body,person-role,woman singer,singer,sänger,,,actor,entertainer,rock,singer,star,woman,actor,entertainer,woman,rock,singer,star,microphone,musician,glamour,glamorous,dress,wavy hair,Lisa Thiel,2018-04-18,,single,👩‍🎤,1F469-200D-1F3A4,4,1128
+👨‍🎨,1F468-200D-1F3A8,people-body,person-role,man artist,artist,künstler,,,artist,man,palette,artist,man,palette,brush,beret,french hat,colors,painter,art,drawing,painting,illustrator,illustrating,creative,creativity,Lisa Thiel,2018-04-18,,single,👨‍🎨,1F468-200D-1F3A8,4,1140
+👩‍🎨,1F469-200D-1F3A8,people-body,person-role,woman artist,artist,künstler,,,artist,palette,woman,artist,woman,palette,brush,beret,french hat,colors,painter,art,drawing,painting,illustrator,illustrating,creative,creativity,Lisa Thiel,2018-04-18,,single,👩‍🎨,1F469-200D-1F3A8,4,1146
 👨‍✈️,1F468-200D-2708-FE0F,people-body,person-role,man pilot,pilot,pilot,,,man,pilot,plane,man,pilot,plane,flying,control stick,Lisa Thiel,2018-04-18,,single,👨‍✈️,1F468-200D-2708-FE0F,4,1164
 👩‍✈️,1F469-200D-2708-FE0F,people-body,person-role,woman pilot,pilot,pilot,,,pilot,plane,woman,woman,pilot,plane,flying,control stick,Lisa Thiel,2018-04-18,,single,👩‍✈️,1F469-200D-2708-FE0F,4,1176
 👨‍🚀,1F468-200D-1F680,people-body,person-role,man astronaut,astronaut,astronaut,,,astronaut,man,rocket,astronaut,man,rocket,spacesuit,space,universe,spaceship,Lisa Thiel,2018-04-18,,single,👨‍🚀,1F468-200D-1F680,4,1194
 👨‍🚒,1F468-200D-1F692,people-body,person-role,man firefighter,firefighter,feuerwehr,,,firefighter,firetruck,man,firefighter,firetruck,man,water hose,save,rescue,red helmet,Lisa Thiel,2018-04-18,,single,👨‍🚒,1F468-200D-1F692,4,1212
 👮,1F46E,people-body,person-role,police officer,police officer|police,polizist|polizei,,,cop,officer,police,cop,officer,police,law,justice,blue,badge,Lisa Thiel,2018-04-18,,single,👮,1F46E,0.6,1224
 🕵️,1F575,people-body,person-role,detective,detective,detektiv,,,sleuth,spy,sleuth,spy,sherlock,investigator,magnifier,magnifying glass,cloak,coat,Lisa Thiel,2018-04-18,,single,🕵️,1F575,0.7,1255
-💂,1F482,people-body,person-role,guard,guard,waaeechter|wache,,,guard,guard,britain,great britain,queen,england,london,royal guard,furry hat guard,protection,Lisa Thiel,2018-04-18,,single,💂,1F482,0.6,1289
+💂,1F482,people-body,person-role,guard,guard,wächter|wache,,,guard,guard,britain,great britain,queen,england,london,royal guard,furry hat guard,protection,Lisa Thiel,2018-04-18,,single,💂,1F482,0.6,1289
 👷,1F477,people-body,person-role,construction worker,construction|hat|worker,arbeiter|bauarbeiter,,,construction,hat,worker,striped west,helmet,Lisa Thiel,2018-04-18,,single,👷,1F477,0.6,1325
 🤴,1F934,people-body,person-role,prince,prince,prinz,,,prince,charming,crown,fairy tale,fantasy,pink,Lisa Thiel,2018-04-18,,single,🤴,1F934,3,1355
 👸,1F478,people-body,person-role,princess,princess,prizessin,,fairy tale,fantasy,fairy tale,fantasy,crown,pink dress,princess crown,Lisa Thiel,2018-04-18,,single,👸,1F478,0.6,1361
@@ -274,7 +274,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👼,1F47C,people-body,person-fantasy,baby angel,angel,engel,,,angel,baby,face,fairy tale,fantasy,,Anne Frauendorf,2018-11-16,,single,👼,1F47C,0.6,1499
 🎅,1F385,people-body,person-fantasy,Santa Claus,Santa Claus,weihnachtsmann,,,celebration,christmas,claus,father,santa,santa claus,christmas,holiday,jolly,happy,saint nicholas,santa claus,xmas,celebration,Lisa Thiel,2018-04-18,,single,🎅,1F385,0.6,1505
 🦸,1F9B8,people-body,person-fantasy,superhero,superhero,superhero,,,good,hero,heroine,superpower,,Nadine Bartel,2019-05-06,,single,🦸,1F9B8,11,1523
-🦹,1F9B9,people-body,person-fantasy,supervillain,supervillain,booeesewicht,,,criminal,evil,superpower,villain,,Nadine Bartel,2019-05-06,,single,🦹,1F9B9,11,1553
+🦹,1F9B9,people-body,person-fantasy,supervillain,supervillain,bösewicht,,,criminal,evil,superpower,villain,,Nadine Bartel,2019-05-06,,single,🦹,1F9B9,11,1553
 🧙‍♂️,1F9D9-200D-2642-FE0F,people-body,person-fantasy,wizard,mage|wizard,zauberer,,,sorcerer,wizard,,Nadine Bartel,2019-05-06,,single,🧙‍♂️,1F9D9-200D-2642-FE0F,5,1589
 🧙‍♀️,1F9D9-200D-2640-FE0F,people-body,person-fantasy,with,sorceress|witch,zauberin|hexe|fee,,,,,Nadine Bartel,2019-05-06,,single,🧙‍♀️,1F9D9-200D-2640-FE0F,5,1601
 🧚,1F9DA,people-body,person-fantasy,fairy,fairy,elf,,,oberon,puck,titania,,Nadine Bartel,2019-05-06,,single,🧚,1F9DA,5,1613
@@ -339,13 +339,13 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👭,1F46D,people-body,family,women holding hands,holding hands,handhalten,,,couple,hand,holding hands,women,together,girlfriend,lesbian,homosexual,Lisa Schulz,2018-04-18,,single,👭,1F46D,1,2524
 👫,1F46B,people-body,family,woman and man holding hands,holding hands,handhalten,,,couple,hand,hold,holding hands,man,woman,together,heterosexual,straight,Lisa Schulz,2018-04-18,,single,👫,1F46B,0.6,2550
 👬,1F46C,people-body,family,men holding hands,holding hands,handhalten,,,couple,gemini,holding hands,man,men,twins,zodiac,together,gay,homosexual,Lisa Schulz,2018-04-18,,single,👬,1F46C,1,2576
-💏,1F48F,people-body,family,kiss,love|kiss,kuueessen|liebe|kuss,,,couple,man,woman,face,kiss,boy,girl,Lisa Schulz,2018-04-18,,,,,0.6,2602
+💏,1F48F,people-body,family,kiss,love|kiss,küssen|liebe|kuss,,,couple,man,woman,face,kiss,boy,girl,Lisa Schulz,2018-04-18,,,,,0.6,2602
 💑,1F491,people-body,family,couple with heart,couple|in love|love,liebe|verliebt,,,couple,love,man,woman,heart,Lisa Schulz,2018-04-18,,,,,0.6,2609
 👪️,1F46A,people-body,family,family,family,familie,,,family,man,woman,boy,child,Lisa Schulz,2018-04-18,,,,,0.6,2616
 👨‍👩‍👧‍👦,1F468-200D-1F469-200D-1F467-200D-1F466,people-body,family,family of 4,family,familie,,,boy,family,girl,man,woman,,Fanny Jung,2019-05-06,,,,,2,2619
 🗣️,1F5E3,people-body,person-symbol,speaking head,speaking|speak,sprechen,,,face,head,silhouette,speak,speaking,human,person,Johanna Wellnitz,2018-04-18,,,,,0.7,2643
-👤,1F464,people-body,person-symbol,bust in silhouette,silhouette|bust,buueeste|figur,,,bust,silhouette,human,person,Johanna Wellnitz,2018-04-18,,,,,0.6,2644
-👥,1F465,people-body,person-symbol,busts in silhouette,silhouette|bust,buueeste|figur,,,bust,silhouette,human,person,Johanna Wellnitz,2018-04-18,,,,,1,2645
+👤,1F464,people-body,person-symbol,bust in silhouette,silhouette|bust,büste|figur,,,bust,silhouette,human,person,Johanna Wellnitz,2018-04-18,,,,,0.6,2644
+👥,1F465,people-body,person-symbol,busts in silhouette,silhouette|bust,büste|figur,,,bust,silhouette,human,person,Johanna Wellnitz,2018-04-18,,,,,1,2645
 👣,1F463,people-body,person-symbol,footprints,footprint,fussabdruck,,,clothing,footprint,print,clothing,footprint,print,Julian Grüneberg,2018-04-18,,,,,0.6,2647
 🐒,1F412,animals-nature,animal-mammal,monkey,monkey,affe,,,monkey,jungle,ape,evolution,primate,Sofie Ascherl,2018-04-18,,,,,0.6,2658
 🦍,1F98D,animals-nature,animal-mammal,gorilla,gorilla,gorilla,,,gorilla,monkey,primate,evolution,Sofie Ascherl,2018-04-18,,,,,3,2659
@@ -446,7 +446,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🌳,1F333,animals-nature,plant-other,deciduous tree,tree,baum,,,deciduous,shedding,tree,green,tree,huge,plant,Hilda Kalyoncu,2018-04-18,,,,,1,2793
 🌴,1F334,animals-nature,plant-other,palm tree,palm tree,palme,,,palm,tree,sea,vacation,beach,relax,plant,Hilda Kalyoncu,2018-04-18,,,,,0.6,2794
 🌵,1F335,animals-nature,plant-other,cactus,cactus,kaktus,,,plant,desert,sun,warm,hot,texas,plant,Hilda Kalyoncu,2018-04-18,,,,,0.6,2795
-🌾,1F33E,animals-nature,plant-other,sheaf of rice,grain,getreide,,,ear,grain,rice,,Hend Hourani,2018-11-16,,,,,0.6,2796
+🌾,1F33E,animals-nature,plant-other,sheaf of rice,rice|wheat|grain,reis|ähre|getreide,,,ear,grain,rice,,Hend Hourani,2018-11-16,,,,,0.6,2796
 🌿,1F33F,animals-nature,plant-other,herb,herb | leaf,blatt | pflanze | kraut,,,leaf,green,Hilda Kalyoncu,2018-04-18,,,,,0.6,2797
 ☘️,2618,animals-nature,plant-other,shamrock,clover | plant | shamrock,blatt | kleeblatt | klee,,,plant,green,plant,Hilda Kalyoncu,2018-04-18,,,,,1,2799
 🍀,1F340,animals-nature,plant-other,four leaf clover,clover,blatt | kleeblatt | klee,,,4,clover,four,four-leaf clover,leaf,luck,four,leaf,green,plant,Hilda Kalyoncu,2018-04-18,,,,,0.6,2800

@@ -15,7 +15,6 @@ var RESTARTING;
 var speakMode = interactMode == 'speak';
 var emoGroup,emoGroupKeys;
 
-
 //#region collections of words
 var farben = ['rot', 'gruen', 'blau', 'gelb', 'braun', 'violett', 'rosa', 'orange', 'schwarz', 'weiss'];
 var colors = ['red', 'green', 'blue', 'yellow', 'brown', 'violet', 'pink', 'orange', 'black', 'white'];
