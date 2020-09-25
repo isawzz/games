@@ -21,7 +21,7 @@ async function SPEECHStart() {
 	}
 	setGroup(startingCategory);
 	initOptionsUi();
-	if (immediateStart) onClickStartButton();
+	if (immediateStart) {bStart.innerHTML='next';onClickStartButton();}
 }
 function getStandardTagId(elem,postfix){
 	let cat=isString(elem)?elem:getTypeOf(elem);
