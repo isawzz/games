@@ -3,6 +3,7 @@ var interactMode = 'write'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'animal';
 const immediateStart = true; //fires onClickStartButton 
+const isTrainingMode = true; //does not deactivate start button if true!
 var MAXWORDLENGTH = 8;
 var level = 0;
 

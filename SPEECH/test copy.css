@@ -1,41 +1,43 @@
 
-html,body,#md,#rightSide{
+html,body,#md{
+	font: 20px Arial;
 	height: 100%;
 	padding:0;
 	margin:0;
-	font: 20px Arial;
 	color: white;
 	background-color: dimgray;
 	
 }
-#md,#rightSide{
+#md{
 	display:flex;
 }
+/* #md{
+	height:100%;
+	padding: 0px;
+	margin: 0px;
+} */
 #sidebar{
-	height: 100%;
+	/* float: left; */
 	flex: 0 0 auto;
+	/* padding:4px;
+	height: 100%; */
 	background-color: red;
 }
-#rightSide{
-	flex-direction: column;
-	background-color: orange;
-}
 #table{
+	display:none;
 	flex: 0 0 auto;
-	/* height: -moz-calc(100% - (20px + 30px));
-	height: -webkit-calc(100% - (20px + 30px));
-	height: calc(100% - (20px + 30px)); */
-	height: calc(100% - 25px); /* needs space on either side of operator!!!!! */
-	/* background-color: green; */
-	padding: 10px;
-	box-sizing:border-box;
+	background-color: orange;
+	/* width: 100%; */
+	/* padding:4px;
+	height: 100%; */
 }
 #status{
+	display:none;
 	flex: 0 0 auto;
-	height:25px;
-	text-align: right;
-	padding-right: 10px
-	/* background-color: skyblue; */
+	/* position:absolute;
+	bottom:40px;
+	right:20px; */
+	background-color: orange;
 }
 
 .selectedGroupButton{

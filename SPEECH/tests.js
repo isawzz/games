@@ -43,7 +43,7 @@ function onClickGroup(group) {
 }
 function onClickStartButton() {
 	// console.log('start');
-	//deactivateStartButton();
+	if (!isTrainingMode) deactivateStartButton();
 	let btn = mBy('bStart');
 	let caption = btn.innerHTML;
 	if (caption != 'try again') setSpeechWords(currentLanguage);
