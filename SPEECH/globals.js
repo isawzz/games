@@ -4,7 +4,7 @@ var pauseAfterInput = false;
 const startingCategory = 'animal';
 const immediateStart = true; //fires onClickStartButton 
 const isTrainingMode = true; //does not deactivate start button if true!
-var MAXWORDLENGTH = 8;
+var MAXWORDLENGTH = 100;
 var level = 0;
 
 var timit;

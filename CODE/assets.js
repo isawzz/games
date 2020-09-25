@@ -16,24 +16,26 @@ var svgDict, svgKeys, svgList; //?
 
 //#region emoSets_
 
-var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+//var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var emoSets = {
-	hand: { name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
-	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
-	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
-	person: { name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
-	gesture: { name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
-	role: { name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
-	fantasy: { name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
+	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
+	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
+	drink: { name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
+	emotion: { name: 'emotion', f: o => o.group == 'smileys-emotion' },
+	fantasy: { name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
+	food: { name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
+	fruit: { name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	gesture: { name: 'gesture', f: o => o.group == 'people-body' && (o.subgroups == 'person-gesture' || o.subgroups.includes('hand'))},
+	// gesture: { name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
+	// hand: { name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
+	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
+	person: { name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
+	role: { name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
 	sport: { name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
 	family: { name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
 
-	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
-	drink: { name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
-	emotion: { name: 'emotion', f: o => o.group == 'smileys-emotion' },
-	food: { name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
-	fruit: { name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
 	game: { name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
 	kitchen: { name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
 	place: { name: 'place', f: o => startsWith(o.subgroups, 'place') },

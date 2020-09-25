@@ -16,7 +16,7 @@ async function SPEECHStart() {
 	//console.log(names);
 	for (const name of names) {
 		let uName = name;
-		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100 }, ['buttonClass']);
+		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom':'4px' }, ['buttonClass']);
 		b.id = 'b_' + uName;
 	}
 	setGroup(startingCategory);
@@ -87,7 +87,7 @@ function initTable() {
 	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
 	mLinebreak(table);
 
-	let b = mButton('start', onClickStartButton, table, {}, ['bigCentralButton2']);
+	let b = mButton(immediateStart?'NEXT':'start', onClickStartButton, table, {}, ['bigCentralButton2']);
 	b.style.marginTop = '12px';
 	b.id = 'bStart';
 	mLinebreak(table);
