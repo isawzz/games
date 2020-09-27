@@ -153,7 +153,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ✋,270B,people-body,hand-fingers-open,raised hand,raised hand|palm|hand palm|hand,gehobene hand|handfläche|hand,,,hand,raise,raised,raised hand,hand,Julian Grüneberg,2018-04-18,,single,✋,270B,0.6,182
 🖖,1F596,people-body,hand-fingers-open,vulcan salute,vulcan salute,vulkan gruss,,,finger,hand,spock,vulcan,finger,hand,spock,vulcan,Julian Grüneberg,2018-04-18,,single,🖖,1F596,1,188
 👌,1F44C,people-body,hand-fingers-partial,OK hand,excellent|great|okay|perfect|ok,perfekt|exzellent|goldrichtig|super|sehr gut|okay,,,hand,ok,hand,ok,okay,perfect,Julian Grüneberg,2018-04-18,,single,👌,1F44C,0.6,194
-🤏,1F90F,people-body,hand-fingers-partial,pinching hand,small amount|tiny|pinch,wenig,,,small amount,,Laura Dworatschek,2019-05-06,,single,🤏,1F90F,12,206
+🤏,1F90F,people-body,hand-fingers-partial,pinching hand,small amount|small|tiny|pinch,greifen|winzig|klein|minimal|wenig,,,small amount,,Laura Dworatschek,2019-05-06,,single,🤏,1F90F,12,206
 ✌️,270C,people-body,hand-fingers-partial,victory hand,victory,sieg,,,hand,v,victory,hand,v,victory,Air Quotes,quotes,Peace,Peace Sign,V Sign,Julian Grüneberg,2018-04-18,,single,✌️,270C,0.6,213
 🤞,1F91E,people-body,hand-fingers-partial,crossed fingers,crossed fingers,kreuz,,,cross,finger,hand,luck,Fingers Crossed,crossed,fingers,Good Luck,luck,Julian Grüneberg,2018-04-18,,single,🤞,1F91E,3,219
 🤟,1F91F,people-body,hand-fingers-partial,love-you gesture,i love you|love,ich liebe dich|liebe,,,hand,ily,hand,love,heavy metal,Julian Grüneberg,2018-04-18,,single,🤟,1F91F,5,225
@@ -611,7 +611,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🚆,1F686,travel-places,transport-ground,train,metro | subway | train | railway,metro | zug | bahn | u-bahn,,,train,railway,,Nadja Grün,2018-11-16,,,,,1,3020
 🚇️,1F687,travel-places,transport-ground,metro,metro | subway | train | railway,metro | zug | bahn | u-bahn,,,subway,,Nadja Grün,2018-11-16,,,,,0.6,3021
 🚈,1F688,travel-places,transport-ground,light rail,metro | subway | train | railway,metro,zug,bahn,u-bahn,,,railway,,Nadja Grün,2018-11-16,,,,,1,3022
-🚉,1F689,travel-places,transport-ground,station,station,zugstation | station,,,railway,train,train station,station,stop,train,railway,travel,departure,arrives,Ronja Bäurlen,2018-04-18,,,,,0.6,3023
+🚉,1F689,travel-places,transport-ground,station,train|subway|station,ubahn|u-bahn|bahn|zugstation | station,,,railway,train,train station,station,stop,train,railway,travel,departure,arrives,Ronja Bäurlen,2018-04-18,,,,,0.6,3023
 🚊,1F68A,travel-places,transport-ground,tram,railway,train | tram | trolley,zug | trolley | strassenbahn,,,trolleybus,,Nadja Grün,2018-11-16,,,,,1,3024
 🚝,1F69D,travel-places,transport-ground,monorail,railway | train | monorail,zug,,,vehicle,train,locomotive,monorail,travel,transportation,Ronja Bäurlen,2018-04-18,,,,,1,3025
 🚋,1F68B,travel-places,transport-ground,tram car,railway | train | tram | trolley,zug | trolley | strassenbahn,,,car,tram,trolleybus,,Nadja Grün,2018-11-16,,,,,1,3027
@@ -776,11 +776,11 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🥍,1F94D,activities,sport,lacrosse,lacrosse,lacrosse,,,ball,goal,stick,,Nicole Kornhaas,2019-05-06,,,,,11,3242
 🏓,1F3D3,activities,sport,ping pong,table tennis|ping pong,tischtennis|ping pong,,,ball,bat,game,paddle,table tennis,ping pong,table tennis,paddle,ball,game,ball game,hobby,Vanessa Boutzikoudi,2018-04-18,,,,,1,3243
 🏸,1F3F8,activities,sport,badminton,badminton,badminton|federball,,,birdie,game,racquet,shuttlecock,,Sarah Mager,2018-11-16,,,,,1,3244
-🥊,1F94A,activities,sport,boxing glove,boxing glove|boxing,boxhandschuh|boxen,,,boxing,glove,boxing,glove,red,mitt,sport,fist,beat,slap,slap in your face,muhammad ali,Vanessa Boutzikoudi,2018-04-18,,,,,3,3245
-🥋,1F94B,activities,sport,martial arts uniform,martial arts|taekwondo|judo|karate,martial arts|kampfsport|taekwondo|judo|karate,,,judo,karate,martial arts,taekwondo,uniform,white,uniform,judo,karate,keikogi,sport,Vanessa Boutzikoudi,2018-04-18,,,,,3,3246
-🥅,1F945,activities,sport,goal net,soccer,goal,fussball|fussballtor|tor,,,goal,net,,Nicole Kornhaas,2019-05-06,,,,,3,3247
-⛳️,26F3,activities,sport,flag in hole,golf,golf,,,golf,hole,flag,golf,golf flag,golf hole with flag,sport,ball,goal,Vanessa Boutzikoudi,2018-04-18,,,,,0.6,3248
-⛸️,26F8,activities,sport,ice skate,ice skating,eislaufen,,,ice,skate,,Sarah Mager,2018-11-16,,,,,0.7,3250
+🥊,1F94A,activities,sport,boxing glove,boxing glove|glove|boxing,handschuh|boxhandschuh|boxen,,,boxing,glove,boxing,glove,red,mitt,sport,fist,beat,slap,slap in your face,muhammad ali,Vanessa Boutzikoudi,2018-04-18,,,,,3,3245
+🥋,1F94B,activities,sport,martial arts uniform,uniform|martial arts|taekwondo|judo|karate,uniform|martial arts|kampfsport|taekwondo|judo|karate,,,judo,karate,martial arts,taekwondo,uniform,white,uniform,judo,karate,keikogi,sport,Vanessa Boutzikoudi,2018-04-18,,,,,3,3246
+🥅,1F945,activities,sport,goal net,soccer goal|soccer|goal,fussball|fussballtor|tor,,,goal,net,,Nicole Kornhaas,2019-05-06,,,,,3,3247
+⛳️,26F3,activities,sport,flag in hole,hole|golf flag|flag|golf,golf flagge|golf,,,golf,hole,flag,golf,golf flag,golf hole with flag,sport,ball,goal,Vanessa Boutzikoudi,2018-04-18,,,,,0.6,3248
+⛸️,26F8,activities,sport,ice skate,scating shoe|ice skating|skating,eislaufen,,,ice,skate,,Sarah Mager,2018-11-16,,,,,0.7,3250
 🎣,1F3A3,activities,sport,fishing pole,fishing,fischen,,,fish,pole,fishing rod,fishing pole,line,fish,caught,hobby,Vanessa Boutzikoudi,2018-04-18,,,,,0.6,3251
 🤿,1F93F,activities,sport,diving mask,scuba diving|scuba|goggles|diving,skuba|taucherbrille|skuba tauchen|tauchen,,,diving,scuba,snorkeling,,Evelyn Soos,2019-05-04,,,,,12,3252
 🎽,1F3BD,activities,sport,running shirt,running shirt|sport shirt|shirt,sportleiberl|oberteil|leiberl,athletics,running,sash,shirt,,Sarah Mager,2018-11-16,,,,,0.6,3253
@@ -802,7 +802,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ♥️,2665,activities,game,heart suit,heart,herz,,,card,game,,Nicole Kornhaas,2019-05-06,,,,,0.6,3276
 ♦️,2666,activities,game,diamond suit,diamond,karo,,,card,game,,Nicole Kornhaas,2019-05-06,,,,,0.6,3278
 ♣️,2663,activities,game,club suit,club,treff,,,card,game,,Nicole Kornhaas,2019-05-06,,,,,0.6,3280
-♟️,265F,activities,game,chess pawn,chess|pawn|meeple,schach|bauer,,,chess,dupe,expendable,,Nicole Kornhaas,2019-05-06,,,,,11,3282
+♟️,265F,activities,game,chess pawn,meeple|chess|pawn,schachfigur|schach|bauer,,,chess,dupe,expendable,,Nicole Kornhaas,2019-05-06,,,,,11,3282
 🃏,1F0CF,activities,game,joker,joker,joker,,,card,game,wildcard,,Nicole Kornhaas,2019-05-06,,,,,0.6,3283
 🀄️,1F004,activities,game,mahjong red dragon,red dragon|mahjong,roter drache|mahjong,,,game,mahjong,red,,Nicole Kornhaas,2019-05-06,,,,,0.6,3284
 🎴,1F3B4,activities,game,flower playing cards,card|sunset|sunrise|picture|deck|playing cards|cards,karte|bild|sonnenuntergang|sonnenaufgang|spielkarten|karten,,,card,flower,game,japanese,playing,,Abby Esquivel,2018-11-16,,,,,0.6,3285

@@ -107,12 +107,13 @@ function blanksInHintWordOrWordLength(hintWord, answer) {
 	} else { return answer.length; }
 }
 function evaluateAnswer(answer) {
-	if (currentLanguage == 'D') { answer = convertUmlaute(answer) }
+	//let origAnswer=null;
+	//if (currentLanguage == 'D') { origAnswer=answer.toUpperCase(); answer = convertUmlaute(answer); }
 	let words = matchingWords.map(x => x.toUpperCase());
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
 	//console.log('valid', valid)
 	answer = answer.toUpperCase();
-	if (words.includes(answer)) {
+	if (words.includes(answer)||(currentLanguage == 'D' && speakMode=='write' && words.includes(convertUmlaute(answer).toUpperCase()))) {
 		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
 		successMessage();
 		hintMessage.innerHTML = answer;

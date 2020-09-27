@@ -18,6 +18,18 @@ var svgDict, svgKeys, svgList; //?
 
 //var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var higherOrderEmoSetNames = {
+	all: selectedEmoSetNames,
+	abstract: ['time', 'symbols'],
+	action: ['game', 'sports'],
+	food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'],
+	human: ['body', 'gesture', 'emotion', 'person', 'role'],
+	life: ['animal', 'plant'],
+	mood: ['emotion'],
+	object: ['object'],
+	places: ['place', 'transport'],
+};
+
 var emoSets = {
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
@@ -27,7 +39,7 @@ var emoSets = {
 	fantasy: { name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
 	food: { name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
 	fruit: { name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
-	gesture: { name: 'gesture', f: o => o.group == 'people-body' && (o.subgroups == 'person-gesture' || o.subgroups.includes('hand'))},
+	gesture: { name: 'gesture', f: o => o.group == 'people-body' && (o.subgroups == 'person-gesture' || o.subgroups.includes('hand')) },
 	// gesture: { name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
 	// hand: { name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
 	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
@@ -79,6 +91,12 @@ var emoSets = {
 
 };
 
+function higherOrderGroups() {
+	for(const name of higherOrderGroups){
+		
+	}
+
+}
 function isEmosetMember(name, info) { return emoSets[name].f(info); }
 
 //#endregion
@@ -132,7 +150,7 @@ async function ensureSvgDict() {
 //#endregion
 
 //#region reconstructX_
-var TESTMAX=20000;
+var TESTMAX = 20000;
 async function reconstructX() {
 	//console.log('start rec 0');
 	await symbolDictFromCsv(false);
@@ -148,9 +166,9 @@ async function reconstructX() {
 	// function reconstructX2() {
 	// 	//console.log('start rec 2');
 	let list = symbolKeys;
-	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
+	let cnt = 0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
 	for (const k of list) {
-		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
+		cnt += 1; if (TESTMAX && cnt > TESTMAX) break;
 
 		addElemsForMeasure(k);
 	}
@@ -160,9 +178,9 @@ function reconstructX3() {
 	//console.log('start rec 3');
 	let toBeRemoved = [];
 	let list = symbolKeys;
-	let cnt=0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
+	let cnt = 0;//let list1 = firstNCond(TESTMAX, list, x => symbolDict[x].type == 'emo');
 	for (const k of list) {
-		cnt+=1;if (TESTMAX && cnt>TESTMAX) break;
+		cnt += 1; if (TESTMAX && cnt > TESTMAX) break;
 		let info = symbolDict[k];
 		if (isString(info)) toBeRemoved.push(k);
 		else berechnungen(symbolDict[k]);

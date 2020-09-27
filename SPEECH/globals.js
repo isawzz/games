@@ -1,4 +1,4 @@
-var currentLanguage = 'E';
+var currentLanguage = 'D';
 var interactMode = 'write'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'animal';

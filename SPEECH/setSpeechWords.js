@@ -1,12 +1,31 @@
 function groupSizeTest() {
 	//mach alle legalen records!
-	let groupNames = selectedEmoSetNames; //Object.keys(emoSets).map(x=>x.name);
+	let groupNames = Object.keys(symKeysBySet); //selectedEmoSetNames; //Object.keys(emoSets).map(x=>x.name);
 	console.log(groupNames);
 	let groupDict = {};
 	for (const name of groupNames) {
+		let infolist = symListBySet[name];
+		console.log('group', name, 'has', infolist.length, 'entries')
 		//groupDict[name]=emoSets[name];
 	}
+	console.log('__________');
+	let edict = {};
+	for (const honame in higherOrderEmoSetNames) {
+		let infolist = [];
+		for (const name of (higherOrderEmoSetNames[honame])) {
+			for (const k in symBySet[name]) {
+				addIf(infolist, symbolDict[k]);
+			}
+			//groupDict[name]=emoSets[name];
+		}
+		edict[honame]=infolist;
+		console.log('group', honame, 'has', infolist.length, 'entries')
+	}
 
+	ensureSymByType();
+	//edict.all = symListByType.emo;
+	console.log('group all has', edict.all.length, 'entries');
+	console.log(arrdiff)
 }
 function getEmoSetWords(lang = 'E') {
 
@@ -22,6 +41,7 @@ function getEmoSetWords(lang = 'E') {
 	//key = 'adhesive bandage';
 	//key = 'hippopotamus';
 	// key = 'llama';
+	//key = "chess pawn";
 	//#endregion
 
 	let info = picInfo(key);
@@ -97,7 +117,7 @@ function setSpeechWords(l = 'E') {
 
 	//picture
 	//let d = maPic(currentInfo, table, { fz: 250,matop:50 },false,true);
-	let d = maPic4(currentInfo,table,{ w: 200,matop:50 });
+	let d = maPic4(currentInfo, table, { w: 200, matop: 50 });
 
 	mLinebreak(table);
 
