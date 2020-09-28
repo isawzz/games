@@ -94,9 +94,13 @@ function nextWord(showButton = true) {
 
 function convertUmlaute(w) {
 	//ue ü, ae ä, oe ö
+
 	w = replaceAll(w, 'ue', 'ü');
 	w = replaceAll(w, 'ae', 'ä');
 	w = replaceAll(w, 'oe', 'ö');
+	w = replaceAll(w, 'UE', 'Ü');
+	w = replaceAll(w, 'AE', 'Ä');
+	w = replaceAll(w, 'OE', 'Ö');
 	return w;
 }
 //#region evaluation of answer
@@ -113,7 +117,8 @@ function evaluateAnswer(answer) {
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
 	//console.log('valid', valid)
 	answer = answer.toUpperCase();
-	if (words.includes(answer)||(currentLanguage == 'D' && speakMode=='write' && words.includes(convertUmlaute(answer).toUpperCase()))) {
+	console.log(convertUmlaute(answer),words,currentLanguage,interactMode,words.includes(convertUmlaute(answer)),currentLanguage == 'D' && interactMode=='write' && words.includes(convertUmlaute(answer)));
+	if (words.includes(answer)||(currentLanguage == 'D' && interactMode=='write' && words.includes(convertUmlaute(answer)))) {
 		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
 		successMessage();
 		hintMessage.innerHTML = answer;

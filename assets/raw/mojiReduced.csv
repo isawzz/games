@@ -72,7 +72,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 😦,1F626,smileys-emotion,face-concerned,frowning face with open mouth,frowning,stirn runzeln|skeptisch,,,face,frown,mouth,open,,Mariella Steeb,2018-04-18,,,,,1,76
 😧,1F627,smileys-emotion,face-concerned,anguished face,anguished,ängstlich,,,anguished,face,,Mariella Steeb,2018-04-18,,,,,1,77
 😨,1F628,smileys-emotion,face-concerned,fearful face,anguished,ängstlich,,,face,fear,fearful,scared,,Mariella Steeb,2018-04-18,,,,,0.6,78
-😰,1F630,smileys-emotion,face-concerned,anxious face with sweat,anguished,ängstlich,,,blue,cold,face,rushed,sweat,anxious,worried,considerate,Mariella Steeb,2018-04-18,,,,,0.6,79
+😰,1F630,smileys-emotion,face-concerned,anxious face with sweat,anguished|anxious|crying|sad,ängstlich|weinen|traurig,,,blue,cold,face,rushed,sweat,anxious,worried,considerate,Mariella Steeb,2018-04-18,,,,,0.6,79
 😥,1F625,smileys-emotion,face-concerned,sad but relieved face,disappointed|sad,enttäuscht|traurig,,,disappointed,face,relieved,whew,,Mariella Steeb,2018-04-18,,,,,0.6,80
 😢,1F622,smileys-emotion,face-concerned,crying face,crying|disappointed|sad,weinend|tränen|enttäuscht|traurig,,,cry,face,sad,tear,,Mariella Steeb,2018-04-18,,,,,0.6,81
 😭,1F62D,smileys-emotion,face-concerned,loudly crying face,crying|disappointed|sad,weinend|tränen|enttäuscht|verzweifelt|traurig,,,cry,face,sad,sob,tear,,Carlin MacKenzie,2020-05-11,,,,,0.6,82
@@ -244,7 +244,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👩‍🔧,1F469-200D-1F527,people-body,person-role,woman mechanic,mechanic,mechaniker,,,electrician,mechanic,plumber,tradesperson,woman,electrician,woman,mechanic,plumber,tradesperson,wrench,overalls,blue hat,auto mechanic,Lisa Thiel,2018-04-18,,single,👩‍🔧,1F469-200D-1F527,4,1038
 👨‍🏭,1F468-200D-1F3ED,people-body,person-role,man factory worker,factory worker,arbeiter,,,assembly,factory,industrial,man,worker,assembly,factory,industrial,man,worker,welder,welding,welding helmet,Lisa Thiel,2018-04-18,,single,👨‍🏭,1F468-200D-1F3ED,4,1050
 👩‍🏭,1F469-200D-1F3ED,people-body,person-role,woman factory worker,factory worker,arbeiter,,,assembly,factory,industrial,woman,worker,assembly,factory,industrial,woman,worker,welder,welding,welding helmet,Lisa Thiel,2018-04-18,,single,👩‍🏭,1F469-200D-1F3ED,4,1056
-👨‍💼,1F468-200D-1F4BC,people-body,person-role,man office worker,office worker,beamter,,,architect,business,man,manager,white-collar,architect,business,man,manager,office,white-collar,papers,copy,Lisa Thiel,2018-04-18,,single,👨‍💼,1F468-200D-1F4BC,4,1068
+👨‍💼,1F468-200D-1F4BC,people-body,person-role,man office worker,office|job|employee|office worker,büro|angestellter|arbeit|job|beamter,,,architect,business,man,manager,white-collar,architect,business,man,manager,office,white-collar,papers,copy,Lisa Thiel,2018-04-18,,single,👨‍💼,1F468-200D-1F4BC,4,1068
 👩‍💼,1F469-200D-1F4BC,people-body,person-role,woman office worker,office worker,beamter,,,architect,business,manager,white-collar,woman,architect,business,woman,manager,office,white-collar,papers,copy,Lisa Thiel,2018-04-18,,single,👩‍💼,1F469-200D-1F4BC,4,1074
 👨‍🔬,1F468-200D-1F52C,people-body,person-role,man scientist,scientist,wissenschaftler,,,biologist,chemist,engineer,man,physicist,scientist,biologist,chemist,engineer,man,mathematician,physicist,scientist,experiment,laboratory,lab,erlenmeyer flask,safety glasses,Lisa Thiel,2018-04-18,,single,👨‍🔬,1F468-200D-1F52C,4,1086
 👩‍🔬,1F469-200D-1F52C,people-body,person-role,woman scientist,scientist,wissenschaftler,,,biologist,chemist,engineer,physicist,scientist,woman,biologist,chemist,engineer,woman,mathematician,physicist,scientist,experiment,laboratory,lab,erlenmeyer flask,safety glasses,Lisa Thiel,2018-04-18,,single,👩‍🔬,1F469-200D-1F52C,4,1092
@@ -649,7 +649,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🛶,1F6F6,travel-places,transport-water,canoe,canoe,Kanu,Connell,,boat,,Jonas Dunkel,2019-05-07,,,,,3,3072
 🚤,1F6A4,travel-places,transport-water,speedboat,speedboat | boat,motorboot | boot,,,boat,boat,passengers,ship,travel,sea,atlantic,ocean,water,speed,Ronja Bäurlen,2018-04-18,,,,,0.6,3073
 🛳️,1F6F3,travel-places,transport-water,passenger ship,passenger ship | cruise ship | ship,passagierschiff | kreuzfahrtschiff | schiff,,,passenger,ship,boat,passengers,ship,travel,sea,atlantic,ocean,water,Ronja Bäurlen,2018-04-18,,,,,0.7,3075
-⛴️,26F4,travel-places,transport-water,ferry,ferry,fähre,,,boat,passenger,,Lois Proksch,2018-11-16,,,,,0.7,3077
+⛴️,26F4,travel-places,transport-water,ferry,ship|ferry,jacht|fähre|schiff,,,boat,passenger,,Lois Proksch,2018-11-16,,,,,0.7,3077
 🛥️,1F6E5,travel-places,transport-water,motor boat,motorboat,motorboot,,,boat,motorboat,boat,passengers,ship,travel,sea,atlantic,ocean,water,motor,Ronja Bäurlen,2018-04-18,,,,,0.7,3079
 🚢,1F6A2,travel-places,transport-water,ship,ship,schiff,,,boat,passenger,boat,passengers,ship,travel,sea,atlantic,ocean,water,Ronja Bäurlen,2018-04-18,,,,,0.6,3080
 ✈️,2708,travel-places,transport-air,airplane,airplane,flugzeug,,,aeroplane,fly,airplane,aeroplane,air,sky,travel,departure,arrive,Ronja Bäurlen,2018-04-18,,,,,0.6,3082
@@ -682,8 +682,8 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🕝️,1F55D,travel-places,time,two-thirty,230|2:30 | clock | two | two thirty,2:30 | zwei uhr dreissig | halb drei | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.7,3115
 🕒️,1F552,travel-places,time,three o’clock,3 | 3:00 | clock | three | three o’clock,3 | 3:00 | drei uhr | drei | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.6,3116
 🕞️,1F55E,travel-places,time,three-thirty,330|3:30 | clock | three | three thirty,3:30 | drei uhr dreissig | halb vier | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.7,3117
-🕓️,1F553,travel-places,time,four o’clock,4 | 4:00 | clock | four | four o’clock,4 | 4:00 | vier uhr | vier | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.6,3118
-🕟️,1F55F,travel-places,time,four-thirty,430|4:30 | clock | four | four thirty,4:30 | vier uhr dreissig | halb fünf | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.7,3119
+🕓️,1F553,travel-places,time,four o’clock,4 | 4:00 | clock | four | four o’clock|4h,4 | 4:00 | vier uhr | vier | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.6,3118
+🕟️,1F55F,travel-places,time,four-thirty,430|4:30 | clock | four | four thirty|4h30,4:30|4h30 | vier uhr dreissig | halb fünf | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.7,3119
 🕔️,1F554,travel-places,time,five o’clock,5 | 5:00 | clock | five | five o’clock,5 | 5:00 | fünf uhr | fünf | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.6,3120
 🕠️,1F560,travel-places,time,five-thirty,530|5:30 | clock | five | five thirty,5:30 | fünf uhr dreissig | halb sechs | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.7,3121
 🕕️,1F555,travel-places,time,six o’clock,6 | 6:00 | clock | six | six o’clock,6 | 6:00 | sechs uhr | sechs | uhr,,,time,Rana Cakir,2018-04-18,,,,,0.6,3122
@@ -952,7 +952,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🖌️,1F58C,objects,writing,paintbrush,paint|brush|paintbrush,pinsel,,,painting,colors,pain,brush,Rana Cakir,2018-04-18,,,,,0.7,3469
 🖍️,1F58D,objects,writing,crayon,crayon,stift|ölkreide,,,crayon,painting,colors,Rana Cakir,2018-04-18,,,,,0.7,3471
 📝,1F4DD,objects,writing,memo,memo|paper|notice,papier|memo|notiz,pencil,,,pencil,paper,notice,Rana Cakir,2018-04-18,,,,,0.6,3472
-💼,1F4BC,objects,office,briefcase,bag|briefcase,aktentasche|tasche,,,briefcase,bag,briefcase,office bag,leather bag,Sina Schulz,2018-04-18,,,,,0.6,3473
+💼,1F4BC,objects,office,briefcase,bag|briefcase,koffer|aktenkoffer|aktentasche|tasche,,,briefcase,bag,briefcase,office bag,leather bag,Sina Schulz,2018-04-18,,,,,0.6,3473
 📁,1F4C1,objects,office,file folder,file folder|folder,datei|mappe,,,file,folder,file,folder,paper,organise,structure,office,box,Sina Schulz,2018-04-18,,,,,0.6,3474
 📂,1F4C2,objects,office,open file folder,file folder|folder,datei|mappe,,,file,folder,open,open file,folder,organise,structure,office,box,Sina Schulz,2018-04-18,,,,,0.6,3475
 🗂️,1F5C2,objects,office,card index dividers,index,indexkarten|index,,,card,dividers,index,,Marleen Heine,2018-11-16,,,,,0.7,3477
@@ -991,7 +991,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 🔫,1F52B,objects,tool,pistol,pistol|gun,waffe|revolver|pistole,,,gun,handgun,revolver,tool,weapon,gun,weapon,pistol,Hilda Kalyoncu,2018-04-18,,,,,0.6,3523
 🏹,1F3F9,objects,tool,bow and arrow,bow|arrow|bow and arrow,pfeil|bogen|pfeil und bogen,,,archer,arrow,bow,sagittarius,zodiac,,Marleen Heine,2018-11-16,,,,,1,3525
 🛡️,1F6E1,objects,tool,shield,shield,schild,,,weapon,protection,fight,middle ages,Hilda Kalyoncu,2018-04-18,,,,,0.7,3527
-🔧,1F527,objects,tool,wrench,wrench,schraubenschluueessel|franzose,,,spanner,tool,toolbox,silver,Hilda Kalyoncu,2018-04-18,,,,,0.6,3529
+🔧,1F527,objects,tool,wrench,wrench,schraubenschlüssel|franzose,,,spanner,tool,toolbox,silver,Hilda Kalyoncu,2018-04-18,,,,,0.6,3529
 🔩,1F529,objects,tool,nut and bolt,nut|bolt,schraube|schraubenmutter,,,bolt,nut,tool,,Marleen Heine,2018-11-16,,,,,0.6,3531
 ⚙️,2699,objects,tool,gear,wheel|gear,rad|zahnrad,,,cog,cogwheel,tool,tool,metal,silver,Hilda Kalyoncu,2018-04-18,,,,,1,3533
 🗜️,1F5DC,objects,tool,clamp,clamp,klemme,,,compress,tool,vice,toolbox,Hilda Kalyoncu,2018-04-18,,,,,0.7,3535

@@ -42,6 +42,9 @@ function getEmoSetWords(lang = 'E') {
 	//key = 'hippopotamus';
 	// key = 'llama';
 	//key = "chess pawn";
+	//key='briefcase';
+	//key = 'four-thirty';
+	//key='chopsticks';
 	//#endregion
 
 	let info = picInfo(key);
