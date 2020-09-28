@@ -986,13 +986,13 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 ⛏️,26CF,objects,tool,pick,pick,werkzeug,,,mining,tool,weapon,Hilda Kalyoncu,2018-04-18,,,,,0.7,3514
 ⚒️,2692,objects,tool,hammer and pick,tools,werkzeug,,,hammer,pick,tool,,Marleen Heine,2018-11-16,,,,,1,3516
 🛠️,1F6E0,objects,tool,hammer and wrench,tools,werkzeug,,,hammer,spanner,tool,wrench,craft mans,logo,Hilda Kalyoncu,2018-04-18,,,,,0.7,3518
-🗡️,1F5E1,objects,tool,dagger,dagger,degen,,,knife,weapon,metal,Hilda Kalyoncu,2018-04-18,,,,,0.7,3520
-⚔️,2694,objects,tool,crossed swords,crossed swords|swords|war|fight,schwerter|krieg|kampf,,,crossed,swords,weapon,,Marleen Heine,2018-11-16,,,,,1,3522
-🔫,1F52B,objects,tool,pistol,pistol|gun,waffe|pistole,,,gun,handgun,revolver,tool,weapon,gun,weapon,pistol,Hilda Kalyoncu,2018-04-18,,,,,0.6,3523
+🗡️,1F5E1,objects,tool,dagger,sword|knife|dagger,degen|messer|schwert,,,knife,weapon,metal,Hilda Kalyoncu,2018-04-18,,,,,0.7,3520
+⚔️,2694,objects,tool,crossed swords,crossed swords|swords|war|fight,schwert|waffen|schwerter|krieg|kampf,,,crossed,swords,weapon,,Marleen Heine,2018-11-16,,,,,1,3522
+🔫,1F52B,objects,tool,pistol,pistol|gun,waffe|revolver|pistole,,,gun,handgun,revolver,tool,weapon,gun,weapon,pistol,Hilda Kalyoncu,2018-04-18,,,,,0.6,3523
 🏹,1F3F9,objects,tool,bow and arrow,bow|arrow|bow and arrow,pfeil|bogen|pfeil und bogen,,,archer,arrow,bow,sagittarius,zodiac,,Marleen Heine,2018-11-16,,,,,1,3525
 🛡️,1F6E1,objects,tool,shield,shield,schild,,,weapon,protection,fight,middle ages,Hilda Kalyoncu,2018-04-18,,,,,0.7,3527
-🔧,1F527,objects,tool,wrench,wrench,franzose,,,spanner,tool,toolbox,silver,Hilda Kalyoncu,2018-04-18,,,,,0.6,3529
-🔩,1F529,objects,tool,nut and bolt,nut|bolt,Schraubenmutter,,,bolt,nut,tool,,Marleen Heine,2018-11-16,,,,,0.6,3531
+🔧,1F527,objects,tool,wrench,wrench,schraubenschluueessel|franzose,,,spanner,tool,toolbox,silver,Hilda Kalyoncu,2018-04-18,,,,,0.6,3529
+🔩,1F529,objects,tool,nut and bolt,nut|bolt,schraube|schraubenmutter,,,bolt,nut,tool,,Marleen Heine,2018-11-16,,,,,0.6,3531
 ⚙️,2699,objects,tool,gear,wheel|gear,rad|zahnrad,,,cog,cogwheel,tool,tool,metal,silver,Hilda Kalyoncu,2018-04-18,,,,,1,3533
 🗜️,1F5DC,objects,tool,clamp,clamp,klemme,,,compress,tool,vice,toolbox,Hilda Kalyoncu,2018-04-18,,,,,0.7,3535
 ⚖️,2696,objects,tool,balance scale,balance|scale,waage,,,balance,justice,libra,scale,zodiac,silver,Hilda Kalyoncu,2018-04-18,,,,,1,3537

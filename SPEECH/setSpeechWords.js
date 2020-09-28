@@ -25,7 +25,7 @@ function groupSizeTest() {
 	ensureSymByType();
 	//edict.all = symListByType.emo;
 	console.log('group all has', edict.all.length, 'entries');
-	console.log(arrdiff)
+	console.log(arrMinus(symListByType.emo,edict.all));
 }
 function getEmoSetWords(lang = 'E') {
 

@@ -17,9 +17,10 @@ var svgDict, svgKeys, svgList; //?
 //#region emoSets_
 
 //var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
-var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var selectedEmoSetNames = ['all','animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var higherOrderEmoSetNames = {
-	all: selectedEmoSetNames,
+	all: ['all'],
+	select: selectedEmoSetNames,
 	abstract: ['time', 'symbols'],
 	action: ['game', 'sports'],
 	food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'],
@@ -31,6 +32,7 @@ var higherOrderEmoSetNames = {
 };
 
 var emoSets = {
+	all: {name: 'all',f:_=>true},
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
 	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
