@@ -349,7 +349,7 @@ emoji,hexcode,group,subgroups,annotation,E,D,E_valid_sound,D_valid_sound,tags,op
 👣,1F463,people-body,person-symbol,footprints,footprint,fussabdruck,,,clothing,footprint,print,clothing,footprint,print,Julian Grüneberg,2018-04-18,,,,,0.6,2647
 🐒,1F412,animals-nature,animal-mammal,monkey,monkey,affe,,,monkey,jungle,ape,evolution,primate,Sofie Ascherl,2018-04-18,,,,,0.6,2658
 🦍,1F98D,animals-nature,animal-mammal,gorilla,gorilla,gorilla,,,gorilla,monkey,primate,evolution,Sofie Ascherl,2018-04-18,,,,,3,2659
-🦧,1F9A7,animals-nature,animal-mammal,orangutan,orangutan,orangutan,,,ape,,Yasmin Abdullahi,2019-05-07,,,,,12,2660
+🦧,1F9A7,animals-nature,animal-mammal,orangutan,ape|orangutan,affe|menschenaffe|orangutan|orang utan,,,ape,,Yasmin Abdullahi,2019-05-07,,,,,12,2660
 🐕️,1F415,animals-nature,animal-mammal,dog,dog,hund,,,pet,puppy,doggy,Sofie Ascherl,2018-04-18,,,,,0.7,2662
 🐩,1F429,animals-nature,animal-mammal,poodle,poodle|dog,pudel|hund,,,dog,,Anne Frauendorf,2018-11-16,,,,,0.6,2665
 🐈️,1F408,animals-nature,animal-mammal,cat,cat,katze,,,pet,pet,kitty,kitten,miau,Sofie Ascherl,2018-04-18,,,,,0.7,2670
