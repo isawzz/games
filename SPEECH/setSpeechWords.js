@@ -46,6 +46,7 @@ function getEmoSetWords(lang = 'E') {
 	//key = 'four-thirty';
 	//key='chopsticks';
 	//key='orangutan';
+	//key = 'person with veil';
 	//#endregion
 
 	let info = picInfo(key);

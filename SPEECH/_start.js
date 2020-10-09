@@ -4,7 +4,8 @@ async function SPEECHStart() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
 	await loadAssets();
 	ensureSymBySet();
-
+	symbolDictCopy = jsCopy(symbolDict);
+	
 	groupSizeTest();
 
 	addEventListener('keyup', keyUpHandler);

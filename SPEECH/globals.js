@@ -1,3 +1,4 @@
+var symbolDictCopy;
 var currentLanguage = 'D';
 var interactMode = 'write'; // speak | write
 var pauseAfterInput = false;
