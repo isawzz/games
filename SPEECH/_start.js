@@ -1,11 +1,17 @@
 window.onload = SPEECHStart;
+window.onbeforeunload = SPEECHEnd;
 
+function SPEECHEnd(){
+	if (hasSymbolDictChanged){
+		downloadAsYaml(symbolDictCopy,'symbolDictCopy');
+	}
+}
 async function SPEECHStart() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
 	await loadAssets();
 	ensureSymBySet();
 	symbolDictCopy = jsCopy(symbolDict);
-	
+
 	groupSizeTest();
 
 	addEventListener('keyup', keyUpHandler);
@@ -138,7 +144,33 @@ function test02() {
 	//d.style.fontSize='100pt';
 	let x = mEmoTrial2('computer mouse', table, { align: 'center', width: 250, border: '4px solid red', rounding: 14, bg: 'yellow', fontSize: 50 });
 }
+function test03(){
+	//want to convert an object symbolDict to a csv list of records
+	let o=symbolDict;
+	let lines = [];
+	for(const k in o){
+		let line = '';
 
+	}
+}
+
+function ConvertToCSV(objArray) {
+	var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+	var str = '';
+
+	for (var i = 0; i < array.length; i++) {
+			var line = '';
+			for (var index in array[i]) {
+					if (line != '') line += ','
+
+					line += array[i][index];
+			}
+
+			str += line + '\r\n';
+	}
+
+	return str;
+}
 
 
 

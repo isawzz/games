@@ -25,6 +25,24 @@ function focusOnInput() {
 		inputBox.focus();
 	}
 }
+function onClickAddValidSound(){
+	let k=currentInfo.key;
+
+	console.log(symbolDictCopy[k],currentLanguage,inputAdded.innerHTML);
+	symbolDictCopy[k][currentLanguage]=inputAdded.innerHTML.trim()+'|'+symbolDictCopy[k][currentLanguage];
+	hasSymbolDictChanged=true;
+}
+function onClickAddSynonym(){
+	let k=currentInfo.key;
+	let s = inputAdded.innerHTML.trim().toLowerCase();
+	console.log(symbolDictCopy[k],currentLanguage,s);
+	symbolDictCopy[k][currentLanguage]=s+'|'+symbolDictCopy[k][currentLanguage];
+	hasSymbolDictChanged=true;
+
+	addIf(currentInfo.words,s);
+	//if (!currentInfo.words.includes(s)) currentInfo.words.shift(s);
+	console.log(currentInfo.words,currentInfo.valid)
+}
 function onClickSetLanguage() {
 	//toggle lang!
 	if (isEnglish(currentLanguage)) currentLanguage = 'D'; else currentLanguage = 'E';
@@ -189,7 +207,7 @@ function displayHint() {
 //#region helpers
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
 function setStatus(st) {
-	mBy('status').innerHTML = 'status:' + st;
+	mBy('statusMessage').innerHTML = 'status:' + st;
 	status = st;
 }
 

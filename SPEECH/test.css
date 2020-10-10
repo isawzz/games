@@ -27,17 +27,62 @@ html,body,#md,#rightSide{
 	/* height: -moz-calc(100% - (20px + 30px));
 	height: -webkit-calc(100% - (20px + 30px));
 	height: calc(100% - (20px + 30px)); */
-	height: calc(100% - 25px); /* needs space on either side of operator!!!!! */
+	height: calc(100% - 60px); /* needs space on either side of operator!!!!!
 	/* background-color: green; */
 	padding: 10px;
 	box-sizing:border-box;
 }
+
+#divInput{
+	display: flex;
+	/* line-height: 30px; */
+}
+#inputAdded {
+	margin: 0px 0px 0px 10px;
+	padding: 0 4px;
+	min-width: 100px;
+	height:26px;
+	line-height:26px;
+	outline:none;
+	background-color: white;
+	border: 1px solid dimgray;
+	color: black;
+}
 #status{
-	flex: 0 0 auto;
-	height:25px;
-	text-align: right;
-	padding-right: 10px
+	height: 30px;
+	padding: 2px 10px;
 	/* background-color: skyblue; */
+}
+#bAdd,#bAddSound{
+	padding:2px 10px;
+	border-radius: 4px;
+	margin: 3px 0px 3px 6px;
+	/* height: 25px; */
+}
+
+
+/* NEIN 2 */
+/* #inputAdded {
+	resize: horizontal;
+	width: 200px;
+}
+#inputAdded:active {
+	width: auto;   
+}
+#inputAdded:focus {
+	min-width: 200px;
+} */
+
+/* NEIN 1 */
+/* #inputAdded{
+	margin-top: -13px;
+} */
+#statusMessage{	
+	margin-top:2px;
+	float: right;
+	/* height:25px; */
+	/* text-align: right; */
+	/* padding-right: 10px; */
 }
 
 .selectedGroupButton{

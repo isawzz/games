@@ -2167,7 +2167,7 @@ function downloadAsYaml(o, filename) {
 	//console.log(symbolDict_)
 	let y = jsonToYaml(o);
 
-	downloadTextFile(y, 'filename', 'yaml');
+	downloadTextFile(y, filename, 'yaml');
 }
 
 function downloadHtmlFile(html, filenameNoExt) {
