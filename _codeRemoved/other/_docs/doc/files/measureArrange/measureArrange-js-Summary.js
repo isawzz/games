@@ -1,1 +1,0 @@
-NDFramePage.OnPageTitleLoaded("File:measureArrange/measureArrange.js","measureArrange.js");NDSummary.OnSummaryLoaded("File:measureArrange/measureArrange.js",[["JavaScript","JavaScript"]],[["Functions","Function"],["Groups","Group"]],[[1,0,1,"Functions","Functions"],[2,0,0,"recArrangeContent","recArrangeContent"]]);

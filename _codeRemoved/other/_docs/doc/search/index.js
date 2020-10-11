@@ -1,1 +1,0 @@
-NDSearch.OnPrefixIndexLoaded(["gen","mak","nor","pre","rec","rpa"]);

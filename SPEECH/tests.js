@@ -27,9 +27,9 @@ function focusOnInput() {
 }
 function onClickAddValidSound(){
 	let k=currentInfo.key;
-
+	let k1 = currentLangauge + '_valid_sound';
 	console.log(symbolDictCopy[k],currentLanguage,inputAdded.innerHTML);
-	symbolDictCopy[k][currentLanguage]=inputAdded.innerHTML.trim()+'|'+symbolDictCopy[k][currentLanguage];
+	symbolDictCopy[k][k1]=inputAdded.innerHTML.trim()+'|'+symbolDictCopy[k][k1];
 	hasSymbolDictChanged=true;
 }
 function onClickAddSynonym(){

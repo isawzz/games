@@ -1,1 +1,0 @@
-NDSearch.OnPrefixDataLoaded("nor",["Function"],[["normalizeDict",,[[,,,,0,"File:testing/engine.js:normalizeDict"]]],["normalizeTree",,[[,,,,0,"File:testing/engine.js:normalizeTree"]]]]);

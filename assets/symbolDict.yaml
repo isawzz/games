@@ -62518,7 +62518,7 @@ inbox tray:
   group: objects
   subgroups: mail
   E: inbox tray|inbox|mail
-  D: post|empfangen
+  D: papierstapel|papier|lade|post|empfangen
   hex: 1F4E5
   family: emoNoto
   text: '&#128229;'
@@ -70880,8 +70880,8 @@ lying face:
   group: smileys-emotion
   subgroups: face-neutral-skeptical
   E: lie|nose|pinocchio
-  D: lügen
-  E_valid_sound: lange nase|pinocchio
+  D: lügen|lange nase|pinocchio
+  E_valid_sound: lye
   hex: 1F925
   family: emoNoto
   text: '&#129317;'
@@ -74685,7 +74685,7 @@ memo:
   hexcode: 1F4DD
   group: objects
   subgroups: writing
-  E: memo|paper|notice
+  E: memo|paper|pencil|notice
   D: papier|memo|notiz
   E_valid_sound: pencil
   hex: 1F4DD
@@ -78427,8 +78427,6 @@ muted speaker:
   subgroups: sound
   E: sound off|mute
   D: kein ton|lautlos
-  E_valid_sound: mute
-  D_valid_sound: quiet
   hex: 1F507
   family: emoNoto
   text: '&#128263;'
@@ -80402,18 +80400,15 @@ oden:
   hexcode: 1F362
   group: food-drink
   subgroups: food-asian
-  E: kebab
-  D: seafood
-  E_valid_sound: skewer
-  D_valid_sound: stick
+  E: stick|seafood|skewer|kebab
+  D: kebab|spiesschen|spiess
   hex: 1F362
   family: emoNoto
   text: '&#127842;'
   path: /assets/svg/twemoji/1F362.svg
   tags:
-    - oden
-    - kebab | seafood
-    - kebab | spiesschen
+    - seafood
+    - kebab
   annotation: oden
   fz: 100
   w:

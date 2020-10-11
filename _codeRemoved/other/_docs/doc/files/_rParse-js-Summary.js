@@ -1,1 +1,0 @@
-NDFramePage.OnPageTitleLoaded("File:_rParse.js","_rParse.js");NDSummary.OnSummaryLoaded("File:_rParse.js",[["JavaScript","JavaScript"]],[["Functions","Function"],["Groups","Group"]],[[8,0,1,"Functions","Functions"],[9,0,0,"rParse","rParse"],[10,0,0,"generateTree","generateTree"],[11,0,0,"presentTree","presentTree"]]);

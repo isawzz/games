@@ -1,1 +1,0 @@
-NDSearch.OnPrefixDataLoaded("rec",["Function"],[["recArrangeContent",,[[,,,,0,"File:measureArrange/measureArrange.js:recArrangeContent"]]]]);

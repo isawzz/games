@@ -48,7 +48,7 @@ function getEmoSetWords(lang = 'E') {
 	//key='orangutan';
 	//key = 'person with veil';
 	//key='medal';
-	key='leopard';
+	//key='leopard';
 	//#endregion
 
 	let info = jsCopy(picInfo(key));
