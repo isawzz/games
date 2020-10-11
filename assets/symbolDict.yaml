@@ -5127,7 +5127,7 @@ american football:
   group: activities
   subgroups: sport
   E: american football
-  D: american football
+  D: rugby|american football
   hex: 1F3C8
   family: emoNoto
   text: '&#127944;'
@@ -5318,8 +5318,8 @@ amphora:
   hexcode: 1F3FA
   group: food-drink
   subgroups: dishware
-  E: amphora
-  D: amphore
+  E: amphora|jug
+  D: vase|amphore
   hex: 1F3FA
   family: emoNoto
   text: '&#127994;'
@@ -5427,8 +5427,8 @@ anatomical heart:
   hexcode: 1FAC0
   group: people-body
   subgroups: body-parts
-  E: heart
-  D: herz
+  E: organ|heart
+  D: organ|herz
   hex: 1FAC0
   family: emoNoto
   text: '&#129728;'
@@ -5993,8 +5993,8 @@ anguished face:
   hexcode: 1F627
   group: smileys-emotion
   subgroups: face-concerned
-  E: anguished
-  D: ängstlich
+  E: scared|worried|anguished
+  D: angst|besorgt|ängstlich
   hex: 1F627
   family: emoNoto
   text: '&#128551;'
@@ -6171,6 +6171,8 @@ antenna bars:
   hexcode: 1F4F6
   group: symbols
   subgroups: av-symbol
+  E: antenna|wireless
+  D: antenne|lanverbindung|lan
   hex: 1F4F6
   family: emoNoto
   text: '&#128246;'
@@ -7587,8 +7589,8 @@ artist palette:
   hexcode: 1F3A8
   group: activities
   subgroups: arts-crafts
-  E: palette
-  D: palette
+  E: painting|paint|colors|palette
+  D: farben|malen|palette
   hex: 1F3A8
   family: emoNoto
   text: '&#127912;'
@@ -7902,6 +7904,8 @@ atom symbol:
   hexcode: 269B
   group: symbols
   subgroups: religion
+  E: atom
+  D: atom
   hex: 269B
   family: emoNoto
   text: '&#9883;'
