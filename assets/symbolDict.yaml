@@ -693,7 +693,7 @@ Japanese castle:
   group: travel-places
   subgroups: place-building
   E: Japanese castle|castle|japanese house
-  D: schloss | chinesischer tempel | japanischer tempel
+  D: schloss|chinesischer tempel|japanischer tempel
   hex: 1F3EF
   family: emoNoto
   text: '&#127983;'
@@ -1308,8 +1308,8 @@ Statue of Liberty:
   hexcode: 1F5FD
   group: travel-places
   subgroups: place-building
-  E: Statue of Liberty | statue
-  D: freiheitsstatue | statue
+  E: Statue of Liberty|statue
+  D: freiheitsstatue|statue
   hex: 1F5FD
   family: emoNoto
   text: '&#128509;'
@@ -4164,7 +4164,7 @@ aerial tramway:
   hexcode: 1F6A1
   group: travel-places
   subgroups: transport-air
-  E: tram | cable car
+  E: tram|cable car
   D: strassenbahn
   hex: 1F6A1
   family: emoNoto
@@ -4442,8 +4442,8 @@ airplane arrival:
   hexcode: 1F6EC
   group: travel-places
   subgroups: transport-air
-  E: airplane | arrival
-  D: flugzeug | ankunft
+  E: airplane|arrival
+  D: flugzeug|ankunft
   hex: 1F6EC
   family: emoNoto
   text: '&#128748;'
@@ -4481,8 +4481,8 @@ airplane departure:
   hexcode: 1F6EB
   group: travel-places
   subgroups: transport-air
-  E: airplane | departure
-  D: flugzeug | abflug
+  E: airplane|departure
+  D: flugzeug|abflug
   hex: 1F6EB
   family: emoNoto
   text: '&#128747;'
@@ -4593,7 +4593,7 @@ alarm clock:
   hexcode: 23F0
   group: travel-places
   subgroups: time
-  E: alarm | clock | timer | alarm clock
+  E: alarm|clock|timer|alarm clock
   D: uhr|wecker
   hex: 23F0
   family: emoNoto
@@ -5090,7 +5090,7 @@ ambulance:
   group: travel-places
   subgroups: transport-ground
   E: ambulance
-  D: ambulanz | rettungswagen | rettung
+  D: ambulanz|rettungswagen|rettung
   hex: 1F691
   family: emoNoto
   text: '&#128657;'
@@ -5484,7 +5484,7 @@ anchor:
   hexcode: '2693'
   group: travel-places
   subgroups: transport-water
-  E: ship | tool | anchor
+  E: ship|tool|anchor
   D: anker
   hex: '2693'
   family: emoNoto
@@ -5492,7 +5492,7 @@ anchor:
   path: /assets/svg/twemoji/2693.svg
   tags:
     - anchor
-    - ship | tool | anchor
+    - ship|tool|anchor
     - boat
     - ship
     - travel
@@ -7493,8 +7493,8 @@ articulated lorry:
   hexcode: 1F69B
   group: travel-places
   subgroups: transport-ground
-  E: lorry | delivery truck | delivery | truck
-  D: lieferwagen | laster | lastwagen
+  E: lorry|delivery truck|delivery|truck
+  D: lieferwagen|laster|lastwagen
   hex: 1F69B
   family: emoNoto
   text: '&#128667;'
@@ -8143,8 +8143,8 @@ automobile:
   group: travel-places
   subgroups: transport-ground
   E: car
-  D: automobile | vehicle | car
-  E_valid_sound: wagen | automobil | auto
+  D: automobile|vehicle|car
+  E_valid_sound: wagen|automobil|auto
   hex: 1F697
   family: emoNoto
   text: '&#128663;'
@@ -8466,8 +8466,8 @@ baby bottle:
   hexcode: 1F37C
   group: food-drink
   subgroups: drink
-  E: baby bottle | baby | bottle | milk
-  D: baby flasche | flasche | milch
+  E: baby bottle|baby|bottle|milk
+  D: baby flasche|flasche|milch
   hex: 1F37C
   family: emoNoto
   text: '&#127868;'
@@ -9120,7 +9120,7 @@ bagel:
   group: food-drink
   subgroups: food-prepared
   E: bagel
-  D: brot | bagel
+  D: brot|bagel
   hex: 1F96F
   family: emoNoto
   text: '&#129391;'
@@ -9186,8 +9186,8 @@ baguette bread:
   hexcode: 1F956
   group: food-drink
   subgroups: food-prepared
-  E: bread | baguette
-  D: brot | baguette
+  E: bread|baguette
+  D: brot|baguette
   hex: 1F956
   family: emoNoto
   text: '&#129366;'
@@ -10242,15 +10242,15 @@ barrier:
   hexcode: 1F6A7
   group: travel-places
   subgroups: transport-ground
-  E: barrier | warning | stop | attention | traffic
-  D: warnzeichen | barriere
+  E: barrier|warning|stop|attention|traffic
+  D: warnzeichen|barriere|achtung
   hex: 1F6A7
   family: emoNoto
   text: '&#128679;'
   path: /assets/svg/twemoji/1F6A7.svg
   tags:
     - barrier
-    - barrier | warning | stop | attention | traffic
+    - barrier|warning|stop|attention|traffic
   annotation: barrier
   fz: 100
   w:
@@ -11184,8 +11184,8 @@ beach with umbrella:
   hexcode: 1F3D6
   group: travel-places
   subgroups: place-geographic
-  E: beach | umbrella
-  D: sonnenschirm | strand
+  E: beach|umbrella
+  D: sonnenschirm|strand
   hex: 1F3D6
   family: emoNoto
   text: '&#127958;'
@@ -11661,8 +11661,8 @@ beer mug:
   hexcode: 1F37A
   group: food-drink
   subgroups: drink
-  E: beer | mug
-  D: bierglas | bier
+  E: beer|mug
+  D: bierglas|bier
   hex: 1F37A
   family: emoNoto
   text: '&#127866;'
@@ -12168,8 +12168,8 @@ bicycle:
   group: travel-places
   subgroups: transport-ground
   E: bike
-  D: bike | bicycle
-  E_valid_sound: rad | fahrrad
+  D: bike|bicycle
+  E_valid_sound: rad|fahrrad
   hex: 1F6B2
   family: emoNoto
   text: '&#128690;'
@@ -12610,8 +12610,8 @@ birthday cake:
   hexcode: 1F382
   group: food-drink
   subgroups: food-sweet
-  E: birthday | celebration | dessert | pastry | cake
-  D: geburtstagstorte | kuchen | torte
+  E: birthday|celebration|dessert|pastry|cake
+  D: geburtstagstorte|kuchen|torte
   hex: 1F382
   family: emoNoto
   text: '&#127874;'
@@ -13481,8 +13481,8 @@ blossom:
   hexcode: 1F33C
   group: animals-nature
   subgroups: plant-flower
-  E: blossom | flower
-  D: blüte | blume
+  E: blossom|flower
+  D: blüte|blume
   hex: 1F33C
   family: emoNoto
   text: '&#127804;'
@@ -14899,8 +14899,8 @@ bottle with popping cork:
   hexcode: 1F37E
   group: food-drink
   subgroups: drink
-  E: popping | bottle | champaign
-  D: korken | flasche | champagner
+  E: popping|bottle|champaign
+  D: korken|flasche|champagner
   hex: 1F37E
   family: emoNoto
   text: '&#127870;'
@@ -15127,8 +15127,8 @@ bouquet:
   hexcode: 1F490
   group: animals-nature
   subgroups: plant-flower
-  E: bouquet | tulip | flowers
-  D: bouquet | tulpen | blumen | blumenstrauss
+  E: bouquet|tulip|flowers
+  D: bouquet|tulpen|blumen|blumenstrauss
   hex: 1F490
   family: emoNoto
   text: '&#128144;'
@@ -15331,8 +15331,8 @@ bowl with spoon:
   hexcode: 1F963
   group: food-drink
   subgroups: food-prepared
-  E: breakfast | cereal | bowl
-  D: müsli | schüsserl
+  E: breakfast|cereal|bowl
+  D: müsli|schüsserl
   E_valid_sound: creme
   D_valid_sound: brei
   hex: 1F963
@@ -16051,7 +16051,7 @@ bread:
   group: food-drink
   subgroups: food-prepared
   E: bread
-  D: toastbrot | brot
+  D: toastbrot|brot
   hex: 1F35E
   family: emoNoto
   text: '&#127838;'
@@ -16175,8 +16175,8 @@ brick:
   hexcode: 1F9F1
   group: travel-places
   subgroups: place-building
-  E: bricks | clay | mortar | wall
-  D: ziegel | mauer
+  E: bricks|clay|mortar|wall
+  D: ziegel|mauer
   hex: 1F9F1
   family: emoNoto
   text: '&#129521;'
@@ -16513,7 +16513,7 @@ broccoli:
   group: food-drink
   subgroups: food-vegetable
   E: broccoli
-  D: brokkoli | broccoli
+  D: brokkoli|broccoli
   hex: 1F966
   family: emoNoto
   text: '&#129382;'
@@ -17122,7 +17122,7 @@ buffalo:
   hexcode: 1F403
   group: animals-nature
   subgroups: animal-mammal
-  E: water buffalo | bison
+  E: water buffalo|bison
   D: bison| büffel
   hex: 1F403
   family: emoNoto
@@ -17801,7 +17801,7 @@ bus:
   group: travel-places
   subgroups: transport-ground
   E: bus
-  D: bus | autobus
+  D: bus|autobus
   hex: 1F68C
   family: emoNoto
   text: '&#128652;'
@@ -17809,7 +17809,7 @@ bus:
   tags:
     - bus
     - vehicle
-    - travel | transportation
+    - travel|transportation
   annotation: bus
   fz: 100
   w:
@@ -17833,8 +17833,8 @@ bus stop:
   hexcode: 1F68F
   group: travel-places
   subgroups: transport-ground
-  E: bus | busstop | station
-  D: haltestelle | station | busstation
+  E: bus|busstop|station
+  D: haltestelle|station|busstation
   hex: 1F68F
   family: emoNoto
   text: '&#128655;'
@@ -21317,8 +21317,8 @@ carousel horse:
   hexcode: 1F3A0
   group: travel-places
   subgroups: place-other
-  E: carousel horse | horse | carousel
-  D: karussel pferd | pferd | karussel
+  E: carousel horse|horse|carousel
+  D: karussel pferd|pferd|karussel
   hex: 1F3A0
   family: emoNoto
   text: '&#127904;'
@@ -21587,7 +21587,7 @@ castle:
   group: travel-places
   subgroups: place-building
   E: castle
-  D: schloss | burg
+  D: schloss|burg
   hex: 1F3F0
   family: emoNoto
   text: '&#127984;'
@@ -23322,8 +23322,8 @@ cherry blossom:
   hexcode: 1F338
   group: animals-nature
   subgroups: plant-flower
-  E: cherry blossom | flower | blossom
-  D: kirschblüte | blüte
+  E: cherry blossom|flower|blossom
+  D: kirschblüte|blüte
   hex: 1F338
   family: emoNoto
   text: '&#127800;'
@@ -23580,7 +23580,7 @@ chestnut:
   group: food-drink
   subgroups: food-vegetable
   E: chestnut
-  D: kastanie | maroni
+  D: kastanie|maroni
   hex: 1F330
   family: emoNoto
   text: '&#127792;'
@@ -23824,8 +23824,8 @@ chicken:
   hexcode: 1F414
   group: animals-nature
   subgroups: animal-bird
-  E: hen | chicken
-  D: henne | huhn
+  E: hen|chicken
+  D: henne|huhn
   hex: 1F414
   family: emoNoto
   text: '&#128020;'
@@ -24521,8 +24521,8 @@ circus tent:
   hexcode: 1F3AA
   group: travel-places
   subgroups: place-other
-  E: circus tent | tent | circus
-  D: zirkus zelt | zelt | zirkus
+  E: circus tent|tent|circus
+  D: zirkus zelt|zelt|zirkus
   hex: 1F3AA
   family: emoNoto
   text: '&#127914;'
@@ -24596,7 +24596,7 @@ cityscape:
   hexcode: 1F3D9
   group: travel-places
   subgroups: place-other
-  E: skyline | cityscape | city
+  E: skyline|cityscape|city
   D: stadt
   hex: 1F3D9
   family: emoNoto
@@ -25046,8 +25046,8 @@ clinking beer mugs:
   hexcode: 1F37B
   group: food-drink
   subgroups: drink
-  E: glasses | beer | mug
-  D: gläser | anstossen | bier
+  E: glasses|beer|mug
+  D: gläser|anstossen|bier
   hex: 1F37B
   family: emoNoto
   text: '&#127867;'
@@ -25085,8 +25085,8 @@ clinking glasses:
   hexcode: 1F942
   group: food-drink
   subgroups: drink
-  E: glasses | champaign | mug
-  D: gläser | anstossen | champagner
+  E: glasses|champaign|mug
+  D: gläser|anstossen|champagner
   hex: 1F942
   family: emoNoto
   text: '&#129346;'
@@ -26333,8 +26333,8 @@ cocktail glass:
   hexcode: 1F378
   group: food-drink
   subgroups: drink
-  E: cocktail | glass
-  D: cocktail | glas
+  E: cocktail|glass
+  D: cocktail|glas
   hex: 1F378
   family: emoNoto
   text: '&#127864;'
@@ -27193,8 +27193,8 @@ compass:
   hexcode: 1F9ED
   group: travel-places
   subgroups: place-map
-  E: magnetic | navigation | orienteering | compass
-  D: navigation | orientierung | kompass
+  E: magnetic|navigation|orienteering|compass
+  D: navigation|orientierung|kompass
   hex: 1F9ED
   family: emoNoto
   text: '&#129517;'
@@ -27917,7 +27917,7 @@ cookie:
   group: food-drink
   subgroups: food-sweet
   E: cookie
-  D: cookie | keks
+  D: cookie|keks
   hex: 1F36A
   family: emoNoto
   text: '&#127850;'
@@ -27968,8 +27968,8 @@ cooking:
   hexcode: 1F373
   group: food-drink
   subgroups: food-prepared
-  E: egg | pan
-  D: spiegelei | pfanne
+  E: egg|pan
+  D: spiegelei|pfanne
   hex: 1F373
   family: emoNoto
   text: '&#127859;'
@@ -29044,8 +29044,8 @@ crescent moon:
   hexcode: 1F319
   group: travel-places
   subgroups: sky-weather
-  E: crescent moon | moon
-  D: mondsichel | mond
+  E: crescent moon|moon
+  D: mondsichel|mond
   hex: 1F319
   family: emoNoto
   text: '&#127769;'
@@ -29140,8 +29140,8 @@ cricket:
   hexcode: 1F997
   group: animals-nature
   subgroups: animal-bug
-  E: bug|insect|grasshopper | cricket
-  D: insekt|grashupfer | grille | heuschreck
+  E: bug|insect|grasshopper|cricket
+  D: insekt|grashupfer|grille|heuschreck
   E_valid_sound: grasshopper
   hex: 1F997
   family: emoNoto
@@ -29319,7 +29319,7 @@ croissant:
   hexcode: 1F950
   group: food-drink
   subgroups: food-prepared
-  E: pastry | croissant
+  E: pastry|croissant
   D: croissant
   hex: 1F950
   family: emoNoto
@@ -30666,8 +30666,8 @@ cup with straw:
   hexcode: 1F964
   group: food-drink
   subgroups: drink
-  E: juice | soda
-  D: glas | saft
+  E: juice|soda
+  D: glas|saft
   hex: 1F964
   family: emoNoto
   text: '&#129380;'
@@ -30701,8 +30701,8 @@ cupcake:
   hexcode: 1F9C1
   group: food-drink
   subgroups: food-sweet
-  E: cupcake | muffin
-  D: kuchen | muffin
+  E: cupcake|muffin
+  D: kuchen|muffin
   hex: 1F9C1
   family: emoNoto
   text: '&#129473;'
@@ -30964,8 +30964,8 @@ curry rice:
   hexcode: 1F35B
   group: food-drink
   subgroups: food-asian
-  E: plate | food | curry | rice
-  D: teller | essen | curry | reis
+  E: plate|food|curry|rice
+  D: teller|essen|curry|reis
   hex: 1F35B
   family: emoNoto
   text: '&#127835;'
@@ -31035,8 +31035,8 @@ custard:
   hexcode: 1F36E
   group: food-drink
   subgroups: food-sweet
-  E: dessert | custard | pudding
-  D: dessert | pudding
+  E: dessert|custard|pudding
+  D: dessert|pudding
   hex: 1F36E
   family: emoNoto
   text: '&#127854;'
@@ -31135,8 +31135,8 @@ cut of meat:
   hexcode: 1F969
   group: food-drink
   subgroups: food-prepared
-  E: chop | lambchop | porkchop | steak
-  D: schnitzel | fleisch | steak
+  E: chop|lambchop|porkchop|steak
+  D: schnitzel|fleisch|steak
   hex: 1F969
   family: emoNoto
   text: '&#129385;'
@@ -32111,8 +32111,8 @@ delivery truck:
   hexcode: 1F69A
   group: travel-places
   subgroups: transport-ground
-  E: lorry | delivery truck | delivery | truck
-  D: lieferwagen | laster | lastwagen
+  E: lorry|delivery truck|delivery|truck
+  D: lieferwagen|laster|lastwagen
   hex: 1F69A
   family: emoNoto
   text: '&#128666;'
@@ -32204,8 +32204,8 @@ department store:
   group: travel-places
   subgroups: place-building
   E: department store
-  D: building | department | store
-  E_valid_sound: kaufhaus | gebäude
+  D: building|department|store
+  E_valid_sound: kaufhaus|gebäude
   hex: 1F3EC
   family: emoNoto
   text: '&#127980;'
@@ -32240,8 +32240,8 @@ derelict house:
   hexcode: 1F3DA
   group: travel-places
   subgroups: place-building
-  E: derelict house | derelict | house
-  D: verfallen | verfallenes haus | haus
+  E: derelict house|derelict|house
+  D: verfallen|verfallenes haus|haus
   hex: 1F3DA
   family: emoNoto
   text: '&#127962;'
@@ -32296,8 +32296,8 @@ desert:
   hexcode: 1F3DC
   group: travel-places
   subgroups: place-geographic
-  E: cactus | desert
-  D: kaktus | wüste
+  E: cactus|desert
+  D: kaktus|wüste
   hex: 1F3DC
   family: emoNoto
   text: '&#127964;'
@@ -32332,8 +32332,8 @@ desert island:
   hexcode: 1F3DD
   group: travel-places
   subgroups: place-geographic
-  E: palm tree | island
-  D: palme | insel
+  E: palm tree|island
+  D: palme|insel
   hex: 1F3DD
   family: emoNoto
   text: '&#127965;'
@@ -34423,7 +34423,7 @@ dolphin:
   group: animals-nature
   subgroups: animal-marine
   E: dolphin
-  D: delphin | delfin
+  D: delphin|delfin
   hex: 1F42C
   family: emoNoto
   text: '&#128044;'
@@ -34998,8 +34998,8 @@ dove:
   hexcode: 1F54A
   group: animals-nature
   subgroups: animal-bird
-  E: bird | dove
-  D: vogel | taube
+  E: bird|dove
+  D: vogel|taube
   hex: 1F54A
   family: emoNoto
   text: '&#128330;'
@@ -35262,7 +35262,7 @@ dragon:
   group: animals-nature
   subgroups: animal-reptile
   E: dragon
-  D: drachen | drache
+  D: drachen|drache
   hex: 1F409
   family: emoNoto
   text: '&#128009;'
@@ -35296,7 +35296,7 @@ dragon face:
   group: animals-nature
   subgroups: animal-reptile
   E: dragon
-  D: drachen | drache
+  D: drachen|drache
   hex: 1F432
   family: emoNoto
   text: '&#128050;'
@@ -36665,8 +36665,8 @@ eagle:
   hexcode: 1F985
   group: animals-nature
   subgroups: animal-bird
-  E: bird | eagle
-  D: vogel | adler
+  E: bird|eagle
+  D: vogel|adler
   hex: 1F985
   family: emoNoto
   text: '&#129413;'
@@ -36771,8 +36771,8 @@ ear of corn:
   hexcode: 1F33D
   group: food-drink
   subgroups: food-vegetable
-  E: maize | corn
-  D: maiskolben | mais
+  E: maize|corn
+  D: maiskolben|mais
   hex: 1F33D
   family: emoNoto
   text: '&#127805;'
@@ -37307,7 +37307,7 @@ eggplant:
   group: food-drink
   subgroups: food-vegetable
   E: eggplant
-  D: aubergine | melanzani
+  D: aubergine|melanzani
   hex: 1F346
   family: emoNoto
   text: '&#127814;'
@@ -37491,8 +37491,8 @@ eight o’clock:
   hexcode: 1F557
   group: travel-places
   subgroups: time
-  E: '8 | 8:00 | clock | eight | eight o’clock'
-  D: '8 | 8:00 | acht uhr | acht | uhr'
+  E: '8|8:00|clock|eight|eight o’clock'
+  D: '8|8:00|acht uhr|acht|uhr'
   hex: 1F557
   family: emoNoto
   text: '&#128343;'
@@ -37602,8 +37602,8 @@ eight-thirty:
   hexcode: 1F563
   group: travel-places
   subgroups: time
-  E: '830|8:30 | clock | eight | eight thirty'
-  D: '8:30 | acht uhr dreissig | halb neun | uhr'
+  E: '830|8:30|clock|eight|eight thirty'
+  D: '8:30|acht uhr dreissig|halb neun|uhr'
   hex: 1F563
   family: emoNoto
   text: '&#128355;'
@@ -37920,8 +37920,8 @@ eleven o’clock:
   hexcode: 1F55A
   group: travel-places
   subgroups: time
-  E: '11 | 11:00 | clock | eleven | eleven o’clock'
-  D: '11 | 11:00 | elf uhr | elf | uhr'
+  E: '11|11:00|clock|eleven|eleven o’clock'
+  D: '11|11:00|elf uhr|elf|uhr'
   hex: 1F55A
   family: emoNoto
   text: '&#128346;'
@@ -37952,8 +37952,8 @@ eleven-thirty:
   hexcode: 1F566
   group: travel-places
   subgroups: time
-  E: '1130|11:30 | clock | eleven | eleven thirty'
-  D: '11:30 | elf uhr dreissig | halb zwölf | uhr'
+  E: '1130|11:30|clock|eleven|eleven thirty'
+  D: '11:30|elf uhr dreissig|halb zwölf|uhr'
   hex: 1F566
   family: emoNoto
   text: '&#128358;'
@@ -38957,8 +38957,8 @@ evergreen tree:
   hexcode: 1F332
   group: animals-nature
   subgroups: plant-other
-  E: tree | fir
-  D: baum | tannenbaum | tanne
+  E: tree|fir
+  D: baum|tannenbaum|tanne
   hex: 1F332
   family: emoNoto
   text: '&#127794;'
@@ -40788,8 +40788,8 @@ falafel:
   hexcode: 1F9C6
   group: food-drink
   subgroups: food-prepared
-  E: chickpea | pita | meatball | falafel
-  D: fleischbällchen | falafel
+  E: chickpea|pita|meatball|falafel
+  D: fleischbällchen|falafel
   hex: 1F9C6
   family: emoNoto
   text: '&#129478;'
@@ -40861,8 +40861,8 @@ fallen leaf:
   hexcode: 1F342
   group: animals-nature
   subgroups: plant-other
-  E: fallen leaf | leaf | leaves | autumn
-  D: herbst | blätter | blatt
+  E: fallen leaf|leaf|leaves|autumn
+  D: herbst|blätter|blatt
   hex: 1F342
   family: emoNoto
   text: '&#127810;'
@@ -41940,8 +41940,8 @@ ferris wheel:
   hexcode: 1F3A1
   group: travel-places
   subgroups: place-other
-  E: amusement park | fair | ferris wheel
-  D: prater | riesenrad
+  E: amusement park|fair|ferris wheel
+  D: prater|riesenrad
   hex: 1F3A1
   family: emoNoto
   text: '&#127905;'
@@ -43057,7 +43057,7 @@ fire engine:
   hexcode: 1F692
   group: travel-places
   subgroups: transport-ground
-  E: fire engine | feuerwehr
+  E: fire engine|feuerwehr
   D_valid_sound: engine
   hex: 1F692
   family: emoNoto
@@ -43647,8 +43647,8 @@ first quarter moon:
   hexcode: 1F313
   group: travel-places
   subgroups: sky-weather
-  E: first quarter moon | moon
-  D: zunehmender mond | mond
+  E: first quarter moon|moon
+  D: zunehmender mond|mond
   hex: 1F313
   family: emoNoto
   text: '&#127763;'
@@ -44245,8 +44245,8 @@ five o’clock:
   hexcode: 1F554
   group: travel-places
   subgroups: time
-  E: '5 | 5:00 | clock | five | five o’clock'
-  D: '5 | 5:00 | fünf uhr | fünf | uhr'
+  E: '5|5:00|clock|five|five o’clock'
+  D: '5|5:00|fünf uhr|fünf|uhr'
   hex: 1F554
   family: emoNoto
   text: '&#128340;'
@@ -44277,8 +44277,8 @@ five-thirty:
   hexcode: 1F560
   group: travel-places
   subgroups: time
-  E: '530|5:30 | clock | five | five thirty'
-  D: '5:30 | fünf uhr dreissig | halb sechs | uhr'
+  E: '530|5:30|clock|five|five thirty'
+  D: '5:30|fünf uhr dreissig|halb sechs|uhr'
   hex: 1F560
   family: emoNoto
   text: '&#128352;'
@@ -46428,15 +46428,15 @@ fork and knife:
   hexcode: 1F374
   group: food-drink
   subgroups: dishware
-  E: cutlery | fork | knife
-  D: messer | gable | besteck
+  E: cutlery|fork|knife
+  D: messer|gable|besteck
   hex: 1F374
   family: emoNoto
   text: '&#127860;'
   path: /assets/svg/twemoji/1F374.svg
   tags:
     - fork and knife
-    - cooking | cutlery | fork | knife
+    - cooking|cutlery|fork|knife
     - eat
   annotation: fork and knife
   fz: 100
@@ -46461,8 +46461,8 @@ fork and knife with plate:
   hexcode: 1F37D
   group: food-drink
   subgroups: dishware
-  E: fork | knife | plate | table setting | dinner | lunch | meal | tableware
-  D: teller | messer | gabel | gedeck
+  E: fork|knife|plate|table setting|dinner|lunch|meal|tableware
+  D: teller|messer|gabel|gedeck
   hex: 1F37D
   family: emoNoto
   text: '&#127869;'
@@ -46641,7 +46641,7 @@ fountain:
   group: travel-places
   subgroups: place-other
   E: fountain
-  D: springbrunnen | brunnen
+  D: springbrunnen|brunnen
   hex: 26F2
   family: emoNoto
   text: '&#9970;'
@@ -46724,7 +46724,7 @@ four leaf clover:
   group: animals-nature
   subgroups: plant-other
   E: clover
-  D: blatt | kleeblatt | klee
+  D: blatt|kleeblatt|klee
   hex: 1F340
   family: emoNoto
   text: '&#127808;'
@@ -46760,8 +46760,8 @@ four o’clock:
   hexcode: 1F553
   group: travel-places
   subgroups: time
-  E: '4 | 4:00 | clock | four | four o’clock|4h'
-  D: '4 | 4:00 | vier uhr | vier | uhr'
+  E: '4|4:00|clock|four|four o’clock|4h'
+  D: '4|4:00|vier uhr|vier|uhr'
   hex: 1F553
   family: emoNoto
   text: '&#128339;'
@@ -46792,8 +46792,8 @@ four-thirty:
   hexcode: 1F55F
   group: travel-places
   subgroups: time
-  E: '430|4:30 | clock | four | four thirty|4h30'
-  D: '4:30|4h30 | vier uhr dreissig | halb fünf | uhr'
+  E: '430|4:30|clock|four|four thirty|4h30'
+  D: '4:30|4h30|vier uhr dreissig|halb fünf|uhr'
   hex: 1F55F
   family: emoNoto
   text: '&#128351;'
@@ -47050,8 +47050,8 @@ french fries:
   hexcode: 1F35F
   group: food-drink
   subgroups: food-prepared
-  E: french fries | fries
-  D: pommes | pommes frites
+  E: french fries|fries
+  D: pommes|pommes frites
   hex: 1F35F
   family: emoNoto
   text: '&#127839;'
@@ -47102,8 +47102,8 @@ fried shrimp:
   hexcode: 1F364
   group: food-drink
   subgroups: food-asian
-  E: fried | prawn | tempura | shrimp
-  D: fritiert | tempura | garnele
+  E: fried|prawn|tempura|shrimp
+  D: fritiert|tempura|garnele
   hex: 1F364
   family: emoNoto
   text: '&#127844;'
@@ -47594,7 +47594,7 @@ fuel pump:
   hexcode: 26FD
   group: travel-places
   subgroups: transport-ground
-  E: fuel pump | gas station | fuel
+  E: fuel pump|gas station|fuel
   D: tankstelle
   hex: 26FD
   family: emoNoto
@@ -47687,8 +47687,8 @@ full moon:
   hexcode: 1F315
   group: travel-places
   subgroups: sky-weather
-  E: full moon | moon
-  D: vollmond | mond
+  E: full moon|moon
+  D: vollmond|mond
   hex: 1F315
   family: emoNoto
   text: '&#127765;'
@@ -48462,7 +48462,7 @@ gem stone:
   subgroups: clothing
   E: gem stone|gem|diamond
   D: diamant|edelstein
-  E_valid_sound: dream | trim | Jim | Jame
+  E_valid_sound: dream|trim|Jim|Jame
   hex: 1F48E
   family: emoNoto
   text: '&#128142;'
@@ -48974,8 +48974,8 @@ glass of milk:
   hexcode: 1F95B
   group: food-drink
   subgroups: drink
-  E: glass | milk
-  D: glas | milch
+  E: glass|milk
+  D: glas|milch
   hex: 1F95B
   family: emoNoto
   text: '&#129371;'
@@ -49232,8 +49232,8 @@ globe showing Americas:
   hexcode: 1F30E
   group: travel-places
   subgroups: place-map
-  E: map | earth | globe | america | americas | world
-  D: amerika | globus | weltkugel | erde
+  E: map|earth|globe|america|americas|world
+  D: amerika|globus|weltkugel|erde
   hex: 1F30E
   family: emoNoto
   text: '&#127758;'
@@ -49272,8 +49272,8 @@ globe showing Asia-Australia:
   hexcode: 1F30F
   group: travel-places
   subgroups: place-map
-  E: map | earth | globe | asia | australia | world
-  D: asien | australien | globus | weltkugel | erde
+  E: map|earth|globe|asia|australia|world
+  D: asien|australien|globus|weltkugel|erde
   hex: 1F30F
   family: emoNoto
   text: '&#127759;'
@@ -49312,8 +49312,8 @@ globe showing Europe-Africa:
   hexcode: 1F30D
   group: travel-places
   subgroups: place-map
-  E: map | earth | globe | europe | africa | world
-  D: afrika | europa | globus | weltkugel | erde
+  E: map|earth|globe|europe|africa|world
+  D: afrika|europa|globus|weltkugel|erde
   hex: 1F30D
   family: emoNoto
   text: '&#127757;'
@@ -50700,8 +50700,8 @@ green apple:
   hexcode: 1F34F
   group: food-drink
   subgroups: food-fruit
-  E: fruit | apple
-  D: frucht | apfel
+  E: fruit|apple
+  D: frucht|apfel
   hex: 1F34F
   family: emoNoto
   text: '&#127823;'
@@ -50830,7 +50830,7 @@ green salad:
   hexcode: 1F957
   group: food-drink
   subgroups: food-prepared
-  E: lettuce | salad
+  E: lettuce|salad
   D: salat
   hex: 1F957
   family: emoNoto
@@ -52263,8 +52263,8 @@ hamburger:
   hexcode: 1F354
   group: food-drink
   subgroups: food-prepared
-  E: burger | hamburger
-  D: burger | hamburger
+  E: burger|hamburger
+  D: burger|hamburger
   hex: 1F354
   family: emoNoto
   text: '&#127828;'
@@ -53604,8 +53604,8 @@ hatching chick:
   hexcode: 1F423
   group: animals-nature
   subgroups: animal-bird
-  E: egg|hatching | chick
-  D: ei | küken
+  E: egg|hatching|chick
+  D: ei|küken
   E_valid_sound: trick|cheek
   hex: 1F423
   family: emoNoto
@@ -55092,8 +55092,8 @@ herb:
   hexcode: 1F33F
   group: animals-nature
   subgroups: plant-other
-  E: herb | leaf
-  D: blatt | pflanze | kraut
+  E: herb|leaf
+  D: blatt|pflanze|kraut
   hex: 1F33F
   family: emoNoto
   text: '&#127807;'
@@ -55181,8 +55181,8 @@ hibiscus:
   hexcode: 1F33A
   group: animals-nature
   subgroups: plant-flower
-  E: flower | hibiscus
-  D: blume | hibiskus
+  E: flower|hibiscus
+  D: blume|hibiskus
   hex: 1F33A
   family: emoNoto
   text: '&#127802;'
@@ -55420,8 +55420,8 @@ high-speed train:
   hexcode: 1F684
   group: travel-places
   subgroups: transport-ground
-  E: train | high-speed train
-  D: schnellzug | u-bahn | zug | bahn
+  E: train|high-speed train
+  D: schnellzug|u-bahn|zug|bahn
   hex: 1F684
   family: emoNoto
   text: '&#128644;'
@@ -55601,7 +55601,7 @@ hindu temple:
   hexcode: 1F6D5
   group: travel-places
   subgroups: place-religious
-  E: hindu temple | temple
+  E: hindu temple|temple
   D: tempel
   hex: 1F6D5
   family: emoNoto
@@ -56103,8 +56103,8 @@ honey pot:
   hexcode: 1F36F
   group: food-drink
   subgroups: food-sweet
-  E: honey | honeypot | pot
-  D: honigtopf | topf | honig
+  E: honey|honeypot|pot
+  D: honigtopf|topf|honig
   hex: 1F36F
   family: emoNoto
   text: '&#127855;'
@@ -56621,8 +56621,8 @@ hot beverage:
   hexcode: '2615'
   group: food-drink
   subgroups: drink
-  E: cup | coffee | tea
-  D: kaffee | tee | tasse
+  E: cup|coffee|tea
+  D: kaffee|tee|tasse
   hex: '2615'
   family: emoNoto
   text: '&#9749;'
@@ -56694,15 +56694,15 @@ hot pepper:
   hexcode: 1F336
   group: food-drink
   subgroups: food-vegetable
-  E: hot | pepper
-  D: scharf | paprika
+  E: hot|pepper
+  D: scharf|paprika
   hex: 1F336
   family: emoNoto
   text: '&#127798;'
   path: /assets/svg/twemoji/1F336.svg
   tags:
     - hot pepper
-    - hot | pepper
+    - hot|pepper
     - red
   annotation: hot pepper
   fz: 100
@@ -56803,8 +56803,8 @@ hotdog:
   hexcode: 1F32D
   group: food-drink
   subgroups: food-prepared
-  E: frankfurter | hotdog | sausage
-  D: frankfurter | würstl | hotdog
+  E: frankfurter|hotdog|sausage
+  D: frankfurter|würstl|hotdog
   hex: 1F32D
   family: emoNoto
   text: '&#127789;'
@@ -57049,8 +57049,8 @@ house with garden:
   hexcode: 1F3E1
   group: travel-places
   subgroups: place-building
-  E: garden | home | house
-  D: haus mit garten | haus
+  E: garden|home|house
+  D: haus mit garten|haus
   hex: 1F3E1
   family: emoNoto
   text: '&#127969;'
@@ -57126,8 +57126,8 @@ houses:
   group: travel-places
   subgroups: place-building
   E: houses
-  D: houses | buildings | neighborhood
-  E_valid_sound: häuser | nachbarschaft | dorf
+  D: houses|buildings|neighborhood
+  E_valid_sound: häuser|nachbarschaft|dorf
   hex: 1F3D8
   family: emoNoto
   text: '&#127960;'
@@ -61799,8 +61799,8 @@ ice:
   hexcode: 1F9CA
   group: food-drink
   subgroups: drink
-  E: cold | ice cube | ice
-  D: eiswürfel | eis
+  E: cold|ice cube|ice
+  D: eiswürfel|eis
   hex: 1F9CA
   family: emoNoto
   text: '&#129482;'
@@ -65678,8 +65678,8 @@ kitchen knife:
   hexcode: 1F52A
   group: food-drink
   subgroups: dishware
-  E: kitchen knife | knife
-  D: küchenmesser | messer
+  E: kitchen knife|knife
+  D: küchenmesser|messer
   hex: 1F52A
   family: emoNoto
   text: '&#128298;'
@@ -66817,8 +66817,8 @@ last quarter moon:
   hexcode: 1F317
   group: travel-places
   subgroups: sky-weather
-  E: waning moon | moon
-  D: abnehmender mond | mond
+  E: waning moon|moon
+  D: abnehmender mond|mond
   hex: 1F317
   family: emoNoto
   text: '&#127767;'
@@ -67215,8 +67215,8 @@ leaf fluttering in wind:
   hexcode: 1F343
   group: animals-nature
   subgroups: plant-other
-  E: blow | flutter | leaf | wind
-  D: flattern | blatt | wind
+  E: blow|flutter|leaf|wind
+  D: flattern|blatt|wind
   hex: 1F343
   family: emoNoto
   text: '&#127811;'
@@ -68456,7 +68456,7 @@ light rail:
   hexcode: 1F688
   group: travel-places
   subgroups: transport-ground
-  E: metro | subway | train | railway
+  E: metro|subway|train|railway
   D: metro
   E_valid_sound: zug
   D_valid_sound: bahn
@@ -69888,8 +69888,8 @@ locomotive:
   hexcode: 1F682
   group: travel-places
   subgroups: transport-ground
-  E: steam engine | train | locomotive
-  D: dampflok | zug | lokomotive
+  E: steam engine|train|locomotive
+  D: dampflok|zug|lokomotive
   hex: 1F682
   family: emoNoto
   text: '&#128642;'
@@ -70827,8 +70827,8 @@ luggage:
   hexcode: 1F9F3
   group: travel-places
   subgroups: hotel
-  E: luggage | baggage | suitcase
-  D: koffer | gepäck
+  E: luggage|baggage|suitcase
+  D: koffer|gepäck
   hex: 1F9F3
   family: emoNoto
   text: '&#129523;'
@@ -72976,8 +72976,8 @@ mango:
   hexcode: 1F96D
   group: food-drink
   subgroups: food-fruit
-  E: fruit | tropical | mango
-  D: frucht | tropisch | mango
+  E: fruit|tropical|mango
+  D: frucht|tropisch|mango
   hex: 1F96D
   family: emoNoto
   text: '&#129389;'
@@ -73028,8 +73028,8 @@ mantelpiece clock:
   hexcode: 1F570
   group: travel-places
   subgroups: time
-  E: mantelpiece clock | clock
-  D: standuhr | uhr
+  E: mantelpiece clock|clock
+  D: standuhr|uhr
   hex: 1F570
   family: emoNoto
   text: '&#128368;'
@@ -73201,8 +73201,8 @@ map of Japan:
   hexcode: 1F5FE
   group: travel-places
   subgroups: place-map
-  E: map | map of japan | japan
-  D: landkarte | japan
+  E: map|map of japan|japan
+  D: landkarte|japan
   hex: 1F5FE
   family: emoNoto
   text: '&#128510;'
@@ -73351,8 +73351,8 @@ maple leaf:
   hexcode: 1F341
   group: animals-nature
   subgroups: plant-other
-  E: maple | leaf | maple leaf
-  D: ahorn | blatt | ahornblatt
+  E: maple|leaf|maple leaf
+  D: ahorn|blatt|ahornblatt
   hex: 1F341
   family: emoNoto
   text: '&#127809;'
@@ -74023,8 +74023,8 @@ meat on bone:
   hexcode: 1F356
   group: food-drink
   subgroups: food-prepared
-  E: bone | meat
-  D: fleisch | keule
+  E: bone|meat
+  D: fleisch|keule
   hex: 1F356
   family: emoNoto
   text: '&#127830;'
@@ -75180,8 +75180,8 @@ metro:
   hexcode: 1F687
   group: travel-places
   subgroups: transport-ground
-  E: metro | subway | train | railway
-  D: metro | zug | bahn | u-bahn
+  E: metro|subway|train|railway
+  D: metro|zug|bahn|u-bahn
   hex: 1F687
   family: emoNoto
   text: '&#128647;'
@@ -75266,8 +75266,8 @@ microbe:
   hexcode: 1F9A0
   group: animals-nature
   subgroups: animal-bug
-  E: amoeba | bacteria | virus | microbe
-  D: bakterie | mikrobe
+  E: amoeba|bacteria|virus|microbe
+  D: bakterie|mikrobe
   hex: 1F9A0
   family: emoNoto
   text: '&#129440;'
@@ -75873,8 +75873,8 @@ minibus:
   hexcode: 1F690
   group: travel-places
   subgroups: transport-ground
-  E: minibus | bus
-  D: kleinbus | bus
+  E: minibus|bus
+  D: kleinbus|bus
   hex: 1F690
   family: emoNoto
   text: '&#128656;'
@@ -76892,7 +76892,7 @@ monorail:
   hexcode: 1F69D
   group: travel-places
   subgroups: transport-ground
-  E: railway | train | monorail
+  E: railway|train|monorail
   D: zug
   hex: 1F69D
   family: emoNoto
@@ -77231,7 +77231,7 @@ mosquito:
   group: animals-nature
   subgroups: animal-bug
   E: mosquito
-  D: moskito | gelse
+  D: moskito|gelse
   hex: 1F99F
   family: emoNoto
   text: '&#129439;'
@@ -77375,8 +77375,8 @@ motorized wheelchair:
   hexcode: 1F9BC
   group: travel-places
   subgroups: transport-ground
-  E: motorized wheelchair | electric wheelchair | wheelchair
-  D: elektrischer rollstuhl | rollstuhl
+  E: motorized wheelchair|electric wheelchair|wheelchair
+  D: elektrischer rollstuhl|rollstuhl
   hex: 1F9BC
   family: emoNoto
   text: '&#129468;'
@@ -77407,8 +77407,8 @@ motorway:
   hexcode: 1F6E3
   group: travel-places
   subgroups: transport-ground
-  E: highway | road
-  D: schnellbahn | autobahn | strasse
+  E: highway|road
+  D: schnellbahn|autobahn|strasse
   hex: 1F6E3
   family: emoNoto
   text: '&#128739;'
@@ -78080,8 +78080,8 @@ mushroom:
   hexcode: 1F344
   group: food-drink
   subgroups: food-vegetable
-  E: toadstool | mushroom
-  D: schwammerl | champignon | fliegenpilz | pilz
+  E: toadstool|mushroom
+  D: schwammerl|champignon|fliegenpilz|pilz
   hex: 1F344
   family: emoNoto
   text: '&#127812;'
@@ -79315,8 +79315,8 @@ nine o’clock:
   hexcode: 1F558
   group: travel-places
   subgroups: time
-  E: '9 | 9:00 | clock | nine | nine o’clock'
-  D: '9 | 9:00 | neun uhr | neun | uhr'
+  E: '9|9:00|clock|nine|nine o’clock'
+  D: '9|9:00|neun uhr|neun|uhr'
   hex: 1F558
   family: emoNoto
   text: '&#128344;'
@@ -79347,8 +79347,8 @@ nine-thirty:
   hexcode: 1F564
   group: travel-places
   subgroups: time
-  E: '930|9:30 | clock | nine | nine thirty'
-  D: '9:30 | neun uhr dreissig | halb zehn | uhr'
+  E: '930|9:30|clock|nine|nine thirty'
+  D: '9:30|neun uhr dreissig|halb zehn|uhr'
   hex: 1F564
   family: emoNoto
   text: '&#128356;'
@@ -80508,8 +80508,8 @@ office building:
   hexcode: 1F3E2
   group: travel-places
   subgroups: place-building
-  E: office building | building
-  D: bürogebäude | gebäude
+  E: office building|building
+  D: bürogebäude|gebäude
   hex: 1F3E2
   family: emoNoto
   text: '&#127970;'
@@ -80618,8 +80618,8 @@ oil drum:
   hexcode: 1F6E2
   group: travel-places
   subgroups: transport-ground
-  E: oil drum | drum | oil
-  D: ölfass | öl
+  E: oil drum|drum|oil
+  D: ölfass|öl
   hex: 1F6E2
   family: emoNoto
   text: '&#128738;'
@@ -81073,8 +81073,8 @@ oncoming automobile:
   hexcode: 1F698
   group: travel-places
   subgroups: transport-ground
-  E: automobile | vehicle | car
-  D: wagen | automobil | auto
+  E: automobile|vehicle|car
+  D: wagen|automobil|auto
   hex: 1F698
   family: emoNoto
   text: '&#128664;'
@@ -81142,8 +81142,8 @@ one o’clock:
   hexcode: 1F550
   group: travel-places
   subgroups: time
-  E: '1 | 1:00 | clock | one | one o’clock'
-  D: '1 | 1:00 | ein uhr | eins | uhr'
+  E: '1|1:00|clock|one|one o’clock'
+  D: '1|1:00|ein uhr|eins|uhr'
   hex: 1F550
   family: emoNoto
   text: '&#128336;'
@@ -81225,8 +81225,8 @@ one-thirty:
   hexcode: 1F55C
   group: travel-places
   subgroups: time
-  E: '130|1:30 | clock | one | one thirty'
-  D: '1:30 | ein uhr dreissig | halb zwei | uhr'
+  E: '130|1:30|clock|one|one thirty'
+  D: '1:30|ein uhr dreissig|halb zwei|uhr'
   hex: 1F55C
   family: emoNoto
   text: '&#128348;'
@@ -82346,7 +82346,7 @@ owl:
   group: animals-nature
   subgroups: animal-bird
   E: owl
-  D: uhu | eule
+  D: uhu|eule
   E_valid_sound: all
   hex: 1F989
   family: emoNoto
@@ -82380,7 +82380,7 @@ ox:
   group: animals-nature
   subgroups: animal-mammal
   E: taurus|ox| bull
-  D: büffel | ochs | stier
+  D: büffel|ochs|stier
   hex: 1F402
   family: emoNoto
   text: '&#128002;'
@@ -82978,7 +82978,7 @@ pancakes:
   group: food-drink
   subgroups: food-prepared
   E: pancakes
-  D: pancakes|pfannkuchen | palatschinken | crepes
+  D: pancakes|pfannkuchen|palatschinken|crepes
   hex: 1F95E
   family: emoNoto
   text: '&#129374;'
@@ -83493,7 +83493,7 @@ parrot:
   path: /assets/svg/twemoji/1F99C.svg
   tags:
     - parrot
-    - bird | pirate | talk
+    - bird|pirate|talk
   annotation: parrot
   fz: 100
   w:
@@ -83677,8 +83677,8 @@ passenger ship:
   hexcode: 1F6F3
   group: travel-places
   subgroups: transport-water
-  E: passenger ship | cruise ship | ship
-  D: passagierschiff | kreuzfahrtschiff | schiff
+  E: passenger ship|cruise ship|ship
+  D: passagierschiff|kreuzfahrtschiff|schiff
   hex: 1F6F3
   family: emoNoto
   text: '&#128755;'
@@ -84197,8 +84197,8 @@ peach:
   hexcode: 1F351
   group: food-drink
   subgroups: food-fruit
-  E: fruit | peach
-  D: frucht | pfirsich
+  E: fruit|peach
+  D: frucht|pfirsich
   hex: 1F351
   family: emoNoto
   text: '&#127825;'
@@ -84302,8 +84302,8 @@ peanuts:
   hexcode: 1F95C
   group: food-drink
   subgroups: food-vegetable
-  E: food | nut | peanut
-  D: nüsse | nuss |erdnuss|aschantinuss | erdnüsse
+  E: food|nut|peanut
+  D: nüsse|nuss |erdnuss|aschantinuss|erdnüsse
   hex: 1F95C
   family: emoNoto
   text: '&#129372;'
@@ -84337,8 +84337,8 @@ pear:
   hexcode: 1F350
   group: food-drink
   subgroups: food-fruit
-  E: fruit | pear
-  D: frucht | birne
+  E: fruit|pear
+  D: frucht|birne
   hex: 1F350
   family: emoNoto
   text: '&#127824;'
@@ -86315,7 +86315,7 @@ pie:
   path: /assets/svg/twemoji/1F967.svg
   tags:
     - pie
-    - filling | pastry
+    - filling|pastry
   annotation: pie
   fz: 100
   w:
@@ -87222,7 +87222,7 @@ pizza:
   hexcode: 1F355
   group: food-drink
   subgroups: food-prepared
-  E: pizza slice | pizza
+  E: pizza slice|pizza
   D: pizza
   hex: 1F355
   family: emoNoto
@@ -88415,8 +88415,8 @@ police car:
   hexcode: 1F693
   group: travel-places
   subgroups: transport-ground
-  E: police car | car | patrol | police
-  D: polizeiwagen | streifenwagen | polizei
+  E: police car|car|patrol|police
+  D: polizeiwagen|streifenwagen|polizei
   E_valid_sound: police car
   D_valid_sound: car
   hex: 1F693
@@ -88803,8 +88803,8 @@ popcorn:
   hexcode: 1F37F
   group: food-drink
   subgroups: food-prepared
-  E: snack | popcorn
-  D: snack | popcorn
+  E: snack|popcorn
+  D: snack|popcorn
   hex: 1F37F
   family: emoNoto
   text: '&#127871;'
@@ -89052,14 +89052,14 @@ pot of food:
   subgroups: food-prepared
   E: pot
   D: stew
-  E_valid_sound: eintopf | essen | kochen | topf
+  E_valid_sound: eintopf|essen|kochen|topf
   hex: 1F372
   family: emoNoto
   text: '&#127858;'
   path: /assets/svg/twemoji/1F372.svg
   tags:
     - pot of food
-    - food | pot | stew
+    - food|pot|stew
   annotation: pot of food
   fz: 100
   w:
@@ -89119,7 +89119,7 @@ potato:
   group: food-drink
   subgroups: food-vegetable
   E: potato
-  D: erdäpfel | kartoffel
+  D: erdäpfel|kartoffel
   hex: 1F954
   family: emoNoto
   text: '&#129364;'
@@ -89190,8 +89190,8 @@ poultry leg:
   hexcode: 1F357
   group: food-drink
   subgroups: food-prepared
-  E: bone | chicken | drumstick | leg | poultry
-  D: hühner keule | hühner haxen | keule | huhn
+  E: bone|chicken|drumstick|leg|poultry
+  D: hühner keule|hühner haxen|keule|huhn
   hex: 1F357
   family: emoNoto
   text: '&#127831;'
@@ -91137,8 +91137,8 @@ rabbit:
   hexcode: 1F407
   group: animals-nature
   subgroups: animal-mammal
-  E: hare | bunny | rabbit
-  D: kaninchen | hase
+  E: hare|bunny|rabbit
+  D: kaninchen|hase
   hex: 1F407
   family: emoNoto
   text: '&#128007;'
@@ -91233,9 +91233,9 @@ racing car:
   hexcode: 1F3CE
   group: travel-places
   subgroups: transport-ground
-  E: racing car | car
+  E: racing car|car
   D: racing
-  E_valid_sound: formel 1 wagen | rennwagen
+  E_valid_sound: formel 1 wagen|rennwagen
   hex: 1F3CE
   family: emoNoto
   text: '&#127950;'
@@ -91571,8 +91571,8 @@ railway car:
   hexcode: 1F683
   group: travel-places
   subgroups: transport-ground
-  E: railway | train | tram | trolley
-  D: zug | trolley | strassenbahn
+  E: railway|train|tram|trolley
+  D: zug|trolley|strassenbahn
   hex: 1F683
   family: emoNoto
   text: '&#128643;'
@@ -91609,7 +91609,7 @@ railway track:
   hexcode: 1F6E4
   group: travel-places
   subgroups: transport-ground
-  E: railway | tracks
+  E: railway|tracks
   D: schienen
   hex: 1F6E4
   family: emoNoto
@@ -92534,8 +92534,8 @@ red apple:
   hexcode: 1F34E
   group: food-drink
   subgroups: food-fruit
-  E: fruit | apple
-  D: frucht | apfel
+  E: fruit|apple
+  D: frucht|apfel
   hex: 1F34E
   family: emoNoto
   text: '&#127822;'
@@ -93714,8 +93714,8 @@ rice cracker:
   hexcode: 1F358
   group: food-drink
   subgroups: food-asian
-  E: rice cracker | cracker
-  D: reiscracker | cracker
+  E: rice cracker|cracker
+  D: reiscracker|cracker
   hex: 1F358
   family: emoNoto
   text: '&#127832;'
@@ -93747,8 +93747,8 @@ rickshaw:
   group: travel-places
   subgroups: transport-ground
   E: tuk tuk
-  D: rickshaw | tuk tuk
-  E_valid_sound: rikscha | tuk tuk
+  D: rickshaw|tuk tuk
+  E_valid_sound: rikscha|tuk tuk
   hex: 1F6FA
   family: emoNoto
   text: '&#128762;'
@@ -94253,8 +94253,8 @@ roasted sweet potato:
   hexcode: 1F360
   group: food-drink
   subgroups: food-asian
-  E: sweet potato | potato
-  D: süsskartoffel | kartoffel
+  E: sweet potato|potato
+  D: süsskartoffel|kartoffel
   hex: 1F360
   family: emoNoto
   text: '&#127840;'
@@ -94765,8 +94765,8 @@ roller coaster:
   hexcode: 1F3A2
   group: travel-places
   subgroups: place-other
-  E: amusement park | roller coaster
-  D: achterbahn | hochschaubahn
+  E: amusement park|roller coaster
+  D: achterbahn|hochschaubahn
   hex: 1F3A2
   family: emoNoto
   text: '&#127906;'
@@ -94951,8 +94951,8 @@ rooster:
   hexcode: 1F413
   group: animals-nature
   subgroups: animal-bird
-  E: chicken | rooster
-  D: huhn | hahn
+  E: chicken|rooster
+  D: huhn|hahn
   hex: 1F413
   family: emoNoto
   text: '&#128019;'
@@ -95097,8 +95097,8 @@ rose:
   hexcode: 1F339
   group: animals-nature
   subgroups: plant-flower
-  E: flower | rose
-  D: blume | rose
+  E: flower|rose
+  D: blume|rose
   hex: 1F339
   family: emoNoto
   text: '&#127801;'
@@ -95134,7 +95134,7 @@ rosette:
   group: animals-nature
   subgroups: plant-flower
   E: flower
-  D: rosette | blume
+  D: rosette|blume
   hex: 1F3F5
   family: emoNoto
   text: '&#127989;'
@@ -96335,15 +96335,15 @@ sailboat:
   hexcode: 26F5
   group: travel-places
   subgroups: transport-water
-  E: boat | resort | sea | yacht | sailboat
-  D: schiff | boot | yacht | segelboot
+  E: boat|resort|sea|yacht|sailboat
+  D: schiff|boot|yacht|segelboot
   hex: 26F5
   family: emoNoto
   text: '&#9973;'
   path: /assets/svg/twemoji/26F5.svg
   tags:
     - sailboat
-    - boat | resort | sea | yacht
+    - boat|resort|sea|yacht
     - boat
     - passengers
     - ship
@@ -96489,7 +96489,7 @@ salt:
   group: food-drink
   subgroups: food-prepared
   E: salt
-  D: gewürz | salz
+  D: gewürz|salz
   hex: 1F9C2
   family: emoNoto
   text: '&#129474;'
@@ -96654,8 +96654,8 @@ sandwich:
   hexcode: 1F96A
   group: food-drink
   subgroups: food-prepared
-  E: bread | sandwich
-  D: brot | sandwich
+  E: bread|sandwich
+  D: brot|sandwich
   hex: 1F96A
   family: emoNoto
   text: '&#129386;'
@@ -97299,8 +97299,8 @@ school:
   hexcode: 1F3EB
   group: travel-places
   subgroups: place-building
-  E: building | school
-  D: gebäude | schule
+  E: building|school
+  D: gebäude|schule
   hex: 1F3EB
   family: emoNoto
   text: '&#127979;'
@@ -97964,7 +97964,7 @@ seat:
   hexcode: 1F4BA
   group: travel-places
   subgroups: transport-air
-  E: seat | chair
+  E: seat|chair
   D: sessel
   hex: 1F4BA
   family: emoNoto
@@ -98111,8 +98111,8 @@ seedling:
   hexcode: 1F331
   group: animals-nature
   subgroups: plant-other
-  E: plant | seed | seedling
-  D: samen | sprosse | spross
+  E: plant|seed|seedling
+  D: samen|sprosse|spross
   hex: 1F331
   family: emoNoto
   text: '&#127793;'
@@ -98403,8 +98403,8 @@ seven o’clock:
   hexcode: 1F556
   group: travel-places
   subgroups: time
-  E: '7 | 7:00 | clock | seven | seven o’clock'
-  D: '7 | 7:00 | sieben uhr | sieben | uhr'
+  E: '7|7:00|clock|seven|seven o’clock'
+  D: '7|7:00|sieben uhr|sieben|uhr'
   hex: 1F556
   family: emoNoto
   text: '&#128342;'
@@ -98455,8 +98455,8 @@ seven-thirty:
   hexcode: 1F562
   group: travel-places
   subgroups: time
-  E: '730|7:30 | clock | seven | seven thirty'
-  D: '7:30 | sieben uhr dreissig | halb acht | uhr'
+  E: '730|7:30|clock|seven|seven thirty'
+  D: '7:30|sieben uhr dreissig|halb acht|uhr'
   hex: 1F562
   family: emoNoto
   text: '&#128354;'
@@ -98638,8 +98638,8 @@ shallow pan of food:
   hexcode: 1F958
   group: food-drink
   subgroups: food-prepared
-  E: casserole | food | paella | pan
-  D: kochen | pfanne | eintopf | topf
+  E: casserole|food|paella|pan
+  D: kochen|pfanne|eintopf|topf
   hex: 1F958
   family: emoNoto
   text: '&#129368;'
@@ -98712,8 +98712,8 @@ shamrock:
   hexcode: '2618'
   group: animals-nature
   subgroups: plant-other
-  E: clover | plant | shamrock
-  D: blatt | kleeblatt | klee
+  E: clover|plant|shamrock
+  D: blatt|kleeblatt|klee
   hex: '2618'
   family: emoNoto
   text: '&#9752;'
@@ -98858,8 +98858,8 @@ shark:
   hexcode: 1F988
   group: animals-nature
   subgroups: animal-marine
-  E: fish | shark
-  D: fisch | haifisch | hai
+  E: fish|shark
+  D: fisch|haifisch|hai
   hex: 1F988
   family: emoNoto
   text: '&#129416;'
@@ -99159,8 +99159,8 @@ shaved ice:
   hexcode: 1F367
   group: food-drink
   subgroups: food-sweet
-  E: sorbet | dessert | ice cream | cone | ice cream cone
-  D: sorbet | eistüte | eis
+  E: sorbet|dessert|ice cream|cone|ice cream cone
+  D: sorbet|eistüte|eis
   hex: 1F367
   family: emoNoto
   text: '&#127847;'
@@ -99565,7 +99565,7 @@ shinto shrine:
   hexcode: '26E9'
   group: travel-places
   subgroups: place-religious
-  E: shinto shrine | temple
+  E: shinto shrine|temple
   D: tempel
   hex: '26E9'
   family: emoNoto
@@ -100072,8 +100072,8 @@ shortcake:
   hexcode: 1F370
   group: food-drink
   subgroups: food-sweet
-  E: dessert | cake
-  D: dessert | torte
+  E: dessert|cake
+  D: dessert|torte
   hex: 1F370
   family: emoNoto
   text: '&#127856;'
@@ -101003,8 +101003,8 @@ six o’clock:
   hexcode: 1F555
   group: travel-places
   subgroups: time
-  E: '6 | 6:00 | clock | six | six o’clock'
-  D: '6 | 6:00 | sechs uhr | sechs | uhr'
+  E: '6|6:00|clock|six|six o’clock'
+  D: '6|6:00|sechs uhr|sechs|uhr'
   hex: 1F555
   family: emoNoto
   text: '&#128341;'
@@ -101054,8 +101054,8 @@ six-thirty:
   hexcode: 1F561
   group: travel-places
   subgroups: time
-  E: '630|6:30 | clock | six | six thirty'
-  D: '6:30 | sechs uhr dreissig | halb sieben | uhr'
+  E: '630|6:30|clock|six|six thirty'
+  D: '6:30|sechs uhr dreissig|halb sieben|uhr'
   hex: 1F561
   family: emoNoto
   text: '&#128353;'
@@ -103744,8 +103744,8 @@ soccer ball:
   hexcode: 26BD
   group: activities
   subgroups: sport
-  E: soccer ball | football | ball | soccer
-  D: fussball | ball
+  E: soccer ball|football|ball|soccer
+  D: fussball|ball
   hex: 26BD
   family: emoNoto
   text: '&#9917;'
@@ -104767,7 +104767,7 @@ spaghetti:
   subgroups: food-asian
   E: pasta
   D: pasta
-  E_valid_sound: teigwaren | pasta
+  E_valid_sound: teigwaren|pasta
   hex: 1F35D
   family: emoNoto
   text: '&#127837;'
@@ -105528,8 +105528,8 @@ speedboat:
   hexcode: 1F6A4
   group: travel-places
   subgroups: transport-water
-  E: speedboat | boat
-  D: motorboot | boot
+  E: speedboat|boat
+  D: motorboot|boot
   hex: 1F6A4
   family: emoNoto
   text: '&#128676;'
@@ -107039,8 +107039,8 @@ spouting whale:
   hexcode: 1F433
   group: animals-nature
   subgroups: animal-marine
-  E: humpack whale | whale
-  D: pottwal | wal
+  E: humpack whale|whale
+  D: pottwal|wal
   hex: 1F433
   family: emoNoto
   text: '&#128051;'
@@ -107500,8 +107500,8 @@ stadium:
   hexcode: 1F3DF
   group: travel-places
   subgroups: place-building
-  E: building | stadium
-  D: gebäude | stadium
+  E: building|stadium
+  D: gebäude|stadium
   hex: 1F3DF
   family: emoNoto
   text: '&#127967;'
@@ -108351,7 +108351,7 @@ station:
   group: travel-places
   subgroups: transport-ground
   E: train|subway|station
-  D: ubahn|u-bahn|bahn|zugstation | station
+  D: ubahn|u-bahn|bahn|zugstation|station
   hex: 1F689
   family: emoNoto
   text: '&#128649;'
@@ -108480,8 +108480,8 @@ steaming bowl:
   hexcode: 1F35C
   group: food-drink
   subgroups: food-asian
-  E: bowl | noodle | ramen
-  D: schüssel | nudeln | ramen
+  E: bowl|noodle|ramen
+  D: schüssel|nudeln|ramen
   hex: 1F35C
   family: emoNoto
   text: '&#127836;'
@@ -109406,8 +109406,8 @@ stop sign:
   hexcode: 1F6D1
   group: travel-places
   subgroups: transport-ground
-  E: stop sign | stop
-  D: stop signal | stop zeichen | stop
+  E: stop sign|stop
+  D: stop signal|stop zeichen|stop
   hex: 1F6D1
   family: emoNoto
   text: '&#128721;'
@@ -109993,8 +109993,8 @@ stuffed flatbread:
   hexcode: 1F959
   group: food-drink
   subgroups: food-prepared
-  E: falafel | flatbread | kebab | wrap
-  D: falafel | kebab | wrap
+  E: falafel|flatbread|kebab|wrap
+  D: falafel|kebab|wrap
   hex: 1F959
   family: emoNoto
   text: '&#129369;'
@@ -110594,8 +110594,8 @@ sunflower:
   hexcode: 1F33B
   group: animals-nature
   subgroups: plant-flower
-  E: flower | sunflower
-  D: blume | sonnenblume
+  E: flower|sunflower
+  D: blume|sonnenblume
   hex: 1F33B
   family: emoNoto
   text: '&#127803;'
@@ -111935,8 +111935,8 @@ synagogue:
   hexcode: 1F54D
   group: travel-places
   subgroups: place-religious
-  E: synagogue | church
-  D: synagoge | kirche
+  E: synagogue|church
+  D: synagoge|kirche
   hex: 1F54D
   family: emoNoto
   text: '&#128333;'
@@ -112466,8 +112466,8 @@ tangerine:
   hexcode: 1F34A
   group: food-drink
   subgroups: food-fruit
-  E: fruit | orange
-  D: obst | orange
+  E: fruit|orange
+  D: obst|orange
   hex: 1F34A
   family: emoNoto
   text: '&#127818;'
@@ -112793,8 +112793,8 @@ teacup without handle:
   hexcode: 1F375
   group: food-drink
   subgroups: drink
-  E: teacup | cup | tea
-  D: teetasse | tee | tasse
+  E: teacup|cup|tea
+  D: teetasse|tee|tasse
   hex: 1F375
   family: emoNoto
   text: '&#127861;'
@@ -113509,8 +113509,8 @@ ten o’clock:
   hexcode: 1F559
   group: travel-places
   subgroups: time
-  E: '10 | 10:00 | clock | ten | ten o’clock'
-  D: '10 | 10:00 | zehn uhr | zehn | uhr'
+  E: '10|10:00|clock|ten|ten o’clock'
+  D: '10|10:00|zehn uhr|zehn|uhr'
   hex: 1F559
   family: emoNoto
   text: '&#128345;'
@@ -113541,8 +113541,8 @@ ten-thirty:
   hexcode: 1F565
   group: travel-places
   subgroups: time
-  E: '1030|10:30 | clock | ten | ten thirty'
-  D: '10:30 | zehn uhr dreissig | halb elf | uhr'
+  E: '1030|10:30|clock|ten|ten thirty'
+  D: '10:30|zehn uhr dreissig|halb elf|uhr'
   hex: 1F565
   family: emoNoto
   text: '&#128357;'
@@ -113705,8 +113705,8 @@ tent:
   hexcode: 26FA
   group: travel-places
   subgroups: place-other
-  E: camping | tent
-  D: camping | zelt
+  E: camping|tent
+  D: camping|zelt
   E_valid_sound: ten
   hex: 26FA
   family: emoNoto
@@ -114602,8 +114602,8 @@ three o’clock:
   hexcode: 1F552
   group: travel-places
   subgroups: time
-  E: '3 | 3:00 | clock | three | three o’clock'
-  D: '3 | 3:00 | drei uhr | drei | uhr'
+  E: '3|3:00|clock|three|three o’clock'
+  D: '3|3:00|drei uhr|drei|uhr'
   hex: 1F552
   family: emoNoto
   text: '&#128338;'
@@ -114731,8 +114731,8 @@ three-thirty:
   hexcode: 1F55E
   group: travel-places
   subgroups: time
-  E: '330|3:30 | clock | three | three thirty'
-  D: '3:30 | drei uhr dreissig | halb vier | uhr'
+  E: '330|3:30|clock|three|three thirty'
+  D: '3:30|drei uhr dreissig|halb vier|uhr'
   hex: 1F55E
   family: emoNoto
   text: '&#128350;'
@@ -115425,8 +115425,8 @@ timer clock:
   group: travel-places
   subgroups: time
   E: clock |timer
-  D: clock | timer
-  E_valid_sound: uhr | stopuhr
+  D: clock|timer
+  E_valid_sound: uhr|stopuhr
   hex: 23F2
   family: emoNoto
   text: '&#9202;'
@@ -116711,8 +116711,8 @@ train:
   hexcode: 1F686
   group: travel-places
   subgroups: transport-ground
-  E: metro | subway | train | railway
-  D: metro | zug | bahn | u-bahn
+  E: metro|subway|train|railway
+  D: metro|zug|bahn|u-bahn
   hex: 1F686
   family: emoNoto
   text: '&#128646;'
@@ -116744,8 +116744,8 @@ tram:
   group: travel-places
   subgroups: transport-ground
   E: railway
-  D: train | tram | trolley
-  E_valid_sound: zug | trolley | strassenbahn
+  D: train|tram|trolley
+  E_valid_sound: zug|trolley|strassenbahn
   hex: 1F68A
   family: emoNoto
   text: '&#128650;'
@@ -116776,8 +116776,8 @@ tram car:
   hexcode: 1F68B
   group: travel-places
   subgroups: transport-ground
-  E: railway | train | tram | trolley
-  D: zug | trolley | strassenbahn
+  E: railway|train|tram|trolley
+  D: zug|trolley|strassenbahn
   hex: 1F68B
   family: emoNoto
   text: '&#128651;'
@@ -118031,8 +118031,8 @@ trolleybus:
   hexcode: 1F68E
   group: travel-places
   subgroups: transport-ground
-  E: bus | tram | trolley
-  D: bus | strassenbahn | trolley
+  E: bus|tram|trolley
+  D: bus|strassenbahn|trolley
   hex: 1F68E
   family: emoNoto
   text: '&#128654;'
@@ -118136,8 +118136,8 @@ tropical drink:
   hexcode: 1F379
   group: food-drink
   subgroups: drink
-  E: cocktail | glass
-  D: cocktail | glas
+  E: cocktail|glass
+  D: cocktail|glas
   hex: 1F379
   family: emoNoto
   text: '&#127865;'
@@ -118487,8 +118487,8 @@ tulip:
   hexcode: 1F337
   group: animals-nature
   subgroups: plant-flower
-  E: flower | tulip
-  D: blume | tulpe
+  E: flower|tulip
+  D: blume|tulpe
   hex: 1F337
   family: emoNoto
   text: '&#127799;'
@@ -118698,7 +118698,7 @@ turtle:
   hexcode: 1F422
   group: animals-nature
   subgroups: animal-reptile
-  E: tortoise | turtle
+  E: tortoise|turtle
   D: schildkröte
   hex: 1F422
   family: emoNoto
@@ -118828,8 +118828,8 @@ twelve o’clock:
   hexcode: 1F55B
   group: travel-places
   subgroups: time
-  E: '12 | 12:00 | clock | twelve | twelve o’clock'
-  D: '12 | 12:00 | zwölf uhr | mittag | mitternacht | zwölf | uhr'
+  E: '12|12:00|clock|twelve|twelve o’clock'
+  D: '12|12:00|zwölf uhr|mittag|mitternacht|zwölf|uhr'
   hex: 1F55B
   family: emoNoto
   text: '&#128347;'
@@ -118863,8 +118863,8 @@ twelve-thirty:
   hexcode: 1F567
   group: travel-places
   subgroups: time
-  E: '1230|12:30 | clock | twelve | twelve thirty'
-  D: '12:30 | clock | zwölf uhr dreissig | halb eins | uhr'
+  E: '1230|12:30|clock|twelve|twelve thirty'
+  D: '12:30|clock|zwölf uhr dreissig|halb eins|uhr'
   hex: 1F567
   family: emoNoto
   text: '&#128359;'
@@ -119002,8 +119002,8 @@ two o’clock:
   hexcode: 1F551
   group: travel-places
   subgroups: time
-  E: '2 | 2:00 | clock | two | two o’clock'
-  D: '2 | 2:00 | zwei uhr | zwei | hr'
+  E: '2|2:00|clock|two|two o’clock'
+  D: '2|2:00|zwei uhr|zwei|hr'
   hex: 1F551
   family: emoNoto
   text: '&#128337;'
@@ -119111,8 +119111,8 @@ two-thirty:
   hexcode: 1F55D
   group: travel-places
   subgroups: time
-  E: '230|2:30 | clock | two | two thirty'
-  D: '2:30 | zwei uhr dreissig | halb drei | uhr'
+  E: '230|2:30|clock|two|two thirty'
+  D: '2:30|zwei uhr dreissig|halb drei|uhr'
   hex: 1F55D
   family: emoNoto
   text: '&#128349;'
@@ -121167,7 +121167,7 @@ vertical traffic light:
   hexcode: 1F6A6
   group: travel-places
   subgroups: transport-ground
-  E: light | signal | traffic light
+  E: light|signal|traffic light
   D: ampel
   hex: 1F6A6
   family: emoNoto
@@ -122594,8 +122594,8 @@ waning crescent moon:
   hexcode: 1F318
   group: travel-places
   subgroups: sky-weather
-  E: waning moon | crescent moon | moon
-  D: abnehmender mond | mond
+  E: waning moon|crescent moon|moon
+  D: abnehmender mond|mond
   hex: 1F318
   family: emoNoto
   text: '&#127768;'
@@ -122628,8 +122628,8 @@ waning gibbous moon:
   hexcode: 1F316
   group: travel-places
   subgroups: sky-weather
-  E: waning moon | moon
-  D: abnehmender mond | mond
+  E: waning moon|moon
+  D: abnehmender mond|mond
   hex: 1F316
   family: emoNoto
   text: '&#127766;'
@@ -122895,7 +122895,7 @@ watch:
   hexcode: 231A
   group: travel-places
   subgroups: time
-  E: watch | clock
+  E: watch|clock
   D: uhr
   hex: 231A
   family: emoNoto
@@ -122903,7 +122903,7 @@ watch:
   path: /assets/svg/twemoji/231A.svg
   tags:
     - watch
-    - watch | clock
+    - watch|clock
     - time
   annotation: watch
   fz: 100
@@ -123591,8 +123591,8 @@ waxing crescent moon:
   hexcode: 1F312
   group: travel-places
   subgroups: sky-weather
-  E: waxing crescent moon | moon
-  D: zunehmender mond | mond
+  E: waxing crescent moon|moon
+  D: zunehmender mond|mond
   hex: 1F312
   family: emoNoto
   text: '&#127762;'
@@ -123626,7 +123626,7 @@ waxing gibbous moon:
   group: travel-places
   subgroups: sky-weather
   E: '| moon'
-  D: zunehmender mond | mond
+  D: zunehmender mond|mond
   hex: 1F314
   family: emoNoto
   text: '&#127764;'
@@ -124675,8 +124675,8 @@ wilted flower:
   hexcode: 1F940
   group: animals-nature
   subgroups: plant-flower
-  E: wilted | tulip|flower
-  D: welke blume | verwelkt|tulpe | blume
+  E: wilted|tulip|flower
+  D: welke blume|verwelkt|tulpe|blume
   hex: 1F940
   family: emoNoto
   text: '&#129344;'
@@ -125033,8 +125033,8 @@ wine glass:
   subgroups: drink
   E: glass
   D: wine
-  E_valid_sound: glass | wine
-  D_valid_sound: glas | wein
+  E_valid_sound: glass|wine
+  D_valid_sound: glas|wein
   hex: 1F377
   family: emoNoto
   text: '&#127863;'
@@ -127441,8 +127441,8 @@ world map:
   hexcode: 1F5FA
   group: travel-places
   subgroups: place-map
-  E: magnetic | navigation | orienteering | map | world
-  D: erde | welt | landkarte | weltkarte
+  E: magnetic|navigation|orienteering|map|world
+  D: erde|welt|landkarte|weltkarte
   E_valid_sound: map
   D_valid_sound: world
   hex: 1F5FA
