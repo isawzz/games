@@ -8230,7 +8230,7 @@ award:
   group: activities
   subgroups: award-medal
   E: award|medal
-  D: medaille
+  D: medaille|preis
   hex: 1F396
   family: emoNoto
   text: '&#127894;'
@@ -8539,6 +8539,8 @@ baby symbol:
   hexcode: 1F6BC
   group: symbols
   subgroups: transport-sign
+  E: baby
+  D: baby
   hex: 1F6BC
   family: emoNoto
   text: '&#128700;'
@@ -9151,6 +9153,8 @@ baggage claim:
   hexcode: 1F6C4
   group: symbols
   subgroups: transport-sign
+  E: baggage
+  D: gepaaeeck
   hex: 1F6C4
   family: emoNoto
   text: '&#128708;'
