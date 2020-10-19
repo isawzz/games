@@ -32,7 +32,7 @@ function updateSpeakCheckbox() {
 function deactivateSpeakmode() {
 	let id = getStandardTagId('e', 'speak');
 	//console.log('____________ id',id);
-	hide(id); //mBy(id)
+	//hide(id); //mBy(id)
 	startWriteMode();
 }
 function switchModeSilently(isManual = false) {

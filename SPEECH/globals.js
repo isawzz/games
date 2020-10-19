@@ -1,6 +1,6 @@
 var symbolDictCopy, hasSymbolDictChanged;
-var currentLanguage = 'D';
-var interactMode = 'write'; // speak | write
+var currentLanguage = 'E';
+var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'all';
 const immediateStart = true; //fires onClickStartButton 

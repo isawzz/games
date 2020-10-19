@@ -1,0 +1,36 @@
+html,body{
+	background-color: pink;
+	margin: 0;
+	padding: 2px;
+}
+#imgLogo{
+/* clip:rect(0px,60px,20px,0px); */
+	object-position: -2px -8px;
+	object-fit: scale-down;
+	width: 60px;
+	height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

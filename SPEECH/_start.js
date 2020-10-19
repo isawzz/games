@@ -7,6 +7,9 @@ function SPEECHEnd(){
 	}
 }
 async function SPEECHStart() {
+	var msg = new SpeechSynthesisUtterance();
+	msg.text = "tiger";
+	window.speechSynthesis.speak(msg); return;
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
 	await loadAssets();
 	ensureSymBySet();

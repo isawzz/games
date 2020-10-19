@@ -76292,7 +76292,7 @@ mobile phone:
   group: objects
   subgroups: phone
   E: mobile phone|cellphone|phone
-  D: telephone|handy
+  D: telefon|handy
   hex: 1F4F1
   family: emoNoto
   text: '&#128241;'
@@ -88983,7 +88983,7 @@ postal horn:
   group: objects
   subgroups: sound
   E: postal horn
-  D: posthorn
+  D: posthorn|horn
   hex: 1F4EF
   family: emoNoto
   text: '&#128239;'
@@ -91828,6 +91828,7 @@ raised hand:
   subgroups: hand-fingers-open
   E: raised hand|palm|hand palm|hand
   D: gehobene hand|handfläche|hand
+  E_valid_sound: and
   hex: 270B-1F3FC
   family: emoNoto
   text: '&#9995;'
@@ -91864,7 +91865,6 @@ raising hands:
   E: party|celebration|celebrating|raising hands
   D: fest|party|feiern
   E_valid_sound: celebration
-  D_valid_sound: gesture
   hex: 1F64C-1F3FC
   family: emoNoto
   text: '&#128588;'
@@ -113159,9 +113159,9 @@ telephone:
   hexcode: 260E
   group: objects
   subgroups: phone
-  E: phone
-  D: phone
-  E_valid_sound: telephon
+  E: red telephone|phone
+  D: rotes telefon|telefon
+  E_valid_sound: telephone|foam
   hex: 260E
   family: emoNoto
   text: '&#9742;'
@@ -113195,7 +113195,7 @@ telephone receiver:
   group: objects
   subgroups: phone
   E: telephone receiver
-  D: kopfhörer
+  D: telefonhörer|kopfhörer
   hex: 1F4DE
   family: emoNoto
   text: '&#128222;'
