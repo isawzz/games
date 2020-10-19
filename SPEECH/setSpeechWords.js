@@ -49,7 +49,7 @@ function getEmoSetWords(lang = 'E') {
 	//key = 'person with veil';
 	//key='medal';
 	//key='leopard';
-	key='telephone';
+	//key='telephone';
 	//#endregion
 
 	let info = jsCopy(picInfo(key));

@@ -8,6 +8,9 @@ const isTrainingMode = true; //does not deactivate start button if true!
 var MAXWORDLENGTH = 100;
 var level = 0;
 
+//var synth;
+//var voices;
+
 var timit;
 var finalResult, matchingWords, validSounds, recognition, isRunning;
 var status = 'init'; // init | wait | prompt | result | error | nomatch | end

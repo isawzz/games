@@ -7,9 +7,20 @@ function SPEECHEnd(){
 	}
 }
 async function SPEECHStart() {
-	var msg = new SpeechSynthesisUtterance();
-	msg.text = "tiger";
-	window.speechSynthesis.speak(msg); return;
+	//startSynthesis();
+	//var msg = new SpeechSynthesisUtterance();
+	//msg.text = "tiger";
+	//let synth=window.speechSynthesis;
+// 	let voices = synth.getVoices().sort(function (a, b) {
+// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+// 		if ( aname < bname ) return -1;
+// 		else if ( aname == bname ) return 0;
+// 		else return +1;
+// });
+	// console.log(synth,synth.getVoices());
+	//console.log('______ voices',voices);
+	//window.speechSynthesis.speak(msg); return;
+	//return;
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
 	await loadAssets();
 	ensureSymBySet();

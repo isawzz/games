@@ -40065,6 +40065,7 @@ face blowing a kiss:
   subgroups: face-affection
   E: crush|love|happy|kiss
   D: verliebt|liebe|bussi|kuss
+  E_valid_sound: kids
   hex: 1F618
   family: emoNoto
   text: '&#128536;'
@@ -65430,6 +65431,7 @@ kiss:
   subgroups: family
   E: love|kiss
   D: küssen|liebe|kuss
+  E_valid_sound: kids
   hex: 1F48F
   family: emoNoto
   text: '&#128143;'
@@ -65467,6 +65469,7 @@ kiss mark:
   subgroups: emotion
   E: kiss mark|love|kiss|lips
   D: kussmarke|kuss|liebe|lippen
+  E_valid_sound: kids
   hex: 1F48B
   family: emoNoto
   text: '&#128139;'
@@ -65540,6 +65543,7 @@ kissing cat:
   subgroups: cat-face
   E: kissing|kiss|kissing cat
   D: kuss|katzenkuss
+  E_valid_sound: kids
   hex: 1F63D
   family: emoNoto
   text: '&#128573;'
@@ -65608,6 +65612,7 @@ kissing face with closed eyes:
   subgroups: face-affection
   E: crush|love|happy|kiss
   D: verliebt|liebe|bussi|kuss
+  E_valid_sound: kids
   hex: 1F61A
   family: emoNoto
   text: '&#128538;'
@@ -115923,7 +115928,7 @@ toolbox:
   hexcode: 1F9F0
   group: objects
   subgroups: tool
-  E: suitcase|toolbox
+  E: suitcase|tool box|toolbox
   D: koffer|werkzeugkoffer
   hex: 1F9F0
   family: emoNoto
