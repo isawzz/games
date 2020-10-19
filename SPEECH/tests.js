@@ -25,23 +25,23 @@ function focusOnInput() {
 		inputBox.focus();
 	}
 }
-function onClickAddValidSound(){
-	let k=currentInfo.key;
+function onClickAddValidSound() {
+	let k = currentInfo.key;
 	let k1 = currentLangauge + '_valid_sound';
-	console.log(symbolDictCopy[k],currentLanguage,inputAdded.innerHTML);
-	symbolDictCopy[k][k1]=inputAdded.innerHTML.trim()+'|'+symbolDictCopy[k][k1];
-	hasSymbolDictChanged=true;
+	console.log(symbolDictCopy[k], currentLanguage, inputAdded.innerHTML);
+	symbolDictCopy[k][k1] = inputAdded.innerHTML.trim() + '|' + symbolDictCopy[k][k1];
+	hasSymbolDictChanged = true;
 }
-function onClickAddSynonym(){
-	let k=currentInfo.key;
+function onClickAddSynonym() {
+	let k = currentInfo.key;
 	let s = inputAdded.innerHTML.trim().toLowerCase();
-	console.log(symbolDictCopy[k],currentLanguage,s);
-	symbolDictCopy[k][currentLanguage]=s+'|'+symbolDictCopy[k][currentLanguage];
-	hasSymbolDictChanged=true;
+	console.log(symbolDictCopy[k], currentLanguage, s);
+	symbolDictCopy[k][currentLanguage] = s + '|' + symbolDictCopy[k][currentLanguage];
+	hasSymbolDictChanged = true;
 
-	addIf(currentInfo.words,s);
+	addIf(currentInfo.words, s);
 	//if (!currentInfo.words.includes(s)) currentInfo.words.shift(s);
-	console.log(currentInfo.words,currentInfo.valid)
+	console.log(currentInfo.words, currentInfo.valid)
 }
 function onClickSetLanguage() {
 	//toggle lang!
@@ -50,7 +50,7 @@ function onClickSetLanguage() {
 	this.innerHTML = currentLanguage;
 
 	//restart();
-	console.log('currentInfo:',currentInfo)
+	console.log('currentInfo:', currentInfo)
 	if (isdef(currentInfo)) setLanguageWords(currentLanguage, currentInfo);
 	//if am in the middle of a hint, now need to redo hint!!!!!!!
 }
@@ -135,23 +135,26 @@ function evaluateAnswer(answer) {
 	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
 	//console.log('valid', valid)
 	answer = answer.toUpperCase();
-	console.log(convertUmlaute(answer),words,currentLanguage,interactMode,words.includes(convertUmlaute(answer)),currentLanguage == 'D' && interactMode=='write' && words.includes(convertUmlaute(answer)));
-	if (words.includes(answer)||(currentLanguage == 'D' && interactMode=='write' && words.includes(convertUmlaute(answer)))) {
-		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+	console.log(convertUmlaute(answer), words, currentLanguage, interactMode, words.includes(convertUmlaute(answer)), currentLanguage == 'D' && interactMode == 'write' && words.includes(convertUmlaute(answer)));
+	if (words.includes(answer) || (currentLanguage == 'D' && interactMode == 'write' && words.includes(convertUmlaute(answer)))) {
+		if (level > 0) setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+		else scoreFunction2(true);
 		successMessage();
 		hintMessage.innerHTML = answer;
 		return true;
 	} else if (valid.includes(answer)) {
 		//this is a word that sounds just like bestWord!
-		setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+		if (level > 0) setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+		else scoreFunction2(true);
 		successMessage();
 		hintMessage.innerHTML = bestWord.toUpperCase();
 		return true;
 	} else {
-		setScore(score - 1);
+		//setScore(score - 1);
 		addHint();
 		if (bestWord == hintWord) {
 			trySomethingElseMessage();
+			if (level == 0) scoreFunction2(false); else setScore(score - 1);
 			//console.log('NICHT ERRATEN!!!!!!!!!');
 			//hintMessage.innerHTML = "let's try something else!";
 			return false;
@@ -162,6 +165,14 @@ function evaluateAnswer(answer) {
 
 		return false;
 	}
+}
+function scoreFunction2(isCorrect) {
+	if (isCorrect) {
+		numCorrectAnswers += 1;
+	}
+	numTotalAnswers += 1;
+	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
+	scoreSpan.innerHTML = '' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 }
 function setScore(sc) {
 	//console.log('score', sc)
