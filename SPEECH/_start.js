@@ -1,9 +1,9 @@
 window.onload = SPEECHStart;
 window.onbeforeunload = SPEECHEnd;
 
-function SPEECHEnd(){
-	if (hasSymbolDictChanged){
-		downloadAsYaml(symbolDictCopy,'symbolDictCopy');
+function SPEECHEnd() {
+	if (hasSymbolDictChanged) {
+		downloadAsYaml(symbolDictCopy, 'symbolDictCopy');
 	}
 }
 async function SPEECHStart() {
@@ -11,12 +11,12 @@ async function SPEECHStart() {
 	//var msg = new SpeechSynthesisUtterance();
 	//msg.text = "tiger";
 	//let synth=window.speechSynthesis;
-// 	let voices = synth.getVoices().sort(function (a, b) {
-// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
-// 		if ( aname < bname ) return -1;
-// 		else if ( aname == bname ) return 0;
-// 		else return +1;
-// });
+	// 	let voices = synth.getVoices().sort(function (a, b) {
+	// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+	// 		if ( aname < bname ) return -1;
+	// 		else if ( aname == bname ) return 0;
+	// 		else return +1;
+	// });
 	// console.log(synth,synth.getVoices());
 	//console.log('______ voices',voices);
 	//window.speechSynthesis.speak(msg); return;
@@ -31,27 +31,27 @@ async function SPEECHStart() {
 	addEventListener('keyup', keyUpHandler);
 	setStatus('wait');
 	score = 0;
-	initTable(); 
-	let sidebar = mBy('sidebar'); 
+	initTable();
+	let sidebar = mBy('sidebar');
 	mText('language:', sidebar);
 	mButton(currentLanguage, onClickSetLanguage, sidebar, { width: 100 });
 	mText('categories:', sidebar);
-	let names = selectedEmoSetNames; 
+	let names = selectedEmoSetNames;
 	//console.log(names);
 	for (const name of names) {
 		let uName = name;
-		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom':'4px' }, ['buttonClass']);
+		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom': '4px' }, ['buttonClass']);
 		b.id = 'b_' + uName;
 	}
 	setGroup(startingCategory);
 	initOptionsUi();
-	if (immediateStart) {bStart.innerHTML='NEXT';onClickStartButton();}
+	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); }
 }
-function getStandardTagId(elem,postfix){
-	let cat=isString(elem)?elem:getTypeOf(elem);
-	return cat+'_'+postfix;
+function getStandardTagId(elem, postfix) {
+	let cat = isString(elem) ? elem : getTypeOf(elem);
+	return cat + '_' + postfix;
 }
-function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, styles, classes){
+function addYesNoOption(flagName, flagInitialValue, caption, handler, dParent, styles, classes) {
 
 	function onClick(ev) {
 		//console.log('triggered',ev)
@@ -59,7 +59,7 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 		if (isdef(handler)) handler(...arguments);
 		//console.log('hallo!!!!!',window[flagName]);
 
-		ev.cancelBubble=true;
+		ev.cancelBubble = true;
 		ev.stopPropagation = true;
 	}
 
@@ -80,17 +80,17 @@ function addYesNoOption (flagName, flagInitialValue, caption, handler, dParent, 
 	// return d;
 	//#endregion
 	//let x=false; //flagInitialValue; //true;
-	let html=`
+	let html = `
 	<p>
-		<input type="checkbox" `+ (flagInitialValue?'checked=true':'') +` id="${flagName}">
+		<input type="checkbox" `+ (flagInitialValue ? 'checked=true' : '') + ` id="${flagName}">
 		<label for="${flagName}">${caption}</label>
 	</p>
 	`;
-	let d = mText(html,dParent);
-	d.id=getStandardTagId('e',caption);//'div_'+flagName;
+	let d = mText(html, dParent);
+	d.id = getStandardTagId('e', caption);//'div_'+flagName;
 	//console.log(d)
 	let para = d.children[0];
-	para.onmouseup=onClick;
+	para.onmouseup = onClick;
 	//console.log('input should be',inp);
 	return d;
 
@@ -99,8 +99,8 @@ function initOptionsUi() {
 	let dOptions = mText('options:', sidebar); // options
 
 	//console.log('pauseAfterInput',pauseAfterInput)
-	addYesNoOption('pauseAfterInput',pauseAfterInput,'pause', focusOnInput, dOptions, { width: 100 });
-	addYesNoOption('speakMode',speakMode,'speak', switchModeSilently, dOptions, { width: 100 });
+	addYesNoOption('pauseAfterInput', pauseAfterInput, 'pause', focusOnInput, dOptions, { width: 100 });
+	addYesNoOption('speakMode', speakMode, 'speak', switchModeSilently, dOptions, { width: 100 });
 }
 function initTable() {
 	let table = mBy('table');
@@ -111,7 +111,7 @@ function initTable() {
 	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
 	mLinebreak(table);
 
-	let b = mButton(immediateStart?'NEXT':'start', onClickStartButton, table, {}, ['bigCentralButton2']);
+	let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, table, {}, ['bigCentralButton2']);
 	b.style.marginTop = '12px';
 	b.id = 'bStart';
 	mLinebreak(table);
@@ -158,11 +158,11 @@ function test02() {
 	//d.style.fontSize='100pt';
 	let x = mEmoTrial2('computer mouse', table, { align: 'center', width: 250, border: '4px solid red', rounding: 14, bg: 'yellow', fontSize: 50 });
 }
-function test03(){
+function test03() {
 	//want to convert an object symbolDict to a csv list of records
-	let o=symbolDict;
+	let o = symbolDict;
 	let lines = [];
-	for(const k in o){
+	for (const k in o) {
 		let line = '';
 
 	}
@@ -173,14 +173,14 @@ function ConvertToCSV(objArray) {
 	var str = '';
 
 	for (var i = 0; i < array.length; i++) {
-			var line = '';
-			for (var index in array[i]) {
-					if (line != '') line += ','
+		var line = '';
+		for (var index in array[i]) {
+			if (line != '') line += ','
 
-					line += array[i][index];
-			}
+			line += array[i][index];
+		}
 
-			str += line + '\r\n';
+		str += line + '\r\n';
 	}
 
 	return str;
