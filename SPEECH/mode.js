@@ -23,6 +23,7 @@ function updateSpeakCheckbox() {
 	//console.log('updateSpeakCheckbox mode=' + interactMode);
 	speakMode = (interactMode == 'speak');
 	let inp = mBy('speakMode');
+	if (nundef(inp)) return;
 	//console.log('speakMode', speakMode, inp.checked);
 	if (!inp.checked && speakMode || inp.checked && !speakMode) inp.click();
 	inp.checked = speakMode;

@@ -3,15 +3,21 @@ var currentLanguage = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
 const startingCategory = 'animal';
+var currentGame = 'gTouchPic'; // gSayWord | gTouchPic
 const immediateStart = true; //fires onClickStartButton 
 const isTrainingMode = true; //does not deactivate start button if true!
 var MAXWORDLENGTH = 100;
 var level = 0;
-var numCorrectAnswers=0,numTotalAnswers=0,percentageCorrect=100;
+var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 // in level 0 egal wieviele hints count as correct if say it right at least 1 letter from end!
 
-//var synth;
-//var voices;
+//table
+var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;
+var dLineMidOuter, dLineMid, dLineMidLeft, dLineMidRight, dLineMidMiddle;
+var dLineBottomOuter, dLineBottom, dLineBottomLeft, dLineBottomRight, dLineBottomMiddle;
+
+//speaker
+var synth, inputForm, inputTxt, voiceSelect, pitch, pitchValue, rate, rateValue, voices;
 
 var timit;
 var finalResult, matchingWords, validSounds, recognition, isRunning;

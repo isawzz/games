@@ -1,3 +1,49 @@
+//#region oct20 cleanup SIMPLE
+async function SPEECHStart_1() {
+	//startSynthesis();
+	//var msg = new SpeechSynthesisUtterance();
+	//msg.text = "tiger";
+	//let synth=window.speechSynthesis;
+	// 	let voices = synth.getVoices().sort(function (a, b) {
+	// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+	// 		if ( aname < bname ) return -1;
+	// 		else if ( aname == bname ) return 0;
+	// 		else return +1;
+	// });
+	// console.log(synth,synth.getVoices());
+	//console.log('______ voices',voices);
+	//window.speechSynthesis.speak(msg); return;
+	//return;
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
+	await loadAssets();
+	ensureSymBySet();
+	symbolDictCopy = jsCopy(symbolDict);
+
+	groupSizeTest();
+
+	addEventListener('keyup', keyUpHandler);
+	setStatus('wait');
+	score = 0;
+	initLineTop();
+	let sidebar = mBy('sidebar');
+	mText('language:', sidebar);
+	mButton(currentLanguage, onClickSetLanguage, sidebar, { width: 100 });
+	mText('categories:', sidebar);
+	let names = selectedEmoSetNames;
+	//console.log(names);
+	for (const name of names) {
+		let uName = name;
+		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom': '4px' }, ['buttonClass']);
+		b.id = 'b_' + uName;
+	}
+	setGroup(startingCategory);
+	//initOptionsUi();
+	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); }
+}
+
+
+//#endregion
+
 //#region oct11 cleanup assets.js after removing MojiReduced,Icon files
 async function loadRawAssets() {
 	vidCache = new LazyCache(!USE_LOCAL_STORAGE);

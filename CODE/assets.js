@@ -507,6 +507,7 @@ async function route_c52() {
 	return await route_rsg_asset('c52_blackBorder', 'yaml');
 }
 async function route_symbolDict(filename = 'symbolDict') {
+	console.log('fetch symbolDict!!!')
 	let url = '/assets/' + filename + '.yaml';
 	let response = await route_path_yaml_dict(url); //TODO: depending on ext, treat other assts as well!
 	return response;

@@ -1,26 +1,7 @@
 window.onload = SPEECHStart;
 window.onbeforeunload = SPEECHEnd;
 
-function SPEECHEnd() {
-	if (hasSymbolDictChanged) {
-		downloadAsYaml(symbolDictCopy, 'symbolDictCopy');
-	}
-}
 async function SPEECHStart() {
-	//startSynthesis();
-	//var msg = new SpeechSynthesisUtterance();
-	//msg.text = "tiger";
-	//let synth=window.speechSynthesis;
-	// 	let voices = synth.getVoices().sort(function (a, b) {
-	// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
-	// 		if ( aname < bname ) return -1;
-	// 		else if ( aname == bname ) return 0;
-	// 		else return +1;
-	// });
-	// console.log(synth,synth.getVoices());
-	//console.log('______ voices',voices);
-	//window.speechSynthesis.speak(msg); return;
-	//return;
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
 	await loadAssets();
 	ensureSymBySet();
@@ -46,6 +27,11 @@ async function SPEECHStart() {
 	setGroup(startingCategory);
 	initOptionsUi();
 	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); }
+}
+function SPEECHEnd() {
+	if (hasSymbolDictChanged) {
+		downloadAsYaml(symbolDictCopy, 'symbolDictCopy');
+	}
 }
 function getStandardTagId(elem, postfix) {
 	let cat = isString(elem) ? elem : getTypeOf(elem);
@@ -195,3 +181,44 @@ function ConvertToCSV(objArray) {
 
 
 
+async function SPEECHStart_1() {
+	//startSynthesis();
+	//var msg = new SpeechSynthesisUtterance();
+	//msg.text = "tiger";
+	//let synth=window.speechSynthesis;
+	// 	let voices = synth.getVoices().sort(function (a, b) {
+	// 		const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
+	// 		if ( aname < bname ) return -1;
+	// 		else if ( aname == bname ) return 0;
+	// 		else return +1;
+	// });
+	// console.log(synth,synth.getVoices());
+	//console.log('______ voices',voices);
+	//window.speechSynthesis.speak(msg); return;
+	//return;
+	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); return;//load from scratch
+	await loadAssets();
+	ensureSymBySet();
+	symbolDictCopy = jsCopy(symbolDict);
+
+	groupSizeTest();
+
+	addEventListener('keyup', keyUpHandler);
+	setStatus('wait');
+	score = 0;
+	initTable();
+	let sidebar = mBy('sidebar');
+	mText('language:', sidebar);
+	mButton(currentLanguage, onClickSetLanguage, sidebar, { width: 100 });
+	mText('categories:', sidebar);
+	let names = selectedEmoSetNames;
+	//console.log(names);
+	for (const name of names) {
+		let uName = name;
+		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom': '4px' }, ['buttonClass']);
+		b.id = 'b_' + uName;
+	}
+	setGroup(startingCategory);
+	initOptionsUi();
+	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); }
+}
