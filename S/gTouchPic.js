@@ -9,6 +9,7 @@ function gTouchPicStart() {
 	let title = dLineTopMiddle;
 	if (nundef(table)) return;
 	clearElement(table);
+	clearElement(title);
 
 	g2Pics = [];
 	let styles = { w: 200, margin: 20, bg: 'random', cursor: 'pointer' };
@@ -29,13 +30,13 @@ function gTouchPicStart() {
 		if (item.key == g2Goal.key) {
 			console.log('SUCCESS!!!!');
 			scoreFunction2(true);
-			feedbackMessage.innerHTML = "CORRECT!";
+			//feedbackMessage.innerHTML = "CORRECT!";
 			say('Excellent!!!');
 	
 		} else {
 			console.log('FAIL!!')
 			scoreFunction2(false);
-			feedbackMessage.innerHTML = "Nope!";
+			//feedbackMessage.innerHTML = "Nope!";
 			say('too bad!',1,1,.8,'zira');
 		}
 
@@ -57,7 +58,8 @@ function gTouchPicStart() {
 	let cmd = 'click';
 	let msg = cmd + " " + text.toUpperCase();
 	// feedbackMessage = instructionMessage = mInstruction(msg, title,false);instructionMessage.id='dInstruction';
-	feedbackMessage = instructionMessage = mText(msg,title); //mInstruction(msg, title,false);instructionMessage.id='dInstruction';
+	let d = feedbackMessage = instructionMessage = mText(msg,title); //mInstruction(msg, title,false);instructionMessage.id='dInstruction';
+	//d.style.marginTop='35px';
 	synthVoice(cmd + " " + text,.7,1,.7,'random');
 	mLinebreak(table);
 

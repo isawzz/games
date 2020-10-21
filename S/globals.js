@@ -12,6 +12,7 @@ var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 // in level 0 egal wieviele hints count as correct if _say it right at least 1 letter from end!
 
 //table
+var dLine1Outer, dLine1, dLine1Left, dLine1Right, dLine1Middle;
 var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;
 var dLineMidOuter, dLineMid, dLineMidLeft, dLineMidRight, dLineMidMiddle;
 var dLineBottomOuter, dLineBottom, dLineBottomLeft, dLineBottomRight, dLineBottomMiddle;

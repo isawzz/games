@@ -3,9 +3,27 @@ function initTable() {
 	let table = mBy('table');
 	clearElement(table);
 
+	initLine1();
 	initLineTop();
 	initLineMiddle();
 	//initLineBottom();
+}
+function initLine1() {
+	dLine1Outer = mDiv(table); dLine1Outer.id = 'line1Outer';
+	dLine1 = mDiv(dLine1Outer); dLine1.id = 'line1';
+	dLine1Left = mDiv(dLine1); dLine1Left.id = 'line1Left';
+	dLine1Right = mDiv(dLine1); dLine1Right.id = 'line1Right'; //dLine1Right.innerHTML = 'O';
+	dLine1Middle = mDiv(dLine1); dLine1Middle.id = 'line1Middle';
+
+	let dScore = mDiv(dLine1Right);
+	dScore.id = 'scoreDiv';
+	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
+	// mLinebreak(table);
+
+	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
+	// b.id = 'bStart';
+
+	mLinebreak(table);
 }
 function initLineTop() {
 	dLineTopOuter = mDiv(table); dLineTopOuter.id = 'lineTopOuter';
@@ -14,9 +32,9 @@ function initLineTop() {
 	dLineTopRight = mDiv(dLineTop); dLineTopRight.id = 'lineTopRight'; //dLineTopRight.innerHTML = 'O';
 	dLineTopMiddle = mDiv(dLineTop); dLineTopMiddle.id = 'lineTopMiddle';
 
-	let dScore = mDiv(dLineTopRight);
-	dScore.id = 'scoreDiv';
-	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
+	// let dScore = mDiv(dLineTopRight);
+	// dScore.id = 'scoreDiv';
+	// dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
 	// mLinebreak(table);
 
 	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
