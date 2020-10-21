@@ -3,8 +3,11 @@ var g2Pics = [];
 var g2N = 2;
 var g2Goal;
 
+function showCheckMark(dParent){
+
+}
 function gTouchPicStart() {
-	console.log('touch pic game!')
+	//console.log('touch pic game!')
 	let table = dLineMidMiddle;
 	let title = dLineTopMiddle;
 	if (nundef(table)) return;
@@ -12,29 +15,37 @@ function gTouchPicStart() {
 	clearElement(title);
 
 	g2Pics = [];
-	let styles = { w: 200, margin: 20, bg: 'random', cursor: 'pointer' };
+	let styles = { w: 200,h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 4 };
 
 	let onClickPicture = ev => {
 		let id = evToClosestId(ev);
-		console.log('id', id);
+		//console.log('id', id);
 		ev.cancelBubble = true;
 
 		//get item
 		let i = firstNumber(id);
-		console.log('index', i);
+		//console.log('index', i);
 		let item = g2Pics[i];
-		console.log('picked:', item);
+		//console.log('picked:', item);
 
 		//hintMessage.innerHTML = g2Goal.key.toUpperCase();
 
 		if (item.key == g2Goal.key) {
-			console.log('SUCCESS!!!!');
+			//console.log('SUCCESS!!!!');
 			scoreFunction2(true);
 			//feedbackMessage.innerHTML = "CORRECT!";
 			say('Excellent!!!');
+
+			let dItem = mBy(id);
+			//let b=getBounds(dItem);
+			//console.log(b.x,b.y)
+			//console.log(dItem)
+			//dItem.style.position = 'relative';
+
+			maPicOver('check mark',dItem,{ w: 100,h: 100, color:'lime'});
 	
 		} else {
-			console.log('FAIL!!')
+			//console.log('FAIL!!')
 			scoreFunction2(false);
 			//feedbackMessage.innerHTML = "Nope!";
 			say('too bad!',1,1,.8,'zira');
@@ -51,7 +62,7 @@ function gTouchPicStart() {
 
 	//randomly select a key out of the N pics
 	let key = g2Goal = chooseRandom(g2Pics);
-	console.log('key is', key)
+	//console.log('key is', key)
 
 	//this is instruction message
 	let text = key.key;

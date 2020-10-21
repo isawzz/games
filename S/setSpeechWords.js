@@ -53,7 +53,7 @@ function getEmoSetWords(lang = 'E') {
 	//#endregion
 
 	let info = jsCopy(picInfo(key));
-	console.log(info);
+	//console.log(info);
 
 	let valid, words;
 	let oValid = info[lang + '_valid_sound'];
@@ -110,7 +110,7 @@ function setLanguageWords(language, info) {
 
 }
 function setGroup(group) {
-	console.log('setting group to', group)
+	//console.log('setting group to', group)
 
 	//unselect previous group button
 	let button = mBy('b_' + emoGroup);

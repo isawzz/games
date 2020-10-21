@@ -8,11 +8,11 @@ const voiceNames = {
 };
 function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 	if (isdef(synth) && synth.speaking) {
-		console.error('speechSynthesis.speaking');
+		//console.error('speechSynthesis.speaking');
 		setTimeout(() => say(text, r, p, v, desc), 500);
 		return;
 	} else if (nundef(voices)) {
-		console.error('gibt noch KEINE voices!!!!!')
+		//console.error('gibt noch KEINE voices!!!!!')
 		const awaitVoices = new Promise(resolve =>
 			window.speechSynthesis.onvoiceschanged = resolve)
 			.then(() => {
@@ -29,7 +29,7 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 
 				utterance = new SpeechSynthesisUtterance();
 				utterance.onboundary = function (event) {
-					console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
+					//console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
 				}
 				//utterance.voice = voices[20];  
 				setTimeout(() => say(text, r, p, v, desc), 500);
@@ -40,7 +40,7 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 			});
 
 	} else {
-		console.log('________________--------------___________');
+		//console.log('________________--------------___________');
 		say(text, r, p, v, desc);
 	}
 
@@ -85,7 +85,7 @@ function say(text, r = .5, p = .8, v = .5, desc) {
 function sepWords(text, voiceKey, s = '<silence msec="200" />') {
 	text = text.toLowerCase();
 	//console.log(voice,'\nlang=',voice.lang.trim(),'\ntrue or false=',voice.lang.trim()=='en-US');
-	console.log('voiceKey',voiceKey)
+	//console.log('voiceKey',voiceKey)
 	if (voiceKey == 'zira') {
 
 		return text; // + ' hello <audio src="/assets/sounds/down.mp3">didnt get your MP3 audio file</audio> no way!';
@@ -93,7 +93,7 @@ function sepWords(text, voiceKey, s = '<silence msec="200" />') {
 	let words = text.split(' ');
 	//s='? ';//' - ';
 	text = words.join(' '); text += s;
-	console.log('text', text)
+	//console.log('text', text)
 	return text;
 }
 
