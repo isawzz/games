@@ -88,7 +88,7 @@ function sepWords(text, voiceKey, s = '<silence msec="200" />') {
 	console.log('voiceKey',voiceKey)
 	if (voiceKey == 'zira') {
 
-		return text + ' hello <audio src="/assets/sounds/down.mp3">didnt get your MP3 audio file</audio> no way!';
+		return text; // + ' hello <audio src="/assets/sounds/down.mp3">didnt get your MP3 audio file</audio> no way!';
 	} else if (startsWith(voiceKey, 'u')) { return text; }
 	let words = text.split(' ');
 	//s='? ';//' - ';

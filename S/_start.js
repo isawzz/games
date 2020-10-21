@@ -3,22 +3,22 @@ window.onbeforeunload = SPEECHEnd;
 
 async function SPEECHStart() {
 	//await perfLoading(); return;
-	timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
+	//timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
 	await loadAssets();
-	timit.show('nach loadAssets');
+	//timit.show('nach loadAssets');
 	ensureSymBySet();
-	timit.show('nach ensureSymBySet');
+	//timit.show('nach ensureSymBySet');
 	symbolDictCopy = jsCopy(symbolDict);
 
 	addEventListener('keyup', keyUpHandler);
-	setStatus('wait');
+	//setStatus('wait');
 	score = 0;
 	initTable();
 	// initSidebar();
 	setGroup(startingCategory);
-	timit.show('vor immediateStart!'); 
+	//timit.show('vor immediateStart!'); 
 	//initOptionsUi();
-	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); } //fireClick(mBy('dummyButton')); 
+	if (immediateStart) onClickStartButton(); // { bStart.innerHTML = 'NEXT'; onClickStartButton(); } //fireClick(mBy('dummyButton')); 
 	//initSpeaker();
 }
 function SPEECHEnd() {

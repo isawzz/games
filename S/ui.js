@@ -11,25 +11,25 @@ function initLineTop() {
 	dLineTopOuter = mDiv(table); dLineTopOuter.id = 'lineTopOuter';
 	dLineTop = mDiv(dLineTopOuter); dLineTop.id = 'lineTop';
 	dLineTopLeft = mDiv(dLineTop); dLineTopLeft.id = 'lineTopLeft';
-	dLineTopRight = mDiv(dLineTop); dLineTopRight.id = 'lineTopRight'; dLineTopRight.innerHTML = 'O';
+	dLineTopRight = mDiv(dLineTop); dLineTopRight.id = 'lineTopRight'; //dLineTopRight.innerHTML = 'O';
 	dLineTopMiddle = mDiv(dLineTop); dLineTopMiddle.id = 'lineTopMiddle';
 
-	let dScore = mDiv(dLineTopLeft);
+	let dScore = mDiv(dLineTopRight);
 	dScore.id = 'scoreDiv';
 	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
 	// mLinebreak(table);
 
-	let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
-	b.id = 'bStart';
+	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
+	// b.id = 'bStart';
 
 	mLinebreak(table);
 }
 function initLineMiddle() {
 	dLineMidOuter = mDiv(table); dLineMidOuter.id = 'lineMidOuter';
 	dLineMid = mDiv(dLineMidOuter); dLineMid.id = 'lineMid';
-	dLineMidLeft = mDiv(dLineMid); dLineMidLeft.id = 'lineMidLeft'; dLineMidLeft.innerHTML = 'O';
+	dLineMidLeft = mDiv(dLineMid); dLineMidLeft.id = 'lineMidLeft'; //dLineMidLeft.innerHTML = 'O';
 	dLineMidMiddle = mDiv(dLineMid); dLineMidMiddle.id = 'lineMidMiddle';
-	dLineMidRight = mDiv(dLineMid); dLineMidRight.id = 'lineMidRight'; dLineMidRight.innerHTML = 'O';
+	dLineMidRight = mDiv(dLineMid); dLineMidRight.id = 'lineMidRight'; //dLineMidRight.innerHTML = 'O';
 
 	mLinebreak(table);
 }

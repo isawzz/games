@@ -38,7 +38,7 @@ function setSpeechWords(l = 'E') {
 		if (event.key === "Enter") {
 			let word = finalResult = inputBox.value;
 			answerCorrect = evaluateAnswer(word);
-			setStatus('result');
+			//setStatus('result');
 			// setStatus('result');
 			// console.log('Result received: ' + word); // + '.\nConfidence: ' + event.results[0][0].confidence);
 			inputBox.value = '';

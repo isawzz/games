@@ -126,9 +126,9 @@ function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
 function mFg(d, color) { d.style.color = color; }
-function mInstruction(msg, dParent) {
+function mInstruction(msg, dParent, hasExclamation=true) {
 	let p = mCreate('h2');
-	p.innerHTML = msg + '!';
+	p.innerHTML = msg + (hasExclamation?'!':'');
 	mAppend(dParent, p);
 	return p;
 }

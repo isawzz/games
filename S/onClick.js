@@ -37,12 +37,13 @@ function onClickGroup(group) {
 }
 function onClickStartButton() {
 	// console.log('start');
-	if (!isTrainingMode) deactivateStartButton();
-	let btn = mBy('bStart');
-	let caption = btn.innerHTML;
+	// if (!isTrainingMode) deactivateStartButton();
+	// let btn = mBy('bStart');
+	// let caption = btn.innerHTML;
 
 	if (currentGame == 'gTouchPic') {
 
+		
 		gTouchPicStart();
 
 	} else if (currentGame == 'gSayWord') {
@@ -74,7 +75,7 @@ function restart() {
 }
 function doRestart() {
 	answerCorrect = false;
-	setStatus('wait');
+	//setStatus('wait');
 	score = 0;
 	initTable();
 	RESTARTING = false;
@@ -111,7 +112,7 @@ function nextWord(showButton = true) {
 		b.innerHTML = answerCorrect || hintWord == bestWord ? 'NEXT' : 'try again';
 		activateStartButton(); //show('bStart');
 	}
-	setStatus('wait');
+	//setStatus('wait');
 	//console.log('nextWord: status wird auf wait gesetzt!!!')
 
 	if (!pauseAfterInput && interactMode == 'write' && !answerCorrect && hintWord != bestWord) {
