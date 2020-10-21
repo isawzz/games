@@ -1,3 +1,6 @@
+function onClickDummy(){
+	console.log('hallo')
+}
 function onClickAddValidSound() {
 	let k = currentInfo.key;
 	let k1 = currentLangauge + '_valid_sound';

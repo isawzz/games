@@ -36,7 +36,7 @@ function gTouchPicStart() {
 			console.log('FAIL!!')
 			scoreFunction2(false);
 			feedbackMessage.innerHTML = "Nope!";
-			say('too bad!',1,1,'Google UK English Female');
+			say('too bad!',1,1,.8,'zira');
 		}
 
 		setTimeout(gTouchPicStart, 1500);
@@ -70,7 +70,7 @@ function gTouchPicStart() {
 	let cmd = 'click';
 	let msg = cmd + " " + text.toUpperCase();
 	feedbackMessage = instructionMessage = mInstruction(msg, table);
-	synthVoice(cmd + " " + text);
+	synthVoice(cmd + " " + text,.7,1,.7,'random');
 	mLinebreak(table);
 
 

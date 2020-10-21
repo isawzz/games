@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+		.hidden {
+			display: none;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			background: black;
+			text-align: center;
+			color: white;
+		}
+
+		.hide .hidden {
+			display: block
+		}
+	</style>
+</head>
+
+<body>
+	<h1>
+		Talking page
+	</h1>
+	<button type="submit" onmouseover="callClick();" onclick="alert('Click called!')">Submit</button>
+	<!-- <div class=hidden>Activate</div> -->
+
+	<script>
+
+		say.queue = [];
+		function clickHandler(){
+			alert('Click called!');
+			var utt = new SpeechSynthesisUtterance();
+			utt.text = 'hello';
+			speechSynthesis.speak(utt);
+		}
+		function callClick() {
+			document.querySelector('button[type="submit"]').click();
+		}
+
+		// function say(s) {
+		// 	var utt = new SpeechSynthesisUtterance();
+		// 	utt.text = s;
+		// 	say.queue.push(utt);
+		// 	$("html").addClass("hide")
+		// }
+
+		// function deQueue() {
+		// 	if (say.queue.length) {
+		// 		speechSynthesis.speak(say.queue.pop());
+		// 		$("html").removeClass("hide")
+		// 	}
+		// }
+		// say.queue = [];
+		// $(document).on("mousemove", deQueue)
+		// say("hello")
+
+
+
+
+	</script>
+</body>
+
+</html>

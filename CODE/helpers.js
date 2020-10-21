@@ -2060,12 +2060,14 @@ function fireClick(node) {
 		var evt = document.createEvent('MouseEvents');
 		evt.initEvent('click', true, false);
 		//console.log('fireClick: createEvent and node.dispatchEvent exist!!!', node)
+		//console.log('****************fireClick: node.onclick exists!!!', node)
+		//node.click();
 		node.dispatchEvent(evt);
 	} else if (document.createEventObject) {
 		//console.log('fireClick: createEventObject and node.fireEvent exist!!!', node)
 		node.fireEvent('onclick');
 	} else if (typeof node.onclick == 'function') {
-		//console.log('fireClick: node.onclick exists!!!', node)
+		//console.log('****************fireClick: node.onclick exists!!!', node)
 		node.onclick();
 	}
 }
@@ -2978,6 +2980,11 @@ function firstCondDictKV(dict, func) {
 function firstCondDict(dict, func) {
 	//return first elem that fulfills condition
 	for (const k in dict) { if (func(dict[k])) return k; }
+	return null;
+}
+function firstCondDictReturnVal(dict, func) {
+	//return first elem that fulfills condition
+	for (const k in dict) { if (func(dict[k])) return dict[k]; }
 	return null;
 }
 function firstCondDictKeys(dict, func) {

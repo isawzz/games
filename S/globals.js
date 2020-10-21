@@ -9,7 +9,7 @@ const isTrainingMode = true; //does not deactivate start button if true!
 var MAXWORDLENGTH = 100;
 var level = 0;
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
-// in level 0 egal wieviele hints count as correct if say it right at least 1 letter from end!
+// in level 0 egal wieviele hints count as correct if _say it right at least 1 letter from end!
 
 //table
 var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;

@@ -10,18 +10,15 @@ async function SPEECHStart() {
 	timit.show('nach ensureSymBySet');
 	symbolDictCopy = jsCopy(symbolDict);
 
-	// groupSizeTest();
-	// timit.show('nach groupSizeTest')
-
 	addEventListener('keyup', keyUpHandler);
 	setStatus('wait');
 	score = 0;
 	initTable();
-	initSidebar();
+	// initSidebar();
 	setGroup(startingCategory);
-	timit.show('vor immediateStart!')
+	timit.show('vor immediateStart!'); 
 	//initOptionsUi();
-	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); }
+	if (immediateStart) { bStart.innerHTML = 'NEXT'; onClickStartButton(); } //fireClick(mBy('dummyButton')); 
 	//initSpeaker();
 }
 function SPEECHEnd() {

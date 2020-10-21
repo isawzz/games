@@ -36,6 +36,7 @@ function populateVoiceList() {
 function synthVoice(text,r=.5,p=.8,iVoice=10) {
 	if (isdef(synth) && synth.speaking) {
 		console.error('speechSynthesis.speaking');
+		setTimeout(()=>say(text,.4,.8,12),500)		;
 		return;
 	}else if (nundef(synth)){
 		const awaitVoices = new Promise(resolve=> 
@@ -44,24 +45,39 @@ function synthVoice(text,r=.5,p=.8,iVoice=10) {
 			synth = window.speechSynthesis;
 	
 			voices = synth.getVoices();
-			console.log(voices)
+			//voices.map(x=>console.log(x));
 	
-			const utterance = new SpeechSynthesisUtterance();
-			utterance.voice = voices[iVoice];        
-			utterance.text = text;
-			utterance.rate = r;        
-			utterance.pitch = p;
-			synth.speak(utterance);
+			utterance = new SpeechSynthesisUtterance();
+			//utterance.voice = voices[20];  
+			setTimeout(()=>say(text),200);
+			// utterance.text = "hello";
+			// utterance.rate = r;        
+			// utterance.pitch = p;
+			// setTimeout(()=>synth.speak(utterance),100);
 		});
 	
 	}else{
-		console.log('________________--------------___________')
+		console.log('________________--------------___________');
+		say(text,.5,.9,10);
 	}
 
 }
 
-function say(text,r=.5,p=.8,iVoice=10) {
-	
+function say(text,r=.5,p=.8,desc='hallo') {
+	text=text.toLowerCase();
+	//let words = text.split(' ');
+	//text=words.join('<silence msec="200" />');
+	utterance.text = text;// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
+	utterance.rate = r;        
+	utterance.pitch = p;
+	let voice = firstCond(voices,x=>x.name==desc);
+	if (isdef(voice)) console.log('got voice!',desc);
+	if (nundef(voice)) voice = firstCond(voices,x=>x.lang == 'en-US');
+	//let voice = voices[iVoice];
+	voices.map(x=>console.log(x.name));
+	console.log('===>the voice is',voice);
+	utterance.voice = voice;        
+	setTimeout(()=>synth.speak(utterance),100);
 }
 function say1(s, r = 0.6, p = 0.8, iVoice = 10) {
 	utterThis.pitch = pitch.value;
