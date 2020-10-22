@@ -118,6 +118,7 @@ function mHasClass(el, className) {
 }
 
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
+function mRemoveClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }

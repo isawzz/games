@@ -9,6 +9,9 @@ async function SPEECHStart() {
 	ensureSymBySet();
 	//timit.show('nach ensureSymBySet');
 	symbolDictCopy = jsCopy(symbolDict);
+	
+	groupSizeTest();
+
 
 	addEventListener('keyup', keyUpHandler);
 	//setStatus('wait');

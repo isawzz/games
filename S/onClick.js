@@ -1,4 +1,29 @@
-function onClickDummy(){
+
+function onClickStartButton() {
+	// console.log('start');
+	// if (!isTrainingMode) deactivateStartButton();
+	// let btn = mBy('bStart');
+	// let caption = btn.innerHTML;
+
+	if (currentGame == 'gTouchPic') {
+
+		// //gTouchPicInitSettings();		
+		level = 0;
+		g2N = 2;
+		g2GroupIndex = 0;
+		setGroup(levelGroups[g2GroupIndex]);
+		gTouchPicStart();
+
+	} else if (currentGame == 'gSayWord') {
+
+		if (caption != 'try again') setSpeechWords(currentLanguage);
+		if (interactMode == 'speak') speech00(currentLanguage, matchingWords);
+		focusOnInput();
+	}
+}
+
+
+function onClickDummy() {
 	console.log('hallo')
 }
 function onClickAddValidSound() {
@@ -34,24 +59,6 @@ function onClickGroup(group) {
 	setGroup(group);
 	restart();
 	//focusOnInput();
-}
-function onClickStartButton() {
-	// console.log('start');
-	// if (!isTrainingMode) deactivateStartButton();
-	// let btn = mBy('bStart');
-	// let caption = btn.innerHTML;
-
-	if (currentGame == 'gTouchPic') {
-
-		
-		gTouchPicStart();
-
-	} else if (currentGame == 'gSayWord') {
-
-		if (caption != 'try again') setSpeechWords(currentLanguage);
-		if (interactMode == 'speak') speech00(currentLanguage, matchingWords); 
-		focusOnInput();
-	}
 }
 
 

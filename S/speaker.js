@@ -17,9 +17,6 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 			window.speechSynthesis.onvoiceschanged = resolve)
 			.then(() => {
 				synth = window.speechSynthesis;
-
-				//voices = synth.getVoices();
-				//voices.map(x=>console.log(x));
 				voices = synth.getVoices().sort(function (a, b) {
 					const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
 					if (aname < bname) return -1;
@@ -28,19 +25,15 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 				});
 
 				utterance = new SpeechSynthesisUtterance();
-				utterance.onboundary = function (event) {
-					//console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
-				}
-				//utterance.voice = voices[20];  
+				// utterance.onboundary = function (event) {
+				// 	console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
+				// }
+
+
 				setTimeout(() => say(text, r, p, v, desc), 500);
-				// utterance.text = "hello";
-				// utterance.rate = r;        
-				// utterance.pitch = p;
-				// setTimeout(()=>synth.speak(utterance),100);
 			});
 
 	} else {
-		//console.log('________________--------------___________');
 		say(text, r, p, v, desc);
 	}
 
@@ -80,7 +73,9 @@ function say(text, r = .5, p = .8, v = .5, desc) {
 	utterance.pitch = p;
 	utterance.volume = v;
 	utterance.voice = voice;
-	setTimeout(() => synth.speak(utterance), 100);
+
+	//console.log('\nsynth',synth,'\nvoices',voices,'\nutterance',utterance)
+	setTimeout(() => synth.speak(utterance), 200);
 }
 function sepWords(text, voiceKey, s = '<silence msec="200" />') {
 	text = text.toLowerCase();

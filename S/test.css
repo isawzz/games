@@ -13,15 +13,6 @@ html,body,#md,#rightSide{
 	position:fixed;
 	font-size:40px;
 }
-/* #dInstruction{
-	color: black;
-	font-size: 20px;
-	font-family: Segoe UI light;
-} */
-
-/* #md{
-	width: 100vw;
-} */
 #md,#rightSide{
 	display:flex;
 }
@@ -73,8 +64,6 @@ html,body,#md,#rightSide{
 	margin: 3px 0px 3px 6px;
 	/* height: 25px; */
 }
-
-
 #statusMessage{	
 	margin-top:2px;
 	float: right;
@@ -149,6 +138,8 @@ html,body,#md,#rightSide{
 #scoreDiv{
 	/* font-size: 22pt; */
 	text-align: center;
+	margin: 4px 0px 12px 0px;
+	cursor: default;
 }
 #scoreSpan{
 	/* margin-left:10px;
@@ -264,3 +255,46 @@ input[type="checkbox"]:focus+label::before {
 }
 
 /* #endregion */
+
+
+/* #region animations */
+.onPulse{ color:white; animation: pulseColor 200ms infinite;}
+@keyframes pulseColor{ 0%{ color:  black; } 100%{ color: transparent; }} 
+@keyframes pulseBackground{ 0%{ background-color: #001F3F; } 100%{ background-color: #FF4136; }} 
+@keyframes pulseBackground1{ 0%, 100%{ background-color: yellow; } 50%{ background-color: red; }}
+
+/* #endregion animations */
+
+.frameOnHover:hover{
+	opacity: .8;
+	/* border: solid 1px yellow; */
+}
+.frameOnHover:active:hover{
+	background: red;
+	/* border: solid 1px yellow; */
+}
+.wdiv:active:hover {
+  color: white;
+  background: rebeccapurple;
+  /* animation: active 0s;
+  -moz-animation: active 0s;
+  -webkit-animation: active 0s; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

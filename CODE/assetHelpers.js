@@ -41,18 +41,34 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 
 }
 
+function getParamsForMaPicStyle(desc = 'segoeBlack') {
+	desc = desc.toLowerCase();
+	switch (desc) {
+		case 'twittertext': return { isText: true, isOmoji: false };
+		case 'twitterimage': return { isText: false, isOmoji: false };
+		case 'openmojitext': return { isText: true, isOmoji: true };
+		case 'openmojiimage': return { isText: false, isOmoji: true };
+		case 'openmojiblacktext': return { isText: true, isOmoji: 'openmoBlack' };
+		case 'segoe': return { isText: true, isOmoji: 'segoe ui emoji' };
+		case 'segoeblack': return { isText: true, isOmoji: 'segoe ui symbol' };
+		default: return { isText: true, isOmoji: false };
+	}
+
+}
 
 //#region maPic
-function maPicOver(d, dParent, fz) { // styles, isText = true, isOmoji = false) {
+function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, isOmoji = false) {
 
 	let b = getBounds(dParent);
 	//console.log(b);
 	//let fz = 40;
-	d.style.top = b.y + 100 - fz / 2 + 'px';
-	d.style.left = b.x + 100 - fz / 2 + 'px';
-	d.style.color = 'red';
+	d.style.top = picStyle == 'segoeBlack' ? (b.y + 60 - fz / 2 + 'px') : (b.y + 100 - fz / 2 + 'px');
+	d.style.left = picStyle == 'segoeBlack' ? (b.x + 120 - fz / 2 + 'px') : (b.x + 100 - fz / 2 + 'px');
+	d.style.color = color;
 	d.style.fontSize = fz + 'px';
 	d.style.display = 'block';
+	let { isText, isOmoji } = getParamsForMaPicStyle(picStyle);
+	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
 	return d;
 }
 
@@ -172,10 +188,10 @@ function maPicSimple(key) {
 	d.style.setProperty('font-family', info.family);
 	return d;
 }
-function maPicButton(key, handler, dParent, styles, classColors = 'picButton') {
-	let x = maPic(key, dParent, styles);
+function maPicButton(key, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
+	let x = maPic(key, dParent, styles, isText, isOmoji);
 	if (isdef(handler)) x.onclick = handler;
-	mClass(x, classColors);
+	mClass(x, classes);
 	return x;
 }
 function maPicSimpleEmoHexText(hex, parent, fontSize) {

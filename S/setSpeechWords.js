@@ -5,7 +5,7 @@ function groupSizeTest() {
 	let groupDict = {};
 	for (const name of groupNames) {
 		let infolist = symListBySet[name];
-		//console.log('group', name, 'has', infolist.length, 'entries')
+		console.log('group', name, 'has', infolist.length, 'entries')
 		//groupDict[name]=emoSets[name];
 	}
 	//console.log('__________');
@@ -14,14 +14,20 @@ function groupSizeTest() {
 		let infolist = [];
 		for (const name of (higherOrderEmoSetNames[honame])) {
 			for (const k in symBySet[name]) {
-				addIf(infolist, symbolDict[k]);
+				let info = symbolDict[k];
+				addIf(infolist, info);
+				lookupSet(symBySet, [honame, k], info);
+				lookupAddToList(symKeysBySet, [honame], k);
+				lookupAddToList(symListBySet, [honame], info);
 			}
 			//groupDict[name]=emoSets[name];
 		}
 		edict[honame] = infolist;
-		//console.log('group', honame, 'has', infolist.length, 'entries')
+
+		console.log('group', honame, 'has', infolist.length, 'entries')
 	}
 
+	console.log('group names:',Object.keys(symKeysBySet));
 	ensureSymByType();
 	//edict.all = symListByType.emo;
 	//console.log('group all has', edict.all.length, 'entries');
@@ -111,7 +117,7 @@ function setLanguageWords(language, info) {
 
 }
 function setGroup(group) {
-	//console.log('setting group to', group)
+	console.log('setting group to', group)
 
 	//unselect previous group button
 	let button = mBy('b_' + emoGroup);
@@ -125,6 +131,7 @@ function setGroup(group) {
 	button = mBy('b_' + emoGroup);
 	if (isdef(button)) mClass(mBy('b_' + emoGroup), 'selectedGroupButton');
 
+	//console.log(emoGroup,symKeysBySet[emoGroup],symBySet)
 	emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
 }
 

@@ -56,6 +56,7 @@ function scoreFunction2(isCorrect) {
 	numTotalAnswers += 1;
 	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
 	scoreSpan.innerHTML = '' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
+	console.log(numCorrectAnswers,numTotalAnswers)
 }
 function setScore(sc) {
 	//console.log('score', sc)

@@ -2,7 +2,9 @@ var symbolDictCopy, hasSymbolDictChanged;
 var currentLanguage = 'E';
 var interactMode = 'speak'; // speak | write
 var pauseAfterInput = false;
-const startingCategory = 'animal';
+
+const ALL_EMO_GROUP_NAMES = ["all", "activity", "animal", "body", "drink", "emotion", "fantasy", "food", "fruit", "gesture", "person", "role", "sport", "family", "game", "kitchen", "place", "plant", "sports", "time", "transport", "vegetable", "object", "shapes", "sternzeichen", "symbols", "toolbar", "math", "punctuation", "misc", "select", "abstract", "action", "human", "life", "mood", "places"];
+const startingCategory = 'all'; //
 var currentGame = 'gTouchPic'; // gSayWord | gTouchPic
 const immediateStart = true; //fires onClickStartButton 
 const isTrainingMode = true; //does not deactivate start button if true!
