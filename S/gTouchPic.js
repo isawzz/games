@@ -3,7 +3,7 @@ var g2Pics = [];
 var g2N = 2;
 var g2Goal;
 var g2GroupIndex = 0;
-const levelGroups = ['animal', 'life', 'food', 'action', 'object', 'human', 'all'];
+const levelGroups = ['animal', 'animalplantfood', 'life', 'more', 'all'];//'food', 'action', 'object', 'human', 'all'];
 
 const SAMPLES_PER_LEVEL = 20;
 

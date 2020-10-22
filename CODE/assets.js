@@ -20,6 +20,21 @@ var svgDict, svgKeys, svgList; //?
 var selectedEmoSetNames = ['all','animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var higherOrderEmoSetNames = {
 	all: ['all'],
+	animal: ['animal'],
+	animalplantfood: ['animal','plant','drink', 'food', 'fruit', 'vegetable'],
+	life: ['animal', 'plant','drink', 'food', 'fruit', 'kitchen', 'vegetable','game','sport'],
+	more: ['animal', 'plant','drink', 'food', 'fruit', 'kitchen', 'vegetable','game','sport','transport','object'],
+	object: ['object'],
+	places: ['place', 'transport'],
+	select: selectedEmoSetNames,
+	abstract: ['time', 'symbols'],
+	action: ['game', 'sports'],
+	food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'],
+	human: ['body', 'gesture', 'emotion', 'person', 'role'],
+	mood: ['emotion'],
+};
+var higherOrderEmoSetNames1 = {
+	all: ['all'],
 	select: selectedEmoSetNames,
 	abstract: ['time', 'symbols'],
 	action: ['game', 'sports'],
