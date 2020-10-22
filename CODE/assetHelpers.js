@@ -43,21 +43,16 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 
 
 //#region maPic
-function maPicOver(dFix, key, dParent, styles, isText = true, isOmoji = false) {
+function maPicOver(d, dParent, fz) { // styles, isText = true, isOmoji = false) {
 
-	let b=getBounds(dParent);
+	let b = getBounds(dParent);
 	console.log(b);
-	let d=mDiv();
-	document.body.appendChild(d);
-	d.style.position = 'fixed';
-	let fz=40;
-	d.style.top = b.y+100-fz/2+'px';
-	d.style.left = b.x+100-fz/2+'px';
+	//let fz = 40;
+	d.style.top = b.y + 100 - fz / 2 + 'px';
+	d.style.left = b.x + 100 - fz / 2 + 'px';
 	d.style.color = 'red';
-	d.style.fontSize = fz+'px';
-	let info = picInfo(key);
-	d.innerHTML=info.text;
-	d.style.setProperty('font-family', info.family);
+	d.style.fontSize = fz + 'px';
+	d.style.display = 'block';
 	return d;
 }
 

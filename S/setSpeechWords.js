@@ -27,11 +27,12 @@ function groupSizeTest() {
 	//console.log('group all has', edict.all.length, 'entries');
 	//console.log(arrMinus(symListByType.emo,edict.all));
 }
-function getEmoSetWords(lang = 'E') {
+function getEmoSetWords(lang = 'E', key) {
 
 	//console.log('emoGroup', emoGroup);
 	if (nundef(emoGroup)) setGroup('animal');
-	let key = chooseRandom(emoGroupKeys);
+
+	if (nundef(key)) key = chooseRandom(emoGroupKeys);
 
 	//#region individual keys for test
 	//key = 'fever'; //fever
