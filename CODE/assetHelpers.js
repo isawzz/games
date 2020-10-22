@@ -46,7 +46,7 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 function maPicOver(d, dParent, fz) { // styles, isText = true, isOmoji = false) {
 
 	let b = getBounds(dParent);
-	console.log(b);
+	//console.log(b);
 	//let fz = 40;
 	d.style.top = b.y + 100 - fz / 2 + 'px';
 	d.style.left = b.x + 100 - fz / 2 + 'px';
