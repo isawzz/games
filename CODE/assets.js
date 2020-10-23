@@ -17,37 +17,22 @@ var svgDict, svgKeys, svgList; //?
 //#region emoSets_
 
 //var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
-var selectedEmoSetNames = ['all','animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+var selectedEmoSetNames = ['all', 'animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
+
+var primitiveSetNames = ['all', 'activity', 'animal', 'body', 'drink', 'emotion', 'fantasy', 'food', 'fruit', 'gesture',
+	'person', 'role', 'sport', 'family', 'game', 'kitchen', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable', 'object', 'shapes',
+	'toolbar', 'math', 'punctuation', 'misc'];
+
 var higherOrderEmoSetNames = {
-	all: ['all'],
-	animal: ['animal'],
-	animalplantfood: ['animal','plant','drink', 'food', 'fruit', 'vegetable'],
-	life: ['animal', 'plant','drink', 'food', 'fruit', 'kitchen', 'vegetable','game','sport'],
-	more: ['animal', 'plant','drink', 'food', 'fruit', 'kitchen', 'vegetable','game','sport','transport','object'],
-	object: ['object'],
-	places: ['place', 'transport'],
-	select: selectedEmoSetNames,
-	abstract: ['time', 'symbols'],
-	action: ['game', 'sports'],
-	food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'],
-	human: ['body', 'gesture', 'emotion', 'person', 'role'],
-	mood: ['emotion'],
+	animals: ['animal'],
+	animalplantfood: ['animal', 'plant', 'drink', 'food', 'fruit', 'vegetable'],
+	life: ['animal', 'plant', 'drink', 'food', 'fruit', 'vegetable', 'kitchen', 'game', 'sport'],
+	more: ['animal', 'plant', 'drink', 'food', 'fruit', 'kitchen', 'vegetable', 'game', 'sport', 'transport', 'object'],
 };
-var higherOrderEmoSetNames1 = {
-	all: ['all'],
-	select: selectedEmoSetNames,
-	abstract: ['time', 'symbols'],
-	action: ['game', 'sports'],
-	food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'],
-	human: ['body', 'gesture', 'emotion', 'person', 'role'],
-	life: ['animal', 'plant'],
-	mood: ['emotion'],
-	object: ['object'],
-	places: ['place', 'transport'],
-};
+var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstract: ['time', 'symbols'], action: ['game', 'sports'], food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'], human: ['body', 'gesture', 'emotion', 'person', 'role'], life: ['animal', 'plant'], mood: ['emotion'], object: ['object'], places: ['place', 'transport'] };
 
 var emoSets = {
-	all: {name: 'all',f:_=>true},
+	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
 	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
@@ -108,12 +93,6 @@ var emoSets = {
 
 };
 
-function higherOrderGroups() {
-	for(const name of higherOrderGroups){
-		
-	}
-
-}
 function isEmosetMember(name, info) { return emoSets[name].f(info); }
 function makeEmoSetIndex() {
 	if (isdef(symBySet)) return;

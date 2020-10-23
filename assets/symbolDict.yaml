@@ -13515,7 +13515,7 @@ blowfish:
   hexcode: 1F421
   group: animals-nature
   subgroups: animal-marine
-  E: fish
+  E: fish|blowfish
   D: fisch
   hex: 1F421
   family: emoNoto
@@ -64853,6 +64853,8 @@ keyboard:
   hexcode: 23-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: number sign
+  D: anzahl|kanaldeckel
   hex: 23-FE0F-20E3
   family: emoNoto
   text: '&#35;&#65039;&#8419;'
@@ -64883,6 +64885,8 @@ keyboard:
   hexcode: 2A-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: star
+  D: stern
   hex: 2A-FE0F-20E3
   family: emoNoto
   text: '&#42;&#65039;&#8419;'
@@ -64913,6 +64917,8 @@ keyboard:
   hexcode: 30-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 0|zero
+  D: 0|null
   hex: 30-FE0F-20E3
   family: emoNoto
   text: '&#48;&#65039;&#8419;'
@@ -64943,6 +64949,8 @@ keyboard:
   hexcode: 31-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 1|one
+  D: 1|eins
   hex: 31-FE0F-20E3
   family: emoNoto
   text: '&#49;&#65039;&#8419;'
@@ -64972,6 +64980,8 @@ keyboard:
   hexcode: 1F51F
   group: symbols
   subgroups: keycap
+  E: 10|ten
+  D: 10|zehn
   hex: 1F51F
   family: emoNoto
   text: '&#128287;'
@@ -65001,6 +65011,8 @@ keyboard:
   hexcode: 32-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 2|two
+  D: 2|zwei
   hex: 32-FE0F-20E3
   family: emoNoto
   text: '&#50;&#65039;&#8419;'
@@ -65030,6 +65042,8 @@ keyboard:
   hexcode: 33-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 3|three
+  D: 3|drei
   hex: 33-FE0F-20E3
   family: emoNoto
   text: '&#51;&#65039;&#8419;'
@@ -65059,6 +65073,8 @@ keyboard:
   hexcode: 34-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 4|four
+  D: 4|vier
   hex: 34-FE0F-20E3
   family: emoNoto
   text: '&#52;&#65039;&#8419;'
@@ -65088,6 +65104,8 @@ keyboard:
   hexcode: 35-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 5|five
+  D: 5|fünf
   hex: 35-FE0F-20E3
   family: emoNoto
   text: '&#53;&#65039;&#8419;'
@@ -65117,6 +65135,8 @@ keyboard:
   hexcode: 36-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 6|six
+  D: 6|sechs
   hex: 36-FE0F-20E3
   family: emoNoto
   text: '&#54;&#65039;&#8419;'
@@ -65146,6 +65166,8 @@ keyboard:
   hexcode: 37-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 7|seven
+  D: 7|sieben
   hex: 37-FE0F-20E3
   family: emoNoto
   text: '&#55;&#65039;&#8419;'
@@ -65175,6 +65197,8 @@ keyboard:
   hexcode: 38-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 8|eight
+  D: 8|acht
   hex: 38-FE0F-20E3
   family: emoNoto
   text: '&#56;&#65039;&#8419;'
@@ -65204,6 +65228,8 @@ keyboard:
   hexcode: 39-FE0F-20E3
   group: symbols
   subgroups: keycap
+  E: 9|nine
+  D: 9|neun
   hex: 39-FE0F-20E3
   family: emoNoto
   text: '&#57;&#65039;&#8419;'
@@ -88701,8 +88727,8 @@ poodle:
   hexcode: 1F429
   group: animals-nature
   subgroups: animal-mammal
-  E: poodle|dog
-  D: pudel|hund
+  E: dog|poodle
+  D: hund|pudel
   hex: 1F429
   family: emoNoto
   text: '&#128041;'

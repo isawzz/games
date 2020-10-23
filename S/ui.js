@@ -15,10 +15,12 @@ function initLine1() {
 	dLine1Right = mDiv(dLine1); dLine1Right.id = 'line1Right'; //dLine1Right.innerHTML = 'O';
 	dLine1Middle = mDiv(dLine1); dLine1Middle.id = 'line1Middle';
 
-	let dScore = mDiv(dLine1Right);
-	dScore.id = 'scoreDiv';
-	dScore.innerHTML = "<span>score:</span><span id='scoreSpan'>0</span>";
+	dScore = mDiv(dLine1Middle);
+	dScore.id = 'dScore';
+	//dScore.innerHTML = "<span>score:</span><span id='scoreSpan'></span>";
 	// mLinebreak(table);
+	dLevel = mDiv(dLine1Right);
+	dLevel.id = 'dLevel';
 
 	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
 	// b.id = 'bStart';
@@ -60,36 +62,3 @@ function initLineBottom() {
 
 	mLinebreak(table);
 }
-function initSidebar() {
-	let sidebar = mBy('sidebar');
-	mText('language:', sidebar);
-	mButton(currentLanguage, onClickSetLanguage, sidebar, { width: 100 });
-	mText('categories:', sidebar);
-	let names = selectedEmoSetNames;
-	//console.log(names);
-	for (const name of names) {
-		let uName = name;
-		let b = mButton(uName.toUpperCase(), () => onClickGroup(uName), sidebar, { display: 'block', 'min-width': 100, 'margin-bottom': '4px' }, ['buttonClass']);
-		b.id = 'b_' + uName;
-	}
-}
-function initOptionsUi() {
-	let dOptions = mText('options:', sidebar); // options
-
-	//console.log('pauseAfterInput',pauseAfterInput)
-	addYesNoOption('pauseAfterInput', pauseAfterInput, 'pause', focusOnInput, dOptions, { width: 100 });
-	addYesNoOption('speakMode', speakMode, 'speak', switchModeSilently, dOptions, { width: 100 });
-}
-function keyUpHandler(ev) {
-	//console.log('key released!', ev);
-	//console.log('*** keyUpHandler: status', status, 'key', ev.keyCode, 'input vis', isdef(inputBox) ? isVisible(inputBox) : 'no', 'mode', interactMode)
-	if (ev.keyCode == '13' && interactMode == 'write' && !isVisible(inputBox)) {
-		//console.log('******* FIRING!!!!!!!!!!!!!!!!!!!!')
-		fireClick(mBy('bStart'));
-		//nextWord();// && isButtonActive()) { fireClick(mBy('bStart')); }
-	}
-	//if (ev.keyCode == '13' && status=='wait' && !pauseAfterInput) nextWord();// && isButtonActive()) { fireClick(mBy('bStart')); }
-	//if (ev.keyCode == '13' && isButtonActive()) { nextWord();}//fireClick(mBy('bStart')); }
-}
-
-

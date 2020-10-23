@@ -95,6 +95,43 @@ html,body,#md,#rightSide{
 
 /* #endregion */
 
+#line1Outer{
+	min-width: 100%;
+	/* //background-color: blue; */
+	padding: 4px 12px;
+	box-sizing: border-box;
+}
+#line1{
+	/* display: flex; */
+	/* justify-content: space-between; */
+	font-size: 20pt;
+	position: relative;
+}
+#line1Left{
+	display: inline-block;
+	/* float: left; */
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	min-width: 20px;
+	/* background-color: aqua; */
+}
+#line1Right{
+	/* float: right; */
+	display: inline-block;
+	position: absolute;
+	/* float: left; */
+	top: 0px;
+	right: 0px;
+	min-width: 20px;
+	/* background-color: rgb(9, 51, 51); */
+}
+#line1Middle{
+	width: 100%;
+	/* font-size: 60; */
+	text-align: center;
+}
+
 #lineTopOuter{
 	min-width: 100%;
 	/* //background-color: blue; */
@@ -127,11 +164,9 @@ html,body,#md,#rightSide{
 	/* background-color: rgb(9, 51, 51); */
 }
 #lineTopMiddle{
-	/* width: 100px; */
 	width: 100%;
-	/* margin-top: -30px; */
+	/* font-size: 60; */
 	text-align: center;
-	/* background-color: rgb(16, 126, 126); */
 }
 
 /* #region score */
@@ -258,12 +293,41 @@ input[type="checkbox"]:focus+label::before {
 
 
 /* #region animations */
-.onPulse{ color:white; animation: pulseColor 200ms infinite;}
+.onPulse {
+	animation: pulse_animation 400ms ease-in-out 0s 6 alternate;
+	/* animation-name: pulse_animation;
+	animation-duration: 3000ms; */
+	/* transform-origin:70% 70%; */
+	/* animation-iteration-count: 3;
+	animation-timing-function: cubic-bezier(); */
+}
+.onPulse1 { 
+	animation: stretch 3s ease-in-out 0s 1 reverse;
+	/* animation: stretch 3s ease-in-out 0s 1 reverse, pulse 3s ease-out; */
+}
+
+.onPulse0{ color:white; animation: pulseColor 200ms infinite;}
 @keyframes pulseColor{ 0%{ color:  black; } 100%{ color: transparent; }} 
 @keyframes pulseBackground{ 0%{ background-color: #001F3F; } 100%{ background-color: #FF4136; }} 
 @keyframes pulseBackground1{ 0%, 100%{ background-color: yellow; } 50%{ background-color: red; }}
+@keyframes stretch{ 
+	0%{ transform: scale(.8); background-color: red; border-radius: 100%; } 
+	50%{ background-color: orange; } 
+	100%{ transform: scale(1.5); background-color: yellow; }
+}
 
-/* #endregion animations */
+@keyframes pulse_animation {
+	0% { transform: scale(1); }
+	/* 30% { transform: scale(1); }
+	40% { transform: scale(1.08); } */
+	100% { transform: scale(1.5); }
+	/* 60% { transform: scale(1); }
+	70% { transform: scale(1.05); }
+	80% { transform: scale(1); }
+	100% { transform: scale(1); } */
+}
+
+	/* #endregion animations */
 
 .frameOnHover:hover{
 	opacity: .8;
