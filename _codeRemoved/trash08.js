@@ -143,6 +143,57 @@ async function SPEECHStart() {
 	if (immediateStart) onClickStartButton(); // { bStart.innerHTML = 'NEXT'; onClickStartButton(); } //fireClick(mBy('dummyButton')); 
 	//initSpeaker();
 }
+function gTouchPicStart_3() {
+	//console.log('touch pic game!')
+	let table = dLineMidMiddle;
+	let title = dLineTopMiddle;
+	if (nundef(table)) return;
+	clearElement(table); clearElement(title); hide(mBy('dCheckMark')); hide(mBy('dX'));
+
+	setLevel();
+	g2Pics = [];
+
+	let onClickPicture = evaluate;
+
+	//get g2N different keys!
+	let keys = choose(emoGroupKeys, g2N);
+
+	console.log('keys',keys)
+
+	let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+	//'box-sizing':'border-box', NEIN!!!
+
+	for (let i = 0; i < g2N; i++) {
+		let info = getRandomSetItem('E', keys[i]);
+		let id = 'pic' + i;
+		let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		console.log('table',table,'\ndPic',d1)
+		g2Pics.push({ key: info.key, info: info, div: d1, id: id, index: i });
+	}
+
+	//randomly select a key out of the N pics
+	let rnd=randomNumber(0,g2N-2);
+	if (rnd == lastPosition && coin()) rnd=g2N-1;
+	lastPosition = rnd;
+	g2Goal = g2Pics[rnd];//chooseRandom(g2Pics);
+
+	setCurrentInfo(g2Goal);
+
+	//this is instruction message
+	let text = bestWord;
+	let cmd = 'click';
+	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
+	let d = dFeedback = dInstruction = mText(msg, title, { fz:40, cursor: 'default' }); //mInstruction(msg, title,false);instructionMessage.id='dInstruction';
+	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
+	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
+	mLinebreak(table);
+
+
+}
+
 function gTouchPicStart_2() {
 	//console.log('touch pic game!')
 	let table = dLineMidMiddle;

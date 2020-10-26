@@ -8,7 +8,13 @@ window.onload = async () => { await start(); }
 async function start() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
+	mClass(table, 'flexWrap');
+
+	if (nundef(mBy('dummy'))) {let d=mDiv(table);d.id='dummy';d.style.width='0px';}
 	//await makeExtraSvgFiles();
+
+	test42();
+	//test40();
 
 	//#region past test calls
 	// test10_fz();
@@ -44,7 +50,7 @@ async function start() {
 	//#endregion
 
 	//await perf01('animal');
-	await perf02('animal');
+	//await perf02('animal');
 }
 async function perfLoading() {
 	let timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
@@ -238,7 +244,6 @@ function test30_personPlayingHandball() {
 function test29_mpl(sz = 50, family = 'arial') {
 	// let sz = 150; let fpic = 2 / 3; let ffont = 1 / 8; let family = 'AlgerianRegular'; let ftop = 1 / 10; let fbot = 1 / 12;
 	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
-
 	let styles = { w: sz, h: sz, bg: 'blue', fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
 	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
 	let picStyles = { h: sz * fpic, bg: 'random' };

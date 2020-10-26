@@ -2,21 +2,13 @@ const g2GROUPS = ['animal','more'];// 'animalplantfood', 'life', 'more', 'all'];
 const g2LN=2;//15
 const g2SamplesPerLevel = [g2LN,g2LN,20,40,80,100]; 
 const g2MAXLEVEL = 1;
-var g2N = 2;
+var g2N = 1;
 
 var g2_pic1, g2_pic2;
 var g2Pics = [];
 var g2Goal;
 var g2GroupIndex = 0;
 lastPosition=0;
-
-function showCorrectWord(){
-	let div = mBy(g2Goal.id);
-	let word = bestWord;
-	mClass(div,'onPulse');
-	say(bestWord,.4,1.2,1,'david')
-	setTimeout(gTouchPicStart,5000);
-}
 
 function gTouchPicStart() {
 	//console.log('touch pic game!')
@@ -28,40 +20,28 @@ function gTouchPicStart() {
 	setLevel();
 	g2Pics = [];
 
-	let onClickPicture = ev => {
-		let id = evToClosestId(ev);
-		ev.cancelBubble = true;
-
-		//get item
-		let i = firstNumber(id);
-		let item = g2Pics[i];
-
-		if (item.info.best == bestWord) { 
-			g2Success(id, item.key); 
-			setTimeout(gTouchPicStart, 1500); 
-		}	else { 
-			g2Fail(id, item.key); 
-			showCorrectWord();
-		}
-
-		
-	}
-
+	let onClickPicture = evaluate;
 
 	//get g2N different keys!
-	let keys = choose(emoGroupKeys, g2N);
+	let keys = ['ant','T-Rex'];//'horse'];// 
+	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
 
-	console.log('keys',keys)
-
-	let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	//console.log('keys',keys)
+	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
 	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
-	//'box-sizing':'border-box', NEIN!!!
 
-	for (let i = 0; i < g2N; i++) {
+	for (let i = 0; i < keys.length; i++) {
 		let info = getRandomSetItem('E', keys[i]);
 		let id = 'pic' + i;
-		let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
+		//let maxw=100;
+		let d1 = maPicLabelButtonFitText(info, label,{w:200,h:200}, onClickPicture, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
+		d1.id = id;
+		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//console.log('table',table,'\ndPic',d1)
 		g2Pics.push({ key: info.key, info: info, div: d1, id: id, index: i });
 	}
 
@@ -94,9 +74,25 @@ function aniInstruction(text) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
+function evaluate(ev){
+	let id = evToClosestId(ev);
+	ev.cancelBubble = true;
+
+	//get item
+	let i = firstNumber(id);
+	let item = g2Pics[i];
+
+	if (item.info.best == bestWord) { 
+		g2Success(id, item.key); 
+		setTimeout(gTouchPicStart, 1500); 
+	}	else { 
+		g2Fail(id, item.key); 
+		showCorrectWord();
+	}
+}
 function g2Init(){
 	level = 0;
-	g2N = 2;
+	//g2N = 5;
 	g2GroupIndex = 0;
 	setGroup(g2GROUPS[g2GroupIndex]);
 	showLevel();
@@ -259,6 +255,18 @@ function getRandomSetItem(lang = 'E', key) {
 	return info;
 }
 function showLevel(){	dLevel.innerHTML = 'level: '+level+'/'+g2GroupIndex;}
+function showCorrectWord(){
+	let div = mBy(g2Goal.id);
+
+	let word = bestWord;
+
+	//mAddLabel(bestWord,div,{fz:40,fg:'contrast'});
+	//mText(bestWord,div)
+
+	mClass(div,'onPulse');
+	say(bestWord,.4,1.2,1,'david')
+	setTimeout(gTouchPicStart,5000);
+}
 function showScore(){	
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 

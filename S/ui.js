@@ -49,6 +49,7 @@ function initLineMiddle() {
 	dLineMid = mDiv(dLineMidOuter); dLineMid.id = 'lineMid';
 	dLineMidLeft = mDiv(dLineMid); dLineMidLeft.id = 'lineMidLeft'; //dLineMidLeft.innerHTML = 'O';
 	dLineMidMiddle = mDiv(dLineMid); dLineMidMiddle.id = 'lineMidMiddle';
+	mClass(dLineMidMiddle, 'flexWrap');
 	dLineMidRight = mDiv(dLineMid); dLineMidRight.id = 'lineMidRight'; //dLineMidRight.innerHTML = 'O';
 
 	mLinebreak(table);

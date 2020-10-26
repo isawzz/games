@@ -40,6 +40,8 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 	}
 
 }
+
+// helpers
 function findSuitableVoice(text, desc) {
 	//desc ... random | key in voiceNames | starting phrase of voices.name
 	//console.log(typeof voices, voices)

@@ -50,6 +50,11 @@ function applyCssStyles(ui, params) {
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
+// function mAddLabel(text,dParent,styles){
+// 	//if dParent has a height set, need to set to auto!
+// 	dParent.style.height='auto';
+// 	mText(text,dParent,styles);
+// }
 function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');
 	x.innerHTML = caption;
@@ -175,6 +180,26 @@ function mImg(path, dParent, styles, classes) {
 	return d;
 	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
 }
+function mTextFit(text,{wmax,hmax}, dParent, styles, classes) {
+	//mTextFit(label,maxchars,maxlines, d, textStyles, ['truncate']);
+	let d = mDiv(dParent);
+	if (!isEmpty(text)) d.innerHTML = text;
+
+	//console.log('_______',wmax,hmax)
+	if (nundef(styles) && (isdef(wmax))||isdef(hmax)){
+		styles = {};
+	}
+	if (isdef(wmax)) styles.width=wmax;
+	if (isdef(hmax)) styles.height=hmax;
+
+	//console.log('_',text,styles)
+
+	if (isdef(styles)) mStyleX(d, styles);
+
+	if (isdef(classes)) mClass(d, classes);
+	return d;
+}
+
 function mText(text, dParent, styles, classes) {
 	let d = mDiv(dParent);
 	if (!isEmpty(text)) d.innerHTML = text;
