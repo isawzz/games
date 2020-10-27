@@ -483,6 +483,15 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	let styles1 = textStyles;
 	let size = getSizeWithStylesX(label, styles1, isdef(wmax) ? wAvail : undefined, isdef(hmax) ? hAvail : undefined);
 	//console.log('__', 'size', size);
+	let size1 = getSizeWithStylesX(label, styles1);//, isdef(wmax) ? wAvail : undefined, isdef(hmax) ? hAvail : undefined);
+	console.log('__', 'size1', size1);
+
+	let f1=wAvail/size1.w;
+	if (f1<1) {
+		textStyles.fz *= f1;
+		textStyles.fz=Math.floor(textStyles.fz);
+		console.log(textStyles);
+	}
 
 	let [wBound, hBound] = [isdef(wmax) ? size.w : undefined, isdef(hmax) ? size.h : undefined];
 

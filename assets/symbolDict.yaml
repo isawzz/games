@@ -1341,8 +1341,8 @@ T-Rex:
   hexcode: 1F996
   group: animals-nature
   subgroups: animal-reptile
-  E: tyrannosaurus rex
-  D: tyrannosaurus rex
+  E: tyrannosaurus rex|dinosaur
+  D: tyrannosaurus rex|dinosaurus
   hex: 1F996
   family: emoNoto
   text: '&#129430;'
