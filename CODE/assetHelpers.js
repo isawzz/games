@@ -14,9 +14,9 @@ function makeHigherOrderGroups() {
 			}
 		}
 	}
-	let s='';
-	for(const k in symKeysBySet){
-		s+=k+':'+symKeysBySet[k].length+', ';
+	let s = '';
+	for (const k in symKeysBySet) {
+		s += k + ':' + symKeysBySet[k].length + ', ';
 	}
 	//console.log(s);
 	//console.log('group names:',Object.keys(symKeysBySet).sort());
@@ -84,36 +84,23 @@ function getBestWord(info, lang) {
 }
 function isLabelVisible(id) { return isVisible(mBy(id).children[1]); }
 function maHideLabel(id, info) {
-	//console.log('clicked', info);
 	let d = mBy(id);
 	let dPic = d.children[0];
 	let dText = d.children[1];
-	//console.log(d);
-	//let ppp=d.style//['padding'];
-	//console.log('PADDING!!!!!!!!!!',ppp)
-	//console.log(dPic)
-	//console.log(dText)
 	dText.style.display = 'none';
 
 	let dPicText = dPic.children[0];
-	//console.log('_', dPicText);
 	let family = dPicText.style.fontFamily;
-	//console.log('__', family);
 	let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family) + 1;
-	//console.log('___', i);
 	let wInfo = info.w[i];
-	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
 	let hInfo = info.h[i];
 	let b = getBounds(d);
 	let styles = { w: b.width, h: b.height };
-	//console.log('____', d.style.paddingTop, d.style.paddingBottom);
 	let [ptop, pbottom] = [firstNumber(d.style.paddingTop), firstNumber(d.style.paddingBottom)];
 	let p = (isdef(ptop) && isdef(pbottom)) ? Math.min(ptop, pbottom) : 0;
 	let [padw, padh] = [p, p];
-	//if (d.style.padding)
 	let [wtotal, htotal] = [styles.w, styles.h];
 	let [wpic, hpic] = [wtotal - 2 * padw, htotal - 2 * padh];
-	//console.log('_____', wtotal, htotal)
 	let fw = wpic / wInfo;
 	let fh = hpic / hInfo;
 	f = Math.min(fw, fh);
@@ -144,16 +131,10 @@ function maHideLabel(id, info) {
 	info.paddingTopOrig = d.style.paddingTop;
 	info.paddingBottomOrig = d.style.paddingBottom;
 	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
-	//outerStyles.w = wtotal;
-	//outerStyles.h = htotal;
-	//console.log(outerStyles)
 	mStyleX(d, outerStyles);
-
-	//dasselbe wie in maPic
 
 }
 function maShowLabel(id, info) {
-	// console.log('clicked', info);
 	let d = mBy(id);
 	let dPic = d.children[0];
 	let dText = d.children[1];
@@ -164,18 +145,18 @@ function maShowLabel(id, info) {
 	dPic.style.height = info.hOrig;
 	d.style.paddingTop = info.paddingTopOrig;
 	d.style.paddingBottom = info.paddingBottomOrig;
-	// console.log(d);
-	// console.log(dPic)
-	// console.log(dText)
 	dText.style.display = 'block';
+	dText.style.width = 'auto'
+
 }
 
+//#endregion
 
 //#region layouts
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
 	//console.log(elist, elist.length)
 	let dims = calcRowsCols(elist.length, rows, cols);
-	//console.log('dims', dims);
+	console.log('dims', dims);
 
 	let parentStyle = jsCopy(containerStyles);
 	parentStyle.display = isInline ? 'inline-grid' : 'grid';
@@ -211,20 +192,8 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 
 }
 
-function getParamsForMaPicStyle(desc = 'segoeBlack') {
-	desc = desc.toLowerCase();
-	switch (desc) {
-		case 'twittertext': return { isText: true, isOmoji: false };
-		case 'twitterimage': return { isText: false, isOmoji: false };
-		case 'openmojitext': return { isText: true, isOmoji: true };
-		case 'openmojiimage': return { isText: false, isOmoji: true };
-		case 'openmojiblacktext': return { isText: true, isOmoji: 'openmoBlack' };
-		case 'segoe': return { isText: true, isOmoji: 'segoe ui emoji' };
-		case 'segoeblack': return { isText: true, isOmoji: 'segoe ui symbol' };
-		default: return { isText: true, isOmoji: false };
-	}
+//#endregion
 
-}
 
 //#region maPic
 function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, isOmoji = false) {
@@ -241,7 +210,6 @@ function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, 
 	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
 	return d;
 }
-
 function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	let info = isString(infokey) ? picInfo(infokey) : infokey;
@@ -325,17 +293,17 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 		return dOuter;
 	}
 	fzreal = f * info.fz;
-	wreal = f * wInfo;
-	hreal = f * hInfo;
+	wreal = Math.round(f * wInfo);
+	hreal = Math.round(f * hInfo);
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
 	//console.log('====>>>>', family, '\nw.info', wInfo, '\nh.info', hInfo, '\nfactor', f, '\nw', wreal, '\nh', hreal);
 
 	if (!(padw >= 0 && padh >= 0)) {
 		console.log(info)
+		console.log('\nstyles.w',styles.w,'\nstyles.h',styles.h,'\nstyles.fz',styles.fz,'\nstyles.padding',styles.padding,'\nwInfo',wInfo,'\nhInfo',hInfo,'\nfzreal', fzreal, '\nwreal', wreal, '\nhreal', hreal, '\npadw', padw, '\npadh', padh);
 	}
-	console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
-	//console.log('fzreal', fzreal, 'wreal', wreal, 'hreal', hreal, 'padw', padw, 'padh', padh);
+	//console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
 
 	innerStyles.fz = fzreal;
 	innerStyles.weight = 900;
@@ -532,19 +500,33 @@ function getSizeWithStylesX(text, styles, wmax, hmax) {
 	cStyles.position = 'fixed';
 	cStyles.opacity = 0;
 	cStyles.top = '-9999px';
-	if (isdef(wmax)) cStyles.width=wmax;
-	if (isdef(hmax)) cStyles.height=wmax;
+	if (isdef(wmax)) cStyles.width = wmax;
+	if (isdef(hmax)) cStyles.height = wmax;
 	//if (isdef(wMax)) d.maxWidth=wMax;
 	mStyleX(d, cStyles);
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
-	let x=getBounds(d)
+	let x = getBounds(d)
 	//console.log('==>',x.width,x.height);
 	d.parentNode.removeChild(d);
 	let res = { w: x.width, h: x.height };
 	//console.log(res)
 	return res;
+}
+function getParamsForMaPicStyle(desc = 'segoeBlack') {
+	desc = desc.toLowerCase();
+	switch (desc) {
+		case 'twittertext': return { isText: true, isOmoji: false };
+		case 'twitterimage': return { isText: false, isOmoji: false };
+		case 'openmojitext': return { isText: true, isOmoji: true };
+		case 'openmojiimage': return { isText: false, isOmoji: true };
+		case 'openmojiblacktext': return { isText: true, isOmoji: 'openmoBlack' };
+		case 'segoe': return { isText: true, isOmoji: 'segoe ui emoji' };
+		case 'segoeblack': return { isText: true, isOmoji: 'segoe ui symbol' };
+		default: return { isText: true, isOmoji: false };
+	}
+
 }
 
 function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
@@ -582,11 +564,12 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	let size1 = getSizeWithStylesX(label, styles1);//, isdef(wmax) ? wAvail : undefined, isdef(hmax) ? hAvail : undefined);
 	console.log('__', 'size1', size1);
 
-	let f1=wAvail/size1.w;
-	if (f1<1) {
+	let f1 = wAvail / size1.w;
+	let isTextOverflow = f1 < 1;
+	if (f1 < 1) {
 		textStyles.fz *= f1;
-		textStyles.fz=Math.floor(textStyles.fz);
-		console.log('text overflow! textStyles',textStyles);
+		textStyles.fz = Math.floor(textStyles.fz);
+		console.log('text overflow! textStyles', textStyles);
 	}
 
 	let [wBound, hBound] = [isdef(wmax) ? size.w : undefined, isdef(hmax) ? size.h : undefined];
@@ -595,7 +578,7 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	//console.log('___ isOverflow',isOverflow);
 
 
-	let dText = mTextFit(label, { wmax: wBound, hmax: hBound }, d, textStyles, ['truncate']);
+	let dText = mTextFit(label, { wmax: wBound, hmax: hBound }, d, textStyles, isTextOverflow ? ['truncate'] : null);
 	// d.style.textAlign = 'center';
 	// dText.style.textAlign = 'center';
 	// containerStyles.align = 'center';
@@ -656,7 +639,7 @@ function maPicLabel(info, dParent, containerStyles, picStyles, textStyles, isTex
 	let dText = mText(info.annotation, d, textStyles, ['might-overflow']);
 	mStyleX(d, containerStyles);
 
-	console.log(dParent, '\nd', d, '\ndPic', dPic, '\ndText', dText);
+	//console.log(dParent, '\nd', d, '\ndPic', dPic, '\ndText', dText);
 
 	return d;
 }
