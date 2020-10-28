@@ -5,8 +5,6 @@ html,body,#md,#rightSide{
 	margin:0;
 	font: 20px Arial;
 	color: white;
-	/* background-color: dimgray; */
-	background-color: orange;
 	
 }
 #dCheckMark,#dX{
@@ -19,14 +17,14 @@ html,body,#md,#rightSide{
 #sidebar{
 	height: 100%;
 	flex: 0 0 auto;
-	background-color: rgb(184, 71, 71);
+	background-color:#ffffff80;
 	box-sizing:border-box;
 	padding: 12px;
 }
 #rightSide{
 	flex-direction: column;
 	flex-grow: 10;
-	background-color: orange;
+	/* background-color: orange; */
 }
 #table{
 	flex: 0 0 auto;

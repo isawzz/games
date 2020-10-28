@@ -92,6 +92,7 @@ var emoSets = {
 	misc: { name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
 
 };
+var emoGroup, emoGroupKeys;
 
 function isEmosetMember(name, info) { return emoSets[name].f(info); }
 function makeEmoSetIndex() {

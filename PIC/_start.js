@@ -13,7 +13,7 @@ async function start() {
 	if (nundef(mBy('dummy'))) {let d=mDiv(table);d.id='dummy';d.style.width='0px';}
 	//await makeExtraSvgFiles();
 
-	test42();
+	test43();
 	//test40();
 
 	//#region past test calls

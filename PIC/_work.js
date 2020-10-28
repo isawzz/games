@@ -1,5 +1,31 @@
 var infoDictionary;
+function test43(){
+	g2Pics = [];
 
+	let keys = ['ant','T-Rex'];//'horse'];// 
+	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
+
+	//console.log('keys',keys)
+	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
+	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
+	for (let i = 0; i < keys.length; i++) {
+		let info = getRandomSetItem('E', keys[i]);
+		
+		let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
+		//let maxw=100;
+		let d1 = maPicLabelButtonFitText(info, label,{w:200,h:200}, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
+		
+		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//console.log('table',table,'\ndPic',d1)
+		g2Pics.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
+	}
+
+
+}
 
 function test42() {
 	//nicht in ein grid sondern einfach so auflinen!

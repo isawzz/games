@@ -1,7 +1,80 @@
 //uses assets! =>load after assets!
 var cachedInfolists = {};
 
-//#region 
+//#region words, dictionaries
+function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
+function makeHigherOrderGroups() {
+	for (const honame in higherOrderEmoSetNames) {
+		for (const name of (higherOrderEmoSetNames[honame])) {
+			for (const k in symBySet[name]) {
+				let info = symbolDict[k];
+				lookupSet(symBySet, [honame, k], info);
+				lookupAddToList(symKeysBySet, [honame], k);
+				lookupAddToList(symListBySet, [honame], info);
+			}
+		}
+	}
+	let s='';
+	for(const k in symKeysBySet){
+		s+=k+':'+symKeysBySet[k].length+', ';
+	}
+	//console.log(s);
+	//console.log('group names:',Object.keys(symKeysBySet).sort());
+	ensureSymByType();
+}
+function setGroup(group) {
+	ensureSymBySet();
+	emoGroup = group;
+	emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
+}
+
+function getRandomSetItem(lang = 'E', key) {
+	if (nundef(emoGroup)) setGroup('animal');
+
+	if (nundef(key)) key = chooseRandom(emoGroupKeys);
+
+	//#region individual keys for test
+	//key = 'fever'; //fever
+	//key= 'onion'; //onion
+	//key = 'mouse'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
+	// key='baseball'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
+	//key = 'adhesive bandage';
+	//key = 'hippopotamus';
+	// key = 'llama';
+	//key = "chess pawn";
+	//key='briefcase';
+	//key = 'four-thirty';
+	//key='chopsticks';
+	//key='orangutan';
+	//key = 'person with veil';
+	//key='medal';
+	//key='leopard';
+	//key='telephone';
+	//#endregion
+
+	let info = jsCopy(picInfo(key));
+	let valid, words;
+	let oValid = info[lang + '_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	let oWords = info[lang];
+	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+
+	let dWords = info.D;
+	if (isEmpty(dWords)) dWords = []; else dWords = sepWordListFromString(dWords, ['|']);
+	let eWords = info.E;
+	if (isEmpty(eWords)) eWords = []; else eWords = sepWordListFromString(eWords, ['|']);
+
+	words = isEnglish(lang) ? eWords : dWords;
+	info.eWords = eWords;
+	info.dWords = dWords;
+	info.words = words;
+	info.best = last(words);
+	info.valid = valid;
+
+	currentLanguage = lang;
+
+	return info;
+}
 function getBestWord(info, lang) {
 	let w = info[lang];
 	let best = stringAfterLast(w, '|');
@@ -11,36 +84,36 @@ function getBestWord(info, lang) {
 }
 function isLabelVisible(id) { return isVisible(mBy(id).children[1]); }
 function maHideLabel(id, info) {
-	console.log('clicked', info);
+	//console.log('clicked', info);
 	let d = mBy(id);
 	let dPic = d.children[0];
 	let dText = d.children[1];
-	console.log(d);
+	//console.log(d);
 	//let ppp=d.style//['padding'];
 	//console.log('PADDING!!!!!!!!!!',ppp)
-	console.log(dPic)
-	console.log(dText)
+	//console.log(dPic)
+	//console.log(dText)
 	dText.style.display = 'none';
 
 	let dPicText = dPic.children[0];
-	console.log('_', dPicText);
+	//console.log('_', dPicText);
 	let family = dPicText.style.fontFamily;
-	console.log('__', family);
+	//console.log('__', family);
 	let i = (family == info.family) ? 0 : EMOFONTLIST.indexOf(family) + 1;
-	console.log('___', i);
+	//console.log('___', i);
 	let wInfo = info.w[i];
 	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
 	let hInfo = info.h[i];
 	let b = getBounds(d);
 	let styles = { w: b.width, h: b.height };
-	console.log('____', d.style.paddingTop, d.style.paddingBottom);
+	//console.log('____', d.style.paddingTop, d.style.paddingBottom);
 	let [ptop, pbottom] = [firstNumber(d.style.paddingTop), firstNumber(d.style.paddingBottom)];
 	let p = (isdef(ptop) && isdef(pbottom)) ? Math.min(ptop, pbottom) : 0;
 	let [padw, padh] = [p, p];
 	//if (d.style.padding)
 	let [wtotal, htotal] = [styles.w, styles.h];
 	let [wpic, hpic] = [wtotal - 2 * padw, htotal - 2 * padh];
-	console.log('_____', wtotal, htotal)
+	//console.log('_____', wtotal, htotal)
 	let fw = wpic / wInfo;
 	let fh = hpic / hInfo;
 	f = Math.min(fw, fh);
@@ -80,20 +153,20 @@ function maHideLabel(id, info) {
 
 }
 function maShowLabel(id, info) {
-	console.log('clicked', info);
+	// console.log('clicked', info);
 	let d = mBy(id);
 	let dPic = d.children[0];
 	let dText = d.children[1];
 	let dPicText = dPic.children[0];
-	dPicText.style.fontSize = info.fzOrig;//info.fzOrig+'px';
+	dPicText.style.fontSize = info.fzOrig;
 	dPicText.style.color = info.textColorOrig;
 	dPic.style.width = info.wOrig;
 	dPic.style.height = info.hOrig;
 	d.style.paddingTop = info.paddingTopOrig;
 	d.style.paddingBottom = info.paddingBottomOrig;
-	console.log(d);
-	console.log(dPic)
-	console.log(dText)
+	// console.log(d);
+	// console.log(dPic)
+	// console.log(dText)
 	dText.style.display = 'block';
 }
 
@@ -292,10 +365,10 @@ function maPicButton(key, handler, dParent, styles, classes = 'picButton', isTex
 	return x;
 }
 function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
-	let handler1 = (ev) => { let id = evToClosestId(ev); let info = infoDictionary[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
+	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', 'random', 'transparent', true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
-	x.id = 'd' + label;
+	x.id = 'd' + info.key;
 	x.onclick = handler;
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
@@ -321,7 +394,7 @@ function maPicLabelButtonXX(info, label, handler, dParent, styles, classes = 'pi
 function maPicLabelButtonX(info, label, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
 	let handler1 = (ev) => {
 		let id = evToClosestId(ev);
-		let info = infoDictionary[id.substring(1)];
+		let info = symbolDict[id.substring(1)];
 		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
 		mBy('dummy').focus();
 	}
@@ -451,6 +524,29 @@ function getSimpleStyles(sz, family, bg, fg) {
 	let picStyles = { w: sz, h: sz, bg: fg };
 	return [styles, picStyles, textStyles];
 }
+function getSizeWithStylesX(text, styles, wmax, hmax) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	//console.log(styles);
+	let cStyles = jsCopy(styles);
+	cStyles.position = 'fixed';
+	cStyles.opacity = 0;
+	cStyles.top = '-9999px';
+	if (isdef(wmax)) cStyles.width=wmax;
+	if (isdef(hmax)) cStyles.height=wmax;
+	//if (isdef(wMax)) d.maxWidth=wMax;
+	mStyleX(d, cStyles);
+	d.innerHTML = text;
+	height = d.clientHeight;
+	width = d.clientWidth;
+	let x=getBounds(d)
+	//console.log('==>',x.width,x.height);
+	d.parentNode.removeChild(d);
+	let res = { w: x.width, h: x.height };
+	//console.log(res)
+	return res;
+}
+
 function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	//console.log('picStyles',picStyles);
@@ -490,7 +586,7 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	if (f1<1) {
 		textStyles.fz *= f1;
 		textStyles.fz=Math.floor(textStyles.fz);
-		console.log(textStyles);
+		console.log('text overflow! textStyles',textStyles);
 	}
 
 	let [wBound, hBound] = [isdef(wmax) ? size.w : undefined, isdef(hmax) ? size.h : undefined];

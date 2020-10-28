@@ -115,26 +115,6 @@ function g2Fail(id) {
 
 	
 }
-function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
-function makeHigherOrderGroups() {
-	for (const honame in higherOrderEmoSetNames) {
-		for (const name of (higherOrderEmoSetNames[honame])) {
-			for (const k in symBySet[name]) {
-				let info = symbolDict[k];
-				lookupSet(symBySet, [honame, k], info);
-				lookupAddToList(symKeysBySet, [honame], k);
-				lookupAddToList(symListBySet, [honame], info);
-			}
-		}
-	}
-	let s='';
-	for(const k in symKeysBySet){
-		s+=k+':'+symKeysBySet[k].length+', ';
-	}
-	//console.log(s);
-	//console.log('group names:',Object.keys(symKeysBySet).sort());
-	ensureSymByType();
-}
 function onClickStartButton() {
 	if (currentGame == 'gTouchPic') {
 		g2Init();
@@ -168,7 +148,11 @@ function setLevel() {
 		setGroup(g2GROUPS[g2GroupIndex]);
 
 	}
+	setLevelColor();
 	//console.log(numTotalAnswers,numCorrectAnswers)
+}
+function setLevelColor(){
+	document.body.style.backgroundColor = levelColors[level];
 }
 function setScore(isCorrect) {
 	//console.log('setScore')
@@ -181,24 +165,6 @@ function setScore(isCorrect) {
 	
 	//console.log(numCorrectAnswers,numTotalAnswers)
 }
-function setGroup(group) {
-	//console.log('setting group to', group)
-
-	//unselect previous group button
-	let button = mBy('b_' + emoGroup);
-
-	if (isdef(button)) mClassRemove(button, 'selectedGroupButton');
-
-	emoGroup = group;
-	emoGroupKeys = [];
-
-	//select new group button
-	button = mBy('b_' + emoGroup);
-	if (isdef(button)) mClass(mBy('b_' + emoGroup), 'selectedGroupButton');
-
-	//console.log(emoGroup,symKeysBySet[emoGroup],symBySet)
-	emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
-}
 function setCurrentInfo(item){
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
@@ -206,53 +172,6 @@ function setCurrentInfo(item){
 	bestWord = currentInfo.best;
 	hintWord = '_'.repeat(bestWord.length);
 
-}
-function getRandomSetItem(lang = 'E', key) {
-	if (nundef(emoGroup)) setGroup('animal');
-
-	if (nundef(key)) key = chooseRandom(emoGroupKeys);
-
-	//#region individual keys for test
-	//key = 'fever'; //fever
-	//key= 'onion'; //onion
-	//key = 'mouse'; // mouse '1FA79'; //bandage '1F48E'; // gem '1F4E3';//megaphone '26BE'; //baseball '1F508'; //speaker low volume
-	// key='baseball'; // baseball '26BD'; //soccer '1F988'; //shark '1F41C'; //ant '1F1E6-1F1FC';
-	//key = 'adhesive bandage';
-	//key = 'hippopotamus';
-	// key = 'llama';
-	//key = "chess pawn";
-	//key='briefcase';
-	//key = 'four-thirty';
-	//key='chopsticks';
-	//key='orangutan';
-	//key = 'person with veil';
-	//key='medal';
-	//key='leopard';
-	//key='telephone';
-	//#endregion
-
-	let info = jsCopy(picInfo(key));
-	let valid, words;
-	let oValid = info[lang + '_valid_sound'];
-	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
-	let oWords = info[lang];
-	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
-
-	let dWords = info.D;
-	if (isEmpty(dWords)) dWords = []; else dWords = sepWordListFromString(dWords, ['|']);
-	let eWords = info.E;
-	if (isEmpty(eWords)) eWords = []; else eWords = sepWordListFromString(eWords, ['|']);
-
-	words = isEnglish(lang) ? eWords : dWords;
-	info.eWords = eWords;
-	info.dWords = dWords;
-	info.words = words;
-	info.best = last(words);
-	info.valid = valid;
-
-	currentLanguage = lang;
-
-	return info;
 }
 function showLevel(){	dLevel.innerHTML = 'level: '+level+'/'+g2GroupIndex;}
 function showCorrectWord(){
