@@ -4,19 +4,33 @@ const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook',
 	'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
 
 window.onload = async () => { await start(); }
+//addEventListener('keydown',show100);
 
 async function start() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
+	
+	//mStyleX(table)
 	mClass(table, 'flexWrap');
+	//table.style.justifyContent = 'flex-start';
 
 	if (nundef(mBy('dummy'))) {let d=mDiv(table);d.id='dummy';d.style.width='0px';}
 	//await makeExtraSvgFiles();
 
-	test44();
-	//test40();
+	let leiste = mDiv(table);//mBy('dLeiste'));
+	mStyleX(leiste,{w:160,'max-height':'100vh',display:'flex','flex-flow':'column wrap'});
+	showBadges(leiste);
+
+	let t1=mDiv(table);
+	mClass(t1,'flexWrap','justifyLeft');
+	//mStyleX(t1,{h:'100vw',bg:'red'});
+	//table.style.alignSelf='flex-start';
+	showNM(t1,10,10);
 
 	//#region past test calls
+	//test43(); //test40();
+	//await perf01('animal');
+	//await perf02('animal');
 	// test10_fz();
 	// let d=maPic(picRandom(), table, { fz:36, bg: 'random', fg: 'random' });
 	// test17_grid(10);
@@ -49,8 +63,6 @@ async function start() {
 
 	//#endregion
 
-	//await perf01('animal');
-	//await perf02('animal');
 }
 async function perfLoading() {
 	let timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);

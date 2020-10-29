@@ -1,5 +1,179 @@
-//uses assets! =>load after assets!
-var cachedInfolists = {};
+// *** uses assets! =>load after assets! ***
+
+//#region NOW!
+function mpGridLabeled(dParent,list, picLabelStyles) {
+	//cont,pic,text
+	let dGrid = mDiv(dParent);
+	let elems = [];
+	let isText = true;
+	let isOmoji = false;
+	for (const k of list) {
+		let info = symbolDict[k];
+		let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
+		elems.push(el);
+	}
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
+	let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
+	//console.log(size);
+}
+function showBadges(dParent) {
+	clearElement(dParent);
+	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	//let picLabelStyles = getHarmoniousStylesPlus({ rounding: 10, margin: 24 }, {}, {}, 60, 60, 0, 'arial', 'random', 'transparent', true);
+	//let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	// ensureSymByType();
+	let keys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
+		'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
+		'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
+	const LIGHTGREEN = '#bfef45';
+	const LIGHTBLUE = '#42d4f4';
+	const YELLOW = '#ffe119';
+	const RED = '#e6194B';
+	const GREEN = '#3cb44b';
+	const BLUE = '#4363d8';
+	const PURPLE = '#911eb4';
+	const YELLOW2 = '#ffa0a0';
+	const TEAL = '#469990';
+	const ORANGE = '#f58231';
+	const FIREBRICK = '#800000';
+	const OLIVE = '#808000';
+	let bgs = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
+		GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue', 
+		'deeppink', TEAL, ORANGE, 'seagreen', FIREBRICK, OLIVE,
+		// '#911eb4', '#42d4f4', '#f032e6',	'#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#aaffc3', 
+		'#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000', 'gold', 'orangered', 'skyblue', 'pink', 'deeppink',
+		'palegreen', '#e6194B'];
+	let fg = '#00000080';
+	let textColor = 'white';
+	let texts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+	mpLineup(dParent,keys, bgs, fg, textColor, texts);
+	// let dGrid = mDiv(table);
+	// let elems = [];
+	// let isText = true;
+	// let isOmoji = false;
+
+	// for (let i=0;i<keys.length;i++) {
+	// 	let k=keys[i];
+	// 	let bg=bgs[i];
+
+	// 	let info = symbolDict[k];
+	// 	let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
+	// 	elems.push(el);
+	// }
+
+	// let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	// let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
+
+}
+function mpLineup(dParent,keys,bgs,fg,textColor,texts){
+	let g2Pics = [];
+
+	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	let stylesForLabelButton = { rounding: 10, margin: 4 };
+	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	let isText=true;let isOmoji=false;
+
+	for (let i = 0; i < keys.length; i++) {
+		console.log(keys[i]);
+		let k=replaceAll(keys[i],' ','-');
+		let info = symbolDict[k];
+		
+		let label = "level "+i; //info.key;
+
+		let d1 = mpBadge(info, label,{w:72,h:72,bg:bgs[i],fgPic:fg,fgText:textColor}, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
+		
+		g2Pics.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
+	}
+
+
+}
+
+function mpOver(d, dParent, fz, color, picStyle) {
+	//maPicOver
+	//d is pos fixed!!!
+	let b = getBounds(dParent);
+	//console.log(b);
+	d.style.top = picStyle == 'segoeBlack' ? (b.y + 60 - fz / 2 + 'px') : (b.y + 100 - fz / 2 + 'px');
+	d.style.left = picStyle == 'segoeBlack' ? (b.x + 120 - fz / 2 + 'px') : (b.x + 100 - fz / 2 + 'px');
+	d.style.color = color;
+	d.style.fontSize = fz + 'px';
+	d.style.display = 'block';
+	let { isText, isOmoji } = getParamsForMaPicStyle(picStyle);
+	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
+	return d;
+}
+function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
+	//maPicLabelButtonFitText
+	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
+	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bg, 'transparent', fgPic, fgText, true);
+	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
+	x.id = 'd' + info.key;
+	x.onclick = handler;
+	x.style.cursor = 'pointer';
+	x.lastChild.style.cursor = 'pointer';
+	x.style.userSelect = 'none';
+	return x;
+}
+function mpBadge(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
+	//maPicLabelButtonFitText
+	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
+	let picLabelStyles = getBadgeStyles(styles, {}, {}, w, h, 64, 4, 2, 'arial', bg, 'transparent', fgPic, fgText, true);
+	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
+	x.id = 'd' + info.key;
+	//x.onclick = handler;
+	//x.style.cursor = 'pointer';
+	x.lastChild.style.cursor = 'default';
+	x.style.userSelect = 'none';
+	return x;
+}
+function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, paddingBot, family, bg = 'blue', bgPic = 'random', fgPic = 'white', fgText = 'white', hasText = true) {
+	//15,55,0,20,10=80
+
+	//console.log(fgPic,fgText)
+
+	let fact = 55 / picPercent;
+	let [ptop, pbot] = [(isdef(paddingTop) ? paddingTop : (80 - picPercent) * 3 / 5),
+											(isdef(paddingBot) ? paddingBot : (80 - picPercent) * 2 / 5)];
+	let pText = 100 - picPercent - ptop - pbot;
+	// let [ptop, pbot] = [(80 - picPercent) * 3 / 5, (80 - picPercent) * 2 / 5];
+	//let numbers = hasText ? [ptop, picPercent, 0, 20, pbot] : [15, 70, 0, 0, 15];
+	// let numbers = hasText ? [fact * 15, picPercent, 0, fact * 20, fact * 10] : [15, 70, 0, 0, 15];
+	let numbers = hasText ? [fact * ptop, picPercent, 0, fact * pText, fact * pbot] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	let [patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, paddingTop);
+	pabot = Math.max(pabot, paddingBot);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: isdef(fgText) ? fgText : 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: bgPic, fg: isdef(fgPic) ? fgPic : 'contrast' };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }
+	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
+	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
+	return [styles, picStyles, textStyles];
+}
+
+function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
+	//console.log(elist, elist.length)
+	let dims = calcRowsCols(elist.length, rows, cols);
+	//console.log('dims', dims);
+
+	let parentStyle = jsCopy(containerStyles);
+	parentStyle.display = isInline ? 'inline-grid' : 'grid';
+	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
+	parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
+
+	//console.log('parentStyle', parentStyle)
+
+	mStyleX(dGrid, parentStyle);
+	let b = getBounds(dGrid);
+	return { w: b.width, h: b.height };
+
+}
+
 
 //#region words, dictionaries
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
@@ -156,7 +330,7 @@ function maShowLabel(id, info) {
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
 	//console.log(elist, elist.length)
 	let dims = calcRowsCols(elist.length, rows, cols);
-	console.log('dims', dims);
+	//console.log('dims', dims);
 
 	let parentStyle = jsCopy(containerStyles);
 	parentStyle.display = isInline ? 'inline-grid' : 'grid';
@@ -193,7 +367,6 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 }
 
 //#endregion
-
 
 //#region maPic
 function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, isOmoji = false) {
@@ -301,7 +474,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	if (!(padw >= 0 && padh >= 0)) {
 		console.log(info)
-		console.log('\nstyles.w',styles.w,'\nstyles.h',styles.h,'\nstyles.fz',styles.fz,'\nstyles.padding',styles.padding,'\nwInfo',wInfo,'\nhInfo',hInfo,'\nfzreal', fzreal, '\nwreal', wreal, '\nhreal', hreal, '\npadw', padw, '\npadh', padh);
+		console.log('\nstyles.w', styles.w, '\nstyles.h', styles.h, '\nstyles.fz', styles.fz, '\nstyles.padding', styles.padding, '\nwInfo', wInfo, '\nhInfo', hInfo, '\nfzreal', fzreal, '\nwreal', wreal, '\nhreal', hreal, '\npadw', padw, '\npadh', padh);
 	}
 	//console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
 
@@ -334,7 +507,7 @@ function maPicButton(key, handler, dParent, styles, classes = 'picButton', isTex
 }
 function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
 	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
-	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', 'random', 'transparent', true);
+	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', 'random', 'transparent', null, null, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
 	x.id = 'd' + info.key;
 	x.onclick = handler;
@@ -350,7 +523,7 @@ function maPicLabelButtonXX(info, label, handler, dParent, styles, classes = 'pi
 		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
 		mBy('dummy').focus();
 	}
-	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, 200, 200, 65, 0, 'arial', 'random', 'transparent', true);
+	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, 200, 200, 65, 0, 'arial', 'random', 'transparent', null, null, true);
 	let x = maPicLabelFit(info, label.toUpperCase(), dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
 	x.id = 'd' + label;
 	x.onclick = handler;
@@ -399,136 +572,6 @@ function maPicSimpleEmoHexText(hex, parent, fontSize) {
 	d.style.fontSize = fontSize + 'pt';
 	return d;
 }
-function getHarmoniousStyles1(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
-	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
-	numbers = numbers.map(x => h * x / 100);
-	[patop, szPic, zwischen, szText, pabot] = numbers;
-	patop = Math.max(patop, padding);
-	pabot = Math.max(pabot, padding);
-
-	// console.log(patop, szPic, zwischen, szText, pabot);
-	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
-	let picStyles = { h: szPic, bg: fg };
-	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
-	return [styles, picStyles, textStyles];
-}
-function getHarmoniousStylesPlusPlus(sContainer, sPic, sText, w, h, picPercent, padding, family, bg = 'blue', fg = 'random', hasText = true) {
-	//15,55,0,20,10=80
-
-	let fact = 55 / picPercent;
-	let [ptop, pbot] = [(80 - picPercent) * 3 / 5, (80 - picPercent) * 2 / 5];
-	//let numbers = hasText ? [ptop, picPercent, 0, 20, pbot] : [15, 70, 0, 0, 15];
-	let numbers = hasText ? [fact * 15, picPercent, 0, fact * 20, fact * 10] : [15, 70, 0, 0, 15];
-	numbers = numbers.map(x => h * x / 100);
-	[patop, szPic, zwischen, szText, pabot] = numbers;
-	patop = Math.max(patop, padding);
-	pabot = Math.max(pabot, padding);
-
-	// console.log(patop, szPic, zwischen, szText, pabot);
-	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
-	let picStyles = { h: szPic, bg: fg };
-	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
-	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }
-	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
-	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
-	return [styles, picStyles, textStyles];
-}
-function getHarmoniousStylesPlus(sContainer, sPic, sText, w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
-	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
-	numbers = numbers.map(x => h * x / 100);
-	[patop, szPic, zwischen, szText, pabot] = numbers;
-	patop = Math.max(patop, padding);
-	pabot = Math.max(pabot, padding);
-
-	// console.log(patop, szPic, zwischen, szText, pabot);
-	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
-	let picStyles = { h: szPic, bg: fg };
-	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
-	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }
-	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
-	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
-	return [styles, picStyles, textStyles];
-}
-
-function getHarmoniousStylesXX(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
-	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
-	numbers = numbers.map(x => h * x / 100);
-	[patop, szPic, zwischen, szText, pabot] = numbers;
-	patop = Math.max(patop, padding);
-	pabot = Math.max(pabot, padding);
-
-	// console.log(patop, szPic, zwischen, szText, pabot);
-	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
-	let picStyles = { h: szPic, bg: fg };
-	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
-	return [styles, picStyles, textStyles];
-}
-function getHarmoniousStylesX(sz, family, bg = 'blue', fg = 'random', hasText = true, setWidth = false) {
-	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
-	numbers = numbers.map(x => sz * x / 100);
-	[patop, szPic, zwischen, szText, pabot] = numbers;
-
-	console.log(patop, szPic, zwischen, szText, pabot);
-	let styles = { h: sz, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
-	let picStyles = { h: szPic, bg: fg };
-	if (setWidth) styles.w = sz; else styles.paleft = styles.paright = 4;
-	return [styles, picStyles, textStyles];
-}
-function getHarmoniousStyles(sz, family, bg = 'blue', fg = 'random', hasText = true) {
-	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
-	let styles = { w: sz, h: sz, bg: bg, fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
-	let picStyles = { h: sz * fpic, bg: fg };
-	return [styles, picStyles, textStyles];
-}
-function getSimpleStyles(sz, family, bg, fg) {
-	let styles = { bg: bg, fg: 'contrast', align: 'center', 'box-sizing': 'border-box', padding: 4, margin: 2 };
-	let textStyles = { family: family };
-	let picStyles = { w: sz, h: sz, bg: fg };
-	return [styles, picStyles, textStyles];
-}
-function getSizeWithStylesX(text, styles, wmax, hmax) {
-	var d = document.createElement("div");
-	document.body.appendChild(d);
-	//console.log(styles);
-	let cStyles = jsCopy(styles);
-	cStyles.position = 'fixed';
-	cStyles.opacity = 0;
-	cStyles.top = '-9999px';
-	if (isdef(wmax)) cStyles.width = wmax;
-	if (isdef(hmax)) cStyles.height = wmax;
-	//if (isdef(wMax)) d.maxWidth=wMax;
-	mStyleX(d, cStyles);
-	d.innerHTML = text;
-	height = d.clientHeight;
-	width = d.clientWidth;
-	let x = getBounds(d)
-	//console.log('==>',x.width,x.height);
-	d.parentNode.removeChild(d);
-	let res = { w: x.width, h: x.height };
-	//console.log(res)
-	return res;
-}
-function getParamsForMaPicStyle(desc = 'segoeBlack') {
-	desc = desc.toLowerCase();
-	switch (desc) {
-		case 'twittertext': return { isText: true, isOmoji: false };
-		case 'twitterimage': return { isText: false, isOmoji: false };
-		case 'openmojitext': return { isText: true, isOmoji: true };
-		case 'openmojiimage': return { isText: false, isOmoji: true };
-		case 'openmojiblacktext': return { isText: true, isOmoji: 'openmoBlack' };
-		case 'segoe': return { isText: true, isOmoji: 'segoe ui emoji' };
-		case 'segoeblack': return { isText: true, isOmoji: 'segoe ui symbol' };
-		default: return { isText: true, isOmoji: false };
-	}
-
-}
-
 function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	//console.log('picStyles',picStyles);
@@ -670,6 +713,142 @@ function maPicLabel_dep(info, dParent, styles, isText = true, isOmoji = false) {
 	return d;
 }
 
+//#endregion
+
+//#region style factories
+function getHarmoniousStyles1(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, padding);
+	pabot = Math.max(pabot, padding);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStylesPlusPlus(sContainer, sPic, sText, w, h, picPercent, padding, family, bg = 'blue', bgPic = 'random', fgPic = 'white', fgText = 'white', hasText = true) {
+	//15,55,0,20,10=80
+
+	//console.log(fgPic,fgText)
+
+	let fact = 55 / picPercent;
+	let [ptop, pbot] = [(80 - picPercent) * 3 / 5, (80 - picPercent) * 2 / 5];
+	//let numbers = hasText ? [ptop, picPercent, 0, 20, pbot] : [15, 70, 0, 0, 15];
+	let numbers = hasText ? [fact * 15, picPercent, 0, fact * 20, fact * 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, padding);
+	pabot = Math.max(pabot, padding);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: isdef(fgText) ? fgText : 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: bgPic, fg: isdef(fgPic) ? fgPic : 'contrast' };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }
+	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
+	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStylesPlus(sContainer, sPic, sText, w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, padding);
+	pabot = Math.max(pabot, padding);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }
+	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
+	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
+	return [styles, picStyles, textStyles];
+}
+
+function getHarmoniousStylesXX(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => h * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+	patop = Math.max(patop, padding);
+	pabot = Math.max(pabot, padding);
+
+	// console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: h, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStylesX(sz, family, bg = 'blue', fg = 'random', hasText = true, setWidth = false) {
+	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
+	numbers = numbers.map(x => sz * x / 100);
+	[patop, szPic, zwischen, szText, pabot] = numbers;
+
+	console.log(patop, szPic, zwischen, szText, pabot);
+	let styles = { h: sz, bg: bg, fg: 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let picStyles = { h: szPic, bg: fg };
+	if (setWidth) styles.w = sz; else styles.paleft = styles.paright = 4;
+	return [styles, picStyles, textStyles];
+}
+function getHarmoniousStyles(sz, family, bg = 'blue', fg = 'random', hasText = true) {
+	let fpic = 2 / 3; let ffont = 1 / 8; let ftop = 1 / 9; let fbot = 1 / 12;
+	let styles = { w: sz, h: sz, bg: bg, fg: 'contrast', patop: sz * ftop, pabottom: sz * fbot, align: 'center', 'box-sizing': 'border-box' };
+	let textStyles = { family: family, fz: Math.floor(sz * ffont) };
+	let picStyles = { h: sz * fpic, bg: fg };
+	return [styles, picStyles, textStyles];
+}
+function getSimpleStyles(sz, family, bg, fg) {
+	let styles = { bg: bg, fg: 'contrast', align: 'center', 'box-sizing': 'border-box', padding: 4, margin: 2 };
+	let textStyles = { family: family };
+	let picStyles = { w: sz, h: sz, bg: fg };
+	return [styles, picStyles, textStyles];
+}
+function getSizeWithStylesX(text, styles, wmax, hmax) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	//console.log(styles);
+	let cStyles = jsCopy(styles);
+	cStyles.position = 'fixed';
+	cStyles.opacity = 0;
+	cStyles.top = '-9999px';
+	if (isdef(wmax)) cStyles.width = wmax;
+	if (isdef(hmax)) cStyles.height = wmax;
+	//if (isdef(wMax)) d.maxWidth=wMax;
+	mStyleX(d, cStyles);
+	d.innerHTML = text;
+	height = d.clientHeight;
+	width = d.clientWidth;
+	let x = getBounds(d)
+	//console.log('==>',x.width,x.height);
+	d.parentNode.removeChild(d);
+	let res = { w: x.width, h: x.height };
+	//console.log(res)
+	return res;
+}
+function getParamsForMaPicStyle(desc = 'segoeBlack') {
+	desc = desc.toLowerCase();
+	switch (desc) {
+		case 'twittertext': return { isText: true, isOmoji: false };
+		case 'twitterimage': return { isText: false, isOmoji: false };
+		case 'openmojitext': return { isText: true, isOmoji: true };
+		case 'openmojiimage': return { isText: false, isOmoji: true };
+		case 'openmojiblacktext': return { isText: true, isOmoji: 'openmoBlack' };
+		case 'segoe': return { isText: true, isOmoji: 'segoe ui emoji' };
+		case 'segoeblack': return { isText: true, isOmoji: 'segoe ui symbol' };
+		default: return { isText: true, isOmoji: false };
+	}
+
+}
+//#endregion
+
 //#region pic helpers
 function picInfo(key) {
 	//#region doc 
@@ -781,24 +960,10 @@ function picSet(setname) {
 	// 	else return picSearch({ set: setname, keywords: [key] });
 	// } else return chooseRandom(symListBySet[name]);
 }
-// function picRandomSet(setname){
-// 	//#region doc 
-// 	/*	
-// usage: ilist = picRandomSet('animal');
+//#endregion
 
-// setname ... see assets/emoSets, assumes a valid setname
-
-// returns info
-// 	*/
-// 	//#endregion 
-
-// 	ensureSymBySet();
-// 	setname = setname.toLowerCase();
-// 	//console.log(symBySet,symKeysBySet,setname,symKeysBySet[setname])
-// 	return symBySet[setname][chooseRandom(symKeysBySet[setname])];
-// }
-
-//#region helpers
+//#region helpers (empty)
+//#endregion
 
 
 

@@ -11,6 +11,7 @@ var symByType, symBySet;//hier sind info dicts
 var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
+//var cachedInfolists = {};
 
 //#endregion
 

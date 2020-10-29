@@ -1,17 +1,88 @@
 var infoDictionary;
-function test44() {
+var lastIndex = 0;
+function showNM(dParent,N,M) {
+	clearElement(dParent);
 	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
 	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
 	ensureSymByType();
-	let keys = takeFromTo(symKeysByType['icon'],9,109);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
-	console.log(keys)
+	let num=N*M;
+	let keys = takeFromTo(symKeysByType['icon'], lastIndex, lastIndex + num);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
+	lastIndex += num;
+	//console.log(keys)
+	mpGridLabeled(dParent,keys, picLabelStyles);
+}
+
+function itemFunc1() {
+	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	let picOverStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+
+}
+function showPics() {
+	clearElement(table);
+	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	//let picLabelStyles = getHarmoniousStylesPlus({ rounding: 10, margin: 24 }, {}, {}, 60, 60, 0, 'arial', 'random', 'transparent', true);
+	//let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	// ensureSymByType();
+	let keys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
+		'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
+		'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
+	const LIGHTGREEN = '#bfef45';
+	const LIGHTBLUE = '#42d4f4';
+	const YELLOW = '#ffe119';
+	const RED = '#e6194B';
+	const GREEN = '#3cb44b';
+	const BLUE = '#4363d8';
+	const PURPLE = '#911eb4';
+	const YELLOW2 = '#ffa0a0';
+	const TEAL = '#469990';
+	const ORANGE = '#f58231';
+	const FIREBRICK = '#800000';
+	const OLIVE = '#808000';
+	let bgs = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
+		GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue', 
+		'deeppink', TEAL, ORANGE, 'seagreen', FIREBRICK, OLIVE,
+		// '#911eb4', '#42d4f4', '#f032e6',	'#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#aaffc3', 
+		'#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000', 'gold', 'orangered', 'skyblue', 'pink', 'deeppink',
+		'palegreen', '#e6194B'];
+	let fg = '#00000080';
+	let textColor = 'white';
+	let texts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+	mpGrid(keys, bgs, fg, textColor, texts);
+	// let dGrid = mDiv(table);
+	// let elems = [];
+	// let isText = true;
+	// let isOmoji = false;
+
+	// for (let i=0;i<keys.length;i++) {
+	// 	let k=keys[i];
+	// 	let bg=bgs[i];
+
+	// 	let info = symbolDict[k];
+	// 	let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
+	// 	elems.push(el);
+	// }
+
+	// let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	// let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
+
+}
+function show100() {
+	clearElement(table);
+	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	ensureSymByType();
+	let keys = takeFromTo(symKeysByType['icon'], lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
+	lastIndex += 100;
+	//console.log(keys)
 	gridLabeled(keys, picLabelStyles);
 }
 
-function test43(){
-	g2Pics = [];
+function test43() {
+	let g2Pics = [];
 
-	let keys = ['ant','T-Rex'];//'horse'];// 
+	let keys = ['ant', 'T-Rex'];//'horse'];// 
 	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
 
 	//console.log('keys',keys)
@@ -22,11 +93,11 @@ function test43(){
 
 	for (let i = 0; i < keys.length; i++) {
 		let info = getRandomSetItem('E', keys[i]);
-		
+
 		let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
 		//let maxw=100;
-		let d1 = maPicLabelButtonFitText(info, label,{w:200,h:200}, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
-		
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+
 		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//console.log('table',table,'\ndPic',d1)

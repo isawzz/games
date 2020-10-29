@@ -9,6 +9,9 @@
 	justify-content:center;
 	align-content: flex-start; /* das ist bei den meisten nicht so gewesen! */
 }
+.justifyLeft{
+	justify-content:flex-start;
+}
 .truncate {
   white-space: nowrap;
   overflow: hidden;
