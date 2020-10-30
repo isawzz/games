@@ -25046,8 +25046,8 @@ clinking beer mugs:
   hexcode: 1F37B
   group: food-drink
   subgroups: drink
-  E: glasses|beer|mug
-  D: gläser|anstossen|bier
+  E: glasses|beer|celebrate
+  D: gläser|anstossen|bier|feiern
   hex: 1F37B
   family: emoNoto
   text: '&#127867;'

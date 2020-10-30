@@ -31,8 +31,9 @@ function addBadge(dParent, level) {
 	let label = "level " + i; //info.key;
 
 	let d1 = mpBadge(info, label, { w: 72, h: 72, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-
+	//d1.style.opacity=0;
 	mClass(d1,'aniRubberBand');
+	//mClass(d1,'aniFadeIn');
 	badges.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
 
 
