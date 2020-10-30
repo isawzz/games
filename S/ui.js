@@ -8,6 +8,13 @@ function initTable() {
 	initLineMiddle();
 	//initLineBottom();
 }
+function initSidebar(){
+	let title=mText('badges:',mBy('sidebar'));
+	dLeiste = mDiv(mBy('sidebar'));//mBy('dLeiste'));
+	mStyleX(dLeiste,{'max-height':'100vh',display:'flex','flex-flow':'column wrap'});
+	//showBadges(dLeiste,level,levelColors);
+
+}
 function initLine1() {
 	dLine1Outer = mDiv(table); dLine1Outer.id = 'line1Outer';
 	dLine1 = mDiv(dLine1Outer); dLine1.id = 'line1';
@@ -19,7 +26,7 @@ function initLine1() {
 	dScore.id = 'dScore';
 	//dScore.innerHTML = "<span>score:</span><span id='scoreSpan'></span>";
 	// mLinebreak(table);
-	dLevel = mDiv(dLine1Right);
+	dLevel = mDiv(dLine1Left);
 	dLevel.id = 'dLevel';
 
 	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);

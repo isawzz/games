@@ -5,6 +5,7 @@ async function SPEECHStart() {
 	ensureSymBySet();
 	makeHigherOrderGroups();
 	initTable();
+	initSidebar();
 	setGroup(startingCategory);
 	if (immediateStart) onClickStartButton();
 }

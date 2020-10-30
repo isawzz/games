@@ -78,11 +78,30 @@ function show100() {
 	//console.log(keys)
 	gridLabeled(keys, picLabelStyles);
 }
+function test45_leiste_und_pics(){
+	//mStyleX(table)
+	mClass(table, 'flexWrap');
+	//table.style.justifyContent = 'flex-start';
 
-function test43() {
+	if (nundef(mBy('dummy'))) { let d = mDiv(table); d.id = 'dummy'; d.style.width = '0px'; }
+	//await makeExtraSvgFiles();
+	let leiste = mDiv(table);//mBy('dLeiste'));
+	mStyleX(leiste, { w: 160, 'max-height': '100vh', display: 'flex', 'flex-flow': 'column wrap' });
+	showBadges(leiste, 16,levelColors);
+
+	let t1 = mDiv(table);
+	mClass(t1, 'flexWrap', 'justifyLeft');
+	//mStyleX(t1,{h:'100vw',bg:'red'});
+	//table.style.alignSelf='flex-start';
+	showNM(t1, 10, 10);
+
+}
+function test44() {
 	let g2Pics = [];
+	mClass(table, 'flexWrap');
 
-	let keys = ['ant', 'T-Rex'];//'horse'];// 
+	//let keys = ['ant', 'T-Rex'];//'horse'];// 
+	let keys = ['speaker', 'speaker high volume', 'speaker low volume', 'speaker medium volume' ]
 	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
 
 	//console.log('keys',keys)
@@ -92,10 +111,40 @@ function test43() {
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
 
 	for (let i = 0; i < keys.length; i++) {
-		let info = getRandomSetItem('E', keys[i]);
+		let info =symbolDict[keys[i]]; // getRandomSetItem('E', keys[i]);
+
+		//let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
+		let label = keys[i];
+		//let maxw=100;
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+
+		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		//console.log('table',table,'\ndPic',d1)
+		g2Pics.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
+	}
+
+
+}
+function test43() {
+	let g2Pics = [];
+	mClass(table, 'flexWrap');
+
+	let keys = ['ant', 'T-Rex'];//'horse'];// 
+	//let keys = ['speaker', 'speaker high volume', 'speaker low volume', 'speaker medium volume' ]
+	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
+
+	//console.log('keys',keys)
+	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
+	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
+	for (let i = 0; i < keys.length; i++) {
+		let info =getRandomSetItem('E', keys[i]);
 
 		let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
-		//let maxw=100;
+		let maxw=100;
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 
 		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;

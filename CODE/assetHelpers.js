@@ -1,7 +1,7 @@
 // *** uses assets! =>load after assets! ***
 
 //#region NOW!
-function mpGridLabeled(dParent,list, picLabelStyles) {
+function mpGridLabeled(dParent, list, picLabelStyles) {
 	//cont,pic,text
 	let dGrid = mDiv(dParent);
 	let elems = [];
@@ -13,10 +13,31 @@ function mpGridLabeled(dParent,list, picLabelStyles) {
 		elems.push(el);
 	}
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
-	let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
+	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	//console.log(size);
 }
-function showBadges(dParent) {
+function addBadge(dParent, level) {
+	let fg = '#00000080';
+	let textColor = 'white';
+	let stylesForLabelButton = { rounding: 10, margin: 4 };
+	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	let isText = true; let isOmoji = false;
+	let i=level-1;
+	let key = levelKeys[i];
+	console.log(key);
+	let k = replaceAll(key, ' ', '-');
+	let info = symbolDict[k];
+
+	let label = "level " + i; //info.key;
+
+	let d1 = mpBadge(info, label, { w: 72, h: 72, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+
+	mClass(d1,'aniRubberBand');
+	badges.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
+
+
+}
+function showBadges(dParent, level, bgs) {
 	clearElement(dParent);
 	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
 	//let picLabelStyles = getHarmoniousStylesPlus({ rounding: 10, margin: 24 }, {}, {}, 60, 60, 0, 'arial', 'random', 'transparent', true);
@@ -25,29 +46,13 @@ function showBadges(dParent) {
 	let keys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
 		'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
 		'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
-	const LIGHTGREEN = '#bfef45';
-	const LIGHTBLUE = '#42d4f4';
-	const YELLOW = '#ffe119';
-	const RED = '#e6194B';
-	const GREEN = '#3cb44b';
-	const BLUE = '#4363d8';
-	const PURPLE = '#911eb4';
-	const YELLOW2 = '#ffa0a0';
-	const TEAL = '#469990';
-	const ORANGE = '#f58231';
-	const FIREBRICK = '#800000';
-	const OLIVE = '#808000';
-	let bgs = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
-		GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue', 
-		'deeppink', TEAL, ORANGE, 'seagreen', FIREBRICK, OLIVE,
-		// '#911eb4', '#42d4f4', '#f032e6',	'#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#aaffc3', 
-		'#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000', 'gold', 'orangered', 'skyblue', 'pink', 'deeppink',
-		'palegreen', '#e6194B'];
 	let fg = '#00000080';
 	let textColor = 'white';
 	let texts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-	mpLineup(dParent,keys, bgs, fg, textColor, texts);
+	let achieved = [];
+	for (let i = 0; i < level; i++) { achieved.push(keys[i]); }
+	badges = mpLineup(dParent, achieved, bgs, fg, textColor, texts);
 	// let dGrid = mDiv(table);
 	// let elems = [];
 	// let isText = true;
@@ -66,26 +71,26 @@ function showBadges(dParent) {
 	// let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
 
 }
-function mpLineup(dParent,keys,bgs,fg,textColor,texts){
+function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 	let g2Pics = [];
 
 	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
 	let stylesForLabelButton = { rounding: 10, margin: 4 };
 	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
-	let isText=true;let isOmoji=false;
+	let isText = true; let isOmoji = false;
 
 	for (let i = 0; i < keys.length; i++) {
 		console.log(keys[i]);
-		let k=replaceAll(keys[i],' ','-');
+		let k = replaceAll(keys[i], ' ', '-');
 		let info = symbolDict[k];
-		
-		let label = "level "+i; //info.key;
 
-		let d1 = mpBadge(info, label,{w:72,h:72,bg:bgs[i],fgPic:fg,fgText:textColor}, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
-		
+		let label = "level " + i; //info.key;
+
+		let d1 = mpBadge(info, label, { w: 72, h: 72, bg: bgs[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+
 		g2Pics.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
 	}
-
+	return g2Pics;
 
 }
 
@@ -134,7 +139,7 @@ function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, p
 
 	let fact = 55 / picPercent;
 	let [ptop, pbot] = [(isdef(paddingTop) ? paddingTop : (80 - picPercent) * 3 / 5),
-											(isdef(paddingBot) ? paddingBot : (80 - picPercent) * 2 / 5)];
+	(isdef(paddingBot) ? paddingBot : (80 - picPercent) * 2 / 5)];
 	let pText = 100 - picPercent - ptop - pbot;
 	// let [ptop, pbot] = [(80 - picPercent) * 3 / 5, (80 - picPercent) * 2 / 5];
 	//let numbers = hasText ? [ptop, picPercent, 0, 20, pbot] : [15, 70, 0, 0, 15];
@@ -605,7 +610,7 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	let size = getSizeWithStylesX(label, styles1, isdef(wmax) ? wAvail : undefined, isdef(hmax) ? hAvail : undefined);
 	//console.log('__', 'size', size);
 	let size1 = getSizeWithStylesX(label, styles1);//, isdef(wmax) ? wAvail : undefined, isdef(hmax) ? hAvail : undefined);
-	console.log('__', 'size1', size1);
+	//console.log('__', 'size1', size1);
 
 	let f1 = wAvail / size1.w;
 	let isTextOverflow = f1 < 1;

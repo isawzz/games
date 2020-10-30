@@ -1,30 +1,35 @@
-const g2GROUPS = ['animal','more'];// 'animalplantfood', 'life', 'more', 'all'];//'food', 'action', 'object', 'human', 'all'];
-const g2LN=2;//15
-const g2SamplesPerLevel = [g2LN,g2LN,20,40,80,100]; 
-const g2MAXLEVEL = 1;
-var g2N = 1;
+const g2GROUPS = ['more'];//['animal', 'more'];// 'animalplantfood', 'life', 'more', 'all'];//'food', 'action', 'object', 'human', 'all'];
+const g2LN = 5;//15
+var DELAY = 1000;
+//const g2SamplesPerLevel = [1, 1, 2, 2, 80, 100];
+const g2SamplesPerLevel = new Array(40).fill(1);// [1, 1, 2, 2, 80, 100];
+const g2MAXLEVEL = 10;
+var g2N = 0;
 
 var g2_pic1, g2_pic2;
 var g2Pics = [];
 var g2Goal;
-var g2GroupIndex = 0;
-lastPosition=0;
+var g2GroupIndex = -1;
+lastPosition = 0;
+
+function clearTable(){
+	clearElement(dLineMidMiddle); clearElement(dLineTopMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
+}
 
 function gTouchPicStart() {
 	//console.log('touch pic game!')
 	let table = dLineMidMiddle;
 	let title = dLineTopMiddle;
 	if (nundef(table)) return;
-	clearElement(table); clearElement(title); hide(mBy('dCheckMark')); hide(mBy('dX'));
+	clearTable();
 
-	setLevel();
 	g2Pics = [];
 
 	let onClickPicture = evaluate;
 
 	//get g2N different keys!
-	let keys = ['ant','T-Rex'];//'horse'];// 
-	//let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
+	//let keys = ['ant', 'T-Rex'];//'horse'];// 
+	let keys = choose(emoGroupKeys, g2N); // ['T-Rex']; //choose(emoGroupKeys, g2N);
 
 	//console.log('keys',keys)
 	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
@@ -37,7 +42,8 @@ function gTouchPicStart() {
 		let id = 'pic' + i;
 		let label = last(info.words); //'hallo das ist ja bloed';//last(info.words)
 		//let maxw=100;
-		let d1 = maPicLabelButtonFitText(info, label,{w:200,h:200}, onClickPicture, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji); 
+		console.log(info.key, info)
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPicture, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
 		// let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
@@ -46,8 +52,9 @@ function gTouchPicStart() {
 	}
 
 	//randomly select a key out of the N pics
-	let rnd=randomNumber(0,g2N-2);
-	if (rnd == lastPosition && coin()) rnd=g2N-1;
+	//console.log(g2N, g2Pics, lastPosition)
+	let rnd = randomNumber(0, g2N - 2);
+	if (rnd == lastPosition && coin()) rnd = g2N - 1;
 	lastPosition = rnd;
 	g2Goal = g2Pics[rnd];//chooseRandom(g2Pics);
 
@@ -56,8 +63,11 @@ function gTouchPicStart() {
 	//this is instruction message
 	let text = bestWord;
 	let cmd = 'click';
-	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	let d = dFeedback = dInstruction = mText(msg, title, { fz:40, cursor: 'default' }); //mInstruction(msg, title,false);instructionMessage.id='dInstruction';
+	let infoSpeaker = symbolDict['speaker'];
+	// let html = `<span style='margin-top:100px;font-family:pictoGame;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;${infoSpeaker.text}&nbsp;&nbsp;</span>`;
+	let html = `<span style='font-family:arial;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;🕬&nbsp;&nbsp;</span>`;
+	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
+	let d = dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' }); //mInstruction(msg, title,false);instructionMessage.id='dInstruction';
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
 	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
 	mLinebreak(table);
@@ -74,7 +84,7 @@ function aniInstruction(text) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
-function evaluate(ev){
+function evaluate(ev) {
 	let id = evToClosestId(ev);
 	ev.cancelBubble = true;
 
@@ -82,21 +92,26 @@ function evaluate(ev){
 	let i = firstNumber(id);
 	let item = g2Pics[i];
 
-	if (item.info.best == bestWord) { 
-		g2Success(id, item.key); 
-		setTimeout(gTouchPicStart, 1500); 
-	}	else { 
-		g2Fail(id, item.key); 
+	if (item.info.best == bestWord) {
+		DELAY = 1000;
+		g2Success(id, item.key);
+	} else {
+		DELAY = 3000;
+		g2Fail(id, item.key);
 		showCorrectWord();
+
 	}
+	setLevel();
 }
-function g2Init(){
+function g2Init() {
 	level = 0;
+	setLevel();
 	//g2N = 5;
-	g2GroupIndex = 0;
-	setGroup(g2GROUPS[g2GroupIndex]);
-	showLevel();
-	dScore.innerHTML = 'score: _'
+	// g2GroupIndex = 0;
+	// setGroup(g2GROUPS[g2GroupIndex]);
+	// //setLevel_();
+	// showLevel();
+	// dScore.innerHTML = 'score: _'
 }
 function g2Success(id) {
 	const comments = ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!']
@@ -113,7 +128,7 @@ function g2Fail(id) {
 	// say(chooseRandom(comments), 1, 1, .8, 'zira');//'Excellent!!!');
 	maPicOver(mBy('dX'), mBy(id), 100, 'red', 'openMojiTextBlack');
 
-	
+
 }
 function onClickStartButton() {
 	if (currentGame == 'gTouchPic') {
@@ -123,35 +138,130 @@ function onClickStartButton() {
 }
 function setLevel() {
 
-	if (numTotalAnswers >= g2SamplesPerLevel[level]) {
-		//console.log('setLevel!')
+	//console.log('setLevel_', level, g2N, levelColors[level])
+
+	let boundary = g2SamplesPerLevel[level] * (1 + g2GroupIndex);
+	if (g2N == 0 || numTotalAnswers >= boundary) {
+		console.log((g2N > 0 ? 'boundary!!!!' : 'init...'));
 
 		if (percentageCorrect >= 90) {
-			if (g2GroupIndex < g2GROUPS.length-1)	{
+			if (g2GroupIndex < g2GROUPS.length - 1) {
 				g2GroupIndex += 1;
-			}else if (level<g2MAXLEVEL) { 
-				level += 1; 
-				g2GroupIndex = 0; 
+			} else if (level < g2MAXLEVEL) {
+				level += 1;
+				g2GroupIndex = 0;
 			}
-			showLevel(); 
+			// showLevel();
 		} else if (percentageCorrect < 70 && level > 0) {
-			level -= 1; 
-			showLevel();
+			level -= 1;
+			// showLevel();
 		}
 
+		let n = g2N;
+		//console.log(n)
 		g2N = 2 + level;
-		numTotalAnswers = 0;
-		numCorrectAnswers = 0;
-		percentageCorrect = 100;
+		if (g2N != n) {
+			//level has indeed changed - color change, badge change!
+			numTotalAnswers = 0;
+			numCorrectAnswers = 0;
+			percentageCorrect = 100;
+			//console.log(color)
+			if (n != 0) {
+				//this is NOT just init
+				setTimeout(showLevelComplete, 2000);
+			} else {
+				let color = levelColors[level];
+				document.body.style.backgroundColor = color;
 
+				showBadges(dLeiste, level, levelColors);
+				showLevel();
+				showScore();
+				setGroup(g2GROUPS[g2GroupIndex]);
+				// setTimeout(gTouchPicStart, DELAY); //hier nicht weeil das ist init!
+			}
+		} else {
+			showScore();
+			setGroup(g2GROUPS[g2GroupIndex]);
+			setTimeout(gTouchPicStart, DELAY);
+		}
 
-		setGroup(g2GROUPS[g2GroupIndex]);
 
 	}
-	setLevelColor();
+	else { setTimeout(gTouchPicStart, DELAY); }
+
+	//setLevelColor();
 	//console.log(numTotalAnswers,numCorrectAnswers)
 }
-function setLevelColor(){
+
+function showLevelComplete() {
+	mClass(document.body,'aniFadeOutIn');
+	playAudio();
+
+	setTimeout(levelStep10, 1000);
+}
+function levelStep10(){
+	addBadge(dLeiste,level);
+	document.body.style.backgroundColor = levelColors[level];
+	showLevel();
+	showScore();
+	setGroup(g2GROUPS[g2GroupIndex]);
+	gTouchPicStart();
+	setTimeout(removeClassBody, 2000);
+}
+function removeClassBody(){
+	mRemoveClass(document.body,'aniFadeOutIn');
+}
+
+
+//#region showLevelAnimation trial 1
+function showLevelComplete_1() {
+	setTimeout(levelStep1, 100);
+}
+function levelStep1() {
+	let d = mBy('dLevelComplete');
+	mClass(d, 'aniFadeIn');
+	show(d);
+	playAudio();
+	setTimeout(levelStep2, 600);
+}
+function levelStep2() {
+	addBadge(dLeiste, level);
+	// mClass(document.body,'aniFadeOutIn');
+	//startBackgroundTransition('transparent',levelColors[level]);
+	let color = levelColors[level];
+	document.body.style.backgroundColor = color;
+	setTimeout(levelStep3, 1000);
+}
+function levelStep3() {
+	// let color = levelColors[level];
+	// document.body.style.backgroundColor = color;
+	let d = mBy('dLevelComplete');
+	mRemoveClass(d,'aniFadeIn');
+	mClass(d, 'aniFadeOut');
+	mClass(dLineMidMiddle, 'aniFadeOut');
+	setTimeout(levelStep4, 600);
+}
+function levelStep4() {
+	hide('dLevelComplete');
+	let d = mBy('dLevelComplete');
+	mRemoveClass(d,'aniFadeOut');
+	clearTable();
+	mRemoveClass(dLineMidMiddle, 'aniFadeOut');
+	setTimeout(levelStep5,500);
+}
+function levelStep5(){
+	showLevel();
+	showScore();
+	setGroup(g2GROUPS[g2GroupIndex]);
+	gTouchPicStart();
+}
+function startBackgroundTransition(from='transparent',to='red'){
+	document.body.style.animation = "background 5s cubic-bezier(1,0,0,1)";
+	document.body.style.background = to;
+}
+//#endregion
+
+function setLevelColor() {
 	document.body.style.backgroundColor = levelColors[level];
 }
 function setScore(isCorrect) {
@@ -162,10 +272,10 @@ function setScore(isCorrect) {
 	numTotalAnswers += 1;
 	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
 	showScore();
-	
+
 	//console.log(numCorrectAnswers,numTotalAnswers)
 }
-function setCurrentInfo(item){
+function setCurrentInfo(item) {
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
@@ -173,8 +283,8 @@ function setCurrentInfo(item){
 	hintWord = '_'.repeat(bestWord.length);
 
 }
-function showLevel(){	dLevel.innerHTML = 'level: '+level+'/'+g2GroupIndex;}
-function showCorrectWord(){
+function showLevel() { dLevel.innerHTML = 'level: ' + level; } // + '/' + g2GroupIndex; }
+function showCorrectWord() {
 	let div = mBy(g2Goal.id);
 
 	let word = bestWord;
@@ -182,11 +292,10 @@ function showCorrectWord(){
 	//mAddLabel(bestWord,div,{fz:40,fg:'contrast'});
 	//mText(bestWord,div)
 
-	mClass(div,'onPulse');
-	say(bestWord,.4,1.2,1,'david')
-	setTimeout(gTouchPicStart,5000);
+	mClass(div, 'onPulse');
+	say(bestWord, .4, 1.2, 1, 'david')
 }
-function showScore(){	
+function showScore() {
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 
 }

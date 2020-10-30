@@ -2,6 +2,14 @@ var table = mBy('table');
 const problemKeys = ['person: white hair', 'fire-dash', 'horse', 'warehouse']
 const listOther = ['student', 'astronaut', 'teacher', 'judge', 'farmer', 'cook', 'mechanic', 'factory worker',
 	'office worker', 'scientist', 'technologist', 'singer', 'artist', 'pilot', 'firefighter', 'guard'];
+const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
+	GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue',
+	'deeppink', TEAL, ORANGE, 'seagreen', FIREBRICK, OLIVE,
+	// '#911eb4', '#42d4f4', '#f032e6',	'#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#aaffc3', 
+	'#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000', 'gold', 'orangered', 'skyblue', 'pink', 'deeppink',
+	'palegreen', '#e6194B'];
+//['#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabed4', '#469990', '#dcbeff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9', '#ffffff', '#000000'];
+
 
 window.onload = async () => { await start(); }
 //addEventListener('keydown',show100);
@@ -9,23 +17,13 @@ window.onload = async () => { await start(); }
 async function start() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
-	
-	//mStyleX(table)
-	mClass(table, 'flexWrap');
-	//table.style.justifyContent = 'flex-start';
 
-	if (nundef(mBy('dummy'))) {let d=mDiv(table);d.id='dummy';d.style.width='0px';}
-	//await makeExtraSvgFiles();
 
-	let leiste = mDiv(table);//mBy('dLeiste'));
-	mStyleX(leiste,{w:160,'max-height':'100vh',display:'flex','flex-flow':'column wrap'});
-	showBadges(leiste);
+	//test45_leiste_und_pics();
+	test44();
+	// test43();
 
-	let t1=mDiv(table);
-	mClass(t1,'flexWrap','justifyLeft');
-	//mStyleX(t1,{h:'100vw',bg:'red'});
-	//table.style.alignSelf='flex-start';
-	showNM(t1,10,10);
+
 
 	//#region past test calls
 	//test43(); //test40();
@@ -81,14 +79,14 @@ async function perfLoading() {
 	await ensureSvgDict();
 	timit.show('nach load svgDict')
 }
-async function perf02(setname='animal') {
+async function perf02(setname = 'animal') {
 	await ensureSvgDict();
 	ensureSymBySet();
 	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin: 4, align: 'center' };
 	let info = picSet(setname);
 	info = picInfo('bird'); //picInfo('llama');
-	console.log('key',info.key)
-	maPic4(info,table,styles);
+	console.log('key', info.key)
+	maPic4(info, table, styles);
 }
 
 async function perf01(name) {

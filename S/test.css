@@ -7,6 +7,17 @@ html,body,#md,#rightSide{
 	color: white;
 	
 }
+/* body{	transition: color 1300ms;} */
+#dLevelComplete{
+	position:fixed;
+	text-align: center;
+	background-color: #00000080;
+	font-size:80px;
+	top: 38%;
+	padding: 80px;
+	border-radius: 20px;
+
+}
 #dCheckMark,#dX{
 	position:fixed;
 	font-size:40px;
@@ -324,6 +335,69 @@ input[type="checkbox"]:focus+label::before {
 	80% { transform: scale(1); }
 	100% { transform: scale(1); } */
 }
+
+.aniFadeOut{ animation: example .5s ease-in-out 0s 1 reverse;}
+.aniFadeIn{ animation: example .5s ease-in-out;}
+.aniFadeOutIn{ animation: fadeoutin 2s ease-in-out;}
+.aniRubberBand{animation: rubberBand .8s ease-in-out .5s 1;}
+@keyframes example { from { opacity: 0; }  to { opacity: 1; }}
+@keyframes fadeoutin { 
+	from { opacity: 1; }  
+	50% { opacity: 0;  }
+	to { opacity: 1; }
+}
+
+@keyframes rubberBand {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, .95, 1);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+}
+
+/* body {
+  -webkit-animation: background 5s cubic-bezier(1,0,0,1) infinite;
+  animation: background 5s cubic-bezier(1,0,0,1) infinite;  
+}
+@-webkit-keyframes background {
+  0% { background-color: #f99; }
+  33% { background-color: #9f9; }  
+  67% { background-color: #99f; }
+  100% { background-color: #f99; }
+}
+@keyframes background {
+  0% { background-color: #f99; }
+  33% { background-color: #9f9; }  
+  67% { background-color: #99f; }
+  100% { background-color: #f99; }
+} */
 
 	/* #endregion animations */
 
