@@ -128,7 +128,7 @@ function g2SetLevel() {
 		}
 
 		keySet = getKeySet(WORD_GROUPS[iGROUP],currentLanguage,MAX_WORD_LENGTH[level]);
-
+		console.log('keys',keySet.length)
 	}
 	else { setTimeout(g2Start, DELAY); }
 }
