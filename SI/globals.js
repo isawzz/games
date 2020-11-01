@@ -1,8 +1,8 @@
-var currentGame = 'gTouchPic'; // gWritePic | gTouchPic | gSayWord
+var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'E';
 const WORD_GROUPS = ['nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
-const PICS_PER_LEVEL = 10;
+const PICS_PER_LEVEL = 5;
 USE_LOCAL_STORAGE = false;
 
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton 
