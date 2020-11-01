@@ -37737,7 +37737,7 @@ electric plug:
   hexcode: 1F50C
   group: objects
   subgroups: computer
-  E: electricity|electric plug
+  E: electric plug|plug|current|electricity
   D: stromanschluss|strom
   hex: 1F50C
   family: emoNoto
@@ -55421,7 +55421,7 @@ high-speed train:
   hexcode: 1F684
   group: travel-places
   subgroups: transport-ground
-  E: train|high-speed train
+  E: high-speed train|train
   D: schnellzug|u-bahn|zug|bahn
   hex: 1F684
   family: emoNoto
@@ -74182,8 +74182,8 @@ mechanical arm:
   hexcode: 1F9BE
   group: people-body
   subgroups: body-parts
-  E: mechanical arm
-  D: mechanischer arm
+  E: mechanical arm|robot arm|arm
+  D: mechanischer arm|roboterarm|arm
   hex: 1F9BE
   family: emoNoto
   text: '&#129470;'
@@ -74215,8 +74215,8 @@ mechanical leg:
   hexcode: 1F9BF
   group: people-body
   subgroups: body-parts
-  E: mechanical leg
-  D: mechanisches bein
+  E: mechanical leg|robot leg|leg
+  D: mechanisches bein|roboterbein|bein
   hex: 1F9BF
   family: emoNoto
   text: '&#129471;'
@@ -113225,8 +113225,8 @@ telephone receiver:
   hexcode: 1F4DE
   group: objects
   subgroups: phone
-  E: telephone receiver
-  D: telefonhörer|kopfhörer
+  E: telephone receiver|telephone|phone
+  D: telefonhörer|telefon
   hex: 1F4DE
   family: emoNoto
   text: '&#128222;'

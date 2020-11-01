@@ -1,7 +1,10 @@
-var currentGame = 'gTouchPic'; // gSayWord | gTouchPic
+var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'E';
-const startingCategory = 'all'; //
-const immediateStart = true; //fires onClickStartButton 
+const WORD_GROUPS = ['nosymbols'];
+const PICS_PER_LEVEL = 10;
+
+
+const immediateStart = true; //has to be true for now!!! fires onClickStartButton 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 	GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue',
 	'deeppink', TEAL, ORANGE, 'seagreen', FIREBRICK, OLIVE,
@@ -12,6 +15,7 @@ const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 let levelKeys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
 'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
 'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
+
 var level = 0;
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 let badges=[];
@@ -25,6 +29,8 @@ var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;
 var dLineMidOuter, dLineMid, dLineMidLeft, dLineMidRight, dLineMidMiddle;
 var dLineBottomOuter, dLineBottom, dLineBottomLeft, dLineBottomRight, dLineBottomMiddle;
 var dHint, dFeedback, dInstruction, dScore, dLevel;
+var dInput, inputBox;
+var defaultFocusElement;
 
 //speaker
 var synth, inputForm, inputTxt, voiceSelect, pitch, pitchValue, rate, rateValue, voices, utterance;

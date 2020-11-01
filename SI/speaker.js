@@ -28,6 +28,12 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 				});
 
 				utterance = new SpeechSynthesisUtterance();
+				// utterance.onend = () => {
+				// 	if (isdef(defaultFocusElement)) {
+				// 		console.log('fel',defaultFocusElement,mBy(defaultFocusElement));
+				// 		setTimeout(()=>mBy(defaultFocusElement).focus(),10);
+				// 	}
+				// };
 				// utterance.onboundary = function (event) {
 				// 	console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
 				// }
@@ -82,7 +88,7 @@ function say(text, r = .5, p = .8, v = .5, desc) {
 	if (isdef(timeout2)) {
 		clearTimeout(timeout2);
 	}
-	timeout2 = setTimeout(() => synth.speak(utterance), 200);
+	timeout2 = setTimeout(() => { synth.speak(utterance); focus(mBy(defaultFocusElement)); }, 200);
 }
 function sepWords(text, voiceKey, s = '<silence msec="200" />') {
 	text = text.toLowerCase();

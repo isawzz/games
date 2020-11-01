@@ -511,8 +511,13 @@ function maPicButton(key, handler, dParent, styles, classes = 'picButton', isTex
 	mClass(x, classes);
 	return x;
 }
-function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
-	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
+function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
+	if (nundef(handler)) handler = (ev) => { 
+		let id = evToClosestId(ev); 
+		let info = symbolDict[id.substring(1)]; 
+		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); 
+		if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus(); 
+	}
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', 'random', 'transparent', null, null, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
 	x.id = 'd' + info.key;

@@ -1,3 +1,54 @@
+//#region SI cleanup oct 31
+//#region showLevelAnimation trial 1
+function showLevelComplete_1() {
+	setTimeout(levelStep1, 100);
+}
+function levelStep1() {
+	let d = mBy('dLevelComplete');
+	mClass(d, 'aniFadeIn');
+	show(d);
+	playAudio();
+	setTimeout(levelStep2, 600);
+}
+function levelStep2() {
+	addBadge(dLeiste, level);
+	// mClass(document.body,'aniFadeOutIn');
+	//startBackgroundTransition('transparent',levelColors[level]);
+	let color = levelColors[level];
+	document.body.style.backgroundColor = color;
+	setTimeout(levelStep3, 1000);
+}
+function levelStep3() {
+	// let color = levelColors[level];
+	// document.body.style.backgroundColor = color;
+	let d = mBy('dLevelComplete');
+	mRemoveClass(d,'aniFadeIn');
+	mClass(d, 'aniFadeOut');
+	mClass(dLineMidMiddle, 'aniFadeOut');
+	setTimeout(levelStep4, 600);
+}
+function levelStep4() {
+	hide('dLevelComplete');
+	let d = mBy('dLevelComplete');
+	mRemoveClass(d,'aniFadeOut');
+	clearTable();
+	mRemoveClass(dLineMidMiddle, 'aniFadeOut');
+	setTimeout(levelStep5,500);
+}
+function levelStep5(){
+	showLevel();
+	showScore();
+	setGroup(WORD_GROUPS[g2GroupIndex]);
+	gTouchPicStart();
+}
+function startBackgroundTransition(from='transparent',to='red'){
+	document.body.style.animation = "background 5s cubic-bezier(1,0,0,1)";
+	document.body.style.background = to;
+}
+//#endregion
+
+
+
 //#region S oct 21
 
 //#region old speaker code
