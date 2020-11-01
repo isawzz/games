@@ -2,7 +2,7 @@ var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'E';
 const WORD_GROUPS = ['nosymbols'];
 const PICS_PER_LEVEL = 10;
-
+USE_LOCAL_STORAGE = true;
 
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,

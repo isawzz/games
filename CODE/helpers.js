@@ -149,7 +149,7 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mText(label); }
-function mLinebreak(dParent) {
+function mLinebreak(dParent,gap) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
 	//console.log('parent style',dParent.style.display)
@@ -158,6 +158,9 @@ function mLinebreak(dParent) {
 
 	if (dParent.style.display == 'flex' ||mHasClass(dParent,'flexWrap')) mClass(d, 'linebreak');
 	else d.innerHTML = '<br>';
+
+	if (isdef(gap)) d.style.minHeight=gap+'px';
+
 	return d;
 }
 function mMarginAuto(d) { d.style.setProperty('margin', 'auto'); }

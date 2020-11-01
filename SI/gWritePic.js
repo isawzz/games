@@ -1,3 +1,5 @@
+var numTrials;
+
 function g3Start() {
 	hasClicked = false;
 	let table = dLineMidMiddle;
@@ -7,9 +9,10 @@ function g3Start() {
 
 	NUM_PICS = 1;
 	PICTURES = [];
+	numTrials = 1;
 
-	//let keys = choose(emoGroupKeys, NUM_PICS);
-	let keys = ['clutch bag'];// ['ant', 'T-Rex'];//'horse'];// 
+	let keys = choose(emoGroupKeys, NUM_PICS);
+	//let keys = ['clutch bag'];// ['ant', 'T-Rex'];//'horse'];// 
 
 	//console.log('keys',keys)
 	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
@@ -46,10 +49,16 @@ function g3Start() {
 	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
 	mLinebreak(table);
 
-	dInput = mDiv(table);
+	addInputElement(table);
+}
+
+function addInputElement(dParent){
+	mLinebreak(dParent,10);
+	dInput = mDiv(dParent);
 	inputBox = mCreate('input');
 	inputBox.type="text"; inputBox.autocomplete="off";
-	defaultFocusElement = inputBox.id = 'inputBox';
+	inputBox.style.margin='10px;'
+	defaultFocusElement = inputBox.id = 'inputBox'+numTrials;
 	inputBox.style.fontSize = '20pt';
 	inputBox.addEventListener("keyup", function (ev) {
 		//if (pauseAfterInput) event.cancelBubble = true;
@@ -68,24 +77,29 @@ function g3Start() {
 //helpers
 function g3Eval() {
 	let word = finalResult = inputBox.value;
-	let item = GOAL;
+	//let item = GOAL;
 	//answerCorrect = evaluateAnswer(word);
 	//inputBox.value = '';
-	if (item.info.best.toLowerCase() == word.toLowerCase()) {
+	if (bestWord.toLowerCase() == word.toLowerCase()) {
 		DELAY = 1500;
-		g3Success(GOAL.id, item.key);
+		g3Success(GOAL.id);
+		g3SetLevel();
+	}else if (numTrials < 3){
+		numTrials+=1;
+		g3Trial();
 	} else {
 		DELAY = 3000;
-		g3Fail(GOAL.id, item.key);
 		showCorrectWord();
+		g3Fail(GOAL.id);
+		g3SetLevel();
 
 	}
-	g3SetLevel();
+	
 }
 function g3Init() {
 	level = 0;
 	addEventListener('keydown', ()=>{
-		let ibox=mBy('inputBox');
+		let ibox=mBy('inputBox'+numTrials);
 		//console.log(ibox,document.activeElement);
 		if (isdef(ibox) && isVisible(ibox)) ibox.focus();
 	});
@@ -99,11 +113,19 @@ function g3Success(id) {
 	say(chooseRandom(comments));//'Excellent!!!');
 	maPicOver(mBy('dCheckMark'), mBy(id), 180, 'green', 'segoeBlack');
 }
+function g3Trial(){
+	say('try again!', 1, 1, .8, 'zira');
+	mLinebreak(dLineMidMiddle);
+	//mLinebreak(dLineMidMiddle);
+	addInputElement(dLineMidMiddle);
+	
+}
 function g3Fail(id) {
 	// const comments=['too bad','no','nope','incorrect','not quite!']
 	setScore(false);
 	say('too bad!', 1, 1, .8, 'zira');
 	maPicOver(mBy('dX'), mBy(id), 100, 'red', 'openMojiTextBlack');
+
 
 
 }
