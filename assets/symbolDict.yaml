@@ -36500,6 +36500,7 @@ dvd:
   hexcode: 1F4C0
   group: objects
   subgroups: computer
+  E: blu-ray|cd|dvd
   D: blu-ray|cd|dvd
   E_valid_sound: cd|dvd
   hex: 1F4C0

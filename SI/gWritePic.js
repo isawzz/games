@@ -1,5 +1,3 @@
-var numTrials;
-
 function g3Start() {
 	hasClicked = false;
 	let table = dLineMidMiddle;
@@ -11,7 +9,7 @@ function g3Start() {
 	PICTURES = [];
 	numTrials = 1;
 
-	let keys = choose(emoGroupKeys, NUM_PICS);
+	let keys = choose(keySet, NUM_PICS);
 	//let keys = ['clutch bag'];// ['ant', 'T-Rex'];//'horse'];// 
 
 	//console.log('keys',keys)
@@ -157,7 +155,6 @@ function g3SetLevel() {
 			showBadges(dLeiste, level, levelColors);
 			showLevel();
 			showScore();
-			setGroup(WORD_GROUPS[iGROUP]);
 		} else if (oldLevel != level) {
 			numTotalAnswers = 0;
 			numCorrectAnswers = 0;
@@ -165,9 +162,9 @@ function g3SetLevel() {
 			setTimeout(showLevelComplete, 2000);
 		} else {
 			showScore();
-			setGroup(WORD_GROUPS[iGROUP]);
 			setTimeout(g3Start, DELAY);
 		}
+		keySet = getKeySet(WORD_GROUPS[iGROUP],currentLanguage,MAX_WORD_LENGTH[level]);
 
 
 	}

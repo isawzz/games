@@ -10,7 +10,8 @@ function g2Start() {
 	let onClickPicture = g2Eval;
 
 	//let keys = ['ant', 'T-Rex'];//'horse'];// 
-	let keys = choose(emoGroupKeys, NUM_PICS); 
+	//let keys = choose(emoGroupKeys, NUM_PICS); 
+	let keys = choose(keySet, NUM_PICS); 
 
 	//console.log('keys',keys)
 	//let styles = { w: 200, h: 200, margin: 20, bg: 'random', cursor: 'pointer', rounding: 16, padding: 10 };
@@ -120,14 +121,13 @@ function g2SetLevel() {
 				showBadges(dLeiste, level, levelColors);
 				showLevel();
 				showScore();
-				setGroup(WORD_GROUPS[iGROUP]);
 			}
 		} else {
 			showScore();
-			setGroup(WORD_GROUPS[iGROUP]);
 			setTimeout(g2Start, DELAY);
 		}
 
+		keySet = getKeySet(WORD_GROUPS[iGROUP],currentLanguage,MAX_WORD_LENGTH[level]);
 
 	}
 	else { setTimeout(g2Start, DELAY); }

@@ -22,7 +22,7 @@ function addBadge(dParent, level) {
 	let stylesForLabelButton = { rounding: 10, margin: 4 };
 	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
 	let isText = true; let isOmoji = false;
-	let i=level-1;
+	let i = level - 1;
 	let key = levelKeys[i];
 	console.log(key);
 	let k = replaceAll(key, ' ', '-');
@@ -32,7 +32,7 @@ function addBadge(dParent, level) {
 
 	let d1 = mpBadge(info, label, { w: 72, h: 72, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 	//d1.style.opacity=0;
-	mClass(d1,'aniRubberBand');
+	mClass(d1, 'aniRubberBand');
 	//mClass(d1,'aniFadeIn');
 	badges.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
 
@@ -180,9 +180,15 @@ function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 
 }
 
-
 //#region words, dictionaries
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
+function lastOfLanguage(key, language) {
+	let y = symbolDict[key];
+	let w = y[language];
+	let last = stringAfterLast(w, '|');
+	//console.log(last)
+	return last.trim();
+}
 function makeHigherOrderGroups() {
 	for (const honame in higherOrderEmoSetNames) {
 		for (const name of (higherOrderEmoSetNames[honame])) {
@@ -202,10 +208,21 @@ function makeHigherOrderGroups() {
 	//console.log('group names:',Object.keys(symKeysBySet).sort());
 	ensureSymByType();
 }
+function getKeySet(groupName, language, maxlength) {
+	setGroup(groupName);
+	let keys = isdef(maxlength) && maxlength > 0 ? emoGroupKeys.filter(x => lastOfLanguage(x, language).length <= maxlength)
+		: emoGroupKeys;
+	//console.log('keySet',keys.map(x=>lastOfLanguage(x)));
+
+	return keys;
+
+}
 function setGroup(group) {
 	ensureSymBySet();
-	emoGroup = group;
-	emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
+	if (group != emoGroup) {
+		emoGroup = group;
+		emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
+	}
 }
 
 function getRandomSetItem(lang = 'E', key) {
@@ -512,11 +529,11 @@ function maPicButton(key, handler, dParent, styles, classes = 'picButton', isTex
 	return x;
 }
 function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
-	if (nundef(handler)) handler = (ev) => { 
-		let id = evToClosestId(ev); 
-		let info = symbolDict[id.substring(1)]; 
-		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); 
-		if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus(); 
+	if (nundef(handler)) handler = (ev) => {
+		let id = evToClosestId(ev);
+		let info = symbolDict[id.substring(1)];
+		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
+		if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus();
 	}
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', 'random', 'transparent', null, null, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);

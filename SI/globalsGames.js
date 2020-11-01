@@ -12,6 +12,9 @@ var iGROUP = -1;
 var lastPosition = 0;
 var hasClicked = false;
 var isStarting = true;
+var numTrials;
+var keySet;
+
 
 
 function aniInstruction(text) {
