@@ -29,8 +29,10 @@ function initLine1() {
 	dLevel = mDiv(dLine1Left);
 	dLevel.id = 'dLevel';
 
-	// let b = mButton(immediateStart ? 'NEXT' : 'start', onClickStartButton, dLineTopMiddle, {}, ['bigCentralButton2']);
-	// b.id = 'bStart';
+	// let dGear = mDiv(dLine1Right);
+	// dGear.innerHTML = '⚙️';
+	// dGear.style.opacity=.5;
+	// dGear.style.cursor='pointer';
 
 	mLinebreak(table);
 }
@@ -70,3 +72,20 @@ function initLineBottom() {
 
 	mLinebreak(table);
 }
+function openSettings(){
+	console.log('settings werden geoeffnet!')
+	show(dSettings);
+	dSettings.scrollIntoView(false);
+}
+function closeSettings(){
+	hide(dSettings);
+}
+function toggleSettings(){
+	if (isVisible(dSettings)) closeSettings(); else openSettings();
+}
+
+
+
+
+
+

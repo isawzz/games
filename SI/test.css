@@ -37,6 +37,11 @@ html,body,#md,#rightSide{
 	flex-grow: 10;
 	/* background-color: orange; */
 }
+#dSettings{
+	height: 100%;
+	width:100%;
+	background:red;
+}
 #dInput{
 	margin-top:25px;
 }

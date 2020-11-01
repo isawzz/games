@@ -32,6 +32,7 @@ var dLineMidOuter, dLineMid, dLineMidLeft, dLineMidRight, dLineMidMiddle;
 var dLineBottomOuter, dLineBottom, dLineBottomLeft, dLineBottomRight, dLineBottomMiddle;
 var dHint, dFeedback, dInstruction, dScore, dLevel;
 var dInput, inputBox;
+var dSettings=mBy('dSettings');
 var defaultFocusElement;
 
 //speaker

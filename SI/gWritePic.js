@@ -59,6 +59,8 @@ function addInputElement(dParent){
 	defaultFocusElement = inputBox.id = 'inputBox'+numTrials;
 	inputBox.style.fontSize = '20pt';
 	inputBox.addEventListener("keyup", function (ev) {
+
+		if (ev.ctrlKey) return;
 		//if (pauseAfterInput) event.cancelBubble = true;
 		//console.log(event);
 		if (ev.key === "Enter") {
@@ -96,7 +98,8 @@ function g3Eval() {
 }
 function g3Init() {
 	level = 0;
-	addEventListener('keydown', ()=>{
+	addEventListener('keyup', (ev)=>{
+		if (ev.ctrlKey) return;
 		let ibox=mBy('inputBox'+numTrials);
 		//console.log(ibox,document.activeElement);
 		if (isdef(ibox) && isVisible(ibox)) ibox.focus();
