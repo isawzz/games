@@ -1,4 +1,8 @@
 @font-face {
+	font-family: 'arialuni';
+	src: url('/assets/font/ARIALUNI.ttf') format("truetype");
+}
+@font-face {
 	font-family: 'AlgerianRegular';
 	src: url('/assets/font/ALGER.ttf') format("truetype");
 }

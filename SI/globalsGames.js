@@ -258,7 +258,7 @@ function showCorrectWord() {
 	say(bestWord, .4, 1.2, 1, 'david')
 }
 function showInstruction(text, cmd, title) {
-	let html = `<span style='font-family:arial;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;&#128364;&nbsp;&nbsp;</span>`;
+	let html = `<span style='font-family:arialuni;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;&#128364;&nbsp;&nbsp;</span>`;
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
 	dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
