@@ -3815,9 +3815,13 @@ function yesNo() { return tossCoin(50); }
 //#region string functions
 function convertUmlaute(w) {
 	//ue ü, ae ä, oe ö
+
 	w = replaceAll(w, 'ue', 'ü');
 	w = replaceAll(w, 'ae', 'ä');
 	w = replaceAll(w, 'oe', 'ö');
+	w = replaceAll(w, 'UE', 'Ü');
+	w = replaceAll(w, 'AE', 'Ä');
+	w = replaceAll(w, 'OE', 'Ö');
 	return w;
 }
 function toUmlaut(w) {

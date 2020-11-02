@@ -1,11 +1,35 @@
 var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
-var currentLanguage = 'E';
+var currentLanguage = 'D';
 const WORD_GROUPS = ['nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
 const PICS_PER_LEVEL = 5;
 USE_LOCAL_STORAGE = false;
 
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton 
+var isSettingsOpen = false;
+
+const SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+const MAXLEVEL = 7;
+var DELAY = 1000;
+
+const STATES={STARTING:-1,GAME_INITIALIZED:-2,ROUND_INITIALIZED:-3,NONE:0,BOUNDARY:1,
+	GROUPCHANGE:2,LEVELCHANGE:3,GAMEOVER:4,CORRECT:5,INCORRECT:6,NEXTTRIAL:7};
+var GameState;
+
+//to be set by each game in init:
+var NumPics;
+var MaxNumTrials;
+
+//vars for round to round:
+var Pictures = [];
+var Goal;
+
+var iGROUP = -1;
+var lastPosition = 0;
+var hasClicked = false;
+var trialNumber;
+var keySet;
+var boundary;
 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 	GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue',
@@ -26,14 +50,15 @@ let badges=[];
 var dLeiste;
 
 //table
-var dLine1Outer, dLine1, dLine1Left, dLine1Right, dLine1Middle;
 var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;
-var dLineMidOuter, dLineMid, dLineMidLeft, dLineMidRight, dLineMidMiddle;
+var dLineTitleOuter, dLineTitle, dLineTitleLeft, dLineTitleRight, dLineTitleMiddle;
+var dLineTableOuter, dLineTable, dLineTableLeft, dLineTableRight, dLineTableMiddle;
 var dLineBottomOuter, dLineBottom, dLineBottomLeft, dLineBottomRight, dLineBottomMiddle;
 var dHint, dFeedback, dInstruction, dScore, dLevel;
-var dInput, inputBox;
+var inputBox;
 var dSettings=mBy('dSettings');
 var defaultFocusElement;
+var dTable,dTitle;
 
 //speaker
 var synth, inputForm, inputTxt, voiceSelect, pitch, pitchValue, rate, rateValue, voices, utterance;
@@ -41,6 +66,4 @@ var synth, inputForm, inputTxt, voiceSelect, pitch, pitchValue, rate, rateValue,
 //feedback
 var score, hintWord, bestWord, answerCorrect, currentInfo;
 
-
 var timit;
-var RESTARTING;

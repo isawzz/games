@@ -90,7 +90,7 @@ function say(text, r = .5, p = .8, v = .5, desc) {
 	}
 	timeout2 = setTimeout(() => { synth.speak(utterance); focus(mBy(defaultFocusElement)); }, 200);
 }
-function sepWords(text, voiceKey, s = '<silence msec="200" />') {
+function sepWords(text, voiceKey, s = ''){ //<silence msec="200" />') {
 	text = text.toLowerCase();
 	//console.log(voice,'\nlang=',voice.lang.trim(),'\ntrue or false=',voice.lang.trim()=='en-US');
 	//console.log('voiceKey',voiceKey)

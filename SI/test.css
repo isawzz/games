@@ -37,14 +37,56 @@ html,body,#md,#rightSide{
 	flex-grow: 10;
 	/* background-color: orange; */
 }
+#allGamesDiv button{
+	text-align:center;
+	border-radius:8px;
+	background:dimgray;
+	color:white;
+	font-size:12px;
+  border: none;
+  outline: none;
+	cursor:pointer;
+	margin: 10px;
+	width:300px;
+	min-height:280px;
+}
+#allGamesDiv button:hover{
+	background:#00000080;
+}
+#allGamesDiv button:active{
+	background:#ffffff80;
+}
+.gameImage{
+	border-radius:8px;
+}
+#dGear{
+	position: fixed;
+	display: inline-box;
+	bottom: 10px;
+	right: 10px;
+	cursor:pointer;
+	/* background:blue; */
+}
+#dSpeaker{
+	position: fixed;
+	display: inline-box;
+	top: 10px;
+	right: 10px;
+	cursor:pointer;
+	/* background:blue; */
+
+}
 #dSettings{
+	position: fixed;
+	left: 0px;
+	top: 0px;
 	height: 100%;
-	width:100%;
+	width: 100%;
 	background:red;
 }
-#dInput{
+/* #dInput_{
 	margin-top:25px;
-}
+} */
 #table{
 	flex: 0 0 auto;
 	/* height: -moz-calc(100% - (20px + 30px));
@@ -112,43 +154,6 @@ html,body,#md,#rightSide{
 
 /* #endregion */
 
-#line1Outer{
-	min-width: 100%;
-	/* //background-color: blue; */
-	padding: 4px 12px;
-	box-sizing: border-box;
-}
-#line1{
-	/* display: flex; */
-	/* justify-content: space-between; */
-	font-size: 20pt;
-	position: relative;
-}
-#line1Left{
-	display: inline-block;
-	/* float: left; */
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	min-width: 20px;
-	/* background-color: aqua; */
-}
-#line1Right{
-	/* float: right; */
-	display: inline-block;
-	position: absolute;
-	/* float: left; */
-	top: 0px;
-	right: 0px;
-	min-width: 20px;
-	/* background-color: rgb(9, 51, 51); */
-}
-#line1Middle{
-	width: 100%;
-	/* font-size: 60; */
-	text-align: center;
-}
-
 #lineTopOuter{
 	min-width: 100%;
 	/* //background-color: blue; */
@@ -181,6 +186,43 @@ html,body,#md,#rightSide{
 	/* background-color: rgb(9, 51, 51); */
 }
 #lineTopMiddle{
+	width: 100%;
+	/* font-size: 60; */
+	text-align: center;
+}
+
+#lineTitleOuter{
+	min-width: 100%;
+	/* //background-color: blue; */
+	padding: 4px 12px;
+	box-sizing: border-box;
+}
+#lineTitle{
+	/* display: flex; */
+	/* justify-content: space-between; */
+	font-size: 20pt;
+	position: relative;
+}
+#lineTitleLeft{
+	display: inline-block;
+	/* float: left; */
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	min-width: 20px;
+	/* background-color: aqua; */
+}
+#lineTitleRight{
+	/* float: right; */
+	display: inline-block;
+	position: absolute;
+	/* float: left; */
+	top: 0px;
+	right: 0px;
+	min-width: 20px;
+	/* background-color: rgb(9, 51, 51); */
+}
+#lineTitleMiddle{
 	width: 100%;
 	/* font-size: 60; */
 	text-align: center;
@@ -222,33 +264,33 @@ html,body,#md,#rightSide{
 }
 /* #endregion */
 
-/* #region right side of lineTop */
+/* #region right side of lineTitle */
 
 
 /* #endregion */
 
-#lineMidOuter{
+#lineTableOuter{
 	min-width: 100%;
 	/* background-color: red; */
 	padding: 4px 12px;
 	box-sizing: border-box;
 }
-#lineMid{
+#lineTable{
 	display: flex;
 	box-sizing: border-box;
 	justify-content: space-between;
 }
-#lineMidLeft{
+#lineTableLeft{
 	display: inline-block;
 	min-width: 20px;
 	/* background-color: yellow; */
 }
-#lineMidMiddle{
+#lineTableMiddle{
 	text-align: center;
 	min-width: 20px;
 	/* background-color:orange; */
 }
-#lineMidRight{
+#lineTableRight{
 	display: inline-block;
 	min-width: 20px;
 	/* background-color:green; */

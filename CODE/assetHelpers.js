@@ -183,8 +183,10 @@ function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 //#region words, dictionaries
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
 function lastOfLanguage(key, language) {
+	//console.log(language)
 	let y = symbolDict[key];
 	let w = y[language];
+	//console.log(key,w)
 	let last = stringAfterLast(w, '|');
 	//console.log(last)
 	return last.trim();

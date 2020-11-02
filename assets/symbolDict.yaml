@@ -26055,7 +26055,8 @@ clown face:
   hexcode: 1F921
   group: smileys-emotion
   subgroups: face-costume
-  E: clown|clown
+  E: clown
+  D: clown
   D_valid_sound: clown
   hex: 1F921
   family: emoNoto
@@ -37848,7 +37849,8 @@ elephant:
   hexcode: 1F418
   group: animals-nature
   subgroups: animal-mammal
-  E: elephant|elefant
+  E: elephant
+  D: elefant
   D_valid_sound: elephant
   hex: 1F418
   family: emoNoto
@@ -43059,7 +43061,8 @@ fire engine:
   hexcode: 1F692
   group: travel-places
   subgroups: transport-ground
-  E: fire engine|feuerwehr
+  E: fire engine
+  D: feuerwehr
   D_valid_sound: engine
   hex: 1F692
   family: emoNoto

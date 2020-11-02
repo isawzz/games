@@ -31,13 +31,24 @@
 	</div>
 	<div id='dCheckMark' style='display:none'>✔️</div>
 	<div id='dX' style='display:none'>❌</div>
-	<!-- <div id='dGear' style='display:none'>⚙️</div> -->
 	<div id='dLevelComplete' style='display:none' class='centered'>LEVEL COMPLETE!!!</div>
-	<div id='dSettings' class='centered'>
-		Settings:
-		<button onclick='closeSettings()'>Close</button>
+	<!-- <div id='dSpeaker' onclick='sayKeyword()' style='position:fixed'>🔊</div> -->
+	<div id='dSettings' style='display:none;text-align:center'>
+		<h1>Games</h1>
+		<div class='flexWrap' id='allGamesDiv'>
+			<button id='bTouchPic' onclick="setGame(event)">
+				<img src='/assets/images/gTouchPic.jpg' class='gameImage'/>
+				<h1>Name Recognition</h1>
+			</button>
+			
+			<button id='bWritePic' onclick="setGame(event)">
+				<img src='/assets/images/gWritePic.jpg' class='gameImage'/>
+				<h1>Writing</h1>
+			</button>
+		</div>
 
 	</div>
+	<div id='dGear' onclick='toggleSettings()' style='position:fixed'>⚙️</div>
 	<audio id="myAudio">
 		<source src="/assets/sounds/sound1.wav" type="audio/wav">
 		<!-- <source src="horse.mp3" type="audio/mpeg"> -->

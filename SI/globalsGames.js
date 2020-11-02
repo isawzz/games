@@ -1,22 +1,116 @@
-// *** real game ***
-// const g2GROUPS = ['animal','life','more'];//['animal', 'more'];// 'animalplantfood', 'life', 'more', 'all'];//'food', 'action', 'object', 'human', 'all'];
-// const NUMBER_OF_PICS = 5;
+function resetState() {
+	lastPosition = 0;
+	hasClicked = false;
+	DELAY = 1000;
 
-const SAMPLES_PER_LEVEL = new Array(40).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
-const g2MAXLEVEL = 10;
-var DELAY = 1000;
-var NUM_PICS = 0;
-var PICTURES = [];
-var GOAL;
-var iGROUP = -1;
-var lastPosition = 0;
-var hasClicked = false;
-var isStarting = true;
-var numTrials;
-var keySet;
+	badges = [];
+	level = 0;
+	iGROUP = 0;
 
+	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 
+	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+	setBackgroundColor();
+	showBadges(dLeiste, level, levelColors);
+	showLevel();
+	showScore();
 
+	GameState = STATES.STARTING;
+}
+function startGame(game) {
+	if (isdef(game)) currentGame = game;
+	resetState();
+	GFUNC[currentGame].init();
+	GameState = STATES.GAME_INITIALIZED;
+
+	startRound();
+}
+
+function startRound() {
+	GFUNC[currentGame].initRound();
+	GameState = STATES.ROUND_INITIALIZED;
+
+	let delay = presentPrompt();
+
+	//activateUi();
+	setTimeout(activateUi, delay);
+}
+function presentPrompt() {
+	hasClicked = false;
+	dTable = dLineTableMiddle;
+	dTitle = dLineTitleMiddle;
+	if (nundef(dTable)) return;
+	clearTable();
+
+	return GFUNC[currentGame].prompt();
+}
+function activateUi() {
+	GFUNC[currentGame].activate();
+}
+function evaluate() {
+	GameState = GFUNC[currentGame].eval();
+	numTotalAnswers += 1;
+
+	switch (GameState) {
+		case STATES.CORRECT:
+			numCorrectAnswers += 1;
+
+			updateLevel();
+			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete,100);
+			else setTimeout(startRound,100);
+			break;
+		case STATES.INCORRECT: break;
+		case STATES.NEXTTRIAL: break;
+	}
+
+}
+function normalize(text, language) {
+	text = text.toLowerCase();
+	if (language == 'D') {
+		text = convertUmlaute(text);
+	}
+}
+function updateLevel() {
+	percentageCorrect = Math.ceil(100 * numCorrectAnswers / numTotalAnswers);
+	showScore();
+	if (numTotalAnswers >= boundary) {
+		console.log('boundary reached!');
+		if (percentageCorrect >= 90) {
+			if (iGROUP < WORD_GROUPS.length - 1) {
+				iGROUP += 1;
+				GameState = STATES.GROUPCHANGE;
+			} else if (level < MAXLEVEL) {
+				level += 1;
+				iGROUP = 0;
+				GameState = STATES.LEVELCHANGE;
+			}
+		} else if (percentageCorrect < 70 && level > 0) {
+			level -= 1;
+			GameState = STATES.LEVELCHANGE;
+		}
+	}
+	if (GameState == STATES.GROUPCHANGE) {
+		keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+	} else if (GameState == STATES.LEVELCHANGE) {
+		boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+		keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+		numTotalAnswers = 0;
+		numCorrectAnswers = 0;
+		percentageCorrect = 100;
+	}
+}
+
+function addNthInputElement(dParent, n) {
+	mLinebreak(dParent, 10);
+	let d = mDiv(dParent);
+	let dInp = mCreate('input');
+	dInp.type = "text"; dInp.autocomplete = "off";
+	dInp.style.margin = '10px;'
+	dInp.id = 'inputBox' + n;
+	dInp.style.fontSize = '20pt';
+	mAppend(d, dInp);
+	return dInp;
+}
 function aniInstruction(text) {
 	synthVoice(text, .7, 1, .7, 'random');
 	mClass(dInstruction, 'onPulse');
@@ -24,7 +118,7 @@ function aniInstruction(text) {
 
 }
 function clearTable() {
-	clearElement(dLineMidMiddle); clearElement(dLineTopMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
+	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }
 function onClickStartButton() {
 	isStarting = true;
@@ -37,20 +131,54 @@ function onClickStartButton() {
 	}
 
 }
-function getShortestWord(list){
-	let res=list[0];
-	for(let i=1;i<list.length;i++){
-		if (list[i].length<res.length)res=list[i];
+function getShortestWord(list) {
+	let res = list[0];
+	for (let i = 1; i < list.length; i++) {
+		if (list[i].length < res.length) res = list[i];
 	}
 	return res;
 
 }
-function setCurrentInfo(item,chooseShortest=false) {
+function setBackgroundColor() {
+	let color = levelColors[level];
+	document.body.style.backgroundColor = color;
+
+}
+function setCurrentInfo(item, bestWordIsShortest = false) {
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
-	bestWord = chooseShortest? getShortestWord(currentInfo.words): currentInfo.best;
+	bestWord = bestWordIsShortest ? getShortestWord(currentInfo.words) : currentInfo.best;
 	hintWord = '_'.repeat(bestWord.length);
+
+}
+function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
+	Pictures = [];
+
+	let keys = choose(keySet, NumPics);
+
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
+	for (let i = 0; i < keys.length; i++) {
+		let info = getRandomSetItem(currentLanguage, keys[i]);
+		let id = 'pic' + i;
+		let label = bestWordIsShortest ? getShortestWord(info.words) : last(info.words);
+		console.log(info.key, info)
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		d1.id = id;
+		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
+	}
+
+
+}
+function setGoal(bestWordIsShortest = false) {
+	let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
+	if (NumPics > 2 && rnd == lastPosition && coin()) rnd = NumPics - 1;
+	lastPosition = rnd;
+	Goal = Pictures[rnd];
+
+	setCurrentInfo(Goal, bestWordIsShortest);
 
 }
 function setScore(isCorrect) {
@@ -95,18 +223,22 @@ function levelStep12() {
 }
 function levelStep13() {
 	mRemoveClass(document.body, 'aniFadeOutIn');
-	if (currentGame == 'gTouchPic') {
-		g2Start();
-	} else if (currentGame == 'gWritePic') {
-		g3Start();
-	}
+	startRound();
 }
 //#endregion
 
 function showCorrectWord() {
-	let div = mBy(GOAL.id);
+	let div = mBy(Goal.id);
 	mClass(div, 'onPulse');
 	say(bestWord, .4, 1.2, 1, 'david')
+}
+function showInstruction(text, cmd, title) {
+	let html = `<span style='font-family:arial;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;&#128364;&nbsp;&nbsp;</span>`;
+	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
+	dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
+	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
+	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
+
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + level; }
 function showScore() {
