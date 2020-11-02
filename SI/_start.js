@@ -39,7 +39,7 @@ function setGame(event){
 		console.log('currentGame',currentGame);
 		closeSettings();
 	}
-	//onClickStartButton();
+	startGame(currentGame);
 }
 
 
