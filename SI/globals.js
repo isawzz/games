@@ -2,7 +2,7 @@ var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'D';
 const WORD_GROUPS = ['nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
-const PICS_PER_LEVEL = 5;
+const PICS_PER_LEVEL = 1;
 USE_LOCAL_STORAGE = false;
 
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton 
@@ -12,7 +12,8 @@ const SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80,
 const MAXLEVEL = 7;
 var DELAY = 1000;
 
-const STATES={STARTING:-1,GAME_INITIALIZED:-2,ROUND_INITIALIZED:-3,NONE:0,BOUNDARY:1,
+const STATES={STARTING:-1,GAME_INITIALIZED:-2,ROUND_INITIALIZED:-3,NONE:0,
+	BOUNDARY:1,
 	GROUPCHANGE:2,LEVELCHANGE:3,GAMEOVER:4,CORRECT:5,INCORRECT:6,NEXTTRIAL:7};
 var GameState;
 

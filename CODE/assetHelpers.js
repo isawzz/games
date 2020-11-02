@@ -16,6 +16,12 @@ function mpGridLabeled(dParent, list, picLabelStyles) {
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	//console.log(size);
 }
+function removeBadges(dParent, level){
+	while(badges.length > level){
+		let badge = badges.pop()
+		removeElem(badge.div);
+	}
+}
 function addBadge(dParent, level) {
 	let fg = '#00000080';
 	let textColor = 'white';

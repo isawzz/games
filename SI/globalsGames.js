@@ -49,18 +49,37 @@ function activateUi() {
 }
 function evaluate() {
 	GameState = GFUNC[currentGame].eval();
-	numTotalAnswers += 1;
 
+	console.log('GameState after eval',GameState)
 	switch (GameState) {
 		case STATES.CORRECT:
-			numCorrectAnswers += 1;
-
+			setScore(true);
 			updateLevel();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete,100);
-			else setTimeout(startRound,100);
+			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, 100);
+			else {
+				//console.log('id', Goal.id)
+				const comments = ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!']
+				say(chooseRandom(comments));//'Excellent!!!');
+				maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
+				setTimeout(startRound, 100);
+			}
 			break;
-		case STATES.INCORRECT: break;
 		case STATES.NEXTTRIAL: break;
+		case STATES.INCORRECT:
+			setScore(false);
+			DELAY = 3000;
+			showCorrectWord();
+			updateLevel();
+			console.log('new level is',level)
+			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
+			else {
+				//console.log('id', Goal.id)
+				say('too bad!', 1, 1, .8, 'zira');
+				maPicOver(mBy('dX'), mBy(Goal.id), 100, 'red', 'openMojiTextBlack');
+				setTimeout(startRound, DELAY);
+			}
+
+			break;
 	}
 
 }
@@ -69,10 +88,9 @@ function normalize(text, language) {
 	if (language == 'D') {
 		text = convertUmlaute(text);
 	}
+	return text;
 }
 function updateLevel() {
-	percentageCorrect = Math.ceil(100 * numCorrectAnswers / numTotalAnswers);
-	showScore();
 	if (numTotalAnswers >= boundary) {
 		console.log('boundary reached!');
 		if (percentageCorrect >= 90) {
@@ -196,6 +214,13 @@ function showLevelComplete() {
 	mClass(mBy('dLevelComplete'), 'aniFadeInOut');
 	show('dLevelComplete');
 	setTimeout(levelStep10, 1500);
+}
+function removeBadgeAndRevertLevel(){
+	removeBadges(dLeiste, level);
+	document.body.style.backgroundColor = levelColors[level];
+	showLevel();
+	showScore();
+	startRound();
 }
 function levelStep10() {
 	mClass(document.body, 'aniFadeOutIn');

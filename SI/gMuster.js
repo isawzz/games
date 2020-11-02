@@ -100,9 +100,9 @@ function g3Init() {
 }
 
 function g3Success(id) {
+	setScore(true);
 	console.log('id', id)
 	const comments = ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!']
-	setScore(true);
 	say(chooseRandom(comments));//'Excellent!!!');
 	maPicOver(mBy('dCheckMark'), mBy(id), 180, 'green', 'segoeBlack');
 }
