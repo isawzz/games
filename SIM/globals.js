@@ -1,10 +1,10 @@
-var currentGame = 'gTouchPic'; // gWritePic | gTouchPic | gSayWord
+var currentGame = 'gSayPic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'D';
 const WORD_GROUPS = ['nosymbols'];//'nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
 var PICS_PER_LEVEL = 5;
 USE_LOCAL_STORAGE = true;
-const immediateStart = false; //has to be true for now!!! fires onClickStartButton_ 
+const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
 
 
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];

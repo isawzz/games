@@ -1,6 +1,7 @@
 const GFUNC = {
-	gWritePic: {init:initWP,initRound:roundWP,prompt:promptWP,activate:activateWP,eval:evalWP},
 	gTouchPic: {init:initTP,initRound:roundTP,prompt:promptTP,activate:activateTP,eval:evalTP},
+	gWritePic: {init:initWP,initRound:roundWP,prompt:promptWP,activate:activateWP,eval:evalWP},
+	gSayPic: {init:initSP,initRound:roundSP,prompt:promptSP,activate:activateSP,eval:evalSP},
 }
 
 window.onload = SPEECHStart;

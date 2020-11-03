@@ -84,6 +84,33 @@ function evalPictureGoal() {
 	}
 
 }
+function evalSpeechResult(speechResult) {
+	GameState = GFUNC[currentGame].eval(...arguments);
+
+	//console.log('GameState after eval', GameState)
+	switch (GameState) {
+		case STATES.CORRECT:
+			setScore(true);
+			DELAY = 1500;
+			updateLevel();
+			successPictureGoal();
+			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
+			else { setTimeout(startRound, DELAY); }
+			break;
+		case STATES.NEXTTRIAL: break;
+		case STATES.INCORRECT:
+			setScore(false);
+			DELAY = 3000;
+			showCorrectWord();
+			failPictureGoal(false);
+			updateLevel();
+			console.log('new level is', level)
+			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
+			else { setTimeout(startRound, DELAY); }
+			break;
+	}
+
+}
 function failPictureGoal(withComment = true) {
 
 	if (withComment) {

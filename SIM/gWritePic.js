@@ -25,7 +25,7 @@ function promptWP() {
 
 	return 10;
 }
-function trialPrompt() {
+function trialPromptWP() {
 	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	trialNumber += 1;
 	mLinebreak(dTable);
@@ -51,7 +51,7 @@ function evalWP(ev) {
 	console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (trialNumber < MaxNumTrials) {
-		trialPrompt();
+		trialPromptWP();
 		return STATES.NEXTTRIAL;
 	} else {
 		Selected = null;
