@@ -2657,6 +2657,15 @@ function deepmergeOverride(base, drueber) { return mergeOverrideArrays(base, dru
 //#endregion
 
 //#region filter functions
+function getShortestWord(list) {
+	let res = list[0];
+	for (let i = 1; i < list.length; i++) {
+		if (list[i].length < res.length) res = list[i];
+	}
+	return res;
+
+}
+
 function allWordsContainedInKeys(dict, keywords) {
 	let res = [];
 	for (const k in dict) {
@@ -3813,6 +3822,14 @@ function yesNo() { return tossCoin(50); }
 //#endregion
 
 //#region string functions
+function normalize(text, language) {
+	text = text.toLowerCase();
+	if (language == 'D') {
+		text = convertUmlaute(text);
+	}
+	return text;
+}
+
 function convertUmlaute(w) {
 	//ue ü, ae ä, oe ö
 

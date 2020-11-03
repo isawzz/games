@@ -49,7 +49,6 @@ function evalWP() {
 	console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (trialNumber < MaxNumTrials) {
-
 		trialPrompt();
 		return STATES.NEXTTRIAL;
 	} else {

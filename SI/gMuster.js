@@ -318,7 +318,20 @@ function g2SetLevel() {
 
 //#endregion
 
+//region unused helpers
+function onClickStartButton() {
+	isStarting = true;
+	if (currentGame == 'gTouchPic') {
+		g2Init();
+		g2Start();
+	} else if (currentGame == 'gWritePic') {
+		g3Init();
+		g3Start();
+	}
 
+}
+
+//#endregion
 
 
 

@@ -1,22 +1,3 @@
-function resetState() {
-	lastPosition = 0;
-	hasClicked = false;
-	DELAY = 1000;
-
-	badges = [];
-	level = 0;
-	iGROUP = 0;
-
-	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
-
-	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
-	setBackgroundColor();
-	showBadges(dLeiste, level, levelColors);
-	showLevel();
-	showScore();
-
-	GameState = STATES.STARTING;
-}
 function startGame(game) {
 	if (isdef(game)) currentGame = game;
 	resetState();
@@ -25,7 +6,6 @@ function startGame(game) {
 
 	startRound();
 }
-
 function startRound() {
 	GFUNC[currentGame].initRound();
 	GameState = STATES.ROUND_INITIALIZED;
@@ -83,13 +63,6 @@ function evaluate() {
 	}
 
 }
-function normalize(text, language) {
-	text = text.toLowerCase();
-	if (language == 'D') {
-		text = convertUmlaute(text);
-	}
-	return text;
-}
 function updateLevel() {
 	if (numTotalAnswers >= boundary) {
 		console.log('boundary reached!');
@@ -118,6 +91,8 @@ function updateLevel() {
 	}
 }
 
+
+//#region helpers
 function addNthInputElement(dParent, n) {
 	mLinebreak(dParent, 10);
 	let d = mDiv(dParent);
@@ -138,24 +113,24 @@ function aniInstruction(text) {
 function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }
-function onClickStartButton() {
-	isStarting = true;
-	if (currentGame == 'gTouchPic') {
-		g2Init();
-		g2Start();
-	} else if (currentGame == 'gWritePic') {
-		g3Init();
-		g3Start();
-	}
+function resetState() {
+	lastPosition = 0;
+	hasClicked = false;
+	DELAY = 1000;
 
-}
-function getShortestWord(list) {
-	let res = list[0];
-	for (let i = 1; i < list.length; i++) {
-		if (list[i].length < res.length) res = list[i];
-	}
-	return res;
+	badges = [];
+	level = 0;
+	iGROUP = 0;
 
+	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+
+	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+	setBackgroundColor();
+	showBadges(dLeiste, level, levelColors);
+	showLevel();
+	showScore();
+
+	GameState = STATES.STARTING;
 }
 function setBackgroundColor() {
 	let color = levelColors[level];
@@ -283,5 +258,9 @@ function showLevel() { dLevel.innerHTML = 'level: ' + level; }
 function showScore() {
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 }
+
+
+//#endregion
+
 
 
