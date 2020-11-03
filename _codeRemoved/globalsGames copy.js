@@ -258,23 +258,9 @@ function showCorrectWord() {
 	say(bestWord, .4, 1.2, 1, 'david')
 }
 function showInstruction(text, cmd, title) {
-	let d=mDiv(title);
-	mStyleX(d,{margin:15})
-	mClass(d,'flexWrap');
-
-	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	let d1=mText(msg,d,{fz:34,display:'inline-box'});
-	let sym=symbolDict.speaker;
-	let d2=mText(sym.text,d,{fz:40,weight:900,display:'inline-box',
-	family:sym.family,'padding-left':14});
-	dFeedback = dInstruction = d;
-
-
-	// let html = `<span style='font-family:pictoGame;font-size:50px;font-weight:900;` + 
-	// `cursor:pointer'>${symbolDict.speaker.text}</span>`;
-	// // `cursor:pointer'>&nbsp;&nbsp;&#128364;&#xFE0E;&nbsp;&nbsp;</span>`;
-	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
-	// dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
+	let html = `<span style='font-family:arialuni;font-size:50px;font-weight:900;cursor:pointer'>&nbsp;&nbsp;&#128364;&nbsp;&nbsp;</span>`;
+	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
+	dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
 	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
 
