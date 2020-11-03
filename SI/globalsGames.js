@@ -263,9 +263,9 @@ function showInstruction(text, cmd, title) {
 	mClass(d,'flexWrap');
 
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	let d1=mText(msg,d,{fz:34,display:'inline-box'});
+	let d1=mText(msg,d,{fz:36,display:'inline-box'});
 	let sym=symbolDict.speaker;
-	let d2=mText(sym.text,d,{fz:40,weight:900,display:'inline-box',
+	let d2=mText(sym.text,d,{fz:38,weight:900,display:'inline-box',
 	family:sym.family,'padding-left':14});
 	dFeedback = dInstruction = d;
 
