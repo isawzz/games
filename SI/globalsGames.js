@@ -1,26 +1,3 @@
-function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
-	Pictures = [];
-
-
-	let keys = choose(keySet, NumPics);
-	//keys=['hot beverage','dvd']
-
-	let stylesForLabelButton = { rounding: 10, margin: 24 };
-	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
-
-	for (let i = 0; i < keys.length; i++) {
-		let info = getRandomSetItem(currentLanguage, keys[i]);
-		let id = 'pic' + i;
-		//console.log(bestWordIsShortest)
-		let label = bestWordIsShortest ? getShortestWord(info.words,false) : last(info.words);
-		console.log(info.key, info)
-		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-		d1.id = id;
-		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
-	}
-
-
-}
 
 
 
@@ -36,14 +13,17 @@ function startGame(game) {
 function startRound() {
 	GFUNC[currentGame].initRound();
 	GameState = STATES.ROUND_INITIALIZED;
+	console.log('pics:' + NumPics, 'keySet has', keySet.length, 'entries')
 
 	let delay = presentPrompt();
 
 	//activateUi();
 	setTimeout(activateUi, delay);
+
 }
 function presentPrompt() {
 	hasClicked = false;
+	Selected = null;
 	dTable = dLineTableMiddle;
 	dTitle = dLineTitleMiddle;
 	if (nundef(dTable)) return;
@@ -51,13 +31,36 @@ function presentPrompt() {
 
 	return GFUNC[currentGame].prompt();
 }
+function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
+	Pictures = [];
+
+
+	let keys = choose(keySet, NumPics);
+	//keys=['hot beverage','dvd']
+
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
+	for (let i = 0; i < keys.length; i++) {
+		let info = getRandomSetItem(currentLanguage, keys[i]);
+		let id = 'pic' + i;
+		//console.log(bestWordIsShortest)
+		let label = bestWordIsShortest ? getShortestWord(info.words, false) : last(info.words);
+		console.log(info.key, info)
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		d1.id = id;
+		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
+	}
+
+
+}
 function activateUi() {
 	GFUNC[currentGame].activate();
 }
 function evalPictureGoal() {
 	GameState = GFUNC[currentGame].eval(...arguments);
 
-	console.log('GameState after eval', GameState)
+	//console.log('GameState after eval', GameState)
 	switch (GameState) {
 		case STATES.CORRECT:
 			setScore(true);
@@ -81,9 +84,27 @@ function evalPictureGoal() {
 	}
 
 }
+function failPictureGoal(withComment = true) {
+
+	if (withComment) {
+		const comments = (currentLanguage == 'E' ? ['too bad'] : ["aber geh'"]);
+		say(chooseRandom(comments), 1, 1, .8, true, 'zira');
+	}
+	if (isdef(Selected)) maPicOver(mBy('dX'), mBy(Selected.id), 100, 'red', 'openMojiTextBlack');
+
+}
+function successPictureGoal(withComment = true) {
+	//console.log('id', Goal.id)
+	if (withComment) {
+		const comments = (currentLanguage == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
+		say(chooseRandom(comments));//'Excellent!!!');
+	}
+	maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
+
+}
 function updateLevel() {
 	if (numTotalAnswers >= boundary) {
-		console.log('boundary reached!');
+		//console.log('boundary reached!');
 		if (percentageCorrect >= 90) {
 			if (iGROUP < WORD_GROUPS.length - 1) {
 				iGROUP += 1;
@@ -159,7 +180,7 @@ function setCurrentInfo(item, bestWordIsShortest = false) {
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
-	bestWord = bestWordIsShortest ? getShortestWord(currentInfo.words,false) : currentInfo.best;
+	bestWord = bestWordIsShortest ? getShortestWord(currentInfo.words, false) : currentInfo.best;
 	hintWord = '_'.repeat(bestWord.length);
 
 }
@@ -183,24 +204,7 @@ function setScore(isCorrect) {
 function showCorrectWord() {
 	let div = mBy(Goal.id);
 	mClass(div, 'onPulse');
-	say(bestWord, .4, 1.2, 1,true, 'david')
-}
-function successPictureGoal(withComment = true) {
-	//console.log('id', Goal.id)
-	if (withComment) {
-		const comments = ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!']
-		say(chooseRandom(comments));//'Excellent!!!');
-	}
-	maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
-
-}
-function failPictureGoal(withComment = true) {
-	if (withComment) {
-		//console.log('id', Goal.id)
-		say('too bad!', 1, 1, .8,true, 'zira');
-	}
-	maPicOver(mBy('dX'), mBy(Selected.id), 100, 'red', 'openMojiTextBlack');
-
+	say(bestWord, .4, 1.2, 1, true, 'david')
 }
 
 function showInstruction(text, cmd, title) {

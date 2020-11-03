@@ -1,4 +1,4 @@
-function initWP() {
+function initSP() {
 	onkeydown = ev => {
 		if (isdef(inputBox)) inputBox.focus();
 	}
@@ -8,10 +8,10 @@ function initWP() {
 	console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
 
 }
-function roundWP() {
+function roundSP() {
 	trialNumber = 0;
 }
-function promptWP() {
+function promptSP() {
 
 	trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
@@ -25,7 +25,7 @@ function promptWP() {
 
 	return 10;
 }
-function trialPrompt() {
+function trialPromptSP() {
 	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	trialNumber += 1;
 	mLinebreak(dTable);
@@ -33,7 +33,7 @@ function trialPrompt() {
 	defaultFocusElement = inputBox.id;
 	activateWP();
 }
-function activateWP() {
+function activateSP() {
 	console.log('should activate WritePic UI')
 	inputBox.onkeyup = ev => {
 		if (ev.ctrlKey) return;
@@ -45,7 +45,7 @@ function activateWP() {
 	};
 	inputBox.focus();
 }
-function evalWP(ev) {
+function evalSP(ev) {
 	let answer = normalize(inputBox.value, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	console.log('eval WritePic', answer, reqAnswer)

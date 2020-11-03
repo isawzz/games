@@ -30,7 +30,7 @@ function addBadge(dParent, level) {
 	let isText = true; let isOmoji = false;
 	let i = level - 1;
 	let key = levelKeys[i];
-	console.log(key);
+	//console.log(key);
 	let k = replaceAll(key, ' ', '-');
 	let info = symbolDict[k];
 

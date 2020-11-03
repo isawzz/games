@@ -1,14 +1,13 @@
 var currentGame = 'gTouchPic'; // gWritePic | gTouchPic | gSayWord
-var currentLanguage = 'E';
-const WORD_GROUPS = ['animal'];//'nosymbols'];
+var currentLanguage = 'D';
+const WORD_GROUPS = ['nosymbols'];//'nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
-const PICS_PER_LEVEL = 1;
+var PICS_PER_LEVEL = 5;
 USE_LOCAL_STORAGE = true;
+const immediateStart = false; //has to be true for now!!! fires onClickStartButton_ 
 
-const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
-var isSettingsOpen = false;
 
-const SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 const MAXLEVEL = 7;
 var DELAY = 1000;
 
@@ -31,6 +30,7 @@ var hasClicked = false;
 var trialNumber;
 var keySet;
 var boundary;
+var isSettingsOpen = false;
 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 	GREEN, BLUE, PURPLE, YELLOW2, 'deepskyblue',

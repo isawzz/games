@@ -19,6 +19,7 @@
 	<script src="/CODE/assetHelpers.js"></script>
 	<!-- <link rel="stylesheet" href="/SIMPLE/index.css"> -->
 	<link rel="stylesheet" href="/SI/test.css">
+	<link rel="stylesheet" href="/SI/settings.css">
 
 </head>
 
@@ -37,14 +38,33 @@
 		<h1>Games</h1>
 		<div class='flexWrap' id='allGamesDiv'>
 			<button id='bTouchPic' onclick="setGame(event)">
-				<img src='/assets/images/gTouchPic.jpg' class='gameImage'/>
+				<img src='/assets/images/gTouchPic.jpg' class='gameImage' />
 				<h1>Name Recognition</h1>
 			</button>
-			
+
 			<button id='bWritePic' onclick="setGame(event)">
-				<img src='/assets/images/gWritePic.jpg' class='gameImage'/>
+				<img src='/assets/images/gWritePic.jpg' class='gameImage' />
 				<h1>Writing</h1>
 			</button>
+			<!-- <button id='bSayPic'>
+				<img src='/assets/images/gSayPic.jpg' class='gameImage' />
+				<h1>Speaking</h1>
+			</button> -->
+		</div>
+
+		<div class='fsc'>
+			<fieldset id='fChooseLanguage'>
+				<legend>language</legend>
+				<input id='inputE' class='radio' type="radio" name="language" value="E" onclick='onClickLanguage("E")'><span>English</span><br>
+				<input id='inputD' class='radio' type="radio" name="language" value="D" onclick='onClickLanguage("D")'><span>German</span><br>
+			</fieldset>
+			<fieldset id='fChoosePicsPerLevel'>
+				<legend>pictures per level</legend>
+				<div>
+					<input id='inputPicsPerLevel' class='input' type="number" value=1 />
+					<button onclick='onClickPicsPerLevelSet()'>Set</button>
+				</div>
+			</fieldset>
 		</div>
 
 	</div>
