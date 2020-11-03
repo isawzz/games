@@ -3,7 +3,7 @@ var currentLanguage = 'E';
 const WORD_GROUPS = ['animal'];//'nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
 const PICS_PER_LEVEL = 1;
-USE_LOCAL_STORAGE = false;
+USE_LOCAL_STORAGE = true;
 
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
 var isSettingsOpen = false;

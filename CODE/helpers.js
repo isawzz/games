@@ -3789,7 +3789,7 @@ function choose(arr, n) {
 	while (result.length<n) {
 		var iRandom = Math.floor(Math.random() * len);
 		//console.log('iRandom',iRandom)
-		while(taken[iRandom]) iRandom = (iRandom+1)%len;
+		while(taken[iRandom]) {iRandom += 1; if (iRandom >= len) iRandom=0; }
 
 		result.push(arr[iRandom]);
 		taken[iRandom]=true;
