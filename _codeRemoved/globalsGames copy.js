@@ -47,7 +47,7 @@ function presentPrompt() {
 function activateUi() {
 	GFUNC[currentGame].activate();
 }
-function evaluate() {
+function evalPictureGoal() {
 	GameState = GFUNC[currentGame].eval();
 
 	console.log('GameState after eval',GameState)

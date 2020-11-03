@@ -648,7 +648,7 @@ function maPicLabelFitX(info, label, { wmax, hmax }, dParent, containerStyles, p
 	if (f1 < 1) {
 		textStyles.fz *= f1;
 		textStyles.fz = Math.floor(textStyles.fz);
-		console.log('text overflow! textStyles', textStyles);
+		//console.log('text overflow! textStyles', textStyles);
 	}
 
 	let [wBound, hBound] = [isdef(wmax) ? size.w : undefined, isdef(hmax) ? size.h : undefined];

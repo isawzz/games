@@ -7,12 +7,13 @@ const voiceNames = {
 	deutsch: 'Google Deutsch',
 };
 var timeout1, timeout2;
-function synthVoice(text, r = .5, p = .8, v = .5, desc) {
-	if (isdef(timeout1)) clearTimeout(timeout1);
+function say(text, r = .5, p = .8, v = .5, interrupt=true, voiceDescriptor) {
 	if (isdef(synth) && synth.speaking) {
+		if (!interrupt) return;
 		console.error('speechSynthesis.speaking');
 		synth.cancel();
-		timeout1 = setTimeout(() => say(text, r, p, v, desc), 500);
+		if (isdef(timeout1)) clearTimeout(timeout1);
+		timeout1 = setTimeout(() => say(text, r, p, v,interrupt, voiceDescriptor), 500);
 		return;
 	} else if (nundef(voices)) {
 		//console.error('gibt noch KEINE voices!!!!!')
@@ -38,17 +39,18 @@ function synthVoice(text, r = .5, p = .8, v = .5, desc) {
 				// 	console.log(event.name + ' boundary reached after ' + event.elapsedTime + ' milliseconds.\n', event);
 				// }
 
-				timeout1 = setTimeout(() => say(text, r, p, v, desc), 500);
+				if (isdef(timeout1)) clearTimeout(timeout1);
+				timeout1 = setTimeout(() => say(text, r, p, v,interrupt, voiceDescriptor), 500);
 			});
 
 	} else {
-		say(text, r, p, v, desc);
+		utter(text, r, p, v, voiceDescriptor);
 	}
 
 }
 
 // helpers
-function findSuitableVoice(text, desc) {
+function findSuitableVoice(text, voiceDesc) {
 	//desc ... random | key in voiceNames | starting phrase of voices.name
 	//console.log(typeof voices, voices)
 	let voiceKey = 'david';
@@ -56,12 +58,12 @@ function findSuitableVoice(text, desc) {
 		voiceKey = 'deutsch';
 	} else if (text.includes('bad')) {
 		voiceKey = 'zira';
-	} else if (desc == 'random') {
+	} else if (voiceDesc == 'random') {
 		voiceKey = chooseRandom(['david', 'zira', 'us', 'ukFemale', 'ukMale']);
-	} else if (isdef(voiceNames[desc])) {
-		voiceKey = desc;
-	} else if (isdef(desc)) {
-		let tryVoiceKey = firstCondDict(voiceNames, x => startWith(x, desc));
+	} else if (isdef(voiceNames[voiceDesc])) {
+		voiceKey = voiceDesc;
+	} else if (isdef(voiceDesc)) {
+		let tryVoiceKey = firstCondDict(voiceNames, x => startWith(x, voiceDesc));
 		if (tryVoiceKey) voiceKey = tryVoiceKey;
 	}
 	let voiceName = voiceNames[voiceKey];
@@ -75,9 +77,9 @@ function findSuitableVoice(text, desc) {
 	// console.log('===>the voice is', voice);
 	return [voiceKey, voice];
 }
-function say(text, r = .5, p = .8, v = .5, desc) {
+function utter(text, r = .5, p = .8, v = .5, voiceDesc) {
 	// rate 0.1 to 10
-	let [voiceKey, voice] = findSuitableVoice(text, desc);
+	let [voiceKey, voice] = findSuitableVoice(text, voiceDesc);
 	utterance.text = sepWords(text, voiceKey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
 	utterance.rate = r;
 	utterance.pitch = p;
@@ -85,9 +87,7 @@ function say(text, r = .5, p = .8, v = .5, desc) {
 	utterance.voice = voice;
 
 	//console.log('\nsynth',synth,'\nvoices',voices,'\nutterance',utterance)
-	if (isdef(timeout2)) {
-		clearTimeout(timeout2);
-	}
+	if (isdef(timeout2)) {		clearTimeout(timeout2);	}
 	timeout2 = setTimeout(() => { synth.speak(utterance); focus(mBy(defaultFocusElement)); }, 200);
 }
 function sepWords(text, voiceKey, s = ''){ //<silence msec="200" />') {

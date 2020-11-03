@@ -7,13 +7,16 @@ html,body,#md,#rightSide{
 	color: white;
 	
 }
+div{
+	user-select: none;
+}
 /* body{	transition: color 1300ms;} */
 #dLevelComplete{
 	position:fixed;
 	text-align: center;
 	background-color: #00000080;
 	font-size:80px;
-	top: 38%;
+	top: 32%;
 	padding: 80px;
 	border-radius: 20px;
 

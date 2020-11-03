@@ -1,6 +1,6 @@
-var currentGame = 'gWritePic'; // gWritePic | gTouchPic | gSayWord
+var currentGame = 'gTouchPic'; // gWritePic | gTouchPic | gSayWord
 var currentLanguage = 'E';
-const WORD_GROUPS = ['nosymbols'];
+const WORD_GROUPS = ['animal'];//'nosymbols'];
 var MAX_WORD_LENGTH = [3,4,5,7,10,111];
 const PICS_PER_LEVEL = 1;
 USE_LOCAL_STORAGE = false;
@@ -23,7 +23,7 @@ var MaxNumTrials;
 
 //vars for round to round:
 var Pictures = [];
-var Goal;
+var Goal,Selected;
 
 var iGROUP = -1;
 var lastPosition = 0;

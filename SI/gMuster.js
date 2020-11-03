@@ -107,7 +107,7 @@ function g3Success(id) {
 	maPicOver(mBy('dCheckMark'), mBy(id), 180, 'green', 'segoeBlack');
 }
 function g3Trial() {
-	say('try again!', 1, 1, .8, 'zira');
+	say('try again!', 1, 1, .8, true,'zira');
 	mLinebreak(dLineTableMiddle);
 	//mLinebreak(dLineTableMiddle);
 	addInputElement(dLineTableMiddle);
@@ -116,7 +116,7 @@ function g3Trial() {
 function g3Fail(id) {
 	// const comments=['too bad','no','nope','incorrect','not quite!']
 	setScore(false);
-	say('too bad!', 1, 1, .8, 'zira');
+	say('too bad!', 1, 1, .8,true, 'zira');
 	maPicOver(mBy('dX'), mBy(id), 100, 'red', 'openMojiTextBlack');
 
 
@@ -222,7 +222,7 @@ function g2Start() {
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
 	let d = dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' }); 
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
-	synthVoice(cmd + " " + text, .7, 1, .7, 'random');
+	say(cmd + " " + text, .7, 1, .7,true, 'random');
 	mLinebreak(table);
 	
 }
@@ -262,7 +262,7 @@ function g2Success(id) {
 function g2Fail(id) {
 	// const comments=['too bad','no','nope','incorrect','not quite!']
 	setScore(false);
-	say('too bad!', 1, 1, .8, 'zira');
+	say('too bad!', 1, 1, .8, true,'zira');
 	maPicOver(mBy('dX'), mBy(id), 100, 'red', 'openMojiTextBlack');
 
 

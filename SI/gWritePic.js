@@ -5,6 +5,8 @@ function initWP() {
 	NumPics = 1;
 	MaxNumTrials = 3;
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+	console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
+
 }
 function roundWP() {
 	trialNumber = 0;
@@ -24,7 +26,7 @@ function promptWP() {
 	return 10;
 }
 function trialPrompt() {
-	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8, 'zira');
+	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	trialNumber += 1;
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
@@ -38,12 +40,12 @@ function activateWP() {
 		if (ev.key === "Enter") {
 			ev.cancelBubble = true;
 			console.log('eval!')
-			evaluate();
+			evalPictureGoal(ev);
 		}
 	};
 	inputBox.focus();
 }
-function evalWP() {
+function evalWP(ev) {
 	let answer = normalize(inputBox.value, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	console.log('eval WritePic', answer, reqAnswer)

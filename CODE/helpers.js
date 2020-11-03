@@ -132,9 +132,9 @@ function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
 function mFg(d, color) { d.style.color = color; }
-function mInstruction(msg, dParent, hasExclamation=true) {
+function mInstruction(msg, dParent, hasExclamation = true) {
 	let p = mCreate('h2');
-	p.innerHTML = msg + (hasExclamation?'!':'');
+	p.innerHTML = msg + (hasExclamation ? '!' : '');
 	mAppend(dParent, p);
 	return p;
 }
@@ -149,17 +149,17 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mText(label); }
-function mLinebreak(dParent,gap) {
+function mLinebreak(dParent, gap) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
 	//console.log('parent style',dParent.style.display)
 
 	//console.log(dParent.classList, Array.from(dParent.classList))
 
-	if (dParent.style.display == 'flex' ||mHasClass(dParent,'flexWrap')) mClass(d, 'linebreak');
+	if (dParent.style.display == 'flex' || mHasClass(dParent, 'flexWrap')) mClass(d, 'linebreak');
 	else d.innerHTML = '<br>';
 
-	if (isdef(gap)) d.style.minHeight=gap+'px';
+	if (isdef(gap)) d.style.minHeight = gap + 'px';
 
 	return d;
 }
@@ -183,17 +183,17 @@ function mImg(path, dParent, styles, classes) {
 	return d;
 	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
 }
-function mTextFit(text,{wmax,hmax}, dParent, styles, classes) {
+function mTextFit(text, { wmax, hmax }, dParent, styles, classes) {
 	//mTextFit(label,maxchars,maxlines, d, textStyles, ['truncate']);
 	let d = mDiv(dParent);
 	if (!isEmpty(text)) d.innerHTML = text;
 
 	//console.log('_______',wmax,hmax)
-	if (nundef(styles) && (isdef(wmax))||isdef(hmax)){
+	if (nundef(styles) && (isdef(wmax)) || isdef(hmax)) {
 		styles = {};
 	}
-	if (isdef(wmax)) styles.width=wmax;
-	if (isdef(hmax)) styles.height=hmax;
+	if (isdef(wmax)) styles.width = wmax;
+	if (isdef(hmax)) styles.height = hmax;
 
 	//console.log('_',text,styles)
 
@@ -2657,10 +2657,16 @@ function deepmergeOverride(base, drueber) { return mergeOverrideArrays(base, dru
 //#endregion
 
 //#region filter functions
-function getShortestWord(list) {
+function getShortestWord(list, preferFirst = true) {
 	let res = list[0];
-	for (let i = 1; i < list.length; i++) {
-		if (list[i].length < res.length) res = list[i];
+	if (preferFirst) {
+		for (let i = 1; i < list.length; i++) {
+			if (list[i].length < res.length) res = list[i];
+		}
+	} else {
+		for (let i = 1; i < list.length; i++) {
+			if (list[i].length <= res.length) res = list[i];
+		}
 	}
 	return res;
 
@@ -2993,13 +2999,13 @@ function firstCond(arr, func) {
 	}
 	return null;
 }
-function firstNCond(n,arr, func) {
+function firstNCond(n, arr, func) {
 	//return first elem that fulfills condition
 	if (nundef(arr)) return [];
 	let result = [];
-	let cnt=0;
+	let cnt = 0;
 	for (const a of arr) {
-		cnt+=1;if (cnt>n) break;
+		cnt += 1; if (cnt > n) break;
 		if (func(a)) result.push(a);
 
 	}
@@ -3772,6 +3778,25 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	return arr[idx];
 }
 function choose(arr, n) {
+
+
+	//console.log(arr, n);
+	var result = [];//new Array(n);
+	var len = arr.length;
+	var taken = new Array(len);
+	//console.log('len', len);
+	if (n > len) n = len - 1; // throw new RangeError('getRandom: more elements taken than available');
+	while (result.length<n) {
+		var iRandom = Math.floor(Math.random() * len);
+		//console.log('iRandom',iRandom)
+		while(taken[iRandom]) iRandom = (iRandom+1)%len;
+
+		result.push(arr[iRandom]);
+		taken[iRandom]=true;
+	}
+	return result;
+}
+function choose_dep(arr, n) {
 	//console.log(arr, n);
 	var result = new Array(n);
 	var len = arr.length;
@@ -3779,9 +3804,9 @@ function choose(arr, n) {
 	//console.log('len', len);
 	if (n > len) n = len - 1; // throw new RangeError('getRandom: more elements taken than available');
 	while (n--) {
-		var x = Math.floor(Math.random() * len);
-		result[n] = arr[x in taken ? taken[x] : x];
-		taken[x] = --len in taken ? taken[len] : len;
+		var iRandom = Math.floor(Math.random() * len);
+		result[n] = arr[iRandom in taken ? taken[iRandom] : iRandom];
+		taken[iRandom] = --len in taken ? taken[len] : len;
 	}
 	return result;
 }
