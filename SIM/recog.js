@@ -4,7 +4,8 @@ var recognition;
 
 var grammar;
 
-function record(lang, wordlist = ['du', 'bist', 'ein', 'vogel']) {
+function record(lang, best) {
+	let wordlist = ['du', 'bist', 'ein', 'vogel', best];
 	if (!isdef(recognition)) {
 		speech00(lang);
 		setTimeout(record(lang, wordlist), 1000);
@@ -16,6 +17,7 @@ function record(lang, wordlist = ['du', 'bist', 'ein', 'vogel']) {
 		recordCallback = () => record(lang, wordlist);
 		recognition.stop();
 	} else {
+		isRunning = true;
 		recognition.start();
 	}
 }
@@ -46,7 +48,7 @@ function addResultHandler() {
 			recognition.stop();
 			let word = finalResult = final_transcript;
 			console.log('===>', '\nbest', bestWord, '\ngot', word); // + '.\nConfidence: ' + event.results[0][0].confidence);
-			evalSpeechResult(word);
+			evaluate(word);
 
 		}
 	};
@@ -101,7 +103,7 @@ function speech00(lang) {
 	addEndHandler();
 	addResultHandler();
 
-	recognition.start();
+	//recognition.start();
 
 }
 

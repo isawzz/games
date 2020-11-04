@@ -57,7 +57,6 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 function activateUi() {
 	GFUNC[currentGame].activate();
 }
-
 function evaluate() {
 	GameState = GFUNC[currentGame].eval(...arguments);
 
@@ -214,10 +213,10 @@ function showInstruction(text, cmd, title) {
 	mClass(d, 'flexWrap');
 
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	let d1 = mText(msg, d, { fz: 36, display: 'inline-block' });
+	let d1 = mText(msg, d, { fz: 36, display: 'inline-box' });
 	let sym = symbolDict.speaker;
 	let d2 = mText(sym.text, d, {
-		fz: 38, weight: 900, display: 'inline-block',
+		fz: 38, weight: 900, display: 'inline-box',
 		family: sym.family, 'padding-left': 14
 	});
 	dFeedback = dInstruction = d;
@@ -288,57 +287,3 @@ function levelStep13() {
 
 
 
-function evaluate_dep() {
-	GameState = GFUNC[currentGame].eval(...arguments);
-
-	//console.log('GameState after eval', GameState)
-	switch (GameState) {
-		case STATES.CORRECT:
-			setScore(true);
-			DELAY = 1500;
-			updateLevel();
-			successPictureGoal();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-		case STATES.NEXTTRIAL: break;
-		case STATES.INCORRECT:
-			setScore(false);
-			DELAY = 3000;
-			showCorrectWord();
-			failPictureGoal(false);
-			updateLevel();
-			console.log('new level is', level)
-			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-	}
-
-}
-function evalSpeechResult(speechResult) {
-	GameState = GFUNC[currentGame].eval(...arguments);
-
-	//console.log('GameState after eval', GameState)
-	switch (GameState) {
-		case STATES.CORRECT:
-			setScore(true);
-			DELAY = 1500;
-			updateLevel();
-			successPictureGoal();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-		case STATES.NEXTTRIAL: break;
-		case STATES.INCORRECT:
-			setScore(false);
-			DELAY = 3000;
-			showCorrectWord();
-			failPictureGoal(false);
-			updateLevel();
-			console.log('new level is', level)
-			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-	}
-
-}

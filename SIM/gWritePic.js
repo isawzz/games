@@ -40,7 +40,7 @@ function activateWP() {
 		if (ev.key === "Enter") {
 			ev.cancelBubble = true;
 			console.log('eval!')
-			evalPictureGoal(ev);
+			evaluate(ev);
 		}
 	};
 	inputBox.focus();

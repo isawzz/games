@@ -1,4 +1,4 @@
-function initSP() {
+function initWP() {
 	onkeydown = ev => {
 		if (isdef(inputBox)) inputBox.focus();
 	}
@@ -8,16 +8,16 @@ function initSP() {
 	console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
 
 }
-function roundSP() {
+function roundWP() {
 	trialNumber = 0;
 }
-function promptSP() {
+function promptWP() {
 
 	trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal(true);
 
-	showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle);
+	showInstruction(bestWord, currentLanguage == 'E' ? 'type' : "schreib'", dTitle);
 
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
@@ -25,25 +25,33 @@ function promptSP() {
 
 	return 10;
 }
-function trialPromptSP() {
+function trialPrompt() {
 	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	trialNumber += 1;
-	activateSP();
+	mLinebreak(dTable);
+	inputBox = addNthInputElement(dTable, trialNumber);
+	defaultFocusElement = inputBox.id;
+	activateWP();
 }
-function activateSP() {
-	//console.log('should activate SayPic UI')
-	setTimeout(()=>{
-		console.log('calling _record!!!')
-		record(currentLanguage,bestWord);
-	},4000);
+function activateWP() {
+	console.log('should activate WritePic UI')
+	inputBox.onkeyup = ev => {
+		if (ev.ctrlKey) return;
+		if (ev.key === "Enter") {
+			ev.cancelBubble = true;
+			console.log('eval!')
+			evaluate(ev);
+		}
+	};
+	inputBox.focus();
 }
-function evalSP(speechResult) {
-	let answer = normalize(speechResult, currentLanguage);
+function evalWP(ev) {
+	let answer = normalize(inputBox.value, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	console.log('eval SayPic', answer, reqAnswer)
+	console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (trialNumber < MaxNumTrials) {
-		trialPromptSP();
+		trialPrompt();
 		return STATES.NEXTTRIAL;
 	} else {
 		Selected = null;
