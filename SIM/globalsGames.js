@@ -47,10 +47,9 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		//console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
+		if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id,info);
 		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
 	}
-
-
 }
 function activateUi() {
 	GFUNC[currentGame].activate();

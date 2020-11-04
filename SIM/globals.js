@@ -125,6 +125,7 @@ function setDefaults(game) {
 	MAX_WORD_LENGTH = DEFAULTS_PER_GAME[game].MAX_WORD_LENGTH;
 	MAXLEVEL = DEFAULTS_PER_GAME[game].MAXLEVEL;
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
+
 }
 
 

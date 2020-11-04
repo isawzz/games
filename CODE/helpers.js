@@ -2810,7 +2810,7 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 }
 //#endregion
 
-//#region objects, dictionaries, lists, arrays
+//#region ARRAY objects, dictionaries, lists, arrays
 function range(f, t, st = 1) {
 	let arr = [];
 	//console.log(f,t)
@@ -3782,6 +3782,10 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	}
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
+}
+function nRandomNumbers(n,from,to,step){
+	let arr = range(from,to,step);
+	return choose(arr,n);
 }
 function choose(arr, n) {
 
