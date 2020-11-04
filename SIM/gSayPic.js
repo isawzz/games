@@ -1,7 +1,4 @@
 function initSP() {
-	onkeydown = ev => {
-		if (isdef(inputBox)) inputBox.focus();
-	}
 	NumPics = 1;
 	MaxNumTrials = 3;
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);

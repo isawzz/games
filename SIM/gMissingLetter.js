@@ -1,11 +1,8 @@
 function initML() {
-	onkeydown = ev => {
-		if (isdef(inputBox)) inputBox.focus();
-	}
 	NumPics = 1;
-	MaxNumTrials = 3;
+	MaxNumTrials = 1;
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
-	console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
+	//console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
 
 }
 function roundML() {
@@ -14,7 +11,7 @@ function roundML() {
 function promptML() {
 
 	trialNumber += 1;
-	showPictures(true, () => mBy(defaultFocusElement).focus());
+	showPictures(true,()=>fleetingMessage('just enter the missing letter!'));
 	setGoal(true);
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
@@ -57,40 +54,36 @@ function buildWordFromLetters(d){
  let letters = Array.from(d.children);
  let s=letters.map(x=>x.innerHTML);
  s=s.join('')
- console.log('s is',s);
+ //console.log('s is',s);
  return s;
 }
 function activateML() {
-	console.log('should activate WritePic UI')
+	//console.log('should activate WritePic UI')
 	onkeydown = ev => {
-		if (hasClicked) return;
+		if (uiPaused) return;
 		
 		var inp = ev.key.toString(); //String.fromCharCode(ev.keyCode);
-		console.log('inp',inp);
+		//console.log('inp',inp);
 		if (/[a-zA-Z0-9-_ ]/.test(inp)){
 			inputBox.innerHTML = inp.toUpperCase();
 			mRemoveClass(inputBox,'blink');
-			hasClicked = true;
 			let result = buildWordFromLetters(mBy('dLetters'));
 			evaluate(result);
 		}
 	}
 }
 function evalML(word) {
-
-
-	return STATES.CORRECT;
-	// let answer = normalize(inputBox.value, currentLanguage);
-	// let reqAnswer = normalize(bestWord, currentLanguage);
-	// console.log('eval WritePic', answer, reqAnswer)
-	// if (answer == reqAnswer) return STATES.CORRECT;
-	// else if (trialNumber < MaxNumTrials) {
-	// 	trialPromptML();
-	// 	return STATES.NEXTTRIAL;
-	// } else {
-	// 	Selected = null;
-	// 	return STATES.INCORRECT;
-	// }
+	let answer = normalize(word, currentLanguage);
+	let reqAnswer = normalize(bestWord, currentLanguage);
+	//console.log('eval MissingLetter', answer, reqAnswer)
+	if (answer == reqAnswer) return STATES.CORRECT;
+	else if (trialNumber < MaxNumTrials) {
+		trialPromptML();
+		return STATES.NEXTTRIAL;
+	} else {
+		Selected = null;
+		return STATES.INCORRECT;
+	}
 }
 
 

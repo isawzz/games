@@ -10,7 +10,7 @@ var timeout1, timeout2;
 function say(text, r = .5, p = .8, v = .5, interrupt=true, voiceDescriptor) {
 	if (isdef(synth) && synth.speaking) {
 		if (!interrupt) return;
-		console.error('speechSynthesis.speaking');
+		//console.error('speechSynthesis.speaking');
 		synth.cancel();
 		if (isdef(timeout1)) clearTimeout(timeout1);
 		timeout1 = setTimeout(() => say(text, r, p, v,interrupt, voiceDescriptor), 500);

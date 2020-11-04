@@ -17,12 +17,9 @@ function promptTP() {
 	return 10;
 }
 function activateTP() {
-	//console.log('should activate TouchPic UI');
 	uiActivated = true;
 }
 function evalTP(ev) {
-	if (hasClicked) return;
-	hasClicked = true;
 	let id = evToClosestId(ev);
 	ev.cancelBubble = true;
 

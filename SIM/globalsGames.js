@@ -1,8 +1,7 @@
 
-
-
 function startGame(game) {
 	if (isdef(game)) currentGame = game;
+	setDefaults(IS_TESTING? 'testLevels':currentGame);
 	resetState();
 	GFUNC[currentGame].init();
 	GameState = STATES.GAME_INITIALIZED;
@@ -13,7 +12,7 @@ function startGame(game) {
 function startRound() {
 	GFUNC[currentGame].initRound();
 	GameState = STATES.ROUND_INITIALIZED;
-	console.log('pics:' + NumPics, 'keySet has', keySet.length, 'entries')
+	//console.log('pics:' + NumPics, 'keySet has', keySet.length, 'entries')
 
 	let delay = presentPrompt();
 
@@ -22,7 +21,8 @@ function startRound() {
 
 }
 function presentPrompt() {
-	hasClicked = false;
+	beforeActivationUI();
+	
 	Selected = null;
 	dTable = dLineTableMiddle;
 	dTitle = dLineTitleMiddle;
@@ -33,8 +33,6 @@ function presentPrompt() {
 }
 function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 	Pictures = [];
-
-
 	let keys = choose(keySet, NumPics);
 	//keys=['hot beverage','dvd']
 
@@ -46,7 +44,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
 		let label = bestWordIsShortest ? getShortestWord(info.words, false) : last(info.words);
-		console.log(info.key, info)
+		//console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
 		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
@@ -56,9 +54,12 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 }
 function activateUi() {
 	GFUNC[currentGame].activate();
+	activationUI();
 }
 
 function evaluate() {
+	if (uiPaused) return;
+	hasClickedUI();
 	GameState = GFUNC[currentGame].eval(...arguments);
 
 	//console.log('GameState after eval', GameState)
@@ -153,8 +154,8 @@ function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }
 function resetState() {
+	uiPaused=0;
 	lastPosition = 0;
-	hasClicked = false;
 	DELAY = 1000;
 
 	badges = [];
@@ -287,57 +288,3 @@ function levelStep13() {
 
 
 
-function evaluate_dep() {
-	GameState = GFUNC[currentGame].eval(...arguments);
-
-	//console.log('GameState after eval', GameState)
-	switch (GameState) {
-		case STATES.CORRECT:
-			setScore(true);
-			DELAY = 1500;
-			updateLevel();
-			successPictureGoal();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-		case STATES.NEXTTRIAL: break;
-		case STATES.INCORRECT:
-			setScore(false);
-			DELAY = 3000;
-			showCorrectWord();
-			failPictureGoal(false);
-			updateLevel();
-			console.log('new level is', level)
-			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-	}
-
-}
-function evalSpeechResult(speechResult) {
-	GameState = GFUNC[currentGame].eval(...arguments);
-
-	//console.log('GameState after eval', GameState)
-	switch (GameState) {
-		case STATES.CORRECT:
-			setScore(true);
-			DELAY = 1500;
-			updateLevel();
-			successPictureGoal();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-		case STATES.NEXTTRIAL: break;
-		case STATES.INCORRECT:
-			setScore(false);
-			DELAY = 3000;
-			showCorrectWord();
-			failPictureGoal(false);
-			updateLevel();
-			console.log('new level is', level)
-			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
-			else { setTimeout(startRound, DELAY); }
-			break;
-	}
-
-}

@@ -1,3 +1,25 @@
+#allGamesDiv button{
+	text-align:center;
+	border-radius:8px;
+	background:dimgray;
+	color:white;
+	font-size:10px;
+  border: none;
+  outline: none;
+	cursor:pointer;
+	margin: 10px;
+	width:240px;
+	min-height:220px;
+}
+#allGamesDiv button:hover{
+	background:#00000080;
+}
+#allGamesDiv button:active{
+	background:#ffffff80;
+}
+.gameImage{
+	border-radius:8px;
+}
 #dSettings{
 	position: fixed;
 	left: 1%;

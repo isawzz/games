@@ -501,24 +501,6 @@ input[type="checkbox"]:focus+label::before {
 
 	/* #endregion animations */
 
-.frameOnHover:hover{
-	opacity: .8;
-	/* border: solid 1px yellow; */
-}
-.frameOnHover:active:hover{
-	background: red;
-	/* border: solid 1px yellow; */
-}
-.wdiv:active:hover {
-  color: white;
-  background: rebeccapurple;
-  /* animation: active 0s;
-  -moz-animation: active 0s;
-  -webkit-animation: active 0s; */
-}
-
-
-
 
 
 

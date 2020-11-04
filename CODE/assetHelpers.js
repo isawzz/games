@@ -16,8 +16,8 @@ function mpGridLabeled(dParent, list, picLabelStyles) {
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	//console.log(size);
 }
-function removeBadges(dParent, level){
-	while(badges.length > level){
+function removeBadges(dParent, level) {
+	while (badges.length > level) {
 		let badge = badges.pop()
 		removeElem(badge.div);
 	}
@@ -115,9 +115,25 @@ function mpOver(d, dParent, fz, color, picStyle) {
 	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
 	return d;
 }
+function labelToggler(ev) {
+	let id = evToClosestId(ev);
+	let info = symbolDict[id.substring(1)];
+	if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
+	mBy('dummy').focus();
+}
+function mpSimpleButton(key, dParent, handler) {
+	let info = symbolDict[key];
+	let label = stringAfterLast(info.E, '|');
+	let st = { w: 200, h: 200, bg: 'random', fgPic: 'random', fgText: 'contrast' };
+	//let handler = null;
+	let stylesForLabelButton = { rounding: 10, margin: 24 };
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+	let d1 = maPicLabelButtonFitText(info, label, st, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+	return d1;
+}
 function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
 	//maPicLabelButtonFitText
-	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
+	if (nundef(handler)) handler = labelToggler; // (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bg, 'transparent', fgPic, fgText, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
 	x.id = 'd' + info.key;
@@ -125,6 +141,7 @@ function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, st
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
 	x.style.userSelect = 'none';
+	mClass(x,classes);
 	return x;
 }
 function mpBadge(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
@@ -550,6 +567,7 @@ function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
 	x.style.userSelect = 'none';
+	mClass(x,classes);
 	return x;
 }
 function maPicLabelButtonXX(info, label, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {

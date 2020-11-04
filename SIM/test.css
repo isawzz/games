@@ -49,33 +49,11 @@ div{
 	flex-grow: 10;
 	/* background-color: orange; */
 }
-#allGamesDiv button{
-	text-align:center;
-	border-radius:8px;
-	background:dimgray;
-	color:white;
-	font-size:10px;
-  border: none;
-  outline: none;
-	cursor:pointer;
-	margin: 10px;
-	width:240px;
-	min-height:220px;
-}
-#allGamesDiv button:hover{
-	background:#00000080;
-}
-#allGamesDiv button:active{
-	background:#ffffff80;
-}
-.gameImage{
-	border-radius:8px;
-}
 #dGear{
 	position: fixed;
 	display: inline-block;
-	bottom: 10px;
-	right: 10px;
+	bottom: 20px;
+	right: 20px;
 	cursor:pointer;
 	/* background:blue; */
 }
@@ -387,6 +365,12 @@ input[type="checkbox"]:focus+label::before {
 	100% { transform: scale(1); } */
 }
 
+.transopaOff{	opacity:0;transition: opacity 5s ease-in-out;}
+.transopaOn{	opacity:1;transition: opacity .5s ease-in-out;}
+.transitionOpacity{	transition: opacity 5s ease-in-out;}
+.aniFadeInOut{ animation: fadeinout 5s ease-in-out 0s 1;}
+.aniSlowlyDisappear{ animation: fadeinout 5s ease-out 0s 1 forwards;}
+
 .aniFadeOut{ animation: example .5s ease-in-out 0s 1 reverse;}
 .aniFadeIn{ animation: example .5s ease-in-out;}
 .aniFadeOutIn{ animation: fadeoutin 2s ease-in-out;}
@@ -511,14 +495,6 @@ input[type="checkbox"]:focus+label::before {
 
 	/* #endregion animations */
 
-.frameOnHover:hover{
-	opacity: .8;
-	/* border: solid 1px yellow; */
-}
-.frameOnHover:active:hover{
-	background: red;
-	/* border: solid 1px yellow; */
-}
 .wdiv:active:hover {
   color: white;
   background: rebeccapurple;

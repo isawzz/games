@@ -2034,7 +2034,13 @@ function isVisible(elem) { // Where el is the DOM element you'd like to test for
 	//console.log(elem)
 	if (isString(elem)) elem = document.getElementById(elem);
 
-	return (elem.offsetParent !== null)
+	return (elem.offsetParent !== null);
+}
+function isVisible2(elem) { // Where el is the DOM element you'd like to test for visibility
+	//console.log(elem)
+	if (isString(elem)) elem = document.getElementById(elem);
+
+	return (elem.style.display!='none' || elem.offsetParent !== null);
 }
 function show(elem) {
 	if (isString(elem)) elem = document.getElementById(elem);

@@ -1,11 +1,16 @@
 function initWP() {
 	onkeydown = ev => {
-		if (isdef(inputBox)) inputBox.focus();
+		if (uiPaused) return;
+		console.log('gWritePic: keydown')
+		if (isdef(inputBox)) {
+			// console.log('inputBox is visible and exists!')
+			inputBox.focus();
+		}
 	}
 	NumPics = 1;
 	MaxNumTrials = 3;
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
-	console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
+	//console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
 
 }
 function roundWP() {
@@ -34,12 +39,12 @@ function trialPromptWP() {
 	activateWP();
 }
 function activateWP() {
-	console.log('should activate WritePic UI')
+	//console.log('should activate WritePic UI')
 	inputBox.onkeyup = ev => {
-		if (ev.ctrlKey) return;
+		if (ev.ctrlKey || uiPaused) return;
 		if (ev.key === "Enter") {
 			ev.cancelBubble = true;
-			console.log('eval!')
+			//console.log('eval!')
 			evaluate(ev);
 		}
 	};

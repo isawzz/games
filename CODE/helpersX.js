@@ -59,7 +59,7 @@ function mStyleX(elem, styles, unit = 'px') {
 			elem.style.setProperty(k, s);
 			continue;
 		} else if (k == 'border') {
-			console.log('________________________YES!')
+			//console.log('________________________YES!')
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		}
 

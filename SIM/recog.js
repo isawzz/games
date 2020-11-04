@@ -1,7 +1,6 @@
 var isRunning = false;
 var callback = null;
 var recognition;
-
 var grammar;
 
 function record(lang, best) {

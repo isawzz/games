@@ -45,22 +45,22 @@
 			document.querySelector('button[type="submit"]').click();
 		}
 
-		// function say(s) {
-		// 	var utt = new SpeechSynthesisUtterance();
-		// 	utt.text = s;
-		// 	say.queue.push(utt);
-		// 	$("html").addClass("hide")
-		// }
+		function say(s) {
+			var utt = new SpeechSynthesisUtterance();
+			utt.text = s;
+			say.queue.push(utt);
+			$("html").addClass("hide")
+		}
 
-		// function deQueue() {
-		// 	if (say.queue.length) {
-		// 		speechSynthesis.speak(say.queue.pop());
-		// 		$("html").removeClass("hide")
-		// 	}
-		// }
-		// say.queue = [];
-		// $(document).on("mousemove", deQueue)
-		// say("hello")
+		function deQueue() {
+			if (say.queue.length) {
+				speechSynthesis.speak(say.queue.pop());
+				$("html").removeClass("hide")
+			}
+		}
+		say.queue = [];
+		$(document).on("mousemove", deQueue)
+		say("hello")
 
 
 
