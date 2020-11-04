@@ -54,13 +54,13 @@ div{
 	border-radius:8px;
 	background:dimgray;
 	color:white;
-	font-size:12px;
+	font-size:10px;
   border: none;
   outline: none;
 	cursor:pointer;
 	margin: 10px;
-	width:300px;
-	min-height:280px;
+	width:240px;
+	min-height:220px;
 }
 #allGamesDiv button:hover{
 	background:#00000080;
@@ -79,22 +79,6 @@ div{
 	cursor:pointer;
 	/* background:blue; */
 }
-/* #dLetters{
-	display: flex;
-	justify-content: center;
-	align-content: center;
-}
-#dLetters input{
-	display: inline-block;
-	background-color: transparent;
-	font-size: 60px;
-	font-family: consolas;
-	outline: none;
-	border: none;
-	text-align: center;
-	width: 30px;
-
-} */
 #dSpeaker{
 	position: fixed;
 	display: inline-block;
@@ -104,9 +88,6 @@ div{
 	/* background:blue; */
 
 }
-/* #dInput_{
-	margin-top:25px;
-} */
 #table{
 	flex: 0 0 auto;
 	/* height: -moz-calc(100% - (20px + 30px));

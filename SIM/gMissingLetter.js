@@ -17,7 +17,7 @@ function promptML() {
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal(true);
 
-	showInstruction(bestWord, currentLanguage == 'E' ? 'type' : "schreib'", dTitle);
+	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
 
 	mLinebreak(dTable);
 
@@ -78,7 +78,7 @@ function activateML() {
 }
 function evalML(word) {
 
-	
+
 	return STATES.CORRECT;
 	// let answer = normalize(inputBox.value, currentLanguage);
 	// let reqAnswer = normalize(bestWord, currentLanguage);

@@ -131,7 +131,6 @@ function updateLevel() {
 	}
 }
 
-
 //#region helpers
 function addNthInputElement(dParent, n) {
 	mLinebreak(dParent, 10);
