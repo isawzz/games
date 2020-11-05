@@ -12,7 +12,6 @@ const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 let levelKeys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
 'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
 'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
-var level = 0;
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 let badges=[];
 

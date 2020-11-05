@@ -87,7 +87,7 @@ function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 	let isText = true; let isOmoji = false;
 
 	for (let i = 0; i < keys.length; i++) {
-		console.log(keys[i]);
+		//console.log(keys[i]);
 		let k = replaceAll(keys[i], ' ', '-');
 		let info = symbolDict[k];
 
@@ -235,7 +235,8 @@ function makeHigherOrderGroups() {
 }
 function getKeySet(groupName, language, maxlength) {
 	setGroup(groupName);
-	let keys = isdef(maxlength) && maxlength > 0 ? emoGroupKeys.filter(x => lastOfLanguage(x, language).length <= maxlength)
+	let keys = isdef(maxlength) && maxlength > 0 ? 
+		emoGroupKeys.filter(x => lastOfLanguage(x, language).length <= maxlength)
 		: emoGroupKeys;
 	//console.log('keySet',keys.map(x=>lastOfLanguage(x)));
 

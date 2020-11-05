@@ -1,15 +1,27 @@
-var IS_TESTING = true;
-var currentGame = 'gMissingLetter'; // gWritePic | gTouchPic | gSayPic | gMissingLetter
-var currentLanguage = 'E';
-var WORD_GROUPS = ['nosymbols']; // 
-var MAX_WORD_LENGTH = [3, 4, 5, 7, 10, 111];
-var SHOW_LABEL_UP_TO_LEVEL = 0;
-var PICS_PER_LEVEL = 10;
+var HARDCODED = {
+	currentUser: 'Gunter',
+
+	currentGame: 'gMissingLetter', //gWritePic | gTouchPic | gSayPic | gMissingLetter
+	currentLanguage: 'E',
+	level: 0,
+
+	PICS_PER_LEVEL: 5,
+	WORD_GROUPS: ['nosymbols'],
+
+	MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 111],
+	SHOW_LABEL_UP_TO_LEVEL: 2,
+	MAXLEVEL: 6,
+};
+
+const IS_TESTING = false;
+const RESET_TO_HARDCODED = false;
 USE_LOCAL_STORAGE = true;
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
 
+var currentGame, currentUser, level, currentLanguage, WORD_GROUPS, MAX_WORD_LENGTH, SHOW_LABEL_UP_TO_LEVEL, PICS_PER_LEVEL, MAXLEVEL;
+var skipLevelAnimation = IS_TESTING; //false
+
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
-var MAXLEVEL = 7;
 var DELAY = 1000;
 
 const STATES = {
@@ -26,7 +38,6 @@ var MaxNumTrials;
 var Pictures = [];
 var Goal, Selected;
 
-var level = 0;
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 let badges = [];
 
@@ -81,51 +92,63 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 //testing
 var timit;
 
+//user info
+var settingsPerUser;
+const DEFAULTS_PER_USER = {
+	Gunter: {
+		perGame: {
+			testLevels: { highestLevel: 0 },
+			gMissingLetter: { highestLevel: 0 },
+			gTouchPic: { highestLevel: 0 },
+			gWritePic: { highestLevel: 0 },
+			gSayPic: { highestLevel: 0 },
+
+		},
+		lastPlayed: { game: 'gMissingLetter', level: 0 },
+	}
+};
+
+
 //defaults per game
+var settingsPerGame;
+
+//these will be loaded when a new game starts!
 const DEFAULTS_PER_GAME = {
 	testLevels: {
 		PICS_PER_LEVEL: 1,
 		WORD_GROUPS: ['nosymbols'],
-		MAX_WORD_LENGTH: [100],
+		MAX_WORD_LENGTH: [12],
 		MAXLEVEL: 6,
 		SHOW_LABEL_UP_TO_LEVEL: 0,
 	},
 	gMissingLetter: {
 		PICS_PER_LEVEL: 20,
 		WORD_GROUPS: ['nosymbols'],
-		MAX_WORD_LENGTH: [100],
+		MAX_WORD_LENGTH: [12],
 		MAXLEVEL: 6,
 		SHOW_LABEL_UP_TO_LEVEL: 2,
 	},
 	gTouchPic: {
 		PICS_PER_LEVEL: 10,
 		WORD_GROUPS: ['nosymbols'],
-		MAX_WORD_LENGTH: [4, 6, 100],
+		MAX_WORD_LENGTH: [4, 6, 12],
 		MAXLEVEL: 6,
 		SHOW_LABEL_UP_TO_LEVEL: 2,
 	},
 	gWritePic: {
 		PICS_PER_LEVEL: 5,
 		WORD_GROUPS: ['nosymbols'],
-		MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 111],
+		MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 12],
 		MAXLEVEL: 6,
-		SHOW_LABEL_UP_TO_LEVEL: 2,
+		SHOW_LABEL_UP_TO_LEVEL: 4,
 	},
 	gSayPic: {
 		PICS_PER_LEVEL: 15,
 		WORD_GROUPS: ['nosymbols'],
-		MAX_WORD_LENGTH: [4, 6, 8, 100],
+		MAX_WORD_LENGTH: [4, 6, 8, 12],
 		MAXLEVEL: 6,
 		SHOW_LABEL_UP_TO_LEVEL: 2,
 	}
-}
-function setDefaults(game) {
-	PICS_PER_LEVEL = DEFAULTS_PER_GAME[game].PICS_PER_LEVEL;
-	WORD_GROUPS = DEFAULTS_PER_GAME[game].WORD_GROUPS;
-	MAX_WORD_LENGTH = DEFAULTS_PER_GAME[game].MAX_WORD_LENGTH;
-	MAXLEVEL = DEFAULTS_PER_GAME[game].MAXLEVEL;
-	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
-
 }
 
 

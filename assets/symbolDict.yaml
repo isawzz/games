@@ -37494,7 +37494,7 @@ eight o’clock:
   group: travel-places
   subgroups: time
   E: '8|8:00|clock|eight|eight o’clock'
-  D: '8|8:00|acht uhr|acht|uhr'
+  D: '8|8:00|acht uhr|acht'
   hex: 1F557
   family: emoNoto
   text: '&#128343;'
@@ -37605,7 +37605,7 @@ eight-thirty:
   group: travel-places
   subgroups: time
   E: '830|8:30|clock|eight|eight thirty'
-  D: '8:30|acht uhr dreissig|halb neun|uhr'
+  D: '8:30|acht uhr dreissig|halb neun'
   hex: 1F563
   family: emoNoto
   text: '&#128355;'
@@ -37924,7 +37924,7 @@ eleven o’clock:
   group: travel-places
   subgroups: time
   E: '11|11:00|clock|eleven|eleven o’clock'
-  D: '11|11:00|elf uhr|elf|uhr'
+  D: '11|11:00|elf uhr|elf'
   hex: 1F55A
   family: emoNoto
   text: '&#128346;'
@@ -37956,7 +37956,7 @@ eleven-thirty:
   group: travel-places
   subgroups: time
   E: '1130|11:30|clock|eleven|eleven thirty'
-  D: '11:30|elf uhr dreissig|halb zwölf|uhr'
+  D: '11:30|elf uhr dreissig|halb zwölf'
   hex: 1F566
   family: emoNoto
   text: '&#128358;'
@@ -44251,7 +44251,7 @@ five o’clock:
   group: travel-places
   subgroups: time
   E: '5|5:00|clock|five|five o’clock'
-  D: '5|5:00|fünf uhr|fünf|uhr'
+  D: '5|5:00|fünf uhr|fünf'
   hex: 1F554
   family: emoNoto
   text: '&#128340;'
@@ -44283,7 +44283,7 @@ five-thirty:
   group: travel-places
   subgroups: time
   E: '530|5:30|clock|five|five thirty'
-  D: '5:30|fünf uhr dreissig|halb sechs|uhr'
+  D: '5:30|fünf uhr dreissig|halb sechs'
   hex: 1F560
   family: emoNoto
   text: '&#128352;'
@@ -46766,7 +46766,7 @@ four o’clock:
   group: travel-places
   subgroups: time
   E: '4|4:00|clock|four|four o’clock|4h'
-  D: '4|4:00|vier uhr|vier|uhr'
+  D: '4|4:00|vier uhr|vier'
   hex: 1F553
   family: emoNoto
   text: '&#128339;'
@@ -46798,7 +46798,7 @@ four-thirty:
   group: travel-places
   subgroups: time
   E: '430|4:30|clock|four|four thirty|4h30'
-  D: '4:30|4h30|vier uhr dreissig|halb fünf|uhr'
+  D: '4:30|4h30|vier uhr dreissig|halb fünf'
   hex: 1F55F
   family: emoNoto
   text: '&#128351;'
@@ -79351,7 +79351,7 @@ nine o’clock:
   group: travel-places
   subgroups: time
   E: '9|9:00|clock|nine|nine o’clock'
-  D: '9|9:00|neun uhr|neun|uhr'
+  D: '9|9:00|neun uhr|neun'
   hex: 1F558
   family: emoNoto
   text: '&#128344;'
@@ -79383,7 +79383,7 @@ nine-thirty:
   group: travel-places
   subgroups: time
   E: '930|9:30|clock|nine|nine thirty'
-  D: '9:30|neun uhr dreissig|halb zehn|uhr'
+  D: '9:30|neun uhr dreissig|halb zehn'
   hex: 1F564
   family: emoNoto
   text: '&#128356;'
@@ -81178,7 +81178,7 @@ one o’clock:
   group: travel-places
   subgroups: time
   E: '1|1:00|clock|one|one o’clock'
-  D: '1|1:00|ein uhr|eins|uhr'
+  D: '1|1:00|ein uhr|eins'
   hex: 1F550
   family: emoNoto
   text: '&#128336;'
@@ -81261,7 +81261,7 @@ one-thirty:
   group: travel-places
   subgroups: time
   E: '130|1:30|clock|one|one thirty'
-  D: '1:30|ein uhr dreissig|halb zwei|uhr'
+  D: '1:30|ein uhr dreissig|halb zwei'
   hex: 1F55C
   family: emoNoto
   text: '&#128348;'
@@ -98439,7 +98439,7 @@ seven o’clock:
   group: travel-places
   subgroups: time
   E: '7|7:00|clock|seven|seven o’clock'
-  D: '7|7:00|sieben uhr|sieben|uhr'
+  D: '7|7:00|sieben uhr|sieben'
   hex: 1F556
   family: emoNoto
   text: '&#128342;'
@@ -98491,7 +98491,7 @@ seven-thirty:
   group: travel-places
   subgroups: time
   E: '730|7:30|clock|seven|seven thirty'
-  D: '7:30|sieben uhr dreissig|halb acht|uhr'
+  D: '7:30|sieben uhr dreissig|halb acht'
   hex: 1F562
   family: emoNoto
   text: '&#128354;'
@@ -101039,7 +101039,7 @@ six o’clock:
   group: travel-places
   subgroups: time
   E: '6|6:00|clock|six|six o’clock'
-  D: '6|6:00|sechs uhr|sechs|uhr'
+  D: '6|6:00|sechs uhr|sechs'
   hex: 1F555
   family: emoNoto
   text: '&#128341;'
@@ -101090,7 +101090,7 @@ six-thirty:
   group: travel-places
   subgroups: time
   E: '630|6:30|clock|six|six thirty'
-  D: '6:30|sechs uhr dreissig|halb sieben|uhr'
+  D: '6:30|sechs uhr dreissig|halb sieben'
   hex: 1F561
   family: emoNoto
   text: '&#128353;'
@@ -113545,7 +113545,7 @@ ten o’clock:
   group: travel-places
   subgroups: time
   E: '10|10:00|clock|ten|ten o’clock'
-  D: '10|10:00|zehn uhr|zehn|uhr'
+  D: '10|10:00|zehn uhr|zehn'
   hex: 1F559
   family: emoNoto
   text: '&#128345;'
@@ -113577,7 +113577,7 @@ ten-thirty:
   group: travel-places
   subgroups: time
   E: '1030|10:30|clock|ten|ten thirty'
-  D: '10:30|zehn uhr dreissig|halb elf|uhr'
+  D: '10:30|zehn uhr dreissig|halb elf'
   hex: 1F565
   family: emoNoto
   text: '&#128357;'
@@ -114638,7 +114638,7 @@ three o’clock:
   group: travel-places
   subgroups: time
   E: '3|3:00|clock|three|three o’clock'
-  D: '3|3:00|drei uhr|drei|uhr'
+  D: '3|3:00|drei uhr|drei'
   hex: 1F552
   family: emoNoto
   text: '&#128338;'
@@ -114767,7 +114767,7 @@ three-thirty:
   group: travel-places
   subgroups: time
   E: '330|3:30|clock|three|three thirty'
-  D: '3:30|drei uhr dreissig|halb vier|uhr'
+  D: '3:30|drei uhr dreissig|halb vier'
   hex: 1F55E
   family: emoNoto
   text: '&#128350;'
@@ -118864,7 +118864,7 @@ twelve o’clock:
   group: travel-places
   subgroups: time
   E: '12|12:00|clock|twelve|twelve o’clock'
-  D: '12|12:00|zwölf uhr|mittag|mitternacht|zwölf|uhr'
+  D: '12|12:00|zwölf uhr|mittag|mitternacht|zwölf'
   hex: 1F55B
   family: emoNoto
   text: '&#128347;'
@@ -118899,7 +118899,7 @@ twelve-thirty:
   group: travel-places
   subgroups: time
   E: '1230|12:30|clock|twelve|twelve thirty'
-  D: '12:30|clock|zwölf uhr dreissig|halb eins|uhr'
+  D: '12:30|clock|zwölf uhr dreissig|halb eins'
   hex: 1F567
   family: emoNoto
   text: '&#128359;'
@@ -119038,7 +119038,7 @@ two o’clock:
   group: travel-places
   subgroups: time
   E: '2|2:00|clock|two|two o’clock'
-  D: '2|2:00|zwei uhr|zwei|hr'
+  D: '2|2:00|zwei uhr|zwei'
   hex: 1F551
   family: emoNoto
   text: '&#128337;'
@@ -119147,7 +119147,7 @@ two-thirty:
   group: travel-places
   subgroups: time
   E: '230|2:30|clock|two|two thirty'
-  D: '2:30|zwei uhr dreissig|halb drei|uhr'
+  D: '2:30|zwei uhr dreissig|halb drei'
   hex: 1F55D
   family: emoNoto
   text: '&#128349;'

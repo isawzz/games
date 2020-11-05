@@ -1,21 +1,25 @@
-var NumMissingLetters;
-var inputs=[];
+var NumMissingLetters, nMissing;
+var inputs = [];
 function initML() {
 	NumPics = 1;
 	MaxNumTrials = 1;
+
+	console.log(WORD_GROUPS, currentLanguage, MAX_WORD_LENGTH, level);
+
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
 	//console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
 
 }
 function roundML() {
 	trialNumber = 0;
-	NumMissingLetters = level - SHOW_LABEL_UP_TO_LEVEL;
+	NumMissingLetters = level <= SHOW_LABEL_UP_TO_LEVEL ? (level + 1) : level;
+	//console.log('maxNumMissing:'+NumMissingLetters,'level:'+level,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
 function promptML() {
 
 	trialNumber += 1;
-	showPictures(true, () => fleetingMessage('just enter the missing letter!'));
-	setGoal(true);
+	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
+	setGoal(false);
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
 
@@ -23,31 +27,33 @@ function promptML() {
 
 	let d = mDiv(dTable);
 	d.id = 'dLetters';
+	inputs = [];
 	// let i=0;
 	for (let i = 0; i < bestWord.length; i++) {
 		let d1 = mCreate('div');
 		mAppend(d, d1);
 		d1.innerHTML = bestWord[i].toUpperCase();
-		inputs.push(d1);
+		//inputs.push(d1);
 		//mStyleX(d1,{display:'inline',w:60,align:'center',border:'none',outline:'none',family:'Consolas',fz:100});
 		mStyleX(d1, { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 });
 	}
 
 	//randomly choose one of the input boxes
 	let len = bestWord.length;
-	let nMissing = Math.min(len - 1, NumMissingLetters);
-	let indices = nRandomNumbers(nMissing,1,len-2);
-	for (let i = 0; i < indices; i++) {
-		let index=indices[i];
-		let inp = d.children[index];
-		inputBox.innerHTML = '_';
-		mClass(inputBox, 'blink');
-		inputs.push()
-		let rnd = randomNumber(1, bestWord.length - 2);
-	}
+	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
 
-	//inputBox.value='_';
-	//inputBox.focus();
+	let indices = nRandomNumbers(nMissing, 1, len - 2);
+	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
+
+	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)
+
+	for (let i = 0; i < nMissing; i++) {
+		let index = indices[i];
+		let inp = d.children[index];
+		inp.innerHTML = '_';
+		mClass(inp, 'blink');
+		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false });
+	}
 
 	mLinebreak(dTable);
 
@@ -70,16 +76,33 @@ function buildWordFromLetters(d) {
 }
 function activateML() {
 	//console.log('should activate WritePic UI')
-	onkeydown = ev => {
-		if (uiPaused) return;
+	onkeypress = ev => {
+		if (uiPaused || ev.ctrlKey || ev.altKey) return;
+		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
+		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
 
-		var inp = ev.key.toString(); //String.fromCharCode(ev.keyCode);
 		//console.log('inp',inp);
-		if (/[a-zA-Z0-9-_ ]/.test(inp)) {
-			inputBox.innerHTML = inp.toUpperCase();
-			mRemoveClass(inputBox, 'blink');
+		if (nMissing == 1) {
+			let d = inputs[0].div;
+			d.innerHTML = charEntered.toUpperCase();
+			mRemoveClass(d, 'blink');
 			let result = buildWordFromLetters(mBy('dLetters'));
 			evaluate(result);
+		} else {
+			let ch = charEntered.toUpperCase();
+			for (const inp of inputs) {
+				if (inp.letter == ch) {
+					//found a matching letter
+					let d = inp.div;
+					d.innerHTML = ch;
+					mRemoveClass(d, 'blink');
+					removeInPlace(inputs, inp);
+					nMissing -= 1;
+					return;
+				}
+			}
+			//if get to this place that input did not match!
+			//ignore for now!
 		}
 	}
 }
@@ -87,11 +110,12 @@ function evalML(word) {
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	//console.log('eval MissingLetter', answer, reqAnswer)
+	//console.log(allLettersContained(reqAnswer,answer))
 	if (answer == reqAnswer) return STATES.CORRECT;
-	else if (trialNumber < MaxNumTrials) {
-		trialPromptML();
-		return STATES.NEXTTRIAL;
-	} else {
+	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
+		return STATES.CORRECT;
+	}
+	else {
 		Selected = null;
 		return STATES.INCORRECT;
 	}

@@ -1,4 +1,100 @@
+function setDefaults(game) {
+	PICS_PER_LEVEL = DEFAULTS_PER_GAME[game].PICS_PER_LEVEL;
+	WORD_GROUPS = DEFAULTS_PER_GAME[game].WORD_GROUPS;
+	MAX_WORD_LENGTH = DEFAULTS_PER_GAME[game].MAX_WORD_LENGTH;
+	MAXLEVEL = DEFAULTS_PER_GAME[game].MAXLEVEL;
+	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
+
+}
+function initSettings() {
+	let iLanguage = mBy('input' + currentLanguage);
+	//console.log(iLanguage);
+	iLanguage.checked = true;
+	mBy('inputPicsPerLevel').value = PICS_PER_LEVEL;
+}
+
+function loadUser(user){
+	let userName = loadObject('lastUser');
+	if (nundef())
+	return userName;
+}
+function ensureSettings(){
+	if (nundef(settingsPerGame)) settingsPerGame = loadObject('settingsPerGame');
+	if (nundef(settingsPerGame)) {
+		settingsPerGame = DEFAULTS_PER_GAME;
+		saveObject(settingsPerGame,'settingsPerGame');
+	}
+	if (nundef(settingsPerUser)) settingsPerUser = loadObject('settingsPerUser');
+	if (nundef(settingsPerUser)) {
+		settingsPerUser = DEFAULTS_PER_USER;
+		saveObject(settingsPerUser,'settingsPerUser');
+	}
+}
+function loadSettings_dep(game,user) {
+	if (isdef(game)) currentGame = game;
+	if (isdef(user)) currentUser = user;
+
+	currentUser = loadLastUser();
+	if (nundef(currentUser)) currentUser = 'Gunter';
+
+	console.log('loading',currentUser);
+
+	let userSettings = settingsPerUser[currentUser];
+	currentGame = userSettings.lastPlayed;
+
+	let settings = settingsPerGame[game];
+	PICS_PER_LEVEL = settings.PICS_PER_LEVEL;
+	WORD_GROUPS = settings.WORD_GROUPS;
+	MAX_WORD_LENGTH = settings.MAX_WORD_LENGTH;
+	MAXLEVEL = settings.MAXLEVEL;
+
+	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
+
+	//userInfo = 
+
+}
+
+
+
 //#region SIM 4.11.20
+function evaluateAnswer(answer) {
+	//let origAnswer=null;
+	//if (currentLanguage == 'D') { origAnswer=answer.toUpperCase(); answer = convertUmlaute(answer); }
+	let words = matchingWords.map(x => x.toUpperCase());
+	let valid = isdef(validSounds) ? validSounds.map(x => x.toUpperCase()) : [];
+	//console.log('valid', valid)
+	answer = answer.toUpperCase();
+	console.log(convertUmlaute(answer), words, currentLanguage, interactMode, words.includes(convertUmlaute(answer)), currentLanguage == 'D' && interactMode == 'write' && words.includes(convertUmlaute(answer)));
+	if (words.includes(answer) || (currentLanguage == 'D' && interactMode == 'write' && words.includes(convertUmlaute(answer)))) {
+		if (level > 0) setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+		else scoreFunction2(true);
+		successMessage();
+		hintMessage.innerHTML = answer;
+		return true;
+	} else if (valid.includes(answer)) {
+		//this is a word that sounds just like bestWord!
+		if (level > 0) setScore(score + blanksInHintWordOrWordLength(hintWord, answer));
+		else scoreFunction2(true);
+		successMessage();
+		hintMessage.innerHTML = bestWord.toUpperCase();
+		return true;
+	} else {
+		//setScore(score - 1);
+		addHint();
+		if (bestWord == hintWord) {
+			trySomethingElseMessage();
+			if (level == 0) scoreFunction2(false); else setScore(score - 1);
+			//console.log('NICHT ERRATEN!!!!!!!!!');
+			//hintMessage.innerHTML = "let's try something else!";
+			return false;
+		} else {
+			failMessage();
+		}
+		//console.log('evaluateAnswer_: hintWord',hintWord,'bestWord',bestWord);
+
+		return false;
+	}
+}
 function evaluate_dep() {
 	GameState = GFUNC[currentGame].eval(...arguments);
 

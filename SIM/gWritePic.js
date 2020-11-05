@@ -31,11 +31,14 @@ function promptWP() {
 	return 10;
 }
 function trialPromptWP() {
+	console.log(uiPaused)
+	beforeActivationUI();activationUI();
 	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	trialNumber += 1;
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
 	defaultFocusElement = inputBox.id;
+	console.log('trial',trialNumber,'beforeActivation',uiPaused)
 	activateWP();
 }
 function activateWP() {

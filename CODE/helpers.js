@@ -3857,6 +3857,12 @@ function yesNo() { return tossCoin(50); }
 //#endregion
 
 //#region string functions
+function allLettersContained(sFull,sPart){
+	for(const ch of sPart){
+		if (!(sFull.includes(ch))) return false;
+	}
+	return true;
+}
 function normalize(text, language) {
 	text = text.toLowerCase();
 	if (language == 'D') {
@@ -3864,7 +3870,11 @@ function normalize(text, language) {
 	}
 	return text;
 }
-
+function isEnglishKeyboardGermanEquivalent(wreq,w){
+	wreq=fromUmlaut(wreq)
+	w=fromUmlaut(w);
+	return allLettersContained(wreq,w);
+}
 function convertUmlaute(w) {
 	//ue ü, ae ä, oe ö
 
@@ -3886,7 +3896,10 @@ function toUmlaut(w) {
 		w = replaceAll(w, 'ue', 'ü');
 		w = replaceAll(w, 'ae', 'ä');
 		w = replaceAll(w, 'oe', 'ö');
-		return w;
+		w = replaceAll(w, 'UE', 'Ü');
+		w = replaceAll(w, 'AE', 'Ä');
+		w = replaceAll(w, 'OE', 'Ö');
+			return w;
 	}
 }
 function fromUmlaut(w) {
@@ -3899,7 +3912,10 @@ function fromUmlaut(w) {
 		w = replaceAll(w, 'ü', 'ue');
 		w = replaceAll(w, 'ä', 'ae');
 		w = replaceAll(w, 'ö', 'oe');
-		return w;
+		w = replaceAll(w, 'Ü', 'UE');
+		w = replaceAll(w, 'Ä', 'AE');
+		w = replaceAll(w, 'Ö', 'OE');
+			return w;
 	}
 }
 function countLetters(s, letter) {

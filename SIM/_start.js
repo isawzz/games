@@ -6,17 +6,20 @@ const GFUNC = {
 }
 
 window.onload = SPEECHStart;
+window.onunload = saveSettings;
 
 async function SPEECHStart() {
+
+	//let x=allLettersContained('hallo','loa');console.log(x);return;
 	await loadAssets();
 	ensureSymBySet();
 	makeHigherOrderGroups();
 
 	initTable();
 	initSidebar();
-	initSettings();
+	initSettingsP0();
 
-	if (immediateStart) startGame(currentGame); else openSettings();
+	if (immediateStart) startGame(); else openSettings();
 }
 
 

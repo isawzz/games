@@ -1,7 +1,12 @@
 
 function startGame(game) {
+
+	onkeydown = null;
+	onkeypress = null;
+	onkeyup = null;
+
 	if (isdef(game)) currentGame = game;
-	setDefaults(IS_TESTING? 'testLevels':currentGame);
+	loadSettings(currentGame, currentUser);
 	resetState();
 	GFUNC[currentGame].init();
 	GameState = STATES.GAME_INITIALIZED;
@@ -22,7 +27,7 @@ function startRound() {
 }
 function presentPrompt() {
 	beforeActivationUI();
-	
+
 	Selected = null;
 	dTable = dLineTableMiddle;
 	dTitle = dLineTitleMiddle;
@@ -34,7 +39,8 @@ function presentPrompt() {
 function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 	Pictures = [];
 	let keys = choose(keySet, NumPics);
-	//keys=['hot beverage','dvd']
+	//keys=['egg']
+	//keys=['oil drum'];//,'door']
 
 	let stylesForLabelButton = { rounding: 10, margin: 24 };
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
@@ -44,10 +50,10 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
 		let label = bestWordIsShortest ? getShortestWord(info.words, false) : last(info.words);
-		//console.log(info.key, info)
+		console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
-		if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id,info);
+		if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
 		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
 	}
 }
@@ -78,7 +84,7 @@ function evaluate() {
 			showCorrectWord();
 			failPictureGoal(false);
 			updateLevel();
-			console.log('new level is', level)
+			//console.log('new level is', level)
 			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
 			else { setTimeout(startRound, DELAY); }
 			break;
@@ -153,12 +159,11 @@ function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }
 function resetState() {
-	uiPaused=0;
+	uiPaused = 0;
 	lastPosition = 0;
 	DELAY = 1000;
 
 	badges = [];
-	level = 0;
 	iGROUP = 0;
 
 	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
@@ -239,18 +244,30 @@ function showScore() {
 //#endregion
 
 //#region show Level Complete and Revert Level
-function showLevelComplete() {
-	playAudio();
-	mClass(mBy('dLevelComplete'), 'aniFadeInOut');
-	show('dLevelComplete');
-	setTimeout(levelStep10, 1500);
-}
 function removeBadgeAndRevertLevel() {
 	removeBadges(dLeiste, level);
 	setBackgroundColor();
 	showLevel();
 	showScore();
 	startRound();
+}
+
+function showLevelComplete() {
+	//console.log('skipLevelAnimation', skipLevelAnimation)
+	if (!skipLevelAnimation) {
+		playAudio();
+		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
+		show('dLevelComplete');
+		setTimeout(levelStep10, 1500);
+	} else {
+		addBadge(dLeiste, level);
+		setBackgroundColor();
+		showLevel();
+		showScore();
+		setGroup(WORD_GROUPS[iGROUP]);
+		startRound();
+	}
+
 }
 function levelStep10() {
 	mClass(document.body, 'aniFadeOutIn');

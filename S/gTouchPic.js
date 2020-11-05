@@ -108,14 +108,8 @@ function evaluate(ev) {
 	setLevel();
 }
 function g2Init() {
-	level = 0;
+	level=0;
 	setLevel();
-	//g2N = 5;
-	// g2GroupIndex = 0;
-	// setGroup(g2GROUPS[g2GroupIndex]);
-	// //setLevel_();
-	// showLevel();
-	// dScore.innerHTML = 'score: _'
 }
 function g2Success(id) {
 	const comments = ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!']
