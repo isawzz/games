@@ -1,16 +1,17 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = false; // false | true
+var skipLevelAnimation = true; // false | true
 var currentGame = 'gTouchPic';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var level = 0;
 var WORD_GROUPS = ['nosymbols'];
 var MAX_WORD_LENGTH = [3, 4, 5, 7, 10, 111]; //extra per game
-var SHOW_LABEL_UP_TO_LEVEL = 1;
+//var SHOW_LABEL_UP_TO_LEVEL = 1;
+
 var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
-var MAXLEVEL = 6;
+var MAXLEVEL = 10;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var DELAY = 1000;
 
@@ -22,6 +23,7 @@ var GameState;
 
 //to be set by each game in init:
 var NumPics;
+var NumLabels;
 var MaxNumTrials;
 
 //vars for round to round:

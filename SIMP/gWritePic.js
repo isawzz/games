@@ -13,7 +13,7 @@ function startGameWP() {
 	//console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
 
 }
-function levelWP(){}
+function levelWP() { NumPics = 1; NumLabels = level > 1 ? 0 : 1; }
 
 function startRoundWP() {
 	trialNumber = 0;
@@ -34,13 +34,13 @@ function promptWP() {
 }
 function trialPromptWP() {
 	console.log(uiPaused)
-	beforeActivationUI();activationUI();
-	say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
+	beforeActivationUI(); activationUI();
+	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
 	trialNumber += 1;
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
 	defaultFocusElement = inputBox.id;
-	console.log('trial',trialNumber,'beforeActivation',uiPaused)
+	console.log('trial', trialNumber, 'beforeActivation', uiPaused)
 	activateWP();
 }
 function activateWP() {

@@ -4,6 +4,7 @@ function startGame(game) {
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
+	level = 0;
 
 	if (isdef(game)) currentGame = game;
 	//loadSettings(currentGame, currentUser);
@@ -13,7 +14,7 @@ function startGame(game) {
 	GFUNC[currentGame].startGame();
 	GameState = STATES.GAME_INITIALIZED;
 
-	console.log('end of startGame:','boundary',boundary,'level',level,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
+	//console.log('end of startGame:','boundary',boundary,'level',level,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
 	//console.log(keySet)
 	startRound();
 }
@@ -56,9 +57,15 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		//console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
-		if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
+		//if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
 		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
 	}
+	//randomly pic NumLabels pics and hide their label!
+	if (NumLabels==NumPics) return;
+
+	let remlabelPic = choose(Pictures,NumPics-NumLabels);
+
+	for(const p of remlabelPic) maHideLabel(p.id,p.info);
 }
 function activateUi() {
 	GFUNC[currentGame].activate();

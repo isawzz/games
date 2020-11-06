@@ -1,7 +1,8 @@
 var NumMissingLetters, nMissing;
 var inputs = [];
 function startGameML() {
-	NumPics = 1;
+	levelML();
+	//NumPics = 1;
 	MaxNumTrials = 1;
 
 	console.log(WORD_GROUPS, currentLanguage, MAX_WORD_LENGTH, level);
@@ -10,10 +11,14 @@ function startGameML() {
 	//console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
 
 }
-function levelML(){}
+function levelML() {
+	NumPics = 1;
+	let labelsBisLevel = 2
+	NumLabels = level > labelsBisLevel ? 0 : 1;
+	NumMissingLetters = level <= labelsBisLevel ? (level + 1) : level;
+}
 function startRoundML() {
 	trialNumber = 0;
-	NumMissingLetters = level <= SHOW_LABEL_UP_TO_LEVEL ? (level + 1) : level;
 	//console.log('maxNumMissing:'+NumMissingLetters,'level:'+level,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
 function promptML() {
