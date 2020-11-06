@@ -5,7 +5,7 @@ var HARDCODED = {
 
 	currentGame: 'gTouchPic', //gWritePic | gTouchPic | gSayPic | gMissingLetter
 	currentLanguage: 'E',
-	level: 0,
+	currentLevel: 0,
 
 	PICS_PER_LEVEL: IS_TESTING ? 1 : 5,
 	WORD_GROUPS: ['nosymbols'],
@@ -32,7 +32,7 @@ const DEFAULTS_PER_USER = {
 			gSayPic: { highestLevel: 0 },
 
 		},
-		lastPlayed: { game: 'gMissingLetter', level: 0 },
+		lastPlayed: { game: 'gMissingLetter', currentLevel: 0 },
 	}
 };
 
@@ -90,7 +90,7 @@ function resetAllGamesAndUsersToHardcodedSettings() {
 
 	settingsPerGame = jsCopy(DEFAULTS_PER_GAME);
 	settingsPerUser = jsCopy(DEFAULTS_PER_USER);
-	level = HARDCODED.level;
+	currentLevel = HARDCODED.currentLevel;
 	currentGame = HARDCODED.currentGame;
 	currentUser = HARDCODED.currentUser;
 	currentLanguage = HARDCODED.currentLanguage;
@@ -103,7 +103,7 @@ function resetAllGamesAndUsersToHardcodedSettings() {
 
 		for (const user in settingsPerUser) {
 			settingsPerUser[user].perGame[gname] = jsCopy(settings);
-			settingsPerUser[user].perGame[gname].level = HARDCODED.level;
+			settingsPerUser[user].perGame[gname].currentLevel = HARDCODED.currentLevel;
 			settingsPerUser[user].perGame[gname].language = HARDCODED.currentLanguage;
 		}
 
@@ -159,12 +159,12 @@ function initSettingsP1() {
 function loadSettings(game, user) {
 	let defaults = settingsPerGame[game];
 	let current = lookup(settingsPerUser, [user, 'perGame', game]);
-	if (nundef(current)) { 
-		lookupSet(settingsPerUser, [user, 'perGame', game], defaults); 
-		current = jsCopy(defaults); 
+	if (nundef(current)) {
+		lookupSet(settingsPerUser, [user, 'perGame', game], defaults);
+		current = jsCopy(defaults);
 	}
 
-	level = current.level; if (nundef(level)) { level = HARDCODED.level; current.level = level; }
+	currentLevel = current.currentLevel; if (nundef(currentLevel)) { currentLevel = HARDCODED.currentLevel; current.currentLevel = currentLevel; }
 	currentLanguage = current.language; if (nundef(currentLanguage)) { currentLanguage = HARDCODED.currentLanguage; current.language = currentLanguage; }
 
 	PICS_PER_LEVEL = current.PICS_PER_LEVEL; if (nundef(PICS_PER_LEVEL)) { PICS_PER_LEVEL = HARDCODED.PICS_PER_LEVEL; current.PICS_PER_LEVEL = PICS_PER_LEVEL; }
@@ -173,7 +173,7 @@ function loadSettings(game, user) {
 	WORD_GROUPS = current.WORD_GROUPS; if (nundef(WORD_GROUPS)) { WORD_GROUPS = HARDCODED.WORD_GROUPS; current.WORD_GROUPS = WORD_GROUPS; }
 	SHOW_LABEL_UP_TO_LEVEL = current.SHOW_LABEL_UP_TO_LEVEL; if (nundef(SHOW_LABEL_UP_TO_LEVEL)) { SHOW_LABEL_UP_TO_LEVEL = HARDCODED.SHOW_LABEL_UP_TO_LEVEL; current.SHOW_LABEL_UP_TO_LEVEL = SHOW_LABEL_UP_TO_LEVEL; }
 
-	//console.log('level',level,'currentLanguage',currentLanguage,'PICS_PER_LEVEL',PICS_PER_LEVEL,MAXLEVEL,MAX_WORD_LENGTH,WORD_GROUPS,SHOW_LABEL_UP_TO_LEVEL)
+	//console.log('currentLevel',currentLevel,'currentLanguage',currentLanguage,'PICS_PER_LEVEL',PICS_PER_LEVEL,MAXLEVEL,MAX_WORD_LENGTH,WORD_GROUPS,SHOW_LABEL_UP_TO_LEVEL)
 
 	//need to init settings window!!!!!!!!!
 	let iLanguage = mBy('input' + currentLanguage); iLanguage.checked = true;
@@ -218,7 +218,7 @@ function closeSettings() {
 
 	//update settings!
 	setPicsPerLevel();
-	
+
 	updateAllGameSettingsFromSettingsWindow();
 
 	hide(dSettings);
@@ -247,7 +247,7 @@ function setLanguage(x) {
 	//console.log('setting language to', x);
 	currentLanguage = x;
 
-	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+	currentKeys = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[currentLevel]);
 }
 function setPicsPerLevel() {
 	let inp = mBy('inputPicsPerLevel');
@@ -260,7 +260,7 @@ function setPicsPerLevel() {
 
 	PICS_PER_LEVEL = n;
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
-	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+	boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
 	//console.log('boundary set to', boundary)
 }
 

@@ -50,7 +50,7 @@ var higherOrderEmoSetNames = {
 var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstract: ['time', 'symbols'], action: ['game', 'sports'], food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'], human: ['body', 'gesture', 'emotion', 'person', 'role'], life: ['animal', 'plant'], mood: ['emotion'], object: ['object'], places: ['place', 'transport'] };
 
 var emoSets = {
-	nosymbols: {name: 'nosymbols',f: o=>o.group != 'symbols' && o.group !='flags' },
+	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' },
 	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
@@ -111,7 +111,7 @@ var emoSets = {
 	misc: { name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
 
 };
-var emoGroup, emoGroupKeys;
+//var emoGroupKeys; //ACHTUNG!!!! SPEECH wird nicht mehr gehen!!!!!!!!!
 
 function isEmosetMember(name, info) { return emoSets[name].f(info); }
 function makeEmoSetIndex() {

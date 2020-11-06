@@ -1,31 +1,53 @@
-var NumMissingLetters, nMissing;
+var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
+const LevelsML = {
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters:1,MaxPosMissing:0, MaxNumTrials: 30 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, NumMissingLetters:1,MaxPosMissing:10,MaxNumTrials: 30 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters:2,MaxPosMissing:1,MaxNumTrials: 30 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters:1,MaxPosMissing:0,MaxNumTrials: 30 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, NumMissingLetters:1,MaxPosMissing:10,MaxNumTrials: 30 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters:2,MaxPosMissing:1,MaxNumTrials: 30 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 10, NumMissingLetters:2,MaxPosMissing:10,MaxNumTrials: 30 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters:3,MaxPosMissing:11,MaxNumTrials: 30 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters:4,MaxPosMissing:12,MaxNumTrials: 30 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters:5,MaxPosMissing:13,MaxNumTrials: 30 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters:6,MaxPosMissing:14,MaxNumTrials: 30 },
+}
 function startGameML() {
 	levelML();
-	//NumPics = 1;
-	MaxNumTrials = 1;
-
-	console.log(WORD_GROUPS, currentLanguage, MAX_WORD_LENGTH, level);
-
-	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
-	//console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
-
 }
 function levelML() {
-	NumPics = 1;
-	let labelsBisLevel = 2
-	NumLabels = level > labelsBisLevel ? 0 : 1;
-	NumMissingLetters = level <= labelsBisLevel ? (level + 1) : level;
+	let levelInfo = LevelsML[currentLevel];
+	MaxNumTrials = levelInfo.MaxNumTrials;
+	MaxWordLength = levelInfo.MaxWordLength;
+	MinWordLength = levelInfo.MinWordLength;
+	setKeys();
+	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumLabels = levelInfo.NumLabels;
+
+	NumMissingLetters = levelInfo.NumMissingLetters;
+	MaxPosMissing = levelInfo.MaxPosMissing;
+	writeComments();
+
+	// MaxWordLength = 
+	// setKeys();
+	// MaxNumTrials = 1;
+	// NumPics = 1;
+	// let labelsBisLevel = 2
+	// NumLabels = currentLevel > labelsBisLevel ? 0 : 1;
+	// NumMissingLetters = currentLevel <= labelsBisLevel ? (currentLevel + 1) : currentLevel;
+	// console.log('...starting MissingLetter currentLevel:',currentLevel, 'pics', NumPics, 'labels',NumLabels, 'keys', currentKeys.length);
+	// console.log(currentCategories, currentLanguage, MAX_WORD_LENGTH, currentLevel);
 }
 function startRoundML() {
 	trialNumber = 0;
-	//console.log('maxNumMissing:'+NumMissingLetters,'level:'+level,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
+	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
 function promptML() {
 
 	trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
-	setGoal(false);
+	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
 

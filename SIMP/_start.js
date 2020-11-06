@@ -1,8 +1,8 @@
 const GFUNC = {
-	gTouchPic: { startGame: startGameTP, startRound: startRoundTP, prompt: promptTP, activate: activateTP, eval: evalTP, level: levelTP },
-	gWritePic: { startGame: startGameWP, startRound: startRoundWP, prompt: promptWP, activate: activateWP, eval: evalWP, level: levelWP },
-	gMissingLetter: { startGame: startGameML, startRound: startRoundML, prompt: promptML, activate: activateML, eval: evalML, level: levelML },
-	gSayPic: { startGame: startGameSP, startRound: startRoundSP, prompt: promptSP, activate: activateSP, eval: evalSP, level: levelSP },
+	gTouchPic: { startGame: startGameTP, startRound: startRoundTP, prompt: promptTP, activate: activateTP, eval: evalTP, currentLevel: levelTP },
+	gWritePic: { startGame: startGameWP, startRound: startRoundWP, prompt: promptWP, activate: activateWP, eval: evalWP, currentLevel: levelWP },
+	gMissingLetter: { startGame: startGameML, startRound: startRoundML, prompt: promptML, activate: activateML, eval: evalML, currentLevel: levelML },
+	gSayPic: { startGame: startGameSP, startRound: startRoundSP, prompt: promptSP, activate: activateSP, eval: evalSP, currentLevel: levelSP },
 }
 
 window.onload = SPEECHStart;

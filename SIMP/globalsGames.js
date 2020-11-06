@@ -4,7 +4,7 @@ function startGame(game) {
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
-	level = 0;
+	currentLevel = 0;
 
 	if (isdef(game)) currentGame = game;
 	//loadSettings(currentGame, currentUser);
@@ -14,14 +14,14 @@ function startGame(game) {
 	GFUNC[currentGame].startGame();
 	GameState = STATES.GAME_INITIALIZED;
 
-	//console.log('end of startGame:','boundary',boundary,'level',level,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
-	//console.log(keySet)
+	//console.log('end of startGame:','boundary',boundary,'currentLevel',currentLevel,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
+	//console.log(currentKeys)
 	startRound();
 }
 function startRound() {
 	GFUNC[currentGame].startRound();
 	GameState = STATES.ROUND_INITIALIZED;
-	//console.log('pics:' + NumPics, 'keySet has', keySet.length, 'entries')
+	//console.log('pics:' + NumPics, 'currentKeys has', currentKeys.length, 'entries')
 
 	let delay = presentPrompt();
 
@@ -40,9 +40,14 @@ function presentPrompt() {
 
 	return GFUNC[currentGame].prompt();
 }
+function selectWord(info,bestWordIsShortest){
+	let candidates = info.words.filter(x=>x.length>=MinWordLength && x.length<=MaxWordLength);
+	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
+	return w;
+}
 function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 	Pictures = [];
-	let keys = choose(keySet, NumPics);
+	let keys = choose(currentKeys, NumPics);
 	//keys=['egg']
 	//keys=['oil drum'];//,'door']
 
@@ -53,25 +58,32 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		let info = getRandomSetItem(currentLanguage, keys[i]);
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
-		let label = bestWordIsShortest ? getShortestWord(info.words, false) : last(info.words);
+		let label = selectWord(info,bestWordIsShortest);
 		//console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
-		//if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
-		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i });
+
+		//if (currentLevel > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
+		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i, label:label, isLabelVisible: true});
 	}
 	//randomly pic NumLabels pics and hide their label!
 	if (NumLabels==NumPics) return;
 
 	let remlabelPic = choose(Pictures,NumPics-NumLabels);
 
-	for(const p of remlabelPic) maHideLabel(p.id,p.info);
+	for(const p of remlabelPic) {maHideLabel(p.id,p.info);p.isLabelVisible=false;}
+}
+function setGoal() {
+	let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
+	if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
+	lastPosition = rnd;
+	Goal = Pictures[rnd];
+	setCurrentInfo(Goal); //sets bestWord, ...
 }
 function activateUi() {
 	GFUNC[currentGame].activate();
 	activationUI();
 }
-
 function evaluate() {
 	if (uiPaused) return;
 	hasClickedUI();
@@ -94,7 +106,7 @@ function evaluate() {
 			showCorrectWord();
 			failPictureGoal(false);
 			updateLevel();
-			//console.log('new level is', level)
+			//console.log('new currentLevel is', currentLevel)
 			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
 			else { setTimeout(startRound, DELAY); }
 			break;
@@ -124,29 +136,28 @@ function updateLevel() {
 	if (numTotalAnswers >= boundary) {
 		//console.log('boundary reached!');
 		if (percentageCorrect >= 90) {
-			if (iGROUP < WORD_GROUPS.length - 1) {
+			if (iGROUP < currentCategories.length - 1) {
 				iGROUP += 1;
 				GameState = STATES.GROUPCHANGE;
-			} else if (level < MAXLEVEL) {
-				level += 1;
+			} else if (currentLevel < MAXLEVEL) {
+				currentLevel += 1;
 				iGROUP = 0;
 				GameState = STATES.LEVELCHANGE;
 			}
-		} else if (percentageCorrect < 70 && level > 0) {
-			level -= 1;
+		} else if (percentageCorrect < 70 && currentLevel > 0) {
+			currentLevel -= 1;
 			GameState = STATES.LEVELCHANGE;
 		}
 	}
 	if (GameState == STATES.GROUPCHANGE) {
-		keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+		setKeys();
 	} else if (GameState == STATES.LEVELCHANGE) {
-		boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
-		keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+		boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
 		numTotalAnswers = 0;
 		numCorrectAnswers = 0;
 		percentageCorrect = 100;
-		console.log(currentGame,level)
-		GFUNC[currentGame].level();
+		console.log(currentGame,currentLevel)
+		GFUNC[currentGame].currentLevel();
 	}
 }
 
@@ -182,35 +193,26 @@ function resetState() {
 
 	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 
-	//console.log(level)
-	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+	//console.log(currentLevel)
+	boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
 	setBackgroundColor();
-	showBadges(dLeiste, level, levelColors);
+	showBadges(dLeiste, currentLevel, levelColors);
 	showLevel();
 	showScore();
 
 	GameState = STATES.STARTING;
 }
 function setBackgroundColor() {
-	let color = levelColors[level];
+	let color = levelColors[currentLevel];
 	document.body.style.backgroundColor = color;
 
 }
-function setCurrentInfo(item, bestWordIsShortest = false) {
+function setCurrentInfo(item) {
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
-	bestWord = bestWordIsShortest ? getShortestWord(currentInfo.words, false) : currentInfo.best;
+	bestWord = Goal.label; //bestWordIsShortest ? getShortestWord(currentInfo.words, false) : currentInfo.best;
 	hintWord = '_'.repeat(bestWord.length);
-
-}
-function setGoal(bestWordIsShortest = false) {
-	let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
-	if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
-	lastPosition = rnd;
-	Goal = Pictures[rnd];
-
-	setCurrentInfo(Goal, bestWordIsShortest);
 
 }
 function setScore(isCorrect) {
@@ -251,16 +253,20 @@ function showInstruction(text, cmd, title) {
 	say(cmd + " " + text, .7, 1, .7, true, 'random');
 
 }
-function showLevel() { dLevel.innerHTML = 'level: ' + level; }
+function showLevel() { dLevel.innerHTML = 'currentLevel: ' + currentLevel; }
 function showScore() {
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 }
+function writeComments(){
+	console.log('...starting '+currentGame.substring(1)+' currentLevel:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
+	'keys:' + currentKeys.length, '\nminlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 
+}
 //#endregion
 
 //#region show Level Complete and Revert Level
 function removeBadgeAndRevertLevel() {
-	removeBadges(dLeiste, level);
+	removeBadges(dLeiste, currentLevel);
 	setBackgroundColor();
 	showLevel();
 	showScore();
@@ -275,11 +281,11 @@ function showLevelComplete() {
 		show('dLevelComplete');
 		setTimeout(levelStep10, 1500);
 	} else {
-		addBadge(dLeiste, level);
+		addBadge(dLeiste, currentLevel);
 		setBackgroundColor();
 		showLevel();
 		showScore();
-		setGroup(WORD_GROUPS[iGROUP]);
+		setGroup(currentCategories[iGROUP]);
 		startRound();
 	}
 
@@ -295,7 +301,7 @@ function levelStep11() {
 
 }
 function levelStep12() {
-	addBadge(dLeiste, level);
+	addBadge(dLeiste, currentLevel);
 	hide('dLevelComplete');
 	clearTable();
 
@@ -304,7 +310,7 @@ function levelStep12() {
 	setBackgroundColor();
 	showLevel();
 	showScore();
-	setGroup(WORD_GROUPS[iGROUP]);
+	setGroup(currentCategories[iGROUP]);
 
 	setTimeout(levelStep13, 2000);
 }

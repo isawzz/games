@@ -1,30 +1,28 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
 var skipLevelAnimation = true; // false | true
-var currentGame = 'gTouchPic';
+
+//set this to start!
+var currentGame = 'gMissingLetter'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
-var level = 0;
-var WORD_GROUPS = ['nosymbols'];
-var MAX_WORD_LENGTH = [3, 4, 5, 7, 10, 111]; //extra per game
-//var SHOW_LABEL_UP_TO_LEVEL = 1;
+var currentCategories = ['nosymbols'];
+var currentLevel = 0;
+var currentKeys; //see setKeys, reset at each level!!!!!
 
+//common for all games and users
 var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
-var MAXLEVEL = 10;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+var MAXLEVEL = 10;
 var DELAY = 1000;
 
-const STATES = {
-	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
-	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
-};
-var GameState;
-
-//to be set by each game in init:
+//to be set by each game on level change:
+var MaxNumTrials = 1;
+var MinWordLength = 1;
+var MaxWordLength;
 var NumPics;
 var NumLabels;
-var MaxNumTrials;
 
 //vars for round to round:
 var Pictures = [];
@@ -36,7 +34,6 @@ let badges = [];
 var iGROUP = -1;
 var lastPosition = 0;
 var trialNumber;
-var keySet;
 var boundary;
 
 //ui state flags
@@ -84,6 +81,11 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 //testing
 var timit;
 
-
+//to be phased out
+const STATES = {
+	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
+	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
+};
+var GameState;
 
 

@@ -141,7 +141,7 @@ function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, st
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
 	x.style.userSelect = 'none';
-	mClass(x,classes);
+	mClass(x, classes);
 	return x;
 }
 function mpBadge(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
@@ -205,6 +205,13 @@ function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 
 //#region words, dictionaries
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
+function wordsOfLanguage(key, language) {
+	//console.log(language)
+	let y = symbolDict[key];
+	let w = y[language];
+	let wlist = w.split('|');
+	return wlist.map(x=>x.trim());
+}
 function lastOfLanguage(key, language) {
 	//console.log(language)
 	let y = symbolDict[key];
@@ -234,27 +241,50 @@ function makeHigherOrderGroups() {
 	ensureSymByType();
 }
 function getKeySet(groupName, language, maxlength) {
-	setGroup(groupName);
-	let keys = isdef(maxlength) && maxlength > 0 ? 
-		emoGroupKeys.filter(x => lastOfLanguage(x, language).length <= maxlength)
-		: emoGroupKeys;
-	//console.log('keySet',keys.map(x=>lastOfLanguage(x)));
-
+	let keys = setGroup(groupName);
+	keys = isdef(maxlength) && maxlength > 0 ?
+		keys.filter(x => lastOfLanguage(x, language).length <= maxlength)
+		: keys;
 	return keys;
 
 }
-function setGroup(group) {
+function setCategories(groupNameList) {
 	ensureSymBySet();
-	if (group != emoGroup) {
-		emoGroup = group;
-		emoGroupKeys = jsCopy(symKeysBySet[emoGroup]);
+	//console.log(groupNameList)
+	let keys = [];
+	for (const cat of groupNameList) {
+		let name = cat.toLowerCase();
+		//console.log(name,symKeysBySet,symKeysBySet[name])
+		for(const k of symKeysBySet[name]){
+			//console.log(k)
+			keys.push(k);
+		}
 	}
+	return keys;
+}
+function getKeySetX(categories, language, minlength, maxlength) {
+	let keys = setCategories(categories);
+	//console.log(keys)
+	if (isdef(minlength && isdef(maxlength))){
+		keys = keys.filter(k=>{
+			let ws = wordsOfLanguage(k,language);
+			for(const w of ws){
+				if (w.length>=minlength && w.length <=maxlength) return true;
+			}
+			return false;
+		});
+	}
+	return keys;
+}
+function setGroup(groupName) { //deprecated! use setCategories!
+	ensureSymBySet();
+	return jsCopy(symKeysBySet[groupName]);
 }
 
-function getRandomSetItem(lang = 'E', key) {
-	if (nundef(emoGroup)) setGroup('animal');
+function getRandomSetItem(lang = 'E', key, keylist) {
+	if (nundef(keylist)) keylist = setCategories(['animal']);
 
-	if (nundef(key)) key = chooseRandom(emoGroupKeys);
+	if (nundef(key)) key = chooseRandom(keylist);
 
 	//#region individual keys for test
 	//key = 'fever'; //fever
@@ -568,7 +598,7 @@ function maPicLabelButtonFitText(info, label, { w, h }, handler, dParent, styles
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
 	x.style.userSelect = 'none';
-	mClass(x,classes);
+	mClass(x, classes);
 	return x;
 }
 function maPicLabelButtonXX(info, label, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {

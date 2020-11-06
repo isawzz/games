@@ -1,7 +1,7 @@
 
-function initSettingsP0(){
+function initSettingsP0() {
 	// initialize common settings from settings window
-	let iLanguage = mBy('input'+currentLanguage);
+	let iLanguage = mBy('input' + currentLanguage);
 	iLanguage.checked = true;
 
 	let iPicsPerLevel = mBy('inputPicsPerLevel');
@@ -33,8 +33,12 @@ function setGame(event) {
 	startGame(currentGame);
 }
 function setLanguage(x) {
-	currentLanguage = x;
-	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
+	currentLanguage = x; setKeys();
+}
+function setKeys() {
+	//console.log(currentCategories)
+	currentKeys = getKeySetX(currentCategories, currentLanguage, MinWordLength, MaxWordLength);
+	// currentKeys = getKeySetX(currentCategories[iGROUP], currentLanguage,MinWordLength, MaxWordLength);
 }
 function setPicsPerLevel() {
 	let inp = mBy('inputPicsPerLevel');
@@ -45,7 +49,7 @@ function setPicsPerLevel() {
 	getSelection().removeAllRanges();
 	PICS_PER_LEVEL = n;
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
-	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
+	boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
 }
 
 

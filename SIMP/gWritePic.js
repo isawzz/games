@@ -1,19 +1,34 @@
+const LevelsWP = {
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 4, MaxNumTrials: 3 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 3 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 10, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 11, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 3 },
+}
 function startGameWP() {
 	onkeydown = ev => {
 		if (uiPaused) return;
-		console.log('gWritePic: keydown')
-		if (isdef(inputBox)) {
-			// console.log('inputBox is visible and exists!')
-			inputBox.focus();
-		}
+		//console.log('gWritePic: keydown')
+		if (isdef(inputBox)) { inputBox.focus(); }
 	}
-	NumPics = 1;
-	MaxNumTrials = 3;
-	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
-	//console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
-
+	levelWP();
 }
-function levelWP() { NumPics = 1; NumLabels = level > 1 ? 0 : 1; }
+function levelWP() {
+	let levelInfo = LevelsWP[currentLevel];
+	MaxNumTrials = levelInfo.MaxNumTrials;
+	MaxWordLength = levelInfo.MaxWordLength;
+	MinWordLength = levelInfo.MinWordLength;
+	setKeys();
+	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumLabels = levelInfo.NumLabels;
+	writeComments();
+}
 
 function startRoundWP() {
 	trialNumber = 0;
@@ -22,7 +37,7 @@ function promptWP() {
 
 	trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
-	setGoal(true);
+	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'type' : "schreib'", dTitle);
 
