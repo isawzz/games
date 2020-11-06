@@ -1,4 +1,4 @@
-function initWP() {
+function startGameWP() {
 	onkeydown = ev => {
 		if (uiPaused) return;
 		console.log('gWritePic: keydown')
@@ -15,7 +15,7 @@ function initWP() {
 }
 function levelWP(){}
 
-function roundWP() {
+function startRoundWP() {
 	trialNumber = 0;
 }
 function promptWP() {

@@ -6,11 +6,11 @@ function startGame(game) {
 	onkeyup = null;
 
 	if (isdef(game)) currentGame = game;
-	loadSettings(currentGame, currentUser);
+	//loadSettings(currentGame, currentUser);
 
 	resetState();
 	
-	GFUNC[currentGame].init();
+	GFUNC[currentGame].startGame();
 	GameState = STATES.GAME_INITIALIZED;
 
 	console.log('end of startGame:','boundary',boundary,'level',level,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
@@ -18,7 +18,7 @@ function startGame(game) {
 	startRound();
 }
 function startRound() {
-	GFUNC[currentGame].initRound();
+	GFUNC[currentGame].startRound();
 	GameState = STATES.ROUND_INITIALIZED;
 	//console.log('pics:' + NumPics, 'keySet has', keySet.length, 'entries')
 

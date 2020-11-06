@@ -1,4 +1,4 @@
-function initSP() {
+function startGameSP() {
 	NumPics = 1;
 	MaxNumTrials = 3;
 	keySet = getKeySet(WORD_GROUPS[iGROUP], currentLanguage, MAX_WORD_LENGTH[level]);
@@ -6,7 +6,7 @@ function initSP() {
 
 }
 function levelSP(){}
-function roundSP() {
+function startRoundSP() {
 	trialNumber = 0;
 }
 function promptSP() {

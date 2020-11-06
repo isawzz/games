@@ -1,29 +1,17 @@
-var HARDCODED = {
-	currentUser: 'Gunter',
-
-	currentGame: 'gTouchPic', //gWritePic | gTouchPic | gSayPic | gMissingLetter
-	currentLanguage: 'E',
-	level: 0,
-
-	PICS_PER_LEVEL: 1,
-	WORD_GROUPS: ['nosymbols'],
-
-	//MIN_WORD_LENGTH: [3, 3, 4, 5, 5, 3],
-	MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 111],
-	SHOW_LABEL_UP_TO_LEVEL: 1,
-	MAXLEVEL: 7,
-};
-
-const IS_TESTING = true;
-const RESET_TO_HARDCODED = false;
-
-USE_LOCAL_STORAGE = true;
-const immediateStart = IS_TESTING; //has to be true for now!!! fires onClickStartButton_ 
-
-var currentGame, currentUser, level, currentLanguage, WORD_GROUPS, MAX_WORD_LENGTH, SHOW_LABEL_UP_TO_LEVEL, PICS_PER_LEVEL, MAXLEVEL;
-var skipLevelAnimation = IS_TESTING; //false
-
-var SAMPLES_PER_LEVEL; // = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+const IS_TESTING = false; // false | true
+USE_LOCAL_STORAGE = true; // false | true
+const immediateStart = true;  // false | true
+var skipLevelAnimation = false; // false | true
+var currentGame = 'gTouchPic';
+var currentUser = 'Gunter';
+var currentLanguage = 'E';
+var level = 0;
+var WORD_GROUPS = ['nosymbols'];
+var MAX_WORD_LENGTH = [3, 4, 5, 7, 10, 111]; //extra per game
+var SHOW_LABEL_UP_TO_LEVEL = 1;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
+var MAXLEVEL = 6;
+var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var DELAY = 1000;
 
 const STATES = {
@@ -93,12 +81,6 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 
 //testing
 var timit;
-
-
-
-
-
-
 
 
 

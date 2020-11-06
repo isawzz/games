@@ -1,6 +1,6 @@
 var NumMissingLetters, nMissing;
 var inputs = [];
-function initML() {
+function startGameML() {
 	NumPics = 1;
 	MaxNumTrials = 1;
 
@@ -11,7 +11,7 @@ function initML() {
 
 }
 function levelML(){}
-function roundML() {
+function startRoundML() {
 	trialNumber = 0;
 	NumMissingLetters = level <= SHOW_LABEL_UP_TO_LEVEL ? (level + 1) : level;
 	//console.log('maxNumMissing:'+NumMissingLetters,'level:'+level,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
