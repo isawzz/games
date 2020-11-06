@@ -4,7 +4,7 @@ function startGame(game) {
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
-	currentLevel = 0;
+	currentLevel = startAtLevel;
 
 	if (isdef(game)) currentGame = game;
 	//loadSettings(currentGame, currentUser);
@@ -48,6 +48,7 @@ function selectWord(info,bestWordIsShortest){
 function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 	Pictures = [];
 	let keys = choose(currentKeys, NumPics);
+	//keys[0]='face with hand over mouth';
 	//keys=['egg']
 	//keys=['oil drum'];//,'door']
 
@@ -59,7 +60,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
 		let label = selectWord(info,bestWordIsShortest);
-		//console.log(info.key, info)
+		console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
 
@@ -79,6 +80,7 @@ function setGoal() {
 	lastPosition = rnd;
 	Goal = Pictures[rnd];
 	setCurrentInfo(Goal); //sets bestWord, ...
+	console.log(bestWord);
 }
 function activateUi() {
 	GFUNC[currentGame].activate();
@@ -253,7 +255,7 @@ function showInstruction(text, cmd, title) {
 	say(cmd + " " + text, .7, 1, .7, true, 'random');
 
 }
-function showLevel() { dLevel.innerHTML = 'currentLevel: ' + currentLevel; }
+function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
 function showScore() {
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 }

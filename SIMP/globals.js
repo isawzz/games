@@ -4,11 +4,13 @@ const immediateStart = true;  // false | true
 var skipLevelAnimation = true; // false | true
 
 //set this to start!
-var currentGame = 'gMissingLetter'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
+var currentGame = 'gTouchPic'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var currentLevel = 0;
+var startAtLevel = 0;
+
+var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 
 //common for all games and users

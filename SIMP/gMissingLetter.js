@@ -1,17 +1,17 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
 const LevelsML = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters:1,MaxPosMissing:0, MaxNumTrials: 30 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, NumMissingLetters:1,MaxPosMissing:10,MaxNumTrials: 30 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters:2,MaxPosMissing:1,MaxNumTrials: 30 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters:1,MaxPosMissing:0,MaxNumTrials: 30 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, NumMissingLetters:1,MaxPosMissing:10,MaxNumTrials: 30 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters:2,MaxPosMissing:1,MaxNumTrials: 30 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 10, NumMissingLetters:2,MaxPosMissing:10,MaxNumTrials: 30 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters:3,MaxPosMissing:11,MaxNumTrials: 30 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters:4,MaxPosMissing:12,MaxNumTrials: 30 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters:5,MaxPosMissing:13,MaxNumTrials: 30 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters:6,MaxPosMissing:14,MaxNumTrials: 30 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 10, MaxNumTrials: 30 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 10, MaxNumTrials: 30 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 3, MaxPosMissing: 10, MaxNumTrials: 30 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 30 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 30 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 30 },
 }
 function startGameML() {
 	levelML();
@@ -28,7 +28,7 @@ function levelML() {
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
 	writeComments();
-
+	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 	// MaxWordLength = 
 	// setKeys();
 	// MaxNumTrials = 1;
@@ -53,6 +53,7 @@ function promptML() {
 
 	mLinebreak(dTable);
 
+	//hier werden die letters und missing letters (inputs) gemacht:
 	let d = mDiv(dTable);
 	d.id = 'dLetters';
 	inputs = [];
@@ -70,7 +71,8 @@ function promptML() {
 	let len = bestWord.length;
 	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
 
-	let indices = nRandomNumbers(nMissing, 1, len - 2);
+	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
+	// let indices = nRandomNumbers(nMissing, 1, len - 2);
 	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
 
 	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)

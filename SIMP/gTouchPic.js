@@ -45,6 +45,7 @@ function evalTP(ev) {
 	let i = firstNumber(id);
 	let item = Selected = Pictures[i];
 
-	if (item.info.best == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
+	//console.log(item.info.best)
+	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }
 
