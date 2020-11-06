@@ -1,7 +1,7 @@
 const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = true; // false | true
+var skipLevelAnimation = false; // false | true
 
 //set this to start!
 var currentGame = 'gTouchPic'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
