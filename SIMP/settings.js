@@ -68,9 +68,15 @@ function resetAllGamesAndUsersToHardcodedSettings() {
 	currentGame = HARDCODED.currentGame;
 	currentUser = HARDCODED.currentUser;
 	for (const gname in settingsPerGame) {
+		let settings = settingsPerGame[gname];
+
+		settings.PICS_PER_LEVEL = HARDCODED.PICS_PER_LEVEL;
+		settings.SHOW_LABEL_UP_TO_LEVEL = HARDCODED.SHOW_LABEL_UP_TO_LEVEL;
+		settings.MAXLEVEL = HARDCODED.MAXLEVEL;
+		
 
 		for (const user in settingsPerUser) {
-			settingsPerUser[user].perGame[gname] = jsCopy(settingsPerGame[gname]);
+			settingsPerUser[user].perGame[gname] = jsCopy(settings);
 			settingsPerUser[user].perGame[gname].level = HARDCODED.level;
 			settingsPerUser[user].perGame[gname].language = HARDCODED.currentLanguage;
 		}

@@ -7,10 +7,13 @@ function startGame(game) {
 
 	if (isdef(game)) currentGame = game;
 	loadSettings(currentGame, currentUser);
+
 	resetState();
+	
 	GFUNC[currentGame].init();
 	GameState = STATES.GAME_INITIALIZED;
 
+	console.log('end of startGame:','boundary',boundary,'level',level,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
 	//console.log(keySet)
 	startRound();
 }
@@ -50,7 +53,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
 		let label = bestWordIsShortest ? getShortestWord(info.words, false) : last(info.words);
-		console.log(info.key, info)
+		//console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
 		if (level > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
@@ -110,6 +113,7 @@ function successPictureGoal(withComment = true) {
 
 }
 function updateLevel() {
+	console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
 	if (numTotalAnswers >= boundary) {
 		//console.log('boundary reached!');
 		if (percentageCorrect >= 90) {
@@ -134,6 +138,8 @@ function updateLevel() {
 		numTotalAnswers = 0;
 		numCorrectAnswers = 0;
 		percentageCorrect = 100;
+		console.log(currentGame,level)
+		GFUNC[currentGame].level();
 	}
 }
 
@@ -165,9 +171,11 @@ function resetState() {
 
 	badges = [];
 	iGROUP = 0;
+	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 
 	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 
+	//console.log(level)
 	boundary = SAMPLES_PER_LEVEL[level] * (1 + iGROUP);
 	setBackgroundColor();
 	showBadges(dLeiste, level, levelColors);

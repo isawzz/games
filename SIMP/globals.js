@@ -1,28 +1,29 @@
 var HARDCODED = {
 	currentUser: 'Gunter',
 
-	currentGame: 'gMissingLetter', //gWritePic | gTouchPic | gSayPic | gMissingLetter
+	currentGame: 'gTouchPic', //gWritePic | gTouchPic | gSayPic | gMissingLetter
 	currentLanguage: 'E',
 	level: 0,
 
-	PICS_PER_LEVEL: 5,
+	PICS_PER_LEVEL: 1,
 	WORD_GROUPS: ['nosymbols'],
 
+	//MIN_WORD_LENGTH: [3, 3, 4, 5, 5, 3],
 	MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 111],
-	SHOW_LABEL_UP_TO_LEVEL: 2,
-	MAXLEVEL: 6,
+	SHOW_LABEL_UP_TO_LEVEL: 1,
+	MAXLEVEL: 7,
 };
 
-const IS_TESTING = false;
+const IS_TESTING = true;
 const RESET_TO_HARDCODED = false;
 
 USE_LOCAL_STORAGE = true;
-const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
+const immediateStart = IS_TESTING; //has to be true for now!!! fires onClickStartButton_ 
 
 var currentGame, currentUser, level, currentLanguage, WORD_GROUPS, MAX_WORD_LENGTH, SHOW_LABEL_UP_TO_LEVEL, PICS_PER_LEVEL, MAXLEVEL;
 var skipLevelAnimation = IS_TESTING; //false
 
-var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+var SAMPLES_PER_LEVEL; // = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var DELAY = 1000;
 
 const STATES = {

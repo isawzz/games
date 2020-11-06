@@ -1,11 +1,11 @@
 var HARDCODED = {
 	currentUser: 'Gunter',
 
-	currentGame: 'gMissingLetter', //gWritePic | gTouchPic | gSayPic | gMissingLetter
+	currentGame: 'gTouchPic', //gWritePic | gTouchPic | gSayPic | gMissingLetter
 	currentLanguage: 'E',
 	level: 0,
 
-	PICS_PER_LEVEL: 5,
+	PICS_PER_LEVEL: 1,
 	WORD_GROUPS: ['nosymbols'],
 
 	MAX_WORD_LENGTH: [3, 4, 5, 7, 10, 111],
@@ -13,8 +13,8 @@ var HARDCODED = {
 	MAXLEVEL: 6,
 };
 
-const IS_TESTING = false;
-const RESET_TO_HARDCODED = false;
+const IS_TESTING = true;
+const RESET_TO_HARDCODED = true;
 USE_LOCAL_STORAGE = true;
 const immediateStart = true; //has to be true for now!!! fires onClickStartButton_ 
 

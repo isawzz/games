@@ -13,6 +13,8 @@ function initWP() {
 	//console.log('...starting WritePic: pics', NumPics, 'keys', keySet.length);
 
 }
+function levelWP(){}
+
 function roundWP() {
 	trialNumber = 0;
 }

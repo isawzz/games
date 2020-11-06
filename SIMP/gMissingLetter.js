@@ -10,6 +10,7 @@ function initML() {
 	//console.log('...starting MissingLetter pics', NumPics, 'keys', keySet.length);
 
 }
+function levelML(){}
 function roundML() {
 	trialNumber = 0;
 	NumMissingLetters = level <= SHOW_LABEL_UP_TO_LEVEL ? (level + 1) : level;
