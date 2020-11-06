@@ -19,6 +19,7 @@ function startGame(game) {
 	startRound();
 }
 function startRound() {
+	clearElement(dLineBottomMiddle);
 	GFUNC[currentGame].startRound();
 	GameState = STATES.ROUND_INITIALIZED;
 	//console.log('pics:' + NumPics, 'currentKeys has', currentKeys.length, 'entries')

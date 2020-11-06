@@ -1,5 +1,6 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
+var hintTimeout;
 const LevelsML = {
 	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
 	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
@@ -43,8 +44,29 @@ function startRoundML() {
 	trialNumber = 0;
 	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
+
+function composeFleetingMessage() {
+	//inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index:index });
+	//find first input that is NOT done
+	let inp = firstCond(inputs, x => !x.done);
+	let s;
+	let best=bestWord.toUpperCase();
+	if (currentLevel < 2) {
+		s = (currentLanguage == 'E' ? 'Type the letter ' : 'Tippe den Buchstaben ') + inp.letter;
+	} else if (inp.index == 0) {
+		s = currentLanguage == 'E' ? 'Type the first letter in ' + best : ' Tippe den Anfangsbuchstaben von ' + best;
+	} else {
+		let trialWord = buildWordFromLetters(mBy('dLetters')).toUpperCase();
+		trialWord = replaceAll(trialWord,'_','')
+		s = (currentLanguage == 'E' ? 'Type a letter that is in ' + best + ' but not in ' + trialWord
+				: 'Tippe einen Buchstaben in ' + best + ' der nicht in ' + trialWord + ' ist!');
+	}
+	return s;
+}
+
 function promptML() {
 
+	if (isdef(hintTimeout)) { clearTimeout(hintTimeout); hintTimeout = null; }
 	trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
@@ -82,10 +104,17 @@ function promptML() {
 		let inp = d.children[index];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
-		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false });
+		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index: index });
 	}
 
 	mLinebreak(dTable);
+
+	if (percentageCorrect < 170) {
+		let msg = composeFleetingMessage();
+		//hintTimeout = setTimeout(()=>fleetingMessage(msg,{fz:34,bg:'#ffffff80',fg:'red',rounding:10,padding:'2px 12px'}),2000);//hpadding:10,vpadding:2,
+		let fg = currentLevel == 4 ? 'yellow' : 'red';
+		hintTimeout = setTimeout(() => fleetingMessage(msg, { fz: 34, fg: fg, rounding: 10, padding: '2px 12px' }), 3000);//hpadding:10,vpadding:2,
+	}
 
 	return 10;
 }
@@ -137,6 +166,7 @@ function activateML() {
 	}
 }
 function evalML(word) {
+	if (isdef(hintTimeout)) { clearTimeout(hintTimeout); }
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	//console.log('eval MissingLetter', answer, reqAnswer)

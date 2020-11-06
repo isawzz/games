@@ -1,14 +1,14 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
 var skipLevelAnimation = true; // false | true
 
 //set this to start!
-var currentGame = 'gTouchPic'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
+var currentGame = 'gMissingLetter'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = 0;
+var startAtLevel = 2;
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!

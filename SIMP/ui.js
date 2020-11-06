@@ -65,9 +65,14 @@ function aniFadeInOut(elem,secs){
 	setTimeout(()=>{mRemoveClass(elem,'transopaOn');mClass(elem,'transopaOff');},secs*1000);
 
 }
-function fleetingMessage(msg){
+function fleetingMessage(msg,styles){
 	dLineBottomMiddle.innerHTML=msg;
-	mStyleX(dLineBottomMiddle,{fz:28,matop:50})
+	if (nundef(styles))styles={fz:28,matop:50};
+	else {
+		styles=deepmerge({fz:28,matop:50},styles)
+		console.log('merged',styles);
+	};
+	mStyleX(dLineBottomMiddle,styles)
 	//dLineBottomMiddle.style.fontSize='24pt';
 	aniFadeInOut(dLineBottomMiddle,2);
 
