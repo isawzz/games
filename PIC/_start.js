@@ -9,14 +9,17 @@ async function start() {
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
 	await loadAssets(); // load from symbolDict
 	mClass(table, 'flexWrap');
+	if (nundef(mBy('dummy'))) { let d = mDiv(table); d.id = 'dummy'; d.style.width = '0px'; }
 
-	if (nundef(mBy('dummy'))) {let d=mDiv(table);d.id='dummy';d.style.width='0px';}
-	//await makeExtraSvgFiles();
 
-	test44();
-	//test40();
+	await symbols01('object');
 
 	//#region past test calls
+	//await makeExtraSvgFiles();
+
+	//test44();
+	//test40();
+
 	// test10_fz();
 	// let d=maPic(picRandom(), table, { fz:36, bg: 'random', fg: 'random' });
 	// test17_grid(10);
@@ -40,18 +43,20 @@ async function start() {
 	// testKey('people holding hands');
 	// testHex('1F9D1-200D-1F91D-200D-1F9D1');
 	// test33();
-	// test34_emoImages();
+	//test34_emoImages();
 	//test_emoFonts();
 	//testKey('sheep')
 	//await makeHugeSvgFile();
 	//let x=range(1,56,4);console.log(x);
 	//let x=loop(10);console.log(x);
+	//await perf01('animal');
+	//await perf02('animal');
 
 	//#endregion
 
-	//await perf01('animal');
-	//await perf02('animal');
 }
+
+
 async function perfLoading() {
 	let timit = new TimeIt('hallo ' + USE_LOCAL_STORAGE);
 	//SIGI = false; await reconstructX(); while (!SIGI) { await sleepX(2000); } clearElement(table); //load from scratch
@@ -69,14 +74,14 @@ async function perfLoading() {
 	await ensureSvgDict();
 	timit.show('nach load svgDict')
 }
-async function perf02(setname='animal') {
+async function perf02(setname = 'animal') {
 	await ensureSvgDict();
 	ensureSymBySet();
 	let styles = { w: 100, h: 100, bg: 'blue', fg: 'gold', margin: 4, align: 'center' };
 	let info = picSet(setname);
 	info = picInfo('bird'); //picInfo('llama');
-	console.log('key',info.key)
-	maPic4(info,table,styles);
+	console.log('key', info.key)
+	maPic4(info, table, styles);
 }
 
 async function perf01(name) {
@@ -158,7 +163,8 @@ function test_emoFonts() {
 		d.innerHTML = family + ':';
 		for (const text of textlist) {
 			d = mDiv(table);
-			let styles = { fz: 40, border: 'black', margin: 4, align: 'center', family: family }; //, bg:'random',fg:'contrast' };
+			//let styles = { fz: 40, border: 'black', margin: 4, align: 'center', family: family }; //, bg:'random',fg:'contrast' };
+			let styles = { fg: 'blue', bg: 'yellow', fz: 40, border: 'black', margin: 4, align: 'center', family: family }; //, bg:'random',fg:'contrast' };
 			mStyleX(d, styles);
 			d.innerHTML = text;
 		}

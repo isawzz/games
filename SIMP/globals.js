@@ -8,7 +8,7 @@ var currentGame = 'gTouchPic'; // gTouchPic | gWritePic | gMissingLetter | gSayP
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = 0;
+var startAtLevel = 5;
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!

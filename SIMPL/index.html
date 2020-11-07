@@ -18,8 +18,8 @@
 	<script src="/CODE/assets.js"></script>
 	<script src="/CODE/assetHelpers.js"></script>
 	<!-- <link rel="stylesheet" href="/SIMPLE/index.css"> -->
-	<link rel="stylesheet" href="/SIMP/test.css">
-	<link rel="stylesheet" href="/SIMP/settings.css">
+	<link rel="stylesheet" href="/SIMPL/test.css">
+	<link rel="stylesheet" href="/SIMPL/settings.css">
 
 </head>
 
@@ -83,11 +83,17 @@
 		<!-- <source src="horse.mp3" type="audio/mpeg"> -->
 		Your browser does not support the audio element.
 	</audio>
+	<audio id="gameoverAudio">
+		<source src="/assets/sounds/sound2.wav" type="audio/wav">
+		<!-- <source src="horse.mp3" type="audio/mpeg"> -->
+		Your browser does not support the audio element.
+	</audio>
 
 	<script>
 		var x = document.getElementById("myAudio");
 		function playAudio() { x.play(); }
 		function pauseAudio() { x.pause(); }
+		function playAudioEnd() { document.getElementById("gameoverAudio").play(); }
 
 		var rubberBandSound = document.getElementById("rubberBandSound");
 		function playRubberBandSound() { rubberBandSound.play(); }
@@ -95,20 +101,21 @@
 
 	</script>
 
-	<script src="/SIMP/globals.js"></script>
-	<script src="/SIMP/settings.js"></script>
-	<script src="/SIMP/recog.js"></script>
-	<script src="/SIMP/speaker.js"></script>
-	<script src="/SIMP/ui.js"></script>
-	<script src="/SIMP/globalsGames.js"></script>
-	<script src="/SIMP/gTouchPic.js"></script>
-	<script src="/SIMP/gWritePic.js"></script>
-	<script src="/SIMP/gMissingLetter.js"></script>
-	<script src="/SIMP/gSayPic.js"></script>
-	<script src="/SIMP/_work.js"></script>
+	<script src="/SIMPL/globals.js"></script>
+	<script src="/SIMPL/settings.js"></script>
+	<script src="/SIMPL/recog.js"></script>
+	<script src="/SIMPL/speaker.js"></script>
+	<script src="/SIMPL/ui.js"></script>
+	<script src="/SIMPL/globalsGames.js"></script>
+	<script src="/SIMPL/gTouchPic.js"></script>
+	<script src="/SIMPL/gTouchColors.js"></script>
+	<script src="/SIMPL/gWritePic.js"></script>
+	<script src="/SIMPL/gMissingLetter.js"></script>
+	<script src="/SIMPL/gSayPic.js"></script>
+	<script src="/SIMPL/_work.js"></script>
 
 	<script src="/RSG/js/__config.js"></script>
-	<script src="/SIMP/_start.js"></script>
+	<script src="/SIMPL/_start.js"></script>
 
 </body>
 

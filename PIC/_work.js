@@ -1,3 +1,78 @@
+
+
+
+async function symbols01(name) {
+	//let timit = new TimeIt('hallo');
+	await ensureSvgDict();
+	//timit.show('nach load svgDict:');
+	ensureSymBySet();
+	//timit.show('nach load sets:');
+	mStyleX(table, { display: 'flex', 'flex-flow': 'row wrap' });
+	let n = 10;
+	let infolist = isdef(name) ? symListBySet[name] : loop(n).map(x => picRandom('emo'))
+	let styles = {
+		w: 100, h: 100, bg: 'blue',
+		fg: 'gold', margin: 4, align: 'center'
+	};
+
+	infolist = arrTake(infolist, 10);
+
+	//segoe ui emoji
+	//for (const ff of EMOFONTLIST) {  //['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
+	for (const ff of ['arial','emoNoto', 'emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) {
+		//if (ff == 'emoOpen') continue;
+		mText('font: ' + ff, table);
+		for (const info of infolist) {
+			let [c, p, t] = getHarmoniousStylesXX(100, 100, 4, ff, 'transparent','transparent',true)
+
+			// p['text-shadow']='0 0 0 purple';
+			// p.fg='#ffffff80';
+
+			//let d = maPicLabel(info, table, c, p, t, true, ff);
+			// let d=maPic(info,table,{'text-shadow':'0 0 0 green',fg:'#00000080',w:100,h:100},true,ff)
+			let d=maPic(info,table,{'text-shadow':'0 0 0 green',fg:'#00000080',w:100,h:100},true,ff)
+
+			//let d1=maPic(info,table,{fg:'green',w:100,h:100},true)
+			//let dPic = d.children[0];
+			//colorPic(dPic,'blue');
+
+		//let d = maPicLabel(info, table, c, p, t, true, ff);
+	
+			// let [c, p, t] = getHarmoniousStylesXX(100, 100, 4, ff, 'blue', 'red', true)
+			//<p title="🐘🐧🐼♥★ℹ💀👌 with text variation selector 15">&#x1F418;&#xFE0E; &#x1F427;&#xFE0E; &#x1F43C;&#xFE0E; &#x2665;&#xFE0E; &#x2605;&#xFE0E; &#x2139;&#xFE0E; &#x1F480;&#xFE0E; &#x1F44C;&#xFE0E;</p>
+			//p.fg='transparent';
+			// p.color = '#00000080'
+			//info.text+='&#xFE0E;' 
+			//mClass(d.children[0],'unicolorRed')
+		}
+		//return;
+		//timit.show('nach font:',ff);
+		mLinebreak(table);
+		//throw new Error();
+	}
+
+	for (const ff of ['arial','emoNoto', 'emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol']) { //['segoe ui emoji', 'segoe ui symbol']) {
+		if (ff == 'emoOpen') continue;
+		mText('font: ' + ff, table);
+		for (const info of infolist) {
+			let [c, p, t] = getHarmoniousStylesXX(100, 100, 4, ff, 'transparent','transparent',true)
+			// let [c, p, t] = getHarmoniousStylesXX(100, 100, 4, ff, 'blue', 'red', true)
+			let d = maPicLabel(info, table, c, p, t, true, ff);
+			//mClass(d.children[0],'unicolorGreen')
+		}
+		//return;
+		//timit.show('nach font:',ff);
+		mLinebreak(table);
+		//throw new Error();
+	}
+
+}
+
+function colorPic(dPic,color){
+	dPic.style.textShadow='0 0 0 '+color; //purple';
+	// p.fg='#ffffff80';
+}
+
 var infoDictionary;
 function test44() {
 	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);

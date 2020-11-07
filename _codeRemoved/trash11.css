@@ -1,0 +1,54 @@
+/* #region testing coloring emojis */
+
+p {
+  color: red; font-size: 3em; margin: 0;
+  text-transform: text;           /* proposed */
+  font-variant-emoji: text;       /* proposed */
+  font-variant-color: monochrome; /* proposed */
+  font-color: monochrome;         /* proposed */
+  font-palette: dark;             /* drafted for CSS Fonts Level 4 */
+}
+p.hack {
+  color: rgba(100%, 0%, 0%, 0);
+  text-shadow: 0 0 0 red;
+}
+p.font {
+  font-family: Emojione, Noto, Twemoji, Symbola;
+}
+@font-face { /* http://emojione.com/developers/ */
+  font-family: Emojione;
+  src: local("EmojiOne BW"), local("EmojiOne"), local("Emoji One"), 
+       /*   https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-bw.otf – monochrome only, deprecated, removed
+            https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-android.ttf – with hack
+            https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-apple.ttf – with hack */
+       url("https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-svg.woff2") format("woff2"),
+       url("https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-svg.woff") format("woff"),
+       url("https://cdn.rawgit.com/Ranks/emojione/master/assets/fonts/emojione-svg.otf") format("truetype");
+}
+@font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
+  font-family: Noto;
+  src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 
+       url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
+}
+@font-face { /* https://github.com/eosrei/twemoji-color-font/releases */
+  font-family: Twemoji;
+  src: local("Twemoji");
+}
+@font-face { /* http://users.teilar.gr/~g1951d/ */
+  font-family: Symbola;
+  src: local("Symbola");
+}
+
+
+.unicolorRed {
+	color: #00000080;  
+  text-shadow: 0 0 0 red;
+}
+.unicolorGreen {
+	color: #00000080;  
+  text-shadow: 0 0 0 green;
+}
+
+/* #endregion */
+
+

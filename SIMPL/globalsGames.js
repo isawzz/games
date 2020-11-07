@@ -1,27 +1,35 @@
-
+//var counterStartGame = 0;
 function startGame(game) {
+	//counterStartGame += 1; console.log('startGame counter', counterStartGame);
 
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
-	currentLevel = startAtLevel;
 
 	if (isdef(game)) currentGame = game;
+	currentLevel = startAtLevel[currentGame];
+
 	//loadSettings(currentGame, currentUser);
 
 	resetState();
-	
-	GFUNC[currentGame].startGame();
-	GameState = STATES.GAME_INITIALIZED;
 
+	GFUNC[currentGame].startGame();
+	//GameState = STATES.GAME_INITIALIZED;
+
+	startLevel();
+}
+function startLevel(){
 	//console.log('end of startGame:','boundary',boundary,'currentLevel',currentLevel,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
 	//console.log(currentKeys)
+	GFUNC[currentGame].startLevel();
+	LevelChange = false;
 	startRound();
 }
 function startRound() {
+	console.assert(!LevelChange,'levelChange!!!!!!!!!!!!! need reset!')
 	clearElement(dLineBottomMiddle);
 	GFUNC[currentGame].startRound();
-	GameState = STATES.ROUND_INITIALIZED;
+	//GameState = STATES.ROUND_INITIALIZED;
 	//console.log('pics:' + NumPics, 'currentKeys has', currentKeys.length, 'entries')
 
 	let delay = presentPrompt();
@@ -41,47 +49,54 @@ function presentPrompt() {
 
 	return GFUNC[currentGame].prompt();
 }
-function selectWord(info,bestWordIsShortest){
-	let candidates = info.words.filter(x=>x.length>=MinWordLength && x.length<=MaxWordLength);
+function selectWord(info, bestWordIsShortest) {
+	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
 	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
 	return w;
 }
-function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
+function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors) {
 	Pictures = [];
 	let keys = choose(currentKeys, NumPics);
-	//keys[0]='face with hand over mouth';
-	//keys=['egg']
 	//keys=['oil drum'];//,'door']
 
 	let stylesForLabelButton = { rounding: 10, margin: 24 };
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+	let bgPic = isdef(colors)?'white':'random';
 
-	for (let i = 0; i < keys.length; i++) {
-		let info = getRandomSetItem(currentLanguage, keys[i]);
-		let id = 'pic' + i;
-		//console.log(bestWordIsShortest)
-		let label = selectWord(info,bestWordIsShortest);
-		console.log(info.key, info)
-		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-		d1.id = id;
-
-		//if (currentLevel > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
-		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i, label:label, isLabelVisible: true});
+	let lines = isdef(colors)?colors.length:1;
+	for(let line=0;line<lines;line++){
+		let shade = isdef(colors)?colors[line]:undefined;
+		for (let i = 0; i < keys.length; i++) {
+			let info = getRandomSetItem(currentLanguage, keys[i]);
+			let id = 'pic' + (line*keys.length + i);
+			let label = selectWord(info, bestWordIsShortest);
+			//console.log('______', info.key, info);
+	
+			// let shade, bgPic;
+			// if (isdef(colors)) { shade = choose(['red', 'green', 'gold', 'blue']); bgPic = 'white'; }
+			// else { shade = undefined; bgPic = 'random'; }
+			// let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, shade: shade, bgPic: bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, bgPic: bgPic, shade:shade }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+			Pictures.push({ shade:shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
+		}
+		mLinebreak(dTable);
 	}
-	//randomly pic NumLabels pics and hide their label!
-	if (NumLabels==NumPics) return;
+	if (NumLabels == NumPics) return;
 
-	let remlabelPic = choose(Pictures,NumPics-NumLabels);
-
-	for(const p of remlabelPic) {maHideLabel(p.id,p.info);p.isLabelVisible=false;}
+	let remlabelPic = choose(Pictures, NumPics - NumLabels);
+	for (const p of remlabelPic) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
 }
-function setGoal() {
-	let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
-	if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
-	lastPosition = rnd;
-	Goal = Pictures[rnd];
+function setGoal(index) {
+	if (nundef(index)){
+		let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
+		if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
+		index = rnd;
+	}
+	lastPosition = index;
+	Goal = Pictures[index];
 	setCurrentInfo(Goal); //sets bestWord, ...
-	console.log(bestWord);
+	//console.log(bestWord);
 }
 function activateUi() {
 	GFUNC[currentGame].activate();
@@ -90,16 +105,16 @@ function activateUi() {
 function evaluate() {
 	if (uiPaused) return;
 	hasClickedUI();
-	GameState = GFUNC[currentGame].eval(...arguments);
+	AnswerCorrectness = GFUNC[currentGame].eval(...arguments);
 
-	//console.log('GameState after eval', GameState)
-	switch (GameState) {
+	//console.log('GameState_ after eval', GameState)
+	switch (AnswerCorrectness) {
 		case STATES.CORRECT:
 			setScore(true);
 			DELAY = 1500;
 			updateLevel();
 			successPictureGoal();
-			if (GameState == STATES.LEVELCHANGE) setTimeout(showLevelComplete, DELAY);
+			if (LevelChange) setTimeout(showLevelComplete, DELAY);
 			else { setTimeout(startRound, DELAY); }
 			break;
 		case STATES.NEXTTRIAL: break;
@@ -110,7 +125,7 @@ function evaluate() {
 			failPictureGoal(false);
 			updateLevel();
 			//console.log('new currentLevel is', currentLevel)
-			if (GameState == STATES.LEVELCHANGE) setTimeout(removeBadgeAndRevertLevel, DELAY);
+			if (LevelChange) setTimeout(removeBadgeAndRevertLevel, DELAY);
 			else { setTimeout(startRound, DELAY); }
 			break;
 	}
@@ -133,35 +148,6 @@ function successPictureGoal(withComment = true) {
 	}
 	maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
 
-}
-function updateLevel() {
-	console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
-	if (numTotalAnswers >= boundary) {
-		//console.log('boundary reached!');
-		if (percentageCorrect >= 90) {
-			if (iGROUP < currentCategories.length - 1) {
-				iGROUP += 1;
-				GameState = STATES.GROUPCHANGE;
-			} else if (currentLevel < MAXLEVEL) {
-				currentLevel += 1;
-				iGROUP = 0;
-				GameState = STATES.LEVELCHANGE;
-			}
-		} else if (percentageCorrect < 70 && currentLevel > 0) {
-			currentLevel -= 1;
-			GameState = STATES.LEVELCHANGE;
-		}
-	}
-	if (GameState == STATES.GROUPCHANGE) {
-		setKeys();
-	} else if (GameState == STATES.LEVELCHANGE) {
-		boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
-		numTotalAnswers = 0;
-		numCorrectAnswers = 0;
-		percentageCorrect = 100;
-		console.log(currentGame,currentLevel)
-		GFUNC[currentGame].currentLevel();
-	}
 }
 
 //#region helpers
@@ -203,7 +189,7 @@ function resetState() {
 	showLevel();
 	showScore();
 
-	GameState = STATES.STARTING;
+	//GameState = STATES.STARTING;
 }
 function setBackgroundColor() {
 	let color = levelColors[currentLevel];
@@ -229,7 +215,8 @@ function setScore(isCorrect) {
 function showCorrectWord() {
 	let div = mBy(Goal.id);
 	mClass(div, 'onPulse');
-	say(bestWord, .4, 1.2, 1, true, 'david')
+	let correctionPhrase = isdef(Goal.correctionPhrase)?Goal.correctionPhrase:bestWord;
+	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 
 function showInstruction(text, cmd, title) {
@@ -260,9 +247,9 @@ function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
 function showScore() {
 	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 }
-function writeComments(){
-	console.log('...starting '+currentGame.substring(1)+' currentLevel:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
-	'keys:' + currentKeys.length, '\nminlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
+function writeComments() {
+	console.log('...starting ' + currentGame.substring(1) + ' currentLevel:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
+		'keys:' + currentKeys.length, '\nminlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 
 }
 //#endregion
@@ -289,7 +276,7 @@ function showLevelComplete() {
 		showLevel();
 		showScore();
 		setGroup(currentCategories[iGROUP]);
-		startRound();
+		proceedAfterLevelChange();
 	}
 
 }
@@ -319,7 +306,30 @@ function levelStep12() {
 }
 function levelStep13() {
 	mRemoveClass(document.body, 'aniFadeOutIn');
-	startRound();
+	proceedAfterLevelChange();
+}
+
+function proceedAfterLevelChange() {
+	//LevelChange = false;
+	console.log('proceedAfterLevelChange',currentLevel)
+	if (currentLevel >= MAXLEVEL) {
+		//find index of current game
+		let iGame = gameSequence.indexOf(currentGame)+1;
+		console.log(iGame)
+		if (iGame == gameSequence.length - 1) {
+			//this was already the last game!
+			//congratulations screen! and shut down
+			playAudioEnd();
+			mClass(document.body, 'aniSlowlyDisappear');
+			show(dLevelComplete);
+			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+
+		} else {
+			let nextGame = gameSequence[iGame];
+			startGame(nextGame);
+		}
+	} else startLevel();
+
 }
 //#endregion
 

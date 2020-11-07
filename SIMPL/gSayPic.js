@@ -11,9 +11,11 @@ const LevelsSP = {
 	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
 	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 3 },
 }
-function startGameSP() { levelSP(); }
+function startGameSP() { }
+function startLevelSP() { levelSP(); }
 function levelSP() {
-	let levelInfo = LevelsWP[currentLevel];
+	let levelInfo = LevelsSP[currentLevel];
+	console.log(currentLevel,levelInfo,LevelsSP)
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;

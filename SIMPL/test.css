@@ -368,7 +368,7 @@ input[type="checkbox"]:focus+label::before {
 .transopaOff{	opacity:0;transition: opacity 5s ease-in-out;}
 .transopaOn{	opacity:1;transition: opacity .5s ease-in-out;}
 .transitionOpacity{	transition: opacity 5s ease-in-out;}
-.aniFadeInOut{ animation: fadeinout 5s ease-in-out 0s 1;}
+/* .aniFadeInOut{ animation: fadeinout 5s ease-in-out 0s 1;} */
 .aniSlowlyDisappear{ animation: fadeinout 5s ease-out 0s 1 forwards;}
 
 .aniFadeOut{ animation: example .5s ease-in-out 0s 1 reverse;}

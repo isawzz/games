@@ -14,9 +14,8 @@ const LevelsML = {
 	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 30 },
 	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 30 },
 }
-function startGameML() {
-	levelML();
-}
+function startGameML() { }
+function startLevelML() { levelML(); }
 function levelML() {
 	let levelInfo = LevelsML[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
@@ -50,16 +49,16 @@ function composeFleetingMessage() {
 	//find first input that is NOT done
 	let inp = firstCond(inputs, x => !x.done);
 	let s;
-	let best=bestWord.toUpperCase();
+	let best = bestWord.toUpperCase();
 	if (currentLevel < 2) {
 		s = (currentLanguage == 'E' ? 'Type the letter ' : 'Tippe den Buchstaben ') + inp.letter;
 	} else if (inp.index == 0) {
 		s = currentLanguage == 'E' ? 'Type the first letter in ' + best : ' Tippe den Anfangsbuchstaben von ' + best;
 	} else {
 		let trialWord = buildWordFromLetters(mBy('dLetters')).toUpperCase();
-		trialWord = replaceAll(trialWord,'_','')
+		trialWord = replaceAll(trialWord, '_', '')
 		s = (currentLanguage == 'E' ? 'Type a letter that is in ' + best + ' but not in ' + trialWord
-				: 'Tippe einen Buchstaben in ' + best + ' der nicht in ' + trialWord + ' ist!');
+			: 'Tippe einen Buchstaben in ' + best + ' der nicht in ' + trialWord + ' ist!');
 	}
 	return s;
 }

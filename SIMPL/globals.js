@@ -1,14 +1,16 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = false; // false | true
+var skipLevelAnimation = true; // false | true
 
 //set this to start!
-var currentGame = 'gTouchPic'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
+var currentGame = 'gTouchColors'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = 0;
+var startAtLevel = { gTouchPic: 9, gTouchColors: 0, gWritePic: 9, gMissingLetter: 9, gSayPic9: 9 };
+// var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
+var gameSequence = ['gTouchColors', 'gSayPic'];
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
@@ -31,6 +33,7 @@ var Pictures = [];
 var Goal, Selected;
 
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+var levelHistory;
 let badges = [];
 
 var iGROUP = -1;
@@ -84,10 +87,14 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 var timit;
 
 //to be phased out
-const STATES = {
-	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
-	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
-};
-var GameState;
+// const STATES = {
+// 	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
+// 	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
+// };
+// var GameState;
+var LevelChange;
+const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
+var AnswerCorrectness;
+//var GameStage;
 
 

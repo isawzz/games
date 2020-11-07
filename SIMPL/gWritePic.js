@@ -17,8 +17,8 @@ function startGameWP() {
 		//console.log('gWritePic: keydown')
 		if (isdef(inputBox)) { inputBox.focus(); }
 	}
-	levelWP();
 }
+function startLevelWP() { levelWP(); }
 function levelWP() {
 	let levelInfo = LevelsWP[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;

@@ -1,5 +1,5 @@
-var uiActivated;
-const LevelsTP = {
+var uiActivatedTC;
+const LevelsTC = {
 	0: { NumPics: 2, NumLabels: 2, MinWordLength: 2, MaxWordLength: 4, MaxNumTrials: 1 },
 	1: { NumPics: 3, NumLabels: 3, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 1 },
 	2: { NumPics: 2, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 1 },
@@ -12,32 +12,40 @@ const LevelsTP = {
 	9: { NumPics: 3, NumLabels: 0, MinWordLength: 6, MaxWordLength: 13, MaxNumTrials: 1 },
 	10: { NumPics: 4, NumLabels: 0, MinWordLength: 4, MaxWordLength: 14, MaxNumTrials: 1 },
 }
-function startGameTP() { }
-function startLevelTP() { levelTP(); }
-function levelTP() {
-	let levelInfo = LevelsTP[currentLevel];
+function startGameTC() { }
+function startLevelTC() { levelTC(); }
+function levelTC() {
+	//console.log(currentLevel)
+	let levelInfo = LevelsTC[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
-	setKeys();
+	setKeys(['animal','food']);
 	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
+	//writeComments();
 }
-function startRoundTP() {
-	uiActivated = false;
+function startRoundTC() {
+	uiActivatedTC = false;
 }
-function promptTP() {
-	showPictures(false, evaluate);
-	setGoal();
-	showInstruction(bestWord, 'click', dTitle);
+function promptTC() {
+	let colors = ['red','green', 'yellow'];
+	showPictures(false, evaluate, colors);
+
+	setGoal(randomNumber(0,NumPics*colors.length-1));
+	Goal.correctionPhrase = Goal.shade+' '+Goal.label;
+
+	console.log('________\ngoal id is',Goal.id)
+
+	showInstruction(bestWord, 'click the ' +Goal.shade.toUpperCase(), dTitle);
 	return 10;
 }
-function activateTP() {
-	uiActivated = true;
+function activateTC() {
+	uiActivatedTC = true;
 }
-function evalTP(ev) {
+function evalTC(ev) {
 	let id = evToClosestId(ev);
+	console.log('clicked',id);
 	ev.cancelBubble = true;
 
 	//get item
@@ -45,6 +53,6 @@ function evalTP(ev) {
 	let item = Selected = Pictures[i];
 
 	//console.log(item.info.best)
-	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
+	if (item == Goal) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }
 
