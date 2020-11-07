@@ -1,16 +1,18 @@
 const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = true; // false | true
+var skipLevelAnimation = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'gTouchColors'; // gTouchPic | gWritePic | gMissingLetter | gSayPic
+var currentGame = 'gMissingLetter'; // gTouchPic | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = { gTouchPic: 9, gTouchColors: 0, gWritePic: 9, gMissingLetter: 9, gSayPic9: 9 };
+var startAtLevel = IS_TESTING?
+ { gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gMissingLetter: 0, gSayPic: 10 }
+ : { gTouchPic: 1, gTouchColors: 0, gWritePic: 0, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
-var gameSequence = ['gTouchColors', 'gSayPic'];
+var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
@@ -20,6 +22,8 @@ var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var DELAY = 1000;
+var fleetingMessageTimeout;
+
 
 //to be set by each game on level change:
 var MaxNumTrials = 1;
@@ -34,7 +38,6 @@ var Goal, Selected;
 
 var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 var levelHistory;
-let badges = [];
 
 var iGROUP = -1;
 var lastPosition = 0;

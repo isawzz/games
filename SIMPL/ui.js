@@ -11,6 +11,7 @@ function initTable() {
 function initSidebar() {
 	let title = mText('badges:', mBy('sidebar'));
 	dLeiste = mDiv(mBy('sidebar'));
+	//dLeiste = mBy('sidebar')
 	mStyleX(dLeiste, { 'max-height': '100vh', display: 'flex', 'flex-flow': 'column wrap' });
 }
 function initLineTop() {
@@ -58,32 +59,40 @@ function initLineBottom() {
 }
 //#endregion
 
-function aniFadeInOut(elem,secs){
-	mClass(elem,'transopaOn');
+function aniFadeInOut(elem, secs) {
+	mClass(elem, 'transopaOn');
 	//dLineBottomMiddle.opacity=0;
 	//mClass(dLineBottomMiddle,'aniFadeInOut');
-	setTimeout(()=>{mRemoveClass(elem,'transopaOn');mClass(elem,'transopaOff');},secs*1000);
+	setTimeout(() => { mRemoveClass(elem, 'transopaOn'); mClass(elem, 'transopaOff'); }, secs * 1000);
 
 }
-function fleetingMessage(msg,styles){
-	dLineBottomMiddle.innerHTML=msg;
-	if (nundef(styles))styles={fz:28,matop:50};
-	else {
-		styles=deepmerge({fz:28,matop:50},styles)
-		console.log('merged',styles);
-	};
-	mStyleX(dLineBottomMiddle,styles)
-	//dLineBottomMiddle.style.fontSize='24pt';
-	aniFadeInOut(dLineBottomMiddle,2);
 
-	// mClass(dLineBottomMiddle,'transopaOn');
-	// setTimeout(()=>{mRemoveClass(dLineBottomMiddle,'transopaOn');mClass(dLineBottomMiddle,'transopaOff');},2000)
+//#region fleetingMessage
+function clearFleetingMessage() {
+	if (isdef(fleetingMessageTimeout)) { clearTimeout(fleetingMessageTimeout); fleetingMessageTimeout = null; }
+	clearElement(dLineBottomMiddle);
 }
+function showFleetingMessage(msg, msDelay, styles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
+	let fg = colorIdealText(levelColors[currentLevel]); // == 4 ? 'yellow' : 'red';
+	if (nundef(styles.fg)) styles.fg = fg;
+	if (msDelay) {
+		fleetingMessageTimeout = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
+	} else {
+		fleetingMessage(msg, styles, fade);
+	}
+}
+function fleetingMessage(msg, styles, fade = false) {
+	clearFleetingMessage();
+	dLineBottomMiddle.innerHTML = msg;
+	mStyleX(dLineBottomMiddle, styles)
+	if (fade) aniFadeInOut(dLineBottomMiddle, 2);
+}
+//#endregion
 
 //#region ui
 function beforeActivationUI() { uiPaused |= beforeActivationMask; uiPaused &= ~hasClickedMask; }
-function activationUI(){uiPaused &= ~beforeActivationMask;}
-function hasClickedUI(){uiPaused |= hasClickedMask;}
+function activationUI() { uiPaused &= ~beforeActivationMask; }
+function hasClickedUI() { uiPaused |= hasClickedMask; }
 function pauseUI() { uiPausedStack.push(uiPaused); uiPaused |= uiHaltedMask; }
 function resumeUI() { uiPaused = uiPausedStack.pop(); }
 

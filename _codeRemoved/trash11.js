@@ -1,22 +1,37 @@
-function showPicturesSimple(bestWordIsShortest=false,onClickPictureHandler, colored=false){
-	Pictures = [];
-	let keys = choose(currentKeys, NumPics);
-	let indices = nRandomNumbers(NumPics, 0, NumPics-1);
+function showBadges_dep(dParent, level, bgs) {
+	clearElement(dParent);
+	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
+	//let picLabelStyles = getHarmoniousStylesPlus({ rounding: 10, margin: 24 }, {}, {}, 60, 60, 0, 'arial', 'random', 'transparent', true);
+	//let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
+	// ensureSymByType();
+	let keys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
+		'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
+		'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
+	let fg = '#00000080';
+	let textColor = 'white';
+	let texts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-	for (let i = 0; i < keys.length; i++) {
-		let info = getRandomSetItem(currentLanguage, keys[i]);
-		let id = 'pic' + i;
-		let label = selectWord(info,bestWordIsShortest);
-		let shade,bgPic;
-		if (colored){shade = choose(['red','green','gold','blue']);bgPic='white';}
-		else{shade=undefined;bgPic='random';}
+	let achieved = [];
+	for (let i = 0; i < level; i++) { achieved.push(keys[i]); }
+	badges = mpLineup(dParent, achieved, bgs, fg, textColor, texts);
+	// let dGrid = mDiv(table);
+	// let elems = [];
+	// let isText = true;
+	// let isOmoji = false;
 
-		let pic = maPicLabelSimple(info, label, dTable, 200, 200, shade, bgPic, id, onClickPictureHandler, indices.includes(i));
-		Pictures.push(pic);
-		console.log(info.key, info)
-	}
+	// for (let i=0;i<keys.length;i++) {
+	// 	let k=keys[i];
+	// 	let bg=bgs[i];
+
+	// 	let info = symbolDict[k];
+	// 	let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
+	// 	elems.push(el);
+	// }
+
+	// let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	// let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
+
 }
-
 
 function showPictures(bestWordIsShortest = false, onClickPictureHandler, colored=false) {
 	//console.log('dassssssssssssssssssssssssssssssssssssssssssssssssssssssss')

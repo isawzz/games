@@ -1,4 +1,5 @@
 //var counterStartGame = 0;
+var pictureSize;
 function startGame(game) {
 	//counterStartGame += 1; console.log('startGame counter', counterStartGame);
 
@@ -7,7 +8,9 @@ function startGame(game) {
 	onkeyup = null;
 
 	if (isdef(game)) currentGame = game;
+	if (currentGame == 'sequence') currentGame = gameSequence[0];
 	currentLevel = startAtLevel[currentGame];
+	//console.log(currentLevel)
 
 	//loadSettings(currentGame, currentUser);
 
@@ -18,7 +21,7 @@ function startGame(game) {
 
 	startLevel();
 }
-function startLevel(){
+function startLevel() {
 	//console.log('end of startGame:','boundary',boundary,'currentLevel',currentLevel,'SAMPLES_PER_LEVEL',SAMPLES_PER_LEVEL)
 	//console.log(currentKeys)
 	GFUNC[currentGame].startLevel();
@@ -26,8 +29,8 @@ function startLevel(){
 	startRound();
 }
 function startRound() {
-	console.assert(!LevelChange,'levelChange!!!!!!!!!!!!! need reset!')
-	clearElement(dLineBottomMiddle);
+	console.assert(!LevelChange, 'levelChange!!!!!!!!!!!!! need reset!')
+	clearFleetingMessage();
 	GFUNC[currentGame].startRound();
 	//GameState = STATES.ROUND_INITIALIZED;
 	//console.log('pics:' + NumPics, 'currentKeys has', currentKeys.length, 'entries')
@@ -49,46 +52,82 @@ function presentPrompt() {
 
 	return GFUNC[currentGame].prompt();
 }
-function selectWord(info, bestWordIsShortest) {
+function selectWord(info, bestWordIsShortest, except = []) {
 	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
 	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
+	if (except.includes(w)) {
+		let wNew = lastCond(info.words, x => !except.includes(w));
+		if (wNew) w = wNew;
+	}
 	return w;
 }
 function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors) {
 	Pictures = [];
+	let labels = [];
 	let keys = choose(currentKeys, NumPics);
 	//keys=['oil drum'];//,'door']
 
-	let stylesForLabelButton = { rounding: 10, margin: 24 };
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
-	let bgPic = isdef(colors)?'white':'random';
+	let bgPic = isdef(colors) ? 'white' : 'random';
 
-	let lines = isdef(colors)?colors.length:1;
-	for(let line=0;line<lines;line++){
-		let shade = isdef(colors)?colors[line]:undefined;
+	let lines = isdef(colors) ? colors.length : 1;
+
+	//hier weiss ich bereits wieviele lines es sind!
+	let ww = window.innerWidth;
+	let wh = window.innerHeight;
+	let hpercent = 0.60; let wpercent = .6;
+	let w, h;
+	if (lines > 1) {
+		//wenn lines > 1 ist, dann muss w,h= 
+		let hpic = wh * hpercent / lines;
+		let wpic = ww * wpercent / NumPics;
+		w = h = Math.min(hpic, wpic);
+		//console.log('w',w,'h',h,ww,wh,NumPics,lines,wpic,wpic,hpic,hpic)
+	} else {
+		//mach ein schoenes numpic layout:
+		//1,2,3 auf 1 line
+		let dims = calcRowsColsX(NumPics);
+		let hpic = wh * hpercent / dims.rows;
+		let wpic = ww * wpercent / dims.cols;
+		w = h = Math.min(hpic, wpic);
+	}
+
+	pictureSize = Math.min(w,200);
+	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+
+	for (let line = 0; line < lines; line++) {
+		let shade = isdef(colors) ? colors[line] : undefined;
 		for (let i = 0; i < keys.length; i++) {
 			let info = getRandomSetItem(currentLanguage, keys[i]);
-			let id = 'pic' + (line*keys.length + i);
-			let label = selectWord(info, bestWordIsShortest);
+			let id = 'pic' + (line * keys.length + i);
+			let label = selectWord(info, bestWordIsShortest, labels);
+			console.assert(isdef(label) && !isEmpty(label), 'no label for key ' + keys[i])
+			labels.push(label);
+			//console.log('label',label)
 			//console.log('______', info.key, info);
-	
+
 			// let shade, bgPic;
 			// if (isdef(colors)) { shade = choose(['red', 'green', 'gold', 'blue']); bgPic = 'white'; }
 			// else { shade = undefined; bgPic = 'random'; }
-			// let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, shade: shade, bgPic: bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-			let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, bgPic: bgPic, shade:shade }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			// let d1 = maPicLabelButtonFitText_(info, label, { w: 200, h: 200, shade: shade, bgPic: bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			let d1 = maPicLabelButtonFitText(info, label,
+				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
-			Pictures.push({ shade:shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
+			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
 		}
 		mLinebreak(dTable);
 	}
-	if (NumLabels == NumPics) return;
 
-	let remlabelPic = choose(Pictures, NumPics - NumLabels);
+	let totalPics = Pictures.length;
+	// if (nundef(colors)) {
+	if (NumLabels == totalPics) return;
+	let remlabelPic = choose(Pictures, totalPics - NumLabels);
 	for (const p of remlabelPic) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
+	// }
+
 }
 function setGoal(index) {
-	if (nundef(index)){
+	if (nundef(index)) {
 		let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
 		if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
 		index = rnd;
@@ -137,7 +176,7 @@ function failPictureGoal(withComment = true) {
 		const comments = (currentLanguage == 'E' ? ['too bad'] : ["aber geh'"]);
 		say(chooseRandom(comments), 1, 1, .8, true, 'zira');
 	}
-	if (isdef(Selected)) maPicOver(mBy('dX'), mBy(Selected.id), 100, 'red', 'openMojiTextBlack');
+	if (isdef(Selected)) mpOver(mBy('dX'), mBy(Selected.id), pictureSize / 2, 'red', 'openMojiTextBlack');
 
 }
 function successPictureGoal(withComment = true) {
@@ -146,7 +185,8 @@ function successPictureGoal(withComment = true) {
 		const comments = (currentLanguage == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
 		say(chooseRandom(comments));//'Excellent!!!');
 	}
-	maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
+	// maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
+	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4/5), 'limegreen', 'segoeBlack');
 
 }
 
@@ -215,7 +255,7 @@ function setScore(isCorrect) {
 function showCorrectWord() {
 	let div = mBy(Goal.id);
 	mClass(div, 'onPulse');
-	let correctionPhrase = isdef(Goal.correctionPhrase)?Goal.correctionPhrase:bestWord;
+	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
 	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 
@@ -260,7 +300,7 @@ function removeBadgeAndRevertLevel() {
 	setBackgroundColor();
 	showLevel();
 	showScore();
-	startRound();
+	startLevel();
 }
 
 function showLevelComplete() {
@@ -311,12 +351,12 @@ function levelStep13() {
 
 function proceedAfterLevelChange() {
 	//LevelChange = false;
-	console.log('proceedAfterLevelChange',currentLevel)
-	if (currentLevel >= MAXLEVEL) {
+	//console.log('proceedAfterLevelChange', currentLevel)
+	if (currentLevel > MAXLEVEL) {
 		//find index of current game
-		let iGame = gameSequence.indexOf(currentGame)+1;
-		console.log(iGame)
-		if (iGame == gameSequence.length - 1) {
+		let iGame = gameSequence.indexOf(currentGame) + 1;
+		//console.log('==>game index', iGame)
+		if (iGame == gameSequence.length) {
 			//this was already the last game!
 			//congratulations screen! and shut down
 			playAudioEnd();

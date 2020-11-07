@@ -86,6 +86,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	fzreal = f * info.fz;
 	wreal = Math.round(f * wInfo);
 	hreal = Math.round(f * hInfo);
+	wdes = Math.round(wdes);
+	hdes = Math.round(hdes);
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
 	//console.log('====>>>>', family, '\nw.info', wInfo, '\nh.info', hInfo, '\nfactor', f, '\nw', wreal, '\nh', hreal);
@@ -111,7 +113,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	return dOuter;
 
 }
-function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
+function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, intensity }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
 	if (nundef(handler)) handler = (ev) => {
 		let id = evToClosestId(ev);
 		let info = symbolDict[id.substring(1)];
@@ -119,8 +121,8 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic }, handler, d
 		if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus();
 	}
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bgPic, 'transparent', null, null, true);
-	
-	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade:shade }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
+
+	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, intensity: intensity }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
 	x.id = 'd' + info.key;
 	x.onclick = handler;
 	x.style.cursor = 'pointer';
@@ -129,15 +131,16 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic }, handler, d
 	mClass(x, classes);
 	return x;
 }
-function maPicLabelFitX(info, label, { wmax, hmax, shade }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
+function maPicLabelFitX(info, label, { wmax, hmax, shade, intensity = '#00000030' }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	//console.log('picStyles',picStyles);
 
 
 	if (isdef(shade)) {
 		//console.log(picStyles);
-		picStyles['text-shadow'] = '0 0 0 ' + shade; //green';
-		picStyles.fg = '#00000080';
+		let sShade = '0 0 0 ' + shade; //green';
+		picStyles['text-shadow'] = sShade;// +', '+sShade+', '+sShade;
+		picStyles.fg = intensity;
 	}
 
 	let dPic = maPic(info, d, picStyles, isText, isOmoji);
@@ -146,7 +149,7 @@ function maPicLabelFitX(info, label, { wmax, hmax, shade }, dParent, containerSt
 	//console.log(containerStyles, picStyles, textStyles);
 
 	//if (isdef(hmax))
-	//console.log('maPicLabelFitX', 'wmax', wmax, 'hmax', hmax)
+	//console.log('maPicLabelFitX_', 'wmax', wmax, 'hmax', hmax)
 	let wAvail, hAvail;
 	hAvail = containerStyles.h - (containerStyles.patop + picStyles.h);// + containerStyles.pabottom);
 	wAvail = containerStyles.w;
@@ -261,6 +264,9 @@ function mpGridLabeled(dParent, list, picLabelStyles) {
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	//console.log(size);
 }
+
+//#region badges
+var badges=[];
 function removeBadges(dParent, level) {
 	while (badges.length > level) {
 		let badge = badges.pop()
@@ -275,54 +281,23 @@ function addBadge(dParent, level) {
 	let isText = true; let isOmoji = false;
 	let i = level - 1;
 	let key = levelKeys[i];
-	//console.log(key);
 	let k = replaceAll(key, ' ', '-');
 	let info = symbolDict[k];
-
-	let label = "level " + i; //info.key;
-
-	let d1 = mpBadge(info, label, { w: 72, h: 72, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-	//d1.style.opacity=0;
+	let label = "level " + i; 
+	let h = window.innerHeight; let hBadge = h / 14;
+	let d1 = mpBadge(info, label, { w: hBadge, h: hBadge, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 	mClass(d1, 'aniRubberBand');
-	//mClass(d1,'aniFadeIn');
 	badges.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
-
-
 }
-function showBadges(dParent, level, bgs) {
-	clearElement(dParent);
-	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
-	//let picLabelStyles = getHarmoniousStylesPlus({ rounding: 10, margin: 24 }, {}, {}, 60, 60, 0, 'arial', 'random', 'transparent', true);
-	//let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
-	// ensureSymByType();
-	let keys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
-		'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
-		'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
-	let fg = '#00000080';
-	let textColor = 'white';
-	let texts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-
-	let achieved = [];
-	for (let i = 0; i < level; i++) { achieved.push(keys[i]); }
-	badges = mpLineup(dParent, achieved, bgs, fg, textColor, texts);
-	// let dGrid = mDiv(table);
-	// let elems = [];
-	// let isText = true;
-	// let isOmoji = false;
-
-	// for (let i=0;i<keys.length;i++) {
-	// 	let k=keys[i];
-	// 	let bg=bgs[i];
-
-	// 	let info = symbolDict[k];
-	// 	let el = maPicLabel(info, dGrid, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji)
-	// 	elems.push(el);
-	// }
-
-	// let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	// let size = layoutGrid(elems, dGrid, gridStyles, { rows:10, isInline: true });
-
+function showBadges(dParent, level) {
+	clearElement(dParent);badges =[];
+	for (let i = 1; i <= level; i++) {
+		addBadge(dParent, i);
+	}
+	//console.log(badges)
 }
+//#endregion
+
 function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 	let g2Pics = [];
 
@@ -338,7 +313,10 @@ function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 
 		let label = "level " + i; //info.key;
 
-		let d1 = mpBadge(info, label, { w: 72, h: 72, bg: bgs[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		let h = window.innerHeight; let hBadge = Math.floor((h) / 14);
+		//console.log('hBadge',hBadge)
+		let d1 = mpBadge(info, label, { w: hBadge, h: hBadge, bg: bgs[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		// let d1 = mpBadge(info, label, { w: 72, h: 72, bg: bgs[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 
 		g2Pics.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
 	}
@@ -349,9 +327,16 @@ function mpOver(d, dParent, fz, color, picStyle) {
 	//maPicOver
 	//d is pos fixed!!!
 	let b = getBounds(dParent);
+
+	let cx = b.width / 2 + b.x;
+	let cy = b.height / 2 + b.y;
+	//console.log('picStyle')
+	d.style.top = picStyle == 'segoeBlack' ? ((cy - fz * 2 / 3) + 'px') : ((cy - fz / 2) + 'px');
+	d.style.left = picStyle == 'segoeBlack' ? ((cx - fz / 3) + 'px') : ((cx - fz * 1.2 / 2) + 'px');
+
 	//console.log(b);
-	d.style.top = picStyle == 'segoeBlack' ? (b.y + 60 - fz / 2 + 'px') : (b.y + 100 - fz / 2 + 'px');
-	d.style.left = picStyle == 'segoeBlack' ? (b.x + 120 - fz / 2 + 'px') : (b.x + 100 - fz / 2 + 'px');
+	// d.style.top = picStyle == 'segoeBlack' ? (b.y + 60 - fz / 2 + 'px') : (b.y + 100 - fz / 2 + 'px');
+	// d.style.left = picStyle == 'segoeBlack' ? (b.x + 120 - fz / 2 + 'px') : (b.x + 100 - fz / 2 + 'px');
 	d.style.color = color;
 	d.style.fontSize = fz + 'px';
 	d.style.display = 'block';
@@ -376,7 +361,7 @@ function mpSimpleButton(key, dParent, handler) {
 	return d1;
 }
 function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
-	//maPicLabelButtonFitText
+	//maPicLabelButtonFitText_
 	if (nundef(handler)) handler = labelToggler; // (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bg, 'transparent', fgPic, fgText, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
@@ -389,7 +374,7 @@ function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, st
 	return x;
 }
 function mpBadge(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
-	//maPicLabelButtonFitText
+	//maPicLabelButtonFitText_
 	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
 	let picLabelStyles = getBadgeStyles(styles, {}, {}, w, h, 64, 4, 2, 'arial', bg, 'transparent', fgPic, fgText, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
@@ -430,6 +415,7 @@ function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, p
 }
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
 	//console.log(elist, elist.length)
+	
 	let dims = calcRowsCols(elist.length, rows, cols);
 	//console.log('dims', dims);
 
@@ -451,6 +437,7 @@ function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
 function wordsOfLanguage(key, language) {
 	//console.log(language)
 	let y = symbolDict[key];
+	//console.log(y)
 	let w = y[language];
 	let wlist = w.split('|');
 	return wlist.map(x => x.trim());
@@ -505,12 +492,14 @@ function setCategories(groupNameList) {
 	}
 	return keys;
 }
-function getKeySetX(categories, language, minlength, maxlength) {
+function getKeySetX(categories, language, minlength, maxlength, bestOnly = false) {
 	let keys = setCategories(categories);
 	//console.log(keys)
 	if (isdef(minlength && isdef(maxlength))) {
 		keys = keys.filter(k => {
-			let ws = wordsOfLanguage(k, language);
+
+			let ws = bestOnly ? [stringAfterLast(symbolDict[k][language], '|')] : wordsOfLanguage(k, language);
+			//console.log(ws)
 			for (const w of ws) {
 				if (w.length >= minlength && w.length <= maxlength) return true;
 			}
@@ -705,6 +694,20 @@ function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, 
 	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
 	return d;
 }
+function maPicOver(d, dParent, fz, color, picStyle) { // styles, isText = true, isOmoji = false) {
+
+	let b = getBounds(dParent);
+	//console.log(b);
+	//let fz = 40;
+	d.style.top = picStyle == 'segoeBlack' ? (b.y + 60 - fz / 2 + 'px') : (b.y + 100 - fz / 2 + 'px');
+	d.style.left = picStyle == 'segoeBlack' ? (b.x + 120 - fz / 2 + 'px') : (b.x + 100 - fz / 2 + 'px');
+	d.style.color = color;
+	d.style.fontSize = fz + 'px';
+	d.style.display = 'block';
+	let { isText, isOmoji } = getParamsForMaPicStyle(picStyle);
+	d.style.fontFamily = isString(isOmoji) ? isOmoji : isOmoji ? 'emoOpen' : 'emoNoto';
+	return d;
+}
 function maPicSimple(key) {
 	let info = picInfo(key);
 	let d = mText(info.text);
@@ -772,15 +775,6 @@ function maPicSimpleEmoHexText(hex, parent, fontSize) {
 	d.innerHTML = s1;
 	d.style.fontSize = fontSize + 'pt';
 	return d;
-}
-function maPicLabelSimple(info, label, dTable, w, h, fg, bgPic, id, onClickPictureHandler, isLabelVisible) {
-	let stylesForLabelButton = { rounding: 10, margin: 24 };
-	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
-	let d1 = maPicLabelButtonFitText(info, label, { w: w, h: h, shade: fg, bgPic:bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-	d1.id = id;
-	if (!isLabelVisible) maHideLabel(id, info);
-	let result = { key: info.key, info: info, div: d1, id: id, label: label, isLabelVisible: isLabelVisible };
-	return result;
 }
 
 function maPicLabelFit(info, label, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {

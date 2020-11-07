@@ -15,7 +15,7 @@ function startGameSP() { }
 function startLevelSP() { levelSP(); }
 function levelSP() {
 	let levelInfo = LevelsSP[currentLevel];
-	console.log(currentLevel,levelInfo,LevelsSP)
+	//console.log(currentLevel,levelInfo,LevelsSP)
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
@@ -42,8 +42,8 @@ function promptSP() {
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle);
 
 	mLinebreak(dTable);
-	inputBox = addNthInputElement(dTable, trialNumber);
-	defaultFocusElement = inputBox.id;
+	// inputBox = addNthInputElement(dTable, trialNumber);
+	// defaultFocusElement = inputBox.id;
 
 	return 10;
 }

@@ -35,9 +35,9 @@ function setGame(event) {
 function setLanguage(x) {
 	currentLanguage = x; setKeys();
 }
-function setKeys(cats) {
+function setKeys(cats, bestOnly) {
 	//console.log(currentCategories)
-	currentKeys = getKeySetX(isdef(cats)?cats:currentCategories, currentLanguage, MinWordLength, MaxWordLength);
+	currentKeys = getKeySetX(isdef(cats)?cats:currentCategories, currentLanguage, MinWordLength, MaxWordLength, bestOnly);
 	// currentKeys = getKeySetX(currentCategories[iGROUP], currentLanguage,MinWordLength, MaxWordLength);
 }
 function setPicsPerLevel() {

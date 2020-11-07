@@ -8142,9 +8142,9 @@ automobile:
   hexcode: 1F697
   group: travel-places
   subgroups: transport-ground
-  E: car
-  D: automobile|vehicle|car
-  E_valid_sound: wagen|automobil|auto
+  E: automobile|vehicle|car
+  D: wagen|automobil|auto
+  E_valid_sound: card
   hex: 1F697
   family: emoNoto
   text: '&#128663;'
@@ -13516,7 +13516,7 @@ blowfish:
   group: animals-nature
   subgroups: animal-marine
   E: fish|blowfish
-  D: fisch
+  D: fisch|kugelfisch
   hex: 1F421
   family: emoNoto
   text: '&#128033;'
@@ -25046,7 +25046,7 @@ clinking beer mugs:
   hexcode: 1F37B
   group: food-drink
   subgroups: drink
-  E: glasses|beer|celebrate
+  E: glasses|beer|celebrate|clink
   D: gläser|anstossen|bier|feiern
   hex: 1F37B
   family: emoNoto
@@ -25085,7 +25085,7 @@ clinking glasses:
   hexcode: 1F942
   group: food-drink
   subgroups: drink
-  E: glasses|champaign|mug
+  E: glasses|champaign|clink
   D: gläser|anstossen|champagner
   hex: 1F942
   family: emoNoto
@@ -91269,7 +91269,7 @@ racing car:
   group: travel-places
   subgroups: transport-ground
   E: racing car|car
-  D: racing
+  D: formel 1 wagen|rennwagen
   E_valid_sound: formel 1 wagen|rennwagen
   hex: 1F3CE
   family: emoNoto

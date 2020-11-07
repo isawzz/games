@@ -2516,6 +2516,14 @@ function wlog() {
 //#endregion
 
 //#region layout helpers
+function calcRowsColsX(num){
+	const table={
+		5:{rows:2,cols:3},
+		7:{rows:2,cols:4},
+		11:{rows:3,cols:4},
+	};
+	if (isdef(table[num])) return table[num]; else return calcRowsCols(num);
+}
 function calcRowsCols(num, rows, cols) {
 	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
 	//console.log(num, rows, cols);
@@ -2533,7 +2541,7 @@ function calcRowsCols(num, rows, cols) {
 	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
 		let lower = Math.floor(Math.sqrt(num));
 		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
-		rows = lower
+		rows = lower;
 		cols = lower + 2;
 	} else if (num > 1 && num < 10) {
 		shape = 'circle';

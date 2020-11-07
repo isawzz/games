@@ -1,6 +1,5 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
-var hintTimeout;
 const LevelsML = {
 	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
 	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
@@ -48,7 +47,18 @@ function composeFleetingMessage() {
 	//inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index:index });
 	//find first input that is NOT done
 	let inp = firstCond(inputs, x => !x.done);
-	let s;
+	let lst= inputs.filter(x=>!x.done);
+	console.log(lst);
+
+	let msg=lst.map(x=>x.letter).join(',');
+	console.log(msg);
+	let edecl=lst.length>1?'s ':' ';
+	let ddecl=lst.length>1?'den':'die';
+	let s = (currentLanguage == 'E' ? 'Type the letter'+edecl : 'Tippe '+ddecl+' Buchstaben ');
+	return s+msg;
+	//if (lst.length == 1) 
+
+	//let s;
 	let best = bestWord.toUpperCase();
 	if (currentLevel < 2) {
 		s = (currentLanguage == 'E' ? 'Type the letter ' : 'Tippe den Buchstaben ') + inp.letter;
@@ -65,7 +75,6 @@ function composeFleetingMessage() {
 
 function promptML() {
 
-	if (isdef(hintTimeout)) { clearTimeout(hintTimeout); hintTimeout = null; }
 	trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
@@ -74,6 +83,7 @@ function promptML() {
 
 	mLinebreak(dTable);
 
+	//#region add letter inputs
 	//hier werden die letters und missing letters (inputs) gemacht:
 	let d = mDiv(dTable);
 	d.id = 'dLetters';
@@ -108,11 +118,11 @@ function promptML() {
 
 	mLinebreak(dTable);
 
-	if (percentageCorrect < 170) {
+	//#endregion
+
+	if (percentageCorrect < 190) {
 		let msg = composeFleetingMessage();
-		//hintTimeout = setTimeout(()=>fleetingMessage(msg,{fz:34,bg:'#ffffff80',fg:'red',rounding:10,padding:'2px 12px'}),2000);//hpadding:10,vpadding:2,
-		let fg = currentLevel == 4 ? 'yellow' : 'red';
-		hintTimeout = setTimeout(() => fleetingMessage(msg, { fz: 34, fg: fg, rounding: 10, padding: '2px 12px' }), 3000);//hpadding:10,vpadding:2,
+		showFleetingMessage(msg,3000);
 	}
 
 	return 10;
@@ -135,6 +145,7 @@ function buildWordFromLetters(d) {
 function activateML() {
 	//console.log('should activate WritePic UI')
 	onkeypress = ev => {
+		clearFleetingMessage();
 		if (uiPaused || ev.ctrlKey || ev.altKey) return;
 		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
 		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
@@ -165,7 +176,6 @@ function activateML() {
 	}
 }
 function evalML(word) {
-	if (isdef(hintTimeout)) { clearTimeout(hintTimeout); }
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	//console.log('eval MissingLetter', answer, reqAnswer)
