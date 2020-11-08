@@ -268,9 +268,19 @@ function setScore(isCorrect) {
 	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
 	showScore();
 }
-function showCorrectWord() {
+function shortHintPicRemove(){
+	mRemoveClass(mBy(Goal.id), 'onPulse1');
+}
+function shortHintPic(){
+	mClass(mBy(Goal.id), 'onPulse1');
+	setTimeout(()=>shortHintPicRemove(),800);
+}
+function showCorrectWord(sayit=true) {
 	let div = mBy(Goal.id);
 	mClass(div, 'onPulse');
+	
+	if (!sayit) return;
+
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
 	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }

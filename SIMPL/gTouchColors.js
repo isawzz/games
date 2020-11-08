@@ -9,11 +9,11 @@ const LevelsTC = {
 	3: { NumColors:3, NumPics: 3, NumLabels: 9, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 1 },
 	4: { NumColors:2, NumPics: 2, NumLabels: 2, MinWordLength: 4, MaxWordLength: 8, MaxNumTrials: 1 },
 	5: { NumColors:2, NumPics: 4, NumLabels: 4, MinWordLength: 4, MaxWordLength: 9, MaxNumTrials: 1 },
-	6: { NumColors:2, NumPics: 3, NumLabels: 2, MinWordLength: 5, MaxWordLength: 10, MaxNumTrials: 1 },
-	7: { NumColors:2, NumPics: 4, NumLabels: 2, MinWordLength: 5, MaxWordLength: 11, MaxNumTrials: 1 },
-	8: { NumColors:3, NumPics: 3, NumLabels: 3, MinWordLength: 6, MaxWordLength: 12, MaxNumTrials: 1 },
-	9: { NumColors:5, NumPics: 5, NumLabels: 0, MinWordLength: 6, MaxWordLength: 13, MaxNumTrials: 1 },
-	10: { NumColors:3, NumPics: 3, NumLabels: 0, MinWordLength: 4, MaxWordLength: 14, MaxNumTrials: 1 },
+	6: { NumColors:2, NumPics: 3, NumLabels: 2, MinWordLength: 5, MaxWordLength: 10, MaxNumTrials: 2 },
+	7: { NumColors:2, NumPics: 4, NumLabels: 2, MinWordLength: 5, MaxWordLength: 11, MaxNumTrials: 2 },
+	8: { NumColors:3, NumPics: 3, NumLabels: 3, MinWordLength: 6, MaxWordLength: 12, MaxNumTrials: 2 },
+	9: { NumColors:5, NumPics: 5, NumLabels: 0, MinWordLength: 6, MaxWordLength: 13, MaxNumTrials: 3 },
+	10: { NumColors:3, NumPics: 3, NumLabels: 0, MinWordLength: 4, MaxWordLength: 14, MaxNumTrials: 2 },
 }
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
@@ -47,7 +47,12 @@ function promptTC() {
 	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle, spoken);
 	return 10;
 }
-function trialPromptTC(){}
+function trialPromptTC(){
+	say('try again');
+	shortHintPic();
+	return 10;
+
+}
 function activateTC() {
 	uiActivatedTC = true;
 }
