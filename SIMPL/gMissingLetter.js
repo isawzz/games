@@ -105,8 +105,20 @@ function promptML() {
 
 	return 10;
 }
-function trialPromptML() { 
+function trialPromptML() {
 	//erase wrong letter and say try again
+
+	let selinp=Selected.inp;
+	say('try again!');
+	setTimeout(() => {
+		console.log('selected last:', selinp);
+		let d = selinp.div;
+		d.innerHTML = '_';
+		mClass(d, 'blink');
+		inputs.push(selinp);
+	}, 2000);
+
+
 	return 10;
 	// say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	// trialNumber += 1;
@@ -130,15 +142,19 @@ function activateML() {
 		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
 		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
 
-		Selected = {lastLetterEntered:charEntered.toUpperCase()};
+
+		Selected = { lastLetterEntered: charEntered.toUpperCase() };
 
 		//console.log('inp',inp);
 		if (nMissing == 1) {
 			let d = inputs[0].div;
 			Selected.lastIndexEntered = inputs[0].index;
+			Selected.inp = inputs[0];
 			d.innerHTML = Selected.lastLetterEntered;
 			mRemoveClass(d, 'blink');
 			let result = buildWordFromLetters(mBy('dLetters'));
+			console.log('selected last:', Selected)
+
 			evaluate(result);
 		} else {
 			let ch = charEntered.toUpperCase();
@@ -146,6 +162,7 @@ function activateML() {
 				if (inp.letter == ch) {
 					//found a matching letter
 					Selected.lastIndexEntered = inp.index;
+					Selected.inp = inp;
 					let d = inp.div;
 					d.innerHTML = ch;
 					mRemoveClass(d, 'blink');
@@ -154,12 +171,12 @@ function activateML() {
 					break;
 				}
 			}
-			if (nundef(Selected.lastIndexEntered)){
+			if (nundef(Selected.lastIndexEntered)) {
 				//the user entered a non existing letter!!!
-				showFleetingMessage('you entered '+Selected.lastLetterEntered)
-				say('this letter does NOT belong to the word!')	
+				showFleetingMessage('you entered ' + Selected.lastLetterEntered)
+				say('this letter does NOT belong to the word!')
 			}
-			showFleetingMessage(composeFleetingMessage(),3000);
+			showFleetingMessage(composeFleetingMessage(), 3000);
 			//if get to this place that input did not match!
 			//ignore for now!
 		}
@@ -173,8 +190,8 @@ function evalML(word) {
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
-	}	else {
-		Selected = null;
+	} else {
+		//Selected = null;
 		return STATES.INCORRECT;
 	}
 }

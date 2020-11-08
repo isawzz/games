@@ -1,10 +1,10 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
 var skipLevelAnimation = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'gMissingLetter'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = 'sequence'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];

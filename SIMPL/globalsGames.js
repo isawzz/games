@@ -56,7 +56,6 @@ function promptStart() {
 }
 function promptNextTrial() {
 	beforeActivationUI();
-	Selected = null;
 
 	let delay = GFUNC[currentGame].trialPrompt();
 	setTimeout(activateUi, delay);
@@ -149,6 +148,7 @@ function setGoal(index) {
 	//console.log(bestWord);
 }
 function activateUi() {
+	Selected = null;
 	GFUNC[currentGame].activate();
 	activationUI();
 }
