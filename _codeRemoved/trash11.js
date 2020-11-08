@@ -1,3 +1,37 @@
+function composeFleetingMessage_bef() {
+	//inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index:index });
+
+	//macht keinen sinn denn so wie es setup ist werden inputs die done sind removed from inputs
+	//find first input that is NOT done
+	//let inp = firstCond(inputs, x => !x.done);
+	//let lst= inputs.filter(x=>!x.done);
+	//console.log(lst);
+	// let msg=lst.map(x=>x.letter).join(',');
+
+	let lst = inputs;
+	let msg=lst.map(x=>x.letter).join(',');
+	//console.log(msg);
+	let edecl=lst.length>1?'s ':' ';
+	let ddecl=lst.length>1?'den':'die';
+	let s = (currentLanguage == 'E' ? 'Type the letter'+edecl : 'Tippe '+ddecl+' Buchstaben ');
+	return s+msg;
+	//if (lst.length == 1) 
+
+	//let s;
+	let best = bestWord.toUpperCase();
+	if (currentLevel < 2) {
+		s = (currentLanguage == 'E' ? 'Type the letter ' : 'Tippe den Buchstaben ') + inp.letter;
+	} else if (inp.index == 0) {
+		s = currentLanguage == 'E' ? 'Type the first letter in ' + best : ' Tippe den Anfangsbuchstaben von ' + best;
+	} else {
+		let trialWord = buildWordFromLetters(mBy('dLetters')).toUpperCase();
+		trialWord = replaceAll(trialWord, '_', '')
+		s = (currentLanguage == 'E' ? 'Type a letter that is in ' + best + ' but not in ' + trialWord
+			: 'Tippe einen Buchstaben in ' + best + ' der nicht in ' + trialWord + ' ist!');
+	}
+	return s;
+}
+
 function showBadges_dep(dParent, level, bgs) {
 	clearElement(dParent);
 	// let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);

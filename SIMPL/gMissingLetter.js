@@ -44,33 +44,13 @@ function startRoundML() {
 }
 
 function composeFleetingMessage() {
-	//inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index:index });
-	//find first input that is NOT done
-	let inp = firstCond(inputs, x => !x.done);
-	let lst= inputs.filter(x=>!x.done);
-	console.log(lst);
-
-	let msg=lst.map(x=>x.letter).join(',');
-	console.log(msg);
-	let edecl=lst.length>1?'s ':' ';
-	let ddecl=lst.length>1?'den':'die';
-	let s = (currentLanguage == 'E' ? 'Type the letter'+edecl : 'Tippe '+ddecl+' Buchstaben ');
-	return s+msg;
-	//if (lst.length == 1) 
-
-	//let s;
-	let best = bestWord.toUpperCase();
-	if (currentLevel < 2) {
-		s = (currentLanguage == 'E' ? 'Type the letter ' : 'Tippe den Buchstaben ') + inp.letter;
-	} else if (inp.index == 0) {
-		s = currentLanguage == 'E' ? 'Type the first letter in ' + best : ' Tippe den Anfangsbuchstaben von ' + best;
-	} else {
-		let trialWord = buildWordFromLetters(mBy('dLetters')).toUpperCase();
-		trialWord = replaceAll(trialWord, '_', '')
-		s = (currentLanguage == 'E' ? 'Type a letter that is in ' + best + ' but not in ' + trialWord
-			: 'Tippe einen Buchstaben in ' + best + ' der nicht in ' + trialWord + ' ist!');
-	}
-	return s;
+	let lst = inputs;
+	let msg = lst.map(x => x.letter).join(',');
+	//console.log(msg);
+	let edecl = lst.length > 1 ? 's ' : ' ';
+	let ddecl = lst.length > 1 ? 'den' : 'die';
+	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
+	return s + msg;
 }
 
 function promptML() {
@@ -103,6 +83,7 @@ function promptML() {
 	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
 
 	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
+	indices.sort();
 	// let indices = nRandomNumbers(nMissing, 1, len - 2);
 	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
 
@@ -120,10 +101,7 @@ function promptML() {
 
 	//#endregion
 
-	if (percentageCorrect < 190) {
-		let msg = composeFleetingMessage();
-		showFleetingMessage(msg,3000);
-	}
+	showFleetingMessage(composeFleetingMessage(), 3000);
 
 	return 10;
 }
@@ -167,9 +145,10 @@ function activateML() {
 					mRemoveClass(d, 'blink');
 					removeInPlace(inputs, inp);
 					nMissing -= 1;
-					return;
+					break;
 				}
 			}
+			showFleetingMessage(composeFleetingMessage(),3000);
 			//if get to this place that input did not match!
 			//ignore for now!
 		}

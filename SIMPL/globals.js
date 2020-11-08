@@ -4,15 +4,15 @@ const immediateStart = true;  // false | true
 var skipLevelAnimation = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'gMissingLetter'; // gTouchPic | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = 'sequence'; // gTouchPic | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING?
- { gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gMissingLetter: 0, gSayPic: 10 }
+ { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 10 }
  : { gTouchPic: 1, gTouchColors: 0, gWritePic: 0, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
-var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
+var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];//, 'gSayPic'];
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
