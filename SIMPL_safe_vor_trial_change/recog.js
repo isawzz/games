@@ -25,7 +25,7 @@ function addStartHandler() {
 		recordCallback = null;
 		isRunning = true;
 		show('dRecord');
-		//console.log('recog start', isRunning)
+		console.log('recog start', isRunning)
 	};
 }
 function addResultHandler() {
@@ -51,7 +51,7 @@ function addResultHandler() {
 function addEndHandler() {
 	recognition.onend = function () {
 		isRunning = false;
-		//console.log('recog end', isRunning);
+		console.log('recog end', isRunning);
 		if (recordCallback) recordCallback();
 		else hide('dRecord');
 	};

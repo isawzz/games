@@ -46,7 +46,6 @@ function promptTC() {
 	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle);
 	return 10;
 }
-function trialPromptTC(){}
 function activateTC() {
 	uiActivatedTC = true;
 }

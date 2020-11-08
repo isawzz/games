@@ -34553,6 +34553,7 @@ door:
   subgroups: household
   E: door
   D: tür|türe
+  E_valid_sound: thor
   hex: 1F6AA
   family: emoNoto
   text: '&#128682;'

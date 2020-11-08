@@ -22,7 +22,7 @@ function levelTP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
 	NumLabels = levelInfo.NumLabels;
-	//writeComments();
+	writeComments();
 }
 function startRoundTP() {
 	uiActivated = false;
@@ -33,7 +33,6 @@ function promptTP() {
 	showInstruction(bestWord, 'click', dTitle);
 	return 10;
 }
-function trialPromptTP(){}
 function activateTP() {
 	uiActivated = true;
 }

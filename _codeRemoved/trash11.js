@@ -1,3 +1,34 @@
+function addResultHandler() {
+	// This event is triggered when the speech recognition service
+	// returns a result — a word or phrase has been positively 
+	//recognized and this has been communicated back to your app
+	recognition.onresult = function (event) {
+		var interim_transcript = '';
+		var final_transcript = '';
+		hide('dRecord');
+		for (var i = event.resultIndex; i < event.results.length; ++i) {
+			// Verify if the recognized text is the last with the isFinal property
+			if (event.results[i].isFinal) {
+				final_transcript += event.results[i][0].transcript;
+			} else {
+				interim_transcript += event.results[i][0].transcript;
+			}
+		}
+
+		// Choose which result may be useful for you
+		// console.log("Interim: ", interim_transcript);
+		// console.log("Final: ", final_transcript);
+		// console.log("Simple: ", event.results[0][0].transcript);
+
+		if (isdef(final_transcript) && !isEmpty(final_transcript)) {
+			recognition.stop();
+			let word = finalResult = final_transcript;
+			console.log('===>', '\nbest', bestWord, '\ngot', word); // + '.\nConfidence: ' + event.results[0][0].confidence);
+			evaluate(word);
+
+		}
+	};
+}
 function composeFleetingMessage_bef() {
 	//inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index:index });
 

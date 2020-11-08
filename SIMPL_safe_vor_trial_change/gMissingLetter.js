@@ -26,7 +26,7 @@ function levelML() {
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	//writeComments();
+	writeComments();
 	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 	// MaxWordLength = 
 	// setKeys();
@@ -39,7 +39,7 @@ function levelML() {
 	// console.log(currentCategories, currentLanguage, MAX_WORD_LENGTH, currentLevel);
 }
 function startRoundML() {
-	//trialNumber = 0;
+	trialNumber = 0;
 	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
 
@@ -55,7 +55,7 @@ function composeFleetingMessage() {
 
 function promptML() {
 
-	//trialNumber += 1;
+	trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
@@ -105,8 +105,7 @@ function promptML() {
 
 	return 10;
 }
-function trialPromptML() { 
-	return 10;
+function trialPromptML() {
 	// say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	// trialNumber += 1;
 	// mLinebreak(dTable);
@@ -163,7 +162,8 @@ function evalML(word) {
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
-	}	else {
+	}
+	else {
 		Selected = null;
 		return STATES.INCORRECT;
 	}
