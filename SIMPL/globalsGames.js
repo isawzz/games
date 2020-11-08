@@ -275,7 +275,7 @@ function showCorrectWord() {
 	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 
-function showInstruction(text, cmd, title) {
+function showInstruction(text, cmd, title, spoken) {
 	let d = mDiv(title);
 	mStyleX(d, { margin: 15 })
 	mClass(d, 'flexWrap');
@@ -296,7 +296,7 @@ function showInstruction(text, cmd, title) {
 	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
 	// dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
-	say(cmd + " " + text, .7, 1, .7, true, 'random');
+	say(isdef(spoken)?spoken:(cmd + " " + text), .7, 1, .7, true, 'random');
 
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }

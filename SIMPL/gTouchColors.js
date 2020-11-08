@@ -43,7 +43,8 @@ function promptTC() {
 
 	//console.log('________\ngoal id is',Goal.id)
 
-	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle);
+	let spoken = `click the ${Goal.shade} ${bestWord}`;
+	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle, spoken);
 	return 10;
 }
 function trialPromptTC(){}

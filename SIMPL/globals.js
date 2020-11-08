@@ -4,7 +4,7 @@ const immediateStart = true;  // false | true
 var skipLevelAnimation = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'gSayPic'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = 'gTouchPic'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
