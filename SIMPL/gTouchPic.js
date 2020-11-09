@@ -50,7 +50,8 @@ function evalTP(ev) {
 
 	//get item
 	let i = firstNumber(id);
-	let item = Selected = Pictures[i];
+	let item = Pictures[i];
+	Selected = {pic:item,feedbackUI:item.div};
 
 	//console.log(item.info.best)
 	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }

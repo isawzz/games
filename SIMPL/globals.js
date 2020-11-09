@@ -1,15 +1,16 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
 var skipLevelAnimation = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'sequence'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = IS_TESTING ? 'gMissingLetter' : 'sequence'; 
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING? { gTouchPic: 10, gTouchColors: 6, gWritePic: 10, gMissingLetter: 4, gSayPic: 3 }
- : { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
+var startAtLevel = IS_TESTING ? { gTouchPic: 10, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
+	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 

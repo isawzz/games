@@ -80,7 +80,6 @@ function evalSP(speechResult) {
 	// 	return STATES.NEXTTRIAL;
 	} else {
 		//console.log('leider alles falsch!!!')
-		Selected = null;
 		return STATES.INCORRECT;
 	}
 }

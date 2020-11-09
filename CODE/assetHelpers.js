@@ -326,6 +326,7 @@ function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 function mpOver(d, dParent, fz, color, picStyle) {
 	//maPicOver
 	//d is pos fixed!!!
+	console.log('dParent',dParent)
 	let b = getBounds(dParent);
 
 	let cx = b.width / 2 + b.x;
@@ -415,7 +416,7 @@ function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, p
 }
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
 	//console.log(elist, elist.length)
-	
+
 	let dims = calcRowsCols(elist.length, rows, cols);
 	//console.log('dims', dims);
 

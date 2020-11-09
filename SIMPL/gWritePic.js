@@ -80,10 +80,7 @@ function evalWP(ev) {
 	// 	trialPromptWP();
 	// 	return STATES.NEXTTRIAL;
 	// } 
-	else {
-		Selected = null;
-		return STATES.INCORRECT;
-	}
+	else {		return STATES.INCORRECT;	}
 }
 
 

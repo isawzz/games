@@ -1,17 +1,17 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
 const LevelsML = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 10, MaxNumTrials: 30 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 10, MaxNumTrials: 30 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 3, MaxPosMissing: 10, MaxNumTrials: 30 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 30 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 30 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 30 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 1 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 1 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 10, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 10, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 3, MaxPosMissing: 10, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 3 },
 }
 function startGameML() { }
 function startLevelML() { levelML(); }
@@ -84,6 +84,7 @@ function promptML() {
 
 	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
 	indices.sort();
+	
 	// let indices = nRandomNumbers(nMissing, 1, len - 2);
 	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
 
@@ -91,6 +92,7 @@ function promptML() {
 
 	for (let i = 0; i < nMissing; i++) {
 		let index = indices[i];
+		if (bestWord[index]==' ') continue;
 		let inp = d.children[index];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
@@ -147,7 +149,7 @@ function activateML() {
 
 		//console.log('inp',inp);
 		if (nMissing == 1) {
-			let d = inputs[0].div;
+			let d = Selected.feedbackUI = inputs[0].div;
 			Selected.lastIndexEntered = inputs[0].index;
 			Selected.inp = inputs[0];
 			d.innerHTML = Selected.lastLetterEntered;
@@ -163,7 +165,7 @@ function activateML() {
 					//found a matching letter
 					Selected.lastIndexEntered = inp.index;
 					Selected.inp = inp;
-					let d = inp.div;
+					let d = Selected.feedbackUI = inp.div;
 					d.innerHTML = ch;
 					mRemoveClass(d, 'blink');
 					removeInPlace(inputs, inp);
@@ -191,7 +193,6 @@ function evalML(word) {
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
 	} else {
-		//Selected = null;
 		return STATES.INCORRECT;
 	}
 }
