@@ -4014,6 +4014,8 @@ function isAlphaNum(s) {
 	// i means case insensitive
 
 	return /^[a-z0-9_]+$/i.test(s); // only lower case: /^[0-9a-z_]+$/);
+
+	//alternativ: /[a-zA-Z0-9-_ ]/.test(charEntered)
 }
 function isAlphaNumeric(str) {
 	var code, i, len;

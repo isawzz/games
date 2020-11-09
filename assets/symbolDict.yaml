@@ -37485,8 +37485,8 @@ egyptian-walk:
     - 100
   h:
     - 133
-eight o’clock:
-  key: eight o’clock
+eight o'clock:
+  key: eight o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -37494,16 +37494,16 @@ eight o’clock:
   hexcode: 1F557
   group: clock
   subgroups: time
-  E: '8|8:00|eight|eight o’clock'
-  D: '8|8:00|acht uhr|acht'
+  E: "8|8:00|eight|eight o'clock"
+  D: 8|8:00|acht uhr|acht
   hex: 1F557
   family: emoNoto
   text: '&#128343;'
   path: /assets/svg/twemoji/1F557.svg
   tags:
-    - eight o’clock
+    - eight o'clock
     - time
-  annotation: eight o’clock
+  annotation: eight o'clock
   fz: 100
   w:
     - 125
@@ -37915,8 +37915,8 @@ elevator:
     - 100
   h:
     - 133
-eleven o’clock:
-  key: eleven o’clock
+eleven o'clock:
+  key: eleven o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -37924,16 +37924,16 @@ eleven o’clock:
   hexcode: 1F55A
   group: clock
   subgroups: time
-  E: '11|11:00|eleven|eleven o’clock'
+  E: "11|11:00|eleven|eleven o'clock"
   D: '11|11:00|elf uhr|elf'
   hex: 1F55A
   family: emoNoto
   text: '&#128346;'
   path: /assets/svg/twemoji/1F55A.svg
   tags:
-    - eleven o’clock
+    - eleven o'clock
     - time
-  annotation: eleven o’clock
+  annotation: eleven o'clock
   fz: 100
   w:
     - 125
@@ -44242,8 +44242,8 @@ fist-raised:
     - 75
   h:
     - 133
-five o’clock:
-  key: five o’clock
+five o'clock:
+  key: five o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -44251,16 +44251,16 @@ five o’clock:
   hexcode: 1F554
   group: clock
   subgroups: time
-  E: '5|5:00|five|five o’clock'
+  E: "5|5:00|five|five o'clock"
   D: '5|5:00|fünf uhr|fünf'
   hex: 1F554
   family: emoNoto
   text: '&#128340;'
   path: /assets/svg/twemoji/1F554.svg
   tags:
-    - five o’clock
+    - five o'clock
     - time
-  annotation: five o’clock
+  annotation: five o'clock
   fz: 100
   w:
     - 125
@@ -46757,8 +46757,8 @@ four leaf clover:
     - 133
     - 133
     - 133
-four o’clock:
-  key: four o’clock
+four o'clock:
+  key: four o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -46766,16 +46766,16 @@ four o’clock:
   hexcode: 1F553
   group: clock
   subgroups: time
-  E: '4|4:00|four|four o’clock'
+  E: "4|4:00|four|four o'clock"
   D: '4|4:00|vier uhr|vier'
   hex: 1F553
   family: emoNoto
   text: '&#128339;'
   path: /assets/svg/twemoji/1F553.svg
   tags:
-    - four o’clock
+    - four o'clock
     - time
-  annotation: four o’clock
+  annotation: four o'clock
   fz: 100
   w:
     - 125
@@ -79342,8 +79342,8 @@ night-vision:
     - 100
   h:
     - 133
-nine o’clock:
-  key: nine o’clock
+nine o'clock:
+  key: nine o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -79351,16 +79351,16 @@ nine o’clock:
   hexcode: 1F558
   group: clock
   subgroups: time
-  E: '9|9:00|nine|nine o’clock'
+  E: "9|9:00|nine|nine o'clock"
   D: '9|9:00|neun uhr|neun'
   hex: 1F558
   family: emoNoto
   text: '&#128344;'
   path: /assets/svg/twemoji/1F558.svg
   tags:
-    - nine o’clock
+    - nine o'clock
     - time
-  annotation: nine o’clock
+  annotation: nine o'clock
   fz: 100
   w:
     - 125
@@ -81169,8 +81169,8 @@ oncoming fist:
     - 133
     - 133
     - 133
-one o’clock:
-  key: one o’clock
+one o'clock:
+  key: one o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -81178,16 +81178,16 @@ one o’clock:
   hexcode: 1F550
   group: clock
   subgroups: time
-  E: '1|1:00|one|one o’clock'
+  E: "1|1:00|one|one o'clock"
   D: '1|1:00|ein uhr|eins'
   hex: 1F550
   family: emoNoto
   text: '&#128336;'
   path: /assets/svg/twemoji/1F550.svg
   tags:
-    - one o’clock
+    - one o'clock
     - time
-  annotation: one o’clock
+  annotation: one o'clock
   fz: 100
   w:
     - 125
@@ -98430,8 +98430,8 @@ settlement:
     - 100
   h:
     - 133
-seven o’clock:
-  key: seven o’clock
+seven o'clock:
+  key: seven o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -98439,16 +98439,16 @@ seven o’clock:
   hexcode: 1F556
   group: clock
   subgroups: time
-  E: '7|7:00|seven|seven o’clock'
+  E: "7|7:00|seven|seven o'clock"
   D: '7|7:00|sieben uhr|sieben'
   hex: 1F556
   family: emoNoto
   text: '&#128342;'
   path: /assets/svg/twemoji/1F556.svg
   tags:
-    - seven o’clock
+    - seven o'clock
     - time
-  annotation: seven o’clock
+  annotation: seven o'clock
   fz: 100
   w:
     - 125
@@ -101030,8 +101030,8 @@ sitting-dog:
     - 100
   h:
     - 133
-six o’clock:
-  key: six o’clock
+six o'clock:
+  key: six o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -101039,16 +101039,16 @@ six o’clock:
   hexcode: 1F555
   group: clock
   subgroups: time
-  E: '6|6:00|six|six o’clock'
+  E: "6|6:00|six|six o'clock"
   D: '6|6:00|sechs uhr|sechs'
   hex: 1F555
   family: emoNoto
   text: '&#128341;'
   path: /assets/svg/twemoji/1F555.svg
   tags:
-    - six o’clock
+    - six o'clock
     - time
-  annotation: six o’clock
+  annotation: six o'clock
   fz: 100
   w:
     - 125
@@ -113536,8 +113536,8 @@ temptation:
     - 100
   h:
     - 133
-ten o’clock:
-  key: ten o’clock
+ten o'clock:
+  key: ten o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -113545,16 +113545,16 @@ ten o’clock:
   hexcode: 1F559
   group: clock
   subgroups: time
-  E: '10|10:00|ten|ten o’clock'
+  E: "10|10:00|ten|ten o'clock"
   D: '10|10:00|zehn uhr|zehn'
   hex: 1F559
   family: emoNoto
   text: '&#128345;'
   path: /assets/svg/twemoji/1F559.svg
   tags:
-    - ten o’clock
+    - ten o'clock
     - time
-  annotation: ten o’clock
+  annotation: ten o'clock
   fz: 100
   w:
     - 125
@@ -114629,8 +114629,8 @@ thread:
     - 133
     - 133
     - 133
-three o’clock:
-  key: three o’clock
+three o'clock:
+  key: three o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -114638,16 +114638,16 @@ three o’clock:
   hexcode: 1F552
   group: clock
   subgroups: time
-  E: '3|3:00|three|three o’clock'
+  E: "3|3:00|three|three o'clock"
   D: '3|3:00|drei uhr|drei'
   hex: 1F552
   family: emoNoto
   text: '&#128338;'
   path: /assets/svg/twemoji/1F552.svg
   tags:
-    - three o’clock
+    - three o'clock
     - time
-  annotation: three o’clock
+  annotation: three o'clock
   fz: 100
   w:
     - 125
@@ -118855,8 +118855,8 @@ tv-tower:
     - 100
   h:
     - 133
-twelve o’clock:
-  key: twelve o’clock
+twelve o'clock:
+  key: twelve o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -118864,19 +118864,19 @@ twelve o’clock:
   hexcode: 1F55B
   group: clock
   subgroups: time
-  E: '12|12:00|twelve|twelve o’clock'
+  E: "12|12:00|twelve|twelve o'clock"
   D: '12|12:00|zwölf uhr|mittag|mitternacht|zwölf'
   hex: 1F55B
   family: emoNoto
   text: '&#128347;'
   path: /assets/svg/twemoji/1F55B.svg
   tags:
-    - twelve o’clock
+    - twelve o'clock
     - clock
-    - o’clock
+    - o'clock
     - twelve
     - time
-  annotation: twelve o’clock
+  annotation: twelve o'clock
   fz: 100
   w:
     - 125
@@ -119029,8 +119029,8 @@ two hearts:
     - 133
     - 133
     - 133
-two o’clock:
-  key: two o’clock
+two o'clock:
+  key: two o'clock
   type: emo
   isDuplicate: false
   isColored: true
@@ -119038,16 +119038,16 @@ two o’clock:
   hexcode: 1F551
   group: clock
   subgroups: time
-  E: '2|2:00|two|two o’clock'
+  E: "2|2:00|two|two o'clock"
   D: '2|2:00|zwei uhr|zwei'
   hex: 1F551
   family: emoNoto
   text: '&#128337;'
   path: /assets/svg/twemoji/1F551.svg
   tags:
-    - two o’clock
+    - two o'clock
     - time
-  annotation: two o’clock
+  annotation: two o'clock
   fz: 100
   w:
     - 125

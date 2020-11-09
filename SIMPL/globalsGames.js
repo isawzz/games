@@ -1,13 +1,23 @@
 var pictureSize;
 function startGame(game) {
+
+	if (currentGame == 'gSayPic' && isRunning){
+		console.log('=>recog running: need to interrupt!',isRunning)
+		recognition.stop();
+		hide(mBy('dRecord'));
+	}
+
+	console.log('currentGame',currentGame)
 	addGameToSessionHistoryAndRenewGameHistory(currentGame);
-	if (isdef(game)) currentGame = game;
+	if (nundef(game)) game = currentGame;
+	if (game == 'sequence') game = gameSequence[0];
+	currentGame = game;
+	console.log('currentGame',currentGame)
+
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
 
-	if (isdef(game)) currentGame = game;
-	if (currentGame == 'sequence') currentGame = gameSequence[0];
 	currentLevel = startAtLevel[currentGame];
 
 	resetState();

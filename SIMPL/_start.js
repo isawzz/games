@@ -6,10 +6,10 @@ const GFUNC = {
 	gSayPic: { startGame: startGameSP,startLevel:startLevelSP, startRound: startRoundSP,trialPrompt:trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP, prepLevel: levelSP },
 }
 
-window.onload = SPEECHStart;
+window.onload = SessionStart;
 //window.onunload = saveSettings;
 
-async function SPEECHStart() {
+async function SessionStart() {
 
 	//show('dRecord'); 
 	//let a=stringAfterLeadingConsonants('drei'); console.log(a);return;
@@ -23,7 +23,7 @@ async function SPEECHStart() {
 	initTable();
 	initSidebar();
 
-	CurrentSessionData={user:currentUser,Games=[]};
+	CurrentSessionData={user:currentUser,Games:[]};
 	initSettingsP0();
 
 	if (immediateStart) startGame(); else openSettings();

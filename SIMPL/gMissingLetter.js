@@ -21,7 +21,7 @@ function levelML() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	
+	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
@@ -29,7 +29,7 @@ function levelML() {
 	//writeComments();
 	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
-function startRoundML() {}
+function startRoundML() { }
 
 function composeFleetingMessage() {
 	let lst = inputs;
@@ -40,6 +40,27 @@ function composeFleetingMessage() {
 	return s + msg;
 }
 
+function createLetterInputs(s, dTable, style, idForContainerDiv = 'dLetters') {
+	let d = mDiv(dTable);
+	d.id = idForContainerDiv;
+	inputs = [];
+	for (let i = 0; i < s.length; i++) {
+		let d1 = mCreate('div');
+		mAppend(d, d1);
+		d1.innerHTML = s[i];
+		mStyleX(d1,style);
+	}
+	return d;
+}
+
+function getIndicesCondi(arr,func){
+	let res = [];
+	for(let i=0;i<arr.length;i++){
+		if (func(arr[i],i)) res.push(i);
+	}
+	return res;
+}
+
 function promptML() {
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
@@ -48,34 +69,28 @@ function promptML() {
 
 	mLinebreak(dTable);
 
-	//#region add letter inputs
-	//hier werden die letters und missing letters (inputs) gemacht:
-	let d = mDiv(dTable);
-	d.id = 'dLetters';
-	inputs = [];
-	// let i=0;
-	for (let i = 0; i < bestWord.length; i++) {
-		let d1 = mCreate('div');
-		mAppend(d, d1);
-		d1.innerHTML = bestWord[i].toUpperCase();
-		mStyleX(d1, { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 });
-	}
+	// create sequence of letter ui
+	let style = { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 };
+	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style, 'dLetters'); // acces children: d.children
 
-	//randomly choose one of the input boxes
+	// randomly choose a maximum of NumMissingLetters alphanumeric letters from bestWord
 	let len = bestWord.length;
 	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
+	let indices = getIndicesCondi(bestWord,x,i=>isAlphaNum(x) && i<=MaxPosMissing);
+	console.log('indices (should be sorted!)',indices);
 
-	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
+	let indices = nRandomNumbers(, 0, Math.min(len - 1, MaxPosMissing));
 	indices.sort();
-	
+
 	// let indices = nRandomNumbers(nMissing, 1, len - 2);
+
 	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
 
 	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)
 
 	for (let i = 0; i < nMissing; i++) {
 		let index = indices[i];
-		if (bestWord[index]==' ') continue;
+		if (!isAlphaNum(bestWord[index])) { nMissing -= 1; }
 		let inp = d.children[index];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
@@ -84,14 +99,14 @@ function promptML() {
 
 	mLinebreak(dTable);
 
-	//#endregion
+	
 
 	showFleetingMessage(composeFleetingMessage(), 3000);
 
 	return 10;
 }
 function trialPromptML() {
-	let selinp=Selected.inp;
+	let selinp = Selected.inp;
 	say('try again!');
 	setTimeout(() => {
 		console.log('selected last:', selinp);
@@ -99,7 +114,7 @@ function trialPromptML() {
 		d.innerHTML = '_';
 		mClass(d, 'blink');
 		inputs.push(selinp);
-	}, skipAnimations?300:2000);
+	}, skipAnimations ? 300 : 2000);
 
 	return 10;
 }
@@ -114,7 +129,7 @@ function activateML() {
 		clearFleetingMessage();
 		if (uiPaused || ev.ctrlKey || ev.altKey) return;
 		let charEntered = ev.key.toString();
-		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
+		if (!isAlphaNum(charEntered)) return;
 
 
 		Selected = { lastLetterEntered: charEntered.toUpperCase() };

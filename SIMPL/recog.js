@@ -4,6 +4,8 @@ var recognition;
 var grammar;
 
 function record(lang, best) {
+	//TODO: HACK!!!!!!!
+	if (currentGame != 'gSayPic') return;
 	let wordlist = ['du', 'bist', 'ein', 'vogel', best];
 	if (!isdef(recognition)) {
 		speech00(lang);
@@ -22,6 +24,7 @@ function record(lang, best) {
 }
 function addStartHandler() {
 	recognition.onstart = function () {
+		if (currentGame != 'gSayPic') return;
 		recordCallback = null;
 		isRunning = true;
 		show('dRecord');
@@ -30,6 +33,7 @@ function addStartHandler() {
 }
 function addResultHandler() {
 	recognition.onresult = function (event) {
+		if (currentGame != 'gSayPic') return;
 		var interim_transcript = '';
 		var final_transcript = '';
 		hide('dRecord');
@@ -50,6 +54,7 @@ function addResultHandler() {
 }
 function addEndHandler() {
 	recognition.onend = function () {
+		if (currentGame != 'gSayPic') return;
 		isRunning = false;
 		//console.log('recog end', isRunning);
 		if (recordCallback) recordCallback();
@@ -58,6 +63,7 @@ function addEndHandler() {
 }
 function addErrorHandler() {
 	recognition.onerror = function (event) {
+		if (currentGame != 'gSayPic') return;
 		isRunning = false;
 		console.error(event);
 		if (recordCallback) recordCallback();

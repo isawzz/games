@@ -1,3 +1,43 @@
+function promptML() {
+	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
+	setGoal();
+
+	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
+
+	mLinebreak(dTable);
+
+	// create sequence of letter ui
+	let style = { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 };
+	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style, 'dLetters'); // acces children: d.children
+
+	// randomly choose a maximum of NumMissingLetters alphanumeric letters from bestWord
+	let len = bestWord.length;
+	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
+
+	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
+	indices.sort();
+
+	// let indices = nRandomNumbers(nMissing, 1, len - 2);
+
+	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
+
+	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)
+
+	for (let i = 0; i < nMissing; i++) {
+		let index = indices[i];
+		if (!isAlphaNum(bestWord[index])) { nMissing -= 1; }
+		let inp = d.children[index];
+		inp.innerHTML = '_';
+		mClass(inp, 'blink');
+		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index: index });
+	}
+
+	mLinebreak(dTable);
+
+	showFleetingMessage(composeFleetingMessage(), 3000);
+
+	return 10;
+}
 function addResultHandler() {
 	// This event is triggered when the speech recognition service
 	// returns a result — a word or phrase has been positively 
@@ -40,12 +80,12 @@ function composeFleetingMessage_bef() {
 	// let msg=lst.map(x=>x.letter).join(',');
 
 	let lst = inputs;
-	let msg=lst.map(x=>x.letter).join(',');
+	let msg = lst.map(x => x.letter).join(',');
 	//console.log(msg);
-	let edecl=lst.length>1?'s ':' ';
-	let ddecl=lst.length>1?'den':'die';
-	let s = (currentLanguage == 'E' ? 'Type the letter'+edecl : 'Tippe '+ddecl+' Buchstaben ');
-	return s+msg;
+	let edecl = lst.length > 1 ? 's ' : ' ';
+	let ddecl = lst.length > 1 ? 'den' : 'die';
+	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
+	return s + msg;
 	//if (lst.length == 1) 
 
 	//let s;
@@ -98,7 +138,7 @@ function showBadges_dep(dParent, level, bgs) {
 
 }
 
-function showPictures(bestWordIsShortest = false, onClickPictureHandler, colored=false) {
+function showPictures(bestWordIsShortest = false, onClickPictureHandler, colored = false) {
 	//console.log('dassssssssssssssssssssssssssssssssssssssssssssssssssssssss')
 	Pictures = [];
 	let keys = choose(currentKeys, NumPics);
@@ -113,23 +153,23 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colored
 		let info = getRandomSetItem(currentLanguage, keys[i]);
 		let id = 'pic' + i;
 		//console.log(bestWordIsShortest)
-		let label = selectWord(info,bestWordIsShortest);
-		console.log('______',info.key, info);
-		let shade,bgPic;
-		if (colored){shade = choose(['red','green','gold','blue']);bgPic='white';}
-		else{shade=undefined;bgPic='random';}
-		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, shade:shade, bgPic:bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		let label = selectWord(info, bestWordIsShortest);
+		console.log('______', info.key, info);
+		let shade, bgPic;
+		if (colored) { shade = choose(['red', 'green', 'gold', 'blue']); bgPic = 'white'; }
+		else { shade = undefined; bgPic = 'random'; }
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200, shade: shade, bgPic: bgPic }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;
 
 		//if (currentLevel > SHOW_LABEL_UP_TO_LEVEL) maHideLabel(id, info);
-		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i, label:label, isLabelVisible: true});
+		Pictures.push({ key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
 	}
 	//randomly pic NumLabels pics and hide their label!
-	if (NumLabels==NumPics) return;
+	if (NumLabels == NumPics) return;
 
-	let remlabelPic = choose(Pictures,NumPics-NumLabels);
+	let remlabelPic = choose(Pictures, NumPics - NumLabels);
 
-	for(const p of remlabelPic) {maHideLabel(p.id,p.info);p.isLabelVisible=false;}
+	for (const p of remlabelPic) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
 }
 
 

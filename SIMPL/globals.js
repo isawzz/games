@@ -5,7 +5,7 @@ var skipAnimations = IS_TESTING; // false | true
 
 //set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-var currentGame = IS_TESTING ? 'gTouchPic' : 'sequence';
+var currentGame = IS_TESTING ? 'gMissingLetter' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['clock'];//nosymbols'];
