@@ -27,9 +27,7 @@ function updateLevel() {
 	// } else 
 	if (LevelChange){ //GameState == STATES.LEVELCHANGE) {
 		boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
-		numTotalAnswers = 0;
-		numCorrectAnswers = 0;
-		percentageCorrect = 100;
+		resetScore();
 		//console.log('currentLevel',currentLevel)
 		//GFUNC[currentGame].prepLevel();
 		//console.log(currentGame,currentLevel);

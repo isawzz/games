@@ -37492,9 +37492,9 @@ eight o’clock:
   isColored: true
   emoji: "\U0001F557️"
   hexcode: 1F557
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '8|8:00|clock|eight|eight o’clock'
+  E: '8|8:00|eight|eight o’clock'
   D: '8|8:00|acht uhr|acht'
   hex: 1F557
   family: emoNoto
@@ -37603,9 +37603,9 @@ eight-thirty:
   isColored: true
   emoji: "\U0001F563️"
   hexcode: 1F563
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '830|8:30|clock|eight|eight thirty'
+  E: '8:30|eight thirty'
   D: '8:30|acht uhr dreissig|halb neun'
   hex: 1F563
   family: emoNoto
@@ -37922,9 +37922,9 @@ eleven o’clock:
   isColored: true
   emoji: "\U0001F55A️"
   hexcode: 1F55A
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '11|11:00|clock|eleven|eleven o’clock'
+  E: '11|11:00|eleven|eleven o’clock'
   D: '11|11:00|elf uhr|elf'
   hex: 1F55A
   family: emoNoto
@@ -37954,9 +37954,9 @@ eleven-thirty:
   isColored: true
   emoji: "\U0001F566️"
   hexcode: 1F566
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '1130|11:30|clock|eleven|eleven thirty'
+  E: '11:30|eleven thirty'
   D: '11:30|elf uhr dreissig|halb zwölf'
   hex: 1F566
   family: emoNoto
@@ -44249,9 +44249,9 @@ five o’clock:
   isColored: true
   emoji: "\U0001F554️"
   hexcode: 1F554
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '5|5:00|clock|five|five o’clock'
+  E: '5|5:00|five|five o’clock'
   D: '5|5:00|fünf uhr|fünf'
   hex: 1F554
   family: emoNoto
@@ -44281,9 +44281,9 @@ five-thirty:
   isColored: true
   emoji: "\U0001F560️"
   hexcode: 1F560
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '530|5:30|clock|five|five thirty'
+  E: '5:30|five thirty'
   D: '5:30|fünf uhr dreissig|halb sechs'
   hex: 1F560
   family: emoNoto
@@ -46764,9 +46764,9 @@ four o’clock:
   isColored: true
   emoji: "\U0001F553️"
   hexcode: 1F553
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '4|4:00|clock|four|four o’clock|4h'
+  E: '4|4:00|four|four o’clock'
   D: '4|4:00|vier uhr|vier'
   hex: 1F553
   family: emoNoto
@@ -46796,10 +46796,10 @@ four-thirty:
   isColored: true
   emoji: "\U0001F55F️"
   hexcode: 1F55F
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '430|4:30|clock|four|four thirty|4h30'
-  D: '4:30|4h30|vier uhr dreissig|halb fünf'
+  E: '4:30|four thirty'
+  D: '4:30|vier uhr dreissig|halb fünf'
   hex: 1F55F
   family: emoNoto
   text: '&#128351;'
@@ -79349,9 +79349,9 @@ nine o’clock:
   isColored: true
   emoji: "\U0001F558️"
   hexcode: 1F558
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '9|9:00|clock|nine|nine o’clock'
+  E: '9|9:00|nine|nine o’clock'
   D: '9|9:00|neun uhr|neun'
   hex: 1F558
   family: emoNoto
@@ -79381,9 +79381,9 @@ nine-thirty:
   isColored: true
   emoji: "\U0001F564️"
   hexcode: 1F564
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '930|9:30|clock|nine|nine thirty'
+  E: '9:30|nine thirty'
   D: '9:30|neun uhr dreissig|halb zehn'
   hex: 1F564
   family: emoNoto
@@ -81176,9 +81176,9 @@ one o’clock:
   isColored: true
   emoji: "\U0001F550️"
   hexcode: 1F550
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '1|1:00|clock|one|one o’clock'
+  E: '1|1:00|one|one o’clock'
   D: '1|1:00|ein uhr|eins'
   hex: 1F550
   family: emoNoto
@@ -81259,9 +81259,9 @@ one-thirty:
   isColored: true
   emoji: "\U0001F55C️"
   hexcode: 1F55C
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '130|1:30|clock|one|one thirty'
+  E: '1:30|one thirty'
   D: '1:30|ein uhr dreissig|halb zwei'
   hex: 1F55C
   family: emoNoto
@@ -98437,9 +98437,9 @@ seven o’clock:
   isColored: true
   emoji: "\U0001F556️"
   hexcode: 1F556
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '7|7:00|clock|seven|seven o’clock'
+  E: '7|7:00|seven|seven o’clock'
   D: '7|7:00|sieben uhr|sieben'
   hex: 1F556
   family: emoNoto
@@ -98489,9 +98489,9 @@ seven-thirty:
   isColored: true
   emoji: "\U0001F562️"
   hexcode: 1F562
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '730|7:30|clock|seven|seven thirty'
+  E: '7:30|seven thirty'
   D: '7:30|sieben uhr dreissig|halb acht'
   hex: 1F562
   family: emoNoto
@@ -101037,9 +101037,9 @@ six o’clock:
   isColored: true
   emoji: "\U0001F555️"
   hexcode: 1F555
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '6|6:00|clock|six|six o’clock'
+  E: '6|6:00|six|six o’clock'
   D: '6|6:00|sechs uhr|sechs'
   hex: 1F555
   family: emoNoto
@@ -101088,9 +101088,9 @@ six-thirty:
   isColored: true
   emoji: "\U0001F561️"
   hexcode: 1F561
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '630|6:30|clock|six|six thirty'
+  E: '6:30|six thirty'
   D: '6:30|sechs uhr dreissig|halb sieben'
   hex: 1F561
   family: emoNoto
@@ -113543,9 +113543,9 @@ ten o’clock:
   isColored: true
   emoji: "\U0001F559️"
   hexcode: 1F559
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '10|10:00|clock|ten|ten o’clock'
+  E: '10|10:00|ten|ten o’clock'
   D: '10|10:00|zehn uhr|zehn'
   hex: 1F559
   family: emoNoto
@@ -113575,9 +113575,9 @@ ten-thirty:
   isColored: true
   emoji: "\U0001F565️"
   hexcode: 1F565
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '1030|10:30|clock|ten|ten thirty'
+  E: '10:30|ten thirty'
   D: '10:30|zehn uhr dreissig|halb elf'
   hex: 1F565
   family: emoNoto
@@ -114636,9 +114636,9 @@ three o’clock:
   isColored: true
   emoji: "\U0001F552️"
   hexcode: 1F552
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '3|3:00|clock|three|three o’clock'
+  E: '3|3:00|three|three o’clock'
   D: '3|3:00|drei uhr|drei'
   hex: 1F552
   family: emoNoto
@@ -114765,9 +114765,9 @@ three-thirty:
   isColored: true
   emoji: "\U0001F55E️"
   hexcode: 1F55E
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '330|3:30|clock|three|three thirty'
+  E: '3:30|three thirty'
   D: '3:30|drei uhr dreissig|halb vier'
   hex: 1F55E
   family: emoNoto
@@ -118862,9 +118862,9 @@ twelve o’clock:
   isColored: true
   emoji: "\U0001F55B️"
   hexcode: 1F55B
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '12|12:00|clock|twelve|twelve o’clock'
+  E: '12|12:00|twelve|twelve o’clock'
   D: '12|12:00|zwölf uhr|mittag|mitternacht|zwölf'
   hex: 1F55B
   family: emoNoto
@@ -118897,10 +118897,10 @@ twelve-thirty:
   isColored: true
   emoji: "\U0001F567️"
   hexcode: 1F567
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '1230|12:30|clock|twelve|twelve thirty'
-  D: '12:30|clock|zwölf uhr dreissig|halb eins'
+  E: '12:30|twelve thirty'
+  D: '12:30|zwölf uhr dreissig|halb eins'
   hex: 1F567
   family: emoNoto
   text: '&#128359;'
@@ -119036,9 +119036,9 @@ two o’clock:
   isColored: true
   emoji: "\U0001F551️"
   hexcode: 1F551
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '2|2:00|clock|two|two o’clock'
+  E: '2|2:00|two|two o’clock'
   D: '2|2:00|zwei uhr|zwei'
   hex: 1F551
   family: emoNoto
@@ -119145,9 +119145,9 @@ two-thirty:
   isColored: true
   emoji: "\U0001F55D️"
   hexcode: 1F55D
-  group: travel-places
+  group: clock
   subgroups: time
-  E: '230|2:30|clock|two|two thirty'
+  E: '2:30|two thirty'
   D: '2:30|zwei uhr dreissig|halb drei'
   hex: 1F55D
   family: emoNoto

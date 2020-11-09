@@ -1,17 +1,17 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
 const LevelsML = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 30 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 30 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 10, MaxNumTrials: 30 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 10, MaxNumTrials: 30 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 3, MaxPosMissing: 10, MaxNumTrials: 30 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 30 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 30 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 30 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 1, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 2, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 10, NumMissingLetters: 3, MaxPosMissing: 4, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 5, MaxPosMissing: 12, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 6, MaxPosMissing: 12, MaxNumTrials: 3 },
 }
 function startGameML() { }
 function startLevelML() { levelML(); }
@@ -26,7 +26,7 @@ function levelML() {
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	writeComments();
+	//writeComments();
 	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 	// MaxWordLength = 
 	// setKeys();
@@ -39,7 +39,7 @@ function levelML() {
 	// console.log(currentCategories, currentLanguage, MAX_WORD_LENGTH, currentLevel);
 }
 function startRoundML() {
-	trialNumber = 0;
+	//trialNumber = 0;
 	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
 }
 
@@ -55,7 +55,7 @@ function composeFleetingMessage() {
 
 function promptML() {
 
-	trialNumber += 1;
+	//trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
@@ -84,6 +84,7 @@ function promptML() {
 
 	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
 	indices.sort();
+	
 	// let indices = nRandomNumbers(nMissing, 1, len - 2);
 	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
 
@@ -91,6 +92,7 @@ function promptML() {
 
 	for (let i = 0; i < nMissing; i++) {
 		let index = indices[i];
+		if (bestWord[index]==' ') continue;
 		let inp = d.children[index];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
@@ -106,6 +108,20 @@ function promptML() {
 	return 10;
 }
 function trialPromptML() {
+	//erase wrong letter and say try again
+
+	let selinp=Selected.inp;
+	say('try again!');
+	setTimeout(() => {
+		console.log('selected last:', selinp);
+		let d = selinp.div;
+		d.innerHTML = '_';
+		mClass(d, 'blink');
+		inputs.push(selinp);
+	}, 2000);
+
+
+	return 10;
 	// say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
 	// trialNumber += 1;
 	// mLinebreak(dTable);
@@ -128,19 +144,28 @@ function activateML() {
 		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
 		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
 
+
+		Selected = { lastLetterEntered: charEntered.toUpperCase() };
+
 		//console.log('inp',inp);
 		if (nMissing == 1) {
-			let d = inputs[0].div;
-			d.innerHTML = charEntered.toUpperCase();
+			let d = Selected.feedbackUI = inputs[0].div;
+			Selected.lastIndexEntered = inputs[0].index;
+			Selected.inp = inputs[0];
+			d.innerHTML = Selected.lastLetterEntered;
 			mRemoveClass(d, 'blink');
 			let result = buildWordFromLetters(mBy('dLetters'));
+			console.log('selected last:', Selected)
+
 			evaluate(result);
 		} else {
 			let ch = charEntered.toUpperCase();
 			for (const inp of inputs) {
 				if (inp.letter == ch) {
 					//found a matching letter
-					let d = inp.div;
+					Selected.lastIndexEntered = inp.index;
+					Selected.inp = inp;
+					let d = Selected.feedbackUI = inp.div;
 					d.innerHTML = ch;
 					mRemoveClass(d, 'blink');
 					removeInPlace(inputs, inp);
@@ -148,7 +173,12 @@ function activateML() {
 					break;
 				}
 			}
-			showFleetingMessage(composeFleetingMessage(),3000);
+			if (nundef(Selected.lastIndexEntered)) {
+				//the user entered a non existing letter!!!
+				showFleetingMessage('you entered ' + Selected.lastLetterEntered)
+				say('this letter does NOT belong to the word!')
+			}
+			showFleetingMessage(composeFleetingMessage(), 3000);
 			//if get to this place that input did not match!
 			//ignore for now!
 		}
@@ -162,9 +192,7 @@ function evalML(word) {
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
-	}
-	else {
-		Selected = null;
+	} else {
 		return STATES.INCORRECT;
 	}
 }

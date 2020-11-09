@@ -30,35 +30,35 @@ function startLevel() {
 }
 function startRound() {
 	console.assert(!LevelChange, 'levelChange!!!!!!!!!!!!! need reset!')
+	writeComments('new round:');
 	clearFleetingMessage();
 	trialNumber = 0;
 	GFUNC[currentGame].startRound();
 	//GameState = STATES.ROUND_INITIALIZED;
 	//console.log('pics:' + NumPics, 'currentKeys has', currentKeys.length, 'entries')
 
-	let delay = promptStart();
-
-	//activateUi();
-	setTimeout(activateUi, delay);
+	promptStart();
+	// let delay = promptStart();
+	// setTimeout(activateUi, delay);
 
 }
 function promptStart() {
 	beforeActivationUI();
 
-	Selected = null;
 	dTable = dLineTableMiddle;
 	dTitle = dLineTitleMiddle;
 	if (nundef(dTable)) return;
 	clearTable();
 
-	return GFUNC[currentGame].prompt();
+	let delay = GFUNC[currentGame].prompt();
+	setTimeout(activateUi, delay);
 }
 function promptNextTrial() {
 	beforeActivationUI();
 
-	Selected = null;
-
-	return GFUNC[currentGame].promptTrial();
+	let delay = GFUNC[currentGame].trialPrompt();
+	setTimeout(activateUi, delay);
+	// return GFUNC[currentGame].promptTrial();
 }
 
 function selectWord(info, bestWordIsShortest, except = []) {
@@ -74,7 +74,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors)
 	Pictures = [];
 	let labels = [];
 	let keys = choose(currentKeys, NumPics);
-	keys=['man artist']; //['oil drum'];//,'door']
+	//keys=['man artist']; //['oil drum'];//,'door']
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
 	let bgPic = isdef(colors) ? 'white' : 'random';
@@ -101,7 +101,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors)
 		w = h = Math.min(hpic, wpic);
 	}
 
-	pictureSize = Math.min(w,200);
+	pictureSize = Math.min(w, 200);
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 
 	for (let line = 0; line < lines; line++) {
@@ -147,6 +147,7 @@ function setGoal(index) {
 	//console.log(bestWord);
 }
 function activateUi() {
+	Selected = null;
 	GFUNC[currentGame].activate();
 	activationUI();
 }
@@ -165,16 +166,21 @@ function evaluate() {
 			if (LevelChange) setTimeout(showLevelComplete, DELAY);
 			else { setTimeout(startRound, DELAY); }
 			break;
-		case STATES.NEXTTRIAL: break;
+		// case STATES.NEXTTRIAL: break;
 		case STATES.INCORRECT:
-			setScore(false);
-			DELAY = 3000;
-			showCorrectWord();
-			failPictureGoal(false);
-			updateLevel();
-			//console.log('new currentLevel is', currentLevel)
-			if (LevelChange) setTimeout(removeBadgeAndRevertLevel, DELAY);
-			else { setTimeout(startRound, DELAY); }
+			trialNumber += 1;
+			if (trialNumber < MaxNumTrials) {
+				promptNextTrial();
+			} else {
+				setScore(false);
+				DELAY = 3000;
+				showCorrectWord();
+				failPictureGoal(false);
+				updateLevel();
+				//console.log('new currentLevel is', currentLevel)
+				if (LevelChange) setTimeout(removeBadgeAndRevertLevel, DELAY);
+				else { setTimeout(startRound, DELAY); }
+			}
 			break;
 	}
 
@@ -185,7 +191,12 @@ function failPictureGoal(withComment = true) {
 		const comments = (currentLanguage == 'E' ? ['too bad'] : ["aber geh'"]);
 		say(chooseRandom(comments), 1, 1, .8, true, 'zira');
 	}
-	if (isdef(Selected)) mpOver(mBy('dX'), mBy(Selected.id), pictureSize / 2, 'red', 'openMojiTextBlack');
+	if (isdef(Selected)) {
+		console.log('selected', Selected, 'x', mBy('dX'))
+		let feedbackUI = Selected.feedbackUI;
+		//console.log()
+		mpOver(mBy('dX'), Selected.feedbackUI, 45, 'red', 'openMojiTextBlack');
+	}
 
 }
 function successPictureGoal(withComment = true) {
@@ -195,7 +206,7 @@ function successPictureGoal(withComment = true) {
 		say(chooseRandom(comments));//'Excellent!!!');
 	}
 	// maPicOver(mBy('dCheckMark'), mBy(Goal.id), 180, 'green', 'segoeBlack');
-	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4/5), 'limegreen', 'segoeBlack');
+	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
 
 }
 
@@ -229,7 +240,7 @@ function resetState() {
 	iGROUP = 0;
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 
-	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+	resetScore();
 
 	//console.log(currentLevel)
 	boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
@@ -253,22 +264,28 @@ function setCurrentInfo(item) {
 	hintWord = '_'.repeat(bestWord.length);
 
 }
-function setScore(isCorrect) {
-	if (isCorrect) {
-		numCorrectAnswers += 1;
-	}
-	numTotalAnswers += 1;
-	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
-	showScore();
+
+
+function shortHintPicRemove() {
+	mRemoveClass(mBy(Goal.id), 'onPulse1');
 }
-function showCorrectWord() {
+function shortHintPic() {
+	mClass(mBy(Goal.id), 'onPulse1');
+	setTimeout(() => shortHintPicRemove(), 800);
+}
+function showCorrectWord(sayit = true) {
+	let anim = skipAnimations ? 'onPulse1' : 'onPulse';
 	let div = mBy(Goal.id);
-	mClass(div, 'onPulse');
+	mClass(div, anim);
+
+
+	if (!sayit) return;
+
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
 	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 
-function showInstruction(text, cmd, title) {
+function showInstruction(text, cmd, title, spoken) {
 	let d = mDiv(title);
 	mStyleX(d, { margin: 15 })
 	mClass(d, 'flexWrap');
@@ -289,19 +306,48 @@ function showInstruction(text, cmd, title) {
 	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>` + html;
 	// dFeedback = dInstruction = mText(msg, title, { fz: 40, cursor: 'default' });
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
-	say(cmd + " " + text, .7, 1, .7, true, 'random');
+	say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, true, 'random');
 
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
-function showScore() {
-	dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
-}
-function writeComments() {
-	console.log('...starting ' + currentGame.substring(1) + ' currentLevel:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
-		'keys:' + currentKeys.length, '\nminlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
+function writeComments(pre) {
+	console.log('...' + currentGame.substring(1), pre + ' currentLevel:' + currentLevel, 'pics:' + NumPics,
+		'labels:' + NumLabels,
+		'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 
 }
 //#endregion
+
+//#region score
+function resetScore() {
+	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+	levelPoints = 0, levelIncrement = minIncrement;
+	levelHistory = [];
+
+}
+function setScore(isCorrect) {
+	let inc = levelIncrement;
+	if (isCorrect) {
+		numCorrectAnswers += 1;
+		levelPoints += levelIncrement;
+		if (levelIncrement < maxIncrement) levelIncrement += 1;
+	} else {
+		levelIncrement = minIncrement;
+		levelPoints += minIncrement;
+		//if (levelIncrement > minIncrement) levelIncrement -= 1;
+	}
+	numTotalAnswers += 1;
+	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
+
+	showScore();
+}
+function showScore() {
+	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
+	dScore.innerHTML = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
+}
+
+//#endregion
+
 
 //#region show Level Complete and Revert Level
 function removeBadgeAndRevertLevel() {
@@ -313,8 +359,7 @@ function removeBadgeAndRevertLevel() {
 }
 
 function showLevelComplete() {
-	//console.log('skipLevelAnimation', skipLevelAnimation)
-	if (!skipLevelAnimation) {
+	if (!skipAnimations) {
 		playAudio();
 		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
 		show('dLevelComplete');

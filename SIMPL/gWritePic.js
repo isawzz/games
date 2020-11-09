@@ -14,7 +14,6 @@ const LevelsWP = {
 function startGameWP() {
 	onkeydown = ev => {
 		if (uiPaused) return;
-		//console.log('gWritePic: keydown')
 		if (isdef(inputBox)) { inputBox.focus(); }
 	}
 }
@@ -25,17 +24,13 @@ function levelWP() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	//writeComments();
 }
 
-function startRoundWP() {
-	//trialNumber = 0;
-}
+function startRoundWP() { }
 function promptWP() {
-
-	//trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
@@ -48,24 +43,18 @@ function promptWP() {
 	return 10;
 }
 function trialPromptWP() {
-	// console.log(uiPaused)
-	// beforeActivationUI(); activationUI();
 	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	//trialNumber += 1;
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
 	defaultFocusElement = inputBox.id;
+
 	return 10;
-	// console.log('trial', trialNumber, 'beforeActivation', uiPaused)
-	//activateWP();
 }
 function activateWP() {
-	//console.log('should activate WritePic UI')
 	inputBox.onkeyup = ev => {
 		if (ev.ctrlKey || uiPaused) return;
 		if (ev.key === "Enter") {
 			ev.cancelBubble = true;
-			//console.log('eval!')
 			evaluate(ev);
 		}
 	};
@@ -76,11 +65,7 @@ function evalWP(ev) {
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
-	// else if (trialNumber < MaxNumTrials) {
-	// 	trialPromptWP();
-	// 	return STATES.NEXTTRIAL;
-	// } 
-	else {		return STATES.INCORRECT;	}
+	else { return STATES.INCORRECT; }
 }
 
 

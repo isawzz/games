@@ -1,18 +1,18 @@
 const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = IS_TESTING; // false | true
+var skipAnimations = IS_TESTING; // false | true
 
 //set this to start!
-var currentGame = 'gSayPic'; // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = IS_TESTING ? 'gTouchPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING?
- { gTouchPic: 10, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 3 }
- : { gTouchPic: 1, gTouchColors: 0, gWritePic: 0, gMissingLetter: 0, gSayPic: 0 };
+var startAtLevel = IS_TESTING ? { gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
+	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
-var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];//, 'gSayPic'];
+var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
@@ -36,7 +36,10 @@ var NumLabels;
 var Pictures = [];
 var Goal, Selected;
 
-var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+//score
+var numCorrectAnswers, numTotalAnswers, percentageCorrect;
+var minIncrement = 1, maxIncrement = 5, levelDonePoints = 15, levelIncrement, levelPoints;
+var levelCountingMode = 'inc';
 var levelHistory;
 
 var iGROUP = -1;

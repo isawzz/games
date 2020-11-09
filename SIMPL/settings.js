@@ -23,14 +23,14 @@ function toggleSettings() {
 }
 
 function setGame(event) {
-	if (isString(event)) currentGame = event;
+	if (isString(event)) startGame(event);
 	else {
 		event.cancelBubble = true;
 		let id = evToClosestId(event);
-		currentGame = 'g' + id.substring(1);
+		let game = 'g' + id.substring(1);
 		closeSettings();
+		startGame(game);
 	}
-	startGame(currentGame);
 }
 function setLanguage(x) {
 	currentLanguage = x; setKeys();

@@ -2236,17 +2236,6 @@ function saveFileAtClient(name, type, data) {
 		window.URL.revokeObjectURL(url);
 		a.remove();
 	}, 500);
-
-	// var a = $("<a style='display: none;'/>");
-	// a.attr('href', url);
-	// a.attr('download', name);
-	// $('body').append(a);
-	// a[0].click();
-	// setTimeout(function () {
-	// 	// fixes firefox html removal bug
-	// 	window.URL.revokeObjectURL(url);
-	// 	a.remove();
-	// }, 500);
 }
 function jsonToYaml(o) {
 	// this is your json object

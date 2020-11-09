@@ -22,7 +22,7 @@ function levelSP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
+	// writeComments();
 
 	// setKeys();
 	// NumPics = 1;
@@ -31,11 +31,11 @@ function levelSP() {
 	// console.log('...starting SayPic currentLevel:', currentLevel, 'pics', NumPics, 'labels', NumLabels, 'keys', currentKeys.length);
 }
 function startRoundSP() {
-	trialNumber = 0;
+	//trialNumber = 0;
 }
 function promptSP() {
 
-	trialNumber += 1;
+	//trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
@@ -49,43 +49,37 @@ function promptSP() {
 }
 function trialPromptSP() {
 	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	trialNumber += 1;
-	activateSP();
+	return 10;
+	//trialNumber += 1;
+	//activateSP();
 }
-// function startRecording(){
-// 	setTimeout(() => {
-// 		console.log('calling _record!!!')
-// 		record(currentLanguage, bestWord);
-// 	}, 3000);
-// }
+
 function activateSP() {
 	//return;
 	//console.log('should activate SayPic UI')
-	console.log('trial',trialNumber)
+	//console.log('trial',trialNumber)
 	setTimeout(() => {
-		console.log('calling _record!!!')
+		//console.log('calling _record!!!')
 		record(currentLanguage, bestWord);
-	}, 4000);
+	}, trialNumber == 0?4000:1500);
 }
 function evalSP(speechResult) {
-	console.log('==>eval speech result!',speechResult,bestWord,trialNumber)
+	//console.log('==>eval speech result!',speechResult,bestWord,trialNumber)
 	let answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	console.log('eval SayPic', answer, reqAnswer)
+	//console.log('eval SayPic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (matchesAnyWordOrSound(Goal.info, answer)) return STATES.CORRECT;
 	else if (isAcceptableAnswerButNewSound(Goal.info, reqAnswer, answer)) {
 		console.log('accepting', answer, 'as sound for', reqAnswer);
 		addAsSoundToDatabase(Goal.info, answer);
 		return STATES.CORRECT;
-	}
-	else if (trialNumber < MaxNumTrials) {
-		console.log('have another trial!!!')
-		trialPromptSP();
-		return STATES.NEXTTRIAL;
+	// }	else if (trialNumber < MaxNumTrials) {
+	// 	console.log('have another trial!!!')
+	// 	trialPromptSP();
+	// 	return STATES.NEXTTRIAL;
 	} else {
-		console.log('leider alles falsch!!!')
-		Selected = null;
+		//console.log('leider alles falsch!!!')
 		return STATES.INCORRECT;
 	}
 }
@@ -142,12 +136,25 @@ function soundsSimilar(w1, w2) {
 function stringAfterLeadingConsonants(s) {
 	let regexpcons = /^([^aeiou])+/g;
 	let x = s.match(regexpcons);
-	console.log('x', x);
+	//console.log('x', x);
 	return x?s.substring(x[0].length):s;
 }
 function addAsSoundToDatabase(info, answer) {
 	//lege dictionary an  mit info.key => info [updated] with answer now in valid sounds for language
 }
+
+
+
+
+
+
+// function startRecording(){
+// 	setTimeout(() => {
+// 		console.log('calling _record!!!')
+// 		record(currentLanguage, bestWord);
+// 	}, 3000);
+// }
+
 
 
 

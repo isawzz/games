@@ -15,71 +15,46 @@ function startGameSP() { }
 function startLevelSP() { levelSP(); }
 function levelSP() {
 	let levelInfo = LevelsSP[currentLevel];
-	//console.log(currentLevel,levelInfo,LevelsSP)
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
 	// writeComments();
-
-	// setKeys();
-	// NumPics = 1;
-	// NumLabels = 1;
-	// MaxNumTrials = 3;
-	// console.log('...starting SayPic currentLevel:', currentLevel, 'pics', NumPics, 'labels', NumLabels, 'keys', currentKeys.length);
 }
-function startRoundSP() {
-	//trialNumber = 0;
-}
+function startRoundSP() {}
 function promptSP() {
 
-	//trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle);//, startRecording);
 
 	mLinebreak(dTable);
-	// inputBox = addNthInputElement(dTable, trialNumber);
-	// defaultFocusElement = inputBox.id;
 
 	return 10;
 }
 function trialPromptSP() {
 	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
 	return 10;
-	//trialNumber += 1;
-	//activateSP();
 }
 
 function activateSP() {
-	//return;
-	//console.log('should activate SayPic UI')
-	//console.log('trial',trialNumber)
 	setTimeout(() => {
-		//console.log('calling _record!!!')
 		record(currentLanguage, bestWord);
 	}, trialNumber == 0?4000:1500);
 }
 function evalSP(speechResult) {
-	//console.log('==>eval speech result!',speechResult,bestWord,trialNumber)
 	let answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	//console.log('eval SayPic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (matchesAnyWordOrSound(Goal.info, answer)) return STATES.CORRECT;
 	else if (isAcceptableAnswerButNewSound(Goal.info, reqAnswer, answer)) {
 		console.log('accepting', answer, 'as sound for', reqAnswer);
 		addAsSoundToDatabase(Goal.info, answer);
 		return STATES.CORRECT;
-	// }	else if (trialNumber < MaxNumTrials) {
-	// 	console.log('have another trial!!!')
-	// 	trialPromptSP();
-	// 	return STATES.NEXTTRIAL;
 	} else {
-		//console.log('leider alles falsch!!!')
 		return STATES.INCORRECT;
 	}
 }
@@ -99,21 +74,10 @@ function isAcceptableAnswerButNewSound(info, reqAnswer, s) {
 	return true;
 }
 function soundsSimilar(w1, w2) {
-	//search for a combination of vowel+consonant within w1 that is contained in w2
-	// const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
-	// let x=[w1,w2].match(syllableRegex);
-	// console.log(x);
-
 	const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
-
 	function syllabify(words) {
 		return words.match(syllableRegex);
 	}
-
-	// console.log(['away', 'hair', 'halter', 'hairspray', 'father', 'lady', 'kid'].map(syllabify))
-	// console.log(syllabify('hallo'));
-	// console.log(syllabify(w1));
-	// console.log(syllabify(w2));
 	let a1 = syllabify(w1);
 	let a2 = syllabify(w2);
 	if (a1.length != a2.length) return false;
@@ -123,9 +87,6 @@ function soundsSimilar(w1, w2) {
 		if (s1 == s2) return true;
 		let x1 = stringAfterLeadingConsonants(s1);
 		let x2 = stringAfterLeadingConsonants(s2);
-		//first letter of x1, x2 will now be vovels!
-		//if one is o the other u and language is english, this is fine!
-		// if (x1==null || x2==null){}
 		if (currentLanguage == 'E' && 'ou'.includes(x1) && 'ou'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
 		if (currentLanguage == 'E' && 'oa'.includes(x1) && 'ao'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
 		if (currentLanguage == 'E' && x1.replace('ee', 'i') == x2.replace('ee', 'i')) return true;
@@ -136,28 +97,9 @@ function soundsSimilar(w1, w2) {
 function stringAfterLeadingConsonants(s) {
 	let regexpcons = /^([^aeiou])+/g;
 	let x = s.match(regexpcons);
-	//console.log('x', x);
 	return x?s.substring(x[0].length):s;
 }
 function addAsSoundToDatabase(info, answer) {
 	//lege dictionary an  mit info.key => info [updated] with answer now in valid sounds for language
 }
-
-
-
-
-
-
-// function startRecording(){
-// 	setTimeout(() => {
-// 		console.log('calling _record!!!')
-// 		record(currentLanguage, bestWord);
-// 	}, 3000);
-// }
-
-
-
-
-
-
 

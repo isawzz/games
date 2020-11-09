@@ -1,15 +1,15 @@
 const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
-var skipLevelAnimation = IS_TESTING; // false | true
+var skipAnimations = IS_TESTING; // false | true
 
 //set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-var currentGame = IS_TESTING ? 'gMissingLetter' : 'sequence'; 
+var currentGame = IS_TESTING ? 'gTouchPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
-var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING ? { gTouchPic: 10, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
+var currentCategories = ['clock'];//nosymbols'];
+var startAtLevel = IS_TESTING ? { gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
 	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
@@ -36,8 +36,16 @@ var NumLabels;
 var Pictures = [];
 var Goal, Selected;
 
-var numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
-var levelHistory;
+//score
+var scoringMode = 'inc'; // inc | percent | mixed
+var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
+var numCorrectAnswers, numTotalAnswers, percentageCorrect;
+var levelIncrement, levelPoints;
+var CurrentSessionData, GameList=[], CurrentGameData, LevelList=[], CurrentLevelData;
+var SessionScore=0;
+var LevelChange=true;
+const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
+var AnswerCorrectness;
 
 var iGROUP = -1;
 var lastPosition = 0;
@@ -89,15 +97,5 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 //testing
 var timit;
 
-//to be phased out
-// const STATES = {
-// 	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
-// 	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
-// };
-// var GameState;
-var LevelChange;
-const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
-var AnswerCorrectness;
-//var GameStage;
 
 

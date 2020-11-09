@@ -27,15 +27,15 @@ function levelWP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
+	//writeComments();
 }
 
 function startRoundWP() {
-	trialNumber = 0;
+	//trialNumber = 0;
 }
 function promptWP() {
 
-	trialNumber += 1;
+	//trialNumber += 1;
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
@@ -48,15 +48,16 @@ function promptWP() {
 	return 10;
 }
 function trialPromptWP() {
-	console.log(uiPaused)
-	beforeActivationUI(); activationUI();
+	// console.log(uiPaused)
+	// beforeActivationUI(); activationUI();
 	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	trialNumber += 1;
+	//trialNumber += 1;
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);
 	defaultFocusElement = inputBox.id;
-	console.log('trial', trialNumber, 'beforeActivation', uiPaused)
-	activateWP();
+	return 10;
+	// console.log('trial', trialNumber, 'beforeActivation', uiPaused)
+	//activateWP();
 }
 function activateWP() {
 	//console.log('should activate WritePic UI')
@@ -75,13 +76,11 @@ function evalWP(ev) {
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
-	else if (trialNumber < MaxNumTrials) {
-		trialPromptWP();
-		return STATES.NEXTTRIAL;
-	} else {
-		Selected = null;
-		return STATES.INCORRECT;
-	}
+	// else if (trialNumber < MaxNumTrials) {
+	// 	trialPromptWP();
+	// 	return STATES.NEXTTRIAL;
+	// } 
+	else {		return STATES.INCORRECT;	}
 }
 
 

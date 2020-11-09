@@ -23,8 +23,12 @@ async function SPEECHStart() {
 	initTable();
 	initSidebar();
 
-	CurrentSessionData={user:currentUser,Games=[]};
 	initSettingsP0();
+	// try{
+	// 	initSettingsP0();
+	// }catch{
+	// 	resetAllGamesAndUsersToHardcodedSettings();
+	// }
 
 	if (immediateStart) startGame(); else openSettings();
 }

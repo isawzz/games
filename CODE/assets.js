@@ -50,34 +50,26 @@ var higherOrderEmoSetNames = {
 var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstract: ['time', 'symbols'], action: ['game', 'sports'], food: ['drink', 'food', 'fruit', 'kitchen', 'vegetable'], human: ['body', 'gesture', 'emotion', 'person', 'role'], life: ['animal', 'plant'], mood: ['emotion'], object: ['object'], places: ['place', 'transport'] };
 
 var emoSets = {
-	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' },
+	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
 	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
 	body: { name: 'body', f: o => o.group == 'people-body' && o.subgroups == 'body-parts' },
+	clock: { name: 'clock', f: o => o.group == 'clock' },
 	drink: { name: 'drink', f: o => o.group == 'food-drink' && o.subgroups == 'drink' },
 	emotion: { name: 'emotion', f: o => o.group == 'smileys-emotion' },
+	family: { name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
 	fantasy: { name: 'fantasy', f: o => o.group == 'people-body' && o.subgroups == 'person-fantasy' },
 	food: { name: 'food', f: o => o.group == 'food-drink' && startsWith(o.subgroups, 'food') },
 	fruit: { name: 'fruit', f: o => o.group == 'food-drink' && o.subgroups == 'food-fruit' },
+	game: { name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
 	gesture: { name: 'gesture', f: o => o.group == 'people-body' && (o.subgroups == 'person-gesture' || o.subgroups.includes('hand')) },
+	kitchen: { name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
+	math: { name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
+	misc: { name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
 	// gesture: { name: 'gesture', f: o => o.group == 'people-body' && o.subgroups == 'person-gesture' },
 	// hand: { name: 'hand', f: o => o.group == 'people-body' && o.subgroups.includes('hand') },
 	//o=>o.group == 'people-body' && o.subgroups.includes('role'),
-	person: { name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
-	role: { name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
-	sport: { name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
-	family: { name: 'family', f: o => o.group == 'people-body' && o.subgroups == 'family' },
-
-	game: { name: 'game', f: o => (o.group == 'activities' && o.subgroups == 'game') },
-	kitchen: { name: 'kitchen', f: o => o.group == 'food-drink' && o.subgroups == 'dishware' },
-	place: { name: 'place', f: o => startsWith(o.subgroups, 'place') },
-	plant: { name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
-	sports: { name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
-	time: { name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
-	transport: { name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
-	vegetable: { name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
-
 	//objects:
 	object: {
 		name: 'object', f: o =>
@@ -93,10 +85,17 @@ var emoSets = {
 			|| (o.group == 'travel-places' && o.subgroups == 'sky-weather')
 	},
 
+	person: { name: 'person', f: o => o.group == 'people-body' && o.subgroups == 'person' },
+	place: { name: 'place', f: o => startsWith(o.subgroups, 'place') },
+	plant: { name: 'plant', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'plant') },
+	punctuation: { name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
+	role: { name: 'role', f: o => o.group == 'people-body' && o.subgroups == 'person-role' },
 	shapes: { name: 'shapes', f: o => o.group == 'symbols' && o.subgroups == 'geometric' },
+	sport: { name: 'sport', f: o => o.group == 'people-body' && o.subgroups == 'person-sport' },
+	sports: { name: 'sports', f: o => (o.group == 'activities' && o.subgroups == 'sport') },
 	sternzeichen: { name: 'sternzeichen', f: o => o.group == 'symbols' && o.subgroups == 'zodiac' },
 	symbols: { name: 'symbols', f: o => o.group == 'symbols' },
-
+	time: { name: 'time', f: o => (o.group == 'travel-places' && o.subgroups == 'time') },
 	//toolbar buttons:
 	toolbar: {
 		name: 'toolbar', f: o => (o.group == 'symbols' && o.subgroups == 'warning')
@@ -106,9 +105,10 @@ var emoSets = {
 			|| (o.group == 'symbols' && o.subgroups == 'keycap')
 	},
 
-	math: { name: 'math', f: o => o.group == 'symbols' && o.subgroups == 'math' },
-	punctuation: { name: 'punctuation', f: o => o.group == 'symbols' && o.subgroups == 'punctuation' },
-	misc: { name: 'misc', f: o => o.group == 'symbols' && o.subgroups == 'other-symbol' },
+	transport: { name: 'transport', f: o => startsWith(o.subgroups, 'transport') && o.subgroups != 'transport-sign' },
+	vegetable: { name: 'vegetable', f: o => o.group == 'food-drink' && o.subgroups == 'food-vegetable' },
+
+
 
 };
 //var emoGroupKeys; //ACHTUNG!!!! SPEECH wird nicht mehr gehen!!!!!!!!!

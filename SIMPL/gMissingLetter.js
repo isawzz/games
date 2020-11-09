@@ -1,17 +1,17 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
 const LevelsML = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 1 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 1 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 3, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 4, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
 	2: { NumPics: 1, NumLabels: 1, MinWordLength: 4, MaxWordLength: 5, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
 	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 6, NumMissingLetters: 1, MaxPosMissing: 0, MaxNumTrials: 3 },
 	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, NumMissingLetters: 2, MaxPosMissing: 1, MaxNumTrials: 3 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 10, MaxNumTrials: 3 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 10, MaxNumTrials: 3 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 3, MaxPosMissing: 10, MaxNumTrials: 3 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 3 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, NumMissingLetters: 5, MaxPosMissing: 13, MaxNumTrials: 3 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, NumMissingLetters: 6, MaxPosMissing: 14, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 8, NumMissingLetters: 1, MaxPosMissing: 1, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 2, MaxPosMissing: 2, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 10, NumMissingLetters: 3, MaxPosMissing: 4, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 5, MaxPosMissing: 12, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 6, MaxPosMissing: 12, MaxNumTrials: 3 },
 }
 function startGameML() { }
 function startLevelML() { levelML(); }
@@ -21,32 +21,19 @@ function levelML() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
 	//writeComments();
 	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
-	// MaxWordLength = 
-	// setKeys();
-	// MaxNumTrials = 1;
-	// NumPics = 1;
-	// let labelsBisLevel = 2
-	// NumLabels = currentLevel > labelsBisLevel ? 0 : 1;
-	// NumMissingLetters = currentLevel <= labelsBisLevel ? (currentLevel + 1) : currentLevel;
-	// console.log('...starting MissingLetter currentLevel:',currentLevel, 'pics', NumPics, 'labels',NumLabels, 'keys', currentKeys.length);
-	// console.log(currentCategories, currentLanguage, MAX_WORD_LENGTH, currentLevel);
 }
-function startRoundML() {
-	//trialNumber = 0;
-	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
-}
+function startRoundML() {}
 
 function composeFleetingMessage() {
 	let lst = inputs;
 	let msg = lst.map(x => x.letter).join(',');
-	//console.log(msg);
 	let edecl = lst.length > 1 ? 's ' : ' ';
 	let ddecl = lst.length > 1 ? 'den' : 'die';
 	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
@@ -54,8 +41,6 @@ function composeFleetingMessage() {
 }
 
 function promptML() {
-
-	//trialNumber += 1;
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
@@ -73,8 +58,6 @@ function promptML() {
 		let d1 = mCreate('div');
 		mAppend(d, d1);
 		d1.innerHTML = bestWord[i].toUpperCase();
-		//inputs.push(d1);
-		//mStyleX(d1,{display:'inline',w:60,align:'center',border:'none',outline:'none',family:'Consolas',fz:100});
 		mStyleX(d1, { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 });
 	}
 
@@ -108,8 +91,6 @@ function promptML() {
 	return 10;
 }
 function trialPromptML() {
-	//erase wrong letter and say try again
-
 	let selinp=Selected.inp;
 	say('try again!');
 	setTimeout(() => {
@@ -118,36 +99,26 @@ function trialPromptML() {
 		d.innerHTML = '_';
 		mClass(d, 'blink');
 		inputs.push(selinp);
-	}, 2000);
-
+	}, skipAnimations?300:2000);
 
 	return 10;
-	// say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
-	// trialNumber += 1;
-	// mLinebreak(dTable);
-	// inputBox = addNthInputElement(dTable, trialNumber);
-	// defaultFocusElement = inputBox.id;
-	// activateML();
 }
 function buildWordFromLetters(d) {
 	let letters = Array.from(d.children);
 	let s = letters.map(x => x.innerHTML);
 	s = s.join('')
-	//console.log('s is',s);
 	return s;
 }
 function activateML() {
-	//console.log('should activate WritePic UI')
 	onkeypress = ev => {
 		clearFleetingMessage();
 		if (uiPaused || ev.ctrlKey || ev.altKey) return;
-		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
+		let charEntered = ev.key.toString();
 		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
 
 
 		Selected = { lastLetterEntered: charEntered.toUpperCase() };
 
-		//console.log('inp',inp);
 		if (nMissing == 1) {
 			let d = Selected.feedbackUI = inputs[0].div;
 			Selected.lastIndexEntered = inputs[0].index;
@@ -187,8 +158,6 @@ function activateML() {
 function evalML(word) {
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	//console.log('eval MissingLetter', answer, reqAnswer)
-	//console.log(allLettersContained(reqAnswer,answer))
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
