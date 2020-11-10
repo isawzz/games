@@ -1,4 +1,4 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
