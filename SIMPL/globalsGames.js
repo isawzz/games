@@ -1,6 +1,8 @@
 var pictureSize;
 function startGame(game) {
 
+	
+	//das ist noch das alte game!!!
 	if (currentGame == 'gSayPic' && isRunning){
 		console.log('=>recog running: need to interrupt!',isRunning)
 		recognition.stop();
@@ -8,10 +10,15 @@ function startGame(game) {
 	}
 
 	//console.log('currentGame',currentGame)
-	addGameToSessionHistoryAndRenewGameHistory(currentGame);
+	// addGameToSessionHistoryAndRenewGameHistory(currentGame);
+	
 	if (nundef(game)) game = currentGame;
 	if (game == 'sequence') game = gameSequence[0];
 	currentGame = game;
+
+	CurrentGameData={name:currentGame,levels:[]};CurrentSessionData.games.push(CurrentGameData);
+	//console.log('session:',CurrentSessionData)
+
 	//console.log('currentGame',currentGame)
 
 	onkeydown = null;
@@ -27,7 +34,7 @@ function startGame(game) {
 	startLevel();
 }
 function startLevel() {
-	updateLevelHistory(currentLevel);
+	CurrentLevelData={level:currentLevel,items:[]};CurrentGameData.levels.push(CurrentLevelData);
 	GFUNC[currentGame].startLevel();
 	showScore();
 	LevelChange = false;
@@ -74,6 +81,8 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors)
 	Pictures = [];
 	let labels = [];
 	let keys = choose(currentKeys, NumPics);
+
+	
 	//keys=['man artist']; //['oil drum'];//,'door']
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
@@ -131,6 +140,7 @@ function setGoal(index) {
 	lastPosition = index;
 	Goal = Pictures[index];
 	setCurrentInfo(Goal); //sets bestWord, ...
+
 }
 function activateUi() {
 	Selected = null;
@@ -175,7 +185,7 @@ function failPictureGoal(withComment = true) {
 		say(chooseRandom(comments), 1, 1, .8, true, 'zira');
 	}
 	if (isdef(Selected)) {
-		console.log('selected', Selected, 'x', mBy('dX'))
+		//console.log('selected', Selected, 'x', mBy('dX'))
 		mpOver(mBy('dX'), Selected.feedbackUI, 45, 'red', 'openMojiTextBlack');
 	}
 
@@ -290,14 +300,6 @@ function writeComments(pre) {
 //#endregion
 
 //#region score
-function addGameToSessionHistoryAndRenewGameHistory(oldGameName,newGameName){
-	if (!isEmpty(CurrentGameData)) GameList.push({game:oldGameName,newGameName,data:CurrentGameData});
-	CurrentGameData=[];
-}
-function updateLevelHistory(signature){
-	if (!isEmpty(LevelList)) CurrentGameData.push({level:signature,data:LevelList});
-	LevelList=[];
-}
 function scoreDependentLevelChange(level) {
 	let isChange = false;
 	if (scoringMode == 'inc') {
@@ -313,12 +315,12 @@ function scoreDependentLevelChange(level) {
 function resetScore() {
 	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
 	levelPoints = 0, levelIncrement = minIncrement;
-	CurrentGameData.push(LevelList);
-	LevelList = [];
 
 }
 function setScore(isCorrect) {
-	LevelList.push({key:Goal.key,isCorrect:isCorrect})
+	CurrentGoalData = {key:Goal.key,question:Goal,answer:Selected,isCorrect:AnswerCorrectness};
+	CurrentLevelData.items.push(CurrentGoalData);
+
 	let inc = levelIncrement;
 	if (isCorrect) {
 		numCorrectAnswers += 1;

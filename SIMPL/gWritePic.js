@@ -63,7 +63,7 @@ function activateWP() {
 function evalWP(ev) {
 	let answer = normalize(inputBox.value, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	console.log('eval WritePic', answer, reqAnswer)
+	//console.log('eval WritePic', answer, reqAnswer)
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else { return STATES.INCORRECT; }
 }

@@ -9,6 +9,16 @@ const GFUNC = {
 window.onload = SessionStart;
 //window.onunload = saveSettings;
 
+function testTimeString(){
+	let w='3 uhr dreißig uhr';
+	console.log(w.trim(),w.trim().toUpperCase());
+	let w1=stringAfterLast(w,' ');
+	console.log('...w1',w1)
+	let val=endsWith(w.trim().toUpperCase(), 'UHR');
+	console.log('val',val)
+	let x=isTimeString('3 uhr dreißig uhr');console.log('x',x); return;
+}
+
 async function SessionStart() {
 
 	//show('dRecord'); 
@@ -23,7 +33,8 @@ async function SessionStart() {
 	initTable();
 	initSidebar();
 
-	CurrentSessionData={user:currentUser,Games:[]};
+	CurrentSessionData={user:currentUser,games:[]};
+	//console.log(CurrentSessionData);
 	initSettingsP0();
 
 	if (immediateStart) startGame(); else openSettings();

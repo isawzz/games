@@ -55,6 +55,7 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
+function mParent(elem){return elem.parentNode;}
 function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');
 	x.innerHTML = caption;
@@ -3420,6 +3421,10 @@ function union(lst1, lst2) {
 //#endregion
 
 //#region sort
+function sortNumbers(ilist){
+	ilist.sort(function(a, b){return a-b});
+	return ilist;
+}
 const fieldSorter = fields => (a, b) =>
 	//usage of field sorter:
 	// const homes = [{"h_id":"3", "city":"Dallas", "state":"TX","zip":"75201","price":162500}, {"h_id":"4","city":"Bevery Hills", "state":"CA", "zip":"90210", "price":319250},{"h_id":"6", "city":"Dallas", "state":"TX", "zip":"75000", "price":556699},{"h_id":"5", "city":"New York", "state":"NY", "zip":"00010", "price":962500}];
@@ -3881,6 +3886,7 @@ function convertUmlaute(w) {
 	w = replaceAll(w, 'UE', 'Ü');
 	w = replaceAll(w, 'AE', 'Ä');
 	w = replaceAll(w, 'OE', 'Ö');
+	w = replaceAll(w, 'ß', 'ss');
 	return w;
 }
 function toUmlaut(w) {

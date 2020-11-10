@@ -1,3 +1,11 @@
+function addGameToSessionHistoryAndRenewGameHistory(oldGameName,newGameName){
+	if (!isEmpty(CurrentGameData)) GameList.push({game:oldGameName,newGameName,data:CurrentGameData});
+	CurrentGameData=[];
+}
+function updateLevelHistory(signature){
+	if (!isEmpty(LevelList)) CurrentGameData.push({level:signature,data:LevelList});
+	LevelList=[];
+}
 function promptML() {
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();

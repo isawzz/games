@@ -27,7 +27,7 @@ function levelML() {
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
 	writeComments();
-	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
+	//console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
 function startRoundML() { }
 
@@ -40,9 +40,9 @@ function composeFleetingMessage() {
 	return s + msg;
 }
 
-function createLetterInputs(s, dTable, style, idForContainerDiv = 'dLetters') {
+function createLetterInputs(s, dTable, style, idForContainerDiv) {
 	let d = mDiv(dTable);
-	d.id = idForContainerDiv;
+	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
 	inputs = [];
 	for (let i = 0; i < s.length; i++) {
 		let d1 = mCreate('div');
@@ -71,13 +71,15 @@ function promptML() {
 
 	// create sequence of letter ui
 	let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
-	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style, 'dLetters'); // acces children: d.children
+	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style); // acces children: d.children
 
 	// randomly choose 1-NumMissingLetters alphanumeric letters from bestWord
 	let indices = getIndicesCondi(bestWord,(x,i)=>isAlphaNum(x) && i<=MaxPosMissing);
-	console.log('indices (should be sorted!)',indices);
+	//console.log('indices (should be sorted!)',indices);
 	nMissing = Math.min(indices.length,NumMissingLetters);
-	let ilist =  choose(indices,nMissing);
+	let ilist =  choose(indices,nMissing);sortNumbers(ilist);
+
+	//console.log(typeof ilist[0],ilist);
 
 	for(const idx of ilist){
 		let inp = d.children[idx];
@@ -96,7 +98,7 @@ function trialPromptML() {
 	let selinp = Selected.inp;
 	say('try again!');
 	setTimeout(() => {
-		console.log('selected last:', selinp);
+		//console.log('selected last:', selinp);
 		let d = selinp.div;
 		d.innerHTML = '_';
 		mClass(d, 'blink');
@@ -118,8 +120,8 @@ function activateML() {
 		let charEntered = ev.key.toString();
 		if (!isAlphaNum(charEntered)) return;
 
-
 		Selected = { lastLetterEntered: charEntered.toUpperCase() };
+		//console.log(inputs[0].div.parentNode)
 
 		if (nMissing == 1) {
 			let d = Selected.feedbackUI = inputs[0].div;
@@ -127,8 +129,8 @@ function activateML() {
 			Selected.inp = inputs[0];
 			d.innerHTML = Selected.lastLetterEntered;
 			mRemoveClass(d, 'blink');
-			let result = buildWordFromLetters(mBy('dLetters'));
-			console.log('selected last:', Selected)
+			let result = buildWordFromLetters(mParent(d));
+			//console.log('selected last:', Selected)
 
 			evaluate(result);
 		} else {

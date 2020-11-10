@@ -5,9 +5,9 @@ var skipAnimations = IS_TESTING; // false | true
 
 //set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-var currentGame = IS_TESTING ? 'gMissingLetter' : 'sequence';
+var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
 var currentUser = 'Gunter';
-var currentLanguage = 'E';
+var currentLanguage = 'D';
 var currentCategories = ['clock'];//nosymbols'];
 var startAtLevel = IS_TESTING ? { gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
 	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
@@ -41,7 +41,7 @@ var scoringMode = 'inc'; // inc | percent | mixed
 var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;
-var CurrentSessionData, GameList=[], CurrentGameData, LevelList=[], CurrentLevelData;
+var CurrentSessionData,  CurrentGameData, CurrentLevelData;
 var SessionScore=0;
 var LevelChange=true;
 const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };

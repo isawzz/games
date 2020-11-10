@@ -326,7 +326,7 @@ function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 function mpOver(d, dParent, fz, color, picStyle) {
 	//maPicOver
 	//d is pos fixed!!!
-	console.log('dParent',dParent)
+	//console.log('dParent',dParent)
 	let b = getBounds(dParent);
 
 	let cx = b.width / 2 + b.x;
