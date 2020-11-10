@@ -18,30 +18,25 @@ const LevelsTC = {
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
 function levelTC() {
-	//console.log(currentLevel)
 	let levelInfo = LevelsTC[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys(['life'],true);
-	//console.log('keys',currentKeys.length)
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;
-	//writeComments();
+	writeComments();
 }
 function startRoundTC() {
 	uiActivatedTC = false;
 }
 function promptTC() {
 	let colors = choose(currentLevel<3?SIMPLE_COLORS:EXTENDED_COLORS,NumColors);
-	//let colors = choose(['pink','gray','sienna'],NumColors);
 	showPictures(false, evaluate, colors);
 
 	setGoal(randomNumber(0,NumPics*colors.length-1));
 	Goal.correctionPhrase = Goal.shade+' '+Goal.label;
-
-	//console.log('________\ngoal id is',Goal.id)
 
 	let spoken = `click the ${Goal.shade} ${bestWord}`;
 	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle, spoken);
@@ -58,15 +53,12 @@ function activateTC() {
 }
 function evalTC(ev) {
 	let id = evToClosestId(ev);
-	//console.log('clicked',id);
 	ev.cancelBubble = true;
 
-	//get item
 	let i = firstNumber(id);
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div};
 
-	//console.log(item.info.best)
 	if (item == Goal) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }
 

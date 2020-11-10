@@ -7,6 +7,8 @@ const voiceNames = {
 	deutsch: 'Google Deutsch',
 };
 var timeout1, timeout2;
+
+
 function say(text, r = .5, p = .8, v = .5, interrupt=true, voiceDescriptor, callback) {
 	if (isdef(synth) && synth.speaking) {
 		if (!interrupt) return;
@@ -50,6 +52,64 @@ function say(text, r = .5, p = .8, v = .5, interrupt=true, voiceDescriptor, call
 }
 
 // helpers
+function utter(text, r = .5, p = .8, v = .5, voiceDesc, callback=null) {
+
+	synth.cancel()
+	var u = new SpeechSynthesisUtterance();
+	//u.text = text;
+	let [voiceKey, voice] = findSuitableVoice(text, voiceDesc);
+	u.text = sepWords(text, voiceKey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
+	u.rate = r;
+	u.pitch = p;
+	u.volume = v;
+	u.voice = voice;
+	
+	// u.onstart = function (event) {
+	// 		//console.log(33);
+	// };
+	u.onend = function (event) {
+			//console.log(55,'callback',SpeakerCallback);
+			isSpeakerRunning = false;
+			if (callback) callback();
+	};
+	
+	if (isINTERRUPT) return;else isSpeakerRunning=true;
+	speechSynthesis.speak(u);
+	//console.log(u);
+	
+	
+
+
+	// // rate 0.1 to 10
+	// let [voiceKey, voice] = findSuitableVoice(text, voiceDesc);
+	// utterance.text = sepWords(text, voiceKey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
+	// utterance.rate = r;
+	// utterance.pitch = p;
+	// utterance.volume = v;
+	// utterance.voice = voice;
+
+	// utterance.onend = callback;
+
+	// //console.log('\nsynth',synth,'\nvoices',voices,'\nutterance',utterance)
+	// if (isdef(timeout2)) {		clearTimeout(timeout2);	}
+	// timeout2 = setTimeout(() => { synth.speak(utterance); focus(mBy(defaultFocusElement)); }, 200);
+}
+function sepWords(text, voiceKey, s = ''){ //<silence msec="200" />') {
+	text = text.toLowerCase();
+	//console.log(voice,'\nlang=',voice.lang.trim(),'\ntrue or false=',voice.lang.trim()=='en-US');
+	//console.log('voiceKey',voiceKey)
+	if (voiceKey == 'zira') {
+
+		return text; // + ' hello <audio src="/assets/sounds/down.mp3">didnt get your MP3 audio file</audio> no way!';
+	} else if (startsWith(voiceKey, 'u')) { return text; }
+	let words = text.split(' ');
+	//s='? ';//' - ';
+	text = words.join(' '); text += s;
+	//console.log('text', text)
+	return text;
+}
+
+
 function findSuitableVoice(text, voiceDesc) {
 	//desc ... random | key in voiceNames | starting phrase of voices.name
 	//console.log(typeof voices, voices)
@@ -77,37 +137,6 @@ function findSuitableVoice(text, voiceDesc) {
 	// console.log('===>the voice is', voice);
 	return [voiceKey, voice];
 }
-function utter(text, r = .5, p = .8, v = .5, voiceDesc, callback=null) {
-	// rate 0.1 to 10
-	let [voiceKey, voice] = findSuitableVoice(text, voiceDesc);
-	utterance.text = sepWords(text, voiceKey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
-	utterance.rate = r;
-	utterance.pitch = p;
-	utterance.volume = v;
-	utterance.voice = voice;
-
-	utterance.onend = callback;
-
-	//console.log('\nsynth',synth,'\nvoices',voices,'\nutterance',utterance)
-	if (isdef(timeout2)) {		clearTimeout(timeout2);	}
-	timeout2 = setTimeout(() => { synth.speak(utterance); focus(mBy(defaultFocusElement)); }, 200);
-}
-function sepWords(text, voiceKey, s = ''){ //<silence msec="200" />') {
-	text = text.toLowerCase();
-	//console.log(voice,'\nlang=',voice.lang.trim(),'\ntrue or false=',voice.lang.trim()=='en-US');
-	//console.log('voiceKey',voiceKey)
-	if (voiceKey == 'zira') {
-
-		return text; // + ' hello <audio src="/assets/sounds/down.mp3">didnt get your MP3 audio file</audio> no way!';
-	} else if (startsWith(voiceKey, 'u')) { return text; }
-	let words = text.split(' ');
-	//s='? ';//' - ';
-	text = words.join(' '); text += s;
-	//console.log('text', text)
-	return text;
-}
-
-
 
 
 

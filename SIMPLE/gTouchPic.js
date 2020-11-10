@@ -20,9 +20,9 @@ function levelTP() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
-	//writeComments();
+	writeComments();
 }
 function startRoundTP() {
 	uiActivated = false;
@@ -34,9 +34,6 @@ function promptTP() {
 	return 10;
 }
 function trialPromptTP(){
-	//say();
-	//showCorrectWord(false);
-	//aniInstruction('try again!');
 	say('try again');
 	shortHintPic();
 	return 10;
@@ -48,12 +45,10 @@ function evalTP(ev) {
 	let id = evToClosestId(ev);
 	ev.cancelBubble = true;
 
-	//get item
 	let i = firstNumber(id);
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div};
 
-	//console.log(item.info.best)
 	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }
 

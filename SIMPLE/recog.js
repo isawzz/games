@@ -2,8 +2,11 @@ var isRunning = false;
 var callback = null;
 var recognition;
 var grammar;
+var RecordGotResult;
 
 function record(lang, best) {
+	//TODO: HACK!!!!!!!
+	if (currentGame != 'gSayPic') return;
 	let wordlist = ['du', 'bist', 'ein', 'vogel', best];
 	if (!isdef(recognition)) {
 		speech00(lang);
@@ -22,16 +25,20 @@ function record(lang, best) {
 }
 function addStartHandler() {
 	recognition.onstart = function () {
-		recordCallback = null;
+		RecordGotResult = recordCallback = null;
+		if (currentGame != 'gSayPic') return;
 		isRunning = true;
 		show('dRecord');
-		//console.log('recog start', isRunning)
+		console.log('recog start', isRunning)
 	};
 }
 function addResultHandler() {
 	recognition.onresult = function (event) {
+		if (currentGame != 'gSayPic') return;
+		RecordGotResult = true;
 		var interim_transcript = '';
 		var final_transcript = '';
+		console.log('recog RESULT!', isRunning)
 		hide('dRecord');
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 			if (event.results[i].isFinal) {
@@ -50,14 +57,20 @@ function addResultHandler() {
 }
 function addEndHandler() {
 	recognition.onend = function () {
+		if (currentGame != 'gSayPic') return;
 		isRunning = false;
-		//console.log('recog end', isRunning);
+		console.log('recog end', isRunning);
+		console.log('end handler: result:',RecordGotResult)
+		console.log('recordCallback', recordCallback);
 		if (recordCallback) recordCallback();
-		else hide('dRecord');
+		else if (!RecordGotResult){
+			activateUi();
+		}		else hide('dRecord');
 	};
 }
 function addErrorHandler() {
 	recognition.onerror = function (event) {
+		if (currentGame != 'gSayPic') return;
 		isRunning = false;
 		console.error(event);
 		if (recordCallback) recordCallback();

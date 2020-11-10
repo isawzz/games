@@ -6,10 +6,20 @@ const GFUNC = {
 	gSayPic: { startGame: startGameSP,startLevel:startLevelSP, startRound: startRoundSP,trialPrompt:trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP, prepLevel: levelSP },
 }
 
-window.onload = SPEECHStart;
+window.onload = SessionStart;
 //window.onunload = saveSettings;
 
-async function SPEECHStart() {
+function testTimeString(){
+	let w='3 uhr dreißig uhr';
+	console.log(w.trim(),w.trim().toUpperCase());
+	let w1=stringAfterLast(w,' ');
+	console.log('...w1',w1)
+	let val=endsWith(w.trim().toUpperCase(), 'UHR');
+	console.log('val',val)
+	let x=isTimeString('3 uhr dreißig uhr');console.log('x',x); return;
+}
+
+async function SessionStart() {
 
 	//show('dRecord'); 
 	//let a=stringAfterLeadingConsonants('drei'); console.log(a);return;
@@ -23,12 +33,9 @@ async function SPEECHStart() {
 	initTable();
 	initSidebar();
 
+	CurrentSessionData={user:currentUser,games:[]};
+	//console.log(CurrentSessionData);
 	initSettingsP0();
-	// try{
-	// 	initSettingsP0();
-	// }catch{
-	// 	resetAllGamesAndUsersToHardcodedSettings();
-	// }
 
 	if (immediateStart) startGame(); else openSettings();
 }

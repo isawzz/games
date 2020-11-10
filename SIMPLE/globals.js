@@ -5,7 +5,7 @@ var skipAnimations = IS_TESTING; // false | true
 
 //set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-var currentGame = IS_TESTING ? 'gTouchPic' : 'sequence';
+var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
@@ -37,15 +37,21 @@ var Pictures = [];
 var Goal, Selected;
 
 //score
+var scoringMode = 'inc'; // inc | percent | mixed
+var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
-var minIncrement = 1, maxIncrement = 5, levelDonePoints = 15, levelIncrement, levelPoints;
-var levelCountingMode = 'inc';
-var levelHistory;
+var levelIncrement, levelPoints;
+var CurrentSessionData,  CurrentGameData, CurrentLevelData;
+var SessionScore=0;
+var LevelChange=true;
+const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
+var AnswerCorrectness;
 
 var iGROUP = -1;
 var lastPosition = 0;
 var trialNumber;
 var boundary;
+var isSpeakerRunning,isINTERRUPT;//,SpeakerCallback;
 
 //ui state flags
 const uiHaltedMask = 1 << 0; //eg. when entering settings
@@ -92,15 +98,5 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 //testing
 var timit;
 
-//to be phased out
-// const STATES = {
-// 	STARTING: -1, GAME_INITIALIZED: -2, ROUND_INITIALIZED: -3, NONE: 0,
-// 	BOUNDARY: 1, GROUPCHANGE: 2, LEVELCHANGE: 3, GAMEOVER: 4, CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7
-// };
-// var GameState;
-var LevelChange;
-const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
-var AnswerCorrectness;
-//var GameStage;
 
 

@@ -21,41 +21,47 @@ function levelML() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys();
-	NumPics = levelInfo.NumPics;	// NumPics = (currentLevel <= SHOW_LABEL_UP_TO_LEVEL? 2:1) + currentLevel; 
+	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	//writeComments();
-	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
-	// MaxWordLength = 
-	// setKeys();
-	// MaxNumTrials = 1;
-	// NumPics = 1;
-	// let labelsBisLevel = 2
-	// NumLabels = currentLevel > labelsBisLevel ? 0 : 1;
-	// NumMissingLetters = currentLevel <= labelsBisLevel ? (currentLevel + 1) : currentLevel;
-	// console.log('...starting MissingLetter currentLevel:',currentLevel, 'pics', NumPics, 'labels',NumLabels, 'keys', currentKeys.length);
-	// console.log(currentCategories, currentLanguage, MAX_WORD_LENGTH, currentLevel);
+	writeComments();
+	//console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
-function startRoundML() {
-	//trialNumber = 0;
-	//console.log('maxNumMissing:'+NumMissingLetters,'currentLevel:'+currentLevel,'show bis:'+hSHOW_LABEL_UP_TO_LEVEL)
-}
+function startRoundML() { }
 
 function composeFleetingMessage() {
 	let lst = inputs;
 	let msg = lst.map(x => x.letter).join(',');
-	//console.log(msg);
 	let edecl = lst.length > 1 ? 's ' : ' ';
 	let ddecl = lst.length > 1 ? 'den' : 'die';
 	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
 	return s + msg;
 }
 
-function promptML() {
+function createLetterInputs(s, dTable, style, idForContainerDiv) {
+	let d = mDiv(dTable);
+	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
+	inputs = [];
+	for (let i = 0; i < s.length; i++) {
+		let d1 = mCreate('div');
+		mAppend(d, d1);
+		d1.innerHTML = s[i];
+		mStyleX(d1,style);
+	}
+	return d;
+}
 
-	//trialNumber += 1;
+function getIndicesCondi(arr,func){
+	let res = [];
+	for(let i=0;i<arr.length;i++){
+		if (func(arr[i],i)) res.push(i);
+	}
+	return res;
+}
+
+function promptML() {
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
@@ -63,99 +69,68 @@ function promptML() {
 
 	mLinebreak(dTable);
 
-	//#region add letter inputs
-	//hier werden die letters und missing letters (inputs) gemacht:
-	let d = mDiv(dTable);
-	d.id = 'dLetters';
-	inputs = [];
-	// let i=0;
-	for (let i = 0; i < bestWord.length; i++) {
-		let d1 = mCreate('div');
-		mAppend(d, d1);
-		d1.innerHTML = bestWord[i].toUpperCase();
-		//inputs.push(d1);
-		//mStyleX(d1,{display:'inline',w:60,align:'center',border:'none',outline:'none',family:'Consolas',fz:100});
-		mStyleX(d1, { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 });
-	}
+	// create sequence of letter ui
+	let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
+	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style); // acces children: d.children
 
-	//randomly choose one of the input boxes
-	let len = bestWord.length;
-	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
+	// randomly choose 1-NumMissingLetters alphanumeric letters from bestWord
+	let indices = getIndicesCondi(bestWord,(x,i)=>isAlphaNum(x) && i<=MaxPosMissing);
+	//console.log('indices (should be sorted!)',indices);
+	nMissing = Math.min(indices.length,NumMissingLetters);
+	let ilist =  choose(indices,nMissing);sortNumbers(ilist);
 
-	let indices = nRandomNumbers(nMissing, 0, Math.min(len - 1, MaxPosMissing));
-	indices.sort();
-	
-	// let indices = nRandomNumbers(nMissing, 1, len - 2);
-	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
+	//console.log(typeof ilist[0],ilist);
 
-	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)
-
-	for (let i = 0; i < nMissing; i++) {
-		let index = indices[i];
-		if (bestWord[index]==' ') continue;
-		let inp = d.children[index];
+	for(const idx of ilist){
+		let inp = d.children[idx];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
-		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index: index });
+		inputs.push({ letter: bestWord[idx].toUpperCase(), div: inp, index: idx });
 	}
 
 	mLinebreak(dTable);
-
-	//#endregion
 
 	showFleetingMessage(composeFleetingMessage(), 3000);
 
 	return 10;
 }
 function trialPromptML() {
-	//erase wrong letter and say try again
-
-	let selinp=Selected.inp;
+	let selinp = Selected.inp;
 	say('try again!');
 	setTimeout(() => {
-		console.log('selected last:', selinp);
+		//console.log('selected last:', selinp);
 		let d = selinp.div;
 		d.innerHTML = '_';
 		mClass(d, 'blink');
 		inputs.push(selinp);
-	}, 2000);
-
+	}, skipAnimations ? 300 : 2000);
 
 	return 10;
-	// say(currentLanguage == 'E'?'try again!':'nochmal', 1, 1, .8,true, 'zira');
-	// trialNumber += 1;
-	// mLinebreak(dTable);
-	// inputBox = addNthInputElement(dTable, trialNumber);
-	// defaultFocusElement = inputBox.id;
-	// activateML();
 }
 function buildWordFromLetters(d) {
 	let letters = Array.from(d.children);
 	let s = letters.map(x => x.innerHTML);
 	s = s.join('')
-	//console.log('s is',s);
 	return s;
 }
 function activateML() {
-	//console.log('should activate WritePic UI')
 	onkeypress = ev => {
 		clearFleetingMessage();
 		if (uiPaused || ev.ctrlKey || ev.altKey) return;
-		let charEntered = ev.key.toString(); //String.fromCharCode(ev.keyCode);
-		if (!(/[a-zA-Z0-9-_ ]/.test(charEntered))) return;
-
+		let charEntered = ev.key.toString();
+		if (!isAlphaNum(charEntered)) return;
 
 		Selected = { lastLetterEntered: charEntered.toUpperCase() };
+		//console.log(inputs[0].div.parentNode)
 
-		//console.log('inp',inp);
 		if (nMissing == 1) {
 			let d = Selected.feedbackUI = inputs[0].div;
 			Selected.lastIndexEntered = inputs[0].index;
 			Selected.inp = inputs[0];
 			d.innerHTML = Selected.lastLetterEntered;
 			mRemoveClass(d, 'blink');
-			let result = buildWordFromLetters(mBy('dLetters'));
-			console.log('selected last:', Selected)
+			let result = buildWordFromLetters(mParent(d));
+			//console.log('selected last:', Selected)
 
 			evaluate(result);
 		} else {
@@ -187,8 +162,6 @@ function activateML() {
 function evalML(word) {
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	//console.log('eval MissingLetter', answer, reqAnswer)
-	//console.log(allLettersContained(reqAnswer,answer))
 	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return STATES.CORRECT;
