@@ -1,4 +1,4 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
@@ -8,7 +8,7 @@ var skipAnimations = IS_TESTING; // false | true
 var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'D';
-var currentCategories = ['clock'];//nosymbols'];
+var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
 	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];

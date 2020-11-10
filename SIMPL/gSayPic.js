@@ -108,30 +108,30 @@ function toWords(s) {
 //}
 
 function matchingNumberOrTime(info, answer) {
-	console.log('matchingNumberOrTime', info.words, bestWord, answer)
+	//console.log('matchingNumberOrTime', info.words, bestWord, answer)
 
 	if (infoHasNumberOrTimeString(info) && isNumberOrTimeString(answer)) {
 		//solve this thing using timestring or number
-		console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+		//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 		if (isNumber(answer) && infoHasNumber(info)) {
 			//compare the numbers
-			console.log('1')
+			//console.log('1')
 			let best1 = firstCond(info.words, x => isNumber(x));
 			return best1 == answer;
 		} else if (isTimeString(answer) && infoHasTimeString(info)) {
 			let ts = firstCond(info.words, x => isTimeString(x));
-			console.log('222222222222200000000000000000000');
+			//console.log('222222222222200000000000000000000');
 			let x1 = convertGermanUhrzeitToNumbers(answer);
 			let x2 = convertTimeStringToNumbers(ts);
-			console.log(x1, x2);
+			//console.log(x1, x2);
 			//remove all 0 from lists
 			removeInPlace(x1, 0);
 			removeInPlace(x2, 0);
 
-			console.log('after removeInPlace', x1, x2)
+			//console.log('after removeInPlace', x1, x2)
 			return sameList(x1, x2);
 		} else if (infoHasTimeString(info)) {
-			console.log('3')
+			//console.log('3')
 			let best1 = firstCond(info.words, x => isTimeString(x));
 			let x1 = convertTimesAndNumbersToWords(best1);
 			let x2 = convertTimesAndNumbersToWords(answer);
@@ -150,7 +150,7 @@ function goalHasNumber() {
 function isTimeString(w) {
 	let res1 = (w.includes(':') && w.length >= 4 && w.length <= 5);
 	let res2 = (currentLanguage == 'D' && stringAfterLast(w.toLowerCase(), ' ') == 'uhr'); //endsWith(w.trim().toUpperCase(), 'UHR'));
-	console.log('CHECKING isTimeString', w, res1 || res2);
+	//console.log('CHECKING isTimeString', w, res1 || res2);
 	return res1 || res2;
 }
 function goalHasTimeString() {
@@ -222,6 +222,11 @@ function convertTimesAndNumbersToWords(w) {
 	return w;
 }
 
+const germanNumbers={
+	ein:1,eins:1,zwei:2,1:'eins',2:'zwei',3:'drei',drei:3,vier:4,4:'vier',5:'fuenf',fuenf:5,sechs:6,6:'sechs',sex:6,
+	sieben:7,7:'sieben',8:'acht',acht:8,9:'neun',neun:9,zehn:10,elf:11,zwoelf:12,zwanzig:20,dreissig:30,
+	10:'zehn',11:'elf',12:'zwoelf',20:'zwanzig',30:'dreissig',vierzig:40,fuenfzig:50,40:'vierzig',50:'fuenfzig'};
+
 function convertGermanUhrzeitToNumbers(w) {
 	console.log('...', w)
 	//geht nur fuer ein eins zwei ... und dreissig
@@ -230,36 +235,39 @@ function convertGermanUhrzeitToNumbers(w) {
 	let res = [];
 	for (const p of parts) {
 		let p1 = p.trim().toLowerCase();
-		switch (p1) {
-			case '1': res.push(1); break;
-			case 'ein': res.push(1); break;
-			case 'eins': res.push(1); break;
-			case '2': res.push(2); break;
-			case 'zwei': res.push(2); break;
-			case '3': res.push(3); break;
-			case 'drei': res.push(3); break;
-			case '4': res.push(4); break;
-			case 'vier': res.push(4); break;
-			case '5': res.push(5); break;
-			case 'fuenf': res.push(5); break;
-			case '6': res.push(6); break;
-			case 'sechs': res.push(6); break;
-			case '7': res.push(7); break;
-			case 'sieben': res.push(7); break;
-			case '8': res.push(8); break;
-			case 'acht': res.push(8); break;
-			case '9': res.push(9); break;
-			case 'neun': res.push(9); break;
-			case '10': res.push(10); break;
-			case 'zehn': res.push(10); break;
-			case '11': res.push(11); break;
-			case 'elf': res.push(11); break;
-			case '12': res.push(12); break;
-			case 'zwoelf': res.push(12); break;
-			case 'dreissig': res.push(30); break;
-			case '30': res.push(30); break;
-			default:
-		}
+		if (isNumber(p1)) res.push(Number(p1));
+		else if (isdef(germanNumbers[p1])) res.push(germanNumbers[p1]);
+		// continue;
+		// switch (p1) {
+		// 	case '1': res.push(1); break;
+		// 	case 'ein': res.push(1); break;
+		// 	case 'eins': res.push(1); break;
+		// 	case '2': res.push(2); break;
+		// 	case 'zwei': res.push(2); break;
+		// 	case '3': res.push(3); break;
+		// 	case 'drei': res.push(3); break;
+		// 	case '4': res.push(4); break;
+		// 	case 'vier': res.push(4); break;
+		// 	case '5': res.push(5); break;
+		// 	case 'fuenf': res.push(5); break;
+		// 	case '6': res.push(6); break;
+		// 	case 'sechs': res.push(6); break;
+		// 	case '7': res.push(7); break;
+		// 	case 'sieben': res.push(7); break;
+		// 	case '8': res.push(8); break;
+		// 	case 'acht': res.push(8); break;
+		// 	case '9': res.push(9); break;
+		// 	case 'neun': res.push(9); break;
+		// 	case '10': res.push(10); break;
+		// 	case 'zehn': res.push(10); break;
+		// 	case '11': res.push(11); break;
+		// 	case 'elf': res.push(11); break;
+		// 	case '12': res.push(12); break;
+		// 	case 'zwoelf': res.push(12); break;
+		// 	case 'dreissig': res.push(30); break;
+		// 	case '30': res.push(30); break;
+		// 	default:
+		// }
 	}
 	return res;
 
@@ -269,7 +277,7 @@ function convertTimeStringToNumbers(ts) {
 }
 
 function soundsSimilar(w1, w2) {
-	console.log('_______________ soundsSimilar')
+	//console.log('_______________ soundsSimilar')
 	//console.log('A',typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2);
 	w1 = convertTimesAndNumbersToWords(w1); //toWords(w1);
 	w2 = convertTimesAndNumbersToWords(w2); //toWords(w2);
@@ -279,10 +287,11 @@ function soundsSimilar(w1, w2) {
 	}
 	let a1 = syllabify(w1);
 	let a2 = syllabify(w2);
-	console.log('E', typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2)
-	console.log('a1', a1, 'a2', a2);
+	//console.log('E', typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2)
+	//console.log('a1', a1, 'a2', a2);
 	if (!a1) a1=[w1];
 	if (!a2) a2=[w2];
+	if (currentLanguage == 'D' && isdef(germanNumbers[a1]) && germanNumbers[a1]==germanNumbers[a2]) return true;
 	if (a1.length != a2.length) return false;
 	for (let i = 0; i < a1.length; i++) {
 		let s1 = a1[i];

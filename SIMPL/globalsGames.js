@@ -83,7 +83,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors)
 	let keys = choose(currentKeys, NumPics);
 
 	
-	//keys=['man artist']; //['oil drum'];//,'door']
+	//keys=["one o'clock"]; //['oil drum'];//,'door']
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
 	let bgPic = isdef(colors) ? 'white' : 'random';
