@@ -26,7 +26,7 @@ function levelTC() {
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;
-	//writeComments();
+	writeComments();
 }
 function startRoundTC() {
 	uiActivatedTC = false;

@@ -22,7 +22,7 @@ function levelTP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
-	//writeComments();
+	writeComments();
 }
 function startRoundTP() {
 	uiActivated = false;

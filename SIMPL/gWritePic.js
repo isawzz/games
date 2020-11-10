@@ -26,7 +26,7 @@ function levelWP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
-	//writeComments();
+	writeComments();
 }
 
 function startRoundWP() { }

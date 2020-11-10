@@ -21,7 +21,7 @@ function levelSP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
-	// writeComments();
+	writeComments();
 }
 function startRoundSP() {}
 function promptSP() {

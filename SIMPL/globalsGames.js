@@ -7,12 +7,12 @@ function startGame(game) {
 		hide(mBy('dRecord'));
 	}
 
-	console.log('currentGame',currentGame)
+	//console.log('currentGame',currentGame)
 	addGameToSessionHistoryAndRenewGameHistory(currentGame);
 	if (nundef(game)) game = currentGame;
 	if (game == 'sequence') game = gameSequence[0];
 	currentGame = game;
-	console.log('currentGame',currentGame)
+	//console.log('currentGame',currentGame)
 
 	onkeydown = null;
 	onkeypress = null;
@@ -282,9 +282,9 @@ function showInstruction(text, cmd, title, spoken) {
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
 function writeComments(pre) {
-	console.log('...' + currentGame.substring(1), pre + ' currentLevel:' + currentLevel, 'pics:' + NumPics,
-		'labels:' + NumLabels,
-		'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
+	// console.log('...' + currentGame.substring(1), pre + ' currentLevel:' + currentLevel, 'pics:' + NumPics,
+	// 	'labels:' + NumLabels,
+	// 	'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 
 }
 //#endregion

@@ -26,7 +26,7 @@ function levelML() {
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	//writeComments();
+	writeComments();
 	console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
 function startRoundML() { }
@@ -70,36 +70,23 @@ function promptML() {
 	mLinebreak(dTable);
 
 	// create sequence of letter ui
-	let style = { margin: 10, fg: 'white', display: 'inline', w: 64, bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 100 };
+	let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
 	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style, 'dLetters'); // acces children: d.children
 
-	// randomly choose a maximum of NumMissingLetters alphanumeric letters from bestWord
-	let len = bestWord.length;
-	nMissing = Math.max(1, Math.min(len - 2, NumMissingLetters));
-	let indices = getIndicesCondi(bestWord,x,i=>isAlphaNum(x) && i<=MaxPosMissing);
+	// randomly choose 1-NumMissingLetters alphanumeric letters from bestWord
+	let indices = getIndicesCondi(bestWord,(x,i)=>isAlphaNum(x) && i<=MaxPosMissing);
 	console.log('indices (should be sorted!)',indices);
+	nMissing = Math.min(indices.length,NumMissingLetters);
+	let ilist =  choose(indices,nMissing);
 
-	let indices = nRandomNumbers(, 0, Math.min(len - 1, MaxPosMissing));
-	indices.sort();
-
-	// let indices = nRandomNumbers(nMissing, 1, len - 2);
-
-	if (isEmpty(indices)) indices = nRandomNumbers(nMissing, 0, len - 1);
-
-	//console.log('bestWord', bestWord, 'len', len, 'nMissing', nMissing, '\nindices', indices)
-
-	for (let i = 0; i < nMissing; i++) {
-		let index = indices[i];
-		if (!isAlphaNum(bestWord[index])) { nMissing -= 1; }
-		let inp = d.children[index];
+	for(const idx of ilist){
+		let inp = d.children[idx];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
-		inputs.push({ letter: bestWord[index].toUpperCase(), div: inp, done: false, index: index });
+		inputs.push({ letter: bestWord[idx].toUpperCase(), div: inp, index: idx });
 	}
 
 	mLinebreak(dTable);
-
-	
 
 	showFleetingMessage(composeFleetingMessage(), 3000);
 
