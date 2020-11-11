@@ -68,7 +68,7 @@ function utter(text, r = .5, p = .8, v = .5, voiceDesc, callback=null) {
 	// 		//console.log(33);
 	// };
 	u.onend = function (event) {
-			//console.log(55,'callback',SpeakerCallback);
+			//if (isdef(SpeakerCallback)) console.log('u.onend callback',SpeakerCallback);
 			isSpeakerRunning = false;
 			if (callback) callback();
 	};

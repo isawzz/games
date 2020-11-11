@@ -1,0 +1,709 @@
+correct:
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: buffalo
+    reqAnswer: buffalo
+    answer: buffalo
+  - key: bug
+    reqAnswer: caterpillar
+    answer: caterpillar
+  - key: chicken
+    reqAnswer: chicken
+    answer: chicken
+  - key: cricket
+    reqAnswer: insect
+    answer: insect
+  - key: T-Rex
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: dragon
+    reqAnswer: dragon
+    answer: dragon
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: hamster
+    reqAnswer: hamster
+    answer: hamster
+  - key: hedgehog
+    reqAnswer: hedgehog
+    answer: hedgehog
+  - key: kangaroo
+    reqAnswer: kangaroo
+    answer: kangaroo
+  - key: lizard
+    reqAnswer: lizard
+    answer: lizard
+  - key: monkey
+    reqAnswer: monkey
+    answer: monkey
+  - key: octopus
+    reqAnswer: octopus
+    answer: octopus
+  - key: peacock
+    reqAnswer: peacock
+    answer: peacock
+  - key: rooster
+    reqAnswer: rooster
+    answer: rooster
+  - key: spider
+    reqAnswer: spider
+    answer: spider
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: blowfish
+    reqAnswer: blowfish
+    answer: blowfish
+  - key: chicken
+    reqAnswer: chicken
+    answer: chicken
+  - key: cricket
+    reqAnswer: insect
+    answer: insect
+  - key: T-Rex
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: dolphin
+    reqAnswer: dolphin
+    answer: dolphin
+  - key: dragon face
+    reqAnswer: dragon
+    answer: dragon
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: hedgehog
+    reqAnswer: hedgehog
+    answer: hedgehog
+  - key: leopard
+    reqAnswer: leopard
+    answer: leopard
+  - key: microbe
+    reqAnswer: amoeba
+    answer: amoeba
+  - key: monkey
+    reqAnswer: monkey
+    answer: monkey
+  - key: peacock
+    reqAnswer: peacock
+    answer: peacock
+  - key: penguin
+    reqAnswer: penguin
+    answer: penguin
+  - key: chicken
+    reqAnswer: chicken
+    answer: chicken
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: hamster
+    reqAnswer: hamster
+    answer: hamster
+  - key: kangaroo
+    reqAnswer: kangaroo
+    answer: kangaroo
+  - key: leopard
+    reqAnswer: leopard
+    answer: leopard
+  - key: orangutan
+    reqAnswer: orangutan
+    answer: orangutan
+  - key: ox
+    reqAnswer: taurus
+    answer: taurus
+  - key: peacock
+    reqAnswer: peacock
+    answer: peacock
+  - key: rabbit
+    reqAnswer: rabbit
+    answer: rabbit
+  - key: spider
+    reqAnswer: spider
+    answer: spider
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: blowfish
+    reqAnswer: blowfish
+    answer: blowfish
+  - key: buffalo
+    reqAnswer: buffalo
+    answer: buffalo
+  - key: chipmunk
+    reqAnswer: squirrel
+    answer: squirrel
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: blowfish
+    reqAnswer: blowfish
+    answer: blowfish
+  - key: hedgehog
+    reqAnswer: hedgehog
+    answer: hedgehog
+  - key: spider
+    reqAnswer: spider
+    answer: spider
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: hedgehog
+    reqAnswer: hedgehog
+    answer: hedgehog
+  - key: mosquito
+    reqAnswer: mosquito
+    answer: mosquito
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: buffalo
+    reqAnswer: buffalo
+    answer: buffalo
+  - key: turkey
+    reqAnswer: turkey
+    answer: turkey
+  - key: sauropod
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: T-Rex
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: penguin
+    reqAnswer: penguin
+    answer: penguin
+  - key: penguin
+    reqAnswer: penguin
+    answer: penguin
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: blowfish
+    reqAnswer: blowfish
+    answer: blowfish
+  - key: blowfish
+    reqAnswer: blowfish
+    answer: blowfish
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: giraffe
+    reqAnswer: giraffe
+    answer: giraffe
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: umbrella with rain drops
+    reqAnswer: umbrella
+    answer: umbrella
+  - key: desert island
+    reqAnswer: island
+    answer: island
+  - key: desktop computer
+    reqAnswer: screen
+    answer: screen
+  - key: parachute
+    reqAnswer: parachute
+    answer: parachute
+  - key: fork and knife with plate
+    reqAnswer: dinner
+    answer: dinner
+  - key: alarm clock
+    reqAnswer: alarm clock
+    answer: alarm clock
+  - key: studio microphone
+    reqAnswer: microphone
+    answer: microphone
+  - key: french fries
+    reqAnswer: french fries
+    answer: french fries
+  - key: cricket
+    reqAnswer: insect
+    answer: insect
+  - key: magnet
+    reqAnswer: magnet
+    answer: magnet
+  - key: glasses
+    reqAnswer: glasses
+    answer: glasses
+  - key: cigarette
+    reqAnswer: cigarette
+    answer: cigarette
+  - key: biking
+    reqAnswer: biking
+    answer: biking
+  - key: chart increasing with yen
+    reqAnswer: function
+    answer: function
+  - key: woman dancing
+    reqAnswer: dancing
+    answer: dancing
+  - key: oden
+    reqAnswer: skewer
+    answer: skewer
+  - key: butter
+    reqAnswer: butter
+    answer: butter
+  - key: trackball
+    reqAnswer: trackball
+    answer: trackball
+  - key: chestnut
+    reqAnswer: chestnut
+    answer: chestnut
+  - key: ice cream
+    reqAnswer: ice cream
+    answer: ice cream
+  - key: motor scooter
+    reqAnswer: motor scooter
+    answer: motor scooter
+  - key: OK hand
+    reqAnswer: perfect
+    answer: perfect
+  - key: rainbow
+    reqAnswer: rainbow
+    answer: rainbow
+  - key: popcorn
+    reqAnswer: popcorn
+    answer: popcorn
+  - key: detective
+    reqAnswer: detective
+    answer: detective
+  - key: cowboy hat face
+    reqAnswer: cowboy
+    answer: cowboy
+  - key: shopping cart
+    reqAnswer: shopping cart
+    answer: shopping cart
+  - key: world map
+    reqAnswer: magnetic
+    answer: magnetic
+  - key: cheese wedge
+    reqAnswer: cheese
+    answer: cheese
+  - key: fuel pump
+    reqAnswer: fuel pump
+    answer: fuel pump
+  - key: ogre
+    reqAnswer: monster
+    answer: monster
+  - key: stuffed flatbread
+    reqAnswer: falafel
+    answer: falafel
+  - key: dashing away
+    reqAnswer: dashing away
+    answer: dashing away
+  - key: umbrella with rain drops
+    reqAnswer: umbrella
+    answer: umbrella
+  - key: passenger ship
+    reqAnswer: cruise ship
+    answer: cruise ship
+  - key: fishing pole
+    reqAnswer: fishing
+    answer: fishing
+  - key: roasted sweet potato
+    reqAnswer: potato
+    answer: potato
+  - key: woman technologist
+    reqAnswer: engineer
+    answer: engineer
+  - key: right anger bubble
+    reqAnswer: speech balloon
+    answer: speech balloon
+  - key: angry face with horns
+    reqAnswer: sardonic
+    answer: sardonic
+  - key: hugging face
+    reqAnswer: hugging
+    answer: hugging
+  - key: firecracker
+    reqAnswer: dynamite
+    answer: dynamite
+  - key: hedgehog
+    reqAnswer: hedgehog
+    answer: hedgehog
+  - key: prince
+    reqAnswer: prince
+    answer: prince
+  - key: with
+    reqAnswer: sorceress
+    answer: sorceress
+  - key: sweat droplets
+    reqAnswer: splashing
+    answer: splashing
+  - key: hiking boot
+    reqAnswer: hiking boot
+    answer: hiking boot
+  - key: ogre
+    reqAnswer: monster
+    answer: monster
+  - key: t-shirt
+    reqAnswer: t-shirt
+    answer: t-shirt
+  - key: tram
+    reqAnswer: railway
+    answer: railway
+  - key: man student
+    reqAnswer: student
+    answer: student
+  - key: curling stone
+    reqAnswer: teapot
+    answer: teapot
+  - key: baseball
+    reqAnswer: baseball
+    answer: baseball
+  - key: motorized wheelchair
+    reqAnswer: wheelchair
+    answer: wheelchair
+  - key: stuffed flatbread
+    reqAnswer: falafel
+    answer: falafel
+  - key: telephone receiver
+    reqAnswer: telephone
+    answer: telephone
+  - key: ice
+    reqAnswer: ice cube
+    answer: ice cube
+  - key: artist palette
+    reqAnswer: colors
+    answer: colors
+  - key: bowling
+    reqAnswer: bowling
+    answer: bowling
+  - key: penguin
+    reqAnswer: penguin
+    answer: penguin
+  - key: raising hands
+    reqAnswer: celebrating
+    answer: celebrating
+  - key: file folder
+    reqAnswer: folder
+    answer: folder
+  - key: toilet
+    reqAnswer: toilet
+    answer: toilet
+  - key: grimacing face
+    reqAnswer: grimacing
+    answer: grimacing
+  - key: spiral notepad
+    reqAnswer: notepad
+    answer: notepad
+  - key: keyboard
+    reqAnswer: keyboard
+    answer: keyboard
+  - key: massage
+    reqAnswer: massage
+    answer: massage
+  - key: surfing
+    reqAnswer: surfing
+    answer: surfing
+  - key: family of 4
+    reqAnswer: family
+    answer: family
+  - key: guitar
+    reqAnswer: guitar
+    answer: guitar
+  - key: climbing
+    reqAnswer: climbing
+    answer: climbing
+  - key: soccer ball
+    reqAnswer: soccer
+    answer: soccer
+  - key: trolleybus
+    reqAnswer: trolley
+    answer: trolley
+  - key: octopus
+    reqAnswer: octopus
+    answer: octopus
+  - key: french fries
+    reqAnswer: french fries
+    answer: french fries
+  - key: turtle
+    reqAnswer: turtle
+    answer: turtle
+  - key: Christmas tree
+    reqAnswer: christmas
+    answer: christmas
+  - key: spiral calendar
+    reqAnswer: calendar
+    answer: calendar
+  - key: turkey
+    reqAnswer: turkey
+    answer: turkey
+  - key: lollipop
+    reqAnswer: lollipop
+    answer: lollipop
+  - key: fountain pen
+    reqAnswer: fountain pen
+    answer: fountain pen
+  - key: light rail
+    reqAnswer: subway
+    answer: subway
+  - key: synagogue
+    reqAnswer: church
+    answer: church
+  - key: snowman without snow
+    reqAnswer: snowman
+    answer: snowman
+  - key: spider
+    reqAnswer: spider
+    answer: spider
+  - key: folded hands
+    reqAnswer: thanks
+    answer: thanks
+  - key: woman golfing
+    reqAnswer: golfing
+    answer: golfing
+  - key: mosque
+    reqAnswer: mosque
+    answer: mosque
+  - key: moai
+    reqAnswer: statue
+    answer: statue
+  - key: telephone receiver
+    reqAnswer: telephone
+    answer: telephone
+  - key: field hockey
+    reqAnswer: hockey
+    answer: hockey
+  - key: climbing
+    reqAnswer: climbing
+    answer: climbing
+  - key: hatching chick
+    reqAnswer: hatching
+    answer: hatching
+  - key: umbrella on ground
+    reqAnswer: umbrella
+    answer: umbrella
+  - key: racing car
+    reqAnswer: racing car
+    answer: racing car
+  - key: person shrugging
+    reqAnswer: oh god
+    answer: oh god
+  - key: cricket
+    reqAnswer: insect
+    answer: insect
+  - key: woman factory worker
+    reqAnswer: factory worker
+    answer: factory worker
+  - key: sauropod
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: chocolate bar
+    reqAnswer: chocolate
+    answer: chocolate
+  - key: card file box
+    reqAnswer: card file box
+    answer: card file box
+  - key: snowman
+    reqAnswer: snowman
+    answer: snowman
+  - key: snowman without snow
+    reqAnswer: snowman
+    answer: snowman
+  - key: roasted sweet potato
+    reqAnswer: potato
+    answer: potato
+  - key: classical building
+    reqAnswer: temple
+    answer: temple
+  - key: oden
+    reqAnswer: skewer
+    answer: skewer
+  - key: map of Japan
+    reqAnswer: map of japan
+    answer: map of japan
+  - key: rocket
+    reqAnswer: rocket
+    answer: rocket
+  - key: open hands
+    reqAnswer: two hands
+    answer: two hands
+  - key: octopus
+    reqAnswer: octopus
+    answer: octopus
+  - key: heart with ribbon
+    reqAnswer: valentine
+    answer: valentine
+  - key: monorail
+    reqAnswer: railway
+    answer: railway
+  - key: partying face
+    reqAnswer: celebration
+    answer: celebration
+  - key: rose
+    reqAnswer: flower
+    answer: flower
+  - key: tornado
+    reqAnswer: tornado
+    answer: tornado
+  - key: chocolate bar
+    reqAnswer: chocolate
+    answer: chocolate
+  - key: teddy bear
+    reqAnswer: teddy bear
+    answer: teddy bear
+  - key: man scientist
+    reqAnswer: scientist
+    answer: scientist
+  - key: cyclone
+    reqAnswer: cyclone
+    answer: cyclone
+  - key: oyster
+    reqAnswer: oyster
+    answer: oyster
+  - key: kick scooter
+    reqAnswer: scooter
+    answer: scooter
+  - key: lacrosse
+    reqAnswer: lacrosse
+    answer: lacrosse
+  - key: school
+    reqAnswer: school
+    answer: school
+  - key: airplane
+    reqAnswer: airplane
+    answer: airplane
+  - key: globe showing Asia-Australia
+    reqAnswer: australia
+    answer: australia
+  - key: eye in speech bubble
+    reqAnswer: speech balloon
+    answer: speech balloon
+  - key: raised hand
+    reqAnswer: hand palm
+    answer: hand palm
+  - key: person in tuxedo
+    reqAnswer: tuxedo
+    answer: tuxedo
+  - key: man singer
+    reqAnswer: singer
+    answer: singer
+  - key: smiling face with horns
+    reqAnswer: sardonic
+    answer: sardonic
+  - key: stop sign
+    reqAnswer: stop sign
+    answer: stop sign
+  - key: zany face
+    reqAnswer: tongue
+    answer: tongue
+  - key: ping pong
+    reqAnswer: ping pong
+    answer: ping pong
+  - key: sandwich
+    reqAnswer: sandwich
+    answer: sandwich
+  - key: graduation cap
+    reqAnswer: graduation cap
+    answer: graduation cap
+  - key: anxious face with sweat
+    reqAnswer: crying
+    answer: crying
+  - key: man kneeling
+    reqAnswer: kneeling
+    answer: kneeling
+  - key: shopping cart
+    reqAnswer: shopping cart
+    answer: shopping cart
+  - key: walking
+    reqAnswer: walking
+    answer: walking
+  - key: skateboard
+    reqAnswer: skateboard
+    answer: skateboard
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: test tube
+    reqAnswer: test tube
+    answer: test tube
+  - key: left speech bubble
+    reqAnswer: speech balloon
+    answer: speech balloon
+  - key: police officer
+    reqAnswer: police
+    answer: police
+  - key: hamster
+    reqAnswer: hamster
+    answer: hamster
+  - key: racing car
+    reqAnswer: racing car
+    answer: racing car
+  - key: fortune cookie
+    reqAnswer: fortune cookie
+    answer: fortune cookie
+  - key: scissors
+    reqAnswer: scissors
+    answer: scissors
+  - key: hundred points
+    reqAnswer: hundred
+    answer: hundred
+  - key: 'man: white hair'
+    reqAnswer: old man
+    answer: old man
+  - key: peacock
+    reqAnswer: peacock
+    answer: peacock
+  - key: monkey
+    reqAnswer: monkey
+    answer: monkey
+  - key: flamingo
+    reqAnswer: flamingo
+    answer: flamingo
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: gorilla
+    reqAnswer: gorilla
+    answer: gorilla
+  - key: buffalo
+    reqAnswer: buffalo
+    answer: buffalo
+  - key: badger
+    reqAnswer: badger
+    answer: badger
+  - key: monkey
+    reqAnswer: monkey
+    answer: monkey
+  - key: chipmunk
+    reqAnswer: squirrel
+    answer: squirrel
+  - key: kangaroo
+    reqAnswer: kangaroo
+    answer: kangaroo
+  - key: mosquito
+    reqAnswer: mosquito
+    answer: mosquito
+  - key: T-Rex
+    reqAnswer: dinosaur
+    answer: dinosaur
+  - key: hamster
+    reqAnswer: hamster
+    answer: hamster
+  - key: ox
+    reqAnswer: taurus
+    answer: taurus

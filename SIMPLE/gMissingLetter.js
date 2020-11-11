@@ -65,7 +65,7 @@ function promptML() {
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
-	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle);
+	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle, true);
 
 	mLinebreak(dTable);
 

@@ -35,10 +35,11 @@ function setGame(event) {
 function setLanguage(x) {
 	currentLanguage = x; setKeys();
 }
-function setKeys(cats, bestOnly) {
+function setKeys(cats, bestOnly, sortAccessor, correctOnly) {
 	//console.log(currentCategories)
-	currentKeys = getKeySetX(isdef(cats)?cats:currentCategories, currentLanguage, MinWordLength, MaxWordLength, bestOnly);
-	// currentKeys = getKeySetX(currentCategories[iGROUP], currentLanguage,MinWordLength, MaxWordLength);
+	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
 }
 function setPicsPerLevel() {
 	let inp = mBy('inputPicsPerLevel');
@@ -49,7 +50,7 @@ function setPicsPerLevel() {
 	getSelection().removeAllRanges();
 	PICS_PER_LEVEL = n;
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
-	boundary = SAMPLES_PER_LEVEL[currentLevel] * (1 + iGROUP);
+	boundary = SAMPLES_PER_LEVEL[currentLevel];
 }
 
 

@@ -11,6 +11,8 @@ var symByType, symBySet;//hier sind info dicts
 var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
+var CorrectWords,CorrectWordsCorrect,CorrectWordsFailed;
+
 //var cachedInfolists = {};
 
 //#endregion
@@ -374,6 +376,15 @@ async function sendAction(boat, username) {
 		prevServerData = serverData;
 		serverData = result;
 	}
+}
+async function loadCorrectWords(){
+	CorrectWords = await loadYamlDict('/assets/correctWords.yaml');
+
+	//remove duplicates from array
+	CorrectWordsCorrect={};	for(const cw of CorrectWords.correct){		CorrectWordsCorrect[cw.key]=cw;	}
+	if (isdef(CorrectWords.failed)) {CorrectWordsFailed={};	for(const cw of CorrectWords.failed){		CorrectWordsFailed[cw.key]=cw;	}}
+	console.log('CorrectWords',CorrectWordsCorrect);
+
 }
 async function loadYamlDict(url) { return await route_path_yaml_dict(url); }
 async function loadJsonDict(url) { return await route_path_json_dict(url); }

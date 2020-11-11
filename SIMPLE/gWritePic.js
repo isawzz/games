@@ -34,7 +34,7 @@ function promptWP() {
 	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
-	showInstruction(bestWord, currentLanguage == 'E' ? 'type' : "schreib'", dTitle);
+	showInstruction(bestWord, currentLanguage == 'E' ? 'type' : "schreib'", dTitle, true);
 
 	mLinebreak(dTable);
 	inputBox = addNthInputElement(dTable, trialNumber);

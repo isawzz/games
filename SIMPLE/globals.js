@@ -9,16 +9,23 @@ var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING ? { gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 3 }
-	: { gTouchPic: 1, gTouchColors: 0, gWritePic: 10, gMissingLetter: 0, gSayPic: 0 };
+var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
+	: { gTouchPic: 3, gTouchColors: 3, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
-var gameSequence = ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic'];
+var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
+	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];
 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 
+//speech recognition
+var MicrophoneUi; //this is the ui
+var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
+var RecogOutput = false;
+var SpeakerOutput = false;
+
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
+var PICS_PER_LEVEL = IS_TESTING ? 400 : 5;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var DELAY = 1000;
@@ -28,30 +35,30 @@ var fleetingMessageTimeout;
 //to be set by each game on level change:
 var MaxNumTrials = 1;
 var MinWordLength = 1;
-var MaxWordLength;
+var MaxWordLength = 100;
 var NumPics;
 var NumLabels;
 
 //vars for round to round:
 var Pictures = [];
 var Goal, Selected;
+var NextPictureIndex = 0;
 
 //score
-var scoringMode = 'inc'; // inc | percent | mixed
+var scoringMode = 'inc'; // inc | percent | mixed | autograde
 var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;
-var CurrentSessionData,  CurrentGameData, CurrentLevelData;
-var SessionScore=0;
-var LevelChange=true;
+var CurrentSessionData, CurrentGameData, CurrentLevelData;
+var SessionScore = 0;
+var LevelChange = true;
 const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
 var AnswerCorrectness;
 
-var iGROUP = -1;
 var lastPosition = 0;
 var trialNumber;
 var boundary;
-var isSpeakerRunning,isINTERRUPT;//,SpeakerCallback;
+var isSpeakerRunning, isINTERRUPT;//,SpeakerCallback;
 
 //ui state flags
 const uiHaltedMask = 1 << 0; //eg. when entering settings

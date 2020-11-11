@@ -30,7 +30,7 @@ function startRoundTP() {
 function promptTP() {
 	showPictures(false, evaluate);
 	setGoal();
-	showInstruction(bestWord, 'click', dTitle);
+	showInstruction(bestWord, 'click', dTitle, true);
 	return 10;
 }
 function trialPromptTP(){
@@ -47,7 +47,7 @@ function evalTP(ev) {
 
 	let i = firstNumber(id);
 	let item = Pictures[i];
-	Selected = {pic:item,feedbackUI:item.div};
+	Selected = {pic:item,feedbackUI:item.div, sz:getBounds(item.div).height};
 
 	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }

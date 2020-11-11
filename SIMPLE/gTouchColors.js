@@ -39,7 +39,8 @@ function promptTC() {
 	Goal.correctionPhrase = Goal.shade+' '+Goal.label;
 
 	let spoken = `click the ${Goal.shade} ${bestWord}`;
-	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, dTitle, spoken);
+	showInstruction(bestWord, `click the <span style='color:${Goal.shade}'>${Goal.shade.toUpperCase()}</span>`, 
+	dTitle,true, spoken);
 	return 10;
 }
 function trialPromptTC(){

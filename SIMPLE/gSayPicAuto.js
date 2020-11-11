@@ -1,34 +1,39 @@
-const LevelsSP = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 1 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 21, MaxNumTrials: 3 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 21, MaxNumTrials: 3 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
+const LevelsSPA = {
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 4, MaxNumTrials: 1 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 3 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 10, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 11, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 1 },
 }
-function startGameSP() { }
-function startLevelSP() { levelSP(); }
-function levelSP() {
-	let levelInfo = LevelsSP[currentLevel];
+function startGameSPA() {
+}
+function startLevelSPA() { levelSPA(); }
+function levelSPA() {
+	let levelInfo = LevelsSPA[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
-	setKeys(currentCategories,true,x=>lastOfLanguage(x,currentLanguage),true);
-	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
-	console.log(currentKeys);
+	setKeys(currentCategories,true,(k)=>lastOfLanguage(k,currentLanguage));
+	
+	//currentKeys.sort((a,b)=>stringAfterLast(symbolDict[a][currentLanguage],'|')-stringAfterLast(symbolDict[b][currentLanguage],'|'));
+	boundary = currentKeys.length-1;
+	NextPictureIndex = 0;
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	writeComments();
 }
-function startRoundSP() { }
-function promptSP() {
+function startRoundSPA() { }
+function promptSPA() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus(),null,true);
+	showPictures(true, () => mBy(defaultFocusElement).focus(), undefined, [currentKeys[NextPictureIndex]]);
+	NextPictureIndex += 1;
+
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
@@ -40,40 +45,38 @@ function promptSP() {
 
 	return 10; //1000;
 }
-function trialPromptSP() {
-	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
+function trialPromptSPA() {
+	//say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
 	return 10;
 }
 
+async function activateSPA() {
 
-function mMicrophone(dParent) {
-	let d = mDiv(dParent);
-	d.innerHTML = '🎤';
-	let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
-	mStyleX(d, style);
-	mLinebreak(dParent);
-	return d;
-}
+	OnMicrophoneReady = setTimeout(() => {
+		say(bestWord, .7, 1, .7, false, 'random', () => { console.log('done:', Goal.key) });
+		//say(bestWord)
+	}, 500);
+	OnMicrophoneProblem = () => console.log('microphone problem');
+	//OnMicrophoneGotResult = evaluate
+	setTimeout(() => record(currentLanguage, bestWord), 100);
 
-async function activateSP() {
-	if (isSpeakerRunning) {
-		setTimeout(activateSP, 300);
-	} else {
-		setTimeout(() => record(currentLanguage, bestWord), 100);
-	}
+	// if (trialNumber > 1) {
+	// 	console.log('JEEEEEEEEEEEEEEETZT')
+	// 	setTimeout(() => say(bestWord), 1000);
+	// }
 	//orig code:
 	// setTimeout(() => {
 	// 	record(currentLanguage, bestWord);
 	// }, trialNumber == 0 ? 4000 : 1500);
 }
-function evalSP(speechResult) {
-
-	console.log('speechresult',speechResult)
+function evalSPA(speechResult) {
 
 	if (isEmpty(speechResult)) {
 		console.log('empty speechResult')
 		return STATES.INCORRECT;
 	}
+
+	Selected = {}
 	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
@@ -247,11 +250,10 @@ function convertTimesAndNumbersToWords(w) {
 	return w;
 }
 
-const germanNumbers = {
-	ein: 1, eins: 1, zwei: 2, 1: 'eins', 2: 'zwei', 3: 'drei', drei: 3, vier: 4, 4: 'vier', 5: 'fuenf', fuenf: 5, sechs: 6, 6: 'sechs', sex: 6,
-	sieben: 7, 7: 'sieben', 8: 'acht', acht: 8, 9: 'neun', neun: 9, zehn: 10, elf: 11, zwoelf: 12, zwanzig: 20, dreissig: 30,
-	10: 'zehn', 11: 'elf', 12: 'zwoelf', 20: 'zwanzig', 30: 'dreissig', vierzig: 40, fuenfzig: 50, 40: 'vierzig', 50: 'fuenfzig'
-};
+// const germanNumbers={
+// 	ein:1,eins:1,zwei:2,1:'eins',2:'zwei',3:'drei',drei:3,vier:4,4:'vier',5:'fuenf',fuenf:5,sechs:6,6:'sechs',sex:6,
+// 	sieben:7,7:'sieben',8:'acht',acht:8,9:'neun',neun:9,zehn:10,elf:11,zwoelf:12,zwanzig:20,dreissig:30,
+// 	10:'zehn',11:'elf',12:'zwoelf',20:'zwanzig',30:'dreissig',vierzig:40,fuenfzig:50,40:'vierzig',50:'fuenfzig'};
 
 function convertGermanUhrzeitToNumbers(w) {
 	console.log('...', w)

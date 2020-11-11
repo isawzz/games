@@ -3144,6 +3144,7 @@ function arrlast(arr) {
 	return arr.length > 0 ? arr[arr.length - 1] : null;
 }
 function last(arr) {
+	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLOOOOOOOOOO',arr,arr.length,arr[arr.length-1])
 	return arr.length > 0 ? arr[arr.length - 1] : null;
 }
 function lastCond(arr, func) {

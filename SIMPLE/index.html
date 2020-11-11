@@ -32,7 +32,7 @@
 	</div>
 	<div id='dCheckMark' style='display:none'>✔️</div>
 	<div id='dX' style='display:none'>❌</div>
-	<div id='dRecord' style='display:none' class='pulseBg'>🎤</div>
+	<!-- <div id='dRecord' style='display:none' class='pulseBg'>🎤</div> -->
 	<div id='dLevelComplete' style='display:none' class='centered'>LEVEL COMPLETE!!!</div>
 	<!-- <div id='dSpeaker' onclick='sayKeyword()' style='position:fixed'>🔊</div> -->
 	<div id='dSettings' style='display:none;text-align:center'>
@@ -54,10 +54,10 @@
 				<img src='/assets/images/gMissingLetter.jpg' class='gameImage' />
 				<h1>Completing</h1>
 			</button>
-			<button id='bSayPic' onclick="setGame(event)">
+			<!-- <button id='bSayPic' onclick="setGame(event)">
 				<img src='/assets/images/gSayPic.jpg' class='gameImage' />
 				<h1>Speak Aloud</h1>
-			</button>
+			</button> -->
 			<!-- <button id='bSayPic'>
 				<img src='/assets/images/gSayPic.jpg' class='gameImage' />
 				<h1>Speaking</h1>
@@ -71,7 +71,7 @@
 				<input id='inputD' class='radio' type="radio" name="language" value="D" onclick='setLanguage("D")'><span>German</span><br>
 			</fieldset>
 			<fieldset id='fChoosePicsPerLevel'>
-				<legend>pictures per currentLevel</legend>
+				<legend>pictures per level</legend>
 				<div>
 					<input id='inputPicsPerLevel' class='input' type="number" value=1 />
 					<!-- <button onclick='setPicsPerLevel()'>Set</button> -->
@@ -120,6 +120,7 @@
 	<script src="/SIMPLE/gWritePic.js"></script>
 	<script src="/SIMPLE/gMissingLetter.js"></script>
 	<script src="/SIMPLE/gSayPic.js"></script>
+	<script src="/SIMPLE/gSayPicAuto.js"></script>
 	<script src="/SIMPLE/_work.js"></script>
 
 	<script src="/RSG/js/__config.js"></script>

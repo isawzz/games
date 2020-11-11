@@ -82415,7 +82415,7 @@ ox:
   hexcode: 1F402
   group: animals-nature
   subgroups: animal-mammal
-  E: taurus|ox| bull
+  E: taurus|ox|bull
   D: büffel|ochs|stier
   hex: 1F402
   family: emoNoto
@@ -88732,8 +88732,8 @@ poodle:
   hexcode: 1F429
   group: animals-nature
   subgroups: animal-mammal
-  E: dog|poodle
-  D: hund|pudel
+  E: dog|poodle|dog
+  D: hund|pudel|hund
   hex: 1F429
   family: emoNoto
   text: '&#128041;'
