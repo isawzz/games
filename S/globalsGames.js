@@ -18,7 +18,7 @@ function startGame(game) {
 	currentGame = game;
 
 	//set scoringMode
-	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = 'inc';
+	if (currentGame == 'gSayPicAuto') {		scoringMode = 'autograde';	} else scoringMode = 'inc';
 
 	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
 	//console.log('session:',CurrentSessionData)
@@ -105,16 +105,18 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 	let ww = window.innerWidth;
 	let wh = window.innerHeight;
 	let hpercent = 0.60; let wpercent = .6;
-	let w, h;
+	let w, h, picPerLine;
 	if (lines > 1) {
 		let hpic = wh * hpercent / lines;
 		let wpic = ww * wpercent / NumPics;
 		w = h = Math.min(hpic, wpic);
+		picsPerLine = keys.length;
 	} else {
 		let dims = calcRowsColsX(NumPics);
 		let hpic = wh * hpercent / dims.rows;
 		let wpic = ww * wpercent / dims.cols;
 		w = h = Math.min(hpic, wpic);
+		picsPerLine = dims.cols;
 	}
 
 	pictureSize = Math.min(w, 200);
@@ -124,17 +126,19 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 		let shade = isdef(colors) ? colors[line] : undefined;
 		for (let i = 0; i < keys.length; i++) {
 			let info = getRandomSetItem(currentLanguage, keys[i]);
-			let id = 'pic' + (line * keys.length + i);
+			let ipic =(line * keys.length + i);
+			if (ipic%picsPerLine == 0 && ipic>0) mLinebreak(dTable);
+			let id = 'pic' + ipic; // (line * keys.length + i);
 			let label = selectWord(info, bestWordIsShortest, labels);
 			console.assert(isdef(label) && !isEmpty(label), 'no label for key ' + keys[i])
 			labels.push(label);
 			let d1 = maPicLabelButtonFitText(info, label,
 				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
-			console.log(info.key, label, info)
+			console.log(info.key,label,info);
 			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
 		}
-		mLinebreak(dTable);
+		// mLinebreak(dTable);
 	}
 
 	let totalPics = Pictures.length;
@@ -230,7 +234,7 @@ function failPictureGoal(withComment = true) {
 	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
 		//console.log('selected', Selected, 'x', mBy('dX'))
 		let sz = getBounds(Selected.feedbackUI).height;
-		mpOver(mBy('dX'), Selected.feedbackUI, sz * (1 / 2), 'red', 'openMojiTextBlack');
+		mpOver(mBy('dX'), Selected.feedbackUI, sz * (1/2), 'red', 'openMojiTextBlack');
 		// mpOver(mBy('dX'), Selected.feedbackUI, pictureSize * (1/2), 'red', 'openMojiTextBlack');
 	}
 
@@ -271,7 +275,7 @@ function resetState() {
 	DELAY = 1000;
 
 	badges = [];
-
+	
 	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 
 	resetScore();
@@ -342,8 +346,8 @@ function scoreDependentLevelChange(level) {
 
 		isChange = 1;
 		level += 1;
-	} else if (scoringMode == 'n') {
-		if (numTotalAnswers > SAMPLES_PER_LEVEL[currentLanguage]) { isChange = 1; level += 1; }
+	}else if (scoringMode == 'n'){
+		if (numTotalAnswers >= SAMPLES_PER_LEVEL[currentLevel]){isChange = 1; level += 1; }
 	}
 	return [isChange, level];
 }
@@ -404,7 +408,7 @@ function showLevelComplete() {
 		setBackgroundColor();
 		showLevel();
 		//showScore();
-
+		
 		proceedAfterLevelChange();
 	}
 
@@ -429,7 +433,7 @@ function levelStep12() {
 	setBackgroundColor();
 	showLevel();
 	//showScore();
-
+	
 
 	setTimeout(levelStep13, 2000);
 }
