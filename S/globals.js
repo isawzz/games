@@ -10,7 +10,7 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gTouchPic: 7, gTouchColors: 3, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
+	: { gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
 	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];

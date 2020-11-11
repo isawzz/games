@@ -378,7 +378,7 @@ function showScore() {
 	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 
 	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
-	let scoreString = 'questions: ' + (numTotalAnswers+1) + ' (' + percentageCorrect + '%)';
+	let scoreString = 'question: ' + (numTotalAnswers+1) + ' (' + percentageCorrect + '%)';
 
 	if (LevelChange)
 		dScore.innerHTML = scoreString;
