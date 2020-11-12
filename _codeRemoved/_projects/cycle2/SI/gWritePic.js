@@ -26,7 +26,6 @@ function levelWP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
 }
 
 function startRoundWP() { }
@@ -64,8 +63,8 @@ function evalWP(ev) {
 	let answer = normalize(inputBox.value, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
 	//console.log('eval WritePic', answer, reqAnswer)
-	if (answer == reqAnswer) return STATES.CORRECT;
-	else { return STATES.INCORRECT; }
+	if (answer == reqAnswer) return true;
+	else { return false; }
 }
 
 

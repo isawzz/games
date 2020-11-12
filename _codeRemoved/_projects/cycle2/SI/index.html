@@ -17,9 +17,9 @@
 	<script src="/CODE/globalConfig.js"></script>
 	<script src="/CODE/assets.js"></script>
 	<script src="/CODE/assetHelpers.js"></script>
-	<!-- <link rel="stylesheet" href="/SIMPLE/index.css"> -->
-	<link rel="stylesheet" href="/SIMPLE/test.css">
-	<link rel="stylesheet" href="/SIMPLE/settings.css">
+	<!-- <link rel="stylesheet" href="/SI/index.css"> -->
+	<link rel="stylesheet" href="/SI/test.css">
+	<link rel="stylesheet" href="/SI/settings.css">
 
 </head>
 
@@ -31,6 +31,12 @@
 		</div>
 	</div>
 	<div id='dCheckMark' style='display:none'>✔️</div>
+	<div id='divControls'>
+		<div id='bStart' onclick=onClickStartButton()>Start</div>
+		<div id='bNext' onclick=onClickNextButton()>Next</div>
+		<div id='bRun' onclick=onClickRunButton()>Run</div>
+		<div id='bStop' onclick=onClickStopButton()>STOP</div>
+	</div>
 	<div id='dX' style='display:none'>❌</div>
 	<!-- <div id='dRecord' style='display:none' class='pulseBg'>🎤</div> -->
 	<div id='dLevelComplete' style='display:none' class='centered'>LEVEL COMPLETE!!!</div>
@@ -81,50 +87,54 @@
 
 	</div>
 	<div id='dGear' onclick='toggleSettings()' style='position:fixed'>⚙️</div>
+	<div id='freezer' onclick="onClickFreezer()">
+		<div  class='centerCentered'>Click to Start!</div>
+	</div>
 	<audio id="myAudio">
 		<source src="/assets/sounds/sound1.wav" type="audio/wav">
 		<!-- <source src="horse.mp3" type="audio/mpeg"> -->
 		Your browser does not support the audio element.
 	</audio>
 	<audio id="rubberBandSound">
-		<source src="/assets/sounds/rubberband.mp3" type="audio/mp3">
+		<source src="/assets/sounds/sound2.wav" type="audio/wav">
+		<!-- <source src="/assets/sounds/rubberband.mp3" type="audio/mp3"> -->
 		<!-- <source src="horse.mp3" type="audio/mpeg"> -->
 		Your browser does not support the audio element.
 	</audio>
 	<audio id="gameoverAudio">
-		<source src="/assets/sounds/sound2.wav" type="audio/wav">
+		<source src="/assets/sounds/level1.wav" type="audio/wav">
 		<!-- <source src="horse.mp3" type="audio/mpeg"> -->
 		Your browser does not support the audio element.
 	</audio>
 
 	<script>
 		var x = document.getElementById("myAudio");
-		function playAudio() { x.play(); }
+		function soundLevelComplete() { x.play(); }
 		function pauseAudio() { x.pause(); }
-		function playAudioEnd() { document.getElementById("gameoverAudio").play(); }
+		function soundGoodBye() { document.getElementById("gameoverAudio").play(); }
 
 		var rubberBandSound = document.getElementById("rubberBandSound");
-		function playRubberBandSound() { rubberBandSound.play(); }
+		function playRubberBandSound() { return; rubberBandSound.play(); }
 		function pauseRubberBandSound() { rubberBandSound.pause(); }
 
 	</script>
 
-	<script src="/SIMPLE/globals.js"></script>
-	<script src="/SIMPLE/settings.js"></script>
-	<script src="/SIMPLE/recog.js"></script>
-	<script src="/SIMPLE/speaker.js"></script>
-	<script src="/SIMPLE/ui.js"></script>
-	<script src="/SIMPLE/globalsGames.js"></script>
-	<script src="/SIMPLE/gTouchPic.js"></script>
-	<script src="/SIMPLE/gTouchColors.js"></script>
-	<script src="/SIMPLE/gWritePic.js"></script>
-	<script src="/SIMPLE/gMissingLetter.js"></script>
-	<script src="/SIMPLE/gSayPic.js"></script>
-	<script src="/SIMPLE/gSayPicAuto.js"></script>
-	<script src="/SIMPLE/_work.js"></script>
+	<script src="/SI/globals.js"></script>
+	<script src="/SI/settings.js"></script>
+	<script src="/SI/recog.js"></script>
+	<script src="/SI/speaker.js"></script>
+	<script src="/SI/ui.js"></script>
+	<script src="/SI/globalsGames.js"></script>
+	<script src="/SI/gTouchPic.js"></script>
+	<script src="/SI/gTouchColors.js"></script>
+	<script src="/SI/gWritePic.js"></script>
+	<script src="/SI/gMissingLetter.js"></script>
+	<script src="/SI/gSayPic.js"></script>
+	<script src="/SI/gSayPicAuto.js"></script>
+	<script src="/SI/_work.js"></script>
 
 	<script src="/RSG/js/__config.js"></script>
-	<script src="/SIMPLE/_start.js"></script>
+	<script src="/SI/_start.js"></script>
 
 </body>
 

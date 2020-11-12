@@ -26,7 +26,6 @@ function levelML() {
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	writeComments();
 	//console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
 function startRoundML() { }
@@ -102,9 +101,10 @@ function trialPromptML() {
 		let d = selinp.div;
 		d.innerHTML = '_';
 		mClass(d, 'blink');
-		inputs.push(selinp);
+		//inputs.push(selinp);
 	}, skipAnimations ? 300 : 2000);
 
+	showFleetingMessage(composeFleetingMessage(), 3000);
 	return 10;
 }
 function buildWordFromLetters(d) {
@@ -162,11 +162,11 @@ function activateML() {
 function evalML(word) {
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	if (answer == reqAnswer) return STATES.CORRECT;
+	if (answer == reqAnswer) return true;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
-		return STATES.CORRECT;
+		return true;
 	} else {
-		return STATES.INCORRECT;
+		return false; 
 	}
 }
 
