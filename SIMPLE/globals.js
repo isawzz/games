@@ -2,6 +2,7 @@ const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
+var skipBadgeAnimation = true;
 var StepByStepMode = false; //wartet auf click next um wieder zu starten!
 
 // delays
@@ -15,9 +16,9 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gSayPic: 0 };
+	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 8, gWritePic: 10, gSayPic: 0 };
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
-	: ['gMissingLetter','gTouchPic', 'gTouchColors', 'gWritePic', 'gSayPic'];
+	: ['gTouchColors', 'gWritePic', 'gSayPic'];//'gMissingLetter','gTouchPic', 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 

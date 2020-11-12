@@ -380,6 +380,7 @@ function removeBadgeAndRevertLevel() {
 }
 function showLevelComplete() {
 	if (!skipAnimations) {
+		//if (!skipBadgeAnimation) soundLevelComplete();
 		soundLevelComplete();
 		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
 		show('dLevelComplete');
