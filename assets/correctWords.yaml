@@ -19,11 +19,13 @@ data:
     req: airplane
     conf: 0.8416013717651367
     isCorrect: true
+    danger: true
   - key: small airplane
     answer: all babe
     req: airplane
     conf: 0.6705568432807922
-    isCorrect: 6
+    isCorrect: false
+    danger: true
   - key: alarm clock
     answer: alarm clock
     req: alarm clock
@@ -39,16 +41,17 @@ data:
     req: anchor
     conf: 0.8766363859176636
     isCorrect: true
+    danger: true
   - key: anguished face
     answer: scad
     req: scared
     conf: 0.96529620885849
-    isCorrect: 6
+    isCorrect: false
   - key: face screaming in fear
     answer: west
     req: anguished
     conf: 0.8170892000198364
-    isCorrect: 6
+    isCorrect: false
   - key: fearful face
     answer: anguished
     req: anguished
@@ -64,16 +67,18 @@ data:
     req: artist
     conf: 0.9014606475830078
     isCorrect: true
+    danger: true
   - key: woman artist
     answer: august
     req: artist
     conf: 0.7831745147705078
-    isCorrect: 6
+    isCorrect: false
+    danger: true
   - key: astonished face
     answer: universal stuff
     req: hushed
     conf: 0.7969775795936584
-    isCorrect: 6
+    isCorrect: false
   - key: man astronaut
     answer: astronauts
     req: astronaut
@@ -83,17 +88,18 @@ data:
     answer: awesome
     req: autumn
     conf: 0.7774785161018372
-    isCorrect: 6
+    isCorrect: false
   - key: avocado
     answer: avocado
     req: avocado
     conf: 0.9751174449920654
     isCorrect: true
+    danger: true
   - key: raised back of hand
     answer: black hand
     req: backhand
     conf: 0.5174238681793213
-    isCorrect: 6
+    isCorrect: false
   - key: backpack
     answer: backpack
     req: backpack
@@ -109,11 +115,12 @@ data:
     req: badminton
     conf: 0.9651961326599121
     isCorrect: true
+    danger: true
   - key: baguette bread
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: ballet shoes
     answer: ballet shoes
     req: ballet shoes
@@ -128,7 +135,7 @@ data:
     answer: salad
     req: ballot
     conf: 0.7656381726264954
-    isCorrect: 6
+    isCorrect: false
   - key: banana
     answer: banana
     req: banana
@@ -168,7 +175,7 @@ data:
     answer: ball pop
     req: bathtub
     conf: 0.7599096894264221
-    isCorrect: 6
+    isCorrect: false
   - key: battery
     answer: factory
     req: battery
@@ -179,6 +186,7 @@ data:
     req: bento box
     conf: 0.9756056666374207
     isCorrect: true
+    danger: true
   - key: flexed biceps
     answer: biceps
     req: biceps
@@ -258,7 +266,7 @@ data:
     answer: free
     req: briefs
     conf: 0.6988520622253418
-    isCorrect: 6
+    isCorrect: false
   - key: broccoli
     answer: broccoli
     req: broccoli
@@ -269,6 +277,7 @@ data:
     req: broken heart
     conf: 0.9862715601921082
     isCorrect: true
+    danger: true
   - key: buffalo
     answer: buffalo
     req: buffalo
@@ -283,22 +292,24 @@ data:
     answer: funny dares
     req: bunny ears
     conf: 0.9850481152534485
-    isCorrect: 6
+    isCorrect: false
   - key: burrito
     answer: burrito
     req: burrito
     conf: 0.9478114247322083
     isCorrect: true
+    danger: true
   - key: butter
     answer: baja
     req: butter
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: butterfly
     answer: butterfly
     req: butterfly
     conf: 0.9653174877166748
     isCorrect: true
+    danger: true
   - key: file cabinet
     answer: cabinet
     req: cabinet
@@ -313,7 +324,7 @@ data:
     answer: call chris
     req: cactus
     conf: 0.6208781599998474
-    isCorrect: 6
+    isCorrect: false
   - key: video camera
     answer: camera
     req: camera
@@ -343,12 +354,13 @@ data:
     answer: call
     req: candle
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: card index
     answer: card index
     req: card index
     conf: 0.9087300300598145
     isCorrect: true
+    danger: true
   - key: carousel horse
     answer: parasol
     req: carousel
@@ -364,6 +376,7 @@ data:
     req: cartwheel
     conf: 0.9787087440490723
     isCorrect: true
+    danger: true
   - key: castle
     answer: castle
     req: castle
@@ -379,6 +392,7 @@ data:
     req: chains
     conf: 0.8883880376815796
     isCorrect: true
+    danger: true
   - key: bottle with popping cork
     answer: bottle
     req: bottle
@@ -388,7 +402,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: alembic
     answer: chemistry
     req: chemistry
@@ -404,11 +418,13 @@ data:
     req: evil cat
     conf: 0.9672508239746094
     isCorrect: true
+    danger: true
   - key: grinning cat with smiling eyes
     answer: evil cat
     req: evil cat
     conf: 0.9529317021369934
     isCorrect: true
+    danger: true
   - key: chestnut
     answer: chestnut
     req: chestnut
@@ -418,7 +434,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: chocolate bar
     answer: chocolate
     req: chocolate
@@ -428,7 +444,7 @@ data:
     answer: sex
     req: sticks
     conf: 0.7824035882949829
-    isCorrect: 6
+    isCorrect: false
   - key: church
     answer: church
     req: church
@@ -448,7 +464,7 @@ data:
     answer: forecast
     req: circus
     conf: 0.8879744410514832
-    isCorrect: 6
+    isCorrect: false
   - key: climbing
     answer: calming
     req: climbing
@@ -473,7 +489,7 @@ data:
     answer: coughing
     req: coffin
     conf: 0.7010428309440613
-    isCorrect: 6
+    isCorrect: false
   - key: compass
     answer: compass
     req: compass
@@ -483,22 +499,22 @@ data:
     answer: scream
     req: screen
     conf: 0.8708468079566956
-    isCorrect: 6
+    isCorrect: false
   - key: confetti ball
     answer: daughters of on easter
     req: confetti
     conf: 0.5263177156448364
-    isCorrect: 6
+    isCorrect: false
   - key: confounded face
     answer: exact
     req: zig-zag
     conf: 0.949469804763794
-    isCorrect: 6
+    isCorrect: false
   - key: confused face
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: construction site
     answer: construction
     req: construction
@@ -549,11 +565,13 @@ data:
     req: pastry
     conf: 0.7899648547172546
     isCorrect: true
+    danger: true
   - key: crying cat
     answer: crying cat
     req: crying cat
     conf: 0.9871506690979004
     isCorrect: true
+    danger: true
   - key: crystal ball
     answer: crystal ball
     req: crystal ball
@@ -574,16 +592,17 @@ data:
     req: cyclone
     conf: 0.7198723554611206
     isCorrect: true
+    danger: true
   - key: dagger
     answer: gaga
     req: dagger
     conf: 0.967942476272583
-    isCorrect: 6
+    isCorrect: false
   - key: man dancing
     answer: sing
     req: dancing
     conf: 0.721603274345398
-    isCorrect: 6
+    isCorrect: false
   - key: woman dancing
     answer: dancing
     req: dancing
@@ -593,7 +612,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: desert
     answer: desert
     req: desert
@@ -618,7 +637,7 @@ data:
     answer: dialogue
     req: dialog
     conf: 0.8690330982208252
-    isCorrect: 6
+    isCorrect: false
   - key: diamond suit
     answer: diamond
     req: diamond
@@ -653,7 +672,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: man health worker
     answer: doctor
     req: doctor
@@ -663,7 +682,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: page with curl
     answer: scroll
     req: scroll
@@ -673,17 +692,18 @@ data:
     answer: call
     req: scroll
     conf: 0.9801630973815918
-    isCorrect: 6
+    isCorrect: false
   - key: dollar banknote
     answer: dollar
     req: dollar
     conf: 0.009999999776482582
     isCorrect: true
+    danger: true
   - key: dolphin
     answer: call
     req: dolphin
     conf: 0.8894935846328735
-    isCorrect: 6
+    isCorrect: false
   - key: doughnut
     answer: donut
     req: doughnut
@@ -703,37 +723,39 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: eggplant
     answer: egg pop
     req: eggplant
     conf: 0.7396125197410583
-    isCorrect: 6
+    isCorrect: false
   - key: electric plug
     answer: call
     req: current
     conf: 0.5622918009757996
-    isCorrect: 6
+    isCorrect: false
   - key: elephant
     answer: elephant
     req: elephant
     conf: 0.9559125900268555
     isCorrect: true
+    danger: true
   - key: envelope
     answer: envelope
     req: envelope
     conf: 0.9640096426010132
     isCorrect: true
+    danger: true
   - key: collision
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: face with rolling eyes
     answer: all right all
     req: eyeroll
     conf: 0.8678270578384399
-    isCorrect: 6
+    isCorrect: false
   - key: person facepalming
     answer: facebook
     req: facepalm
@@ -748,17 +770,19 @@ data:
     answer: call tree wicca
     req: factory worker
     conf: 0.5731301307678223
-    isCorrect: 6
+    isCorrect: false
   - key: woman factory worker
     answer: factory worker
     req: factory worker
     conf: 0.9863917231559753
     isCorrect: true
+    danger: true
   - key: falafel
     answer: falafel
     req: falafel
     conf: 0.941632866859436
     isCorrect: true
+    danger: true
   - key: family
     answer: family
     req: family
@@ -774,6 +798,7 @@ data:
     req: farmer
     conf: 0.7971820831298828
     isCorrect: true
+    danger: true
   - key: woman farmer
     answer: palmer
     req: farmer
@@ -789,11 +814,12 @@ data:
     req: ferris wheel
     conf: 0.9958763122558594
     isCorrect: true
+    danger: true
   - key: fire engine
     answer: car engine
     req: fire engine
     conf: 0.8149765133857727
-    isCorrect: 6
+    isCorrect: false
   - key: man firefighter
     answer: firefighter
     req: firefighter
@@ -804,16 +830,19 @@ data:
     req: dynamite
     conf: 0.9169081449508667
     isCorrect: true
+    danger: true
   - key: fireworks
     answer: sparkle
     req: sparkle
     conf: 0.8952009677886963
     isCorrect: true
+    danger: true
   - key: sparkler
     answer: sparkle
     req: sparkle
     conf: 0.8801640272140503
     isCorrect: true
+    danger: true
   - key: fishing pole
     answer: fishing
     req: fishing
@@ -838,7 +867,7 @@ data:
     answer: followfollowfarah
     req: flower
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: rosette
     answer: flower
     req: flower
@@ -853,7 +882,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: bouquet
     answer: flowers
     req: flowers
@@ -868,7 +897,7 @@ data:
     answer: how old
     req: folder
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: open file folder
     answer: colder
     req: folder
@@ -884,11 +913,12 @@ data:
     req: fortune cookie
     conf: 0.9664310812950134
     isCorrect: true
+    danger: true
   - key: fountain
     answer: alden
     req: fountain
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: fountain pen
     answer: fountain pen
     req: fountain pen
@@ -918,7 +948,7 @@ data:
     answer: '16'
     req: galaxy
     conf: 0.6527534127235413
-    isCorrect: 6
+    isCorrect: false
   - key: garlic
     answer: garlic
     req: garlic
@@ -938,7 +968,7 @@ data:
     answer: cologne
     req: gloves
     conf: 0.8924120664596558
-    isCorrect: 6
+    isCorrect: false
   - key: goblin
     answer: goblin
     req: goblin
@@ -954,21 +984,23 @@ data:
     req: gorilla
     conf: 0.891528844833374
     isCorrect: true
+    danger: true
   - key: graduation cap
     answer: graduation cap
     req: graduation cap
     conf: 0.9635575413703918
     isCorrect: true
+    danger: true
   - key: grapes
     answer: great
     req: grapes
     conf: 0.9688146114349365
-    isCorrect: 6
+    isCorrect: false
   - key: grimacing face
     answer: are missing
     req: grimacing
     conf: 0.6549156904220581
-    isCorrect: 6
+    isCorrect: false
   - key: guitar
     answer: guitar
     req: guitar
@@ -988,7 +1020,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: hamster
     answer: hamster
     req: hamster
@@ -998,12 +1030,12 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: handball
     answer: and paul
     req: handball
     conf: 0.8022039532661438
-    isCorrect: 6
+    isCorrect: false
   - key: handshake
     answer: handshake
     req: handshake
@@ -1013,17 +1045,17 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: woman with headscarf
     answer: head scarf
     req: headscarf
     conf: 0.6762288212776184
-    isCorrect: 6
+    isCorrect: false
   - key: hear-no-evil monkey
     answer: cora marie howe
     req: hear-no-evil
     conf: 0.8770781755447388
-    isCorrect: 6
+    isCorrect: false
   - key: ear with hearing aid
     answer: hearing aid
     req: hearing aid
@@ -1033,12 +1065,12 @@ data:
     answer: pod size
     req: heart eyes
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: hedgehog
     answer: call todd
     req: hedgehog
     conf: 0.8492972254753113
-    isCorrect: 6
+    isCorrect: false
   - key: helicopter
     answer: helicopter
     req: helicopter
@@ -1048,17 +1080,17 @@ data:
     answer: omit
     req: helmet
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: hibiscus
     answer: paula
     req: flower
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: field hockey
     answer: call kate
     req: hockey
     conf: 0.7532095313072205
-    isCorrect: 6
+    isCorrect: false
   - key: men holding hands
     answer: holding hands
     req: holding hands
@@ -1084,16 +1116,17 @@ data:
     req: hourglass
     conf: 0.932120680809021
     isCorrect: true
+    danger: true
   - key: hourglass not done
     answer: howard law
     req: hourglass
     conf: 0.6319482922554016
-    isCorrect: 6
+    isCorrect: false
   - key: houses
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: hugging face
     answer: hugging
     req: hugging
@@ -1103,7 +1136,7 @@ data:
     answer: frankish biscuit
     req: hundred
     conf: 0.5502050518989563
-    isCorrect: 6
+    isCorrect: false
   - key: ice cream
     answer: ice cream
     req: ice cream
@@ -1119,6 +1152,7 @@ data:
     req: sorbet
     conf: 0.704629123210907
     isCorrect: true
+    danger: true
   - key: ice hockey
     answer: ice hockey
     req: ice hockey
@@ -1133,7 +1167,8 @@ data:
     answer: check out school jacket
     req: jacket
     conf: 0.5577225685119629
-    isCorrect: 6
+    isCorrect: false
+    danger: false
   - key: Japanese castle
     answer: castle
     req: castle
@@ -1143,7 +1178,7 @@ data:
     answer: jackie
     req: jockey
     conf: 0.632714569568634
-    isCorrect: 6
+    isCorrect: false
   - key: joystick
     answer: joystick
     req: joystick
@@ -1153,12 +1188,12 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: kangaroo
     answer: skip stones
     req: kangaroo
     conf: 0.9301190972328186
-    isCorrect: 6
+    isCorrect: false
   - key: martial arts uniform
     answer: karate
     req: karate
@@ -1179,6 +1214,7 @@ data:
     req: kissing
     conf: 0.9461928606033325
     isCorrect: true
+    danger: true
   - key: kneeling
     answer: flooring
     req: kneeling
@@ -1193,12 +1229,13 @@ data:
     answer: playing
     req: kneeling
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: lacrosse
     answer: lacrosse
     req: lacrosse
     conf: 0.741858959197998
     isCorrect: true
+    danger: true
   - key: ladybug
     answer: ladybug
     req: ladybug
@@ -1208,7 +1245,7 @@ data:
     answer: lambton
     req: lantern
     conf: 0.894058883190155
-    isCorrect: 6
+    isCorrect: false
   - key: laptop
     answer: laptop
     req: laptop
@@ -1219,6 +1256,7 @@ data:
     req: leopard
     conf: 0.952613353729248
     isCorrect: true
+    danger: true
   - key: levitating
     answer: devastating
     req: levitating
@@ -1259,6 +1297,7 @@ data:
     req: locomotive
     conf: 0.9558721780776978
     isCorrect: true
+    danger: true
   - key: lollipop
     answer: lollipop
     req: lollipop
@@ -1349,6 +1388,7 @@ data:
     req: amoeba
     conf: 0.8752630949020386
     isCorrect: true
+    danger: true
   - key: microphone
     answer: microphone
     req: microphone
@@ -1413,17 +1453,17 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: snow-capped mountain
     answer: melvin
     req: mountain
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: cupcake
     answer: often
     req: muffin
     conf: 0.7963094711303711
-    isCorrect: 6
+    isCorrect: false
   - key: mushroom
     answer: mushrooms
     req: mushroom
@@ -1434,21 +1474,23 @@ data:
     req: nausea
     conf: 0.759327232837677
     isCorrect: true
+    danger: true
   - key: nauseated face
     answer: no idea
     req: nausea
     conf: 0.7358077168464661
-    isCorrect: 6
+    isCorrect: false
   - key: expressionless face
     answer: neutral
     req: neutral
     conf: 0.9049757122993469
     isCorrect: true
+    danger: true
   - key: neutral face
     answer: cancel
     req: neutral
     conf: 0.8957436680793762
-    isCorrect: 6
+    isCorrect: false
   - key: newspaper
     answer: newspaper
     req: newspaper
@@ -1463,7 +1505,7 @@ data:
     answer: know your mouth
     req: no mouth
     conf: 0.7483497262001038
-    isCorrect: 6
+    isCorrect: false
   - key: ledger
     answer: notebook
     req: notebook
@@ -1473,7 +1515,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: notebook with decorative cover
     answer: notebook
     req: notebook
@@ -1499,16 +1541,18 @@ data:
     req: office
     conf: 0.9398899078369141
     isCorrect: true
+    danger: true
   - key: woman office worker
     answer: office worker
     req: office worker
     conf: 0.9662638306617737
     isCorrect: true
+    danger: true
   - key: face with hand over mouth
     answer: 'okay, somebody island'
     req: whoops
     conf: 0.763695240020752
-    isCorrect: 6
+    isCorrect: false
   - key: diya lamp
     answer: oil lamp
     req: oil lamp
@@ -1528,7 +1572,7 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: oyster
     answer: oyster
     req: oyster
@@ -1543,12 +1587,12 @@ data:
     answer: baby brush
     req: paintbrush
     conf: 0.8150053024291992
-    isCorrect: 6
+    isCorrect: false
   - key: artist palette
     answer: call lowe's
     req: colors
     conf: 0.6248206496238708
-    isCorrect: 6
+    isCorrect: false
   - key: palm tree
     answer: palm tree
     req: palm tree
@@ -1563,22 +1607,22 @@ data:
     answer: paper clips
     req: paperclip
     conf: 0.6198115348815918
-    isCorrect: 6
+    isCorrect: false
   - key: linked paperclips
     answer: eclipse
     req: paperclips
     conf: 0.8989794254302979
-    isCorrect: 6
+    isCorrect: false
   - key: parachute
     answer: paris cute
     req: parachute
     conf: 0.7632851600646973
-    isCorrect: 6
+    isCorrect: false
   - key: parrot
     answer: carid
     req: parrot
     conf: 0.7908937931060791
-    isCorrect: 6
+    isCorrect: false
   - key: peacock
     answer: peacock
     req: peacock
@@ -1593,7 +1637,7 @@ data:
     answer: cancel
     req: pencil
     conf: 0.8871094584465027
-    isCorrect: 6
+    isCorrect: false
   - key: penguin
     answer: penguin
     req: penguin
@@ -1603,7 +1647,7 @@ data:
     answer: can send
     req: pensive
     conf: 0.6947378516197205
-    isCorrect: 6
+    isCorrect: false
   - key: hot pepper
     answer: ever
     req: pepper
@@ -1633,17 +1677,17 @@ data:
     answer: 10 palms
     req: ping pong
     conf: 0.7448136806488037
-    isCorrect: 6
+    isCorrect: false
   - key: lying face
     answer: 10 okeo
     req: pinocchio
     conf: 0.9864975810050964
-    isCorrect: 6
+    isCorrect: false
   - key: pleading face
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: namaste
     answer: please
     req: please
@@ -1683,7 +1727,7 @@ data:
     answer: kohl'stoll free
     req: poultry
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: person pouting
     answer: calling
     req: pouting
@@ -1693,7 +1737,7 @@ data:
     answer: golden cat
     req: pouting cat
     conf: 0.7149927020072937
-    isCorrect: 6
+    isCorrect: false
   - key: pregnant woman
     answer: pregnant
     req: pregnant
@@ -1708,7 +1752,7 @@ data:
     answer: trans
     req: prince
     conf: 0.6769126653671265
-    isCorrect: 6
+    isCorrect: false
   - key: princess
     answer: princess
     req: princess
@@ -1728,7 +1772,7 @@ data:
     answer: puttingputtingpudding
     req: pudding
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: jack-o-lantern
     answer: pumpkin
     req: pumpkin
@@ -1749,16 +1793,19 @@ data:
     req: subway
     conf: 0.9718866944313049
     isCorrect: true
+    danger: true
   - key: metro
     answer: call brad
     req: subway
     conf: 0.8290084004402161
-    isCorrect: 6
+    isCorrect: false
+    danger: true
   - key: train
     answer: subway
     req: subway
     conf: 0.9876290559768677
     isCorrect: true
+    danger: true
   - key: tram
     answer: railway
     req: railway
@@ -1769,6 +1816,7 @@ data:
     req: rainbow
     conf: 0.9858784675598145
     isCorrect: true
+    danger: true
   - key: raising hands
     answer: celebrating
     req: celebrating
@@ -1783,7 +1831,7 @@ data:
     answer: redredred hotred hat
     req: red hair
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: rhinoceros
     answer: rhinoceros
     req: rhinoceros
@@ -1793,7 +1841,7 @@ data:
     answer: reuben
     req: ribbon
     conf: 0.6890113353729248
-    isCorrect: 6
+    isCorrect: false
   - key: rocket
     answer: rocket
     req: rocket
@@ -1808,12 +1856,12 @@ data:
     answer: free stuff
     req: rooster
     conf: 0.9230650067329407
-    isCorrect: 6
+    isCorrect: false
   - key: rowing boat
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: man running
     answer: running
     req: running
@@ -1868,7 +1916,7 @@ data:
     answer: hot dog
     req: hotdog
     conf: 0.8979966044425964
-    isCorrect: 6
+    isCorrect: false
   - key: saxophone
     answer: saxophone
     req: saxophone
@@ -1884,6 +1932,7 @@ data:
     req: scientist
     conf: 0.7706683874130249
     isCorrect: true
+    danger: true
   - key: woman scientist
     answer: dentist
     req: scientist
@@ -1893,27 +1942,28 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: kick scooter
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: scorpion
     answer: call pan
     req: scorpion
     conf: 0.8646392226219177
-    isCorrect: 6
+    isCorrect: false
   - key: zipper-mouth face
     answer: sealed
     req: sealed
     conf: 0.7416709661483765
     isCorrect: true
+    danger: true
   - key: seedling
     answer: elaine
     req: seedling
     conf: 0.7083624601364136
-    isCorrect: 6
+    isCorrect: false
   - key: selfie
     answer: selfie
     req: selfie
@@ -1934,6 +1984,7 @@ data:
     req: shocked
     conf: 0.8960425853729248
     isCorrect: true
+    danger: true
   - key: shooting star
     answer: shooting star
     req: shooting star
@@ -1943,12 +1994,12 @@ data:
     answer: shopping card
     req: shopping cart
     conf: 0.9074400067329407
-    isCorrect: 6
+    isCorrect: false
   - key: shorts
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: shower
     answer: shower
     req: shower
@@ -1958,32 +2009,32 @@ data:
     answer: trump
     req: shrimp
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: shrimp
     answer: trev
     req: shrimp
     conf: 0.7711859941482544
-    isCorrect: 6
+    isCorrect: false
   - key: person shrugging
     answer: our god
     req: oh god
     conf: 0.9008383750915527
-    isCorrect: 6
+    isCorrect: false
   - key: shushing face
     answer: island
     req: silent
     conf: 0.889686107635498
-    isCorrect: 6
+    isCorrect: false
   - key: man singer
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: woman singer
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: skateboard
     answer: skateboard
     req: skateboard
@@ -1993,27 +2044,27 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: face with raised eyebrow
     answer: stoptech
     req: skeptic
     conf: 0.6407855749130249
-    isCorrect: 6
+    isCorrect: false
   - key: skier
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: skis
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: relieved face
     answer: make a
     req: sleepy
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: sleeping face
     answer: sleeping
     req: sleepy
@@ -2023,22 +2074,22 @@ data:
     answer: jpay
     req: sleepy
     conf: 0.5838271379470825
-    isCorrect: 6
+    isCorrect: false
   - key: sled
     answer: call
     req: sleigh
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: level slider
     answer: playslidertry thatslider
     req: slider
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: flat shoe
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: slot machine
     answer: slot machine
     req: slot machine
@@ -2058,7 +2109,7 @@ data:
     answer: boom
     req: sneeze
     conf: 0.6521518230438232
-    isCorrect: 6
+    isCorrect: false
   - key: snowboarder
     answer: flyboard
     req: snowboard
@@ -2093,7 +2144,7 @@ data:
     answer: call kohl's
     req: sparkles
     conf: 0.8085086941719055
-    isCorrect: 6
+    isCorrect: false
   - key: speak-no-evil monkey
     answer: maryville
     req: speak-no-evil
@@ -2113,37 +2164,33 @@ data:
     answer: !<tag:yaml.org,2002:js/undefined> ''
     req: !<tag:yaml.org,2002:js/undefined> ''
     conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: eye in speech bubble
     answer: speech balloon
     req: speech balloon
     conf: 0.9105567336082458
     isCorrect: true
+    danger: true
   - key: left speech bubble
     answer: beach balloon
     req: speech balloon
     conf: 0.8942923545837402
-    isCorrect: 6
+    isCorrect: false
   - key: right anger bubble
     answer: french balloon
     req: speech balloon
     conf: 0.7369461059570312
-    isCorrect: 6
+    isCorrect: false
   - key: spider
     answer: by that
     req: spider
     conf: 0.7823613286018372
-    isCorrect: 6
+    isCorrect: false
   - key: spider web
     answer: spider web
     req: spider web
     conf: 0.915882408618927
     isCorrect: true
-  - key: sponge
-    answer: !<tag:yaml.org,2002:js/undefined> ''
-    req: !<tag:yaml.org,2002:js/undefined> ''
-    conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
   - key: chipmunk
     answer: squirrel
     req: squirrel
@@ -2168,17 +2215,19 @@ data:
     answer: call brad
     req: subway
     conf: 0.8619477152824402
-    isCorrect: 6
+    isCorrect: false
   - key: Statue of Liberty
     answer: statue
     req: statue
     conf: 0.8575941920280457
     isCorrect: true
+    danger: true
   - key: moai
     answer: statue
     req: statue
     conf: 0.9169061183929443
     isCorrect: true
+    danger: true
   - key: face with steam from nose
     answer: steaming
     req: steaming
@@ -2203,17 +2252,17 @@ data:
     answer: stopstop
     req: stubborn
     conf: 0.8999999761581421
-    isCorrect: 6
+    isCorrect: false
   - key: man student
     answer: google
     req: student
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: woman student
     answer: pampered
     req: student
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: luggage
     answer: baggage
     req: baggage
@@ -2243,12 +2292,7 @@ data:
     answer: super villain
     req: supervillain
     conf: 0.8390640616416931
-    isCorrect: 6
-  - key: man surfing
-    answer: !<tag:yaml.org,2002:js/undefined> ''
-    req: !<tag:yaml.org,2002:js/undefined> ''
-    conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: surfing
     answer: staffing
     req: surfing
@@ -2268,7 +2312,7 @@ data:
     answer: call
     req: hushed
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: downcast face with sweat
     answer: wedding
     req: sweating
@@ -2289,11 +2333,12 @@ data:
     req: syringe
     conf: 0.978046178817749
     isCorrect: true
+    danger: true
   - key: t-shirt
     answer: pawn shop
     req: t-shirt
     conf: 0.5927662253379822
-    isCorrect: 6
+    isCorrect: false
   - key: fork and knife with plate
     answer: dinner
     req: dinner
@@ -2308,12 +2353,13 @@ data:
     answer: teachpicturepizzachange the search
     req: teacher
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: teddy bear
     answer: teddy bear
     req: teddy bear
     conf: 0.9801573753356934
     isCorrect: true
+    danger: true
   - key: telescope
     answer: telescope
     req: telescope
@@ -2323,7 +2369,7 @@ data:
     answer: call call
     req: temple
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: hindu temple
     answer: temple
     req: temple
@@ -2338,12 +2384,12 @@ data:
     answer: call babe
     req: tennis
     conf: 0.709805965423584
-    isCorrect: 6
+    isCorrect: false
   - key: test tube
     answer: clarks shoe
     req: test tube
     conf: 0.6000060439109802
-    isCorrect: 6
+    isCorrect: false
   - key: thermometer
     answer: thermometer
     req: thermometer
@@ -2358,12 +2404,12 @@ data:
     answer: sosold
     req: thought
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: thread
     answer: shred
     req: thread
     conf: 0.875251054763794
-    isCorrect: 6
+    isCorrect: false
   - key: thumbs up
     answer: thumbs up
     req: thumbs up
@@ -2373,7 +2419,7 @@ data:
     answer: princess
     req: ticket
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: toilet
     answer: toilet
     req: toilet
@@ -2388,37 +2434,36 @@ data:
     answer: come on
     req: tomato
     conf: 0.8106058239936829
-    isCorrect: 6
+    isCorrect: false
   - key: face with tongue
     answer: callcall
     req: tongue
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
+    danger: true
   - key: money-mouth face
     answer: tongue
     req: tongue
     conf: 0.6067897081375122
     isCorrect: true
-  - key: squinting face with tongue
-    answer: !<tag:yaml.org,2002:js/undefined> ''
-    req: !<tag:yaml.org,2002:js/undefined> ''
-    conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    danger: true
   - key: tongue
     answer: tongue
     req: tongue
     conf: 0.9514904022216797
     isCorrect: true
+    danger: true
   - key: winking face with tongue
     answer: tongue
     req: tongue
     conf: 0.9235010147094727
     isCorrect: true
+    danger: true
   - key: toolbox
     answer: tool box
     req: toolbox
     conf: 0.6995083689689636
-    isCorrect: 6
+    isCorrect: false
   - key: tornado
     answer: tornado
     req: tornado
@@ -2428,12 +2473,7 @@ data:
     answer: apple
     req: trackball
     conf: 0.7084596753120422
-    isCorrect: 6
-  - key: railway track
-    answer: !<tag:yaml.org,2002:js/undefined> ''
-    req: !<tag:yaml.org,2002:js/undefined> ''
-    conf: !<tag:yaml.org,2002:js/undefined> ''
-    isCorrect: 6
+    isCorrect: false
   - key: tractor
     answer: tractor
     req: tractor
@@ -2458,17 +2498,19 @@ data:
     answer: call a
     req: trolley
     conf: 0.7442026734352112
-    isCorrect: 6
+    isCorrect: false
   - key: tram car
     answer: trolley
     req: trolley
     conf: 0.787966251373291
     isCorrect: true
+    danger: true
   - key: trolleybus
     answer: trolley
     req: trolley
     conf: 0.8868138194084167
     isCorrect: true
+    danger: true
   - key: trophy
     answer: trophy
     req: trophy
@@ -2484,21 +2526,22 @@ data:
     req: tuk tuk
     conf: 0.8154856562614441
     isCorrect: true
+    danger: true
   - key: person wearing turban
     answer: tavern
     req: turban
     conf: 0.7702497839927673
-    isCorrect: 6
+    isCorrect: false
   - key: turkey
     answer: call keith
     req: turkey
     conf: 0.9224278330802917
-    isCorrect: 6
+    isCorrect: false
   - key: turtle
     answer: cancel
     req: turtle
     conf: 0.009999999776482582
-    isCorrect: 6
+    isCorrect: false
   - key: person in tuxedo
     answer: tuxedo
     req: tuxedo
@@ -2509,11 +2552,12 @@ data:
     req: two hearts
     conf: 0.8961626887321472
     isCorrect: true
+    danger: true
   - key: two hearts
     answer: taylor hall
     req: two hearts
     conf: 0.5493753552436829
-    isCorrect: 6
+    isCorrect: false
   - key: beach with umbrella
     answer: umbrella
     req: umbrella
@@ -2573,7 +2617,7 @@ data:
     answer: call kenneth salute
     req: vulcan salute
     conf: 0.8826234936714172
-    isCorrect: 6
+    isCorrect: false
   - key: waffle
     answer: waffle
     req: waffle
@@ -2608,37 +2652,43 @@ data:
     answer: weightlifting
     req: weight lifting
     conf: 0.7670788764953613
-    isCorrect: 6
+    isCorrect: false
   - key: man in manual wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.9580212831497192
     isCorrect: true
+    danger: true
   - key: man in motorized wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.9558355808258057
     isCorrect: true
+    danger: true
   - key: manual wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.9704681634902954
     isCorrect: true
+    danger: true
   - key: motorized wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.9571224451065063
     isCorrect: true
+    danger: true
   - key: woman in manual wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.810782253742218
     isCorrect: true
+    danger: true
   - key: woman in motorized wheelchair
     answer: wheelchair
     req: wheelchair
     conf: 0.6919492483139038
     isCorrect: true
+    danger: true
   - key: old man
     answer: old man
     req: old man
@@ -2669,11 +2719,13 @@ data:
     req: worker
     conf: 0.7244836091995239
     isCorrect: true
+    danger: true
   - key: worried face
     answer: worried
     req: worried
     conf: 0.7950209379196167
     isCorrect: true
+    danger: true
   - key: wrench
     answer: french
     req: wrench

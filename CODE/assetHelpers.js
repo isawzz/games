@@ -493,20 +493,26 @@ function setCategories(groupNameList) {
 	}
 	return keys;
 }
-function getKeySetX(categories, language, minlength, maxlength, bestOnly = false, sortAccessor=null, correctOnly=false) {
+function getKeySetX(categories, language, minlength, maxlength, bestOnly = false, sortAccessor=null, correctOnly=false, reqOnly=false) {
 	let keys = setCategories(categories);
-	//console.log(keys)
+	//console.log(keys);//ok
+	//console.log(CorrectWordsCorrect)
 	if (isdef(minlength && isdef(maxlength))) {
 		keys = keys.filter(k => {
 
 			let ws = bestOnly ? [lastOfLanguage(k,language)] : wordsOfLanguage(k, language);
 			//console.log(ws)
 			for (const w of ws) {
-				if (w.length >= minlength && w.length <= maxlength && (!correctOnly || isdef(CorrectWordsCorrect[k]))) return true;
+				if (w.length >= minlength && w.length <= maxlength 
+					&& (!correctOnly || isdef(CorrectWordsExact[k]))
+					&& (!reqOnly || w.toLowerCase() == CorrectWordsExact[k].req)) 
+					return true;
 			}
 			return false;
 		});
 	}
+	//console.log('________________',keys);//ok
+
 	if (isdef(sortAccessor)) sortByFunc(keys,sortAccessor); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
 	return keys;
 }

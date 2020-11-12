@@ -64,8 +64,8 @@ function startRoundReally() {
 
 	if (ROUND_OUTPUT) {
 		// writeComments('new round:');
-		console.log('...' + currentGame.substring(1), 'round:' + ' level:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
-			'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
+		//console.log('...' + currentGame.substring(1), 'round:' + ' level:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
+		//	'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 	}
 	trialNumber = 0;
 	// showScore();
@@ -74,9 +74,9 @@ function startRoundReally() {
 
 }
 function promptStart() {
-	console.log('prompt',uiPaused)
+	//console.log('prompt',uiPaused)
 	beforeActivationUI();
-	console.log('prompt',uiPaused)
+	//console.log('prompt',uiPaused)
 	isINTERRUPT = false;
 
 	dTable = dLineTableMiddle;
@@ -88,9 +88,10 @@ function promptStart() {
 	setTimeout(activateUi, delay);
 }
 function promptNextTrial() {
-	console.log('promptNextTrial',uiPaused)
+	//console.log('promptNextTrial',uiPaused)
+	console.log('called from:',getFunctionsNameThatCalledThisFunction())
 	beforeActivationUI();
-	console.log('promptNextTrial',uiPaused)
+	//console.log('promptNextTrial',uiPaused)
 
 	let delay = GFUNC[currentGame].trialPrompt();
 	setTimeout(activateUi, delay);
@@ -206,7 +207,7 @@ function activateUi() {
 	activationUI();
 }
 function evaluate() {
-	console.log('evaluate:',uiPaused)
+	//console.log('evaluate:',uiPaused)
 	if (uiPaused) return;
 	hasClickedUI();
 	IsAnswerCorrect = GFUNC[currentGame].eval(...arguments);
@@ -224,7 +225,7 @@ function evaluate() {
 		failPictureGoal(false);
 	}
 
-	console.log(IsAnswerCorrect);
+	//console.log(IsAnswerCorrect);
 
 	// let [levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 	// console.log('levelChange',levelChange,'nextLevel',nextLevel)
@@ -232,10 +233,10 @@ function evaluate() {
 	// currentLevel = nextLevel;
 
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
-	console.log('LevelChange',LevelChange,'currentLevel',currentLevel)
+	//console.log('LevelChange',LevelChange,'currentLevel',currentLevel)
 
 	//show feedbackAnimations in case of level change!
-	console.log('=====>>>LevelChange',LevelChange);
+	//console.log('=====>>>LevelChange',LevelChange);
 	// if (LevelChange < 0) setTimeout(() => removeBadgeAndRevertLevel(nextLevel), DELAY);
 	// else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
 	// else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
@@ -271,7 +272,7 @@ function successPictureGoal(withComment = true) {
 //#region scoring
 function scoring(isCorrect) {
 
-	console.log('isCorrect',isCorrect)
+	//console.log('isCorrect',isCorrect)
 
 	CurrentGoalData = {
 		key: Goal.key, goal: Goal,
@@ -298,7 +299,7 @@ function scoring(isCorrect) {
 	let nextLevel = currentLevel;
 	if (numTotalAnswers >= boundary) {
 
-		console.log('scoringMode', scoringMode)
+		//console.log('scoringMode', scoringMode)
 
 		if (scoringMode == 'inc') {
 			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { 
@@ -310,14 +311,14 @@ function scoring(isCorrect) {
 			else if (percentageCorrect < 50) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; }
 
 		} else if (scoringMode == 'autograde') {
-			console.log('... autograding');
+			//console.log('... autograding');
 			//saveAnswerStatistic();
 			saveStats();
 			levelChange = 1;
 			nextLevel += 1;
 
 		} else if (scoringMode == 'n') {
-			console.log('correct:', numCorrectAnswers, 'total:', numTotalAnswers)
+			//console.log('correct:', numCorrectAnswers, 'total:', numTotalAnswers)
 			if (numCorrectAnswers > numTotalAnswers / 2) { levelChange = 1; nextLevel += 1; }
 			else if (numCorrectAnswers < numTotalAnswers / 2) { levelChange = -1; nextLevel = (nextLevel > 0 ? nextLevel - 1 : nextLevel); }
 

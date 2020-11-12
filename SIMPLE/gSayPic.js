@@ -1,5 +1,5 @@
 const LevelsSP = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 1 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 3 },
 	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
 	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
 	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
@@ -14,11 +14,12 @@ const LevelsSP = {
 function startGameSP() { }
 function startLevelSP() { levelSP(); }
 function levelSP() {
+	//console.log('level',currentLevel)
 	let levelInfo = LevelsSP[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
-	setKeys(currentCategories,true,x=>lastOfLanguage(x,currentLanguage),true);
+	setKeys(currentCategories,false,x=>lastOfLanguage(x,currentLanguage),true, true);
 	
 	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
 	//console.log(currentKeys);
@@ -39,8 +40,9 @@ function promptSP() {
 	return 10; //1000;
 }
 function trialPromptSP() {
+	console.log('called from:',getFunctionsNameThatCalledThisFunction())
 	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	return 10;
+	return 1000;
 }
 
 
@@ -67,7 +69,7 @@ async function activateSP() {
 function evalSP(speechResult) {
 
 	if (isEmpty(speechResult)) {
-		console.log('empty speechResult')
+		//console.log('.....empty speechResult');
 		return false;
 	}
 

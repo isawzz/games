@@ -26,7 +26,7 @@ var MicrophoneUi; //this is the ui
 var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
 
 // output showing
-var RecogOutput = true;
+var RecogOutput = false;
 var RecogHighPriorityOutput=true;
 var SpeakerOutput = false;
 var ROUND_OUTPUT = true;

@@ -11,8 +11,7 @@ const LevelsSPA = {
 	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
 	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 1 },
 }
-function startGameSPA() {
-}
+function startGameSPA() {}
 function startLevelSPA() { levelSPA(); }
 function levelSPA() {
 	let levelInfo = LevelsSPA[currentLevel];

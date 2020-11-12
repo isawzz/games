@@ -35,10 +35,10 @@ function setGame(event) {
 function setLanguage(x) {
 	currentLanguage = x; startLevel();
 }
-function setKeys(cats, bestOnly, sortAccessor, correctOnly) {
-	//console.log(currentCategories)
+function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	//console.log('cats',cats,'bestOnly',bestOnly,'sortAccessor',sortAccessor,'correctOnly',correctOnly)
 	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
-		bestOnly, sortAccessor, correctOnly);
+		bestOnly, sortAccessor, correctOnly, reqOnly);
 	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
 }
 function setPicsPerLevel() {
