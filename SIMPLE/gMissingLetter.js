@@ -101,9 +101,10 @@ function trialPromptML() {
 		let d = selinp.div;
 		d.innerHTML = '_';
 		mClass(d, 'blink');
-		inputs.push(selinp);
+		//inputs.push(selinp);
 	}, skipAnimations ? 300 : 2000);
 
+	showFleetingMessage(composeFleetingMessage(), 3000);
 	return 10;
 }
 function buildWordFromLetters(d) {

@@ -1,4 +1,4 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
@@ -15,9 +15,9 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
+	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gSayPic: 0 };
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
-	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];
+	: ['gMissingLetter','gTouchPic', 'gTouchColors', 'gWritePic', 'gSayPic'];
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 
@@ -32,7 +32,7 @@ var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 1;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 3;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var fleetingMessageTimeout;
