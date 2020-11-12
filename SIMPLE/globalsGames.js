@@ -243,7 +243,7 @@ function evaluate() {
 	//setTimeout(startRound_, DELAY); 
 	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else proceedIfNotStepByStep(); //no need to startLevel_!!!!!
+	else setTimeout(proceedIfNotStepByStep, DELAY); //no need to startLevel_!!!!!
 }
 
 function failPictureGoal(withComment = true) {
