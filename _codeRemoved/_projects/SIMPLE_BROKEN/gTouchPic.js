@@ -49,6 +49,6 @@ function evalTP(ev) {
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div, sz:getBounds(item.div).height};
 
-	if (item.label == bestWord) { return true; } else { return STATES.INCORRECT; }
+	if (item.label == bestWord) { return STATES.CORRECT; } else { return STATES.INCORRECT; }
 }
 

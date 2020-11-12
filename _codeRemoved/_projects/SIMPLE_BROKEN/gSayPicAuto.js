@@ -39,10 +39,9 @@ function promptSPA() {
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
 	//showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle, true);
 
-
-	mLinebreak(dTable);
 	MicrophoneUi = mMicrophone(dTable);
 
+	mLinebreak(dTable);
 
 	return 10; //1000;
 }
@@ -54,10 +53,10 @@ function trialPromptSPA() {
 async function activateSPA() {
 
 	OnMicrophoneReady = setTimeout(() => {
-		say(bestWord, .7, 1, 1, false, 'random'); //, () => { console.log('done:', Goal.key) });
+		say(bestWord, .7, 1, .7, false, 'random', () => { console.log('done:', Goal.key) });
 		//say(bestWord)
-	}, DELAY_BETWEEN_MIKE_AND_SPEECH);
-	//OnMicrophoneProblem = () => console.log('microphone problem');
+	}, 500);
+	OnMicrophoneProblem = () => console.log('microphone problem');
 	//OnMicrophoneGotResult = evaluate
 	setTimeout(() => record(currentLanguage, bestWord), 100);
 
@@ -81,15 +80,15 @@ function evalSPA(speechResult) {
 	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
-	if (answer == reqAnswer) return true;
-	else if (matchesAnyWordOrSound(Goal.info, answer)) return true;
+	if (answer == reqAnswer) return STATES.CORRECT;
+	else if (matchesAnyWordOrSound(Goal.info, answer)) return STATES.CORRECT;
 	else if (matchingNumberOrTime(Goal.info, answer)) {
 		//console.log('matches as number or time!!!')
-		return true;
+		return STATES.CORRECT;
 	} else if (isAcceptableAnswerButNewSound(Goal.info, reqAnswer, answer)) {
 		//console.log('accepting', answer, 'as sound for', reqAnswer);
 		addAsSoundToDatabase(Goal.info, answer);
-		return true;
+		return STATES.CORRECT;
 	} else {
 		return STATES.INCORRECT;
 	}

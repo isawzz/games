@@ -1,3 +1,40 @@
+function evaluate_dep() {
+	if (uiPaused) return;
+	hasClickedUI();
+	IsAnswerCorrect = GFUNC[currentGame].eval(...arguments);
+
+	switch (IsAnswerCorrect) {
+		case STATES.CORRECT:
+			setScore(true);
+			DELAY = skipAnimations ? 300 : 1500;
+			updateLevel();
+			successPictureGoal();
+			if (LevelChange > 0) setTimeout(showLevelComplete, DELAY);
+			else if (!StepByStepMode) {
+				startRound();
+				//setTimeout(startRound_, DELAY); 
+			}
+			break;
+		case STATES.INCORRECT:
+			trialNumber += 1;
+			if (trialNumber < MaxNumTrials) {
+				promptNextTrial();
+			} else {
+				setScore(false);
+				DELAY = skipAnimations ? 300 : 3000;
+				showCorrectWord();
+				failPictureGoal(false);
+				updateLevel();
+				if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+				else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
+				else if (!StepByStepMode) {
+					startRound();
+					//setTimeout(startRound_, DELAY); 
+				}
+			}
+			break;
+	}
+}
 function addGameToSessionHistoryAndRenewGameHistory(oldGameName,newGameName){
 	if (!isEmpty(CurrentGameData)) GameList.push({game:oldGameName,newGameName,data:CurrentGameData});
 	CurrentGameData=[];

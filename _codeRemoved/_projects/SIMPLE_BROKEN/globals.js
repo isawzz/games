@@ -10,7 +10,7 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gTouchPic: 10, gTouchColors: 7, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
+	: { gTouchPic: 3, gTouchColors: 3, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
 	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];
@@ -25,7 +25,7 @@ var RecogOutput = false;
 var SpeakerOutput = false;
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
+var PICS_PER_LEVEL = IS_TESTING ? 400 : 5;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var DELAY = 1000;
@@ -45,7 +45,7 @@ var Goal, Selected;
 var NextPictureIndex = 0;
 
 //score
-var scoringMode = 'inc'; // inc | percent | mixed | autograde
+var scoringMode = 'n'; //'inc'; // n | inc | percent | mixed | autograde
 var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;

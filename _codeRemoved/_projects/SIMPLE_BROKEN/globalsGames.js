@@ -4,11 +4,10 @@ function startGame(game) {
 
 	//das ist noch das alte game!!!
 	isINTERRUPT = true;
-	if ((currentGame == 'gSayPic' || currentGame == 'gSayPicAuto') && isRunning) {
-		alert('INTERRUPTING SPEECH RECOG!')
+	if (currentGame == 'gSayPic' && isRunning) {
 		console.log('=>recog running: need to interrupt!', isRunning);
 		recognition.stop();
-		MicrophoneStop();
+		hide(mBy('dRecord'));
 	}
 
 	//console.log('currentGame',currentGame)
@@ -43,13 +42,9 @@ function startLevel() {
 	GFUNC[currentGame].startLevel();
 	showScore();
 	LevelChange = false;
-	startRound(); //startLevel
+	startRound();
 }
 function startRound() {
-	setTimeout(() => startRoundReally(), ROUND_DELAY);
-}
-function startRoundReally() {
-	//console.log('starting ROUND (delay:' + DELAY + ')')
 	console.assert(!LevelChange, 'levelChange!!!!!!!!!!!!! need reset!')
 	writeComments('new round:');
 	clearFleetingMessage();
@@ -77,8 +72,10 @@ function promptNextTrial() {
 	let delay = GFUNC[currentGame].trialPrompt();
 	setTimeout(activateUi, delay);
 }
+
 function selectWord(info, bestWordIsShortest, except = []) {
 	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
+
 
 	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
 	//console.log('vorher:***candidates:',candidates,last(candidates),w)
@@ -95,6 +92,8 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 	Pictures = [];
 	let labels = [];
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
+
+
 	//keys=['ox']; //["one o'clock"]; //['oil drum'];//,'door']
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
@@ -106,40 +105,36 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 	let ww = window.innerWidth;
 	let wh = window.innerHeight;
 	let hpercent = 0.60; let wpercent = .6;
-	let sz, picsPerLine;
+	let w, h;
 	if (lines > 1) {
 		let hpic = wh * hpercent / lines;
 		let wpic = ww * wpercent / NumPics;
-		sz = Math.min(hpic, wpic);
-		picsPerLine = keys.length;
+		w = h = Math.min(hpic, wpic);
 	} else {
 		let dims = calcRowsColsX(NumPics);
 		let hpic = wh * hpercent / dims.rows;
 		let wpic = ww * wpercent / dims.cols;
-		sz = Math.min(hpic, wpic);
-		picsPerLine = dims.cols;
+		w = h = Math.min(hpic, wpic);
 	}
 
-	pictureSize = Math.min(sz, 200);
+	pictureSize = Math.min(w, 200);
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 
 	for (let line = 0; line < lines; line++) {
 		let shade = isdef(colors) ? colors[line] : undefined;
 		for (let i = 0; i < keys.length; i++) {
 			let info = getRandomSetItem(currentLanguage, keys[i]);
-			let ipic = (line * keys.length + i);
-			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
-			let id = 'pic' + ipic; // (line * keys.length + i);
+			let id = 'pic' + (line * keys.length + i);
 			let label = selectWord(info, bestWordIsShortest, labels);
 			console.assert(isdef(label) && !isEmpty(label), 'no label for key ' + keys[i])
 			labels.push(label);
 			let d1 = maPicLabelButtonFitText(info, label,
 				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
-			console.log(info.key, label, info);
+			console.log(info.key, label, info)
 			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
 		}
-		// mLinebreak(dTable);
+		mLinebreak(dTable);
 	}
 
 	let totalPics = Pictures.length;
@@ -155,6 +150,7 @@ function setGoal(index) {
 		index = rnd;
 	}
 	lastPosition = index;
+	console.log(Pictures)
 	Goal = Pictures[index];
 	setCurrentInfo(Goal); //sets bestWord, ...
 
@@ -179,38 +175,6 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, true, 'random'); //,()=>{console.log('JUST SAID IT')});
 
 }
-function activateUi() {
-	Selected = null;
-	GFUNC[currentGame].activate();
-	activationUI();
-}
-function evaluate() {
-	if (uiPaused) return;
-	hasClickedUI();
-	IsAnswerCorrect = GFUNC[currentGame].eval(...arguments);
-
-	trialNumber += 1;
-	if (!IsAnswerCorrect && trialNumber < MaxNumTrials) { promptNextTrial; return; }
-
-	//feedback
-	if (IsAnswerCorrect) {
-		DELAY = skipAnimations ? 300 : 1500;
-		successPictureGoal();
-	} else {
-		DELAY = skipAnimations ? 300 : 3000;
-		showCorrectWord();
-		failPictureGoal(false);
-	}
-
-	setScore(IsAnswerCorrect);
-	updateLevel();
-	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
-	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else if (!StepByStepMode) {
-		startRound();
-		//setTimeout(startRound_, DELAY); 
-	}
-}
 function updateLevel() {
 	//console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
 	if (numTotalAnswers >= boundary) { [LevelChange, currentLevel] = scoreDependentLevelChange(currentLevel); }
@@ -219,6 +183,44 @@ function updateLevel() {
 		resetScore();
 		if (currentLevel <= MAXLEVEL) GFUNC[currentGame].prepLevel();
 	}
+}
+
+function activateUi() {
+	Selected = null;
+	GFUNC[currentGame].activate();
+	activationUI();
+}
+function evaluate() {
+	if (uiPaused) return;
+	hasClickedUI();
+	AnswerCorrectness = GFUNC[currentGame].eval(...arguments);
+
+	switch (AnswerCorrectness) {
+		case STATES.CORRECT:
+			setScore(true);
+			DELAY = skipAnimations ? 300 : 1500;
+			updateLevel();
+			successPictureGoal();
+			if (LevelChange > 0) setTimeout(showLevelComplete, DELAY);
+			else { setTimeout(startRound, DELAY); }
+			break;
+		case STATES.INCORRECT:
+			trialNumber += 1;
+			if (trialNumber < MaxNumTrials) {
+				promptNextTrial();
+			} else {
+				setScore(false);
+				DELAY = skipAnimations ? 300 : 3000;
+				showCorrectWord();
+				failPictureGoal(false);
+				updateLevel();
+				if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+				else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
+				else { setTimeout(startRound, DELAY); }
+			}
+			break;
+	}
+
 }
 function failPictureGoal(withComment = true) {
 
@@ -288,9 +290,11 @@ function setBackgroundColor() {
 
 }
 function setCurrentInfo(item) {
+	console.log(item)
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
+	console.log('Goal',Goal)
 	bestWord = Goal.label;
 	hintWord = '_'.repeat(bestWord.length);
 
@@ -342,7 +346,7 @@ function scoreDependentLevelChange(level) {
 		isChange = 1;
 		level += 1;
 	} else if (scoringMode == 'n') {
-		if (numTotalAnswers >= SAMPLES_PER_LEVEL[currentLevel]) { isChange = 1; level += 1; }
+		if (numTotalAnswers > SAMPLES_PER_LEVEL[currentLanguage]) { isChange = 1; level += 1; }
 	}
 	return [isChange, level];
 }
@@ -353,7 +357,7 @@ function resetScore() {
 
 }
 function setScore(isCorrect) {
-	CurrentGoalData = { key: Goal.key, goal: Goal, isCorrect: IsAnswerCorrect, reqAnswer: Goal.reqAnswer, answer: Goal.answer, selected: Selected };
+	CurrentGoalData = { key: Goal.key, isCorrect: AnswerCorrectness, reqAnswer: Goal.reqAnswer, answer: Goal.answer, selected: Selected };
 	CurrentLevelData.items.push(CurrentGoalData);
 
 	if (isCorrect) {
@@ -373,7 +377,7 @@ function showScore() {
 	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 
 	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
-	let scoreString = 'question: ' + (numTotalAnswers + 1) + ' (' + percentageCorrect + '%)';
+	let scoreString = 'questions: ' + (numTotalAnswers+1) + ' (' + percentageCorrect + '%)';
 
 	if (LevelChange)
 		dScore.innerHTML = scoreString;

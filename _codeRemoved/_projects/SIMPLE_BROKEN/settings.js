@@ -33,7 +33,7 @@ function setGame(event) {
 	}
 }
 function setLanguage(x) {
-	currentLanguage = x; startLevel();
+	currentLanguage = x; setKeys();
 }
 function setKeys(cats, bestOnly, sortAccessor, correctOnly) {
 	//console.log(currentCategories)

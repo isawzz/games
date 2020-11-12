@@ -11,7 +11,7 @@ var symByType, symBySet;//hier sind info dicts
 var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
-var CorrectWords,CorrectWordsCorrect,CorrectWordsFailed;
+var CorrectWords, CorrectWordsCorrect, CorrectWordsFailed;
 
 //var cachedInfolists = {};
 
@@ -377,13 +377,28 @@ async function sendAction(boat, username) {
 		serverData = result;
 	}
 }
-async function loadCorrectWords(){
+async function loadCorrectWords() {
 	CorrectWords = await loadYamlDict('/assets/correctWords.yaml');
 
+	CorrectWordsCorrect = {};
 	//remove duplicates from array
-	CorrectWordsCorrect={};	for(const cw of CorrectWords.correct){		CorrectWordsCorrect[cw.key]=cw;	}
-	if (isdef(CorrectWords.failed)) {CorrectWordsFailed={};	for(const cw of CorrectWords.failed){		CorrectWordsFailed[cw.key]=cw;	}}
-	console.log('CorrectWords',CorrectWordsCorrect);
+	if (isdef(CorrectWords.correct)) {
+		for (const cw of CorrectWords.correct) {
+			CorrectWordsCorrect[cw.key] = cw;
+		}
+		console.log('CorrectWordsCorrect',CorrectWords.correct.length,CorrectWordsCorrect);
+	}
+
+	CorrectWordsFailed = {};
+	//remove duplicates from array
+	if (isdef(CorrectWords.failed)) {
+		for (const cw of CorrectWords.failed) {
+			CorrectWordsFailed[cw.key] = cw;
+		}
+		console.log('CorrectWordsFailed',CorrectWords.failed.length,CorrectWordsFailed);
+	}
+
+	// console.log('CorrectWords', CorrectWords);
 
 }
 async function loadYamlDict(url) { return await route_path_yaml_dict(url); }

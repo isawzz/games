@@ -162,9 +162,9 @@ function activateML() {
 function evalML(word) {
 	let answer = normalize(word, currentLanguage);
 	let reqAnswer = normalize(bestWord, currentLanguage);
-	if (answer == reqAnswer) return true;
+	if (answer == reqAnswer) return STATES.CORRECT;
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
-		return true;
+		return STATES.CORRECT;
 	} else {
 		return STATES.INCORRECT;
 	}

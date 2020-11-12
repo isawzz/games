@@ -1,4 +1,3 @@
-//#region vars
 var interim_transcript = '';
 var final_transcript = '';
 var final_confidence, final_confidence2, final_confidence_sum, final_num;
@@ -8,8 +7,7 @@ var callback = null;
 var recognition;
 var grammar;
 var hasGotResult, hasGotFinalResult;
-//#endregion
-//region Microphone
+
 function mMicrophone(dParent) {
 	let d = mDiv(dParent);
 	d.innerHTML = '🎤';
@@ -18,17 +16,8 @@ function mMicrophone(dParent) {
 	mLinebreak(dParent);
 	return d;
 }
-function MicrophoneStart() {
-	if (RecogOutput) console.log('* mic start')
-	show(MicrophoneUi);
-	//mClass(MicrophoneUi, 'blink');
-}
-function MicrophoneStop() {
-	//mRemoveClass(MicrophoneUi, 'blink');
-	hide(MicrophoneUi);
-	//hide('dRecord');
-}
-//#endregion
+
+function isGameWithSpeechRecognition() { return ['gSayPic', 'gSayPicAuto'].includes(currentGame); }
 
 function record(lang, best) {
 	//TODO: HACK!!!!!!!
@@ -49,6 +38,16 @@ function record(lang, best) {
 		recognition.start();
 	}
 }
+function MicrophoneStart() {
+	if (RecogOutput) console.log('* mic start')
+	show(MicrophoneUi);
+	//mClass(MicrophoneUi, 'blink');
+}
+function MicrophoneStop() {
+	//mRemoveClass(MicrophoneUi, 'blink');
+	hide(MicrophoneUi);
+	//hide('dRecord');
+}
 
 
 function addStartHandler() {
@@ -65,6 +64,13 @@ function addStartHandler() {
 		MicrophoneStart();
 	};
 }
+function setSpeechResult(transcript, conf1, conf2) {
+	Goal.reqAnswer = bestWord;
+	Goal.answer = transcript;
+	Goal.confidence = conf1;
+	Goal.confidence2 = conf2;
+	if (RecogOutput) console.log('* ===>', 'best', bestWord, 'got', transcript + '\nConfidence: ' + conf1 + '/' + conf2);
+}
 function addResultHandler() {
 	recognition.onresult = function (event) {
 		if (!isGameWithSpeechRecognition()) {
@@ -72,7 +78,6 @@ function addResultHandler() {
 			return;
 		}
 		MicrophoneStop();
-		hasGotResult = true;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 			if (event.results[i].isFinal) {
 				final_transcript += event.results[i][0].transcript;
@@ -90,7 +95,7 @@ function addResultHandler() {
 			hasGotFinalResult = true;
 			final_confidence = event.results[0][0].confidence;
 			recognition.stop();
-			setSpeechResult(final_transcript, final_confidence, final_confidence2, true);
+			setSpeechResult(final_transcript, final_confidence, final_confidence2);
 			evaluate(final_transcript);
 		} else if (isdef(interim_transcript) && !isEmpty(interim_transcript)) {
 			interim_confidence = event.results[0][0].confidence;
@@ -134,6 +139,16 @@ function addErrorHandler() {
 	};
 }
 
+function setVocabulary(words) {
+	var grammar = '#JSGF V1.0; grammar colors; public <color> = hallo';
+	for (const w of words) {
+		grammar += ' | ' + w; ///aqua | azure | beige ... ;'
+	}
+	var speechRecognitionList = new webkitSpeechGrammarList();
+	speechRecognitionList.addFromString(grammar, 1);
+	recognition.grammars = speechRecognitionList;
+}
+
 function speech00(lang) {
 	if (typeof (webkitSpeechRecognition) != "function") { alert("Unable to use the Speech Recognition API"); }
 
@@ -152,28 +167,6 @@ function speech00(lang) {
 	//recognition.start();
 
 }
-function isGameWithSpeechRecognition() { return ['gSayPic', 'gSayPicAuto'].includes(currentGame); }
-function setVocabulary(words) {
-	var grammar = '#JSGF V1.0; grammar colors; public <color> = hallo';
-	for (const w of words) {
-		grammar += ' | ' + w; ///aqua | azure | beige ... ;'
-	}
-	var speechRecognitionList = new webkitSpeechGrammarList();
-	speechRecognitionList.addFromString(grammar, 1);
-	recognition.grammars = speechRecognitionList;
-}
-function setSpeechResult(transcript, conf1, conf2, isFinal = false) {
-	Goal.reqAnswer = bestWord;
-	Goal.answer = transcript;
-	Goal.confidence = conf1;
-	Goal.confidence2 = conf2;
-	Goal.isSpeechResultFinal = isFinal;
-	if (RecogHighPriorityOutput)
-		console.log('*=' + (isFinal ? 'final' : 'interim') + '==>', 'best:' + bestWord, 'got:' + transcript,
-			'(confid: ' + conf1 + '/' + conf2+')');
-}
-
-
 
 
 

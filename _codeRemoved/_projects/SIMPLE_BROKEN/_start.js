@@ -50,23 +50,6 @@ async function SessionStart() {
 	if (immediateStart) startGame(); else openSettings();
 }
 
-function onClickStartButton(){
-	startGame(currentGame)
-}
-function onClickNextButton(){
-	startRound(); //onClickStart
-	//setTimeout(startRound_, DELAY);
-}
-function onClickRunButton(){
-	StepByStepMode = false;
-	startRound(); //onClickRun
-	//setTimeout(startRound_, DELAY);
-}
-function onClickStopButton(){
-	StepByStepMode = true;
-	//setTimeout(startRound_, DELAY);
-}
-
 
 
 

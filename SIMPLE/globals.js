@@ -1,7 +1,10 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = false; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
+var StepByStepMode = true; //wartet auf click next um wieder zu starten!
+var ROUND_DELAY = 2000;
+var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 
 //set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
@@ -10,7 +13,7 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gTouchPic: 3, gTouchColors: 3, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
+	: { gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
 // var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
 	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];
@@ -21,11 +24,12 @@ var currentKeys; //see setKeys, reset at each level!!!!!
 //speech recognition
 var MicrophoneUi; //this is the ui
 var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
-var RecogOutput = false;
+var RecogOutput = true;
+var RecogHighPriorityOutput=true;
 var SpeakerOutput = false;
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 400 : 5;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var DELAY = 1000;
@@ -45,7 +49,7 @@ var Goal, Selected;
 var NextPictureIndex = 0;
 
 //score
-var scoringMode = 'n'; //'inc'; // n | inc | percent | mixed | autograde
+var scoringMode = 'inc'; // inc | percent | mixed | autograde
 var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;
@@ -53,7 +57,7 @@ var CurrentSessionData, CurrentGameData, CurrentLevelData;
 var SessionScore = 0;
 var LevelChange = true;
 const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
-var AnswerCorrectness;
+var IsAnswerCorrect;
 
 var lastPosition = 0;
 var trialNumber;

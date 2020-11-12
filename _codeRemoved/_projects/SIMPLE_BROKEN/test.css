@@ -226,24 +226,21 @@ div{
 /* #endregion */
 
 /* #region start button */
-#divControls{
-	position:fixed;
-	top:50px;
-	left: 100px;
-}
-#divControls > div{
+#bStart{
+	/* margin: 2px; */
   border: none;
   outline: none;
 	border-radius: 8px;
 	padding: 4px 16px;
 	font-size: 32px;
 	background-color: springgreen;
-	margin: 4px;
+	/* align-self: flex-start;
+	justify-self: flex-start; */
 }
-#divControls > div:hover{
+#bStart:hover{
 	background-color: #79d7e4;
 }
-#divControls > div:active{
+#bStart:active{
 	background-color: red;
 }
 /* #endregion */

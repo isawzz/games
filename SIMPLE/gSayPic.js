@@ -19,8 +19,9 @@ function levelSP() {
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys(currentCategories,true,x=>lastOfLanguage(x,currentLanguage),true);
+	
 	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
-	console.log(currentKeys);
+	//console.log(currentKeys);
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	writeComments();
@@ -28,15 +29,13 @@ function levelSP() {
 function startRoundSP() { }
 function promptSP() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus(),null,true);
+	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
-	//showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle, true);
-
-	MicrophoneUi = mMicrophone(dTable);
 
 	mLinebreak(dTable);
+	MicrophoneUi = mMicrophone(dTable);
 
 	return 10; //1000;
 }
@@ -68,24 +67,24 @@ async function activateSP() {
 }
 function evalSP(speechResult) {
 
-	console.log('speechresult',speechResult)
-
 	if (isEmpty(speechResult)) {
 		console.log('empty speechResult')
 		return STATES.INCORRECT;
 	}
+
+	Selected = {}
 	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
-	if (answer == reqAnswer) return STATES.CORRECT;
-	else if (matchesAnyWordOrSound(Goal.info, answer)) return STATES.CORRECT;
+	if (answer == reqAnswer) return true;
+	else if (matchesAnyWordOrSound(Goal.info, answer)) return true;
 	else if (matchingNumberOrTime(Goal.info, answer)) {
 		//console.log('matches as number or time!!!')
-		return STATES.CORRECT;
+		return true;
 	} else if (isAcceptableAnswerButNewSound(Goal.info, reqAnswer, answer)) {
 		//console.log('accepting', answer, 'as sound for', reqAnswer);
 		addAsSoundToDatabase(Goal.info, answer);
-		return STATES.CORRECT;
+		return true;
 	} else {
 		return STATES.INCORRECT;
 	}
