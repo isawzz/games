@@ -1,3 +1,30 @@
+function removeBadgeAndRevertLevelA(nextLevel) {
+	//currentLevel = nextLevel;
+	removeBadges(dLeiste, nextLevel);
+	setBackgroundColor();
+	proceedIfNotStepByStep(nextLevel);
+	// showLevel();
+	//showScore();
+	//if (LevelChange) startLevel(nextLevel); 
+}
+function showLevelCompleteA(nextLevel) {
+	//currentLevel = nextLevel;
+	if (!skipAnimations) {
+		soundLevelComplete();
+		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
+		show('dLevelComplete');
+		setTimeout(levelStep10, 1500);
+	} else {
+		addBadge(dLeiste, nextLevel);
+		setBackgroundColor();
+		//showLevel();
+		//showScore();
+		proceedIfNotStepByStep(nextLevel);
+		//proceedAfterLevelChange();
+	}
+
+}
+	
 function evaluate_dep() {
 	if (uiPaused) return;
 	hasClickedUI();

@@ -1,40 +1,41 @@
 const IS_TESTING = true; // false | true
-USE_LOCAL_STORAGE = false; // false | true
+USE_LOCAL_STORAGE = true; // false | true
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
-var StepByStepMode = true; //wartet auf click next um wieder zu starten!
-var ROUND_DELAY = 2000;
+var StepByStepMode = false; //wartet auf click next um wieder zu starten!
+
+// delays
+var DELAY = 1000;
+var ROUND_DELAY = 500;
 var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 
-//set this to start!
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 0, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
+var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
 	: { gTouchPic: 7, gTouchColors: 7, gWritePic: 10, gMissingLetter: 1, gSayPic: 0 };
-// var gameSequence = ['gTouchPic', 'gWritePic', 'gMissingLetter', 'gSayPic'];
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
 	: ['gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter'];
-
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 
 //speech recognition
 var MicrophoneUi; //this is the ui
 var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
+
+// output showing
 var RecogOutput = true;
 var RecogHighPriorityOutput=true;
 var SpeakerOutput = false;
+var ROUND_OUTPUT = true;
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 1;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
-var DELAY = 1000;
 var fleetingMessageTimeout;
-
 
 //to be set by each game on level change:
 var MaxNumTrials = 1;
@@ -49,14 +50,14 @@ var Goal, Selected;
 var NextPictureIndex = 0;
 
 //score
-var scoringMode = 'inc'; // inc | percent | mixed | autograde
+var scoringMode, DefaultScoringMode = 'n'; // n | inc | percent | mixed | autograde
 var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;
 var CurrentSessionData, CurrentGameData, CurrentLevelData;
 var SessionScore = 0;
 var LevelChange = true;
-const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
+//const STATES = { CORRECT: 5, INCORRECT: 6, NEXTTRIAL: 7 };
 var IsAnswerCorrect;
 
 var lastPosition = 0;

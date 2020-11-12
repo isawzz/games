@@ -24,7 +24,6 @@ function levelSP() {
 	//console.log(currentKeys);
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
 }
 function startRoundSP() { }
 function promptSP() {
@@ -69,7 +68,7 @@ function evalSP(speechResult) {
 
 	if (isEmpty(speechResult)) {
 		console.log('empty speechResult')
-		return STATES.INCORRECT;
+		return false;
 	}
 
 	Selected = {}
@@ -86,7 +85,7 @@ function evalSP(speechResult) {
 		addAsSoundToDatabase(Goal.info, answer);
 		return true;
 	} else {
-		return STATES.INCORRECT;
+		return false;
 	}
 }
 

@@ -2508,6 +2508,7 @@ function wlog() {
 //#region layout helpers
 function calcRowsColsX(num){
 	const table={
+		2:{rows:1,cols:2},
 		5:{rows:2,cols:3},
 		7:{rows:2,cols:4},
 		11:{rows:3,cols:4},
@@ -2524,11 +2525,12 @@ function calcRowsCols(num, rows, cols) {
 		cols = Math.ceil(num / rows);
 	} else if (isdef(cols)) {
 		rows = Math.ceil(num / cols);
-	} else if ([2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
-		rows = Math.ceil(Math.sqrt(num));
-		cols = Math.floor(Math.sqrt(num));
-	}
-	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
+	} else if (num==2) {
+		rows=1;cols=2;
+	}	else if ([4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
+		rows = Math.floor(Math.sqrt(num));
+		cols = Math.ceil(Math.sqrt(num));
+	}	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
 		let lower = Math.floor(Math.sqrt(num));
 		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
 		rows = lower;

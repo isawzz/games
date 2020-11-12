@@ -22,7 +22,6 @@ function levelTP() {
 	setKeys();
 	NumPics = levelInfo.NumPics;	
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
 }
 function startRoundTP() {
 	uiActivated = false;
@@ -49,6 +48,6 @@ function evalTP(ev) {
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div, sz:getBounds(item.div).height};
 
-	if (item.label == bestWord) { return true; } else { return STATES.INCORRECT; }
+	if (item.label == bestWord) { return true; } else { return false; }
 }
 

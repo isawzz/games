@@ -41,7 +41,7 @@ function startGame(game) {
 }
 function startLevel(level) {
 
-	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
+	if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
 
 	CurrentLevelData = { level: currentLevel, items: [] }; CurrentGameData.levels.push(CurrentLevelData);
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
@@ -74,9 +74,7 @@ function startRoundReally() {
 
 }
 function promptStart() {
-	console.log('prompt',uiPaused)
 	beforeActivationUI();
-	console.log('prompt',uiPaused)
 	isINTERRUPT = false;
 
 	dTable = dLineTableMiddle;
@@ -88,9 +86,7 @@ function promptStart() {
 	setTimeout(activateUi, delay);
 }
 function promptNextTrial() {
-	console.log('promptNextTrial',uiPaused)
 	beforeActivationUI();
-	console.log('promptNextTrial',uiPaused)
 
 	let delay = GFUNC[currentGame].trialPrompt();
 	setTimeout(activateUi, delay);
@@ -206,13 +202,12 @@ function activateUi() {
 	activationUI();
 }
 function evaluate() {
-	console.log('evaluate:',uiPaused)
 	if (uiPaused) return;
 	hasClickedUI();
 	IsAnswerCorrect = GFUNC[currentGame].eval(...arguments);
 
 	trialNumber += 1;
-	if (!IsAnswerCorrect && trialNumber < MaxNumTrials) { promptNextTrial(); return; }
+	if (!IsAnswerCorrect && trialNumber < MaxNumTrials) { promptNextTrial; return; }
 
 	//feedback
 	if (IsAnswerCorrect) {
@@ -224,25 +219,25 @@ function evaluate() {
 		failPictureGoal(false);
 	}
 
-	console.log(IsAnswerCorrect);
+	let [isLevelChanging, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	LevelChange = isLevelChanging;
 
-	// let [levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
-	// console.log('levelChange',levelChange,'nextLevel',nextLevel)
-	// LevelChange = levelChange;
-	// currentLevel = nextLevel;
+	//be SUPER CAREFUL ABOUT THE FOLLOWING!!!
+	// if (LevelChange) {
+	// 	boundary = SAMPLES_PER_LEVEL[currentLevel];
+	// 	resetScore();
+	// 	//if (currentLevel <= MAXLEVEL) GFUNC[currentGame].prepLevel();
+	// }
 
-	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
-	console.log('LevelChange',LevelChange,'currentLevel',currentLevel)
+	//ui update depending on score/level
 
+	// setScore(IsAnswerCorrect);
+	// updateLevel();
 	//show feedbackAnimations in case of level change!
-	console.log('=====>>>LevelChange',LevelChange);
-	// if (LevelChange < 0) setTimeout(() => removeBadgeAndRevertLevel(nextLevel), DELAY);
-	// else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
-	// else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
+	if (LevelChange < 0) setTimeout(() => removeBadgeAndRevertLevel(nextLevel), DELAY);
+	else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
+	else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
 	//setTimeout(startRound_, DELAY); 
-	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
-	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else proceedIfNotStepByStep(); //no need to startLevel_!!!!!
 }
 
 function failPictureGoal(withComment = true) {
@@ -267,159 +262,6 @@ function successPictureGoal(withComment = true) {
 	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
 
 }
-
-//#region scoring
-function scoring(isCorrect) {
-
-	console.log('isCorrect',isCorrect)
-
-	CurrentGoalData = {
-		key: Goal.key, goal: Goal,
-		isCorrect: IsAnswerCorrect, reqAnswer: Goal.reqAnswer, answer: Goal.answer, selected: Selected
-	};
-	CurrentLevelData.items.push(CurrentGoalData);
-
-	numTotalAnswers += 1;
-	if (isCorrect) numCorrectAnswers += 1;
-
-	//percent scoringMode:
-	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
-
-	//inc scoringMode:
-	if (isCorrect) {
-		levelPoints += levelIncrement; if (levelIncrement < maxIncrement) levelIncrement += 1;
-	} else {
-		levelIncrement = minIncrement; levelPoints += minIncrement;
-	}
-	//console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
-
-	//see if it is time for level change check
-	let levelChange = 0;
-	let nextLevel = currentLevel;
-	if (numTotalAnswers >= boundary) {
-
-		console.log('scoringMode', scoringMode)
-
-		if (scoringMode == 'inc') {
-			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { 
-				levelChange = 1; nextLevel += 1; 
-			}
-
-		} else if (scoringMode == 'percent') {
-			if (percentageCorrect >= 80) { levelChange = 1; nextLevel += 1; }
-			else if (percentageCorrect < 50) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; }
-
-		} else if (scoringMode == 'autograde') {
-			console.log('... autograding');
-			//saveAnswerStatistic();
-			saveStats();
-			levelChange = 1;
-			nextLevel += 1;
-
-		} else if (scoringMode == 'n') {
-			console.log('correct:', numCorrectAnswers, 'total:', numTotalAnswers)
-			if (numCorrectAnswers > numTotalAnswers / 2) { levelChange = 1; nextLevel += 1; }
-			else if (numCorrectAnswers < numTotalAnswers / 2) { levelChange = -1; nextLevel = (nextLevel > 0 ? nextLevel - 1 : nextLevel); }
-
-		}
-	}
-	return [levelChange, nextLevel];
-
-
-}
-function showScore() {
-	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
-	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
-	// let scoreString = 'question: ' + (numTotalAnswers + 1) + ' (' + percentageCorrect + '%)';
-	let scoreString = scoringMode == 'n' ? 'question: ' + (numTotalAnswers + 1) + '/' + SAMPLES_PER_LEVEL[currentLevel] :
-		scoringMode == 'percent' ? 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)'
-			: scoringMode == 'inc' ? 'score: ' + levelPoints + ' (' + percentageCorrect + '%)'
-				: 'question: ' + numTotalAnswers + '/' + boundary;
-
-	if (LevelChange)
-		dScore.innerHTML = scoreString;
-	else
-		setTimeout(() => { dScore.innerHTML = scoreString; }, 300);
-}
-function resetScore() {
-	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
-	levelPoints = 0, levelIncrement = minIncrement;
-
-}
-
-function proceedIfNotStepByStep(nextLevel) {
-	if (!StepByStepMode) { proceed(nextLevel); }
-	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
-}
-function proceed(nextLevel) {
-	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
-	if (nundef(nextLevel)) nextLevel = currentLevel;
-
-	if (nextLevel > MAXLEVEL) {
-		let iGame = gameSequence.indexOf(currentGame) + 1;
-		if (iGame == gameSequence.length) {
-			soundGoodBye();
-			mClass(document.body, 'aniSlowlyDisappear');
-			show(dLevelComplete);
-			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
-		} else {
-			let nextGame = gameSequence[iGame];
-			startGame(nextGame);
-		}
-	} else if (LevelChange) startLevel(nextLevel);
-	else startRound();
-
-}
-
-//#region show Level Complete and Revert Level
-function removeBadgeAndRevertLevel() {
-	removeBadges(dLeiste, currentLevel);
-	setBackgroundColor();
-	proceedIfNotStepByStep();
-}
-function showLevelComplete() {
-	if (!skipAnimations) {
-		soundLevelComplete();
-		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
-		show('dLevelComplete');
-		setTimeout(levelStep10, 1500);
-	} else {
-		addBadge(dLeiste, currentLevel);
-		setBackgroundColor();
-		proceedIfNotStepByStep();
-	}
-
-}
-function levelStep10() {
-	mClass(document.body, 'aniFadeOutIn');
-	hide('dLevelComplete');
-	setTimeout(levelStep11, 500);
-}
-function levelStep11() {
-	clearTable();
-	setTimeout(levelStep12, 500);
-
-}
-function levelStep12() {
-	addBadge(dLeiste, currentLevel);
-	hide('dLevelComplete');
-	clearTable();
-
-	setTimeout(playRubberBandSound, 500);
-
-	setBackgroundColor();
-	showLevel();
-	//showScore();
-
-
-	setTimeout(levelStep13, 2000);
-}
-function levelStep13() {
-	mRemoveClass(document.body, 'aniFadeOutIn');
-	proceedIfNotStepByStep();
-	//proceedAfterLevelChange();
-}
-//#endregion
 
 //#region helpers
 function addNthInputElement(dParent, n) {
@@ -493,7 +335,6 @@ function showCorrectWord(sayit = true) {
 	say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
-function showStats() { showLevel(); showScore(); }
 function writeComments(pre) {
 	console.log('NEEEEEEEEEEEEEEEEEEEEIIIIIIIIIIIIIIIIIN', getFunctionsNameThatCalledThisFunction())
 	if (ROUND_OUTPUT) {
@@ -501,6 +342,188 @@ function writeComments(pre) {
 			'labels:' + NumLabels,
 			'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 	}
+
+}
+//#endregion
+
+//#region score
+function setScore(isCorrect) {
+	CurrentGoalData = { key: Goal.key, goal: Goal, isCorrect: IsAnswerCorrect, reqAnswer: Goal.reqAnswer, answer: Goal.answer, selected: Selected };
+	CurrentLevelData.items.push(CurrentGoalData);
+
+	if (isCorrect) {
+		numCorrectAnswers += 1;
+		levelPoints += levelIncrement;
+		if (levelIncrement < maxIncrement) levelIncrement += 1;
+	} else {
+		levelIncrement = minIncrement;
+		levelPoints += minIncrement;
+	}
+	numTotalAnswers += 1;
+	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
+
+	//showScore();
+}
+function updateLevel() {
+	//console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
+	if (numTotalAnswers >= boundary) { [LevelChange, currentLevel] = scoreDependentLevelChange(currentLevel); }
+	if (LevelChange) {
+		boundary = SAMPLES_PER_LEVEL[currentLevel];
+		resetScore();
+		if (currentLevel <= MAXLEVEL) GFUNC[currentGame].prepLevel();
+	}
+}
+function scoreDependentLevelChange(level) {
+	console.log('scoringMode', scoringMode)
+	let isChange = 0;
+	if (scoringMode == 'inc') {
+		if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { isChange = 1; level += 1; }
+	} else if (scoringMode == 'percent') {
+		if (percentageCorrect >= 90) { isChange = 1; level += 1; }
+		else if (percentageCorrect < 70 && level > 0) { isChange = -1; level -= 1; }
+		else if (percentageCorrect < 70) { isChange = -1; }
+	} else if (scoringMode == 'autograde') {
+
+		console.log('_______ autograding')
+		saveAnswerStatistic();
+
+		isChange = 1;
+		level += 1;
+	} else if (scoringMode == 'n') {
+		let nlevel = SAMPLES_PER_LEVEL[currentLevel];
+		if (numTotalAnswers >= SAMPLES_PER_LEVEL[currentLevel]) {
+			console.log('correct:', numCorrectAnswers, 'total:', nlevel)
+			if (numCorrectAnswers > nlevel / 2) { isChange = 1; level += 1; }
+			else if (numCorrectAnswers < nlevel / 4) { isChange = 1; level = (level > 0 ? level - 1 : level); }
+
+		}
+	}
+	return [isChange, level];
+}
+
+function resetScore() {
+	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
+	levelPoints = 0, levelIncrement = minIncrement;
+
+}
+function showScore() {
+	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
+	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
+	// let scoreString = 'question: ' + (numTotalAnswers + 1) + ' (' + percentageCorrect + '%)';
+	let scoreString = scoringMode == 'n' ? 'question: ' + (numTotalAnswers + 1) + '/' + SAMPLES_PER_LEVEL[currentLevel] :
+		scoringMode == 'percent' ? 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)'
+			: scoringMode == 'inc' ? 'score: ' + levelPoints + ' (' + percentageCorrect + '%)'
+				: 'question: ' + numTotalAnswers + '/' + boundary;
+
+	if (LevelChange)
+		dScore.innerHTML = scoreString;
+	else
+		setTimeout(() => { dScore.innerHTML = scoreString; }, 300);
+}
+
+//#endregion
+
+//#region show Level Complete and Revert Level
+function removeBadgeAndRevertLevel(nextLevel) {
+	//currentLevel = nextLevel;
+	removeBadges(dLeiste, nextLevel);
+	setBackgroundColor();
+	proceedIfNotStepByStep(nextLevel);
+	// showLevel();
+	//showScore();
+	//if (LevelChange) startLevel(nextLevel); 
+}
+
+function proceedIfNotStepByStep(nextLevel) {
+	if (!StepByStepMode) { proceed(nextLevel); }
+	else if (isdef(nextLevel) && nextLevel!=currentLevel) { currentLevel = nextLevel; }
+}
+function proceed(nextLevel) {
+	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	if (nundef(nextLevel)) nextLevel = currentLevel;
+
+	if (nextLevel > MAXLEVEL) {
+		let iGame = gameSequence.indexOf(currentGame) + 1;
+		if (iGame == gameSequence.length) {
+			playAudioEnd();
+			mClass(document.body, 'aniSlowlyDisappear');
+			show(dLevelComplete);
+			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+		} else {
+			let nextGame = gameSequence[iGame];
+			startGame(nextGame);
+		}
+	} else if (LevelChange) startLevel(nextLevel); 
+	else startRound();
+
+}
+function showStats() {
+	showLevel();
+	showScore();
+}
+
+function showLevelComplete(nextLevel) {
+	//currentLevel = nextLevel;
+	if (!skipAnimations) {
+		playAudio();
+		mClass(mBy('dLevelComplete'), 'aniFadeInOut');
+		show('dLevelComplete');
+		setTimeout(levelStep10, 1500);
+	} else {
+		addBadge(dLeiste, nextLevel);
+		setBackgroundColor();
+		//showLevel();
+		//showScore();
+		proceedIfNotStepByStep(nextLevel);
+		//proceedAfterLevelChange();
+	}
+
+}
+function levelStep10() {
+	mClass(document.body, 'aniFadeOutIn');
+	hide('dLevelComplete');
+	setTimeout(levelStep11, 500);
+}
+function levelStep11() {
+	clearTable();
+	setTimeout(levelStep12, 500);
+
+}
+function levelStep12() {
+	addBadge(dLeiste, currentLevel);
+	hide('dLevelComplete');
+	clearTable();
+
+	setTimeout(playRubberBandSound, 500);
+
+	setBackgroundColor();
+	showLevel();
+	//showScore();
+
+
+	setTimeout(levelStep13, 2000);
+}
+function levelStep13() {
+	mRemoveClass(document.body, 'aniFadeOutIn');
+	proceedIfNotStepByStep();
+	//proceedAfterLevelChange();
+}
+
+function proceedAfterLevelChange() {
+	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	if (currentLevel > MAXLEVEL) {
+		let iGame = gameSequence.indexOf(currentGame) + 1;
+		if (iGame == gameSequence.length) {
+			playAudioEnd();
+			mClass(document.body, 'aniSlowlyDisappear');
+			show(dLevelComplete);
+			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+
+		} else {
+			let nextGame = gameSequence[iGame];
+			startGame(nextGame);
+		}
+	} else startLevel();
 
 }
 //#endregion

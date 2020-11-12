@@ -26,7 +26,6 @@ function levelSPA() {
 	NextPictureIndex = 0;
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
-	writeComments();
 }
 function startRoundSPA() { }
 function promptSPA() {
@@ -74,7 +73,7 @@ function evalSPA(speechResult) {
 
 	if (isEmpty(speechResult)) {
 		console.log('empty speechResult')
-		return STATES.INCORRECT;
+		return false;
 	}
 
 	Selected = {}
@@ -91,7 +90,7 @@ function evalSPA(speechResult) {
 		addAsSoundToDatabase(Goal.info, answer);
 		return true;
 	} else {
-		return STATES.INCORRECT;
+		return false;
 	}
 }
 

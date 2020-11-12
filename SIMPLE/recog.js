@@ -152,7 +152,6 @@ function speech00(lang) {
 	//recognition.start();
 
 }
-function isGameWithSpeechRecognition() { return ['gSayPic', 'gSayPicAuto'].includes(currentGame); }
 function setVocabulary(words) {
 	var grammar = '#JSGF V1.0; grammar colors; public <color> = hallo';
 	for (const w of words) {

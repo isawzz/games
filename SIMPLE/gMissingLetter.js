@@ -26,7 +26,6 @@ function levelML() {
 
 	NumMissingLetters = levelInfo.NumMissingLetters;
 	MaxPosMissing = levelInfo.MaxPosMissing;
-	writeComments();
 	//console.log('NumMissing:' + NumMissingLetters, 'max pos:' + MaxPosMissing);
 }
 function startRoundML() { }
@@ -166,7 +165,7 @@ function evalML(word) {
 	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return true;
 	} else {
-		return STATES.INCORRECT;
+		return false; 
 	}
 }
 

@@ -26,7 +26,6 @@ function levelTC() {
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;
-	writeComments();
 }
 function startRoundTC() {
 	uiActivatedTC = false;
@@ -60,6 +59,6 @@ function evalTC(ev) {
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div};
 
-	if (item == Goal) { return true; } else { return STATES.INCORRECT; }
+	if (item == Goal) { return true; } else { return false; }
 }
 
