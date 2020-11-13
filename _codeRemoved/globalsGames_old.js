@@ -11,12 +11,17 @@ function startGame(game) {
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
+	//console.log('currentGame',currentGame)
+	// addGameToSessionHistoryAndRenewGameHistory(currentGame);
+
 	//determining currentGame
 	if (nundef(game)) game = currentGame;
 	if (game == 'sequence') game = gameSequence[0];
 	currentGame = game;
 	currentLevel = startAtLevel[currentGame];
 
+
+	//set scoringMode_
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
 	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
@@ -221,11 +226,25 @@ function evaluate() {
 		failPictureGoal(false);
 	}
 
-	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	//console.log(IsAnswerCorrect);
 
+	// let [levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	// console.log('levelChange',levelChange,'nextLevel',nextLevel)
+	// LevelChange = levelChange;
+	// currentLevel = nextLevel;
+
+	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	//console.log('LevelChange',LevelChange,'currentLevel',currentLevel)
+
+	//show feedbackAnimations in case of level change!
+	//console.log('=====>>>LevelChange',LevelChange);
+	// if (LevelChange < 0) setTimeout(() => removeBadgeAndRevertLevel(nextLevel), DELAY);
+	// else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
+	// else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
+	//setTimeout(startRound_, DELAY); 
 	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else setTimeout(proceedIfNotStepByStep, DELAY); 
+	else setTimeout(proceedIfNotStepByStep, DELAY); //no need to startLevel_!!!!!
 }
 
 function failPictureGoal(withComment = true) {
