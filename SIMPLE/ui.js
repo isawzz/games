@@ -64,8 +64,8 @@ function aniFadeInOut(elem, secs) {
 	//dLineBottomMiddle.opacity=0;
 	//mClass(dLineBottomMiddle,'aniFadeInOut');
 	setTimeout(() => { mRemoveClass(elem, 'transopaOn'); mClass(elem, 'transopaOff'); }, secs * 1000);
-
 }
+function getSignalColor(){	if (currentLevel != 4 && currentLevel != 7 && currentLevel != 10 && currentLevel != 3) return 'red'; else return 'yellow';}
 
 //#region fleetingMessage
 function clearFleetingMessage() {
@@ -89,7 +89,7 @@ function fleetingMessage(msg, styles, fade = false) {
 }
 //#endregion
 
-//#region ui
+//#region ui states
 function beforeActivationUI() { uiPaused |= beforeActivationMask; uiPaused &= ~hasClickedMask; }
 function activationUI() { uiPaused &= ~beforeActivationMask; }
 function hasClickedUI() { uiPaused |= hasClickedMask; }

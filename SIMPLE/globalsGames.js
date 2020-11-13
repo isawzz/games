@@ -1,7 +1,6 @@
 var pictureSize;
 function startGame(game) {
 
-
 	//das ist noch das alte game!!!
 	isINTERRUPT = true;
 	if (isGameWithSpeechRecognition() && isRunning) {
@@ -114,7 +113,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 	Pictures = [];
 	let labels = [];
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
-	//keys=['ox']; //["one o'clock"]; //['oil drum'];//,'door']
+	//keys=['tram'];//['ox']; //["one o'clock"]; //['oil drum'];//,'door']
 
 	//console.log('jjjjjjjjjjjjjjjjjjjjjjj',currentGame,currentKeys,keys)
 
@@ -441,6 +440,11 @@ function aniInstruction(text) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
+function animate(elem,aniclass,timeoutms){
+	mClass(elem, aniclass);
+	setTimeout(() => mRemoveClass(elem, aniclass), timeoutms);
+}
+
 function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }

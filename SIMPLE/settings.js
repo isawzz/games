@@ -1,6 +1,6 @@
 
 function initSettingsP0() {
-	// initialize common settings from settings window
+	// initialize settings in settings window
 	let iLanguage = mBy('input' + currentLanguage);
 	iLanguage.checked = true;
 
@@ -9,18 +9,9 @@ function initSettingsP0() {
 
 }
 
-function openSettings() {
-	show(dSettings);
-	pauseUI();
-}
-function closeSettings() {
-	setPicsPerLevel();
-	hide(dSettings);
-	resumeUI();
-}
-function toggleSettings() {
-	if (isVisible2('dSettings')) closeSettings(); else openSettings();
-}
+function openSettings() {	show(dSettings);	pauseUI();}
+function closeSettings() {	setPicsPerLevel();	hide(dSettings);	resumeUI();}
+function toggleSettings() {	if (isVisible2('dSettings')) closeSettings(); else openSettings();}
 
 function setGame(event) {
 	if (isString(event)) startGame(event);
@@ -32,11 +23,14 @@ function setGame(event) {
 		startGame(game);
 	}
 }
-function setLanguage(x) {
-	currentLanguage = x; startLevel();
+function setLanguage(x) {	currentLanguage = x; startLevel();}
+
+function setKeysX({cats, bestOnly=false, correctOnly=false, sortAccessor}) {
+	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly, reqOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
 }
 function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
-	//console.log('cats',cats,'bestOnly',bestOnly,'sortAccessor',sortAccessor,'correctOnly',correctOnly)
 	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
 		bestOnly, sortAccessor, correctOnly, reqOnly);
 	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }

@@ -1,3 +1,16 @@
+//#region nov12
+function testTimeString() {
+	let w = '3 uhr dreißig uhr';
+	console.log(w.trim(), w.trim().toUpperCase());
+	let w1 = stringAfterLast(w, ' ');
+	console.log('...w1', w1)
+	let val = endsWith(w.trim().toUpperCase(), 'UHR');
+	console.log('val', val)
+	let x = isTimeString('3 uhr dreißig uhr'); console.log('x', x); return;
+}
+
+
+//#region nov11
 function removeBadgeAndRevertLevelA(nextLevel) {
 	//currentLevel = nextLevel;
 	removeBadges(dLeiste, nextLevel);

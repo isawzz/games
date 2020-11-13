@@ -40,21 +40,11 @@ function promptSP() {
 	return 10; //1000;
 }
 function trialPromptSP() {
-	console.log('called from:',getFunctionsNameThatCalledThisFunction())
-	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	return 1000;
+	//showFleetingMessage('Say again!',0,{fz:80,fg:'red'});
+	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .3, true, 'zira');
+	animate(dInstruction,'pulse800'+getSignalColor(),900);
+	return 1500;
 }
-
-
-function mMicrophone(dParent) {
-	let d = mDiv(dParent);
-	d.innerHTML = '🎤';
-	let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
-	mStyleX(d, style);
-	mLinebreak(dParent);
-	return d;
-}
-
 async function activateSP() {
 	if (isSpeakerRunning) {
 		setTimeout(activateSP, 300);

@@ -1,5 +1,23 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true; // false | true
 USE_LOCAL_STORAGE = true; // false | true
+
+// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = IS_TESTING ? 'gTouchPic' : 'sequence';
+var currentUser = 'Gunter';
+var currentLanguage = 'E';
+var currentCategories = ['nosymbols'];
+var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
+	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 8, gWritePic: 10, gSayPic: 0 };
+var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
+	: ['gSayPic', 'gTouchColors', 'gWritePic'];//'gMissingLetter','gTouchPic', 
+var currentLevel;
+var currentKeys; //see setKeys, reset at each level!!!!!
+
+//speech recognition
+var MicrophoneUi; //this is the ui
+var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
+
+//control flow
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
 var skipBadgeAnimation = true;
@@ -10,25 +28,9 @@ var DELAY = 1000;
 var ROUND_DELAY = 500;
 var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 
-// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
-var currentUser = 'Gunter';
-var currentLanguage = 'E';
-var currentCategories = ['nosymbols'];
-var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 8, gWritePic: 10, gSayPic: 0 };
-var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
-	: ['gTouchColors', 'gWritePic', 'gSayPic'];//'gMissingLetter','gTouchPic', 
-var currentLevel;
-var currentKeys; //see setKeys, reset at each level!!!!!
-
-//speech recognition
-var MicrophoneUi; //this is the ui
-var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
-
 // output showing
 var RecogOutput = false;
-var RecogHighPriorityOutput=true;
+var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
 

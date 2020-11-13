@@ -346,6 +346,21 @@ input[type="checkbox"]:focus+label::before {
 
 
 /* #region animations */
+.pulse800yellow {
+	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;
+	color: yellow;
+	transition: color 500 ease-in-out;
+}
+.pulse800red {
+	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;
+	color: red;
+	transition: color 500 ease-in-out;
+	/* animation-name: pulse_animation;
+	animation-duration: 3000ms; */
+	/* transform-origin:70% 70%; */
+	/* animation-iteration-count: 3;
+	animation-timing-function: cubic-bezier(); */
+}
 .onPulse {
 	animation: pulse_animation 400ms ease-in-out 0s 6 alternate;
 	/* animation-name: pulse_animation;

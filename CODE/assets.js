@@ -393,6 +393,8 @@ async function loadCorrectWords() {
 			}else CorrectWordsFailed[cw.key]=cw;
 		}
 	}
+
+	
 	//console.log('CorrectWordsExact',CorrectWordsExact);
 	//console.log('CorrectWordsCorrect',CorrectWordsCorrect);
 	//console.log('CorrectWordsFailed',CorrectWordsFailed);

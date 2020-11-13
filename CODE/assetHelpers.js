@@ -471,14 +471,6 @@ function makeHigherOrderGroups() {
 	//console.log('group names:',Object.keys(symKeysBySet).sort());
 	ensureSymByType();
 }
-function getKeySet(groupName, language, maxlength) {
-	let keys = setGroup(groupName);
-	keys = isdef(maxlength) && maxlength > 0 ?
-		keys.filter(x => lastOfLanguage(x, language).length <= maxlength)
-		: keys;
-	return keys;
-
-}
 function setCategories(groupNameList) {
 	ensureSymBySet();
 	//console.log(groupNameList)
@@ -491,6 +483,27 @@ function setCategories(groupNameList) {
 			keys.push(k);
 		}
 	}
+	return keys;
+}
+function getKeySetSimple(cats, lang, minlen, maxlen, wLast = false, wExact=false, sorter=null) {
+	let keys = setCategories(cats);
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let exact=CorrectWordsExact[k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wLast ? [lastOfLanguage(k,lang)] : wordsOfLanguage(k, lang);
+			//console.log(ws)
+			for (const w of ws) {
+				if (w.length >= minlen && w.length <= maxlen 
+					&& (!wExact || isdef(exact) && w.toLowerCase() == exact.req && !exact.danger)) 
+					return true;
+			}
+			return false;
+		});
+	}
+	//console.log('________________',keys);//ok
+
+	if (isdef(sorter)) sortByFunc(keys,sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
 	return keys;
 }
 function getKeySetX(categories, language, minlength, maxlength, bestOnly = false, sortAccessor=null, correctOnly=false, reqOnly=false) {
@@ -515,6 +528,14 @@ function getKeySetX(categories, language, minlength, maxlength, bestOnly = false
 
 	if (isdef(sortAccessor)) sortByFunc(keys,sortAccessor); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
 	return keys;
+}
+function getKeySet(groupName, language, maxlength) {
+	let keys = setGroup(groupName);
+	keys = isdef(maxlength) && maxlength > 0 ?
+		keys.filter(x => lastOfLanguage(x, language).length <= maxlength)
+		: keys;
+	return keys;
+
 }
 function setGroup(groupName) { //deprecated! use setCategories!
 	ensureSymBySet();

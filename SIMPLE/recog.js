@@ -4,30 +4,42 @@ var final_transcript = '';
 var final_confidence, final_confidence2, final_confidence_sum, final_num;
 var interim_confidence, interim_confidence2, interim_confidence_sum, interim_num;
 var isRunning = false;
-var callback = null;
+// var callback = null;
 var recognition;
 var grammar;
 var hasGotResult, hasGotFinalResult;
 //#endregion
+
 //region Microphone
+
 function mMicrophone(dParent) {
 	let d = mDiv(dParent);
 	d.innerHTML = '🎤';
-	let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
+	//let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
+	let bg = getSignalColor();
+	let style = { bg: bg, rounding: '50%', fz: 50, padding: 5, transition: 'opacity .35s ease-in-out' };
 	mStyleX(d, style);
 	mLinebreak(dParent);
 	return d;
 }
 function MicrophoneStart() {
 	if (RecogOutput) console.log('* mic start')
-	show(MicrophoneUi);
+	//show(MicrophoneUi);
+	MicrophoneUi.style.opacity=1;
+
+	//MicrophoneShow();
 	//mClass(MicrophoneUi, 'blink');
+
+	//bg: '#FF413680'
 }
 function MicrophoneStop() {
 	//mRemoveClass(MicrophoneUi, 'blink');
-	hide(MicrophoneUi);
-	//hide('dRecord');
+	if (RecogOutput) console.log('* mic end')
+	// hide(MicrophoneUi);
+	MicrophoneUi.style.opacity=.31;
 }
+function MicrophoneHide() {MicrophoneStop();} //MicrophoneUi.style.opacity=0;}
+function MicrophoneShow() {MicrophoneStart();}//MicrophoneUi.style.opacity=1;}
 //#endregion
 
 function record(lang, best) {
@@ -63,6 +75,7 @@ function addStartHandler() {
 		if (!isGameWithSpeechRecognition()) return;
 		isRunning = true;
 		MicrophoneStart();
+		//clearFleetingMessage();
 	};
 }
 function addResultHandler() {
@@ -71,7 +84,7 @@ function addResultHandler() {
 			if (RecogOutput) console.log('*event recog.onresult triggered but not a game with speech recog!!!')
 			return;
 		}
-		MicrophoneStop();
+		//MicrophoneStop();
 		hasGotResult = true;
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 			if (event.results[i].isFinal) {
@@ -103,23 +116,25 @@ function addResultHandler() {
 function addEndHandler() {
 	recognition.onend = function () {
 		if (!isGameWithSpeechRecognition()) return;
-		if (RecogOutput) console.log('* recog.onend')
+		//if (RecogOutput) console.log('* recog.onend')
 		isRunning = false;
 		if (recordCallback) {
+			if (RecogOutput) console.log('* recog.onend: recordCallback NON_EMPTY!', recordCallback);
 			recordCallback();
-		} else if (hasGotResult && !hasGotFinalResult) {
-			if (RecogOutput) console.log('* recog.onend: got interim only', interim_transcript);
+			return;
+		}
+		MicrophoneHide();
+		if (hasGotResult && !hasGotFinalResult) {
+			if (RecogOutput) console.log('* recog.onend: EVAL interim', interim_transcript);
 			setSpeechResult(interim_transcript, interim_confidence, interim_confidence2);
 			evaluate(interim_transcript);
 		} else if (!hasGotResult) {
-			console.log('* never got result!!!');
+			if (RecogOutput) console.log('* recog.onend: never got result!!!');
 			if (OnMicrophoneProblem) OnMicrophoneProblem();
 			else evaluate('');
-			//activateUi();
 		} else {
-			if (RecogOutput) console.log('* recog.onend hasGotResult', hasGotResult, final_transcript)
+			if (RecogOutput) console.log('* recog.onend final DONE!', final_transcript);
 		}
-		MicrophoneStop();
 	};
 }
 function addErrorHandler() {
@@ -129,10 +144,10 @@ function addErrorHandler() {
 		if (RecogOutput) console.error(event);
 		if (OnMicrophoneProblem) OnMicrophoneProblem();
 		if (recordCallback) recordCallback();
-		MicrophoneStop();
-		//hide('dRecord');
 	};
 }
+
+
 
 function speech00(lang) {
 	if (typeof (webkitSpeechRecognition) != "function") { alert("Unable to use the Speech Recognition API"); }
@@ -152,7 +167,7 @@ function speech00(lang) {
 	//recognition.start();
 
 }
-function setVocabulary(words) {
+function setVocabulary(words) { //doesn't work
 	var grammar = '#JSGF V1.0; grammar colors; public <color> = hallo';
 	for (const w of words) {
 		grammar += ' | ' + w; ///aqua | azure | beige ... ;'
@@ -169,7 +184,7 @@ function setSpeechResult(transcript, conf1, conf2, isFinal = false) {
 	Goal.isSpeechResultFinal = isFinal;
 	if (RecogHighPriorityOutput)
 		console.log('*=' + (isFinal ? 'final' : 'interim') + '==>', 'best:' + bestWord, 'got:' + transcript,
-			'(confid: ' + conf1 + '/' + conf2+')');
+			'(confid: ' + conf1 + '/' + conf2 + ')');
 }
 
 
