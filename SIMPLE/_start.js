@@ -10,6 +10,7 @@ async function SessionStart() {
 	initSettingsP0();
 
 	CurrentSessionData = { user: currentUser, games: [] };
+	//ProgramData = loadProgram();
 
 	if (immediateStart && IS_TESTING) { hide('freezer'); show('divControls'); startGame(); }
 	else if (immediateStart) { show('freezer'); hide('divControls'); }

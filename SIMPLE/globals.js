@@ -1,4 +1,4 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
 
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
@@ -9,7 +9,9 @@ var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
 	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 8, gWritePic: 10, gSayPic: 0 };
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
-	: ['gSayPic', 'gTouchColors', 'gWritePic'];//'gMissingLetter','gTouchPic', 
+	: ['gTouchPic','gMissingLetter', 'gSayPic', 'gTouchColors', 'gWritePic'];
+	// : ['gSayPic', 'gTouchColors', 'gWritePic'];
+	// : ['gSayPic', 'gTouchColors', 'gWritePic'];//'gMissingLetter','gTouchPic', 
 var currentLevel;
 var currentKeys; //see setKeys, reset at each level!!!!!
 

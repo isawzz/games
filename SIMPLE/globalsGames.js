@@ -14,9 +14,12 @@ function startGame(game) {
 	//console.log('currentGame',currentGame)
 	// addGameToSessionHistoryAndRenewGameHistory(currentGame);
 
+	//determining currentGame
 	if (nundef(game)) game = currentGame;
 	if (game == 'sequence') game = gameSequence[0];
 	currentGame = game;
+	currentLevel = startAtLevel[currentGame];
+
 
 	//set scoringMode_
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
@@ -29,8 +32,6 @@ function startGame(game) {
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
-
-	currentLevel = startAtLevel[currentGame];
 
 	resetState();
 
@@ -88,7 +89,7 @@ function promptStart() {
 }
 function promptNextTrial() {
 	//console.log('promptNextTrial',uiPaused)
-	console.log('called from:',getFunctionsNameThatCalledThisFunction())
+	console.log('called from:', getFunctionsNameThatCalledThisFunction())
 	beforeActivationUI();
 	//console.log('promptNextTrial',uiPaused)
 
@@ -301,8 +302,8 @@ function scoring(isCorrect) {
 		//console.log('scoringMode', scoringMode)
 
 		if (scoringMode == 'inc') {
-			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { 
-				levelChange = 1; nextLevel += 1; 
+			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) {
+				levelChange = 1; nextLevel += 1;
 			}
 
 		} else if (scoringMode == 'percent') {
@@ -351,17 +352,23 @@ function proceedIfNotStepByStep(nextLevel) {
 	if (!StepByStepMode) { proceed(nextLevel); }
 	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
 }
+function aniGameOver(msg) {
+	soundGoodBye();
+	mClass(document.body, 'aniSlowlyDisappear');
+	show(dLevelComplete);
+	dLevelComplete.innerHTML = msg;
+}
 function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
-	if (nextLevel > MAXLEVEL) {
+	if (ProgTimeUp) {
+		let msg = endProgram();
+		aniGameOver(msg);
+	} else if (nextLevel > MAXLEVEL) {
 		let iGame = gameSequence.indexOf(currentGame) + 1;
 		if (iGame == gameSequence.length) {
-			soundGoodBye();
-			mClass(document.body, 'aniSlowlyDisappear');
-			show(dLevelComplete);
-			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+			aniGameOver('CONGRATULATIONS! You are done!');
 		} else {
 			let nextGame = gameSequence[iGame];
 			startGame(nextGame);
@@ -440,7 +447,7 @@ function aniInstruction(text) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
-function animate(elem,aniclass,timeoutms){
+function animate(elem, aniclass, timeoutms) {
 	mClass(elem, aniclass);
 	setTimeout(() => mRemoveClass(elem, aniclass), timeoutms);
 }
