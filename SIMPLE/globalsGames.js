@@ -223,9 +223,11 @@ function evaluate() {
 
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
-	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+
+	if (LevelChange && ProgTimeout) { setTimeout(aniGameOver('Great job! Time for a break!'),DELAY); }
+	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else setTimeout(proceedIfNotStepByStep, DELAY); 
+	else setTimeout(proceedIfNotStepByStep, DELAY);
 }
 
 function failPictureGoal(withComment = true) {
@@ -347,7 +349,7 @@ function proceed(nextLevel) {
 	if (nextLevel > MAXLEVEL) {
 		let iGame = gameSequence.indexOf(currentGame) + 1;
 		if (iGame == gameSequence.length) {
-			aniGameOver('CONGRATULATIONS! You are done!');
+			aniGameOver('Congratulations! You are done!');
 		} else {
 			let nextGame = gameSequence[iGame];
 			startGame(nextGame);

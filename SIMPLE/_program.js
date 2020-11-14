@@ -1,5 +1,5 @@
 var ProgTimeout=false;
-var ProgMinutes=.5;
+var ProgMinutes=5;
 
 
 function loadProgram() {
@@ -7,7 +7,7 @@ function loadProgram() {
 	if (isdef(progData)) {
 		let index = progData.seq % gameSequence.length;
 		let game = gameSequence[index];
-		if (isdef(game)) { let level = progData.level; startAtLevel[currentGame] = level; }
+		if (isdef(game)) { let level = progData.level; currentGame = game; startAtLevel[currentGame] = level; }
 	}
 	console.log('progData', progData, 'currentGame', currentGame, 'gameSequence', gameSequence);
 }

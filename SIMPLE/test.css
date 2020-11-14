@@ -15,11 +15,13 @@ div{
 #dLevelComplete{
 	position:fixed;
 	text-align: center;
-	background-color: #00000080;
+	background-color: #000000BF;
 	font-size:80px;
 	top: 32%;
 	padding: 80px;
 	border-radius: 20px;
+	max-height: 40%;
+	width: 80%;
 
 }
 #dCheckMark,#dX{

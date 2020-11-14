@@ -37,7 +37,7 @@ var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 3;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var fleetingMessageTimeout;
