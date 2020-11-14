@@ -1,24 +1,20 @@
 var pictureSize;
-function determineGame(data) {
-	//determining currentGame: data undefined, game name or game index
-	//if data is a game name, will take 
-	if (nundef(data)) {
-		if (GameSelectionMode == 'program') {
-			data = GameSequence[GameIndex];
-			currentGame = data.g;
-			currentLevel = SavedLevel; 
-		} else {
-			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
-		}
-	} else if (isNumber(data)) {
-		GameSelectionMode = 'indiv';
-		currentLevel = Number(data)%MAXLEVEL;
-
-	} else if (isString(data)) {
+function determineGame(){
+	//determining currentGame
+	if (nundef(data)){
+		console.log('hard-coded: currentGame',currentGame,'currentLevel',currentLevel)
+	}else	if (isNumber(data)) {
+		GameIndex = data%GameSequence.length;
+		data=GameSequence[GameIndex];
+		currentGame = data.g;
+		currentLevel = data.cl>MAXLEVEL?data.sl:data.cl;
+	}else if (isDict(data)){
+		//data is supposedly already a GameSequence object!
+		currentGame = data.g;
+		currentLevel = data.cl>MAXLEVEL?data.sl:data.cl;
+	}else if (isString(data)){
 		//data is the name of a game
-		GameSelectionMode = 'indiv';
 		currentGame = data;
-		currentLevel = startAtLevel[currentGame];
 	}
 }
 function startGame(data) {
@@ -33,13 +29,21 @@ function startGame(data) {
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
-	determineGame(data);
+	determineGame();
+	// else if (isString(data)) {GameIndex=0;currentGame = data;currentLevel=startAtLevel[data];}
+	// if (nundef(data)) data = currentGame;
+	// if (nundef(data)) {
+	// 	data = GameSequence[GameIndex];
+	// }
+	// currentGame = data;
+	// currentLevel = startingLevel[GameIndex]; //startAtLevel[currentGame];
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
 	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
+	//console.log('session:',CurrentSessionData)
 
-	console.log('===> game', currentGame, 'level', currentLevel);
+	//console.log('currentGame',currentGame)
 
 	onkeydown = null;
 	onkeypress = null;
@@ -241,10 +245,10 @@ function evaluate() {
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
 
-	if (LevelChange && ProgTimeout) {
+	if (LevelChange && ProgTimeout) { 
 		saveProgram();
 		//console.log('ENDING AT',currentGame,currentLevel)
-		setTimeout(aniGameOver('Great job! Time for a break!'),DELAY); 
+		//setTimeout(aniGameOver('Great job! Time for a break!'),DELAY); 
 	}
 	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
@@ -358,27 +362,25 @@ function proceedIfNotStepByStep(nextLevel) {
 	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
 }
 function aniGameOver(msg) {
-	//soundGoodBye();
-	show('freezer2');
-	mClass(mBy('freezer2'), 'aniSlowlyAppear');
-
-	//old code
-	//mClass(document.body, 'aniSlowlyDisappear');
-	//show(dLevelComplete);
-	//dLevelComplete.innerHTML = msg;
+	soundGoodBye();
+	mClass(document.body, 'aniSlowlyDisappear');
+	show(dLevelComplete);
+	dLevelComplete.innerHTML = msg;
 }
 function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
-	updateGameSequence(nextLevel);
 	if (nextLevel > MAXLEVEL) {
-		if (GameIndex >= GameSequence.length) {
+		let iGame = gameSequence.indexOf(currentGame) + 1;
+		if (iGame == gameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
-			startGame(); 
+			let nextGame = gameSequence[iGame];
+			startGame(nextGame);
 		}
-	}	else startRound();
+	} else if (LevelChange) startLevel(nextLevel);
+	else startRound();
 
 }
 

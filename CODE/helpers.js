@@ -2172,6 +2172,7 @@ function processCsvData(allText) {
 //localStorage save and load:
 function saveObject(o, name) { localStorage.setItem(name, JSON.stringify(o)); }
 function loadObject(name) { return JSON.parse(localStorage.getItem(name)); }
+//async function loadObjectAsync(name) { return JSON.parse(await localStorage.getItem(name)); }
 async function loadAsText(url) {
 	let f = await fetch(url);
 	let txt = await f.text();

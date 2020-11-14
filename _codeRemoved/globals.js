@@ -12,12 +12,11 @@ var currentCategories = ['nosymbols'];
 
 //RESERVED FOR PROGRAM! GameSelectionMode = program
 var HCGameSeq = [
-	{ g: 'gTouchPic', sl: 10, cl: 10 },
-	{ g: 'gTouchColors', sl: 10, cl: 10 },
-	{ g: 'gWritePic', sl: 10, cl: 10 }];
-const DEFAULTLEVEL = 10;
-var GameIndex;
+	{ g: 'gTouchPic', sl: 10 },
+	{ g: 'gTouchColors', sl: 10 },
+	{ g: 'gWritePic', sl: 10 }];
 var GameSequence = HCGameSeq;
+var GameIndex;
 var SavedLevel = 0;
 
 // GameSelectionMode = indiv
