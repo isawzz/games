@@ -1,14 +1,5 @@
 const IS_TESTING = false; // false | true
-USE_LOCAL_STORAGE = true; // false | true
-const immediateStart = true;  // false | true
-var skipAnimations = IS_TESTING; // false | true
-var skipBadgeAnimation = true;
-var StepByStepMode = false; //wartet auf click next um wieder zu starten!
-
-// delays
-var DELAY = 1000;
-var ROUND_DELAY = 500;
-var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
+const CLEAR_LOCAL_STORAGE = false;
 
 // gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
 var currentGame = IS_TESTING ? 'gSayPic' : 'sequence';
@@ -16,11 +7,33 @@ var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols'];
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 3, gTouchColors: 6, gWritePic: 10, gMissingLetter: 10, gSayPic: 0 }
-	: { gMissingLetter: 3, gTouchPic: 7, gTouchColors: 8, gWritePic: 10, gSayPic: 0 };
+	: { gMissingLetter: 6, gTouchPic: 9, gTouchColors: 8, gWritePic: 9, gSayPic: 0 };
 var gameSequence = IS_TESTING ? ['gSayPicAuto', 'gTouchPic', 'gTouchColors', 'gWritePic', 'gMissingLetter', 'gSayPic']
-	: ['gTouchColors', 'gWritePic', 'gSayPic'];//'gMissingLetter','gTouchPic', 
-var currentLevel;
-var currentKeys; //see setKeys, reset at each level!!!!!
+	: ['gTouchPic', 'gMissingLetter', 'gTouchColors', 'gWritePic'];//, 'gSayPic'];//'gMissingLetter','gTouchPic', 
+var ProgTimeout = false;
+var ProgMinutes = 3;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 10;
+
+//RESERVED FOR PROGRAM! GameSelectionMode = program
+var HCGameSeq = [
+	{ g: 'gTouchPic', sl: 10, cl: 10 },
+	{ g: 'gTouchColors', sl: 10, cl: 10 },
+	{ g: 'gWritePic', sl: 10, cl: 10 }];
+var GameIndex;
+var GameSequence = HCGameSeq;
+var SavedLevel = 0;
+
+USE_LOCAL_STORAGE = true; // false | true
+const immediateStart = true;  // false | true
+var skipAnimations = IS_TESTING; // false | true
+var skipBadgeAnimation = true;
+var StepByStepMode = false; //wartet auf click next um wieder zu starten!
+var GameSelectionMode = 'program'; // indiv | program | training
+
+// delays
+var DELAY = 1000;
+var ROUND_DELAY = 500;
+var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 
 //speech recognition
 var MicrophoneUi; //this is the ui
@@ -28,12 +41,12 @@ var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
 
 // output showing
 var RecogOutput = false;
-var RecogHighPriorityOutput=true;
+var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
+const SHOW_FREEZER = !IS_TESTING
 
 //common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 3;
 var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
 var fleetingMessageTimeout;
@@ -49,6 +62,10 @@ var NumLabels;
 var Pictures = [];
 var Goal, Selected;
 var NextPictureIndex = 0;
+
+var currentLevel;
+var currentKeys; //see setKeys, reset at each level!!!!!
+
 
 //score
 var scoringMode, DefaultScoringMode = 'n'; // n | inc | percent | mixed | autograde

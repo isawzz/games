@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<div id='dCheckMark' style='display:none'>✔️</div>
-	<div id='divControls'>
+	<div id='divControls'  style='display:none'>
 		<div id='bStart' onclick=onClickStartButton()>Start</div>
 		<div id='bNext' onclick=onClickNextButton()>Next</div>
 		<div id='bRun' onclick=onClickRunButton()>Run</div>
@@ -87,8 +87,14 @@
 
 	</div>
 	<div id='dGear' onclick='toggleSettings()' style='position:fixed'>⚙️</div>
-	<div id='freezer' onclick="onClickFreezer()">
+	<div id='freezer' onclick="onClickFreezer()"  style='display:none'>
 		<div  class='centerCentered'>Click to Start!</div>
+	</div>
+	<div id='freezer2' onclick="onClickFreezer2()" style='display:none'>
+		<div class='centerCentered' style='margin-top:-100px;'>
+			<p>Great Job!</p>
+			<p style='font-size:64px'>Time for a Break...</p>
+		</div>
 	</div>
 	<audio id="myAudio">
 		<source src="/assets/sounds/sound1.wav" type="audio/wav">

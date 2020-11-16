@@ -1,6 +1,31 @@
 var pictureSize;
-function startGame(game) {
+function determineGame(data) {
+	//determining currentGame: data undefined, game name or game index
+	if (nundef(data)) {
+		if (GameSelectionMode == 'program') {
+			data = GameSequence[GameIndex];
+			currentGame = data.g;
+			currentLevel = SavedLevel;
+		} else if (GameSelectionMode == 'training') {
+			currentGame = 'gSayPicAuto';
+			currentLevel = 0;
+			//MASTER_VOLUME = 1;
+			show('divControls');
+		} else {
+			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
+		}
+	} else if (isNumber(data)) {
+		GameSelectionMode = 'indiv';
+		currentLevel = Number(data) % MAXLEVEL;
 
+	} else if (isString(data)) {
+		//data is the name of a game
+		GameSelectionMode = 'indiv';
+		currentGame = data;
+		currentLevel = startAtLevel[currentGame];
+	}
+}
+function startGame(data) {
 
 	//das ist noch das alte game!!!
 	isINTERRUPT = true;
@@ -15,9 +40,13 @@ function startGame(game) {
 	//console.log('currentGame',currentGame)
 	// addGameToSessionHistoryAndRenewGameHistory(currentGame);
 
-	if (nundef(game)) game = currentGame;
-	if (game == 'sequence') game = gameSequence[0];
-	currentGame = game;
+	// if (nundef(game)) game = currentGame;
+	// if (game == 'sequence') game = gameSequence[0];
+	// currentGame = game;
+	//determineGame(data);
+	currentGame = GameSequence[GameIndex].g;
+	currentLevel = SavedLevel>MAXLEVEL?startAtLevel[currentGame]:SavedLevel;
+	console.log('______ * game',currentGame,'level',currentLevel,'*')
 
 	//set scoringMode_
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
@@ -31,7 +60,7 @@ function startGame(game) {
 	onkeypress = null;
 	onkeyup = null;
 
-	currentLevel = startAtLevel[currentGame];
+	//currentLevel = startAtLevel[currentGame];
 
 	resetState();
 
@@ -89,7 +118,7 @@ function promptStart() {
 }
 function promptNextTrial() {
 	//console.log('promptNextTrial',uiPaused)
-	console.log('called from:',getFunctionsNameThatCalledThisFunction())
+	console.log('called from:', getFunctionsNameThatCalledThisFunction())
 	beforeActivationUI();
 	//console.log('promptNextTrial',uiPaused)
 
@@ -241,7 +270,11 @@ function evaluate() {
 	// else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
 	// else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
 	//setTimeout(startRound_, DELAY); 
-	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	if (LevelChange && ProgTimeout) {
+		saveProgram();
+		//console.log('ENDING AT',currentGame,currentLevel)
+		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
+	} if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY); //no need to startLevel_!!!!!
 }
@@ -302,8 +335,8 @@ function scoring(isCorrect) {
 		//console.log('scoringMode', scoringMode)
 
 		if (scoringMode == 'inc') {
-			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { 
-				levelChange = 1; nextLevel += 1; 
+			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) {
+				levelChange = 1; nextLevel += 1;
 			}
 
 		} else if (scoringMode == 'percent') {
@@ -356,16 +389,28 @@ function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
+	// orig code
+	// if (nextLevel > MAXLEVEL) {
+	// 	let iGame = gameSequence.indexOf(currentGame) + 1;
+	// 	if (iGame == gameSequence.length) {
+	// 		soundGoodBye();
+	// 		mClass(document.body, 'aniSlowlyDisappear');
+	// 		show(dLevelComplete);
+	// 		dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+	// 	} else {
+	// 		let nextGame = gameSequence[iGame];
+	// 		startGame(nextGame);
+	// 	}
+	// } else if (LevelChange) startLevel(nextLevel);
+	// else startRound();
+
+	if (ProgTimeout) return;
+	updateGameSequence(nextLevel);
 	if (nextLevel > MAXLEVEL) {
-		let iGame = gameSequence.indexOf(currentGame) + 1;
-		if (iGame == gameSequence.length) {
-			soundGoodBye();
-			mClass(document.body, 'aniSlowlyDisappear');
-			show(dLevelComplete);
-			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
+		if (GameIndex >= GameSequence.length) {
+			aniGameOver('Congratulations! You are done!');
 		} else {
-			let nextGame = gameSequence[iGame];
-			startGame(nextGame);
+			startGame();
 		}
 	} else if (LevelChange) startLevel(nextLevel);
 	else startRound();
@@ -407,7 +452,7 @@ function levelStep12() {
 	hide('dLevelComplete');
 	clearTable();
 
-	setTimeout(playRubberBandSound, 500);
+	//setTimeout(playRubberBandSound, 500);
 
 	setBackgroundColor();
 	showLevel();
@@ -507,6 +552,58 @@ function writeComments(pre) {
 }
 //#endregion
 
+function updateGameSequence(nextLevel) {
+	console.log(nextLevel, MAXLEVEL)
+	if (nextLevel > MAXLEVEL) {
+		GameIndex = (GameIndex + 1) % GameSequence.length;
+		SavedLevel = GameSequence[GameIndex].sl;
+	} else SavedLevel = nextLevel;
+}
+
+async function loadProgram() {
+	//sets GameSequence from _config.yaml is exists, GameIndex,SavedLevel from localStorage if exists 
+
+	let data = await loadYamlDict('/SI/_config.yaml');
+	if (isdef(data)) GameSequence = data.GameSequence;
+
+	GameIndex = localStorage.getItem('GameIndex');
+	if (isString(GameIndex)) { GameIndex = Number(GameIndex); }
+	if (nundef(GameIndex)) { GameIndex = 0; }
+
+	SavedLevel = localStorage.getItem('SavedLevel');
+	if (isString(SavedLevel)) { SavedLevel = Number(SavedLevel); }
+	if (nundef(SavedLevel)) { SavedLevel = GameSequence[GameIndex].sl; }
+
+	//friendly output
+	let i = 0;
+	GameSequence.map(x => {
+		if (i == GameIndex) console.log('=>', x); else console.log('', x);
+		i += 1;
+	});
+	console.log('GameIndex loaded', GameIndex);
+	console.log('SavedLevel loaded', SavedLevel);
+}
+
+function saveProgram() {
+	updateGameSequence(currentLevel);
+	localStorage.setItem('GameIndex', GameIndex.toString());
+	console.log('GameIndex saved', GameIndex);
+	localStorage.setItem('SavedLevel', SavedLevel.toString());
+	console.log('SavedLevel saved', SavedLevel);
+	// localStorage.setItem('currentLevel',GameIndex.toString());
+	// console.log('GameIndex saved',GameIndex)
+}
+
+function aniGameOver(msg) {
+	//soundGoodBye();
+	show('freezer2');
+	mClass(mBy('freezer2'), 'aniSlowlyAppear');
+
+	//old code
+	//mClass(document.body, 'aniSlowlyDisappear');
+	//show(dLevelComplete);
+	//dLevelComplete.innerHTML = msg;
+}
 
 
 
