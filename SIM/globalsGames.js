@@ -32,7 +32,7 @@ function startGame(data) {
 	if (isGameWithSpeechRecognition() && isRunning) {
 		ROUND_DELAY = 2000;
 		//alert('INTERRUPTING SPEECH RECOG!')
-		//console.log('=>recog running: need to interrupt!', isRunning);
+		console.log('=>recog running: need to interrupt!', isRunning);
 		recognition.abort();
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
@@ -43,7 +43,7 @@ function startGame(data) {
 
 	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
 
-	//console.log('===> game', currentGame, 'level', currentLevel);
+	console.log('===> game', currentGame, 'level', currentLevel);
 
 	onkeydown = null;
 	onkeypress = null;
@@ -132,7 +132,7 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, l
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
 	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
-	//console.log(infos)
+	console.log(infos)
 	if (nundef(labels)) {
 		labels = [];
 		for (const info of infos) {
@@ -255,7 +255,8 @@ function evaluate() {
 		saveProgram();
 		//console.log('ENDING AT',currentGame,currentLevel)
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
-	}	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	}
+	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY);
 }

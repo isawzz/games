@@ -2,58 +2,25 @@
 window.onload = SessionStart;
 //window.onunload = saveProgram; //saveSettings;
 
-
-function _start() {
-
-	// //testAccessor(); return;
-	// //let infos = getInfolist({cats:['animal']}); return;
-
-	initTable();
-	Speech = new SpeechFeature(MASTER_VOLUME);
-
-	//speechTraining(); return;
-	testSimilar01('hand'); return;
-	testLanguageChange(); return;
-	testWait(); return;
-	testRecognizeAdvanced();return;
-	testRecognize2(); return;
-	testPromise(); return; //GEHT NICHT!!!
-	testRecognize(); return;
-	testStartAgainAfterStartingRecorder(); return;
-	testChangingLangAfterStartingRecorder(); return;
-	let infos = getSymbols();
-	console.log(infos);
-	let w = infos[0].best;
-
-	//let onRecorderStart = () => Speech.say(w);
-	let onRecorderStart = () => Speech.setRecordingLanguage('D');
-
-	Speech.record({ onStart: onRecorderStart, delayStart: 2000, retry: true });
-
-}
-
 async function SessionStart() {
 
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 
 	await loadCorrectWords(); await loadAssets(); ensureSymBySet(); makeHigherOrderGroups();
 
-	//setTimeout(_start, 2000);	return;
+	//return;
+	// setKeys({ cats: ['kitchen'], lang: 'D', wLast: true }); console.log('currentKeys', currentKeys); return;
+
 
 	initTable();
 	initSidebar();
 	initSettingsP0();
 
 	CurrentSessionData = { user: currentUser, games: [] };
-
-	//old speech regoc init
 	speech00(currentLanguage);
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 }
-
-
-
 async function startUnit() {
 
 	ProgTimeout = false;
@@ -79,7 +46,6 @@ function onClickRunStopButton(b) {
 }
 function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
 function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
-
 
 
 

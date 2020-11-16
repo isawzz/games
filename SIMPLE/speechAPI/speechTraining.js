@@ -1,5 +1,8 @@
 async function speechTraining() {
-
+	if (nundef(Speech)){
+		console.log('MISSING FEATURES: speechTraining needs the Speech feature!');
+		return;
+	}
 
 	let trainingSet = ['animal', 'game'];//bestimmeAlleSetsDieDurchgehenSoll();
 	let setSize = 1;
@@ -14,7 +17,13 @@ async function speechTraining() {
 				
 				//start recording
 
-				record(lang,wToBeSaid);
+				let req=wToBeSaid.toLowerCase();
+
+				Speech.recognize(wToBeSaid,lang,
+					(r,c)=>{
+						//if ()
+						console.log('hallo');
+					});
 
 				//say the word
 				setTimeout(()=>say(wToBeSaid, .5, .8, 1, false, 'random'),1000);

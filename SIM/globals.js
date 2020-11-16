@@ -1,16 +1,16 @@
 const IS_TESTING = false; // false | true
 USE_LOCAL_STORAGE = true; // false | true
-var MASTER_VOLUME = .5;
-var GameSelectionMode = 'program'; // indiv | program | training
+var MASTER_VOLUME = .25;
+var GameSelectionMode = 'indiv'; // indiv | program | training
 
 var currentUser = 'Gunter';
 var currentLanguage = 'E';
-var currentCategories = ['nosymbols']; //['kitchen'];
+var currentCategories = ['kitchen'];
 var currentKeys; //see setKeys, reset at each level!!!!!
 
 //RESERVED FOR PROGRAM! GameSelectionMode = program
 var HCGameSeq = [
-	{ g: 'gTouchPic', sl: 6, cl: 10 },
+	{ g: 'gTouchPic', sl: 10, cl: 10 },
 	{ g: 'gTouchColors', sl: 10, cl: 10 },
 	{ g: 'gWritePic', sl: 10, cl: 10 }];
 var GameIndex;

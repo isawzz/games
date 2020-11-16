@@ -1,77 +1,65 @@
-const LevelsSPA = {
-	0: { NumPics: 1, NumLabels: 1, MaxNumTrials: 1 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 3 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 3 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 3 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, MaxNumTrials: 3 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, MaxNumTrials: 3 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 10, MaxNumTrials: 3 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 11, MaxNumTrials: 3 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, MaxNumTrials: 3 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 1 },
+const LevelsSP = {
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 3 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 21, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 21, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
 }
-function startGameSPA() { }
-function startLevelSPA() { levelSPA(); }
-function levelSPA() {
-	let levelInfo = LevelsSPA[currentLevel];
-	if (isdef(levelInfo.MaxNumTrials)) MaxNumTrials = levelInfo.MaxNumTrials;
-	if (isdef(levelInfo.MaxWordLength)) MaxWordLength = levelInfo.MaxWordLength;
-	if (isdef(levelInfo.MinWordLength)) MinWordLength = levelInfo.MinWordLength;
-	setKeys({ cats: ['kitchen'], wLast: true });
-
-	//currentKeys.sort((a,b)=>stringAfterLast(symbolDict[a][currentLanguage],'|')-stringAfterLast(symbolDict[b][currentLanguage],'|'));
-	boundary = 1; //currentKeys.length - 1;
-	NextPictureIndex = 0;
+function startGameSP() { }
+function startLevelSP() { levelSP(); }
+function levelSP() {
+	//console.log('level',currentLevel)
+	let levelInfo = LevelsSP[currentLevel];
+	MaxNumTrials = levelInfo.MaxNumTrials;
+	MaxWordLength = levelInfo.MaxWordLength;
+	MinWordLength = levelInfo.MinWordLength;
+	setKeys(currentCategories,false,x=>lastOfLanguage(x,currentLanguage),true, true);
+	
+	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
+	//console.log(currentKeys);
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 }
-function startRoundSPA() { }
-function promptSPA() {
+function startRoundSP() { }
+function promptSP() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus(), undefined, [currentKeys[NextPictureIndex]]);
-	NextPictureIndex += 1;
-
+	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
-	//showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle, true);
-
 
 	mLinebreak(dTable);
 	MicrophoneUi = mMicrophone(dTable);
 
-
 	return 10; //1000;
 }
-function trialPromptSPA() {
-	//say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	return 10;
+function trialPromptSP() {
+	//showFleetingMessage('Say again!',0,{fz:80,fg:'red'});
+	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .3, true, 'zira');
+	animate(dInstruction,'pulse800'+getSignalColor(),900);
+	return 1500;
 }
-
-async function activateSPA() {
-
-	OnMicrophoneReady = setTimeout(() => {
-		say(bestWord, .7, 1, 1, false, 'random'); //, () => { console.log('done:', Goal.key) });
-		//say(bestWord)
-	}, DELAY_BETWEEN_MIKE_AND_SPEECH);
-	//OnMicrophoneProblem = () => console.log('microphone problem');
-	//OnMicrophoneGotResult = evaluate
-	setTimeout(() => record(currentLanguage, bestWord), 100);
-
-	// if (trialNumber > 1) {
-	// 	console.log('JEEEEEEEEEEEEEEETZT')
-	// 	setTimeout(() => say(bestWord), 1000);
-	// }
+async function activateSP() {
+	if (isSpeakerRunning) {
+		setTimeout(activateSP, 300);
+	} else {
+		setTimeout(() => record(currentLanguage, bestWord), 100);
+	}
 	//orig code:
 	// setTimeout(() => {
 	// 	record(currentLanguage, bestWord);
 	// }, trialNumber == 0 ? 4000 : 1500);
 }
-function evalSPA(speechResult) {
+function evalSP(speechResult) {
 
 	if (isEmpty(speechResult)) {
-		console.log('empty speechResult')
+		//console.log('.....empty speechResult');
 		return false;
 	}
 
@@ -80,7 +68,6 @@ function evalSPA(speechResult) {
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
 	if (answer == reqAnswer) return true;
-	else if (differInAtMost(reqAnswer, answer, 1)) return true;
 	else if (matchesAnyWordOrSound(Goal.info, answer)) return true;
 	else if (matchingNumberOrTime(Goal.info, answer)) {
 		//console.log('matches as number or time!!!')
@@ -95,7 +82,7 @@ function evalSPA(speechResult) {
 }
 
 
-//#region word similarity helpers
+//word similarity helpers
 //function numToWord(n) {
 // American Numbering System
 var th = ['', 'thousand', 'million', 'billion', 'trillion'];
@@ -202,10 +189,7 @@ function gotNumberOrTimeString(answer) {
 function isNumberOrTimeString(w) { return isNumber(w) || isTimeString(w); }
 
 
-function englishTimeNumberMatch(w, s) {
-	if (lang != 'E') return false;
-	if (isTimeString(w)) return soundsSimilar(w, s); return false;
-}
+
 
 function matchesAnyWordOrSound(info, s) {
 	if (!isEnglish(currentLanguage)) return false;
@@ -214,7 +198,6 @@ function matchesAnyWordOrSound(info, s) {
 	}
 	return false;
 }
-
 function isAcceptableAnswerButNewSound(info, reqAnswer, s) {
 	let sParts = s.split(' ');
 	let aParts = reqAnswer.split(' ');
@@ -227,11 +210,38 @@ function isAcceptableAnswerButNewSound(info, reqAnswer, s) {
 	return true;
 }
 
+function convertTimesAndNumbersToWords(w) {
+	//console.log('B',typeof (w), isNumber(w), w);
+	//check if w1 is a time (like 12:30)
+	if (w.includes(':')) {
+		//only works for hh:mm
+		let h = stringBefore(w, ':');
+		let m = stringAfter(w, ':');
+		let hn = Number(h);
+		let mn = Number(m);
+		//console.log('_________',hn,mn);
+		let xlist = allIntegers(w);
+		if (xlist.length == 2) {
+			if (xlist[1] == 0) xlist = [xlist[0]];
+			xlist = xlist.map(n => n.toString());
+			let res1 = xlist.join('');
+			//console.log('C','turned time',w,'into number',res1);
+			w = res1;
+		}
+	}
+	if (isNumber(w)) {
+		let res = toWords(w);
+		//console.log('D','got number:', w, '=>', res)
+		return res;
+	}
+	return w;
+}
 
-// const germanNumbers={
-// 	ein:1,eins:1,zwei:2,1:'eins',2:'zwei',3:'drei',drei:3,vier:4,4:'vier',5:'fuenf',fuenf:5,sechs:6,6:'sechs',sex:6,
-// 	sieben:7,7:'sieben',8:'acht',acht:8,9:'neun',neun:9,zehn:10,elf:11,zwoelf:12,zwanzig:20,dreissig:30,
-// 	10:'zehn',11:'elf',12:'zwoelf',20:'zwanzig',30:'dreissig',vierzig:40,fuenfzig:50,40:'vierzig',50:'fuenfzig'};
+const germanNumbers = {
+	ein: 1, eins: 1, zwei: 2, 1: 'eins', 2: 'zwei', 3: 'drei', drei: 3, vier: 4, 4: 'vier', 5: 'fuenf', fuenf: 5, sechs: 6, 6: 'sechs', sex: 6,
+	sieben: 7, 7: 'sieben', 8: 'acht', acht: 8, 9: 'neun', neun: 9, zehn: 10, elf: 11, zwoelf: 12, zwanzig: 20, dreissig: 30,
+	10: 'zehn', 11: 'elf', 12: 'zwoelf', 20: 'zwanzig', 30: 'dreissig', vierzig: 40, fuenfzig: 50, 40: 'vierzig', 50: 'fuenfzig'
+};
 
 function convertGermanUhrzeitToNumbers(w) {
 	console.log('...', w)
@@ -282,8 +292,42 @@ function convertTimeStringToNumbers(ts) {
 	return allIntegers(ts);
 }
 
+function soundsSimilar(w1, w2) {
+	//console.log('_______________ soundsSimilar')
+	//console.log('A',typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2);
+	w1 = convertTimesAndNumbersToWords(w1); //toWords(w1);
+	w2 = convertTimesAndNumbersToWords(w2); //toWords(w2);
+	const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
+	function syllabify(words) {
+		return words.match(syllableRegex);
+	}
+	let a1 = syllabify(w1);
+	let a2 = syllabify(w2);
+	//console.log('E', typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2)
+	//console.log('a1', a1, 'a2', a2);
+	if (!a1) a1 = [w1];
+	if (!a2) a2 = [w2];
+	if (currentLanguage == 'D' && isdef(germanNumbers[a1]) && germanNumbers[a1] == germanNumbers[a2]) return true;
+	if (a1.length != a2.length) return false;
+	for (let i = 0; i < a1.length; i++) {
+		let s1 = a1[i];
+		let s2 = a2[i];
+		if (s1 == s2) return true;
+		let x1 = stringAfterLeadingConsonants(s1);
+		let x2 = stringAfterLeadingConsonants(s2);
+		if (currentLanguage == 'E' && 'ou'.includes(x1) && 'ou'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
+		if (currentLanguage == 'E' && 'oa'.includes(x1) && 'ao'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
+		if (currentLanguage == 'E' && x1.replace('ee', 'i') == x2.replace('ee', 'i')) return true;
+		if (currentLanguage == 'E' && x1.replace('ea', 'ai') == x2.replace('ea', 'ai')) return true;
+	}
+	return false;
+}
+function stringAfterLeadingConsonants(s) {
+	let regexpcons = /^([^aeiou])+/g;
+	let x = s.match(regexpcons);
+	return x ? s.substring(x[0].length) : s;
+}
 function addAsSoundToDatabase(info, answer) {
 	//lege dictionary an  mit info.key => info [updated] with answer now in valid sounds for language
 }
 
-//#endregion

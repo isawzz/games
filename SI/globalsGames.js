@@ -1,57 +1,40 @@
 var pictureSize;
-function determineGame(data) {
-	//determining currentGame: data undefined, game name or game index
-	if (nundef(data)) {
-		if (GameSelectionMode == 'program') {
-			data = GameSequence[GameIndex];
-			currentGame = data.g;
-			currentLevel = SavedLevel;
-		} else if (GameSelectionMode == 'training') {
-			currentGame = 'gSayPicAuto';
-			currentLevel = 0;
-			//MASTER_VOLUME = 1;
-			show('divControls');
-		} else {
-			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
-		}
-	} else if (isNumber(data)) {
-		GameSelectionMode = 'indiv';
-		currentLevel = Number(data) % MAXLEVEL;
+function startGame(game) {
 
-	} else if (isString(data)) {
-		//data is the name of a game
-		GameSelectionMode = 'indiv';
-		currentGame = data;
-		currentLevel = startAtLevel[currentGame];
-	}
-}
-function startGame(data) {
 
 	//das ist noch das alte game!!!
 	isINTERRUPT = true;
 	if (isGameWithSpeechRecognition() && isRunning) {
 		ROUND_DELAY = 2000;
-		//alert('INTERRUPTING SPEECH RECOG!')
-		//console.log('=>recog running: need to interrupt!', isRunning);
-		recognition.abort();
+		alert('INTERRUPTING SPEECH RECOG!')
+		console.log('=>recog running: need to interrupt!', isRunning);
+		recognition.stop();
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
-	determineGame(data);
+	//console.log('currentGame',currentGame)
+	// addGameToSessionHistoryAndRenewGameHistory(currentGame);
 
+	if (nundef(game)) game = currentGame;
+	if (game == 'sequence') game = gameSequence[0];
+	currentGame = game;
+
+	//set scoringMode_
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
 	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
+	//console.log('session:',CurrentSessionData)
 
-	//console.log('===> game', currentGame, 'level', currentLevel);
+	//console.log('currentGame',currentGame)
 
 	onkeydown = null;
 	onkeypress = null;
 	onkeyup = null;
 
+	currentLevel = startAtLevel[currentGame];
+
 	resetState();
 
-	//console.log(currentGame)
 	GFUNC[currentGame].startGame();
 
 	startLevel();
@@ -106,7 +89,7 @@ function promptStart() {
 }
 function promptNextTrial() {
 	//console.log('promptNextTrial',uiPaused)
-	//console.log('called from:', getFunctionsNameThatCalledThisFunction())
+	console.log('called from:',getFunctionsNameThatCalledThisFunction())
 	beforeActivationUI();
 	//console.log('promptNextTrial',uiPaused)
 
@@ -127,18 +110,13 @@ function selectWord(info, bestWordIsShortest, except = []) {
 
 	return w;
 }
-function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, labels) {
+function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors, keys) {
 	Pictures = [];
-
+	let labels = [];
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
-	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
-	//console.log(infos)
-	if (nundef(labels)) {
-		labels = [];
-		for (const info of infos) {
-			labels.push(selectWord(info, bestWordIsShortest, labels));
-		}
-	}
+	//keys=['ox']; //["one o'clock"]; //['oil drum'];//,'door']
+
+	//console.log('jjjjjjjjjjjjjjjjjjjjjjj',currentGame,currentKeys,keys)
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
 	let bgPic = isdef(colors) ? 'white' : 'random';
@@ -170,11 +148,13 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, l
 	for (let line = 0; line < lines; line++) {
 		let shade = isdef(colors) ? colors[line] : undefined;
 		for (let i = 0; i < keys.length; i++) {
-			let info = infos[i];
-			let label = labels[i];
+			let info = getRandomSetItem(currentLanguage, keys[i]);
 			let ipic = (line * keys.length + i);
 			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
 			let id = 'pic' + ipic; // (line * keys.length + i);
+			let label = selectWord(info, bestWordIsShortest, labels);
+			console.assert(isdef(label) && !isEmpty(label), 'no label for key ' + keys[i])
+			labels.push(label);
 			let d1 = maPicLabelButtonFitText(info, label,
 				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
@@ -245,19 +225,25 @@ function evaluate() {
 		failPictureGoal(false);
 	}
 
-	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	//console.log(IsAnswerCorrect);
 
-	if (currentGame == 'gSayPicAuto' && LevelChange) {
-		console.log('=======>currentLanguage',currentLanguage);
-		if (currentLanguage == 'E') trainNextLanguage();
-		else trainNextGroup();
-	} else if (LevelChange && ProgTimeout) {
-		saveProgram();
-		//console.log('ENDING AT',currentGame,currentLevel)
-		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
-	}	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	// let [levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	// console.log('levelChange',levelChange,'nextLevel',nextLevel)
+	// LevelChange = levelChange;
+	// currentLevel = nextLevel;
+
+	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	//console.log('LevelChange',LevelChange,'currentLevel',currentLevel)
+
+	//show feedbackAnimations in case of level change!
+	//console.log('=====>>>LevelChange',LevelChange);
+	// if (LevelChange < 0) setTimeout(() => removeBadgeAndRevertLevel(nextLevel), DELAY);
+	// else if (LevelChange > 0) { setTimeout(() => showLevelComplete(nextLevel), DELAY); }
+	// else proceedIfNotStepByStep(nextLevel); //no need to startLevel_!!!!!
+	//setTimeout(startRound_, DELAY); 
+	if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else setTimeout(proceedIfNotStepByStep, DELAY);
+	else setTimeout(proceedIfNotStepByStep, DELAY); //no need to startLevel_!!!!!
 }
 
 function failPictureGoal(withComment = true) {
@@ -316,8 +302,8 @@ function scoring(isCorrect) {
 		//console.log('scoringMode', scoringMode)
 
 		if (scoringMode == 'inc') {
-			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) {
-				levelChange = 1; nextLevel += 1;
+			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) { 
+				levelChange = 1; nextLevel += 1; 
 			}
 
 		} else if (scoringMode == 'percent') {
@@ -366,28 +352,23 @@ function proceedIfNotStepByStep(nextLevel) {
 	if (!StepByStepMode) { proceed(nextLevel); }
 	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
 }
-function aniGameOver(msg) {
-	//soundGoodBye();
-	show('freezer2');
-	mClass(mBy('freezer2'), 'aniSlowlyAppear');
-
-	//old code
-	//mClass(document.body, 'aniSlowlyDisappear');
-	//show(dLevelComplete);
-	//dLevelComplete.innerHTML = msg;
-}
 function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
-	updateGameSequence(nextLevel);
 	if (nextLevel > MAXLEVEL) {
-		if (GameIndex >= GameSequence.length) {
-			aniGameOver('Congratulations! You are done!');
+		let iGame = gameSequence.indexOf(currentGame) + 1;
+		if (iGame == gameSequence.length) {
+			soundGoodBye();
+			mClass(document.body, 'aniSlowlyDisappear');
+			show(dLevelComplete);
+			dLevelComplete.innerHTML = 'CONGRATULATIONS! You are done!';
 		} else {
-			startGame();
+			let nextGame = gameSequence[iGame];
+			startGame(nextGame);
 		}
-	} else startRound();
+	} else if (LevelChange) startLevel(nextLevel);
+	else startRound();
 
 }
 
@@ -460,11 +441,6 @@ function aniInstruction(text) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
-function animate(elem, aniclass, timeoutms) {
-	mClass(elem, aniclass);
-	setTimeout(() => mRemoveClass(elem, aniclass), timeoutms);
-}
-
 function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
 }

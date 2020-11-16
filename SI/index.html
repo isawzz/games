@@ -17,9 +17,9 @@
 	<script src="/CODE/globalConfig.js"></script>
 	<script src="/CODE/assets.js"></script>
 	<script src="/CODE/assetHelpers.js"></script>
-	<!-- <link rel="stylesheet" href="/SIMPLE/TODO/index.css"> -->
-	<link rel="stylesheet" href="/SIMPLE/TODO/test.css">
-	<link rel="stylesheet" href="/SIMPLE/TODO/settings.css">
+	<!-- <link rel="stylesheet" href="/SI/index.css"> -->
+	<link rel="stylesheet" href="/SI/test.css">
+	<link rel="stylesheet" href="/SI/settings.css">
 
 </head>
 
@@ -31,12 +31,11 @@
 		</div>
 	</div>
 	<div id='dCheckMark' style='display:none'>✔️</div>
-	<div id='divControls' style='display:none'>
-		<!-- <div id='bStart' onclick='onClickStartButton()'>Start</div> -->
-		<div id='bNext' onclick='onClickNextButton()'>Next</div>
-		<div id='bRunStop' onclick='onClickRunStopButton(this)'>Run</div>
-		<!-- <div id='bRun' onclick=onClickRunButton()>Run</div>
-		<div id='bStop' onclick=onClickStopButton()>STOP</div> -->
+	<div id='divControls'>
+		<div id='bStart' onclick=onClickStartButton()>Start</div>
+		<div id='bNext' onclick=onClickNextButton()>Next</div>
+		<div id='bRun' onclick=onClickRunButton()>Run</div>
+		<div id='bStop' onclick=onClickStopButton()>STOP</div>
 	</div>
 	<div id='dX' style='display:none'>❌</div>
 	<!-- <div id='dRecord' style='display:none' class='pulseBg'>🎤</div> -->
@@ -88,14 +87,8 @@
 
 	</div>
 	<div id='dGear' onclick='toggleSettings()' style='position:fixed'>⚙️</div>
-	<div id='freezer' onclick="onClickFreezer()" style='display:none'>
-		<div class='centerCentered'>Click to Start!</div>
-	</div>
-	<div id='freezer2' onclick="onClickFreezer2()" style='display:none'>
-		<div class='centerCentered' style='margin-top:-100px;'>
-			<p>Great Job!</p>
-			<p style='font-size:64px'>Time for a Break...</p>
-		</div>
+	<div id='freezer' onclick="onClickFreezer()">
+		<div  class='centerCentered'>Click to Start!</div>
 	</div>
 	<audio id="myAudio">
 		<source src="/assets/sounds/sound1.wav" type="audio/wav">
@@ -126,34 +119,22 @@
 
 	</script>
 
-	<script src="/SIMPLE/TODO/globals.js"></script>
-	<script src="/SIMPLE/TODO/_program.js"></script>
-	<script src="/SIMPLE/TODO/settings.js"></script>
-
-	<script src="/SIMPLE/TODO/keySelection.js"></script>
-
-	<script src="/SIMPLE/speechAPI/speech.js"></script>
-	<script src="/SIMPLE/speechAPI/testSpeechAPI.js"></script>
-
-	<script src="/SIMPLE/TODO/recog.js"></script>
-	<script src="/SIMPLE/TODO/speaker.js"></script>
-	<script src="/SIMPLE/TODO/ui.js"></script>
-	<script src="/SIMPLE/TODO/globalsGames.js"></script>
-	<script src="/SIMPLE/TODO/gTouchPic.js"></script>
-	<script src="/SIMPLE/TODO/gTouchColors.js"></script>
-	<script src="/SIMPLE/TODO/gWritePic.js"></script>
-	<script src="/SIMPLE/TODO/gMissingLetter.js"></script>
-	<script src="/SIMPLE/TODO/gSayPic.js"></script>
-	<script src="/SIMPLE/TODO/gSayPicAuto.js"></script>
-	<script src="/SIMPLE/TODO/GFUNC.js"></script>
-	<script src="/SIMPLE/TODO/training.js"></script>
-
-	<script src="/SIMPLE/speechAPI/speechTraining.js"></script>
-
-	<script src="/SIMPLE/TODO/_work.js"></script>
+	<script src="/SI/globals.js"></script>
+	<script src="/SI/settings.js"></script>
+	<script src="/SI/recog.js"></script>
+	<script src="/SI/speaker.js"></script>
+	<script src="/SI/ui.js"></script>
+	<script src="/SI/globalsGames.js"></script>
+	<script src="/SI/gTouchPic.js"></script>
+	<script src="/SI/gTouchColors.js"></script>
+	<script src="/SI/gWritePic.js"></script>
+	<script src="/SI/gMissingLetter.js"></script>
+	<script src="/SI/gSayPic.js"></script>
+	<script src="/SI/gSayPicAuto.js"></script>
+	<script src="/SI/_work.js"></script>
 
 	<script src="/RSG/js/__config.js"></script>
-	<script src="/SIMPLE/TODO/_start.js"></script>
+	<script src="/SI/_start.js"></script>
 
 </body>
 

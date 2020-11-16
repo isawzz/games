@@ -1,8 +1,7 @@
 var ProgTimeout = false;
-var ProgMinutes = 5;
+var ProgMinutes = 1;
 
 function updateGameSequence(nextLevel) {
-	console.log(nextLevel,MAXLEVEL)
 	if (nextLevel > MAXLEVEL) {
 		GameIndex = (GameIndex + 1) % GameSequence.length;
 		SavedLevel = GameSequence[GameIndex].sl;
@@ -12,7 +11,7 @@ function updateGameSequence(nextLevel) {
 async function loadProgram() {
 	//sets GameSequence from _config.yaml is exists, GameIndex,SavedLevel from localStorage if exists 
 
-	let data = await loadYamlDict('/SIMPLE/_config.yaml');
+	let data = await loadYamlDict('/SIM/_config.yaml');
 	if (isdef(data)) GameSequence = data.GameSequence;
 
 	GameIndex = localStorage.getItem('GameIndex');
@@ -29,15 +28,15 @@ async function loadProgram() {
 		if (i == GameIndex) console.log('=>', x); else console.log('', x);
 		i += 1;
 	});
-	//console.log('SavedLevel is', SavedLevel);
+	console.log('SavedLevel is', SavedLevel);
 }
 
 function saveProgram() {
 	updateGameSequence(currentLevel);
 	localStorage.setItem('GameIndex', GameIndex.toString());
-	//console.log('GameIndex saved', GameIndex);
+	console.log('GameIndex saved', GameIndex);
 	localStorage.setItem('SavedLevel', SavedLevel.toString());
-	//console.log('SavedLevel saved', SavedLevel);
+	console.log('SavedLevel saved', SavedLevel);
 	// localStorage.setItem('currentLevel',GameIndex.toString());
 	// console.log('GameIndex saved',GameIndex)
 }

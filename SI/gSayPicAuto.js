@@ -1,5 +1,5 @@
 const LevelsSPA = {
-	0: { NumPics: 1, NumLabels: 1, MaxNumTrials: 1 },
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 4, MaxNumTrials: 1 },
 	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 3 },
 	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 3 },
 	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 3 },
@@ -11,17 +11,17 @@ const LevelsSPA = {
 	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
 	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 1 },
 }
-function startGameSPA() { }
+function startGameSPA() {}
 function startLevelSPA() { levelSPA(); }
 function levelSPA() {
 	let levelInfo = LevelsSPA[currentLevel];
-	if (isdef(levelInfo.MaxNumTrials)) MaxNumTrials = levelInfo.MaxNumTrials;
-	if (isdef(levelInfo.MaxWordLength)) MaxWordLength = levelInfo.MaxWordLength;
-	if (isdef(levelInfo.MinWordLength)) MinWordLength = levelInfo.MinWordLength;
-	setKeys({ cats: ['kitchen'], wLast: true });
-
+	MaxNumTrials = levelInfo.MaxNumTrials;
+	MaxWordLength = levelInfo.MaxWordLength;
+	MinWordLength = levelInfo.MinWordLength;
+	setKeys(currentCategories,true,(k)=>lastOfLanguage(k,currentLanguage));
+	
 	//currentKeys.sort((a,b)=>stringAfterLast(symbolDict[a][currentLanguage],'|')-stringAfterLast(symbolDict[b][currentLanguage],'|'));
-	boundary = 1; //currentKeys.length - 1;
+	boundary = currentKeys.length-1;
 	NextPictureIndex = 0;
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
@@ -29,7 +29,7 @@ function levelSPA() {
 function startRoundSPA() { }
 function promptSPA() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus(), undefined, [currentKeys[NextPictureIndex]]);
+	showPictures(true, () => mBy(defaultFocusElement).focus(), undefined, [currentKeys[NextPictureIndex]]);
 	NextPictureIndex += 1;
 
 	setGoal();
@@ -80,7 +80,6 @@ function evalSPA(speechResult) {
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
 	if (answer == reqAnswer) return true;
-	else if (differInAtMost(reqAnswer, answer, 1)) return true;
 	else if (matchesAnyWordOrSound(Goal.info, answer)) return true;
 	else if (matchingNumberOrTime(Goal.info, answer)) {
 		//console.log('matches as number or time!!!')
@@ -95,7 +94,7 @@ function evalSPA(speechResult) {
 }
 
 
-//#region word similarity helpers
+//word similarity helpers
 //function numToWord(n) {
 // American Numbering System
 var th = ['', 'thousand', 'million', 'billion', 'trillion'];
@@ -202,10 +201,7 @@ function gotNumberOrTimeString(answer) {
 function isNumberOrTimeString(w) { return isNumber(w) || isTimeString(w); }
 
 
-function englishTimeNumberMatch(w, s) {
-	if (lang != 'E') return false;
-	if (isTimeString(w)) return soundsSimilar(w, s); return false;
-}
+
 
 function matchesAnyWordOrSound(info, s) {
 	if (!isEnglish(currentLanguage)) return false;
@@ -214,7 +210,6 @@ function matchesAnyWordOrSound(info, s) {
 	}
 	return false;
 }
-
 function isAcceptableAnswerButNewSound(info, reqAnswer, s) {
 	let sParts = s.split(' ');
 	let aParts = reqAnswer.split(' ');
@@ -227,6 +222,32 @@ function isAcceptableAnswerButNewSound(info, reqAnswer, s) {
 	return true;
 }
 
+function convertTimesAndNumbersToWords(w) {
+	//console.log('B',typeof (w), isNumber(w), w);
+	//check if w1 is a time (like 12:30)
+	if (w.includes(':')) {
+		//only works for hh:mm
+		let h = stringBefore(w, ':');
+		let m = stringAfter(w, ':');
+		let hn = Number(h);
+		let mn = Number(m);
+		//console.log('_________',hn,mn);
+		let xlist = allIntegers(w);
+		if (xlist.length == 2) {
+			if (xlist[1] == 0) xlist = [xlist[0]];
+			xlist = xlist.map(n => n.toString());
+			let res1 = xlist.join('');
+			//console.log('C','turned time',w,'into number',res1);
+			w = res1;
+		}
+	}
+	if (isNumber(w)) {
+		let res = toWords(w);
+		//console.log('D','got number:', w, '=>', res)
+		return res;
+	}
+	return w;
+}
 
 // const germanNumbers={
 // 	ein:1,eins:1,zwei:2,1:'eins',2:'zwei',3:'drei',drei:3,vier:4,4:'vier',5:'fuenf',fuenf:5,sechs:6,6:'sechs',sex:6,
@@ -282,8 +303,42 @@ function convertTimeStringToNumbers(ts) {
 	return allIntegers(ts);
 }
 
+function soundsSimilar(w1, w2) {
+	//console.log('_______________ soundsSimilar')
+	//console.log('A',typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2);
+	w1 = convertTimesAndNumbersToWords(w1); //toWords(w1);
+	w2 = convertTimesAndNumbersToWords(w2); //toWords(w2);
+	const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
+	function syllabify(words) {
+		return words.match(syllableRegex);
+	}
+	let a1 = syllabify(w1);
+	let a2 = syllabify(w2);
+	//console.log('E', typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2)
+	//console.log('a1', a1, 'a2', a2);
+	if (!a1) a1 = [w1];
+	if (!a2) a2 = [w2];
+	if (currentLanguage == 'D' && isdef(germanNumbers[a1]) && germanNumbers[a1] == germanNumbers[a2]) return true;
+	if (a1.length != a2.length) return false;
+	for (let i = 0; i < a1.length; i++) {
+		let s1 = a1[i];
+		let s2 = a2[i];
+		if (s1 == s2) return true;
+		let x1 = stringAfterLeadingConsonants(s1);
+		let x2 = stringAfterLeadingConsonants(s2);
+		if (currentLanguage == 'E' && 'ou'.includes(x1) && 'ou'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
+		if (currentLanguage == 'E' && 'oa'.includes(x1) && 'ao'.includes(x2) && x1.substring(1) == x2.substring(1)) return true;
+		if (currentLanguage == 'E' && x1.replace('ee', 'i') == x2.replace('ee', 'i')) return true;
+		if (currentLanguage == 'E' && x1.replace('ea', 'ai') == x2.replace('ea', 'ai')) return true;
+	}
+	return false;
+}
+function stringAfterLeadingConsonants(s) {
+	let regexpcons = /^([^aeiou])+/g;
+	let x = s.match(regexpcons);
+	return x ? s.substring(x[0].length) : s;
+}
 function addAsSoundToDatabase(info, answer) {
 	//lege dictionary an  mit info.key => info [updated] with answer now in valid sounds for language
 }
 
-//#endregion

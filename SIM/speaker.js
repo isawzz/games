@@ -11,7 +11,6 @@ var timeout1, timeout2;
 
 function say(text, r = .5, p = .8, v = .5, interrupt=true, voiceDescriptor, callback) {
 	if (v<1) v=MASTER_VOLUME;//.15;
-	//console.log(synth,interrupt)
 	if (isdef(synth) && synth.speaking) {
 		if (!interrupt) return;
 		//console.error('speechSynthesis.speaking');

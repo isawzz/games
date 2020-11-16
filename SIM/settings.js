@@ -33,7 +33,7 @@ function getKeySetSimple(cats, lang,
 			if (wExact && nundef(exact)) return false;
 			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
 			if (wShort) ws = [getShortestWord(ws, false)];
-			//console.log(k,ws)
+			console.log(k,ws)
 			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
 			return false;
 		});
@@ -43,15 +43,14 @@ function getKeySetSimple(cats, lang,
 	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
 	return keys;
 }
-function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter }={}) {
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter }) {
 	opt = arguments[0];
-	if (nundef(opt)) opt = {};
 	opt.minlen = MinWordLength;
 	opt.maxlen = MaxWordLength;
 	if (nundef(cats)) cats = currentCategories;
 	if (nundef(lang)) lang = currentLanguage;
 	currentKeys = getKeySetSimple(cats, lang, opt);
-	//console.log('set keys:' + currentKeys.length);
+	console.log('set keys:' + currentKeys.length);
 }
 function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
 	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
