@@ -53,6 +53,7 @@ var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstr
 
 var emoSets = {
 	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
+	
 	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
@@ -378,23 +379,28 @@ async function sendAction(boat, username) {
 	}
 }
 async function loadCorrectWords() {
-	CorrectWords = await loadYamlDict('/assets/correctWords.yaml');
+	CorrectWords = await loadYamlDict('/assets/correctWordsX.yaml');
 
-	CorrectWordsCorrect = {};
-	CorrectWordsExact = {};
-	CorrectWordsFailed = {};
+	CorrectWordsCorrect = {E:{},D:{}};
+	CorrectWordsExact = {E:{},D:{}};
+	CorrectWordsFailed = {E:{},D:{}};
 
 	//remove duplicates from array
 	if (isdef(CorrectWords) && isdef(CorrectWords.data)) {
-		for (const cw of CorrectWords.data) {
-			if (cw.isCorrect){
-				if (cw.answer == cw.req && !(cw.danger==true)) CorrectWordsExact[cw.key]=cw;
-				else CorrectWordsCorrect[cw.key]=cw;
-			}else CorrectWordsFailed[cw.key]=cw;
+		for (const cwentry of CorrectWords.data) {
+			let key = cwentry.key;
+			for (const lang of ['E', 'D']) {
+				let cw = cwentry[lang];
+				// console.log(cw);
+				if (cw.isCorrect) {
+					if (cw.answer == cw.req && !(cw.danger == true)) CorrectWordsExact[lang][key] = cw;
+					else CorrectWordsCorrect[lang][key] = cw;
+				} else CorrectWordsFailed[lang][key] = cw;
+			}
 		}
 	}
 
-	
+
 	//console.log('CorrectWordsExact',CorrectWordsExact);
 	//console.log('CorrectWordsCorrect',CorrectWordsCorrect);
 	//console.log('CorrectWordsFailed',CorrectWordsFailed);

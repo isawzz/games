@@ -1,77 +1,65 @@
-const LevelsSPA = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 4, MaxNumTrials: 1 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 5, MaxNumTrials: 3 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 6, MaxNumTrials: 3 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 7, MaxNumTrials: 3 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 8, MaxNumTrials: 3 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, MaxNumTrials: 3 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 10, MaxNumTrials: 3 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 11, MaxNumTrials: 3 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 12, MaxNumTrials: 3 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 13, MaxNumTrials: 3 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 14, MaxNumTrials: 1 },
+const LevelsSP = {
+	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 3 },
+	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
+	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
+	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
+	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
+	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 21, MaxNumTrials: 3 },
+	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
+	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
+	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 21, MaxNumTrials: 3 },
+	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
+	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
 }
-function startGameSPA() {}
-function startLevelSPA() { levelSPA(); }
-function levelSPA() {
-	let levelInfo = LevelsSPA[currentLevel];
+function startGameSP() { }
+function startLevelSP() { levelSP(); }
+function levelSP() {
+	//console.log('level',currentLevel)
+	let levelInfo = LevelsSP[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
-	setKeys(currentCategories,true,(k)=>lastOfLanguage(k,currentLanguage));
+	setKeys(currentCategories,false,x=>lastOfLanguage(x,currentLanguage),true, true);
 	
-	//currentKeys.sort((a,b)=>stringAfterLast(symbolDict[a][currentLanguage],'|')-stringAfterLast(symbolDict[b][currentLanguage],'|'));
-	boundary = currentKeys.length-1;
-	NextPictureIndex = 0;
+	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
+	//console.log(currentKeys);
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 }
-function startRoundSPA() { }
-function promptSPA() {
+function startRoundSP() { }
+function promptSP() {
 
-	showPictures(true, () => mBy(defaultFocusElement).focus(), undefined, [currentKeys[NextPictureIndex]]);
-	NextPictureIndex += 1;
-
+	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
-	//showInstruction(bestWord, currentLanguage == 'E' ? 'say aloud:' : "sage laut: ", dTitle, true);
-
 
 	mLinebreak(dTable);
 	MicrophoneUi = mMicrophone(dTable);
 
-
 	return 10; //1000;
 }
-function trialPromptSPA() {
-	//say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
-	return 10;
+function trialPromptSP() {
+	//showFleetingMessage('Say again!',0,{fz:80,fg:'red'});
+	say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .3, true, 'zira');
+	animate(dInstruction,'pulse800'+getSignalColor(),900);
+	return 1500;
 }
-
-async function activateSPA() {
-
-	OnMicrophoneReady = setTimeout(() => {
-		say(bestWord, .7, 1, 1, false, 'random'); //, () => { console.log('done:', Goal.key) });
-		//say(bestWord)
-	}, DELAY_BETWEEN_MIKE_AND_SPEECH);
-	//OnMicrophoneProblem = () => console.log('microphone problem');
-	//OnMicrophoneGotResult = evaluate
-	setTimeout(() => record(currentLanguage, bestWord), 100);
-
-	// if (trialNumber > 1) {
-	// 	console.log('JEEEEEEEEEEEEEEETZT')
-	// 	setTimeout(() => say(bestWord), 1000);
-	// }
+async function activateSP() {
+	if (isSpeakerRunning) {
+		setTimeout(activateSP, 300);
+	} else {
+		setTimeout(() => record(currentLanguage, bestWord), 100);
+	}
 	//orig code:
 	// setTimeout(() => {
 	// 	record(currentLanguage, bestWord);
 	// }, trialNumber == 0 ? 4000 : 1500);
 }
-function evalSPA(speechResult) {
+function evalSP(speechResult) {
 
 	if (isEmpty(speechResult)) {
-		console.log('empty speechResult')
+		//console.log('.....empty speechResult');
 		return false;
 	}
 
@@ -249,10 +237,11 @@ function convertTimesAndNumbersToWords(w) {
 	return w;
 }
 
-// const germanNumbers={
-// 	ein:1,eins:1,zwei:2,1:'eins',2:'zwei',3:'drei',drei:3,vier:4,4:'vier',5:'fuenf',fuenf:5,sechs:6,6:'sechs',sex:6,
-// 	sieben:7,7:'sieben',8:'acht',acht:8,9:'neun',neun:9,zehn:10,elf:11,zwoelf:12,zwanzig:20,dreissig:30,
-// 	10:'zehn',11:'elf',12:'zwoelf',20:'zwanzig',30:'dreissig',vierzig:40,fuenfzig:50,40:'vierzig',50:'fuenfzig'};
+const germanNumbers = {
+	ein: 1, eins: 1, zwei: 2, 1: 'eins', 2: 'zwei', 3: 'drei', drei: 3, vier: 4, 4: 'vier', 5: 'fuenf', fuenf: 5, sechs: 6, 6: 'sechs', sex: 6,
+	sieben: 7, 7: 'sieben', 8: 'acht', acht: 8, 9: 'neun', neun: 9, zehn: 10, elf: 11, zwoelf: 12, zwanzig: 20, dreissig: 30,
+	10: 'zehn', 11: 'elf', 12: 'zwoelf', 20: 'zwanzig', 30: 'dreissig', vierzig: 40, fuenfzig: 50, 40: 'vierzig', 50: 'fuenfzig'
+};
 
 function convertGermanUhrzeitToNumbers(w) {
 	console.log('...', w)

@@ -25,7 +25,7 @@ function mMicrophone(dParent) {
 function MicrophoneStart() {
 	if (RecogOutput) console.log('* mic start')
 	//show(MicrophoneUi);
-	MicrophoneUi.style.opacity=1;
+	MicrophoneUi.style.opacity = 1;
 
 	//MicrophoneShow();
 	//mClass(MicrophoneUi, 'blink');
@@ -36,17 +36,17 @@ function MicrophoneStop() {
 	//mRemoveClass(MicrophoneUi, 'blink');
 	if (RecogOutput) console.log('* mic end')
 	// hide(MicrophoneUi);
-	MicrophoneUi.style.opacity=.31;
+	MicrophoneUi.style.opacity = .31;
 }
-function MicrophoneHide() {MicrophoneStop();} //MicrophoneUi.style.opacity=0;}
-function MicrophoneShow() {MicrophoneStart();}//MicrophoneUi.style.opacity=1;}
+function MicrophoneHide() { MicrophoneStop(); } //MicrophoneUi.style.opacity=0;}
+function MicrophoneShow() { MicrophoneStart(); }//MicrophoneUi.style.opacity=1;}
 //#endregion
-
 function record(lang, best) {
 	//TODO: HACK!!!!!!!
 	if (!isGameWithSpeechRecognition()) return;
-	let wordlist = ['du', 'bist', 'ein', 'vogel', best];
+	let wordlist = ['du', 'bist', 'vogel', best];
 	if (!isdef(recognition)) {
+		console.log('* recog not def')
 		speech00(lang);
 		setTimeout(record(lang, wordlist), 3000);
 		return;
@@ -155,7 +155,7 @@ function speech00(lang) {
 	recognition = new webkitSpeechRecognition();
 	recognition.continuous = true;
 	recognition.interimResults = true;
-	recognition.maxAlternatives = 5;
+	recognition.maxAlternatives = 1;//5;
 
 	recognition.lang = isEnglish(lang) ? 'en-US' : 'de-DE';
 

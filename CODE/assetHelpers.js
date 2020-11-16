@@ -434,6 +434,40 @@ function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 }
 
 //#region words, dictionaries
+function getInfos(cats, lang,
+	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
+	let keys = setCategories(cats);
+	//console.log(keys);
+	//return keys.map(x=>symbolDict[x]);
+	let infos = [];
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let info = jsCopy(symbolDict[k]);
+			let exact = CorrectWordsExact[lang][k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
+			if (wShort) ws = [getShortestWord(ws, false)];
+			//console.log('ws',ws);
+			//console.log('__________', k, ws);
+			//console.log('INFO.WORDS', k, symbolDict[k].words);
+			info.words = [];
+			for (const w of ws) {
+				if (w.length >= minlen && w.length <= maxlen) {
+					//console.log('YES! w',w,minlen,maxlen);
+					info.words.push(w);
+					info.best = w;
+				}
+			}
+			//console.log('best',symbolDict[k].best,info.words)
+			//console.log(info.words)
+			if (!isEmpty(info.words)) { infos.push(info); return true; } else return false;
+		});
+	}
+	if (isdef(sorter)) sortByFunc(infos, sorter);
+
+	return infos;
+}
+
 function isEnglish(lang) { return startsWith(lang.toLowerCase(), 'e'); }
 function wordsOfLanguage(key, language) {
 	//console.log(language)
@@ -485,27 +519,13 @@ function setCategories(groupNameList) {
 	}
 	return keys;
 }
-function getKeySetSimple(cats, lang, minlen, maxlen, wLast = false, wExact=false, sorter=null) {
-	let keys = setCategories(cats);
-	if (isdef(minlen && isdef(maxlen))) {
-		keys = keys.filter(k => {
-			let exact=CorrectWordsExact[k];
-			if (wExact && nundef(exact)) return false;
-			let ws = wLast ? [lastOfLanguage(k,lang)] : wordsOfLanguage(k, lang);
-			//console.log(ws)
-			for (const w of ws) {
-				if (w.length >= minlen && w.length <= maxlen 
-					&& (!wExact || isdef(exact) && w.toLowerCase() == exact.req && !exact.danger)) 
-					return true;
-			}
-			return false;
-		});
+function groupSizes(){
+	ensureSymBySet();
+	for(const gname in symKeysBySet){
+		console.log('group',gname+': '+symKeysBySet[gname].length);
 	}
-	//console.log('________________',keys);//ok
-
-	if (isdef(sorter)) sortByFunc(keys,sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
-	return keys;
 }
+
 function getKeySetX(categories, language, minlength, maxlength, bestOnly = false, sortAccessor=null, correctOnly=false, reqOnly=false) {
 	let keys = setCategories(categories);
 	//console.log(keys);//ok
@@ -541,8 +561,8 @@ function setGroup(groupName) { //deprecated! use setCategories!
 	ensureSymBySet();
 	return jsCopy(symKeysBySet[groupName]);
 }
-
 function getRandomSetItem(lang = 'E', key, keylist) {
+	//console.log(keylist)
 	if (nundef(keylist)) keylist = setCategories(['animal']);
 
 	if (nundef(key)) key = chooseRandom(keylist);

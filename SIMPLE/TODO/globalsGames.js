@@ -1,18 +1,22 @@
 var pictureSize;
 function determineGame(data) {
 	//determining currentGame: data undefined, game name or game index
-	//if data is a game name, will take 
 	if (nundef(data)) {
 		if (GameSelectionMode == 'program') {
 			data = GameSequence[GameIndex];
 			currentGame = data.g;
-			currentLevel = SavedLevel; 
+			currentLevel = SavedLevel;
+		} else if (GameSelectionMode == 'training') {
+			currentGame = 'gSayPicAuto';
+			currentLevel = 0;
+			//MASTER_VOLUME = 1;
+			show('divControls');
 		} else {
 			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
 		}
 	} else if (isNumber(data)) {
 		GameSelectionMode = 'indiv';
-		currentLevel = Number(data)%MAXLEVEL;
+		currentLevel = Number(data) % MAXLEVEL;
 
 	} else if (isString(data)) {
 		//data is the name of a game
@@ -27,9 +31,9 @@ function startGame(data) {
 	isINTERRUPT = true;
 	if (isGameWithSpeechRecognition() && isRunning) {
 		ROUND_DELAY = 2000;
-		alert('INTERRUPTING SPEECH RECOG!')
+		//alert('INTERRUPTING SPEECH RECOG!')
 		console.log('=>recog running: need to interrupt!', isRunning);
-		recognition.stop();
+		recognition.abort();
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
@@ -123,13 +127,18 @@ function selectWord(info, bestWordIsShortest, except = []) {
 
 	return w;
 }
-function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors, keys) {
+function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, labels) {
 	Pictures = [];
-	let labels = [];
-	if (nundef(keys)) keys = choose(currentKeys, NumPics);
-	//keys=['tram'];//['ox']; //["one o'clock"]; //['oil drum'];//,'door']
 
-	//console.log('jjjjjjjjjjjjjjjjjjjjjjj',currentGame,currentKeys,keys)
+	if (nundef(keys)) keys = choose(currentKeys, NumPics);
+	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
+	console.log(infos)
+	if (nundef(labels)) {
+		labels = [];
+		for (const info of infos) {
+			labels.push(selectWord(info, bestWordIsShortest, labels));
+		}
+	}
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
 	let bgPic = isdef(colors) ? 'white' : 'random';
@@ -161,13 +170,11 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler, colors,
 	for (let line = 0; line < lines; line++) {
 		let shade = isdef(colors) ? colors[line] : undefined;
 		for (let i = 0; i < keys.length; i++) {
-			let info = getRandomSetItem(currentLanguage, keys[i]);
+			let info = infos[i];
+			let label = labels[i];
 			let ipic = (line * keys.length + i);
 			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
 			let id = 'pic' + ipic; // (line * keys.length + i);
-			let label = selectWord(info, bestWordIsShortest, labels);
-			console.assert(isdef(label) && !isEmpty(label), 'no label for key ' + keys[i])
-			labels.push(label);
 			let d1 = maPicLabelButtonFitText(info, label,
 				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
@@ -240,11 +247,14 @@ function evaluate() {
 
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
-
-	if (LevelChange && ProgTimeout) {
+	if (currentGame == 'gSayPicAuto' && LevelChange) {
+		console.log('=======>currentLanguage',currentLanguage);
+		if (currentLanguage == 'E') trainNextLanguage();
+		else trainNextGroup();
+	} else if (LevelChange && ProgTimeout) {
 		saveProgram();
 		//console.log('ENDING AT',currentGame,currentLevel)
-		setTimeout(aniGameOver('Great job! Time for a break!'),DELAY); 
+		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
 	}
 	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
@@ -376,9 +386,9 @@ function proceed(nextLevel) {
 		if (GameIndex >= GameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
-			startGame(); 
+			startGame();
 		}
-	}	else startRound();
+	} else startRound();
 
 }
 
