@@ -1,6 +1,3 @@
-var ProgTimeout = false;
-var ProgMinutes = 5;
-
 function updateGameSequence(nextLevel) {
 	console.log(nextLevel,MAXLEVEL)
 	if (nextLevel > MAXLEVEL) {
@@ -29,15 +26,17 @@ async function loadProgram() {
 		if (i == GameIndex) console.log('=>', x); else console.log('', x);
 		i += 1;
 	});
-	//console.log('SavedLevel is', SavedLevel);
+	console.log('LOADED: index', GameIndex,'level', SavedLevel);
+	// console.log('GameIndex loaded', GameIndex);
+	// console.log('SavedLevel loaded', SavedLevel);
 }
 
 function saveProgram() {
+	console.log('HAAAAAAAAAAAAAAAAAAAAAAALO')
 	updateGameSequence(currentLevel);
 	localStorage.setItem('GameIndex', GameIndex.toString());
-	//console.log('GameIndex saved', GameIndex);
 	localStorage.setItem('SavedLevel', SavedLevel.toString());
-	//console.log('SavedLevel saved', SavedLevel);
+	console.log('saved: index', GameIndex,'level', SavedLevel);
 	// localStorage.setItem('currentLevel',GameIndex.toString());
 	// console.log('GameIndex saved',GameIndex)
 }

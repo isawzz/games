@@ -35,6 +35,7 @@ function _start() {
 async function SessionStart() {
 
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
+	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 
 	await loadCorrectWords(); await loadAssets(); ensureSymBySet(); makeHigherOrderGroups();
 

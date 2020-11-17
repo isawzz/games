@@ -1,12 +1,13 @@
 const IS_TESTING = false; // false | true
-USE_LOCAL_STORAGE = true; // false | true
+const CLEAR_LOCAL_STORAGE = true;
 var MASTER_VOLUME = .5;
-var GameSelectionMode = 'program'; // indiv | program | training
 
-var currentUser = 'Gunter';
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols']; //['kitchen'];
-var currentKeys; //see setKeys, reset at each level!!!!!
+var ProgTimeout = false;
+var ProgMinutes = .2;
+var PICS_PER_LEVEL = IS_TESTING ? 1 : 10;
+
 
 //RESERVED FOR PROGRAM! GameSelectionMode = program
 var HCGameSeq = [
@@ -22,30 +23,14 @@ var SavedLevel = 0;
 var currentGame = IS_TESTING ? 'gTouchPic' : 'gTouchPic';
 var currentLevel = 10;
 var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gMissingLetter: 10, gSayPic: 10 } : { gMissingLetter: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gSayPic: 10 };
-
-//common for all games and users
-var PICS_PER_LEVEL = IS_TESTING ? 1 : 1;
-var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
-var MAXLEVEL = 10;
-
-//to be set by each game on level change:
-var MaxNumTrials = 1;
-var MinWordLength = 1;
-var MaxWordLength = 100;
-var NumPics;
-var NumLabels;
-
-
-//speech recognition
-var MicrophoneUi; //this is the ui
-var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
+var currentUser = 'Gunter';
 
 //control flow
 const immediateStart = true;  // false | true
 var skipAnimations = IS_TESTING; // false | true
 var skipBadgeAnimation = true;
-var StepByStepMode = true; //wartet auf click next um wieder zu starten!
-const SHOW_FREEZER = false; //!IS_TESTING
+var StepByStepMode = IS_TESTING; //wartet auf click next um wieder zu starten!
+const SHOW_FREEZER = !IS_TESTING;
 
 // delays
 var DELAY = 1000;
@@ -58,6 +43,25 @@ var RecogOutput = true;
 var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
+
+//common for all games and users
+USE_LOCAL_STORAGE = true; // false | true
+var GameSelectionMode = 'program'; // indiv | program | training
+var SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+var MAXLEVEL = 10;
+var currentKeys; //see setKeys, reset at each level!!!!!
+
+//to be set by each game on level change:
+var MaxNumTrials = 1;
+var MinWordLength = 1;
+var MaxWordLength = 100;
+var NumPics;
+var NumLabels;
+
+
+//speech recognition
+var MicrophoneUi; //this is the ui
+var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
 
 //vars for round to round:
 var Pictures = [];

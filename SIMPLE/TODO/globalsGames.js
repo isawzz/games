@@ -37,7 +37,10 @@ function startGame(data) {
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
-	determineGame(data);
+	// determineGame(data);
+	currentGame = GameSequence[GameIndex].g;
+	currentLevel = SavedLevel>MAXLEVEL?startAtLevel[currentGame]:SavedLevel;
+	console.log('______ * game',currentGame,'level',currentLevel,'*')
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
@@ -247,13 +250,18 @@ function evaluate() {
 
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
-	if (currentGame == 'gSayPicAuto' && LevelChange) {
-		console.log('=======>currentLanguage',currentLanguage);
-		if (currentLanguage == 'E') trainNextLanguage();
-		else trainNextGroup();
-	} else if (LevelChange && ProgTimeout) {
-		saveProgram();
-		//console.log('ENDING AT',currentGame,currentLevel)
+	// if (currentGame == 'gSayPicAuto' && LevelChange) {
+	// 	console.log('=======>currentLanguage',currentLanguage);
+	// 	if (currentLanguage == 'E') trainNextLanguage();
+	// 	else trainNextGroup();
+	// } else 
+
+	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',LevelChange, DELAY)
+	if (LevelChange!=0) saveProgram();
+
+	if (LevelChange && ProgTimeout) {
+		//saveProgram();
+		console.log('ENDING AT',currentGame,currentLevel)
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
 	}	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
@@ -367,7 +375,7 @@ function proceedIfNotStepByStep(nextLevel) {
 	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
 }
 function aniGameOver(msg) {
-	//soundGoodBye();
+	soundGoodBye();
 	show('freezer2');
 	mClass(mBy('freezer2'), 'aniSlowlyAppear');
 
@@ -377,17 +385,32 @@ function aniGameOver(msg) {
 	//dLevelComplete.innerHTML = msg;
 }
 function proceed(nextLevel) {
-	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
-
+	
 	updateGameSequence(nextLevel);
+	if (ProgTimeout) {
+		console.log('PROGRAM HAS TIMED OUT!!!!!!')
+		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
+		return;
+	}
 	if (nextLevel > MAXLEVEL) {
 		if (GameIndex >= GameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
 			startGame();
 		}
-	} else startRound();
+	} else if (LevelChange) startLevel(nextLevel);
+	else startRound();
+
+	// updateGameSequence(nextLevel);
+	// if (nextLevel > MAXLEVEL) {
+	// 	if (GameIndex >= GameSequence.length) {
+	// 		aniGameOver('Congratulations! You are done!');
+	// 	} else {
+	// 		startGame();
+	// 	}
+	// } else startRound();
 
 }
 
@@ -432,8 +455,7 @@ function levelStep12() {
 	showLevel();
 	//showScore();
 
-
-	setTimeout(levelStep13, 2000);
+	setTimeout(levelStep13, 1000);
 }
 function levelStep13() {
 	mRemoveClass(document.body, 'aniFadeOutIn');
