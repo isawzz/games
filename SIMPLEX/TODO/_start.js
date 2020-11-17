@@ -1,5 +1,5 @@
 window.onload = SessionStart;
-//window.onunload = saveProgram; //saveSettings;
+//window.onunload = saveProgram; 
 async function SessionStart() {
 
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
@@ -54,17 +54,20 @@ function _startPlaying(){
 	//old speech regoc init
 	speech00(currentLanguage);
 
+
+
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 }
 
 async function startUnit() {
 
-	ProgTimeout = false;
-	setTimeout(() => ProgTimeout = true, ProgMinutes * 60 * 1000);
+	ProgTimeIsUp = false;
+	ProgTimeout = setTimeout(() => ProgTimeIsUp = true, ProgMinutes * 60 * 1000);
 
 	await loadProgram();
 
-	if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
+	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); openSettings(); }
+	else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
 	else if (immediateStart) { hide('divControls'); startGame(); }
 	else { hide('freezer'); hide('divControls'); openSettings(); }
 }

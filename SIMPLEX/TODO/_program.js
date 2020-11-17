@@ -1,5 +1,5 @@
-
-
+function clearProgramTimer() { clearTimeout(ProgTimeout); ProgTimeIsUp = false; }
+function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = true, ProgMinutes * 60 * 1000); }
 async function loadProgram() {
 	//sets GameSequence from _config.yaml is exists, GameIndex,SavedLevel from localStorage if exists 
 
@@ -7,7 +7,8 @@ async function loadProgram() {
 	// let data = await loadYamlDict(url);
 	// console.log('DATA', data);
 
-	let data = await loadYamlDict('/SIMPLE/_config.yaml');
+	let data = await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
+	data = data.program;
 	if (isdef(data)) GameSequence = data.GameSequence;
 
 	GameIndex = localStorage.getItem('GameIndex');

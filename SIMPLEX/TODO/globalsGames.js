@@ -259,7 +259,7 @@ function evaluate() {
 	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',LevelChange, DELAY)
 	if (LevelChange!=0) saveProgram();
 
-	if (LevelChange && ProgTimeout) {
+	if (LevelChange && ProgTimeIsUp) {
 		//saveProgram();
 		console.log('ENDING AT',currentGame,currentLevel)
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
@@ -389,7 +389,7 @@ function proceed(nextLevel) {
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 	
 	updateGameSequence(nextLevel);
-	if (ProgTimeout && LevelChange) {
+	if (ProgTimeIsUp && LevelChange) {
 		console.log('PROGRAM HAS TIMED OUT!!!!!!')
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
 		return;

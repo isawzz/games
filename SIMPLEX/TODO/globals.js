@@ -1,10 +1,12 @@
-const IS_TESTING = true; // false | true
+const IS_TESTING = false; // false | true
+const EXPERIMENTAL = IS_TESTING; 
+var Settings;
 const CLEAR_LOCAL_STORAGE = false;
 
 var currentLanguage = 'E';
 var currentCategories = ['nosymbols']; //['kitchen'];
-var ProgTimeout = false;
-var ProgMinutes = .5;
+var ProgTimeIsUp = false;
+var ProgMinutes = IS_TESTING ? .5 : 5;
 var PICS_PER_LEVEL = IS_TESTING ? 1 : 5;
 
 var MASTER_VOLUME = .5;
@@ -18,6 +20,7 @@ var HCGameSeq = [
 var GameIndex;
 var GameSequence = HCGameSeq;
 var SavedLevel = 0;
+var ProgTimeout; //to cancel timer
 
 //common for all games and users / control flow
 const SHOW_FREEZER = !IS_TESTING;

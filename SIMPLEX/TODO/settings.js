@@ -9,9 +9,9 @@ function initSettingsP0() {
 
 }
 
-function openSettings() { show(dSettings); pauseUI(); }
-function closeSettings() { setPicsPerLevel(); hide(dSettings); resumeUI(); }
-function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
+function openSettings_dep0() {  show(dSettings); pauseUI(); if(EXPERIMENTAL)loadSettings(); }
+function closeSettings_dep0() { if(EXPERIMENTAL)saveSettings();else setPicsPerLevel(); hide(dSettings); resumeUI(); }
+function toggleSettings_dep0() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
 
 function setGame(event) {
 	if (isString(event)) startGame(event);
