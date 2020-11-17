@@ -1,3 +1,24 @@
+//#region fetch from file system only in node js
+function onStartedDownload(id) {
+	console.log(`Started downloading: ${id}`);
+}
+function onFailed(error) {
+	console.log(`Download failed: ${error}`);
+}
+function newDownloadAPI(o, filename, isYaml = true) {
+	var downloadUrl = "https://example.org/image.png";
+
+	var downloading = browser.downloads.download({
+		url: downloadUrl,
+		filename: '_my-image-again.png',
+		conflictAction: 'uniquify'
+	});
+
+	downloading.then(onStartedDownload, onFailed);
+}
+//#endregion
+
+
 class Recorder {
 	start_dep(onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty, retry = false) {
 		this.errorHandler = null;

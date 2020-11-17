@@ -1,0 +1,18 @@
+username: Gunter
+GameSequence:
+- g: gTouchColors
+  sl: 8
+- g: gMissingLetter
+  sl: 6
+- g: gTouchPic
+  sl: 9
+- g: gWritePic
+  sl: 9
+
+
+
+
+
+
+
+
