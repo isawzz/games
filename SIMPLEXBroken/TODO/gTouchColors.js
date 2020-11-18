@@ -22,7 +22,7 @@ function levelTC() {
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
-	setKeys(['life'],true);
+	setKeys(currentCategories,true);
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;

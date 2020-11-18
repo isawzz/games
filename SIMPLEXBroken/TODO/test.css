@@ -134,7 +134,19 @@ div{
 .buttonClass:active {
 	background-color: orange;
 }
-
+.buttonPlus{
+	padding: 4px 12px;
+	margin: 14px;
+	font-size: 20px;
+}
+.hMinus60{
+	height: calc( 100% - 54px );
+}
+.whMinus60{
+	height: calc( 100% - 25px );
+	width: calc( 100% - 50px );
+	margin: 24px 24px 0px 24px;
+}
 /* #endregion */
 
 #lineTopOuter{

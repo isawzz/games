@@ -1,11 +1,11 @@
 var pictureSize;
-function determineGame(data) {
+function determineGame_dep(data) {
 	//determining currentGame: data undefined, game name or game index
 	if (nundef(data)) {
 		if (GameSelectionMode == 'program') {
-			data = GameSequence[GameIndex];
-			currentGame = data.g;
-			currentLevel = SavedLevel;
+			data = gameSequence[Settings.program.currentGameIndex];
+			currentGame = data.game;
+			currentLevel = Settings.program.currentLevel;
 		} else if (GameSelectionMode == 'training') {
 			currentGame = 'gSayPicAuto';
 			currentLevel = 0;
@@ -38,13 +38,15 @@ function startGame(data) {
 	} else { ROUND_DELAY = 100; }
 
 	// determineGame(data);
-	currentGame = GameSequence[GameIndex].g;
-	currentLevel = SavedLevel>MAXLEVEL?startAtLevel[currentGame]:SavedLevel;
+	console.log('Settings',Settings)
+	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
+	currentLevel = Settings.program.currentLevel>MAXLEVEL?startAtLevel[currentGame]:Settings.program.currentLevel;
 	console.log('______ * game',currentGame,'level',currentLevel,'*')
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
-	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
+	CurrentGameData = { name: currentGame, levels: [] }; 
+	CurrentSessionData.games.push(CurrentGameData);
 
 	//console.log('===> game', currentGame, 'level', currentLevel);
 
@@ -63,7 +65,9 @@ function startLevel(level) {
 
 	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
 
-	CurrentLevelData = { level: currentLevel, items: [] }; CurrentGameData.levels.push(CurrentLevelData);
+	CurrentLevelData = { level: currentLevel, items: [] }; 
+	CurrentGameData.levels.push(CurrentLevelData);
+	
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
@@ -252,7 +256,7 @@ function evaluate() {
 
 	// if (currentGame == 'gSayPicAuto' && LevelChange) {
 	// 	console.log('=======>currentLanguage',currentLanguage);
-	// 	if (currentLanguage == 'E') trainNextLanguage();
+	// 	if (currentLanguage_ == 'E') trainNextLanguage();
 	// 	else trainNextGroup();
 	// } else 
 
@@ -395,7 +399,7 @@ function proceed(nextLevel) {
 		return;
 	}
 	if (nextLevel > MAXLEVEL) {
-		if (GameIndex >= GameSequence.length) {
+		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
 			startGame();
@@ -405,7 +409,7 @@ function proceed(nextLevel) {
 
 	// updateGameSequence(nextLevel);
 	// if (nextLevel > MAXLEVEL) {
-	// 	if (GameIndex >= GameSequence.length) {
+	// 	if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
 	// 		aniGameOver('Congratulations! You are done!');
 	// 	} else {
 	// 		startGame();
@@ -428,11 +432,23 @@ function showLevelComplete() {
 		show('dLevelComplete');
 		setTimeout(levelStep10, 1500);
 	} else {
-		addBadge(dLeiste, currentLevel);
+		addBadge(dLeiste, currentLevel, revertToBadgeLevel);
 		setBackgroundColor();
 		proceedIfNotStepByStep();
 	}
 
+}
+function revertToBadgeLevel(ev){
+	let id = evToClosestId(ev);
+	let i=stringAfter(id,'_');
+	i=Number(i);
+	currentLevel=Settings.program.currentLevel=i;
+	saveProgram();
+	//setBackgroundColor();
+	// removeBadgeAndRevertLevel() geht nicht!!!!!!!!!!!!!!!!!!!!
+	removeBadges(dLeiste, currentLevel);
+	setBackgroundColor();
+	startLevel(i);
 }
 function levelStep10() {
 	mClass(document.body, 'aniFadeOutIn');
@@ -445,7 +461,7 @@ function levelStep11() {
 
 }
 function levelStep12() {
-	addBadge(dLeiste, currentLevel);
+	addBadge(dLeiste, currentLevel, revertToBadgeLevel);
 	hide('dLevelComplete');
 	clearTable();
 
@@ -498,13 +514,13 @@ function resetState() {
 
 	badges = [];
 
-	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.program.picsPerLevel);// [1, 1, 2, 2, 80, 100];
 
 	resetScore();
 
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	setBackgroundColor();
-	showBadges(dLeiste, currentLevel, levelColors);
+	showBadges(dLeiste, currentLevel, revertToBadgeLevel);
 	showLevel();
 	//showScore();
 
@@ -554,6 +570,40 @@ function writeComments(pre) {
 //#endregion
 
 
+function getKeySetSimple(cats, lang,
+	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
+	let keys = setCategories(cats);
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let exact = CorrectWordsExact[lang][k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
+			if (wShort) ws = [getShortestWord(ws, false)];
+			//console.log(k,ws)
+			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
+			return false;
+		});
+	}
+	//console.log('________________',keys);//ok
+
+	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
+	return keys;
+}
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter }={}) {
+	opt = arguments[0];
+	if (nundef(opt)) opt = {};
+	opt.minlen = MinWordLength;
+	opt.maxlen = MaxWordLength;
+	if (nundef(cats)) cats = currentCategories;
+	if (nundef(lang)) lang = currentLanguage;
+	currentKeys = getKeySetSimple(cats, lang, opt);
+	//console.log('set keys:' + currentKeys.length);
+}
+function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly, reqOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
+}
 
 
 

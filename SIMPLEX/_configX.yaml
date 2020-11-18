@@ -1,0 +1,26 @@
+username: Gunter
+GameSequence:
+- g: gTouchColors
+  sl: 8
+- g: gMissingLetter
+  sl: 6
+  levels:
+    NumLabels: [1,0,0]
+     
+    6: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 9, NumMissingLetters: 1, MaxPosMissing: 12, MaxNumTrials: 3 }
+    7: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 10, NumMissingLetters: 2, MaxPosMissing: 12, MaxNumTrials: 3 }
+    8: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 11, NumMissingLetters: 4, MaxPosMissing: 12, MaxNumTrials: 3 }
+    9: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 5, MaxPosMissing: 12, MaxNumTrials: 3 }
+    10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 12, NumMissingLetters: 6, MaxPosMissing: 12, MaxNumTrials: 3 }
+- g: gTouchPic
+  sl: 9
+- g: gWritePic
+  sl: 9
+
+
+
+
+
+
+
+

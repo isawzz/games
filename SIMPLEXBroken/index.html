@@ -81,7 +81,7 @@
 				<legend>pictures per level</legend>
 				<div>
 					<input id='inputPicsPerLevel' class='input' type="number" value=1 />
-					<!-- <button onclick='setPicsPerLevel()'>Set</button> -->
+					<!-- <button onclick='setPicsPerLevel_()'>Set</button> -->
 				</div>
 			</fieldset>
 		</div>
@@ -91,7 +91,7 @@
 	<div id='freezer' onclick="onClickFreezer()" style='display:none'>
 		<div class='centerCentered'>Click to Start!</div>
 	</div>
-	<div id='freezer2' onclick="onClickFreezer2()" style='display:none'>
+	<div id='freezer2' onclick="onClickFreezer2(event)" style='display:none'>
 		<div class='centerCentered' style='margin-top:-100px;'>
 			<p>Great Job!</p>
 			<p style='font-size:64px'>Time for a Break...</p>
@@ -128,7 +128,7 @@
 
 	<script src="/SIMPLEX/TODO/globals.js"></script>
 	<script src="/SIMPLEX/TODO/_program.js"></script>
-	<script src="/SIMPLEX/TODO/settings.js"></script>
+	<!-- <script src="/SIMPLEX/TODO/settings.js"></script> -->
 
 	<script src="/SIMPLEX/TODO/keySelection.js"></script>
 
