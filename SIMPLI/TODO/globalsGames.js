@@ -40,12 +40,12 @@ function startGame(data) {
 	// determineGame(data);
 	//console.log('Settings',Settings)
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
-	currentLevel = Settings.program.currentLevel>MAXLEVEL?startAtLevel[currentGame]:Settings.program.currentLevel;
-	console.log('______ * game',currentGame,'level',currentLevel,'*')
+	currentLevel = Settings.program.currentLevel > MAXLEVEL ? startAtLevel[currentGame] : Settings.program.currentLevel;
+	console.log('______ * game', currentGame, 'level', currentLevel, '*')
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
-	CurrentGameData = { name: currentGame, levels: [] }; 
+	CurrentGameData = { name: currentGame, levels: [] };
 	CurrentSessionData.games.push(CurrentGameData);
 
 	//console.log('===> game', currentGame, 'level', currentLevel);
@@ -65,9 +65,9 @@ function startLevel(level) {
 
 	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
 
-	CurrentLevelData = { level: currentLevel, items: [] }; 
+	CurrentLevelData = { level: currentLevel, items: [] };
 	CurrentGameData.levels.push(CurrentLevelData);
-	
+
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
@@ -134,8 +134,10 @@ function selectWord(info, bestWordIsShortest, except = []) {
 
 	return w;
 }
-function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, labels) {
+function showPictures(bestWordIsShortest, onClickPictureHandler, { colors, overlayShade } = {}, keys, labels) {
 	Pictures = [];
+
+
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
 	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
@@ -182,8 +184,11 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, l
 			let ipic = (line * keys.length + i);
 			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
 			let id = 'pic' + ipic; // (line * keys.length + i);
+			// let d1 = maPicLabelButtonFitText(info, label,
+			// 	{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, overlayColor: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			let d1 = maPicLabelButtonFitText(info, label,
-				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, 
+					overlayColor: overlayShade }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
 			//console.log(info.key, label, info);
 			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
@@ -261,13 +266,13 @@ function evaluate() {
 	// } else 
 
 	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',LevelChange, DELAY)
-	if (LevelChange!=0) saveProgram();
+	if (LevelChange != 0) saveProgram();
 
 	if (LevelChange && ProgTimeIsUp) {
 		//saveProgram();
-		console.log('ENDING AT',currentGame,currentLevel)
+		console.log('ENDING AT', currentGame, currentLevel)
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
-	}	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	} else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY);
 }
@@ -391,7 +396,7 @@ function aniGameOver(msg) {
 function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
-	
+
 	updateGameSequence(nextLevel);
 	if (ProgTimeIsUp && LevelChange) {
 		console.log('PROGRAM HAS TIMED OUT!!!!!!')
@@ -438,11 +443,11 @@ function showLevelComplete() {
 	}
 
 }
-function revertToBadgeLevel(ev){
+function revertToBadgeLevel(ev) {
 	let id = evToClosestId(ev);
-	let i=stringAfter(id,'_');
-	i=Number(i);
-	currentLevel=Settings.program.currentLevel=i;
+	let i = stringAfter(id, '_');
+	i = Number(i);
+	currentLevel = Settings.program.currentLevel = i;
 	saveProgram();
 	//setBackgroundColor();
 	// removeBadgeAndRevertLevel() geht nicht!!!!!!!!!!!!!!!!!!!!
@@ -589,7 +594,7 @@ function getKeySetSimple(cats, lang,
 	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
 	return keys;
 }
-function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter }={}) {
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter } = {}) {
 	opt = arguments[0];
 	if (nundef(opt)) opt = {};
 	opt.minlen = MinWordLength;

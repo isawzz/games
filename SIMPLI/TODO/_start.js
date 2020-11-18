@@ -2,6 +2,8 @@ window.onload = SessionStart;
 //window.onunload = saveProgram; 
 async function SessionStart() {
 
+	console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
+
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 

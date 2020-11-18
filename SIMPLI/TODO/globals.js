@@ -4,7 +4,7 @@ const IS_TESTING = false; // false | true
 const EXPERIMENTAL = IS_TESTING; 
 const CLEAR_LOCAL_STORAGE = false;
 const immediateStart = true;  // false | true
-const SHOW_FREEZER = !IS_TESTING;
+const SHOW_FREEZER = false; // !IS_TESTING;
 
 var MASTER_VOLUME = 1;
 var loopGameSequence = true;

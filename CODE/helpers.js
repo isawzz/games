@@ -3194,7 +3194,7 @@ function lookupSet(dict, keys, val) {
 	let i = 0;
 	for (const k of keys) {
 		if (nundef(k)) continue; //skip undef or null values
-		if (d[k] === undefined) d[k] = i == ilast ? val : {};
+		if (d[k] === undefined) d[k] = (i == ilast ? val : {});
 		d = d[k];
 		if (i == ilast) return d;
 		i += 1;

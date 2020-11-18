@@ -113,7 +113,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	return dOuter;
 
 }
-function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, intensity }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
+function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, overlayColor }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
 	if (nundef(handler)) handler = (ev) => {
 		let id = evToClosestId(ev);
 		let info = symbolDict[id.substring(1)];
@@ -122,7 +122,7 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, intensity },
 	}
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bgPic, 'transparent', null, null, true);
 
-	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, intensity: intensity }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
+	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, overlayColor: overlayColor }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
 	x.id = 'd' + info.key;
 	x.onclick = handler;
 	x.style.cursor = 'pointer';
@@ -131,16 +131,18 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, intensity },
 	mClass(x, classes);
 	return x;
 }
-function maPicLabelFitX(info, label, { wmax, hmax, shade, intensity = '#00000030' }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
+function maPicLabelFitX(info, label, { wmax, hmax, shade, overlayColor = '#00000030' }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	//console.log('picStyles',picStyles);
 
 
 	if (isdef(shade)) {
+
+		//console.log('===>shade',shade,'overlayColor',overlayColor);
 		//console.log(picStyles);
 		let sShade = '0 0 0 ' + shade; //green';
 		picStyles['text-shadow'] = sShade;// +', '+sShade+', '+sShade;
-		picStyles.fg = intensity;
+		picStyles.fg =  overlayColor; //'#00000080' '#00000030' 
 	}
 
 	let dPic = maPic(info, d, picStyles, isText, isOmoji);

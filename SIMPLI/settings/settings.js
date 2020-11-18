@@ -7,6 +7,7 @@ function setGlobalSettings(settings) {
 	currentCategories = Settings.common.currentCategories;
 
 	currentUser = Settings.common.currentUser;
+
 }
 
 
