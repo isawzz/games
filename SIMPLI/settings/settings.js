@@ -1,5 +1,5 @@
 function setGlobalSettings(settings) {
-	console.log(settings)
+	//console.log(settings)
 	Settings = settings;
 	currentLanguage = Settings.common.currentLanguage;
 	//must set the keys!!!! =>done in indiv game startLevel

@@ -38,7 +38,7 @@ function startGame(data) {
 	} else { ROUND_DELAY = 100; }
 
 	// determineGame(data);
-	console.log('Settings',Settings)
+	//console.log('Settings',Settings)
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 	currentLevel = Settings.program.currentLevel>MAXLEVEL?startAtLevel[currentGame]:Settings.program.currentLevel;
 	console.log('______ * game',currentGame,'level',currentLevel,'*')
@@ -389,7 +389,7 @@ function aniGameOver(msg) {
 	//dLevelComplete.innerHTML = msg;
 }
 function proceed(nextLevel) {
-	console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 	
 	updateGameSequence(nextLevel);

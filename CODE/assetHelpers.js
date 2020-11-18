@@ -514,7 +514,7 @@ function setCategories(groupNameList) {
 	let keys = [];
 	for (const cat of groupNameList) {
 		let name = cat.toLowerCase();
-		console.log(name)
+		//console.log(name)
 		//console.log(name,symKeysBySet,symKeysBySet[name])
 		for (const k of symKeysBySet[name]) {
 			//console.log(k)
