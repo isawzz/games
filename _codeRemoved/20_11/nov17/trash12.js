@@ -1,3 +1,43 @@
+function loadSettingsFromLocalstorage_dep() {
+	let ta = mBy('dSettings_ta');
+	Settings = localStorage.getItem('settings'); //getLocalStorage('settings');
+	Settings = JSON.parse(Settings);
+	console.log('loaded Settings:', Settings);
+	if (nundef(Settings)) Settings = { hallo: 1, geh: 2 };
+	let o1 = Settings;// = { hallo: 1, geh: 2 };
+	o2 = jsonToYaml(o1, { encoding: 'utf-8' });
+	let o3 = jsyaml.dump(o1);
+	let o4 = jsyaml.load(o3);
+	let o5 = jsyaml.load(o2);
+	//console.log('o1', typeof (o1), o1, '\no2', typeof (o2), o2, '\no3', typeof (o3), o3, '\no4', typeof (o4), o4, '\no5', typeof (o5), o5);
+
+	textValue = ta.value = o2;
+}
+async function resetSettingsToDefaults() {
+	// Settings = await loadSettingsFromServer();
+
+	// updateSettingsUi();
+	let data = Settings = await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
+	data = data.program;
+
+	let ta = mBy('dSettings_ta');
+	console.log('loaded Settings:', Settings)
+	if (nundef(Settings)) Settings = { hallo: 1, geh: 2 };
+	let o1 = Settings;// = { hallo: 1, geh: 2 };
+	o2 = jsonToYaml(o1, { encoding: 'utf-8' });
+	// let o3 = jsyaml.dump(o1);
+	// let o4 = jsyaml.load(o3);
+	// let o5 = jsyaml.load(o2);
+	//console.log('o1', typeof (o1), o1, '\no2', typeof (o2), o2, '\no3', typeof (o3), o3, '\no4', typeof (o4), o4, '\no5', typeof (o5), o5);
+	textValue = ta.value = o2;
+
+	localStorage.clear();
+
+	saveSettingsUi();
+}
+
+
+
 //#region experimental settings api trial 1
 //experimental settings API
 var textValue, TA;

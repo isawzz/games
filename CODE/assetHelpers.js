@@ -273,7 +273,7 @@ function removeBadges(dParent, level) {
 		removeElem(badge.div);
 	}
 }
-function addBadge(dParent, level) {
+function addBadge(dParent, level, clickHandler) {
 	let fg = '#00000080';
 	let textColor = 'white';
 	let stylesForLabelButton = { rounding: 10, margin: 4 };
@@ -286,18 +286,21 @@ function addBadge(dParent, level) {
 	let label = "level " + i; 
 	let h = window.innerHeight; let hBadge = h / 14;
 	let d1 = mpBadge(info, label, { w: hBadge, h: hBadge, bg: levelColors[i], fgPic: fg, fgText: textColor }, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+	d1.id = 'dBadge_'+i;
 	mClass(d1, 'aniRubberBand');
+	if (isdef(clickHandler)) d1.onclick = clickHandler;
 	badges.push({ key: info.key, info: info, div: d1, id: d1.id, index: i });
 }
-function showBadges(dParent, level) {
+function showBadges(dParent, level, clickHandler) {
 	clearElement(dParent);badges =[];
 	for (let i = 1; i <= level; i++) {
-		addBadge(dParent, i);
+		addBadge(dParent, i, clickHandler);
 	}
 	//console.log(badges)
 }
 //#endregion
 
+//deprecated
 function mpLineup(dParent, keys, bgs, fg, textColor, texts) {
 	let g2Pics = [];
 
@@ -511,6 +514,7 @@ function setCategories(groupNameList) {
 	let keys = [];
 	for (const cat of groupNameList) {
 		let name = cat.toLowerCase();
+		console.log(name)
 		//console.log(name,symKeysBySet,symKeysBySet[name])
 		for (const k of symKeysBySet[name]) {
 			//console.log(k)

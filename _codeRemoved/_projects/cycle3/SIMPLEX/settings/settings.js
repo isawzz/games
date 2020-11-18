@@ -1,19 +1,7 @@
-function setGlobalSettings(settings) {
-	console.log(settings)
-	Settings = settings;
-	currentLanguage = Settings.common.currentLanguage;
-	//must set the keys!!!! =>done in indiv game startLevel
-
-	currentCategories = Settings.common.currentCategories;
-
-	currentUser = Settings.common.currentUser;
-}
-
-
 //experimental settings API
-async function initSettingsX() {
+async function initSettingsX(){
 	loadSettingsX();
-
+	//console.log('Settings',Settings);
 	if (isdef(Settings.hallo)) {
 		await resetSettingsToDefaults();
 	}
@@ -45,21 +33,14 @@ function loadSettingsX() {
 	loadSettingsFromLocalStorage();
 }
 
-
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
-	let settings = localStorage.getItem('settings'); //getLocalStorage('settings');
-	settings = JSON.parse(settings);
+	Settings = localStorage.getItem('settings'); //getLocalStorage('settings');
+	Settings = JSON.parse(Settings);
 
-	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
+	//console.log('loaded Settings:', Settings)
 
-	if (settings.hallo) {
-		console.log('!!!!!!!!!!!!! HACK !!!!!!!!!!!!!!!')
-		Settings = settings;
-	} else {
-		setGlobalSettings(settings);
-	}
-
+	if (nundef(Settings)) Settings = { hallo: 1, geh: 2 };
 	let o1 = Settings;// = { hallo: 1, geh: 2 };
 	o2 = jsonToYaml(o1, { encoding: 'utf-8' });
 	let o3 = jsyaml.dump(o1);
@@ -94,27 +75,29 @@ function saveSettingsX() {
 
 }
 
-async function loadSettingsFromServer() {
-	let settings = await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
+
+
+
+async function loadSettingsFromServer(){
+	let settings =  await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
 	return settings;
 
 }
 async function resetSettingsToDefaults() {
 	console.log('-------------RESET SETTINGS')
-	let settings = await loadSettingsFromServer();
-	setGlobalSettings(settings);
+	Settings = await loadSettingsFromServer();
 	localStorage.clear(); //TODO: maybe only clear settings not entire localStorage???
 
 	//console.log(Settings);
 
-	saveObject(Settings, 'settings');
+	saveObject(Settings,'settings');
 	//saveSettingsX();
-
+	
 	loadSettingsFromLocalStorage();
 
 }
-function openSettings() { hide('dGear'); clearProgramTimer(); show(dSettings); pauseUI(); loadSettingsX(); }
-function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); restartProgramTimer(); resumeUI(); }
+function openSettings() { clearProgramTimer(); show(dSettings); pauseUI(); loadSettingsX();}
+function closeSettings() { saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); restartProgramTimer(); resumeUI(); }
 function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
 
 //#region settings helpers
@@ -127,7 +110,7 @@ function createSettingsUi() {
 	ta.id = 'dSettings_ta';
 	//mStyleX(ta, { height: '98%', width: '98%' })
 	mAppend(d, ta);
-	mClass(ta, 'whMinus60');
+	mClass(ta, 'whMinus60'); 
 	// ta.style.height = '90%';
 	// ta.rows = 25;
 	// ta.cols = 100;

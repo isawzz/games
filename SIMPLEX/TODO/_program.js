@@ -1,51 +1,65 @@
 function clearProgramTimer() { clearTimeout(ProgTimeout); ProgTimeIsUp = false; }
-function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = true, ProgMinutes * 60 * 1000); }
+function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000); }
 async function loadProgram() {
-	//sets GameSequence from _config.yaml is exists, GameIndex,SavedLevel from localStorage if exists 
+	//sets gameSequence from _config.yaml is exists, Settings.program.currentGameIndex,Settings.program.currentLevel from localStorage if exists 
 
 	// let url = 'file:///C:/Users/tawzz/Downloads/__games/testfile.yaml';
 	// let data = await loadYamlDict(url);
 	// console.log('DATA', data);
 
-	let data = await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
-	data = data.program;
-	if (isdef(data)) GameSequence = data.GameSequence;
+	//TODO: hier muss statt dessen Settings.program nehmen!
+	//let data = Settings_ =  await loadYamlDict('/SIMPLEX/settings/settings.yaml'); //_config.yaml');
+	// console.log('Settings',Settings);
+	// localStorage.clear();
+	// initSettings();
 
-	GameIndex = localStorage.getItem('GameIndex');
-	if (isString(GameIndex)) { GameIndex = Number(GameIndex); }
-	if (nundef(GameIndex)) { GameIndex = 0; }
+	// if (nundef(Settings)) {
+	// 	console.log('call initSettings'); 
+	// 	initSettings();
+	// }
+	let program = Settings.program;
+	let gameSequence = program.gameSequence;
+	let gameIndex = program.currentGameIndex;
 
-	SavedLevel = localStorage.getItem('SavedLevel');
-	if (isString(SavedLevel)) { SavedLevel = Number(SavedLevel); }
-	if (nundef(SavedLevel)) { SavedLevel = GameSequence[GameIndex].sl; }
+	if (isdef(program)) gameSequence = program.gameSequence;
+
+	//console.log(Settings);
+	//Settings.program.currentGameIndex = localStorage.getItem('Settings.program.currentGameIndex');
+	if (isString(Settings.program.currentGameIndex)) { Settings.program.currentGameIndex = Number(Settings.program.currentGameIndex); }
+	if (nundef(Settings.program.currentGameIndex)) { Settings.program.currentGameIndex = 0; }
+
+	//Settings.program.currentLevel = localStorage.getItem('Settings.program.currentLevel');
+	if (isString(Settings.program.currentLevel)) { Settings.program.currentLevel = Number(Settings.program.currentLevel); }
+	if (nundef(Settings.program.currentLevel)) { Settings.program.currentLevel = gameSequence[Settings.program.currentGameIndex].startLevel; }
 
 	//friendly output
 	let i = 0;
-	GameSequence.map(x => {
-		if (i == GameIndex) console.log('=>', x); else console.log('', x);
+	gameSequence.map(x => {
+		if (i == Settings.program.currentGameIndex) console.log('=>', x); else console.log('', x);
 		i += 1;
 	});
-	console.log('LOADED: index', GameIndex, 'level', SavedLevel);
-	// console.log('GameIndex loaded', GameIndex);
-	// console.log('SavedLevel loaded', SavedLevel);
+	console.log('LOADED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
+	// console.log('Settings.program.currentGameIndex loaded', Settings.program.currentGameIndex);
+	// console.log('Settings.program.currentLevel loaded', Settings.program.currentLevel);
 }
 
 function saveProgram() {
-	console.log('HAAAAAAAAAAAAAAAAAAAAAAALO')
+	//console.log('HAAAAAAAAAAAAAAAAAAAAAAALO')
 	updateGameSequence(currentLevel);
-	localStorage.setItem('GameIndex', GameIndex.toString());
-	localStorage.setItem('SavedLevel', SavedLevel.toString());
-	console.log('saved: index', GameIndex, 'level', SavedLevel);
-	// localStorage.setItem('currentLevel',GameIndex.toString());
-	// console.log('GameIndex saved',GameIndex)
+	localStorage.setItem('settings', JSON.stringify(Settings));
+	// saveSettingsUi();
+	// localStorage.setItem('Settings.program.currentGameIndex', Settings.program.currentGameIndex.toString());
+	// localStorage.setItem('Settings.program.currentLevel', Settings.program.currentLevel.toString());
+	console.log('SAVED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
 
 function updateGameSequence(nextLevel) {
 	console.log(nextLevel, MAXLEVEL)
 	if (nextLevel > MAXLEVEL) {
-		GameIndex = (GameIndex + 1) % GameSequence.length;
-		SavedLevel = GameSequence[GameIndex].sl;
-	} else SavedLevel = nextLevel;
+		let gameSequence = Settings.program.gameSequence;
+		Settings.program.currentGameIndex = (Settings.program.currentGameIndex + 1) % gameSequence.length;
+		Settings.program.currentLevel = gameSequence[Settings.program.currentGameIndex].startLevel;
+	} else Settings.program.currentLevel = nextLevel;
 }
 
 

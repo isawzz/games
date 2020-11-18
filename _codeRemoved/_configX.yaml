@@ -1,5 +1,5 @@
 username: Gunter
-GameSequence:
+gameSequence:
 - g: gTouchColors
   sl: 8
 - g: gMissingLetter

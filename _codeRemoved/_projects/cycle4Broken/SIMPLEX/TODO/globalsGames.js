@@ -3,9 +3,9 @@ function determineGame_dep(data) {
 	//determining currentGame: data undefined, game name or game index
 	if (nundef(data)) {
 		if (GameSelectionMode == 'program') {
-			data = gameSequence[Settings.program.currentGameIndex];
-			currentGame = data.game;
-			currentLevel = Settings.program.currentLevel;
+			data = gameSequence[Settings.program.gameIndex];
+			currentGame = data.g;
+			currentLevel = Settings.program.savedLevel;
 		} else if (GameSelectionMode == 'training') {
 			currentGame = 'gSayPicAuto';
 			currentLevel = 0;
@@ -38,15 +38,13 @@ function startGame(data) {
 	} else { ROUND_DELAY = 100; }
 
 	// determineGame(data);
-	console.log('Settings',Settings)
-	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
-	currentLevel = Settings.program.currentLevel>MAXLEVEL?startAtLevel[currentGame]:Settings.program.currentLevel;
+	currentGame = Settings.program.gameSequence[Settings.program.gameIndex].g;
+	currentLevel = Settings.program.savedLevel>MAXLEVEL?startAtLevel[currentGame]:Settings.program.savedLevel;
 	console.log('______ * game',currentGame,'level',currentLevel,'*')
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
-	CurrentGameData = { name: currentGame, levels: [] }; 
-	CurrentSessionData.games.push(CurrentGameData);
+	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
 
 	//console.log('===> game', currentGame, 'level', currentLevel);
 
@@ -65,9 +63,7 @@ function startLevel(level) {
 
 	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
 
-	CurrentLevelData = { level: currentLevel, items: [] }; 
-	CurrentGameData.levels.push(CurrentLevelData);
-	
+	CurrentLevelData = { level: currentLevel, items: [] }; CurrentGameData.levels.push(CurrentLevelData);
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
@@ -256,7 +252,7 @@ function evaluate() {
 
 	// if (currentGame == 'gSayPicAuto' && LevelChange) {
 	// 	console.log('=======>currentLanguage',currentLanguage);
-	// 	if (currentLanguage_ == 'E') trainNextLanguage();
+	// 	if (currentLanguage == 'E') trainNextLanguage();
 	// 	else trainNextGroup();
 	// } else 
 
@@ -399,7 +395,7 @@ function proceed(nextLevel) {
 		return;
 	}
 	if (nextLevel > MAXLEVEL) {
-		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
+		if (Settings.program.gameIndex >= Settings.program.gameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
 			startGame();
@@ -409,7 +405,7 @@ function proceed(nextLevel) {
 
 	// updateGameSequence(nextLevel);
 	// if (nextLevel > MAXLEVEL) {
-	// 	if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
+	// 	if (Settings.program.gameIndex >= Settings.program.gameSequence.length) {
 	// 		aniGameOver('Congratulations! You are done!');
 	// 	} else {
 	// 		startGame();
@@ -442,7 +438,7 @@ function revertToBadgeLevel(ev){
 	let id = evToClosestId(ev);
 	let i=stringAfter(id,'_');
 	i=Number(i);
-	currentLevel=Settings.program.currentLevel=i;
+	currentLevel=Settings.program.savedLevel=i;
 	saveProgram();
 	//setBackgroundColor();
 	// removeBadgeAndRevertLevel() geht nicht!!!!!!!!!!!!!!!!!!!!
@@ -514,7 +510,7 @@ function resetState() {
 
 	badges = [];
 
-	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.program.picsPerLevel);// [1, 1, 2, 2, 80, 100];
+	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.common.picsPerLevel);// [1, 1, 2, 2, 80, 100];
 
 	resetScore();
 

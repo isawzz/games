@@ -62,9 +62,8 @@ async function _startPlaying(){
 
 async function startUnit() {
 
-	clearProgramTimer();restartProgramTimer();
-	// ProgTimeIsUp_ = false;
-	// ProgTimeout_ = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000);
+	ProgTimeIsUp = false;
+	ProgTimeout = setTimeout(() => ProgTimeIsUp = true, progMinutes * 60 * 1000);
 
 	await loadProgram();
 
@@ -77,9 +76,9 @@ async function startUnit() {
 
 function onClickFreezer() { hide('freezer'); startUnit(); }
 function onClickFreezer2(ev) { 
-	//console.log('____________onClickFreezer2',ev);
+	console.log('____________onClickFreezer2',ev);
 	if (!ev.ctrlKey) {
-		console.log('*** press control!!!!')
+		console.log('press control!')
 		return;
 	} 
 	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit(); }

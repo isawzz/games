@@ -1,19 +1,45 @@
 const IS_TESTING = false; // false | true
 
+var currentLanguage = 'E';
+var currentCategories = ['nosymbols']; //['kitchen'];
+var ProgTimeIsUp = false;
+var progMinutes = IS_TESTING ? .5 : 0;
+var picsPerLevel_ = IS_TESTING ? 1 : 1;
+var MASTER_VOLUME = .5;
+
 //common for all games and users / control flow
 const EXPERIMENTAL = IS_TESTING; 
 const CLEAR_LOCAL_STORAGE = false;
 const immediateStart = true;  // false | true
 const SHOW_FREEZER = !IS_TESTING;
-
-var MASTER_VOLUME = .5;
 var loopGameSequence = true;
 var StepByStepMode = false; //wartet auf click next um wieder zu starten!
-var skipAnimations = IS_TESTING; // false | true
+var skipAnimations = true; //IS_TESTING; // false | true
 var skipAniGameOver = true; //IS_TESTING;
 var skipBadgeAnimation = true;
+
+var ProgTimeout; //to cancel timer!
+var Settings;
+
+
+//common for all games and users / control flow
+var StepByStepMode = false; //wartet auf click next um wieder zu starten!
+var skipAnimations = true; //IS_TESTING; // false | true
+var skipAniGameOver = true; //IS_TESTING;
+var skipBadgeAnimation = true;
+
 USE_LOCAL_STORAGE = true; // false | true
+var GameSelectionMode = 'program'; // indiv | program | training
+//var SAMPLES_PER_LEVEL_ = new Array(20).fill(SettingspicsPerLevel);// [1, 1, 2, 2, 80, 100];
 var MAXLEVEL = 10;
+
+// GameSelectionMode = indiv
+// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
+var currentGame = IS_TESTING ? 'gTouchPic' : 'gTouchPic';
+var currentLevel = 10;
+var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gMissingLetter: 10, gSayPic: 10 } : { gMissingLetter: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gSayPic: 10 };
+var currentUser = 'Gunter';
+
 
 // delays
 var DELAY = 1000;
@@ -27,54 +53,24 @@ var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
 
-var ProgTimeout; //to cancel timer!
-var ProgTimeIsUp; // = false; flag for program timer
-var Settings;
+var currentKeys; //see setKeys, reset at each level!!!!!
+
+//to be set by each game on level change:
 var MaxNumTrials = 1;
 var MinWordLength = 1;
 var MaxWordLength = 100;
 var NumPics;
 var NumLabels;
-var Pictures = [];
-var Goal, Selected;
-var NextPictureIndex = 0;
-
-var currentUser;
-var currentGame;
-var currentLevel;
-var currentLanguage;
-var currentCategories;
-var currentKeys; //see setKeys_, reset at each level!!!!!
-
-//defaults hardcoded
-var startAtLevel = IS_TESTING ? { gSayPicAuto: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gMissingLetter: 10, gSayPic: 10 } : { gMissingLetter: 10, gTouchPic: 10, gTouchColors: 10, gWritePic: 10, gSayPic: 10 };
-
-var MicrophoneUi; //this is the ui
-
-
-
-// var GameSelectionMode = 'program'; // indiv | program | training
-//var SAMPLES_PER_LEVEL_ = new Array(20).fill(SettingspicsPerLevel);// [1, 1, 2, 2, 80, 100];
-
-// GameSelectionMode = indiv
-// gTouchPic | gTouchColors | gWritePic | gMissingLetter | gSayPic | 'sequence'
-// var currentGame = IS_TESTING ? 'gTouchPic' : 'gTouchPic';
-// var currentLevel = 10;
-// var currentUser = 'Gunter';
-// var currentLanguage_ = 'E';
-// var currentCategories_ = ['nosymbols']; //['kitchen'];
-//var minutesPerUnit = IS_TESTING ? .5 : 0;
-// var picsPerLevel_ = IS_TESTING ? 1 : 1;
-
-
-
-//to be set by each game on level change:
 
 
 //speech recognition
+var MicrophoneUi; //this is the ui
 var OnMicrophoneReady, OnMicrophoneGotResult, OnMicrophoneProblem;
 
 //vars for round to round:
+var Pictures = [];
+var Goal, Selected;
+var NextPictureIndex = 0;
 
 //score
 var scoringMode, DefaultScoringMode = 'n'; // n | inc | percent | mixed | autograde
@@ -148,10 +144,10 @@ var timit;
 
 //RESERVED FOR PROGRAM! GameSelectionMode = program
 // var HCGameSeq = [
-// 	{ game: 'gTouchColors', startLevel: 8, cl: 10 },
-// 	{ game: 'gMissingLetter', startLevel: 6, cl: 10 },
-// 	{ game: 'gTouchPic', startLevel: 9, cl: 10 },
-// 	{ game: 'gWritePic', startLevel: 9, cl: 10 }];
-// //var Settings.program.currentGameIndex;
+// 	{ g: 'gTouchColors', sl: 8, cl: 10 },
+// 	{ g: 'gMissingLetter', sl: 6, cl: 10 },
+// 	{ g: 'gTouchPic', sl: 9, cl: 10 },
+// 	{ g: 'gWritePic', sl: 9, cl: 10 }];
+// //var Settings.program.gameIndex;
 // var gameSequence = HCGameSeq;
-//var Settings.program.currentLevel_ = 0;
+//var Settings.program.savedLevel = 0;

@@ -1,17 +1,18 @@
 
-function initSettingsP0() {
-	// initialize settings in settings window
-	let iLanguage = mBy('input' + currentLanguage);
-	iLanguage.checked = true;
+// function initSettingsP0() {
+// 	// initialize settings in settings window
+// 	console.log('initSettingsP0')
+// 	let iLanguage = mBy('input' + currentLanguage);
+// 	iLanguage.checked = true;
 
-	let iPicsPerLevel = mBy('inputPicsPerLevel');
-	iPicsPerLevel.value = PICS_PER_LEVEL;
+// 	let iPicsPerLevel = mBy('inputPicsPerLevel');
+// 	iPicsPerLevel.value = picsPerLevel_;
 
-}
+// }
 
-function openSettings_dep0() {  show(dSettings); pauseUI(); if(EXPERIMENTAL)loadSettings(); }
-function closeSettings_dep0() { if(EXPERIMENTAL)saveSettings();else setPicsPerLevel(); hide(dSettings); resumeUI(); }
-function toggleSettings_dep0() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
+// function openSettings_dep0() {  show(dSettings); pauseUI(); if(EXPERIMENTAL)initSettings(); }
+// function closeSettings_dep0() { if(EXPERIMENTAL)saveSettingsUi();else setPicsPerLevel_(); hide(dSettings); resumeUI(); }
+// function toggleSettings_dep0() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
 
 function setGame(event) {
 	if (isString(event)) startGame(event);
@@ -65,8 +66,8 @@ function setPicsPerLevel() {
 	let n = Number(x.toString());
 	inp.value = n;
 	getSelection().removeAllRanges();
-	PICS_PER_LEVEL = n;
-	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);
+	picsPerLevel = n;
+	SAMPLES_PER_LEVEL = new Array(20).fill(picsPerLevel);
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 }
 

@@ -37,8 +37,12 @@ const OLIVE = '#808000';
 //var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var selectedEmoSetNames = ['all', 'animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 
-var primitiveSetNames = ['all', 'activity', 'animal', 'body', 'drink', 'emotion', 'fantasy', 'food', 'fruit', 'gesture',
-	'person', 'role', 'sport', 'family', 'game', 'kitchen', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable', 'object', 'shapes',
+var primitiveSetNames = ['all', 'activity', 'animal', 'body', 'drink', 
+	'emotion', 'family', 'fantasy', 'food', 'fruit', 'game', 'gesture',	
+	'kitchen','object', 'place', 'plant', 'person', 
+	'role','shapes', 'sport', 'sports', 
+	'time', 'transport', 'vegetable', 
+	
 	'toolbar', 'math', 'punctuation', 'misc'];
 
 var higherOrderEmoSetNames = {
@@ -53,6 +57,7 @@ var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstr
 
 var emoSets = {
 	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
+	nosymemo: { name: 'nosymemo', f: o => o.group != 'smileys-emotion' && o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
 	
 	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },

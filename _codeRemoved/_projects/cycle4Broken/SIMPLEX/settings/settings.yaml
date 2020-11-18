@@ -1,0 +1,32 @@
+common:
+  loopGameSequence: true
+  currentUser: Gunter
+  currentLanguage: E
+  currentCategories: [nosymbols]
+  picsPerLevel: 5
+program: #TODO: make this a list with ids
+  gameSequence:
+    - g: gTouchColors
+      sl: 8
+    - g: gMissingLetter
+      sl: 6
+    - g: gTouchPic
+      sl: 9
+    - g: gWritePic
+      sl: 9
+  gameIndex: 0
+  savedLevel: 8
+  progMinutes: 1
+games:
+  gTouchColors:
+    common: #valid for all levels
+      colors:
+        - red
+        - blue
+        - yellow
+        - green
+        - black
+    levels: #changes to common for specific levels
+    - 0:
+        colors: [red, yellow]
+      
