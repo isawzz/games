@@ -1,11 +1,11 @@
 var pictureSize;
-function determineGame(data) {
+function determineGame_dep(data) {
 	//determining currentGame: data undefined, game name or game index
 	if (nundef(data)) {
 		if (GameSelectionMode == 'program') {
-			data = GameSequence[GameIndex];
-			currentGame = data.g;
-			currentLevel = SavedLevel;
+			data = gameSequence[Settings.program.currentGameIndex];
+			currentGame = data.game;
+			currentLevel = Settings.program.currentLevel;
 		} else if (GameSelectionMode == 'training') {
 			currentGame = 'gSayPicAuto';
 			currentLevel = 0;
@@ -38,13 +38,15 @@ function startGame(data) {
 	} else { ROUND_DELAY = 100; }
 
 	// determineGame(data);
-	currentGame = GameSequence[GameIndex].g;
-	currentLevel = SavedLevel>MAXLEVEL?startAtLevel[currentGame]:SavedLevel;
-	console.log('______ * game',currentGame,'level',currentLevel,'*')
+	//console.log('Settings',Settings)
+	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
+	currentLevel = Settings.program.currentLevel > MAXLEVEL ? startAtLevel[currentGame] : Settings.program.currentLevel;
+	console.log('______ * game', currentGame, 'level', currentLevel, '*')
 
 	if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
 
-	CurrentGameData = { name: currentGame, levels: [] }; CurrentSessionData.games.push(CurrentGameData);
+	CurrentGameData = { name: currentGame, levels: [] };
+	CurrentSessionData.games.push(CurrentGameData);
 
 	//console.log('===> game', currentGame, 'level', currentLevel);
 
@@ -63,7 +65,9 @@ function startLevel(level) {
 
 	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
 
-	CurrentLevelData = { level: currentLevel, items: [] }; CurrentGameData.levels.push(CurrentLevelData);
+	CurrentLevelData = { level: currentLevel, items: [] };
+	CurrentGameData.levels.push(CurrentLevelData);
+
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
@@ -130,8 +134,10 @@ function selectWord(info, bestWordIsShortest, except = []) {
 
 	return w;
 }
-function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, labels) {
+function showPictures(bestWordIsShortest, onClickPictureHandler, { colors, overlayShade } = {}, keys, labels) {
 	Pictures = [];
+
+
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
 	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
@@ -178,8 +184,11 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, colors, keys, l
 			let ipic = (line * keys.length + i);
 			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
 			let id = 'pic' + ipic; // (line * keys.length + i);
+			// let d1 = maPicLabelButtonFitText(info, label,
+			// 	{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, overlayColor: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			let d1 = maPicLabelButtonFitText(info, label,
-				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, intensity: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, 
+					overlayColor: overlayShade }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
 			//console.log(info.key, label, info);
 			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
@@ -252,18 +261,18 @@ function evaluate() {
 
 	// if (currentGame == 'gSayPicAuto' && LevelChange) {
 	// 	console.log('=======>currentLanguage',currentLanguage);
-	// 	if (currentLanguage == 'E') trainNextLanguage();
+	// 	if (currentLanguage_ == 'E') trainNextLanguage();
 	// 	else trainNextGroup();
 	// } else 
 
 	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',LevelChange, DELAY)
-	if (LevelChange!=0) saveProgram();
+	if (LevelChange != 0) saveProgram();
 
 	if (LevelChange && ProgTimeIsUp) {
 		//saveProgram();
-		console.log('ENDING AT',currentGame,currentLevel)
+		console.log('ENDING AT', currentGame, currentLevel)
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);
-	}	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	} else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY);
 }
@@ -385,9 +394,9 @@ function aniGameOver(msg) {
 	//dLevelComplete.innerHTML = msg;
 }
 function proceed(nextLevel) {
-	console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
-	
+
 	updateGameSequence(nextLevel);
 	if (ProgTimeIsUp && LevelChange) {
 		console.log('PROGRAM HAS TIMED OUT!!!!!!')
@@ -395,7 +404,7 @@ function proceed(nextLevel) {
 		return;
 	}
 	if (nextLevel > MAXLEVEL) {
-		if (GameIndex >= GameSequence.length) {
+		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
 			aniGameOver('Congratulations! You are done!');
 		} else {
 			startGame();
@@ -405,7 +414,7 @@ function proceed(nextLevel) {
 
 	// updateGameSequence(nextLevel);
 	// if (nextLevel > MAXLEVEL) {
-	// 	if (GameIndex >= GameSequence.length) {
+	// 	if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
 	// 		aniGameOver('Congratulations! You are done!');
 	// 	} else {
 	// 		startGame();
@@ -428,11 +437,23 @@ function showLevelComplete() {
 		show('dLevelComplete');
 		setTimeout(levelStep10, 1500);
 	} else {
-		addBadge(dLeiste, currentLevel);
+		addBadge(dLeiste, currentLevel, revertToBadgeLevel);
 		setBackgroundColor();
 		proceedIfNotStepByStep();
 	}
 
+}
+function revertToBadgeLevel(ev) {
+	let id = evToClosestId(ev);
+	let i = stringAfter(id, '_');
+	i = Number(i);
+	currentLevel = Settings.program.currentLevel = i;
+	saveProgram();
+	//setBackgroundColor();
+	// removeBadgeAndRevertLevel() geht nicht!!!!!!!!!!!!!!!!!!!!
+	removeBadges(dLeiste, currentLevel);
+	setBackgroundColor();
+	startLevel(i);
 }
 function levelStep10() {
 	mClass(document.body, 'aniFadeOutIn');
@@ -445,7 +466,7 @@ function levelStep11() {
 
 }
 function levelStep12() {
-	addBadge(dLeiste, currentLevel);
+	addBadge(dLeiste, currentLevel, revertToBadgeLevel);
 	hide('dLevelComplete');
 	clearTable();
 
@@ -498,13 +519,13 @@ function resetState() {
 
 	badges = [];
 
-	SAMPLES_PER_LEVEL = new Array(20).fill(PICS_PER_LEVEL);// [1, 1, 2, 2, 80, 100];
+	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.program.picsPerLevel);// [1, 1, 2, 2, 80, 100];
 
 	resetScore();
 
 	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	setBackgroundColor();
-	showBadges(dLeiste, currentLevel, levelColors);
+	showBadges(dLeiste, currentLevel, revertToBadgeLevel);
 	showLevel();
 	//showScore();
 
@@ -554,6 +575,40 @@ function writeComments(pre) {
 //#endregion
 
 
+function getKeySetSimple(cats, lang,
+	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
+	let keys = setCategories(cats);
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let exact = CorrectWordsExact[lang][k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
+			if (wShort) ws = [getShortestWord(ws, false)];
+			//console.log(k,ws)
+			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
+			return false;
+		});
+	}
+	//console.log('________________',keys);//ok
+
+	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
+	return keys;
+}
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter } = {}) {
+	opt = arguments[0];
+	if (nundef(opt)) opt = {};
+	opt.minlen = MinWordLength;
+	opt.maxlen = MaxWordLength;
+	if (nundef(cats)) cats = currentCategories;
+	if (nundef(lang)) lang = currentLanguage;
+	currentKeys = getKeySetSimple(cats, lang, opt);
+	//console.log('set keys:' + currentKeys.length);
+}
+function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly, reqOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
+}
 
 
 

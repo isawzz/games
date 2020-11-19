@@ -2,13 +2,15 @@ window.onload = SessionStart;
 //window.onunload = saveProgram; 
 async function SessionStart() {
 
+	console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
+
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 
 	await loadCorrectWords(); await loadAssets(); ensureSymBySet(); makeHigherOrderGroups();
 
 	//setTimeout(_startSpeechTraining, 2000);	return;
-	_startPlaying();
+	await _startPlaying();
 }
 function _startSpeechTraining() {
 
@@ -39,7 +41,7 @@ function _startSpeechTraining() {
 
 }
 
-function _startPlaying(){
+async function _startPlaying(){
 
 	//ich wollte testen ob download geht:nein geht nicht!
 	// let o={hallo:1,das:2};
@@ -47,7 +49,8 @@ function _startPlaying(){
 
 	initTable();
 	initSidebar();
-	initSettingsP0();
+
+	await initSettingsX();
 
 	CurrentSessionData = { user: currentUser, games: [] };
 
@@ -61,8 +64,9 @@ function _startPlaying(){
 
 async function startUnit() {
 
-	ProgTimeIsUp = false;
-	ProgTimeout = setTimeout(() => ProgTimeIsUp = true, ProgMinutes * 60 * 1000);
+	clearProgramTimer();restartProgramTimer();
+	// ProgTimeIsUp_ = false;
+	// ProgTimeout_ = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000);
 
 	await loadProgram();
 
@@ -74,7 +78,13 @@ async function startUnit() {
 
 
 function onClickFreezer() { hide('freezer'); startUnit(); }
-function onClickFreezer2() { clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit(); }
+function onClickFreezer2(ev) { 
+	//console.log('____________onClickFreezer2',ev);
+	if (!ev.ctrlKey) {
+		console.log('*** press control!!!!')
+		return;
+	} 
+	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit(); }
 
 //divControls
 function onClickStartButton() { startGame(); }
