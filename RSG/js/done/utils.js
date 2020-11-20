@@ -150,7 +150,7 @@ function calcAddressWithin(o, addr, R) {
 			}
 			else {
 				//take last property from props
-				let key = last(props);
+				let key = arrLast(props);
 				let len = props.length;
 				let props1 = props.slice(0, len - 1);
 				//console.log('props',props,'props1',props1)

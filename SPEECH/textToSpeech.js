@@ -40,7 +40,7 @@ function speak(s) {
 		utterThis.onerror = function (event) {
 			console.error('SpeechSynthesisUtterance.onerror');
 		}
-		utterThis.voice = voices[0]; //last(voices); //[20];
+		utterThis.voice = voices[0]; //arrLast(voices); //[20];
 		// var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
 		// for (i = 0; i < voices.length; i++) {
 		// 	if (voices[i].name === selectedOption) {

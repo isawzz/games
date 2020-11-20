@@ -427,7 +427,7 @@ function test16_openMojis() {
 	// 	let info = chooseRandom(list);
 	let result;
 	for (const k of listOther) {
-		let info = first(picSearch({ set: 'role', keywords: k }));
+		let info = arrFirst(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
 		let [g, p, t] = getSimpleStyles(50, undefined, 'random', 'random');
 		result = maPicLabel(info, dParent, g, p, t, false, true);
@@ -464,7 +464,7 @@ function test13_15_roles_grid_img() {
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
 	for (const k of listOther) {
 		//let info = picRandom('emo', k);
-		let info = first(picSearch({ set: 'role', keywords: k }));
+		let info = arrFirst(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
 		maPic(info, dParent, styles, false);
 	}
@@ -529,7 +529,7 @@ function test4_15_roles_grid() {
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
 	for (const k of listOther) {
 		//let info = picRandom('emo', k);
-		let info = first(picSearch({ set: 'role', keywords: k }));
+		let info = arrFirst(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
 		maPic(info, dParent, styles);
 	}
@@ -545,7 +545,7 @@ function test3_15_roles_grid() {
 	let styles = { w: 50, h: 50, padding: 10, bg: 'hotpink', fg: 'pink', rounding: 5 };
 	for (const k of listOther) {
 		//let info = picRandom('emo', k);
-		let info = first(picSearch({ set: 'role', keywords: k }));
+		let info = arrFirst(picSearch({ set: 'role', keywords: k }));
 		if (nundef(info)) continue;
 		maPic(info, dParent, styles);
 	}

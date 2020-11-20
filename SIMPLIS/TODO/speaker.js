@@ -75,7 +75,7 @@ function utter(text, r = .5, p = .8, v = .5, voiceDesc, callback=null) {
 			if (callback) callback();
 	};
 	
-	if (isINTERRUPT) return;else isSpeakerRunning=true;
+	if (GlobalSTOP) return;else isSpeakerRunning=true;
 	speechSynthesis.speak(u);
 	//console.log(u);
 	

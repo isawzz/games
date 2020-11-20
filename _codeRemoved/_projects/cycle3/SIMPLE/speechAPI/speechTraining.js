@@ -60,7 +60,7 @@ function getInfolist({ minlen=null, maxlen=null, cats = null, lang = 'E', wShort
 	opt = arguments[0];
 	if (nundef(opt)) opt={};
 	if (nundef(cats)) cats = currentCategories;
-	if (nundef(lang)) lang = currentLanguage;
+	if (nundef(lang)) lang = 'E';
 	if (nundef(minlen)) opt.minlen = MinWordLength;
 	if (nundef(maxlen)) opt.maxlen = MaxWordLength;
 	//console.log(opt)

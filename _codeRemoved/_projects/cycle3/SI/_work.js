@@ -35,7 +35,7 @@ function saveAnswerStatistic() {
 	// das ist nur bei dem gSayPicAuto game
 	let g = CurrentGameData;
 
-	let items = last(g.levels).items;
+	let items = arrLast(g.levels).items;
 	console.log(items);
 
 	let correctAnswers = items.filter(x => x.isCorrect && x.answer == x.reqAnswer);
@@ -49,7 +49,7 @@ function saveAnswerStatistic() {
 }
 function saveStats() {
 	let g = lastCond(CurrentSessionData.games, x => x.name == 'gSayPicAuto');
-	let xxx = last(g.levels).items
+	let xxx = arrLast(g.levels).items
 	let yyy = xxx.map(x => {
 		let res = { key: x.goal.key, answer: x.goal.answer, req: x.goal.reqAnswer, conf: x.goal.confidence, isCorrect: x.isCorrect };
 		return res;

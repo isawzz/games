@@ -200,7 +200,7 @@ function g2Start() {
 	for (let i = 0; i < keys.length; i++) {
 		let info = getRandomSetItem('E', keys[i]);
 		let id = 'pic' + i;
-		let label = last(info.words); 
+		let label = arrLast(info.words); 
 		console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPicture, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;

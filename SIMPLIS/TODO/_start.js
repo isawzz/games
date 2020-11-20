@@ -2,7 +2,7 @@ window.onload = SessionStart;
 //window.onunload = saveProgram; 
 async function SessionStart() {
 
-	console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
+	//console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
 
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
@@ -18,9 +18,15 @@ function _startSpeechTraining() {
 	// //let infos = getInfolist({cats:['animal']}); return;
 
 	initTable();
-	Speech = new SpeechFeature(MASTER_VOLUME);
+	Speech = new SpeechFeature(1,'D'); //MASTER_VOLUME);
 
 	//speechTraining(); return;
+
+	//testp9(); //testp7(); //testp6(); //testp5(); //testp4(); 
+	// testp2(); return;
+	//testp0(); return;
+	return;
+
 	testSimilar01('hand'); return;
 	testLanguageChange(); return;
 	testWait(); return;
@@ -35,7 +41,7 @@ function _startSpeechTraining() {
 	let w = infos[0].best;
 
 	//let onRecorderStart = () => Speech.say(w);
-	let onRecorderStart = () => Speech.setRecordingLanguage('D');
+	let onRecorderStart = () => Speech.setLanguage('D');
 
 	Speech.record({ onStart: onRecorderStart, delayStart: 2000, retry: true });
 
@@ -55,16 +61,15 @@ async function _startPlaying(){
 	CurrentSessionData = { user: currentUser, games: [] };
 
 	//old speech regoc init
-	speech00(currentLanguage);
-
-
+	// speech00(currentLanguage);
+	Speech = new SpeechFeature(1,'D'); //MASTER_VOLUME);
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 }
 
 async function startUnit() {
 
-	clearProgramTimer();restartProgramTimer();
+	clearProgramTimer(); restartProgramTimer();
 	// ProgTimeIsUp_ = false;
 	// ProgTimeout_ = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000);
 

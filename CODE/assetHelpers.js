@@ -511,6 +511,7 @@ function makeHigherOrderGroups() {
 	ensureSymByType();
 }
 function setCategories(groupNameList) {
+
 	ensureSymBySet();
 	//console.log(groupNameList)
 	let keys = [];
@@ -608,7 +609,7 @@ function getRandomSetItem(lang = 'E', key, keylist) {
 	info.eWords = eWords;
 	info.dWords = dWords;
 	info.words = words;
-	info.best = last(words);
+	info.best = arrLast(words);
 	info.valid = valid;
 
 	currentLanguage = lang;

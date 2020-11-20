@@ -173,7 +173,7 @@ function saveAnswerStatistic() {
 	// das ist nur bei dem gSayPicAuto game
 	let g = CurrentGameData;
 
-	let items = last(g.levels).items;
+	let items = arrLast(g.levels).items;
 	console.log(items);
 
 	let correctAnswers = items.filter(x => x.isCorrect && x.answer == x.reqAnswer);

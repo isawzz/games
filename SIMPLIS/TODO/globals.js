@@ -90,7 +90,7 @@ var IsAnswerCorrect;
 var lastPosition = 0;
 var trialNumber;
 var boundary;
-var isSpeakerRunning, isINTERRUPT;//,SpeakerCallback;
+var isSpeakerRunning, GlobalSTOP;//,SpeakerCallback;
 
 //ui state flags
 const uiHaltedMask = 1 << 0; //eg. when entering settings

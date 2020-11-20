@@ -245,7 +245,7 @@ function mTitle(n, R, uidParent) {
 function layoutHand(n) {
 	if (isdef(n.params.overlap) && n.children.length > 1) {
 		let cards = n.children.map(x => x.ui);
-		let clast = last(cards);
+		let clast = arrLast(cards);
 		//console.log('card',clast);
 		let b = getBounds(clast);
 		//console.log('bounds',b);

@@ -55,7 +55,7 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
-function mParent(elem){return elem.parentNode;}
+function mParent(elem) { return elem.parentNode; }
 function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');
 	x.innerHTML = caption;
@@ -2041,7 +2041,7 @@ function isVisible2(elem) { // Where el is the DOM element you'd like to test fo
 	//console.log(elem)
 	if (isString(elem)) elem = document.getElementById(elem);
 
-	return (elem.style.display!='none' || elem.offsetParent !== null);
+	return (elem.style.display != 'none' || elem.offsetParent !== null);
 }
 function show(elem) {
 	if (isString(elem)) elem = document.getElementById(elem);
@@ -2160,7 +2160,7 @@ function processCsvData(allText) {
 			let k = headings[i];
 			o[k] = values[i];
 		}
-		o.order = Number(last(values));
+		o.order = Number(arrLast(values));
 
 		records[o.hexcode] = o;
 		//recordsByName[o.annotation] = o.hexcode;
@@ -2507,12 +2507,12 @@ function wlog() {
 //#endregion
 
 //#region layout helpers
-function calcRowsColsX(num){
-	const table={
-		2:{rows:1,cols:2},
-		5:{rows:2,cols:3},
-		7:{rows:2,cols:4},
-		11:{rows:3,cols:4},
+function calcRowsColsX(num) {
+	const table = {
+		2: { rows: 1, cols: 2 },
+		5: { rows: 2, cols: 3 },
+		7: { rows: 2, cols: 4 },
+		11: { rows: 3, cols: 4 },
 	};
 	if (isdef(table[num])) return table[num]; else return calcRowsCols(num);
 }
@@ -2526,12 +2526,12 @@ function calcRowsCols(num, rows, cols) {
 		cols = Math.ceil(num / rows);
 	} else if (isdef(cols)) {
 		rows = Math.ceil(num / cols);
-	} else if (num==2) {
-		rows=1;cols=2;
-	}	else if ([4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
+	} else if (num == 2) {
+		rows = 1; cols = 2;
+	} else if ([4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
 		rows = Math.floor(Math.sqrt(num));
 		cols = Math.ceil(Math.sqrt(num));
-	}	else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
+	} else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {
 		let lower = Math.floor(Math.sqrt(num));
 		console.assert(num == lower * (lower + 2), 'RECHNUNG FALSCH IN calcRowsCols');
 		rows = lower;
@@ -2864,26 +2864,17 @@ function arrRotate(arr, count) {
 	return arr1;
 }
 function arrChildren(elem) { return [...elem.children]; }
-function arrCreate(n, func) {
-	//creates an array and init
-	let res = [];
-	for (let i = 0; i < n; i++) {
-		res.push(func(i));
-	}
-	return res;
-}
-
+function arrCreate(n, func) { let res = []; for (let i = 0; i < n; i++) { res.push(func(i)); } return res; }
+function arrFirst(arr) { return arr.length > 0 ? arr[0] : null; }
+function arrLast(arr) { return arr.length > 0 ? arr[arr.length - 1] : null; }
+function arrTail(arr) { return arr.slice(1); }
 function arrFromIndex(arr, i) { return arr.slice(i); }
-function arrMinus(a, b) {
-	let res = a.filter(x => !b.includes(x));
-	return res;
-}
-function arrMax(arr) {
-	return arr.reduce((m, n) => Math.max(m, n));
-}
-function arrMin(arr) {
-	return arr.reduce((m, n) => Math.min(m, n));
-}
+function arrMinus(a, b) { let res = a.filter(x => !b.includes(x)); return res; }
+function arrRange(from = 1, to = 10, step = 1) { let res = []; for (let i = from; i <= to; i += step)res.push(i); return res; }
+function arrReplace(arr, oldval, newval) { let i = arr.indexOf(oldval); if (i >= 0) arr[i] = newval; return oldval; }
+
+function arrMax(arr) { return arr.reduce((m, n) => Math.max(m, n)); }
+function arrMin(arr) { return arr.reduce((m, n) => Math.min(m, n)); }
 //much faster:
 function arrMinMax(arr) {
 	let min = arr[0].y, max = arr[0].y;
@@ -2895,12 +2886,6 @@ function arrMinMax(arr) {
 	}
 
 	return [min, max];
-}
-function arrRange(from = 1, to = 10, step = 1) { let res = []; for (let i = from; i <= to; i += step)res.push(i); return res; }
-function arrReplace(arr, oldval, newval) {
-	let i = arr.indexOf(oldval);
-	if (i >= 0) arr[i] = newval;
-	return oldval;
 }
 function contains(arr, el) {
 	return arr.includes(el);
@@ -2951,9 +2936,6 @@ function odict2olist(d, keyName = 'id') {
 	return res;
 }
 function dropLast(s) { return s.substring(0, s.length - 1); }
-function first(arr) {
-	return arr.length > 0 ? arr[0] : null;
-}
 function stripObject(o, keysToDelete) {
 	for (const k of keysToDelete) {
 		if (isdef(o[k])) delete o[k];
@@ -3141,14 +3123,6 @@ function indexOfMin(arr, prop) {
 		}
 	}
 	return { i: imin, val: min };
-}
-
-function arrlast(arr) {
-	return arr.length > 0 ? arr[arr.length - 1] : null;
-}
-function last(arr) {
-	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLOOOOOOOOOO',arr,arr.length,arr[arr.length-1])
-	return arr.length > 0 ? arr[arr.length - 1] : null;
 }
 function lastCond(arr, func) {
 	//return first elem that fulfills condition
@@ -3425,8 +3399,8 @@ function union(lst1, lst2) {
 //#endregion
 
 //#region sort
-function sortNumbers(ilist){
-	ilist.sort(function(a, b){return a-b});
+function sortNumbers(ilist) {
+	ilist.sort(function (a, b) { return a - b });
 	return ilist;
 }
 const fieldSorter = fields => (a, b) =>
@@ -3789,9 +3763,9 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
 }
-function nRandomNumbers(n,from,to,step){
-	let arr = range(from,to,step);
-	return choose(arr,n);
+function nRandomNumbers(n, from, to, step) {
+	let arr = range(from, to, step);
+	return choose(arr, n);
 }
 function choose(arr, n) {
 
@@ -3802,13 +3776,13 @@ function choose(arr, n) {
 	var taken = new Array(len);
 	//console.log('len', len);
 	if (n > len) n = len - 1; // throw new RangeError('getRandom: more elements taken than available');
-	while (result.length<n) {
+	while (result.length < n) {
 		var iRandom = Math.floor(Math.random() * len);
 		//console.log('iRandom',iRandom)
-		while(taken[iRandom]) {iRandom += 1; if (iRandom >= len) iRandom=0; }
+		while (taken[iRandom]) { iRandom += 1; if (iRandom >= len) iRandom = 0; }
 
 		result.push(arr[iRandom]);
-		taken[iRandom]=true;
+		taken[iRandom] = true;
 	}
 	return result;
 }
@@ -3863,8 +3837,8 @@ function yesNo() { return tossCoin(50); }
 //#endregion
 
 //#region string functions
-function allLettersContained(sFull,sPart){
-	for(const ch of sPart){
+function allLettersContained(sFull, sPart) {
+	for (const ch of sPart) {
 		if (!(sFull.includes(ch))) return false;
 	}
 	return true;
@@ -3876,10 +3850,10 @@ function normalize(text, language) {
 	}
 	return text;
 }
-function isEnglishKeyboardGermanEquivalent(wreq,w){
-	wreq=fromUmlaut(wreq)
-	w=fromUmlaut(w);
-	return allLettersContained(wreq,w);
+function isEnglishKeyboardGermanEquivalent(wreq, w) {
+	wreq = fromUmlaut(wreq)
+	w = fromUmlaut(w);
+	return allLettersContained(wreq, w);
 }
 function convertUmlaute(w) {
 	//ue ü, ae ä, oe ö
@@ -3906,7 +3880,7 @@ function toUmlaut(w) {
 		w = replaceAll(w, 'UE', 'Ü');
 		w = replaceAll(w, 'AE', 'Ä');
 		w = replaceAll(w, 'OE', 'Ö');
-			return w;
+		return w;
 	}
 }
 function fromUmlaut(w) {
@@ -3922,7 +3896,7 @@ function fromUmlaut(w) {
 		w = replaceAll(w, 'Ü', 'UE');
 		w = replaceAll(w, 'Ä', 'AE');
 		w = replaceAll(w, 'Ö', 'OE');
-			return w;
+		return w;
 	}
 }
 function countLetters(s, letter) {
@@ -4134,7 +4108,7 @@ function stringAfter(sFull, sSub) {
 }
 function stringAfterLast(sFull, sSub) {
 	let parts = sFull.split(sSub);
-	return last(parts);
+	return arrLast(parts);
 }
 function stringBefore(sFull, sSub) {
 	let idx = sFull.indexOf(sSub);
@@ -4143,7 +4117,7 @@ function stringBefore(sFull, sSub) {
 }
 function stringBeforeLast(sFull, sSub) {
 	let parts = sFull.split(sSub);
-	return sFull.substring(0, sFull.length - last(parts).length - 1);
+	return sFull.substring(0, sFull.length - arrLast(parts).length - 1);
 }
 function stringBetween(sFull, sStart, sEnd) {
 	return stringBefore(stringAfter(sFull, sStart), isdef(sEnd) ? sEnd : sStart);

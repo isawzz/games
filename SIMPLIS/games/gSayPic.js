@@ -19,7 +19,11 @@ function levelSP() {
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
+
+	//keys sollen die keys sein die auch in dem file 
 	setKeys(currentCategories,false,x=>lastOfLanguage(x,currentLanguage),true, true);
+	
+	console.log('currentCategories',currentCategories,'currentKeys',currentKeys)
 	
 	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
 	//console.log(currentKeys);

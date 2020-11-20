@@ -181,7 +181,7 @@ function showPictures(bestWordIsShortest = false, onClickPictureHandler) {
 	for (let i = 0; i < keys.length; i++) {
 		let info = getRandomSetItem(currentLanguage, keys[i]);
 		let id = 'pic' + i;
-		let label = bestWordIsShortest ? getShortestWord(info.words) : last(info.words);
+		let label = bestWordIsShortest ? getShortestWord(info.words) : arrLast(info.words);
 		console.log(info.key, info)
 		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		d1.id = id;

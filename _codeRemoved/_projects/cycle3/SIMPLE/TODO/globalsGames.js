@@ -119,14 +119,14 @@ function promptNextTrial() {
 function selectWord(info, bestWordIsShortest, except = []) {
 	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
 
-	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
-	//console.log('vorher:***candidates:',candidates,last(candidates),w)
+	let w = bestWordIsShortest ? getShortestWord(candidates, false) : arrLast(candidates);
+	//console.log('vorher:***candidates:',candidates,arrLast(candidates),w)
 	if (except.includes(w)) {
 		let wNew = lastCond(info.words, x => !except.includes(w));
 		if (wNew) w = wNew;
 	}
 	//console.log('selectWord',bestWordIsShortest,'\n...candidates',candidates, except	)
-	//console.log(last(candidates),w)
+	//console.log(arrLast(candidates),w)
 
 	return w;
 }

@@ -1,14 +1,3 @@
-function setGlobalSettings(settings) {
-	//console.log(settings)
-	Settings = settings;
-	currentLanguage = Settings.common.currentLanguage;
-	//must set the keys!!!! =>done in indiv game startLevel
-
-	currentCategories = Settings.common.currentCategories;
-
-	currentUser = Settings.common.currentUser;
-
-}
 
 
 //experimental settings API
@@ -45,8 +34,6 @@ function loadSettingsX() {
 	createSettingsUi();
 	loadSettingsFromLocalStorage();
 }
-
-
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
 	let settings = localStorage.getItem('settings'); //getLocalStorage('settings');
@@ -114,6 +101,7 @@ async function resetSettingsToDefaults() {
 	loadSettingsFromLocalStorage();
 
 }
+
 function openSettings() { hide('dGear'); clearProgramTimer(); show(dSettings); pauseUI(); loadSettingsX(); }
 function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); restartProgramTimer(); resumeUI(); }
 function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
@@ -161,4 +149,15 @@ function createSettingsUi() {
 	b.innerHTML = 'restart program';
 	mClass(b, 'buttonClass', 'buttonPlus');
 	b.onclick = () => { closeSettings(); startUnit(); }
+}
+function setGlobalSettings(settings) {
+	//console.log(settings)
+	Settings = settings;
+	currentLanguage = Settings.common.currentLanguage;
+	//must set the keys!!!! =>done in indiv game startLevel
+
+	currentCategories = Settings.common.currentCategories;
+
+	currentUser = Settings.common.currentUser;
+
 }

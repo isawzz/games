@@ -28,7 +28,7 @@ function determineGame_dep(data) {
 function startGame(data) {
 
 	//das ist noch das alte game!!!
-	isINTERRUPT = true;
+	GlobalSTOP = true;
 	if (isGameWithSpeechRecognition() && isRunning) {
 		ROUND_DELAY = 2000;
 		//alert('INTERRUPTING SPEECH RECOG!')
@@ -101,7 +101,7 @@ function promptStart() {
 	//console.log('prompt',uiPaused)
 	beforeActivationUI();
 	//console.log('prompt',uiPaused)
-	isINTERRUPT = false;
+	GlobalSTOP = false;
 
 	dTable = dLineTableMiddle;
 	dTitle = dLineTitleMiddle;
@@ -123,14 +123,14 @@ function promptNextTrial() {
 function selectWord(info, bestWordIsShortest, except = []) {
 	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
 
-	let w = bestWordIsShortest ? getShortestWord(candidates, false) : last(candidates);
-	//console.log('vorher:***candidates:',candidates,last(candidates),w)
+	let w = bestWordIsShortest ? getShortestWord(candidates, false) : arrLast(candidates);
+	//console.log('vorher:***candidates:',candidates,arrLast(candidates),w)
 	if (except.includes(w)) {
 		let wNew = lastCond(info.words, x => !except.includes(w));
 		if (wNew) w = wNew;
 	}
 	//console.log('selectWord',bestWordIsShortest,'\n...candidates',candidates, except	)
-	//console.log(last(candidates),w)
+	//console.log(arrLast(candidates),w)
 
 	return w;
 }
@@ -210,6 +210,7 @@ function setGoal(index) {
 	}
 	lastPosition = index;
 	Goal = Pictures[index];
+	console.log(index,Goal)
 	setCurrentInfo(Goal); //sets bestWord, ...
 
 }
@@ -605,6 +606,7 @@ function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = fals
 	//console.log('set keys:' + currentKeys.length);
 }
 function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	console.log(currentLanguage)
 	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
 		bestOnly, sortAccessor, correctOnly, reqOnly);
 	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }

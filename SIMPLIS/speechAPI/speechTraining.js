@@ -1,5 +1,5 @@
 async function speechTraining() {
-	if (nundef(Speech)){
+	if (nundef(Speech)) {
 		console.log('MISSING FEATURES: speechTraining needs the Speech feature!');
 		return;
 	}
@@ -11,30 +11,37 @@ async function speechTraining() {
 		for (const lang of ['E', 'D']) {
 			let infos = getInfolist({ cats: [groupName], lang: lang, wLast: true, sorter: x => x.best });
 			for (let i = 0; i < setSize; i++) {
-				let info = infos[i];
+				for (let times = 0; times < 2; times++) {
+					let speakInterval = 3000;
+					let t = times * (1000 + 3 * speakInterval);
+					if (lang=='D') t*=2;
+					let info = infos[i];
 
-				let wToBeSaid = info.best;
-				
-				//start recording
+					let req = info.best;
+					req = req.toLowerCase();
 
-				let req=wToBeSaid.toLowerCase();
+					Speech.recognize(req, lang,
+						(r, c) => {
+							console.log('MATCHING: req', req, 'r', r, '(' + c + ')');
+						},
+						(r, c) => {
+							console.log('NOT MATCHING: req', req, 'r', r, '(' + c + ')');
+						},
+					);
 
-				Speech.recognize(wToBeSaid,lang,
-					(r,c)=>{
-						//if ()
-						console.log('hallo');
-					});
-
-				//say the word
-				setTimeout(()=>say(wToBeSaid, .5, .8, 1, false, 'random'),1000);
-
-				//eval recognized word
-				//if recognized word == wToBe Said
-				return;
-				//animal,E,0
-				//
+					//say the word
+					setTimeout(() => Speech.say(req, .4, .9, 1, false, 'random'), t + 1000);
+					setTimeout(() => Speech.say(req, .3, .9, 1, false, 'random'), t + 4000);
+					//setTimeout(() => Speech.say(req, .7, .5, 1, false, 'random'), t + 7000);
+					setTimeout(() => Speech.stopRecording(), t + 7000)
+					//eval recognized word
+					//if recognized word == wToBe Said
+					//animal,E,0
+					//
+				}
 			}
 		}
+		return;
 	}
 }
 
@@ -56,9 +63,9 @@ function testAccessor() {
 	let infos3 = getInfolist({ cats: ['kitchen', 'game'], lang: 'D', wShortest: true, maxlen: 4, sorter: x => x.best });
 	//console.log(infos3.length); infos3.map(x => console.log(x.key + ': ' + x.best));
 }
-function getInfolist({ minlen=null, maxlen=null, cats = null, lang = 'E', wShortest = false, wLast = false, wExact = false, sorter = null }={}) {
+function getInfolist({ minlen = null, maxlen = null, cats = null, lang = 'E', wShortest = false, wLast = false, wExact = false, sorter = null } = {}) {
 	opt = arguments[0];
-	if (nundef(opt)) opt={};
+	if (nundef(opt)) opt = {};
 	if (nundef(cats)) cats = currentCategories;
 	if (nundef(lang)) lang = currentLanguage;
 	if (nundef(minlen)) opt.minlen = MinWordLength;
@@ -68,4 +75,4 @@ function getInfolist({ minlen=null, maxlen=null, cats = null, lang = 'E', wShort
 	//console.log('set infos:' + infos.length, infos.map(x=>x.key+': '+x.best));
 	return infos;
 }
-function getSymbols(x){return getInfolist(x);}
+function getSymbols(x) { return getInfolist(x); }

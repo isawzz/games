@@ -2,8 +2,8 @@ program: #TODO: make this a list with ids
   minutesPerUnit: 5
   picsPerLevel: 5
   gameSequence:
-    - game: gSayPic
-      startLevel: 0
+    - game: gTouchColors
+      startLevel: 8
     - game: gMissingLetter
       startLevel: 6
     - game: gTouchPic

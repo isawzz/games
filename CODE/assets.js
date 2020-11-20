@@ -11,7 +11,12 @@ var symByType, symBySet;//hier sind info dicts
 var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
-var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed;
+
+
+var CorrectKeys;
+var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
+
+var symKeysByGroupSub;
 
 //var cachedInfolists = {};
 
@@ -37,12 +42,12 @@ const OLIVE = '#808000';
 //var selectedEmoSetNames = ['animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'hand', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 var selectedEmoSetNames = ['all', 'animal', 'body', 'drink', 'emotion', 'food', 'fruit', 'game', 'gesture', 'kitchen', 'object', 'person', 'place', 'plant', 'sports', 'time', 'transport', 'vegetable'];
 
-var primitiveSetNames = ['all', 'activity', 'animal', 'body', 'drink', 
-	'emotion', 'family', 'fantasy', 'food', 'fruit', 'game', 'gesture',	
-	'kitchen','object', 'place', 'plant', 'person', 
-	'role','shapes', 'sport', 'sports', 
-	'time', 'transport', 'vegetable', 
-	
+var primitiveSetNames = ['all', 'activity', 'animal', 'body', 'drink',
+	'emotion', 'family', 'fantasy', 'food', 'fruit', 'game', 'gesture',
+	'kitchen', 'object', 'place', 'plant', 'person',
+	'role', 'shapes', 'sport', 'sports',
+	'time', 'transport', 'vegetable',
+
 	'toolbar', 'math', 'punctuation', 'misc'];
 
 var higherOrderEmoSetNames = {
@@ -58,7 +63,7 @@ var higherOrderEmoSetNames1 = { all: ['all'], select: selectedEmoSetNames, abstr
 var emoSets = {
 	nosymbols: { name: 'nosymbols', f: o => o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
 	nosymemo: { name: 'nosymemo', f: o => o.group != 'smileys-emotion' && o.group != 'symbols' && o.group != 'flags' && o.group != 'clock' },
-	
+
 	all: { name: 'all', f: _ => true },
 	activity: { name: 'activity', f: o => o.group == 'people-body' && (o.subgroups == 'person-activity' || o.subgroups == 'person-resting') },
 	animal: { name: 'animal', f: o => startsWith(o.group, 'animal') && startsWith(o.subgroups, 'animal') },
@@ -146,6 +151,16 @@ function makeEmoSetIndex() {
 			}
 		}
 	}
+	makeGroupSub();
+}
+function makeGroupSub() {
+	symKeysByGroupSub = {};
+	for (const k of symKeysBySet['all']) {
+		let info = symbolDict[k];
+		if (isEmpty(info.E) || isEmpty(info.D)) lookupAddIfToList(symKeysByGroupSub, ['NA', info.group + '-' + info.subgroups], k);
+		else lookupAddIfToList(symKeysByGroupSub, [info.group, info.subgroups], k);
+	}
+	console.log(symKeysByGroupSub);
 }
 
 
@@ -384,11 +399,25 @@ async function sendAction(boat, username) {
 	}
 }
 async function loadCorrectWords() {
+	let allKeys = await loadYamlDict('/assets/collectSpeech.yaml');
+	CorrectKeys = { E: [], D: [] };
+	//assume zira
+
+	for (const k in allKeys) {
+		let e = lookup(allKeys, [k, 'E', 'zira']);
+		if (e && e.correct) CorrectKeys.E[k] = e.conf;
+		let d = lookup(allKeys, [k, 'D', 'deutsch']);
+		if (d && d.correct) CorrectKeys.D[k] = d.conf;
+	}
+
+	console.log(allKeys, CorrectKeys);
+}
+async function loadCorrectWords_dep() {
 	CorrectWords = await loadYamlDict('/assets/correctWordsX.yaml');
 
-	CorrectWordsCorrect = {E:{},D:{}};
-	CorrectWordsExact = {E:{},D:{}};
-	CorrectWordsFailed = {E:{},D:{}};
+	CorrectWordsCorrect = { E: {}, D: {} };
+	CorrectWordsExact = { E: {}, D: {} };
+	CorrectWordsFailed = { E: {}, D: {} };
 
 	//remove duplicates from array
 	if (isdef(CorrectWords) && isdef(CorrectWords.data)) {

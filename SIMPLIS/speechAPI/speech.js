@@ -1,27 +1,40 @@
 class SpeechFeature {
-	constructor(defaultVolume) {
-		this.recorder = new Recorder();
+	constructor(defaultVolume = 1, lang = 'E') {
+		this.recorder = new Recorder(lang);
 		this.speaker = new Speaker(defaultVolume);
+		this.lang = lang;
 		//console.log(this.recorder)
 	}
-	setRecordingLanguage(lang) {
-		this.recorder.setLanguage(lang);
+	setLanguage(lang) {
+		if (this.lang != lang) {
+			this.lang = lang;
+			this.recorder.setLanguage(lang);
+			this.speaker.setLanguage(lang);
+		}
 	}
-	record({ onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty, retry = false, wait = true, interrupt = false } = {}) {
+	record({ onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty,lang, retry = false, wait = true, interrupt = false } = {}) {
 		if (this.recorder.isRunning) {
 			if (interrupt) {
 				this.recorder.interrupt();
-				setTimeout(() => this.recorder.start(onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty), 500);
+				setTimeout(() => {
+					if (isdef(lang)) this.setLanguage(lang);
+					this.recorder.start(onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty)
+				}, 500);
 			} else if (wait) {
 				setTimeout(() => this.record(...arguments), 500);
 			}
 		} else {
+			if (isdef(lang)) this.setLanguage(lang);
 			this.recorder.start(onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty, retry);
 		}
 	}
-	say(text) { this.speaker.say(text) }
+	stopRecording() { this.recorder.stop(); }
+	say(text, r = .5, p = .8, v = .5, interrupt = true, voiceDescriptor, callback,lang) {
+		if (isdef(lang)) this.setLanguage(lang);
+		this.speaker.say(text, r, p, v, interrupt, voiceDescriptor, callback,this.lang);
+	}
 	recognizePromise(word, lang, onMatch, onNoMatch) {
-		this.setRecordingLanguage(lang);
+		this.setLanguage(lang);
 		this.record({
 			onFinal: (r, c) => {
 				r = r.toLowerCase();
@@ -32,7 +45,7 @@ class SpeechFeature {
 		});
 	}
 	recognize(word, lang, onMatch, onNoMatch) {
-		this.setRecordingLanguage(lang);
+		this.setLanguage(lang);
 		this.record({
 			onFinal: (r, c) => {
 				r = r.toLowerCase();
@@ -42,6 +55,20 @@ class SpeechFeature {
 			},
 			onEmpty: (r, c) => onNoMatch(r, c)
 		});
+	}
+
+	train1(word, lang, voicekey, callback) {
+		//console.log('voiceKey',voicekey)
+		this.setLanguage(lang);
+		let[r,p]=lang=='E'?[.5,.8]:[.6,.9];
+		this.recorder.start(
+			() => this.speaker.say(word, r, p, 1, false, voicekey), 1500,
+			(res, conf) => callback(res, conf), 1000,
+			(res, conf) => {
+				console.log('record timed out without final result');
+				callback(res, conf);
+			}, 1000
+		);
 	}
 }
 class Recorder {
@@ -85,7 +112,7 @@ class Recorder {
 			this.isFinal = ev.results[0].isFinal;
 			this.result = ev.results[0][0].transcript;
 			this.confidence = ev.results[0][0].confidence;
-			console.log('recorder got ' + (this.isFinal ? 'FINAL' : '') + ' result:', this.result, '(' + this.confidence + ')');
+			//console.log('recorder got ' + (this.isFinal ? 'FINAL' : '') + ' result:', this.result, '(' + this.confidence + ')');
 			if (this.isFinal) this.rec.stop();
 			if (this.isFinal && this.finalResultHandler) this.timeoutFinal = setTimeout(() => this.finalResultHandler(this.result, this.confidence), this.delayAfterFinalResult);
 		};
@@ -104,7 +131,7 @@ class Recorder {
 		this.emptyResultHandler = isdef(onEmpty) ? onEmpty.bind(this) : null;
 		this.delayAfterEmptyResult = isdef(delayEmpty) ? delayEmpty : 0;
 
-		console.log('start:', onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty, retry)
+		//console.log('start:', onStart, delayStart, onFinal, delayFinal, onEmpty, delayEmpty, retry)
 
 		this.retryOnError = retry;
 		if (this.interrupt()) return;
@@ -140,9 +167,10 @@ class Recorder {
 	}
 }
 class Speaker {
-	constructor(defaultVolume = .1) {
+	constructor(defaultVolume = .1, lang='E') {
 		this.timeout1, this.timeout2;
 		this.defaultVolume = defaultVolume;
+		this.lang = lang;
 		let awaitVoices = new Promise(resolve =>
 			speechSynthesis.onvoiceschanged = resolve)
 			.then(this.initVoices.bind(this));
@@ -154,8 +182,9 @@ class Speaker {
 			else if (aname == bname) return 0;
 			else return +1;
 		});
+		//console.log('voices:', this.voices.map(x => x.name))
 	}
-
+	setLanguage(lang){this.lang=lang;}
 	static get VOICES() {
 		return {
 			david: 'Microsoft David Desktop - English',
@@ -166,28 +195,31 @@ class Speaker {
 			deutsch: 'Google Deutsch',
 		};
 	}
-	say(text, r = .5, p = .8, v = .5, interrupt = true, voiceDescriptor, callback) {
+	say(text, r = .5, p = .8, v = .5, interrupt = true, voicekey, callback, lang) {
+		if (isdef(lang)) this.lang=lang;
 		if (v < 1) v = this.defaultVolume;//.15;
 		if (speechSynthesis.speaking) {
 			if (!interrupt) return;
 			//console.error('speechSynthesis.speaking');
 			speechSynthesis.cancel();
 			if (isdef(this.timeout1)) clearTimeout(this.timeout1);
-			this.timeout1 = setTimeout(() => this.say(text, r, p, v, interrupt, voiceDescriptor, callback), 500);
+			this.timeout1 = setTimeout(() => this.say(text, r, p, v, interrupt, voicekey, callback), 500);
 			return;
 		} else {
-			this.utter(text, r, p, v, voiceDescriptor, callback);
+			//console.log('utter call',voicekey)
+			this.utter(text, r, p, v, voicekey, callback);
 		}
 
 	}
 
-	utter(text, r = .5, p = .8, v = .5, voiceDesc, callback = null) {
+	utter(text, r = .5, p = .8, v = .5, voicekey, callback = null) {
 
 		speechSynthesis.cancel();
 		var u = new SpeechSynthesisUtterance();
 		//u.text = text;
-		let [voiceKey, voice] = findSuitableVoice(text, voiceDesc);
-		u.text = sepWords(text, voiceKey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
+		let [vkey, voice] = this.findSuitableVoice(text, voicekey);
+		//console.log(vkey)
+		u.text = sepWords(text, vkey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
 		u.rate = r;
 		u.pitch = p;
 		u.volume = v;
@@ -198,8 +230,37 @@ class Speaker {
 			if (callback) callback();
 		};
 
-		if (isINTERRUPT) return; else this.isSpeakerRunning = true;
+		if (GlobalSTOP) return; 
+		this.isSpeakerRunning = true;
 		speechSynthesis.speak(u);
+	}
+	findSuitableVoice(text, voicekey) {
+		//desc ... random | key in voiceNames | starting phrase of voices.name
+		//console.log(typeof voices, voices)
+		let voicenames = Speaker.VOICES;
+		let vkey = 'david';
+		if (this.lang == 'D') {
+			vkey = 'deutsch';
+		} else if (text.includes('bad')) {
+			vkey = 'zira';
+		} else if (voicekey == 'random') {
+			vkey = chooseRandom(['david', 'zira', 'us', 'ukFemale', 'ukMale']);
+		} else if (isdef(voicenames[voicekey])) {
+			vkey = voicekey;
+		} else if (isdef(voicekey)) {
+			let tryVoiceKey = firstCondDict(voicenames, x => startsWith(x, voicekey));
+			if (tryVoiceKey) vkey = tryVoiceKey;
+		}
+		let voiceName = voicenames[vkey];
+		let voice = firstCond(this.voices, x => startsWith(x.name, voiceName));
+		// console.log('============================')
+		// console.log(Array.isArray(voices));
+		// for(const v of voices){		console.log(v.name,voiceName,v.name==voiceName);	}
+		// console.log('voices:',voices.map(x=>x.name))
+		// console.log('THE VOICE IS',voiceName,voice);
+		// voices.map(x => console.log(x.name));
+		// console.log('===>the voice is', voice);
+		return [vkey, voice];
 	}
 
 }
@@ -308,6 +369,11 @@ function levDist(s, t) {
 	// Step 7
 	return d[n][m];
 }
+function detectSilben(words) {
+	const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
+	return words.match(syllableRegex);
+}
+
 function soundsSimilar(w1, w2, lang) {
 	//console.log('_______________ soundsSimilar')
 	//console.log('A',typeof (w1), typeof (w2), isNumber(w1), isNumber(w2), w1, w2);

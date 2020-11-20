@@ -372,7 +372,7 @@ function gTouchPicStart_3() {
 	for (let i = 0; i < g2N; i++) {
 		let info = getRandomSetItem('E', keys[i]);
 		let id = 'pic' + i;
-		let d1 = maPicLabelButton(info, last(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
+		let d1 = maPicLabelButton(info, arrLast(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		console.log('table',table,'\ndPic',d1)
 		g2Pics.push({ key: info.key, info: info, div: d1, id: id, index: i });

@@ -92,6 +92,6 @@ function testStartAgainAfterStartingRecorder() {
 
 function testChangingLangAfterStartingRecorder() {
 	//assumes existence of global Speech
-	let onRecorderStart = () => Speech.setRecordingLanguage('D');
+	let onRecorderStart = () => Speech.setLanguage('D');
 	Speech.record({ onStart: onRecorderStart, delayStart: 2000, retry: true });
 }

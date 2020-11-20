@@ -88,7 +88,7 @@ function lastUnderMaxLength(lst) {
 	for (let i = lst.length - 1; i >= 0; i--) {
 		if (lst[i].length <= MAXWORDLENGTH) return lst[i];
 	}
-	return last(lst);
+	return arrLast(lst);
 }
 function setLanguageWords(language, info) {
 
@@ -102,7 +102,7 @@ function setLanguageWords(language, info) {
 
 	bestWord = lastUnderMaxLength(matchingWords);
 
-	bestWord = last(matchingWords);
+	bestWord = arrLast(matchingWords);
 	hintWord = '_'.repeat(bestWord.length);
 	if (isdef(hintMessage)) clearElement(hintMessage);
 
@@ -118,7 +118,7 @@ function setSpeechWords(l = 'E') {
 
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
-	bestWord = last(matchingWords);
+	bestWord = arrLast(matchingWords);
 	hintWord = '_'.repeat(bestWord.length);
 
 	//mLinebreak(table);
