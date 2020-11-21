@@ -13,8 +13,8 @@ var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
 
 
-var CorrectKeys;
-var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
+var CorrectKeysByLanguage,CorrectByKey;
+//var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
 
 var symKeysByGroupSub;
 
@@ -160,7 +160,7 @@ function makeGroupSub() {
 		if (isEmpty(info.E) || isEmpty(info.D)) lookupAddIfToList(symKeysByGroupSub, ['NA', info.group + '-' + info.subgroups], k);
 		else lookupAddIfToList(symKeysByGroupSub, [info.group, info.subgroups], k);
 	}
-	console.log(symKeysByGroupSub);
+	//console.log(symKeysByGroupSub);
 }
 
 
@@ -399,18 +399,41 @@ async function sendAction(boat, username) {
 	}
 }
 async function loadCorrectWords() {
-	let allKeys = await loadYamlDict('/assets/collectSpeech.yaml');
-	CorrectKeys = { E: [], D: [] };
+	CorrectKeysByLanguage = { E: [],EB:[], D: [] };
+	CorrectByKey = {};
 	//assume zira
 
-	for (const k in allKeys) {
-		let e = lookup(allKeys, [k, 'E', 'zira']);
-		if (e && e.correct) CorrectKeys.E[k] = e.conf;
-		let d = lookup(allKeys, [k, 'D', 'deutsch']);
-		if (d && d.correct) CorrectKeys.D[k] = d.conf;
+
+	let speechZira = await loadYamlDict('/assets/speech/speechZira.yaml');
+	for (const k in speechZira) {
+		let e = lookup(speechZira, [k, 'E', 'zira']);
+		if (e && e.correct) {
+			let c=Math.round(e.conf*100);
+			lookupSet(CorrectByKey,[k,'E'],{r:e.req,c:c});
+			addIf(CorrectKeysByLanguage.E,k);
+		}
+	}
+	let speechBritish = await loadYamlDict('/assets/speech/speechBritish.yaml');
+	for (const k in speechBritish) {
+		let e = lookup(speechBritish, [k, 'E', 'ukMale']);
+		if (e && e.correct) {
+			let c=Math.round(e.conf*100);
+			lookupSet(CorrectByKey,[k,'EB'],{r:e.req,c:c});
+			addIf(CorrectKeysByLanguage.EB,k);
+		}
+	}
+	let speechDeutsch = await loadYamlDict('/assets/speech/speechDeutsch.yaml');
+	for (const k in speechDeutsch) {
+		let e = lookup(speechDeutsch, [k, 'D', 'deutsch']);
+		if (e && e.correct) {
+			let c=Math.round(e.conf*100);
+			lookupSet(CorrectByKey,[k,'D'],{r:e.req,c:c});
+			addIf(CorrectKeysByLanguage.D,k);
+		}
 	}
 
-	console.log(allKeys, CorrectKeys);
+	//console.log(Object.keys(speechZira),Object.keys(speechDeutsch));
+	//console.log(CorrectByKey, CorrectKeysByLanguage.E);
 }
 async function loadCorrectWords_dep() {
 	CorrectWords = await loadYamlDict('/assets/correctWordsX.yaml');

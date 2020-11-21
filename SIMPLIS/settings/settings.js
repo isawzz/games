@@ -83,7 +83,7 @@ function saveSettingsX() {
 }
 
 async function loadSettingsFromServer() {
-	let settings = await loadYamlDict('/SIMPLIS/settings/settings.yaml'); //_config.yaml');
+	let settings = await loadYamlDict('/SIMPLIS/FeSettings/settings.yaml'); //_config.yaml');
 	return settings;
 
 }

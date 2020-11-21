@@ -1,6 +1,43 @@
 var DICTIONARY, BYWORD = {};
 
-function testp9(lang = 'E', voice = 'zira') {
+function trainBritishGuy(ab) {
+	let lang = 'E';
+	let voice = 'ukMale';
+	let di = DICTIONARY = {};
+	let callback = di => {
+		let fname = lang + '_' + voice;
+		downloadAsYaml(DICTIONARY, fname + '_DICTIONARY');
+		downloadAsYaml(BYWORD, fname + '_BYWORD');
+	};
+
+	let set = symKeysBySet['nosymbols'];
+	if (isdef(ab)) {
+		let i = 0;
+		while (set[i] != ab) i++;
+		set = set.slice(i);
+	}
+	console.log('set', set);
+	testp8(set, lang, voice, di, callback);
+
+}
+
+function trainDeutsch(ab, lang = 'D', voice = 'deutsch') {
+	let di = DICTIONARY = {};
+	let callback = di => {
+		let fname = lang + '_' + voice;
+		downloadAsYaml(DICTIONARY, fname + '_DICTIONARY');
+		downloadAsYaml(BYWORD, fname + '_BYWORD');
+	};
+
+	let set = symKeysBySet['nosymbols'];
+	let i = 0;
+	while (set[i] != ab) i++;
+	set = set.slice(i);
+	console.log('set', set);
+	testp8(set, lang, voice, di, callback);
+
+}
+function trainZira(lang = 'E', voice = 'zira') {
 	let di = DICTIONARY = {};
 	let callback = di => {
 		let fname = lang + '_' + voice;
@@ -9,10 +46,10 @@ function testp9(lang = 'E', voice = 'zira') {
 	};
 
 	let set = symKeysBySet['nosymbols'];
-	let i=0;
-	while(set[i]!='dvd') i++;
-	set=set.slice(i);
-	console.log('set',set);
+	let i = 0;
+	while (set[i] != 'dvd') i++;
+	set = set.slice(i);
+	console.log('set', set);
 	testp8(set, lang, voice, di, callback);
 
 }
@@ -132,9 +169,9 @@ function testp4() {
 	//console.log(di)
 }
 function isShortWord(w) {
-	let sil=detectSilben(w);
-	if (isEmpty(sil)) sil=0; else sil=sil.length;
-	return w.length < 6 && sil<2; //detectSilben(w).length < 2;
+	let sil = detectSilben(w);
+	if (isEmpty(sil)) sil = 0; else sil = sil.length;
+	return w.length < 6 && sil < 2; //detectSilben(w).length < 2;
 }
 function testp3(wlist, lang, voicekey, di) {
 
@@ -205,19 +242,6 @@ function testp0() {
 	Speech.train1('apple, apple, apple', 'E', 'zira', (res, conf) => console.log('training returned', res, conf));
 
 }
-//task:
-//start recording
-// on started: 
-//		say word
-// on result:
-//		stop recording, return result
-// on no_result:
-//		if (N>MAXTRIALS) say word again
-//		else output 'ran out of trials!' return stop recording, return empty word
-// on error:
-//		output error
-
-//say 
 
 
 
@@ -228,67 +252,81 @@ function testp0() {
 
 
 
+async function speechTraining() {
+	if (nundef(Speech)) {
+		console.log('MISSING FEATURES: speechTraining needs the Speech feature!');
+		return;
+	}
 
+	let trainingSet = ['animal', 'game'];//bestimmeAlleSetsDieDurchgehenSoll();
+	let setSize = 1;
+	console.log('trainingSet', trainingSet);
+	for (const groupName of trainingSet) {
+		for (const lang of ['E', 'D']) {
+			let infos = getInfolist({ cats: [groupName], lang: lang, wLast: true, sorter: x => x.best });
+			for (let i = 0; i < setSize; i++) {
+				for (let times = 0; times < 2; times++) {
+					let speakInterval = 3000;
+					let t = times * (1000 + 3 * speakInterval);
+					if (lang == 'D') t *= 2;
+					let info = infos[i];
 
+					let req = info.best;
+					req = req.toLowerCase();
 
+					Speech.recognize(req, lang,
+						(r, c) => {
+							console.log('MATCHING: req', req, 'r', r, '(' + c + ')');
+						},
+						(r, c) => {
+							console.log('NOT MATCHING: req', req, 'r', r, '(' + c + ')');
+						},
+					);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* features: key selection belongsTo assets.fonts
-1. loading fonts (symbolDict)
-
-selectKeyset for level:
-
-- []
-- [speech]: use only exact keys
-*/
-class KeySelection {
+					//say the word
+					setTimeout(() => Speech.say(req, .4, .9, 1, false, 'random'), t + 1000);
+					setTimeout(() => Speech.say(req, .3, .9, 1, false, 'random'), t + 4000);
+					//setTimeout(() => Speech.say(req, .7, .5, 1, false, 'random'), t + 7000);
+					setTimeout(() => Speech.stopRecording(), t + 7000)
+					//eval recognized word
+					//if recognized word == wToBe Said
+					//animal,E,0
+					//
+				}
+			}
+		}
+		return;
+	}
 }
 
 
+function bestimmeAlleSetsDieDurchgehenSoll() {
+	return ['kitchen', 'math', 'drink', 'misc',
+		'activity', 'animal', 'body', 'clock', 'emotion', 'family', 'fantasy', 'food',
+		'fruit', 'game', 'gesture',
+		'object', 'person', 'place', 'plant', 'punctuation', 'role', 'shapes', 'sport', 'sternzeichen', 'symbols', 'time', 'toolbar',
+		'transport', 'vegetable'];
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function testAccessor() {
+	let infos1 = getInfolist({ cats: ['kitchen', 'game'], wLast: true, maxlen: 4, sorter: x => x.best });
+	//console.log(infos1.length); infos1.map(x => console.log(x.key + ': ' + x.best));
+	let infos2 = getInfolist({ cats: ['kitchen', 'game'], wShortest: true, maxlen: 4, sorter: x => x.best });
+	//console.log(infos2.length); infos2.map(x => console.log(x.key + ': ' + x.best));
+	let infos3 = getInfolist({ cats: ['kitchen', 'game'], lang: 'D', wShortest: true, maxlen: 4, sorter: x => x.best });
+	//console.log(infos3.length); infos3.map(x => console.log(x.key + ': ' + x.best));
+}
+function getInfolist({ minlen = null, maxlen = null, cats = null, lang = 'E', wShortest = false, wLast = false, wExact = false, sorter = null } = {}) {
+	opt = arguments[0];
+	if (nundef(opt)) opt = {};
+	if (nundef(cats)) cats = currentCategories;
+	if (nundef(lang)) lang = currentLanguage;
+	if (nundef(minlen)) opt.minlen = MinWordLength;
+	if (nundef(maxlen)) opt.maxlen = MaxWordLength;
+	//console.log(opt)
+	let infos = getInfos(cats, lang, opt);
+	//console.log('set infos:' + infos.length, infos.map(x=>x.key+': '+x.best));
+	return infos;
+}
+function getSymbols(x) { return getInfolist(x); }

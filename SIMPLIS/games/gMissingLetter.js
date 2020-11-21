@@ -95,7 +95,7 @@ function promptML() {
 }
 function trialPromptML() {
 	let selinp = Selected.inp;
-	say('try again!');
+	Speech.say('try again!');
 	setTimeout(() => {
 		//console.log('selected last:', selinp);
 		let d = selinp.div;
@@ -151,7 +151,7 @@ function activateML() {
 			if (nundef(Selected.lastIndexEntered)) {
 				//the user entered a non existing letter!!!
 				showFleetingMessage('you entered ' + Selected.lastLetterEntered)
-				say('this letter does NOT belong to the word!')
+				Speech.say('this letter does NOT belong to the word!')
 			}
 			showFleetingMessage(composeFleetingMessage(), 3000);
 			//if get to this place that input did not match!

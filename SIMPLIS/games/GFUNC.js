@@ -14,9 +14,9 @@ const GFUNC = {
 	gSayPic: {
 		startGame: startGameSP, startLevel: startLevelSP, startRound: startRoundSP, trialPrompt: trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP
 	},//, prepLevel: levelSP },
-	gSayPicAuto: {
-		startGame: startGameSPA, startLevel: startLevelSPA, startRound: startRoundSPA, trialPrompt: trialPromptSPA, prompt: promptSPA, activate: activateSPA, eval: evalSPA
-	},//, prepLevel: levelSPA },
+	// gSayPicAuto: {
+	// 	startGame: startGameSPA, startLevel: startLevelSPA, startRound: startRoundSPA, trialPrompt: trialPromptSPA, prompt: promptSPA, activate: activateSPA, eval: evalSPA
+	// },//, prepLevel: levelSPA },
 }
 
 

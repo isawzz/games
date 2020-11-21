@@ -22,9 +22,8 @@ function levelSP() {
 
 	//keys sollen die keys sein die auch in dem file 
 	setKeys(currentCategories, true, x => lastOfLanguage(x, currentLanguage));
-	// currentKeys = currentKeys.filter(x=>BEST80.includes(x));
-	currentKeys = currentKeys.filter(x=>BEST80.includes(x));
-	console.log('currentCategories', currentCategories, 'currentKeys', currentKeys);
+
+	console.log('currentCategories', currentCategories, 'currentKeys', currentKeys)
 
 	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
 	//console.log(currentKeys);
@@ -34,7 +33,7 @@ function levelSP() {
 function startRoundSP() { }
 function promptSP() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus());
+	showPictures(true, () => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
@@ -75,7 +74,21 @@ function evalSP(speechResult, confidence) {
 	console.log('required:' + reqAnswer, 'got:' + answer, confidence)
 
 	return isSimilar(answer,reqAnswer);
-
+	// if (answer == reqAnswer) return true;
+	// if (replaceAll(answer, ' ', '') == replaceAll(reqAnswer, ' ', '')) return true;
+	// else if (matchesAnyWordOrSound(Goal.info, answer)) {
+	// 	console.log('has matched another sound!')
+	// 	return true;
+	// } else if (matchingNumberOrTime(Goal.info, answer)) {
+	// 	console.log('matches as number or time!!!')
+	// 	return true;
+	// } else if (isAcceptableAnswerButNewSound(Goal.info, reqAnswer, answer)) {
+	// 	console.log('accepting', answer, 'as sound for', reqAnswer);
+	// 	addAsSoundToDatabase(Goal.info, answer);
+	// 	return true;
+	// } else {
+	// 	return false;
+	// }
 }
 
 

@@ -18,12 +18,23 @@ const LevelsTC = {
 }
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
+function containsColorWord(s){
+	let colors=['old','blond','red','blue','green','purple','black','brown','white','grey','gray','yellow','orange'];
+	for(const c of colors){
+		if(s.toLowerCase().includes(c)) return true;
+	}
+	return false;
+}
 function levelTC() {
 	let levelInfo = LevelsTC[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
 	MaxWordLength = levelInfo.MaxWordLength;
 	MinWordLength = levelInfo.MinWordLength;
 	setKeys(currentCategories,true);
+
+	//remove all words that have a color in key
+	currentKeys=currentKeys.filter(x=>containsColorWord(x));
+
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;
@@ -56,7 +67,7 @@ function promptTC() {
 	return 10;
 }
 function trialPromptTC(){
-	say('try again');
+	Speech.say('try again');
 	shortHintPic();
 	return 10;
 

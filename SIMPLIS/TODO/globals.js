@@ -21,6 +21,8 @@ var ROUND_DELAY = 500;
 var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 var fleetingMessageTimeout;
 
+var Speech;
+
 // output showing
 var RecogOutput = true;
 var RecogHighPriorityOutput = true;

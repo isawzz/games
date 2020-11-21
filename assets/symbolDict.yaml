@@ -9052,7 +9052,7 @@ badger:
   group: animals-nature
   subgroups: animal-mammal
   E: badger
-  D: wiesel
+  D: dachs
   hex: 1F9A1
   family: emoNoto
   text: '&#129441;'
@@ -12167,9 +12167,9 @@ bicycle:
   hexcode: 1F6B2
   group: travel-places
   subgroups: transport-ground
-  E: bike
-  D: bike|bicycle
-  E_valid_sound: rad|fahrrad
+  E: bike|bicycle
+  D: rad|fahrrad
+  E_valid_sound: bike
   hex: 1F6B2
   family: emoNoto
   text: '&#128690;'
@@ -125067,10 +125067,8 @@ wine glass:
   hexcode: 1F377
   group: food-drink
   subgroups: drink
-  E: glass
-  D: wine
-  E_valid_sound: glass|wine
-  D_valid_sound: glas|wein
+  E: glass|wine
+  D: glas|wein
   hex: 1F377
   family: emoNoto
   text: '&#127863;'

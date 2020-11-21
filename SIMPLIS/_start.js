@@ -1,53 +1,54 @@
 window.onload = SessionStart;
 //window.onunload = saveProgram; 
-async function SessionStart() {
+function zTesting() {
+	// //testAccessor(); return;
+	// //let infos = getInfolist({cats:['animal']}); return;
 
 	//console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
-
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
-	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
+}
+async function SessionStart() {
+	
+	// zTesting();return;
 
+	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
+	
 	await loadCorrectWords(); await loadAssets(); ensureSymBySet(); makeHigherOrderGroups();
 
 	//setTimeout(_startSpeechTraining, 2000);	return;
+	_startSpeechTraining(); return;
 	await _startPlaying();
 }
 function _startSpeechTraining() {
 
-	// //testAccessor(); return;
-	// //let infos = getInfolist({cats:['animal']}); return;
-
 	initTable();
-	Speech = new SpeechFeature(1,'D'); //MASTER_VOLUME);
+	Speech = new SpeechFeature(1, 'E');
 
-	//speechTraining(); return;
+	testConf2(); return;
+	//testConfidence();return;
+	//trainBritishGuy('ring'); return;
 
-	//testp9(); //testp7(); //testp6(); //testp5(); //testp4(); 
+	//#region prev tests
+	//trainDeutsch('wind face'); //trainZira(); //testp7(); //testp6(); //testp5(); //testp4(); 
 	// testp2(); return;
 	//testp0(); return;
-	return;
+	//speechTraining(); return;
 
 	testSimilar01('hand'); return;
 	testLanguageChange(); return;
 	testWait(); return;
-	testRecognizeAdvanced();return;
+	testRecognizeAdvanced(); return;
 	testRecognize2(); return;
 	testPromise(); return; //GEHT NICHT!!!
 	testRecognize(); return;
 	testStartAgainAfterStartingRecorder(); return;
 	testChangingLangAfterStartingRecorder(); return;
-	let infos = getSymbols();
-	console.log(infos);
-	let w = infos[0].best;
 
-	//let onRecorderStart = () => Speech.say(w);
-	let onRecorderStart = () => Speech.setLanguage('D');
-
-	Speech.record({ onStart: onRecorderStart, delayStart: 2000, retry: true });
-
+	testBasicRecord(); return;
+	//#endregion
 }
 
-async function _startPlaying(){
+async function _startPlaying() {
 
 	//ich wollte testen ob download geht:nein geht nicht!
 	// let o={hallo:1,das:2};
@@ -62,7 +63,7 @@ async function _startPlaying(){
 
 	//old speech regoc init
 	// speech00(currentLanguage);
-	Speech = new SpeechFeature(1,'D'); //MASTER_VOLUME);
+	Speech = new SpeechFeature(1, 'E'); //MASTER_VOLUME);
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 }
@@ -83,13 +84,14 @@ async function startUnit() {
 
 
 function onClickFreezer() { hide('freezer'); startUnit(); }
-function onClickFreezer2(ev) { 
+function onClickFreezer2(ev) {
 	//console.log('____________onClickFreezer2',ev);
 	if (!ev.ctrlKey) {
 		console.log('*** press control!!!!')
 		return;
-	} 
-	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit(); }
+	}
+	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
+}
 
 //divControls
 function onClickStartButton() { startGame(); }

@@ -29,11 +29,10 @@ function startGame(data) {
 
 	//das ist noch das alte game!!!
 	GlobalSTOP = true;
-	if (isGameWithSpeechRecognition() && isRunning) {
+
+	if (isGameWithSpeechRecognition()) {
 		ROUND_DELAY = 2000;
-		//alert('INTERRUPTING SPEECH RECOG!')
-		//console.log('=>recog running: need to interrupt!', isRunning);
-		recognition.abort();
+		Speech.ensureOff();
 		MicrophoneStop();
 	} else { ROUND_DELAY = 100; }
 
@@ -137,9 +136,9 @@ function selectWord(info, bestWordIsShortest, except = []) {
 function showPictures(bestWordIsShortest, onClickPictureHandler, { colors, overlayShade } = {}, keys, labels) {
 	Pictures = [];
 
-
-
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
+	//keys=['notebook']; //['supervillain']
+
 	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
 	//console.log(infos)
 	if (nundef(labels)) {
@@ -187,8 +186,10 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, { colors, overl
 			// let d1 = maPicLabelButtonFitText(info, label,
 			// 	{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, overlayColor: '#00000025' }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			let d1 = maPicLabelButtonFitText(info, label,
-				{ w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade, 
-					overlayColor: overlayShade }, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+				{
+					w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade,
+					overlayColor: overlayShade
+				}, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
 			//console.log(info.key, label, info);
 			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true });
@@ -210,7 +211,7 @@ function setGoal(index) {
 	}
 	lastPosition = index;
 	Goal = Pictures[index];
-	console.log(index,Goal)
+	console.log(index, Goal)
 	setCurrentInfo(Goal); //sets bestWord, ...
 
 }
@@ -231,7 +232,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
 	if (!isSpoken) return;
 
-	say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, true, 'random'); //,()=>{console.log('JUST SAID IT')});
+	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, true, 'random'); //,()=>{console.log('JUST SAID IT')});
 
 }
 function activateUi() {
@@ -282,7 +283,7 @@ function failPictureGoal(withComment = true) {
 
 	if (withComment && !skipAnimations) {
 		const comments = (currentLanguage == 'E' ? ['too bad'] : ["aber geh'"]);
-		say(chooseRandom(comments), 1, 1, .8, true, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
+		Speech.say(chooseRandom(comments), 1, 1, .8, true, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
 	}
 	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
 		//console.log('selected', Selected, 'x', mBy('dX'))
@@ -295,7 +296,7 @@ function failPictureGoal(withComment = true) {
 function successPictureGoal(withComment = true) {
 	if (withComment && !skipAnimations) {
 		const comments = (currentLanguage == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
-		say(chooseRandom(comments));//'Excellent!!!');
+		Speech.say(chooseRandom(comments));//'Excellent!!!');
 	}
 	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
 
@@ -499,7 +500,7 @@ function addNthInputElement(dParent, n) {
 	return dInp;
 }
 function aniInstruction(text) {
-	say(text, .7, 1, .7, false, 'random', () => { console.log('HA!') });
+	Speech.say(text, .7, 1, .7, false, 'random', () => { console.log('HA!') });
 	mClass(dInstruction, 'onPulse');
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
@@ -560,7 +561,7 @@ function showCorrectWord(sayit = true) {
 	if (!sayit || skipAnimations) return;
 
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
-	say(correctionPhrase, .4, 1.2, 1, true, 'david');
+	Speech.say(correctionPhrase, .4, 1.2, 1, true, 'david');
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel; }
 function showStats() { showLevel(); showScore(); }
@@ -606,7 +607,7 @@ function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = fals
 	//console.log('set keys:' + currentKeys.length);
 }
 function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
-	console.log(currentLanguage)
+	//console.log(currentLanguage)
 	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
 		bestOnly, sortAccessor, correctOnly, reqOnly);
 	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }

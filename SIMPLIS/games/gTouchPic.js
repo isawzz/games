@@ -33,7 +33,7 @@ function promptTP() {
 	return 10;
 }
 function trialPromptTP(){
-	say('try again');
+	Speech.say('try again');
 	shortHintPic();
 	return 10;
 }

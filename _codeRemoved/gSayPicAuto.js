@@ -45,15 +45,15 @@ function promptSPA() {
 	return 10; //1000;
 }
 function trialPromptSPA() {
-	//say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
+	//Speech.say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, true, 'zira');
 	return 10;
 }
 
 async function activateSPA() {
 
 	OnMicrophoneReady = setTimeout(() => {
-		say(bestWord, .7, 1, 1, false, 'random'); //, () => { console.log('done:', Goal.key) });
-		//say(bestWord)
+		Speech.say(bestWord, .7, 1, 1, false, 'random'); //, () => { console.log('done:', Goal.key) });
+		//Speech.say(bestWord)
 	}, DELAY_BETWEEN_MIKE_AND_SPEECH);
 	//OnMicrophoneProblem = () => console.log('microphone problem');
 	//OnMicrophoneGotResult = evaluate
@@ -61,7 +61,7 @@ async function activateSPA() {
 
 	// if (trialNumber > 1) {
 	// 	console.log('JEEEEEEEEEEEEEEETZT')
-	// 	setTimeout(() => say(bestWord), 1000);
+	// 	setTimeout(() => Speech.say(bestWord), 1000);
 	// }
 	//orig code:
 	// setTimeout(() => {
