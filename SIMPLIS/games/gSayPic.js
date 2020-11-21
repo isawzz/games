@@ -23,8 +23,16 @@ function levelSP() {
 	//keys sollen die keys sein die auch in dem file 
 	setKeys(currentCategories, true, x => lastOfLanguage(x, currentLanguage));
 	// currentKeys = currentKeys.filter(x=>BEST80.includes(x));
-	currentKeys = currentKeys.filter(x=>BEST80.includes(x));
-	console.log('currentCategories', currentCategories, 'currentKeys', currentKeys);
+	currentKeys = currentKeys.filter(x=>{
+		console.log(symbolDict[x])
+		let kLang='best'+currentLanguage;
+		let info=symbolDict[x];
+		let best=info[kLang];
+		let conf=info[kLang+'Conf'];
+		if (isdef(best) && conf>(currentLanguage=='D'?70:90)) return true;else return false;
+	});
+	//console.log('currentCategories', currentCategories)
+	console.log('cats',currentCategories, currentKeys);
 
 	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
 	//console.log(currentKeys);
@@ -38,6 +46,7 @@ function promptSP() {
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
+	animate(dInstruction, 'pulse800' + getSignalColor(), 900);
 
 	mLinebreak(dTable);
 	MicrophoneUi = mMicrophone(dTable);

@@ -33,7 +33,7 @@ function startGame(data) {
 	if (isGameWithSpeechRecognition()) {
 		ROUND_DELAY = 2000;
 		Speech.ensureOff();
-		MicrophoneStop();
+		MicrophoneHide();
 	} else { ROUND_DELAY = 100; }
 
 	// determineGame(data);
@@ -63,6 +63,7 @@ function startGame(data) {
 function startLevel(level) {
 
 	//if (isdef(level) && currentLevel != level) currentLevel = level; //ONLY HERE NEW LEVEL IS SET!!!
+	Speech.setLanguage(currentLanguage);
 
 	CurrentLevelData = { level: currentLevel, items: [] };
 	CurrentGameData.levels.push(CurrentLevelData);
@@ -85,10 +86,12 @@ function startRoundReally() {
 	showStats();
 	LevelChange = false; //needs to be down here because showScore needs that info!
 
+
+
 	if (ROUND_OUTPUT) {
 		// writeComments('new round:');
-		//console.log('...' + currentGame.substring(1), 'round:' + ' level:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
-		//	'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
+		console.log('...' + currentGame.substring(1), 'round:' + ' level:' + currentLevel, 'pics:' + NumPics, 'labels:' + NumLabels,
+			'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 	}
 	trialNumber = 0;
 	// showScore();
@@ -211,7 +214,7 @@ function setGoal(index) {
 	}
 	lastPosition = index;
 	Goal = Pictures[index];
-	console.log(index, Goal)
+	//console.log(index, Goal)
 	setCurrentInfo(Goal); //sets bestWord, ...
 
 }

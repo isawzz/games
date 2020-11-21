@@ -67,7 +67,8 @@ function promptTC() {
 	return 10;
 }
 function trialPromptTC(){
-	Speech.say('try again');
+	Speech.say(currentLanguage=='D'?'nochmal!':'try again!');
+	// Speech.say('try again');
 	shortHintPic();
 	return 10;
 

@@ -34,7 +34,7 @@ function composeFleetingMessage() {
 	let lst = inputs;
 	let msg = lst.map(x => x.letter).join(',');
 	let edecl = lst.length > 1 ? 's ' : ' ';
-	let ddecl = lst.length > 1 ? 'den' : 'die';
+	let ddecl = lst.length > 1 ? 'die' : 'den';
 	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
 	return s + msg;
 }
@@ -95,7 +95,7 @@ function promptML() {
 }
 function trialPromptML() {
 	let selinp = Selected.inp;
-	Speech.say('try again!');
+	Speech.say(currentLanguage=='D'?'nochmal!':'try again!');
 	setTimeout(() => {
 		//console.log('selected last:', selinp);
 		let d = selinp.div;

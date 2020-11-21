@@ -12,8 +12,8 @@ var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
 
-
-var CorrectKeysByLanguage,CorrectByKey;
+var BestKeysD,BestKeysE;
+//var CorrectKeysByLanguage,CorrectByKey;
 //var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
 
 var symKeysByGroupSub;
@@ -396,6 +396,21 @@ async function sendAction(boat, username) {
 		//console.log('server returned', result);
 		prevServerData = serverData;
 		serverData = result;
+	}
+}
+async function loadBestKeys() {
+	BestKeysD = await loadYamlDict('/assets/speech/bestKeysD.yaml');
+	BestKeysE=await loadYamlDict('/assets/speech/bestKeysE.yaml');
+
+	for(const e of BestKeysD){
+		let info = symbolDict[e.k];
+		info.bestD=e.r;
+		info.bestDConf=e.c;
+	}
+	for(const e of BestKeysE){
+		let info = symbolDict[e.k];
+		info.bestE=e.r;
+		info.bestEConf=e.c;
 	}
 }
 async function loadCorrectWords() {

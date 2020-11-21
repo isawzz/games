@@ -33,7 +33,7 @@ function promptTP() {
 	return 10;
 }
 function trialPromptTP(){
-	Speech.say('try again');
+	Speech.say(currentLanguage=='D'?'nochmal!':'try again!');
 	shortHintPic();
 	return 10;
 }

@@ -1,6 +1,6 @@
 program: #TODO: make this a list with ids
-  minutesPerUnit: 5
-  picsPerLevel: 5
+  minutesPerUnit: 15
+  picsPerLevel: 15
   gameSequence:
     - game: gTouchColors
       startLevel: 8
@@ -10,12 +10,14 @@ program: #TODO: make this a list with ids
       startLevel: 9
     - game: gWritePic
       startLevel: 9
-  currentGameIndex: 0
-  currentLevel: 8
+    - game: gSayPic
+      startLevel: 0
+  currentGameIndex: 4
+  currentLevel: 3
 common:
   # loopGameSequence: true
   currentUser: Gunter
-  currentLanguage: E
+  currentLanguage: D
   # activity animal body drink emotion food fruit game gesture kitchen 
   # object person place plant role sport time transport vegetable 
   # nosymemo nosymbols

@@ -13,18 +13,22 @@ async function SessionStart() {
 
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 	
-	await loadCorrectWords(); await loadAssets(); ensureSymBySet(); makeHigherOrderGroups();
+	await loadAssets(); ensureSymBySet(); makeHigherOrderGroups(); await loadBestKeys(); 
+
+	//console.log('deutsch:',BestKeysD);
+	//console.log('english:',BestKeysE);
 
 	//setTimeout(_startSpeechTraining, 2000);	return;
-	_startSpeechTraining(); return;
+	//_startSpeechTraining(); return;
 	await _startPlaying();
+	//console.log(symbolDict)
 }
 function _startSpeechTraining() {
 
 	initTable();
 	Speech = new SpeechFeature(1, 'E');
 
-	testConf2(); return;
+	//testConf2(); return;
 	//testConfidence();return;
 	//trainBritishGuy('ring'); return;
 

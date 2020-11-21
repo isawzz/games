@@ -27,7 +27,7 @@ var Speech;
 var RecogOutput = true;
 var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
-var ROUND_OUTPUT = true;
+var ROUND_OUTPUT = false;
 
 var ProgTimeout; //to cancel timer!
 var ProgTimeIsUp; // = false; flag for program timer
