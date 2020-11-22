@@ -30,7 +30,7 @@ var SpeakerOutput = false;
 var ROUND_OUTPUT = true;
 
 var ProgTimeout; //to cancel timer!
-var ProgTimeIsUp; // = false; flag for program timer
+//var ProgTimeIsUp; // = false; flag for program timer
 var Settings;
 var MaxNumTrials = 1;
 var MinWordLength = 1;

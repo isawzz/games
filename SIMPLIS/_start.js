@@ -74,9 +74,8 @@ async function _startPlaying() {
 
 async function startUnit() {
 
-	clearProgramTimer(); restartProgramTimer();
-	// ProgTimeIsUp_ = false;
-	// ProgTimeout_ = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000);
+	clearProgramTimer(); 
+	restartProgramTimer();
 
 	await loadProgram();
 

@@ -214,6 +214,17 @@ function mText(text, dParent, styles, classes) {
 	if (isdef(classes)) mClass(d, classes);
 	return d;
 }
+function mPara(text, dParent, styles, classes) {
+	let d = mCreate('p');
+	mAppend(dParent,d);
+	if (!isEmpty(text)) d.innerHTML = text;
+	//if (isdef(id)) d.id = id;
+	//mAppend(dParent, d);
+	if (isdef(styles)) mStyleX(d, styles);
+
+	if (isdef(classes)) mClass(d, classes);
+	return d;
+}
 function recFlattenLists(o) {
 	for (const k in o) {
 		let cand = o[k];

@@ -25,16 +25,24 @@ function determineGame_dep(data) {
 		currentLevel = startAtLevel[currentGame];
 	}
 }
-function startGame(data) {
-
+function stopAus(){
 	//das ist noch das alte game!!!
 	GlobalSTOP = true;
+	clearProgramTimer();
+	pauseUI(); 
 
 	if (isGameWithSpeechRecognition()) {
 		ROUND_DELAY = 2000;
 		Speech.ensureOff();
 		MicrophoneHide();
 	} else { ROUND_DELAY = 100; }
+}
+function continueResume(){
+	restartProgramTimer(); resumeUI();
+}
+function startGame(data) {
+
+	stopAus();continueResume();
 
 	// determineGame(data);
 	//console.log('Settings',Settings)
@@ -239,6 +247,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 
 }
 function activateUi() {
+
 	Selected = null;
 	GFUNC[currentGame].activate();
 	activationUI();
@@ -272,6 +281,9 @@ function evaluate() {
 
 	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',LevelChange, DELAY)
 	if (LevelChange != 0) saveProgram();
+
+
+	console.log('eval: ...timer:',ProgTimeIsUp)
 
 	if (LevelChange && ProgTimeIsUp) {
 		//saveProgram();
@@ -391,6 +403,19 @@ function proceedIfNotStepByStep(nextLevel) {
 function aniGameOver(msg) {
 	soundGoodBye();
 	show('freezer2');
+	//writing the score: >>need to really record the score!
+	let dParent=mBy('freezer2');
+	let d=mBy('dContentFreezer2');
+	clearElement(d);
+	mStyleX(d,{fz:20,matop:40,bg:'silver',fg:'indigo',rounding:20,padding:25})
+	let style={matop:4};
+	mText('Unit Score:',d,{fz:22})
+	mText('Writing: 10/15 correct answers (70%)',d,style);
+	mText('Speaking: 10/15 correct answers (70%)',d,style);
+	mText('Completing Words: 10/15 correct answers (70%)',d,style);
+	mText('Identifying Words: 10/15 correct answers (70%)',d,style);
+	mText('Colors and Words: 10/15 correct answers (70%)',d,style);
+
 	mClass(mBy('freezer2'), 'aniSlowlyAppear');
 
 	//old code
@@ -403,6 +428,7 @@ function proceed(nextLevel) {
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
 	updateGameSequence(nextLevel);
+	console.log('...timer:',ProgTimeIsUp)
 	if (ProgTimeIsUp && LevelChange) {
 		console.log('PROGRAM HAS TIMED OUT!!!!!!')
 		setTimeout(aniGameOver('Great job! Time for a break!'), DELAY);

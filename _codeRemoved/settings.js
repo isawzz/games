@@ -37,12 +37,7 @@ function loadSettingsX() {
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
 	let settings = localStorage.getItem('settings'); //getLocalStorage('settings');
-
-
 	settings = JSON.parse(settings);
-
-	console.log('...',settings);
-	console.log('just loaded',settings.program.currentGameIndex,settings.program.currentLevel)
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 
@@ -116,15 +111,26 @@ function createSettingsUi() {
 	let dParent = mBy('dSettings');
 
 	clearElement(dParent);
-	let d = mDiv(dParent); mClass(d, 'hMinus60'); 
+	let d = mDiv(dParent); mClass(d, 'hMinus60'); //mStyleX(d,{'box-sizing':'border-box',padding:4})
 	let ta = TA = mCreate('textarea');
 	ta.id = 'dSettings_ta';
+	//mStyleX(ta, { height: '98%', width: '98%' })
 	mAppend(d, ta);
 	mClass(ta, 'whMinus60');
+	// ta.style.height = '90%';
+	// ta.rows = 25;
+	// ta.cols = 100;
 	ta.value = 'hallo';
 
 	let bdiv = mDiv(dParent); mStyleX(bdiv, { height: 54 });
 	let b;
+
+	//create buttons
+	// b = mCreate('button');
+	// mAppend(bdiv, b);
+	// b.innerHTML = 'save';
+	// mClass(b, 'buttonClass', 'buttonPlus');
+	// b.onclick = () => { saveSettingsUi(); loadSettingsFromLocalStorage(); }
 
 	b = mCreate('button');
 	mAppend(bdiv, b);
@@ -142,11 +148,8 @@ function createSettingsUi() {
 	mAppend(bdiv, b);
 	b.innerHTML = 'restart program';
 	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = onClickRestartProgram;
+	b.onclick = () => { closeSettings(); startUnit(); }
 }
-
-
-
 function setGlobalSettings(settings) {
 	//console.log(settings)
 	Settings = settings;

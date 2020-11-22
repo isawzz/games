@@ -68,6 +68,3 @@ function updateGameSequence(nextLevel) {
 
 
 
-
-
-
