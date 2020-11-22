@@ -83,6 +83,8 @@ function evalTC(ev) {
 	let i = firstNumber(id);
 	let item = Pictures[i];
 	Selected = {pic:item,feedbackUI:item.div};
+	Selected.reqAnswer=bestWord;
+	Selected.answer=item.label;
 
 	if (item == Goal) { return true; } else { return false; }
 }

@@ -54,7 +54,7 @@ function saveProgram() {
 }
 
 function updateGameSequence(nextLevel) {
-	console.log(nextLevel, MAXLEVEL)
+	console.log('updateGameSequence nextLevel',nextLevel, 'MAXLEVEL',MAXLEVEL)
 	if (nextLevel > MAXLEVEL) {
 		let gameSequence = Settings.program.gameSequence;
 		Settings.program.currentGameIndex = (Settings.program.currentGameIndex + 1) % gameSequence.length;

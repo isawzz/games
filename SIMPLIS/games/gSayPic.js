@@ -81,6 +81,11 @@ function evalSP(speechResult, confidence) {
 	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
+	
+	Selected.reqAnswer=reqAnswer;
+	Selected.answer=answer;
+
+
 	console.log('required:' + reqAnswer, 'got:' + answer, confidence)
 
 	return isSimilar(answer,reqAnswer);

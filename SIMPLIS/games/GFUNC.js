@@ -1,17 +1,17 @@
 const GFUNC = {
-	gTouchPic: {
+	gTouchPic: { friendlyName: 'Touch Picture',
 		startGame: startGameTP, startLevel: startLevelTP, startRound: startRoundTP, trialPrompt: trialPromptTP, prompt: promptTP, activate: activateTP, eval: evalTP
 	},//, prepLevel: levelTP },
-	gTouchColors: {
+	gTouchColors: { friendlyName: 'Pictures & Colors',
 		startGame: startGameTC, startLevel: startLevelTC, startRound: startRoundTC, trialPrompt: trialPromptTC, prompt: promptTC, activate: activateTC, eval: evalTC
 	},//, prepLevel: levelTC },
-	gWritePic: {
+	gWritePic: { friendlyName: 'Type it',
 		startGame: startGameWP, startLevel: startLevelWP, startRound: startRoundWP, trialPrompt: trialPromptWP, prompt: promptWP, activate: activateWP, eval: evalWP
 	},//, prepLevel: levelWP },
-	gMissingLetter: {
+	gMissingLetter: {friendlyName: 'Complete the Word',
 		startGame: startGameML, startLevel: startLevelML, startRound: startRoundML, trialPrompt: trialPromptML, prompt: promptML, activate: activateML, eval: evalML
 	},//, prepLevel: levelML },
-	gSayPic: {
+	gSayPic: {friendlyName: 'Speak up',
 		startGame: startGameSP, startLevel: startLevelSP, startRound: startRoundSP, trialPrompt: trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP
 	},//, prepLevel: levelSP },
 	// gSayPicAuto: {

@@ -318,64 +318,6 @@ function successPictureGoal(withComment = true) {
 }
 
 //#region scoring
-function scoring(isCorrect) {
-
-	//console.log('isCorrect',isCorrect)
-
-	CurrentGoalData = {
-		key: Goal.key, goal: Goal,
-		isCorrect: IsAnswerCorrect, reqAnswer: Goal.reqAnswer, answer: Goal.answer, selected: Selected
-	};
-	CurrentLevelData.items.push(CurrentGoalData);
-
-	numTotalAnswers += 1;
-	if (isCorrect) numCorrectAnswers += 1;
-
-	//percent scoringMode:
-	percentageCorrect = Math.round(100 * numCorrectAnswers / numTotalAnswers);
-
-	//inc scoringMode:
-	if (isCorrect) {
-		levelPoints += levelIncrement; if (levelIncrement < maxIncrement) levelIncrement += 1;
-	} else {
-		levelIncrement = minIncrement; levelPoints += minIncrement;
-	}
-	//console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
-
-	//see if it is time for level change check
-	let levelChange = 0;
-	let nextLevel = currentLevel;
-	if (numTotalAnswers >= boundary) {
-
-		//console.log('scoringMode', scoringMode)
-
-		if (scoringMode == 'inc') {
-			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) {
-				levelChange = 1; nextLevel += 1;
-			}
-
-		} else if (scoringMode == 'percent') {
-			if (percentageCorrect >= 80) { levelChange = 1; nextLevel += 1; }
-			else if (percentageCorrect < 50) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; }
-
-		} else if (scoringMode == 'autograde') {
-			//console.log('... autograding');
-			//saveAnswerStatistic();
-			saveStats();
-			levelChange = 1;
-			nextLevel += 1;
-
-		} else if (scoringMode == 'n') {
-			//console.log('correct:', numCorrectAnswers, 'total:', numTotalAnswers)
-			if (numCorrectAnswers > numTotalAnswers / 2) { levelChange = 1; nextLevel += 1; }
-			else if (numCorrectAnswers < numTotalAnswers / 2) { levelChange = -1; nextLevel = (nextLevel > 0 ? nextLevel - 1 : nextLevel); }
-
-		}
-	}
-	return [levelChange, nextLevel];
-
-
-}
 function showScore() {
 	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
 	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
@@ -400,21 +342,12 @@ function proceedIfNotStepByStep(nextLevel) {
 	if (!StepByStepMode) { proceed(nextLevel); }
 	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
 }
+
 function aniGameOver(msg) {
 	soundGoodBye();
 	show('freezer2');
 	//writing the score: >>need to really record the score!
-	let dParent=mBy('freezer2');
-	let d=mBy('dContentFreezer2');
-	clearElement(d);
-	mStyleX(d,{fz:20,matop:40,bg:'silver',fg:'indigo',rounding:20,padding:25})
-	let style={matop:4};
-	mText('Unit Score:',d,{fz:22})
-	mText('Writing: 10/15 correct answers (70%)',d,style);
-	mText('Speaking: 10/15 correct answers (70%)',d,style);
-	mText('Completing Words: 10/15 correct answers (70%)',d,style);
-	mText('Identifying Words: 10/15 correct answers (70%)',d,style);
-	mText('Colors and Words: 10/15 correct answers (70%)',d,style);
+	scoreSummary();
 
 	mClass(mBy('freezer2'), 'aniSlowlyAppear');
 

@@ -1,6 +1,67 @@
-window.onload = SessionStart;
-//window.onunload = saveProgram; 
+window.onload = SessionStart();// ()=>loadSession();
+//window.onunload = saveSession;
+
+// async function loadSession_yet(){
+// 	fetch('http://localhost:3000/users/1', {
+// 		method: 'GET',
+// 		headers: {
+// 			'Accept': 'application/json',
+// 			'Content-Type': 'application/json'
+// 		},
+// 		// body: JSON.stringify(payload)
+// 	}).then(data => {
+// 		CurrentSessionData = await data.json();
+// 		console.log(CurrentSessionData);
+// 		SessionStart();
+// 	});
+// }
+
+async function loadSession(){
+	fetch('http://localhost:3000/users/1', {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		// body: JSON.stringify(payload)
+	}).then(async data => {
+		let d = await data.json();
+		CurrentSessionData = d.session;
+		console.log(CurrentSessionData);
+		SessionStart();
+	});
+}
+async function saveSession() {
+	//localStorage.
+	console.log('posting...');
+
+	let payload = {
+		"id": 1,
+		"session": CurrentSessionData,
+		"email": "john@doe.com"
+	};
+	fetch('http://localhost:3000/users/1', {
+		method: 'PUT',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(payload)
+	}).then(data => {
+		console.log(data);
+	});
+
+}
 function zTesting() {
+	//initTable();
+	onclick = ev => {
+		console.log('CLICK!')
+		if (ev.ctrlKey) {
+			console.log('CLICK!!!')
+			saveSession();
+		}
+	}
+
 	// //testAccessor(); return;
 	// //let infos = getInfolist({cats:['animal']}); return;
 
@@ -8,12 +69,10 @@ function zTesting() {
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 }
 async function SessionStart() {
-	
-	// zTesting();return;
-
+	zTesting();
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
-	
-	await loadAssets(); ensureSymBySet(); makeHigherOrderGroups(); await loadBestKeys(); 
+
+	await loadAssets(); ensureSymBySet(); makeHigherOrderGroups(); await loadBestKeys();
 
 	//console.log('deutsch:',BestKeysD);
 	//console.log('english:',BestKeysE);
@@ -63,7 +122,8 @@ async function _startPlaying() {
 
 	await initSettingsX();
 
-	CurrentSessionData = { user: currentUser, games: [] };
+	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
+	//CurrentSessionData = { user: currentUser, games: [] };
 
 	//old speech regoc init
 	// speech00(currentLanguage);
@@ -74,7 +134,7 @@ async function _startPlaying() {
 
 async function startUnit() {
 
-	clearProgramTimer(); 
+	clearProgramTimer();
 	restartProgramTimer();
 
 	await loadProgram();

@@ -7,6 +7,9 @@ async function initSettingsX() {
 	if (isdef(Settings.hallo)) {
 		await resetSettingsToDefaults();
 	}
+	console.log('...',Settings);
+	console.log('just loaded',Settings.program.currentGameIndex,Settings.program.currentLevel)
+
 	//console.log(Settings)
 	//await initSettings();
 
@@ -38,11 +41,7 @@ function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
 	let settings = localStorage.getItem('settings'); //getLocalStorage('settings');
 
-
 	settings = JSON.parse(settings);
-
-	console.log('...',settings);
-	console.log('just loaded',settings.program.currentGameIndex,settings.program.currentLevel)
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 
@@ -134,15 +133,16 @@ function createSettingsUi() {
 
 	b = mCreate('button');
 	mAppend(bdiv, b);
+	b.innerHTML = 'restart program';
+	mClass(b, 'buttonClass', 'buttonPlus');
+	b.onclick = onClickRestartProgram;
+
+	b = mCreate('button');
+	mAppend(bdiv, b);
 	b.innerHTML = 'continue playing';
 	mClass(b, 'buttonClass', 'buttonPlus');
 	b.onclick = () => { closeSettings(); startGame(); }
 
-	b = mCreate('button');
-	mAppend(bdiv, b);
-	b.innerHTML = 'restart program';
-	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = onClickRestartProgram;
 }
 
 
