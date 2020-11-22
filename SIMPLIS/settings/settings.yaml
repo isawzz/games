@@ -4,9 +4,9 @@ program: #TODO: make this a list with ids
   gameSequence:
     - game: gTouchPic
       startLevel: 0
-    - game: gMTouchColors
+    - game: gTouchColors
       startLevel: 6
-    - game: gMTouchPic
+    - game: gTouchPic
       startLevel: 6
     # - game: gSayPic
     #   startLevel: 9
