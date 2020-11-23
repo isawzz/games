@@ -102,6 +102,25 @@ async function resetSettingsToDefaults() {
 function openSettings() { stopAus(); hide('dGear'); show(dSettings); loadSettingsX(); }
 function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); continueResume(); }
 function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
+function onClickRestartProgram() {
+
+	Settings.program.currentGameIndex = 0;
+	Settings.program.currentLevel = currentLevel = Settings.program.gameSequence[0].startLevel;
+	updateGameSequence(Settings.program.currentLevel);
+
+	//console.log('Settings', Settings.program)
+
+	localStorage.setItem('settings', JSON.stringify(Settings));
+	loadSettingsFromLocalStorage();
+
+	// console.log('restarting program');
+	// closeSettings(); 
+	// clearTable();
+	// startUnit(); 
+
+}
+
+
 
 //#region settings helpers
 function createSettingsUi() {

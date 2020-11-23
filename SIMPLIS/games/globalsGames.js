@@ -250,7 +250,31 @@ function evaluate() {
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY);
 }
+function proceedIfNotStepByStep(nextLevel) {
+	if (!StepByStepMode) { proceed(nextLevel); }
+	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
+}
+function proceed(nextLevel) {
+	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
+	if (nundef(nextLevel)) nextLevel = currentLevel;
 
+	updateGameSequence(nextLevel);
+	//console.log('...timer:', ProgTimeIsUp)
+	if (ProgTimeIsUp && LevelChange) {
+		gameOver('Great job! Time for a break!');
+		return;
+	}
+	if (nextLevel > MAXLEVEL) {
+		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
+			gameOver('Congratulations! You are done!');
+		} else {
+			startGame();
+		}
+	} else if (LevelChange) startLevel(nextLevel);
+	else startRound();
+}
+
+//#region fail or success
 function failPictureGoal(withComment = true) {
 
 	if (withComment && !skipAnimations) {
@@ -273,32 +297,9 @@ function successPictureGoal(withComment = true) {
 	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
 
 }
+//#endregion
 
-//#region scoring
-function showScore() {
-	//dScore.innerHTML = 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)';
-	//let scoreString = 'score: ' + levelPoints + ' (' + percentageCorrect + '%)';
-	// let scoreString = 'question: ' + (numTotalAnswers + 1) + ' (' + percentageCorrect + '%)';
-	let scoreString = scoringMode == 'n' ? 'question: ' + (numTotalAnswers + 1) + '/' + SAMPLES_PER_LEVEL[currentLevel] :
-		scoringMode == 'percent' ? 'score: ' + numCorrectAnswers + '/' + numTotalAnswers + ' (' + percentageCorrect + '%)'
-			: scoringMode == 'inc' ? 'score: ' + levelPoints + ' (' + percentageCorrect + '%)'
-				: 'question: ' + numTotalAnswers + '/' + boundary;
-
-	if (LevelChange)
-		dScore.innerHTML = scoreString;
-	else
-		setTimeout(() => { dScore.innerHTML = scoreString; }, 300);
-}
-function resetScore() {
-	numCorrectAnswers = 0, numTotalAnswers = 0, percentageCorrect = 100;
-	levelPoints = 0, levelIncrement = minIncrement;
-
-}
-
-function proceedIfNotStepByStep(nextLevel) {
-	if (!StepByStepMode) { proceed(nextLevel); }
-	//else if (isdef(nextLevel) && nextLevel != currentLevel) { currentLevel = nextLevel; }
-}
+//#region game over
 function gameOver(msg) {
 
 	//?saveProgram();
@@ -350,26 +351,9 @@ function aniGameOver(msg) {
 	//show(dLevelComplete);
 	//dLevelComplete.innerHTML = msg;
 }
-function proceed(nextLevel) {
-	//console.log('proceedAfterLevelChange', currentLevel, MAXLEVEL)
-	if (nundef(nextLevel)) nextLevel = currentLevel;
+// #endregion
 
-	updateGameSequence(nextLevel);
-	//console.log('...timer:', ProgTimeIsUp)
-	if (ProgTimeIsUp && LevelChange) {
-		gameOver('Great job! Time for a break!');
-		return;
-	}
-	if (nextLevel > MAXLEVEL) {
-		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
-			gameOver('Congratulations! You are done!');
-		} else {
-			startGame();
-		}
-	} else if (LevelChange) startLevel(nextLevel);
-	else startRound();
-}
-
+//#region interrupt
 function stopAus() {
 	//das ist noch das alte game!!!
 	GlobalSTOP = true;
@@ -385,6 +369,8 @@ function stopAus() {
 function continueResume() {
 	restartProgramTimer(); resumeUI();
 }
+
+// #endregion
 
 //#region show Level Complete and Revert Level
 function removeBadgeAndRevertLevel() {
@@ -446,6 +432,45 @@ function levelStep13() {
 	proceedIfNotStepByStep();
 	//proceedAfterLevelChange();
 }
+//#endregion
+
+//#region key selection: setKeys
+function getKeySetSimple(cats, lang,
+	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
+	let keys = setCategories(cats);
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let exact = CorrectWordsExact[lang][k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
+			if (wShort) ws = [getShortestWord(ws, false)];
+			//console.log(k,ws)
+			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
+			return false;
+		});
+	}
+	//console.log('________________',keys);//ok
+
+	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
+	return keys;
+}
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter } = {}) {
+	opt = arguments[0];
+	if (nundef(opt)) opt = {};
+	opt.minlen = MinWordLength;
+	opt.maxlen = MaxWordLength;
+	if (nundef(cats)) cats = currentCategories;
+	if (nundef(lang)) lang = currentLanguage;
+	currentKeys = getKeySetSimple(cats, lang, opt);
+	//console.log('set keys:' + currentKeys.length);
+}
+function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	//console.log(currentLanguage)
+	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly, reqOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
+}
+
 //#endregion
 
 //#region helpers
@@ -538,71 +563,6 @@ function writeComments(pre) {
 }
 //#endregion
 
-
-function getKeySetSimple(cats, lang,
-	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
-	let keys = setCategories(cats);
-	if (isdef(minlen && isdef(maxlen))) {
-		keys = keys.filter(k => {
-			let exact = CorrectWordsExact[lang][k];
-			if (wExact && nundef(exact)) return false;
-			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
-			if (wShort) ws = [getShortestWord(ws, false)];
-			//console.log(k,ws)
-			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
-			return false;
-		});
-	}
-	//console.log('________________',keys);//ok
-
-	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
-	return keys;
-}
-function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter } = {}) {
-	opt = arguments[0];
-	if (nundef(opt)) opt = {};
-	opt.minlen = MinWordLength;
-	opt.maxlen = MaxWordLength;
-	if (nundef(cats)) cats = currentCategories;
-	if (nundef(lang)) lang = currentLanguage;
-	currentKeys = getKeySetSimple(cats, lang, opt);
-	//console.log('set keys:' + currentKeys.length);
-}
-function setKeys(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
-	//console.log(currentLanguage)
-	currentKeys = getKeySetX(isdef(cats) ? cats : currentCategories, currentLanguage, MinWordLength, MaxWordLength,
-		bestOnly, sortAccessor, correctOnly, reqOnly);
-	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
-}
-
-
-
-function determineGame_dep(data) {
-	//determining currentGame: data undefined, game name or game index
-	if (nundef(data)) {
-		if (GameSelectionMode == 'program') {
-			data = gameSequence[Settings.program.currentGameIndex];
-			currentGame = data.game;
-			currentLevel = Settings.program.currentLevel;
-		} else if (GameSelectionMode == 'training') {
-			currentGame = 'gSayPicAuto';
-			currentLevel = 0;
-			//MASTER_VOLUME = 1;
-			show('divControls');
-		} else {
-			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
-		}
-	} else if (isNumber(data)) {
-		GameSelectionMode = 'indiv';
-		currentLevel = Number(data) % MAXLEVEL;
-
-	} else if (isString(data)) {
-		//data is the name of a game
-		GameSelectionMode = 'indiv';
-		currentGame = data;
-		currentLevel = startAtLevel[currentGame];
-	}
-}
 
 
 

@@ -40,6 +40,7 @@ var NumLabels;
 var Pictures = [];
 var Goal, Selected;
 var NextPictureIndex = 0;
+var Steps, iStep;
 
 var currentUser;
 var currentGame;
@@ -67,6 +68,8 @@ var lastPosition = 0;
 var trialNumber;
 var boundary;
 var GlobalSTOP;
+var uiActivated;
+
 
 //ui state flags
 const uiHaltedMask = 1 << 0; //eg. when entering settings

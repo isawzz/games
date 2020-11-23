@@ -27,7 +27,6 @@ function levelWP() {
 	NumPics = levelInfo.NumPics;
 	NumLabels = levelInfo.NumLabels;
 }
-
 function startRoundWP() { }
 function promptWP() {
 	showPictures(true, () => mBy(defaultFocusElement).focus());

@@ -1,3 +1,29 @@
+function determineGame_dep(data) {
+	//determining currentGame: data undefined, game name or game index
+	if (nundef(data)) {
+		if (GameSelectionMode == 'program') {
+			data = gameSequence[Settings.program.currentGameIndex];
+			currentGame = data.game;
+			currentLevel = Settings.program.currentLevel;
+		} else if (GameSelectionMode == 'training') {
+			currentGame = 'gSayPicAuto';
+			currentLevel = 0;
+			//MASTER_VOLUME = 1;
+			show('divControls');
+		} else {
+			console.log('hard-coded: currentGame', currentGame, 'currentLevel', currentLevel);
+		}
+	} else if (isNumber(data)) {
+		GameSelectionMode = 'indiv';
+		currentLevel = Number(data) % MAXLEVEL;
+
+	} else if (isString(data)) {
+		//data is the name of a game
+		GameSelectionMode = 'indiv';
+		currentGame = data;
+		currentLevel = startAtLevel[currentGame];
+	}
+}
 function scoreSummary() {
 
 	let game = {};

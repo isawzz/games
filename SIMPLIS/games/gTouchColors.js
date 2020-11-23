@@ -1,4 +1,4 @@
-var uiActivatedTC;
+var uiActivated;
 const SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 const EXTENDED_COLORS = ['red', 'green', 'yellow', 'blue', 'pink', 'indigo', 'gray', 'sienna', 'olive'];
 
@@ -18,13 +18,6 @@ const LevelsTC = {
 }
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
-function containsColorWord(s) {
-	let colors = ['old', 'blond', 'red', 'blue', 'green', 'purple', 'black', 'brown', 'white', 'grey', 'gray', 'yellow', 'orange'];
-	for (const c of colors) {
-		if (s.toLowerCase().includes(c)) return false;
-	}
-	return true;
-}
 function levelTC() {
 	let levelInfo = LevelsTC[currentLevel];
 	MaxNumTrials = levelInfo.MaxNumTrials;
@@ -39,17 +32,8 @@ function levelTC() {
 	NumLabels = levelInfo.NumLabels;
 	NumColors = levelInfo.NumColors;
 }
-function ensureColors() {
-	let colorlist = lookupSet(Settings, ['games', 'gTouchColors', 'colors'], SIMPLE_COLORS);
-	let shadeColor = lookupSet(Settings, ['games', 'gTouchColors', 'shadeColor'], 'red');
-	let contrast = lookupSet(Settings, ['games', 'gTouchColors', 'contrast'], .35);
-	let shade = anyColorToStandardString(shadeColor, contrast);
-	//console.log('shade',shade)
-	//Settings.games.gTouchColors.colors = colorlist;
-	return [colorlist, shade];
-}
 function startRoundTC() {
-	uiActivatedTC = false;
+	uiActivated = false;
 }
 function promptTC() {
 	// let colors = choose(currentLevel<3?SIMPLE_COLORS:EXTENDED_COLORS,NumColors);
@@ -74,7 +58,7 @@ function trialPromptTC() {
 
 }
 function activateTC() {
-	uiActivatedTC = true;
+	uiActivated = true;
 }
 function evalTC(ev) {
 	let id = evToClosestId(ev);
@@ -89,3 +73,20 @@ function evalTC(ev) {
 	if (item == Goal) { return true; } else { return false; }
 }
 
+// game specific helpers
+function containsColorWord(s) {
+	let colors = ['old', 'blond', 'red', 'blue', 'green', 'purple', 'black', 'brown', 'white', 'grey', 'gray', 'yellow', 'orange'];
+	for (const c of colors) {
+		if (s.toLowerCase().includes(c)) return false;
+	}
+	return true;
+}
+function ensureColors() {
+	let colorlist = lookupSet(Settings, ['games', 'gTouchColors', 'colors'], SIMPLE_COLORS);
+	let shadeColor = lookupSet(Settings, ['games', 'gTouchColors', 'shadeColor'], 'red');
+	let contrast = lookupSet(Settings, ['games', 'gTouchColors', 'contrast'], .35);
+	let shade = anyColorToStandardString(shadeColor, contrast);
+	//console.log('shade',shade)
+	//Settings.games.gTouchColors.colors = colorlist;
+	return [colorlist, shade];
+}

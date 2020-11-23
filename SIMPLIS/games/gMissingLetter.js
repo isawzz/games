@@ -30,36 +30,6 @@ function levelML() {
 }
 function startRoundML() { }
 
-function composeFleetingMessage() {
-	let lst = inputs;
-	let msg = lst.map(x => x.letter).join(',');
-	let edecl = lst.length > 1 ? 's ' : ' ';
-	let ddecl = lst.length > 1 ? 'die' : 'den';
-	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
-	return s + msg;
-}
-
-function createLetterInputs(s, dTable, style, idForContainerDiv) {
-	let d = mDiv(dTable);
-	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
-	inputs = [];
-	for (let i = 0; i < s.length; i++) {
-		let d1 = mCreate('div');
-		mAppend(d, d1);
-		d1.innerHTML = s[i];
-		mStyleX(d1, style);
-	}
-	return d;
-}
-
-function getIndicesCondi(arr, func) {
-	let res = [];
-	for (let i = 0; i < arr.length; i++) {
-		if (func(arr[i], i)) res.push(i);
-	}
-	return res;
-}
-
 function promptML() {
 	showPictures(false, () => fleetingMessage('just enter the missing letter!'));
 	setGoal();
@@ -174,6 +144,27 @@ function evalML(word) {
 	}
 }
 
+// game specific helpers
+function composeFleetingMessage() {
+	let lst = inputs;
+	let msg = lst.map(x => x.letter).join(',');
+	let edecl = lst.length > 1 ? 's ' : ' ';
+	let ddecl = lst.length > 1 ? 'die' : 'den';
+	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
+	return s + msg;
+}
+function createLetterInputs(s, dTable, style, idForContainerDiv) {
+	let d = mDiv(dTable);
+	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
+	inputs = [];
+	for (let i = 0; i < s.length; i++) {
+		let d1 = mCreate('div');
+		mAppend(d, d1);
+		d1.innerHTML = s[i];
+		mStyleX(d1, style);
+	}
+	return d;
+}
 
 
 

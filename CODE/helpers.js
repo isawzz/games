@@ -2988,6 +2988,14 @@ function allCondDict(d, func) {
 	for (const k in d) { if (func(d[k])) res.push(k); }
 	return res;
 }
+function getIndicesCondi(arr, func) {
+	let res = [];
+	for (let i = 0; i < arr.length; i++) {
+		if (func(arr[i], i)) res.push(i);
+	}
+	return res;
+}
+
 
 function findKey(dict, val) { for (const k in dict) { if (dict[k] == val) return k; } }
 function firstCond(arr, func) {
