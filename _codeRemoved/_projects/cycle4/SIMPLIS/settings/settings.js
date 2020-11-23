@@ -1,18 +1,6 @@
-function setGlobalSettings(settings) {
-	//console.log(settings)
-	Settings = settings;
-
-	currentLanguage = Settings.common.currentLanguage;
-
-	currentCategories = Settings.common.currentCategories;
-
-	currentUser = Settings.common.currentUser;
-
-	skipAnimations = Settings.flags.reducedAnimations;
-
-}
 
 
+//experimental settings API
 async function initSettingsX() {
 	loadSettingsX();
 
@@ -20,17 +8,19 @@ async function initSettingsX() {
 		await resetSettingsToDefaults();
 	}
 	//console.log('...',Settings);
-	console.log('just loaded', Settings.program.currentGameIndex, Settings.program.currentLevel)
+	console.log('just loaded',Settings.program.currentGameIndex,Settings.program.currentLevel)
 
 	//console.log(Settings)
 	//await initSettings();
 
 }
+//async function initSettings() {loadSettingsX();}
+var textValue, TA;
 function createSettingsUi() {
 	//#region clear settings window and add a textArea ta
 	let dParent = mBy('dSettings');
 	clearElement(dParent);
-	let ta = mCreate('textarea');
+	let ta = TA = mCreate('textarea');
 	ta.id = 'dSettings_ta';
 	mAppend(dParent, ta);
 	ta.rows = 25;
@@ -49,24 +39,41 @@ function loadSettingsX() {
 }
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
-	let settings = localStorage.getItem('settings'); 
+	let settings = localStorage.getItem('settings'); //getLocalStorage('settings');
+
 	settings = JSON.parse(settings);
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 
 	if (settings.hallo) {
-		console.log('!!!!!!!!!!!!! reload settings! !!!!!!!!!!!!!!!')
+		console.log('!!!!!!!!!!!!! HACK !!!!!!!!!!!!!!!')
 		Settings = settings;
 	} else {
 		setGlobalSettings(settings);
 	}
 
-	let o1 = Settings;
+	let o1 = Settings;// = { hallo: 1, geh: 2 };
 	o2 = jsonToYaml(o1, { encoding: 'utf-8' });
-	ta.value = o2;
-
-	//let o3 = jsyaml.dump(o1);	let o4 = jsyaml.load(o3);	let o5 = jsyaml.load(o2);
+	let o3 = jsyaml.dump(o1);
+	let o4 = jsyaml.load(o3);
+	let o5 = jsyaml.load(o2);
 	//console.log('o1', typeof (o1), o1, '\no2', typeof (o2), o2, '\no3', typeof (o3), o3, '\no4', typeof (o4), o4, '\no5', typeof (o5), o5);
+
+	textValue = ta.value = o2;
+	//setTimeout(testWeiter, 10);
+}
+function testWeiter() {
+	let ta = mBy('dSettings_ta');
+	let t1 = textValue = ta.value;
+	t1 = replaceAll(t1, '5', '6');
+
+	let t2 = jsyaml.load(t1);
+	localStorage.setItem('settings', JSON.stringify(t2));
+	let t3 = JSON.parse(localStorage.getItem('settings'));
+
+	console.log('t1', typeof (t1), t1, '\nt2', typeof (t2), t2, '\nt3', typeof (t3), t3);//,'\no4',typeof(o4),o4,'\no5',typeof(o5),o5);
+	console.log('WAAAAAAAAAAAAAAAAAAAAAAAS');
+
 }
 function saveSettingsX() {
 
@@ -99,7 +106,7 @@ async function resetSettingsToDefaults() {
 
 }
 
-function openSettings() { stopAus(); hide('dGear'); show(dSettings); loadSettingsX(); }
+function openSettings() { stopAus(); hide('dGear');  show(dSettings); loadSettingsX(); }
 function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); continueResume(); }
 function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
 
@@ -108,8 +115,8 @@ function createSettingsUi() {
 	let dParent = mBy('dSettings');
 
 	clearElement(dParent);
-	let d = mDiv(dParent); mClass(d, 'hMinus60');
-	let ta = mCreate('textarea');
+	let d = mDiv(dParent); mClass(d, 'hMinus60'); 
+	let ta = TA = mCreate('textarea');
 	ta.id = 'dSettings_ta';
 	mAppend(d, ta);
 	mClass(ta, 'whMinus60');
@@ -138,3 +145,16 @@ function createSettingsUi() {
 
 }
 
+
+
+function setGlobalSettings(settings) {
+	//console.log(settings)
+	Settings = settings;
+	currentLanguage = Settings.common.currentLanguage;
+	//must set the keys!!!! =>done in indiv game startLevel
+
+	currentCategories = Settings.common.currentCategories;
+
+	currentUser = Settings.common.currentUser;
+
+}

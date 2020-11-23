@@ -76,47 +76,6 @@ async function startUnit() {
 	else { hide('freezer'); hide('divControls'); openSettings(); }
 }
 
-async function loadHistory() {
-	fetch('http://localhost:3000/users/Gunter', {
-		method: 'GET',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-	}).then(async data => {
-		UserHistory = await data.json();
-		//console.log(UserHistory);
-		SessionStart();
-	});
-}
-async function saveHistory() {
-	//console.log('posting...');
-	let sessionData = UserHistory;
-	fetch('http://localhost:3000/users/Gunter', {
-		method: 'PUT',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(sessionData)
-	}); // .then(data => { console.log(data);});
-
-}
-
-function onClickFreezer() { hide('freezer'); startUnit(); }
-function onClickFreezer2(ev) {
-	if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
-	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
-}
-
-//divControls
-function onClickStartButton() { startGame(); }
-function onClickNextButton() { startRound(); }
-function onClickRunStopButton(b) { if (StepByStepMode) { onClickRunButton(b); } else { onClickStopButton(b); } }
-function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
-function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
-
-//testing
 function zTesting() {
 	//initTable();
 	onclick = ev => {
@@ -133,6 +92,62 @@ function zTesting() {
 	//console.log(alphaToHex(.5),alphaToHex(.25),alphaToHex(.75));
 	//let x=differInAtMost('dope', 'doe', 1); console.log(x); return;
 }
+
+async function loadHistory() {
+	fetch('http://localhost:3000/users/Gunter', {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		// body: JSON.stringify(payload)
+	}).then(async data => {
+		UserHistory = await data.json();
+		//console.log(UserHistory);
+		SessionStart();
+	});
+}
+async function saveHistory() {
+	//console.log('posting...');
+
+	let sessionData = UserHistory;
+	// let sessionData = {
+	// 	"id": 'Gunter',
+	// 	"session": UserHistory,
+	// 	"email": "hallo@doe.com"
+	// };
+	fetch('http://localhost:3000/users/Gunter', {
+		method: 'PUT',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(sessionData)
+	}).then(data => {
+		//console.log(data);
+	});
+
+}
+
+function onClickFreezer() { hide('freezer'); startUnit(); }
+function onClickFreezer2(ev) {
+	//console.log('____________onClickFreezer2',ev);
+	if (!ev.ctrlKey) {
+		console.log('*** press control!!!!')
+		return;
+	}
+	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
+}
+
+//divControls
+function onClickStartButton() { startGame(); }
+function onClickNextButton() { startRound(); }
+function onClickRunStopButton(b) {
+	console.log('args', b)
+	if (StepByStepMode) { onClickRunButton(b); } else { onClickStopButton(b); }
+}
+function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
+function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
 
 
 

@@ -1,6 +1,8 @@
 
 function scoring(isCorrect) {
 
+	//console.log('isCorrect',isCorrect)
+
 	CurrentGoalData = {
 		key: Goal.key, isCorrect: IsAnswerCorrect, reqAnswer: Selected.reqAnswer, answer: Selected.answer,
 		//selected: Selected, goal: Goal,
@@ -19,11 +21,15 @@ function scoring(isCorrect) {
 	} else {
 		levelIncrement = minIncrement; levelPoints += minIncrement;
 	}
+	//console.log('numTotalAnswers',numTotalAnswers,'boundary',boundary)
 
 	//see if it is time for level change check
 	let levelChange = 0;
 	let nextLevel = currentLevel;
 	if (numTotalAnswers >= boundary) {
+
+		//console.log('scoringMode', scoringMode)
+
 		if (scoringMode == 'inc') {
 			if (levelPoints >= levelDonePoints && percentageCorrect >= 50) {
 				levelChange = 1; nextLevel += 1;
@@ -49,6 +55,7 @@ function scoring(isCorrect) {
 	}
 
 	if (levelChange) {
+		//trage numCorrectAnswers und numTotalAnswers ein in 
 		CurrentLevelData.numTotalAnswers = numTotalAnswers;
 		CurrentLevelData.numCorrectAnswers = numCorrectAnswers;
 		CurrentLevelData.percentageCorrect = percentageCorrect;
@@ -58,23 +65,30 @@ function scoring(isCorrect) {
 		gdata.nCorrect += numCorrectAnswers;
 		gdata.percentage = Math.round(100 * gdata.nCorrect / gdata.nTotal);
 		UnitScoreSummary[currentGame]=gdata;
+
 	}
+
 	return [levelChange, nextLevel];
+
+
 }
 
 
 function onClickRestartProgram() {
 
+	//closeSettings(); startUnit();
+
 	Settings.program.currentGameIndex = 0;
 	Settings.program.currentLevel = currentLevel = Settings.program.gameSequence[0].startLevel;
 	updateGameSequence(Settings.program.currentLevel);
 
-	//console.log('Settings', Settings.program)
+	console.log('Settings', Settings.program)
 
 	localStorage.setItem('settings', JSON.stringify(Settings));
 	loadSettingsFromLocalStorage();
 
 	// console.log('restarting program');
+
 	// closeSettings(); 
 	// clearTable();
 	// startUnit(); 

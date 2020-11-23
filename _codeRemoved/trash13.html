@@ -1,0 +1,45 @@
+<div id='dSettings' style='display:none;text-align:center'>
+	<h1>Games</h1>
+	<div class='flexWrap' id='allGamesDiv'>
+		<button id='bTouchPic' onclick="setGame(event)">
+			<img src='/assets/images/gTouchPic.jpg' class='gameImage' />
+			<h1>Name Recognition</h1>
+		</button>
+		<button id='bTouchColors' onclick="setGame(event)">
+			<img src='/assets/images/gTouchColors.jpg' class='gameImage' />
+			<h1>Name & Color</h1>
+		</button>
+		<button id='bWritePic' onclick="setGame(event)">
+			<img src='/assets/images/gWritePic.jpg' class='gameImage' />
+			<h1>Writing</h1>
+		</button>
+		<button id='bMissingLetter' onclick="setGame(event)">
+			<img src='/assets/images/gMissingLetter.jpg' class='gameImage' />
+			<h1>Completing</h1>
+		</button>
+		<!-- <button id='bSayPic' onclick="setGame(event)">
+			<img src='/assets/images/gSayPic.jpg' class='gameImage' />
+			<h1>Speak Aloud</h1>
+		</button> -->
+		<!-- <button id='bSayPic'>
+			<img src='/assets/images/gSayPic.jpg' class='gameImage' />
+			<h1>Speaking</h1>
+		</button> -->
+	</div>
+
+	<div class='fsc'>
+		<fieldset id='fChooseLanguage'>
+			<legend>language</legend>
+			<input id='inputE' class='radio' type="radio" name="language" value="E" onclick='setLanguage("E")'><span>English</span><br>
+			<input id='inputD' class='radio' type="radio" name="language" value="D" onclick='setLanguage("D")'><span>German</span><br>
+		</fieldset>
+		<fieldset id='fChoosePicsPerLevel'>
+			<legend>pictures per level</legend>
+			<div>
+				<input id='inputPicsPerLevel' class='input' type="number" value=1 />
+				<!-- <button onclick='setPicsPerLevel_()'>Set</button> -->
+			</div>
+		</fieldset>
+	</div>
+
+</div>

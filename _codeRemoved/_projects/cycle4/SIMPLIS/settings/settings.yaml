@@ -22,9 +22,6 @@ common:
   # object person place plant role sport time transport vegetable 
   # nosymemo nosymbols
   currentCategories: [nosymemo]
-flags:
-  pressControlToUnfreeze: false
-  reducedAnimations: true
 games: 
   gTouchColors:
     contrast: 0.32
