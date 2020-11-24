@@ -5,12 +5,12 @@ async function SessionStart() {
 	//zTesting();
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 
-	await loadAssets(); ensureSymBySet(); makeHigherOrderGroups(); await loadBestKeys(); 
+	await loadAssets(); ensureSymBySet(); makeHigherOrderGroups(); await loadBestKeys();
 
-	//iconViewer();
+	// iconViewerTestKeysets();
 	//setTimeout(_startSpeechTraining, 2000);	return;
 	//_startSpeechTraining(); return;
-	//await _startPlaying();
+	await _startPlaying();
 
 }
 function _startSpeechTraining() {

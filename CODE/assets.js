@@ -12,7 +12,7 @@ var symKeysByType, symKeysBySet;//hier sind key lists (dict by key)
 var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
 
-var BestKeysD,BestKeysE;
+var BestKeysD, BestKeysE, BestKeySets;
 //var CorrectKeysByLanguage,CorrectByKey;
 //var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
 
@@ -399,22 +399,37 @@ async function sendAction(boat, username) {
 	}
 }
 async function loadBestKeys() {
-	BestKeysD = await loadYamlDict('/assets/speech/bestKeysD.yaml');
-	BestKeysE=await loadYamlDict('/assets/speech/bestKeysE.yaml');
 
-	for(const e of BestKeysD){
+	BestKeySets = await loadYamlDict('/assets/speech/keysets.yaml');
+	BestKeysD = await loadYamlDict('/assets/speech/bestKeysD.yaml');
+	BestKeysE = await loadYamlDict('/assets/speech/bestKeysE.yaml');
+
+	for (const e of BestKeysD) {
 		let info = symbolDict[e.k];
-		info.bestD=e.r;
-		info.bestDConf=e.c;
+		info.bestD = e.r;
+		info.bestDConf = e.c;
 	}
-	for(const e of BestKeysE){
+	for (const e of BestKeysE) {
 		let info = symbolDict[e.k];
-		info.bestE=e.r;
-		info.bestEConf=e.c;
+		info.bestE = e.r;
+		info.bestEConf = e.c;
 	}
+	// console.log(BestKeySets.best100);
+	for (const setname in BestKeySets) {
+		for (const k of BestKeySets[setname]) {
+			let info = symbolDict[k];
+			//console.log(info)
+			info[setname] = lastOfLanguage(k, 'E');
+		}
+	}
+	// for(const k of BestKeySets.best50){
+	// 	let info = symbolDict[k];
+	// 	console.log(info)
+	// 	info.best50E=lastOfLanguage(k,'E');
+	// }
 }
 async function loadCorrectWords() {
-	CorrectKeysByLanguage = { E: [],EB:[], D: [] };
+	CorrectKeysByLanguage = { E: [], EB: [], D: [] };
 	CorrectByKey = {};
 	//assume zira
 
@@ -423,27 +438,27 @@ async function loadCorrectWords() {
 	for (const k in speechZira) {
 		let e = lookup(speechZira, [k, 'E', 'zira']);
 		if (e && e.correct) {
-			let c=Math.round(e.conf*100);
-			lookupSet(CorrectByKey,[k,'E'],{r:e.req,c:c});
-			addIf(CorrectKeysByLanguage.E,k);
+			let c = Math.round(e.conf * 100);
+			lookupSet(CorrectByKey, [k, 'E'], { r: e.req, c: c });
+			addIf(CorrectKeysByLanguage.E, k);
 		}
 	}
 	let speechBritish = await loadYamlDict('/assets/speech/speechBritish.yaml');
 	for (const k in speechBritish) {
 		let e = lookup(speechBritish, [k, 'E', 'ukMale']);
 		if (e && e.correct) {
-			let c=Math.round(e.conf*100);
-			lookupSet(CorrectByKey,[k,'EB'],{r:e.req,c:c});
-			addIf(CorrectKeysByLanguage.EB,k);
+			let c = Math.round(e.conf * 100);
+			lookupSet(CorrectByKey, [k, 'EB'], { r: e.req, c: c });
+			addIf(CorrectKeysByLanguage.EB, k);
 		}
 	}
 	let speechDeutsch = await loadYamlDict('/assets/speech/speechDeutsch.yaml');
 	for (const k in speechDeutsch) {
 		let e = lookup(speechDeutsch, [k, 'D', 'deutsch']);
 		if (e && e.correct) {
-			let c=Math.round(e.conf*100);
-			lookupSet(CorrectByKey,[k,'D'],{r:e.req,c:c});
-			addIf(CorrectKeysByLanguage.D,k);
+			let c = Math.round(e.conf * 100);
+			lookupSet(CorrectByKey, [k, 'D'], { r: e.req, c: c });
+			addIf(CorrectKeysByLanguage.D, k);
 		}
 	}
 

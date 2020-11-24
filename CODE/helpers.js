@@ -2539,7 +2539,7 @@ function calcRowsCols(num, rows, cols) {
 		rows = Math.ceil(num / cols);
 	} else if (num == 2) {
 		rows = 1; cols = 2;
-	} else if ([4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 29, 56, 64].includes(num)) {
+	} else if ([4, 6, 9, 12, 16, 20, 25, 30, 36, 42, 49, 56, 64].includes(num)) {
 		rows = Math.floor(Math.sqrt(num));
 		cols = Math.ceil(Math.sqrt(num));
 	} else if ([3, 8, 15, 24, 35, 48, 63].includes(num)) {

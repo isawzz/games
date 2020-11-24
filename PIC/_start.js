@@ -31,8 +31,8 @@ async function start() {
 	// test21_flex_mit_flex_table();
 	// test25_layoutGrid();
 	// test26_layoutFlex();
-	// test28_maPicLabelParams();
-	// test29_mpl(100,'algerianregular');
+	//test28_maPicLabelParams();
+	//test29_mpl(100,'algerianregular');
 	// test16_openMojis(); //OK
 	// test30_personPlayingHandball();
 	// test27_hybrid_elems(); //OK

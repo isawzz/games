@@ -122,6 +122,7 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, overlayColor
 	}
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bgPic, 'transparent', null, null, true);
 
+	//console.log(label)
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, overlayColor: overlayColor }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
 	x.id = 'd' + info.key;
 	x.onclick = handler;
@@ -485,6 +486,7 @@ function wordsOfLanguage(key, language) {
 function lastOfLanguage(key, language) {
 	//console.log(language)
 	let y = symbolDict[key];
+	//console.log(y)
 	let w = y[language];
 	//console.log(key,w)
 	let last = stringAfterLast(w, '|');
