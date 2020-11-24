@@ -1,5 +1,23 @@
 var pictureSize;
 
+function getCurrentColor(game) {
+
+	let color = 'orange';
+	let colorName = Settings.games[game].color;
+	if (nundef(colorName)) {
+		console.log('color is undefined!!!!!!!!!!!!!!!!')
+
+	} else if (isdef(window[colorName])) { color = window[colorName]; }
+	else color = colorName;
+
+	//console.log('===>currentColor',currentColor)
+	return color;
+}
+function getCurrentLevel(game){
+	let level = Settings.program.currentLevel > MAXLEVEL ? startAtLevel[currentGame] : Settings.program.currentLevel;
+	return level;
+}
+
 function startGame(data) {
 
 	stopAus(); continueResume();
@@ -7,17 +25,10 @@ function startGame(data) {
 	// determineGame(data);
 	//console.log('Settings',Settings)
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
-	
-	let colorName = Settings.games[currentGame].color;
-	if (nundef(colorName)) {
-		console.log('color is undefined!!!!!!!!!!!!!!!!')
-		currentColor = 'orange';
-	}else if (isdef(window[colorName])) {currentColor = window[colorName]; }
-	else currentColor = colorName;
 
-	console.log('===>currentColor',currentColor)
-	
-	currentLevel = Settings.program.currentLevel > MAXLEVEL ? startAtLevel[currentGame] : Settings.program.currentLevel;
+	currentColor = getCurrentColor(currentGame);
+
+	currentLevel = getCurrentLevel(currentGame);
 	console.log('______ * game', currentGame, 'level', currentLevel, '*')
 
 	//if (currentGame == 'gSayPicAuto') { scoringMode = 'autograde'; } else scoringMode = DefaultScoringMode;
@@ -188,7 +199,7 @@ function showPictures(bestWordIsShortest, onClickPictureHandler, { colors, overl
 		if (NumLabels == totalPics) return;
 		let remlabelPic = choose(Pictures, totalPics - NumLabels);
 		for (const p of remlabelPic) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
-	}else{
+	} else {
 		for (const p of Pictures) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
 
 	}
@@ -536,7 +547,7 @@ function resetState() {
 	resetScore();
 
 	resetLabelSettings();
-	boundary = SAMPLES_PER_LEVEL[currentLevel]; 
+	boundary = SAMPLES_PER_LEVEL[currentLevel];
 	setBackgroundColor();
 	showBadges(dLeiste, currentLevel, revertToBadgeLevel);
 	showLevel();

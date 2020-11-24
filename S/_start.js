@@ -78,7 +78,9 @@ async function startUnit() {
 }
 
 async function loadHistory() {
-	fetch('http://localhost:3000/users/Gunter', {
+	let url = 'https://speech-games.herokuapp.com/users/Gunter';
+	//url = 'http://localhost:3000/users/Gunter';
+	fetch(url, {
 		method: 'GET',
 		headers: {
 			'Accept': 'application/json',
@@ -86,14 +88,16 @@ async function loadHistory() {
 		},
 	}).then(async data => {
 		UserHistory = await data.json();
-		//console.log(UserHistory);
+		console.log('==>USER HISTORY',UserHistory);
 		SessionStart();
 	});
 }
 async function saveHistory() {
 	//console.log('posting...');
+	let url = 'https://speech-games.herokuapp.com/users/Gunter';
+	//url = 'http://localhost:3000/users/Gunter';
 	let sessionData = UserHistory;
-	fetch('http://localhost:3000/users/Gunter', {
+	fetch(url, {
 		method: 'PUT',
 		headers: {
 			'Accept': 'application/json',
