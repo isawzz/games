@@ -17,7 +17,7 @@ program: #TODO: make this a list with ids
   currentLevel: 0
 common:
   # loopGameSequence: true
-  currentUser: Gunter
+  currentUser: Squid
   currentLanguage: E
   # activity animal body drink emotion food fruit game gesture kitchen 
   # object person place plant role sport time transport vegetable 

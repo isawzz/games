@@ -1,4 +1,5 @@
-const IS_TESTING = false;
+const IS_TESTING = true;
+USERNAME = IS_TESTING?'Squid':'Gunter';
 
 //common for all games and users / control flow
 const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or at beginning) use UseHistory to determine startLevel for each game
@@ -7,7 +8,7 @@ const UPDATE_USER_HISTORY_STARTLEVEL = true;
 const CLEAR_LOCAL_STORAGE = false;
 const RESTART_EACH_TIME = false; // restarts program at begin/history instead of continuing where left off
 
-const SETTINGS_KEY_FILE = IS_TESTING?'TEST_settings':'settings';
+const SETTINGS_KEY_FILE = IS_TESTING ? 'TEST_settings' : 'settings';
 const immediateStart = true;  // false | true
 const SHOW_FREEZER = false; // !IS_TESTING;
 const OFFLINE = true; // uses localhost instead of heroku
@@ -74,7 +75,7 @@ var CurrentSessionData, CurrentGameData, CurrentLevelData;
 var UserHistory, SessionScoreSummary, UnitScoreSummary;
 var LevelChange = true;
 var IsAnswerCorrect;
-var PosInARow,NegInARow;
+var PosInARow, NegInARow;
 
 var lastPosition = 0;
 var trialNumber;

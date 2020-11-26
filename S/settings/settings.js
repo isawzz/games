@@ -45,9 +45,10 @@ function loadSettingsX() {
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
 	let settings = localStorage.getItem(SETTINGS_KEY_FILE); 
-	settings = JSON.parse(settings);
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
+	else settings = JSON.parse(settings);
+
 
 	if (settings.hallo) {
 		console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
@@ -83,6 +84,7 @@ async function loadSettingsFromServer() {
 async function resetSettingsToDefaults() {
 	//console.log('-------------RESET SETTINGS TO DEFAULTS')
 	let settings = await loadSettingsFromServer();
+	console.log(settings)
 
 	//for the current game and current level need to adjust currentLevel if user start level for this game is higher!
 	let game = settings.program.gameSequence[settings.program.currentGameIndex].game;
@@ -96,9 +98,9 @@ async function resetSettingsToDefaults() {
 
 
 	setGlobalSettings(settings);
-	localStorage.clear(); //TODO: maybe only clear settings not entire localStorage???
+	//localStorage.clear(); //TODO: maybe only clear settings not entire localStorage???
 
-	saveObject(Settings, 'settings');
+	saveObject(Settings, SETTINGS_KEY_FILE);
 
 	//createSettingsUi();
 	loadSettingsFromLocalStorage();

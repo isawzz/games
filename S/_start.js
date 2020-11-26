@@ -2,7 +2,8 @@ window.onload = loadHistory;
 // window.onunload = saveHistory;
 
 async function loadHistory() {
-	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
+	let url = OFFLINE ? 'http://localhost:3000/users/'+USERNAME : 'https://speech-games.herokuapp.com/users/'+USERNAME;
+	// let url = OFFLINE ? 'http://localhost:3000/users/Gunter' : 'https://speech-games.herokuapp.com/users/Gunter';
 	fetch(url, {
 		method: 'GET',
 		headers: {
@@ -11,7 +12,7 @@ async function loadHistory() {
 		},
 	}).then(async data => {
 		UserHistory = await data.json();
-		console.log('==>USER HISTORY touch pic level',UserHistory.gTouchPic.startLevel);
+		console.log('==>USER HISTORY touch pic level', UserHistory.gTouchPic.startLevel);
 		SessionStart();
 	});
 }
@@ -34,7 +35,7 @@ async function _startPlaying() {
 	initSidebar();
 
 	await initSettingsX();
-//	return;
+	//	return;
 
 	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
 
@@ -60,22 +61,23 @@ async function startUnit() {
 
 async function saveHistory() {
 	//console.log('posting...');
-	if (BlockServerSend){
+	if (BlockServerSend) {
 		console.log('...wait for unblocked...');
-		setTimeout(saveHistory,1000);
+		setTimeout(saveHistory, 1000);
+	} else {
+		let url = OFFLINE ? 'http://localhost:3000/users/'+USERNAME : 'https://speech-games.herokuapp.com/users/'+USERNAME;
+		let sessionData = UserHistory;
+		BlockServerSend = true;
+		console.log('blocked...');
+		fetch(url, {
+			method: 'PUT',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(sessionData)
+		}).then(() => { BlockServerSend = false; console.log('unblocked...'); });
 	}
-	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
-	let sessionData = UserHistory;
-	BlockServerSend = true;
-	console.log('blocked...');
-	fetch(url, {
-		method: 'PUT',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(sessionData)
-	}).then(()=>{BlockServerSend=false;console.log('unblocked...');}); 
 
 }
 
