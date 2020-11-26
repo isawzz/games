@@ -2,11 +2,12 @@ const IS_TESTING = true;
 
 //common for all games and users / control flow
 const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or at beginning) use UseHistory to determine startLevel for each game
-const UPDATE_USER_HISTORY = !IS_TESTING;
-const RESTART_EACH_TIME = IS_TESTING; // restarts program at begin/history instead of continuing where left off
-const USE_TEST_SETTINGS = IS_TESTING;
-const EXPERIMENTAL = IS_TESTING;
+
+const UPDATE_USER_HISTORY_STARTLEVEL = true;
 const CLEAR_LOCAL_STORAGE = false;
+
+const RESTART_EACH_TIME = false; // restarts program at begin/history instead of continuing where left off
+const USE_TEST_SETTINGS = IS_TESTING;
 const immediateStart = true;  // false | true
 const SHOW_FREEZER = false; // !IS_TESTING;
 const OFFLINE = true; // uses localhost instead of heroku

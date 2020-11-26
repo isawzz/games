@@ -1,6 +1,20 @@
 window.onload = loadHistory;
 // window.onunload = saveHistory;
 
+async function loadHistory() {
+	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
+	fetch(url, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+	}).then(async data => {
+		UserHistory = await data.json();
+		console.log('==>USER HISTORY touch pic level',UserHistory.gTouchPic.startLevel);
+		SessionStart();
+	});
+}
 async function SessionStart() {
 	//zTesting();
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
@@ -14,41 +28,13 @@ async function SessionStart() {
 	await _startPlaying();
 
 }
-function _startSpeechTraining() {
-
-	initTable();
-	Speech = new Speech2('E'); ///new SpeechFeature(1, 'E');
-
-	//#region prev tests
-	//testConf2(); return;
-	//testConfidence();return;
-	//trainBritishGuy('ring'); return;
-
-	//trainDeutsch('wind face'); //trainZira(); //testp7(); //testp6(); //testp5(); //testp4(); 
-	// testp2(); return;
-	//testp0(); return;
-	//speechTraining(); return;
-
-	testSimilar01('hand'); return;
-	testLanguageChange(); return;
-	testWait(); return;
-	testRecognizeAdvanced(); return;
-	testRecognize2(); return;
-	testPromise(); return; //GEHT NICHT!!!
-	testRecognize(); return;
-	testStartAgainAfterStartingRecorder(); return;
-	testChangingLangAfterStartingRecorder(); return;
-
-	testBasicRecord(); return;
-	//#endregion
-}
-
 async function _startPlaying() {
 
 	initTable();
 	initSidebar();
 
 	await initSettingsX();
+//	return;
 
 	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
 
@@ -72,20 +58,6 @@ async function startUnit() {
 	else { hide('freezer'); hide('divControls'); openSettings(); }
 }
 
-async function loadHistory() {
-	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
-	fetch(url, {
-		method: 'GET',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-	}).then(async data => {
-		UserHistory = await data.json();
-		console.log('==>USER HISTORY',UserHistory);
-		SessionStart();
-	});
-}
 async function saveHistory() {
 	//console.log('posting...');
 	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
@@ -126,6 +98,35 @@ function zTesting() {
 	}
 
 }
+function _startSpeechTraining() {
+
+	initTable();
+	Speech = new Speech2('E'); ///new SpeechFeature(1, 'E');
+
+	//#region prev tests
+	//testConf2(); return;
+	//testConfidence();return;
+	//trainBritishGuy('ring'); return;
+
+	//trainDeutsch('wind face'); //trainZira(); //testp7(); //testp6(); //testp5(); //testp4(); 
+	// testp2(); return;
+	//testp0(); return;
+	//speechTraining(); return;
+
+	testSimilar01('hand'); return;
+	testLanguageChange(); return;
+	testWait(); return;
+	testRecognizeAdvanced(); return;
+	testRecognize2(); return;
+	testPromise(); return; //GEHT NICHT!!!
+	testRecognize(); return;
+	testStartAgainAfterStartingRecorder(); return;
+	testChangingLangAfterStartingRecorder(); return;
+
+	testBasicRecord(); return;
+	//#endregion
+}
+
 
 
 

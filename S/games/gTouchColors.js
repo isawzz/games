@@ -1,4 +1,3 @@
-var uiActivated;
 const SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 const EXTENDED_COLORS = ['red', 'green', 'yellow', 'blue', 'pink', 'indigo', 'gray', 'sienna', 'olive'];
 

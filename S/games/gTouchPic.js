@@ -1,4 +1,3 @@
-var uiActivated;
 function startGameTP() {}
 function startLevelTP() { levelTP(); }
 function levelTP() {

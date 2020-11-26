@@ -50,7 +50,7 @@ function loadSettingsFromLocalStorage() {
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 
 	if (settings.hallo) {
-		console.log('!!!!!!!!!!!!! reload settings! !!!!!!!!!!!!!!!')
+		console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
 		Settings = settings;
 	} else {
 		setGlobalSettings(settings);
@@ -81,7 +81,7 @@ async function loadSettingsFromServer() {
 
 }
 async function resetSettingsToDefaults() {
-	console.log('-------------RESET SETTINGS')
+	console.log('-------------RESET SETTINGS TO DEFAULTS')
 	let settings = await loadSettingsFromServer();
 	setGlobalSettings(settings);
 	localStorage.clear(); //TODO: maybe only clear settings not entire localStorage???

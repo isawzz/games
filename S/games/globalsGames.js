@@ -2,14 +2,14 @@ var pictureSize;
 
 function startGame(data) {
 
-	if (currentGame=='gSayPic') Speech.stopRecording();
+	if (currentGame == 'gSayPic') Speech.stopRecording();
 
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 	GameInfo = Settings.games[currentGame];
 	LevelInfo = GameInfo.levels;
 	//MaxLevel = 0;
 	//console.log(LevelInfo,typeof LevelInfo)
-	MaxLevel = isdef(LevelInfo)? Object.keys(LevelInfo).length-1 : 0;
+	MaxLevel = isdef(LevelInfo) ? Object.keys(LevelInfo).length - 1 : 0;
 
 	currentColor = getCurrentColor(currentGame);
 
@@ -41,7 +41,7 @@ function startLevel(level) {
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
 
-	startRound(); 
+	startRound();
 }
 function startRound() {
 	setTimeout(() => startRoundReally(), ROUND_DELAY);
@@ -97,7 +97,7 @@ function showPictures(onClickPictureHandler, { colors, overlayShade } = {}, keys
 	if (nundef(labels)) {
 		labels = [];
 		for (const info of infos) {
-			labels.push(info.best); 
+			labels.push(info.best);
 		}
 	}
 
@@ -184,7 +184,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
 	if (!isSpoken) return;
 
-	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7,'random'); 
+	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
 
 }
 function activateUi() {
@@ -309,7 +309,7 @@ function aniGameOver(msg) {
 
 //#region interrupt
 function stopAus() {
-	if (currentGame=='gSayPic') Speech.stopRecording();
+	if (currentGame == 'gSayPic') Speech.stopRecording();
 
 	clearProgramTimer();
 	pauseUI();
@@ -339,17 +339,17 @@ function showLevelComplete() {
 	}
 
 }
-function downgradeCurrentLevelTo(newLevel,oldLevel){
+function downgradeCurrentLevelTo(newLevel, oldLevel) {
 	Settings.program.currentLevel = newLevel;
-	let startLevel=UserHistory[currentGame].startLevel;
-	UserHistory[currentGame].startLevel = Math.min(newLevel,startLevel);
+	let startLevel = UserHistory[currentGame].startLevel;
+	upgradeStartLevelForUser(currentGame, Math.min(newLevel, startLevel));
 	return newLevel;
 }
 function revertToBadgeLevel(ev) {
 	let id = evToClosestId(ev);
 	let i = stringAfter(id, '_');
 	i = Number(i);
-	currentLevel = downgradeCurrentLevelTo(i,currentLevel);
+	currentLevel = downgradeCurrentLevelTo(i, currentLevel);
 	saveProgram();
 	removeBadges(dLeiste, currentLevel);
 	setBackgroundColor();
@@ -508,7 +508,7 @@ function resetState() {
 
 }
 function setBackgroundColor() {
-	let color = currentColor; 
+	let color = currentColor;
 	document.body.style.backgroundColor = color;
 
 }
@@ -570,7 +570,7 @@ function getCurrentColor(game) {
 	return color;
 }
 function getCurrentLevel(game) {
-	console.log('getCurrentLevel',Settings.program.currentLevel,'MAX',MaxLevel)
+	console.log('getCurrentLevel', Settings.program.currentLevel, 'MAX', MaxLevel)
 	let level = Settings.program.currentLevel > MaxLevel ? MaxLevel : Settings.program.currentLevel;
 	return level;
 }

@@ -44,12 +44,15 @@ function getUserStartLevel(game) {
 	}
 	let hist = UserHistory;
 	let userStartLevel = 0;
-	console.log('_______________________',hist,game,UserHistory)
 	if (isdef(hist) && isdef(hist[game])) userStartLevel = hist[game].startLevel;
+	//console.log('_______________________',hist,game,UserHistory)
+	console.log('________user start level',game,userStartLevel)
 	return userStartLevel;
 }
 function upgradeStartLevelForUser(game,level){
-	if (UPDATE_USER_HISTORY) UserHistory[game].startLevel = level;
+	if (UPDATE_USER_HISTORY_STARTLEVEL) {
+		UserHistory[game].startLevel = level;
+	}
 	//saveHistory();
 }
 function saveProgram() {
