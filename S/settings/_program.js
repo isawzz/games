@@ -35,10 +35,10 @@ async function loadProgram() {
 
 function getUserStartLevel(game) {
 	if (isDict(game)) game = game.game;
-	else if (isNumber(game)){
-		let i=game;
-		let seq=Settings.program.gameSequence;
-		console.assert(i<seq.length,"getUserStartLevel!!!!!!!!!!!!!! gameIndex to high",game)
+	else if (isNumber(game)) {
+		let i = game;
+		let seq = Settings.program.gameSequence;
+		console.assert(i < seq.length, "getUserStartLevel!!!!!!!!!!!!!! gameIndex to high", game)
 		game = seq[i];
 
 	}
@@ -46,17 +46,18 @@ function getUserStartLevel(game) {
 	let userStartLevel = 0;
 	if (isdef(hist) && isdef(hist[game])) userStartLevel = hist[game].startLevel;
 	//console.log('_______________________',hist,game,UserHistory)
-	console.log('________user start level',game,userStartLevel)
+	console.log('________user start level', game, userStartLevel)
 	return userStartLevel;
 }
-function upgradeStartLevelForUser(game,level){
+function upgradeStartLevelForUser(game, level) {
+	console.log('===>upgrade hist', game, level)
 	if (UPDATE_USER_HISTORY_STARTLEVEL) {
 		UserHistory[game].startLevel = level;
+		saveHistory();
 	}
-	//saveHistory();
 }
 function saveProgram() {
-	localStorage.setItem('settings', JSON.stringify(Settings));
+	localStorage.setItem(SETTINGS_KEY_FILE, JSON.stringify(Settings));
 }
 
 function updateGameSequence(nextLevel) {

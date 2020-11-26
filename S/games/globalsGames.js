@@ -570,8 +570,12 @@ function getCurrentColor(game) {
 	return color;
 }
 function getCurrentLevel(game) {
-	console.log('getCurrentLevel', Settings.program.currentLevel, 'MAX', MaxLevel)
+	console.log('getCurrentLevel', Settings.program.currentLevel, 'MAX', MaxLevel);
+
 	let level = Settings.program.currentLevel > MaxLevel ? MaxLevel : Settings.program.currentLevel;
+
+	if (USE_USER_HISTORY_FOR_STARTLEVEL && UserHistory[game].startLevel > level) level = UserHistory[game].startLevel;
+
 	return level;
 }
 

@@ -60,8 +60,14 @@ async function startUnit() {
 
 async function saveHistory() {
 	//console.log('posting...');
+	if (BlockServerSend){
+		console.log('...wait for unblocked...');
+		setTimeout(saveHistory,1000);
+	}
 	let url = OFFLINE? 'http://localhost:3000/users/Gunter':'https://speech-games.herokuapp.com/users/Gunter';
 	let sessionData = UserHistory;
+	BlockServerSend = true;
+	console.log('blocked...');
 	fetch(url, {
 		method: 'PUT',
 		headers: {
@@ -69,7 +75,7 @@ async function saveHistory() {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(sessionData)
-	}); 
+	}).then(()=>{BlockServerSend=false;console.log('unblocked...');}); 
 
 }
 

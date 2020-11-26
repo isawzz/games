@@ -1,16 +1,17 @@
-const IS_TESTING = true;
+const IS_TESTING = false;
 
 //common for all games and users / control flow
 const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or at beginning) use UseHistory to determine startLevel for each game
 
 const UPDATE_USER_HISTORY_STARTLEVEL = true;
 const CLEAR_LOCAL_STORAGE = false;
-
 const RESTART_EACH_TIME = false; // restarts program at begin/history instead of continuing where left off
-const USE_TEST_SETTINGS = IS_TESTING;
+
+const SETTINGS_KEY_FILE = IS_TESTING?'TEST_settings':'settings';
 const immediateStart = true;  // false | true
 const SHOW_FREEZER = false; // !IS_TESTING;
 const OFFLINE = true; // uses localhost instead of heroku
+
 
 var MASTER_VOLUME = 1;
 var loopGameSequence = true;
@@ -113,3 +114,5 @@ var score, hintWord, bestWord, answerCorrect, currentInfo;
 //testing
 var timit;
 
+//flags
+var BlockServerSend = false;
