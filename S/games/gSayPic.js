@@ -1,48 +1,18 @@
-const LevelsSP = {
-	0: { NumPics: 1, NumLabels: 1, MinWordLength: 2, MaxWordLength: 21, MaxNumTrials: 3 },
-	1: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
-	2: { NumPics: 1, NumLabels: 1, MinWordLength: 3, MaxWordLength: 21, MaxNumTrials: 3 },
-	3: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
-	4: { NumPics: 1, NumLabels: 0, MinWordLength: 4, MaxWordLength: 21, MaxNumTrials: 3 },
-	5: { NumPics: 1, NumLabels: 0, MinWordLength: 5, MaxWordLength: 21, MaxNumTrials: 3 },
-	6: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
-	7: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
-	8: { NumPics: 1, NumLabels: 0, MinWordLength: 8, MaxWordLength: 21, MaxNumTrials: 3 },
-	9: { NumPics: 1, NumLabels: 0, MinWordLength: 7, MaxWordLength: 21, MaxNumTrials: 3 },
-	10: { NumPics: 1, NumLabels: 0, MinWordLength: 6, MaxWordLength: 21, MaxNumTrials: 3 },
-}
 function startGameSP() { }
 function startLevelSP() { levelSP(); }
 function levelSP() {
-	//console.log('level',currentLevel)
-	let levelInfo = LevelsSP[currentLevel];
-	MaxNumTrials = levelInfo.MaxNumTrials;
-	MaxWordLength = levelInfo.MaxWordLength;
-	MinWordLength = levelInfo.MinWordLength;
+	
+	MaxNumTrials = getGameOrLevelInfo('trials', 3);
 
-	//keys sollen die keys sein die auch in dem file 
-	setKeys(currentCategories, true, x => lastOfLanguage(x, currentLanguage));
-	// currentKeys = currentKeys.filter(x=>BEST80.includes(x));
-	currentKeys = currentKeys.filter(x => {
-		//console.log(symbolDict[x])
-		let kLang = 'best' + currentLanguage;
-		let info = symbolDict[x];
-		let best = info[kLang];
-		let conf = info[kLang + 'Conf'];
-		if (isdef(best) && conf > (currentLanguage == 'D' ? 70 : 90)) return true; else return false;
-	});
-	//console.log('currentCategories', currentCategories)
-	//console.log('cats', currentCategories, currentKeys);
+	let vinfo = getGameOrLevelInfo('vocab', 100);
+	currentKeys = setKeys({ lang: currentLanguage, nbestOrCats: vinfo, confidence: (currentLanguage == 'D' ? 70 : 90) });
 
-	//currentKeys=currentKeys.filter(x=>isdef(CorrectWordsCorrect[x]))
-	//console.log(currentKeys);
-	NumPics = levelInfo.NumPics;
-	NumLabels = levelInfo.NumLabels;
+	NumPics = NumLabels = 1;
 }
 function startRoundSP() { }
 function promptSP() {
 
-	showPictures(false, () => mBy(defaultFocusElement).focus());
+	showPictures(() => mBy(defaultFocusElement).focus());
 	setGoal();
 
 	showInstruction(bestWord, currentLanguage == 'E' ? 'say:' : "sage: ", dTitle);
@@ -50,45 +20,35 @@ function promptSP() {
 
 	mLinebreak(dTable);
 	MicrophoneUi = mMicrophone(dTable);
+	MicrophoneHide();
 
 	return 10; //1000;
 }
-function trialPromptSP() {
-	//showFleetingMessage('Say again!',0,{fz:80,fg:'red'});
-	Speech.say(currentLanguage == 'E' ? 'try again!' : 'nochmal', 1, 1, .3, true, 'zira');
-	animate(dInstruction, 'pulse800' + getSignalColor(), 900);
-	return 1500;
+function trialPromptSP(nTrial) {
+	let phrase = nTrial<2?(currentLanguage == 'E' ? 'speak UP!!!' : 'LAUTER!!!')
+	:(currentLanguage == 'E' ? 'Louder!!!' : 'LAUTER!!!');
+	Speech.say(phrase, 1, 1, 1, 'zira');
+	animate(dInstruction, 'pulse800' + getSignalColor(), 500);
+	return 10;
 }
 async function activateSP() {
-	if (Speech.speaker.isSpeakerRunning) {
-		setTimeout(activateSP, 1000);
+	if (Speech.isSpeakerRunning()) {
+		setTimeout(activateSP, 200);
 	} else {
-		setTimeout(() => Speech.recognize(bestWord, currentLanguage, evaluate, evaluate), 100);
+		setTimeout(() => Speech.startRecording(currentLanguage, evaluate), 100);
 	}
-	//orig code:
-	// setTimeout(() => {
-	// 	record(currentLanguage, bestWord);
-	// }, trialNumber == 0 ? 4000 : 1500);
 }
-function evalSP(speechResult, confidence) {
-
-	if (isEmpty(speechResult)) {
-		//console.log('.....empty speechResult');
-		return false;
-	}
+function evalSP(isfinal, speechResult, confidence) {
 
 	Selected = {}
 	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
-
 	Selected.reqAnswer = reqAnswer;
 	Selected.answer = answer;
 
-
-	//console.log('required:' + reqAnswer, 'got:' + answer, confidence)
-
-	return isSimilar(answer, reqAnswer);
+	if (isEmpty(answer)) return false;
+	else return isSimilar(answer, reqAnswer);
 
 }
 
