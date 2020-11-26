@@ -7,7 +7,9 @@ function startGame(data) {
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 	GameInfo = Settings.games[currentGame];
 	LevelInfo = GameInfo.levels;
-	MaxLevel = 0;
+	//MaxLevel = 0;
+	//console.log(LevelInfo,typeof LevelInfo)
+	MaxLevel = isdef(LevelInfo)? Object.keys(LevelInfo).length-1 : 0;
 
 	currentColor = getCurrentColor(currentGame);
 
@@ -337,11 +339,17 @@ function showLevelComplete() {
 	}
 
 }
+function downgradeCurrentLevelTo(newLevel,oldLevel){
+	Settings.program.currentLevel = newLevel;
+	let startLevel=UserHistory[currentGame].startLevel;
+	UserHistory[currentGame].startLevel = Math.min(newLevel,startLevel);
+	return newLevel;
+}
 function revertToBadgeLevel(ev) {
 	let id = evToClosestId(ev);
 	let i = stringAfter(id, '_');
 	i = Number(i);
-	currentLevel = Settings.program.currentLevel = i;
+	currentLevel = downgradeCurrentLevelTo(i,currentLevel);
 	saveProgram();
 	removeBadges(dLeiste, currentLevel);
 	setBackgroundColor();
@@ -562,6 +570,7 @@ function getCurrentColor(game) {
 	return color;
 }
 function getCurrentLevel(game) {
+	console.log('getCurrentLevel',Settings.program.currentLevel,'MAX',MaxLevel)
 	let level = Settings.program.currentLevel > MaxLevel ? MaxLevel : Settings.program.currentLevel;
 	return level;
 }

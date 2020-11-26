@@ -1,7 +1,10 @@
-const IS_TESTING = false; // false | true
+const IS_TESTING = true;
 
 //common for all games and users / control flow
-const RESTART_EACH_TIME = true; // restarts program at begin instead of continuing where left off
+const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or at beginning) use UseHistory to determine startLevel for each game
+const UPDATE_USER_HISTORY = !IS_TESTING;
+const RESTART_EACH_TIME = IS_TESTING; // restarts program at begin/history instead of continuing where left off
+const USE_TEST_SETTINGS = IS_TESTING;
 const EXPERIMENTAL = IS_TESTING;
 const CLEAR_LOCAL_STORAGE = false;
 const immediateStart = true;  // false | true

@@ -66,8 +66,8 @@ async function startUnit() {
 	await loadProgram();
 	UnitScoreSummary = {};
 
-	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); openSettings(); }
-	else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
+	//if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); openSettings(); } else 
+	if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
 	else if (immediateStart) { hide('divControls'); startGame(); }
 	else { hide('freezer'); hide('divControls'); openSettings(); }
 }

@@ -75,7 +75,8 @@ function saveSettingsX() {
 }
 
 async function loadSettingsFromServer() {
-	let settings = await loadYamlDict('/S/settings/settings.yaml'); //_config.yaml');
+	let filename = USE_TEST_SETTINGS?'TEST_settings':'settings';
+	let settings = await loadYamlDict('/S/settings/'+filename+'.yaml'); //_config.yaml');
 	return settings;
 
 }
@@ -96,8 +97,8 @@ function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocal
 function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
 function onClickRestartProgram() {
 
-	Settings.program.currentGameIndex = 0;
-	Settings.program.currentLevel = currentLevel = 0; //Settings.program.gameSequence[0].startLevel_;
+	let i = Settings.program.currentGameIndex = 0;
+	Settings.program.currentLevel = currentLevel = getUserStartLevel(i); //0; //Settings.program.gameSequence[0].startLevel_;
 
 	localStorage.setItem('settings', JSON.stringify(Settings));
 	loadSettingsFromLocalStorage();

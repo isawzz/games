@@ -3,19 +3,26 @@ function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = t
 async function loadProgram() {
 	let program = Settings.program;
 	let gameSequence = program.gameSequence;
-	let gameIndex = program.currentGameIndex;
 
-	if (isdef(program)) gameSequence = program.gameSequence;
+	// which game?
+	let gameIndex = 0;
+	if (!RESTART_EACH_TIME) {
+		gameIndex = program.currentGameIndex;
+		if (isString(gameIndex)) { gameIndex = Number(gameIndex); }
+		if (nundef(gameIndex) || gameIndex > gameSequence.length) { gameIndex = 0; }
+	}
+	Settings.program.currentGameIndex = gameIndex;
 
-	if (isString(Settings.program.currentGameIndex)) { Settings.program.currentGameIndex = Number(Settings.program.currentGameIndex); }
-	if (nundef(Settings.program.currentGameIndex)) { Settings.program.currentGameIndex = 0; }
+	let game = gameSequence[gameIndex];
 
-	if (isString(Settings.program.currentLevel)) { Settings.program.currentLevel = Number(Settings.program.currentLevel); }
-	if (nundef(Settings.program.currentLevel)) { Settings.program.currentLevel = 0; } //gameSequence[Settings.program.currentGameIndex].startLevel_; }
+	//use level saved in localstorage:
+	let lastLevel = Settings.program.currentLevel;
+	if (isString(lastLevel)) { lastLevel = Number(lastLevel); }
+	if (nundef(lastLevel)) { lastLevel = 0; } //gameSequence[Settings.program.currentGameIndex].startLevel_; }
 
+	let userStartLevel = getUserStartLevel(game);
 
-
-	if (RESTART_EACH_TIME) Settings.program.currentLevel = Settings.program.currentGameIndex = 0;
+	Settings.program.currentLevel = RESTART_EACH_TIME ? userStartLevel : Math.max(userStartLevel, lastLevel);
 
 	//friendly output
 	let i = 0;
@@ -26,6 +33,25 @@ async function loadProgram() {
 	console.log('LOADED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
 
+function getUserStartLevel(game) {
+	if (isDict(game)) game = game.game;
+	else if (isNumber(game)){
+		let i=game;
+		let seq=Settings.program.gameSequence;
+		console.assert(i<seq.length,"getUserStartLevel!!!!!!!!!!!!!! gameIndex to high",game)
+		game = seq[i];
+
+	}
+	let hist = UserHistory;
+	let userStartLevel = 0;
+	console.log('_______________________',hist,game,UserHistory)
+	if (isdef(hist) && isdef(hist[game])) userStartLevel = hist[game].startLevel;
+	return userStartLevel;
+}
+function upgradeStartLevelForUser(game,level){
+	if (UPDATE_USER_HISTORY) UserHistory[game].startLevel = level;
+	//saveHistory();
+}
 function saveProgram() {
 	localStorage.setItem('settings', JSON.stringify(Settings));
 }
@@ -33,9 +59,11 @@ function saveProgram() {
 function updateGameSequence(nextLevel) {
 	if (nextLevel > MaxLevel) {
 		let gameSequence = Settings.program.gameSequence;
-		Settings.program.currentGameIndex = (Settings.program.currentGameIndex + 1) % gameSequence.length;
-		Settings.program.currentLevel = 0; 
+		let iGame = Settings.program.currentGameIndex = (Settings.program.currentGameIndex + 1) % gameSequence.length;
+		Settings.program.currentLevel = getUserStartLevel(iGame);
 	} else Settings.program.currentLevel = nextLevel;
+
+	console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
 
 
