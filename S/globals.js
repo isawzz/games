@@ -1,11 +1,11 @@
-const IS_TESTING = true;
-USERNAME = IS_TESTING?'Squid':'Gunter';
+const IS_TESTING = false;
+USERNAME = IS_TESTING ? 'Squid' : 'Gunter';
 
 //common for all games and users / control flow
 const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or at beginning) use UseHistory to determine startLevel for each game
 
 const UPDATE_USER_HISTORY_STARTLEVEL = true;
-const CLEAR_LOCAL_STORAGE = false;
+const CLEAR_LOCAL_STORAGE = true;
 const RESTART_EACH_TIME = false; //IS_TESTING; // restarts program at startLevel instead of continuing where left off
 
 const SETTINGS_KEY_FILE = IS_TESTING ? 'TEST_settings' : 'settings';
@@ -82,9 +82,9 @@ var lastPosition = 0;
 var trialNumber;
 var boundary;
 var uiActivated;
-const MarkerText=['✔️','❌'];
-const MarkerId={SUCCESS:0,FAIL:1};
-var Markers=[];
+const MarkerText = ['✔️', '❌'];
+const MarkerId = { SUCCESS: 0, FAIL: 1 };
+var Markers = [];
 
 
 //ui state flags
