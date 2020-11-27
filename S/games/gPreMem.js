@@ -22,11 +22,10 @@ function OneTwoThree(ev) {
 	let pic = Pictures[i];
 	let div = pic.div;
 	console.log('clicked', pic.key);
-	if (!isEmpty(MemMM) && MemMM[0].label != pic.label) return;
+	if (!isEmpty(MemMM) && MemMM.length < NumRepeat-1 && MemMM[0].label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemMM);
 	if (isEmpty(MemMM)) {
 		showInstruction('any picture', 'click', dTitle, true);
-
 	}else if (MemMM.length < NumRepeat-1) {
 		//set incomplete: more steps are needed!
 		//frame the picture
@@ -35,7 +34,7 @@ function OneTwoThree(ev) {
 		// look for last picture with x that is not in the set
 		let picGoal = firstCond(Pictures,x=>x.label == pic.label && !x.isSelected);
 		setGoal(picGoal.index);
-		showInstruction(picGoal.label, 'click the last', dTitle, true);
+		showInstruction(picGoal.label, 'click the '+(NumRepeat == 2?'other':'last'), dTitle, true);
 	} else {
 		//set is complete: eval
 		evaluate(MemMM);
@@ -94,7 +93,14 @@ function showPicturesMM(onClickPictureHandler, { colors, overlayShade, repeat = 
 	}
 
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
 	let bgPic = isdef(colors) ? 'white' : 'random';
+	let bgs={};
+	for (const l of labels) {
+		if (isdef(bgs[l])) continue;
+		bgs[l]=computeColor(bgPic);
+	}
+
 
 	let lines = isdef(colors) ? colors.length : 1;
 	let [pictureSize, picsPerLine] = calcDimsAndSize(NumPics, lines);
@@ -110,7 +116,7 @@ function showPicturesMM(onClickPictureHandler, { colors, overlayShade, repeat = 
 			let id = 'pic' + ipic; // (line * keys.length + i);
 			let d1 = maPicLabelButtonFitText(info, label,
 				{
-					w: pictureSize, h: pictureSize, bgPic: bgPic, shade: shade,
+					w: pictureSize, h: pictureSize, bgPic: bgs[label], shade: shade,
 					overlayColor: overlayShade
 				}, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;

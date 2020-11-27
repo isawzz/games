@@ -14,10 +14,13 @@ const GFUNC = {
 	gSayPic: {friendlyName: 'Speak up!',
 		startGame: startGameSP, startLevel: startLevelSP, startRound: startRoundSP, trialPrompt: trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP
 	},
-	//not implemented: gMem
-	gMem: { friendlyName: 'Steps!',
+	//not implemented: gPreMem
+	gPreMem: { friendlyName: 'Premem!',
 		startGame: startGameMM, startLevel: startLevelMM, startRound: startRoundMM, trialPrompt: trialPromptMM, prompt: promptMM, activate: activateMM, eval: evalMM
 	},
+	// gMem: { friendlyName: 'Memory!',
+	// 	startGame: startGameMM, startLevel: startLevelMM, startRound: startRoundMM, trialPrompt: trialPromptMM, prompt: promptMM, activate: activateMM, eval: evalMM
+	// },
 }
 
 

@@ -1,4 +1,4 @@
-const IS_TESTING = false;
+const IS_TESTING = true;
 USERNAME = IS_TESTING ? 'Squid' : 'Gunter';
 
 //common for all games and users / control flow
