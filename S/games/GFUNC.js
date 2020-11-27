@@ -14,9 +14,9 @@ const GFUNC = {
 	gSayPic: {friendlyName: 'Speak up!',
 		startGame: startGameSP, startLevel: startLevelSP, startRound: startRoundSP, trialPrompt: trialPromptSP, prompt: promptSP, activate: activateSP, eval: evalSP
 	},
-	//not implemented: gSteps
-	gSteps: { friendlyName: 'Steps!',
-		startGame: startGameST, startLevel: startLevelST, startRound: startRoundST, trialPrompt: trialPromptST, prompt: promptST, activate: activateST, eval: evalST
+	//not implemented: gMem
+	gMem: { friendlyName: 'Steps!',
+		startGame: startGameMM, startLevel: startLevelMM, startRound: startRoundMM, trialPrompt: trialPromptMM, prompt: promptMM, activate: activateMM, eval: evalMM
 	},
 }
 

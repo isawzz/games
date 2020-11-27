@@ -113,19 +113,26 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	return dOuter;
 
 }
+function maPicLabelShowHideHandler(ev){
+	let id = evToClosestId(ev);
+	let info = symbolDict[id.substring(1)];
+	if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
+	if (isdef(mBy('dummy'))) mBy('dummy').focus();
+
+}
 function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, overlayColor }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
-	if (nundef(handler)) handler = (ev) => {
-		let id = evToClosestId(ev);
-		let info = symbolDict[id.substring(1)];
-		if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
-		if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus();
-	}
+	// if (nundef(handler)) handler = (ev) => {
+	// 	let id = evToClosestId(ev);
+	// 	let info = symbolDict[id.substring(1)];
+	// 	if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
+	// 	if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus();
+	// }
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bgPic, 'transparent', null, null, true);
 
 	//console.log(label)
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, overlayColor: overlayColor }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
 	x.id = 'd' + info.key;
-	x.onclick = handler;
+	if (isdef(handler)) x.onclick = handler;
 	x.style.cursor = 'pointer';
 	x.lastChild.style.cursor = 'pointer';
 	x.style.userSelect = 'none';
@@ -364,7 +371,7 @@ function mpSimpleButton(key, dParent, handler) {
 	//let handler = null;
 	let stylesForLabelButton = { rounding: 10, margin: 24 };
 	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
-	let d1 = maPicLabelButtonFitText(info, label, st, null, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+	let d1 = maPicLabelButtonFitText(info, label, st, handler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 	return d1;
 }
 function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {

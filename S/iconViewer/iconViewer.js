@@ -70,11 +70,22 @@ function onClickIVPicture(ev) {
 
 }
 
-function toggleSelectionOfPicture(pic) {
+function toggleSelectionOfPicture(pic,piclist) {
 	let ui = pic.div;
 	//if (pic.isSelected){pic.isSelected=false;mRemoveClass(ui,)}
 	pic.isSelected = !pic.isSelected;
 	if (pic.isSelected) mClass(ui, 'framedPicture'); else mRemoveClass(ui, 'framedPicture');
+
+	//if piclist is given, add or remove pic according to selection state
+	if (isdef(piclist)){
+		if (pic.isSelected) {
+			console.assert(!piclist.includes(pic),'UNSELECTED PIC IN PICLIST!!!!!!!!!!!!')
+			piclist.push(pic);
+		}else{
+			console.assert(piclist.includes(pic),'PIC NOT IN PICLIST BUT HAS BEEN SELECTED!!!!!!!!!!!!')
+			removeInPlace(piclist,pic);
+		}
+	}
 }
 
 

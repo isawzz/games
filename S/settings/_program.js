@@ -52,7 +52,8 @@ function getUserStartLevel(game) {
 function upgradeStartLevelForUser(game, level) {
 	console.log('===>upgrade hist', game, level)
 	if (UPDATE_USER_HISTORY_STARTLEVEL) {
-		UserHistory[game].startLevel = level;
+		lookupSet(UserHistory,[game,'startLevel'],level);
+		//UserHistory[game].startLevel = level;
 		saveHistory();
 	}
 }

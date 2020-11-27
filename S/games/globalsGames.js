@@ -168,6 +168,8 @@ function setGoal(index) {
 
 }
 function showInstruction(text, cmd, title, isSpoken, spoken) {
+	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
+	clearElement(title);
 	let d = mDiv(title);
 	mStyleX(d, { margin: 15 })
 	mClass(d, 'flexWrap');
@@ -210,6 +212,7 @@ function evaluate() {
 		showCorrectWord();
 		failPictureGoal(false);
 	}
+	setTimeout(removeMarkers,1500);
 
 	[LevelChange, currentLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
@@ -250,8 +253,13 @@ function failPictureGoal(withComment = true) {
 		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
 	}
 	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
-		let sz = getBounds(Selected.feedbackUI).height;
-		mpOver(mBy('dX'), Selected.feedbackUI, sz * (1 / 2), 'red', 'openMojiTextBlack');
+
+		// let sz = getBounds(Selected.feedbackUI).height;
+		// mpOver(mBy('dX'), Selected.feedbackUI, sz * (1 / 2), 'red', 'openMojiTextBlack');
+
+		let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
+		let sz = getBounds(uilist[0]).height;
+		for (const ui of uilist) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
 	}
 
 }
@@ -260,7 +268,17 @@ function successPictureGoal(withComment = true) {
 		const comments = (currentLanguage == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
 		Speech.say(chooseRandom(comments));//'Excellent!!!');
 	}
-	mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
+	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
+		//mpOver(mBy('dX'), Selected.feedbackUI, sz * (1 / 2), 'red', 'openMojiTextBlack');
+
+		// let sz = getBounds(Selected.feedbackUI).height;
+		// mpOver(mBy('dCheckMark'), Selected.feedbackUI, sz * (4 / 5), 'limegreen', 'segoeBlack');
+
+		let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
+		let sz = getBounds(uilist[0]).height;
+		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
+	}
+	// mpOver(mBy('dCheckMark'), mBy(Goal.id), pictureSize * (4 / 5), 'limegreen', 'segoeBlack');
 
 }
 //#endregion
@@ -486,8 +504,9 @@ function animate(elem, aniclass, timeoutms) {
 }
 
 function clearTable() {
-	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); hide(mBy('dCheckMark')); hide(mBy('dX'));
-}
+	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); removeMarkers();
+} // hide(mBy('dCheckMark')); hide(mBy('dX'));
+
 function isGameWithSpeechRecognition() { return ['gSayPic', 'gSayPicAuto'].includes(currentGame); }
 function resetState() {
 	uiPaused = 0;
@@ -574,7 +593,7 @@ function getCurrentLevel(game) {
 
 	let level = Settings.program.currentLevel > MaxLevel ? MaxLevel : Settings.program.currentLevel;
 
-	if (USE_USER_HISTORY_FOR_STARTLEVEL && UserHistory[game].startLevel > level) level = UserHistory[game].startLevel;
+	if (USE_USER_HISTORY_FOR_STARTLEVEL && isdef(UserHistory[game]) && UserHistory[game].startLevel > level) level = UserHistory[game].startLevel;
 
 	return level;
 }

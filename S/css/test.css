@@ -27,6 +27,10 @@ div{
 	width: 80%;
 
 }
+.feedbackMarker{
+	position:fixed;
+	font-size:40px;
+}
 #dCheckMark,#dX{
 	position:fixed;
 	font-size:40px;
@@ -436,6 +440,7 @@ input[type="checkbox"]:focus+label::before {
 .transitionOpacity{	transition: opacity 5s ease-in-out;}
 /* .aniFadeInOut{ animation: fadeinout 5s ease-in-out 0s 1;} */
 .aniSlowlyDisappear{ animation: fadeinout 5s ease-out 0s 1 forwards;}
+.aniFastDisappear{ animation: fadeOut .5s ease-out 0s 1 forwards;}
 .aniSlowlyAppear{ animation: example 3s ease-in-out 0s 1 forwards;}
 
 .aniFadeOut{ animation: example .5s ease-in-out 0s 1 reverse;}
@@ -445,6 +450,7 @@ input[type="checkbox"]:focus+label::before {
 .aniFadeInOut{ animation: fadeinout 1.5s ease-in-out 0s 1 forwards;}
 .aniRubberBand{animation: rubberBand 1.2s ease-in-out;}
 @keyframes example { from { opacity: 0; }  to { opacity: 1; }}
+@keyframes fadeOut { from { opacity: 1; }  to { opacity: 0; }}
 @keyframes fadeoutin { 
 	from { opacity: 1; }  
 	50% { opacity: 0;  }

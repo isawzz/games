@@ -12,7 +12,7 @@ async function loadHistory() {
 		},
 	}).then(async data => {
 		UserHistory = await data.json();
-		console.log('==>USER HISTORY touch pic level', UserHistory.gTouchPic.startLevel);
+		console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
 		SessionStart();
 	});
 }
@@ -39,7 +39,7 @@ async function _startPlaying() {
 
 	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
 
-	Speech = new Speech2('E'); //new SpeechFeature(1, 'E'); 
+	Speech = new SpeechAPI('E'); 
 	KeySets = getKeySets();
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
@@ -109,7 +109,7 @@ function zTesting() {
 function _startSpeechTraining() {
 
 	initTable();
-	Speech = new Speech2('E'); ///new SpeechFeature(1, 'E');
+	Speech = new SpeechAPI('E'); 
 
 	//#region prev tests
 	//testConf2(); return;

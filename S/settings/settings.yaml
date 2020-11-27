@@ -24,7 +24,7 @@ common:
   currentCategories: [nosymemo]
 flags:
   pressControlToUnfreeze: false
-  reducedAnimations: true
+  reducedAnimations: false
   levelBadges: false
 games: 
   gTouchPic:
@@ -44,23 +44,17 @@ games:
         vocab: 25
         numPics: 6
       4: 
-        vocab: 25
-        numPics: 8
-      5: 
         vocab: 50
         numPics: 9
-      6: 
+      5: 
         vocab: 50
         numPics: 16
-      7: 
+      6: 
         vocab: 75
         numPics: 25
-      8: 
+      7: 
         vocab: 100
         numPics: 36
-      9: 
-        vocab: 100
-        numPics: 49
   gMissingLetter:
     color: gold
     vocab: 100

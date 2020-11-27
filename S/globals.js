@@ -6,7 +6,7 @@ const USE_USER_HISTORY_FOR_STARTLEVEL = true; // when switching to new game (or 
 
 const UPDATE_USER_HISTORY_STARTLEVEL = true;
 const CLEAR_LOCAL_STORAGE = false;
-const RESTART_EACH_TIME = false; // restarts program at begin/history instead of continuing where left off
+const RESTART_EACH_TIME = false; //IS_TESTING; // restarts program at startLevel instead of continuing where left off
 
 const SETTINGS_KEY_FILE = IS_TESTING ? 'TEST_settings' : 'settings';
 const immediateStart = true;  // false | true
@@ -47,6 +47,7 @@ var MaxNumTrials = 1;
 var MinWordLength = 1;
 var MaxWordLength = 100;
 var NumPics;
+var NumRepeat;
 var NumLabels;
 var Pictures = [];
 var Goal, Selected;
@@ -81,6 +82,9 @@ var lastPosition = 0;
 var trialNumber;
 var boundary;
 var uiActivated;
+const MarkerText=['✔️','❌'];
+const MarkerId={SUCCESS:0,FAIL:1};
+var Markers=[];
 
 
 //ui state flags

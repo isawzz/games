@@ -1,7 +1,7 @@
-class Speech2 {
+class SpeechAPI {
 	constructor(lang) {
-		this.recorder = new Recorder2(lang);
-		this.speaker = new Speaker2(lang);
+		this.recorder = new Recorder(lang);
+		this.speaker = new Speaker(lang);
 	}
 	train() {
 
@@ -35,7 +35,7 @@ class Speech2 {
 
 }
 
-class Recorder2 {
+class Recorder {
 	constructor(lang) {
 		let rec = this.rec = new webkitSpeechRecognition();
 		rec.continuous = true;
@@ -107,7 +107,7 @@ class Recorder2 {
 		return { isFinal: this.isFinal, result: this.result, confidence: this.confidence };
 	}
 }
-class Speaker2 {
+class Speaker {
 	static get VOICES() {
 		return {
 			david: 'Microsoft David Desktop - English',
@@ -177,7 +177,7 @@ class Speaker2 {
 	findSuitableVoice(text, voicekey) {
 		// voicekey ... random | key in voiceNames | starting phrase of voices.name
 		//console.log(typeof voices, voices)
-		let voicenames = Speaker2.VOICES;
+		let voicenames = Speaker.VOICES;
 		let vkey = 'david';
 		if (this.lang == 'D') {
 			vkey = 'deutsch';

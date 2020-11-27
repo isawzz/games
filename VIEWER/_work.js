@@ -116,7 +116,7 @@ function test44() {
 		//let label = arrLast(info.words); //'hallo das ist ja bloed';//arrLast(info.words)
 		let label = keys[i];
 		//let maxw=100;
-		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, maPicLabelShowHideHandler, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 
 		// let d1 = maPicLabelButton(info, arrLast(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
@@ -145,7 +145,7 @@ function test43() {
 
 		let label = arrLast(info.words); //'hallo das ist ja bloed';//arrLast(info.words)
 		let maxw=100;
-		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, null, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		let d1 = maPicLabelButtonFitText(info, label, { w: 200, h: 200 }, maPicLabelShowHideHandler, table, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 
 		// let d1 = maPicLabelButton(info, arrLast(info.words), onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
 		//let d1 = maPicButton(info, onClickPicture, table, styles, 'frameOnHover', isText, isOmoji); d1.id = id;
