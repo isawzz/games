@@ -22,6 +22,7 @@ function OneTwoThree(ev) {
 	let pic = Pictures[i];
 	let div = pic.div;
 	console.log('clicked', pic.key);
+	if (!isEmpty(MemMM) && MemMM[0].label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemMM);
 	if (isEmpty(MemMM)) {
 		showInstruction('any picture', 'click', dTitle, true);
