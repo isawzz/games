@@ -1,6 +1,6 @@
 program: #TODO: make this a list with ids
   minutesPerUnit: .2
-  samplesPerLevel: 1
+  samplesPerLevel: 2
   # toggle: first half of level: labels, second half of level: no labels
   # TODO: individual adaptive: label toggle per word
   showLabels: toggle #always never toggle

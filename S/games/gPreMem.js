@@ -43,7 +43,7 @@ function OneTwoThree(ev) {
 
 }
 function promptMM() {
-	showPicturesMM(OneTwoThree, { repeat: NumRepeat });
+	showPicturesMM(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80', });
 	//setGoal();
 	showInstruction('any picture', 'click', dTitle, true);
 	return 10;
@@ -70,7 +70,7 @@ function calcDimsAndSize(NumPics, lines) {
 	pictureSize = Math.max(50, Math.min(sz, 200));
 	return [pictureSize, picsPerLine];
 }
-function showPicturesMM(onClickPictureHandler, { colors, overlayShade, repeat = 1, shufflePositions = true } = {}, keys, labels) {
+function showPicturesMM(onClickPictureHandler, { border, colors, overlayShade, repeat = 1, shufflePositions = true } = {}, keys, labels) {
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics / repeat);
@@ -105,6 +105,7 @@ function showPicturesMM(onClickPictureHandler, { colors, overlayShade, repeat = 
 	let lines = isdef(colors) ? colors.length : 1;
 	let [pictureSize, picsPerLine] = calcDimsAndSize(NumPics, lines);
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+	if (isdef(border)) stylesForLabelButton.border = border;
 
 	for (let line = 0; line < lines; line++) {
 		let shade = isdef(colors) ? colors[line] : undefined;
