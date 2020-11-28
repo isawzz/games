@@ -16,11 +16,14 @@ const GFUNC = {
 	},
 	//not implemented: gPreMem
 	gPreMem: { friendlyName: 'Premem!',
+		startGame: startGamePM, startLevel: startLevelPM, startRound: startRoundPM, trialPrompt: trialPromptPM, prompt: promptPM, activate: activatePM, eval: evalPM
+	},
+	gSteps: { friendlyName: 'Steps!',
+		startGame: startGameSTP, startLevel: startLevelSTP, startRound: startRoundSTP, trialPrompt: trialPromptSTP, prompt: promptSTP, activate: activateSTP, eval: evalSTP
+	},
+	gMem: { friendlyName: 'Memory!',
 		startGame: startGameMM, startLevel: startLevelMM, startRound: startRoundMM, trialPrompt: trialPromptMM, prompt: promptMM, activate: activateMM, eval: evalMM
 	},
-	// gMem: { friendlyName: 'Memory!',
-	// 	startGame: startGameMM, startLevel: startLevelMM, startRound: startRoundMM, trialPrompt: trialPromptMM, prompt: promptMM, activate: activateMM, eval: evalMM
-	// },
 }
 
 

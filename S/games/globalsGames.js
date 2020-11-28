@@ -156,6 +156,95 @@ function showPictures(onClickPictureHandler, { colors, overlayShade } = {}, keys
 	}
 
 }
+function calcDimsAndSize(NumPics, lines) {
+
+	let ww = window.innerWidth;
+	let wh = window.innerHeight;
+	let hpercent = 0.60; let wpercent = .6;
+	let sz, picsPerLine;
+	if (lines > 1) {
+		let hpic = wh * hpercent / lines;
+		let wpic = ww * wpercent / NumPics;
+		sz = Math.min(hpic, wpic);
+		picsPerLine = keys.length;
+	} else {
+		let dims = calcRowsColsX(NumPics);
+		let hpic = wh * hpercent / dims.rows;
+		let wpic = ww * wpercent / dims.cols;
+		sz = Math.min(hpic, wpic);
+		picsPerLine = dims.cols;
+	}
+
+	pictureSize = Math.max(50, Math.min(sz, 200));
+	return [pictureSize, picsPerLine];
+}
+function showPicturesX(onClickPictureHandler, { border, colors, overlayShade, repeat = 1, shufflePositions = true } = {}, keys, labels) {
+	Pictures = [];
+
+	if (nundef(keys)) keys = choose(currentKeys, NumPics / repeat);
+	console.log(repeat, NumPics);
+
+	if (isdef(repeat)) {
+		let keys1 = jsCopy(keys);
+		for (let i = 0; i < repeat - 1; i++) { keys = keys.concat(keys1); }
+		if (shufflePositions) shuffle(keys)
+	}
+
+	console.log(keys);
+
+	let infos = keys.map(x => getRandomSetItem(currentLanguage, x));
+	if (nundef(labels)) {
+		labels = [];
+		for (const info of infos) {
+			labels.push(info.best);
+		}
+	}
+
+	let { isText, isOmoji } = getParamsForMaPicStyle('twitterText');
+
+	let bgPic = isdef(colors) ? 'white' : 'random';
+	let bgs={};
+	for (const l of labels) {
+		if (isdef(bgs[l])) continue;
+		bgs[l]=computeColor(bgPic);
+	}
+
+
+	let lines = isdef(colors) ? colors.length : 1;
+	let [pictureSize, picsPerLine] = calcDimsAndSize(NumPics, lines);
+	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+	if (isdef(border)) stylesForLabelButton.border = border;
+
+	for (let line = 0; line < lines; line++) {
+		let shade = isdef(colors) ? colors[line] : undefined;
+		for (let i = 0; i < keys.length; i++) {
+			let info = infos[i];
+			let label = labels[i];
+			let ipic = (line * keys.length + i);
+			if (ipic % picsPerLine == 0 && ipic > 0) mLinebreak(dTable);
+			let id = 'pic' + ipic; // (line * keys.length + i);
+			let d1 = maPicLabelButtonFitText(info, label,
+				{
+					w: pictureSize, h: pictureSize, bgPic: bgs[label], shade: shade,
+					overlayColor: overlayShade
+				}, onClickPictureHandler, dTable, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+			Pictures.push({ shade: shade, key: info.key, info: info, div: d1, id: id, index: i, label: label, isLabelVisible: true, isSelected: false });
+		}
+	}
+
+	let totalPics = Pictures.length;
+
+	if (Settings.program.labels) {
+		if (NumLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - NumLabels);
+		for (const p of remlabelPic) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
+	} else {
+		for (const p of Pictures) { maHideLabel(p.id, p.info); p.isLabelVisible = false; }
+
+	}
+
+}
 function setGoal(index) {
 	if (nundef(index)) {
 		let rnd = NumPics < 2 ? 0 : randomNumber(0, NumPics - 2);
