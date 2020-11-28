@@ -13,10 +13,39 @@ function startRoundSTP() {
 	uiActivated = false;
 	MemSTP = [];
 }
+function InteractSTP(ev) {
+	ev.cancelBubble = true;
+	if (uiPaused || ev.ctrlKey || ev.altKey) return;
+
+	let id = evToClosestId(ev);
+	let i = firstNumber(id);
+	let pic = Pictures[i];
+	console.log('clicked', pic.key);
+	if (!isEmpty(MemSTP) && MemSTP.length < NumRepeat-1 && bestWord != pic.label) return;
+	toggleSelectionOfPicture(pic,MemSTP);
+	if (isEmpty(MemSTP)) {
+		showInstruction(bestWord, 'click all', dTitle, true);
+	}else if (MemSTP.length < NumRepeat-1) {
+		//set incomplete: more steps are needed!
+		//frame the picture
+		showInstruction(pic.label, 'click another', dTitle, true);
+	}else if (MemSTP.length == NumRepeat-1) {
+		// look for last picture with x that is not in the set
+		let picGoal = firstCond(Pictures,x=>x.label == pic.label && !x.isSelected);
+		setGoal(picGoal.index);
+		showInstruction(picGoal.label, 'click the '+(NumRepeat == 2?'other':'last'), dTitle, true);
+	} else {
+		//set is complete: eval
+		evaluate(MemSTP);
+	}
+	console.log(MemSTP)
+
+}
+
 function promptSTP() {
-	showPicturesSTP(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80', });
-	//setGoal();
-	showInstruction('any picture', 'click', dTitle, true);
+	showPicturesSTP(InteractSTP, { repeat: NumRepeat, border: '3px solid #ffffff80', });
+	setGoal();
+	showInstruction(bestWord, 'click all', dTitle, true);
 	return 10;
 }
 function trialPromptSTP() {

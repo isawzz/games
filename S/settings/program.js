@@ -1,3 +1,4 @@
+//#region running program
 function clearProgramTimer() { clearTimeout(ProgTimeout); ProgTimeIsUp = false; }
 function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000); }
 async function loadProgram() {
@@ -32,7 +33,6 @@ async function loadProgram() {
 	});
 	console.log('LOADED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
-
 function getUserStartLevel(game) {
 	if (isDict(game)) game = game.game;
 	else if (isNumber(game)) {
@@ -61,7 +61,6 @@ function upgradeStartLevelForUser(game, level) {
 function saveProgram() {
 	localStorage.setItem(SETTINGS_KEY_FILE, JSON.stringify(Settings));
 }
-
 function updateGameSequence(nextLevel) {
 	if (nextLevel > MaxLevel) {
 		let gameSequence = Settings.program.gameSequence;
@@ -71,7 +70,7 @@ function updateGameSequence(nextLevel) {
 
 	console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
-
+//# endregion
 
 
 

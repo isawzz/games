@@ -50,7 +50,23 @@ div{
 	flex-grow: 10;
 	/* background-color: orange; */
 }
-#dGear{
+#dProgramButton{
+	position: fixed;
+	display: inline-block;
+	bottom: 20px;
+	right: 100px;
+	cursor:pointer;
+	/* background:blue; */
+}
+#dGameSettingsButton{
+	position: fixed;
+	display: inline-block;
+	bottom: 20px;
+	right: 60px;
+	cursor:pointer;
+	/* background:blue; */
+}
+#dMenuButton{
 	position: fixed;
 	display: inline-block;
 	bottom: 20px;
@@ -143,16 +159,22 @@ div{
 }
 .buttonPlus{
 	padding: 4px 12px;
-	margin: 14px;
+	margin: 0px 14px;
 	font-size: 20px;
 }
 .hMinus60{
-	height: calc( 100% - 54px );
+	height: calc( 100vh - 60px );
+}
+.hPercentMinus60{
+	height: calc( 100% - 60px );
+	margin-top: 16px;
 }
 .whMinus60{
-	height: calc( 100% - 25px );
-	width: calc( 100% - 50px );
-	margin: 24px 24px 0px 24px;
+	/* min-height: 100%;  */
+	min-height: calc( 100% - 25px );
+	min-width: calc( 100% - 50px );
+	/* margin: 16px 16px 0px 16px; */
+	/* margin: 16px; */
 }
 /* #endregion */
 

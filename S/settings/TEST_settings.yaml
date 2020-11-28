@@ -1,5 +1,5 @@
 program: #TODO: make this a list with ids
-  minutesPerUnit: .2
+  minutesPerUnit: 11
   samplesPerLevel: 2
   # toggle: first half of level: labels, second half of level: no labels
   # TODO: individual adaptive: label toggle per word
@@ -120,6 +120,38 @@ games:
         numColors: 4
   gPreMem:
     color: 'deeppink'
+    trials: 1
+    levels:
+      0: 
+        vocab: 25
+        numPics: 4
+        numRepeat: 2
+      1: 
+        vocab: 25
+        numPics: 9
+        numRepeat: 3
+      2: 
+        vocab: 25
+        numPics: 12
+        numRepeat: 2
+      3: 
+        vocab: 50
+        numPics: 16
+        numOpen: 4
+      4: 
+        vocab: 75
+        numPics: 16
+        numOpen: 2
+      5: 
+        vocab: 75
+        numPics: 20
+        numOpen: 2
+      6: 
+        vocab: 100
+        numPics: 36
+        numOpen: 3
+  gSteps:
+    color: '#911eb4'
     trials: 1
     levels:
       0: 

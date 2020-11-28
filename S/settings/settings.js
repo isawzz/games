@@ -13,38 +13,26 @@ function setGlobalSettings(settings) {
 	resetLabelSettings();
 }
 
-function resetLabelSettings(){
-	if (Settings.program.showLabels == 'toggle') Settings.program.labels=true;
-	else Settings.program.labels=Settings.program.showLabels;
+function resetLabelSettings() {
+	if (Settings.program.showLabels == 'toggle') Settings.program.labels = true;
+	else Settings.program.labels = Settings.program.showLabels;
 }
 async function initSettingsX() {
+	if (nundef(dProgram)) dProgram = mBy('dProgram');
+
 	loadSettingsX();
 
 	if (isdef(Settings.hallo)) {
 		await resetSettingsToDefaults();
 	}
 }
-function createSettingsUi() {
-	let dParent = mBy('dSettings');
-	clearElement(dParent);
-	let ta = mCreate('textarea');
-	ta.id = 'dSettings_ta';
-	mAppend(dParent, ta);
-	ta.rows = 25;
-	ta.cols = 100;
-	ta.value = 'hallo';
-	let b = mCreate('button');
-	mAppend(dParent, b);
-	b.innerHTML = 'save';
-	b.onclick = () => { saveSettingsX(); loadSettingsFromLocalStorage(); }
-}
 function loadSettingsX() {
-	createSettingsUi();
+	createProgramSettingsUi();
 	loadSettingsFromLocalStorage();
 }
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
-	let settings = localStorage.getItem(SETTINGS_KEY_FILE); 
+	let settings = localStorage.getItem(SETTINGS_KEY_FILE);
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 	else settings = JSON.parse(settings);
@@ -77,7 +65,7 @@ function saveSettingsX() {
 
 async function loadSettingsFromServer() {
 	let filename = SETTINGS_KEY_FILE;
-	let settings = await loadYamlDict('/S/settings/'+filename+'.yaml'); //_config.yaml');
+	let settings = await loadYamlDict('/S/settings/' + filename + '.yaml'); //_config.yaml');
 	return settings;
 
 }
@@ -102,58 +90,10 @@ async function resetSettingsToDefaults() {
 
 	saveObject(Settings, SETTINGS_KEY_FILE);
 
-	//createSettingsUi();
+	//createProgramSettingsUi();
 	loadSettingsFromLocalStorage();
 
 	//setTimeout(loadSettingsFromLocalStorage,10);
-
-}
-
-function openSettings() { stopAus(); hide('dGear'); show(dSettings); loadSettingsX(); }
-function closeSettings() { show('dGear'); saveSettingsX(); loadSettingsFromLocalStorage(); hide(dSettings); continueResume(); }
-function toggleSettings() { if (isVisible2('dSettings')) closeSettings(); else openSettings(); }
-function onClickRestartProgram() {
-
-	let i = Settings.program.currentGameIndex = 0;
-	Settings.program.currentLevel = currentLevel = getUserStartLevel(i); //0; //Settings.program.gameSequence[0].startLevel_;
-
-	localStorage.setItem(SETTINGS_KEY_FILE, JSON.stringify(Settings));
-	loadSettingsFromLocalStorage();
-
-}
-
-//#region settings helpers
-function createSettingsUi() {
-	let dParent = mBy('dSettings');
-
-	clearElement(dParent);
-	let d = mDiv(dParent); mClass(d, 'hMinus60');
-	let ta = mCreate('textarea');
-	ta.id = 'dSettings_ta';
-	mAppend(d, ta);
-	mClass(ta, 'whMinus60');
-	ta.value = 'hallo';
-
-	let bdiv = mDiv(dParent); mStyleX(bdiv, { height: 54 });
-	let b;
-
-	b = mCreate('button');
-	mAppend(bdiv, b);
-	b.innerHTML = 'reset to defaults';
-	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = () => { resetSettingsToDefaults(); }
-
-	// b = mCreate('button');
-	// mAppend(bdiv, b);
-	// b.innerHTML = 'restart program';
-	// mClass(b, 'buttonClass', 'buttonPlus');
-	// b.onclick = onClickRestartProgram;
-
-	b = mCreate('button');
-	mAppend(bdiv, b);
-	b.innerHTML = 'continue playing';
-	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = () => { closeSettings(); startGame(); }
 
 }
 

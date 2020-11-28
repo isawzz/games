@@ -35,6 +35,7 @@ async function _startPlaying() {
 	initSidebar();
 
 	await initSettingsX();
+	initMainMenu();
 	//	return;
 
 	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
@@ -53,10 +54,11 @@ async function startUnit() {
 	await loadProgram();
 	UnitScoreSummary = {};
 
-	//if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); openSettings(); } else 
+	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); openMenu(); } else 
 	if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
 	else if (immediateStart) { hide('divControls'); startGame(); }
-	else { hide('freezer'); hide('divControls'); openSettings(); }
+	else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
+	else { hide('freezer'); hide('divControls'); openMenu(); }
 }
 
 async function saveHistory() {

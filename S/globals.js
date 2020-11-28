@@ -1,3 +1,4 @@
+const EXPERIMENTAL = true;
 const IS_TESTING = true;
 USERNAME = IS_TESTING ? 'Squid' : 'Gunter';
 
@@ -110,7 +111,7 @@ var dHint, dFeedback, dInstruction, dScore, dLevel, dGameTitle;
 var inputBox;
 var defaultFocusElement;
 var dTable, dTitle;
-var dSettings = mBy('dSettings');
+var dProgram,dMenu,dGameSettings;
 var dLeiste;
 
 //feedback

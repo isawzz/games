@@ -36,6 +36,33 @@ function show100() {
 	let keys = takeFromTo(IconSet, lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 	gridLabeled(keys, picLabelStyles);
 }
+function gridLabeledX(keyList,labelList, dParent,{rows}={}) {
+	//cont,pic,text
+	let dGrid = mDiv(dParent);
+	let elems = [];
+	let isText = true;
+	let isOmoji = false;
+	let pictureSize = 200;
+	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+	let pics = [];
+
+	for (let i=0;i<keyList.length;i++) {
+		let k=keyList[i];
+		let info = symbolDict[k];
+		let label = labelList[i];
+		let el = maPicLabelButtonFitText(info, label,
+			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, overlayColor: null },
+			onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+		el.id = 'pic' + lastIndex;
+		elems.push(el);
+		pics.push({ div: el, info: info, label: label, isSelected: false });
+		lastIndex += 1;
+	}
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, dGrid, gridStyles, { rows: rows, isInline: true });
+	return pics;
+}
+
 function gridLabeled(list, picLabelStyles) {
 	//cont,pic,text
 	let dGrid = mDiv(mBy('table'));

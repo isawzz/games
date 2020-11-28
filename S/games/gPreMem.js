@@ -25,7 +25,7 @@ function OneTwoThree(ev) {
 	if (!isEmpty(MemPM) && MemPM.length < NumRepeat-1 && MemPM[0].label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemPM);
 	if (isEmpty(MemPM)) {
-		showInstruction('any picture', 'click', dTitle, true);
+		showInstruction('', 'click any picture', dTitle, true);
 	}else if (MemPM.length < NumRepeat-1) {
 		//set incomplete: more steps are needed!
 		//frame the picture
@@ -45,7 +45,7 @@ function OneTwoThree(ev) {
 function promptPM() {
 	showPicturesX(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80', });
 	//setGoal();
-	showInstruction('any picture', 'click', dTitle, true);
+	showInstruction('', 'click any picture', dTitle, true);
 	return 10;
 }
 function trialPromptPM() {
@@ -63,8 +63,8 @@ function evalPM(piclist) {
 	Selected = { piclist: piclist, feedbackUI: piclist.map(x => x.div), sz: getBounds(piclist[0].div).height };
 
 	let req = Selected.reqAnswer = piclist[0].label;
-	let eachAnswerSame = true;
-	for (const p of piclist) { if (p.label != req) eachAnswerSame = false; }
+	// let eachAnswerSame = true;
+	// for (const p of piclist) { if (p.label != req) eachAnswerSame = false; }
 	Selected.answer = piclist[piclist.length - 1].label;
 	if (Selected.answer == req) { return true; } else { return false; }
 }

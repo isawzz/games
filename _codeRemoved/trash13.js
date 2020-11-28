@@ -1,3 +1,13 @@
+function onClickRestartProgram() {
+
+	let i = Settings.program.currentGameIndex = 0;
+	Settings.program.currentLevel = currentLevel = getUserStartLevel(i); //0; //Settings.program.gameSequence[0].startLevel_;
+
+	localStorage.setItem(SETTINGS_KEY_FILE, JSON.stringify(Settings));
+	loadSettingsFromLocalStorage();
+
+}
+
 function determineGame_dep(data) {
 	//determining currentGame: data undefined, game name or game index
 	if (nundef(data)) {
