@@ -119,7 +119,7 @@ class Speaker {
 		};
 	}
 	constructor(lang) {
-		console.log('init speaker...')
+		//console.log('init speaker...')
 		this.lang = lang;
 		this.q = [];
 		this.isRunning = false;

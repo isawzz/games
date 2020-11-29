@@ -39,7 +39,7 @@ function loadSettingsFromLocalStorage() {
 
 
 	if (settings.hallo) {
-		console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
+		//console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
 		Settings = settings;
 	} else {
 		setGlobalSettings(settings);
@@ -72,7 +72,7 @@ async function loadSettingsFromServer() {
 async function resetSettingsToDefaults() {
 	//console.log('-------------RESET SETTINGS TO DEFAULTS')
 	let settings = await loadSettingsFromServer();
-	console.log(settings)
+	//console.log(settings)
 
 	//for the current game and current level need to adjust currentLevel if user start level for this game is higher!
 	let game = settings.program.gameSequence[settings.program.currentGameIndex].game;

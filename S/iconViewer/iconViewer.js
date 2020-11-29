@@ -36,7 +36,7 @@ function show100() {
 	let keys = takeFromTo(IconSet, lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 	gridLabeled(keys, picLabelStyles);
 }
-function gridLabeledX(keyList,labelList, dParent,{rows}={}) {
+function gridLabeledX(keyList,labelList, dParent,{rows,layout}={}, clickHandler) {
 	//cont,pic,text
 	let dGrid = mDiv(dParent);
 	let elems = [];
@@ -51,15 +51,16 @@ function gridLabeledX(keyList,labelList, dParent,{rows}={}) {
 		let info = symbolDict[k];
 		let label = labelList[i];
 		let el = maPicLabelButtonFitText(info, label,
-			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, overlayColor: null },
-			onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, contrast: null },
+			clickHandler, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		el.id = 'pic' + lastIndex;
 		elems.push(el);
 		pics.push({ div: el, info: info, label: label, isSelected: false });
 		lastIndex += 1;
 	}
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let size = layoutGrid(elems, dGrid, gridStyles, { rows: rows, isInline: true });
+	let func=(layout=='flex'?layoutFlex:layoutGrid);
+	let size = func(elems, dGrid, gridStyles, { rows: rows, isInline: true });
 	return pics;
 }
 
@@ -76,7 +77,7 @@ function gridLabeled(list, picLabelStyles) {
 		let info = symbolDict[k];
 		let label = (isdef(info.bestE) ? info.bestE : lastOfLanguage(k, 'E')) + ' ' + lastIndex;
 		let el = maPicLabelButtonFitText(info, label,
-			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, overlayColor: null },
+			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, contrast: null },
 			onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 		el.id = 'pic' + lastIndex;
 		elems.push(el);

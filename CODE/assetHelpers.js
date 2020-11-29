@@ -120,17 +120,11 @@ function maPicLabelShowHideHandler(ev){
 	if (isdef(mBy('dummy'))) mBy('dummy').focus();
 
 }
-function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, overlayColor }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
-	// if (nundef(handler)) handler = (ev) => {
-	// 	let id = evToClosestId(ev);
-	// 	let info = symbolDict[id.substring(1)];
-	// 	if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
-	// 	if (isdef(focusElement)) focusElement.focus(); else if (isdef(mBy('dummy'))) mBy('dummy').focus();
-	// }
+function maPicLabelButtonFitText(info, label, { w, h, bgPic, textShadowColor, contrast }, handler, dParent, styles, classes = 'picButton', isText, isOmoji, focusElement) {
 	let picLabelStyles = getHarmoniousStylesPlusPlus(styles, {}, {}, w, h, 65, 0, 'arial', bgPic, 'transparent', null, null, true);
 
-	//console.log(label)
-	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, shade: shade, overlayColor: overlayColor }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
+	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w, textShadowColor: textShadowColor, contrast: contrast }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], isText, isOmoji);
+
 	x.id = 'd' + info.key;
 	if (isdef(handler)) x.onclick = handler;
 	x.style.cursor = 'pointer';
@@ -139,18 +133,18 @@ function maPicLabelButtonFitText(info, label, { w, h, shade, bgPic, overlayColor
 	mClass(x, classes);
 	return x;
 }
-function maPicLabelFitX(info, label, { wmax, hmax, shade, overlayColor = '#00000030' }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
+function maPicLabelFitX(info, label, { wmax, hmax, textShadowColor, contrast = .35 }, dParent, containerStyles, picStyles, textStyles, isText = true, isOmoji = false) {
 	let d = mDiv(dParent);
 	//console.log('picStyles',picStyles);
 
+	if (isdef(textShadowColor)) {
 
-	if (isdef(shade)) {
-
-		//console.log('===>shade',shade,'overlayColor',overlayColor);
+		//console.log('contrast',contrast,'textShadowColor',textShadowColor)
+		//console.log('===>textShadowColor',textShadowColor,'contrast',contrast);
 		//console.log(picStyles);
-		let sShade = '0 0 0 ' + shade; //green';
+		let sShade = '0 0 0 ' + textShadowColor; //green';
 		picStyles['text-shadow'] = sShade;// +', '+sShade+', '+sShade;
-		picStyles.fg =  overlayColor; //'#00000080' '#00000030' 
+		picStyles.fg =  anyColorToStandardString('black',contrast); //'#00000080' '#00000030' 
 	}
 
 	let dPic = maPic(info, d, picStyles, isText, isOmoji);
@@ -426,24 +420,6 @@ function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, p
 	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
 	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
 	return [styles, picStyles, textStyles];
-}
-function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
-	//console.log(elist, elist.length)
-
-	let dims = calcRowsCols(elist.length, rows, cols);
-	//console.log('dims', dims);
-
-	let parentStyle = jsCopy(containerStyles);
-	parentStyle.display = isInline ? 'inline-grid' : 'grid';
-	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
-	parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
-
-	//console.log('parentStyle', parentStyle)
-
-	mStyleX(dGrid, parentStyle);
-	let b = getBounds(dGrid);
-	return { w: b.width, h: b.height };
-
 }
 
 //#region words, dictionaries

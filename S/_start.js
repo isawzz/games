@@ -12,7 +12,7 @@ async function loadHistory() {
 		},
 	}).then(async data => {
 		UserHistory = await data.json();
-		console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
+		//console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
 		SessionStart();
 	});
 }

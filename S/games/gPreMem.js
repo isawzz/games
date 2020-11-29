@@ -43,7 +43,8 @@ function OneTwoThree(ev) {
 
 }
 function promptPM() {
-	showPicturesX(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80', });
+	console.log('{{{{{{{{{{{{{',NumPics,NumRepeat)
+	showPictures(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80' });
 	//setGoal();
 	showInstruction('', 'click any picture', dTitle, true);
 	return 10;
