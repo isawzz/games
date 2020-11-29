@@ -40,12 +40,10 @@ async function activateSP() {
 }
 function evalSP(isfinal, speechResult, confidence) {
 
-	Selected = {}
-	let answer = Goal.answer = Selected.answer = normalize(speechResult, currentLanguage);
+	let answer = Goal.answer = normalize(speechResult, currentLanguage);
 	let reqAnswer = Goal.reqAnswer = normalize(bestWord, currentLanguage);
 
-	Selected.reqAnswer = reqAnswer;
-	Selected.answer = answer;
+	Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
 
 	if (isEmpty(answer)) return false;
 	else return isSimilar(answer, reqAnswer);

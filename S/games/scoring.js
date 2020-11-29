@@ -136,7 +136,7 @@ function scoring(isCorrect) {
 
 	}
 
-	console.log('levelChange', levelChange, 'nextLevel', nextLevel)
+	//console.log('levelChange', levelChange, 'nextLevel', nextLevel)
 
 	let toggle = Settings.program.showLabels == 'toggle';
 	let hasLabels = Settings.program.labels;

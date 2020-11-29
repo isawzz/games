@@ -68,7 +68,7 @@ function updateGameSequence(nextLevel) {
 		Settings.program.currentLevel = getUserStartLevel(iGame);
 	} else Settings.program.currentLevel = nextLevel;
 
-	console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
+	//console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
 //# endregion
 

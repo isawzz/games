@@ -29,7 +29,6 @@ flags:
   levelBadges: false
 games: 
   gTouchPic:
-    color: deepskyblue
     trials: 2
     levels:
       0: 
@@ -63,7 +62,6 @@ games:
         vocab: 100
         numPics: 49
   gMissingLetter:
-    color: gold
     vocab: 100
     trials: 3
     levels:
@@ -89,7 +87,6 @@ games:
         numMissing: 5
         posMissing: random
   gTouchColors:
-    color: '#bfef45'
     contrast: .3
     colors:
       - red
@@ -119,7 +116,6 @@ games:
         numPics: 5
         numColors: 4
   gPreMem:
-    color: 'deeppink'
     trials: 1
     levels:
       0: 
@@ -143,7 +139,6 @@ games:
         numPics: 12
         numRepeat: 3
   gMem:
-    color: 'deeppink'
     trials: 1
     levels:
       0: 
@@ -175,7 +170,6 @@ games:
         numPics: 36
         numOpen: 3
   gSteps:
-    color: '#911eb4'
     trials: 1
     levels:
       0: 
@@ -207,11 +201,9 @@ games:
         numPics: 36
         numOpen: 3
   gSayPic:
-    color: '#4363d8'
     vocab: 75
     trials: 3
   gWritePic:
-    color: '#bfef45'
     trials: 3
     levels:
       0: 

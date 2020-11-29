@@ -16,5 +16,8 @@ function resetGameSettingsToDefaults(){}
 function createGameSettingsUi() {
 	let dParent = mBy('dGameSettings');
 	let d = createCommonUi(dParent,resetGameSettingsToDefaults,() => { closeGameSettings(); startGame(); });
+
+	mText('NOT IMPLEMENTED!!!!!!!!!!!!!',d,{fz:50});
+
 }
 

@@ -1,6 +1,6 @@
 var pictureSize;
 
-function startGame(data) {
+function startGame() {
 
 	if (currentGame == 'gSayPic') Speech.stopRecording();
 
@@ -87,14 +87,14 @@ function selectWord(info, bestWordIsShortest, except = []) {
 	}
 	return w;
 }
-function showPictures(onClickPictureHandler, { colors, contrast, repeat=1, border } = {}, keys, labels) {
+function showPictures(onClickPictureHandler, { colors, contrast, repeat=1, sameBackground=true, border } = {}, keys, labels) {
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
 	//keys=['sun with face'];
 	//console.log(keys,repeat)
 	Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,
-		{repeat:repeat, border:border, lang:currentLanguage, colors:colors, contrast:contrast });
+		{repeat:repeat,sameBackground:sameBackground, border:border, lang:currentLanguage, colors:colors, contrast:contrast });
 
 	// if (nundef(keys)) keys = choose(currentKeys, NumPics);
 	// Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,{ colors, contrast });

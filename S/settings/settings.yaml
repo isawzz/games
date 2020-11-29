@@ -7,9 +7,9 @@ program: #TODO: make this a list with ids
   incrementLevelOnPositiveStreak: 5
   decrementLevelOnNegativeStreak: 3
   gameSequence:
+    - game: gSayPic
     - game: gPreMem
     - game: gTouchPic
-    - game: gSayPic
     - game: gMissingLetter
     - game: gWritePic
     - game: gTouchColors
@@ -29,7 +29,6 @@ flags:
   levelBadges: false
 games: 
   gTouchPic:
-    color: deepskyblue
     trials: 2
     levels:
       0: 
@@ -63,7 +62,6 @@ games:
         vocab: 100
         numPics: 49
   gMissingLetter:
-    color: gold
     vocab: 100
     trials: 3
     levels:
@@ -89,7 +87,6 @@ games:
         numMissing: 5
         posMissing: random
   gTouchColors:
-    color: '#bfef45'
     contrast: 0.32
     colors:
       - red
@@ -119,43 +116,32 @@ games:
         numPics: 5
         numColors: 4
   gPreMem:
-    color: 'deeppink'
     trials: 1
     levels:
       0: 
         vocab: 25
-        numPics: 4
+        numPics: 2
         numRepeat: 2
       1: 
         vocab: 25
-        numPics: 9
+        numPics: 3
         numRepeat: 3
       2: 
         vocab: 25
-        numPics: 12
+        numPics: 6
         numRepeat: 2
       3: 
         vocab: 50
-        numPics: 16
-        numOpen: 4
+        numPics: 8
+        numRepeat: 2
       4: 
-        vocab: 75
-        numPics: 16
-        numOpen: 2
-      5: 
-        vocab: 75
-        numPics: 20
-        numOpen: 2
-      6: 
         vocab: 100
-        numPics: 36
-        numOpen: 3
+        numPics: 12
+        numRepeat: 3
   gSayPic:
-    color: '#4363d8'
     vocab: 75
     trials: 3
   gWritePic:
-    color: '#bfef45'
     trials: 3
     levels:
       0: 

@@ -6,8 +6,8 @@ function levelPM() {
 	let vinfo = getGameOrLevelInfo('vocab', 100);
 	currentKeys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
 	NumPics = getGameOrLevelInfo('numPics', 4);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics);
 	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
+	NumLabels = getGameOrLevelInfo('numLabels', NumPics*NumRepeat);
 }
 function startRoundPM() {
 	uiActivated = false;
@@ -21,7 +21,7 @@ function OneTwoThree(ev) {
 	let i = firstNumber(id);
 	let pic = Pictures[i];
 	let div = pic.div;
-	console.log('clicked', pic.key);
+	//console.log('clicked', pic.key);
 	if (!isEmpty(MemPM) && MemPM.length < NumRepeat-1 && MemPM[0].label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemPM);
 	if (isEmpty(MemPM)) {
@@ -39,12 +39,12 @@ function OneTwoThree(ev) {
 		//set is complete: eval
 		evaluate(MemPM);
 	}
-	console.log(MemPM)
+	//console.log(MemPM)
 
 }
 function promptPM() {
-	console.log('{{{{{{{{{{{{{',NumPics,NumRepeat)
-	showPictures(OneTwoThree, { repeat: NumRepeat, border: '3px solid #ffffff80' });
+	//console.log('{{{{{{{{{{{{{',NumPics,NumRepeat)
+	showPictures(OneTwoThree, { repeat: NumRepeat, sameBackground:true, border: '3px solid #ffffff80' });
 	//setGoal();
 	showInstruction('', 'click any picture', dTitle, true);
 	return 10;
