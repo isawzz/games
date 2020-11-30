@@ -7,10 +7,10 @@ program: #TODO: make this a list with ids
   incrementLevelOnPositiveStreak: 5
   decrementLevelOnNegativeStreak: 3
   gameSequence:
-    - game: gSayPic
     - game: gPreMem
     - game: gTouchPic
     - game: gMissingLetter
+    - game: gSayPic
     - game: gWritePic
     - game: gTouchColors
   currentGameIndex: 0

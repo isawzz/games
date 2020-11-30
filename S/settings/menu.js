@@ -56,8 +56,8 @@ function createMenuUi() {
 	let pics = maShowPictures(keys, labels, d, onClickGame, { bgs: bgs, shufflePositions: false });
 	pics.map(x=>x.div.id='menu_'+x.label.substring(0,3));
 
-	mLinebreak(d);
-	mText('NOT IMPLEMENTED!!!!!!!!!!!!!',d,{fz:50});
+	// mLinebreak(d);
+	// mText('NOT IMPLEMENTED!!!!!!!!!!!!!',d,{fz:50});
 	// gridLabeledX(keys, labels, d, { rows: 2, layout: 'flex' });
 }
 
