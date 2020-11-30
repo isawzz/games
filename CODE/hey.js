@@ -1,6 +1,6 @@
 var UserHistory;
 async function loadHistory() {
-	let url = OFFLINE ? 'http://localhost:3000/users/'+USERNAME : 'https://speech-games.herokuapp.com/users/'+USERNAME;
+	let url = SERVERURL + USERNAME;
 	fetch(url, {
 		method: 'GET',
 		headers: {

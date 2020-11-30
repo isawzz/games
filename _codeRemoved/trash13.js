@@ -1,3 +1,43 @@
+function createMenuUi() {
+	let dParent = mBy('dMenu');
+	let dOuter = createCommonUi(dParent, resetMenuToDefaults, () => { closeMenu(); startGame(); });
+
+	let b = getBounds(dOuter);
+	let d = mDiv(dOuter, { h: b.height - 60, margin: 20, bg: 'blue', border: '20px solid transparent', rounding: 20 });
+	mClass(d, 'flexWrap');
+
+	//hier kommt main menu
+	//einfach nur games gallery
+	//current game markiert
+
+
+	//jedes game bekommt ein logo =>GFUNC
+	let games = Settings.program.gameSequence.map(x=>x.game);
+	console.log(games)
+
+	// let games = ['gTouchPic', 'gWritePic', 'gSayPic', 'gTouchColors', 'gMissingLetter', 'gPreMem']; //, 'gMem'];
+	let labels = games.map(g => GFUNC[g].friendlyName);
+	let keys = games.map(g => GFUNC[g].logo);
+	let bgs = games.map(g => GFUNC[g].color);
+
+	//console.log('-----------------bgs', bgs);
+
+	//let b=getBounds(d);
+	//console.log('____________ bounds',b)
+
+	let pics = maShowPictures(keys, labels, d, onClickGame, { bgs: bgs, shufflePositions: false });
+	pics.map(x=>x.div.id='menu_'+x.label.substring(0,3));
+
+	// mLinebreak(d);
+	// mText('NOT IMPLEMENTED!!!!!!!!!!!!!',d,{fz:50});
+	// gridLabeledX(keys, labels, d, { rows: 2, layout: 'flex' });
+}
+
+
+
+
+//#region nov 2020
+
 function ensureColors() {
 	let colorlist = lookupSet(Settings, ['games', 'gTouchColors', 'colors'], SIMPLE_COLORS);
 	//let shadeColor = lookupSet(Settings, ['games', 'gTouchColors', 'shadeColor'], 'red');
@@ -610,3 +650,4 @@ async function saveSession() {
 	// });
 	//postData('https://localhost:3000/users', { userId:566, name: 'toto' })
 }
+//#endregion
