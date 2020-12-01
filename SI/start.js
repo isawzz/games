@@ -30,11 +30,11 @@ async function startUnit() {
 	await loadProgram();
 	UnitScoreSummary = {};
 
-	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openGameSettings(); } else
-		if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
-		else if (immediateStart) { hide('divControls'); startGame(); }
-		else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
-		else { hide('freezer'); hide('divControls'); openMenu(); }
+	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openGameSettings(); }
+	else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
+	else if (immediateStart) { hide('divControls'); startGame(); }
+	else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
+	else { hide('freezer'); hide('divControls'); openMenu(); }
 }
 
 async function saveHistory() {

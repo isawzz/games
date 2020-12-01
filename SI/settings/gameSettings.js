@@ -15,14 +15,22 @@ function resetGameSettingsToDefaults() { }
 function createGameSettingsUi() {
 	let dParent = mBy('dGameSettings');
 	
-	
 
-	setzeEineZahl(dParent, 'samples', 25, ['program', 'samplesPerLevel']);
+	let dGroup=mInputGroup(dParent);
+
+	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
+	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
+	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
+	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
+	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
 
 
 	// let d = createCommonUi(dParent, resetGameSettingsToDefaults, () => { closeGameSettings(); startGame(); });
 	// mText('NOT IMPLEMENTED!!!!!!!!!!!!!', d, { fz: 50 });
 
+}
+function mInputGroup(dParent){
+	return mDiv(dParent,{display:'inline-block',align:'left',bg:'random',padding:20});
 }
 function setSettingsKeys(elem) {
 	// console.log('lllllllllllllllll', a, a.value, a.keyList);

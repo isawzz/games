@@ -4,10 +4,18 @@ function closeMenu() { closeAux(); continueResume(); }
 function toggleMenu() { if (isVisible2('dMenu')) closeMenu(); else openMenu(); }
 
 function closeAux() {
+
+	if (isVisible2('dMenu')) { }
+	else if (isVisible2('dGameSettings')) { }
+	else if (isVisible2('dProgram')) {
+
+	}
+
 	show('dMenuButton');
 	show('dGameSettingsButton');
 	show('dProgramButton');
 	hide('dResumeCurrentButton');
+	hide('dPlayButton');
 	hide('dMenu');
 	hide('dGameSettings');
 	hide('dProgram');
@@ -19,10 +27,20 @@ function openAux(divName) {
 	if (isdef(dTable)) {
 		clearElement(dTable);
 		show('dResumeCurrentButton');
+	} else {
+		show('dPlayButton');
 	}
 	show(divName);
+
+	if (divName == 'dMenu') { }
+	else if (divName == 'dGameSettings') { }
+	else if (divName == 'dProgram') {
+
+	}
+
 }
-function onClickResumeCurrent() { closeMenu(); startLevel(); }
+function onClickResumeCurrent() { closeAux(); startLevel(); }
+function onClickPlay() { closeAux(); startGame(); }
 
 function onClickGame(ev) {
 
