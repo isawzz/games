@@ -29,6 +29,9 @@ function initLineTop() {
 
 	dGameTitle = mDiv(dLineTopRight);
 	dGameTitle.id = 'dGameTitle';
+	let d=mDiv(dLineTopRight);
+	d.id='time';
+
 
 	mLinebreak(table);
 }
@@ -125,38 +128,6 @@ function removeMarkers(){
 //#endregion
 
 //#region ui helpers
-function createCommonUi(dParent,resetHandler,continueHandler) {
-	
-	clearElement(dParent);
-	mClass(dParent, 'hMinus60');
-	let dUpper = mDiv(dParent); 
-	// let ta = mCreate(maintag);
-	//ta.id = 'dSettings_ta';
-	// mAppend(dUpper, ta);
-	mClass(dUpper, 'hPercentMinus60');
-	// if (maintag=='div') mStyleX(ta,{matop:32})
-	// if (maintag == 'textarea') ta.value = 'hallo'; else ta.innerHTML = 'hallo';
-
-	let bdiv = mDiv(dParent); mStyleX(bdiv, { height: 54,align:'right' });
-	let b;
-
-	b = mCreate('button');
-	mAppend(bdiv, b);
-	b.innerHTML = 'reset to defaults';
-	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = resetHandler; // () => { resetSettingsToDefaults(); }
-
-	b = mCreate('button');
-	mAppend(bdiv, b);
-	b.innerHTML = 'continue playing';
-	mClass(b, 'buttonClass', 'buttonPlus');
-	b.onclick = continueHandler; //() => { closeProgramSettings(); startGame(); }
-
-	// dParent.style.backgroundColor='yellow';
-	// dUpper.style.backgroundColor='orange';
-
-	return dUpper;
-}
 
 //#endregion
 

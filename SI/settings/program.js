@@ -1,6 +1,15 @@
 //#region running program
-function clearProgramTimer() { clearTimeout(ProgTimeout); ProgTimeIsUp = false; }
-function restartProgramTimer() { ProgTimeout = setTimeout(() => ProgTimeIsUp = true, Settings.program.minutesPerUnit * 60 * 1000); }
+function ProgTimeIsUp() {
+
+	let msElapsed = ProgMsElapsed + msElapsedSince(ProgMsStart);
+	let msUnit = Settings.program.minutesPerUnit * 60 * 1000;
+	console.log('elapsed:', msElapsed, 'unit', msUnit);
+	return msElapsed > msUnit;
+}
+function pauseProgramTimer() {ProgMsElapsed += msElapsedSince(ProgMsStart);}
+function resumeProgramTimer() {	ProgMsStart = Date.now();}
+function startProgramTimer() {	ProgMsElapsed = 0;	ProgMsStart = Date.now();}
+
 async function loadProgram() {
 	let program = Settings.program;
 	let gameSequence = program.gameSequence;
@@ -50,16 +59,16 @@ function getUserStartLevel(game) {
 	return userStartLevel;
 }
 function upgradeStartLevelForUser(game, level) {
-	console.log('===>upgrade hist', game, level,UPDATE_USER_HISTORY_STARTLEVEL)
+	console.log('===>upgrade hist', game, level, UPDATE_USER_HISTORY_STARTLEVEL)
 	if (UPDATE_USER_HISTORY_STARTLEVEL) {
-		lookupSetOverride(UserHistory,[game,'startLevel'],level);
-		console.log('startlevel is now:',UserHistory[game].startLevel,'*********** should be',level);
+		lookupSetOverride(UserHistory, [game, 'startLevel'], level);
+		console.log('startlevel is now:', UserHistory[game].startLevel, '*********** should be', level);
 		//UserHistory[game].startLevel = level;
 		saveHistory();
 	}
 }
 function saveProgram() {
-	localStorage.setItem(SETTINGS_KEY_FILE, JSON.stringify(Settings));
+	localStorage.setItem(SETTINGS_KEY, JSON.stringify(Settings));
 }
 function updateGameSequence(nextLevel) {
 	if (nextLevel > MaxLevel) {

@@ -1,21 +1,26 @@
-window.onload = loadHistory;
+window.onload = loadServerData; //loadHistory;
+//window.onunload = saveServerData;
 
 async function _start() {
-	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 
-	await loadAssetsTest('../assets/');
+	//change some server data
+	UserHistory.email='hallo@hallo.com';
+	Settings.program.minutesPerUnit = 100;
+	saveServerData();
 
 	initTable();
 	initSidebar();
 
 	await initSettingsX();
 	initMainMenu();
-	//	return;
 
-	if (nundef(CurrentSessionData)) CurrentSessionData = { user: currentUser, games: [] };
+	if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
+	startTime();
+
+	// tests(); return;
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
@@ -24,8 +29,7 @@ async function _start() {
 
 async function startUnit() {
 
-	clearProgramTimer();
-	restartProgramTimer();
+	startProgramTimer();
 
 	await loadProgram();
 	UnitScoreSummary = {};
@@ -37,27 +41,6 @@ async function startUnit() {
 	else { hide('freezer'); hide('divControls'); openMenu(); }
 }
 
-async function saveHistory() {
-	//console.log('posting...');
-	if (BlockServerSend) {
-		console.log('...wait for unblocked...');
-		setTimeout(saveHistory, 1000);
-	} else {
-		let url = SERVERURL + USERNAME;
-		let sessionData = UserHistory;
-		BlockServerSend = true;
-		console.log('blocked...');
-		fetch(url, {
-			method: 'PUT',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(sessionData)
-		}).then(() => { BlockServerSend = false; console.log('unblocked...'); });
-	}
-
-}
 
 function onClickFreezer() { hide('freezer'); startUnit(); }
 function onClickFreezer2(ev) {
@@ -75,12 +58,33 @@ function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'gr
 //testing
 function tests() {
 
+	test02_msToTime();return;
+	test01_maPic();
+
+}
+function test01_maPic(){
 	console.log(symbolDict['horse']);
 	console.log('UserHistory', UserHistory);
 	let d2 = maPic('horse', table, { bg: 'green', w: 200, h: 200 });
 
 }
+function test02_msToTime(){
+	let ms=timeToMs(1,20,23);
+	console.log(msToTime(ms));
 
+	console.log(Date.now());
+	let ts = new Date();
+	console.log(ts)
+	let diff = new Date().getTimezoneOffset() 
+	console.log(msToTime(diff*60*1000));
+
+	let t = new Date();
+	t.setHours(2,0,0);
+	ts=t.getTime() 
+
+	let el = msElapsedSince(ts);
+	console.log(msToTime(el))
+}
 
 
 

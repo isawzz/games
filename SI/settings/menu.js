@@ -1,5 +1,5 @@
 function initMainMenu() { dMenu = mBy('dMenu') }
-function openMenu() { stopAus(); openAux('dMenu'); createMenuUi(); }
+function openMenu() { openAux('dMenu'); createMenuUi(); }
 function closeMenu() { closeAux(); continueResume(); }
 function toggleMenu() { if (isVisible2('dMenu')) closeMenu(); else openMenu(); }
 
@@ -21,6 +21,7 @@ function closeAux() {
 	hide('dProgram');
 }
 function openAux(divName) {
+	stopAus(); 
 	hide('dMenuButton');
 	hide('dGameSettingsButton');
 	hide('dProgramButton');

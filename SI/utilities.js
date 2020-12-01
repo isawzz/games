@@ -68,3 +68,32 @@ function saveStats() {
 	downloadAsYaml({ data: yyy }, currentLanguage + '_' + currentCategories[0] + '_data');
 
 }
+
+function msToTime(ms){
+	let secs= Math.floor(ms / 1000);
+	let mins = Math.floor(secs / 60);
+	secs = secs - mins*60;
+	let hours = Math.floor(mins / 60);
+	mins = mins - hours*60;
+	return {h:hours,m:mins,s:secs};
+}
+function msElapsedSince(msStart){	return Date.now() - msStart;}
+function timeToMs(h,m,s){return ((((h*60)+m)*60)+s)*1000;}
+
+
+function checkTime(i) {
+	return (i < 10) ? "0" + i : i;
+}
+
+function startTime() {
+	var today = new Date(),
+		h = checkTime(today.getHours()),
+		m = checkTime(today.getMinutes()),
+		s = checkTime(today.getSeconds());
+	document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+	t = setTimeout(function () {
+		startTime()
+	}, 500);
+}
+
+

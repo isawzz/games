@@ -9,7 +9,7 @@ const UPDATE_USER_HISTORY_STARTLEVEL = true;
 const CLEAR_LOCAL_STORAGE = false;
 const RESTART_EACH_TIME = false; //IS_TESTING; // restarts program at startLevel instead of continuing where left off
 
-const SETTINGS_KEY_FILE = IS_TESTING ? 'settingsTEST' : 'settings';
+const SETTINGS_KEY = IS_TESTING ? 'settingsTEST' : 'settings';
 const immediateStart = true;  // false | true
 const SHOW_FREEZER = false; // !IS_TESTING;
 
@@ -39,9 +39,7 @@ var SpeakerOutput = false;
 var ROUND_OUTPUT = false;
 USE_LOCAL_STORAGE = true; // * defined in CODE/globalConfig.js *
 
-var ProgTimeout; //to cancel timer!
-var ProgTimeIsUp; // = false; flag for program timer
-var Settings;
+var ProgMsStart, ProgMsElapsed;
 var MaxNumTrials = 1;
 var MinWordLength = 1;
 var MaxWordLength = 100;
@@ -53,7 +51,6 @@ var Goal, Selected;
 var NextPictureIndex = 0;
 var Steps, iStep;
 
-var currentUser;
 var currentGame;
 var currentLevel;
 var currentColor = 'navy';
@@ -72,7 +69,7 @@ var minIncrement = 1, maxIncrement = 5, levelDonePoints = 5;
 var numCorrectAnswers, numTotalAnswers, percentageCorrect;
 var levelIncrement, levelPoints;
 var CurrentSessionData, CurrentGameData, CurrentLevelData;
-var UserHistory, SessionScoreSummary, UnitScoreSummary;
+var SessionScoreSummary, UnitScoreSummary;
 var LevelChange = true;
 var IsAnswerCorrect;
 var PosInARow, NegInARow;

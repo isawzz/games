@@ -1,3 +1,61 @@
+function createCommonUi(dParent,resetHandler,continueHandler) {
+	
+	clearElement(dParent);
+	mClass(dParent, 'hMinus60');
+	let dUpper = mDiv(dParent); 
+	// let ta = mCreate(maintag);
+	//ta.id = 'dSettings_ta';
+	// mAppend(dUpper, ta);
+	mClass(dUpper, 'hPercentMinus60');
+	// if (maintag=='div') mStyleX(ta,{matop:32})
+	// if (maintag == 'textarea') ta.value = 'hallo'; else ta.innerHTML = 'hallo';
+
+	let bdiv = mDiv(dParent); mStyleX(bdiv, { height: 54,align:'right' });
+	let b;
+
+	b = mCreate('button');
+	mAppend(bdiv, b);
+	b.innerHTML = 'reset to defaults';
+	mClass(b, 'buttonClass', 'buttonPlus');
+	b.onclick = resetHandler; // () => { resetSettingsToDefaults(); }
+
+	b = mCreate('button');
+	mAppend(bdiv, b);
+	b.innerHTML = 'continue playing';
+	mClass(b, 'buttonClass', 'buttonPlus');
+	b.onclick = continueHandler; //() => { closeProgramSettings(); startGame(); }
+
+	// dParent.style.backgroundColor='yellow';
+	// dUpper.style.backgroundColor='orange';
+
+	return dUpper;
+}
+function createProgramSettingsUi() {
+	console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLL')
+	let dParent = mBy('dProgram');
+	let container = createCommonUi(dParent,resetSettingsToDefaults,() => { closeProgramSettings(); startGame(); });
+
+	let maintag='textarea';
+	let ta = mCreate(maintag);
+	ta.id = 'dSettings_ta';
+	mAppend(container, ta);
+	mClass(ta, 'whMinus60');
+
+}
+function createProgramSettingsUi() {
+	let dParent = mBy('dProgram');
+	clearElement(dParent);
+	let ta = mCreate('textarea');
+	ta.id = 'dSettings_ta';
+	mAppend(dParent, ta);
+	ta.rows = 25;
+	ta.cols = 100;
+	ta.value = 'hallo';
+	let b = mCreate('button');
+	mAppend(dParent, b);
+	b.innerHTML = 'save';
+	b.onclick = () => { saveSettingsX(); loadSettingsFromLocalStorage(); }
+}
 function createMenuUi() {
 	let dParent = mBy('dMenu');
 	let dOuter = createCommonUi(dParent, resetMenuToDefaults, () => { closeMenu(); startGame(); });

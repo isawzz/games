@@ -174,7 +174,7 @@ function evaluate() {
 	updateGameSequence(currentLevel);
 	if (LevelChange != 0) saveProgram();
 
-	if (LevelChange && ProgTimeIsUp) { gameOver('Great job! Time for a break!'); }
+	if (LevelChange && ProgTimeIsUp()) { gameOver('Great job! Time for a break!'); }
 	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
 	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
 	else setTimeout(proceedIfNotStepByStep, DELAY);
@@ -186,7 +186,7 @@ function proceed(nextLevel) {
 	//console.log('proceedAfterLevelChange', currentLevel, MaxLevel)
 	if (nundef(nextLevel)) nextLevel = currentLevel;
 
-	if (ProgTimeIsUp && LevelChange) {
+	if (ProgTimeIsUp() && LevelChange) {
 		gameOver('Great job! Time for a break!');
 		return;
 	}
@@ -285,11 +285,12 @@ function aniGameOver(msg) {
 function stopAus() {
 	if (currentGame == 'gSayPic') Speech.stopRecording();
 
-	clearProgramTimer();
+	pauseProgramTimer();
 	pauseUI();
 }
 function continueResume() {
-	restartProgramTimer(); resumeUI();
+	resumeProgramTimer(); 
+	resumeUI();
 }
 
 // #endregion

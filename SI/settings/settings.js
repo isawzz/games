@@ -6,8 +6,6 @@ function setGlobalSettings(settings) {
 
 	currentCategories = Settings.common.currentCategories;
 
-	currentUser = Settings.common.currentUser;
-
 	skipAnimations = Settings.flags.reducedAnimations;
 
 	resetLabelSettings();
@@ -32,7 +30,7 @@ function loadSettingsX() {
 }
 function loadSettingsFromLocalStorage() {
 	let ta = mBy('dSettings_ta');
-	let settings = localStorage.getItem(SETTINGS_KEY_FILE);
+	let settings = localStorage.getItem(SETTINGS_KEY);
 
 	if (nundef(settings)) settings = { hallo: 1, geh: 2 };
 	else settings = JSON.parse(settings);
@@ -58,13 +56,13 @@ function saveSettingsX() {
 	let t1 = ta.value.toString();
 	let t2 = jsyaml.load(t1);
 	let t3 = JSON.stringify(t2);
-	localStorage.setItem(SETTINGS_KEY_FILE, t3);
+	localStorage.setItem(SETTINGS_KEY, t3);
 	//console.log('______________SAVED SETTINGS\n', 't1', typeof (t1), t1, '\nt2', typeof (t2), t2, '\nt3', typeof (t3), t3)
 
 }
 
 async function loadSettingsFromServer() {
-	let filename = SETTINGS_KEY_FILE;
+	let filename = SETTINGS_KEY;
 	let settings = await loadYamlDict('/S/settings/' + filename + '.yaml'); //_config.yaml');
 	return settings;
 
@@ -88,7 +86,7 @@ async function resetSettingsToDefaults() {
 	setGlobalSettings(settings);
 	//localStorage.clear(); //TODO: maybe only clear settings not entire localStorage???
 
-	saveObject(Settings, SETTINGS_KEY_FILE);
+	saveObject(Settings, SETTINGS_KEY);
 
 	//createProgramSettingsUi();
 	loadSettingsFromLocalStorage();

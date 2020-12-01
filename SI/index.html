@@ -30,6 +30,7 @@
 	<script src="./settings/program.js"></script>
 	<script src="./settings/programSettings.js"></script>
 	<script src="./settings/settings.js"></script>
+	<script src="./settings/auxil.js"></script>
 
 	<script src="./speech/speech.js"></script>
 	<script src="./speech/speechTraining.js"></script>
@@ -47,6 +48,7 @@
 	<script src="./games/gSayPic.js"></script>
 	<script src="./games/GFUNC.js"></script>
 
+	<script src="./WORK.js"></script>
 	<script src="./start.js"></script>
 
 </head>
@@ -67,14 +69,14 @@
 	<div id='dGameSettingsButton' onclick='toggleGameSettings()'>⚙️</div>
 	<div id='dProgramButton' onclick='toggleProgramSettings()'>🖥️</div>
 	<div id='dMenuButton' onclick='toggleMenu()'>🏛️</div>
-	<div id='dProgram' style='display:none;text-align:center'>
-	</div>
-	<div id='dGameSettings' style='display:none;text-align:center'>
-	</div>
-	<div id='dMenu' style='display:none;text-align:center'>
-	</div>
+	
+	<div id='dProgram' style='display:none;text-align:center'> </div>
+	<div id='dGameSettings' style='display:none;text-align:center'> </div>
+	<div id='dMenu' style='display:none;text-align:center'> </div>
+	
 	<div id='dResumeCurrentButton' onclick='onClickResumeCurrent()' style='display:none;'>continue</div>
 	<div id='dPlayButton' onclick='onClickPlay()' style='display:none;'>play</div>
+	
 	<div id='freezer' onclick="onClickFreezer()" style='display:none'>
 		<div class='centerCentered'>Click to Start!</div>
 	</div>
