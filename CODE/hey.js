@@ -1,6 +1,4 @@
 async function loadAssetsTest(assetsPath) {
-
-
 	let url = assetsPath + 'c52_blackBorder.yaml';
 	c52 = await route_path_yaml_dict(url);
 
@@ -42,7 +40,7 @@ async function loadAssetsTest(assetsPath) {
 
 }
 
-async function loadServerData() {
+async function loadServerDataAndAssets() {
 	//console.log('...loading...');
 	let url = SERVERURL;
 	fetch(url, {
@@ -103,6 +101,9 @@ async function saveServerData() {
 
 }
 
+
+
+//#region dev mode
 async function transferServerDataToServer() {
 	//load settings.yaml file 
 	let url = './settings/' + SETTINGS_KEY + '.yaml';
@@ -122,7 +123,7 @@ async function transferServerDataToClient() {
 
 
 
-
+//#region old
 
 async function loadHistory() {
 	let url = SERVERURL + USERNAME;

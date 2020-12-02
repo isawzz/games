@@ -16,7 +16,7 @@ function resetLabelSettings() {
 	else Settings.program.labels = Settings.program.showLabels;
 }
 async function initSettingsX() {
-	if (nundef(dProgram)) dProgram = mBy('dProgram');
+	if (nundef(dDev)) dDev = mBy('dDev');
 
 	loadSettingsX();
 
@@ -25,7 +25,7 @@ async function initSettingsX() {
 	}
 }
 function loadSettingsX() {
-	createProgramSettingsUi();
+	createDevSettingsUi();
 	loadSettingsFromLocalStorage();
 }
 function loadSettingsFromLocalStorage() {
@@ -88,7 +88,7 @@ async function resetSettingsToDefaults() {
 
 	saveObject(Settings, SETTINGS_KEY);
 
-	//createProgramSettingsUi();
+	//createDevSettingsUi();
 	loadSettingsFromLocalStorage();
 
 	//setTimeout(loadSettingsFromLocalStorage,10);

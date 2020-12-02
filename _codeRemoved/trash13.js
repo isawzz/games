@@ -1,3 +1,36 @@
+async function loadProgram() {
+	let program = Settings.program;
+	let gameSequence = program.gameSequence;
+
+	// which game?
+	let gameIndex = 0;
+	if (!RESTART_EACH_TIME) {
+		gameIndex = program.currentGameIndex;
+		if (isString(gameIndex)) { gameIndex = Number(gameIndex); }
+		if (nundef(gameIndex) || gameIndex > gameSequence.length) { gameIndex = 0; }
+	}
+	Settings.program.currentGameIndex = gameIndex;
+
+	let game = gameSequence[gameIndex];
+
+	//use level saved in localstorage:
+	let lastLevel = Settings.program.currentLevel;
+	if (isString(lastLevel)) { lastLevel = Number(lastLevel); }
+	if (nundef(lastLevel)) { lastLevel = 0; } //gameSequence[Settings.program.currentGameIndex].startLevel_; }
+
+	let userStartLevel = getUserStartLevel(game);
+
+	Settings.program.currentLevel = RESTART_EACH_TIME ? userStartLevel : Math.max(userStartLevel, lastLevel);
+
+	//friendly output
+	let i = 0;
+	gameSequence.map(x => {
+		if (i == Settings.program.currentGameIndex) console.log('=>', x); else console.log('', x);
+		i += 1;
+	});
+	console.log('LOADED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
+}
+
 function createCommonUi(dParent,resetHandler,continueHandler) {
 	
 	clearElement(dParent);

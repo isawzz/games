@@ -5,9 +5,7 @@ async function _start() {
 
 	initTable();
 	initSidebar();
-
-	await initSettingsX();
-	initMainMenu();
+	initAux();
 
 	if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
 
@@ -22,11 +20,11 @@ async function _start() {
 
 }
 
-async function startUnit() {
+function startUnit() {
 
 	startProgramTimer();
 
-	await loadProgram();
+	loadProgram();
 	UnitScoreSummary = {};
 
 	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openGameSettings(); }

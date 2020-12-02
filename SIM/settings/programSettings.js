@@ -1,11 +1,11 @@
-function openProgramSettings() { stopAus(); hide('dProgramButton'); show('dProgram'); loadSettingsX(); }
-function closeProgramSettings() { show('dProgramButton'); saveSettingsX(); loadSettingsFromLocalStorage(); hide('dProgram'); continueResume(); }
-function toggleProgramSettings() { if (isVisible2('dProgram')) closeProgramSettings(); else openProgramSettings(); }
+function openProgramSettings() { stopAus(); hide('dDevButton'); show('dDev'); loadSettingsX(); }
+function closeProgramSettings() { show('dDevButton'); saveSettingsX(); loadSettingsFromLocalStorage(); hide('dDev'); continueResume(); }
+function toggleProgramSettings() { if (isVisible2('dDev')) closeProgramSettings(); else openProgramSettings(); }
 
 //#region settings helpers
-function createProgramSettingsUi() {
+function createDevSettingsUi() {
 	console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLL')
-	let dParent = mBy('dProgram');
+	let dParent = mBy('dDev');
 
 	clearElement(dParent);
 	mClass(dParent, 'hMinus60');
