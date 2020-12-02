@@ -2,6 +2,7 @@ function initAux() {
 	dMenu = mBy('dMenu');
 	dDev = mBy('dDev');
 	dGameSettings = mBy('dGameSettings');
+	setGlobalSettings();
 }
 function setGlobalSettings() {
 
@@ -12,6 +13,9 @@ function setGlobalSettings() {
 	skipAnimations = Settings.flags.reducedAnimations;
 
 	resetLabelSettings();
+
+	if (Settings.program.showTime) {show(mBy('time'));startTime();} 
+	else hide(mBy('time'));
 }
 
 function resetLabelSettings() {
@@ -42,8 +46,6 @@ function openAux(divName) {
 }
 
 function closeAux(done=false) {
-
-
 
 	if (isVisible2('dMenu')) { }
 	else if (isVisible2('dGameSettings')) {
@@ -140,8 +142,8 @@ function createGameSettingsUi() {
 	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'currentLanguage']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', [25, 50, 75, 100], 25, ['program', 'vocab']);
 
-	let nGroupOther = mInputGroup(dParent);
-	setzeEineCheckbox(nGroupOther, 'show time', false, ['program', 'showTime']);
+	//let nGroupOther = mInputGroup(dParent);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['program', 'showTime']);
 
 }
 function createMenuUi() {

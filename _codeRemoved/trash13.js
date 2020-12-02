@@ -1,3 +1,9 @@
+function mTitleGroup(dParent, title) {
+	let d = mDiv(dParent, { display: 'inline-block', align: 'center', bg: 'random', padding: 20 });
+	let tag = 'h3';
+	mAppend(d, createElementFromHTML(`<${tag} style='margin:0;padding:0'>${title}</${tag}>`));
+	return d;
+}
 function setSettingsLevelProgression(elem) {
 	let game = elem.game;
 	let prop = elem.prop;

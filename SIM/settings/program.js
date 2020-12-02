@@ -9,6 +9,7 @@ function ProgTimeIsUp() {
 function pauseProgramTimer() { ProgMsElapsed += msElapsedSince(ProgMsStart);}
 function resumeProgramTimer() {	ProgMsStart = Date.now();}
 function startProgramTimer() {	ProgMsElapsed = 0;	ProgMsStart = Date.now();}
+function getTimeElapsed(){return ProgMsElapsed + msElapsedSince(ProgMsStart);}
 
 function loadProgram() {
 	let program = Settings.program;
@@ -81,6 +82,33 @@ function updateGameSequence(nextLevel) {
 
 	//console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
 }
+
+
+function startTime() {
+	if (nundef(Settings.program.showTime) || !Settings.program.showTime) return;
+	var timeLeft =Settings.program.minutesPerUnit*60000 - getTimeElapsed();
+	let t = msToTime(timeLeft);
+	let s=format2Digits(t.h)+":"+format2Digits(t.m)+":"+format2Digits(t.s);
+	document.getElementById('time').innerHTML = s;//h + ":" + m + ":" + s;
+	setTimeout(startTime,500);
+	//function () {		startTime()	}, 500);
+}
+
+function format2Digits(i) {	return (i < 10) ? "0" + i : i;}
+function startTimeClock() {
+	if (nundef(Settings.program.showTime) || !Settings.program.showTime) return;
+	var today = new Date(),
+		h = format2Digits(today.getHours()),
+		m = format2Digits(today.getMinutes()),
+		s = format2Digits(today.getSeconds());
+	document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+	t = setTimeout(function () {
+		startTimeClock()
+	}, 500);
+}
+
+
+
 //# endregion
 
 

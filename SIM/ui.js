@@ -131,20 +131,15 @@ function removeMarkers() {
 //#endregion
 
 function mInputGroup(dParent, styles) {
-	let baseStyles = { display: 'inline-block', align: 'right', bg:'#00000080', rounding:10, padding: 20 };
+	let baseStyles = { display: 'inline-block', align: 'right', bg: '#00000080', rounding: 10, padding: 20, margin: 12 };
 	if (isdef(styles)) styles = deepmergeOverride(baseStyles, styles); else styles = baseStyles;
 	return mDiv(dParent, styles);
 }
-function mTitleGroup(dParent, title) {
-	let d = mDiv(dParent, { display: 'inline-block', align: 'center', bg: 'random', padding: 20 });
-	let tag = 'h3';
-	mAppend(d, createElementFromHTML(`<${tag} style='margin:0;padding:0'>${title}</${tag}>`));
-	return d;
-}
 function setSettingsKeys(elem) {
 	// console.log('lllllllllllllllll', a, a.value, a.keyList);
-	let val = elem.type == 'number' ? Number(elem.value) : elem.value;
+	let val = elem.type == 'number' ? Number(elem.value) : elem.type == 'checkbox' ? elem.checked : elem.value;
 	lookupSetOverride(Settings, elem.keyList, val);
+	console.log(elem.keyList, val)
 	//console.log(Settings.program);
 }
 function setzeEineZahl(dParent, label, init, skeys) {
@@ -170,8 +165,10 @@ function setzeEineCheckbox(dParent, label, init, skeys) {
 	let val = lookup(Settings, skeys);
 	if (nundef(val)) val = init;
 	let inp = createElementFromHTML(
+		`<input type="checkbox" class="checkbox" ` + (val ? 'checked=true' : '') + ` onfocusout="setSettingsKeys(this)" >`
 		// `<input id="${id}" type="number" class="input" value="1" onfocusout="setSettingsKeys(this)" />`); 
-		`<input type="number" class="input" value="${val}" onfocusout="setSettingsKeys(this)" />`);
+		// `<input type="number" class="input" value="${val}" onfocusout="setSettingsKeys(this)" />`
+	);
 	let labelui = createElementFromHTML(`<label>${label}</label>`);
 	mAppend(d, labelui);
 	mAppend(labelui, inp);
