@@ -113,6 +113,7 @@ function checkTime(i) {
 }
 
 function startTime() {
+	if (nundef(Settings.programs.showTime) || !Settings.program.showTime) return;
 	var today = new Date(),
 		h = checkTime(today.getHours()),
 		m = checkTime(today.getMinutes()),

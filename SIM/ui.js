@@ -164,6 +164,23 @@ function setzeEineZahl(dParent, label, init, skeys) {
 
 	inp.keyList = skeys;
 }
+function setzeEineCheckbox(dParent, label, init, skeys) {
+	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
+	let d = mDiv(dParent);
+	let val = lookup(Settings, skeys);
+	if (nundef(val)) val = init;
+	let inp = createElementFromHTML(
+		// `<input id="${id}" type="number" class="input" value="1" onfocusout="setSettingsKeys(this)" />`); 
+		`<input type="number" class="input" value="${val}" onfocusout="setSettingsKeys(this)" />`);
+	let labelui = createElementFromHTML(`<label>${label}</label>`);
+	mAppend(d, labelui);
+	mAppend(labelui, inp);
+
+	mStyleX(inp, { maleft: 12, mabottom: 4 });
+	mClass(inp, 'input');
+
+	inp.keyList = skeys;
+}
 
 function setSettingsKeysSelect(elem) {
 	let val;

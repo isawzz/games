@@ -52,6 +52,8 @@ function closeAux(done=false) {
 		if (isdef(x.keyList)) setSettingsKeys(x);
 		else if (isdef(x.game)) setSettingsKeysSelect(x);
 
+		saveServerData();
+
 	 }
 	else if (isVisible2('dDev')) {
 		console.log('DEV NOT IMPLEMENTED')
@@ -138,7 +140,9 @@ function createGameSettingsUi() {
 	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'currentLanguage']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', [25, 50, 75, 100], 25, ['program', 'vocab']);
 
-	return;
+	let nGroupOther = mInputGroup(dParent);
+	setzeEineCheckbox(nGroupOther, 'show time', false, ['program', 'showTime']);
+
 }
 function createMenuUi() {
 	let dParent = mBy('dMenu');
