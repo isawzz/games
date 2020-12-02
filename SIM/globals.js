@@ -1,5 +1,6 @@
-const EXPERIMENTAL = true;
-const DEV_MODE = false;
+const BROADCAST_SETTINGS = true; // ACHTUNG!!!!!!!!!!!!! true;
+const EXPERIMENTAL = false;
+const DEV_MODE = false; //OFFLINE is true auf ASUS ROG soll aber false sein auf github!
 const IS_TESTING = false;
 USERNAME = IS_TESTING ? 'Squid' : 'Gunter';
 
@@ -11,7 +12,7 @@ const CLEAR_LOCAL_STORAGE = false;
 const RESTART_EACH_TIME = false; //IS_TESTING; // restarts program at startLevel instead of continuing where left off
 
 const SETTINGS_KEY = IS_TESTING ? 'settingsTEST' : 'settings';
-const immediateStart = true;  // false | true
+const immediateStart = IS_TESTING;  // false | true
 const SHOW_FREEZER = false; // !IS_TESTING;
 
 var MASTER_VOLUME = 1;
@@ -98,6 +99,46 @@ let levelKeys = ['island', 'justice star', 'materials science', 'mayan pyramid',
 	'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
 	'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
 
+const GameProps = {
+	samplesPerLevel: {
+
+		friendly: 'samples',
+	},
+	minutesPerUnit: {
+		friendly: 'minutes'
+	},
+	incrementLevelOnPositiveStreak: {
+		friendly: 'correct streak'
+	},
+	decrementLevelOnNegativeStreak: {
+		friendly: 'fail streak'
+	},
+	trials: {
+		friendly: 'trials'
+	},
+	showLabels: {
+		friendly: 'show labels'
+	},
+	vocab: {
+		progression: [25,25,25,50,75,100,0],
+		friendly: 'vocabulary'
+	},
+	numPics: {
+		progression: [4,9,16,24,36],
+		divideIf: ['numRepeat','numColors'],
+		friendly: 'pictures'
+	},
+	numRepeat: {
+		progression: [2,3,2],
+		friendly: 'repeat each'
+	},
+	numColors: {
+		progression: [2,3,4],
+		friendly: 'colors'
+	}
+
+};
+
 // ui
 var dLineTopOuter, dLineTop, dLineTopLeft, dLineTopRight, dLineTopMiddle;
 var dLineTitleOuter, dLineTitle, dLineTitleLeft, dLineTitleRight, dLineTitleMiddle;
@@ -107,7 +148,7 @@ var dHint, dFeedback, dInstruction, dScore, dLevel, dGameTitle;
 var inputBox;
 var defaultFocusElement;
 var dTable, dTitle;
-var dDev,dMenu,dGameSettings;
+var dDev, dMenu, dGameSettings;
 var dLeiste;
 
 //feedback

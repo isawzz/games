@@ -1,3 +1,109 @@
+//#region old
+
+async function loadHistory() {
+	let url = SERVERURL + USERNAME;
+	fetch(url, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+	}).then(async data => {
+		UserHistory = await data.json();
+		//console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
+		_start();
+		//SessionStart();
+	});
+} async function saveHistory() {
+	//console.log('posting...');
+	if (BlockServerSend) {
+		console.log('...wait for unblocked...');
+		setTimeout(saveHistory, 1000);
+	} else {
+		let url = SERVERURL + USERNAME;
+		let sessionData = UserHistory;
+		BlockServerSend = true;
+		console.log('blocked...');
+		fetch(url, {
+			method: 'PUT',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(sessionData)
+		}).then(() => { BlockServerSend = false; console.log('unblocked...'); });
+	}
+
+}
+
+
+
+function gameSettingsUiToSettings() {
+	//need to set settings or not???
+	console.log('gameSettingsUiToSettings')
+}
+
+
+
+function addLevelTable(dParent){
+	let title = 'levels';
+	let nGroup = mInputGroup(dParent);
+	let headers = ['vocabulary', 'pictures', 'samples'];
+
+	let tbl= document.createElement('table');
+	let s='<tr><th></th>';
+	for(const h of headers){
+		s+=`<th>${h}</th>`;
+	}
+	s+='</tr>';
+
+	let g = currentGame;
+	for (const l in Settings.games[g].levels) {
+		s+=`<tr><th>${l}</th>`;
+		for(const h of headers){
+			s+=`<td>12</td>`
+		}
+		s+='</tr>';
+	}
+
+	tbl.innerHTML= s;
+	mAppend(nGroup,tbl);
+	return;
+
+
+	// let tbl = mProgressionGroup(dParent, title, ['vocabulary', 'pictures', 'samples']);
+	// console.log(tbl, typeof(tbl)); //return;
+	// let g = currentGame;
+	// let s='',
+	// for (const l in Settings.games[g].levels) {
+	// 	//let trow = createElementFromHTML(`<tr></tr>`);
+	// 	s += '<tr>'; //'</tr>';
+	// 	//mAppend(tbl,trow);
+	// 	for (const k in Settings.games[g].levels[l]) {
+	// 		s += `<td id="${title + '_' + l + '_' + k}">`;
+	// 		//let tcell = createElementFromHTML(`<td></td>`);
+	// 		//mAppend(trow,tcell);
+	// 		s += `<label>hallo<input type="number" class="input"/></label>`;
+	// 		//setzeEineZahl(tcell, '', 25, ['games',g,'levels',k]);
+	// 		s += '</td>';
+
+	// 	}
+	// 	s += '</tr>';
+	// }
+	// // let trow = createElementFromHTML(s);
+	// // console.log(trow)
+	// console.log(s);
+
+	// mAppend(tbl.querySelector('tbody'), trow);
+
+	// // let d = createCommonUi(dParent, resetGameSettingsToDefaults, () => { closeGameSettings(); startGame(); });
+	// // mText('NOT IMPLEMENTED!!!!!!!!!!!!!', d, { fz: 50 });
+
+}
+
+
+
+
 async function loadProgram() {
 	let program = Settings.program;
 	let gameSequence = program.gameSequence;

@@ -11,7 +11,10 @@ async function _start() {
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
+	console.log(KeySets)
 	startTime();
+
+	if (BROADCAST_SETTINGS) broadcastSettings();
 
 	// tests(); return;
 
@@ -27,11 +30,11 @@ function startUnit() {
 	loadProgram();
 	UnitScoreSummary = {};
 
-	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openGameSettings(); }
+	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openAux('dGameSettings'); }
 	else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
 	else if (immediateStart) { hide('divControls'); startGame(); }
 	else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
-	else { hide('freezer'); hide('divControls'); openMenu(); }
+	else { hide('freezer'); hide('divControls'); openAux('dMenu'); }
 }
 
 

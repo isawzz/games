@@ -55,13 +55,13 @@ async function loadServerDataAndAssets() {
 		// console.log(sData,typeof(sData));
 		// console.log('userData',sData.users);
 		// console.log("Gunter",sData.users.Gunter)
-		console.log('SERVER_DATA', SERVER_DATA);
+		//console.log('SERVER_DATA', SERVER_DATA);
 		UserHistory = sData.users[USERNAME]; //SERVER_DATA.users[USERNAME];
 		DefaultSettings = sData[SETTINGS_KEY].defaults;
 		Settings = sData[SETTINGS_KEY].current;
-		console.log(UserHistory);
-		console.log(DefaultSettings);
-		console.log(Settings);
+		// console.log(UserHistory);
+		// console.log(DefaultSettings);
+		// console.log(Settings);
 		// console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
 
 		//hier kann ich assets laden!!!
@@ -121,44 +121,5 @@ async function transferServerDataToClient() {
 
 
 
-
-
-//#region old
-
-async function loadHistory() {
-	let url = SERVERURL + USERNAME;
-	fetch(url, {
-		method: 'GET',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
-		},
-	}).then(async data => {
-		UserHistory = await data.json();
-		//console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
-		_start();
-		//SessionStart();
-	});
-} async function saveHistory() {
-	//console.log('posting...');
-	if (BlockServerSend) {
-		console.log('...wait for unblocked...');
-		setTimeout(saveHistory, 1000);
-	} else {
-		let url = SERVERURL + USERNAME;
-		let sessionData = UserHistory;
-		BlockServerSend = true;
-		console.log('blocked...');
-		fetch(url, {
-			method: 'PUT',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(sessionData)
-		}).then(() => { BlockServerSend = false; console.log('unblocked...'); });
-	}
-
-}
 
 

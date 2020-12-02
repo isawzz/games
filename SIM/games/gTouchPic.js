@@ -2,10 +2,14 @@ function startGameTP() {}
 function startLevelTP() { levelTP(); }
 function levelTP() {
 	MaxNumTrials = getGameOrLevelInfo('trials', 2);
-	let vinfo = getGameOrLevelInfo('vocab', 100);
-	currentKeys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
 	NumPics = getGameOrLevelInfo('numPics', 9);
 	NumLabels = getGameOrLevelInfo('numLabels', NumPics); 
+
+	let vinfo = getGameOrLevelInfo('vocab', 100);
+	vinfo = ensureMinVocab(vinfo,NumPics);
+
+	currentKeys = setKeys({lang:currentLanguage,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
+
 }
 function startRoundTP() {
 	uiActivated = false;

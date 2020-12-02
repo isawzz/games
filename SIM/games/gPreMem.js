@@ -8,6 +8,8 @@ function levelPM() {
 	NumPics = getGameOrLevelInfo('numPics', 4);
 	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
 	NumLabels = getGameOrLevelInfo('numLabels', NumPics*NumRepeat);
+
+	console.log(NumPics,NumRepeat,NumLabels)
 }
 function startRoundPM() {
 	uiActivated = false;

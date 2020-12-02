@@ -1,4 +1,31 @@
 
+async function broadcastSettings(isCurrent=true,isDefault=true){
+	//load settings from settings.yaml or settingsTEST.yaml
+	let fname = SETTINGS_KEY;
+	let settings = await loadYamlDict('./settings/'+fname+'.yaml');
+
+	//das war jetzt regular or TEST
+
+	//soll ich zu defaults or current or both broadcasten?
+	if (isCurrent) Settings = settings;
+	if (isDefault) DefaultSettings = jsCopy(settings);
+
+	saveServerData();
+
+}
+function ensureMinVocab(n,totalNeeded){
+	switch(n){
+		case 25: if (totalNeeded>= 20) return 50; break;
+		case 50: if (totalNeeded>= 35) return 75; break;
+		case 75: if (totalNeeded>= 50) return 100; break;
+	}
+	if (isNumber(n)) return n;
+
+
+	//hier geh jetzt auf die categories
+
+}
+
 function luminance(r, g, b) {
 	var a = [r, g, b].map(function (v) {
 			v /= 255;

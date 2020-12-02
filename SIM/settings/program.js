@@ -3,7 +3,7 @@ function ProgTimeIsUp() {
 
 	let msElapsed = ProgMsElapsed + msElapsedSince(ProgMsStart);
 	let msUnit = Settings.program.minutesPerUnit * 60 * 1000;
-	console.log('elapsed:', msElapsed, 'unit', msUnit);
+	//console.log('elapsed:', msElapsed, 'unit', msUnit);
 	return msElapsed > msUnit;
 }
 function pauseProgramTimer() { ProgMsElapsed += msElapsedSince(ProgMsStart);}
@@ -34,6 +34,7 @@ function loadProgram() {
 
 	Settings.program.currentLevel = RESTART_EACH_TIME ? userStartLevel : Math.max(userStartLevel, lastLevel);
 
+	return;
 	//friendly output
 	let i = 0;
 	gameSequence.map(x => {
@@ -62,9 +63,10 @@ function upgradeStartLevelForUser(game, level) {
 	console.log('===>upgrade hist', game, level, UPDATE_USER_HISTORY_STARTLEVEL)
 	if (UPDATE_USER_HISTORY_STARTLEVEL) {
 		lookupSetOverride(UserHistory, [game, 'startLevel'], level);
-		console.log('startlevel is now:', UserHistory[game].startLevel, '*********** should be', level);
+		//console.log('startlevel is now:', UserHistory[game].startLevel, '*********** should be', level);
 		//UserHistory[game].startLevel = level;
-		saveHistory();
+		//saveHistory();
+		saveServerData();
 	}
 }
 function saveProgram() {

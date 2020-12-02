@@ -32,12 +32,14 @@ function startGame() {
 }
 function startLevel(level) {
 
+	currentLanguage = Settings.program.currentLanguage;
+
 	Speech.setLanguage(currentLanguage);
 
 	CurrentLevelData = { level: currentLevel, items: [] };
 	CurrentGameData.levels.push(CurrentLevelData);
 
-	boundary = SAMPLES_PER_LEVEL[currentLevel];
+	boundary = Settings.program.samplesPerLevel; // SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
 
@@ -92,6 +94,7 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat=1, sameB
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(currentKeys, NumPics);
+	//keys[0]='man in manual wheelchair';
 	//keys=['sun with face'];
 	//console.log(keys,repeat)
 	Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,
@@ -117,8 +120,11 @@ function setGoal(index) {
 		if (NumPics >= 2 && rnd == lastPosition && coin(70)) rnd = NumPics - 1;
 		index = rnd;
 	}
+	
 	lastPosition = index;
 	Goal = Pictures[index];
+	//Goal = firstCond(Pictures,x=>x.key == 'man in manual wheelchair');
+	// console.log(Pictures,index)
 	setCurrentInfo(Goal); //sets bestWord, ...
 
 }
@@ -258,7 +264,8 @@ function gameOver(msg) {
 			}
 		}
 	}
-	saveHistory();
+	//saveHistory();
+	saveServerData();
 }
 function aniGameOver(msg) {
 	soundGoodBye();
@@ -378,6 +385,7 @@ function setKeys({ lang, nbestOrCats, filterFunc, confidence, sortByFunc } = {})
 	for (const k of keys) {
 		let info = symbolDict[k];
 		let klang = 'best' + lang;
+		//console.log(k,lang,klang)
 		if (nundef(info[klang])) info.klang = lastOfLanguage(k, lang);
 		info.best = info[klang];
 		let isMatch = true;
@@ -526,7 +534,9 @@ function writeComments(pre) {
 }
 
 function getGameOrLevelInfo(k, defval) {
-	return isdef(LevelInfo) && isdef(LevelInfo[currentLevel][k]) ? LevelInfo[currentLevel][k] : isdef(GameInfo[k]) ? GameInfo[k] : defval;
+	return isdef(LevelInfo) && isdef(LevelInfo[currentLevel][k]) ? LevelInfo[currentLevel][k] 
+	: isdef(GameInfo[k]) ? GameInfo[k] 
+	: isdef(Settings.program[k])? Settings.program[k] : defval;
 }
 
 //#endregion

@@ -2,9 +2,9 @@ function setGlobalSettings(settings) {
 
 	Settings = settings;
 
-	currentLanguage = Settings.common.currentLanguage;
+	currentLanguage = Settings.program.currentLanguage;
 
-	currentCategories = Settings.common.currentCategories;
+	currentCategories = Settings.program.currentCategories;
 
 	skipAnimations = Settings.flags.reducedAnimations;
 
@@ -13,7 +13,7 @@ function setGlobalSettings(settings) {
 
 function resetLabelSettings() {
 	if (Settings.program.showLabels == 'toggle') Settings.program.labels = true;
-	else Settings.program.labels = Settings.program.showLabels;
+	else Settings.program.labels = (Settings.program.showLabels == 'always');
 }
 async function initSettingsX() {
 	if (nundef(dDev)) dDev = mBy('dDev');

@@ -69,6 +69,8 @@ function lastStreakCorrect(items) {
 }
 function scoring(isCorrect) {
 
+	console.log('===>SCORING ************')
+
 	CurrentGoalData = {
 		key: Goal.key, isCorrect: IsAnswerCorrect, reqAnswer: Selected.reqAnswer, answer: Selected.answer,
 	};

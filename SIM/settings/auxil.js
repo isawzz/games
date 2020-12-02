@@ -1,12 +1,28 @@
 function initAux() {
-		dMenu = mBy('dMenu');
-		dDev = mBy('dDev');
-		dGameSettings = mBy('dGameSettings');
+	dMenu = mBy('dMenu');
+	dDev = mBy('dDev');
+	dGameSettings = mBy('dGameSettings');
 }
+function setGlobalSettings() {
+
+	currentLanguage = Settings.program.currentLanguage;
+
+	currentCategories = Settings.program.currentCategories;
+
+	skipAnimations = Settings.flags.reducedAnimations;
+
+	resetLabelSettings();
+}
+
+function resetLabelSettings() {
+	if (Settings.program.showLabels == 'toggle') Settings.program.labels = true;
+	else Settings.program.labels = (Settings.program.showLabels=='always');
+}
+
 function openAux(divName) {
 
 	if (divName == 'dDev' && !DEV_MODE) return;
-	stopAus(); 
+	stopAus();
 	hide('dMenuButton');
 	hide('dGameSettingsButton');
 	if (DEV_MODE) hide('dDevButton');
@@ -20,30 +36,32 @@ function openAux(divName) {
 
 	show(divName);
 
-	if (divName == 'dMenu') { createMenuUi();	}
-	else if (divName == 'dGameSettings') {createGameSettingsUi(); }
-	else if (divName == 'dDev') {		createDevSettingsUi();	}
+	if (divName == 'dMenu') { createMenuUi(); }
+	else if (divName == 'dGameSettings') { createGameSettingsUi(); }
+	else if (divName == 'dDev') { createDevSettingsUi(); }
 }
 
 function closeAux() {
 
 	if (isVisible2('dMenu')) { }
-	else if (isVisible2('dGameSettings')) { gameSettingsUiToSettings(); }
+	else if (isVisible2('dGameSettings')) { }
 	else if (isVisible2('dDev')) {
 		console.log('DEV NOT IMPLEMENTED')
 	}
 
+	setGlobalSettings();
+
 	show('dMenuButton');
 	show('dGameSettingsButton');
-	if (DEV_MODE) {show('dDevButton');hide('dDev');}
+	if (DEV_MODE) { show('dDevButton'); hide('dDev'); }
 	hide('dMenu');
 	hide('dGameSettings');
 
 	continueResume();
 
-	if (isVisible2(dPlayButton)) {hide('dPlayButton');startGame();}
-	else {hide('dResumeCurrentButton');startLevel();}
-	
+	if (isVisible2(dPlayButton)) { hide('dPlayButton'); startGame(); }
+	else { hide('dResumeCurrentButton'); startLevel(); }
+
 
 }
 
@@ -95,23 +113,45 @@ function createDevSettingsUi() {
 
 }
 function createGameSettingsUi() {
+	//console.log('current game is', currentGame)
 	let dParent = mBy('dGameSettings');
 	clearElement(dParent);
+	mAppend(dParent, createElementFromHTML(`<h1>Settings common to all games:</h1>`));
 
-	let dGroup=mInputGroup(dParent);
+	let nGroupNumCommonAllGames = mInputGroup(dParent);
+	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['program', 'samplesPerLevel']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'minutes', 1, ['program', 'minutesPerUnit']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'correct streak', 5, ['program', 'incrementLevelOnPositiveStreak']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['program', 'decrementLevelOnNegativeStreak']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['program', 'trials']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['program', 'showLabels']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'currentLanguage']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', [25, 50, 75, 100], 25, ['program', 'vocab']);
 
-	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
-	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
-	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
-	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
-	setzeEineZahl(dGroup, 'samples', 25, ['program', 'samplesPerLevel']);
+	return;
+	mLinebreak(dParent);
+	mAppend(dParent, createElementFromHTML(`<h1>Settings for ${GFUNC[currentGame].friendlyName}</h1>`));
 
-	dGroup = mInputGroup(dParent);
-	
+	//simpler!
+	//what are the special features for this game? look at Settings.games[g].levels[0]
+	let gameInfo = Settings.games[currentGame];
+	let needToSet = [];
+	for (const k in gameInfo) {
+		if (['samplesPerLevel', 'minutesPerUnit', 'incrementLevelOnPositiveStreak', 'decrementLevelOnNegativeStreak', 'showLabels', 'trials'].includes(k)) continue;
+		if (k == 'levels') {
+			for (const x in gameInfo.levels[0]) {
+				needToSet.push(x);
+			}
+		} else needToSet.push(k);
+	}
+	console.log(needToSet);
 
-	// let d = createCommonUi(dParent, resetGameSettingsToDefaults, () => { closeGameSettings(); startGame(); });
-	// mText('NOT IMPLEMENTED!!!!!!!!!!!!!', d, { fz: 50 });
-
+	let gr = mTitleGroup(dParent, 'starting level:');
+	let nGroupGame = mInputGroup(gr, { bg: 'transparent' });
+	for (const h of needToSet) {
+		setzeEineLevelZahl(nGroupGame, GameProps[h].friendly, '', currentGame, h);
+	}
+	//addLevelTable(dParent);
 }
 function createMenuUi() {
 	let dParent = mBy('dMenu');
@@ -157,16 +197,6 @@ function onClickGame(ev) {
 	closeAux('dMenu');
 	startGame();
 }
-
-function gameSettingsUiToSettings(){
-	//need to set settings or not???
-	console.log('gameSettingsUiToSettings')
-}
-
-
-
-
-
 
 
 
