@@ -1,3 +1,54 @@
+function setSettingsLevelProgression(elem) {
+	let game = elem.game;
+	let prop = elem.prop;
+	let info = Settings.games[game];
+	let val = elem.type == 'number' ? Number(elem.value) : elem.value;
+	let progInfo = GameProps[prop].progression;
+	console.log(progInfo, val, Object.keys(info.levels));
+	for (const k in info.levels) {
+		console.log(Object.keys(info.levels[k]))
+		//need to set this prop for each level!
+	}
+
+}
+function mProgressionGroup_dep(dParent, title, headers, addHandler = null) {
+	let d = mDiv(dParent, { display: 'inline-block', bg: choose(levelColors), padding: 20 });
+	mAppend(d, createElementFromHTML(`<h3 style='margin:0;padding:0'>${title}</h3>`));
+
+	let s = '';
+	for (const h of headers) {
+		s += '<td>' + h + '</td>';
+	}
+
+	let t = createElementFromHTML(`<table><tbody><tr>${s}</tr></tbody></table>`);
+	// let row = t.querySelector('tr');
+	// console.log(t,row)
+	// for(const h of headers){
+	// 	mAppend(row,createElementFromHTML(`<td>${h}</td>`))
+	// }
+	mAppend(d, t);
+	// mText('level progression:',d);
+	//mButton('add',addHandler,d); spaeter erst!!!
+	return t;
+}
+function setzeEineLevelZahl(dParent, label, init, game, prop) {
+	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
+	let d = mDiv(dParent);
+	let val = lookup(Settings, ['games', game, 'levels', 0, prop]);
+	if (nundef(val)) val = init;
+	let inp = createElementFromHTML(
+		// `<input id="${id}" type="number" class="input" value="1" onfocusout="setSettingsKeys(this)" />`); 
+		`<input type="number" class="input" value="${val}" onfocusout="setSettingsLevelProgression(this)" />`);
+	let labelui = createElementFromHTML(`<label>${label}</label>`);
+	mAppend(d, labelui);
+	mAppend(labelui, inp);
+
+	mStyleX(inp, { maleft: 12, mabottom: 4 });
+	//mClass(inp, 'input');
+
+	inp.game = game;
+	inp.prop = prop;
+}
 function createGameSettingsUi() {
 	//console.log('current game is', currentGame)
 	let dParent = mBy('dGameSettings');

@@ -56,11 +56,11 @@ function getUserStartLevel(game) {
 	let userStartLevel = 0;
 	if (isdef(hist) && isdef(hist[game])) userStartLevel = hist[game].startLevel;
 	//console.log('_______________________',hist,game,UserHistory)
-	console.log('________user start level', game, userStartLevel)
+	//console.log('________user start level', game, userStartLevel)
 	return userStartLevel;
 }
 function upgradeStartLevelForUser(game, level) {
-	console.log('===>upgrade hist', game, level, UPDATE_USER_HISTORY_STARTLEVEL)
+	//console.log('===>upgrade hist', game, level, UPDATE_USER_HISTORY_STARTLEVEL)
 	if (UPDATE_USER_HISTORY_STARTLEVEL) {
 		lookupSetOverride(UserHistory, [game, 'startLevel'], level);
 		//console.log('startlevel is now:', UserHistory[game].startLevel, '*********** should be', level);
