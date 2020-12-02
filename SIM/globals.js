@@ -1,7 +1,3 @@
-const BROADCAST_SETTINGS = true; // ACHTUNG!!!!!!!!!!!!! true;
-const EXPERIMENTAL = true;
-const DEV_MODE = false; //OFFLINE is true auf ASUS ROG soll aber false sein auf github!
-const IS_TESTING = false;
 USERNAME = IS_TESTING ? 'Squid' : 'Gunter';
 
 //common for all games and users / control flow
