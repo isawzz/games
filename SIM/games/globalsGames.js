@@ -144,7 +144,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	});
 	dFeedback = dInstruction = d;
 
-	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text));
+	dInstruction.addEventListener('click', () => aniInstruction(cmd + " " + text, spoken));
 	if (!isSpoken) return;
 
 	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
@@ -456,8 +456,8 @@ function addNthInputElement(dParent, n) {
 	mAppend(d, dInp);
 	return dInp;
 }
-function aniInstruction(text) {
-	Speech.say(text, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
+function aniInstruction(text,spoken) {
+	Speech.say(isdef(spoken)?spoken:text, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
 	mClass(dInstruction, 'onPulse');
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
