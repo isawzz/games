@@ -30,7 +30,7 @@ var fleetingMessageTimeout;
 var Speech;
 
 // output showing
-var RecogOutput = true;
+var RecogOutput = false;
 var RecogOutputError = false;
 var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
