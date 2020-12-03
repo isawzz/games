@@ -85,8 +85,6 @@ async function saveServerData() {
 		setTimeout(saveServerData, 1000);
 	} else {
 		let url = SERVERURL + 'speechGames';
-		//let url = SERVERURL + USERNAME;
-		//let sessionData = UserHistory;
 		BlockServerSend = true;
 		//console.log('blocked...');
 		fetch(url, {

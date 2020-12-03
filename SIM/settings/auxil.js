@@ -13,7 +13,7 @@ function setGlobalSettings() {
 
 	currentCategories = Settings.program.currentCategories;
 
-	skipAnimations = Settings.flags.reducedAnimations;
+	skipLevelAnimations = Settings.flags.reducedAnimations;
 
 	resetLabelSettings();
 
@@ -149,6 +149,7 @@ function createGameSettingsUi() {
 
 	//let nGroupOther = mInputGroup(dParent);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['program', 'showTime']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'spoken feedback', true, ['program', 'spokenFeedback']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'switch game after max level', false, ['program', 'switchGame']);
 
 }
