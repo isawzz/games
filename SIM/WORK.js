@@ -1,79 +1,107 @@
-class GameBase {
-	startGame() { console.log('starting', this.friendlyName); }
-	startLevel() { }
-	startRound() { uiActivated = false; }
-	prompt() { }
-	trialPrompt() {
-		Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
-		//shortHintPic();
-		return 10;
+function aniTurnFaceDown(pic, msecs = 5000, fadeBackground = false) {
+	let ui = pic.div;
+	for (const p1 of ui.children) {
+		p1.style.transition = `opacity ${msecs}ms ease-in-out`;
+		//p1.style.transition = `opacity ${msecs}s ease-in-out, background-color ${msecs}s ease-in-out`;
+		p1.style.opacity = 0;
+		//p1.style.backgroundColor = 'dimgray';
+		//mClass(p1, 'transopaOff'); //aniSlowlyDisappear');
 	}
-	activate() { uiActivated = true; }
-	eval() { }
-	interrupt() { }
+	if (fadeBackground){
+		ui.style.transition = `background-color ${msecs}ms ease-in-out`;
+		ui.style.backgroundColor = 'dimgray';
+	}
+	//ui.style.backgroundColor = 'dimgray';
+	pic.isFaceUp = false;
+
+}
+function aniInstruct(dTarget, spoken) {
+	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
+	mClass(dTarget, 'onPulse');
+	setTimeout(() => mRemoveClass(dTarget, 'onPulse'), 500);
+
 }
 
-class GMem extends GameBase {
-	constructor() {
-		super();
-		console.log('hallo was ist da los???')
-		this.friendlyName = 'Memory!';
-		this.logo = 'memory';
-		//console.log('GREEN',GREEN)
-		this.color = GREEN; //'#3cb44b'
-		
-	}
-	startLevel() {
-		clearTimeout(MemMMTimeout);
-		MaxNumTrials = getGameOrLevelInfo('trials', 2);
-		NumPics = getGameOrLevelInfo('numPics', 4);
-		NumRepeat = getGameOrLevelInfo('numRepeat', 1);
-		NumLabels = getGameOrLevelInfo('numLabels', NumPics * NumRepeat);
+function showPics(dParent, { lang = 'E', num = 1, repeat = 1, sameBackground = true, keys, labels, clickHandler, colors, contrast, border } = {}) {
+	let pics = [];
 
-		let vinfo = getGameOrLevelInfo('vocab', 100);
-		vinfo = ensureMinVocab(vinfo, NumPics);
+	if (nundef(keys)) keys = choose(symKeysBySet['nosymbols'], num);
+	//keys[0]='man in manual wheelchair';
+	//keys=['sun with face'];
+	//console.log(keys,repeat)
+	//console.log(labels)
+	pics = maShowPictures(keys, labels, dParent, clickHandler,
+		{ repeat: repeat, sameBackground: sameBackground, border: border, lang: lang, colors: colors, contrast: contrast });
 
-		currentKeys = setKeys({ lang: currentLanguage, nbestOrCats: vinfo }); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
-	}
-	prompt() {
+	// if (nundef(keys)) keys = choose(currentKeys, NumPics);
+	// Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,{ colors, contrast });
 
-		showPictures(interactMM, { repeat: NumRepeat, sameBackground: true, border: '3px solid #ffffff80' });
-		setGoal();
-
-		if (currentLevel > 2) { showInstruction('', 'remember all', dTitle, true); }
-		else { showInstruction(Goal.label, 'remember', dTitle, true); }
-
-		let secs = calcTimingMM();
-		setTimeout(()=>this.prompt2(secs),300); //needed fuer ui update! sonst verschluckt er last label
-	}
-	prompt2(secs){
-		for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1); }
-		MemMMTimeout = setTimeout(() => {
-			if (!isUiInterrupted() || currentGame != 'gMem') {
-				showInstruction(Goal.label, 'click', dTitle, true);
-				activateUi();
-			}
-		}, secs * 1000);
-
-	}
-	eval(ev) {
-		let id = evToClosestId(ev);
-		ev.cancelBubble = true;
-
-		let i = firstNumber(id);
-		let item = Pictures[i];
-		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
-
-		Selected.reqAnswer = bestWord;
-		Selected.answer = item.label;
-
-		if (item.label == bestWord) { return true; } else {
-			return false;
+	let totalPics = pics.length;
+	//console.log(totalPics,NumLabels)
+	if (nundef(Settings.program.labels) || Settings.program.labels) {
+		if (NumLabels == totalPics) return;
+		let remlabelPic = choose(pics, totalPics - NumLabels);
+		for (const p of remlabelPic) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
 		}
+	} else {
+		for (const p of pics) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+
 	}
+	return pics;
 
 }
 
+function turnPicsDown(pics, msecs, fadeBackground) {
+	//console.log(arguments)
+	for (const p of pics) { aniTurnFaceDown(p, msecs, fadeBackground); }
+}
+function wait() { console.log('waiting...'); }
+function instruct(tEmphasis, htmlPrefix, dParent, isSpoken, tSpoken) {
+	//use: symbolDict
+	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
+	clearElement(dParent);
+	let d = mDiv(dParent);
+	mStyleX(d, { margin: 15 })
+	mClass(d, 'flexWrap');
+
+	if (isDict(tEmphasis)) tEmphasis = tEmphasis.label;
+
+	let spoken;
+	if (isdef(tSpoken)) { spoken = tSpoken; }
+	else if (isSpoken) {
+		if (htmlPrefix.includes('/>')) {
+			let elem = createElementFromHTML(htmlPrefix);
+			spoken = stringBefore(htmlPrefix, '<') + ' ' + stringAfter(htmlPrefix, '>');
+			spoken = stringBefore(htmlPrefix, '<');
+		} else spoken = htmlPrefix;
+		spoken = spoken + " " + tEmphasis;
+	}
+	else spoken = null;
+
+	console.log('spoken', spoken);
+
+	let msg = htmlPrefix + " " + `<b>${tEmphasis.toUpperCase()}</b>`;
+	let d1 = mText(msg, d, { fz: 36, display: 'inline-block' });
+	let sym = symbolDict.speaker;
+	let d2 = mText(sym.text, d, {
+		fz: 38, weight: 900, display: 'inline-block',
+		family: sym.family, 'padding-left': 14
+	});
+
+	d.addEventListener('click', () => aniInstruct(dParent, spoken));
+
+	if (!isSpoken) return;
+
+	Speech.say(spoken, .7, 1, .7, 'random');
+	return d;
+
+}
+function setPicsAndGoal(pics) { Pictures = pics; Goal = pics[0]; console.log(pics); return pics[0]; }
 
 
 

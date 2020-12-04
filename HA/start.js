@@ -7,7 +7,7 @@ async function _start() {
 	initSidebar();
 	initAux();
 
-	if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
+	//if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
@@ -20,7 +20,7 @@ async function _start() {
 	}
 
 	//tests(); return;
-	playGame(); return;
+	playGame(gMem); return;
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
@@ -55,7 +55,7 @@ function onClickRunStopButton(b) { if (StepByStepMode) { onClickRunButton(b); } 
 function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
 function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
 
-//testing
+//#region testing
 function tests() {
 
 	test04_taskChain(); return;
@@ -94,26 +94,6 @@ function test03_saveServerData() {
 
 
 }
-function selectOnClick(ev){
-	let id = evToClosestId(ev);
-	ev.cancelBubble = true;
-
-	let i = firstNumber(id);
-	let item = Pictures[i];
-	Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
-
-	Selected.reqAnswer = Goal.label;
-	Selected.answer = item.label;
-	return item;
-}
-function revealAndSelectOnClick(ev){
-	let pic = selectOnClick(ev);
-	turnFaceUp(pic);
-
-}
-function evalSelectGoal(){
-	if (Goal == Selected.pic)console.log('????????WIN!!!'); else console.log('FAIL!');
-}
 function test04_taskChain() {
 	let dParent = mBy('table');
 	// let result=showPics(dParent);console.log('result',result.map(x=>x.label));return;
@@ -122,19 +102,19 @@ function test04_taskChain() {
 		{ f: instruct, parr: ['', '<b></b>', dTitle, false] },
 		{ f: showPics, parr: [dParent, { clickHandler: revealAndSelectOnClick, num: 2 }], msecs: 500 },
 		{ f: turnPicsDown, parr: ['_last', 2000, true], msecs: 2000 },
-		{ f: wait, parr: [], msecs: 2000 },
+		{ f: ()=>{}, parr: [], msecs: 2000 },
 		{ f: setPicsAndGoal, parr: ['_first'] },
 		{ f: instruct, parr: ['_last', 'click', dTitle, true] },
 		{ f: activateUi, parr: [] },
-		{ f: evalSelectGoal,parr:[], waitCond:()=>Selected!=null},
+		{ f: evalSelectGoal, parr: [], waitCond: () => Selected != null },
 	];
-	let onComplete = res => console.log('DONE', res,'\n===>Goal',Goal,'\n===>Pictures',Pictures); 
+	let onComplete = res => console.log('DONE', res, '\n===>Goal', Goal, '\n===>Pictures', Pictures);
 	chainEx(chain, onComplete);
 
 	//first place a card on table
 	//let t1={f:startAni1,cmd:}
 }
-
+//#endregion
 
 
 
