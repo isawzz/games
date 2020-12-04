@@ -4,7 +4,7 @@ const EXTENDED_COLORS = ['red', 'green', 'yellow', 'blue', 'pink', 'indigo', 'gr
 var NumColors;
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
-function levelTC() {
+function levelTC(){
 	MaxNumTrials = getGameOrLevelInfo('trials', 2);
 	let vinfo = getGameOrLevelInfo('vocab', 100);
 
@@ -12,8 +12,8 @@ function levelTC() {
 	currentKeys = currentKeys.filter(x => containsColorWord(x));
 
 	NumPics = getGameOrLevelInfo('numPics', 3);
-	NumColors = getGameOrLevelInfo('numColors', NumColors);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics * NumColors);
+	NumColors = getGameOrLevelInfo('numColors', NumColors); 
+	NumLabels = getGameOrLevelInfo('numLabels', NumPics*NumColors); 
 
 }
 function startRoundTC() {
@@ -34,8 +34,7 @@ function promptTC() {
 	let spoken = `click the ${Goal.textShadowColor} ${bestWord}`;
 	showInstruction(bestWord, `click the <span style='color:${Goal.textShadowColor}'>${Goal.textShadowColor.toUpperCase()}</span>`,
 		dTitle, true, spoken);
-	activateUi();
-	//return 10;
+	return 10;
 }
 function trialPromptTC() {
 	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');

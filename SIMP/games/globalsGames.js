@@ -1,7 +1,5 @@
 var pictureSize;
 
-var G = null;
-
 function startGame() {
 
 	if (currentGame == 'gSayPic') Speech.stopRecording();
@@ -9,15 +7,13 @@ function startGame() {
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 	ensureUserHistory(currentGame);
 
-	if (currentGame == 'gMem') { G = new GMem(); } else G = null;
-
 	GameInfo = Settings.games[currentGame];
 	LevelInfo = GameInfo.levels;
 	//MaxLevel = 0;
 	//console.log(LevelInfo,typeof LevelInfo)
 	MaxLevel = isdef(LevelInfo) ? Object.keys(LevelInfo).length - 1 : 0;
 
-	currentColor = G ? G.color : GFUNC[currentGame].color; //getCurrentColor(currentGame);
+	currentColor = GFUNC[currentGame].color; //getCurrentColor(currentGame);
 
 	currentLevel = getCurrentLevel(currentGame);
 	//console.log('______ * game', currentGame, 'level', currentLevel, '*')
@@ -31,8 +27,7 @@ function startGame() {
 
 	resetState();
 
-
-	G ? G.startGame() : GFUNC[currentGame].startGame();
+	GFUNC[currentGame].startGame();
 
 	startLevel();
 }
@@ -48,7 +43,7 @@ function startLevel(level) {
 
 	boundary = Settings.program.samplesPerLevel; // SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
-	G ? G.startLevel() : GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
+	GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
 
 	startRound();
 }
@@ -66,7 +61,7 @@ function startRoundReally() {
 			'\nkeys:' + currentKeys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + MaxNumTrials);
 	}
 	trialNumber = 0;
-	G ? G.startRound() : GFUNC[currentGame].startRound();
+	GFUNC[currentGame].startRound();
 	promptStart();
 
 }
@@ -78,17 +73,16 @@ function promptStart() {
 	if (nundef(dTable)) return;
 	clearTable();
 
-	G ? G.prompt() : GFUNC[currentGame].prompt();
-	// let delay = G?G.prompt():GFUNC[currentGame].prompt();
-
-	// if (delay < 0) return;
-	// console.log(delay)
-	// setTimeout(activateUi, delay);
+	let delay = GFUNC[currentGame].prompt();
+	
+	if (delay < 0) return;
+	console.log(delay)
+	setTimeout(activateUi, delay);
 }
 function promptNextTrial() {
 	beforeActivationUI();
 
-	let delay = G ? G.trialPrompt(trialNumber) : GFUNC[currentGame].trialPrompt(trialNumber);
+	let delay = GFUNC[currentGame].trialPrompt(trialNumber);
 	setTimeout(activateUi, delay);
 }
 function selectWord(info, bestWordIsShortest, except = []) {
@@ -172,13 +166,13 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 function activateUi() {
 
 	Selected = null;
-	G ? G.activate() : GFUNC[currentGame].activate();
+	GFUNC[currentGame].activate();
 	activationUI();
 }
 function evaluate() {
 	if (uiPaused) return;
 	hasClickedUI();
-	IsAnswerCorrect = G ? G.eval(...arguments) : GFUNC[currentGame].eval(...arguments);
+	IsAnswerCorrect = GFUNC[currentGame].eval(...arguments);
 
 	trialNumber += 1;
 	if (!IsAnswerCorrect && trialNumber < MaxNumTrials) { promptNextTrial(); return; }
@@ -298,7 +292,7 @@ function aniGameOver(msg) {
 	for (const gname in UnitScoreSummary) {
 		let sc = UnitScoreSummary[gname];
 		if (sc.nTotal == 0) continue;
-		mText(`${G ? G.friendlyName : GFUNC[gname].friendlyName}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
+		mText(`${GFUNC[gname].friendlyName}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
 
 	}
 
@@ -548,7 +542,7 @@ function showCorrectWord(sayit = true) {
 	Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + currentLevel + '/' + MaxLevel; }
-function showGameTitle() { dGameTitle.innerHTML = G ? G.friendlyName : GFUNC[currentGame].friendlyName; }
+function showGameTitle() { dGameTitle.innerHTML = GFUNC[currentGame].friendlyName; }
 function showStats() { showLevel(); showScore(); showGameTitle(); }
 function writeComments(pre) {
 	if (ROUND_OUTPUT) {

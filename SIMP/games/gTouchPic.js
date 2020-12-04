@@ -20,8 +20,7 @@ function promptTP() {
 	showPictures(evaluate);
 	setGoal();
 	showInstruction(bestWord, 'click', dTitle, true);
-	activateUi();
-	//return 10;
+	return 10;
 }
 function trialPromptTP() {
 	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');

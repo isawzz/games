@@ -50,8 +50,7 @@ function promptPM() {
 	showPictures(OneTwoThree, { repeat: NumRepeat, sameBackground:true, border: '3px solid #ffffff80' });
 	//setGoal();
 	showInstruction('', 'click any picture', dTitle, true);
-	activateUi();
-	//return 10;
+	return 10;
 }
 function trialPromptPM() {
 	for (const p of MemPM) { toggleSelectionOfPicture(p); }

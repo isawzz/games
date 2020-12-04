@@ -1,4 +1,3 @@
-
 var MemMMTimeout;
 function startGameMM() { }
 function startLevelMM() {
@@ -29,15 +28,31 @@ function calcTimingMM() {
 function promptMM() {
 	showPictures(interactMM, { repeat: NumRepeat, sameBackground: true, border: '3px solid #ffffff80' });
 	setGoal();
-
-	if (currentLevel > 2) { showInstruction('', 'remember all', dTitle, true); }
-	else { showInstruction(Goal.label, 'remember', dTitle, true); }
-
+	//return;
 	let secs = calcTimingMM();
 
-	setTimeout(()=>turnCardsAfterSecs(secs),300); //needed fuer ui update! sonst verschluckt er last label
-}
+	if (currentLevel > 2) {
+		showInstruction('', 'remember all', dTitle, true);
+		// turnCardsAfterSecs(secs);
+	} else {
+		showInstruction(Goal.label, 'remember', dTitle, true);
+		// turnCardsAfterSecs(secs);
+	}
+	setTimeout(startAnimationMM, 300);
 
+	return -1;// (secs+1)*1000;
+}
+function startAnimationMM() {
+	let secs = calcTimingMM(); //NumPics * 2; //NumPics>=4?NumPics*1:NumPics>2?6:5;
+	if (currentLevel > 2) {
+		// showInstruction('', 'remember all', dTitle, true);
+		turnCardsAfterSecs(secs);
+	} else {
+		// showInstruction(Goal.label, 'remember', dTitle, true);
+		turnCardsAfterSecs(secs);
+	}
+
+}
 function turnCardsAfterSecs(secs) {
 	for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1); }
 	MemMMTimeout = setTimeout(() => {
@@ -125,8 +140,22 @@ function evalMM(ev) {
 		return false;
 	}
 }
+// function evalMM(piclist) {
+
+// 	Selected = { piclist: piclist, feedbackUI: piclist.map(x => x.div), sz: getBounds(piclist[0].div).height };
+
+// 	let req = Selected.reqAnswer = piclist[0].label;
+// 	let eachAnswerSame = true;
+// 	for (const p of piclist) { if (p.label != req) eachAnswerSame = false; }
+// 	Selected.answer = piclist[piclist.length - 1].label;
+// 	if (Selected.answer == req) { return true; } else { return false; }
+// }
 
 
+// function turnPicFaceDown(pic) {
+// 	let d = pic.div;
+// 	console.log('pic has', d.children.length, 'children')
+// }
 function cardFace({ rank, suit, key } = {}, w, h) {
 	let cardKey, svgCode;
 	//console.log('cardFace',rank,suit,key,w,h)

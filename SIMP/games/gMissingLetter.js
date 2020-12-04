@@ -41,8 +41,8 @@ function promptML() {
 	mLinebreak(dTable);
 
 	showFleetingMessage(composeFleetingMessage(), 3000);
-	activateUi();
-	//return 10;
+
+	return 10;
 }
 function trialPromptML() {
 	let selinp = Selected.inp;

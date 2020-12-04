@@ -46,8 +46,7 @@ function promptSTP() {
 	showPicturesSTP(InteractSTP, { repeat: NumRepeat, border: '3px solid #ffffff80', });
 	setGoal();
 	showInstruction(bestWord, 'click all', dTitle, true);
-	activateUi();
-	//return 10;
+	return 10;
 }
 function trialPromptSTP() {
 	for (const p of MemSTP) { toggleSelectionOfPicture(p); }

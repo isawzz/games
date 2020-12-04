@@ -22,8 +22,7 @@ function promptSP() {
 	MicrophoneUi = mMicrophone(dTable);
 	MicrophoneHide();
 
-	activateUi();
-	//return 10;
+	return 10; //1000;
 }
 function trialPromptSP(nTrial) {
 	let phrase = nTrial<2?(currentLanguage == 'E' ? 'speak UP!!!' : 'LAUTER!!!')
