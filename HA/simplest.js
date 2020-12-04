@@ -22,7 +22,7 @@ function gMem() {
 
 	];
 	let onComplete = res => {
-		console.log('DONE', res, '\n===>Goal', Goal, '\n===>Pictures', Pictures);
+		//console.log('DONE', res, '\n===>Goal', Goal, '\n===>Pictures', Pictures);
 		setTimeout(()=>playGame(gMem), 2000);
 	}
 	chainEx(chain, onComplete);
