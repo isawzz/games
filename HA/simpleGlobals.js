@@ -5,7 +5,7 @@ var DB, G;
 
 var Speech;
 
-var TaskChain, CancelGame, ChainTimeout;
+var TaskChain, CancelChain, ChainTimeout, BlockChain; //chains are NOT reentrant!
 
 var Pictures, Goal, Selected, Score;
 

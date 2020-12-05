@@ -5,12 +5,6 @@ function playGame(key) {
 	G.f();
 	console.log('playing',G.friendly)
 }
-function prelim() {
-	let dParent = dTable;
-	clearElement(dParent);
-	Pictures = Goal = Selected = null;
-	uiActivated = false;
-}
 function gMem() {
 	// let result=showPics(dParent);console.log('result',result.map(x=>x.label));return;
 

@@ -27,7 +27,7 @@ var ROUND_DELAY = 300;
 var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 var fleetingMessageTimeout;
 
-var TaskChain,CancelGame,ChainTimeout;
+var TaskChain,CancelChain,ChainTimeout;
 
 var Speech;
 
@@ -73,7 +73,6 @@ var PosInARow, NegInARow;
 var lastPosition = 0;
 var trialNumber;
 var boundary;
-var uiActivated;
 const MarkerText = ['✔️', '❌'];
 const MarkerId = { SUCCESS: 0, FAIL: 1 };
 var Markers = [];

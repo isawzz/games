@@ -26,6 +26,12 @@ function ensureMinVocab(n, totalNeeded) {
 
 }
 
+function aniFadeInOut(elem, secs) {
+	mClass(elem, 'transopaOn');
+	//dLineBottomMiddle.opacity=0;
+	//mClass(dLineBottomMiddle,'aniFadeInOut');
+	setTimeout(() => { mRemoveClass(elem, 'transopaOn'); mClass(elem, 'transopaOff'); }, secs * 1000);
+}
 function luminance(r, g, b) {
 	var a = [r, g, b].map(function (v) {
 		v /= 255;
@@ -159,7 +165,7 @@ function _chainExRec(akku, taskChain, onComplete) {
 	if (taskChain.length > 0) {
 		let task = taskChain[0], f = task.f, parr = task.parr, t = task.msecs, waitCond = task.waitCond, tWait=task.tWait;
 
-		if (CancelGame) { clearTimeout(ChainTimeout); return akku; }
+		if (CancelChain) { clearTimeout(ChainTimeout); return akku; }
 
 		if (isdef(waitCond) && !waitCond()) {
 			if (nundef(tWait)) tWait = 300;
