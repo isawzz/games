@@ -1,8 +1,15 @@
-window.onload = loadServerDataAndAssets;
-//window.onunload = saveServerData;
+window.onload = _login;
+window.onunload = saveServerData;
+
+async function _login() {
+	//should load last user per default or guest
+	USERNAME = localStorage.getItem('user'); if (nundef(USERNAME)) USERNAME = 'guest';
+	loadAll(USERNAME, './settings/', _start);
+}
 
 async function _start() {
 
+	for (const k in GAME) { GAME[k].f = window[k]; GAME[k].key = k; }
 	initTable();
 	initSidebar();
 	initAux();
@@ -11,7 +18,7 @@ async function _start() {
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
-	//console.log(KeySets)
+
 	startTime();
 
 	if (BROADCAST_SETTINGS) {
@@ -20,7 +27,7 @@ async function _start() {
 	}
 
 	//tests(); return;
-	playGame(gMem); return;
+	playGame('gMem'); return;
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
@@ -42,18 +49,7 @@ function startUnit() {
 }
 
 
-function onClickFreezer() { hide('freezer'); startUnit(); }
-function onClickFreezer2(ev) {
-	if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
-	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
-}
 
-//divControls
-function onClickStartButton() { startGame(); }
-function onClickNextButton() { startRound(); }
-function onClickRunStopButton(b) { if (StepByStepMode) { onClickRunButton(b); } else { onClickStopButton(b); } }
-function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
-function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
 
 //#region testing
 function tests() {
@@ -102,7 +98,7 @@ function test04_taskChain() {
 		{ f: instruct, parr: ['', '<b></b>', dTitle, false] },
 		{ f: showPics, parr: [dParent, { clickHandler: revealAndSelectOnClick, num: 2 }], msecs: 500 },
 		{ f: turnPicsDown, parr: ['_last', 2000, true], msecs: 2000 },
-		{ f: ()=>{}, parr: [], msecs: 2000 },
+		{ f: () => { }, parr: [], msecs: 2000 },
 		{ f: setPicsAndGoal, parr: ['_first'] },
 		{ f: instruct, parr: ['_last', 'click', dTitle, true] },
 		{ f: activateUi, parr: [] },

@@ -45,6 +45,7 @@ div{
 	background-color:#ffffff80;
 	box-sizing:border-box;
 	padding: 12px;
+	text-align: center;
 }
 #rightSide{
 	flex-direction: column;

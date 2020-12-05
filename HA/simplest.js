@@ -1,12 +1,17 @@
-function playGame(gFunc) {
-	gFunc();
-}
 
-function gMem() {
+function playGame(key) {
+	G = GAME[key];
+	prelim();
+	G.f();
+	console.log('playing',G.friendly)
+}
+function prelim() {
 	let dParent = dTable;
 	clearElement(dParent);
 	Pictures = Goal = Selected = null;
 	uiActivated = false;
+}
+function gMem() {
 	// let result=showPics(dParent);console.log('result',result.map(x=>x.label));return;
 
 	let chain = [
@@ -23,10 +28,12 @@ function gMem() {
 	];
 	let onComplete = res => {
 		//console.log('DONE', res, '\n===>Goal', Goal, '\n===>Pictures', Pictures);
-		setTimeout(()=>playGame(gMem), 2000);
+		setTimeout(() => playGame('gMem'), 2000);
 	}
 	chainEx(chain, onComplete);
 
+	return 'mem';
 	//first place a card on table
 	//let t1={f:startAni1,cmd:}
 }
+

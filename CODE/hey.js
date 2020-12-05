@@ -1,3 +1,42 @@
+var BlockServerSend = false;
+
+async function saveAll() { saveServerData(); }
+async function loadAll(user, settingsDir, callback, ) {
+	//console.log('...loading...');
+	let url = SERVERURL;
+	fetch(url, {
+		method: 'GET',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+	}).then(async data => {
+		SERVER_DATA = await data.json();
+		let sData = SERVER_DATA[0]; //firstCond(SERVER_DATA,x=>x.id=='speechGames');
+		// console.log(sData,typeof(sData));
+		// console.log('userData',sData.users);
+		// console.log("Gunter",sData.users.Gunter)
+		//console.log('SERVER_DATA', SERVER_DATA);
+		UserHistory = sData.users[user]; //SERVER_DATA.users[USERNAME];
+		if (nundef(UserHistory)) {
+			sData.users[user] = UserHistory=await route_path_yaml_dict(settingsDir+'user.yaml');
+			console.log('user history');
+			UserHistory.id = user;
+			saveServerData();
+		}
+
+		DefaultSettings = await route_path_yaml_dict(settingsDir+'settings.yaml'); 
+		//DefaultSettings = sData.settings.default;
+
+		Settings = sData.settings.current;
+
+		//hier kann ich assets laden!!!
+		if (CLEAR_LOCAL_STORAGE) localStorage.clear();
+		await loadAssetsTest('../assets/');
+
+		if (isdef(callback)) callback();
+	});
+}
 async function loadAssetsTest(assetsPath) {
 	let url = assetsPath + 'c52_blackBorder.yaml';
 	c52 = await route_path_yaml_dict(url);
@@ -39,7 +78,43 @@ async function loadAssetsTest(assetsPath) {
 	svgList = dict2list(svgDict);
 
 }
+async function saveServerData() {
+	//console.log('posting...');
+	let sData = SERVER_DATA[0]; //firstCond(SERVER_DATA,x=>x.id=='speechGames');
+	sData.users[USERNAME] = UserHistory; //SERVER_DATA.users[USERNAME];
+	sData[SETTINGS_KEY].defaults = DefaultSettings;
+	sData[SETTINGS_KEY].current = Settings;
+	localStorage.setItem('user',USERNAME);
+	//return;
+	if (BlockServerSend) {
+		//console.log('...wait for unblocked...');
+		setTimeout(saveServerData, 1000);
+	} else {
+		let url = SERVERURL + 'speechGames';
+		BlockServerSend = true;
+		//console.log('blocked...');
+		fetch(url, {
+			method: 'PUT',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(SERVER_DATA[0])
+		}).then(() => { BlockServerSend = false; }); //console.log('unblocked...'); });
+	}
 
+}
+
+
+
+
+
+
+
+
+
+//-------------- unused as of HA
+//deprecated
 async function loadServerDataAndAssets() {
 	//console.log('...loading...');
 	let url = SERVERURL;
@@ -73,34 +148,6 @@ async function loadServerDataAndAssets() {
 	});
 }
 
-async function saveServerData() {
-	//console.log('posting...');
-	let sData = SERVER_DATA[0]; //firstCond(SERVER_DATA,x=>x.id=='speechGames');
-	sData.users[USERNAME] = UserHistory; //SERVER_DATA.users[USERNAME];
-	sData[SETTINGS_KEY].defaults = DefaultSettings;
-	sData[SETTINGS_KEY].current = Settings;
-	//return;
-	if (BlockServerSend) {
-		//console.log('...wait for unblocked...');
-		setTimeout(saveServerData, 1000);
-	} else {
-		let url = SERVERURL + 'speechGames';
-		BlockServerSend = true;
-		//console.log('blocked...');
-		fetch(url, {
-			method: 'PUT',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(SERVER_DATA[0])
-		}).then(() => { BlockServerSend = false; }); //console.log('unblocked...'); });
-	}
-
-}
-
-
-
 //#region dev mode
 async function transferServerDataToServer() {
 	//load settings.yaml file 
@@ -112,8 +159,8 @@ async function transferServerDataToServer() {
 }
 
 async function transferServerDataToClient() {
-//dann download ich DefaultSettings as yaml
-	downloadAsYaml(DefaultSettings,SETTINGS_KEY);
+	//dann download ich DefaultSettings as yaml
+	downloadAsYaml(DefaultSettings, SETTINGS_KEY);
 }
 
 

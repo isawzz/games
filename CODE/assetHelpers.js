@@ -1,4 +1,5 @@
 // *** uses assets! =>load after assets! ***
+const EMOFONTLIST =  ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol'];
 
 //#region NOW!
 function maShowPictures(keys, labels, dParent, onClickPictureHandler,

@@ -44,14 +44,17 @@
 -->
 <script src="./simpleGlobals.js"></script>
 
+<script src="./settings/settingsUi.js"></script>
 <script src="./settings/program.js"></script>
-<script src="./settings/settings.js"></script>
+<!-- <script src="./settings/settings.js"></script> -->
 <script src="./settings/auxil.js"></script>
-<script src="./speech/speech.js"></script>
+<script src="../CODE/speech/speech.js"></script>
 
 <script src="./ui.js"></script>
 
+<script src="./onClick.js"></script>
 <script src="./simplest.js"></script>
+<script src="./simpleGames.js"></script>
 
 	<script src="./WORK.js"></script>
 	<script src="./start.js"></script>
@@ -71,9 +74,9 @@
 		<div id='bRunStop' onclick='onClickRunStopButton(this)'>Run</div>
 	</div>
 	<div id='dLevelComplete' style='display:none' class='centered'>LEVEL COMPLETE!!!</div>
-	<div id='dDevButton' onclick='openAux("dDev")' style='display:none;'>🖥️</div>
-	<div id='dGameSettingsButton' onclick='openAux("dGameSettings")' >⚙️</div>
-	<div id='dMenuButton' onclick='openAux("dMenu")' >🏛️</div>
+	<div id='dDevButton' onclick='onClickComputer()' style='display:none;'>🖥️</div>
+	<div id='dGameSettingsButton' onclick='onClickGear()' >⚙️</div>
+	<div id='dMenuButton' onclick='onClickTemple()' >🏛️</div>
 	
 	<div id='dDev' style='display:none;text-align:center'> </div>
 	<div id='dGameSettings' style='display:none;text-align:center'> </div>

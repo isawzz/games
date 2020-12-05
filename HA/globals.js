@@ -27,15 +27,11 @@ var ROUND_DELAY = 300;
 var DELAY_BETWEEN_MIKE_AND_SPEECH = 2000;
 var fleetingMessageTimeout;
 
-var TaskChain,ChainExecutionCanceled,ChainTimeout;
+var TaskChain,CancelGame,ChainTimeout;
 
 var Speech;
 
 // output showing
-var RecogOutput = false;
-var RecogOutputError = false;
-var RecogHighPriorityOutput = true;
-var SpeakerOutput = false;
 var ROUND_OUTPUT = false;
 USE_LOCAL_STORAGE = true; // * defined in CODE/globalConfig.js *
 

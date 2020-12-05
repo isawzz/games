@@ -3,9 +3,9 @@ function initAux() {
 	dMenu = mBy('dMenu');
 	dDev = mBy('dDev');
 	dGameSettings = mBy('dGameSettings');
-	setGlobalSettings();
+	globalsFromSettings();
 }
-function setGlobalSettings() {
+function globalsFromSettings() {
 
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 
@@ -66,7 +66,7 @@ function closeAux(done = false) {
 		console.log('DEV NOT IMPLEMENTED')
 	}
 
-	setGlobalSettings();
+	globalsFromSettings();
 
 	show('dMenuButton');
 	show('dGameSettingsButton');
@@ -195,56 +195,6 @@ function createMenuUi() {
 	SelectedGameInAux = currentGame;
 }
 
-//#region click handlers
-function onClickResumeCurrent() { closeAux(); startLevel(); }
-function onClickPlay() { closeAux(); startGame(); }
-function onClickGame(ev) {
-
-	let id = evToClosestId(ev);
-	let prefix = stringAfter(id, '_');
-
-	//which game is this?
-	let vals = dict2list(GFUNC);
-	//.log(vals);
-
-	let item = firstCond(vals, x => x.friendlyName.startsWith(prefix));
-	let seq = Settings.program.gameSequence.map(x => x.game);
-
-	//console.log(item, item.id, seq, seq.indexOf(item.id))
-
-	let idx = Settings.program.currentGameIndex = seq.indexOf(item.id);
-	//let game = seq[Settings.program.currentGameIndex];
-
-	console.assert(isdef(currentGame), 'MENU: currentGame NOT SET!!!!!!!!!!!!!!!')
-	let dParent = mBy('dMenu');
-	let picDivs = dParent.children[1].children;
-	//console.log(dParent, picDivs)
-	let divSelected = firstCond(picDivs, x => x.game == SelectedGameInAux);
-	let divClicked = firstCond(picDivs, x => x.game == seq[idx]);
-	SelectedGameInAux = divClicked.game;
-	//console.log('click on', divClicked.game, divClicked);
-	//console.log('selected was', divSelected.game, divSelected);
-	if (divClicked == divSelected) {
-		closeAux(true);
-		startGame();
-
-	}else{
-		mClass(divClicked,'framedPicture');
-		mRemoveClass(divSelected,'framedPicture');
-
-	}//
-	// mClass(div, 'framedPicture');
-	// let picDivs = 
-	// if (ev.target.game == currentGame) {
-
-	// }else{
-
-	// 	mClass(ev.target,'framedPicture');
-	// }
-}
-function onClickSettings(){
-	closeAux();openAux('dGameSettings');
-}
 
 
 

@@ -1,4 +1,4 @@
-function setGlobalSettings(settings) {
+function globalsFromSettings(settings) {
 
 	Settings = settings;
 
@@ -40,7 +40,7 @@ function loadSettingsFromLocalStorage() {
 		//console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
 		Settings = settings;
 	} else {
-		setGlobalSettings(settings);
+		globalsFromSettings(settings);
 	}
 
 	let o1 = Settings;

@@ -159,7 +159,7 @@ function _chainExRec(akku, taskChain, onComplete) {
 	if (taskChain.length > 0) {
 		let task = taskChain[0], f = task.f, parr = task.parr, t = task.msecs, waitCond = task.waitCond, tWait=task.tWait;
 
-		if (ChainExecutionCanceled) { clearTimeout(ChainTimeout); return akku; }
+		if (CancelGame) { clearTimeout(ChainTimeout); return akku; }
 
 		if (isdef(waitCond) && !waitCond()) {
 			if (nundef(tWait)) tWait = 300;
