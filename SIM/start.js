@@ -20,7 +20,7 @@ async function _start() {
 	}
 
 	//tests(); return;
-	playGame(); return;
+	//playGame(); return;
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 

@@ -2,16 +2,15 @@ var pictureSize;
 
 function startGame() {
 
+	//clearOldGameTrailing
 	if (currentGame == 'gSayPic') Speech.stopRecording();
 	else if (currentGame == 'gMem') {
 		console.log('last game gMem, timeout is',MemMMTimeout)
 		clearTimeout(MemMMTimeout);
 	}
 
-
-
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
-	ensureUserHistory(currentGame);
+	ensureUserHistoryForGame(currentGame);
 
 	//if (currentGame == 'gMem') { G = new GMem(); } else G = null;
 
@@ -23,7 +22,7 @@ function startGame() {
 
 	currentColor = G ? G.color : GFUNC[currentGame].color; //getCurrentColor(currentGame);
 
-	currentLevel = getCurrentLevel(currentGame);
+	currentLevel = UserHistory[currentGame].startLevel;
 	//console.log('______ * game', currentGame, 'level', currentLevel, '*')
 
 	CurrentGameData = { name: currentGame, levels: [] };
@@ -345,14 +344,9 @@ function showLevelComplete() {
 	}
 
 }
-function ensureUserHistory(game) {
-	if (nundef(UserHistory[game])) {
-		UserHistory[game] = { name: game, nTotal: 0, nCorrect: 0, percentage: 100, startLevel: 0, maxLevelReached: 0 };
-	}
-}
 function downgradeCurrentLevelTo(newLevel, oldLevel) {
 	Settings.program.currentLevel = newLevel;
-	ensureUserHistory(currentGame);
+	ensureUserHistoryForGame(currentGame);
 	let startLevel = UserHistory[currentGame].startLevel;
 	upgradeStartLevelForUser(currentGame, Math.min(newLevel, startLevel));
 	return newLevel;
@@ -584,16 +578,6 @@ function getCurrentColor(game) {
 	//console.log('===>currentColor',currentColor)
 	return color;
 }
-function getCurrentLevel(game) {
-	//console.log('getCurrentLevel', Settings.program.currentLevel, 'MAX', MaxLevel);
-
-	let level = Settings.program.currentLevel > MaxLevel ? MaxLevel : Settings.program.currentLevel;
-
-	if (USE_USER_HISTORY_FOR_STARTLEVEL && isdef(UserHistory[game]) && UserHistory[game].startLevel != level) level = UserHistory[game].startLevel;
-
-	return level;
-}
-
 
 
 

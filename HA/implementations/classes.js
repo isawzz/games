@@ -74,6 +74,30 @@ class GMem extends GameBase {
 
 }
 
+class Game {
+	constructor(info, chain, onComplete) {
+		this.info = info;
+		this.chain = isdef(chain) ? chain : [
+			{ f: instruct, parr: ['', 'remember all pictures!', dTitle, false] },
+			{ f: showPics, parr: [dTable, { num: getNumPics() }], msecs: 500 },
+			{ f: turnPicsDown, parr: ['_last', 2000, true], msecs: 2000 },
+			{ f: () => { }, parr: [], msecs: 2000 },
+			{ f: setPicsAndGoal, parr: ['_first'] },
+			{ f: instruct, parr: ['_last', 'click', dTitle, true] },
+			{ f: activateUi, parr: [{ onclickPic: revealAndSelectOnClick }] },
+			{ f: evalSelectGoal, parr: [], waitCond: () => Selected != null },
+			{ f: scorePlus1IfWin, parr: ['_last'] },
+		];
+		this.onComplete = isdef(onComplete) ? onComplete
+			: res => {
+				setTimeout(() => this.play(), 2000);
+			}
+
+	}
+	play() {
+		chainEx(this.chain, this.onComplete);
+	}
+}
 
 
 

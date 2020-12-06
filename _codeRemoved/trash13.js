@@ -1,3 +1,10 @@
+function gMemStart() {
+	instruct('', 'remember all pictures!', dTitle, false);
+	let pics = showPics(dTable, { num: getSetting('numPics', 2) });
+	console.log(pics);
+	let onComplete = () => { DONE = true; setTimeout(() => playGame(G.key), 2000); }
+
+}
 function mTitleGroup(dParent, title) {
 	let d = mDiv(dParent, { display: 'inline-block', align: 'center', bg: 'random', padding: 20 });
 	let tag = 'h3';

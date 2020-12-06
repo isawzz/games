@@ -216,7 +216,7 @@ function mText(text, dParent, styles, classes) {
 }
 function mPara(text, dParent, styles, classes) {
 	let d = mCreate('p');
-	mAppend(dParent,d);
+	mAppend(dParent, d);
 	if (!isEmpty(text)) d.innerHTML = text;
 	//if (isdef(id)) d.id = id;
 	//mAppend(dParent, d);
@@ -585,6 +585,64 @@ class ScriptLoader {
 }
 //#endregion
 
+//#region chain,  task chain 
+function chainEx(taskChain, onComplete, ifBlocked = 'return') {
+	if (BlockChain) {
+		console.log('chain blocked!')
+		switch (ifBlocked) {
+			case 'interrupt': CancelChain = true; setTimeout(() => chainEx(taskChain, onComplete, 'wait'), 300); break;
+			case 'wait': setTimeout(() => chainEx(taskChain, onComplete, 'wait'), 300); break;
+			case 'return': default://just drop it
+		}
+	} else {
+		CancelChain = false;
+		let akku = [];
+		return _chainExRec(akku, taskChain, onComplete);
+	}
+}
+function _chainExRec(akku, taskChain, onComplete) {
+	if (CancelChain) {
+		clearTimeout(ChainTimeout);
+		BlockChain = false;
+		console.log('chain canceled!');
+		return akku;
+	} else if (taskChain.length > 0) {
+		let task = taskChain[0], f = task.f, parr = task.parr, t = task.msecs, waitCond = task.waitCond, tWait = task.tWait;
+
+		if (isdef(waitCond) && !waitCond()) {
+			if (nundef(tWait)) tWait = 300;
+			ChainTimeout = setTimeout(() => _chainExRec(akku, taskChain, onComplete), tWait);
+		} else {
+			for (let i = 0; i < parr.length; i++) {
+				let para = parr[i];
+				if (para == '_last') parr[i] = arrLast(akku);
+				else if (para == '_all' || para == '_list') parr[i] = akku;
+				else if (para == '_first') parr[i] = akku[0];
+
+			}
+
+			let result = f(...parr);
+			if (isdef(result)) akku.push(result);
+
+			if (isdef(t)) {
+				ChainTimeout = setTimeout(() => _chainExRec(akku, taskChain.slice(1), onComplete), t);
+			} else {
+				_chainExRec(akku, taskChain.slice(1), onComplete);
+			}
+
+		}
+
+
+	} else { onComplete(akku); BlockChain = false; }
+}
+function chainCancel() {
+	CancelChain = true;
+	clearTimeout(ChainTimeout);
+	BlockChain = false;
+	//console.log('chain ccanceled properly!');
+}
+//#endregion
+
 //#region control flow sleep___
 
 const sleep = m => new Promise(r => setTimeout(r, m))
@@ -604,6 +662,7 @@ example:
 
 
 //#endregion
+
 
 //#region colors
 var colorDict = null; //for color names, initialized when calling anyColorToStandardStyle first time
@@ -2054,12 +2113,12 @@ function isVisible2(elem) { // Where el is the DOM element you'd like to test fo
 
 	return (elem.style.display != 'none' || elem.offsetParent !== null);
 }
-function show(elem,isInline=false) {
+function show(elem, isInline = false) {
 	if (isString(elem)) elem = document.getElementById(elem);
 	if (isSvg(elem)) {
 		elem.setAttribute('style', 'visibility:visible');
 	} else {
-		elem.style.display = isInline?'inline-block':null;
+		elem.style.display = isInline ? 'inline-block' : null;
 	}
 }
 

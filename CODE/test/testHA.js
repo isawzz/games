@@ -2,6 +2,7 @@
 function testHA() {
 
 	test04_taskChain(); return;
+	test03_saveServerData(); return;
 	test02_msToTime(); return;
 	test01_maPic();
 

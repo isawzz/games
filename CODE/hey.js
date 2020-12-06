@@ -79,7 +79,7 @@ async function loadAssetsTest(assetsPath) {
 
 }
 async function saveServerData() {
-	//console.log('posting...');
+	console.log('posting server data (UserHistory,Settings,DefaultSettings)...');
 	let sData = SERVER_DATA[0]; //firstCond(SERVER_DATA,x=>x.id=='speechGames');
 	sData.users[USERNAME] = UserHistory; //SERVER_DATA.users[USERNAME];
 	sData[SETTINGS_KEY].defaults = DefaultSettings;
