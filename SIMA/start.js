@@ -1,19 +1,26 @@
-window.onload = _login;
+window.onload = _loader;
 window.onunload = saveServerData;
 
-async function _login() {
-	//should load last user per default or guest
-	USERNAME = localStorage.getItem('user'); if (nundef(USERNAME)) USERNAME = 'guest';
-	loadAll(USERNAME, './settings/', _start);
+async function _loader() {
+	//timit = new TimeIt('start');
+	if (BROADCAST_SETTINGS) {
+		console.log('...broadcasting ...')
+		await broadcastSIMA();
+		_start();
+	}else{loadSIMA(_start);}
+	
+	console.assert(isdef(DB))
 }
-
 async function _start() {
 
-	for (const k in GAME) { GAME[k].f = window[k]; GAME[k].key = k; }
+	//timit.show('DONE');
+	loadUser();
 	
 	initTable();
 	initSidebar();
 	initAux();
+
+	return;
 	globalsFromSettings(); //TODO: phase out!? or rename initSettings
 
 	//if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
@@ -21,10 +28,6 @@ async function _start() {
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
 
-	if (BROADCAST_SETTINGS) {
-		console.log('...broadcasting ...')
-		broadcastSettings();
-	}
 
 	//console.log('loaded. ready.')
 	//testHA(); return;

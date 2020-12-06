@@ -1,4 +1,4 @@
-var SelectedMenuKey,MenuItems;
+var SelectedMenuKey, MenuItems;
 
 function createSettingsUi(dParent) {
 	clearElement(dParent);
@@ -31,7 +31,7 @@ function createMenuUi() {
 	mClass(d, 'flexWrap');
 	d.style.height = '100%';
 
-	let games = Settings.program.gameSequence.map(x => x.game);
+	let games = U.seq;
 	//console.log(games, games.map(g => GAME[g]));
 	let labels = games.map(g => GAME[g].friendly);
 	let keys = games.map(g => GAME[g].logo);
@@ -73,7 +73,7 @@ function setSettingsKeys(elem) {
 	lookupSetOverride(Settings, elem.keyList, val);
 	SettingsChanged = true;
 	//console.log(elem.keyList, val)
-	//console.log(Settings.program);
+	//console.log(Settings.common);
 }
 function setzeEineZahl(dParent, label, init, skeys) {
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />

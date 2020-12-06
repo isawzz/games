@@ -9,7 +9,7 @@ function startGame() {
 		clearTimeout(MemMMTimeout);
 	}
 
-	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
+	currentGame = Settings.common.gameSequence[Settings.common.currentGameIndex].game;
 	ensureUserHistoryForGame(currentGame);
 
 	//if (currentGame == 'gMem') { G = new GMem(); } else G = null;
@@ -42,14 +42,14 @@ function startGame() {
 function startLevel(level) {
 
 	resumeUI();
-	currentLanguage = Settings.program.currentLanguage;
+	currentLanguage = Settings.common.currentLanguage;
 
 	Speech.setLanguage(currentLanguage);
 
 	CurrentLevelData = { level: currentLevel, items: [] };
 	CurrentGameData.levels.push(CurrentLevelData);
 
-	boundary = Settings.program.samplesPerLevel; // SAMPLES_PER_LEVEL[currentLevel];
+	boundary = Settings.common.samplesPerLevel; // SAMPLES_PER_LEVEL[currentLevel];
 	resetScore();
 	G ? G.startLevel() : GFUNC[currentGame].startLevel(); //settings level dependent params eg., MaxNumTrials...
 
@@ -118,7 +118,7 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sam
 
 	let totalPics = Pictures.length;
 	//console.log(totalPics,NumLabels)
-	if (nundef(Settings.program.labels) || Settings.program.labels) {
+	if (nundef(Settings.common.labels) || Settings.common.labels) {
 		if (NumLabels == totalPics) return;
 		let remlabelPic = choose(Pictures, totalPics - NumLabels);
 		for (const p of remlabelPic) {
@@ -190,10 +190,10 @@ function evaluate() {
 
 	//feedback
 	if (IsAnswerCorrect) {
-		DELAY = Settings.program.spokenFeedback ? 1500 : 300;
+		DELAY = Settings.common.spokenFeedback ? 1500 : 300;
 		successPictureGoal();
 	} else {
-		DELAY = Settings.program.spokenFeedback ? 3000 : 300;
+		DELAY = Settings.common.spokenFeedback ? 3000 : 300;
 		showCorrectWord();
 		failPictureGoal(false);
 	}
@@ -221,7 +221,7 @@ function proceed(nextLevel) {
 		return;
 	}
 	if (nextLevel > MaxLevel) {
-		if (Settings.program.currentGameIndex >= Settings.program.gameSequence.length) {
+		if (Settings.common.currentGameIndex >= Settings.common.gameSequence.length) {
 			gameOver('Congratulations! You are done!');
 		} else {
 			startGame();
@@ -233,7 +233,7 @@ function proceed(nextLevel) {
 //#region fail or success
 function failPictureGoal(withComment = true) {
 
-	if (withComment && Settings.program.spokenFeedback) {
+	if (withComment && Settings.common.spokenFeedback) {
 		const comments = (currentLanguage == 'E' ? ['too bad'] : ["aber geh'"]);
 		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
 	}
@@ -249,7 +249,7 @@ function failPictureGoal(withComment = true) {
 
 }
 function successPictureGoal(withComment = true) {
-	if (withComment && Settings.program.spokenFeedback) {
+	if (withComment && Settings.common.spokenFeedback) {
 		const comments = (currentLanguage == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
 		Speech.say(chooseRandom(comments));//'Excellent!!!');
 	}
@@ -345,7 +345,7 @@ function showLevelComplete() {
 
 }
 function downgradeCurrentLevelTo(newLevel, oldLevel) {
-	Settings.program.currentLevel = newLevel;
+	Settings.common.currentLevel = newLevel;
 	ensureUserHistoryForGame(currentGame);
 	let startLevel = UserHistory[currentGame].startLevel;
 	upgradeStartLevelForUser(currentGame, Math.min(newLevel, startLevel));
@@ -503,7 +503,7 @@ function resetState() {
 
 	badges = [];
 
-	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.program.samplesPerLevel);// [1, 1, 2, 2, 80, 100];
+	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.common.samplesPerLevel);// [1, 1, 2, 2, 80, 100];
 
 	resetScore();
 
@@ -535,12 +535,12 @@ function shortHintPic() {
 	setTimeout(() => shortHintPicRemove(), 800);
 }
 function showCorrectWord(sayit = true) {
-	let anim = Settings.program.spokenFeedback ? 'onPulse' : 'onPulse1';
+	let anim = Settings.common.spokenFeedback ? 'onPulse' : 'onPulse1';
 	let div = mBy(Goal.id);
 	mClass(div, anim);
 
 
-	if (!sayit || !Settings.program.spokenFeedback) return;
+	if (!sayit || !Settings.common.spokenFeedback) return;
 
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
 	Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
@@ -560,7 +560,7 @@ function writeComments(pre) {
 function getGameOrLevelInfo(k, defval) {
 	return isdef(LevelInfo) && isdef(LevelInfo[currentLevel][k]) ? LevelInfo[currentLevel][k]
 		: isdef(GameInfo[k]) ? GameInfo[k]
-			: isdef(Settings.program[k]) ? Settings.program[k] : defval;
+			: isdef(Settings.common[k]) ? Settings.common[k] : defval;
 }
 
 //#endregion

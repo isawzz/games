@@ -15,7 +15,7 @@ function showPics(dParent, { lang = 'E', num = 1, repeat = 1, numLabels, sameBac
 
 	let totalPics = pics.length;
 	//console.log(totalPics,NumLabels)
-	if (nundef(Settings.program.labels) || Settings.program.labels) {
+	if (nundef(Settings.common.labels) || Settings.common.labels) {
 		if (nundef(numLabels) || numLabels == totalPics) return pics;
 		let remlabelPic = choose(pics, totalPics - numLabels);
 		for (const p of remlabelPic) {

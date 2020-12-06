@@ -14,7 +14,11 @@ function initTable() {
 }
 function initSidebar() {
 	let dParent = mBy('sidebar');
-	let user = mText(USERNAME, dParent);
+	
+	// let user = mText(USERNAME, dParent);
+	editableUsernameUi(dParent);
+
+
 	//let title = mText('history:', dParent);
 	dLeiste = mDiv(dParent);
 	//dLeiste = mBy('sidebar')

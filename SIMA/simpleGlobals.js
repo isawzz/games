@@ -1,8 +1,4 @@
-const SETTINGS_KEY = IS_TESTING ? 'settingsTEST' : 'settings';
-const CLEAR_LOCAL_STORAGE = false;
-
-
-var Score;
+const CLEAR_LOCAL_STORAGE = true;
 
 const GAME = {
 	gTouchPic: { friendly: 'Pictures!', logo: 'computer mouse', color: 'deepskyblue', },

@@ -3,6 +3,7 @@ async function broadcastSettings(isCurrent = true, isDefault = true) {
 	//load settings from settings.yaml or settingsTEST.yaml
 	let fname = SETTINGS_KEY;
 	let settings = await loadYamlDict('./settings/' + fname + '.yaml');
+	let users = await loadYamlDict('./settings/users.yaml');
 
 	//das war jetzt regular or TEST
 

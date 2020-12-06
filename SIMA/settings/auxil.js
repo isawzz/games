@@ -7,25 +7,25 @@ function initAux() {
 }
 function globalsFromSettings() {
 
-	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
+	currentGame = Settings.common.gameSequence[Settings.common.currentGameIndex].game;
 
-	currentLanguage = Settings.program.currentLanguage;
+	currentLanguage = Settings.common.currentLanguage;
 
-	currentCategories = Settings.program.currentCategories;
+	currentCategories = Settings.common.currentCategories;
 
 	skipLevelAnimations = Settings.flags.reducedAnimations;
 
 	resetLabelSettings();
 
-	if (Settings.program.showTime) { show(mBy('time')); startTime(); }
+	if (Settings.common.showTime) { show(mBy('time')); startTime(); }
 	else hide(mBy('time'));
 
 	
 }
 
 function resetLabelSettings() {
-	if (Settings.program.showLabels == 'toggle') Settings.program.labels = true;
-	else Settings.program.labels = (Settings.program.showLabels == 'always');
+	if (Settings.common.showLabels == 'toggle') Settings.common.labels = true;
+	else Settings.common.labels = (Settings.common.showLabels == 'always');
 }
 
 function openAux(divName) {
@@ -164,7 +164,7 @@ function createMenuUi() {
 		mClass(d, 'flexWrap');
 		d.style.height = '100%';
 
-		let games = Settings.program.gameSequence.map(x => x.game);
+		let games = Settings.common.gameSequence.map(x => x.game);
 		let labels = games.map(g => GFUNC[g].friendlyName);
 		let keys = games.map(g => GFUNC[g].logo);
 		let bgs = games.map(g => GFUNC[g].color);

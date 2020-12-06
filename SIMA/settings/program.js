@@ -2,7 +2,7 @@
 function ProgTimeIsUp() {
 
 	let msElapsed = ProgMsElapsed + msElapsedSince(ProgMsStart);
-	let msUnit = Settings.program.minutesPerUnit * 60 * 1000;
+	let msUnit = Settings.common.minutesPerUnit * 60 * 1000;
 	//console.log('elapsed:', msElapsed, 'unit', msUnit);
 	return msElapsed > msUnit;
 }
@@ -12,41 +12,41 @@ function startProgramTimer() { ProgMsElapsed = 0; ProgMsStart = Date.now(); }
 function getTimeElapsed() { return ProgMsElapsed + msElapsedSince(ProgMsStart); }
 
 function loadProgram() {
-	let program = Settings.program;
+	let program = Settings.common;
 	let gameSequence = program.gameSequence;
 
 	// which game?
 	let gameIndex = program.currentGameIndex;
 	if (isString(gameIndex)) { gameIndex = Number(gameIndex); }
 	if (nundef(gameIndex) || gameIndex > gameSequence.length) { gameIndex = 0; }
-	Settings.program.currentGameIndex = gameIndex;
-	Settings.program.currentLevel = Math.max(userStartLevel, lastLevel);
+	Settings.common.currentGameIndex = gameIndex;
+	Settings.common.currentLevel = Math.max(userStartLevel, lastLevel);
 
 	let game = gameSequence[gameIndex].game;
 
 	// //use level saved in localstorage:
-	// let lastLevel = Settings.program.currentLevel;
+	// let lastLevel = Settings.common.currentLevel;
 	// if (isString(lastLevel)) { lastLevel = Number(lastLevel); }
-	// if (nundef(lastLevel)) { lastLevel = 0; } //gameSequence[Settings.program.currentGameIndex].startLevel_; }
+	// if (nundef(lastLevel)) { lastLevel = 0; } //gameSequence[Settings.common.currentGameIndex].startLevel_; }
 
 	// let userStartLevel = getUserStartLevel(game);
 
-	// Settings.program.currentLevel = Math.max(userStartLevel, lastLevel);
+	// Settings.common.currentLevel = Math.max(userStartLevel, lastLevel);
 
 	// return;
 	// //friendly output
 	// let i = 0;
 	// gameSequence.map(x => {
-	// 	if (i == Settings.program.currentGameIndex) console.log('=>', x); else console.log('', x);
+	// 	if (i == Settings.common.currentGameIndex) console.log('=>', x); else console.log('', x);
 	// 	i += 1;
 	// });
-	// console.log('LOADED: gameIndex', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
+	// console.log('LOADED: gameIndex', Settings.common.currentGameIndex, 'level', Settings.common.currentLevel);
 }
 function getUserStartLevel(game) {
 	if (isDict(game)) game = game.game;
 	else if (isNumber(game)) {
 		let i = game;
-		let seq = Settings.program.gameSequence;
+		let seq = Settings.common.gameSequence;
 		console.assert(i < seq.length, "getUserStartLevel!!!!!!!!!!!!!! gameIndex to high", game)
 		game = seq[i];
 
@@ -63,14 +63,14 @@ function saveProgram() {
 }
 function updateGameSequence(nextLevel) {
 	if (nextLevel > MaxLevel) {
-		if (Settings.program.switchGame) {
-			let gameSequence = Settings.program.gameSequence;
-			let iGame = Settings.program.currentGameIndex = (Settings.program.currentGameIndex + 1) % gameSequence.length;
-			Settings.program.currentLevel = getUserStartLevel(iGame);
+		if (Settings.common.switchGame) {
+			let gameSequence = Settings.common.gameSequence;
+			let iGame = Settings.common.currentGameIndex = (Settings.common.currentGameIndex + 1) % gameSequence.length;
+			Settings.common.currentLevel = getUserStartLevel(iGame);
 		} else return;
-	} else Settings.program.currentLevel = nextLevel;
+	} else Settings.common.currentLevel = nextLevel;
 
-	//console.log('*****updated Game Sequence to index', Settings.program.currentGameIndex, 'level', Settings.program.currentLevel);
+	//console.log('*****updated Game Sequence to index', Settings.common.currentGameIndex, 'level', Settings.common.currentLevel);
 }
 
 

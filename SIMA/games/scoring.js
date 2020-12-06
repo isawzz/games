@@ -46,7 +46,7 @@ function scoreSummary() {
 
 }
 function lastStreakFalse(items) {
-	let n = Settings.program.decrementLevelOnNegativeStreak;
+	let n = Settings.common.decrementLevelOnNegativeStreak;
 	let iFrom = items.length - 1;
 	let iTo = iFrom - n;
 	for (let i = iFrom; i > iTo; i--) {
@@ -57,7 +57,7 @@ function lastStreakFalse(items) {
 
 }
 function lastStreakCorrect(items) {
-	let n = Settings.program.incrementLevelOnPositiveStreak;
+	let n = Settings.common.incrementLevelOnPositiveStreak;
 	let iFrom = items.length - 1;
 	let iTo = iFrom - n;
 	for (let i = iFrom; i > iTo; i--) {
@@ -125,23 +125,23 @@ function scoring(isCorrect) {
 
 		// look at this level history:
 		let items = CurrentLevelData.items;
-		let pos = Settings.program.incrementLevelOnPositiveStreak;
+		let pos = Settings.common.incrementLevelOnPositiveStreak;
 		let posSeq = pos > 0 && PosInARow >= pos;
-		let neg = Settings.program.decrementLevelOnNegativeStreak;
+		let neg = Settings.common.decrementLevelOnNegativeStreak;
 		let negSeq = neg > 0 && NegInARow >= neg;
-		let hasLabels = Settings.program.labels;
+		let hasLabels = Settings.common.labels;
 
-		if (posSeq && hasLabels && Settings.program.showLabels == 'toggle') { PosInARow = 0; Settings.program.labels = false; }
+		if (posSeq && hasLabels && Settings.common.showLabels == 'toggle') { PosInARow = 0; Settings.common.labels = false; }
 		else if (posSeq) { levelChange = 1; nextLevel += 1; PosInARow = 0; }
-		if (negSeq && !hasLabels && Settings.program.showLabels == 'toggle') { NegInARow = 0; Settings.program.labels = true; }
+		if (negSeq && !hasLabels && Settings.common.showLabels == 'toggle') { NegInARow = 0; Settings.common.labels = true; }
 		else if (negSeq) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; NegInARow = 0; }
 
 	}
 
 	//console.log('levelChange', levelChange, 'nextLevel', nextLevel)
 
-	let toggle = Settings.program.showLabels == 'toggle';
-	let hasLabels = Settings.program.labels;
+	let toggle = Settings.common.showLabels == 'toggle';
+	let hasLabels = Settings.common.labels;
 
 	if (levelChange) {
 		CurrentLevelData.numTotalAnswers = numTotalAnswers;
@@ -159,10 +159,10 @@ function scoring(isCorrect) {
 		gdata.percentage = Math.round(100 * gdata.nCorrect / gdata.nTotal);
 		UnitScoreSummary[currentGame] = gdata;
 
-		if (toggle) Settings.program.labels = true;
+		if (toggle) Settings.common.labels = true;
 
 	} else if (toggle && hasLabels && numTotalAnswers >= boundary / 2) {
-		Settings.program.labels = false;
+		Settings.common.labels = false;
 	}
 	return [levelChange, nextLevel];
 }

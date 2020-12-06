@@ -85,12 +85,12 @@ function onClickGame(ev) {
 	//.log(vals);
 
 	let item = firstCond(vals, x => x.friendlyName.startsWith(prefix));
-	let seq = Settings.program.gameSequence.map(x => x.game);
+	let seq = Settings.common.gameSequence.map(x => x.game);
 
 	//console.log(item, item.id, seq, seq.indexOf(item.id))
 
-	let idx = Settings.program.currentGameIndex = seq.indexOf(item.id);
-	//let game = seq[Settings.program.currentGameIndex];
+	let idx = Settings.common.currentGameIndex = seq.indexOf(item.id);
+	//let game = seq[Settings.common.currentGameIndex];
 
 	console.assert(isdef(currentGame), 'MENU: currentGame NOT SET!!!!!!!!!!!!!!!')
 	let dParent = mBy('dMenu');
