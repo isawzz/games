@@ -2,26 +2,25 @@ var SelectedMenuKey, MenuItems;
 
 function createSettingsUi(dParent) {
 	clearElement(dParent);
-	mAppend(dParent, createElementFromHTML(`<h1>Settings common to all games:</h1>`));
+	mAppend(dParent, createElementFromHTML(`<h1>Settings for ${USERNAME}:</h1>`));
 
 	let nGroupNumCommonAllGames = mInputGroup(dParent);
-	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['program', 'samplesPerLevel']);
-	setzeEineZahl(nGroupNumCommonAllGames, 'minutes', 1, ['program', 'minutesPerUnit']);
-	setzeEineZahl(nGroupNumCommonAllGames, 'correct streak', 5, ['program', 'incrementLevelOnPositiveStreak']);
-	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['program', 'decrementLevelOnNegativeStreak']);
-	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['program', 'trials']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['program', 'showLabels']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'currentLanguage']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', [25, 50, 75, 100], 25, ['program', 'vocab']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['samplesPerLevel']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'minutes', 1, ['minutesPerUnit']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'correct streak', 5, ['incrementLevelOnPositiveStreak']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['decrementLevelOnNegativeStreak']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['trials']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['showLabels']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['Settings.language']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', Object.keys(KeySets), 'best25', ['vocab']);
 
 	//let nGroupOther = mInputGroup(dParent);
-	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['program', 'showTime']);
-	setzeEineCheckbox(nGroupNumCommonAllGames, 'spoken feedback', true, ['program', 'spokenFeedback']);
-	setzeEineCheckbox(nGroupNumCommonAllGames, 'switch game after max level', false, ['program', 'switchGame']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['showTime']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'spoken feedback', true, ['spokenFeedback']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'switch game after max level', false, ['switchGame']);
 
 }
-function createMenuUi() {
-	let dParent = mBy('dAux');
+function createMenuUi(dParent) {
 	clearElement(dParent);
 
 	mAppend(dParent, createElementFromHTML(`<h1>Choose Game:</h1>`));
@@ -47,16 +46,17 @@ function createMenuUi() {
 		//console.log(p)
 		p.div.id = 'menu_' + p.label.substring(0, 3);
 		let key = p.div.key = games[i];
-		MenuItems[key]=p;
+		MenuItems[key] = p;
 	}
 	//pics.map(x => x.div.id = 'menu_' + x.label.substring(0, 3));
 
+	//console.log('hhhhhhhhhhhhhhhhhhhhhh')
 	if (nundef(G)) return;
 
 	//select the current game
 	SelectedMenuKey = G.key;
 	toggleSelectionOfPicture(MenuItems[G.key]);
-	console.log(SelectedMenuKey)
+	//console.log(SelectedMenuKey)
 }
 
 
@@ -73,7 +73,7 @@ function setSettingsKeys(elem) {
 	lookupSetOverride(Settings, elem.keyList, val);
 	SettingsChanged = true;
 	//console.log(elem.keyList, val)
-	//console.log(Settings.common);
+	//console.log(Settings);
 }
 function setzeEineZahl(dParent, label, init, skeys) {
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
@@ -147,4 +147,34 @@ function setzeEinOptions(dParent, label, optionList, init, skeys) {
 
 	inp.keyList = skeys;
 }
+
+
+//#region update Settings after ui change
+function updateComplexSettings() {
+
+	updateLabelSettings();
+	updateTimeSettings();
+	updateKeySettings();
+
+	//console.log('halo!')
+
+}
+function updateKeySettings(nMin) {
+	//console.log(G,KeySets);
+	if (nundef(G)) return;
+	G.keys = setKeys({nMin, lang: Settings.language, keysets: KeySets, key: Settings.vocab });
+	console.log('keyset:', G.keys);
+}
+function updateTimeSettings() {
+	let timeElem = mBy('time');
+	if (Settings.showTime) { show(timeElem); startTime(timeElem); }
+	else hide(timeElem);
+}
+function updateLabelSettings() {
+	if (Settings.showLabels == 'toggle') Settings.labels = true;
+	else Settings.labels = (Settings.showLabels == 'always');
+}
+
+
+
 

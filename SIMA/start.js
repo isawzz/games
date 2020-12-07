@@ -1,5 +1,5 @@
 window.onload = _loader;
-window.onunload = saveServerData;
+window.onunload = saveSIMA;
 
 async function _loader() {
 	//timit = new TimeIt('start');
@@ -9,24 +9,23 @@ async function _loader() {
 		_start();
 	}else{loadSIMA(_start);}
 	
-	console.assert(isdef(DB))
 }
 async function _start() {
 
 	//timit.show('DONE');
-	loadUser();
+	console.assert(isdef(DB));
 	
 	initTable();
 	initSidebar();
 	initAux();
 
-	return;
-	globalsFromSettings(); //TODO: phase out!? or rename initSettings
-
-	//if (nundef(CurrentSessionData)) CurrentSessionData = { user: USERNAME, games: [] };
-
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
+	//console.log(KeySets)
+
+	loadUser(); //sets G,U,GS,Settings
+	console.assert(isdef(G))
+
 
 
 	//console.log('loaded. ready.')
@@ -41,14 +40,15 @@ function startUnit() {
 
 	restartTime();
 
-	loadProgram();
 	UnitScoreSummary = {};
 
-	if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openAux('dGameSettings'); }
-	else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
-	else if (immediateStart) { hide('divControls'); startGame(); }
-	else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
-	else { hide('freezer'); hide('divControls'); openAux('dMenu'); }
+	onClickTemple();
+
+	// if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openAux('dGameSettings'); }
+	// else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
+	// else if (immediateStart) { hide('divControls'); startGame(); }
+	// else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
+	// else { hide('freezer'); hide('divControls'); openAux('dMenu'); }
 }
 
 

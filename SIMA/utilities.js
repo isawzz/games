@@ -60,10 +60,10 @@ function saveStats() {
 	let xxx = arrLast(g.levels).items;
 	let yyy = xxx.map(x => {
 		let res = { key: x.goal.key };
-		res[currentLanguage] = { answer: x.goal.answer, req: x.goal.reqAnswer, conf: x.goal.confidence, isCorrect: x.isCorrect };
+		res[Settings.language] = { answer: x.goal.answer, req: x.goal.reqAnswer, conf: x.goal.confidence, isCorrect: x.isCorrect };
 		return res;
 	});
-	downloadAsYaml({ data: yyy }, currentLanguage + '_' + currentCategories[0] + '_data');
+	downloadAsYaml({ data: yyy }, Settings.language + '_' + Settings.categories[0] + '_data');
 
 }
 

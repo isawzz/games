@@ -16,14 +16,14 @@ program: #TODO: make this a list with ids
     - game: gWritePic
     - game: gTouchColors
   currentGameIndex: 0
-  currentLevel: 5
-  currentLanguage: E
+  G.level: 5
+  Settings.language: E
   vocab: 25
   spokenFeedback: true
   # activity animal body drink emotion food fruit game gesture kitchen 
   # object person place plant role sport time transport vegetable 
   # nosymemo nosymbols
-  currentCategories: [nosymemo]
+  Settings.categories: [nosymemo]
 flags:
   pressControlToUnfreeze: false
   reducedAnimations: true

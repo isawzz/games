@@ -2,15 +2,15 @@ var MemPM;
 function startGamePM() { }
 function startLevelPM() { levelPM(); }
 function levelPM() {
-	MaxNumTrials = getGameOrLevelInfo('trials', 2);
-	NumPics = getGameOrLevelInfo('numPics', 4);
+	G.trials = getGameOrLevelInfo('trials', 2);
+	G.numPics = getGameOrLevelInfo('numPics', 4);
 	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics*NumRepeat);
+	NumLabels = getGameOrLevelInfo('numLabels', G.numPics*NumRepeat);
 
 	let vinfo = getGameOrLevelInfo('vocab', 100);
-	vinfo = ensureMinVocab(vinfo,NumPics);
+	vinfo = ensureMinVocab(vinfo,G.numPics);
 
-	currentKeys = setKeys({lang:currentLanguage,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
+	G.keys = setKeys({lang:Settings.language,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
 }
 function startRoundPM() {
 	uiActivated = false;
@@ -46,7 +46,7 @@ function OneTwoThree(ev) {
 
 }
 function promptPM() {
-	//console.log('{{{{{{{{{{{{{',NumPics,NumRepeat)
+	//console.log('{{{{{{{{{{{{{',G.numPics,NumRepeat)
 	showPictures(OneTwoThree, { repeat: NumRepeat, sameBackground:true, border: '3px solid #ffffff80' });
 	//setGoal();
 	showInstruction('', 'click any picture', dTitle, true);
@@ -56,7 +56,7 @@ function promptPM() {
 function trialPromptPM() {
 	for (const p of MemPM) { toggleSelectionOfPicture(p); }
 	MemPM = [];
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	//shortHintPic();
 	return 10;
 }

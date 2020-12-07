@@ -3,10 +3,10 @@ var inputs = [];
 function startGameML() { }
 function startLevelML() { levelML(); }
 function levelML() {
-	MaxNumTrials = getGameOrLevelInfo('trials', 3);
+	G.trials = getGameOrLevelInfo('trials', 3);
 	let vinfo = getGameOrLevelInfo('vocab', 100);
-	currentKeys = setKeys({ lang: currentLanguage, nbestOrCats: vinfo });
-	NumPics = 1;
+	G.keys = setKeys({ lang: Settings.language, nbestOrCats: vinfo });
+	G.numPics = 1;
 	NumMissingLetters = getGameOrLevelInfo('numMissing', 1);
 	let pos = getGameOrLevelInfo('posMissing', 'random');
 	MaxPosMissing = pos == 'start' ? NumMissingLetters - 1 : 100;
@@ -17,7 +17,7 @@ function promptML() {
 	showPictures(() => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
-	showInstruction(bestWord, currentLanguage == 'E' ? 'complete' : "ergänze", dTitle, true);
+	showInstruction(bestWord, Settings.language == 'E' ? 'complete' : "ergänze", dTitle, true);
 
 	mLinebreak(dTable);
 
@@ -46,7 +46,7 @@ function promptML() {
 }
 function trialPromptML() {
 	let selinp = Selected.inp;
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	setTimeout(() => {
 		let d = selinp.div;
 		d.innerHTML = '_';
@@ -108,14 +108,14 @@ function activateML() {
 	}
 }
 function evalML(word) {
-	let answer = normalize(word, currentLanguage);
-	let reqAnswer = normalize(bestWord, currentLanguage);
+	let answer = normalize(word, Settings.language);
+	let reqAnswer = normalize(bestWord, Settings.language);
 
 	Selected.reqAnswer = reqAnswer;
 	Selected.answer = answer;
 
 	if (answer == reqAnswer) return true;
-	else if (currentLanguage == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
+	else if (Settings.language == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
 		return true;
 	} else {
 		return false;
@@ -128,7 +128,7 @@ function composeFleetingMessage() {
 	let msg = lst.map(x => x.letter).join(',');
 	let edecl = lst.length > 1 ? 's ' : ' ';
 	let ddecl = lst.length > 1 ? 'die' : 'den';
-	let s = (currentLanguage == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
+	let s = (Settings.language == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
 	return s + msg;
 }
 function createLetterInputs(s, dTable, style, idForContainerDiv) {

@@ -1,17 +1,17 @@
 function startGameTP() {}
 function startLevelTP() { levelTP(); }
 function levelTP() {
-	MaxNumTrials = getGameOrLevelInfo('trials', 2);
-	NumPics = getGameOrLevelInfo('numPics', 9);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics); 
+	G.trials = getGameOrLevelInfo('trials', 2);
+	G.numPics = getGameOrLevelInfo('numPics', 9);
+	NumLabels = getGameOrLevelInfo('numLabels', G.numPics); 
 
 	let vinfo = getGameOrLevelInfo('vocab', 100);
-	vinfo = ensureMinVocab(vinfo,NumPics);
+	vinfo = ensureMinVocab(vinfo,G.numPics);
 
-	currentKeys = setKeys({lang:currentLanguage,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
+	G.keys = setKeys({lang:Settings.language,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
 
-	//console.log('MaxNumTrials',MaxNumTrials,'NumPics',NumPics,'NumLabels',NumLabels,'vinfo',vinfo,'currentLanguage',currentLanguage)
-	//console.log('incrementLevelOnPositiveStreak',Settings.common.incrementLevelOnPositiveStreak,'decrementLevelOnNegativeStreak',Settings.common.decrementLevelOnNegativeStreak);
+	//console.log('G.trials',G.trials,'G.numPics',G.numPics,'NumLabels',NumLabels,'vinfo',vinfo,'Settings.language',Settings.language)
+	//console.log('incrementLevelOnPositiveStreak',Settings.incrementLevelOnPositiveStreak,'decrementLevelOnNegativeStreak',Settings.decrementLevelOnNegativeStreak);
 }
 function startRoundTP() {
 	uiActivated = false;
@@ -24,7 +24,7 @@ function promptTP() {
 	//return 10;
 }
 function trialPromptTP() {
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	shortHintPic();
 	return 10;
 }

@@ -10,11 +10,9 @@ html,body,#md,#rightSide{
 div{
 	user-select: none;
 }
-/* body{	transition: color 1300ms;} */
-/* #dGameTitle{
-	font-family: AlgerianRegular;
-	font-size: 22px;
-} */
+
+/* input{ font-size:1.3em; padding:.5em; } */
+
 #dLevelComplete{
 	position:fixed;
 	text-align: center;
@@ -87,6 +85,12 @@ div{
 #divInput{
 	display: flex;
 	/* line-height: 30px; */
+}
+#spUsername {
+	outline:none;
+	border:none;
+	padding:2px 4px;
+	min-width: 100px;
 }
 #inputAdded {
 	margin: 0px 0px 0px 10px;

@@ -2,18 +2,18 @@ function globalsFromSettings_dep(settings) {
 
 	Settings = settings;
 
-	currentLanguage = Settings.common.currentLanguage;
+	Settings.language = Settings.Settings.language;
 
-	currentCategories = Settings.common.currentCategories;
+	Settings.categories = Settings.Settings.categories;
 
-	skipLevelAnimations = Settings.flags.reducedAnimations;
+	Settings.reducedAnimations = Settings.flags.reducedAnimations;
 
-	resetLabelSettings();
+	updateLabelSettings();
 }
 
-function resetLabelSettings() {
-	if (Settings.common.showLabels == 'toggle') Settings.common.labels = true;
-	else Settings.common.labels = (Settings.common.showLabels == 'always');
+function updateLabelSettings() {
+	if (Settings.showLabels == 'toggle') Settings.labels = true;
+	else Settings.labels = (Settings.showLabels == 'always');
 }
 async function initSettingsX() {
 	if (nundef(dDev)) dDev = mBy('dDev');
@@ -40,7 +40,7 @@ function loadSettingsFromLocalStorage() {
 		//console.log('!!!!!!!!!!!!! settings NOT in localstorage! !!!!!!!!!!!!!!!')
 		Settings = settings;
 	} else {
-		globalsFromSettings(settings);
+		updateComplexSettings(settings);
 	}
 
 	let o1 = Settings;
@@ -72,14 +72,14 @@ async function resetSettingsToDefaults() {
 	let settings = await loadSettingsFromServer();
 	//console.log(settings)
 
-	//for the current game and current level need to adjust currentLevel if user start level for this game is higher!
+	//for the current game and current level need to adjust G.level if user start level for this game is higher!
 	let game = settings.program.gameSequence[settings.program.currentGameIndex].game;
 
-	//console.log('game',game,'level',settings.program.currentLevel)
+	//console.log('game',game,'level',settings.program.G.level)
 
-	if (USE_USER_HISTORY_FOR_STARTLEVEL && isdef(UserHistory) && isdef(UserHistory[game]) && UserHistory[game].startLevel > settings.program.currentLevel) {
-		settings.program.currentLevel = UserHistory[game].startLevel;
-		//console.log('-------------- adjust currentLevel!!!')
+	if (USE_USER_HISTORY_FOR_STARTLEVEL && isdef(U.games) && isdef(U.games[game]) && U.games[game].startLevel > settings.program.G.level) {
+		settings.program.G.level = U.games[game].startLevel;
+		//console.log('-------------- adjust G.level!!!')
 	}
 
 

@@ -5,15 +5,15 @@ var NumColors;
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
 function levelTC() {
-	MaxNumTrials = getGameOrLevelInfo('trials', 2);
+	G.trials = getGameOrLevelInfo('trials', 2);
 	let vinfo = getGameOrLevelInfo('vocab', 100);
 
-	currentKeys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
-	currentKeys = currentKeys.filter(x => containsColorWord(x));
+	G.keys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
+	G.keys = G.keys.filter(x => containsColorWord(x));
 
-	NumPics = getGameOrLevelInfo('numPics', 3);
+	G.numPics = getGameOrLevelInfo('numPics', 3);
 	NumColors = getGameOrLevelInfo('numColors', NumColors);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics * NumColors);
+	NumLabels = getGameOrLevelInfo('numLabels', G.numPics * NumColors);
 
 }
 function startRoundTC() {
@@ -28,7 +28,7 @@ function promptTC() {
 	let colors = choose(colorlist, NumColors);
 	showPictures(evaluate, { colors: colors, contrast: contrast });
 
-	setGoal(randomNumber(0, NumPics * colors.length - 1));
+	setGoal(randomNumber(0, G.numPics * colors.length - 1));
 	Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
 
 	let spoken = `click the ${Goal.textShadowColor} ${bestWord}`;
@@ -38,7 +38,7 @@ function promptTC() {
 	//return 10;
 }
 function trialPromptTC() {
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	shortHintPic();
 	return 10;
 

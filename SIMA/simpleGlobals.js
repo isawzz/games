@@ -1,4 +1,4 @@
-const CLEAR_LOCAL_STORAGE = true;
+const CLEAR_LOCAL_STORAGE = false;
 
 const GAME = {
 	gTouchPic: { friendly: 'Pictures!', logo: 'computer mouse', color: 'deepskyblue', },

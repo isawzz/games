@@ -11,7 +11,7 @@ function loadUserdata(game) {
 	if (nundef(game.levels)) {
 		console.log('game info for', game.key, 'missing!!!');
 	}
-	game.level = lookupSet(UserHistory, [game.key, 'lastLevel'], 0);
+	game.level = lookupSet(U.games, [game.key, 'lastLevel'], 0);
 	// console.log(G)
 }
 
@@ -20,10 +20,10 @@ function playGame(key) {
 
 	let g = G;
 	if (isdef(key)) { g = GAME[key]; }
-	else if (nundef(G)) { key = lookupSet(UserHistory, ['lastGame'], 'gMem'); g = GAME[key]; }
+	else if (nundef(G)) { key = lookupSet(U.games, ['lastGame'], 'gMem'); g = GAME[key]; }
 
 	if (G != g) {
-		//eintrage + save UserHistory
+		//eintrage + save U.games
 		//resetScore
 		G = g;
 	}

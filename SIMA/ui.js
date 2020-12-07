@@ -14,9 +14,10 @@ function initTable() {
 }
 function initSidebar() {
 	let dParent = mBy('sidebar');
+	clearElement(dParent);
 	
 	// let user = mText(USERNAME, dParent);
-	editableUsernameUi(dParent);
+	//editableUsernameUi(dParent);
 
 
 	//let title = mText('history:', dParent);
@@ -77,16 +78,17 @@ function initLineBottom() {
 }
 //#endregion
 
-function getSignalColor() { if (currentLevel != 4 && currentLevel != 7 && currentLevel != 10 && currentLevel != 3) return 'red'; else return 'yellow'; }
+function getSignalColor() { if (G.level != 4 && G.level != 7 && G.level != 10 && G.level != 3) return 'red'; else return 'yellow'; }
 
 //#region fleetingMessage
 function clearFleetingMessage() {
 	if (isdef(fleetingMessageTimeout)) { clearTimeout(fleetingMessageTimeout); fleetingMessageTimeout = null; }
 	clearElement(dLineBottomMiddle);
 }
-function showFleetingMessage(msg, msDelay, styles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
-	let fg = colorIdealText(currentColor); // == 4 ? 'yellow' : 'red';
-	if (nundef(styles.fg)) styles.fg = fg;
+function showFleetingMessage(msg, msDelay, styles = { fg, fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
+	
+	if (nundef(fg)) fg = colorIdealText(G.color);
+	
 	if (msDelay) {
 		fleetingMessageTimeout = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
 	} else {

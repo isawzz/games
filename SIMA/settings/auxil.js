@@ -3,29 +3,29 @@ function initAux() {
 	dMenu = mBy('dMenu');
 	dDev = mBy('dDev');
 	dGameSettings = mBy('dGameSettings');
-	globalsFromSettings();
+	updateComplexSettings();
 }
-function globalsFromSettings() {
+function updateComplexSettings() {
 
-	currentGame = Settings.common.gameSequence[Settings.common.currentGameIndex].game;
+	G.key = Settings.gameSequence[Settings.currentGameIndex].game;
 
-	currentLanguage = Settings.common.currentLanguage;
+	Settings.language = Settings.Settings.language;
 
-	currentCategories = Settings.common.currentCategories;
+	Settings.categories = Settings.Settings.categories;
 
-	skipLevelAnimations = Settings.flags.reducedAnimations;
+	Settings.reducedAnimations = Settings.flags.reducedAnimations;
 
-	resetLabelSettings();
+	updateLabelSettings();
 
-	if (Settings.common.showTime) { show(mBy('time')); startTime(); }
+	if (Settings.showTime) { show(mBy('time')); startTime(); }
 	else hide(mBy('time'));
 
 	
 }
 
-function resetLabelSettings() {
-	if (Settings.common.showLabels == 'toggle') Settings.common.labels = true;
-	else Settings.common.labels = (Settings.common.showLabels == 'always');
+function updateLabelSettings() {
+	if (Settings.showLabels == 'toggle') Settings.labels = true;
+	else Settings.labels = (Settings.showLabels == 'always');
 }
 
 function openAux(divName) {
@@ -66,7 +66,7 @@ function closeAux(done = false) {
 		console.log('DEV NOT IMPLEMENTED')
 	}
 
-	globalsFromSettings();
+	updateComplexSettings();
 
 	show('dTemple');
 	show('dGear');
@@ -132,7 +132,7 @@ function createDevSettingsUi() {
 
 }
 function createGameSettingsUi() {
-	//console.log('current game is', currentGame)
+	//console.log('current game is', G.key)
 	let dParent = mBy('dGameSettings');
 	clearElement(dParent);
 	mAppend(dParent, createElementFromHTML(`<h1>Settings common to all games:</h1>`));
@@ -144,7 +144,7 @@ function createGameSettingsUi() {
 	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['program', 'decrementLevelOnNegativeStreak']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['program', 'trials']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['program', 'showLabels']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'currentLanguage']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['program', 'Settings.language']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', [25, 50, 75, 100], 25, ['program', 'vocab']);
 
 	//let nGroupOther = mInputGroup(dParent);
@@ -164,7 +164,7 @@ function createMenuUi() {
 		mClass(d, 'flexWrap');
 		d.style.height = '100%';
 
-		let games = Settings.common.gameSequence.map(x => x.game);
+		let games = Settings.gameSequence.map(x => x.game);
 		let labels = games.map(g => GFUNC[g].friendlyName);
 		let keys = games.map(g => GFUNC[g].logo);
 		let bgs = games.map(g => GFUNC[g].color);
@@ -187,12 +187,12 @@ function createMenuUi() {
 		}
 	}
 
-	console.assert(isdef(currentGame), 'MENU: currentGame NOT SET!!!!!!!!!!!!!!!');
+	console.assert(isdef(G.key), 'MENU: G.key NOT SET!!!!!!!!!!!!!!!');
 	let picDivs = dParent.children[1].children;
 	//console.log(dParent, picDivs)
-	let div = firstCond(picDivs, x => x.game == currentGame)
+	let div = firstCond(picDivs, x => x.game == G.key)
 	mClass(div, 'framedPicture');
-	SelectedGameInAux = currentGame;
+	SelectedGameInAux = G.key;
 }
 
 

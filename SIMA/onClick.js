@@ -19,8 +19,7 @@ function closeAux() {
 	show('dGear');
 	show('dTemple');
 	if (SettingsChanged) {
-		globalsFromSettings(); //TODO: elim!!!
-		saveServerData();
+		saveSIMA();
 	}
 	SettingsChanged = false;
 	auxOpen = false;
@@ -40,14 +39,10 @@ function onClickTemple() {
 	openAux();
 	hide('dTemple');
 
-	//was kommt auf das menu drauf?
-	// alle objects von GAME!
-	//hole die!!!!!!!
-
-	createMenuUi(dAux, GAME);
+	createMenuUi(dAux);
 }
 function divKeyFromEv(ev) {
-	console.log('ev',ev)
+	//console.log('ev',ev)
 	let id = evToClosestId(ev);
 	let div = mBy(id);
 	return div.key;
@@ -56,7 +51,7 @@ function onClickGo(ev) {
 
 	let gKey = nundef(ev)? SelectedMenuKey: isString(ev) ? ev : divKeyFromEv(ev);
 
-	console.log('==>gKey', gKey, SelectedMenuKey);
+	//console.log('==>gKey', gKey, SelectedMenuKey);
 
 	if (gKey != SelectedMenuKey) {
 		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
@@ -64,8 +59,10 @@ function onClickGo(ev) {
 		toggleSelectionOfPicture(MenuItems[gKey]);
 	} else {
 		closeAux();
-		console.log('GO!!!!!!!!!!');
-		playGame(gKey);
+		//console.log('GO!!!!!!!!!!');
+		
+		//playGame(gKey);
+		startGame(gKey);
 
 	}
 
@@ -85,14 +82,14 @@ function onClickGame(ev) {
 	//.log(vals);
 
 	let item = firstCond(vals, x => x.friendlyName.startsWith(prefix));
-	let seq = Settings.common.gameSequence.map(x => x.game);
+	let seq = Settings.gameSequence.map(x => x.game);
 
 	//console.log(item, item.id, seq, seq.indexOf(item.id))
 
-	let idx = Settings.common.currentGameIndex = seq.indexOf(item.id);
-	//let game = seq[Settings.common.currentGameIndex];
+	let idx = Settings.currentGameIndex = seq.indexOf(item.id);
+	//let game = seq[Settings.currentGameIndex];
 
-	console.assert(isdef(currentGame), 'MENU: currentGame NOT SET!!!!!!!!!!!!!!!')
+	console.assert(isdef(G.key), 'MENU: G.key NOT SET!!!!!!!!!!!!!!!')
 	let dParent = mBy('dMenu');
 	let picDivs = dParent.children[1].children;
 	//console.log(dParent, picDivs)
@@ -112,7 +109,7 @@ function onClickGame(ev) {
 	}//
 	// mClass(div, 'framedPicture');
 	// let picDivs = 
-	// if (ev.target.game == currentGame) {
+	// if (ev.target.game == G.key) {
 
 	// }else{
 

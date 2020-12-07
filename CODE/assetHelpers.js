@@ -385,7 +385,7 @@ function addBadge(dParent, level, clickHandler) {
 	let fg = '#00000080';
 	let textColor = 'white';
 	let stylesForLabelButton = { rounding: 10, margin: 4 };
-	const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
+	//const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
 	let isText = true; let isOmoji = false;
 	let i = level - 1;
 	let key = levelKeys[i];

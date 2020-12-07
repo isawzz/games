@@ -1,20 +1,24 @@
-var TimestampStarted, TimeElapsed, OnTimeOver=null;
+var TimestampStarted, TimeElapsed, OnTimeOver=null, TimeElem;
 function restartTime(elem) { TimestampStarted = msNow(); TimeElapsed = 0; startTime(elem); }
 function startTime(elem) {
-	if (nundef(Settings.common.showTime) || !Settings.common.showTime) return;
+
+	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	if (nundef(TimestampStarted)) { TimestampStarted = msNow(); TimeElapsed = 0; }
+	if (nundef(elem) && isdef(TimeElem)) elem = TimeElem;
 	// console.log(TimestampStarted,getFunctionsNameThatCalledThisFunction())
-	var timeLeft = Settings.common.minutesPerUnit * 60000 - getTimeElapsed();
+	var timeLeft = Settings.minutesPerUnit * 60000 - getTimeElapsed();
 	let t = msToTime(timeLeft);
 	let s = format2Digits(t.h) + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
 
-	if (isString(elem)) elem = mBy(elem); elem.innerHTML = s;//h + ":" + m + ":" + s;
+	if (isString(elem)) elem = mBy(elem); 
+	TimeElem = elem;
+	elem.innerHTML = s;//h + ":" + m + ":" + s;
 	if (timeLeft > 0) setTimeout(() => startTime(elem), 500);
 	else if (OnTimeOver) OnTimeOver();
 	
 }
 function startTimeClock(elem) {
-	if (nundef(Settings.common.showTime) || !Settings.common.showTime) return;
+	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	var today = new Date(),
 		h = format2Digits(today.getHours()),
 		m = format2Digits(today.getMinutes()),

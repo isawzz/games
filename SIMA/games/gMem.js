@@ -1,28 +1,11 @@
 
 var MemMMTimeout;
 function startGameMM() { }
-function startLevelMM() {
-	clearTimeout(MemMMTimeout);
-	levelMM();
-}
-function levelMM() {
-	//uiActivated = false;
-	MaxNumTrials = getGameOrLevelInfo('trials', 2);
-	NumPics = getGameOrLevelInfo('numPics', 4);
-	NumRepeat = getGameOrLevelInfo('numRepeat', 1);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics * NumRepeat);
-
-	let vinfo = getGameOrLevelInfo('vocab', 100);
-	vinfo = ensureMinVocab(vinfo, NumPics);
-
-	currentKeys = setKeys({ lang: currentLanguage, nbestOrCats: vinfo }); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
-}
-function startRoundMM() {
-	uiActivated = false;
-}
+function startLevelMM() { clearTimeout(MemMMTimeout); }
+function startRoundMM() { }
 
 function calcTimingMM() {
-	let ldep = Math.max(6, currentLevel > 2 ? NumPics * 2 : NumPics);
+	let ldep = Math.max(6, G.level > 2 ? G.numPics * 2 : G.numPics);
 	return ldep;
 }
 
@@ -30,23 +13,23 @@ function promptMM() {
 	showPictures(interactMM, { repeat: NumRepeat, sameBackground: true, border: '3px solid #ffffff80' });
 	setGoal();
 
-	if (currentLevel > 2) { showInstruction('', 'remember all', dTitle, true); }
+	if (G.level > 2) { showInstruction('', 'remember all', dTitle, true); }
 	else { showInstruction(Goal.label, 'remember', dTitle, true); }
 
 	let secs = calcTimingMM();
 
-	setTimeout(()=>turnCardsAfterSecs(secs),300); //needed fuer ui update! sonst verschluckt er last label
+	setTimeout(() => turnCardsAfterSecs(secs), 300); //needed fuer ui update! sonst verschluckt er last label
 }
 
 function turnCardsAfterSecs(secs) {
 	for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1); }
 	MemMMTimeout = setTimeout(() => {
-		console.log('ui is paused:', isUiInterrupted(), 'game',currentGame)
+		console.log('ui is paused:', isUiInterrupted(), 'game', G.key)
 
-		if (isUiInterrupted() || currentGame != 'gMem'){
+		if (isUiInterrupted() || G.key != 'gMem') {
 			console.log('GAME CHANGE!!!!!')
-		}else {
-			// if (currentLevel >= 5) { for (const p of Pictures) { turnFaceDown(p); } }
+		} else {
+			// if (G.level >= 5) { for (const p of Pictures) { turnFaceDown(p); } }
 			showInstruction(Goal.label, 'click', dTitle, true);
 			activateUi();
 		}
@@ -54,7 +37,7 @@ function turnCardsAfterSecs(secs) {
 
 }
 function trialPromptMM() {
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	//shortHintPic();
 	return 10;
 }
@@ -67,7 +50,7 @@ function slowlyTurnFaceDown(pic, secs = 5) {
 		//p1.style.backgroundColor = 'dimgray';
 		//mClass(p1, 'transopaOff'); //aniSlowlyDisappear');
 	}
-	if (currentLevel >= 5){
+	if (G.level >= 5) {
 		ui.style.transition = `background-color ${secs}s ease-in-out`;
 		ui.style.backgroundColor = 'dimgray';
 	}
@@ -103,7 +86,7 @@ function interactMM(ev) {
 	let pic = Pictures[i];
 	toggleFace(pic);
 
-	if (trialNumber == MaxNumTrials - 1) {
+	if (trialNumber == G.trials - 1) {
 		turnFaceUp(Goal);
 		setTimeout(() => evaluate(ev), 100);
 	} else evaluate(ev);

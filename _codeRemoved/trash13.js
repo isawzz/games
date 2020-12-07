@@ -1,3 +1,43 @@
+//#region SIMA
+function getKeySetSimple(cats, lang,
+	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
+	let keys = setCategories(cats);
+	if (isdef(minlen && isdef(maxlen))) {
+		keys = keys.filter(k => {
+			let exact = CorrectWordsExact[lang][k];
+			if (wExact && nundef(exact)) return false;
+			let ws = wExact ? [exact.req] : wLast ? [lastOfLanguage(k, lang)] : wordsOfLanguage(k, lang);
+			if (wShort) ws = [getShortestWord(ws, false)];
+			for (const w of ws) { if (w.length >= minlen && w.length <= maxlen) return true; }
+			return false;
+		});
+	}
+
+	if (isdef(sorter)) sortByFunc(keys, sorter); //keys.sort((a,b)=>fGetter(a)<fGetter(b));
+	return keys;
+}
+function setKeysNew({ cats, lang, wShortest = false, wLast = false, wBest = false, wExact = false, sorter } = {}) {
+	opt = arguments[0];
+	if (nundef(opt)) opt = {};
+	opt.minlen = MinWordLength;
+	opt.maxlen = MaxWordLength;
+	if (nundef(cats)) cats = Settings.categories;
+	if (nundef(lang)) lang = Settings.language;
+	currentKeys = getKeySetSimple(cats, lang, opt);
+}
+function setKeys_dep(cats, bestOnly, sortAccessor, correctOnly, reqOnly) {
+	if (Settings.language == 'E' && cats == 'SIMPLE') {
+		currentKeys = BestKeysSets[best100];
+		return;
+	}
+	if (isdef(cats) && !isList(cats)) cats = [cats];
+	currentKeys = getKeySetX(isdef(cats) ? cats : Settings.categories, Settings.language, MinWordLength, MaxWordLength,
+		bestOnly, sortAccessor, correctOnly, reqOnly);
+	if (isdef(sortByFunc)) { sortBy(currentKeys, sortAccessor); }
+}
+
+
+
 function gMemStart() {
 	instruct('', 'remember all pictures!', dTitle, false);
 	let pics = showPics(dTable, { num: getSetting('numPics', 2) });

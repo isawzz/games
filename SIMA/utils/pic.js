@@ -10,12 +10,12 @@ function showPics(dParent, { lang = 'E', num = 1, repeat = 1, numLabels, sameBac
 	pics = maShowPictures(keys, labels, dParent, clickHandler,
 		{ repeat: repeat, sameBackground: sameBackground, border: border, lang: lang, colors: colors, contrast: contrast });
 
-	// if (nundef(keys)) keys = choose(currentKeys, NumPics);
+	// if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	// Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,{ colors, contrast });
 
 	let totalPics = pics.length;
 	//console.log(totalPics,NumLabels)
-	if (nundef(Settings.common.labels) || Settings.common.labels) {
+	if (nundef(Settings.labels) || Settings.labels) {
 		if (nundef(numLabels) || numLabels == totalPics) return pics;
 		let remlabelPic = choose(pics, totalPics - numLabels);
 		for (const p of remlabelPic) {

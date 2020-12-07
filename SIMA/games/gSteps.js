@@ -2,11 +2,11 @@ var MemSTP;
 function startGameSTP() { }
 function startLevelSTP() { levelSTP(); }
 function levelSTP() {
-	MaxNumTrials = 1;// getGameOrLevelInfo('trials', 2);
+	G.trials = 1;// getGameOrLevelInfo('trials', 2);
 	let vinfo = getGameOrLevelInfo('vocab', 100);
-	currentKeys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
-	NumPics = getGameOrLevelInfo('numPics', 4);
-	NumLabels = getGameOrLevelInfo('numLabels', NumPics);
+	G.keys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
+	G.numPics = getGameOrLevelInfo('numPics', 4);
+	NumLabels = getGameOrLevelInfo('numLabels', G.numPics);
 	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
 }
 function startRoundSTP() {
@@ -52,7 +52,7 @@ function promptSTP() {
 function trialPromptSTP() {
 	for (const p of MemSTP) { toggleSelectionOfPicture(p); }
 	MemSTP = [];
-	Speech.say(currentLanguage == 'D' ? 'nochmal!' : 'try again!');
+	Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 	//shortHintPic();
 	return 10;
 }
