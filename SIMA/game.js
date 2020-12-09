@@ -1,9 +1,39 @@
+function addNthInputElement(dParent, n) {
+	mLinebreak(dParent, 10);
+	let d = mDiv(dParent);
+	let dInp = mCreate('input');
+	dInp.type = "text"; dInp.autocomplete = "off";
+	dInp.style.margin = '10px;'
+	dInp.id = 'inputBox' + n;
+	dInp.style.fontSize = '20pt';
+	mAppend(d, dInp);
+	return dInp;
+}
 function aniInstruction(spoken) {
 	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
 	mClass(dInstruction, 'onPulse');
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
+function buildWordFromLetters(dParent) {
+	let letters = Array.from(dParent.children);
+	let s = letters.map(x => x.innerHTML);
+	s = s.join('');
+	return s;
+}
+function createLetterInputs(s, dTable, style, idForContainerDiv) {
+	let d = mDiv(dTable);
+	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
+	inputs = [];
+	for (let i = 0; i < s.length; i++) {
+		let d1 = mCreate('div');
+		mAppend(d, d1);
+		d1.innerHTML = s[i];
+		mStyleX(d1, style);
+	}
+	return d;
+}
+
 
 //#region cards turn face up or down
 function hideMouse() {
@@ -143,6 +173,7 @@ function successPictureGoal(withComment = true) {
 function clearFleetingMessage() { clearElement(dLineBottomMiddle); }
 function showFleetingMessage(msg, msDelay, styles = { fg, fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
 
+	console.log('bg is',G.color)
 	if (nundef(fg)) fg = colorIdealText(G.color);
 
 	if (msDelay) {
@@ -178,7 +209,7 @@ function resetState() {
 	//console.log(badges);
 	if (badges.length != G.level) {
 		badges = [];
-		showBadges(dLeiste, G.level, revertToBadgeLevel);
+		showBadges(dLeiste, G.level, onClickBadge);
 	}
 
 	updateLabelSettings();

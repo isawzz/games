@@ -94,7 +94,7 @@ function evaluate() {
 			setNextGame();
 		} else {
 			G.level = nextLevel;
-			addBadge(dLeiste, G.level, ()=>{revertToBadgeLevel();startGame();});
+			addBadge(dLeiste, G.level, onClickBadge);
 		}
 		updateUserUnit(G.key,G.level);
 		if (unitTimeUp()) {

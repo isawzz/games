@@ -10,8 +10,6 @@ function startGame() {
 		clearTimeout(MemMMTimeout);
 	}
 
-
-
 	currentGame = Settings.program.gameSequence[Settings.program.currentGameIndex].game;
 	ensureUserHistory(currentGame);
 
