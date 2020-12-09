@@ -2,6 +2,7 @@ var RecogOutput = false;
 var RecogOutputError = false;
 var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
+var MicrophoneUi;
 
 class SpeechAPI {
 	constructor(lang) {
@@ -206,11 +207,13 @@ class Speaker {
 
 //#region Microphone UI
 
-function mMicrophone(dParent) {
+function mMicrophone(dParent,color) {
 	let d = mDiv(dParent);
 	d.innerHTML = '🎤';
+
+	let c = bestContrastingColor(color,['yellow','orange','red']);
 	//let style = { bg: '#FF413680', rounding: '50%', fz: 50, padding: 5 };
-	let bg = getSignalColor();
+	let bg = c; 
 	let style = { bg: bg, rounding: '50%', fz: 50, padding: 5, transition: 'opacity .35s ease-in-out' };
 	mStyleX(d, style);
 	mLinebreak(dParent);
@@ -463,7 +466,6 @@ function toWords(s) {
 //#region german number word similarity helpers (unused and needs info)
 
 function matchingNumberOrTime(info, answer) {
-	//console.log('matchingNumberOrTime', info.words, bestWord, answer)
 
 	if (infoHasNumberOrTimeString(info) && isNumberOrTimeString(answer)) {
 		//solve this thing using timestring or number

@@ -17,6 +17,7 @@ function startTime(elem) {
 	else if (OnTimeOver) OnTimeOver();
 	
 }
+function unitTimeUp(){return (Settings.minutesPerUnit * 60000 - getTimeElapsed())<=0;}
 function startTimeClock(elem) {
 	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	var today = new Date(),

@@ -44,8 +44,8 @@ guggi:
           nCorrect1: 1
 guest0:
   id: guest
-  seq: [gMem,gTouchPic,gWritePic]
-  lastGame: gMem
+  seq: [gTouchPic,gSayPic,gMem,gWritePic]
+  lastGame: gTouchPic
   lastLevel: 2
   settings:
     minutesPerUnit: 15

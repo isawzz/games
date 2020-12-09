@@ -1,5 +1,7 @@
 var USERNAME;
 
+var STOPAUS;
+
 var DB, G, Settings, U, GS; //GS...Session, G...Game, U...User
 
 var Speech;

@@ -1,3 +1,5 @@
+var TOWP;
+function clearWP(){ clearTimeout(TOWP);}
 function startGameWP() {
 	onkeydown = ev => {
 		if (uiPaused) return;
@@ -18,10 +20,10 @@ function promptWP() {
 	showPictures(() => mBy(defaultFocusElement).focus());
 	setGoal();
 
-	showInstruction(bestWord, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
+	showInstruction(Goal.label, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
 
 	mLinebreak(dTable);
-	inputBox = addNthInputElement(dTable, trialNumber);
+	inputBox = addNthInputElement(dTable, G.trialNumber);
 	defaultFocusElement = inputBox.id;
 
 	activateUi();
@@ -30,7 +32,7 @@ function promptWP() {
 function trialPromptWP() {
 	Speech.say(Settings.language == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, 'zira');
 	mLinebreak(dTable);
-	inputBox = addNthInputElement(dTable, trialNumber);
+	inputBox = addNthInputElement(dTable, G.trialNumber);
 	defaultFocusElement = inputBox.id;
 
 	return 10;
@@ -47,7 +49,7 @@ function activateWP() {
 }
 function evalWP(ev) {
 	let answer = normalize(inputBox.value, Settings.language);
-	let reqAnswer = normalize(bestWord, Settings.language);
+	let reqAnswer = normalize(Goal.label, Settings.language);
 
 	Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
 	if (answer == reqAnswer) return true;

@@ -1,4 +1,6 @@
 var MemSTP;
+var TOSTP;
+function clearSTP(){ clearTimeout(TOSTP);}
 function startGameSTP() { }
 function startLevelSTP() { levelSTP(); }
 function levelSTP() {
@@ -6,12 +8,11 @@ function levelSTP() {
 	let vinfo = getGameOrLevelInfo('vocab', 100);
 	G.keys = isNumber(vinfo) ? KeySets['best' + getGameOrLevelInfo('vocab', 100)] : setKeys(vinfo);
 	G.numPics = getGameOrLevelInfo('numPics', 4);
-	NumLabels = getGameOrLevelInfo('numLabels', G.numPics);
-	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
+	G.numLabels = getGameOrLevelInfo('numLabels', G.numPics);
+	G.numRepeat = getGameOrLevelInfo('numRepeat', 2);
 }
 function startRoundSTP() {
 	uiActivated = false;
-	MemSTP = [];
 }
 function InteractSTP(ev) {
 	ev.cancelBubble = true;
@@ -21,19 +22,19 @@ function InteractSTP(ev) {
 	let i = firstNumber(id);
 	let pic = Pictures[i];
 	console.log('clicked', pic.key);
-	if (!isEmpty(MemSTP) && MemSTP.length < NumRepeat-1 && bestWord != pic.label) return;
+	if (!isEmpty(MemSTP) && MemSTP.length < G.numRepeat-1 && Goal.label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemSTP);
 	if (isEmpty(MemSTP)) {
-		showInstruction(bestWord, 'click all', dTitle, true);
-	}else if (MemSTP.length < NumRepeat-1) {
+		showInstruction(Goal.label, 'click all', dTitle, true);
+	}else if (MemSTP.length < G.numRepeat-1) {
 		//set incomplete: more steps are needed!
 		//frame the picture
 		showInstruction(pic.label, 'click another', dTitle, true);
-	}else if (MemSTP.length == NumRepeat-1) {
+	}else if (MemSTP.length == G.numRepeat-1) {
 		// look for last picture with x that is not in the set
 		let picGoal = firstCond(Pictures,x=>x.label == pic.label && !x.isSelected);
 		setGoal(picGoal.index);
-		showInstruction(picGoal.label, 'click the '+(NumRepeat == 2?'other':'last'), dTitle, true);
+		showInstruction(picGoal.label, 'click the '+(G.numRepeat == 2?'other':'last'), dTitle, true);
 	} else {
 		//set is complete: eval
 		evaluate(MemSTP);
@@ -43,9 +44,10 @@ function InteractSTP(ev) {
 }
 
 function promptSTP() {
-	showPicturesSTP(InteractSTP, { repeat: NumRepeat, border: '3px solid #ffffff80', });
+	MemSTP = [];
+	showPicturesSTP(InteractSTP, { repeat: G.numRepeat, border: '3px solid #ffffff80', });
 	setGoal();
-	showInstruction(bestWord, 'click all', dTitle, true);
+	showInstruction(Goal.label, 'click all', dTitle, true);
 	activateUi();
 	//return 10;
 }

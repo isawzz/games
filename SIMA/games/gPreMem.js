@@ -1,11 +1,13 @@
 var MemPM;
+var TOPM;
+function clearPM(){ clearTimeout(TOPM);}
 function startGamePM() { }
 function startLevelPM() { levelPM(); }
 function levelPM() {
 	G.trials = getGameOrLevelInfo('trials', 2);
 	G.numPics = getGameOrLevelInfo('numPics', 4);
-	NumRepeat = getGameOrLevelInfo('numRepeat', 2);
-	NumLabels = getGameOrLevelInfo('numLabels', G.numPics*NumRepeat);
+	G.numRepeat = getGameOrLevelInfo('numRepeat', 2);
+	G.numLabels = getGameOrLevelInfo('numLabels', G.numPics*G.numRepeat);
 
 	let vinfo = getGameOrLevelInfo('vocab', 100);
 	vinfo = ensureMinVocab(vinfo,G.numPics);
@@ -14,7 +16,7 @@ function levelPM() {
 }
 function startRoundPM() {
 	uiActivated = false;
-	MemPM = [];
+	
 }
 function OneTwoThree(ev) {
 	ev.cancelBubble = true;
@@ -25,19 +27,19 @@ function OneTwoThree(ev) {
 	let pic = Pictures[i];
 	let div = pic.div;
 	//console.log('clicked', pic.key);
-	if (!isEmpty(MemPM) && MemPM.length < NumRepeat-1 && MemPM[0].label != pic.label) return;
+	if (!isEmpty(MemPM) && MemPM.length < G.numRepeat-1 && MemPM[0].label != pic.label) return;
 	toggleSelectionOfPicture(pic,MemPM);
 	if (isEmpty(MemPM)) {
 		showInstruction('', 'click any picture', dTitle, true);
-	}else if (MemPM.length < NumRepeat-1) {
+	}else if (MemPM.length < G.numRepeat-1) {
 		//set incomplete: more steps are needed!
 		//frame the picture
 		showInstruction(pic.label, 'click another', dTitle, true);
-	}else if (MemPM.length == NumRepeat-1) {
+	}else if (MemPM.length == G.numRepeat-1) {
 		// look for last picture with x that is not in the set
 		let picGoal = firstCond(Pictures,x=>x.label == pic.label && !x.isSelected);
 		setGoal(picGoal.index);
-		showInstruction(picGoal.label, 'click the '+(NumRepeat == 2?'other':'last'), dTitle, true);
+		showInstruction(picGoal.label, 'click the '+(G.numRepeat == 2?'other':'last'), dTitle, true);
 	} else {
 		//set is complete: eval
 		evaluate(MemPM);
@@ -46,8 +48,9 @@ function OneTwoThree(ev) {
 
 }
 function promptPM() {
-	//console.log('{{{{{{{{{{{{{',G.numPics,NumRepeat)
-	showPictures(OneTwoThree, { repeat: NumRepeat, sameBackground:true, border: '3px solid #ffffff80' });
+	MemPM = [];
+	//console.log('{{{{{{{{{{{{{',G.numPics,G.numRepeat)
+	showPictures(OneTwoThree, { repeat: G.numRepeat, sameBackground:true, border: '3px solid #ffffff80' });
 	//setGoal();
 	showInstruction('', 'click any picture', dTitle, true);
 	activateUi();

@@ -62,7 +62,7 @@ function setPicsAndGoal(pics) {
 }
 
 
-function activateUi({ onclickPic }={}) {
+function activateUi2({ onclickPic }={}) {
 	//firstTimeActivate: add handlers!
 	//interpose interact check!
 	if (isdef(onclickPic) && nundef(Pictures[0].div.onclick))

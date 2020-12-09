@@ -1,5 +1,5 @@
 window.onload = _loader;
-window.onunload = saveSIMA;
+window.onunload = saveUser;
 
 async function _loader() {
 	//timit = new TimeIt('start');
@@ -26,12 +26,6 @@ async function _start() {
 	loadUser(); //sets G,U,GS,Settings
 	console.assert(isdef(G))
 
-
-
-	//console.log('loaded. ready.')
-	//testHA(); return;
-	//playGame('gMem');
-
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
 }
@@ -42,13 +36,9 @@ function startUnit() {
 
 	UnitScoreSummary = {};
 
-	onClickTemple();
+	startGame();
+	//onClickTemple();
 
-	// if (EXPERIMENTAL) { hide('freezer'); hide('divControls'); startGame(); openAux('dGameSettings'); }
-	// else if (immediateStart && IS_TESTING) { hide('freezer'); if (StepByStepMode) show('divControls'); startGame(); }
-	// else if (immediateStart) { hide('divControls'); startGame(); }
-	// else if (IS_TESTING) { hide('freezer'); hide('divControls'); openProgramSettings(); }
-	// else { hide('freezer'); hide('divControls'); openAux('dMenu'); }
 }
 
 

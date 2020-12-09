@@ -133,10 +133,6 @@ async function loadServerDataAndAssets() {
 		UserHistory = sData.users[USERNAME]; //SERVER_DATA.users[USERNAME];
 		DefaultSettings = sData[SETTINGS_KEY].defaults;
 		Settings = sData[SETTINGS_KEY].current;
-		// console.log(UserHistory);
-		// console.log(DefaultSettings);
-		// console.log(Settings);
-		// console.log('==>USER HISTORY touch pic level', UserHistory.id, UserHistory.gTouchPic.startLevel);
 
 		//hier kann ich assets laden!!!
 		if (CLEAR_LOCAL_STORAGE) localStorage.clear();

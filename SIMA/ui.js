@@ -78,41 +78,11 @@ function initLineBottom() {
 }
 //#endregion
 
-function getSignalColor() { if (G.level != 4 && G.level != 7 && G.level != 10 && G.level != 3) return 'red'; else return 'yellow'; }
-
-//#region fleetingMessage
-function clearFleetingMessage() {
-	if (isdef(fleetingMessageTimeout)) { clearTimeout(fleetingMessageTimeout); fleetingMessageTimeout = null; }
-	clearElement(dLineBottomMiddle);
-}
-function showFleetingMessage(msg, msDelay, styles = { fg, fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
-	
-	if (nundef(fg)) fg = colorIdealText(G.color);
-	
-	if (msDelay) {
-		fleetingMessageTimeout = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
-	} else {
-		fleetingMessage(msg, styles, fade);
-	}
-}
-function fleetingMessage(msg, styles, fade = false) {
-	clearFleetingMessage();
-	dLineBottomMiddle.innerHTML = msg;
-	mStyleX(dLineBottomMiddle, styles)
-	if (fade) aniFadeInOut(dLineBottomMiddle, 2);
-}
-//#endregion
-
-//#region ui states
-function beforeActivationUI() { uiPaused |= beforeActivationMask; uiPaused &= ~hasClickedMask; }
-function activationUI() { uiPaused &= ~beforeActivationMask; }
-function hasClickedUI() { uiPaused |= hasClickedMask; }
-function pauseUI() { uiPausedStack.push(uiPaused); uiPaused |= uiHaltedMask; }
-function resumeUI() { uiPaused = uiPausedStack.pop(); }
-function isUiInterrupted(){return uiPaused & uiHaltedMask;}
-//#endregion
 
 //#region Markers
+const MarkerText = ['✔️', '❌'];
+const MarkerId = { SUCCESS: 0, FAIL: 1 };
+var Markers = [];
 function markerSuccess() { return createMarker(MarkerId.SUCCESS); }
 function markerFail() { return createMarker(MarkerId.FAIL); }
 function createMarker(markerId) {
@@ -134,15 +104,5 @@ function removeMarkers() {
 	}
 	Markers = [];
 }
-//#endregion
-
-//#region ui helpers
-
-//#endregion
-
-//#region settings => moveto settings!
-
-
-
 
 

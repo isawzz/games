@@ -1,4 +1,219 @@
+function getSignalColor() { if (G.level != 4 && G.level != 7 && G.level != 10 && G.level != 3) return 'red'; else return 'yellow'; }
+
+//#region ui states
+function beforeActivationUI() { uiPaused |= beforeActivationMask; uiPaused &= ~hasClickedMask; }
+function activationUI() { uiPaused &= ~beforeActivationMask; }
+function hasClickedUI() { uiPaused |= hasClickedMask; }
+function pauseUI() { uiPausedStack.push(uiPaused); uiPaused |= uiHaltedMask; }
+function resumeUI() { uiPaused = uiPausedStack.pop(); }
+function isUiInterrupted(){return uiPaused & uiHaltedMask;}
+//#endregion
+
 //#region SIMA
+async function broadcastSettings(isCurrent = true, isDefault = true) {
+	//load settings from settings.yaml or settingsTEST.yaml
+	let fname = SETTINGS_KEY;
+	let settings = await loadYamlDict('./settings/' + fname + '.yaml');
+	let users = await loadYamlDict('./settings/users.yaml');
+
+	//das war jetzt regular or TEST
+
+	//soll ich zu defaults or current or both broadcasten?
+	if (isCurrent) Settings = settings;
+	if (isDefault) DefaultSettings = jsCopy(settings);
+
+	saveServerData();
+
+}
+function ensureMinVocab(n, totalNeeded) {
+	switch (n) {
+		case 25: if (totalNeeded >= 20) return 50; break;
+		case 50: if (totalNeeded >= 35) return 75; break;
+		case 75: if (totalNeeded >= 50) return 100; break;
+	}
+	if (isNumber(n)) return n;
+
+
+	//hier geh jetzt auf die categories
+
+}
+function setKeys_NEIN({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc } = {}) {
+
+	let keys = jsCopy(keysets[key]);
+	let diff = nMin - keys.length;
+	let additionalSet = diff > 0 ? firstCondDictKey(keysets, k => k != key && keysets[k].length > diff) : null;
+	if (additionalSet) keys = keys.concat(keysets[additionalSet]);
+
+	let result = [];
+	let other = [];
+	for (const k of keys) {
+		let info = symbolDict[k];
+		let klang = 'best' + lang;
+		//console.log(k,lang,klang)
+		if (nundef(info[klang])) info.klang = lastOfLanguage(k, lang);
+		info.best = info[klang];
+		let isMatch = true;
+		if (isdef(filterFunc)) isMatch = isMatch && filterFunc(k, info.best);
+		if (isdef(confidence)) isMatch = info[klang + 'Conf'] >= confidence;
+		if (isMatch) { result.push(k); } else { other.push(k); }
+	}
+
+	//if result does not have enough elements, take randomly from other
+	let len = result.length;
+	let nMissing = nMin - len;
+	if (nMissing > 0) {let list = choose(other,nMissing); result=result.concat(list);}
+
+	if (isdef(sortByFunc)) { sortBy(result, sortByFunc); }
+
+	console.assert(result.length>=nMin);
+	return result;
+}
+
+//#region key selection: setKeys_
+function setKeys_vorSIMA({ lang, nbestOrCats, filterFunc, confidence, sortByFunc } = {}) {
+
+	let nbest, cats;
+	if (isNumber(nbestOrCats)) { nbest = nbestOrCats; }
+	else cats = nbestOrCats;
+
+	let keys = [];
+	if (isdef(nbest)) {
+		let setname = 'best' + nbest;
+		keys = jsCopy(KeySets[setname]);
+	} else {
+		if (nundef(cats)) cats = 'nosymbols';
+		if (isString(cats)) cats = [cats];
+		keys = setCategories(cats);
+	}
+
+	let result = [];
+	for (const k of keys) {
+		let info = symbolDict[k];
+		let klang = 'best' + lang;
+		//console.log(k,lang,klang)
+		if (nundef(info[klang])) info.klang = lastOfLanguage(k, lang);
+		info.best = info[klang];
+		let isMatch = true;
+		if (isdef(filterFunc)) isMatch = isMatch && filterFunc(k, info.best);
+		if (isdef(confidence)) isMatch = info[klang + 'Conf'] >= confidence;
+		if (isMatch) { result.push(k); }
+	}
+	if (isdef(sortByFunc)) { sortBy(result, sortByFunc); }
+	return result;
+}
+
+//#endregion
+
+function selectWord(info, bestWordIsShortest, except = []) {
+	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
+
+	let w = bestWordIsShortest ? getShortestWord(candidates, false) : arrLast(candidates);
+	if (except.includes(w)) {
+		let wNew = lastCond(info.words, x => !except.includes(w));
+		if (wNew) w = wNew;
+	}
+	return w;
+}
+function defaultOnFocusEditableText(inp) {
+	inp.style.backgroundColor = 'white';
+}
+function defaultOnLostFocusEditableText(inp) {
+	//console.log('lost focus!!!')
+	inp.style.backgroundColor = 'transparent';
+}
+function mInput(dParent, type, label, styles) {
+	let d = mDiv(dParent);
+
+	if (nundef(type)) type = "text";
+	if (nundef(label)) label = "";
+
+	let inp = createElementFromHTML(`<input type="${type}" />`);
+	let labelui = createElementFromHTML(`<label>${label}</label>`);
+	mAppend(d, labelui);
+	mAppend(labelui, inp);
+	if (isdef(styles)) mStyleX(inp, styles);
+
+	inp.addEventListener('input', resizeInput);
+	//resizeInput.call(inp);
+	return inp;
+}
+function resizeInput() { this.style.minWidth = this.value.length + "ch"; }
+
+
+
+
+function mEditableInput(dParent,label, val) {
+
+	let labelElem = createElementFromHTML(`<span>${label}</span>	`)
+	let elem = createElementFromHTML(`<span contenteditable="true" spellcheck="false">${val}</span>	`)
+	elem.addEventListener('keydown', (ev) => {
+		if (ev.key === 'Enter') {
+			ev.preventDefault();
+			mBy('dummy').focus();
+		}
+	});
+	mAppend(dParent,labelElem);
+	mAppend(dParent, elem);
+	return elem;
+	//<div contenteditable = "true" class = "fluidInput" data-placeholder = ""></div>
+	let inp = mDiv(dParent, styles);
+
+	inp.contenteditable = true;
+	inp['data-placeholder'] = '';
+	if (isdef(val)) inp.innerHTML = val;
+
+	return inp;
+
+	//console.log(inp)
+
+	if (nundef(onFocus)) onFocus = defaultOnFocusEditableText;
+	if (nundef(onLostFocus)) onLostFocus = defaultOnLostFocusEditableText;
+
+	let defStyles = { maleft: 12, mabottom: 4 };
+	styles = nundef(styles) ? defStyles : deepmergeOverride(defStyles, styles);
+	mStyleX(inp, styles);
+
+	// mClass(inp, 'input', ...classes);
+	mClass(inp, 'editableText');
+	//inp.value = 'hallo'
+
+	inp.addEventListener('focus', ev => onFocus(ev.target));
+	inp.addEventListener('focusout', ev => onLostFocus(ev.target));
+	// if (isdef(onFocus)) inp.onfocus = ()=>onFocus(inp);//"${onFocusName}(this)" onfocusout="${onLostFocusName}(this)" 
+	// if (isdef(onLostFocus)) inp.onfocusout = ()=>onLostFocus(inp);
+	inp.addEventListener('keyup', e => { if (e.key == 'Enter') inp.blur(); });
+	if (isdef(val)) inp.value = val;
+
+	return inp;
+
+}
+function mEditableInput_dep(dParent, { type, label, onFocus, onLostFocus, val, styles, classes } = {}) {
+	let inp = mInput(dParent, type, label, styles);
+
+	//console.log(inp)
+
+	if (nundef(onFocus)) onFocus = defaultOnFocusEditableText;
+	if (nundef(onLostFocus)) onLostFocus = defaultOnLostFocusEditableText;
+
+	let defStyles = { maleft: 12, mabottom: 4 };
+	styles = nundef(styles) ? defStyles : deepmergeOverride(defStyles, styles);
+	mStyleX(inp, styles);
+
+	// mClass(inp, 'input', ...classes);
+	mClass(inp, 'editableText');
+	//inp.value = 'hallo'
+
+	inp.addEventListener('focus', ev => onFocus(ev.target));
+	inp.addEventListener('focusout', ev => onLostFocus(ev.target));
+	// if (isdef(onFocus)) inp.onfocus = ()=>onFocus(inp);//"${onFocusName}(this)" onfocusout="${onLostFocusName}(this)" 
+	// if (isdef(onLostFocus)) inp.onfocusout = ()=>onLostFocus(inp);
+	inp.addEventListener('keyup', e => { if (e.key == 'Enter') inp.blur(); });
+	if (isdef(val)) inp.value = val;
+
+	return inp;
+
+}
+
 function getKeySetSimple(cats, lang,
 	{ minlen, maxlen, wShort = false, wLast = false, wExact = false, sorter = null }) {
 	let keys = setCategories(cats);

@@ -1,25 +1,14 @@
+var TOTP;
+function clearTP(){ clearTimeout(TOTP);}
 function startGameTP() {}
-function startLevelTP() { levelTP(); }
-function levelTP() {
-	G.trials = getGameOrLevelInfo('trials', 2);
-	G.numPics = getGameOrLevelInfo('numPics', 9);
-	NumLabels = getGameOrLevelInfo('numLabels', G.numPics); 
-
-	let vinfo = getGameOrLevelInfo('vocab', 100);
-	vinfo = ensureMinVocab(vinfo,G.numPics);
-
-	G.keys = setKeys({lang:Settings.language,nbestOrCats:vinfo}); //isNumber(vinfo) ? KeySets['best' + vinfo] : setKeys(vinfo);
-
-	//console.log('G.trials',G.trials,'G.numPics',G.numPics,'NumLabels',NumLabels,'vinfo',vinfo,'Settings.language',Settings.language)
-	//console.log('incrementLevelOnPositiveStreak',Settings.incrementLevelOnPositiveStreak,'decrementLevelOnNegativeStreak',Settings.decrementLevelOnNegativeStreak);
-}
+function startLevelTP() { }
 function startRoundTP() {
 	uiActivated = false;
 }
 function promptTP() {
 	showPictures(evaluate);
 	setGoal();
-	showInstruction(bestWord, 'click', dTitle, true);
+	showInstruction(Goal.label, 'click', dTitle, true);
 	activateUi();
 	//return 10;
 }
@@ -39,9 +28,9 @@ function evalTP(ev) {
 	let item = Pictures[i];
 	Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
-	Selected.reqAnswer = bestWord;
+	Selected.reqAnswer = Goal.label;
 	Selected.answer = item.label;
 
-	if (item.label == bestWord) { return true; } else { return false; }
+	if (item.label == Goal.label) { return true; } else { return false; }
 }
 

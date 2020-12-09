@@ -14,7 +14,7 @@ function showPics(dParent, { lang = 'E', num = 1, repeat = 1, numLabels, sameBac
 	// Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,{ colors, contrast });
 
 	let totalPics = pics.length;
-	//console.log(totalPics,NumLabels)
+	//console.log(totalPics,G.numLabels)
 	if (nundef(Settings.labels) || Settings.labels) {
 		if (nundef(numLabels) || numLabels == totalPics) return pics;
 		let remlabelPic = choose(pics, totalPics - numLabels);

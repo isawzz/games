@@ -1,7 +1,8 @@
 
-var MemMMTimeout;
-function startGameMM() { }
-function startLevelMM() { clearTimeout(MemMMTimeout); }
+var TOMM;
+function clearMM(){ clearTimeout(TOMM);}
+function startGameMM() {}
+function startLevelMM() { clearTimeout(TOMM); }
 function startRoundMM() { }
 
 function calcTimingMM() {
@@ -10,7 +11,7 @@ function calcTimingMM() {
 }
 
 function promptMM() {
-	showPictures(interactMM, { repeat: NumRepeat, sameBackground: true, border: '3px solid #ffffff80' });
+	showPictures(interactMM, { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
 	setGoal();
 
 	if (G.level > 2) { showInstruction('', 'remember all', dTitle, true); }
@@ -23,7 +24,7 @@ function promptMM() {
 
 function turnCardsAfterSecs(secs) {
 	for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1); }
-	MemMMTimeout = setTimeout(() => {
+	TOMM = setTimeout(() => {
 		console.log('ui is paused:', isUiInterrupted(), 'game', G.key)
 
 		if (isUiInterrupted() || G.key != 'gMem') {
@@ -86,7 +87,7 @@ function interactMM(ev) {
 	let pic = Pictures[i];
 	toggleFace(pic);
 
-	if (trialNumber == G.trials - 1) {
+	if (G.trialNumber == G.trials - 1) {
 		turnFaceUp(Goal);
 		setTimeout(() => evaluate(ev), 100);
 	} else evaluate(ev);
@@ -104,10 +105,10 @@ function evalMM(ev) {
 	let item = Pictures[i];
 	Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
-	Selected.reqAnswer = bestWord;
+	Selected.reqAnswer = Goal.label;
 	Selected.answer = item.label;
 
-	if (item.label == bestWord) { return true; } else {
+	if (item.label == Goal.label) { return true; } else {
 		return false;
 	}
 }

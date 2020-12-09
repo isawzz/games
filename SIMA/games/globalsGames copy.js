@@ -1,20 +1,8 @@
-var pictureSize;
+var pictureSize,TOMain;
 
 function startGame() {
 
 	let game = G.key;
-
-	//clearOldGameTrailing
-	if (game == 'gSayPic') Speech.stopRecording();
-	else if (game == 'gMem') {
-		console.log('last game gMem, timeout is', MemMMTimeout)
-		clearTimeout(MemMMTimeout);
-	}
-
-	onkeydown = null;
-	onkeypress = null;
-	onkeyup = null;
-
 	resetState();
 
 	GFUNC[game].startGame();
@@ -39,51 +27,38 @@ function startLevel(level) {
 
 	startRound();
 }
-function startRound() { setTimeout(() => startRoundReally(), ROUND_DELAY); }
-function startRoundReally() {
-	uiActivated = false;
+function startRound() { TOMain =setTimeout(() => _startRound(), 300); }
+// function startRound() { chainEx([getWaiter(300)],startRoundReally); }
+function _startRound() {
+	console.log('round starts:',G)
+	//restartQ();
 	clearFleetingMessage();
 	showStats();
-	LevelChange = false; //needs to be down here because showScore needs that info!
+	Score.levelChange = false; //needs to be down here because showScore needs that info!
 
-	if (ROUND_OUTPUT) {
-		// writeComments('new round:');
-		console.log('...' + G.key.substring(1), 'round:' + ' level:' + G.level, 'pics:' + G.numPics, 'labels:' + NumLabels,
-			'\nkeys:' + G.keys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + G.trials);
-	}
-	trialNumber = 0;
+	// if (ROUND_OUTPUT) {
+	// 	// writeComments('new round:');
+	// 	console.log('...' + G.key.substring(1), 'round:' + ' level:' + G.level, 'pics:' + G.numPics, 'labels:' + G.numLabels,
+	// 		'\nkeys:' + G.keys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + G.trials);
+	// }
+	G.trialNumber = 0;
 	GFUNC[G.key].startRound();
 	promptStart();
 
 }
 function promptStart() {
-	beforeActivationUI();
+	uiActivated = false;
 
 	if (nundef(dTable)) return;
 	clearTable();
 
-	G ? G.prompt() : GFUNC[G.key].prompt();
-	// let delay = G?G.prompt():GFUNC[G.key].prompt();
-
-	// if (delay < 0) return;
-	// console.log(delay)
-	// setTimeout(activateUi, delay);
+	GFUNC[G.key].prompt();
 }
 function promptNextTrial() {
-	beforeActivationUI();
+	uiActivated = false;
 
-	let delay = G ? G.trialPrompt(trialNumber) : GFUNC[G.key].trialPrompt(trialNumber);
-	setTimeout(activateUi, delay);
-}
-function selectWord(info, bestWordIsShortest, except = []) {
-	let candidates = info.words.filter(x => x.length >= MinWordLength && x.length <= MaxWordLength);
-
-	let w = bestWordIsShortest ? getShortestWord(candidates, false) : arrLast(candidates);
-	if (except.includes(w)) {
-		let wNew = lastCond(info.words, x => !except.includes(w));
-		if (wNew) w = wNew;
-	}
-	return w;
+	let delay = GFUNC[G.key].trialPrompt(G.trialNumber);
+	TOMain = setTimeout(activateUi, delay);
 }
 function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
 	Pictures = [];
@@ -91,19 +66,14 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sam
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys[0]='man in manual wheelchair';
 	//keys=['sun with face'];
-	//console.log(keys,repeat)
-	//console.log(labels)
+
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 		{ repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors, contrast: contrast });
 
-	// if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	// Pictures = maShowPictures(keys,labels,dTable,onClickPictureHandler,{ colors, contrast });
-
 	let totalPics = Pictures.length;
-	//console.log(totalPics,NumLabels)
 	if (nundef(Settings.labels) || Settings.labels) {
-		if (NumLabels == totalPics) return;
-		let remlabelPic = choose(Pictures, totalPics - NumLabels);
+		if (G.numLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
 		for (const p of remlabelPic) {
 			//console.log('hi1');
 			maHideLabel(p.id, p.info); p.isLabelVisible = false;
@@ -126,15 +96,14 @@ function setGoal(index) {
 
 	lastPosition = index;
 	Goal = Pictures[index];
-	//Goal = firstCond(Pictures,x=>x.key == 'man in manual wheelchair');
-	// console.log(Pictures,index)
-	setCurrentInfo(Goal); //sets bestWord, ...
+
+	setCurrentInfo(Goal); //sets Goal.label, ...
 
 }
 function showInstruction(text, cmd, title, isSpoken, spoken) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
 
-	console.log('G.key is', G.key)
+	//console.log('G.key is', G.key)
 	clearElement(title);
 	let d = mDiv(title);
 	mStyleX(d, { margin: 15 })
@@ -159,17 +128,18 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 }
 function activateUi() {
 
+	//console.log('hallo')
 	Selected = null;
-	G ? G.activate() : GFUNC[G.key].activate();
-	activationUI();
+	uiActivated = true;
+	GFUNC[G.key].activate();
 }
 function evaluate() {
-	if (uiPaused) return;
-	hasClickedUI();
-	IsAnswerCorrect = G ? G.eval(...arguments) : GFUNC[G.key].eval(...arguments);
+	if (!canAct()) return;
+	uiActivated = false;
+	IsAnswerCorrect = GFUNC[G.key].eval(...arguments);
 
-	trialNumber += 1;
-	if (!IsAnswerCorrect && trialNumber < G.trials) { promptNextTrial(); return; }
+	G.trialNumber += 1;
+	if (!IsAnswerCorrect && G.trialNumber < G.trials) { promptNextTrial(); return; }
 
 	//feedback
 	if (IsAnswerCorrect) {
@@ -180,37 +150,41 @@ function evaluate() {
 		showCorrectWord();
 		failPictureGoal(false);
 	}
-	setTimeout(removeMarkers, 1500);
+	setTimeout(removeMarkers,1500);
+	//enQ(setTimeout,[removeMarkers,1500]);
+	// enQ(removeMarkers,null,1500);
 
-	[LevelChange, G.level] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
+	let nextLevel;
+	[Score.levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
-	updateGameSequence(G.level);
-	if (LevelChange != 0) saveProgram();
-
-	if (LevelChange && ProgTimeIsUp()) { gameOver('Great job! Time for a break!'); }
-	else if (LevelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
-	else if (LevelChange > 0) { setTimeout(showLevelComplete, DELAY); }
-	else setTimeout(proceedIfNotStepByStep, DELAY);
-}
-function proceedIfNotStepByStep(nextLevel) {
-	if (!StepByStepMode) { proceed(nextLevel); }
-}
-function proceed(nextLevel) {
-	//console.log('proceedAfterLevelChange', G.level, G.maxLevel)
-	if (nundef(nextLevel)) nextLevel = G.level;
-
-	if (ProgTimeIsUp() && LevelChange) {
-		gameOver('Great job! Time for a break!');
-		return;
+	//if no level change just proceed
+	//let taskChain = [getWaiter(1500),{f:removeMarkers}];
+	if (!Score.levelChange){
+		TOMain = setTimeout(startRound,DELAY);
+		//enQ(setTimeout,[startRound,DELAY]);
+	}else if (unitTimeUp()){
+		//end of unit!
+		saveUnit();
+	}else if (nextLevel<G.level){
+		//remove badges
+	}else if (nextLevel == G.level){
+		//same level restarts again
+	}else if (nextLevel > G.maxLevel){
+		//new game!
+	}else{
+		//1 level up!
+		// add a badge
 	}
-	if (nextLevel > G.maxLevel) {
-		if (Settings.currentGameIndex >= Settings.gameSequence.length) {
-			gameOver('Congratulations! You are done!');
-		} else {
-			startGame();
-		}
-	} else if (LevelChange) startLevel(nextLevel);
-	else startRound();
+
+	//runQ();
+	//chainEx(taskChain,null,'wait',true);
+	// updateGameSequence(G.level);
+	// if (Score.levelChange != 0) saveProgram();
+
+	// if (Score.levelChange && ProgTimeIsUp()) { gameOver('Great job! Time for a break!'); }
+	// else if (Score.levelChange < 0) setTimeout(removeBadgeAndRevertLevel, DELAY);
+	// else if (Score.levelChange > 0) { setTimeout(showLevelComplete, DELAY); }
+	// else setTimeout(proceedIfNotStepByStep, DELAY);
 }
 
 //#region fail or success
@@ -408,13 +382,12 @@ function clearTable() {
 
 function isGameWithSpeechRecognition() { return ['gSayPic', 'gSayPicAuto'].includes(G.key); }
 function resetState() {
+	clearTimeout(TOMain);	onkeydown = null;	onkeypress = null;	onkeyup = null;	
 	uiPaused = 0;
 	lastPosition = 0;
 	DELAY = 1000;
 
 	badges = [];
-
-	SAMPLES_PER_LEVEL = new Array(20).fill(Settings.samplesPerLevel);// [1, 1, 2, 2, 80, 100];
 
 	updateLabelSettings();
 	setBackgroundColor();
@@ -428,8 +401,8 @@ function setCurrentInfo(item) {
 	currentInfo = item.info;
 	matchingWords = currentInfo.words;
 	validSounds = currentInfo.valid;
-	bestWord = Goal.label;
-	hintWord = '_'.repeat(bestWord.length);
+	Goal.label = Goal.label;
+	hintWord = '_'.repeat(Goal.label.length);
 
 }
 function shortHintPicRemove() {
@@ -447,23 +420,23 @@ function showCorrectWord(sayit = true) {
 
 	if (!sayit || !Settings.spokenFeedback) return;
 
-	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : bestWord;
+	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
 	Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel; }
-function showGameTitle() { dGameTitle.innerHTML = G ? G.friendlyName : GFUNC[G.key].friendlyName; }
+function showGameTitle() { dGameTitle.innerHTML = GAME[G.key].friendly; }
 function showStats() { showLevel(); showScore(); showGameTitle(); }
 function writeComments(pre) {
 	if (ROUND_OUTPUT) {
 		console.log('...' + G.key.substring(1), pre + ' G.level:' + G.level, 'pics:' + G.numPics,
-			'labels:' + NumLabels,
+			'labels:' + G.numLabels,
 			'\nkeys:' + G.keys.length, 'minlen:' + MinWordLength, 'maxlen:' + MaxWordLength, 'trials#:' + G.trials);
 	}
 
 }
 
 function getGameOrLevelInfo(k, defval) {
-	let val = lookup(GS, [G.key, 'levels', G.level, k])
+	let val = lookup(GS, [G.key, 'levels', G.level, k]);
 	if (!val) val = lookupSet(GS, [G.key, k], defval);
 	return val;
 }
@@ -484,5 +457,25 @@ function getCurrentColor(game) {
 	return color;
 }
 
+function proceedIfNotStepByStep(nextLevel) {
+	if (!StepByStepMode) { proceed(nextLevel); }
+}
+function proceed(nextLevel) {
+	//console.log('proceedAfterLevelChange', G.level, G.maxLevel)
+	if (nundef(nextLevel)) nextLevel = G.level;
+
+	if (ProgTimeIsUp() && Score.levelChange) {
+		gameOver('Great job! Time for a break!');
+		return;
+	}
+	if (nextLevel > G.maxLevel) {
+		if (Settings.currentGameIndex >= Settings.gameSequence.length) {
+			gameOver('Congratulations! You are done!');
+		} else {
+			startGame();
+		}
+	} else if (Score.levelChange) startLevel(nextLevel);
+	else startRound();
+}
 
 

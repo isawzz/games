@@ -2,6 +2,8 @@ const SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 const EXTENDED_COLORS = ['red', 'green', 'yellow', 'blue', 'pink', 'indigo', 'gray', 'sienna', 'olive'];
 
 var NumColors;
+var TOTC;
+function clearTC(){ clearTimeout(TOTC);}
 function startGameTC() { }
 function startLevelTC() { levelTC(); }
 function levelTC() {
@@ -13,7 +15,7 @@ function levelTC() {
 
 	G.numPics = getGameOrLevelInfo('numPics', 3);
 	NumColors = getGameOrLevelInfo('numColors', NumColors);
-	NumLabels = getGameOrLevelInfo('numLabels', G.numPics * NumColors);
+	G.numLabels = getGameOrLevelInfo('numLabels', G.numPics * NumColors);
 
 }
 function startRoundTC() {
@@ -31,8 +33,8 @@ function promptTC() {
 	setGoal(randomNumber(0, G.numPics * colors.length - 1));
 	Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
 
-	let spoken = `click the ${Goal.textShadowColor} ${bestWord}`;
-	showInstruction(bestWord, `click the <span style='color:${Goal.textShadowColor}'>${Goal.textShadowColor.toUpperCase()}</span>`,
+	let spoken = `click the ${Goal.textShadowColor} ${Goal.label}`;
+	showInstruction(Goal.label, `click the <span style='color:${Goal.textShadowColor}'>${Goal.textShadowColor.toUpperCase()}</span>`,
 		dTitle, true, spoken);
 	activateUi();
 	//return 10;
@@ -53,7 +55,7 @@ function evalTC(ev) {
 	let i = firstNumber(id);
 	let item = Pictures[i];
 	Selected = { pic: item, feedbackUI: item.div };
-	Selected.reqAnswer = bestWord;
+	Selected.reqAnswer = Goal.label;
 	Selected.answer = item.label;
 
 	if (item == Goal) { return true; } else { return false; }

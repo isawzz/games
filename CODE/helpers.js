@@ -55,6 +55,20 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
+function mEditableInput(dParent,label, val) {
+	let labelElem = createElementFromHTML(`<span>${label}</span>	`)
+	let elem = createElementFromHTML(`<span contenteditable="true" spellcheck="false">${val}</span>	`)
+	elem.addEventListener('keydown', (ev) => {
+		if (ev.key === 'Enter') {
+			ev.preventDefault();
+			mBy('dummy').focus();
+		}
+	});
+	mAppend(dParent,labelElem);
+	mAppend(dParent, elem);
+	return elem;
+}
+
 function mParent(elem) { return elem.parentNode; }
 function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');
@@ -585,8 +599,76 @@ class ScriptLoader {
 }
 //#endregion
 
+//#region Q
+var Q, TOQ, AkQ;
+var QCounter=0;
+var QCancelAutoreset,TOQRunner, QRunnerRunning=false,QRunning=false;
+function QStop(){
+	//just stop the runner task
+	console.log('...',getFunctionCallerName());
+	QCancelAutoreset = true;
+}
+function QReset(){
+	console.log('...',getFunctionCallerName());
+	clearTimeout(TOQ);
+	clearTimeout(TOQRunner);
+	Q = [];
+	AkQ = [];
+}
+function restartQ() {
+	QReset();
+	console.log('===>RESET',QCounter,Q,AkQ);
+}
+function enQ(f, parr=null, msBefore=null, msAfter=null, callback=null) {
+	if (nundef(Q)) restartQ();
+	Q.push({ f: f, parr: parr, msBefore: msBefore, msAfter: msAfter, callback: callback });
+}
+function startQRunner(){
+	if (QRunnerRunning) return;
+	QRunnerRunning=true;
+	QRunner();
+}
+function QRunner(){
+	if (QCancelAutoreset) {QRunnerRunning = false;QCancelAutoreset=false;restartQ();}
+	else if (isEmpty(Q)) TOQRunner = setTimeout(QRunner,1000);
+	else _runQ(QRunner);
+}
+
+function _runQ() {
+	QCounter +=1;console.log('===>run',QCounter,Q);
+	if (isEmpty(Q)) { console.log('Q empty!', AkQ); return; }
+
+	let task = Q.shift();
+	//just simple task without timeout or callback
+	let f = task.f; 
+	let parr = _paramsQ(task.parr);
+	//let msBefore = task.msBefore, msAfter = task.msAfter, callback = task.callback; //waitCond = task.waitCond, tWait = task.tWait;
+	console.log('task:', f.name, 'params', parr)
+	let result = f(...parr);
+	if (isdef(result)) AkQ.push(result);
+
+	if (!isEmpty(Q)) runQ();
+
+}
+
+function _paramsQ(parr){
+	parr = isdef(parr) ? parr : [];
+	for (let i = 0; i < parr.length; i++) {
+		let para = parr[i];
+		if (para == '_last') parr[i] = arrLast(AkQ);
+		else if (para == '_all' || para == '_list') parr[i] = AkQ;
+		else if (para == '_first') parr[i] = AkQ[0];
+
+	}
+	return parr;
+}
+
+
 //#region chain,  task chain 
-function chainEx(taskChain, onComplete, ifBlocked = 'return') {
+
+
+
+function chainEx(taskChain, onComplete, ifBlocked = 'wait', singleThreaded = true) {
 	if (BlockChain) {
 		console.log('chain blocked!')
 		switch (ifBlocked) {
@@ -595,9 +677,62 @@ function chainEx(taskChain, onComplete, ifBlocked = 'return') {
 			case 'return': default://just drop it
 		}
 	} else {
+		BlockChain = true;
 		CancelChain = false;
 		let akku = [];
-		return _chainExRec(akku, taskChain, onComplete);
+		if (singleThreaded) {
+			TaskChain = taskChain;
+			_singleThreadedChainExRec(akku, onComplete);
+		} else {
+			_chainExRec(akku, taskChain, onComplete);
+		}
+	}
+}
+function addTask(task) {
+	if (!CancelChain) TaskChain.push(task);
+}
+function chainCancel() {
+	CancelChain = true;
+	clearTimeout(ChainTimeout);
+	TaskChain = [];
+	setTimeout(() => BlockChain = false, 100);
+	//console.log('chain ccanceled properly!');
+}
+function _singleThreadedChainExRec(akku, onComplete) {
+	if (CancelChain) {
+		clearTimeout(ChainTimeout);
+		BlockChain = false;
+		console.log('chain canceled!', akku);
+		//return akku;
+	} else if (isEmpty(TaskChain)) {
+		BlockChain = false;
+		onComplete(akku);
+	} else {
+		let task = TaskChain[0], f = task.f, parr = isdef(task.parr) ? task.parr : [], t = task.msecs, waitCond = task.waitCond, tWait = task.tWait;
+		console.log('task:', f.name, 't', t)
+
+		if (isdef(waitCond) && !waitCond()) {
+			if (nundef(tWait)) tWait = 300;
+			ChainTimeout = setTimeout(() => _singleThreadedChainExRec(akku, onComplete), tWait);
+		} else {
+			for (let i = 0; i < parr.length; i++) {
+				let para = parr[i];
+				if (para == '_last') parr[i] = arrLast(akku);
+				else if (para == '_all' || para == '_list') parr[i] = akku;
+				else if (para == '_first') parr[i] = akku[0];
+
+			}
+
+			let result = f(...parr);
+			if (isdef(result)) akku.push(result);
+
+			TaskChain = TaskChain.slice(1);
+			if (isdef(t)) {
+				ChainTimeout = setTimeout(() => _singleThreadedChainExRec(akku, onComplete), t);
+			} else {
+				_chainExRec(akku, onComplete);
+			}
+		}
 	}
 }
 function _chainExRec(akku, taskChain, onComplete) {
@@ -606,8 +741,12 @@ function _chainExRec(akku, taskChain, onComplete) {
 		BlockChain = false;
 		console.log('chain canceled!');
 		return akku;
-	} else if (taskChain.length > 0) {
-		let task = taskChain[0], f = task.f, parr = task.parr, t = task.msecs, waitCond = task.waitCond, tWait = task.tWait;
+	} else if (isEmpty(taskChain)) {
+		BlockChain = false;
+		if (onComplete) onComplete(akku);
+		else console.log('akku', akku, '\nBlockChain', BlockChain, '\nCancelChain', CancelChain)
+	} else {
+		let task = taskChain[0], f = task.f, parr = isdef(task.parr) ? task.parr : [], t = task.msecs, waitCond = task.waitCond, tWait = task.tWait;
 
 		if (isdef(waitCond) && !waitCond()) {
 			if (nundef(tWait)) tWait = 300;
@@ -629,17 +768,8 @@ function _chainExRec(akku, taskChain, onComplete) {
 			} else {
 				_chainExRec(akku, taskChain.slice(1), onComplete);
 			}
-
 		}
-
-
-	} else { onComplete(akku); BlockChain = false; }
-}
-function chainCancel() {
-	CancelChain = true;
-	clearTimeout(ChainTimeout);
-	BlockChain = false;
-	//console.log('chain ccanceled properly!');
+	}
 }
 //#endregion
 
@@ -1374,6 +1504,43 @@ function pSBC(p, c0, c1, l) {
 	if (h) return 'rgb' + (f ? 'a(' : '(') + r + ',' + g + ',' + b + (f ? ',' + m(a * 1000) / 1000 : '') + ')';
 	else return '#' + (4294967296 + r * 16777216 + g * 65536 + b * 256 + (f ? m(a * 255) : 0)).toString(16).slice(1, f ? undefined : -2);
 } //ok SUPER COOL!!!!
+function bestContrastingColor(color, colorlist) {
+	//console.log('dddddddddddddddd')
+	let contrast = 0;
+	let result = null;
+	let rgb = colorRGB(color, true);
+	rgb = [rgb.r, rgb.g, rgb.b];
+	for (c1 of colorlist) {
+		let x = colorRGB(c1, true)
+		x = [x.r, x.g, x.b];
+		let c = getContrast(rgb, x);
+		//console.log(rgb,x,c);
+		if (c > contrast) { contrast = c; result = c1; }
+	}
+	//console.log(contrast,result)
+	return result;
+}
+function luminance(r, g, b) {
+	var a = [r, g, b].map(function (v) {
+		v /= 255;
+		return v <= 0.03928
+			? v / 12.92
+			: Math.pow((v + 0.055) / 1.055, 2.4);
+	});
+	return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+function getContrast(rgb1, rgb2) {
+	// usage:
+	// contrast([255, 255, 255], [255, 255, 0]); // 1.074 for yellow
+	// contrast([255, 255, 255], [0, 0, 255]); // 8.592 for blue
+	// minimal recommended contrast ratio is 4.5, or 3 for larger font-sizes
+	var lum1 = luminance(rgb1[0], rgb1[1], rgb1[2]);
+	var lum2 = luminance(rgb2[0], rgb2[1], rgb2[2]);
+	var brightest = Math.max(lum1, lum2);
+	var darkest = Math.min(lum1, lum2);
+	return (brightest + 0.05)
+		/ (darkest + 0.05);
+}
 //#endregion
 
 //#region CSS helpers
@@ -3233,7 +3400,7 @@ function lookup(dict, keys) {
 	for (const k of keys) {
 		if (k === undefined) break;
 		let e = d[k];
-		if (e === undefined) return null;
+		if (e === undefined || e === null) return null;
 		d = d[k];
 		if (i == ilast) return d;
 		i += 1;
@@ -3247,6 +3414,7 @@ function lookupSet(dict, keys, val) {
 	for (const k of keys) {
 		if (nundef(k)) continue; //skip undef or null values
 		if (d[k] === undefined) d[k] = (i == ilast ? val : {});
+		if (nundef(d[k])) d[k] = (i == ilast ? val : {});
 		d = d[k];
 		if (i == ilast) return d;
 		i += 1;
@@ -3272,7 +3440,7 @@ function lookupSetOverride(dict, keys, val) {
 
 		if (nundef(k)) continue; //skip undef or null values
 
-		if (d[k] === undefined) d[k] = {};
+		if (nundef(d[k])) d[k] = {};
 
 		d = d[k];
 		i += 1;

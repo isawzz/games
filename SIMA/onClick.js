@@ -1,16 +1,20 @@
 function enterInterruptState() {
 	//haengt von implementation ab was das bedeutet!
 	// CancelChain = true; //when using TaskChain
-	chainCancel();
+	//chainCancel();
+	//restartQ();
+	clearTimeout(TOMain);
+	auxOpen = true;
+	STOPAUS=true;
 }
 
 //#region control open and close of aux
 function openAux() {
-	auxOpen = true;
+	enterInterruptState();
+	
 	show(dAux);
 	show('dGo');
 
-	enterInterruptState();
 
 }
 function closeAux() {
@@ -51,7 +55,7 @@ function onClickGo(ev) {
 
 	let gKey = nundef(ev)? SelectedMenuKey: isString(ev) ? ev : divKeyFromEv(ev);
 
-	//console.log('==>gKey', gKey, SelectedMenuKey);
+	console.log('==>gKey', gKey, SelectedMenuKey);
 
 	if (gKey != SelectedMenuKey) {
 		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
@@ -59,66 +63,14 @@ function onClickGo(ev) {
 		toggleSelectionOfPicture(MenuItems[gKey]);
 	} else {
 		closeAux();
-		//console.log('GO!!!!!!!!!!');
-		
-		//playGame(gKey);
-		startGame(gKey);
+		setGame(gKey);
+		startGame();
 
 	}
 
 
 }
 
-//#region aux click handlers
-function onClickResumeCurrent() { closeAux(); startLevel(); }
-function onClickPlay() { closeAux(); startGame(); }
-function onClickGame(ev) {
-
-	let id = evToClosestId(ev);
-	let prefix = stringAfter(id, '_');
-
-	//which game is this?
-	let vals = dict2list(GFUNC);
-	//.log(vals);
-
-	let item = firstCond(vals, x => x.friendlyName.startsWith(prefix));
-	let seq = Settings.gameSequence.map(x => x.game);
-
-	//console.log(item, item.id, seq, seq.indexOf(item.id))
-
-	let idx = Settings.currentGameIndex = seq.indexOf(item.id);
-	//let game = seq[Settings.currentGameIndex];
-
-	console.assert(isdef(G.key), 'MENU: G.key NOT SET!!!!!!!!!!!!!!!')
-	let dParent = mBy('dMenu');
-	let picDivs = dParent.children[1].children;
-	//console.log(dParent, picDivs)
-	let divSelected = firstCond(picDivs, x => x.game == SelectedGameInAux);
-	let divClicked = firstCond(picDivs, x => x.game == seq[idx]);
-	SelectedGameInAux = divClicked.game;
-	//console.log('click on', divClicked.game, divClicked);
-	//console.log('selected was', divSelected.game, divSelected);
-	if (divClicked == divSelected) {
-		closeAux(true);
-		startGame();
-
-	} else {
-		mClass(divClicked, 'framedPicture');
-		mRemoveClass(divSelected, 'framedPicture');
-
-	}//
-	// mClass(div, 'framedPicture');
-	// let picDivs = 
-	// if (ev.target.game == G.key) {
-
-	// }else{
-
-	// 	mClass(ev.target,'framedPicture');
-	// }
-}
-function onClickSettings() {
-	closeAux(); openAux('dGameSettings');
-}
 
 //# region divControls
 function onClickStartButton() { startGame(); }

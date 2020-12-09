@@ -1,5 +1,7 @@
 var NumMissingLetters, nMissing, MaxPosMissing;
 var inputs = [];
+var TOML;
+function clearML(){ clearTimeout(TOML);}
 function startGameML() { }
 function startLevelML() { levelML(); }
 function levelML() {
@@ -17,16 +19,16 @@ function promptML() {
 	showPictures(() => fleetingMessage('just enter the missing letter!'));
 	setGoal();
 
-	showInstruction(bestWord, Settings.language == 'E' ? 'complete' : "ergänze", dTitle, true);
+	showInstruction(Goal.label, Settings.language == 'E' ? 'complete' : "ergänze", dTitle, true);
 
 	mLinebreak(dTable);
 
 	// create sequence of letter ui
 	let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
-	let d = createLetterInputs(bestWord.toUpperCase(), dTable, style); // acces children: d.children
+	let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style); // acces children: d.children
 
-	// randomly choose 1-NumMissingLetters alphanumeric letters from bestWord
-	let indices = getIndicesCondi(bestWord, (x, i) => isAlphaNum(x) && i <= MaxPosMissing);
+	// randomly choose 1-NumMissingLetters alphanumeric letters from Goal.label
+	let indices = getIndicesCondi(Goal.label, (x, i) => isAlphaNum(x) && i <= MaxPosMissing);
 	nMissing = Math.min(indices.length, NumMissingLetters);
 	let ilist = choose(indices, nMissing); sortNumbers(ilist);
 
@@ -35,7 +37,7 @@ function promptML() {
 		let inp = d.children[idx];
 		inp.innerHTML = '_';
 		mClass(inp, 'blink');
-		inputs.push({ letter: bestWord[idx].toUpperCase(), div: inp, index: idx });
+		inputs.push({ letter: Goal.label[idx].toUpperCase(), div: inp, index: idx });
 	}
 
 	mLinebreak(dTable);
@@ -109,7 +111,7 @@ function activateML() {
 }
 function evalML(word) {
 	let answer = normalize(word, Settings.language);
-	let reqAnswer = normalize(bestWord, Settings.language);
+	let reqAnswer = normalize(Goal.label, Settings.language);
 
 	Selected.reqAnswer = reqAnswer;
 	Selected.answer = answer;

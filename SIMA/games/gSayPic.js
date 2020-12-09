@@ -1,28 +1,22 @@
+var TOSP;
+function clearSP(){	Speech.stopRecording();clearTimeout(TOSP);}
 function startGameSP() { }
-function startLevelSP() { levelSP(); }
-function levelSP() {
-	
-	G.trials = getGameOrLevelInfo('trials', 3);
-
-	let vinfo = getGameOrLevelInfo('vocab', 100);
-	G.keys = setKeys({ lang: Settings.language, nbestOrCats: vinfo, confidence: (Settings.language == 'D' ? 70 : 90) });
-
-	G.numPics = NumLabels = 1;
-}
+function startLevelSP() {}
 function startRoundSP() { }
 function promptSP() {
 
 	showPictures(() => mBy(defaultFocusElement).focus());
 	setGoal();
 
-	showInstruction(bestWord, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
+	showInstruction(Goal.label, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
 	animate(dInstruction, 'pulse800' + getSignalColor(), 900);
 
 	mLinebreak(dTable);
-	MicrophoneUi = mMicrophone(dTable);
+	MicrophoneUi = mMicrophone(dTable,G.color);
+	//console.log('MicrophoneUi',MicrophoneUi)
 	MicrophoneHide();
 
-	activateUi();
+	setTimeout(activateUi,200);
 	//return 10;
 }
 function trialPromptSP(nTrial) {
@@ -33,6 +27,7 @@ function trialPromptSP(nTrial) {
 	return 10;
 }
 async function activateSP() {
+	//console.log('hallo')
 	if (Speech.isSpeakerRunning()) {
 		setTimeout(activateSP, 200);
 	} else {
@@ -42,7 +37,7 @@ async function activateSP() {
 function evalSP(isfinal, speechResult, confidence) {
 
 	let answer = Goal.answer = normalize(speechResult, Settings.language);
-	let reqAnswer = Goal.reqAnswer = normalize(bestWord, Settings.language);
+	let reqAnswer = Goal.reqAnswer = normalize(Goal.label, Settings.language);
 
 	Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
 

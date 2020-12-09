@@ -163,7 +163,7 @@ function updateKeySettings(nMin) {
 	//console.log(G,KeySets);
 	if (nundef(G)) return;
 	G.keys = setKeys({nMin, lang: Settings.language, keysets: KeySets, key: Settings.vocab });
-	console.log('keyset:', G.keys);
+	//console.log('keyset:', G.keys);
 }
 function updateTimeSettings() {
 	let timeElem = mBy('time');
