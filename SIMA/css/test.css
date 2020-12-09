@@ -11,6 +11,10 @@ div{
 	user-select: none;
 }
 
+.noCursor{
+	cursor: none;
+}
+
 /* input{ font-size:1.3em; padding:.5em; } */
 
 #dLevelComplete{

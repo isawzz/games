@@ -305,7 +305,7 @@ function downgradeCurrentLevelTo(newLevel, oldLevel) {
 	Settings.G.level = newLevel;
 	ensureUserHistoryForGame(G.key);
 	let startLevel = U.games[G.key].startLevel;
-	upgradeStartLevelForUser(G.key, Math.min(newLevel, startLevel));
+	updateStartLevelForUser(G.key, Math.min(newLevel, startLevel));
 	return newLevel;
 }
 function revertToBadgeLevel(ev) {

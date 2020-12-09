@@ -1,7 +1,7 @@
 var pictureSize, TOMain;
 
 function startGame() {
-	console.log('startGame_', G);
+	console.log('___________startGame_', G);
 
 	resetState();
 
@@ -29,15 +29,14 @@ function startLevel() {
 	}
 	startRound();
 }
-function startRound() { 
+function startRound() {
 	resetRound();
 	uiActivated = false;
 
 	G.instance.startRound();
 
-	TOMain = setTimeout(() => prompt(), 300); 
+	TOMain = setTimeout(() => prompt(), 300);
 }
-
 function prompt() {
 	showScore();
 	Score.levelChange = false; //needs to be down here because showScore needs that info!
@@ -55,11 +54,11 @@ function activateUi() {
 	uiActivated = true;
 	G.instance.activate();
 }
-function evaluate(){
+function evaluate() {
 	if (!canAct()) return;
 	uiActivated = false;
 	IsAnswerCorrect = G.instance.eval(...arguments);
-	console.log('answer is',IsAnswerCorrect?'correct':'WRONG!!!')
+	console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
 	G.trialNumber += 1;
 	if (!IsAnswerCorrect && G.trialNumber < G.trials) { promptNextTrial(); return; }
@@ -73,28 +72,38 @@ function evaluate(){
 		showCorrectWord();
 		failPictureGoal(false);
 	}
-	setTimeout(removeMarkers,1500);
+	setTimeout(removeMarkers, 1500);
 
 	let nextLevel;
 	[Score.levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
-	if (!Score.levelChange){
-		TOMain = setTimeout(startRound,DELAY);
-		//enQ(setTimeout,[startRound,DELAY]);
-	}else if (unitTimeUp()){
-		//end of unit!
-		saveUnit();
-	}else if (nextLevel<G.level){
-		//remove badges
-	}else if (nextLevel == G.level){
-		//same level restarts again
-	}else if (nextLevel > G.maxLevel){
-		//new game!
-	}else{
-		//1 level up!
-		// add a badge
-	}
 
+	console.log('===>now', G.level, 'next', nextLevel)
+
+	if (!Score.levelChange) {
+		TOMain = setTimeout(startRound, DELAY);
+	} else {
+		//ja weil wenn game change ist ist ja automatisch auch levelchange!!!
+		if (nextLevel < G.level) {
+			//remove badges
+			revertToBadgeLevel(i);
+		} else if (nextLevel == G.level) {
+			//same level restarts again
+		} else if (nextLevel > G.maxLevel) {
+			//new game!
+			setNextGame();
+		} else {
+			G.level = nextLevel;
+			addBadge(dLeiste, G.level, ()=>{revertToBadgeLevel();startGame();});
+		}
+		updateUserUnit(G.key,G.level);
+		if (unitTimeUp()) {
+			//end of unit!
+			saveUnit();
+		}
+		TOMain = setTimeout(startGame, DELAY);
+
+	}
 }
 
 

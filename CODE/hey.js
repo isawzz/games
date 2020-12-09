@@ -68,7 +68,7 @@ async function saveSIMA() {
 	// localStorage.setItem('user', USERNAME);
 	if (BlockServerSend) {
 		//console.log('...wait for unblocked...');
-		setTimeout(saveServerData, 1000);
+		setTimeout(saveSIMA, 1000);
 	} else {
 		let url = SERVERURL + 'speechGames';
 		BlockServerSend = true;

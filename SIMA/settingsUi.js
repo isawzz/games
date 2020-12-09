@@ -157,6 +157,7 @@ function updateComplexSettings() {
 	updateKeySettings();
 
 	//console.log('halo!')
+	
 
 }
 function updateKeySettings(nMin) {
@@ -167,6 +168,7 @@ function updateKeySettings(nMin) {
 }
 function updateTimeSettings() {
 	let timeElem = mBy('time');
+	console.log('updateTimeSettings',getFunctionsNameThatCalledThisFunction())
 	if (Settings.showTime) { show(timeElem); startTime(timeElem); }
 	else hide(timeElem);
 }

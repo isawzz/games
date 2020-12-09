@@ -1,5 +1,98 @@
+function aniInstruction(spoken) {
+	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
+	mClass(dInstruction, 'onPulse');
+	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
+
+}
+
+//#region cards turn face up or down
+function hideMouse() {
+	//document.body.style.cursor = 'none';
+	var x = document.getElementsByTagName("DIV");
+	for (const el of x) { el.prevCursor = el.style.cursor; } //.style.cursor = 'none';
+	for (const p of Pictures) {
+		mRemoveClass(p.div, 'frameOnHover'); p.div.style.cursor = 'none';
+		for (const ch of p.div.children) ch.style.cursor = 'none';
+	} //p.divmClass.style.cursor = 'none';}
+	for (const el of x) { mClass(el, 'noCursor'); } //.style.cursor = 'none';
+	// let elems = document.getElementsByTagName('div');
+	// for(const el in elems) el.style.cursor = 'none';
+	// document.getElementById("demo").innerHTML = el.innerHTML;	
+	// show(mBy('noMouseScreen')	);
+}
+function showMouse() {
+	var x = document.getElementsByTagName("DIV");
+	for (const el of x) { mRemoveClass(el, 'noCursor'); } //.style.cursor = 'none';
+	for (const el of x) { el.style.cursor = el.prevCursor; } 
+	for (const p of Pictures) {
+		mRemoveClass(p.div,'noCursor');
+		mClass(p.div, 'frameOnHover'); p.div.style.cursor = 'pointer';
+		for (const ch of p.div.children) ch.style.cursor = 'pointer';
+	} //p.divmClass.style.cursor = 'none';}
+}
+
+function turnCardsAfter(secs, removeBg = false) {
+	for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1, removeBg); }
+	TOMain = setTimeout(() => {
+		showInstruction(Goal.label, 'click', dTitle, true);
+		showMouse();
+		activateUi();
+	}, secs * 1000);
+
+}
+function slowlyTurnFaceDown(pic, secs = 5, removeBg = false) {
+	let ui = pic.div;
+	for (const p1 of ui.children) {
+		p1.style.transition = `opacity ${secs}s ease-in-out`;
+		//p1.style.transition = `opacity ${secs}s ease-in-out, background-color ${secs}s ease-in-out`;
+		p1.style.opacity = 0;
+		//p1.style.backgroundColor = 'dimgray';
+		//mClass(p1, 'transopaOff'); //aniSlowlyDisappear');
+	}
+	if (removeBg) {
+		ui.style.transition = `background-color ${secs}s ease-in-out`;
+		ui.style.backgroundColor = 'dimgray';
+	}
+	//ui.style.backgroundColor = 'dimgray';
+	pic.isFaceUp = false;
+
+}
+function turnFaceDown(pic) {
+	let ui = pic.div;
+	for (const p1 of ui.children) p1.style.opacity = 0; //hide(p1);
+	ui.style.backgroundColor = 'dimgray';
+	pic.isFaceUp = false;
+
+}
+function turnFaceUp(pic) {
+	let div = pic.div;
+	for (const ch of div.children) {
+		ch.style.transition = `opacity ${1}s ease-in-out`;
+		ch.style.opacity = 1; //show(ch,true);
+		if (!pic.isLabelVisible) break;
+	}
+	div.style.transition = null;
+	div.style.backgroundColor = pic.bg;
+	pic.isFaceUp = true;
+}
+function toggleFace(pic) { if (pic.isFaceUp) turnFaceDown(pic); else turnFaceUp(pic); }
+//#endregion cards: turn face up or down
+
+function calcMemorizingTime(numItems, randomGoal = true) {
+	//let ldep = Math.max(6, G.level > 2 ? G.numPics * 2 : G.numPics);
+	let ldep = Math.max(6, randomGoal ? numItems * 2 : numItems);
+	return ldep;
+}
+
 function clearTable() {
 	clearElement(dLineTableMiddle); clearElement(dLineTitleMiddle); removeMarkers();
+}
+function containsColorWord(s) {
+	let colors = ['old', 'blond', 'red', 'blue', 'green', 'purple', 'black', 'brown', 'white', 'grey', 'gray', 'yellow', 'orange'];
+	for (const c of colors) {
+		if (s.toLowerCase().includes(c)) return false;
+	}
+	return true;
 }
 
 //#region fail, hint, success
@@ -82,24 +175,30 @@ function resetState() {
 	lastPosition = 0;
 	DELAY = 1000;
 
-	badges = [];
+	//console.log(badges);
+	if (badges.length != G.level) {
+		badges = [];
+		showBadges(dLeiste, G.level, revertToBadgeLevel);
+	}
 
 	updateLabelSettings();
 	setBackgroundColor();
-	showBadges(dLeiste, G.level, revertToBadgeLevel);
 
 }
 function revertToBadgeLevel(ev) {
-	let id = evToClosestId(ev);
-	let i = stringAfter(id, '_');
-	i = Number(i);
+	let i = 0;
+	if (isNumber(ev)) { i = ev; }
+	else {
+		let id = evToClosestId(ev);
+		i = stringAfter(id, '_');
+		i = Number(i);
+	}
 
 	let userStartLevel = getUserStartLevel(G.key);
-	if (userStartLevel > i) upgradeStartLevelForUser(G.key, i);
+	if (userStartLevel > i) updateStartLevelForUser(G.key, i);
 	G.level = i;
 
 	removeBadges(dLeiste, G.level);
-	startGame();
 }
 function setBackgroundColor() { document.body.style.backgroundColor = G.color; }
 function setGoal(index) {

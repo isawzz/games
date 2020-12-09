@@ -126,13 +126,10 @@ function scoring(isCorrect) {
 	}
 
 	if (levelChange) {
-		//ja weil wenn game change ist ist ja automatisch auch levelchange!!!
-		updateUserUnit();
-
 		//upgrade startLevel for this user if reached 100%
 		//console.log('==>scoring',percentageCorrect,nextLevel,G.maxLevel,levelChange);
-		if (percentageCorrect >= 99 && nextLevel > 0 && nextLevel <= G.maxLevel) upgradeStartLevelForUser(G.key, nextLevel);
-		else if (levelChange < 0) upgradeStartLevelForUser(G.key, nextLevel);
+		if (percentageCorrect >= 99 && nextLevel > 0 && nextLevel <= G.maxLevel) updateStartLevelForUser(G.key, nextLevel);
+		else if (levelChange < 0) updateStartLevelForUser(G.key, nextLevel);
 
 	}
 	return [levelChange, nextLevel];

@@ -3427,6 +3427,7 @@ function lookupSetOverride(dict, keys, val) {
 	let i = 0;
 	for (const k of keys) {
 
+		//console.log(k,d)
 		if (i == ilast) {
 			if (nundef(k)) {
 				//letzter key den ich eigentlich setzen will ist undef!

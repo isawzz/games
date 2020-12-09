@@ -43,8 +43,9 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 
 	if (isdef(nMin)) {
 		let diff = nMin - keys.length;
-		let additionalSet = diff > 0 ? firstCondDictKey(keysets, k => k != key && keysets[k].length > diff) : null;
+		let additionalSet = diff > 0 ? firstCondDictKeys(keysets, k => k != key && keysets[k].length > diff) : null;
 		if (additionalSet) keys = keys.concat(keysets[additionalSet]);
+		console.log(keys)
 	}
 
 	let primary = [];
@@ -71,6 +72,7 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 	if (isdef(sortByFunc)) { sortBy(primary, sortByFunc); }
 
 	if (isdef(nMin)) console.assert(primary.length >= nMin);
+	console.log(primary)
 	return primary;
 }
 

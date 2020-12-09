@@ -4,14 +4,15 @@ function enterInterruptState() {
 	//chainCancel();
 	//restartQ();
 	clearTimeout(TOMain);
+	if (isdef(G.instance)) G.instance.clear();
 	auxOpen = true;
-	STOPAUS=true;
+	STOPAUS = true;
 }
 
 //#region control open and close of aux
 function openAux() {
 	enterInterruptState();
-	
+
 	show(dAux);
 	show('dGo');
 
@@ -23,6 +24,7 @@ function closeAux() {
 	show('dGear');
 	show('dTemple');
 	if (SettingsChanged) {
+		updateComplexSettings();
 		saveSIMA();
 	}
 	SettingsChanged = false;
@@ -53,19 +55,25 @@ function divKeyFromEv(ev) {
 }
 function onClickGo(ev) {
 
-	let gKey = nundef(ev)? SelectedMenuKey: isString(ev) ? ev : divKeyFromEv(ev);
-
-	console.log('==>gKey', gKey, SelectedMenuKey);
-
-	if (gKey != SelectedMenuKey) {
-		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
-		SelectedMenuKey = gKey;
-		toggleSelectionOfPicture(MenuItems[gKey]);
-	} else {
+	if (isVisible2('dTemple')) {
 		closeAux();
-		setGame(gKey);
 		startGame();
 
+	} else {
+		let gKey = nundef(ev) ? SelectedMenuKey : isString(ev) ? ev : divKeyFromEv(ev);
+
+		console.log('==>gKey', gKey, SelectedMenuKey);
+
+		if (gKey != SelectedMenuKey) {
+			if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
+			SelectedMenuKey = gKey;
+			toggleSelectionOfPicture(MenuItems[gKey]);
+		} else {
+			closeAux();
+			setGame(gKey);
+			startGame();
+
+		}
 	}
 
 

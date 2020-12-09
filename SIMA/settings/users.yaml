@@ -44,7 +44,7 @@ guggi:
           nCorrect1: 1
 guest0:
   id: guest
-  seq: [gTouchPic,gSayPic,gMem,gWritePic]
+  seq: [gTouchColors,gTouchPic,gSayPic,gMem,gWritePic]
   lastGame: gTouchPic
   lastLevel: 2
   settings:
