@@ -17,11 +17,11 @@ function startLevel() {
 	resetScore();
 	showStats();
 
-	let defvals = { numPics: 1, numRepeat: 1, trials: 2 };
+	let defvals = { numPics: 1, numRepeat: 1 };
 	for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
 	G.numLabels = G.numPics * G.numRepeat;
 
-	G.instance.startLevel(); //settings level dependent params eg., G.trials...
+	G.instance.startLevel(); 
 
 	if (G.keys.length < G.numPics) {
 		//console.log('extending key set!!!!');
@@ -61,7 +61,8 @@ function evaluate() {
 	//console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
 	G.trialNumber += 1;
-	if (!IsAnswerCorrect && G.trialNumber < G.trials) { promptNextTrial(); return; }
+	//console.log('have more trials?',G.trialNumber,Settings.trials)
+	if (!IsAnswerCorrect && G.trialNumber < Settings.trials) { promptNextTrial(); return; }
 
 	//feedback
 	if (IsAnswerCorrect) {
@@ -78,15 +79,16 @@ function evaluate() {
 	[Score.levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
 
-	console.log('===>now', G.level, 'next', nextLevel)
+	//console.log('===>now', G.level, 'next', nextLevel)
 
 	if (!Score.levelChange) {
 		TOMain = setTimeout(startRound, DELAY);
 	} else {
 		//ja weil wenn game change ist ist ja automatisch auch levelchange!!!
+		addScoreToUserSession(G.key,G.level);
 		if (nextLevel < G.level) {
 			//remove badges
-			revertToBadgeLevel(i);
+			revertToBadgeLevel(nextLevel);
 		} else if (nextLevel == G.level) {
 			//same level restarts again
 		} else if (nextLevel > G.maxLevel) {
@@ -96,7 +98,6 @@ function evaluate() {
 			G.level = nextLevel;
 			addBadge(dLeiste, G.level, onClickBadge);
 		}
-		addScoreToUserSession(G.key,G.level);
 		if (unitTimeUp()) {
 			//end of unit!
 			gameOver('Great job! Time for a break!');

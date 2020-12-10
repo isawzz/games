@@ -23,7 +23,7 @@ function initSidebar() {
 	//let title = mText('history:', dParent);
 	dLeiste = mDiv(dParent);
 	//dLeiste = mBy('sidebar')
-	mStyleX(dLeiste, { 'max-height': '100vh', display: 'flex', 'flex-flow': 'column wrap' });
+	mStyleX(dLeiste, { 'min-width':70, 'max-height': '100vh', display: 'flex', 'flex-flow': 'column wrap' });
 }
 function initAux() {
 	dAux = mBy('dAux');

@@ -9,6 +9,10 @@ function addNthInputElement(dParent, n) {
 	mAppend(d, dInp);
 	return dInp;
 }
+function animate(elem, aniclass, timeoutms) {
+	mClass(elem, aniclass);
+	setTimeout(() => mRemoveClass(elem, aniclass), timeoutms);
+}
 function aniInstruction(spoken) {
 	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
 	mClass(dInstruction, 'onPulse');
@@ -170,19 +174,20 @@ function successPictureGoal(withComment = true) {
 //#endregion
 
 //#region fleetingMessage
-function clearFleetingMessage() { clearElement(dLineBottomMiddle); }
+var TOFleetingMessage;
+function clearFleetingMessage() { clearTimeout(TOFleetingMessage); clearElement(dLineBottomMiddle); }
 function showFleetingMessage(msg, msDelay, styles, fade = false) {
 
 	let defStyles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 };
 	if (nundef(styles)) { styles = defStyles; }
 	else styles = deepmergeOverride(defStyles, styles);
 
-	console.log('bg is', G.color, '\n', styles, arguments)
+	//console.log('bg is', G.color, '\n', styles, arguments)
 	if (nundef(styles.fg)) styles.fg = colorIdealText(G.color);
 
 	if (msDelay) {
-		clearTimeout(TOMain);
-		TOMain = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
+		clearTimeout(TOFleetingMessage);
+		TOFleetingMessage = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
 	} else {
 		fleetingMessage(msg, styles, fade);
 	}
@@ -195,22 +200,35 @@ function fleetingMessage(msg, styles, fade = false) {
 //#endregion fleetingMessage
 
 //#region game over
-function gameOver(msg) {	TOMain = setTimeout(aniGameOver(msg), DELAY);}
+function gameOver(msg) { TOMain = setTimeout(aniGameOver(msg), DELAY); }
 function aniGameOver(msg) {
 	soundGoodBye();
 	show('freezer2');
+
+	let dMessage = mBy('dMessageFreezer2');
 	let d = mBy('dContentFreezer2');
 	clearElement(d);
 	mStyleX(d, { fz: 20, matop: 40, bg: 'silver', fg: 'indigo', rounding: 20, padding: 25 })
 	let style = { matop: 4 };
-	mText('Unit Score:', d, { fz: 22 });
 
-	for (const gname in U.session) {
-		let sc = U.session[gname];
-		if (sc.nTotal == 0) continue;
-		mText(`${GAME[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
+	if (USERNAME == 'test') {
+		dMessage.innerHTML = 'Processing your test result...';
+		let [before,after] = calibrateUser();
+		mText('Startlevels before test: '+before, d, { fz: 22 });
+		mText('Startlevels after test: '+after, d, { fz: 22 });
 
+	} else {
+		dMessage.innerHTML = 'Time for a Break...';
+		mText('Unit Score:', d, { fz: 22 });
+
+		for (const gname in U.session) {
+			let sc = U.session[gname];
+			if (sc.nTotal == 0) continue;
+			mText(`${GAME[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
+
+		}
 	}
+
 
 	mClass(mBy('freezer2'), 'aniSlowlyAppear');
 	saveUnit();
@@ -302,6 +320,16 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sam
 
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 		{ repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors, contrast: contrast });
+
+	if (G.key == 'gTouchPic') {
+		let numDuplicates = 0;
+		let checklist = [];
+		let labels = Pictures.map(x => x.label);
+		for (const l of labels) {
+			if (checklist.includes(l)) numDuplicates += 1; else checklist.push(l);
+		}
+		console.assert(numDuplicates == 0)
+	}
 
 	let totalPics = Pictures.length;
 	if (nundef(Settings.labels) || Settings.labels) {

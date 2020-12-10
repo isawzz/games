@@ -1,7 +1,7 @@
 class Game {
 	constructor() {
 	}
-	clear() { clearTimeout(this.TO); }//console.log(getFunctionCallerName()); }
+	clear() { clearTimeout(this.TO);clearFleetingMessage(); }//console.log(getFunctionCallerName()); }
 	startGame() { }//console.log(getFunctionCallerName()); }
 	startLevel() { }//console.log(getFunctionCallerName()); }
 	startRound() { }//console.log(getFunctionCallerName()); }
@@ -15,7 +15,7 @@ class Game {
 	trialPrompt() {
 		//console.log(getFunctionCallerName());
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
-		shortHintPic();
+		if (Settings.showHint) shortHintPic();
 		return 10;
 	}
 	activate() { }//console.log(getFunctionCallerName()); }
@@ -71,15 +71,16 @@ class GTouchColors extends Game {
 	eval(ev) {
 		let id = evToClosestId(ev);
 		ev.cancelBubble = true;
-	
+
 		let i = firstNumber(id);
 		let item = Pictures[i];
 		Selected = { pic: item, feedbackUI: item.div };
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
-	
+
 		if (item == Goal) { return true; } else { return false; }
-	}}
+	}
+}
 class GMem extends Game {
 	constructor() {
 		super();
@@ -99,7 +100,7 @@ class GMem extends Game {
 
 	}
 	interact(ev) {
-		console.log('interact!', ev);
+		//console.log('interact!', ev);
 		ev.cancelBubble = true;
 		if (!canAct()) return;
 
@@ -108,7 +109,7 @@ class GMem extends Game {
 		let pic = Pictures[i];
 		toggleFace(pic);
 
-		if (G.trialNumber == G.trials - 1) {
+		if (G.trialNumber == Settings.trials - 1) {
 			turnFaceUp(Goal);
 			TOMain = setTimeout(() => evaluate(ev), 100);
 		} else evaluate(ev);
@@ -189,7 +190,7 @@ class GMissingLetter extends Game {
 		// randomly choose 1-G.numMissingLetters alphanumeric letters from Goal.label
 		let indices = getIndicesCondi(Goal.label, (x, i) => isAlphaNum(x) && i <= G.maxPosMissing);
 		this.nMissing = Math.min(indices.length, G.numMissingLetters);
-		console.log('nMissing is', this.nMissing, G.numPosMissing, G.maxPosMissing, indices, indices.length)
+		//console.log('nMissing is', this.nMissing, G.numPosMissing, G.maxPosMissing, indices, indices.length)
 		let ilist = choose(indices, this.nMissing); sortNumbers(ilist);
 
 		this.inputs = [];
@@ -203,7 +204,7 @@ class GMissingLetter extends Game {
 		mLinebreak(dTable);
 
 		let msg = this.composeFleetingMessage();
-		console.log('msg,msg', msg)
+		//console.log('msg,msg', msg)
 		showFleetingMessage(msg, 3000);
 		activateUi();
 
@@ -281,9 +282,9 @@ class GMissingLetter extends Game {
 		}
 	}
 	composeFleetingMessage() {
-		console.log('this', this)
+		//console.log('this', this)
 		let lst = this.inputs;
-		console.log(this.inputs)
+		//console.log(this.inputs)
 		let msg = lst.map(x => x.letter).join(',');
 		let edecl = lst.length > 1 ? 's ' : ' ';
 		let ddecl = lst.length > 1 ? 'die' : 'den';
@@ -302,14 +303,41 @@ class GSayPic extends Game {
 		setGoal();
 
 		showInstruction(Goal.label, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
-		animate(dInstruction, 'pulse800' + getSignalColor(), 900);
+		animate(dInstruction, 'pulse800' + bestContrastingColor(G.color, ['yellow', 'red']), 900);
 
 		mLinebreak(dTable);
 		MicrophoneUi = mMicrophone(dTable, G.color);
 		//console.log('MicrophoneUi',MicrophoneUi)
 		MicrophoneHide();
 
-		setTimeout(activateUi, 200);
+		TOMain = setTimeout(activateUi, 200);
+
+	}
+	trialPrompt(nTrial) {
+		let phrase = nTrial < 2 ? (Settings.language == 'E' ? 'speak UP!!!' : 'LAUTER!!!')
+			: (Settings.language == 'E' ? 'Louder!!!' : 'LAUTER!!!');
+		Speech.say(phrase, 1, 1, 1, 'zira');
+		animate(dInstruction, 'pulse800' + bestContrastingColor(G.color, ['yellow', 'red']), 500);
+		return 10;
+	}
+	activate() {
+		//console.log('hallo')
+		if (Speech.isSpeakerRunning()) {
+			TOMain = setTimeout(this.activate.bind(this), 200);
+		} else {
+			TOMain = setTimeout(() => Speech.startRecording(Settings.language, evaluate), 100);
+		}
+
+	}
+	eval(isfinal, speechResult, confidence) {
+
+		let answer = Goal.answer = normalize(speechResult, Settings.language);
+		let reqAnswer = Goal.reqAnswer = normalize(Goal.label, Settings.language);
+
+		Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
+
+		if (isEmpty(answer)) return false;
+		else return isSimilar(answer, reqAnswer);
 
 	}
 }

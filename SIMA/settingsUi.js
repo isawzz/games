@@ -18,6 +18,7 @@ function createSettingsUi(dParent) {
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['showTime']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'spoken feedback', true, ['spokenFeedback']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'switch game after max level', false, ['switchGame']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'show hint', true, ['showHint']);
 
 }
 function createMenuUi(dParent) {
@@ -98,7 +99,7 @@ function setzeEineCheckbox(dParent, label, init, skeys) {
 	let val = lookup(Settings, skeys);
 	if (nundef(val)) val = init;
 	let inp = createElementFromHTML(
-		`<input type="checkbox" class="checkbox" ` + (val ? 'checked=true' : '') + ` onfocusout="setSettingsKeys(this)" >`
+		`<input type="checkbox" class="checkbox" ` + (val === true ? 'checked=true' : '') + ` onfocusout="setSettingsKeys(this)" >`
 		// `<input id="${id}" type="number" class="input" value="1" onfocusout="setSettingsKeys(this)" />`); 
 		// `<input type="number" class="input" value="${val}" onfocusout="setSettingsKeys(this)" />`
 	);

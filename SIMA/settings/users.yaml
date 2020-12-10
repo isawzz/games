@@ -1,56 +1,12 @@
-guggi:
-  id: guggi
-  seq: [gMem,gTouchPic,gWritePic]
-  lastGame: gMem
-  lastLevel: 2
-  settings:
-    minutesPerUnit: 15
-    samplesPerLevel: 25
-    trials: 3
-    # toggle: first half of level: labels, second half of level: no labels
-    showLabels: toggle #always never toggle
-    incrementLevelOnPositiveStreak: 10
-    decrementLevelOnNegativeStreak: 3
-    language: E
-    vocab: best25
-    spokenFeedback: true
-
-    # the following not yet in UI
-    # activity animal body drink emotion food fruit game gesture kitchen 
-    # object person place plant role sport time transport vegetable 
-    # nosymemo nosymbols
-    categories: [nosymemo]
-    pressControlToUnfreeze: false
-    reducedAnimations: true
-    levelBadges: false
-  games:
-    gMem:
-      startLevel: 2
-      nTotal: 1
-      nCorrect: 1
-      nCorrect1: 1
-      scoreByLevel:
-        0: 
-          nTotal: 100
-          nCorrect: 98
-          nCorrect1: 90 #correct at first try
-        1: 
-          nTotal: 100
-          nCorrect: 96
-          nCorrect1: 86
-        2: 
-          nTotal: 1
-          nCorrect: 1
-          nCorrect1: 1
 guest0:
   id: guest
-  seq: [gMissingLetter,gTouchColors,gTouchPic,gSayPic,gMem,gWritePic]
+  seq: [gTouchPic,gTouchColors,gMissingLetter,gSayPic,gMem,gWritePic]
   lastGame: gTouchPic
-  lastLevel: 2
+  lastLevel: 0
   settings:
-    minutesPerUnit: 15
-    samplesPerLevel: 1
-    trials: 3
+    minutesPerUnit: .2
+    samplesPerLevel: 3
+    trials: 2
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
     incrementLevelOnPositiveStreak: 10
@@ -67,24 +23,43 @@ guest0:
     pressControlToUnfreeze: false
     reducedAnimations: true
     levelBadges: false
+    showHint: true
+    showTime: true
+    switchGame: true
   games:
     gMem:
-      startLevel: 2
-      nTotal: 1
-      nCorrect: 1
-      nCorrect1: 1
-      scoreByLevel:
-        0: 
-          nTotal: 100
-          nCorrect: 98
-          nCorrect1: 90 #correct at first try
-        1: 
-          nTotal: 100
-          nCorrect: 96
-          nCorrect1: 86
-        2: 
-          nTotal: 1
-          nCorrect: 1
-          nCorrect1: 1
+      startLevel: 0
+test0:
+  id: test
+  seq: [gTouchPic,gTouchColors]
+  lastGame: gTouchPic
+  lastLevel: 0
+  settings:
+    minutesPerUnit: 1
+    samplesPerLevel: 2
+    trials: 1
+    # toggle: first half of level: labels, second half of level: no labels
+    showLabels: toggle #always never toggle
+    incrementLevelOnPositiveStreak: 10
+    decrementLevelOnNegativeStreak: 3
+    language: E
+    vocab: best50
+    spokenFeedback: false
+
+    # the following not yet in UI
+    # activity animal body drink emotion food fruit game gesture kitchen 
+    # object person place plant role sport time transport vegetable 
+    # nosymemo nosymbols
+    categories: [nosymemo]
+    pressControlToUnfreeze: false
+    reducedAnimations: true
+    levelBadges: false
+    showHint: false
+    showTime: true
+    switchGame: true
+  games:
+    gMem:
+      startLevel: 0
+
 
 

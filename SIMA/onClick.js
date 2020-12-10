@@ -21,6 +21,7 @@ function openAux() {
 function closeAux() {
 	hide(dAux);
 	hide('dGo');
+	hide('dCalibrate');
 	show('dGear');
 	show('dTemple');
 	if (SettingsChanged) {
@@ -34,6 +35,11 @@ function closeAux() {
 
 //#region aux buttons: computer, gear, temple
 function onClickComputer() { }
+function onClickCalibrate() {
+	console.log('hallo')
+	closeAux();
+	changeUserTo('test');
+}
 function onClickGear() {
 	//console.log('opening settings: ui will be interrupted!!!')
 	openAux();
@@ -44,15 +50,10 @@ function onClickTemple() {
 	//console.log('opening menu: ui will be interrupted!!!')
 	openAux();
 	hide('dTemple');
-
+	show('dCalibrate');
 	createMenuUi(dAux);
 }
-function divKeyFromEv(ev) {
-	//console.log('ev',ev)
-	let id = evToClosestId(ev);
-	let div = mBy(id);
-	return div.key;
-}
+
 function onClickGo(ev) {
 
 	if (isVisible2('dTemple')) {
@@ -79,11 +80,11 @@ function onClickGo(ev) {
 
 }
 
-function onClickBadge(ev){
+function onClickBadge(ev) {
 	revertToBadgeLevel(ev);
 	saveUser();
-	console.log('reverted to',G.level);
-	TOMain = setTimeout(startGame,100);
+	console.log('reverted to', G.level);
+	TOMain = setTimeout(startGame, 100);
 }
 
 //# region divControls
@@ -97,10 +98,19 @@ function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'gr
 function onClickFreezer() { hide('freezer'); startUnit(); }
 function onClickFreezer2(ev) {
 	//if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
-	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
+	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); 
+	if (USERNAME == 'test') changeUserTo();
+	else startUnit();
 }
 
 
+//#region helpers
+function divKeyFromEv(ev) {
+	//console.log('ev',ev)
+	let id = evToClosestId(ev);
+	let div = mBy(id);
+	return div.key;
+}
 
 
 

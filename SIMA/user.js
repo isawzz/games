@@ -1,3 +1,4 @@
+var UsernameBeforeTesting;
 function loadUser(newUser) {
 
 	//console.log('newUser',newUser)
@@ -8,6 +9,7 @@ function loadUser(newUser) {
 	//console.log('U anfang von loadUser', U, '\nDB', DB.users[USERNAME]);
 
 	let uData = lookupSet(DB, ['users', USERNAME]);
+	if (newUser == 'test') { uData = DB.users[USERNAME] = jsCopy(DB.users.test0); uData.id = USERNAME; }
 	if (!uData) { uData = DB.users[USERNAME] = jsCopy(DB.users.guest0); uData.id = USERNAME; }
 
 	//console.log(USERNAME, uData);
@@ -21,8 +23,10 @@ function loadUser(newUser) {
 	//how do I det menuItems? available games must go there!!!! U.seq
 	//console.log('U',U,'\nSettings',Settings);
 
-	let uiName = 'spUser'; let dUser = mBy(uiName);
+	let uiName = 'spUser';
+	let dUser = mBy(uiName);
 	if (nundef(dUser)) { dUser = editableUsernameUi(dLineTopLeft); dUser.id = uiName; }
+
 
 	let game = U.lastGame;
 	let level;
@@ -47,8 +51,8 @@ function setGame(game, level) {
 
 	//set new game: friendly,logo,color,key,maxLevel,level 
 	//console.log('set game to', game)
-	G = jsCopy(GAME[game]); 
-	console.log('_________setGame: color',G.color);
+	G = jsCopy(GAME[game]);
+	//console.log('_________setGame: color',G.color);
 
 	let levels = lookup(GS, [game, 'levels']);
 	G.maxLevel = isdef(levels) ? Object.keys(levels).length - 1 : 0;
@@ -60,7 +64,7 @@ function setGame(game, level) {
 	updateComplexSettings(); //TODO: phase out!? or rename initSettings
 
 	if (nundef(U.games[game])) {
-		U.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, scoreByLevel: [] };
+		U.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };
 	}
 
 	saveUser();
@@ -72,20 +76,63 @@ function getUserStartLevel(game) {
 	level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 	return level;
 }
+function changeUserTo(name) {
+	if (name == 'test' && USERNAME != 'test') 	{ 
+		UsernameBeforeTesting = USERNAME; 
+		saveUser(); 
+	} else if (name != USERNAME) {
+		//restartQ();
+		if (USERNAME != 'test') saveUser(); 
+		else if (nundef(name)) name = UsernameBeforeTesting;
+	}
+	mBy('spUser').innerHTML = name;
+	loadUser(name);
+	startUnit();
+}
+
+function getStartLevels(user){
+	let udata = lookup(DB,['users',user]);
+	if (!udata) return 'not available';
+	let res = [];
+	for(const g in udata.games){
+		res.push(g + ': ' + udata.games[g].startLevel);
+	}
+	return res.join(',');
+
+}
+function calibrateUser(){
+	//U.session hat results
+	console.log('calibration results...')
+	let uname = UsernameBeforeTesting;
+	let udata = DB.users[uname];
+	console.log('userdata before calibration',jsCopy(udata))
+
+	let sBefore=getStartLevels(uname);
+
+	for (const gname in U.session) {
+		//find highest level with 100%: this will be correct level
+		let level = 0;
+		for(const l in U.session[gname].byLevel){
+			let sc = U.session[gname].byLevel[l];
+			if (sc.nTotal > sc.nCorrect1) break;
+			level+=1;
+		}
+		lookupSetOverride(udata,['games',gname,'startLevel'],level);
+		if (udata.lastGame == gname) udata.lastLevel = level;
+		console.log('game',gname,'calibrated to level',level);
+	}
+	let sAfter = getStartLevels(uname);
+	console.log('userdata After calibration',jsCopy(udata));
+	return [sBefore,sAfter];
+}
 function editableUsernameUi(dParent) {
 	//console.log('creating input elem for user', USERNAME)
 	let inp = mEditableInput(dParent, 'user: ', USERNAME);
 	inp.id = 'spUser';
-	inp.addEventListener('focusout', () => {
-		let newUser = inp.innerHTML.toLowerCase(); //user names are always case insensitive!
-		//console.log(newUser, USERNAME);
-		if (newUser != USERNAME) {
-			//restartQ();
-			saveUser();
-			loadUser(newUser);
-			startUnit();
-		}
-	});
+	inp.addEventListener('focusout', () => { changeUserTo(inp.innerHTML.toLowerCase()); });
+	// 	let newUser = inp.innerHTML.toLowerCase(); //user names are always case insensitive!
+	// 	//console.log(newUser, USERNAME);
+	// });
 	return inp;
 }
 function saveUnit() { addSessionToUserGames(); saveUser(); }
@@ -97,52 +144,80 @@ function saveUser() {
 	saveSIMA();
 }
 
+function addByKey(oNew, oOld, except) {
+	for (const k in oNew) {
+		let val = oNew[k];
+		if (isdef(except) && except.includes(k) || !isNumber(val)) continue;
+		oOld[k] = isdef(oOld[k]) ? oOld[k] + val : val;
+	}
+}
 function addScoreToUserSession() {
 	//at end of level
 	//adds Score to session
-	console.assert(isdef(Score.nTotal) && Score.nTotal > 0)
+	//console.log('Score', Score)
+	//console.assert(isdef(Score.nTotal) && Score.nTotal > 0)
+	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
 	let game = G.key;
 	let level = G.level;
-	let d = lookup(U, ['session', game, level]);
-	console.log('_addScoreToUserSession:', '\nScore', Score, '\nsession', d);
-	if (!isEmpty(d)) {
-		d.nTotal += Score.nTotal;
-		d.nCorrect += Score.nCorrect;
-		d.nCorrect1 += Score.nCorrect1;
-	} else {
-		d = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
+	let session = U.session;
+	if (nundef(session)) {
+		console.log('THERE WAS NO USER SESSION IN _addScoreToUserSession!!!!!!!!!!!!!!!!!!!!!')
+		U.session = {};
 	}
-	lookupSetOverride(U, ['session', game, level], d);
 
-	//also update aggregate score for this game!
-	let dagg = U.session[game];
-	dagg.nTotal = isdef(dagg.nTotal) ? dagg.nTotal + Score.nTotal : Score.nTotal;
-	dagg.nCorrect = isdef(dagg.nCorrect) ? dagg.nCorrect + Score.nCorrect : Score.nCorrect;
-	dagg.nCorrect1 = isdef(dagg.nCorrect1) ? dagg.nCorrect1 + Score.nCorrect1 : Score.nCorrect1;
-	dagg.percentage = Math.round(100 * dagg.nCorrect / dagg.nTotal);
+	let sGame = session[game];
+	if (nundef(sGame)) {
+		sGame = session[game] = jsCopy(sc);
+		sGame.byLevel = {};
+		sGame.byLevel[level] = jsCopy(sc);
+	} else {
+		addByKey(sc, sGame);
+		let byLevel = lookupSet(sGame, ['byLevel', level], {});
+		addByKey(sc, byLevel);
+	}
+	sGame.percentage = Math.round(100 * sGame.nCorrect / sGame.nTotal);
 
-	console.log('_addScoreToUserSession:', '\nScore', Score, '\nsession', d);
-	console.log('session:', U.session);
+	console.log('updated session:', U.session)
+
 	saveUser();
-	console.log('+ _addScoreToUserSession +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
-	console.log(jsCopy(Score), jsCopy(U.session))
+	//console.log('+ _addScoreToUserSession +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
+	//console.log(jsCopy(Score), jsCopy(U.session))
 }
 
 function addSessionToUserGames() {
-	// adds session to U.games[game].ScoreByLevel
-	console.log('+ _addSessionToUserGames +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
-	console.log(jsCopy(Score), jsCopy(U.session))
+	// adds session to U.games and deletes session
+
 	if (!isEmpty(U.session)) {
 		for (const g in U.session) {
-			for (const l in U.session[g]) {
-				let d = U.session[g][l];
-				let old = lookup(U, [g, 'scoreByLevel', l]);
-				if (old) { old.nTotal += d.nTotal; old.nCorrect += d.nCorrect; old.nCorrect1 += d.nCorrect1; }
-				else lookupSet(U, [g, 'scoreByLevel', l], d);
+			let recOld = lookup(U, ['games', g]);
+			let recNew = U.session[g];
+
+			console.assert(isdef(recOld));
+
+			addByKey(recNew, recOld);
+			recOld.percentage = Math.round(100 * recOld.nCorrect / recOld.nTotal);
+			if (nundef(recOld.byLevel)) recOld.byLevel = {};
+			for (const l in recNew.byLevel) {
+				if (nundef(recOld.byLevel[l])) recOld.byLevel[l] = jsCopy(recNew.byLevel[l]);
+				else addByKey(recNew.byLevel[l], recOld.byLevel[l]);
 			}
+
+
+			console.log('added session:', g, recNew)
+
+			// recOld.nTotal = isdef(recOld.nTotal) ? recOld.nTotal + recNew.nTotal : recNew.nTotal;
+			// recOld.nCorrect = isdef(recOld.nCorrect) ? recOld.nCorrect + recNew.nCorrect : recNew.nCorrect;
+			// recOld.nCorrect1 = isdef(recOld.nCorrect1) ? recOld.nCorrect1 + recNew.nCorrect1 : recNew.nCorrect1;
+			// recOld.percentage = Math.round(100 * recOld.nCorrect / recOld.nTotal);
+			// for (const l in recNew) {
+			// 	let d = U.session[g][l];
+			// 	let old = lookup(recOld, ['scoreByLevel', l]);
+			// 	if (old) { old.nTotal += d.nTotal; old.nCorrect += d.nCorrect; old.nCorrect1 += d.nCorrect1; }
+			// 	else lookupSet(recOld, ['scoreByLevel', l], d);
+			// }
 		}
 	}
-	delete U.session;
+	U.session = {};
 }
 
 function updateStartLevelForUser(game, level) {
