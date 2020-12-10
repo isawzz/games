@@ -94,10 +94,12 @@ function getStartLevels(user){
 	let udata = lookup(DB,['users',user]);
 	if (!udata) return 'not available';
 	let res = [];
+	let res2 = {};
 	for(const g in udata.games){
+		res2[g]=udata.games[g].startLevel;
 		res.push(g + ': ' + udata.games[g].startLevel);
 	}
-	return res.join(',');
+	return res2; // res.join(',');
 
 }
 function calibrateUser(){
@@ -136,6 +138,9 @@ function editableUsernameUi(dParent) {
 	return inp;
 }
 function saveUnit() { addSessionToUserGames(); saveUser(); }
+function saveRealUser(){
+	if (USERNAME != 'test') saveUser();
+}
 function saveUser() {
 	//console.log('saveUser:',getFunctionsNameThatCalledThisFunction()); 
 	U.lastGame = G.key;

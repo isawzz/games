@@ -31,7 +31,7 @@ guest0:
       startLevel: 0
 test0:
   id: test
-  seq: [gTouchPic,gTouchColors]
+  seq: [gTouchPic, gTouchColors, gMem, gMissingLetter, gWritePic, gSayPic]
   lastGame: gTouchPic
   lastLevel: 0
   settings:

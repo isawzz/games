@@ -214,11 +214,17 @@ function aniGameOver(msg) {
 	if (USERNAME == 'test') {
 		dMessage.innerHTML = 'Processing your test result...';
 		let [before,after] = calibrateUser();
-		mText('Startlevels before test: '+before, d, { fz: 22 });
-		mText('Startlevels after test: '+after, d, { fz: 22 });
+		d.style.textAlign='left';
+		for(const g in after){
+			if (nundef(before[g])) before[g]=0;
+			let b=before[g];let a=after[g];
+			let exp=b<a?(' been upgraded to '+a):b>a?(' been downgraded to '+a):' remained at '+a;
+			mText(`game ${g}: startlevel has ${exp}`, d, { fz: 22 });
+		}
 
 	} else {
 		dMessage.innerHTML = 'Time for a Break...';
+		d.style.textAlign='center';
 		mText('Unit Score:', d, { fz: 22 });
 
 		for (const gname in U.session) {

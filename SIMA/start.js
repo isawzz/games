@@ -1,5 +1,5 @@
 window.onload = _loader;
-window.onunload = saveUser;
+window.onunload = saveRealUser;
 
 async function _loader() {
 	//timit = new TimeIt('start');
