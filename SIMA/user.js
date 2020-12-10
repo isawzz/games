@@ -5,7 +5,7 @@ function loadUser(newUser) {
 	if (nundef(USERNAME)) USERNAME = 'guest';
 	//else console.log('found in localStorage',typeof USERNAME,USERNAME);
 
-	console.log('U anfang von loadUser', U, '\nDB', DB.users[USERNAME]);
+	//console.log('U anfang von loadUser', U, '\nDB', DB.users[USERNAME]);
 
 	let uData = lookupSet(DB, ['users', USERNAME]);
 	if (!uData) { uData = DB.users[USERNAME] = jsCopy(DB.users.guest0); uData.id = USERNAME; }
@@ -33,23 +33,22 @@ function loadUser(newUser) {
 		level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 	}
 
-	console.log('session', U.session);
-	if (nundef(U.session)) U.session = {};
 	setGame(game, level);
 }
-function setNextGame(){
+function setNextGame() {
 	let game = G.key;
-	let i=U.seq.indexOf(game);
-	let iNew = (i+1)%U.seq.length;
+	let i = U.seq.indexOf(game);
+	let iNew = (i + 1) % U.seq.length;
 	setGame(U.seq[iNew]);
 }
 function setGame(game, level) {
 	//clear previous game (timeouts...)
-	if (isdef(G) && isdef(G.key)) { G.instance.clear(); }
+	if (isdef(G) && isdef(G.instance)) { G.instance.clear(); }
 
 	//set new game: friendly,logo,color,key,maxLevel,level 
-	console.log('set game to', game)
-	G = jsCopy(GAME[game]);
+	//console.log('set game to', game)
+	G = jsCopy(GAME[game]); 
+	console.log('_________setGame: color',G.color);
 
 	let levels = lookup(GS, [game, 'levels']);
 	G.maxLevel = isdef(levels) ? Object.keys(levels).length - 1 : 0;
@@ -81,28 +80,31 @@ function editableUsernameUi(dParent) {
 		let newUser = inp.innerHTML.toLowerCase(); //user names are always case insensitive!
 		//console.log(newUser, USERNAME);
 		if (newUser != USERNAME) {
-			restartQ();
-			saveUser(); loadUser(newUser);
+			//restartQ();
+			saveUser();
+			loadUser(newUser);
+			startUnit();
 		}
 	});
 	return inp;
 }
-function saveUnit() { integrateUserUnit(); saveUser(); }
-function saveUser() { 
-	console.log('saveUser:',getFunctionsNameThatCalledThisFunction()); 
-	U.lastGame = G.key; 
-	U.lastLevel = G.level; 
-	DB.users[USERNAME] = U; 
-	saveSIMA(); 
+function saveUnit() { addSessionToUserGames(); saveUser(); }
+function saveUser() {
+	//console.log('saveUser:',getFunctionsNameThatCalledThisFunction()); 
+	U.lastGame = G.key;
+	U.lastLevel = G.level;
+	DB.users[USERNAME] = U;
+	saveSIMA();
 }
 
-function updateUserUnit() {
+function addScoreToUserSession() {
 	//at end of level
 	//adds Score to session
+	console.assert(isdef(Score.nTotal) && Score.nTotal > 0)
 	let game = G.key;
 	let level = G.level;
 	let d = lookup(U, ['session', game, level]);
-	console.log('updateUserUnit:', '\nScore', Score, '\nsession', d);
+	console.log('_addScoreToUserSession:', '\nScore', Score, '\nsession', d);
 	if (!isEmpty(d)) {
 		d.nTotal += Score.nTotal;
 		d.nCorrect += Score.nCorrect;
@@ -111,14 +113,25 @@ function updateUserUnit() {
 		d = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
 	}
 	lookupSetOverride(U, ['session', game, level], d);
-	console.log('updateUserUnit:', '\nScore', Score, '\nsession', d);
+
+	//also update aggregate score for this game!
+	let dagg = U.session[game];
+	dagg.nTotal = isdef(dagg.nTotal) ? dagg.nTotal + Score.nTotal : Score.nTotal;
+	dagg.nCorrect = isdef(dagg.nCorrect) ? dagg.nCorrect + Score.nCorrect : Score.nCorrect;
+	dagg.nCorrect1 = isdef(dagg.nCorrect1) ? dagg.nCorrect1 + Score.nCorrect1 : Score.nCorrect1;
+	dagg.percentage = Math.round(100 * dagg.nCorrect / dagg.nTotal);
+
+	console.log('_addScoreToUserSession:', '\nScore', Score, '\nsession', d);
 	console.log('session:', U.session);
 	saveUser();
-	console.log('++++++++++++++++++++saved user:',U.lastGame,U.lastLevel)
+	console.log('+ _addScoreToUserSession +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
+	console.log(jsCopy(Score), jsCopy(U.session))
 }
 
-function integrateUserUnit() {
+function addSessionToUserGames() {
 	// adds session to U.games[game].ScoreByLevel
+	console.log('+ _addSessionToUserGames +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
+	console.log(jsCopy(Score), jsCopy(U.session))
 	if (!isEmpty(U.session)) {
 		for (const g in U.session) {
 			for (const l in U.session[g]) {

@@ -35,7 +35,7 @@ function closeAux() {
 //#region aux buttons: computer, gear, temple
 function onClickComputer() { }
 function onClickGear() {
-	console.log('opening settings: ui will be interrupted!!!')
+	//console.log('opening settings: ui will be interrupted!!!')
 	openAux();
 	hide('dGear');
 	createSettingsUi(dAux);
@@ -62,7 +62,7 @@ function onClickGo(ev) {
 	} else {
 		let gKey = nundef(ev) ? SelectedMenuKey : isString(ev) ? ev : divKeyFromEv(ev);
 
-		console.log('==>gKey', gKey, SelectedMenuKey);
+		//console.log('==>gKey', gKey, SelectedMenuKey);
 
 		if (gKey != SelectedMenuKey) {
 			if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
@@ -96,7 +96,7 @@ function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'gr
 //#region freezers
 function onClickFreezer() { hide('freezer'); startUnit(); }
 function onClickFreezer2(ev) {
-	if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
+	//if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
 	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); startUnit();
 }
 

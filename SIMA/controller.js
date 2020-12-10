@@ -1,7 +1,7 @@
 var pictureSize, TOMain;
 
 function startGame() {
-	console.log('___________startGame_', G);
+	//console.log('___________startGame_', G);
 
 	resetState();
 
@@ -24,7 +24,7 @@ function startLevel() {
 	G.instance.startLevel(); //settings level dependent params eg., G.trials...
 
 	if (G.keys.length < G.numPics) {
-		console.log('extending key set!!!!');
+		//console.log('extending key set!!!!');
 		updateKeySettings(G.numPics + 5);
 	}
 	startRound();
@@ -58,7 +58,7 @@ function evaluate() {
 	if (!canAct()) return;
 	uiActivated = false;
 	IsAnswerCorrect = G.instance.eval(...arguments);
-	console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
+	//console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
 	G.trialNumber += 1;
 	if (!IsAnswerCorrect && G.trialNumber < G.trials) { promptNextTrial(); return; }
@@ -96,12 +96,13 @@ function evaluate() {
 			G.level = nextLevel;
 			addBadge(dLeiste, G.level, onClickBadge);
 		}
-		updateUserUnit(G.key,G.level);
+		addScoreToUserSession(G.key,G.level);
 		if (unitTimeUp()) {
 			//end of unit!
-			saveUnit();
+			gameOver('Great job! Time for a break!');
+		}else{
+			TOMain = setTimeout(startGame, DELAY);
 		}
-		TOMain = setTimeout(startGame, DELAY);
 
 	}
 }

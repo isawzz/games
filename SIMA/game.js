@@ -53,9 +53,9 @@ function hideMouse() {
 function showMouse() {
 	var x = document.getElementsByTagName("DIV");
 	for (const el of x) { mRemoveClass(el, 'noCursor'); } //.style.cursor = 'none';
-	for (const el of x) { el.style.cursor = el.prevCursor; } 
+	for (const el of x) { el.style.cursor = el.prevCursor; }
 	for (const p of Pictures) {
-		mRemoveClass(p.div,'noCursor');
+		mRemoveClass(p.div, 'noCursor');
 		mClass(p.div, 'frameOnHover'); p.div.style.cursor = 'pointer';
 		for (const ch of p.div.children) ch.style.cursor = 'pointer';
 	} //p.divmClass.style.cursor = 'none';}
@@ -171,10 +171,14 @@ function successPictureGoal(withComment = true) {
 
 //#region fleetingMessage
 function clearFleetingMessage() { clearElement(dLineBottomMiddle); }
-function showFleetingMessage(msg, msDelay, styles = { fg, fz: 22, rounding: 10, padding: '2px 12px', matop: 50 }, fade = false) {
+function showFleetingMessage(msg, msDelay, styles, fade = false) {
 
-	console.log('bg is',G.color)
-	if (nundef(fg)) fg = colorIdealText(G.color);
+	let defStyles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 };
+	if (nundef(styles)) { styles = defStyles; }
+	else styles = deepmergeOverride(defStyles, styles);
+
+	console.log('bg is', G.color, '\n', styles, arguments)
+	if (nundef(styles.fg)) styles.fg = colorIdealText(G.color);
 
 	if (msDelay) {
 		clearTimeout(TOMain);
@@ -190,6 +194,29 @@ function fleetingMessage(msg, styles, fade = false) {
 }
 //#endregion fleetingMessage
 
+//#region game over
+function gameOver(msg) {	TOMain = setTimeout(aniGameOver(msg), DELAY);}
+function aniGameOver(msg) {
+	soundGoodBye();
+	show('freezer2');
+	let d = mBy('dContentFreezer2');
+	clearElement(d);
+	mStyleX(d, { fz: 20, matop: 40, bg: 'silver', fg: 'indigo', rounding: 20, padding: 25 })
+	let style = { matop: 4 };
+	mText('Unit Score:', d, { fz: 22 });
+
+	for (const gname in U.session) {
+		let sc = U.session[gname];
+		if (sc.nTotal == 0) continue;
+		mText(`${GAME[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
+
+	}
+
+	mClass(mBy('freezer2'), 'aniSlowlyAppear');
+	saveUnit();
+
+}
+//#endregion game over
 function getGameOrLevelInfo(k, defval) {
 	let val = lookup(GS, [G.key, 'levels', G.level, k]);
 	if (!val) val = lookupSet(GS, [G.key, k], defval);

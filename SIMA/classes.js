@@ -1,27 +1,27 @@
 class Game {
 	constructor() {
 	}
-	clear() { clearTimeout(this.TO); console.log(getFunctionCallerName()); }
-	startGame() { console.log(getFunctionCallerName()); }
-	startLevel() { console.log(getFunctionCallerName()); }
-	startRound() { console.log(getFunctionCallerName()); }
+	clear() { clearTimeout(this.TO); }//console.log(getFunctionCallerName()); }
+	startGame() { }//console.log(getFunctionCallerName()); }
+	startLevel() { }//console.log(getFunctionCallerName()); }
+	startRound() { }//console.log(getFunctionCallerName()); }
 	prompt() {
-		console.log(getFunctionCallerName());
+		//console.log(getFunctionCallerName());
 		showPictures(evaluate);
 		setGoal();
 		showInstruction(Goal.label, 'click', dTitle, true);
 		activateUi();
 	}
 	trialPrompt() {
-		console.log(getFunctionCallerName());
+		//console.log(getFunctionCallerName());
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 		shortHintPic();
 		return 10;
 	}
-	activate() { console.log(getFunctionCallerName()); }
-	interact() { console.log(getFunctionCallerName()); }
+	activate() { }//console.log(getFunctionCallerName()); }
+	interact() { }//console.log(getFunctionCallerName()); }
 	eval(ev) {
-		console.log(getFunctionCallerName());
+		//console.log(getFunctionCallerName());
 		let id = evToClosestId(ev);
 		ev.cancelBubble = true;
 
@@ -34,7 +34,7 @@ class Game {
 
 		if (item.label == Goal.label) { return true; } else { return false; }
 	}
-	recycle() { console.log(getFunctionCallerName()); }
+	recycle() { }//console.log(getFunctionCallerName()); }
 }
 
 class GTouchPic extends Game {
@@ -45,7 +45,7 @@ class GTouchPic extends Game {
 class GTouchColors extends Game {
 	static SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 	constructor() {
-		console.log('creating instance of GTouchColors!!!!!!!!!!!!!')
+		//console.log('creating instance of GTouchColors!!!!!!!!!!!!!')
 		super();
 	}
 	startLevel() {
@@ -54,7 +54,7 @@ class GTouchColors extends Game {
 		this.colorlist = lookupSet(Settings, ['games', 'gTouchColors', 'colors'], GTouchColors.SIMPLE_COLORS);
 		this.contrast = lookupSet(Settings, ['games', 'gTouchColors', 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
-		console.log('GTouchColors keys', G.keys);
+		//console.log('GTouchColors keys', G.keys);
 	}
 	prompt() {
 		this.colors = choose(this.colorlist, this.numColors);
@@ -68,7 +68,18 @@ class GTouchColors extends Game {
 			dTitle, true, spoken);
 		activateUi();
 	}
-}
+	eval(ev) {
+		let id = evToClosestId(ev);
+		ev.cancelBubble = true;
+	
+		let i = firstNumber(id);
+		let item = Pictures[i];
+		Selected = { pic: item, feedbackUI: item.div };
+		Selected.reqAnswer = Goal.label;
+		Selected.answer = item.label;
+	
+		if (item == Goal) { return true; } else { return false; }
+	}}
 class GMem extends Game {
 	constructor() {
 		super();
@@ -178,10 +189,10 @@ class GMissingLetter extends Game {
 		// randomly choose 1-G.numMissingLetters alphanumeric letters from Goal.label
 		let indices = getIndicesCondi(Goal.label, (x, i) => isAlphaNum(x) && i <= G.maxPosMissing);
 		this.nMissing = Math.min(indices.length, G.numMissingLetters);
-		console.log('nMissing is',this.nMissing,G.numPosMissing,G.maxPosMissing,indices,indices.length)
+		console.log('nMissing is', this.nMissing, G.numPosMissing, G.maxPosMissing, indices, indices.length)
 		let ilist = choose(indices, this.nMissing); sortNumbers(ilist);
 
-		this.inputs=[];
+		this.inputs = [];
 		for (const idx of ilist) {
 			let inp = d.children[idx];
 			inp.innerHTML = '_';
@@ -191,8 +202,8 @@ class GMissingLetter extends Game {
 
 		mLinebreak(dTable);
 
-		let msg=this.composeFleetingMessage();
-		console.log('msg,msg',msg)
+		let msg = this.composeFleetingMessage();
+		console.log('msg,msg', msg)
 		showFleetingMessage(msg, 3000);
 		activateUi();
 
@@ -270,7 +281,7 @@ class GMissingLetter extends Game {
 		}
 	}
 	composeFleetingMessage() {
-		console.log('this',this)
+		console.log('this', this)
 		let lst = this.inputs;
 		console.log(this.inputs)
 		let msg = lst.map(x => x.letter).join(',');
@@ -279,7 +290,28 @@ class GMissingLetter extends Game {
 		let s = (Settings.language == 'E' ? 'Type the letter' + edecl : 'Tippe ' + ddecl + ' Buchstaben ');
 		return s + msg;
 	}
-	
+
+}
+class GSayPic extends Game {
+	constructor() {
+		super();
+	}
+	prompt() {
+
+		showPictures(() => mBy(defaultFocusElement).focus());
+		setGoal();
+
+		showInstruction(Goal.label, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
+		animate(dInstruction, 'pulse800' + getSignalColor(), 900);
+
+		mLinebreak(dTable);
+		MicrophoneUi = mMicrophone(dTable, G.color);
+		//console.log('MicrophoneUi',MicrophoneUi)
+		MicrophoneHide();
+
+		setTimeout(activateUi, 200);
+
+	}
 }
 
 function getInstance(G) { return new (GAME[G.key].cl)(); }
@@ -294,7 +326,7 @@ const GAME = {
 	gMem: { friendly: 'Memory!', logo: 'memory', color: GREEN, cl: GMem, }, //'#3cb44b'
 	gWritePic: { friendly: 'Type it!', logo: 'keyboard', color: 'orange', cl: GWritePic, }, //LIGHTGREEN, //'#bfef45',
 	gMissingLetter: { friendly: 'Letters!', logo: 'black nib', color: 'gold', cl: GMissingLetter, },
-	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GTouchPic, }, //'#4363d8',
+	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GSayPic, }, //'#4363d8',
 	gPreMem: { friendly: 'Premem!', logo: 'hammer and wrench', color: LIGHTGREEN, cl: GTouchPic, }, //'deeppink',
 	gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GTouchPic, }, //'#911eb4',
 };

@@ -33,7 +33,10 @@ async function _start() {
 function startUnit() {
 
 	restartTime();
+	if (nundef(U.session)) U.session = {};
+	console.log('---startUnit: session', U.session);
 
+	//hier soll U.session laden 
 	UnitScoreSummary = {};
 
 	startGame();

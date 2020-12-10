@@ -1,23 +1,26 @@
-var TimestampStarted, TimeElapsed, OnTimeOver=null, TimeElem;
+var TimestampStarted, TimeElapsed, OnTimeOver = null, TimeElem, TimeLeft;
 function restartTime(elem) { TimestampStarted = msNow(); TimeElapsed = 0; startTime(elem); }
 function startTime(elem) {
 
 	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	if (nundef(TimestampStarted)) { TimestampStarted = msNow(); TimeElapsed = 0; }
-	if (nundef(elem) && isdef(TimeElem)) elem = TimeElem;
-	// console.log(TimestampStarted,getFunctionsNameThatCalledThisFunction())
-	var timeLeft = Settings.minutesPerUnit * 60000 - getTimeElapsed();
-	let t = msToTime(timeLeft);
-	let s = format2Digits(t.h) + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
+	if (nundef(elem) && isdef(TimeElem)) { elem = TimeElem; }
+	else  {if (isString(elem)) elem = mBy(elem); TimeElem = elem; }
 
-	if (isString(elem)) elem = mBy(elem); 
-	TimeElem = elem;
-	elem.innerHTML = s;//h + ":" + m + ":" + s;
-	if (timeLeft > 0) setTimeout(() => startTime(elem), 500);
-	else if (OnTimeOver) OnTimeOver();
-	
+	// console.log(TimestampStarted,getFunctionsNameThatCalledThisFunction())
+	var timeLeft = TimeLeft = Settings.minutesPerUnit * 60000 - getTimeElapsed();
+	if (timeLeft > 0) {
+		let t = msToTime(timeLeft);
+		let s = format2Digits(t.h) + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
+
+		elem.innerHTML = s;//h + ":" + m + ":" + s;
+		setTimeout(() => startTime(elem), 500);
+	} else {
+		elem.innerHTML = '00:00:00';
+		if (OnTimeOver) OnTimeOver();
+	}
 }
-function unitTimeUp(){return (Settings.minutesPerUnit * 60000 - getTimeElapsed())<=0;}
+function unitTimeUp() { return (Settings.minutesPerUnit * 60000 - getTimeElapsed()) <= 0; }
 function startTimeClock(elem) {
 	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	var today = new Date(),

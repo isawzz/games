@@ -185,7 +185,8 @@ div{
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	min-width: 20px;
+	min-width: 80px;
+	text-align: left;
 	/* background-color: aqua; */
 }
 #lineTopRight{
@@ -195,7 +196,11 @@ div{
 	/* float: left; */
 	top: 0px;
 	right: 0px;
-	min-width: 20px;
+	width: 124px;
+	/* background-color: blue; */
+	/* min-width: 80px;
+	text-align: left;
+	padding: 10px; */
 	/* background-color: rgb(9, 51, 51); */
 }
 #lineTopMiddle{

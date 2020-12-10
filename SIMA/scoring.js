@@ -95,6 +95,8 @@ function scoring(isCorrect) {
 			levelChange = 1; nextLevel += 1;
 		} else if (percentageCorrect < 25) {
 			levelChange = -1; nextLevel = (nextLevel > 0 ? nextLevel - 1 : 0);
+		} else {
+			levelChange = 1; 
 		}
 	}
 
@@ -114,7 +116,7 @@ function scoring(isCorrect) {
 
 	}
 
-	console.log('levelChange', levelChange, 'nextLevel', nextLevel)
+	//console.log('levelChange', levelChange, 'nextLevel', nextLevel)
 
 	let toggle = Settings.showLabels == 'toggle';
 	let hasLabels = Settings.labels;
