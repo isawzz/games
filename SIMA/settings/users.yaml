@@ -1,10 +1,10 @@
 guest0:
   id: guest
-  seq: [gTouchPic,gTouchColors,gMissingLetter,gSayPic,gMem,gWritePic]
+  seq: [gTouchPic, gTouchColors, gPremem, gMem, gMissingLetter, gWritePic, gSayPic]
   lastGame: gTouchPic
   lastLevel: 0
   settings:
-    minutesPerUnit: .2
+    minutesPerUnit: 10
     samplesPerLevel: 3
     trials: 2
     # toggle: first half of level: labels, second half of level: no labels
@@ -27,15 +27,15 @@ guest0:
     showTime: true
     switchGame: true
   games:
-    gMem:
+    gTouchPic:
       startLevel: 0
 test0:
   id: test
-  seq: [gTouchPic, gTouchColors, gMem, gMissingLetter, gWritePic, gSayPic]
+  seq: [gTouchPic, gTouchColors] #, gPremem, gMem, gMissingLetter, gWritePic, gSayPic ] #, gTouchColors, gMem, gMissingLetter, gWritePic, gSayPic]
   lastGame: gTouchPic
   lastLevel: 0
   settings:
-    minutesPerUnit: 1
+    minutesPerUnit: 10
     samplesPerLevel: 2
     trials: 1
     # toggle: first half of level: labels, second half of level: no labels
@@ -58,8 +58,7 @@ test0:
     showTime: true
     switchGame: true
   games:
-    gMem:
+    gTouchPic:
       startLevel: 0
-
 
 

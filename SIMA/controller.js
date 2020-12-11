@@ -21,7 +21,7 @@ function startLevel() {
 	for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
 	G.numLabels = G.numPics * G.numRepeat;
 
-	G.instance.startLevel(); 
+	G.instance.startLevel();
 
 	if (G.keys.length < G.numPics) {
 		//console.log('extending key set!!!!');
@@ -80,12 +80,22 @@ function evaluate() {
 
 
 	//console.log('===>now', G.level, 'next', nextLevel)
+	// let gcCompleted = gameCycleCompleted(nextLevel);
+	// let cal = calibrating();
+	// console.log('=============>eval \ngame', G.key,
+	// 	'\nnext level', nextLevel, G.maxLevel, '\ncycle completed', gcCompleted, '\ncalibrating', cal);
+
+	if (calibrating() && gameCycleCompleted(nextLevel)) {
+		addScoreToUserSession(G.key, G.level);
+		gameOver('Great job! Time for a break!');
+		return;
+	}
 
 	if (!Score.levelChange) {
 		TOMain = setTimeout(startRound, DELAY);
 	} else {
 		//ja weil wenn game change ist ist ja automatisch auch levelchange!!!
-		addScoreToUserSession(G.key,G.level);
+		addScoreToUserSession(G.key, G.level);
 		if (nextLevel < G.level) {
 			//remove badges
 			revertToBadgeLevel(nextLevel);
@@ -98,10 +108,12 @@ function evaluate() {
 			G.level = nextLevel;
 			addBadge(dLeiste, G.level, onClickBadge);
 		}
+
+
 		if (unitTimeUp()) {
 			//end of unit!
 			gameOver('Great job! Time for a break!');
-		}else{
+		} else {
 			TOMain = setTimeout(startGame, DELAY);
 		}
 

@@ -36,7 +36,7 @@ function closeAux() {
 //#region aux buttons: computer, gear, temple
 function onClickComputer() { }
 function onClickCalibrate() {
-	console.log('hallo')
+	//console.log('hallo')
 	closeAux();
 	changeUserTo('test');
 }

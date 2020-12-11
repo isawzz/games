@@ -1,3 +1,29 @@
+function calibrateUser(){
+	//U.session hat results
+	console.log('calibration results... test session',jsCopy(U.session))
+	let uname = UsernameBeforeTesting;
+	let udata = DB.users[uname];
+	console.log('userdata before calibration',jsCopy(udata))
+
+	let sBefore=getStartLevels(uname);
+
+	for (const gname in U.session) {
+		//find highest level with 100%: this will be correct level
+		let level = 0;
+		for(const l in U.session[gname].byLevel){
+			let sc = U.session[gname].byLevel[l];
+			if (sc.nTotal > sc.nCorrect1) break;
+			level+=1;
+		}
+		let newval = lookupSetOverride(udata,['games',gname,'startLevel'],level);
+		console.log('*** level set',gname,'level',newval)
+		if (udata.lastGame == gname) udata.lastLevel = level;
+		//console.log('game',gname,'calibrated to level',level);
+	}
+	let sAfter = getStartLevels(uname);
+	console.log('userdata After calibration',jsCopy(udata));
+	return [sBefore,sAfter];
+}
 function getSignalColor() { if (G.level != 4 && G.level != 7 && G.level != 10 && G.level != 3) return 'red'; else return 'yellow'; }
 
 //#region ui states

@@ -76,7 +76,7 @@ games:
       4: 
         numPics: 5
         numColors: 4
-  gPreMem:
+  gPremem:
     levels:
       0: 
         numPics: 2

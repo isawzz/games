@@ -102,16 +102,30 @@ function getStartLevels(user){
 	return res2; // res.join(',');
 
 }
+function gameCycleCompleted(nextLevel){
+	let over = nextLevel > G.maxLevel;
+	let i=U.seq.indexOf(G.key)+1;
+	// console.log('cycle: level over',over?'YES':'no','last game',G.key,'next i',i,'U.seq.length',U.seq.length)
+	// console.log('cycle complete game',G.key,'nextLevel',nextLevel,'i',i,'over',over)
+	return i == U.seq.length && over;
+}
+function calibrating(){return USERNAME == 'test';}
 function calibrateUser(){
 	//U.session hat results
-	console.log('calibration results...')
+	//console.log('calibration results... test session',jsCopy(U.session))
 	let uname = UsernameBeforeTesting;
 	let udata = DB.users[uname];
-	console.log('userdata before calibration',jsCopy(udata))
+	//console.log('userdata before calibration',jsCopy(udata))
 
 	let sBefore=getStartLevels(uname);
 
-	for (const gname in U.session) {
+	for (const gname in GAME) {
+		if (nundef(U.session[gname])){
+			let baseLevel = lookupSet(udata,['games',gname,'startLevel'],0);
+			if (udata.lastGame == gname) udata.lastLevel = baseLevel;
+			//console.log('baseLevel for',gname,'is',baseLevel)
+			continue;
+		}
 		//find highest level with 100%: this will be correct level
 		let level = 0;
 		for(const l in U.session[gname].byLevel){
@@ -119,12 +133,13 @@ function calibrateUser(){
 			if (sc.nTotal > sc.nCorrect1) break;
 			level+=1;
 		}
-		lookupSetOverride(udata,['games',gname,'startLevel'],level);
+		let newval = lookupSetOverride(udata,['games',gname,'startLevel'],level);
+		//console.log('*** level set',gname,'level',newval)
 		if (udata.lastGame == gname) udata.lastLevel = level;
-		console.log('game',gname,'calibrated to level',level);
+		//console.log('game',gname,'calibrated to level',level);
 	}
 	let sAfter = getStartLevels(uname);
-	console.log('userdata After calibration',jsCopy(udata));
+	//console.log('userdata After calibration',jsCopy(udata));
 	return [sBefore,sAfter];
 }
 function editableUsernameUi(dParent) {
@@ -182,7 +197,7 @@ function addScoreToUserSession() {
 	}
 	sGame.percentage = Math.round(100 * sGame.nCorrect / sGame.nTotal);
 
-	console.log('updated session:', U.session)
+	//console.log('updated session:', U.session)
 
 	saveUser();
 	//console.log('+ _addScoreToUserSession +++++++++++++++++++saved user:', U.lastGame, U.lastLevel)
@@ -197,7 +212,7 @@ function addSessionToUserGames() {
 			let recOld = lookup(U, ['games', g]);
 			let recNew = U.session[g];
 
-			console.assert(isdef(recOld));
+			//console.assert(isdef(recOld));
 
 			addByKey(recNew, recOld);
 			recOld.percentage = Math.round(100 * recOld.nCorrect / recOld.nTotal);
@@ -208,7 +223,7 @@ function addSessionToUserGames() {
 			}
 
 
-			console.log('added session:', g, recNew)
+			//console.log('added session:', g, recNew)
 
 			// recOld.nTotal = isdef(recOld.nTotal) ? recOld.nTotal + recNew.nTotal : recNew.nTotal;
 			// recOld.nCorrect = isdef(recOld.nCorrect) ? recOld.nCorrect + recNew.nCorrect : recNew.nCorrect;
