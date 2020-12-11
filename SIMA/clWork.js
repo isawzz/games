@@ -37,87 +37,135 @@ class Game {
 	recycle() { }//console.log(getFunctionCallerName()); }
 }
 
-class GPremem extends Game {
+class GMissingNumber extends Game {
 	constructor() {
 		super();
-		this.picList = [];
 	}
-	clear() { clearTimeout(this.TO); showMouse(); }
+	startLevel() {
+		let n = G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
+		this.pos = getGameOrLevelInfo('posMissing', 'random');
+		if (isNumber(this.pos)) this.pos = [this.pos];
+		else if (this.pos == 'start') { this.pos = range(0, n - 1, 1); }
+		else if (this.pos == 'end') { this.pos = range(4 - n + 1, 4, 1); }
+
+		console.log('pos', this.pos);
+
+	}
 	prompt() {
-		this.picList = [];
-		//console.log(this.picList)
-		showPictures(this.interact.bind(this), { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
-		showInstruction('', 'click any picture', dTitle, true);
+		//showPictures(() => fleetingMessage('just enter the missing letter!'));
+		//setGoal();
+		let nStart = randomNumber(0, 8);
+		let seq = range(nStart, nStart + 5, 1);
+		let Goal = { label: seq.join(''), sequence: seq };
+		//this.sequence = range(randomNumber(1,10*G.level))
+
+		showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
+
+		mLinebreak(dTable);
+
+		// create sequence of letter ui
+		let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
+		let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style); // acces children: d.children
+
+		let ilist;
+		if (this.pos == 'random') ilist = choose(range(0, 4, 1), G.numMissingLetters);
+		else ilist = this.pos;
+
+
+		this.inputs = [];
+		for (const idx of ilist) {
+			let inp = d.children[idx];
+			inp.innerHTML = '_';
+			mClass(inp, 'blink');
+			this.inputs.push({ letter: Goal.label[idx].toUpperCase(), div: inp, index: idx });
+		}
+
+		mLinebreak(dTable);
+
+		let msg = this.composeFleetingMessage();
+		//console.log('msg,msg', msg)
+		showFleetingMessage(msg, 3000);
 		activateUi();
+
 	}
-	trialPrompt() {
-		for (const p of this.picList) { toggleSelectionOfPicture(p); }
-		this.picList = [];
-		showInstruction('', 'try again: click any picture', dTitle, true);
+	trialPromptML() {
+		let selinp = Selected.inp;
+		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
+		setTimeout(() => {
+			let d = selinp.div;
+			d.innerHTML = '_';
+			mClass(d, 'blink');
+		}, 1500);
+
+		showFleetingMessage(this.composeFleetingMessage(), 3000);
 		return 10;
 	}
-	interact(ev) {
-		ev.cancelBubble = true;
-		if (!canAct()) return;
+	activate() {
+		onkeypress = ev => {
+			clearFleetingMessage();
+			if (!canAct()) return;
+			let charEntered = ev.key.toString();
+			if (!isAlphaNum(charEntered)) return;
 
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
-		let div = pic.div;
-		if (!isEmpty(this.picList) && this.picList.length < G.numRepeat - 1 && this.picList[0].label != pic.label) return;
-		toggleSelectionOfPicture(pic, this.picList);
-		console.log('clicked', pic.key, this.picList);//,picList, GPremem.PicList);
-		if (isEmpty(this.picList)) {
-			showInstruction('', 'click any picture', dTitle, true);
-		} else if (this.picList.length < G.numRepeat - 1) {
-			//set incomplete: more steps are needed!
-			//frame the picture
-			showInstruction(pic.label, 'click another', dTitle, true);
-		} else if (this.picList.length == G.numRepeat - 1) {
-			// look for last picture with x that is not in the set
-			let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
-			setGoal(picGoal.index);
-			showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
-		} else {
-			//set is complete: eval
-			evaluate(this.picList);
+			Selected = { lastLetterEntered: charEntered.toUpperCase() };
+			//console.log(inputs[0].div.parentNode)
+
+			if (this.nMissing == 1) {
+				let d = Selected.feedbackUI = this.inputs[0].div;
+				Selected.positiveFeedbackUI = Goal.div;
+				Selected.lastIndexEntered = this.inputs[0].index;
+				Selected.inp = this.inputs[0];
+				d.innerHTML = Selected.lastLetterEntered;
+				mRemoveClass(d, 'blink');
+				let result = buildWordFromLetters(mParent(d));
+
+				evaluate(result);
+			} else {
+				let ch = charEntered.toUpperCase();
+				for (const inp of this.inputs) {
+					if (inp.letter == ch) {
+						Selected.lastIndexEntered = inp.index;
+						Selected.inp = inp;
+						let d = Selected.feedbackUI = inp.div;
+						d.innerHTML = ch;
+						mRemoveClass(d, 'blink');
+						removeInPlace(this.inputs, inp);
+						this.nMissing -= 1;
+						break;
+					}
+				}
+				if (nundef(Selected.lastIndexEntered)) {
+					//the user entered a non existing letter!!!
+					showFleetingMessage('you entered ' + Selected.lastLetterEntered)
+					Speech.say('this letter does NOT belong to the word!')
+				}
+				showFleetingMessage(this.composeFleetingMessage(), 3000);
+				//if get to this place that input did not match!
+				//ignore for now!
+			}
 		}
+
 	}
-	eval(piclist) {
-		Selected = { piclist: piclist, feedbackUI: piclist.map(x => x.div), sz: getBounds(piclist[0].div).height };
-		let req = Selected.reqAnswer = piclist[0].label;
-		Selected.answer = piclist[piclist.length - 1].label;
-		if (Selected.answer == req) { return true; } else { return false; }
+	eval(word) {
+		let answer = word; //normalize(word, Settings.language);
+		let reqAnswer = Goal.label; // normalize(Goal.label, Settings.language);
+
+		Selected.reqAnswer = reqAnswer;
+		Selected.answer = answer;
+
+		if (answer == reqAnswer) return true; else return false;
 	}
+	composeFleetingMessage() {
+		//console.log('this', this)
+		let lst = this.inputs;
+		//console.log(this.inputs)
+		let msg = lst.map(x => x.letter).join(',');
+		let edecl = lst.length > 1 ? 's ' : ' ';
+		let ddecl = lst.length > 1 ? 'die' : 'den';
+		let s = (Settings.language == 'E' ? 'Type the number' + edecl : 'Tippe ' + ddecl + ' Zahlen ');
+		return s + msg;
+	}
+
 }
 
 
-function interact(ev) {
-	console.log('ha!', ev)
-	ev.cancelBubble = true;
-	if (!canAct()) return;
-
-	let id = evToClosestId(ev);
-	let i = firstNumber(id);
-	let pic = Pictures[i];
-	let div = pic.div;
-	console.log('clicked', pic.key, this.pickList, GPremem.PicList);
-	if (!isEmpty(this.picList) && this.picList.length < G.numRepeat - 1 && this.picList[0].label != pic.label) return;
-	toggleSelectionOfPicture(pic, this.picList);
-	if (isEmpty(this.picList)) {
-		showInstruction('', 'click any picture', dTitle, true);
-	} else if (this.picList.length < G.numRepeat - 1) {
-		//set incomplete: more steps are needed!
-		//frame the picture
-		showInstruction(pic.label, 'click another', dTitle, true);
-	} else if (this.picList.length == G.numRepeat - 1) {
-		// look for last picture with x that is not in the set
-		let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
-		setGoal(picGoal.index);
-		showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
-	} else {
-		//set is complete: eval
-		evaluate(this.picList);
-	}
-	//console.log(this.picList)
-}

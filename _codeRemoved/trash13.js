@@ -1,3 +1,33 @@
+function interact(ev) {
+	console.log('ha!', ev)
+	ev.cancelBubble = true;
+	if (!canAct()) return;
+
+	let id = evToClosestId(ev);
+	let i = firstNumber(id);
+	let pic = Pictures[i];
+	let div = pic.div;
+	console.log('clicked', pic.key, this.pickList, GPremem.PicList);
+	if (!isEmpty(this.picList) && this.picList.length < G.numRepeat - 1 && this.picList[0].label != pic.label) return;
+	toggleSelectionOfPicture(pic, this.picList);
+	if (isEmpty(this.picList)) {
+		showInstruction('', 'click any picture', dTitle, true);
+	} else if (this.picList.length < G.numRepeat - 1) {
+		//set incomplete: more steps are needed!
+		//frame the picture
+		showInstruction(pic.label, 'click another', dTitle, true);
+	} else if (this.picList.length == G.numRepeat - 1) {
+		// look for last picture with x that is not in the set
+		let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
+		setGoal(picGoal.index);
+		showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
+	} else {
+		//set is complete: eval
+		evaluate(this.picList);
+	}
+	//console.log(this.picList)
+}
+
 function calibrateUser(){
 	//U.session hat results
 	console.log('calibration results... test session',jsCopy(U.session))

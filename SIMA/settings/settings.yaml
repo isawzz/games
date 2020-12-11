@@ -53,6 +53,20 @@ games:
       5:
         numMissing: 5
         posMissing: random
+  gMissingNumber:
+    levels:
+      0:
+        numMissing: 1
+        posMissing: end
+      1:
+        numMissing: 1
+        posMissing: 3
+      2:
+        numMissing: 2
+        posMissing: [2,4]
+      3:
+        numMissing: 1
+        posMissing: start
   gTouchColors:
     contrast: 0.32
     colors:
