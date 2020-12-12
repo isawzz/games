@@ -369,7 +369,7 @@ const GAME = {
 	gPremem: { friendly: 'Premem!', logo: 'hammer and wrench', color: LIGHTGREEN, cl: GPremem, }, //'deeppink',
 	gMem: { friendly: 'Memory!', logo: 'memory', color: GREEN, cl: GMem, }, //'#3cb44b'
 	gMissingLetter: { friendly: 'Letters!', logo: 'black nib', color: 'gold', cl: GMissingLetter, },
-	gMissingNumber: { friendly: 'Sequence!', logo: 'black nib', color: 'deeppink', cl: GMissingNumber, },
+	gMissingNumber: { friendly: 'Sequence!', logo: 'fleur-de-lis', color: 'deeppink', cl: GMissingNumber, },
 	gWritePic: { friendly: 'Type it!', logo: 'keyboard', color: 'orange', cl: GWritePic, }, //LIGHTGREEN, //'#bfef45',
 	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GSayPic, }, //'#4363d8',
 	//gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GTouchPic, }, //'#911eb4',

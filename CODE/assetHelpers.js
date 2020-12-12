@@ -3,10 +3,10 @@ const EMOFONTLIST =  ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symb
 
 //#region NOW!
 function maShowPictures(keys, labels, dParent, onClickPictureHandler,
-	{ container, lang, border, bgs, colors, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}) {
+	{ container, lang, border, picSize, bgs, colors, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}) {
 	let pics = [];
 
-	//console.log('maShowPictures', 'keys', keys, '\n', 'labels', labels, '\n', 'bgs', bgs)
+	//console.log('maShowPictures_', 'keys', keys, '\n', 'labels', labels, '\n', 'bgs', bgs)
 	//console.log('sameBackground',sameBackground)
 
 	let numPics = keys.length * repeat;
@@ -47,6 +47,8 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	let [pictureSize, picsPerLine] = calcDimsAndSize(numPics, lines, container);
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 	if (isdef(border)) stylesForLabelButton.border = border;
+
+	if (isdef(picSize)) pictureSize = picSize;
 
 	for (let line = 0; line < lines; line++) {
 		let textShadowColor = isdef(colors) ? colors[line] : undefined;

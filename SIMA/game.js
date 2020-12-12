@@ -130,6 +130,41 @@ function containsColorWord(s) {
 }
 
 //#region fail, hint, success
+function successThumbsUp(withComment = true) {
+	if (withComment && Settings.spokenFeedback) {
+		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
+		Speech.say(chooseRandom(comments));//'Excellent!!!');
+	}
+	console.log(Pictures)
+	let p1 = firstCond(Pictures,x=>x.key == 'thumbs up');
+	p1.div.style.opacity=1;
+	let p2 = firstCond(Pictures,x=>x.key == 'thumbs down');
+	p2.div.style.display='none';
+}
+function failThumbsDown(withComment = true) {
+	if (withComment && Settings.spokenFeedback) {
+		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
+		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
+	}
+	let p1 = firstCond(Pictures,x=>x.key == 'thumbs down');
+	p1.div.style.opacity=1;
+	let p2 = firstCond(Pictures,x=>x.key == 'thumbs up');
+	p2.div.style.display='none';
+}
+
+function successPictureGoal(withComment = true) {
+	if (withComment && Settings.spokenFeedback) {
+		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
+		Speech.say(chooseRandom(comments));//'Excellent!!!');
+	}
+	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
+		let uilist;
+		if (isdef(Selected.positiveFeedbackUI)) uilist = [Selected.positiveFeedbackUI];
+		else uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
+		let sz = getBounds(uilist[0]).height;
+		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
+	}
+}
 function failPictureGoal(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
@@ -157,19 +192,6 @@ function shortHintPicRemove() {
 function shortHintPic() {
 	mClass(mBy(Goal.id), 'onPulse1');
 	TOMain = setTimeout(() => shortHintPicRemove(), 800);
-}
-function successPictureGoal(withComment = true) {
-	if (withComment && Settings.spokenFeedback) {
-		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
-		Speech.say(chooseRandom(comments));//'Excellent!!!');
-	}
-	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
-		let uilist;
-		if (isdef(Selected.positiveFeedbackUI)) uilist = [Selected.positiveFeedbackUI];
-		else uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
-		let sz = getBounds(uilist[0]).height;
-		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
-	}
 }
 //#endregion
 
@@ -213,18 +235,18 @@ function aniGameOver(msg) {
 
 	if (USERNAME == 'test') {
 		dMessage.innerHTML = 'Processing your test result...';
-		let [before,after] = calibrateUser();
-		d.style.textAlign='left';
-		for(const g in after){
-			if (nundef(before[g])) before[g]=0;
-			let b=before[g];let a=after[g];
-			let exp=b<a?(' been upgraded to '+a):b>a?(' been downgraded to '+a):' remained at '+a;
+		let [before, after] = calibrateUser();
+		d.style.textAlign = 'left';
+		for (const g in after) {
+			if (nundef(before[g])) before[g] = 0;
+			let b = before[g]; let a = after[g];
+			let exp = b < a ? (' been upgraded to ' + a) : b > a ? (' been downgraded to ' + a) : ' remained at ' + a;
 			mText(`game ${g}: startlevel has ${exp}`, d, { fz: 22 });
 		}
 
 	} else {
 		dMessage.innerHTML = 'Time for a Break...';
-		d.style.textAlign='center';
+		d.style.textAlign = 'center';
 		mText('Unit Score:', d, { fz: 22 });
 
 		for (const gname in U.session) {
@@ -317,7 +339,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
 
 }
-function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
+function showPictures(onClickPictureHandler, { sz, bgs, colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
@@ -325,8 +347,11 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sam
 	//keys=['sun with face'];
 
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
-		{ repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors, contrast: contrast });
+		{ picSize:sz, bgs:bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors, 
+			contrast: contrast });
 
+
+	//TESTING FOR NO DUPLICATES - remove in production!
 	if (G.key == 'gTouchPic') {
 		let numDuplicates = 0;
 		let checklist = [];
@@ -337,6 +362,7 @@ function showPictures(onClickPictureHandler, { colors, contrast, repeat = 1, sam
 		console.assert(numDuplicates == 0)
 	}
 
+	// label hiding
 	let totalPics = Pictures.length;
 	if (nundef(Settings.labels) || Settings.labels) {
 		if (G.numLabels == totalPics) return;

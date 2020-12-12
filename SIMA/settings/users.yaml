@@ -1,11 +1,11 @@
 guest0:
   id: guest
   seq: [gMissingNumber,gTouchPic, gTouchColors, gPremem, gMem, gMissingLetter, gWritePic, gSayPic]
-  lastGame: gTouchPic
+  lastGame: gMissingNumber
   lastLevel: 0
   settings:
     minutesPerUnit: 10
-    samplesPerLevel: 3
+    samplesPerLevel: 10
     trials: 2
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
@@ -32,7 +32,7 @@ guest0:
 test0:
   id: test
   seq: [gMissingNumber,gTouchPic, gTouchColors, gPremem, gMem, gMissingLetter, gWritePic, gSayPic ] 
-  lastGame: gTouchPic
+  lastGame: gMissingNumber
   lastLevel: 0
   settings:
     minutesPerUnit: 10

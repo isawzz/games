@@ -41,36 +41,138 @@ class GMissingNumber extends Game {
 	constructor() {
 		super();
 	}
+	startGame(){
+		G.successFunc = successThumbsUp;
+		G.failFunc = failThumbsDown;
+		G.correctionFunc = this.showCorrectSequence.bind(this);
+	}
+	showCorrectSequence(){
+		console.log('the correct sequence is',Goal.seq)
+	}
 	startLevel() {
-		let n = G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
-		this.pos = getGameOrLevelInfo('posMissing', 'random');
-		if (isNumber(this.pos)) this.pos = [this.pos];
-		else if (this.pos == 'start') { this.pos = range(0, n - 1, 1); }
-		else if (this.pos == 'end') { this.pos = range(4 - n + 1, 4, 1); }
-
-		console.log('pos', this.pos);
-
+		this.numMissing = G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
+		this.max = G.maxNumber = getGameOrLevelInfo('max', 20);
+		this.pos = G.posMissing = getGameOrLevelInfo('posMissing', 'consec');
+		this.step = G.step = getGameOrLevelInfo('step', 1);
+		this.seqlen = G.lengthOfSequence = getGameOrLevelInfo('length', 5);
+		G.numPics = 2; G.numLabels = 0;
 	}
 	prompt() {
-		//showPictures(() => fleetingMessage('just enter the missing letter!'));
-		//setGoal();
-		let nStart = randomNumber(0, 8);
-		let seq = range(nStart, nStart + 5, 1);
-		let Goal = { label: seq.join(''), sequence: seq };
-		//this.sequence = range(randomNumber(1,10*G.level))
-
 		showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
-
 		mLinebreak(dTable);
 
+		showPictures(null,{sz:200, bgs:['transparent','transparent']},['thumbs up','thumbs down'],['bravo!','nope']);
+		for(const p of Pictures) {p.div.style.padding=p.div.style.margin=0;p.div.style.opacity=0;}
+		// let p=Pictures[0];p.div.style.display='none';
+		mLinebreak(dTable);
+
+		let nStart = randomNumber(0, this.max - this.seqlen + 1);
+		let seq = this.seq = range(nStart, nStart + (this.seqlen - 1)*this.step, this.step);
+		let label = this.label = seq.join(', ');
+		let seqlen = seq.length;
+		let wlen = label.length;
+		let pos = this.pos;
+
+		// pos = 'consec';
+		// this.numMissing = 2;
+
+		//zuerst bestimme die missing numbers
+		let iMissing = []; // indices in seq
+		if (pos == 'end') { for (let x = 1; x <= this.numMissing; x++) { iMissing.push(seqlen - x); } }
+		else if (pos == 'start') { for (let x = 0; x < this.numMissing; x++) { iMissing.push(x); } }
+		else iMissing = choose(range(0, seqlen - 1, 1), this.numMissing);
+
+		//console.log('iMissing', iMissing);
+		let missingNumbers = iMissing.map(x=>seq[x]);
+		//console.log('the missing numbers are:',missingNumbers);
+
+		let info = [];
+		for (const i of iMissing) { let n = seq[i]; info.push({ i: i, n: n }); }
+
+		//console.log('info', info);
+
+		// erstmal stelle fest wieviele letters sich aus der summe der missing numbers ergeben
+		let sum = 0;
+		for (let i = 0; i < iMissing.length; i++) {
+			//let idx=iMissing[i];
+			//console.log(i, info[i])
+			sum += info[i].n.toString().length;
+		}
+
+		//console.log('MN:', seq, label, '\niMissing', iMissing, '\nsum', sum);
+		this.nMissing = sum;
+
+		let ilist = []; // indices in label
+		//console.log('pos', pos);
+		let SAFE = 100;
+		//console.log('pos', pos, 'sum', sum);
+
+		if (pos == 'end') {
+			//from label remove sum alphanumeric letters and remember their indices
+			let i = label.length - 1;
+			let nrem = 0;
+			let x = i;
+
+			//console.log('i', i, 'nrem', nrem, 'x', x);
+			while (nrem < sum && x >= 0) {
+				if (SAFE <= 0) break; SAFE -= 1;
+				while (x >= 0 && !isAlphaNum(label[x])) x -= 1;
+				while (x >= 0 && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x -= 1; }
+			}
+		}
+		else if (pos == 'start') {
+			//from label remove sum alphanumeric letters and remember their indices
+			let i = 0;
+			let nrem = 0;
+			let x = i;
+
+			console.log('i', i, 'nrem', nrem, 'x', x);
+			while (nrem < sum && x < wlen) {
+				if (SAFE <= 0) break; SAFE -= 1;
+				while (x < wlen && !isAlphaNum(label[x])) x += 1;
+				while (x < wlen && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x += 1; }
+			}
+		}
+		else if (pos == 'consec') {
+			//from label remove sum alphanumeric letters and remember their indices
+			let i = 0;
+			let nrem = 0;
+			let x = i;
+
+
+			console.log('i', i, 'nrem', nrem, 'x', x);
+			let numrem = this.numMissing; let inumrem = 0;
+			while (nrem < sum && x < wlen && inumrem < numrem) {
+				let snum = info[inumrem].n.toString();
+				let x = label.indexOf(snum);
+				inumrem += 1;
+				console.log('x should be index of ', snum, ' in label:', x);
+				if (SAFE <= 0) break; SAFE -= 1;
+
+				while (x < wlen && !isAlphaNum(label[x])) x += 1;
+				while (x < wlen && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x += 1; }
+
+			}
+		}
+		else if (pos == 'random') {
+
+			// randomly choose 1-NumMissingLetters alphanumeric letters from Goal.label
+			let indices = getIndicesCondi(label, (x, i) => isAlphaNum(x));
+			ilist = choose(indices, sum); 
+
+		}
+		sortNumbers(ilist);
+		//console.log('ilist', ilist);
+
+		Goal = { label: label, seq: seq, missingNumbers:missingNumbers };
+
 		// create sequence of letter ui
-		let style = { margin: 6, fg: 'white', display: 'inline', bg: 'transparent', align: 'center', border: 'transparent', outline: 'none', family: 'Consolas', fz: 80 };
+		let style = {
+			fg: 'white', display: 'inline', bg: 'transparent', align: 'center',
+			border: 'transparent', outline: 'none', fz: 64
+		};
 		let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style); // acces children: d.children
-
-		let ilist;
-		if (this.pos == 'random') ilist = choose(range(0, 4, 1), G.numMissingLetters);
-		else ilist = this.pos;
-
+		//d.style.padding = '50px';
 
 		this.inputs = [];
 		for (const idx of ilist) {
@@ -84,20 +186,21 @@ class GMissingNumber extends Game {
 
 		let msg = this.composeFleetingMessage();
 		//console.log('msg,msg', msg)
-		showFleetingMessage(msg, 3000);
+		if (Settings.showHint) showFleetingMessage(msg, 3000);
 		activateUi();
 
 	}
-	trialPromptML() {
-		let selinp = Selected.inp;
+	trialPrompt() {
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
+
+		let selinp = Selected.inp;
 		setTimeout(() => {
 			let d = selinp.div;
 			d.innerHTML = '_';
 			mClass(d, 'blink');
 		}, 1500);
 
-		showFleetingMessage(this.composeFleetingMessage(), 3000);
+		if (Settings.showHint) showFleetingMessage(this.composeFleetingMessage(), 3000);
 		return 10;
 	}
 	activate() {
@@ -108,11 +211,11 @@ class GMissingNumber extends Game {
 			if (!isAlphaNum(charEntered)) return;
 
 			Selected = { lastLetterEntered: charEntered.toUpperCase() };
-			//console.log(inputs[0].div.parentNode)
+			console.log('activate', this.nMissing, charEntered)
 
 			if (this.nMissing == 1) {
 				let d = Selected.feedbackUI = this.inputs[0].div;
-				Selected.positiveFeedbackUI = Goal.div;
+				//Selected.positiveFeedbackUI = Goal.div;
 				Selected.lastIndexEntered = this.inputs[0].index;
 				Selected.inp = this.inputs[0];
 				d.innerHTML = Selected.lastLetterEntered;
@@ -150,19 +253,26 @@ class GMissingNumber extends Game {
 		let answer = word; //normalize(word, Settings.language);
 		let reqAnswer = Goal.label; // normalize(Goal.label, Settings.language);
 
+		console.log('eval', reqAnswer, answer)
+
 		Selected.reqAnswer = reqAnswer;
 		Selected.answer = answer;
 
-		if (answer == reqAnswer) return true; else return false;
+		if (answer == reqAnswer) {
+			return true; 
+			
+		}else {
+			return false;
+		}
 	}
 	composeFleetingMessage() {
 		//console.log('this', this)
-		let lst = this.inputs;
+		let lst = Goal.missingNumbers;
 		//console.log(this.inputs)
-		let msg = lst.map(x => x.letter).join(',');
-		let edecl = lst.length > 1 ? 's ' : ' ';
-		let ddecl = lst.length > 1 ? 'die' : 'den';
-		let s = (Settings.language == 'E' ? 'Type the number' + edecl : 'Tippe ' + ddecl + ' Zahlen ');
+		let msg = lst.join(',');
+		let edecl = lst.length > 1 ? 's are ' : ' is ';
+		let ddecl = lst.length > 1 ? 'en ' : 't ';
+		let s = (Settings.language == 'E' ? 'the missing number' + edecl : 'es fehl' + ddecl);
 		return s + msg;
 	}
 

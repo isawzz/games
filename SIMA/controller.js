@@ -5,6 +5,10 @@ function startGame() {
 
 	resetState();
 
+	G.succesFunc = successPictureGoal;
+	G.failFunc = failPictureGoal;
+	G.correctionFunc = showCorrectWord;
+	
 	G.instance = getInstance(G);
 	G.instance.startGame();
 
@@ -67,11 +71,11 @@ function evaluate() {
 	//feedback
 	if (IsAnswerCorrect) {
 		DELAY = Settings.spokenFeedback ? 1500 : 300;
-		successPictureGoal();
+		G.successFunc(); //successPictureGoal();
 	} else {
 		DELAY = Settings.spokenFeedback ? 3000 : 300;
-		showCorrectWord();
-		failPictureGoal(false);
+		G.correctionFunc(); //showCorrectWord();
+		G.failFunc(); //failPictureGoal(false);
 	}
 	setTimeout(removeMarkers, 1500);
 

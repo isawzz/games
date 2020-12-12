@@ -58,15 +58,23 @@ games:
       0:
         numMissing: 1
         posMissing: end
+        max: 20
+        step: 1
       1:
         numMissing: 1
-        posMissing: 3
-      2:
-        numMissing: 2
-        posMissing: [2,4]
-      3:
-        numMissing: 1
         posMissing: start
+        max: 99
+        step: 1
+      2:
+        numMissing: 1
+        posMissing: consec
+        max: 99
+        step: 2
+      3:
+        numMissing: 2
+        posMissing: random
+        max: 99
+        step: 2
   gTouchColors:
     contrast: 0.32
     colors:
