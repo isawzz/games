@@ -41,13 +41,13 @@ class GMissingNumber extends Game {
 	constructor() {
 		super();
 	}
-	startGame(){
+	startGame() {
 		G.successFunc = successThumbsUp;
 		G.failFunc = failThumbsDown;
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
-	showCorrectSequence(){
-		console.log('the correct sequence is',Goal.seq)
+	showCorrectSequence() {
+		console.log('the correct sequence is', Goal.seq)
 	}
 	startLevel() {
 		this.numMissing = G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
@@ -59,15 +59,15 @@ class GMissingNumber extends Game {
 	}
 	prompt() {
 		showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
-		mLinebreak(dTable);
+		mLinebreak(dTable, 12);
 
-		showPictures(null,{sz:200, bgs:['transparent','transparent']},['thumbs up','thumbs down'],['bravo!','nope']);
-		for(const p of Pictures) {p.div.style.padding=p.div.style.margin=0;p.div.style.opacity=0;}
+		showPictures(null, { sz: 200, bgs: ['transparent', 'transparent'] }, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
+		for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
 		// let p=Pictures[0];p.div.style.display='none';
-		mLinebreak(dTable);
+		let dGap = mLinebreak(dTable); //,20);dGap.style.backgroundColor='grey'
 
 		let nStart = randomNumber(0, this.max - this.seqlen + 1);
-		let seq = this.seq = range(nStart, nStart + (this.seqlen - 1)*this.step, this.step);
+		let seq = this.seq = range(nStart, nStart + (this.seqlen - 1) * this.step, this.step);
 		let label = this.label = seq.join(', ');
 		let seqlen = seq.length;
 		let wlen = label.length;
@@ -83,7 +83,7 @@ class GMissingNumber extends Game {
 		else iMissing = choose(range(0, seqlen - 1, 1), this.numMissing);
 
 		//console.log('iMissing', iMissing);
-		let missingNumbers = iMissing.map(x=>seq[x]);
+		let missingNumbers = iMissing.map(x => seq[x]);
 		//console.log('the missing numbers are:',missingNumbers);
 
 		let info = [];
@@ -158,20 +158,24 @@ class GMissingNumber extends Game {
 
 			// randomly choose 1-NumMissingLetters alphanumeric letters from Goal.label
 			let indices = getIndicesCondi(label, (x, i) => isAlphaNum(x));
-			ilist = choose(indices, sum); 
+			ilist = choose(indices, sum);
 
 		}
 		sortNumbers(ilist);
 		//console.log('ilist', ilist);
 
-		Goal = { label: label, seq: seq, missingNumbers:missingNumbers };
+		Goal = { label: label, seq: seq, missingNumbers: missingNumbers };
 
 		// create sequence of letter ui
+		//let fg = ['yellow', 'skyblue', 'salmon', 'lime', 'gold', 'springgreen'];
+		//let fg = ['blue', 'green', 'navy', 'indigo'].map(x => colorBright(x, 50)).concat(['orange','deepskyblue', 'lime', 'springgreen', 'skyblue', 'yellow', 'gold', 'greenyellow']);
+		//fg = fg.map(x=>colorBright(x,50));
+		let fg = ['orange','deepskyblue', 'lime', 'springgreen', 'skyblue', 'yellow', 'gold', 'greenyellow']
 		let style = {
-			fg: 'white', display: 'inline', bg: 'transparent', align: 'center',
-			border: 'transparent', outline: 'none', fz: 64
+			fg: fg, display: 'inline', bg: 'transparent', align: 'center',
+			border: 'transparent', outline: 'none', fz: 68
 		};
-		let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style); // acces children: d.children
+		let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style, undefined, false); // access children: d.children
 		//d.style.padding = '50px';
 
 		this.inputs = [];
@@ -211,7 +215,7 @@ class GMissingNumber extends Game {
 			if (!isAlphaNum(charEntered)) return;
 
 			Selected = { lastLetterEntered: charEntered.toUpperCase() };
-			console.log('activate', this.nMissing, charEntered)
+			//console.log('activate', this.nMissing, charEntered)
 
 			if (this.nMissing == 1) {
 				let d = Selected.feedbackUI = this.inputs[0].div;
@@ -240,7 +244,7 @@ class GMissingNumber extends Game {
 				if (nundef(Selected.lastIndexEntered)) {
 					//the user entered a non existing letter!!!
 					showFleetingMessage('you entered ' + Selected.lastLetterEntered)
-					Speech.say('this letter does NOT belong to the word!')
+					Speech.say(Settings.language == 'E' ? 'think again!' : 'ueberlege!')
 				}
 				showFleetingMessage(this.composeFleetingMessage(), 3000);
 				//if get to this place that input did not match!
@@ -253,15 +257,15 @@ class GMissingNumber extends Game {
 		let answer = word; //normalize(word, Settings.language);
 		let reqAnswer = Goal.label; // normalize(Goal.label, Settings.language);
 
-		console.log('eval', reqAnswer, answer)
+		//console.log('eval', reqAnswer, answer)
 
 		Selected.reqAnswer = reqAnswer;
 		Selected.answer = answer;
 
 		if (answer == reqAnswer) {
-			return true; 
-			
-		}else {
+			return true;
+
+		} else {
 			return false;
 		}
 	}
@@ -278,4 +282,27 @@ class GMissingNumber extends Game {
 
 }
 
+function colorBright(c, percent) {
+	let hex = colorHex(c);
+	// strip the leading # if it's there
+	hex = hex.replace(/^\s*#|\s*$/g, '');
 
+	// convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+	if (hex.length == 3) {
+		hex = hex.replace(/(.)/g, '$1$1');
+	}
+
+	var r = parseInt(hex.substr(0, 2), 16),
+		g = parseInt(hex.substr(2, 2), 16),
+		b = parseInt(hex.substr(4, 2), 16);
+
+	return '#' +
+		((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+		((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+		((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+}
+function colorBright1(c, percent = 50) {
+	let hsl = colorHSL(c, true);
+	let hNew = { h: hsl.h, s: hsl.s, l: hsl.l + hsl.l * (percent / 100) }
+	return hNew;
+}

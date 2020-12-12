@@ -441,6 +441,22 @@ function mBox(w, h, color, dParent = null) { let d = mDiv(dParent); return mStyl
 
 function mById(id) { return document.getElementById(id); }
 function computeColor(c) { return (c == 'random') ? randomColor() : c; }
+function computeColorX(c){
+
+	let res = c;
+	if (isList(c)) return chooseRandom(c);
+	else if (isString(c) && startsWith(c,'rand')){
+		res = randomColor();
+		let spec=c.substring(4);
+		console.log('______________________',spec);
+		if (isdef(window['color'+spec])) {
+			console.log('YES!');
+			res = window['color'+spec](res);
+		}
+
+	}
+	return res;
+}
 function getExtendedColors(bg, fg) {
 	//#region doc 
 	/* handles values random, inherit, contrast	*/
@@ -796,6 +812,14 @@ example:
 
 //#region colors
 var colorDict = null; //for color names, initialized when calling anyColorToStandardStyle first time
+function randomColorX(contrastColor,minSat,maxSat,minLight,maxLight){ 
+	let hc=colorHue(contrastColor);
+	
+  return "hsl(" + 360 * Math.random() + ',' +
+             (25 + 70 * Math.random()) + '%,' + 
+             (85 + 10 * Math.random()) + '%)'
+}
+
 function anyColorToStandardString(cAny, a, allowHsl = false) {
 	//if allowHsl is false: only return rgb,rgba,or hex7,hex9 string! >pBSC algo!!!
 	//if a is undefined, leaves a as it is in cAny, otherwise modifies to a
@@ -895,6 +919,25 @@ function anyColorToStandardString(cAny, a, allowHsl = false) {
 		}
 	}
 } //ok
+const colorShadeX = (c, amt) => {
+	let col = colorHex(c);
+  col = col.replace(/^#/, '')
+  if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2]
+
+  let [r, g, b] = col.match(/.{2}/g);
+  ([r, g, b] = [parseInt(r, 16) + amt, parseInt(g, 16) + amt, parseInt(b, 16) + amt])
+
+  r = Math.max(Math.min(255, r), 0).toString(16)
+  g = Math.max(Math.min(255, g), 0).toString(16)
+  b = Math.max(Math.min(255, b), 0).toString(16)
+
+  const rr = (r.length < 2 ? '0' : '') + r
+  const gg = (g.length < 2 ? '0' : '') + g
+  const bb = (b.length < 2 ? '0' : '') + b
+
+  return `#${rr}${gg}${bb}`
+}
+
 function alphaToHex(zero1) {
 	zero1 = Math.round(zero1 * 100) / 100;
 	var alpha = Math.round(zero1 * 255);
@@ -1367,6 +1410,409 @@ function getTransPalette9(color = '#000000') {
 	for (const alpha of [.1, .2, .3, .4, .5, .6, .7, .8, .9]) res.push(colorTrans(color, alpha));
 	return res;
 }
+//color converters good!
+function hexToHSL(H) {
+	let ex = /^#([\da-f]{3}){1,2}$/i;
+	if (ex.test(H)) {
+		// convert hex to RGB first
+		let r = 0,
+			g = 0,
+			b = 0;
+		if (H.length == 4) {
+			r = '0x' + H[1] + H[1];
+			g = '0x' + H[2] + H[2];
+			b = '0x' + H[3] + H[3];
+		} else if (H.length == 7) {
+			r = '0x' + H[1] + H[2];
+			g = '0x' + H[3] + H[4];
+			b = '0x' + H[5] + H[6];
+		}
+		// then to HSL
+		r /= 255;
+		g /= 255;
+		b /= 255;
+		let cmin = Math.min(r, g, b),
+			cmax = Math.max(r, g, b),
+			delta = cmax - cmin,
+			h = 0,
+			s = 0,
+			l = 0;
+
+		if (delta == 0) h = 0;
+		else if (cmax == r) h = ((g - b) / delta) % 6;
+		else if (cmax == g) h = (b - r) / delta + 2;
+		else h = (r - g) / delta + 4;
+
+		h = Math.round(h * 60);
+
+		if (h < 0) h += 360;
+
+		l = (cmax + cmin) / 2;
+		s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+		s = +(s * 100).toFixed(1);
+		l = +(l * 100).toFixed(1);
+
+		return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
+function hexAToHSLA(H) {
+	let ex = /^#([\da-f]{4}){1,2}$/i;
+	if (ex.test(H)) {
+		let r = 0,
+			g = 0,
+			b = 0,
+			a = 1;
+		// 4 digits
+		if (H.length == 5) {
+			r = '0x' + H[1] + H[1];
+			g = '0x' + H[2] + H[2];
+			b = '0x' + H[3] + H[3];
+			a = '0x' + H[4] + H[4];
+			// 8 digits
+		} else if (H.length == 9) {
+			r = '0x' + H[1] + H[2];
+			g = '0x' + H[3] + H[4];
+			b = '0x' + H[5] + H[6];
+			a = '0x' + H[7] + H[8];
+		}
+
+		// normal conversion to HSLA
+		r /= 255;
+		g /= 255;
+		b /= 255;
+		let cmin = Math.min(r, g, b),
+			cmax = Math.max(r, g, b),
+			delta = cmax - cmin,
+			h = 0,
+			s = 0,
+			l = 0;
+
+		if (delta == 0) h = 0;
+		else if (cmax == r) h = ((g - b) / delta) % 6;
+		else if (cmax == g) h = (b - r) / delta + 2;
+		else h = (r - g) / delta + 4;
+
+		h = Math.round(h * 60);
+
+		if (h < 0) h += 360;
+
+		l = (cmax + cmin) / 2;
+		s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+		s = +(s * 100).toFixed(1);
+		l = +(l * 100).toFixed(1);
+
+		a = (a / 255).toFixed(3);
+
+		return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
+function HSLToRGB(hsl, isPct) {
+	//if isPct == true, will output 'rgb(xx%,xx%,xx%)' umgerechnet in % von 255
+	let ex = /^hsl\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}|(\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2})\)$/i;
+	if (ex.test(hsl)) {
+		let sep = hsl.indexOf(',') > -1 ? ',' : ' ';
+		hsl = hsl
+			.substr(4)
+			.split(')')[0]
+			.split(sep);
+		isPct = isPct === true;
+
+		let h = hsl[0],
+			s = hsl[1].substr(0, hsl[1].length - 1) / 100,
+			l = hsl[2].substr(0, hsl[2].length - 1) / 100;
+
+		// strip label and convert to degrees (if necessary)
+		if (h.indexOf('deg') > -1) h = h.substr(0, h.length - 3);
+		else if (h.indexOf('rad') > -1) h = Math.round((h.substr(0, h.length - 3) / (2 * Math.PI)) * 360);
+		else if (h.indexOf('turn') > -1) h = Math.round(h.substr(0, h.length - 4) * 360);
+		// keep hue fraction of 360 if ending up over
+		if (h >= 360) h %= 360;
+
+		let c = (1 - Math.abs(2 * l - 1)) * s,
+			x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+			m = l - c / 2,
+			r = 0,
+			g = 0,
+			b = 0;
+
+		if (0 <= h && h < 60) {
+			r = c;
+			g = x;
+			b = 0;
+		} else if (60 <= h && h < 120) {
+			r = x;
+			g = c;
+			b = 0;
+		} else if (120 <= h && h < 180) {
+			r = 0;
+			g = c;
+			b = x;
+		} else if (180 <= h && h < 240) {
+			r = 0;
+			g = x;
+			b = c;
+		} else if (240 <= h && h < 300) {
+			r = x;
+			g = 0;
+			b = c;
+		} else if (300 <= h && h < 360) {
+			r = c;
+			g = 0;
+			b = x;
+		}
+
+		r = Math.round((r + m) * 255);
+		g = Math.round((g + m) * 255);
+		b = Math.round((b + m) * 255);
+
+		if (isPct) {
+			r = +((r / 255) * 100).toFixed(1);
+			g = +((g / 255) * 100).toFixed(1);
+			b = +((b / 255) * 100).toFixed(1);
+		}
+
+		return 'rgb(' + (isPct ? r + '%,' + g + '%,' + b + '%' : +r + ',' + +g + ',' + +b) + ')';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
+function HSLAToRGBA(hsla, isPct) {
+	//if isPct == true, will output 'rgb(xx%,xx%,xx%)' umgerechnet in % von 255
+	let ex = /^hsla\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)(((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2},\s?)|((\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}\s\/\s))((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
+	if (ex.test(hsla)) {
+		let sep = hsla.indexOf(',') > -1 ? ',' : ' ';
+		hsla = hsla
+			.substr(5)
+			.split(')')[0]
+			.split(sep);
+
+		// strip the slash if using space-separated syntax
+		if (hsla.indexOf('/') > -1) hsla.splice(3, 1);
+
+		isPct = isPct === true;
+
+		// must be fractions of 1
+		let h = hsla[0],
+			s = hsla[1].substr(0, hsla[1].length - 1) / 100,
+			l = hsla[2].substr(0, hsla[2].length - 1) / 100,
+			a = hsla[3];
+
+		// strip label and convert to degrees (if necessary)
+		if (h.indexOf('deg') > -1) h = h.substr(0, h.length - 3);
+		else if (h.indexOf('rad') > -1) h = Math.round((h.substr(0, h.length - 3) / (2 * Math.PI)) * 360);
+		else if (h.indexOf('turn') > -1) h = Math.round(h.substr(0, h.length - 4) * 360);
+		if (h >= 360) h %= 360;
+
+		let c = (1 - Math.abs(2 * l - 1)) * s,
+			x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+			m = l - c / 2,
+			r = 0,
+			g = 0,
+			b = 0;
+
+		if (0 <= h && h < 60) {
+			r = c;
+			g = x;
+			b = 0;
+		} else if (60 <= h && h < 120) {
+			r = x;
+			g = c;
+			b = 0;
+		} else if (120 <= h && h < 180) {
+			r = 0;
+			g = c;
+			b = x;
+		} else if (180 <= h && h < 240) {
+			r = 0;
+			g = x;
+			b = c;
+		} else if (240 <= h && h < 300) {
+			r = x;
+			g = 0;
+			b = c;
+		} else if (300 <= h && h < 360) {
+			r = c;
+			g = 0;
+			b = x;
+		}
+
+		r = Math.round((r + m) * 255);
+		g = Math.round((g + m) * 255);
+		b = Math.round((b + m) * 255);
+
+		let pctFound = a.indexOf('%') > -1;
+
+		if (isPct) {
+			r = +((r / 255) * 100).toFixed(1);
+			g = +((g / 255) * 100).toFixed(1);
+			b = +((b / 255) * 100).toFixed(1);
+			if (!pctFound) {
+				a *= 100;
+			} else {
+				a = a.substr(0, a.length - 1);
+			}
+		} else if (pctFound) {
+			a = a.substr(0, a.length - 1) / 100;
+		}
+
+		return 'rgba(' + (isPct ? r + '%,' + g + '%,' + b + '%,' + a + '%' : +r + ',' + +g + ',' + +b + ',' + +a) + ')';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
+function RGBToHex7(c) {
+	let n = allNumbers(c);
+	if (c.includes('%')) {
+		n[0] = Math.round((n[0] * 255) / 100);
+		n[1] = Math.round((n[1] * 255) / 100);
+		n[2] = Math.round((n[2] * 255) / 100);
+	}
+	return '#' + ((1 << 24) + (n[0] << 16) + (n[1] << 8) + n[2]).toString(16).slice(1);
+} //ok
+function RGBAToHex9(rgba) {
+	let n = allNumbers(rgba); //allNumbers does not catch .5 as float!
+	//console.log('all numbers:', n);
+	if (n.length < 3) {
+		//console.log('RGBAToHex ERROR!', rgba);
+		return randomHexColor();
+	}
+	let a = n.length > 3 ? n[3] : 1;
+	let sa = alphaToHex(a);
+	//console.log('sa:', sa);
+	if (rgba.includes('%')) {
+		n[0] = Math.round((n[0] * 255) / 100);
+		n[1] = Math.round((n[1] * 255) / 100);
+		n[2] = Math.round((n[2] * 255) / 100);
+	}
+	return '#' + ((1 << 24) + (n[0] << 16) + (n[1] << 8) + n[2]).toString(16).slice(1) + sa;
+} //ok
+function RGBToHSL(rgb) {
+	let ex = /^rgb\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){2}|((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s)){2})((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]))|((((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){2}|((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){2})(([1-9]?\d(\.\d+)?)|100|(\.\d+))%))\)$/i;
+	if (ex.test(rgb)) {
+		let sep = rgb.indexOf(',') > -1 ? ',' : ' ';
+		rgb = rgb
+			.substr(4)
+			.split(')')[0]
+			.split(sep);
+
+		// convert %s to 0–255
+		for (let R in rgb) {
+			let r = rgb[R];
+			if (r.indexOf('%') > -1) rgb[R] = Math.round((r.substr(0, r.length - 1) / 100) * 255);
+		}
+
+		// make r, g, and b fractions of 1
+		let r = rgb[0] / 255,
+			g = rgb[1] / 255,
+			b = rgb[2] / 255,
+			// find greatest and smallest channel values
+			cmin = Math.min(r, g, b),
+			cmax = Math.max(r, g, b),
+			delta = cmax - cmin,
+			h = 0,
+			s = 0,
+			l = 0;
+
+		// calculate hue
+		// no difference
+		if (delta == 0) h = 0;
+		// red is max
+		else if (cmax == r) h = ((g - b) / delta) % 6;
+		// green is max
+		else if (cmax == g) h = (b - r) / delta + 2;
+		// blue is max
+		else h = (r - g) / delta + 4;
+
+		h = Math.round(h * 60);
+
+		// make negative hues positive behind 360°
+		if (h < 0) h += 360;
+
+		// calculate lightness
+		l = (cmax + cmin) / 2;
+
+		// calculate saturation
+		s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+
+		// multiply l and s by 100
+		s = +(s * 100).toFixed(1);
+		l = +(l * 100).toFixed(1);
+
+		return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
+function RGBAToHSLA(rgba) {
+	let ex = /^rgba\((((((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5]),\s?)){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%,\s?){3}))|(((((1?[1-9]?\d)|10\d|(2[0-4]\d)|25[0-5])\s){3})|(((([1-9]?\d(\.\d+)?)|100|(\.\d+))%\s){3}))\/\s)((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;
+	if (ex.test(rgba)) {
+		let sep = rgba.indexOf(',') > -1 ? ',' : ' ';
+		rgba = rgba
+			.substr(5)
+			.split(')')[0]
+			.split(sep);
+
+		// strip the slash if using space-separated syntax
+		if (rgba.indexOf('/') > -1) rgba.splice(3, 1);
+
+		for (let R in rgba) {
+			let r = rgba[R];
+			if (r.indexOf('%') > -1) {
+				let p = r.substr(0, r.length - 1) / 100;
+
+				if (R < 3) {
+					rgba[R] = Math.round(p * 255);
+				}
+			}
+		}
+
+		// make r, g, and b fractions of 1
+		let r = rgba[0] / 255,
+			g = rgba[1] / 255,
+			b = rgba[2] / 255,
+			a = rgba[3],
+			// find greatest and smallest channel values
+			cmin = Math.min(r, g, b),
+			cmax = Math.max(r, g, b),
+			delta = cmax - cmin,
+			h = 0,
+			s = 0,
+			l = 0;
+
+		// calculate hue
+		// no difference
+		if (delta == 0) h = 0;
+		// red is max
+		else if (cmax == r) h = ((g - b) / delta) % 6;
+		// green is max
+		else if (cmax == g) h = (b - r) / delta + 2;
+		// blue is max
+		else h = (r - g) / delta + 4;
+
+		h = Math.round(h * 60);
+
+		// make negative hues positive behind 360°
+		if (h < 0) h += 360;
+
+		// calculate lightness
+		l = (cmax + cmin) / 2;
+
+		// calculate saturation
+		s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+
+		// multiply l and s by 100
+		s = +(s * 100).toFixed(1);
+		l = +(l * 100).toFixed(1);
+
+		return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
+	} else {
+		return 'Invalid input color';
+	}
+} //ok
 function HSLAToRGBA(hsla, isPct) {
 	//if isPct == true, will output 'rgb(xx%,xx%,xx%)' umgerechnet in % von 255
 	let ex = /^hsla\(((((([12]?[1-9]?\d)|[12]0\d|(3[0-5]\d))(\.\d+)?)|(\.\d+))(deg)?|(0|0?\.\d+)turn|(([0-6](\.\d+)?)|(\.\d+))rad)(((,\s?(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2},\s?)|((\s(([1-9]?\d(\.\d+)?)|100|(\.\d+))%){2}\s\/\s))((0?\.\d+)|[01]|(([1-9]?\d(\.\d+)?)|100|(\.\d+))%)\)$/i;

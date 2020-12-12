@@ -220,7 +220,7 @@ class GMissingLetter extends Game {
 				if (nundef(Selected.lastIndexEntered)) {
 					//the user entered a non existing letter!!!
 					showFleetingMessage('you entered ' + Selected.lastLetterEntered)
-					Speech.say('this letter does NOT belong to the word!')
+					Speech.say(Settings.language == 'E'?'try a different letter!':'anderer Buchstabe!')
 				}
 				showFleetingMessage(this.composeFleetingMessage(), 3000);
 				//if get to this place that input did not match!

@@ -25,15 +25,34 @@ function buildWordFromLetters(dParent) {
 	s = s.join('');
 	return s;
 }
-function createLetterInputs(s, dTable, style, idForContainerDiv) {
+function isVariableColor(c) { return c == 'random' || c == 'randPastel' || c == 'randDark' || c == 'randLight' || isList(c); }
+function createLetterInputs(s, dTable, style, idForContainerDiv, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 	let d = mDiv(dTable);
 	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
 	inputs = [];
+	let whiteStyle = jsCopy(style);
+	if (!colorWhiteSpaceChars) {
+		if (isdef(whiteStyle.fg)) delete whiteStyle.fg;
+		if (isdef(whiteStyle.bg)) delete whiteStyle.bg;
+		if (isdef(whiteStyle.border)) delete whiteStyle.border;
+	}
+	//console.log('style', style, '\nwhiteStyle', whiteStyle);
+	let fg, fgOrig, bg, bgOrig;
+	fgOrig = style.fg;
+	bgOrig = style.bg;
+	if (isVariableColor(fgOrig) && isdef(style.fg)) { fg = computeColorX(fgOrig); style.fg = fg; }
+	if (isVariableColor(bgOrig) && isdef(style.bg)) { bg = computeColorX(bgOrig); style.bg = bg; }
 	for (let i = 0; i < s.length; i++) {
 		let d1 = mCreate('div');
 		mAppend(d, d1);
 		d1.innerHTML = s[i];
-		mStyleX(d1, style);
+		let white = isWhiteSpace2(s[i]);
+		if (white) {
+			if (isVariableColor(fgOrig) && isdef(style.fg)) { fg = computeColorX(fgOrig); style.fg = fg; }
+			if (isVariableColor(bgOrig) && isdef(style.bg)) { bg = computeColorX(bgOrig); style.bg = bg; }
+		}
+		//console.log('white(' + s[i] + ') =', white);
+		mStyleX(d1, white ? whiteStyle : style);
 	}
 	return d;
 }
@@ -135,21 +154,21 @@ function successThumbsUp(withComment = true) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
 		Speech.say(chooseRandom(comments));//'Excellent!!!');
 	}
-	console.log(Pictures)
-	let p1 = firstCond(Pictures,x=>x.key == 'thumbs up');
-	p1.div.style.opacity=1;
-	let p2 = firstCond(Pictures,x=>x.key == 'thumbs down');
-	p2.div.style.display='none';
+	//console.log(Pictures)
+	let p1 = firstCond(Pictures, x => x.key == 'thumbs up');
+	p1.div.style.opacity = 1;
+	let p2 = firstCond(Pictures, x => x.key == 'thumbs down');
+	p2.div.style.display = 'none';
 }
 function failThumbsDown(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
 		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
 	}
-	let p1 = firstCond(Pictures,x=>x.key == 'thumbs down');
-	p1.div.style.opacity=1;
-	let p2 = firstCond(Pictures,x=>x.key == 'thumbs up');
-	p2.div.style.display='none';
+	let p1 = firstCond(Pictures, x => x.key == 'thumbs down');
+	p1.div.style.opacity = 1;
+	let p2 = firstCond(Pictures, x => x.key == 'thumbs up');
+	p2.div.style.display = 'none';
 }
 
 function successPictureGoal(withComment = true) {
@@ -347,8 +366,10 @@ function showPictures(onClickPictureHandler, { sz, bgs, colors, contrast, repeat
 	//keys=['sun with face'];
 
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
-		{ picSize:sz, bgs:bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors, 
-			contrast: contrast });
+		{
+			picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors,
+			contrast: contrast
+		});
 
 
 	//TESTING FOR NO DUPLICATES - remove in production!
