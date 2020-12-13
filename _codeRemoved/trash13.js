@@ -1,3 +1,157 @@
+function missingNumberPrompt() {
+	showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
+	mLinebreak(dTable, 12);
+
+	showHiddenThumbsUpDown({ sz: 140 });
+	mLinebreak(dTable);
+
+	let seq = this.seq = getRandomNumberSequence(this.seqlen, 0, this.max, this.step);
+
+	let wi = createWordInputs(seq, dTable,'dNums');
+
+	// console.log(wi)
+	//now remove numMissing words simplest: remove 1 word in random pos
+	//let blank = blankWordInputs(wi.words, 2, 'end');
+	let blank = blankWordInputs(wi.words, this.numMissing, this.pos);
+	//was soll das Goal sein???
+	Goal = { seq: seq, words: wi.words, chars:wi.letters, blankWords:blank.words, blankChars:blank.letters, iFocus:blank.iFocus };
+	// for(const k in blank){
+	// 	Goal[k]=blank[k];
+	// }
+	console.log('Goal',Goal);
+
+
+	mLinebreak(dTable);
+
+
+	//console.log('msg,msg', msg)
+	if (Settings.isTutoring) { let msg = this.composeFleetingMessage(); showFleetingMessage(msg, 3000); }
+	activateUi();
+
+	return;
+
+	let label = this.label = seq.join(', ');
+
+	//zuerst bestimme die missing numbers
+	let pos = this.pos;
+	let iMissing = []; // indices in seq
+	if (pos == 'end') { for (let x = 1; x <= this.numMissing; x++) { iMissing.push(this.seqlen - x); } }
+	else if (pos == 'start') { for (let x = 0; x < this.numMissing; x++) { iMissing.push(x); } }
+	else iMissing = choose(range(0, this.seqlen - 1, 1), this.numMissing);
+
+	//console.log('iMissing', iMissing);
+	let missingNumbers = iMissing.map(x => seq[x]);
+	//console.log('the missing numbers are:',missingNumbers);
+
+	let info = [];
+	for (const i of iMissing) { let n = seq[i]; info.push({ i: i, n: n }); }
+
+	//console.log('info', info);
+
+	// erstmal stelle fest wieviele letters sich aus der summe der missing numbers ergeben
+	let sum = 0;
+	for (let i = 0; i < iMissing.length; i++) {
+		//let idx=iMissing[i];
+		//console.log(i, info[i])
+		sum += info[i].n.toString().length;
+	}
+
+	//console.log('MN:', seq, label, '\niMissing', iMissing, '\nsum', sum);
+	this.nMissing = sum;
+
+	let ilist = []; // indices in label
+	//console.log('pos', pos);
+	let SAFE = 100;
+	//console.log('pos', pos, 'sum', sum);
+
+	let wlen = label.length;
+	if (pos == 'end') {
+		//from label remove sum alphanumeric letters and remember their indices
+		let i = label.length - 1;
+		let nrem = 0;
+		let x = i;
+
+		//console.log('i', i, 'nrem', nrem, 'x', x);
+		while (nrem < sum && x >= 0) {
+			if (SAFE <= 0) break; SAFE -= 1;
+			while (x >= 0 && !isAlphaNum(label[x])) x -= 1;
+			while (x >= 0 && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x -= 1; }
+		}
+	}
+	else if (pos == 'start') {
+		//from label remove sum alphanumeric letters and remember their indices
+		let i = 0;
+		let nrem = 0;
+		let x = i;
+
+		console.log('i', i, 'nrem', nrem, 'x', x);
+		while (nrem < sum && x < wlen) {
+			if (SAFE <= 0) break; SAFE -= 1;
+			while (x < wlen && !isAlphaNum(label[x])) x += 1;
+			while (x < wlen && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x += 1; }
+		}
+	}
+	else if (pos == 'consec') {
+		//from label remove sum alphanumeric letters and remember their indices
+		let i = 0;
+		let nrem = 0;
+		let x = i;
+
+
+		console.log('i', i, 'nrem', nrem, 'x', x);
+		let numrem = this.numMissing; let inumrem = 0;
+		while (nrem < sum && x < wlen && inumrem < numrem) {
+			let snum = info[inumrem].n.toString();
+			let x = label.indexOf(snum);
+			inumrem += 1;
+			console.log('x should be index of ', snum, ' in label:', x);
+			if (SAFE <= 0) break; SAFE -= 1;
+
+			while (x < wlen && !isAlphaNum(label[x])) x += 1;
+			while (x < wlen && isAlphaNum(label[x]) && nrem < sum) { ilist.push(x); nrem += 1; x += 1; }
+
+		}
+	}
+	else if (pos == 'random') {
+
+		// randomly choose 1-NumMissingLetters alphanumeric letters from Goal.label
+		let indices = getIndicesCondi(label, (x, i) => isAlphaNum(x));
+		ilist = choose(indices, sum);
+
+	}
+	sortNumbers(ilist);
+	//console.log('ilist', ilist);
+
+	Goal = { label: label, seq: seq, missingNumbers: missingNumbers };
+
+	// create sequence of letter ui
+	//let fg = ['yellow', 'skyblue', 'salmon', 'lime', 'gold', 'springgreen'];
+	//let fg = ['blue', 'green', 'navy', 'indigo'].map(x => colorBright(x, 50)).concat(['orange','deepskyblue', 'lime', 'springgreen', 'skyblue', 'yellow', 'gold', 'greenyellow']);
+	//fg = fg.map(x=>colorBright(x,50));
+	let fg = ['orange', 'deepskyblue', 'lime', 'springgreen', 'skyblue', 'yellow', 'gold', 'greenyellow']
+	let style = {
+		fg: fg, display: 'inline', bg: 'transparent', align: 'center',
+		border: 'transparent', outline: 'none', fz: 68
+	};
+	let d = createLetterInputs(Goal.label.toUpperCase(), dTable, style, undefined, false); // access children: d.children
+	//d.style.padding = '50px';
+
+	this.inputs = [];
+	for (const idx of ilist) {
+		let inp = d.children[idx];
+		inp.innerHTML = '_';
+		mClass(inp, 'blink');
+		this.inputs.push({ letter: Goal.label[idx].toUpperCase(), div: inp, index: idx });
+	}
+
+	mLinebreak(dTable);
+
+	let msg = this.composeFleetingMessage();
+	//console.log('msg,msg', msg)
+	if (Settings.showHint) showFleetingMessage(msg, 3000);
+	activateUi();
+
+}
 function interact(ev) {
 	console.log('ha!', ev)
 	ev.cancelBubble = true;

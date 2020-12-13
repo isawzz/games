@@ -26,8 +26,8 @@ function buildWordFromLetters(dParent) {
 	return s;
 }
 function isVariableColor(c) { return c == 'random' || c == 'randPastel' || c == 'randDark' || c == 'randLight' || isList(c); }
-function createLetterInputs(s, dTable, style, idForContainerDiv, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
-	let d = mDiv(dTable);
+function createLetterInputs(s, dParent, style, idForContainerDiv, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+	let d = mDiv(dParent);
 	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
 	inputs = [];
 	let whiteStyle = jsCopy(style);
@@ -57,6 +57,186 @@ function createLetterInputs(s, dTable, style, idForContainerDiv, colorWhiteSpace
 	return d;
 }
 
+function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+
+	if (isEmpty(styleWord)) {
+		let sz = 80;
+		styleWord = {
+			margin: 10, padding: 4, rounding: '50%', w: sz, h: sz, display: 'flex', fg: 'lime', bg: 'yellow', 'align-items': 'center',
+			border: 'transparent', outline: 'none', fz: sz - 25, 'justify-content': 'center',
+		};
+
+	}
+
+	let dContainer = mDiv(dParent);
+	if (!isEmpty(styleContainer)) mStyleX(dContainer, styleContainer); else mClass(dContainer, 'flexWrap');
+	dContainer.id = idForContainerDiv;
+
+	let inputGroups = [];
+	let charInputs = [];
+
+	//charInputs sollen info: {iGroup,iPhrase,iWord,char,word,phrase,div,dGroup,dContainer,ofg,obg,ostyle,oclass}
+	//groups sollen haben: [{div,ofg,obg,ostyle,oclass,[charInputs]},...]
+	let iWord = 0;
+	for (const w of words) {
+		let dGroup = mDiv(dContainer);
+		// let dGroup = mCreate('div');
+		// mAppend(dContainer, dGroup);
+		mStyleX(dGroup, styleWord);
+		dGroup.id = idForContainerDiv + '_' + iWord;
+		//mClass(dGroup,'flex')
+		let g = { dParent: dContainer, word: w, iWord: iWord, div: dGroup, oStyle: styleWord, ofg: dGroup.style.color, obg: dGroup.style.backgroundColor };
+		inputGroups.push(g);
+
+		//here have to add inputs into group for word w
+		let inputs = [];
+		let iLetter = 0;
+		let wString = w.toString();
+		for (const l of wString) {
+			let dLetter = mDiv(dGroup);
+			// let dLetter = mCreate('div');
+			// mAppend(dGroup, dLetter);
+			if (!isEmpty(styleLetter)) mStyleX(dLetter, styleLetter);
+			dLetter.innerHTML = l;
+			let inp = { group: g, div: dLetter, letter: l, iLetter: iLetter, oStyle: styleLetter, ofg: dLetter.style.color, obg: dLetter.style.backgroundColor };
+			charInputs.push(inp);
+			inputs.push(inp);
+			iLetter += 1;
+		}
+		g.charInputs = inputs;
+
+		//here have to add separator! if this is not the last wor of group!
+		if (iWord < words.length - 1 && isdef(sep)) {
+			let dSep = mDiv(dContainer);
+			dSep.innerHTML = sep;
+			if (isdef(styleSep)) mStyleX(dSep, styleSep);
+		}
+
+		iWord += 1;
+	}
+
+	return { words: inputGroups, letters: charInputs };
+}
+function blankWordInputs(wi, n, pos = 'random') {
+	//ignore pos for now and use random only
+	let indivInputs = [];
+	let remels = pos == 'random' ? choose(wi, n) : pos == 'start' ? arrTake(wi, n) : takeFromTo(wi, wi.length - n, wi.length);
+	for (const el of remels) {
+		let inputs = el.charInputs;
+		for (const inp of inputs) {
+			let d = inp.div;
+			d.innerHTML = '_';
+			mClass(d, 'blink');
+			inp.isBlank = true;
+
+		}
+		indivInputs = indivInputs.concat(inputs);
+		el.hasBlanks = true;
+		//console.log(el)
+		el.nMissing = el.charInputs.length;
+		if (n > 1) el.div.onclick = onClickWordInput;
+	}
+
+	return { iFocus: null, words: remels, letters: indivInputs };
+}
+function onClickWordInput(ev) {
+	ev.cancelBubble = true;
+	let id = evToClosestId(ev);
+	let iWord = Number(stringAfter(id, '_'));
+	let g = Goal.words[iWord];
+
+	let dGroup = g.div;
+
+	//console.log(dGroup)
+	// let wi = Goal.words;
+	// console.log(wi);
+	// //find which group
+	// let g=firstCond(wi,x=>x.div==dGroup);
+	//console.log('clicked group element:', g, g.isBlank);
+	if (nundef(g.hasBlanks) || !g.hasBlanks) return;
+	//this group is one of the goal groups that are still active
+	deactivateFocusGroup();
+	activateFocusGroup(g.iWord);
+}
+function activateFocusGroup(iFocus) {
+	if (isdef(iFocus)) Goal.iFocus = iFocus;
+	if (!Goal.iFocus) {
+		//console.log('nothing to activate');
+		return;
+	}
+	let g = Goal.words[Goal.iFocus];
+	//console.log('activate', g)
+	g.div.style.backgroundColor = 'black';
+
+}
+function deactivateFocusGroup() {
+	if (!Goal.iFocus) {
+		//console.log('nothing to deactivate');
+		return;
+	}
+	let g = Goal.words[Goal.iFocus];
+	//console.log('activate', g)
+	g.div.style.backgroundColor = g.obg;
+	Goal.iFocus = null;
+
+}
+function onKeyWordInput(ev) {
+	let charEntered = ev.key.toString();
+	if (!isAlphaNum(charEntered)) return;
+
+	let ch = charEntered.toUpperCase();
+	Selected = { lastLetterEntered: ch };
+	let cands = Goal.blankChars;
+	if (Goal.iFocus) {
+		let word = Goal.words[Goal.iFocus];
+		if (word.hasBlanks) cands = word.charInputs.filter(x => x.isBlank);
+		else deactivateFocusGroup();
+	}
+	console.log('cands', cands);
+	console.assert(!isEmpty(cands));
+
+	let isLastOfGroup = Goal.iFocus && cands.length == 1;
+	let isVeryLast = Goal.blankChars.length == 1;
+	let isLast = isLastOfGroup || isVeryLast; // geht auf jeden fall zu eval!
+	console.log('iFocus', Goal.iFocus, 'isLastOfGroup', isLastOfGroup, '\nisVeryLast', isVeryLast, '\nGoal', Goal);
+
+	let matchingTarget = firstCond(cands, x => x.letter == ch);
+	if (matchingTarget) {
+		//found a matching target if target not null!
+		fillWordInput(matchingTarget, ch);
+
+		//but: if this is not very last, still more to go so do NOT go to evaluate!!!
+		if (isVeryLast) { evaluate(true); return; }
+		else if (isLastOfGroup) { deactivateFocusGroup(); }
+		matchingTarget.isBlank = false;
+		removeInPlace(Goal.blankChars, matchingTarget);
+	} else {
+		if (isVeryLast) {
+			//fillWordInput(cands[0], ch);
+			evaluate(false);
+			return;
+		} else if (isLastOfGroup) {
+			//fillWordInput(cands[0], ch);
+			evaluate(false);
+			return;
+		}else{
+			showFleetingMessage('try something else!', 3000);
+
+		}
+	}
+
+
+
+
+
+	//was passiert wenn gruppe falsch eingebe?
+
+}
+function fillWordInput(inp, ch) {
+	let d = inp.div;
+	d.innerHTML = ch;
+	mRemoveClass(d, 'blink');
+}
 
 //#region cards turn face up or down
 function hideMouse() {
@@ -399,6 +579,12 @@ function showPictures(onClickPictureHandler, { sz, bgs, colors, contrast, repeat
 		}
 
 	}
+
+}
+function showHiddenThumbsUpDown(styles) {
+	styles.bgs = ['transparent', 'transparent'];
+	showPictures(null, styles, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
+	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
 
 }
 function showLevel() { dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel; }
