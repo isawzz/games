@@ -61,7 +61,7 @@ class GMissingNumber extends Game {
 		showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
 		mLinebreak(dTable, 12);
 
-		showPictures(null, { sz: 200, bgs: ['transparent', 'transparent'] }, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
+		showPictures(null, { sz: 140, bgs: ['transparent', 'transparent'] }, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
 		for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
 		// let p=Pictures[0];p.div.style.display='none';
 		let dGap = mLinebreak(dTable); //,20);dGap.style.backgroundColor='grey'
