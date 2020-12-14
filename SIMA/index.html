@@ -96,12 +96,22 @@
 		<source src="../assets/sounds/level1.wav" type="audio/wav">
 		Your browser does not support the audio element.
 	</audio>
+	<audio id="auIncorrect1">
+		<source src="../assets/sounds/incorrect1.wav" type="audio/wav">
+		Your browser does not support the audio element.
+	</audio>
+	<audio id="auDown">
+		<source src="../assets/sounds/down.mp3" type="audio/mp3">
+		Your browser does not support the audio element.
+	</audio>
 
 	<script>
 		var x = document.getElementById("myAudio");
 		function soundLevelComplete() { x.play(); }
 		function pauseAudio() { x.pause(); }
 		function soundGoodBye() { document.getElementById("gameoverAudio").play(); }
+		function soundIncorrect1() { document.getElementById("auIncorrect1").play(); }
+		function soundDown() { document.getElementById("auDown").play(); }
 
 		var rubberBandSound = document.getElementById("rubberBandSound");
 		function playRubberBandSound() { return; rubberBandSound.play(); }

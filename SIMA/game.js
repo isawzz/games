@@ -1,3 +1,23 @@
+var TOList;
+function numberSequenceCorrectionAnimation(wrong, ms) {
+	//da brauch ich eine chain!!!!!!
+	DELAY = ms;
+	if (nundef(TOList)) TOList = {};
+	let t1 = setTimeout(() => wrong.map(x => animate(x.div, 'aniGrow800', DELAY / 2)), 0);
+	let t2 = setTimeout(() => wrong.map(x => correctWordInput(x)), DELAY / 2);
+	let t3 = setTimeout(() => wrong.map(x => animate(x.div, 'aniShrink800', 900)), DELAY / 3);
+	//let ops = 'add';
+	let t4 = setTimeout(() => {
+		// let msg = `each number is built by ${ops}ing ${G.step} to the previous number`;
+		let l = G.op == 'add' ? 'to' : 'from';
+		let msg = `${G.op} ${G.step} ${l} the previous number`;
+		showFleetingMessage(msg, 0, { fz: 32 });
+	}, DELAY / 10);
+	soundDown();
+	TOList.numseq = [t1, t2, t3, t4];
+
+}
+
 function addNthInputElement(dParent, n) {
 	mLinebreak(dParent, 10);
 	let d = mDiv(dParent);
@@ -19,6 +39,7 @@ function aniInstruction(spoken) {
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
 }
+function aniPulse(elem, ms) { animate(elem, 'onPulse', ms); }
 function buildWordFromLetters(dParent) {
 	let letters = Array.from(dParent.children);
 	let s = letters.map(x => x.innerHTML);
@@ -78,6 +99,7 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 	//charInputs sollen info: {iGroup,iPhrase,iWord,char,word,phrase,div,dGroup,dContainer,ofg,obg,ostyle,oclass}
 	//groups sollen haben: [{div,ofg,obg,ostyle,oclass,[charInputs]},...]
 	let iWord = 0;
+	let idx = 0;
 	for (const w of words) {
 		let dGroup = mDiv(dContainer);
 		// let dGroup = mCreate('div');
@@ -98,10 +120,10 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 			// mAppend(dGroup, dLetter);
 			if (!isEmpty(styleLetter)) mStyleX(dLetter, styleLetter);
 			dLetter.innerHTML = l;
-			let inp = { group: g, div: dLetter, letter: l, iLetter: iLetter, oStyle: styleLetter, ofg: dLetter.style.color, obg: dLetter.style.backgroundColor };
+			let inp = { group: g, div: dLetter, letter: l, iLetter: iLetter, index: idx, oStyle: styleLetter, ofg: dLetter.style.color, obg: dLetter.style.backgroundColor };
 			charInputs.push(inp);
 			inputs.push(inp);
-			iLetter += 1;
+			iLetter += 1; idx += 1;
 		}
 		g.charInputs = inputs;
 
@@ -117,22 +139,31 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 
 	return { words: inputGroups, letters: charInputs };
 }
+function setGoalWordInputs(n, min, max, step, op = 'add') {
+
+	let seq = getRandomNumberSequence(n, min, max, x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; });
+	let wi = createWordInputs(seq, dTable, 'dNums');
+	let blank = blankWordInputs(wi.words, G.numMissingLetters, G.posMissing);
+
+	Goal = { seq: seq, words: wi.words, chars: wi.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
+	Goal.qCharIndices = Goal.blankChars.map(x => x.index);
+	Goal.qWordIndices = Goal.blankWords.map(x => x.iWord);
+
+	let yes = true;
+	for (let i = 0; i < Goal.chars.length; i++) if (Goal.chars[i].index != i) yes = false;
+	console.assert(yes == true);
+	//console.log('Goal', Goal);
+
+}
 function blankWordInputs(wi, n, pos = 'random') {
+	// console.log(getFunctionCallerName(), 'n', n)
 	//ignore pos for now and use random only
 	let indivInputs = [];
 	let remels = pos == 'random' ? choose(wi, n) : pos == 'start' ? arrTake(wi, n) : takeFromTo(wi, wi.length - n, wi.length);
 	for (const el of remels) {
-		let inputs = el.charInputs;
-		for (const inp of inputs) {
-			let d = inp.div;
-			d.innerHTML = '_';
-			mClass(d, 'blink');
-			inp.isBlank = true;
-
-		}
-		indivInputs = indivInputs.concat(inputs);
+		for (const inp of el.charInputs) { unfillCharInput(inp); }
+		indivInputs = indivInputs.concat(el.charInputs);
 		el.hasBlanks = true;
-		//console.log(el)
 		el.nMissing = el.charInputs.length;
 		if (n > 1) el.div.onclick = onClickWordInput;
 	}
@@ -140,28 +171,22 @@ function blankWordInputs(wi, n, pos = 'random') {
 	return { iFocus: null, words: remels, letters: indivInputs };
 }
 function onClickWordInput(ev) {
+	// console.log('click group!')
+	if (!canAct()) return;
 	ev.cancelBubble = true;
 	let id = evToClosestId(ev);
 	let iWord = Number(stringAfter(id, '_'));
 	let g = Goal.words[iWord];
 
-	let dGroup = g.div;
-
-	//console.log(dGroup)
-	// let wi = Goal.words;
-	// console.log(wi);
-	// //find which group
-	// let g=firstCond(wi,x=>x.div==dGroup);
-	//console.log('clicked group element:', g, g.isBlank);
+	//console.log('clicked on group', g)
 	if (nundef(g.hasBlanks) || !g.hasBlanks) return;
-	//this group is one of the goal groups that are still active
 	deactivateFocusGroup();
 	activateFocusGroup(g.iWord);
 }
 function activateFocusGroup(iFocus) {
 	if (isdef(iFocus)) Goal.iFocus = iFocus;
-	if (!Goal.iFocus) {
-		//console.log('nothing to activate');
+	if (Goal.iFocus === null) {
+		console.log('nothing to activate');
 		return;
 	}
 	let g = Goal.words[Goal.iFocus];
@@ -170,7 +195,8 @@ function activateFocusGroup(iFocus) {
 
 }
 function deactivateFocusGroup() {
-	if (!Goal.iFocus) {
+	//console.log('deactivate', Goal.iFocus)
+	if (Goal.iFocus === null) {
 		//console.log('nothing to deactivate');
 		return;
 	}
@@ -192,52 +218,51 @@ function onKeyWordInput(ev) {
 		if (word.hasBlanks) cands = word.charInputs.filter(x => x.isBlank);
 		else deactivateFocusGroup();
 	}
-	console.log('cands', cands);
+	//console.log('cands', cands);
 	console.assert(!isEmpty(cands));
 
-	let isLastOfGroup = Goal.iFocus && cands.length == 1;
+	let isLastOfGroup = (Goal.iFocus != null) && cands.length == 1;
 	let isVeryLast = Goal.blankChars.length == 1;
-	let isLast = isLastOfGroup || isVeryLast; // geht auf jeden fall zu eval!
-	console.log('iFocus', Goal.iFocus, 'isLastOfGroup', isLastOfGroup, '\nisVeryLast', isVeryLast, '\nGoal', Goal);
+	//let isLast = isLastOfGroup || isVeryLast; // geht auf jeden fall zu eval!
+	//console.log('iFocus', Goal.iFocus, 'isLastOfGroup', isLastOfGroup, '\nisVeryLast', isVeryLast, '\nGoal', Goal);
 
-	let matchingTarget = firstCond(cands, x => x.letter == ch);
-	if (matchingTarget) {
-		//found a matching target if target not null!
-		fillWordInput(matchingTarget, ch);
-
-		//but: if this is not very last, still more to go so do NOT go to evaluate!!!
-		if (isVeryLast) { evaluate(true); return; }
-		else if (isLastOfGroup) { deactivateFocusGroup(); }
-		matchingTarget.isBlank = false;
-		removeInPlace(Goal.blankChars, matchingTarget);
-	} else {
-		if (isVeryLast) {
-			//fillWordInput(cands[0], ch);
-			evaluate(false);
-			return;
-		} else if (isLastOfGroup) {
-			//fillWordInput(cands[0], ch);
-			evaluate(false);
-			return;
-		}else{
-			showFleetingMessage('try something else!', 3000);
-
-		}
-	}
-
-
-
-
-
-	//was passiert wenn gruppe falsch eingebe?
-
+	let target = firstCond(cands, x => x.letter == ch);
+	let isMatch = target != null;
+	if (!isMatch) target = cands[0];
+	fillCharInput(target, ch);
+	return { target: target, isMatch: isMatch, isLastOfGroup: isLastOfGroup, isVeryLast: isVeryLast, ch: ch };
 }
-function fillWordInput(inp, ch) {
+function unfillWord(winp){winp.charInputs.map(x=>unfillCharInput(x));}
+function unfillCharInput(inp, ch) {
+	let d = inp.div;
+	d.innerHTML = '_';
+	mClass(d, 'blink');
+	inp.isBlank = true;
+}
+function fillCharInput(inp, ch) {
 	let d = inp.div;
 	d.innerHTML = ch;
 	mRemoveClass(d, 'blink');
 }
+function correctWordInput(winp) { winp.charInputs.map(x => refillCharInput(x, x.letter)); }
+function refillCharInput(inp, ch) { fillCharInput(inp, ch); }
+function getInputStringOfWordi(iWord) { return getInputStringOfWord(Goal.words[iWord]); }
+function getInputStringOfChari(index) { return getInputStringOfChar(Goal.chars[index]); }
+function getInputStringOfWord(winp) { return winp.charInputs.map(x => x.div.innerHTML).join(''); }
+function getInputStringOfChar(inp) { return inp.div.innerHTML; }
+function getInputWords() { return Goal.words.map(x => getInputStringOfWord(x)); }
 
+function getQWords() { return Goal.qWordIndices.map(x => Goal.words[x]); }
+function getQChars() { return Goal.qCharIndices.map(x => Goal.charInputs[x]); }
+
+function getWrongWords() { return getQWords().filter(x => getInputStringOfWord(x) != x.word); }
+function getIndicesOfWrongWords() { return getWrongWords().map(x => x.iWord); }
+function getCorrectlyAnsweredWords() { return getQWords().filter(x => getInputStringOfWord(x) == x.word); }
+function getIndicesOfCorrectlyAnsweredWords() { return getCorrectlyAnsweredWords().map(x => x.iWord); }
+
+function getCorrectWords() { return Goal.seq; }
+function getCorrectWordString(sep = ' ') { return getCorrectWords().join(sep); }
+function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 //#region cards turn face up or down
 function hideMouse() {
 	//document.body.style.cursor = 'none';
@@ -340,10 +365,10 @@ function successThumbsUp(withComment = true) {
 	let p2 = firstCond(Pictures, x => x.key == 'thumbs down');
 	p2.div.style.display = 'none';
 }
-function failThumbsDown(withComment = true) {
+function failThumbsDown(withComment = false) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
-		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
+		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira'); //, () => { console.log('FERTIG FAIL!!!!'); });
 	}
 	let p1 = firstCond(Pictures, x => x.key == 'thumbs down');
 	p1.div.style.opacity = 1;
@@ -469,6 +494,7 @@ function getGameOrLevelInfo(k, defval) {
 }
 function resetRound() {
 	clearTimeout(TOMain);
+	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
 	clearFleetingMessage();
 	clearTable();
 }

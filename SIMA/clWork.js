@@ -47,13 +47,22 @@ class GMissingNumber extends Game {
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
 	showCorrectSequence() {
-		console.log('the correct sequence is', Goal.seq)
+		numberSequenceCorrectionAnimation(getWrongWords(), DELAY * 2)
+		// if (Selected.isVeryLast) {
+		// 	numberSequenceCorrectionAnimation(getWrongWords(),DELAY*2)
+		// } else {
+		// 	console.assert(Selected.isLastOfGroup==true);
+		// 	numberSequenceCorrectionAnimation([Selected.target.group],DELAY*2);
+		// 	setTimeout(()=>unfillCharInput(target),DELAY*2);
+		// }
+
 	}
 	startLevel() {
 		this.numMissing = G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
 		this.max = G.maxNumber = getGameOrLevelInfo('max', 20);
 		this.pos = G.posMissing = getGameOrLevelInfo('posMissing', 'consec');
 		this.step = G.step = getGameOrLevelInfo('step', 1);
+		this.ops = G.ops = getGameOrLevelInfo('ops', ['add']);
 		this.seqlen = G.lengthOfSequence = getGameOrLevelInfo('length', 5);
 		G.numPics = 2; G.numLabels = 0;
 	}
@@ -64,12 +73,8 @@ class GMissingNumber extends Game {
 		showHiddenThumbsUpDown({ sz: 140 });
 		mLinebreak(dTable);
 
-		let seq = this.seq = getRandomNumberSequence(this.seqlen, 0, this.max, this.step);
-		let wi = createWordInputs(seq, dTable, 'dNums');
-		let blank = blankWordInputs(wi.words, 2);//this.numMissing, this.pos);
-
-		Goal = { seq: seq, words: wi.words, chars: wi.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
-		console.log('Goal', Goal);
+		this.op = G.op = chooseRandom(this.ops);
+		this.seq = setGoalWordInputs(this.seqlen, 0, this.max, this.step, this.op);
 
 		mLinebreak(dTable);
 		if (Settings.isTutoring) { let msg = this.composeFleetingMessage(); showFleetingMessage(msg, 3000); }
@@ -77,14 +82,7 @@ class GMissingNumber extends Game {
 	}
 	trialPrompt() {
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
-
-		// let selinp = Selected.inp;
-		// setTimeout(() => {
-		// 	let d = selinp.div;
-		// 	d.innerHTML = '_';
-		// 	mClass(d, 'blink');
-		// }, 1500);
-
+		setTimeout(() => getWrongWords().map(x=>unfillWord(x)), 500);
 		if (Settings.showHint) showFleetingMessage(this.composeFleetingMessage(), 3000);
 		return 10;
 	}
@@ -94,13 +92,64 @@ class GMissingNumber extends Game {
 		clearFleetingMessage();
 		if (!canAct()) return;
 
-		onKeyWordInput(ev);
+		let sel = Selected = onKeyWordInput(ev);
+		//console.log('===>', sel);
+
+		//target,isMatch,isLastOfGroup,isVeryLast,ch
+		let lastInputCharFilled = sel.target;
+		console.assert(sel.isMatch == (lastInputCharFilled.letter == sel.ch), lastInputCharFilled, sel.ch);
+
+		//all cases aufschreiben und ueberlegen was passieren soll!
+		if (sel.isMatch && sel.isVeryLast) {
+			deactivateFocusGroup();
+			evaluate(true);
+		} else if (sel.isMatch && sel.isLastOfGroup) {
+			//it has been filled
+			//remove this group from Goal.blankWords
+			sel.target.isBlank = false;
+			sel.target.group.hasBlanks = false;
+			removeInPlace(Goal.blankWords, sel.target.group);
+			removeInPlace(Goal.blankChars, sel.target);
+			deactivateFocusGroup();
+			console.log('haaaaaaaaaaaalo',Goal.isFocus)
+			//console.log('=>', Goal)
+		} else if (sel.isMatch) {
+			//a partial match
+			removeInPlace(Goal.blankChars, sel.target);
+			sel.target.isBlank = false;
+		} else if (sel.isVeryLast) {
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			//console.log('LAST ONE WRONG!!!')
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else if (sel.isLastOfGroup) {
+			//unfill last group
+
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else {
+			soundIncorrect1();
+			deactivateFocusGroup();
+			setTimeout(() => unfillCharInput(Selected.target), 500);
+		}
+		//
 	}
 
-	eval(isCorrect) { return isCorrect;}
+	eval(isCorrect) {
+		return isCorrect;
+	}
 	composeFleetingMessage() {
 		//console.log('this', this)
-		let lst = Goal.blankWords.map(x=>x.word);
+		let lst = Goal.blankWords.map(x => x.word);
 		//console.log(this.inputs)
 		let msg = lst.join(',');
 		let edecl = lst.length > 1 ? 's are ' : ' is ';
@@ -134,18 +183,4 @@ function colorBright1(c, percent = 50) {
 	let hsl = colorHSL(c, true);
 	let hNew = { h: hsl.h, s: hsl.s, l: hsl.l + hsl.l * (percent / 100) }
 	return hNew;
-}
-function getRandomNumberSequence(n, minStart, maxStart, fBuild) {
-	let nStart = randomNumber(minStart, maxStart - n + 1);
-	if (isNumber(fBuild)) return range(nStart, nStart + (n - 1) * fBuild, fBuild);
-	else {
-		let res = [], x = nStart;
-		for (let i = 0; i < n; i++) {
-			res.push(x);
-			x = fBuild(x);
-		}
-		return res;
-	}
-
-
 }

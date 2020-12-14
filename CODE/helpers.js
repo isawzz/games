@@ -55,7 +55,7 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
-function mEditableInput(dParent,label, val) {
+function mEditableInput(dParent, label, val) {
 	let labelElem = createElementFromHTML(`<span>${label}</span>	`)
 	let elem = createElementFromHTML(`<span contenteditable="true" spellcheck="false">${val}</span>	`)
 	elem.addEventListener('keydown', (ev) => {
@@ -64,7 +64,7 @@ function mEditableInput(dParent,label, val) {
 			mBy('dummy').focus();
 		}
 	});
-	mAppend(dParent,labelElem);
+	mAppend(dParent, labelElem);
 	mAppend(dParent, elem);
 	return elem;
 }
@@ -441,17 +441,17 @@ function mBox(w, h, color, dParent = null) { let d = mDiv(dParent); return mStyl
 
 function mById(id) { return document.getElementById(id); }
 function computeColor(c) { return (c == 'random') ? randomColor() : c; }
-function computeColorX(c){
+function computeColorX(c) {
 
 	let res = c;
 	if (isList(c)) return chooseRandom(c);
-	else if (isString(c) && startsWith(c,'rand')){
+	else if (isString(c) && startsWith(c, 'rand')) {
 		res = randomColor();
-		let spec=c.substring(4);
-		console.log('______________________',spec);
-		if (isdef(window['color'+spec])) {
+		let spec = c.substring(4);
+		console.log('______________________', spec);
+		if (isdef(window['color' + spec])) {
 			console.log('YES!');
-			res = window['color'+spec](res);
+			res = window['color' + spec](res);
 		}
 
 	}
@@ -617,15 +617,15 @@ class ScriptLoader {
 
 //#region Q
 var Q, TOQ, AkQ;
-var QCounter=0;
-var QCancelAutoreset,TOQRunner, QRunnerRunning=false,QRunning=false;
-function QStop(){
+var QCounter = 0;
+var QCancelAutoreset, TOQRunner, QRunnerRunning = false, QRunning = false;
+function QStop() {
 	//just stop the runner task
-	console.log('...',getFunctionCallerName());
+	console.log('...', getFunctionCallerName());
 	QCancelAutoreset = true;
 }
-function QReset(){
-	console.log('...',getFunctionCallerName());
+function QReset() {
+	console.log('...', getFunctionCallerName());
 	clearTimeout(TOQ);
 	clearTimeout(TOQRunner);
 	Q = [];
@@ -633,30 +633,30 @@ function QReset(){
 }
 function restartQ() {
 	QReset();
-	console.log('===>RESET',QCounter,Q,AkQ);
+	console.log('===>RESET', QCounter, Q, AkQ);
 }
-function enQ(f, parr=null, msBefore=null, msAfter=null, callback=null) {
+function enQ(f, parr = null, msBefore = null, msAfter = null, callback = null) {
 	if (nundef(Q)) restartQ();
 	Q.push({ f: f, parr: parr, msBefore: msBefore, msAfter: msAfter, callback: callback });
 }
-function startQRunner(){
+function startQRunner() {
 	if (QRunnerRunning) return;
-	QRunnerRunning=true;
+	QRunnerRunning = true;
 	QRunner();
 }
-function QRunner(){
-	if (QCancelAutoreset) {QRunnerRunning = false;QCancelAutoreset=false;restartQ();}
-	else if (isEmpty(Q)) TOQRunner = setTimeout(QRunner,1000);
+function QRunner() {
+	if (QCancelAutoreset) { QRunnerRunning = false; QCancelAutoreset = false; restartQ(); }
+	else if (isEmpty(Q)) TOQRunner = setTimeout(QRunner, 1000);
 	else _runQ(QRunner);
 }
 
 function _runQ() {
-	QCounter +=1;console.log('===>run',QCounter,Q);
+	QCounter += 1; console.log('===>run', QCounter, Q);
 	if (isEmpty(Q)) { console.log('Q empty!', AkQ); return; }
 
 	let task = Q.shift();
 	//just simple task without timeout or callback
-	let f = task.f; 
+	let f = task.f;
 	let parr = _paramsQ(task.parr);
 	//let msBefore = task.msBefore, msAfter = task.msAfter, callback = task.callback; //waitCond = task.waitCond, tWait = task.tWait;
 	console.log('task:', f.name, 'params', parr)
@@ -667,7 +667,7 @@ function _runQ() {
 
 }
 
-function _paramsQ(parr){
+function _paramsQ(parr) {
 	parr = isdef(parr) ? parr : [];
 	for (let i = 0; i < parr.length; i++) {
 		let para = parr[i];
@@ -812,12 +812,12 @@ example:
 
 //#region colors
 var colorDict = null; //for color names, initialized when calling anyColorToStandardStyle first time
-function randomColorX(contrastColor,minSat,maxSat,minLight,maxLight){ 
-	let hc=colorHue(contrastColor);
-	
-  return "hsl(" + 360 * Math.random() + ',' +
-             (25 + 70 * Math.random()) + '%,' + 
-             (85 + 10 * Math.random()) + '%)'
+function randomColorX(contrastColor, minSat, maxSat, minLight, maxLight) {
+	let hc = colorHue(contrastColor);
+
+	return "hsl(" + 360 * Math.random() + ',' +
+		(25 + 70 * Math.random()) + '%,' +
+		(85 + 10 * Math.random()) + '%)'
 }
 
 function anyColorToStandardString(cAny, a, allowHsl = false) {
@@ -921,21 +921,21 @@ function anyColorToStandardString(cAny, a, allowHsl = false) {
 } //ok
 const colorShadeX = (c, amt) => {
 	let col = colorHex(c);
-  col = col.replace(/^#/, '')
-  if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2]
+	col = col.replace(/^#/, '')
+	if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2]
 
-  let [r, g, b] = col.match(/.{2}/g);
-  ([r, g, b] = [parseInt(r, 16) + amt, parseInt(g, 16) + amt, parseInt(b, 16) + amt])
+	let [r, g, b] = col.match(/.{2}/g);
+	([r, g, b] = [parseInt(r, 16) + amt, parseInt(g, 16) + amt, parseInt(b, 16) + amt])
 
-  r = Math.max(Math.min(255, r), 0).toString(16)
-  g = Math.max(Math.min(255, g), 0).toString(16)
-  b = Math.max(Math.min(255, b), 0).toString(16)
+	r = Math.max(Math.min(255, r), 0).toString(16)
+	g = Math.max(Math.min(255, g), 0).toString(16)
+	b = Math.max(Math.min(255, b), 0).toString(16)
 
-  const rr = (r.length < 2 ? '0' : '') + r
-  const gg = (g.length < 2 ? '0' : '') + g
-  const bb = (b.length < 2 ? '0' : '') + b
+	const rr = (r.length < 2 ? '0' : '') + r
+	const gg = (g.length < 2 ? '0' : '') + g
+	const bb = (b.length < 2 ? '0' : '') + b
 
-  return `#${rr}${gg}${bb}`
+	return `#${rr}${gg}${bb}`
 }
 
 function alphaToHex(zero1) {
@@ -4455,6 +4455,20 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	}
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
+}
+function getRandomNumberSequence(n, minStart, maxStart, fBuild) {
+	let nStart = randomNumber(minStart, maxStart - n + 1);
+	if (isNumber(fBuild)) return range(nStart, nStart + (n - 1) * fBuild, fBuild);
+	else {
+		let res = [], x = nStart;
+		for (let i = 0; i < n; i++) {
+			res.push(x);
+			x = fBuild(x);
+		}
+		return res;
+	}
+
+
 }
 function nRandomNumbers(n, from, to, step) {
 	let arr = range(from, to, step);

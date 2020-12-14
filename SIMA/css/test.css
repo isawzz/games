@@ -344,6 +344,25 @@ div{
 
 
 /* #region animations */
+.transColor{	transition: color 500 ease-in-out;}
+.aniGrow800{ animation: growcp5 800ms ease-in-out 0s 1 forwards; }
+.aniGrow2{ animation: growcp5 800ms ease-in-out; }
+.aniShrink800{ animation: shrinkcp5 800ms ease-in-out 0s 1 forwards; }
+@keyframes growcp5{ 
+	0%{ transform: scale(1); background-color: yellow;  } 
+	100%{ transform: scale(1.5); background-color: red; }
+}
+@keyframes shrinkcp5{ 
+	0%{ transform: scale(1.5); background-color: red; }
+	100%{ transform: scale(1); background-color: yellow;  } 
+}
+
+.pulse800green {	color: green;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
+.pulse800blue {	color: blue;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
+.pulse800violet {	color: violet;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
+.pulse800orange {	color: orange;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
+.pulse800skyblue {	color: skyblue;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
+.pulse800greenyellow {	color: greenyellow;	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;	transition: color 500 ease-in-out;}
 .pulse800yellow {
 	animation: pulse_animation 800ms ease-in-out 0s 6 alternate;
 	color: yellow;
