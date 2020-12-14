@@ -3,18 +3,23 @@ function numberSequenceCorrectionAnimation(wrong, ms) {
 	//da brauch ich eine chain!!!!!!
 	DELAY = ms;
 	if (nundef(TOList)) TOList = {};
+	console.log('haaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+	let l = G.op == 'add' ? 'to' : 'from';
+	let msg = `${G.op} ${G.step} ${l} the previous number`;
+	showFleetingMessage(msg, 0, { fz: 32 });
 	let t1 = setTimeout(() => wrong.map(x => animate(x.div, 'aniGrow800', DELAY / 2)), 0);
-	let t2 = setTimeout(() => wrong.map(x => correctWordInput(x)), DELAY / 2);
+	let t2 = setTimeout(() => wrong.map(x => correctWordInput(x)), DELAY / 2.2);
 	let t3 = setTimeout(() => wrong.map(x => animate(x.div, 'aniShrink800', 900)), DELAY / 3);
 	//let ops = 'add';
-	let t4 = setTimeout(() => {
-		// let msg = `each number is built by ${ops}ing ${G.step} to the previous number`;
-		let l = G.op == 'add' ? 'to' : 'from';
-		let msg = `${G.op} ${G.step} ${l} the previous number`;
-		showFleetingMessage(msg, 0, { fz: 32 });
-	}, DELAY / 10);
-	soundDown();
-	TOList.numseq = [t1, t2, t3, t4];
+	// let t4 = setTimeout(() => {
+	// 	// let msg = `each number is built by ${ops}ing ${G.step} to the previous number`;
+	// 	let l = G.op == 'add' ? 'to' : 'from';
+	// 	let msg = `${G.op} ${G.step} ${l} the previous number`;
+	// 	showFleetingMessage('HALLO', 0, { fz: 32 });
+	// }, 100); //DELAY / 10);
+	playSound('incorrect3');
+	t4=setTimeout(()=>Speech.say(msg),1000);
+	TOList.numseq = [t1, t2, t3,t4];//, t4];
 
 }
 
@@ -38,6 +43,12 @@ function aniInstruction(spoken) {
 	mClass(dInstruction, 'onPulse');
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
+}
+function aniFadeInOut(elem, secs) {
+	mClass(elem, 'transopaOn');
+	//dLineBottomMiddle.opacity=0;
+	//mClass(dLineBottomMiddle,'aniFadeInOut');
+	setTimeout(() => { mRemoveClass(elem, 'transopaOn'); mClass(elem, 'transopaOff'); }, secs * 1000);
 }
 function aniPulse(elem, ms) { animate(elem, 'onPulse', ms); }
 function buildWordFromLetters(dParent) {
@@ -141,12 +152,16 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 }
 function setGoalWordInputs(n, min, max, step, op = 'add') {
 
-	let seq = getRandomNumberSequence(n, min, max, x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; });
+	let fBuild = x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; };
+	if (op == 'subtract') min += step * (n - 1);
+	if (min >= (max - 10)) max = min + 10;
+	let seq = getRandomNumberSequence(n, min, max, fBuild);
 	let wi = createWordInputs(seq, dTable, 'dNums');
 	let blank = blankWordInputs(wi.words, G.numMissingLetters, G.posMissing);
 
 	Goal = { seq: seq, words: wi.words, chars: wi.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
 	Goal.qCharIndices = Goal.blankChars.map(x => x.index);
+
 	Goal.qWordIndices = Goal.blankWords.map(x => x.iWord);
 
 	let yes = true;
@@ -172,6 +187,7 @@ function blankWordInputs(wi, n, pos = 'random') {
 }
 function onClickWordInput(ev) {
 	// console.log('click group!')
+	return;
 	if (!canAct()) return;
 	ev.cancelBubble = true;
 	let id = evToClosestId(ev);
@@ -232,13 +248,14 @@ function onKeyWordInput(ev) {
 	fillCharInput(target, ch);
 	return { target: target, isMatch: isMatch, isLastOfGroup: isLastOfGroup, isVeryLast: isVeryLast, ch: ch };
 }
-function unfillWord(winp){winp.charInputs.map(x=>unfillCharInput(x));}
-function unfillCharInput(inp, ch) {
+function unfillWord(winp) { winp.charInputs.map(x => unfillCharInput(x)); }
+function unfillCharInput(inp) {
 	let d = inp.div;
 	d.innerHTML = '_';
 	mClass(d, 'blink');
 	inp.isBlank = true;
 }
+function unfillChar(inp) { unfillCharInput(inp); }
 function fillCharInput(inp, ch) {
 	let d = inp.div;
 	d.innerHTML = ch;
@@ -253,8 +270,12 @@ function getInputStringOfChar(inp) { return inp.div.innerHTML; }
 function getInputWords() { return Goal.words.map(x => getInputStringOfWord(x)); }
 
 function getQWords() { return Goal.qWordIndices.map(x => Goal.words[x]); }
-function getQChars() { return Goal.qCharIndices.map(x => Goal.charInputs[x]); }
+function getQChars() {
+	return Goal.qCharIndices.map(x => Goal.chars[x]);
+}
 
+function getWrongChars() { return getQChars().filter(x => getInputStringOfChar(x) != x.letter); }
+function getIndicesOfWrongChars() { return getWrongChars().map(x => x.index); }
 function getWrongWords() { return getQWords().filter(x => getInputStringOfWord(x) != x.word); }
 function getIndicesOfWrongWords() { return getWrongWords().map(x => x.iWord); }
 function getCorrectlyAnsweredWords() { return getQWords().filter(x => getInputStringOfWord(x) == x.word); }
@@ -441,14 +462,14 @@ function showFleetingMessage(msg, msDelay, styles, fade = false) {
 function fleetingMessage(msg, styles, fade = false) {
 	dLineBottomMiddle.innerHTML = msg;
 	mStyleX(dLineBottomMiddle, styles)
-	if (fade) TOMain = aniFadeInOut(dLineBottomMiddle, 2);
+	if (fade) TOMain = aniFadeInOut(dLineBottomMiddle, 1);
 }
 //#endregion fleetingMessage
 
 //#region game over
 function gameOver(msg) { TOMain = setTimeout(aniGameOver(msg), DELAY); }
 function aniGameOver(msg) {
-	soundGoodBye();
+	playSound('goodBye');
 	show('freezer2');
 
 	let dMessage = mBy('dMessageFreezer2');

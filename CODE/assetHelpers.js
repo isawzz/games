@@ -1,3 +1,26 @@
+var _audioSources={
+	incorrect1: '../assets/sounds/incorrect1.wav',
+	incorrect3: '../assets/sounds/incorrect3.mp3',
+	goodBye: "../assets/sounds/level1.wav",
+	down: "../assets/sounds/down.mp3",
+	levelComplete: "../assets/sounds/sound1.wav",
+	rubberBand: "../assets/sounds/sound2.wav",
+};
+// var _SND = null;
+var _sndPlayer;
+function playSound(key){
+	if (isdef(_sndPlayer)) {
+		_sndPlayer.pause();
+		//_sndPlayer.src = 'hallo';
+		_sndPlayer = null;
+		setTimeout(()=>playSound(key),0);
+	} else {
+		_sndPlayer = new Audio(_audioSources[key]);
+		_sndPlayer.play();
+	}
+}
+
+
 // *** uses assets! =>load after assets! ***
 const EMOFONTLIST =  ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol'];
 

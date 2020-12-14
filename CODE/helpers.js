@@ -4456,7 +4456,7 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
 }
-function getRandomNumberSequence(n, minStart, maxStart, fBuild) {
+function getRandomNumberSequence(n, minStart, maxStart, fBuild){ //{op,step,fBuild}) {
 	let nStart = randomNumber(minStart, maxStart - n + 1);
 	if (isNumber(fBuild)) return range(nStart, nStart + (n - 1) * fBuild, fBuild);
 	else {

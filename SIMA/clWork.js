@@ -82,7 +82,7 @@ class GMissingNumber extends Game {
 	}
 	trialPrompt() {
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
-		setTimeout(() => getWrongWords().map(x=>unfillWord(x)), 500);
+		setTimeout(() => getWrongChars().map(x=>unfillChar(x)), 500);
 		if (Settings.showHint) showFleetingMessage(this.composeFleetingMessage(), 3000);
 		return 10;
 	}
@@ -93,7 +93,7 @@ class GMissingNumber extends Game {
 		if (!canAct()) return;
 
 		let sel = Selected = onKeyWordInput(ev);
-		//console.log('===>', sel);
+		console.log('===>', sel);
 
 		//target,isMatch,isLastOfGroup,isVeryLast,ch
 		let lastInputCharFilled = sel.target;
@@ -137,8 +137,10 @@ class GMissingNumber extends Game {
 			//user entered last missing letter but it is wrong!
 			//can there be multiple errors in string?
 		} else {
-			soundIncorrect1();
+			playSound('incorrect1'); 
 			deactivateFocusGroup();
+			unfillCharInput(Selected.target);
+			showFleetingMessage('does NOT fit: '+Selected.ch,0,{fz:24},true);
 			setTimeout(() => unfillCharInput(Selected.target), 500);
 		}
 		//
