@@ -7,7 +7,7 @@ function startTime(elem) {
 	if (nundef(elem) && isdef(TimeElem)) { elem = TimeElem; }
 	else  {if (isString(elem)) elem = mBy(elem); TimeElem = elem; }
 
-	// console.log(TimestampStarted,getFunctionsNameThatCalledThisFunction())
+	// console.log(TimestampStarted, _getFunctionsNameThatCalledThisFunction())
 	var timeLeft = TimeLeft = Settings.minutesPerUnit * 60000 - getTimeElapsed();
 	if (timeLeft > 0) {
 		let t = msToTime(timeLeft);

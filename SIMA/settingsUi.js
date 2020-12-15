@@ -169,7 +169,7 @@ function updateKeySettings(nMin) {
 }
 function updateTimeSettings() {
 	let timeElem = mBy('time');
-	//console.log('updateTimeSettings',getFunctionsNameThatCalledThisFunction())
+	//console.log('updateTimeSettings',_getFunctionsNameThatCalledThisFunction())
 	if (Settings.showTime) { show(timeElem); startTime(timeElem); }
 	else hide(timeElem);
 }

@@ -11,7 +11,6 @@ async function _loader() {
 	
 }
 async function _start() {
-
 	//timit.show('DONE');
 	console.assert(isdef(DB));
 	

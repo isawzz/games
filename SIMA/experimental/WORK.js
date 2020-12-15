@@ -1,5 +1,5 @@
 var uiActivated, auxOpen;
-var canAct = () => uiActivated && !auxOpen;
+var canAct = () => uiActivated && !auxOpen && document.activeElement.id != 'spUser';
 
 function prelim() {
 	let dParent = dTable;

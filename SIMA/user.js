@@ -1,8 +1,17 @@
 var UsernameBeforeTesting;
+function saveUser() {
+	console.log('saveUser:', USERNAME,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
+	U.lastGame = G.key;
+	U.lastLevel = G.level;
+	if (USERNAME != 'test') localStorage.setItem('user',USERNAME);
+	DB.users[USERNAME] = U;
+	saveSIMA();
+}
 function loadUser(newUser) {
 
 	//console.log('newUser',newUser)
 	USERNAME = isdef(newUser) ? newUser : localStorage.getItem('user');
+
 	if (nundef(USERNAME)) USERNAME = 'guest';
 	//else console.log('found in localStorage',typeof USERNAME,USERNAME);
 
@@ -12,12 +21,15 @@ function loadUser(newUser) {
 	if (newUser == 'test') { uData = DB.users[USERNAME] = jsCopy(DB.users.test0); uData.id = USERNAME; }
 	if (!uData) { uData = DB.users[USERNAME] = jsCopy(DB.users.guest0); uData.id = USERNAME; }
 
+
 	//console.log(USERNAME, uData);
 
 	U = DB.users[USERNAME];
 	Settings = U.settings = deepmergeOverride(DB.settings, U.settings);
 	GS = Settings.games;
 	delete Settings.games;
+
+	console.log('load user',USERNAME,U.lastGame,U.lastLevel);
 
 
 	//how do I det menuItems? available games must go there!!!! U.seq
@@ -29,6 +41,9 @@ function loadUser(newUser) {
 
 
 	let game = U.lastGame;
+
+	//console.log('game is',game)
+
 	let level;
 	if (isdef(game)) { level = U.lastLevel; }
 	else {
@@ -155,13 +170,6 @@ function editableUsernameUi(dParent) {
 function saveUnit() { addSessionToUserGames(); saveUser(); }
 function saveRealUser(){
 	if (USERNAME != 'test') saveUser();
-}
-function saveUser() {
-	//console.log('saveUser:',getFunctionsNameThatCalledThisFunction()); 
-	U.lastGame = G.key;
-	U.lastLevel = G.level;
-	DB.users[USERNAME] = U;
-	saveSIMA();
 }
 
 function addByKey(oNew, oOld, except) {

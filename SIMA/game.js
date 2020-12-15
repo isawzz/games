@@ -1,25 +1,21 @@
 var TOList;
+function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
 function numberSequenceCorrectionAnimation(wrong, ms) {
 	//da brauch ich eine chain!!!!!!
 	DELAY = ms;
 	if (nundef(TOList)) TOList = {};
-	console.log('haaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-	let l = G.op == 'add' ? 'to' : 'from';
-	let msg = `${G.op} ${G.step} ${l} the previous number`;
-	showFleetingMessage(msg, 0, { fz: 32 });
-	let t1 = setTimeout(() => wrong.map(x => animate(x.div, 'aniGrow800', DELAY / 2)), 0);
-	let t2 = setTimeout(() => wrong.map(x => correctWordInput(x)), DELAY / 2.2);
-	let t3 = setTimeout(() => wrong.map(x => animate(x.div, 'aniShrink800', 900)), DELAY / 3);
-	//let ops = 'add';
-	// let t4 = setTimeout(() => {
-	// 	// let msg = `each number is built by ${ops}ing ${G.step} to the previous number`;
-	// 	let l = G.op == 'add' ? 'to' : 'from';
-	// 	let msg = `${G.op} ${G.step} ${l} the previous number`;
-	// 	showFleetingMessage('HALLO', 0, { fz: 32 });
-	// }, 100); //DELAY / 10);
-	playSound('incorrect3');
-	t4=setTimeout(()=>Speech.say(msg),1000);
-	TOList.numseq = [t1, t2, t3,t4];//, t4];
+	let msg = getNumSeqHint();
+	showFleetingMessage(msg, 0, { fz: 32 }); //return;
+	//Speech.say(msg)
+	Selected.feedbackUI = wrong.map(x => x.div);
+	failPictureGoal();
+
+	let t1 = setTimeout(removeMarkers, 1000);
+	let t2 = setTimeout(() => wrong.map(x => { correctWordInput(x); animate(x.div, 'komisch', 1300); }), 1000);
+	//let t3 = setTimeout(() => wrong.map(x =>animate(x.div,'komisch', 1300)), DELAY / 2);
+	//playSound('incorrect3');
+	t4 = setTimeout(() => {if (Settings.spokenFeedback) Speech.say(msg, .7, 1, .7, 'random');}, 500);
+	TOList.numseq = [t1, t2, t4];//, t3, t4];//, t4];
 
 }
 
@@ -34,10 +30,19 @@ function addNthInputElement(dParent, n) {
 	mAppend(d, dInp);
 	return dInp;
 }
+function animateColor(elem, from, to, classes, ms) {
+	elem.style.backgroundColor = from;
+	setTimeout(() => animate(elem, classes, ms), 10);
+}
 function animate(elem, aniclass, timeoutms) {
 	mClass(elem, aniclass);
 	setTimeout(() => mRemoveClass(elem, aniclass), timeoutms);
 }
+// function animate(elem, aniclass, timeoutms) {
+// 	if (!(isList(aniclass))) aniclass=[aniclass];
+// 	mClasses(elem, aniclass);
+// 	setTimeout(() => mRemoveClasses(elem, aniclass), timeoutms);
+// }
 function aniInstruction(spoken) {
 	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
 	mClass(dInstruction, 'onPulse');
@@ -111,11 +116,32 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 	//groups sollen haben: [{div,ofg,obg,ostyle,oclass,[charInputs]},...]
 	let iWord = 0;
 	let idx = 0;
+	let numWords = words.length;
+
+	//pure color wheel
+	let wheel = getHueWheel(G.color, 40, numWords <= 4 ? 60 : numWords <= 10 ? 30 : 15, 0);
+	wheel = wheel.map(x => colorHSLBuild(x, 100, 50));
+	wheel = shuffle(wheel);
+
+	//shaded color wheel
+	let wheel1 = colorPalShadeX(anyColorToStandardString(wheel[0]),numWords);
+	wheel = jsCopy(wheel1);
+	//reverse the wheel if subtract
+	if (G.op == 'add') wheel.reverse();
+
+
+	//console.log('wheel',wheel1, wheel)
 	for (const w of words) {
 		let dGroup = mDiv(dContainer);
 		// let dGroup = mCreate('div');
 		// mAppend(dContainer, dGroup);
 		mStyleX(dGroup, styleWord);
+
+		let bg = wheel[iWord]; // dGroup.style.backgroundColor=randomColorX(G.color,40,60,0,50,50);//'yellow';//randomColorX(G.color,70,80);
+		//console.log('bg', bg);
+		dGroup.style.backgroundColor=bg;
+		dGroup.style.color = colorIdealText(bg);// randomColorX(bg,20,30);
+
 		dGroup.id = idForContainerDiv + '_' + iWord;
 		//mClass(dGroup,'flex')
 		let g = { dParent: dContainer, word: w, iWord: iWord, div: dGroup, oStyle: styleWord, ofg: dGroup.style.color, obg: dGroup.style.backgroundColor };
@@ -410,7 +436,7 @@ function successPictureGoal(withComment = true) {
 		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
 	}
 }
-function failPictureGoal(withComment = true) {
+function failPictureGoal(withComment = false) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
 		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
@@ -442,7 +468,11 @@ function shortHintPic() {
 
 //#region fleetingMessage
 var TOFleetingMessage;
-function clearFleetingMessage() { clearTimeout(TOFleetingMessage); clearElement(dLineBottomMiddle); }
+function clearFleetingMessage() {
+	//console.log('HIER!');//, getFunctionsNameThatCalledThisFunction());
+	clearTimeout(TOFleetingMessage);
+	clearElement(dLineBottomMiddle);
+}
 function showFleetingMessage(msg, msDelay, styles, fade = false) {
 
 	let defStyles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 };

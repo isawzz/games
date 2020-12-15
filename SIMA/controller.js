@@ -5,7 +5,7 @@ function startGame() {
 
 	resetState();
 
-	G.succesFunc = successPictureGoal;
+	G.successFunc = successPictureGoal;
 	G.failFunc = failPictureGoal;
 	G.correctionFunc = showCorrectWord;
 	
@@ -71,7 +71,7 @@ function evaluate() {
 	//feedback
 	if (IsAnswerCorrect) {
 		DELAY = Settings.spokenFeedback ? 1500 : 300;
-		G.successFunc(); //successPictureGoal();
+		G.successFunc();
 	} else {
 		DELAY = Settings.spokenFeedback ? 3000 : 300;
 		G.correctionFunc(); //showCorrectWord();

@@ -43,7 +43,15 @@ function cardFace({ rank, suit, key } = {}, w, h) {
 
 
 
+//#region tests
+function test01_colors() {
 
+
+	let x = randomColorX('hotpink', 50, 80);
+	console.log(colorLum('yellow'))
+
+}
+//#endregion
 
 
 

@@ -137,6 +137,8 @@ function mHasClass(el, className) {
 	else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
 }
 
+function mClasses(d, lst) { for (let i = 1; i < lst.length; i++) d.classList.add(lst[i]); }
+function mRemoveClasses(d, lst) { for (let i = 1; i < lst.length; i++) d.classList.remove(lst[i]); }
 function mClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.add(arguments[i]); }
 function mRemoveClass(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
@@ -809,15 +811,60 @@ example:
 
 //#endregion
 
-
 //#region colors
 var colorDict = null; //for color names, initialized when calling anyColorToStandardStyle first time
-function randomColorX(contrastColor, minSat, maxSat, minLight, maxLight) {
+function colorPalShadeX(color,n) {
+	//assumes pSBC compatible color format (hex,rgb strings)
+	let res = [];
+	let step=1.6/(n-1);
+	for (let frac = -0.8; frac <= 0.8; frac += step){ //0.2) {
+		//darkest -0.8 -0.6 -0.4 -0.2 0=color 0.2 0.4 0.6 0.8 lightest
+		let c = pSBC(frac, color, undefined, true); //colorShade(frac,color);
+		res.push(c);
+	}
+	return res;
+}
+function getContrastingHue(contrastColor,minDiff=25,mod=30){
 	let hc = colorHue(contrastColor);
 
-	return "hsl(" + 360 * Math.random() + ',' +
-		(25 + 70 * Math.random()) + '%,' +
-		(85 + 10 * Math.random()) + '%)'
+	let rnd1 = randomNumber(0,360);
+	let d=Math.floor(rnd1/mod);
+	let rnd=d*mod;
+	//console.log('==>hue1',rnd1,'mod',mod,'d',d,'hue',rnd)
+
+	let diff=Math.abs(rnd-hc);
+	//console.log('hue of', contrastColor, 'is', hc, 'rnd:'+rnd,'diff:'+diff);
+	if (diff<minDiff) rnd=(rnd+180)%360;
+	return rnd;
+}
+function randomColorLight(contrastTo){return randomColorX(contrastTo);}
+function randomColorDark(contrastTo){return randomColorX(contrastTo,10,30);}
+function getHueWheel(contrastTo,minDiff=25,mod=30,start=0){
+	let hc = colorHue(contrastTo);
+	let wheel = [];
+	while(start<360){
+		let d1=Math.abs((start+360)-hc);
+		let d2=Math.abs((start)-hc);
+		let d3=Math.abs((start-360)-hc);
+		let min=Math.min(d1,d2,d3);
+		if (min>minDiff) wheel.push(start);
+		start+=mod;
+	}
+	return wheel;
+}
+function colorHSLBuild(hue,sat,lum){let result = "hsl(" + hue + ',' + sat + '%,' + lum + '%)';return result;}
+function getContrastingHueX(contrastColor,minDiff=25,mod=30,startWheel=0){
+	let wheel = getHueWheel(contrastColor,minDiff,mod,startWheel);
+	return chooseRandom(wheel);
+}
+function randomColorX(contrastColor, minContrast=25, mod=60, startWheel=0, minLum = 70, maxLum = 90, minSat = 100, maxSat = 100) {
+	let hue = getContrastingHueX(contrastColor,minContrast,mod,startWheel);
+	let sat = minSat + (maxSat - minSat) * Math.random();
+	let lum = minLum + (maxLum - minLum) * Math.random();
+	let result = "hsl(" + hue + ',' + sat + '%,' + lum + '%)';
+	//console.log('result:',result)
+	return result; //"hsl(" + hue + ',' + sat + '%,' + lum + '%)';
+	//return "hsl(" + 360 * Math.random() + ',' + (25 + 70 * Math.random()) + '%,' + (85 + 10 * Math.random()) + '%)';
 }
 
 function anyColorToStandardString(cAny, a, allowHsl = false) {
@@ -4456,7 +4503,7 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
 }
-function getRandomNumberSequence(n, minStart, maxStart, fBuild){ //{op,step,fBuild}) {
+function getRandomNumberSequence(n, minStart, maxStart, fBuild) { //{op,step,fBuild}) {
 	let nStart = randomNumber(minStart, maxStart - n + 1);
 	if (isNumber(fBuild)) return range(nStart, nStart + (n - 1) * fBuild, fBuild);
 	else {
