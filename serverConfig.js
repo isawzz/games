@@ -7,6 +7,7 @@ const DEV_MODE = false; //OFFLINE is true auf ASUS ROG soll aber false sein auf 
 const IS_TESTING = false;
 
 const BROADCAST_SETTINGS = false; // ACHTUNG!!!!!!!!!!!!! true;
+const PRODUCTION = !OFFLINE;
 
 
 

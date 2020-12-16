@@ -30,6 +30,7 @@ function addNthInputElement(dParent, n) {
 	mAppend(d, dInp);
 	return dInp;
 }
+
 function animateColor(elem, from, to, classes, ms) {
 	elem.style.backgroundColor = from;
 	setTimeout(() => animate(elem, classes, ms), 10);
@@ -56,6 +57,7 @@ function aniFadeInOut(elem, secs) {
 	setTimeout(() => { mRemoveClass(elem, 'transopaOn'); mClass(elem, 'transopaOff'); }, secs * 1000);
 }
 function aniPulse(elem, ms) { animate(elem, 'onPulse', ms); }
+
 function buildWordFromLetters(dParent) {
 	let letters = Array.from(dParent.children);
 	let s = letters.map(x => x.innerHTML);
