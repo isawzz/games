@@ -38,7 +38,7 @@ function startUnit() {
 	//hier soll U.session laden 
 	UnitScoreSummary = {};
 
-	if (PRODUCTION) onClickTemple(); else startGame();
+	if (PROD_START) {PROD_START=false; onClickTemple();} else startGame();
 
 }
 
