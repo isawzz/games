@@ -85,6 +85,12 @@ function onClickBadge(ev) {
 	console.log('reverted to', G.level);
 	TOMain = setTimeout(startGame, 100);
 }
+function onClickBadgeX(ev) {
+	revertToBadgeLevel(ev);
+	saveUser();
+	console.log('reverted to', G.level);
+	TOMain = setTimeout(startGame, 100);
+}
 
 //# region divControls
 function onClickStartButton() { startGame(); }

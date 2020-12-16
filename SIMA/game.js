@@ -580,10 +580,12 @@ function resetState() {
 	DELAY = 1000;
 
 	//console.log(badges);
-	if (badges.length != G.level) {
+	// if (badges.length != G.level) {
 		badges = [];
-		showBadges(dLeiste, G.level, onClickBadge);
-	}
+		//showBadges(dLeiste, G.level, onClickBadge);
+		
+		showBadgesX(dLeiste,G.level,onClickBadgeX,G.maxLevel);
+	// }
 
 	updateLabelSettings();
 	setBackgroundColor();
