@@ -46,23 +46,35 @@ class GSteps extends Game {
 		G.keys = G.keys.filter(x => containsColorWord(x));
 	}
 	prompt() {
-		this.colors = choose(this.colorList, this.numColors);
-		showPictures(evaluate, { colors: this.colors.map(x => x.color), repeat: G.numRepeat, contrast: this.contrast });
+		this.colors = undefined;
+		this.showRepeat = false;
+		if (this.numColors > 1) this.colors = choose(this.colorList, this.numColors).map(x => x.color);
+		else if (G.numRepeat > 1) this.showRepeat = true;
+		showPictures(evaluate, { showRepeat: this.showRepeat, colors: this.colors, repeat: G.numRepeat, contrast: this.contrast });
 
-		setGoal(randomNumber(0, Pictures.length-1));
-		// each picture should get order numbers: row, col, repeat
-		// if I say touch the third green moon
-		// find index from 
-		//each picture should have
-		// have index: need to find col,row
+		setGoal(randomNumber(0, Pictures.length - 1));
 
-		Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
-		let oColor = firstCond(this.colorList, x => x.color == Goal.textShadowColor);
-		Goal.colorName = oColor.name;
+		Goal.ordinal = '';
+		console.log(Goal)
+		if (G.numRepeat > 1) { Goal.ordinal = ordinal_suffix_of(Goal.iRepeat); }
 
-		let spoken = `click the ${Goal.colorName} ${Goal.label}`;
-		showInstruction(Goal.label, `click the <span style='color:${Goal.textShadowColor}'>${Goal.colorName.toUpperCase()}</span>`,
-			dTitle, true, spoken);
+		Goal.colorName = '';
+		if (this.numColors > 1) {
+			let oColor = firstCond(this.colorList, x => x.color == Goal.textShadowColor);
+			Goal.colorName = oColor.name;
+		}
+
+		Goal.correctionPhrase = (isdef(Goal.ordinal) ? Goal.ordinal : '') + ' '
+			+ (isdef(Goal.colorName) ? Goal.colorName : '') + ' ' + Goal.label;
+
+		let spoken = `click the ${Goal.correctionPhrase}`;
+
+		if (this.numColors <= 1) Goal.writtenInstructionSuffix = Goal.correctionPhrase;
+		else Goal.writtenInstructionSuffix = `${Goal.ordinal} <span style='color:${Goal.textShadowColor}'>${Goal.colorName.toUpperCase()}</span>`
+
+		console.log(Goal.writtenInstructionSuffix)
+
+		showInstruction(Goal.label, `click the ${Goal.writtenInstructionSuffix}`, dTitle, true, spoken);
 		activateUi();
 	}
 	eval(ev) {

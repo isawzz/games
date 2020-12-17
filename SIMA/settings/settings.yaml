@@ -128,18 +128,22 @@ games:
   gSteps:
     contrast: 0.32
     colors:
-      - name: orange
-        color: orangered
       - name: blue
         color: blue
       - name: pink
         color: hotpink
       - name: green
-        color: limegreen
+        color: green
+      - name: yellow
+        color: gold
+      - name: violet
+        color: indigo
+      - name: red
+        color: red
     levels:
       0: 
         numPics: 3
-        numColors: 4
+        numColors: 5
         numRepeat: 2
         numSteps: 2
       1: 
@@ -158,7 +162,7 @@ games:
         numRepeat: 2
         numSteps: 2
       4: 
-        numPics: 5
+        numPics: 4
         numColors: 4
         numRepeat: 2
         numSteps: 2

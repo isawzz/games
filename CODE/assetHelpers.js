@@ -26,7 +26,7 @@ const EMOFONTLIST = ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbo
 
 //#region NOW!
 function maShowPictures(keys, labels, dParent, onClickPictureHandler,
-	{ container, lang, border, picSize, bgs, colors, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}) {
+	{ showRepeat, container, lang, border, picSize, bgs, colors, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}) {
 	let pics = [];
 
 	//console.log('maShowPictures_', 'keys', keys, '\n', 'labels', labels, '\n', 'bgs', bgs)
@@ -41,13 +41,17 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 		let info = isdef(lang) ? getRandomSetItem(lang, k) : symbolDict[k];
 		let bg = isList(bgs) ? bgs[i] : isdef(colors) ? 'white' : sameBackground ? computeColor('random') : 'random';
 		let label = isList(labels) ? labels[i] : isdef(lang) ? info.best : k;
-		items.push({ key: k, info: info, label: label, bg: bg });
+		items.push({ key: k, info: info, label: label, bg: bg, iRepeat: 1 });
 	}
 
 
 	//console.log('________________',items,repeat)
 	let items1 = jsCopy(items);
-	for (let i = 0; i < repeat - 1; i++) { items = items.concat(items1); }
+	for (let i = 0; i < repeat - 1; i++) {
+		// let newItems=jsCopy(items);
+		// for(const it of newItems) it.iRepeat=i+1;
+		items = items.concat(items1);
+	}
 	//console.log('________________',items,repeat)
 
 	//console.log(items)
@@ -81,12 +85,19 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 
 	//console.log('lines',lines,'picsPerLine',picsPerLine, 'items', items, 'numPics', numPics)
 
+	let labelRepeat = {};
+
 	for (let line = 0; line < lines; line++) {
-		let textShadowColor = isdef(colors) ? colors[line] : undefined;
+		let textShadowColor;
+		if (isdef(colors)) { textShadowColor = colors[line]; labelRepeat = {}; }
+
 		for (let i = 0; i < numPics; i++) {
 			let item = items[i];
 			let info = item.info; //infos[i];
 			let label = item.label; //labels[i];
+			let iRepeat = labelRepeat[label];
+			if (nundef(iRepeat)) iRepeat = 1; else iRepeat += 1;
+			labelRepeat[label] = iRepeat;
 			let bg = item.bg; //bgs[i];
 			let ipic = (line * picsPerLine + i);
 			// if (ipic % picsPerLine == 0 && ipic > 0) {console.log('linebreak!',ipic,line,keys.length); mLinebreak(dParent);}
@@ -98,13 +109,14 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 			d1.id = id;
 
 			//addRowColInfo(d1,line,i,pictureSize);
+			if (showRepeat) addRepeatInfo(d1,iRepeat,pictureSize);
 
 			// let dRowCol = mCreate('div');
 			// mText(''+line+","+i,dRowCol,{fz:10,color:'black',position:'relative'});
 			// mpOver(dRowCol,d1,12,'black');
 			pics.push({
 				textShadowColor: textShadowColor, key: info.key, info: info, bg: bg, div: d1, id: id,
-				index: ipic, row:line, col: i, label: label, isLabelVisible: true, isSelected: false
+				index: ipic, row: line, col: i, iRepeat: iRepeat, label: label, isLabelVisible: true, isSelected: false
 			});
 		}
 	}
@@ -113,12 +125,19 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 
 
 }
-function addRowColInfo(dPic,row,col,szPic){
-	let szi=Math.max(Math.floor(szPic/12),8);
+function addRowColInfo(dPic, row, col, szPic) {
+	let szi = Math.max(Math.floor(szPic / 12), 8);
 	console.log(szi);
-	dPic.style.position='relative';
-	let d2=mText('row:'+row,dPic,{fz:szi,color:'black',position:'absolute',left:szi,top:szi/2})
-	let d3=mText('col:'+col,dPic,{fz:szi,color:'black',position:'absolute',left:szi,top:(szi/2+szi+2)})
+	dPic.style.position = 'relative';
+	let d2 = mText('row:' + row, dPic, { fz: szi, color: 'black', position: 'absolute', left: szi, top: szi / 2 })
+	let d3 = mText('col:' + col, dPic, { fz: szi, color: 'black', position: 'absolute', left: szi, top: (szi / 2 + szi + 2) })
+}
+function addRepeatInfo(dPic, iRepeat, szPic) {
+	let szi = Math.max(Math.floor(szPic / 8), 8);
+	console.log(szi);
+	dPic.style.position = 'relative';
+	let d2 = mText(''+iRepeat, dPic, { fz: szi, weight:'bold', color: 'black', position: 'absolute', left: szi/2, top: szi / 2 - 2 })
+	// let d3 = mText('col:' + col, dPic, { fz: szi, color: 'black', position: 'absolute', left: szi, top: (szi / 2 + szi + 2) })
 }
 function calcDimsAndSize(numPics, lines, container) {
 
@@ -455,9 +474,9 @@ function showBadges(dParent, level, clickHandler) {
 	//console.log(badges)
 }
 function showBadgesX(dParent, level, clickHandler, maxLevel) {
-	clearElement(dParent); 
+	clearElement(dParent);
 	badges = [];
-	for (let i = 1; i <= maxLevel+1; i++) {
+	for (let i = 1; i <= maxLevel + 1; i++) {
 		if (i > level) {
 			let b = addBadge(dParent, i, clickHandler, false);
 			b.div.style.opacity = .25;

@@ -704,7 +704,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
 
 }
-function showPictures(onClickPictureHandler, { sz, bgs, colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
+function showPictures(onClickPictureHandler, { showRepeat=false, sz, bgs, colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
@@ -713,7 +713,7 @@ function showPictures(onClickPictureHandler, { sz, bgs, colors, contrast, repeat
 
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 		{
-			picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors,
+			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors,
 			contrast: contrast
 		});
 
