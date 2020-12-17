@@ -6,15 +6,15 @@ class GTouchColors extends Game {
 	static SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 	constructor(name) { super(name); }
 	startLevel() {
-		this.numColors = getGameOrLevelInfo('numColors', 2);
-		G.numLabels = this.numColors * G.numPics;
+		G.numColors = getGameOrLevelInfo('numColors', 2);
+		G.numLabels = G.numColors * G.numPics;
 		this.colorlist = lookupSet(GS, [this.name, 'colors'], GTouchColors.SIMPLE_COLORS);
 		this.contrast = lookupSet(GS, [this.name, 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
 		//console.log('GTouchColors keys', G.keys);
 	}
 	prompt() {
-		this.colors = choose(this.colorlist, this.numColors);
+		this.colors = choose(this.colorlist, G.numColors);
 		showPictures(evaluate, { colors: this.colors, contrast: this.contrast });
 
 		setGoal(randomNumber(0, G.numPics * this.colors.length - 1));
@@ -292,7 +292,6 @@ class GSayPic extends Game {
 }
 class GPremem extends Game {
 	constructor() { super(); this.picList = []; }
-	clear() { clearTimeout(this.TO); showMouse(); }
 	prompt() {
 		this.picList = [];
 		//console.log(this.picList)

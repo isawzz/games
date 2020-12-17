@@ -679,7 +679,15 @@ function setGoal(index) {
 	lastPosition = index;
 	Goal = Pictures[index];
 }
-function showInstruction(text, cmd, title, isSpoken, spoken) {
+function setMultiGoal(n,indices){
+	if (nundef(indices)) {
+		Goal = choose(Pictures,n);
+	}else {
+		Goal = [];
+		for(const i of indices) Goal.push(Pictures[i]);
+	}
+}
+function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
 	//console.log('G.key is', G.key)
 	clearElement(title);
@@ -688,10 +696,11 @@ function showInstruction(text, cmd, title, isSpoken, spoken) {
 	mClass(d, 'flexWrap');
 
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	let d1 = mText(msg, d, { fz: 36, display: 'inline-block' });
+	if (nundef(fz)) fz=36;
+	let d1 = mText(msg, d, { fz: fz, display: 'inline-block' });
 	let sym = symbolDict.speaker;
 	let d2 = mText(sym.text, d, {
-		fz: 38, weight: 900, display: 'inline-block',
+		fz: fz+2, weight: 900, display: 'inline-block',
 		family: sym.family, 'padding-left': 14
 	});
 	dFeedback = dInstruction = d;

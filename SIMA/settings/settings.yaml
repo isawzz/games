@@ -128,6 +128,10 @@ games:
   gSteps:
     contrast: 0.32
     colors:
+      # - name: white
+      #   color: white
+      # - name: black
+      #   color: black
       - name: blue
         color: blue
       - name: pink
@@ -142,9 +146,9 @@ games:
         color: red
     levels:
       0: 
-        numPics: 3
-        numColors: 5
-        numRepeat: 2
+        numPics: 9
+        numColors: 1
+        numRepeat: 1
         numSteps: 2
       1: 
         numPics: 3
