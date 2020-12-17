@@ -17,6 +17,8 @@ async function _start() {
 	initTable();
 	initSidebar();
 	initAux();
+	initScore();
+	
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();

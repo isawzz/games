@@ -442,9 +442,10 @@ function showBadges(dParent, level, clickHandler) {
 	//console.log(badges)
 }
 function showBadgesX(dParent, level, clickHandler, maxLevel) {
-	clearElement(dParent); badges = [];
-	for (let i = 1; i <= maxLevel; i++) {
-		if (i >= level) {
+	clearElement(dParent); 
+	badges = [];
+	for (let i = 1; i <= maxLevel+1; i++) {
+		if (i > level) {
 			let b = addBadge(dParent, i, clickHandler, false);
 			b.div.style.opacity = .25;
 			b.achieved = false;

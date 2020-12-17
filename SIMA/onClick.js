@@ -79,14 +79,9 @@ function onClickGo(ev) {
 
 }
 
-function onClickBadge(ev) {
-	revertToBadgeLevel(ev);
-	saveUser();
-	console.log('reverted to', G.level);
-	TOMain = setTimeout(startGame, 100);
-}
 function onClickBadgeX(ev) {
-	revertToBadgeLevel(ev);
+	setBadgeLevel(ev);
+	// revertToBadgeLevel(ev);
 	saveUser();
 	console.log('reverted to', G.level);
 	TOMain = setTimeout(startGame, 100);

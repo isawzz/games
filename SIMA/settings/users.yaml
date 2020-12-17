@@ -1,15 +1,15 @@
 nil:
   id: nil
   seq: [gSteps, gTouchPic, gTouchColors, gPremem, gMem, gMissingNumber, gMissingLetter, gWritePic, gSayPic]
-  lastGame: gSteps
+  lastGame: gMissingNumber
   lastLevel: 0
   settings:
     minutesPerUnit: 10
-    samplesPerLevel: 10
-    trials: 2
+    samplesPerLevel: 3
+    trials: 1
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
-    incrementLevelOnPositiveStreak: 10
+    incrementLevelOnPositiveStreak: 2
     decrementLevelOnNegativeStreak: 3
     language: E
     vocab: best25

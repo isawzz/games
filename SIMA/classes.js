@@ -361,7 +361,6 @@ class GMissingNumber extends Game {
 		G.numLabels = 0;
 	}
 	prompt() {
-		showInstruction('', Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe", dTitle, true);
 		mLinebreak(dTable, 12);
 
 		showHiddenThumbsUpDown({ sz: 140 });
@@ -369,16 +368,30 @@ class GMissingNumber extends Game {
 
 		G.step = chooseRandom(G.steps);
 		G.op = chooseRandom(G.ops);
-		G.seq = setGoalWordInputs(G.lengthOfSequence, G.minNumber, G.maxNumber, G.step, G.op);
+		[G.words, G.letters, G.seq] = createNumberSequence(G.lengthOfSequence, G.minNumber, G.maxNumber, G.step, G.op);
+		setNumberSequenceGoal();
+		//console.log(G)
+		//G.seq = setGoalWordInputs(G.lengthOfSequence, G.minNumber, G.maxNumber, G.step, G.op);
 
 		mLinebreak(dTable);
-		if (Settings.isTutoring) { showFleetingMessage(getNumSeqHint(), 300); }
+
+		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
+		showInstruction('', instr1, dTitle, true);
+
+		if (calibrating()) {activateUi(); return;}
+
+		if (Settings.isTutoring){longNumSeqHint();}
+		else if (G.level <= 1) { longNumSeqHint(); }
+		else if (G.level <= 3){mediumNumSeqHint();}
+		else if (G.level <= 5){shortNumSeqHint();}
+		else if (G.level <= 7){shortNumSeqHint(true,false);}
+
 		activateUi();
 	}
 	trialPrompt() {
 		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
-		if (Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200);
+		if (Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, {fz:22});
 		return 10;
 	}
 	activate() { onkeypress = this.interact; }
