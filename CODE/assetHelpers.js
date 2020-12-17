@@ -93,12 +93,18 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 			if (ipic % picsPerLine == 0 && ipic > 0) { mLinebreak(dParent); }
 			let id = 'pic' + ipic; // (line * keys.length + i);
 			let d1 = maPicLabelButtonFitText(info, label,
-				{ w: pictureSize, h: pictureSize, bgPic: bg, textShadowColor: textShadowColor, contrast: contrast },
+				{ w: pictureSize, h: pictureSize, bgPic: bg, textShadowColor: textShadowColor, contrast: contrast, },
 				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
+
+			//addRowColInfo(d1,line,i,pictureSize);
+
+			// let dRowCol = mCreate('div');
+			// mText(''+line+","+i,dRowCol,{fz:10,color:'black',position:'relative'});
+			// mpOver(dRowCol,d1,12,'black');
 			pics.push({
 				textShadowColor: textShadowColor, key: info.key, info: info, bg: bg, div: d1, id: id,
-				index: ipic, label: label, isLabelVisible: true, isSelected: false
+				index: ipic, row:line, col: i, label: label, isLabelVisible: true, isSelected: false
 			});
 		}
 	}
@@ -106,6 +112,13 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	return pics;
 
 
+}
+function addRowColInfo(dPic,row,col,szPic){
+	let szi=Math.max(Math.floor(szPic/12),8);
+	console.log(szi);
+	dPic.style.position='relative';
+	let d2=mText('row:'+row,dPic,{fz:szi,color:'black',position:'absolute',left:szi,top:szi/2})
+	let d3=mText('col:'+col,dPic,{fz:szi,color:'black',position:'absolute',left:szi,top:(szi/2+szi+2)})
 }
 function calcDimsAndSize(numPics, lines, container) {
 

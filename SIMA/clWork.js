@@ -49,7 +49,13 @@ class GSteps extends Game {
 		this.colors = choose(this.colorList, this.numColors);
 		showPictures(evaluate, { colors: this.colors.map(x => x.color), repeat: G.numRepeat, contrast: this.contrast });
 
-		setGoal(randomNumber(0, G.numPics * this.colors.length - 1));
+		setGoal(randomNumber(0, Pictures.length-1));
+		// each picture should get order numbers: row, col, repeat
+		// if I say touch the third green moon
+		// find index from 
+		//each picture should have
+		// have index: need to find col,row
+
 		Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
 		let oColor = firstCond(this.colorList, x => x.color == Goal.textShadowColor);
 		Goal.colorName = oColor.name;

@@ -138,8 +138,8 @@ games:
         color: limegreen
     levels:
       0: 
-        numPics: 2
-        numColors: 2
+        numPics: 3
+        numColors: 4
         numRepeat: 2
         numSteps: 2
       1: 

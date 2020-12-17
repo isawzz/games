@@ -1,7 +1,7 @@
 nil:
   id: nil
   seq: [gSteps, gTouchPic, gTouchColors, gPremem, gMem, gMissingNumber, gMissingLetter, gWritePic, gSayPic]
-  lastGame: gMissingNumber
+  lastGame: gSteps
   lastLevel: 0
   settings:
     minutesPerUnit: 10
