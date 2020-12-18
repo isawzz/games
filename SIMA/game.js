@@ -171,9 +171,9 @@ function createNumberSequence(n, min, max, step, op = 'add') {
 	if (min >= (max - 10)) max = min + 10;
 	let seq = getRandomNumberSequence(n, min, max, fBuild);
 	let wi = createWordInputs(seq, dTable, 'dNums');
-	return [wi.words,wi.letters,seq];
+	return [wi.words, wi.letters, seq];
 }
-function setNumberSequenceGoal(){
+function setNumberSequenceGoal() {
 	let blank = blankWordInputs(G.words, G.numMissingLetters, G.posMissing);
 
 	Goal = { seq: G.seq, words: G.words, chars: G.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
@@ -210,7 +210,7 @@ function blankWordInputs(wi, n, pos = 'random') {
 	// console.log(getFunctionCallerName(), 'n', n)
 	//ignore pos for now and use random only
 	let indivInputs = [];
-	console.log('pos',pos)
+	console.log('pos', pos)
 	let remels =
 		pos == 'random' ? choose(wi, n)
 			: pos == 'notStart' ? arrTake(wi.slice(1, wi.length - 1), n)
@@ -331,23 +331,23 @@ function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 //#region number sequence (is a wordInput!)
 function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
 function getShortNumSeqHint() { let msg = `${G.op} ${G.step}`; return msg; }
-function shortNumSeqHint(written=true,spoken=true,ms=2400){
+function shortNumSeqHint(written = true, spoken = true, ms = 2400) {
 	let msg = getShortNumSeqHint();
 	if (spoken) setTimeout(() => Speech.say(msg), ms);
-	if (written) showFleetingMessage(msg, 300, {fz:40});
+	if (written) showFleetingMessage(msg, 300, { fz: 40 });
 }
-function mediumNumSeqHint(written=true,spoken=true,ms=2400){
+function mediumNumSeqHint(written = true, spoken = true, ms = 2400) {
 	if (spoken) setTimeout(() => Speech.say(getShortNumSeqHint()), ms);
-	if (written) showFleetingMessage(getNumSeqHint(), 300, {fz:32});
+	if (written) showFleetingMessage(getNumSeqHint(), 300, { fz: 32 });
 }
-function longNumSeqHint(written=true,spoken=true,ms=2400){
+function longNumSeqHint(written = true, spoken = true, ms = 2400) {
 	let msg = getNumSeqHint();
 	if (spoken) setTimeout(() => Speech.say(msg), ms);
-	if (written) showFleetingMessage(msg, 300, {fz:32});
+	if (written) showFleetingMessage(msg, 300, { fz: 32 });
 }
-function numberSequenceCorrectionAnimation(wrong, ms) {
+function numberSequenceCorrectionAnimation() {
 	//da brauch ich eine chain!!!!!!
-	DELAY = ms;
+	let wrong = getWrongWords();
 	if (nundef(TOList)) TOList = {};
 	let msg = getNumSeqHint();
 	showFleetingMessage(msg, 0, { fz: 32 }); //return;
@@ -362,6 +362,7 @@ function numberSequenceCorrectionAnimation(wrong, ms) {
 	t4 = setTimeout(() => { if (Settings.spokenFeedback) Speech.say(msg, .7, 1, .7, 'random'); }, 500);
 	TOList.numseq = [t1, t2, t4];//, t3, t4];//, t4];
 
+	return 2800;
 }
 function missingNumbersMessage() {
 	//console.log('this', this)
@@ -522,6 +523,30 @@ function showCorrectWord(sayit = true) {
 
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
 	Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
+	return Settings.spokenFeedback? 3000:300;
+}
+function showCorrectWords(sayit = true) {
+	if (nundef(TOList)) TOList = {};
+	TOList.correctWords = [];
+	let anim = 'onPulse2';
+	let to = 0;
+	let speaking = sayit && Settings.spokenFeedback;
+	let ms =speaking?2000:1000; 
+	for (const goal of Goal.pics) {
+		TOList.correctWords.push(setTimeout(() => {
+			let div = mBy(goal.id);
+			mClass(div, anim);
+			if (speaking) Speech.say('the ' +goal.correctionPhrase, .4, 1.2, 1, 'david');
+		}, to));
+		to += ms;
+	}
+
+	if (!sayit || !Settings.spokenFeedback) return to;
+
+	// let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.map(x => x.label).join(', ');
+	// Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
+
+	return to+ms;
 }
 function shortHintPicRemove() {
 	mRemoveClass(mBy(Goal.id), 'onPulse1');
@@ -679,12 +704,12 @@ function setGoal(index) {
 	lastPosition = index;
 	Goal = Pictures[index];
 }
-function setMultiGoal(n,indices){
+function setMultiGoal(n, indices) {
+	Goal = {pics:[]};
 	if (nundef(indices)) {
-		Goal = choose(Pictures,n);
-	}else {
-		Goal = [];
-		for(const i of indices) Goal.push(Pictures[i]);
+		Goal.pics = choose(Pictures, n);
+	} else {
+		for (const i of indices) Goal.pics.push(Pictures[i]);
 	}
 }
 function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
@@ -696,11 +721,11 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	mClass(d, 'flexWrap');
 
 	let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
-	if (nundef(fz)) fz=36;
+	if (nundef(fz)) fz = 36;
 	let d1 = mText(msg, d, { fz: fz, display: 'inline-block' });
 	let sym = symbolDict.speaker;
 	let d2 = mText(sym.text, d, {
-		fz: fz+2, weight: 900, display: 'inline-block',
+		fz: fz + 2, weight: 900, display: 'inline-block',
 		family: sym.family, 'padding-left': 14
 	});
 	dFeedback = dInstruction = d;
@@ -713,7 +738,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
 
 }
-function showPictures(onClickPictureHandler, { showRepeat=false, sz, bgs, colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
+function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1, sameBackground = true, border } = {}, keys, labels) {
 	Pictures = [];
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);

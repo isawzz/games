@@ -36,7 +36,7 @@ function closeAux() {
 function onClickComputer() { }
 function onClickCalibrate() {
 	//console.log('hallo')
-	closeAux();
+	if (auxOpen) closeAux();
 	changeUserTo('test');
 }
 function onClickGear() {

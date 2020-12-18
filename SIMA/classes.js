@@ -346,7 +346,7 @@ class GMissingNumber extends Game {
 		G.failFunc = failThumbsDown;
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
-	showCorrectSequence() { numberSequenceCorrectionAnimation(getWrongWords(), DELAY * 2) }
+	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
 	startLevel() {
 		G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
 		G.minNumber = getGameOrLevelInfo('min', 0);

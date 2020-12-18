@@ -59,6 +59,7 @@ function activateUi() {
 	G.instance.activate();
 }
 function evaluate() {
+	console.log('evaluate!!!',arguments)
 	if (!canAct()) return;
 	uiActivated = false;
 	IsAnswerCorrect = G.instance.eval(...arguments);
@@ -73,8 +74,8 @@ function evaluate() {
 		DELAY = Settings.spokenFeedback ? 1500 : 300;
 		G.successFunc();
 	} else {
-		DELAY = Settings.spokenFeedback ? 3000 : 300;
-		G.correctionFunc(); //showCorrectWord();
+		DELAY = G.correctionFunc(); //Settings.spokenFeedback ? 3000 : 300;
+		//G.correctionFunc(); //showCorrectWord();
 		G.failFunc(); //failPictureGoal(false);
 	}
 	setTimeout(removeMarkers, 1500);
