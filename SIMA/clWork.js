@@ -52,7 +52,7 @@ class GSteps extends Game {
 		this.showRepeat = false;
 		if (G.numColors > 1) this.colors = choose(this.colorList, G.numColors).map(x => x.color);
 		else if (G.numRepeat > 1) this.showRepeat = true;
-		showPictures(evaluate, { showRepeat: this.showRepeat, colors: this.colors, repeat: G.numRepeat, contrast: this.contrast });
+		showPictures(this.interact.bind(this), { showRepeat: this.showRepeat, colors: this.colors, repeat: G.numRepeat, contrast: this.contrast });
 
 		setMultiGoal(G.numSteps);
 
@@ -104,30 +104,16 @@ class GSteps extends Game {
 		let i = firstNumber(id);
 		let pic = Pictures[i];
 		let div = pic.div;
-		if (!isEmpty(this.picList) && this.picList.length < G.numSteps - 1 && this.picList[0].label != pic.label) return;
+		//if (!isEmpty(this.picList) && this.picList.length < G.numSteps - 1 && this.picList[0].label != pic.label) return;
 		toggleSelectionOfPicture(pic, this.picList);
-		console.log('clicked', pic.key, this.picList);//,picList, GPremem.PicList);
-		if (isEmpty(this.picList)) {
-			showInstruction('', 'click any picture', dTitle, true);
-		} else if (this.picList.length < G.numRepeat - 1) {
-			//set incomplete: more steps are needed!
-			//frame the picture
-			showInstruction(pic.label, 'click another', dTitle, true);
-		} else if (this.picList.length == G.numRepeat - 1) {
-			// look for last picture with x that is not in the set
-			let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
-			setGoal(picGoal.index);
-			showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
-		} else {
-			//set is complete: eval
-			evaluate(this.picList);
-		}
+		console.log('clicked pic', pic.index, this.picList);//,picList, GPremem.PicList);
+		//return;
+		if (pic != Goal[this.picList.length-1]) evaluate(false);
+		else if (this.picList.length == Goal.length) evaluate(true);
 	}
-	eval(piclist) {
-		Selected = { piclist: piclist, feedbackUI: piclist.map(x => x.div), sz: getBounds(piclist[0].div).height };
-		let req = Selected.reqAnswer = piclist[0].label;
-		Selected.answer = piclist[piclist.length - 1].label;
-		if (Selected.answer == req) { return true; } else { return false; }
+	eval(isCorrect) {
+		Selected = { picList: this.picList, feedbackUI: this.picList.map(x => x.div), sz: getBounds(this.picList[0].div).height };
+		return isCorrect;
 	}
 }
 
