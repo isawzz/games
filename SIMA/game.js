@@ -727,29 +727,22 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,
 	sameBackground = true, border } = {}, keys, labels) {
 	Pictures = [];
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);	//keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
-	if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	//keys[0]='man in manual wheelchair';
-	//keys=['sun with face'];
-
-	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+	let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border;
+	let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
+	Pictures = maShowPicturesX(keys, labels, dTable, onClickPictureHandler,
 		{
-			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
-			lang: Settings.language, colors: colors,
-			contrast: contrast
-		});
+			showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors,
+			contrast: contrast, picSize: sz, border: border,
+		}, { sCont: sCont, sPic: sPic });
 
-
-	//TESTING FOR NO DUPLICATES - remove in production!
-	// if (G.key == 'gTouchPic') {
-	// 	let numDuplicates = 0;
-	// 	let checklist = [];
-	// 	let labels = Pictures.map(x => x.label);
-	// 	for (const l of labels) {
-	// 		if (checklist.includes(l)) numDuplicates += 1; else checklist.push(l);
-	// 	}
-	// 	console.assert(numDuplicates == 0)
-	// }
+	// //use this in case of broken!!!!	
+	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+	// 	{
+	// 		showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border, lang: Settings.language, colors: colors,
+	// 		contrast: contrast
+	// 	});
 
 	// label hiding
 	let totalPics = Pictures.length;
