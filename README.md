@@ -9,8 +9,9 @@ This project provides simple games for speech therapy:
 - Letters: enter missing letters in a word
 - Type it: type a word given picture
 - Speak Up: speak a word given picture
+- Steps: multiple instruction in order
 
-There is also a calibration test CALIBRATE for the user to set all the games to the right level 
+[There is also a calibration test CALIBRATE for the user to set all the games to the right level ] =>disabled for refactoring
 
 run it online:
 goto: https://isawzz.github.io/speech-games-client/SIMA/
