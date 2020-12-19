@@ -588,9 +588,9 @@ function fleetingMessage(msg, styles, fade = false) {
 //#endregion fleetingMessage
 
 //#region game over
-function gameOver(msg) { TOMain = setTimeout(aniGameOver(msg), DELAY); }
-function aniGameOver(msg) {
-	playSound('goodBye');
+function gameOver(msg, silent = false) { TOMain = setTimeout(aniGameOver(msg, silent), DELAY); }
+function aniGameOver(msg, silent = false) {
+	if (!silent) playSound('goodBye');
 	show('freezer2');
 
 	let dMessage = mBy('dMessageFreezer2');
@@ -599,9 +599,11 @@ function aniGameOver(msg) {
 	mStyleX(d, { fz: 20, matop: 40, bg: 'silver', fg: 'indigo', rounding: 20, padding: 25 })
 	let style = { matop: 4 };
 
-	if (USERNAME == 'test') {
-		dMessage.innerHTML = 'Processing your test result...';
+	if (calibrating()) {
+		dMessage.innerHTML = msg;
+		console.log('HAAAAAAAAAAAAAAAAAAAAAAAAALO')
 		let [before, after] = calibrateUser();
+
 		d.style.textAlign = 'left';
 		for (const g in after) {
 			if (nundef(before[g])) before[g] = 0;
@@ -611,7 +613,7 @@ function aniGameOver(msg) {
 		}
 
 	} else {
-		dMessage.innerHTML = 'Time for a Break...';
+		dMessage.innerHTML = msg;//'Time for a Break...';
 		d.style.textAlign = 'center';
 		mText('Unit Score:', d, { fz: 22 });
 
@@ -642,7 +644,6 @@ function resetRound() {
 }
 function resetState() {
 	clearTimeout(TOMain); onkeydown = null; onkeypress = null; onkeyup = null;
-	uiPaused = 0;
 	lastPosition = 0;
 	DELAY = 1000;
 
@@ -657,6 +658,10 @@ function resetState() {
 	updateLabelSettings();
 	setBackgroundColor();
 
+}
+function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
+function sayRandomVoice(e, g) {
+	if (!Settings.silentMode) Speech.say(Settings.language == 'E' ? e : g, 1, 1, .8, 'zira');
 }
 function setBadgeLevel(ev) {
 	let i = 0;
@@ -729,12 +734,12 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);	//keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
-	let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border;
+	let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border; //sCont.padding=8;
 	let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
 	Pictures = maShowPicturesX(keys, labels, dTable, onClickPictureHandler,
 		{
 			showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors,
-			
+
 		}, { sCont: sCont, sPic: sPic });
 
 	// //use this in case of broken!!!!	
@@ -774,7 +779,7 @@ function showLevel() {
 function showGameTitle() { dGameTitle.innerHTML = GAME[G.key].friendly; }
 function showScore() {
 
-	console.log('===>showScore!!!', Score);
+	//console.log('===>_showScore!!!', Score);
 	if (Score.gameChange) showBadgesX(dLeiste, G.level, onClickBadgeX, G.maxLevel);
 
 	let scoreString = 'question: ' + (Score.nTotal + 1) + '/' + Settings.samplesPerLevel;
@@ -812,7 +817,7 @@ function showStats() {
 	}
 	showGameTitle();
 	showLevel();
-	showScore();
+	if (isCal) { dScore.innerHTML = ' '; } else showScore();
 
 	Score.levelChange = false;
 	Score.gameChange = false;
@@ -822,7 +827,7 @@ function showStats() {
 	// 	showBadgesX(dLeiste, G.level, onClickBadgeX, G.maxLevel);
 	// 	Score.gameChange = false;
 	// }	
-	// Score.levelChange = false; //needs to be down here because showScore needs that info!
+	// Score.levelChange = false; //needs to be down here because _showScore needs that info!
 
 
 }

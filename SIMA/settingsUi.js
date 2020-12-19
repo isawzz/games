@@ -41,9 +41,10 @@ function createMenuUi(dParent) {
 	//console.log('-----------------bgs', bgs);
 
 	MenuItems = {};
-	let pics = maShowPictures(keys, labels, d, onClickGo,
-		{ bgs: bgs, shufflePositions: false },
-		{ fg: 'blue' });
+	// let pics = maShowPictures(keys, labels, d, onClickGo,
+	// 	{ bgs: bgs, shufflePositions: false }, { fg: 'blue' });
+	let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, 
+		{ sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
 	for (let i = 0; i < pics.length; i++) {
 		let p = pics[i];
 		//console.log(p)

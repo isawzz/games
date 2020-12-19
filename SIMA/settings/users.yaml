@@ -1,11 +1,11 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
-  lastGame: gSteps
-  lastLevel: 5
+  lastGame: gTouchPic
+  lastLevel: 2
   settings:
-    minutesPerUnit: .2
-    samplesPerLevel: 3
+    minutesPerUnit: 1
+    samplesPerLevel: 2
     trials: 1
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle

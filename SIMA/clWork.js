@@ -11,7 +11,7 @@ class Game {
 		activateUi();
 	}
 	trialPrompt() {
-		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
+		sayTryAgain();
 		if (Settings.showHint) shortHintPic();
 		return 10;
 	}
@@ -97,7 +97,6 @@ class GSteps extends Game {
 		for (const p of this.picList) { toggleSelectionOfPicture(p); }
 		this.picList = [];
 		Speech.say(Settings.language == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, 'zira');
-		//showInstruction('', 'try again', dTitle, true);
 		return 10;
 	}
 	interact(ev) {
@@ -111,6 +110,7 @@ class GSteps extends Game {
 		//if (!isEmpty(this.picList) && this.picList.length < G.numSteps - 1 && this.picList[0].label != pic.label) return;
 		toggleSelectionOfPicture(pic, this.picList);
 		console.log('clicked pic', pic.index, this.picList);//,picList, GPremem.PicList);
+		if (isEmpty(this.picList)) return;
 		//return;
 		let iGoal = this.picList.length - 1;
 		console.log('iGoal', iGoal, Goal.pics[iGoal], 'i', i, pic)
@@ -118,7 +118,8 @@ class GSteps extends Game {
 		else if (this.picList.length == Goal.pics.length) { Selected = { picList: this.picList }; evaluate(true); }
 	}
 	eval(isCorrect) {
-		console.log('eval', isCorrect)
+		console.log('eval', isCorrect);
+		console.log('picList',this.picList)
 		Selected = { picList: this.picList, feedbackUI: this.picList.map(x => x.div), sz: getBounds(this.picList[0].div).height };
 		return isCorrect;
 	}

@@ -92,7 +92,7 @@ class GWritePic extends Game {
 		//return 10;
 	}
 	trialPrompt() {
-		Speech.say(Settings.language == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, 'zira');
+		sayTryAgain();
 		mLinebreak(dTable);
 		this.inputBox = addNthInputElement(dTable, G.trialNumber);
 		this.defaultFocusElement = this.inputBox.id;
@@ -101,7 +101,7 @@ class GWritePic extends Game {
 	}
 	activate() {
 		this.inputBox.onkeyup = ev => {
-			if (ev.ctrlKey || uiPaused) return;
+			if (!canAct()) return;
 			if (ev.key === "Enter") {
 				ev.cancelBubble = true;
 				evaluate(ev);
@@ -162,7 +162,7 @@ class GMissingLetter extends Game {
 	}
 	trialPromptML() {
 		let selinp = Selected.inp;
-		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
+		sayTryAgain();
 		setTimeout(() => {
 			let d = selinp.div;
 			d.innerHTML = '_';
@@ -377,20 +377,20 @@ class GMissingNumber extends Game {
 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
 		showInstruction('', instr1, dTitle, true);
 
-		if (calibrating()) {activateUi(); return;}
+		if (calibrating()) { activateUi(); return; }
 
-		if (Settings.isTutoring){longNumSeqHint();}
+		if (Settings.isTutoring) { longNumSeqHint(); }
 		else if (G.level <= 1) { longNumSeqHint(); }
-		else if (G.level <= 3){mediumNumSeqHint();}
-		else if (G.level <= 5){shortNumSeqHint();}
-		else if (G.level <= 7){shortNumSeqHint(true,false);}
+		else if (G.level <= 3) { mediumNumSeqHint(); }
+		else if (G.level <= 5) { shortNumSeqHint(); }
+		else if (G.level <= 7) { shortNumSeqHint(true, false); }
 
 		activateUi();
 	}
 	trialPrompt() {
-		Speech.say(Settings.language == 'D' ? 'nochmal!' : 'try again!');
+		sayTryAgain();
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
-		if (Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, {fz:22});
+		if (Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
 		return 10;
 	}
 	activate() { onkeypress = this.interact; }

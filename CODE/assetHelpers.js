@@ -52,7 +52,9 @@ function maShowPicturesX(keys, labels, dParent, onClickPictureHandler,
 
 	let labelRepeat = {};
 
-	//[sCont,sPic,sText] = getHarmoniousStylesPlusPlusX(sCont, sPic, sText, 65);
+	//console.log('_______', jsCopy(sCont));
+	[sCont, sPic, sText] = getHarmoniousStylesPlusPlusX(sCont, sPic, sText, 65);
+	//console.log('sCont',sCont);
 
 	for (let line = 0; line < lines; line++) {
 		let textShadowColor;
@@ -69,10 +71,11 @@ function maShowPicturesX(keys, labels, dParent, onClickPictureHandler,
 			if (ipic % picsPerLine == 0 && ipic > 0) { mLinebreak(dParent); }
 			let id = 'pic' + ipic;
 
+			//onClickPictureHandler = ev=>maPicLabelShowHideHandlerX(item.info,ev);
 			let d1 = maPicLabelButtonFitTextX(item.info, item.label, dParent, onClickPictureHandler,
 				// { w: pictureSize, h: pictureSize, bgPic: bg, textShadowColor: textShadowColor, contrast: contrast },
 				//{}, //{ textShadowColor: textShadowColor, contrast: contrast },
-				{ sCont: sCont, sPic: sPic, sText: sText }, 'frameOnHover', isText, isOmoji);
+				{ sCont: sCont, sPic: jsCopy(sPic), sText: sText }, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
 
 			//addRowColInfo(d1,line,i,pictureSize);
@@ -88,12 +91,22 @@ function maShowPicturesX(keys, labels, dParent, onClickPictureHandler,
 	}
 	return pics;
 }
+function maPicLabelShowHideHandlerX(info,ev) {
+	let id = evToClosestId(ev);
+	//let info = symbolDict[id.substring(1)];
+	if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info);
+	if (isdef(mBy('dummy'))) mBy('dummy').focus();
+
+}
 function maPicLabelButtonFitTextX(info, label, dParent, handler,
 	{ sCont, sPic, sText } = {}, classes = 'picButton', isText, isOmoji, focusElement) {
 
-	[sCont,sPic,sText] = getHarmoniousStylesPlusPlusX(sCont, sPic, sText, 65);
+	//[sCont, sPic, sText] = getHarmoniousStylesPlusPlusX(sCont, sPic, sText, 65);
 
-	let x = maPicLabelFitXX(info, label.toUpperCase(), sCont.w,	dParent, sCont, sPic, sText, isText, isOmoji);
+	//console.log(sCont)
+	//console.log(sPic)
+
+	let x = maPicLabelFitXX(info, label.toUpperCase(), sCont.w, dParent, sCont, sPic, sText, isText, isOmoji);
 
 	x.id = 'd' + info.key;
 	if (isdef(handler)) x.onclick = handler;
@@ -104,9 +117,9 @@ function maPicLabelButtonFitTextX(info, label, dParent, handler,
 	return x;
 }
 function setDefaultKeys(o, defs) { for (const k in defs) { if (nundef(o[k])) o[k] = defs[k]; } }
-function getHarmoniousStylesPlusPlusX(sCont, sPic={}, sText={}, picPercent, hasText = true) {
+function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, hasText = true) {
 
-	console.log(sPic,sText)
+	//console.log('haaaaaaaaaaaaaaaaaalo',hasText)
 
 	//15,55,0,20,10=80
 	const sDefault = {
@@ -118,6 +131,8 @@ function getHarmoniousStylesPlusPlusX(sCont, sPic={}, sText={}, picPercent, hasT
 	setDefaultKeys(sPic, sDefault.pic);
 	setDefaultKeys(sText, sDefault.text);
 
+	//return [sCont, sPic, sText];
+
 	// calc padding 
 	let padding = sCont.padding; delete sCont.padding; // replace padding by patop,pabot,paright,paleft
 	let fact = 55 / picPercent;
@@ -126,12 +141,15 @@ function getHarmoniousStylesPlusPlusX(sCont, sPic={}, sText={}, picPercent, hasT
 	let [patop, szPic, zwischen, szText, pabot] = numbers;
 	sCont.patop = Math.max(patop, padding);
 	sCont.pabot = Math.max(pabot, padding);
-	if (nundef(sCont.w)) { sCont.paleft = sCont.paright = Math.max(padding, 4); }
+	// if (nundef(sCont.w)) { sCont.paleft = sCont.paright = Math.max(padding, 4); } 
+	sCont.paleft = sCont.paright = Math.max(padding, 0);
 
 	sPic.h = szPic;
 	sText.fz = Math.floor(szText * 3 / 4);
 
-	return [sCont,sPic,sText];
+	//console.log('end of getHarmonious:', sCont.patop, sCont.paright, sCont.pabot, sCont.paleft);
+	return [sCont, sPic, sText];
+	return [sCont, jsCopy(sPic), sText];
 }
 function convertTextShadowColorAndContrast(picStyles) {
 	if (isdef(picStyles.textShadowColor)) {
@@ -146,7 +164,8 @@ function maPicLabelFitXX(info, label, wmax, dParent, sCont, sPic, sText, isText 
 	let d = mDiv(dParent);
 	convertTextShadowColorAndContrast(sPic);
 
-	console.log(sPic)
+	//console.log(sPic)
+	//console.log('start of maPicLabelFitXX:', sCont.patop, sCont.paright, sCont.pabot, sCont.paleft, sCont.h, sPic.h);
 
 	let dPic = maPic(info, d, sPic, isText, isOmoji);
 	//measurements
@@ -503,7 +522,6 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 
 	let wdes, hdes, fzdes, wreal, hreal, fzreal, f;
 
-
 	if (isdef(styles.w) && isdef(styles.h) && isdef(styles.fz)) {
 		[wdes, hdes, fzdes] = [styles.w, styles.h, styles.fz];
 		let fw = wdes / wInfo;
@@ -546,6 +564,8 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	hdes = Math.round(hdes);
 	padw += isdef(styles.w) ? (wdes - wreal) / 2 : 0;
 	padh += isdef(styles.h) ? (hdes - hreal) / 2 : 0;
+
+	//console.log('padh',padh)
 	//console.log('====>>>>', family, '\nw.info', wInfo, '\nh.info', hInfo, '\nfactor', f, '\nw', wreal, '\nh', hreal);
 
 	if (!(padw >= 0 && padh >= 0)) {
@@ -984,7 +1004,9 @@ function maHideLabel(id, info) {
 	let b = getBounds(d);
 	let styles = { w: b.width, h: b.height };
 	let [ptop, pbottom] = [firstNumber(d.style.paddingTop), firstNumber(d.style.paddingBottom)];
-	let p = (isdef(ptop) && isdef(pbottom)) ? Math.min(ptop, pbottom) : 0;
+	//console.log('___________', ptop, pbottom)
+	let p = (isdef(ptop) && isdef(pbottom)) ? Math.min(ptop, pbottom) :
+		isdef(ptop) ? ptop : isdef(pbottom) ? pbottom/2 : 0;
 	let [padw, padh] = [p, p];
 	let [wtotal, htotal] = [styles.w, styles.h];
 	let [wpic, hpic] = [wtotal - 2 * padw, htotal - 2 * padh];
@@ -1009,7 +1031,7 @@ function maHideLabel(id, info) {
 	info.wOrig = dPic.style.width;
 	info.hOrig = dPic.style.height;
 	innerStyles.w = wreal;
-	innerStyles.h = hreal;
+	innerStyles.h = hreal+2*padh;
 	mStyleX(dPic, innerStyles);
 
 	let outerStyles = {};
@@ -1017,7 +1039,8 @@ function maHideLabel(id, info) {
 	info.paddingOrig = d.style.padding;
 	info.paddingTopOrig = d.style.paddingTop;
 	info.paddingBottomOrig = d.style.paddingBottom;
-	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
+	// outerStyles.padding = '' + padh + 'px ' + padw + 'px';
+	outerStyles.padding = '' + 2*padh + 'px ' + padw + 'px' + '0' + 'px ' + padw + 'px';
 	mStyleX(d, outerStyles);
 
 }
