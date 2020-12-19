@@ -734,7 +734,7 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	Pictures = maShowPicturesX(keys, labels, dTable, onClickPictureHandler,
 		{
 			showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors,
-			contrast: contrast, picSize: sz, border: border,
+			
 		}, { sCont: sCont, sPic: sPic });
 
 	// //use this in case of broken!!!!	

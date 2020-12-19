@@ -40,7 +40,7 @@ function mStyleX(elem, styles, unit = 'px') {
 	//console.log(styles.bg,styles.fg);
 
 	for (const k in styles) {
-		if (k=='textShadowColor' || k=='contrast') continue; //meaningless styles => TBD
+		//if (k=='textShadowColor' || k=='contrast') continue; //meaningless styles => TBD
 		let val = styles[k];
 		let key = k;
 		if (isdef(paramDict[k])) key = paramDict[k];

@@ -96,7 +96,8 @@ class GSteps extends Game {
 	trialPrompt() {
 		for (const p of this.picList) { toggleSelectionOfPicture(p); }
 		this.picList = [];
-		showInstruction('', 'try again', dTitle, true);
+		Speech.say(Settings.language == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, 'zira');
+		//showInstruction('', 'try again', dTitle, true);
 		return 10;
 	}
 	interact(ev) {
