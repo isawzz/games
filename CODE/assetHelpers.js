@@ -52,8 +52,7 @@ function maShowPicturesX(keys, labels, dParent, onClickPictureHandler,
 
 	let labelRepeat = {};
 
-	//console.log('_______', jsCopy(sCont));
-	// [sCont, sPic, sText] = getHarmoniousStylesPlusPlusX(sCont, sPic, sText, 65);
+	[sCont, sPic, sText] = getDefaultStyles(sCont, sPic, sText);
 	// [sCont, sPic, sText] = getHarmoniousStylesPlusPlus(sCont, sPic, {}, sCont.w, sCont.h, 65, 0, 'arial', sPic.bg, 'transparent', null, null, true);	//console.log('sCont',sCont);
 
 	for (let line = 0; line < lines; line++) {

@@ -1,4 +1,4 @@
-function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, hasText = true) {
+function getDefaultStyles(sCont, sPic = {}, sText = {}) {
 	const sDefault = {
 		cont: { bg: 'random', padding: 0, align: 'center', 'box-sizing': 'border-box' },
 		pic: { bg: 'transparent', fg: 'white' },
@@ -7,7 +7,10 @@ function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, 
 	setDefaultKeys(sCont, sDefault.cont);
 	setDefaultKeys(sPic, sDefault.pic);
 	setDefaultKeys(sText, sDefault.text);
+	return [sCont, sPic, sText];
+}
 
+function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, hasText = true) {
 
 	let fact = 55 / picPercent;
 	let [ptop, pbot] = [(80 - picPercent) * 3 / 5, (80 - picPercent) * 2 / 5];
