@@ -1,7 +1,6 @@
 const SHOW_FREEZER = false; // !IS_TESTING;
 const CLEAR_LOCAL_STORAGE = false;
 
-const CAL_SAMPLES_PER_LEVEL = 2;
 //reserved names: dName for div with id dName (dName = mBy('dName'))
 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,

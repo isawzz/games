@@ -7,9 +7,10 @@ function exitCalibrationMode() {
 
 	[sBefore,sAfter] = calibrateUser();
 	stopGame();
-	gameOver('Processing your test result...',true);
+	gameOver('Your Test Result:',true);
 	addSessionToUserGames();
 	isCal = false;
+	setGame(calGame);
 }
 function enterCalibrationMode(all1) {
 	addSessionToUserGames();
@@ -22,13 +23,14 @@ function enterCalibrationMode(all1) {
 
 	calGame = calGames[0];
 
-	calStartLevels = getStartLevels(USERNAME); // {game:getUserStartLevel(calGame)};
+	calStartLevels = getStartLevels(USERNAME); 
 	setGame(calGame);
 	setBadgeLevel(G.level);
 	startUnit();
 
 }
 
+function getCalBoundary(){return calGames.length == 1? 4: 2;}
 function isLastCalGame(){return !calGames.includes(G.key) || G.key == calGames[0]; }
 
 function calibrating(){return isCal==true;}// USERNAME == 'test';}
@@ -36,7 +38,7 @@ function calibrating(){return isCal==true;}// USERNAME == 'test';}
 function calibrateUser(){
 	let sBefore=calStartLevels; //getStartLevels(uname);
 	let sAfter = getStartLevels(USERNAME);
-	console.log(sBefore,sAfter);
+	//console.log(sBefore,sAfter);
 
 	for (const gname of calGames) {
 		let origStartLevel = lookupSet(calStartLevels,[gname],0);
@@ -46,7 +48,7 @@ function calibrateUser(){
 }
 
 function showCalibrationResults(d){
-	console.log('HAAAAAAAAAAAAAAAAAAAAAAAAALO')
+	//console.log('HAAAAAAAAAAAAAAAAAAAAAAAAALO')
 	let [before, after] = calibrateUser();
 
 	d.style.textAlign = 'left';
@@ -54,7 +56,7 @@ function showCalibrationResults(d){
 		if (nundef(before[g])) before[g] = 0;
 		let b = before[g]; let a = after[g];
 		let exp = b < a ? (' been upgraded to ' + a) : b > a ? (' been downgraded to ' + a) : ' remained at ' + a;
-		mText(`game ${g}: startlevel has ${exp}`, d, { fz: 22 });
+		mText(`game "${GAME[g].friendly}" startlevel has ${exp}`, d, { fz: 22 });
 	}
 
 }

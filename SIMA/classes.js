@@ -6,8 +6,8 @@ class GTouchColors extends Game {
 	static SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
 	constructor(name) { super(name); }
 	startLevel() {
-		G.numColors = getGameOrLevelInfo('numColors', 2);
-		G.numLabels = G.numColors * G.numPics;
+		// G.numColors = getGameOrLevelInfo('numColors', 2);
+		// G.numLabels = G.numColors * G.numPics;
 		this.colorlist = lookupSet(GS, [this.name, 'colors'], GTouchColors.SIMPLE_COLORS);
 		this.contrast = lookupSet(GS, [this.name, 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
@@ -124,7 +124,6 @@ class GMissingLetter extends Game {
 		G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
 		let pos = getGameOrLevelInfo('posMissing', 'random');
 		G.maxPosMissing = pos == 'start' ? G.numMissingLetters - 1 : 100;
-
 	}
 	prompt() {
 		showPictures(() => fleetingMessage('just enter the missing letter!'));
@@ -208,8 +207,8 @@ class GMissingLetter extends Game {
 				}
 				if (nundef(Selected.lastIndexEntered)) {
 					//the user entered a non existing letter!!!
-					showFleetingMessage('you entered ' + Selected.lastLetterEntered)
-					Speech.say(Settings.language == 'E' ? 'try a different letter!' : 'anderer Buchstabe!')
+					showFleetingMessage('you entered ' + Selected.lastLetterEntered);
+					sayRandomVoice('try a different letter!', 'anderer Buchstabe!')
 				}
 				showFleetingMessage(this.composeFleetingMessage(), 3000);
 				//if get to this place that input did not match!
@@ -263,9 +262,7 @@ class GSayPic extends Game {
 
 	}
 	trialPrompt(nTrial) {
-		let phrase = nTrial < 2 ? (Settings.language == 'E' ? 'speak UP!!!' : 'LAUTER!!!')
-			: (Settings.language == 'E' ? 'Louder!!!' : 'LAUTER!!!');
-		Speech.say(phrase, 1, 1, 1, 'zira');
+		sayRandomVoice(nTrial < 2 ? 'speak UP!!!' : 'Louder!!!', 'LAUTER!!!');
 		animate(dInstruction, 'pulse800' + bestContrastingColor(G.color, ['yellow', 'red']), 500);
 		return 10;
 	}
@@ -315,7 +312,7 @@ class GPremem extends Game {
 		let div = pic.div;
 		if (!isEmpty(this.picList) && this.picList.length < G.numRepeat - 1 && this.picList[0].label != pic.label) return;
 		toggleSelectionOfPicture(pic, this.picList);
-		console.log('clicked', pic.key, this.picList);//,picList, GPremem.PicList);
+		//console.log('clicked', pic.key, this.picList);//,picList, GPremem.PicList);
 		if (isEmpty(this.picList)) {
 			showInstruction('', 'click any picture', dTitle, true);
 		} else if (this.picList.length < G.numRepeat - 1) {
@@ -446,7 +443,7 @@ class GMissingNumber extends Game {
 			//user entered last missing letter but it is wrong!
 			//can there be multiple errors in string?
 		} else {
-			playSound('incorrect1');
+			if (!Settings.silentMode) playSound('incorrect1');
 			deactivateFocusGroup();
 			//unfillCharInput(Selected.target);
 			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });

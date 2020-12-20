@@ -12,8 +12,9 @@ nil:
     incrementLevelOnPositiveStreak: 2
     decrementLevelOnNegativeStreak: 3
     language: E
-    vocab: best25
-    spokenFeedback: true
+    vocab: best100
+    spokenFeedback: false
+    silentMode: true
 
     # the following not yet in UI
     # activity animal body drink emotion food fruit game gesture kitchen 

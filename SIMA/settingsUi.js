@@ -17,6 +17,7 @@ function createSettingsUi(dParent) {
 	//let nGroupOther = mInputGroup(dParent);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['showTime']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'spoken feedback', true, ['spokenFeedback']);
+	setzeEineCheckbox(nGroupNumCommonAllGames, 'silent', false, ['silentMode']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'switch game after max level', false, ['switchGame']);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'show hint', true, ['showHint']);
 
@@ -160,8 +161,13 @@ function updateComplexSettings() {
 	updateKeySettings();
 
 	//console.log('halo!')
+	updateSpeakmodeSettings();
 
 
+}
+function updateSpeakmodeSettings(){
+	if (Settings.silentMode && Settings.spokenFeedback) Settings.spokenFeedback=false;
+	
 }
 function updateKeySettings(nMin) {
 	//console.log(G,KeySets);

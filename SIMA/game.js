@@ -27,7 +27,7 @@ function animate(elem, aniclass, timeoutms) {
 // 	setTimeout(() => mRemoveClasses(elem, aniclass), timeoutms);
 // }
 function aniInstruction(spoken) {
-	if (isdef(spoken)) Speech.say(spoken, .7, 1, .7, 'random'); //, () => { console.log('HA!') });
+	if (isdef(spoken)) sayRandomVoice(spoken);
 	mClass(dInstruction, 'onPulse');
 	setTimeout(() => mRemoveClass(dInstruction, 'onPulse'), 500);
 
@@ -333,16 +333,16 @@ function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G
 function getShortNumSeqHint() { let msg = `${G.op} ${G.step}`; return msg; }
 function shortNumSeqHint(written = true, spoken = true, ms = 2400) {
 	let msg = getShortNumSeqHint();
-	if (spoken) setTimeout(() => Speech.say(msg), ms);
+	if (spoken) setTimeout(() => sayRandomVoice(msg), ms);
 	if (written) showFleetingMessage(msg, 300, { fz: 40 });
 }
 function mediumNumSeqHint(written = true, spoken = true, ms = 2400) {
-	if (spoken) setTimeout(() => Speech.say(getShortNumSeqHint()), ms);
+	if (spoken) setTimeout(() => sayRandomVoice(getShortNumSeqHint()), ms);
 	if (written) showFleetingMessage(getNumSeqHint(), 300, { fz: 32 });
 }
 function longNumSeqHint(written = true, spoken = true, ms = 2400) {
 	let msg = getNumSeqHint();
-	if (spoken) setTimeout(() => Speech.say(msg), ms);
+	if (spoken) setTimeout(() => sayRandomVoice(msg), ms);
 	if (written) showFleetingMessage(msg, 300, { fz: 32 });
 }
 function numberSequenceCorrectionAnimation() {
@@ -351,15 +351,12 @@ function numberSequenceCorrectionAnimation() {
 	if (nundef(TOList)) TOList = {};
 	let msg = getNumSeqHint();
 	showFleetingMessage(msg, 0, { fz: 32 }); //return;
-	//Speech.say(msg)
 	Selected.feedbackUI = wrong.map(x => x.div);
 	failPictureGoal();
 
 	let t1 = setTimeout(removeMarkers, 1000);
 	let t2 = setTimeout(() => wrong.map(x => { correctWordInput(x); animate(x.div, 'komisch', 1300); }), 1000);
-	//let t3 = setTimeout(() => wrong.map(x =>animate(x.div,'komisch', 1300)), DELAY / 2);
-	//playSound('incorrect3');
-	t4 = setTimeout(() => { if (Settings.spokenFeedback) Speech.say(msg, .7, 1, .7, 'random'); }, 500);
+	t4 = setTimeout(() => { if (Settings.spokenFeedback) sayRandomVoice(msg); }, 500);
 	TOList.numseq = [t1, t2, t4];//, t3, t4];//, t4];
 
 	return 2800;
@@ -471,7 +468,7 @@ function containsColorWord(s) {
 function successThumbsUp(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
-		Speech.say(chooseRandom(comments));//'Excellent!!!');
+		sayRandomVoice(chooseRandom(comments));
 	}
 	//console.log(Pictures)
 	let p1 = firstCond(Pictures, x => x.key == 'thumbs up');
@@ -482,7 +479,7 @@ function successThumbsUp(withComment = true) {
 function failThumbsDown(withComment = false) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
-		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira'); //, () => { console.log('FERTIG FAIL!!!!'); });
+		sayRandomVoice(chooseRandom(comments)); 
 	}
 	let p1 = firstCond(Pictures, x => x.key == 'thumbs down');
 	p1.div.style.opacity = 1;
@@ -493,7 +490,7 @@ function failThumbsDown(withComment = false) {
 function successPictureGoal(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
-		Speech.say(chooseRandom(comments));//'Excellent!!!');
+		sayRandomVoice(chooseRandom(comments));
 	}
 	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
 		let uilist;
@@ -506,7 +503,7 @@ function successPictureGoal(withComment = true) {
 function failPictureGoal(withComment = false) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
-		Speech.say(chooseRandom(comments), 1, 1, .8, 'zira', () => { console.log('FERTIG FAIL!!!!'); });
+		sayRandomVoice(chooseRandom(comments));
 	}
 	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
 		let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
@@ -522,7 +519,7 @@ function showCorrectWord(sayit = true) {
 	if (!sayit || !Settings.spokenFeedback) return;
 
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
-	Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
+	sayRandomVoice(correctionPhrase);
 	return Settings.spokenFeedback ? 3000 : 300;
 }
 function showCorrectWords(sayit = true) {
@@ -536,15 +533,12 @@ function showCorrectWords(sayit = true) {
 		TOList.correctWords.push(setTimeout(() => {
 			let div = mBy(goal.id);
 			mClass(div, anim);
-			if (speaking) Speech.say('the ' + goal.correctionPhrase, .4, 1.2, 1, 'david');
+			if (speaking) sayRandomVoice('the ' + goal.correctionPhrase);
 		}, to));
 		to += ms;
 	}
 
 	if (!sayit || !Settings.spokenFeedback) return to;
-
-	// let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.map(x => x.label).join(', ');
-	// Speech.say(correctionPhrase, .4, 1.2, 1, 'david');
 
 	return to + ms;
 }
@@ -590,9 +584,11 @@ function fleetingMessage(msg, styles, fade = false) {
 //#region game over
 function gameOver(msg, silent = false) { TOMain = setTimeout(aniGameOver(msg, silent), DELAY); }
 function aniGameOver(msg, silent = false) {
-	if (!silent) playSound('goodBye');
+	if (!silent && !Settings.silentMode) playSound('goodBye');
+	enterInterruptState();
 	show('freezer2');
 
+	let dComment = mBy('dCommentFreezer2');
 	let dMessage = mBy('dMessageFreezer2');
 	let d = mBy('dContentFreezer2');
 	clearElement(d);
@@ -601,10 +597,12 @@ function aniGameOver(msg, silent = false) {
 
 	if (calibrating()) {
 		dMessage.innerHTML = msg;
+		dComment.innerHTML = '*** END OF TEST ***';
 		showCalibrationResults(d);
 
 	} else {
-		dMessage.innerHTML = msg;//'Time for a Break...';
+		dComment.innerHTML = 'Great Job!';
+		dMessage.innerHTML = isdef(msg)?msg:'Time for a Break...';
 		d.style.textAlign = 'center';
 		mText('Unit Score:', d, { fz: 22 });
 
@@ -653,7 +651,7 @@ function resetState() {
 }
 function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
 function sayRandomVoice(e, g) {
-	if (!Settings.silentMode) Speech.say(Settings.language == 'E' ? e : g, 1, 1, .8, 'zira');
+	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, 1, 1, .8, 'zira');
 }
 function setBadgeLevel(ev) {
 	let i = 0;
@@ -718,7 +716,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 
 	if (!isSpoken) return;
 
-	Speech.say(isdef(spoken) ? spoken : (cmd + " " + text), .7, 1, .7, 'random');
+	sayRandomVoice(isdef(spoken) ? spoken : (cmd + " " + text));
 
 }
 function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,

@@ -103,7 +103,7 @@ function scoring(isCorrect) {
 	}
 
 	//console.log('levelChange', levelChange, 'nextLevel', nextLevel)
-	if (calibrating() && !levelChange && (Score.nTotal >= CAL_SAMPLES_PER_LEVEL || !isCorrect)) {
+	if (calibrating() && !levelChange && (Score.nTotal >= getCalBoundary() || !isCorrect)) {
 		levelChange = 1;
 		if (percentageCorrect >= 99) {updateStartLevelForUser(G.key, nextLevel); nextLevel += 1;}
 	}

@@ -8,6 +8,7 @@ decrementLevelOnNegativeStreak: 3
 language: E
 vocab: best25
 spokenFeedback: true
+silentMode: false
 
 # the following not yet in UI
 # activity animal body drink emotion food fruit game gesture kitchen 

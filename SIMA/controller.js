@@ -1,6 +1,6 @@
 var pictureSize, TOMain;
 var uiActivated, auxOpen;
-function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser'; }
+function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
 function stopGame() { resetState(); }
 function startGame() {
@@ -22,9 +22,9 @@ function startLevel() {
 
 	Speech.setLanguage(Settings.language);
 
-	let defvals = { numPics: 1, numRepeat: 1 };
+	let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1 };
 	for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
-	G.numLabels = G.numPics * G.numRepeat;
+	if (G.numLabels < 0) G.numLabels = G.numPics * G.numRepeat * G.numColors;
 
 	G.instance.startLevel();
 

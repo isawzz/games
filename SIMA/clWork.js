@@ -38,12 +38,12 @@ class GSteps extends Game {
 	startGame() { G.correctionFunc = showCorrectWords; }
 	startLevel() {
 		const clist = [{ name: 'orange', color: 'orangered' }, { name: 'green', color: 'green' }, { name: 'pink', color: 'hotpink' }, { name: 'blue', color: 'blue' }];
-		G.numColors = getGameOrLevelInfo('numColors', 2);
-		G.numSteps = getGameOrLevelInfo('numSteps', 2);
-		//G.numRepeat = 2; //G.numColors * G.numPics;
-		G.numLabels = G.numColors * G.numPics * G.numRepeat;
+		// G.numColors = getGameOrLevelInfo('numColors', 2);
+		// G.numSteps = getGameOrLevelInfo('numSteps', 2);
+		// //G.numRepeat = 2; //G.numColors * G.numPics;
+		// G.numLabels = G.numColors * G.numPics * G.numRepeat;
 		this.colorList = lookupSet(GS, [this.name, 'colors'], clist);
-		console.log(this.colorList)
+		// console.log(this.colorList)
 		this.contrast = lookupSet(GS, [this.name, 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
 	}
@@ -96,7 +96,7 @@ class GSteps extends Game {
 	trialPrompt() {
 		for (const p of this.picList) { toggleSelectionOfPicture(p); }
 		this.picList = [];
-		Speech.say(Settings.language == 'E' ? 'try again!' : 'nochmal', 1, 1, .8, 'zira');
+		sayTryAgain();
 		return 10;
 	}
 	interact(ev) {
