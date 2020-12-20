@@ -11,7 +11,7 @@ function createSettingsUi(dParent) {
 	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['decrementLevelOnNegativeStreak']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['trials']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['showLabels']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['Settings.language']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['language']);
 	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', Object.keys(KeySets), 'best25', ['vocab']);
 
 	//let nGroupOther = mInputGroup(dParent);

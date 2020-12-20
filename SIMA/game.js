@@ -633,17 +633,10 @@ function resetRound() {
 	clearTable();
 }
 function resetState() {
-	clearTimeout(TOMain); onkeydown = null; onkeypress = null; onkeyup = null;
+	clearTimeout(TOMain); 
+	onkeydown = null; onkeypress = null; onkeyup = null;
 	lastPosition = 0;
 	DELAY = 1000;
-
-	//console.log(badges);
-	// if (badges.length != G.level) {
-	//badges = [];
-	//showBadges(dLeiste, G.level, onClickBadge);
-
-	//_showBadgesX(dLeiste,G.level,onClickBadgeX,G.maxLevel);
-	// }
 
 	updateLabelSettings();
 	setBackgroundColor();
@@ -651,7 +644,8 @@ function resetState() {
 }
 function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
 function sayRandomVoice(e, g) {
-	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, 1, 1, .8, 'zira');
+
+	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, 1, 1, .8, 'random');
 }
 function setBadgeLevel(ev) {
 	let i = 0;
@@ -668,6 +662,8 @@ function setBadgeLevel(ev) {
 	G.level = i;
 
 	//setBadgeOpacity
+	if (isEmpty(badges)) showBadgesX(dLeiste, G.level, onClickBadgeX, G.maxLevel);
+
 	for (let iBadge = 0; iBadge < G.level; iBadge++) {
 		badges[iBadge].div.style.opacity = 1;
 	}
@@ -807,7 +803,7 @@ function showStats() {
 	}
 	showGameTitle();
 	showLevel();
-	if (isCal) { dScore.innerHTML = ' '; } else showScore();
+	if (calibrating()) { dScore.innerHTML = 'calibrating...'; } else showScore();
 
 	Score.levelChange = false;
 	Score.gameChange = false;
