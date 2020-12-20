@@ -110890,7 +110890,7 @@ stethoscope:
   group: objects
   subgroups: medical
   E: stethoscope
-  D: stethoscop
+  D: stethoskop
   hex: 1FA7A
   family: emoNoto
   text: '&#129658;'
