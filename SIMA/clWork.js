@@ -12,7 +12,7 @@ class Game {
 	}
 	trialPrompt() {
 		sayTryAgain();
-		if (Settings.showHint) shortHintPic();
+		if (!calibrating() && Settings.showHint) shortHintPic();
 		return 10;
 	}
 	activate() { }

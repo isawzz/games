@@ -29,7 +29,7 @@ function enterCalibrationMode(all1) {
 
 }
 
-function isLastCalGame(){return G.key == calGames[0]; }
+function isLastCalGame(){return !calGames.includes(G.key) || G.key == calGames[0]; }
 
 function calibrating(){return isCal==true;}// USERNAME == 'test';}
 
@@ -38,14 +38,26 @@ function calibrateUser(){
 	let sAfter = getStartLevels(USERNAME);
 	console.log(sBefore,sAfter);
 
-	for (const gname in GAME) {
+	for (const gname of calGames) {
 		let origStartLevel = lookupSet(calStartLevels,[gname],0);
 		let testStartLevel = lookupSet(sAfter,[gname],origStartLevel);
 	}
 	return [sBefore,sAfter];
 }
 
+function showCalibrationResults(d){
+	console.log('HAAAAAAAAAAAAAAAAAAAAAAAAALO')
+	let [before, after] = calibrateUser();
 
+	d.style.textAlign = 'left';
+	for (const g of calGames) {
+		if (nundef(before[g])) before[g] = 0;
+		let b = before[g]; let a = after[g];
+		let exp = b < a ? (' been upgraded to ' + a) : b > a ? (' been downgraded to ' + a) : ' remained at ' + a;
+		mText(`game ${g}: startlevel has ${exp}`, d, { fz: 22 });
+	}
+
+}
 
 
 

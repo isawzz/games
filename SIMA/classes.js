@@ -390,7 +390,7 @@ class GMissingNumber extends Game {
 	trialPrompt() {
 		sayTryAgain();
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
-		if (Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
+		if (!calibrating() && Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
 		return 10;
 	}
 	activate() { onkeypress = this.interact; }

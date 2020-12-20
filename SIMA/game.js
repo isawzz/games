@@ -601,16 +601,7 @@ function aniGameOver(msg, silent = false) {
 
 	if (calibrating()) {
 		dMessage.innerHTML = msg;
-		console.log('HAAAAAAAAAAAAAAAAAAAAAAAAALO')
-		let [before, after] = calibrateUser();
-
-		d.style.textAlign = 'left';
-		for (const g in after) {
-			if (nundef(before[g])) before[g] = 0;
-			let b = before[g]; let a = after[g];
-			let exp = b < a ? (' been upgraded to ' + a) : b > a ? (' been downgraded to ' + a) : ' remained at ' + a;
-			mText(`game ${g}: startlevel has ${exp}`, d, { fz: 22 });
-		}
+		showCalibrationResults(d);
 
 	} else {
 		dMessage.innerHTML = msg;//'Time for a Break...';
@@ -631,6 +622,7 @@ function aniGameOver(msg, silent = false) {
 
 }
 //#endregion game over
+
 function getGameOrLevelInfo(k, defval) {
 	let val = lookup(GS, [G.key, 'levels', G.level, k]);
 	if (!val) val = lookupSet(GS, [G.key, k], defval);

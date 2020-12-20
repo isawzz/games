@@ -67,27 +67,24 @@ function evaluate() {
 
 	G.trialNumber += 1;
 	//console.log('have more trials?',G.trialNumber,Settings.trials)
-	if (!IsAnswerCorrect && G.trialNumber < Settings.trials) { promptNextTrial(); return; }
+	if (!IsAnswerCorrect && G.trialNumber < Settings.trials && !calibrating()) { promptNextTrial(); return; }
 
 	//feedback
-	if (IsAnswerCorrect) {
-		DELAY = Settings.spokenFeedback ? 1500 : 300;
-		G.successFunc();
-	} else {
-		DELAY = G.correctionFunc(); //Settings.spokenFeedback ? 3000 : 300;
-		//G.correctionFunc(); //showCorrectWord();
-		G.failFunc(); //failPictureGoal(false);
-	}
+	if (calibrating()) { DELAY = 300; if (IsAnswerCorrect) G.successFunc(false); else G.failFunc(); }
+	else if (IsAnswerCorrect) { DELAY = Settings.spokenFeedback ? 1500 : 300; G.successFunc(); }
+	else { DELAY = G.correctionFunc(); G.failFunc(); }
+
 	setTimeout(removeMarkers, 1500);
 
 	let nextLevel;
 	[Score.levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
 	if (calibrating()) {
-		console.log('cali:', Score.levelChange, nextLevel, G.level)
+		//console.log('cali:', Score.levelChange, nextLevel, G.level, isLastCalGame())
 		addScoreToUserSession(G.key, G.level);
 		if (!IsAnswerCorrect) {
 			setBadgeLevel(nextLevel); Score.gameChange = true; setNextGame();
+			//console.log('cali:', Score.levelChange, nextLevel, G.key, G.level, isLastCalGame());
 			if (isLastCalGame()) { exitCalibrationMode(); } else { TOMain = setTimeout(startGame, DELAY); }
 		} else if (IsAnswerCorrect && nextLevel > G.maxLevel) {
 			setBadgeLevel(nextLevel); Score.gameChange = true; setNextGame();
@@ -95,8 +92,8 @@ function evaluate() {
 		} else if (IsAnswerCorrect && !Score.levelChange) {
 			TOMain = setTimeout(startRound, DELAY);
 		} else if (IsAnswerCorrect && nextLevel <= G.maxLevel && nextLevel != G.level) {
-			setBadgeLevel(nextLevel); G.level = nextLevel;		TOMain = setTimeout(startGame, DELAY);
-		} else{
+			setBadgeLevel(nextLevel); G.level = nextLevel; TOMain = setTimeout(startGame, DELAY);
+		} else {
 			console.log('!!!!!!!!!!!!!!!! UNKNOWN!!!!!!!!!!!!!!!!!!!')
 		}
 	} else if (!Score.levelChange) {
