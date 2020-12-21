@@ -718,16 +718,17 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 
 }
 function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,
-	sameBackground = true, border } = {}, keys, labels) {
+	sameBackground = true, border, textColor, fz } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
 	let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border; //sCont.padding=8;
 	let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
-	Pictures = maShowPicturesX(keys, labels, dTable, onClickPictureHandler,
-		{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors },
-		{ sCont: sCont, sPic: sPic });
+	let sText = {fz:fz};
+	Pictures = maShowPicturesX3(keys, labels, dTable, onClickPictureHandler,
+		{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors, textColor: textColor },
+		{ sCont: sCont, sPic: sPic, sText: sText });
 
 	// //use this in case of broken!!!!	
 	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,

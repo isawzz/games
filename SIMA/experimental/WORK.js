@@ -1,12 +1,42 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getDefaultStyles(sCont, sPic = {}, sText = {}) {
 	const sDefault = {
 		cont: { bg: 'random', padding: 0, align: 'center', 'box-sizing': 'border-box' },
 		pic: { bg: 'transparent', fg: 'white' },
-		text: { fg: 'contrast', family: 'arial'} //&& k != 'padding' , padding: 8 }
+		text: { fg: 'contrast', family: 'arial' } //&& k != 'padding' , padding: 8 }
 	}
 	setDefaultKeys(sCont, sDefault.cont);
 	setDefaultKeys(sPic, sDefault.pic);
 	setDefaultKeys(sText, sDefault.text);
+
+	if (isdef(sCont)) sCont = deepmergeOverride({ rounding: 10, margin: pictureSize / 8 }, sCont);
+	else sCont = { rounding: 10, margin: pictureSize / 8 };
+
+	//if (isdef(picSize)) pictureSize = picSize;
+	if (nundef(sCont.w)) sCont.w = pictureSize;
+	if (nundef(sCont.h)) sCont.h = pictureSize;
+
+	if (nundef(sPic)) sPic = {};
+	if (nundef(sText)) sText = {};
+	//if (isdef(contrast)) sPic.contrast = contrast;
+
 	return [sCont, sPic, sText];
 }
 
@@ -19,7 +49,7 @@ function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, 
 	numbers = numbers.map(x => sCont.h * x / 100);
 	let [patop, szPic, zwischen, szText, pabot] = numbers;
 
-	let fz = (Math.floor(szText * 3 / 4)) ;// - sText.padding / 2;
+	let fz = (Math.floor(szText * 3 / 4));// - sText.padding / 2;
 
 	// patop = Math.max(patop, sCont.padding);
 	// pabot = Math.max(pabot, sCont.padding);
@@ -44,7 +74,7 @@ function getHarmoniousStylesPlusPlusX(sCont, sPic = {}, sText = {}, picPercent, 
 	for (const k in sPic) { if (k != 'w' && nundef(picStyles[k])) picStyles[k] = sPic[k]; }
 	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
 
-	console.log('patop',styles.patop,'pabot',styles.pabot,'paleft',styles.paleft,'paright',styles.paright)
+	console.log('patop', styles.patop, 'pabot', styles.pabot, 'paleft', styles.paleft, 'paright', styles.paright)
 
 	return [styles, picStyles, textStyles];
 
