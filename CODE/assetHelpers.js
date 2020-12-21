@@ -61,6 +61,7 @@ function maShowPicturesX3(keys, labels, dParent, onClickPictureHandler,
 
 	//console.log('items', items, 'picSize', pictureSize, 'lines', lines, 'cols', picsPerLine);
 	let padding = 0;
+
 	if (isdef(sCont.padding)) {
 		padding = sCont.padding;
 		delete sCont.padding;
@@ -68,7 +69,7 @@ function maShowPicturesX3(keys, labels, dParent, onClickPictureHandler,
 	[sCont, sPic, sText] = getDefaultStylesX3(sCont, sPic, sText, pictureSize);
 	//console.log('3------------NACH GETDEFAULTSTYLES',jsCopy(sText))
 	//console.log(sText)
-	//console.log('sCont', sCont, '\nsPic', sPic, '\nsText', sText);
+	console.log('sCont', jsCopy(sCont), '\nsPic', sPic, '\nsText', sText);
 
 	for (let line = 0; line < lines; line++) {
 		for (let i = 0; i < picsPerLine; i++) {
@@ -272,6 +273,9 @@ function maPicLabelFitX3(info, label, wmax, dParent, sCont, sPic, sText, isText 
 	sPic.h = szPic;
 	let fz = sText.fz = Math.max(8,(Math.floor(szText * 3 / 4)));// - sText.padding / 2;
 
+
+	console.log('szPic',szPic,'szText',szText,'fz',fz)
+
 	let dPic = maPic(info, d, sPic, isText, isOmoji);
 
 	mStyleX(d, sCont);
@@ -279,16 +283,19 @@ function maPicLabelFitX3(info, label, wmax, dParent, sCont, sPic, sText, isText 
 	//measurements
 	let wAvail, hAvail;
 	hAvail = sCont.h - (sCont.patop + sPic.h);
-	wAvail = sCont.w;
+	wAvail = sCont.w - paleft - paright;
 	if (isdef(wmax) && wmax != 'auto') { wAvail = Math.min(wAvail, wmax); }
 	let styles1 = jsCopy(sText);
 	let size = getSizeWithStylesX(label, styles1, wAvail);
 	let size1 = getSizeWithStylesX(label, styles1);
 	let f1 = wAvail / size1.w;
 	let isTextOverflow = f1 < 1;
-	if (f1 < 1) { sText.fz *= f1; sText.fz = Math.floor(sText.fz); }
+	if (f1 < 1) { fz = sText.fz *= f1; sText.fz = Math.floor(sText.fz); }
+
+	console.log('isTextOverflow',isTextOverflow,'fz',fz);
 	let [wBound, hBound] = [size.w, undefined];
 	let dText = mTextFitX3(label, { wmax: wBound, hmax: hBound }, d, jsCopy(sText));//, isTextOverflow ? ['truncate'] : null);
+	console.log('fontSize',dText.style.fontSize);
 	dText.style.margin = 'auto';
 	return d;
 }
