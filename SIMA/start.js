@@ -27,7 +27,7 @@ async function _start() {
 	loadUser(); //sets G,U,GS,Settings
 	console.assert(isdef(G))
 
-	test03_maShowPictures(); return;
+	//test03_maShowPictures(); return;
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
 }

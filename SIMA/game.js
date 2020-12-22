@@ -645,8 +645,8 @@ function resetState() {
 function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
 function sayRandomVoice(e, g) {
 
-	let [r,p,v]=[.8,.9,1];
-	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, r,p,v, 'random');
+	let [r, p, v] = [.8, .9, 1];
+	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, r, p, v, 'random');
 }
 function setBadgeLevel(ev) {
 	let i = 0;
@@ -718,26 +718,24 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 
 }
 function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,
-	sameBackground = true, border, textColor, fz=20 } = {}, keys, labels) {
+	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
-	let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border; //sCont.padding=8;
-	let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
-	
-	let sText = {fz:fz};
-
-	Pictures = maShowPicturesX3(keys, labels, dTable, onClickPictureHandler,
-		{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors, textColor: textColor },
-	//	{ sCont: sCont, sPic: sPic, sText: sText });
-	{ sCont: { w: 200, h:200, padding: 10, align: 'center' }, sPic: { contrast: .3 }, sText: {fz:20} });
+	// let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border; //sCont.padding=8;
+	// let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
+	// let sText = { fz: fz };
+	// Pictures = maShowPicturesX3(keys, labels, dTable, onClickPictureHandler,
+	// 	{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors, textColor: textColor },
+	// 	//	{ sCont: sCont, sPic: sPic, sText: sText });
+	// 	{ sCont: { w: 200, h: 200, padding: 10, align: 'center' }, sPic: { contrast: .3 }, sText: { fz: 20 } });
 	// //use this in case of broken!!!!	
-	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
-	// 	{
-	// 		showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
-	// 		lang: Settings.language, colors: colors, contrast: contrast
-	// 	});
+	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+		{
+			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
+			lang: Settings.language, colors: colors, contrast: contrast
+		});
 
 	// label hiding
 	let totalPics = Pictures.length;
@@ -785,9 +783,9 @@ function showScore() {
 		}, 300);
 	}
 }
-function resetScore() { 
-	if (nundef(Score)) Score={};
-	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 }; 
+function resetScore() {
+	if (nundef(Score)) Score = {};
+	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
 }
 function showStats() {
 
