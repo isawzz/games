@@ -363,7 +363,7 @@ BACK arrow:
   group: symbols
   subgroups: arrow
   E: back arrow|back|arrow|left
-  D: zuruueeck|pfeil|links
+  D: zurück|pfeil|links
   hex: 1F519
   family: emoNoto
   text: '&#128281;'
@@ -739,7 +739,7 @@ Japanese symbol for beginner:
   group: symbols
   subgroups: other-symbol
   E: beginner
-  D: anfaaeenger
+  D: anfänger
   hex: 1F530
   family: emoNoto
   text: '&#128304;'
@@ -774,7 +774,7 @@ Leo:
   group: symbols
   subgroups: zodiac
   E: leo
-  D: looeewe
+  D: löwe
   hex: 264C
   family: emoNoto
   text: '&#9804;'
@@ -1211,7 +1211,7 @@ Sagittarius:
   group: symbols
   subgroups: zodiac
   E: sagittarius
-  D: schuueetze
+  D: schütze
   hex: '2650'
   family: emoNoto
   text: '&#9808;'
@@ -9303,7 +9303,7 @@ baggage claim:
   group: symbols
   subgroups: transport-sign
   E: baggage
-  D: gepaaeeck
+  D: gepäck
   hex: 1F6C4
   family: emoNoto
   text: '&#128708;'

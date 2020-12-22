@@ -38,14 +38,9 @@ function createMenuUi(dParent) {
 	let keys = games.map(g => GAME[g].logo);
 	let bgs = games.map(g => GAME[g].color);
 
-	// console.log(games)
-	//console.log('-----------------bgs', bgs);
-
 	MenuItems = {};
-	// let pics = maShowPictures(keys, labels, d, onClickGo,
-	// 	{ bgs: bgs, shufflePositions: false }, { fg: 'blue' });
-	let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, 
-		{ sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
+	let pics = maShowPictures(keys, labels, d, onClickGo,	{ bgs: bgs, shufflePositions: false }, { fg: 'blue' });
+	//let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
 	for (let i = 0; i < pics.length; i++) {
 		let p = pics[i];
 		//console.log(p)
@@ -53,9 +48,7 @@ function createMenuUi(dParent) {
 		let key = p.div.key = games[i];
 		MenuItems[key] = p;
 	}
-	//pics.map(x => x.div.id = 'menu_' + x.label.substring(0, 3));
 
-	//console.log('hhhhhhhhhhhhhhhhhhhhhh')
 	if (nundef(G)) return;
 
 	//select the current game
@@ -115,7 +108,6 @@ function setzeEineCheckbox(dParent, label, init, skeys) {
 
 	inp.keyList = skeys;
 }
-
 function setSettingsKeysSelect(elem) {
 
 	let val;

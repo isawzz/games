@@ -3561,6 +3561,13 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 //#endregion
 
 //#region ARRAY objects, dictionaries, lists, arrays
+function addByKey(oNew, oOld, except) {
+	for (const k in oNew) {
+		let val = oNew[k];
+		if (isdef(except) && except.includes(k) || !isNumber(val)) continue;
+		oOld[k] = isdef(oOld[k]) ? oOld[k] + val : val;
+	}
+}
 function range(f, t, st = 1) {
 	let arr = [];
 	//console.log(f,t)
