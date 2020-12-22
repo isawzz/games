@@ -22,8 +22,9 @@ function startLevel() {
 
 	Speech.setLanguage(Settings.language);
 
-	let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1 };
+	let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1, trials: Settings.trials };
 	for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
+
 	if (G.numLabels < 0) G.numLabels = G.numPics * G.numRepeat * G.numColors;
 
 	G.instance.startLevel();
@@ -66,8 +67,7 @@ function evaluate() {
 	//console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
 	G.trialNumber += 1;
-	//console.log('have more trials?',G.trialNumber,Settings.trials)
-	if (!IsAnswerCorrect && G.trialNumber < Settings.trials && !calibrating()) { promptNextTrial(); return; }
+	if (!IsAnswerCorrect && G.trialNumber < G.trials && !calibrating()) { promptNextTrial(); return; }
 
 	//feedback
 	if (calibrating()) { DELAY = 300; if (IsAnswerCorrect) G.successFunc(false); else G.failFunc(); }
@@ -80,7 +80,7 @@ function evaluate() {
 	[Score.levelChange, nextLevel] = scoring(IsAnswerCorrect); //get here only if this is correct or last trial!
 
 	if (calibrating()) {
-		console.log('nextLevel',nextLevel)
+		console.log('nextLevel', nextLevel)
 		if (Score.levelChange) {
 			addScoreToUserSession(G.key, G.level);
 			if (nextLevel <= G.maxLevel) setBadgeLevel(nextLevel);

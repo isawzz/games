@@ -64,7 +64,7 @@ class GMem extends Game {
 		let pic = Pictures[i];
 		toggleFace(pic);
 
-		if (G.trialNumber == Settings.trials - 1) {
+		if (G.trialNumber == G.trials - 1) {
 			turnFaceUp(Goal);
 			TOMain = setTimeout(() => evaluate(ev), 100);
 		} else evaluate(ev);

@@ -68,7 +68,22 @@ function mEditableInput(dParent, label, val) {
 	mAppend(dParent, elem);
 	return elem;
 }
-
+function mInput(label,value,dParent,styles){
+	let inp = createElementFromHTML(`<input type="text" class="input" value="${value}" />`);
+	let labelui = createElementFromHTML(`<label>${label}</label>`);
+	mAppend(dParent, labelui);
+	mAppend(labelui, inp);
+	if (isdef(styles)) mStyleX(labelui,styles)
+	return inp;
+}
+function mFlex(d, or = 'h') {
+	d.style.display = 'flex';
+	d.style.flexFlow = (or == 'v' ? 'column' : 'row') + ' ' + (or == 'w' ? 'wrap' : 'nowrap');
+	// d.style.alignItems = 'stretch';
+	// d.style.alignContent = 'stretch';
+	// d.style.justiifyItems = 'stretch';
+	// d.style.justifyContent = 'stretch';
+}
 function mParent(elem) { return elem.parentNode; }
 function mButton(caption, handler, dParent, styles, classes) {
 	let x = mCreate('button');

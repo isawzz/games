@@ -1,6 +1,6 @@
 minutesPerUnit: 15
 samplesPerLevel: 1
-trials: 3
+trials:  3
 # toggle: first half of level: labels, second half of level: no labels
 showLabels: toggle #always never toggle
 incrementLevelOnPositiveStreak: 5
@@ -224,6 +224,7 @@ games:
         numPics: 5
         numColors: 4
   gPremem:
+    trials: 1
     levels:
       0: 
         numPics: 2

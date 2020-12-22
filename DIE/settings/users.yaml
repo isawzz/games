@@ -4,16 +4,21 @@ nil:
   lastGame: gTouchPic
   lastLevel: 0
   settings:
-    minutesPerUnit: 1
+    #settings that make sense for each individual game, even level:
     samplesPerLevel: 2
-    trials: 1
-    # toggle: first half of level: labels, second half of level: no labels
-    showLabels: toggle #always never toggle
+    trials:  2
+    showLabels: toggle #always never toggle (=remove labels after half level)
     incrementLevelOnPositiveStreak: 2
     decrementLevelOnNegativeStreak: 3
     language: D
     vocab: best100
     spokenFeedback: false
+    showHint: true
+
+    # settings common to all games
+    minutesPerUnit: 1
+    showTime: true
+    switchGame: true
     silentMode: true
 
     # the following not yet in UI
@@ -24,12 +29,14 @@ nil:
     pressControlToUnfreeze: false
     reducedAnimations: true
     levelBadges: false
-    showHint: true
-    showTime: true
-    switchGame: true
   games:
     gSteps:
       startLevel: 3
+      settings:
+        samplesPerLevel: 1
+        trials: 5
+        vocab: all
+
 guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
@@ -38,7 +45,7 @@ guest0:
   settings:
     minutesPerUnit: 10
     samplesPerLevel: 10
-    trials: 2
+    trials:  2
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
     incrementLevelOnPositiveStreak: 10
@@ -69,7 +76,7 @@ test0:
   settings:
     minutesPerUnit: .2
     samplesPerLevel: 2
-    trials: 1
+    trials:  1
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
     incrementLevelOnPositiveStreak: 10
@@ -100,7 +107,7 @@ gul:
   settings:
     minutesPerUnit: 10
     samplesPerLevel: 10
-    trials: 2
+    trials:  2
     # toggle: first half of level: labels, second half of level: no labels
     showLabels: toggle #always never toggle
     incrementLevelOnPositiveStreak: 10

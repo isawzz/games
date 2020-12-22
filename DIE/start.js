@@ -36,6 +36,7 @@ function startUnit() {
 	if (nundef(U.session)) U.session = {};
 	//console.log('---_startUnit: session', U.session);
 
+	onClickGear(); return;
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 	//show('freezer2')
 	//onClickCalibrate();
