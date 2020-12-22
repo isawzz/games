@@ -27,12 +27,7 @@ async function _start() {
 	loadUser(); //sets G,U,GS,Settings
 	console.assert(isdef(G))
 
-	// console.log(dTable);
-	// let keys = choose(symKeysBySet['animals'], 1);
-	// keys = ['butterfly'];
-	// maShowPicturesX3(keys, undefined, dTable, null,
-	// 	{ lang: 'D', repeat: 2, showRepeat: true, colors: ['red', 'blue'] },
-	// 	{ sCont: { w: 200, h:200, padding: 10, align: 'center' }, sPic: { contrast: .3 }, sText: {} });
+	test03_maShowPictures(); return;
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
 }

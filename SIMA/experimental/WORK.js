@@ -1,3 +1,67 @@
+function maShowPicturesX3(keys, labels, dParent, onClickPictureHandler,
+	{ showRepeat, container, lang, bgs, colors, repeat = 1, sameBackground, shufflePositions = true, textColor } = {},
+	{ sCont, sPic, sText } = {}) {
+	let pics = [];
+	let items = makeItemForEachKeyX3(keys, labels, { lang, bgs, colors, textColor, sameBackground, repeat, shufflePositions });	//make a label for each key
+	let [isText, isOmoji] = calcTextStyle(lang);
+
+	//layout
+	let lines = isdef(colors) ? colors.length : 1;
+	let [pictureSize, picsPerLine] = calcDimsAndSizeX3(items.length, { lines: lines, dParent: container });
+
+	//console.log('items', items, 'picSize', pictureSize, 'lines', lines, 'cols', picsPerLine);
+	let padding = 0;
+	if (isdef(sCont.padding)) { padding = sCont.padding; delete sCont.padding; }
+	[sCont, sPic, sText] = getDefaultStylesX3(sCont, sPic, sText, pictureSize);
+	//console.log('3------------NACH GETDEFAULTSTYLES',jsCopy(sText))
+	//console.log(sText)
+	console.log('sCont', jsCopy(sCont), '\nsPic', sPic, '\nsText', sText);
+
+	let ill = indexOfFuncMax(items, 'label', x=>x.length);
+	console.log(ill)
+	let label=items[ill.i].label;
+	let size = getSizeWithStylesX(label, sText);//, sCont.w-2*sCont.padding);
+	console.log('longest label is',label,'w='+size.w);
+
+	for (let line = 0; line < lines; line++) {
+		for (let i = 0; i < picsPerLine; i++) {
+
+			let ipic = (line * picsPerLine + i);
+			if (ipic % picsPerLine == 0 && ipic > 0) { mLinebreak(dParent); }
+			let id = 'pic' + ipic;
+
+			let item = items[ipic];
+
+			sCont.bg = item.bg;
+			sCont.padding = padding;
+			sText.fg = item.fg;
+
+			//console.log('32222222222222222------------',jsCopy(sText))
+
+
+			if (isdef(item.textShadowColor)) {
+				//console.log('YEAH!!!!!!!!!!!!!!',item.textShadowColor)
+				let extStyle = convertTextShadowColorAndContrastX3(item.textShadowColor, sPic.contrast);
+				overrideKeys(sPic, extStyle);
+				//console.log('==>',sPic)
+			}
+			//console.log('2------------',jsCopy(sText))
+
+			onClickPictureHandler = ev => maPicLabelShowHideHandlerX(item.info, ev);
+			let d1 = maPicLabelButtonFitTextX3(item.info, item.label, dParent, onClickPictureHandler,
+				{ sCont: sCont, sPic: sPic, sText: jsCopy(sText) }, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+
+			if (showRepeat) addRepeatInfo(d1, item.iRepeat, pictureSize, item.fg);
+
+			pics.push({
+				textShadowColor: item.textShadowColor, key: item.info.key, info: item.info, bg: item.bg, div: d1, id: id,
+				index: ipic, row: line, col: i, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+			});
+		}
+	}
+	return pics;
+}
 
 
 
