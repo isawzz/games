@@ -10,9 +10,9 @@ function createSettingsUi(dParent) {
 	setzeEineZahl(nGroupNumCommonAllGames, 'correct streak', 5, ['incrementLevelOnPositiveStreak']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['decrementLevelOnNegativeStreak']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'trials', 3, ['trials']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], 'toggle', ['showLabels']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], 'E', ['language']);
-	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', Object.keys(KeySets), 'best25', ['vocab']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'show labels', ['toggle', 'always', 'never'], ['toggle', 'always', 'never'], 'toggle', ['showLabels']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'language', ['E', 'D'], ['English', 'German'], 'E', ['language']);
+	setzeEinOptions(nGroupNumCommonAllGames, 'vocabulary', Object.keys(KeySets), Object.keys(KeySets), 'best25', ['vocab']);
 
 	//let nGroupOther = mInputGroup(dParent);
 	setzeEineCheckbox(nGroupNumCommonAllGames, 'show time', false, ['showTime']);
@@ -121,15 +121,17 @@ function setSettingsKeysSelect(elem) {
 	lookupSetOverride(Settings, elem.keyList, val);
 	console.log('result', lookup(Settings, elem.keyList));
 }
-function setzeEinOptions(dParent, label, optionList, init, skeys) {
+function setzeEinOptions(dParent, label, optionList,friendlyList, init, skeys) {
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
 	let d = mDiv(dParent);
 	let val = lookup(Settings, skeys);
 	if (nundef(val)) val = init;
 
 	let inp = createElementFromHTML(`<select onfocusout="setSettingsKeysSelect(this)"></select>`);
-	for (const opt of optionList) {
-		let optElem = createElementFromHTML(`<option value="${opt}">${opt}</option>`);
+	for (let i = 0; i < optionList.length; i++){
+		let opt = optionList[i];
+		let friendly = friendlyList[i];
+		let optElem = createElementFromHTML(`<option value="${opt}">${friendly}</option>`);
 		mAppend(inp, optElem);
 		if (opt == val) optElem.selected = true;
 	}

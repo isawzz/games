@@ -245,8 +245,8 @@ function calcDimsAndSize(numPics, lines, dParent, wmax, hmax) {
 	} else {
 		ww = window.innerWidth;
 		wh = window.innerHeight;
-		hpercent = .6;
-		wpercent = .6;
+		hpercent = .56;
+		wpercent = .64;
 	}
 	let sz, picsPerLine;
 	if (lines > 1) {

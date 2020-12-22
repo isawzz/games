@@ -690,48 +690,6 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	sayRandomVoice(isdef(spoken) ? spoken : (cmd + " " + text));
 
 }
-function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,
-	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
-	Pictures = [];
-	if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	//keys=['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
-
-	//#region experimental code not activated yet!!!
-	// let sCont = {}; if (isdef(sz)) sCont.w = sCont.h = sz; if (isdef(border)) sCont.border = border; //sCont.padding=8;
-	// let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
-	// let sText = { fz: fz };
-	// Pictures = maShowPicturesX3(keys, labels, dTable, onClickPictureHandler,
-	// 	{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors, textColor: textColor },
-	// 	//	{ sCont: sCont, sPic: sPic, sText: sText });
-	// 	{ sCont: { w: 200, h: 200, padding: 10, align: 'center' }, sPic: { contrast: .3 }, sText: { fz: 20 } });
-	// //use this in case of broken!!!!	
-	//#endregion
-
-	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
-		{
-			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
-			lang: Settings.language, colors: colors, contrast: contrast
-		});
-
-	
-	// label hiding
-	let totalPics = Pictures.length;
-	if (nundef(Settings.labels) || Settings.labels) {
-		if (G.numLabels == totalPics) return;
-		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
-		for (const p of remlabelPic) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
-	} else {
-		for (const p of Pictures) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
-
-	}
-
-}
 function showHiddenThumbsUpDown(styles) {
 	styles.bgs = ['transparent', 'transparent'];
 	showPictures(null, styles, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
