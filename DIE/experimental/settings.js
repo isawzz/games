@@ -1,11 +1,30 @@
 var SelectedMenuKey, MenuItems;
+var hiddenSettingSpecificationString, iHiddenSSS;
 
 function createSettingsUi(dParent) {
 	clearElement(dParent);
-	mAppend(dParent, createElementFromHTML(`<h1>Settings for ${USERNAME}:</h1>`));
+	mFlex(dParent);
+
+	commonSettings(dParent);
+	gameSpecificSettings(dParent);
+}
+function commonSettings(dParent) {
+	let d = mDiv(dParent);
+	hiddenSettingSpecificationString = '111111111111111111111111111111';
+	iHiddenSSS = 0;
+	addSettingsUi(d, `Common Settings for ${USERNAME}:`);
+}
+function gameSpecificSettings(dParent) {
+	let d = mDiv(dParent);
+	hiddenSettingSpecificationString = '10001111000011111';
+	iHiddenSSS = 0;
+	addSettingsUi(d, `Game specific:`, G.key);
+}
+function addSettingsUi(dParent, title, game) {
+	mAppend(dParent, createElementFromHTML(`<h2>${title}</h2>`));
 
 	let nGroupNumCommonAllGames = mInputGroup(dParent);
-	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['samplesPerLevel']);
+	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['samplesPerLevel'], game);
 	setzeEineZahl(nGroupNumCommonAllGames, 'minutes', 1, ['minutesPerUnit']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'correct streak', 5, ['incrementLevelOnPositiveStreak']);
 	setzeEineZahl(nGroupNumCommonAllGames, 'fail streak', 2, ['decrementLevelOnNegativeStreak']);
@@ -39,7 +58,7 @@ function createMenuUi(dParent) {
 	let bgs = games.map(g => GAME[g].color);
 
 	MenuItems = {};
-	let pics = maShowPictures(keys, labels, d, onClickGo,	{ bgs: bgs, shufflePositions: false }, { fg: 'blue' });
+	let pics = maShowPictures(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { fg: 'blue' });
 	//let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
 	for (let i = 0; i < pics.length; i++) {
 		let p = pics[i];
@@ -58,11 +77,22 @@ function createMenuUi(dParent) {
 }
 
 
-//#region store settings val after edit
+//#region create elements for settings 
+function mInputGroup(dParent, styles) {
+	let baseStyles = { display: 'inline-block', align: 'right', bg: '#00000080', rounding: 10, padding: 20, margin: 12 };
+	if (isdef(styles)) styles = deepmergeOverride(baseStyles, styles); else styles = baseStyles;
+	return mDiv(dParent, styles);
+}
 function setSettingsKeys(elem) {
 	// console.log('lllllllllllllllll', a, a.value, a.keyList);
 	let val = elem.type == 'number' ? Number(elem.value) : elem.type == 'checkbox' ? elem.checked : elem.value;
 	lookupSetOverride(Settings, elem.keyList, val);
+
+	let lst = ['games',G.key,'settings'].concat(elem.keyList);
+	lookupSetOverride(U, lst, val);
+	saveUser();
+	console.log('lst',U);
+
 	SettingsChanged = true;
 	//console.log(elem.keyList, val)
 	//console.log(Settings);
@@ -81,9 +111,20 @@ function setSettingsKeysSelect(elem) {
 	console.log('result', lookup(Settings, elem.keyList));
 }
 
-//#region create elements for settings 
-function setzeEineZahl(dParent, label, init, skeys) {
+function checkIfEmptyLine(dParent) {
+	let vis = hiddenSettingSpecificationString[iHiddenSSS] == '1'; iHiddenSSS += 1;
+	if (!vis) {
+		let d = mDiv(dParent, { h:27, bg: 'transparent' });
+		//let d1 = mInput('hidden', 'hidden', d, { display: 'block', margin: 3 });
+		return true;
+	}
+	return false; //style="display:block;margin:4px;"
+}
+
+function setzeEineZahl(dParent, label, init, skeys, game) {
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
+	if (checkIfEmptyLine(dParent)) return;
+
 	let d = mDiv(dParent);
 	let val = lookup(Settings, skeys);
 	if (nundef(val)) val = init;
@@ -100,6 +141,8 @@ function setzeEineZahl(dParent, label, init, skeys) {
 	inp.keyList = skeys;
 }
 function setzeEineCheckbox(dParent, label, init, skeys) {
+	if (checkIfEmptyLine(dParent)) return;
+
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
 	let d = mDiv(dParent);
 	let val = lookup(Settings, skeys);
@@ -119,6 +162,7 @@ function setzeEineCheckbox(dParent, label, init, skeys) {
 	inp.keyList = skeys;
 }
 function setzeEinOptions(dParent, label, optionList, friendlyList, init, skeys) {
+	if (checkIfEmptyLine(dParent)) return;
 
 	// <input id='inputPicsPerLevel' class='input' type="number" value=1 />
 	let d = mDiv(dParent);
@@ -157,9 +201,9 @@ function updateComplexSettings() {
 
 
 }
-function updateSpeakmodeSettings(){
-	if (Settings.silentMode && Settings.spokenFeedback) Settings.spokenFeedback=false;
-	
+function updateSpeakmodeSettings() {
+	if (Settings.silentMode && Settings.spokenFeedback) Settings.spokenFeedback = false;
+
 }
 function updateKeySettings(nMin) {
 	//console.log(G,KeySets);
@@ -179,10 +223,5 @@ function updateLabelSettings() {
 }
 
 
-//#region helpers
-function mInputGroup(dParent, styles) {
-	let baseStyles = { display: 'inline-block', align: 'right', bg: '#00000080', rounding: 10, padding: 20, margin: 12 };
-	if (isdef(styles)) styles = deepmergeOverride(baseStyles, styles); else styles = baseStyles;
-	return mDiv(dParent, styles);
-}
+
 
