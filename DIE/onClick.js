@@ -49,6 +49,7 @@ function onClickGear() {
 	//console.log('opening settings: ui will be interrupted!!!')
 	openAux();
 	hide('dGear');
+	hide('dCalibrate');
 	createSettingsUi(dAux);
 }
 function onClickTemple() {
