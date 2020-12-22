@@ -44,7 +44,7 @@ function applyCssStyles(ui, params) {
 
 	} else {
 		//console.log('apply NOW',ui,params)
-		mStyle(ui, params);
+		mStyle(ui, params); //NEEDS TO STAY THAT WAY!!!!!!!!!!!!! TODO: replace by _mStyleX, but needs work
 	}
 }
 function asElem(x) { return isString(x) ? mBy(x) : x; }
@@ -476,7 +476,7 @@ function mColorX(d, bg, fg) {
 	[bg, fg] = getExtendedColors(bg, fg);
 	return mColor(d, bg, fg);
 }
-function mColor(d, bg, fg) { return mStyle(d, { 'background-color': bg, 'color': fg }); }
+function mColor(d, bg, fg) { return mStyleX(d, { 'background-color': bg, 'color': fg }); }
 function mRemove(elem) { mDestroy(elem); }
 //function onMouseEnter(d, handler = null) { d3.on('mouse') }
 function mFont(d, fz) { d.style.setProperty('font-size', makeUnitString(fz, 'px')); }

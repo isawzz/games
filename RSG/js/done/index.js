@@ -12,7 +12,7 @@ function presentDictTree(nDict, uidStart, area, treeProperty, R, lf, ls, lo, sty
 	for (let i = 0; i < depth; i++) {
 		let d1 = dLevel[i] = mDiv(d);
 		mColor(d1, colorTrans('black', i * .1));
-		if (isdef(styles)) mStyle(d1, styles);
+		if (isdef(styles)) mStyleX(d1, styles);
 	}
 
 	if (isEmpty(nDict)) return;
