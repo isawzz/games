@@ -3,7 +3,7 @@ class GTouchPic extends Game {
 	constructor(name) { super(name); }
 }
 class GTouchColors extends Game {
-	static SIMPLE_COLORS = ['red', 'green', 'yellow', 'blue'];
+	static SIMPLE_COLORS = ['orange', 'green', 'yellow', 'blue'];
 	constructor(name) { super(name); }
 	startLevel() {
 		// G.numColors = getGameOrLevelInfo('numColors', 2);
@@ -20,9 +20,23 @@ class GTouchColors extends Game {
 		setGoal(randomNumber(0, G.numPics * this.colors.length - 1));
 		Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
 
-		let spoken = `click the ${Goal.textShadowColor} ${Goal.label}`;
-		showInstruction(Goal.label, `click the <span style='color:${Goal.textShadowColor}'>${Goal.textShadowColor.toUpperCase()}</span>`,
+		let c = ColorDict[Goal.textShadowColor];
+		let cname = c[Settings.language];
+		let color = c.c;
+		//if (Settings.language == 'D' && cname!='rosa' && cname!='lila') cname+='e';
+		let art = Settings.language == 'E' ? 'the' : '';
+
+		let spoken = Settings.language == 'E' ? `click ${art} ${cname} ${Goal.label}`
+			: `click ${Goal.label} in ${cname}`;
+		// let written = Settings.language == 'E'?`click ${art} ${cname} ${Goal.label}`
+		//let spoken = `click ${art} ${cname} ${Goal.label}`;
+		if (Settings.language == 'E') {
+			showInstruction(Goal.label, `click ${art} <span style='color:${color}'>${cname.toUpperCase()}</span>`,
 			dTitle, true, spoken);
+		}else{
+			showInstruction('', `click ${art} <b>${Goal.label.toUpperCase()}</b> in <span style='color:${color}'>${cname.toUpperCase()}</span>`,
+			dTitle, true, spoken);
+		}
 		activateUi();
 	}
 	eval(ev) {
@@ -469,6 +483,7 @@ class GSteps extends Game {
 		this.contrast = lookupSet(GS, [this.name, 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
 	}
+
 	prompt() {
 		this.picList = [];
 		this.colors = undefined;
@@ -484,13 +499,15 @@ class GSteps extends Game {
 		for (let i = 0; i < G.numSteps; i++) {
 			let goal = Goal.pics[i];
 			goal.ordinal = '';
-			console.log(goal);
-			if (G.numRepeat > 1) { goal.ordinal = ordinal_suffix_of(goal.iRepeat); }
+			if (G.numRepeat > 1) { goal.ordinal = Settings.language == 'E' ? ordinal_suffix_of(goal.iRepeat) : '' + goal.iRepeat + '. '; }
+			// if (G.numRepeat > 1) { goal.ordinal = ordinal_suffix_of(goal.iRepeat); }
+			// if (G.numRepeat > 1) { goal.ordinal = '' + goal.iRepeat + '. '; }
+			// console.log(goal);
 
 			goal.colorName = '';
 			if (G.numColors > 1) {
 				let oColor = firstCond(this.colorList, x => x.color == goal.textShadowColor);
-				goal.colorName = oColor.name;
+				goal.colorName = Settings.language == 'E' ? oColor.name : GermanDict[oColor.name] + (oColor.name == 'pink' ? '' : 'e');
 			}
 
 			goal.correctionPhrase = (isdef(goal.ordinal) ? goal.ordinal : '') + ' '
@@ -504,14 +521,20 @@ class GSteps extends Game {
 			// console.log(goal.writtenInstructionSuffix)
 		}
 
+
+		let art = Settings.language == 'E' ? 'the' : '';//das';
+		let anfang = 'click';
+		let sAnfang = Settings.language == 'E' ? ' first ' + art + ' ' : ' zuerst ' + art + ' ';
+		let sWeiter = Settings.language == 'E' ? ' then ' + art + ' ' : ' dann ' + art + ' ';
+
 		let wInstruction = 'click: ' + Goal.pics[0].writtenInstruction;
-		let sInstruction = 'click first the ' + Goal.pics[0].writtenInstruction;
+		let sInstruction = anfang + sAnfang + Goal.pics[0].writtenInstruction;
 		for (const g of Goal.pics.slice(1)) {
 			wInstruction += ', ' + g.writtenInstruction;
-			sInstruction += ', then the ' + g.spokenInstruction;
+			sInstruction += ',' + sWeiter + g.spokenInstruction;
 		}
-		Goal.correctionPhrase = 'the ' + Goal.pics.map(x => x.correctionPhrase).join(', the ');
-		console.log(sInstruction)
+		Goal.correctionPhrase = art + ' ' + Goal.pics.map(x => x.correctionPhrase).join(', ' + art + ' ');
+		console.log(sInstruction);
 		showInstruction('', wInstruction, dTitle, true, sInstruction, 20);
 		activateUi();
 	}
@@ -541,7 +564,7 @@ class GSteps extends Game {
 	}
 	eval(isCorrect) {
 		console.log('eval', isCorrect);
-		console.log('picList',this.picList)
+		console.log('picList', this.picList)
 		Selected = { picList: this.picList, feedbackUI: this.picList.map(x => x.div), sz: getBounds(this.picList[0].div).height };
 		return isCorrect;
 	}
@@ -557,8 +580,8 @@ function getInstance(G) { return new (GAME[G.key].cl)(G.key); }
 
 const GAME = {
 	gTouchPic: { friendly: 'Pictures!', logo: 'computer mouse', color: 'deepskyblue', cl: GTouchPic, },
-	gTouchColors: { friendly: 'Colors!', logo: 'artist palette', color: RED, cl: GTouchColors, }, //'orange', //LIGHTBLUE, //'#bfef45',
-	gPremem: { friendly: 'Premem!', logo: 'hammer and wrench', color: LIGHTGREEN, cl: GPremem, }, //'deeppink',
+	gTouchColors: { friendly: 'Colors!', logo: 'artist palette', color: LIGHTGREEN, cl: GTouchColors, }, //'orange', //LIGHTBLUE, //'#bfef45',
+	gPremem: { friendly: 'Premem!', logo: 'hammer and wrench', color: RED, cl: GPremem, }, //'deeppink',
 	gMem: { friendly: 'Memory!', logo: 'memory', color: GREEN, cl: GMem, }, //'#3cb44b'
 	gMissingLetter: { friendly: 'Letters!', logo: 'black nib', color: 'gold', cl: GMissingLetter, },
 	gMissingNumber: { friendly: 'Sequence!', logo: 'fleur-de-lis', color: 'deeppink', cl: GMissingNumber, },
