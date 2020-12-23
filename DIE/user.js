@@ -137,13 +137,7 @@ function setGame(game, level) {
 	G = jsCopy(GAME[game]);
 	//console.log('_________setGame: color',G.color);
 
-	Settings = deepmergeOverride(DB.settings, U.settings);
-	GS = Settings.games;
-	delete Settings.games;
-	let gsSettings = lookup(U,['games',game,'settings']);
-	if (isdef(gsSettings)) 	Settings = deepmergeOverride(Settings,gsSettings);
-	lookupSetOverride(U,['games',game,'settings'],Settings);
-	updateComplexSettings(); 
+	initSettings(game);
 
 	let levels = lookup(GS, [game, 'levels']);
 	G.maxLevel = isdef(levels) ? Object.keys(levels).length - 1 : 0;

@@ -3,12 +3,19 @@ class GTouchPic extends Game {
 	constructor(name) { super(name); }
 }
 class GTouchColors extends Game {
-	static SIMPLE_COLORS = ['orange', 'green', 'yellow', 'blue'];
 	constructor(name) { super(name); }
 	startLevel() {
 		// G.numColors = getGameOrLevelInfo('numColors', 2);
 		// G.numLabels = G.numColors * G.numPics;
-		this.colorlist = lookupSet(GS, [this.name, 'colors'], GTouchColors.SIMPLE_COLORS);
+		this.colorlist = lookupSet(GS, [this.name, 'colors'], getGlobalColors());
+		this.byColor = {};
+		let gclist = dict2list(ColorDict);
+		console.log(gclist)
+		for(const c of this.colorlist){
+			let entry = firstCond(gclist,x=>x.E == c);
+			console.assert(entry!=null);
+			this.byColor[c]=entry;
+		}
 		this.contrast = lookupSet(GS, [this.name, 'contrast'], .35);
 		G.keys = G.keys.filter(x => containsColorWord(x));
 		//console.log('GTouchColors keys', G.keys);
@@ -16,6 +23,7 @@ class GTouchColors extends Game {
 	prompt() {
 		this.colors = choose(this.colorlist, G.numColors);
 		showPictures(evaluate, { colors: this.colors, contrast: this.contrast });
+		Pictures.map(x=>x.color=this.byColor[x.textShadowColor]);
 
 		setGoal(randomNumber(0, G.numPics * this.colors.length - 1));
 		Goal.correctionPhrase = Goal.textShadowColor + ' ' + Goal.label;
@@ -507,7 +515,7 @@ class GSteps extends Game {
 			goal.colorName = '';
 			if (G.numColors > 1) {
 				let oColor = firstCond(this.colorList, x => x.color == goal.textShadowColor);
-				goal.colorName = Settings.language == 'E' ? oColor.name : GermanDict[oColor.name] + (oColor.name == 'pink' ? '' : 'e');
+				goal.colorName = Settings.language == 'E' ? oColor.name : DD[oColor.name] + (oColor.name == 'pink' ? '' : 'e');
 			}
 
 			goal.correctionPhrase = (isdef(goal.ordinal) ? goal.ordinal : '') + ' '

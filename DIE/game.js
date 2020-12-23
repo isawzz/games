@@ -599,11 +599,16 @@ function getGameOrLevelInfo(k, defval) {
 	if (!val) val = lookupSet(GS, [G.key, k], defval);
 	return val;
 }
+function getGlobalColors(){return Object.keys(ColorDict).map(x=>x.E);}
 function resetRound() {
 	clearTimeout(TOMain);
 	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
 	clearFleetingMessage();
 	clearTable();
+}
+function resetScore() {
+	if (nundef(Score)) Score = {};
+	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
 }
 function resetState() {
 	clearTimeout(TOMain);
@@ -718,10 +723,6 @@ function showScore() {
 		}, 300);
 	}
 }
-function resetScore() {
-	if (nundef(Score)) Score = {};
-	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
-}
 function showStats() {
 
 	if (Score.levelChange) {
@@ -738,7 +739,8 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
-
+function translate(s){
+}
 
 
 

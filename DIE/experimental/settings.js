@@ -190,7 +190,7 @@ function setzeEinOptions(dParent, label, optionList, friendlyList, init, skeys) 
 
 
 //#region update Settings after ui change
-function updateComplexSettings() {
+function updateSettings() {
 
 	updateLabelSettings();
 	updateTimeSettings();

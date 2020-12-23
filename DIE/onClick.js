@@ -25,7 +25,7 @@ function closeAux() {
 	show('dGear');
 	show('dTemple');
 	if (SettingsChanged) {
-		updateComplexSettings();
+		updateSettings();
 		saveSIMA();
 	}
 	SettingsChanged = false;
