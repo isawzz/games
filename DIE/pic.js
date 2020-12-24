@@ -1,7 +1,8 @@
-function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colors, contrast, repeat = 1,
+function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
 	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+
 	//keys=['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
 	//#region experimental code not activated yet!!!
@@ -9,7 +10,7 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	// let sPic = {}; if (isdef(contrast)) sPic.contrast = contrast;
 	// let sText = { fz: fz };
 	// Pictures = maShowPicturesX3(keys, labels, dTable, onClickPictureHandler,
-	// 	{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colors: colors, textColor: textColor },
+	// 	{ showRepeat: showRepeat, bgs: bgs, repeat: repeat, sameBackground: sameBackground, lang: Settings.language, colorKeys: colorKeys, textColor: textColor },
 	// 	//	{ sCont: sCont, sPic: sPic, sText: sText });
 	// 	{ sCont: { w: 200, h: 200, padding: 10, align: 'center' }, sPic: { contrast: .3 }, sText: { fz: 20 } });
 	// //use this in case of broken!!!!	
@@ -18,7 +19,7 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 		{
 			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
-			lang: Settings.language, colors: colors, contrast: contrast
+			lang: Settings.language, colorKeys: colorKeys, contrast: contrast
 		});
 
 	

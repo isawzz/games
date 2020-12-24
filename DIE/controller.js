@@ -22,13 +22,13 @@ function startLevel() {
 
 	Speech.setLanguage(Settings.language);
 
-	let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1, trials: Settings.trials };
-	for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
-
-	if (G.numLabels < 0) G.numLabels = G.numPics * G.numRepeat * G.numColors;
+	getGameValues(USERNAME, G.key, G.level);
+	// let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1, trials: Settings.trials };
+	// for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
+	// if (G.numLabels < 0) G.numLabels = G.numPics * G.numRepeat * G.numColors;
 
 	G.instance.startLevel();
-
+	//keys are supposedly set in each game!
 	if (G.keys.length < G.numPics) {
 		//console.log('extending key set!!!!');
 		updateKeySettings(G.numPics + 5);

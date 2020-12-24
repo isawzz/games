@@ -102,7 +102,7 @@ function updateSettings() {
 	//welche settings kommen wohin?
 	for (const k in SettingTypesCommon) {
 		if (SettingTypesCommon[k]) {
-			console.log('should be set for all games:',k,Settings[k]);
+			//console.log('should be set for all games:',k,Settings[k]);
 
 			lookupSetOverride(U,['settings',k],Settings[k]);
 

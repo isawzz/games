@@ -594,12 +594,69 @@ function containsColorWord(s) {
 	}
 	return true;
 }
+function getGameValues(user, game, level) {
+	let di = { numColors: 1, numRepeat: 1, numPics: 1, numSteps: 1, trials: Settings.trials, colors: ColorList }; // general defaults
+	di = deepmergeOverride(di, lookup(GS, [game])); //das ist die entry in settings.yaml
+	let levelInfo = lookup(di, ['levels', level]); //das sind specific values for this level
+	if (isdef(levelInfo)) { di = deepmergeOverride(di, levelInfo); }
+	if (nundef(di.numLabels)) di.numLabels = di.numPics * di.numRepeat * di.numColors;
+	delete di.levels;
+	copyKeys(di, G);
+	//console.log('di', di, '\nlevelInfo', levelInfo, '\nG', G);
+
+}
 function getGameOrLevelInfo(k, defval) {
 	let val = lookup(GS, [G.key, 'levels', G.level, k]);
 	if (!val) val = lookupSet(GS, [G.key, k], defval);
 	return val;
 }
-function getGlobalColors(){return Object.keys(ColorDict).map(x=>x.E);}
+
+function getGlobalColors() { return Object.keys(ColorDict).map(x => x.E); }
+function getOrdinal(i) { return G.numRepeat == 1 ? '' : Settings.language == 'E' ? ordinal_suffix_of(i) : '' + i + '. '; }
+function getColorLabelInstruction(cmd, color, label) {
+	if (nundef(color)) color = Goal.color;
+	let colorWord = color[Settings.language];
+	let colorSpan = `<span style='color:${color.c}'>${colorWord.toUpperCase()}</span>`;
+	if (nundef(label)) label = Goal.label;
+	let labelSpan = `<b>${label.toUpperCase()}</b>`;
+	let eCommand, dCommand;
+	switch (cmd) {
+		case 'click': eCommand = cmd + ' the'; dCommand = cmd; break
+		case 'then': eCommand = cmd + ' the'; dCommand = 'dann'; break
+	}
+	let eInstr = `${eCommand} ${colorWord} ${label}`;
+	let dInstr = `${dCommand} ${label} in ${colorWord}`;
+	let spoken = Settings.language == 'E' ? eInstr : dInstr;
+	let written = spoken.replace(colorWord, colorSpan).replace(label, labelSpan);
+	console.log('spoken', spoken, 'written', written);
+	return [written, spoken];
+}
+function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
+	if (nundef(ordinal)) ordinal = getOrdinal(Goal.iRepeat);
+	if (nundef(color)) color = Goal.color;
+
+	let colorWord = '', colorSpan = '';
+	if (isdef(color)) {
+		colorWord = isdef(color) ? color[Settings.language] : '';
+		if (!isEmpty(ordinal) && !['lila','rosa'].includes(colorWord)) colorWord+='e';
+		colorSpan = `<span style='color:${color.c}'>${colorWord.toUpperCase()}</span>`;
+	}
+
+	if (nundef(label)) label = Goal.label;
+	let labelSpan = `<b>${label.toUpperCase()}</b>`;
+	let eCommand, dCommand;
+	switch (cmd) {
+		case 'click': eCommand = cmd + ' the'; dCommand = cmd; break
+		case 'then': eCommand = cmd + ' the'; dCommand = 'dann'; break
+	}
+	let eInstr = `${eCommand} ${ordinal} ${colorWord} ${label}`;
+	let dInstr = ordinal==''? `${dCommand} ${label} ${colorWord==''?'': 'in '+colorWord}`
+	: `${dCommand} ${ordinal} ${colorWord} ${label}`;
+	let spoken = Settings.language == 'E' ? eInstr : dInstr;
+	let written = spoken.replace(colorWord, colorSpan).replace(label, labelSpan);
+	//console.log('spoken', spoken, 'written', written);
+	return [written, spoken];
+}
 function resetRound() {
 	clearTimeout(TOMain);
 	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
@@ -695,6 +752,28 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	sayRandomVoice(isdef(spoken) ? spoken : (cmd + " " + text));
 
 }
+function showInstructionX(written, dParent, spoken, fz) {
+	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
+	//console.log('G.key is', G.key)
+	clearElement(dParent);
+	let d = mDiv(dParent);
+	mStyleX(d, { margin: 15 })
+	mClass(d, 'flexWrap');
+
+	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
+	if (nundef(fz)) fz = 36;
+	let d1 = mText(written, d, { fz: fz, display: 'inline-block' });
+	let sym = symbolDict.speaker;
+	let d2 = mText(sym.text, d, {
+		fz: fz + 2, weight: 900, display: 'inline-block',
+		family: sym.family, 'padding-left': 14
+	});
+	dFeedback = dInstruction = d;
+
+	dInstruction.addEventListener('click', () => aniInstruction(spoken));
+	if (isdef(spoken)) sayRandomVoice(spoken);
+
+}
 function showHiddenThumbsUpDown(styles) {
 	styles.bgs = ['transparent', 'transparent'];
 	showPictures(null, styles, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
@@ -739,8 +818,33 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
-function translate(s){
+function translate(s) {
 }
+
+
+function buildSentence(ecmd, ecolor, elabel) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

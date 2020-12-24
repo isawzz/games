@@ -1,6 +1,6 @@
 //#region november 2020
 function maShowPictures(keys, labels, dParent, onClickPictureHandler,
-	{ showRepeat, container, lang, border, picSize, bgs, colors, contrast, repeat = 1,
+	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
 		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	let pics = [];
 
@@ -15,7 +15,7 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	for (let i = 0; i < keys.length; i++) {
 		let k = keys[i];
 		let info = isdef(lang) ? getRandomSetItem(lang, k) : symbolDict[k];
-		let bg = isList(bgs) ? bgs[i] : isdef(colors) ? 'white' : sameBackground ? computeColor('random') : 'random';
+		let bg = isList(bgs) ? bgs[i] : isdef(colorKeys) ? 'white' : sameBackground ? computeColor('random') : 'random';
 		let label = isList(labels) ? labels[i] : isdef(lang) ? info.best : k;
 		items.push({ key: k, info: info, label: label, bg: bg, iRepeat: 1 });
 	}
@@ -52,7 +52,7 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	//console.log('after shuffling items',jsCopy(items))
 
 
-	let lines = isdef(colors) ? colors.length : 1;
+	let lines = isdef(colorKeys) ? colorKeys.length : 1;
 	let [pictureSize, picsPerLine] = calcDimsAndSize(numPics, lines, container);
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 
@@ -67,8 +67,9 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	let labelRepeat = {};
 
 	for (let line = 0; line < lines; line++) {
-		let textShadowColor;
-		if (isdef(colors)) { textShadowColor = colors[line]; labelRepeat = {}; }
+		let textShadowColor,colorKey;
+
+		if (isdef(colorKeys)) { colorKey=colorKeys[line];textShadowColor = ColorDict[colorKey].c; labelRepeat = {}; }
 
 		for (let i = 0; i < numPics; i++) {
 			let item = items[i];
@@ -91,7 +92,7 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 			//addRowColInfo(d1,line,i,pictureSize);
 			if (showRepeat) addRepeatInfo(d1, iRepeat, pictureSize);
 			pics.push({
-				textShadowColor: textShadowColor, key: info.key, info: info, bg: bg, div: d1, id: id,
+				textShadowColor: textShadowColor, color:ColorDict[colorKey], colorKey:colorKey, key: info.key, info: info, bg: bg, div: d1, id: id,
 				index: ipic, row: line, col: i, iRepeat: iRepeat, label: label, isLabelVisible: true, isSelected: false
 			});
 		}

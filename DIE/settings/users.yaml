@@ -1,8 +1,8 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
-  lastGame: gTouchColors
-  lastLevel: 0
+  lastGame: gSteps
+  lastLevel: 5
   settings:
     # settings common to all games
     samplesPerLevel: 25
@@ -14,7 +14,7 @@ nil:
     vocab: best100
     showTime: true
     spokenFeedback: false
-    silentMode: true
+    silentMode: false
     switchGame: true
     #indiv game settings default
     trials:  1

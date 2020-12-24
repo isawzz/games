@@ -28,7 +28,7 @@ var symKeysByGroupSub;
 //#endregion
 
 //#region color constants
-const LIGHTGREEN = '#bfef45';
+const LIGHTGREEN = '#afff45'; //'#bfef45';
 const LIGHTBLUE = '#42d4f4';
 const YELLOW = '#ffe119';
 const RED = '#e6194B';
@@ -40,6 +40,36 @@ const TEAL = '#469990';
 const ORANGE = '#f58231';
 const FIREBRICK = '#800000';
 const OLIVE = '#808000';
+
+const ColorList = ['lightgreen', 'lightblue', 'yellow', 'red', 'green', 'blue', 'purple', 'violet', 'lightyellow',
+	'teal', 'orange', 'brown', 'olive', 'deepskyblue', 'deeppink', 'gold', 'black', 'white', 'grey'];
+const ColorDict = {
+	lightgreen: { c: LIGHTGREEN, E: 'lightgreen', D: 'hellgrün' },
+	lightblue: { c: LIGHTBLUE, E: 'lightblue', D: 'hellblau' },
+	yellow: { c: 'yellow', E: 'yellow', D: 'gelb' },
+	red: { c: 'red', E: 'red', D: 'rot' },
+	green: { c: 'green', E: 'green', D: 'grün' },
+	blue: { c: 'blue', E: 'blue', D: 'blau' },
+	yellow1: { c: YELLOW, E: 'yellow', D: 'gelb' },
+	red1: { c: RED, E: 'red', D: 'rot' },
+	green1: { c: GREEN, E: 'green', D: 'grün' },
+	blue1: { c: BLUE, E: 'blue', D: 'blau' },
+	purple: { c: PURPLE, E: 'purple', D: 'lila' },
+	violet: { c: 'indigo', E: 'violet', D: 'violett' },
+	lightyellow: { c: YELLOW2, E: 'lightyellow', D: 'gelb' },
+	teal: { c: TEAL, E: 'teal', D: 'blaugrün' },
+	orange: { c: ORANGE, E: 'orange', D: 'orange' },
+	brown: { c: FIREBRICK, E: 'brown', D: 'rotbraun' },
+	olive: { c: OLIVE, E: 'olive', D: 'oliv' },
+	skyblue: { c: 'deepskyblue', E: 'skyblue', D: 'himmelblau' },
+	pink: { c: 'deeppink', E: 'pink', D: 'rosa' },
+	gold: { c: 'gold', E: 'gold', D: 'golden' },
+	black: { c: 'black', E: 'black', D: 'schwarz' },
+	white: { c: 'white', E: 'white', D: 'weiss' },
+	grey: { c: 'grey', E: 'grey', D: 'grau' },
+};
+
+
 //#endregion
 
 //#region audio
@@ -447,10 +477,10 @@ async function loadBestKeys() {
 	for (const setname in BestKeySets) {
 		for (const k of BestKeySets[setname]) {
 			let info = symbolDict[k];
-			if (nundef(info.bestE)) info.bestE = lastOfLanguage(k,'E');
-			if (nundef(info.bestD)) info.bestD = lastOfLanguage(k,'D');
+			if (nundef(info.bestE)) info.bestE = lastOfLanguage(k, 'E');
+			if (nundef(info.bestD)) info.bestD = lastOfLanguage(k, 'D');
 			//console.log(info)
-			info[setname] = {E:info.bestE, D:info.bestD};
+			info[setname] = { E: info.bestE, D: info.bestD };
 		}
 	}
 	// for(const k of BestKeySets.best50){

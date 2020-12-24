@@ -21,22 +21,6 @@ const DD = {
 	say:'sage',write:'schreibe',complete:'ergänze',
 };
 
-const ColorDict = {
-	lgreen: { c: LIGHTGREEN, E: 'lightgreen', D: 'hellgrün' },
-	lblue: { c: LIGHTBLUE, E: 'lightblue', D: 'hellblau' },
-	yellow: { c: YELLOW, E: 'yellow', D: 'gelb' },
-	orange: { c: ORANGE, E: 'orange', D: 'orange' },
-	red: { c: RED, E: 'red', D: 'rot' },
-	green: { c: GREEN, E: 'green', D: 'grün' },
-	blue: { c: BLUE, E: 'blue', D: 'blau' },
-	purple: { c: PURPLE, E: 'purple', D: 'lila' },
-	// yellow2: { c: YELLOW2, E: 'yellow', D: 'gelb' },
-	skyblue: { c: 'deepskyblue', E: 'skyblue', D: 'himmelblau' },
-	pink: { c: 'deeppink', E: 'pink', D: 'rosa' },
-	teal: { c: 'teal', E: 'teal', D: 'blaugrün' },
-	gold: { c: 'gold', E: 'gold', D: 'golden' },
-};
-
 
 
 
