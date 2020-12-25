@@ -157,7 +157,7 @@ function createNumberSequence(n, min, max, step, op = 'add') {
 	return [wi.words, wi.letters, seq];
 }
 function setNumberSequenceGoal() {
-	let blank = blankWordInputs(G.words, G.numMissingLetters, G.posMissing);
+	let blank = blankWordInputs(G.words, G.numMissing, G.posMissing);
 
 	Goal = { seq: G.seq, words: G.words, chars: G.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
 	Goal.qCharIndices = Goal.blankChars.map(x => x.index);
@@ -176,7 +176,7 @@ function setGoalWordInputs(n, min, max, step, op = 'add') {
 	if (min >= (max - 10)) max = min + 10;
 	let seq = getRandomNumberSequence(n, min, max, fBuild);
 	let wi = createWordInputs(seq, dTable, 'dNums');
-	let blank = blankWordInputs(wi.words, G.numMissingLetters, G.posMissing);
+	let blank = blankWordInputs(wi.words, G.numMissing, G.posMissing);
 
 	Goal = { seq: seq, words: wi.words, chars: wi.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
 	Goal.qCharIndices = Goal.blankChars.map(x => x.index);
@@ -199,12 +199,16 @@ function blankWordInputs(wi, n, pos = 'random') {
 			: pos == 'notStart' ? arrTake(wi.slice(1, wi.length - 1), n)
 				: pos == 'start' ? arrTake(wi, n)
 					: takeFromTo(wi, wi.length - n, wi.length);
+
 	for (const el of remels) {
 		for (const inp of el.charInputs) { unfillCharInput(inp); }
 		indivInputs = indivInputs.concat(el.charInputs);
 		el.hasBlanks = true;
 		el.nMissing = el.charInputs.length;
 		if (n > 1) el.div.onclick = onClickWordInput;
+
+		//console.log('.....remel',el.hasBlanks)
+		//console.log('.....word',wi[el.iWord].hasBlanks)
 	}
 
 	return { iFocus: null, words: remels, letters: indivInputs };
@@ -314,6 +318,96 @@ function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 //#region number sequence (is a wordInput!)
 function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
 function getShortNumSeqHint() { let msg = `${G.op} ${G.step}`; return msg; }
+function getNumSeqHintString(i) {
+	//console.log('i', i, 'trial#', G.trialNumber)
+	let cmd = G.op;
+	let m = G.step;
+	let lst;
+	if (i == 0) {
+		lst = [cmd, m];
+	} else if (i == 1) {
+		let decl = G.op == 'add' ? 'to' : G.op == 'subtract' ? 'from' : 'by';
+		let phrase = decl + ' the previous number';
+		lst = [cmd, m, phrase];
+	} else if (i == 2) {
+		//console.log('YYYYYYYYYYYYYYYY')
+		let iBlank = getNextIndexOfMissingNumber();
+		let iPrevious = iBlank - 1;
+		let n = G.seq[iPrevious];
+		//console.log('==>', iBlank, iPrevious, n, G)
+		lst = ['the previous number', 'is', n];
+	} else if (i == 3) {
+		let iBlank = getNextIndexOfMissingNumber();
+		let iPrevious = iBlank - 1;
+		let n = G.seq[iPrevious];
+		let op = cmd == 'add' ? 'plus' : cmd == 'subtract' ? 'minus' : cmd == 'multiply' ? 'times' : 'divided by';
+		lst = ['', n, op, m, 'equals','?'];
+	} else {
+		//lst = [cmd, m];
+		let iBlank = getNextIndexOfMissingNumber();
+		lst=['enter',Goal.words[iBlank].word];
+	}
+	if (Settings.language == 'D') lst = lst.map(x => translateToGerman(x));
+	return lst.join(' ');
+}
+function getNextIndexOfMissingNumber(iStart = 0) {
+	//console.log('HAAAAAA', G.numMissing, iStart, Goal)
+	for (let i = iStart; i < G.seq.length; i++) {
+		//console.log(Goal.words[i])
+		if (Goal.words[i].hasBlanks) return i;
+	}
+	return null;
+}
+
+function recShowHints(ilist,rc,delay=3000,fProgression=d=>d*1.5){
+	if (isEmpty(ilist) || QuestionCounter != rc) return;
+	let i=ilist.shift();
+	// console.log('enlisting hint',i,ilist);
+	TOTrial = setTimeout(()=>recShowHintsNext(i,ilist,rc,fProgression(delay),fProgression),delay);
+}
+function recShowHintsNext(i,ilist,rc,delay,fProgression) {
+	console.log('showing hint #',i, 'trial#',G.trialNumber);
+	let spoken = getNumSeqHintString(i);
+	let written = spoken;
+	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
+	if (written) showFleetingMessage(written, 0, { fz: 40 });
+	if (QuestionCounter == rc) recShowHints(ilist,rc,delay,fProgression);
+	//if (i==0){setTimeout(()=>showNumSeqHint(10),6000);}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function showNumSeqHint(i,ms=0) {
+	let spoken = getNumSeqHintString(i);
+	let written = spoken;
+	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
+	if (written) showFleetingMessage(written, 0, { fz: 40 });
+
+	//if (i==0){setTimeout(()=>showNumSeqHint(10),6000);}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 function shortNumSeqHint(written = true, spoken = true, ms = 2400) {
 	let msg = getShortNumSeqHint();
 	if (spoken) setTimeout(() => sayRandomVoice(msg), ms);
@@ -343,6 +437,11 @@ function numberSequenceCorrectionAnimation() {
 	TOList.numseq = [t1, t2, t4];//, t3, t4];//, t4];
 
 	return 2800;
+}
+function translateToGerman(w) {
+	if (isNumber(w)) return w;
+	else if (isdef(DD[w])) return DD[w];
+	else return w;
 }
 function missingNumbersMessage() {
 	//console.log('this', this)
@@ -638,7 +737,7 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	let colorWord = '', colorSpan = '';
 	if (isdef(color)) {
 		colorWord = isdef(color) ? color[Settings.language] : '';
-		if (!isEmpty(ordinal) && !['lila','rosa'].includes(colorWord)) colorWord+='e';
+		if (!isEmpty(ordinal) && !['lila', 'rosa'].includes(colorWord)) colorWord += 'e';
 		colorSpan = `<span style='color:${color.c}'>${colorWord.toUpperCase()}</span>`;
 	}
 
@@ -650,15 +749,15 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 		case 'then': eCommand = cmd + ' the'; dCommand = 'dann'; break
 	}
 	let eInstr = `${eCommand} ${ordinal} ${colorWord} ${label}`;
-	let dInstr = ordinal==''? `${dCommand} ${label} ${colorWord==''?'': 'in '+colorWord}`
-	: `${dCommand} ${ordinal} ${colorWord} ${label}`;
+	let dInstr = ordinal == '' ? `${dCommand} ${label} ${colorWord == '' ? '' : 'in ' + colorWord}`
+		: `${dCommand} ${ordinal} ${colorWord} ${label}`;
 	let spoken = Settings.language == 'E' ? eInstr : dInstr;
 	let written = spoken.replace(colorWord, colorSpan).replace(label, labelSpan);
 	//console.log('spoken', spoken, 'written', written);
 	return [written, spoken];
 }
 function resetRound() {
-	clearTimeout(TOMain);
+	clearTimeout(TOMain);clearTimeout(TOTrial);
 	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
 	clearFleetingMessage();
 	clearTable();

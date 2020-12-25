@@ -23,7 +23,7 @@ async function _start() {
 	KeySets = getKeySets();
 	//console.log(KeySets)
 
-	loadUser(); //sets G,U,GS,Settings
+	if (IS_TESTING)	loadUser('nil'); else loadUser();
 	console.assert(isdef(G))
 
 	//test03_maShowPictures(); return;
@@ -36,6 +36,7 @@ function startUnit() {
 	if (nundef(U.session)) U.session = {};
 	//console.log('---_startUnit: session', U.session);
 
+	// console.log('ha'); return;
 	//onClickTemple(); return;
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 	//show('freezer2')

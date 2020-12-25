@@ -1,5 +1,6 @@
 const SHOW_FREEZER = false; // !IS_TESTING;
 const CLEAR_LOCAL_STORAGE = false;
+var QuestionCounter = 0;
 
 //reserved names: dName for div with id dName (dName = mBy('dName'))
 
@@ -13,11 +14,13 @@ var levelKeys = ['island', 'justice star', 'materials science', 'mayan pyramid',
 const DD = {
 	yellow: 'gelb', green: 'grün', blue: 'blau', red: 'rot', pink: 'rosa', orange: 'orange', black: 'schwarz',
 	white: 'weiss', violet: 'violett', '1st': 'erste', '2nd': 'zweite', '3rd': 'dritte', '4th': 'vierte', '5th': 'fünfte',
-	add:'addiere',subtract:'subtrahiere',multiply:'mutipliziere',plus:'plus',minus:'minus',times:'mal','divided by':'dividiert durch',
+	add:'addiere',subtract:'subtrahiere',multiply:'mutipliziere',plus:'plus',minus:'minus',times:'mal',
+	'divided by':'dividiert durch',
 	'to the previous number':'zur vorhergehenden zahl',
 	'from the previous number':'von der vorhergehenden zahl',
 	'multiply the previous number by':'multipliziere die vorhergehende zahl mit',
 	'divide the previous number by':'dividiere die vorhergehende zahl durch',
+	'the previous number':'die vorhergehende zahl',is:'ist',what:'was',equals:'ist gleich',
 	say:'sage',write:'schreibe',complete:'ergänze',
 };
 

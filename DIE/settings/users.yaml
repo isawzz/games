@@ -1,16 +1,16 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
-  lastGame: gSteps
-  lastLevel: 5
+  lastGame: gMissingNumber
+  lastLevel: 0
   settings:
     # settings common to all games
     samplesPerLevel: 25
     minutesPerUnit: 1
-    incrementLevelOnPositiveStreak: 2
+    incrementLevelOnPositiveStreak: 12
     decrementLevelOnNegativeStreak: 3
     showLabels: toggle #always never toggle (=remove labels after half level)
-    language: D
+    language: E
     vocab: best100
     showTime: true
     spokenFeedback: false
@@ -19,11 +19,7 @@ nil:
     #indiv game settings default
     trials:  1
     showHint: true
-
-    # the following not yet in UI
-    # activity animal body drink emotion food fruit game gesture kitchen 
-    # object person place plant role sport time transport vegetable 
-    # nosymemo nosymbols
+    # activity animal body drink emotion food fruit game gesture kitchen object person place plant role sport time transport vegetable nosymemo nosymbols
     categories: [nosymemo]
     pressControlToUnfreeze: false
     reducedAnimations: true

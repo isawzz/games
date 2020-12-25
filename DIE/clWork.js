@@ -32,65 +32,247 @@ class Game {
 	}
 }
 
-class GSteps extends Game {
+class GMissingNumber extends Game {
 	constructor(name) { super(name); }
-	startGame() { G.correctionFunc = showCorrectWords; }
-	startLevel() {
-		G.keys = G.keys.filter(x => containsColorWord(x));
+	startGame() {
+		G.successFunc = successThumbsUp;
+		G.failFunc = failThumbsDown;
+		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
+	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
+	startLevel() {
+		//G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
+		//G.minNum = getGameOrLevelInfo('min', 0);
+		//G.maxNum = getGameOrLevelInfo('max', 20);
+		//G.posMissing = getGameOrLevelInfo('posMissing', 'consec');
+		//G.steps = getGameOrLevelInfo('steps', 1);
+		if (!isList(G.steps)) G.steps = [G.steps];
+		//G.ops = getGameOrLevelInfo('ops', ['add']);
+		//G.seqLen = getGameOrLevelInfo('seqLen', 5);
+		G.numPics = 2;
+		G.numLabels = 0;
 
+		console.log(G)
+	}
 	prompt() {
-		this.picList = [];
-		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
-		let showRepeat = G.numRepeat > 1;
+		mLinebreak(dTable, 12);
 
-		showPictures(this.interact.bind(this), { showRepeat: showRepeat, colorKeys: colorKeys, contrast: G.contrast, repeat: G.numRepeat });
+		showHiddenThumbsUpDown({ sz: 140 });
+		mLinebreak(dTable);
 
-		setMultiGoal(G.numSteps);
-		// console.log(Goal)
+		G.step = chooseRandom(G.steps);
+		G.op = chooseRandom(G.ops);
+		[G.words, G.letters, G.seq] = createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
+		setNumberSequenceGoal();
+		//console.log(G)
 
-		let cmd = 'click';
-		let spoken = [], written = [];
-		for (let i = 0; i < G.numSteps; i++) {
-			let goal = Goal.pics[i];
-			let sOrdinal = getOrdinal(goal.iRepeat);
-			[written[i], spoken[i]] = getOrdinalColorLabelInstruction(cmd, sOrdinal, goal.color, goal.label);
-			cmd = 'then';
-		}
-		// console.log('written', written, '\nspoken', spoken);
-		showInstructionX(written.join('; '), dTitle, spoken.join('. '), 20);
+		mLinebreak(dTable);
+
+		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
+		showInstruction('', instr1, dTitle, true);
+
+		if (Settings.showHint && !calibrating()) recShowHints([0,1,2,3,4],QuestionCounter); //showNumSeqHint(G.trialNumber);
+		// if (Settings.isTutoring) { longNumSeqHint(); }
+		// else if (G.level <= 1) { longNumSeqHint(); }
+		// else if (G.level <= 3) { mediumNumSeqHint(); }
+		// else if (G.level <= 5) { shortNumSeqHint(); }
+		// else if (G.level <= 7) { shortNumSeqHint(true, false); }
 
 		activateUi();
 	}
 	trialPrompt() {
-		for (const p of this.picList) { toggleSelectionOfPicture(p); }
-		this.picList = [];
-		sayTryAgain();
+		if (Settings.showHint && !calibrating()) recShowHints(range(G.trialNumber,4),QuestionCounter); //showNumSeqHint(G.trialNumber);
+		// sayTryAgain();
+		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
+		// if (!calibrating() && Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
 		return 10;
 	}
+	activate() { onkeypress = this.interact; }
 	interact(ev) {
-		ev.cancelBubble = true;
+		//console.log('key!');
+		clearFleetingMessage();
 		if (!canAct()) return;
 
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
-		let div = pic.div;
-		//if (!isEmpty(this.picList) && this.picList.length < G.numSteps - 1 && this.picList[0].label != pic.label) return;
-		toggleSelectionOfPicture(pic, this.picList);
-		console.log('clicked pic', pic.index, this.picList);//,picList, GPremem.PicList);
-		if (isEmpty(this.picList)) return;
-		//return;
-		let iGoal = this.picList.length - 1;
-		console.log('iGoal', iGoal, Goal.pics[iGoal], 'i', i, pic)
-		if (pic != Goal.pics[iGoal]) { Selected = { pics: this.picList, wrong: pic, correct: Goal[iGoal] }; evaluate(false); }
-		else if (this.picList.length == Goal.pics.length) { Selected = { picList: this.picList }; evaluate(true); }
+		let sel = Selected = onKeyWordInput(ev);
+		if (nundef(sel)) return;
+		//console.log('===>', sel);
+
+		//target,isMatch,isLastOfGroup,isVeryLast,ch
+		let lastInputCharFilled = sel.target;
+		console.assert(sel.isMatch == (lastInputCharFilled.letter == sel.ch), lastInputCharFilled, sel.ch);
+
+		//all cases aufschreiben und ueberlegen was passieren soll!
+		//TODO: multiple groups does NOT work!!!
+		if (sel.isMatch && sel.isVeryLast) {
+			deactivateFocusGroup();
+			evaluate(true);
+		} else if (sel.isMatch && sel.isLastOfGroup) {
+			//it has been filled
+			//remove this group from Goal.blankWords
+			sel.target.isBlank = false;
+			sel.target.group.hasBlanks = false;
+			removeInPlace(Goal.blankWords, sel.target.group);
+			removeInPlace(Goal.blankChars, sel.target);
+			deactivateFocusGroup();
+			console.log('haaaaaaaaaaaalo', Goal.isFocus)
+			//console.log('=>', Goal)
+		} else if (sel.isMatch) {
+			//a partial match
+			removeInPlace(Goal.blankChars, sel.target);
+			sel.target.isBlank = false;
+		} else if (sel.isVeryLast) {
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			//console.log('LAST ONE WRONG!!!')
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else if (sel.isLastOfGroup) {
+			//unfill last group
+
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else {
+			if (!Settings.silentMode) playSound('incorrect1');
+			deactivateFocusGroup();
+			//unfillCharInput(Selected.target);
+			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });
+			setTimeout(() => unfillCharInput(Selected.target), 500);
+		}
+		//
 	}
-	eval(isCorrect) {
-		console.log('eval', isCorrect);
-		console.log('picList', this.picList)
-		Selected = { picList: this.picList, feedbackUI: this.picList.map(x => x.div), sz: getBounds(this.picList[0].div).height };
-		return isCorrect;
-	}
+
+	eval(isCorrect) { return isCorrect; }
+
 }
+
+// class GMissingNumber extends Game {
+// 	constructor(name) { super(name); }
+// 	startGame() {
+// 		console.log('haaaaaaaa')
+// 		G.successFunc = successThumbsUp;
+// 		G.failFunc = failThumbsDown;
+// 		G.correctionFunc = this.showCorrectSequence.bind(this);
+// 	}
+// 	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
+// 	startLevel() {
+
+// 		G.numMissing = getGameOrLevelInfo('numMissing', 1);
+// 		G.min = getGameOrLevelInfo('min', 0);
+// 		G.max = getGameOrLevelInfo('max', 20);
+// 		G.posMissing = getGameOrLevelInfo('posMissing', 'consec');
+// 		G.steps = getGameOrLevelInfo('steps', 1);
+// 		if (!isList(G.steps)) G.steps = [G.steps];
+// 		G.ops = getGameOrLevelInfo('ops', ['add']);
+// 		G.numPics = 2;
+// 		G.numLabels = 0;
+// 		console.log(G)
+// 		console.assert(false);
+// 	}
+// 	prompt() {
+// 		mLinebreak(dTable, 12);
+
+// 		showHiddenThumbsUpDown({ sz: 140 });
+// 		mLinebreak(dTable);
+
+// 		G.step = chooseRandom(G.steps);
+// 		G.op = chooseRandom(G.ops);
+// 		[G.words, G.letters, G.seq] = createNumberSequence(G.length, G.min, G.max, G.step, G.op);
+// 		setNumberSequenceGoal();
+// 		//console.log(G)
+// 		//G.seq = setGoalWordInputs(G.length, G.min, G.max, G.step, G.op);
+
+// 		mLinebreak(dTable);
+
+// 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
+// 		showInstruction('', instr1, dTitle, true);
+
+// 		if (calibrating()) { activateUi(); return; }
+
+// 		if (Settings.isTutoring) { longNumSeqHint(); }
+// 		else if (G.level <= 1) { longNumSeqHint(); }
+// 		else if (G.level <= 3) { mediumNumSeqHint(); }
+// 		else if (G.level <= 5) { shortNumSeqHint(); }
+// 		else if (G.level <= 7) { shortNumSeqHint(true, false); }
+
+// 		activateUi();
+// 	}
+// 	trialPrompt() {
+// 		sayTryAgain();
+// 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
+// 		if (!calibrating() && Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
+// 		return 10;
+// 	}
+// 	activate() { onkeypress = this.interact; }
+// 	interact(ev) {
+// 		//console.log('key!');
+// 		clearFleetingMessage();
+// 		if (!canAct()) return;
+
+// 		let sel = Selected = onKeyWordInput(ev);
+// 		if (nundef(sel)) return;
+// 		//console.log('===>', sel);
+
+// 		//target,isMatch,isLastOfGroup,isVeryLast,ch
+// 		let lastInputCharFilled = sel.target;
+// 		console.assert(sel.isMatch == (lastInputCharFilled.letter == sel.ch), lastInputCharFilled, sel.ch);
+
+// 		//all cases aufschreiben und ueberlegen was passieren soll!
+// 		//TODO: multiple groups does NOT work!!!
+// 		if (sel.isMatch && sel.isVeryLast) {
+// 			deactivateFocusGroup();
+// 			evaluate(true);
+// 		} else if (sel.isMatch && sel.isLastOfGroup) {
+// 			//it has been filled
+// 			//remove this group from Goal.blankWords
+// 			sel.target.isBlank = false;
+// 			sel.target.group.hasBlanks = false;
+// 			removeInPlace(Goal.blankWords, sel.target.group);
+// 			removeInPlace(Goal.blankChars, sel.target);
+// 			deactivateFocusGroup();
+// 			console.log('haaaaaaaaaaaalo', Goal.isFocus)
+// 			//console.log('=>', Goal)
+// 		} else if (sel.isMatch) {
+// 			//a partial match
+// 			removeInPlace(Goal.blankChars, sel.target);
+// 			sel.target.isBlank = false;
+// 		} else if (sel.isVeryLast) {
+// 			Selected.words = getInputWords();
+// 			Selected.answer = getInputWordString();
+// 			Selected.req = getCorrectWordString();
+// 			deactivateFocusGroup();
+// 			//console.log('LAST ONE WRONG!!!')
+// 			evaluate(false);
+// 			//user entered last missing letter but it is wrong!
+// 			//can there be multiple errors in string?
+// 		} else if (sel.isLastOfGroup) {
+// 			//unfill last group
+
+// 			Selected.words = getInputWords();
+// 			Selected.answer = getInputWordString();
+// 			Selected.req = getCorrectWordString();
+// 			deactivateFocusGroup();
+// 			evaluate(false);
+// 			//user entered last missing letter but it is wrong!
+// 			//can there be multiple errors in string?
+// 		} else {
+// 			if (!Settings.silentMode) playSound('incorrect1');
+// 			deactivateFocusGroup();
+// 			//unfillCharInput(Selected.target);
+// 			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });
+// 			setTimeout(() => unfillCharInput(Selected.target), 500);
+// 		}
+// 		//
+// 	}
+
+// 	eval(isCorrect) { return isCorrect; }
+
+// }
 

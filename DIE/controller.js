@@ -1,4 +1,4 @@
-var pictureSize, TOMain;
+var pictureSize, TOMain, TOTrial;
 var uiActivated, auxOpen;
 function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
@@ -44,12 +44,14 @@ function startRound() {
 	TOMain = setTimeout(() => prompt(), 300);
 }
 function prompt() {
+	QuestionCounter += 1;
 	showStats();
 	G.trialNumber = 0;
 
 	G.instance.prompt();
 }
 function promptNextTrial() {
+	QuestionCounter += 1;clearTimeout(TOTrial);
 	uiActivated = false;
 	let delay = G.instance.trialPrompt(G.trialNumber);
 	TOMain = setTimeout(activateUi, delay);
