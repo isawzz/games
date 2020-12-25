@@ -4597,7 +4597,7 @@ function choose(arr, n, exceptIndices) {
 	if (isdef(exceptIndices) && exceptIndices.length < len-n){
 		for(const i of exceptIndices) if (i>=0 && i<=len) taken[i]=true;
 	}
-	console.log('taken',jsCopy(taken));
+	//console.log('taken',jsCopy(taken));
 	//console.log('len', len);
 	if (n > len) n = len - 1; // throw new RangeError('getRandom: more elements taken than available');
 	while (result.length < n) {

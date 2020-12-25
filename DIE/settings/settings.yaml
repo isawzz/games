@@ -65,86 +65,36 @@ games:
     trials: 8
     levels:
       0:
-        # numMissing: 1
-        # posMissing: end
-        #minNum: 0
         maxNum: 10
-        # steps: 1
-        # ops: [add]
       1:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
         maxNum: 10
-        steps: 1
         ops: [subtract]
       2:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
-        maxNum: 30
-        steps: 1
-        ops: [add]
+        maxNum: 10
+        ops: [add,subtract]
       3:
-        numMissing: 1
-        minNum: 0
-        steps: 1
-        posMissing: end
-        maxNum: 20
-        ops: [subtract]
+        maxNum: 25
+        ops: [add,subtract]
       4:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
-        maxNum: 15
-        steps: 1
-        ops: [add,subtract]
+        maxNum: 50
+        steps: [1,2,3]
+        ops: [add]
       5:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
         maxNum: 50
         steps: [1,2]
-        ops: [add]
+        ops: [add,subtract]
       6:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
-        maxNum: 50
-        steps: [1,2,3]
-        ops: [add]
-      7:
-        numMissing: 1
-        posMissing: end
-        minNum: 0
-        maxNum: 50
-        steps: [1,2,3]
-        ops: [add]
-      8:
-        numMissing: 1
         posMissing: notStart
-        minNum: 0
-        maxNum: 50
+        maxNum: 99
         steps: [1,2]
         ops: [add,subtract]
-      9:
-        numMissing: 1
+      7:
         posMissing: notStart
-        minNum: 0
-        maxNum: 99
-        steps: [1,2,3]
-        ops: [add,subtract]
-      10:
-        numMissing: 1
-        posMissing: notStart
-        minNum: 0
         maxNum: 99
         steps: [1,2,3,4,5]
         ops: [add,subtract]
-      11:
-        numMissing: 1
+      8:
         posMissing: notStart
-        minNum: 0
         maxNum: 99
         steps: [3,4,5,6,7,8,9,10]
         ops: [add,subtract]
