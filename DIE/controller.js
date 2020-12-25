@@ -51,7 +51,8 @@ function prompt() {
 	G.instance.prompt();
 }
 function promptNextTrial() {
-	QuestionCounter += 1;clearTimeout(TOTrial);
+	QuestionCounter += 1;
+	clearTimeout(TOTrial);
 	uiActivated = false;
 	let delay = G.instance.trialPrompt(G.trialNumber);
 	TOMain = setTimeout(activateUi, delay);

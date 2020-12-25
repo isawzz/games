@@ -73,11 +73,6 @@ class GMissingNumber extends Game {
 
 		let initialDelay = 3000+G.level*1000;
 		if (Settings.showHint && !calibrating()) recShowHints([0,1,2,3,4],QuestionCounter,initialDelay,d=>initialDelay+2000); //showNumSeqHint(G.trialNumber);
-		// if (Settings.isTutoring) { longNumSeqHint(); }
-		// else if (G.level <= 1) { longNumSeqHint(); }
-		// else if (G.level <= 3) { mediumNumSeqHint(); }
-		// else if (G.level <= 5) { shortNumSeqHint(); }
-		// else if (G.level <= 7) { shortNumSeqHint(true, false); }
 
 		activateUi();
 	}

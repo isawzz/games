@@ -711,8 +711,7 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	return [written, spoken];
 }
 function resetRound() {
-	clearTimeout(TOMain); clearTimeout(TOTrial);
-	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
+	clearTimeouts();
 	clearFleetingMessage();
 	clearTable();
 }
@@ -721,7 +720,7 @@ function resetScore() {
 	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
 }
 function resetState() {
-	clearTimeout(TOMain);
+	clearTimeouts();
 	onkeydown = null; onkeypress = null; onkeyup = null;
 	lastPosition = 0;
 	DELAY = 1000;
