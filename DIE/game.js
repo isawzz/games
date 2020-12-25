@@ -427,11 +427,11 @@ function hideMouse() {
 }
 function showMouse() {
 	var x = dTable.getElementsByTagName("DIV");
-	if (nundef(x[0].prevCursor)) {console.log('did NOT hide mouse!'); return;}
-	for (const el of x) { 
+	if (nundef(x[0].prevCursor)) { console.log('did NOT hide mouse!'); return; }
+	for (const el of x) {
 		// console.log('classList',el.classList,mHasClass(el,'noCursor'));//,el.classList.includes('noCursor'))
 		// if (!mHasClass(el,'noCursor')) return;
-		mRemoveClass(el, 'noCursor'); 
+		mRemoveClass(el, 'noCursor');
 	} //.style.cursor = 'none';
 	for (const el of x) { el.style.cursor = el.prevCursor; }
 	for (const p of Pictures) {
@@ -653,10 +653,14 @@ function containsColorWord(s) {
 	return true;
 }
 function getGameValues(user, game, level) {
+	console.log(user,game,level)
 	let di = { numColors: 1, numRepeat: 1, numPics: 1, numSteps: 1, trials: Settings.trials, colors: ColorList }; // general defaults
-	di = deepmergeOverride(di, lookup(GS, [game])); //das ist die entry in settings.yaml
-	let levelInfo = lookup(di, ['levels', level]); //das sind specific values for this level
-	if (isdef(levelInfo)) { di = deepmergeOverride(di, levelInfo); }
+	let oGame = lookup(GS, [game]);
+	if (isDict(oGame)) {
+		di = deepmergeOverride(di,oGame); //das ist die entry in settings.yaml
+		let levelInfo = lookup(di, ['levels', level]); //das sind specific values for this level
+		if (isdef(levelInfo)) { di = deepmergeOverride(di, levelInfo); }
+	}
 	if (nundef(di.numLabels)) di.numLabels = di.numPics * di.numRepeat * di.numColors;
 	delete di.levels;
 	copyKeys(di, G);

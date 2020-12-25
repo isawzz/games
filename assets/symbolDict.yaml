@@ -40437,6 +40437,7 @@ eye:
   subgroups: body-parts
   E: eye
   D: auge
+  E_valid_sound: I
   hex: 1F441
   family: emoNoto
   text: '&#128065;'
@@ -42930,8 +42931,8 @@ file cabinet:
   hexcode: 1F5C4
   group: objects
   subgroups: office
-  E: cabinet
-  D: file
+  E: filer|file|file cabinet|cabinet
+  D: kastel|box
   E_valid_sound: filing
   D_valid_sound: box
   hex: 1F5C4
@@ -42970,6 +42971,7 @@ file folder:
   subgroups: office
   E: file folder|folder
   D: datei|mappe
+  E_valid_sound: boulder
   hex: 1F4C1
   family: emoNoto
   text: '&#128193;'
@@ -116812,6 +116814,7 @@ thread:
   subgroups: arts-crafts
   E: thread
   D: faden|zwirnrolle|zwirn
+  E_valid_sound: shred
   hex: 1F9F5
   family: emoNoto
   text: '&#129525;'
