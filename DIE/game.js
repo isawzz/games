@@ -413,7 +413,7 @@ function translateToGerman(w) {
 //#region cards turn face up or down
 function hideMouse() {
 	//document.body.style.cursor = 'none';
-	var x = document.getElementsByTagName("DIV");
+	var x = dTable.getElementsByTagName("DIV");
 	for (const el of x) { el.prevCursor = el.style.cursor; } //.style.cursor = 'none';
 	for (const p of Pictures) {
 		mRemoveClass(p.div, 'frameOnHover'); p.div.style.cursor = 'none';
@@ -426,8 +426,13 @@ function hideMouse() {
 	// show(mBy('noMouseScreen')	);
 }
 function showMouse() {
-	var x = document.getElementsByTagName("DIV");
-	for (const el of x) { mRemoveClass(el, 'noCursor'); } //.style.cursor = 'none';
+	var x = dTable.getElementsByTagName("DIV");
+	if (nundef(x[0].prevCursor)) {console.log('did NOT hide mouse!'); return;}
+	for (const el of x) { 
+		// console.log('classList',el.classList,mHasClass(el,'noCursor'));//,el.classList.includes('noCursor'))
+		// if (!mHasClass(el,'noCursor')) return;
+		mRemoveClass(el, 'noCursor'); 
+	} //.style.cursor = 'none';
 	for (const el of x) { el.style.cursor = el.prevCursor; }
 	for (const p of Pictures) {
 		mRemoveClass(p.div, 'noCursor');

@@ -1,7 +1,7 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
-  lastGame: gMissingNumber
+  lastGame: gMem
   lastLevel: 0
   settings:
     # settings common to all games
@@ -29,7 +29,6 @@ nil:
       startLevel: 3
       settings:
         trials: 5
-
 guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]

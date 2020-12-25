@@ -93,10 +93,12 @@ function onClickGo(ev) {
 }
 
 function onClickBadgeX(ev) {
+	enterInterruptState();
 	setBadgeLevel(ev);
 	// revertToBadgeLevel(ev);
 	saveUser();
 	//console.log('reverted to', G.level);
+	auxOpen = false;
 	TOMain = setTimeout(startGame, 100);
 }
 
