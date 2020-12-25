@@ -1,6 +1,7 @@
 const SHOW_FREEZER = false; // !IS_TESTING;
 const CLEAR_LOCAL_STORAGE = false;
 var QuestionCounter = 0;
+var lastPosition;
 
 //reserved names: dName for div with id dName (dName = mBy('dName'))
 
@@ -20,7 +21,7 @@ const DD = {
 	'from the previous number':'von der vorhergehenden zahl',
 	'multiply the previous number by':'multipliziere die vorhergehende zahl mit',
 	'divide the previous number by':'dividiere die vorhergehende zahl durch',
-	'the previous number':'die vorhergehende zahl',is:'ist',what:'was',equals:'ist gleich',
+	'the previous number':'die vorhergehende zahl',is:'ist',what:'was',equals:'ist gleich',enter:"tippe",
 	say:'sage',write:'schreibe',complete:'ergänze',
 };
 

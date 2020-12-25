@@ -71,7 +71,7 @@ class GMissingNumber extends Game {
 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
 		showInstruction('', instr1, dTitle, true);
 
-		if (Settings.showHint && !calibrating()) recShowHints([0,1,2,3,4],QuestionCounter); //showNumSeqHint(G.trialNumber);
+		if (Settings.showHint && !calibrating()) recShowHints([0,1,2,3,4],QuestionCounter,3000,d=>5000); //showNumSeqHint(G.trialNumber);
 		// if (Settings.isTutoring) { longNumSeqHint(); }
 		// else if (G.level <= 1) { longNumSeqHint(); }
 		// else if (G.level <= 3) { mediumNumSeqHint(); }
@@ -81,7 +81,8 @@ class GMissingNumber extends Game {
 		activateUi();
 	}
 	trialPrompt() {
-		if (Settings.showHint && !calibrating()) recShowHints(range(G.trialNumber,4),QuestionCounter); //showNumSeqHint(G.trialNumber);
+		let hintlist=G.trialNumber >= 4?[G.trialNumber]:range(G.trialNumber,4);
+		if (Settings.showHint && !calibrating()) recShowHints(hintlist,QuestionCounter,3000,d=>5000); //showNumSeqHint(G.trialNumber);
 		// sayTryAgain();
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
 		// if (!calibrating() && Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });

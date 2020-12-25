@@ -152,7 +152,8 @@ function createNumberSequence(n, min, max, step, op = 'add') {
 	let fBuild = x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; };
 	if (op == 'subtract') min += step * (n - 1);
 	if (min >= (max - 10)) max = min + 10;
-	let seq = getRandomNumberSequence(n, min, max, fBuild);
+	let seq = getRandomNumberSequence(n, min, max, fBuild, lastPosition);
+	lastPosition = seq[0];
 	let wi = createWordInputs(seq, dTable, 'dNums');
 	return [wi.words, wi.letters, seq];
 }
@@ -315,41 +316,54 @@ function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 
 //#endregion createWordInputs
 
-//#region number sequence (is a wordInput!)
-function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
-function getShortNumSeqHint() { let msg = `${G.op} ${G.step}`; return msg; }
+//#region number sequence hints
 function getNumSeqHintString(i) {
-	//console.log('i', i, 'trial#', G.trialNumber)
+	console.log('i', i, 'trial#', G.trialNumber)
 	let cmd = G.op;
 	let m = G.step;
-	let lst;
+	let lstSpoken, lstWritten;
 	if (i == 0) {
-		lst = [cmd, m];
+		lstSpoken = [cmd, m];
 	} else if (i == 1) {
 		let decl = G.op == 'add' ? 'to' : G.op == 'subtract' ? 'from' : 'by';
 		let phrase = decl + ' the previous number';
-		lst = [cmd, m, phrase];
+		lstSpoken = [cmd, m, phrase];
 	} else if (i == 2) {
 		//console.log('YYYYYYYYYYYYYYYY')
 		let iBlank = getNextIndexOfMissingNumber();
 		let iPrevious = iBlank - 1;
 		let n = G.seq[iPrevious];
 		//console.log('==>', iBlank, iPrevious, n, G)
-		lst = ['the previous number', 'is', n];
-	} else if (i == 3) {
+		lstSpoken = ['the previous number', 'is', n];
+	} else if (i >= 3) { //  || i > 4) {
 		let iBlank = getNextIndexOfMissingNumber();
 		let iPrevious = iBlank - 1;
 		let n = G.seq[iPrevious];
 		let op = cmd == 'add' ? 'plus' : cmd == 'subtract' ? 'minus' : cmd == 'multiply' ? 'times' : 'divided by';
-		lst = ['', n, op, m, 'equals','?'];
+		let erg = i >= 4 ? Goal.words[iBlank].word : '?';
+		lstSpoken = ['', n, op, m, 'equals', erg];
+		lstWritten = [n, getOperator(cmd), m, getOperator('equals'), getOperator(erg)]
 	} else {
 		//lst = [cmd, m];
 		let iBlank = getNextIndexOfMissingNumber();
-		lst=['enter',Goal.words[iBlank].word];
+		lstSpoken = ['enter', Goal.words[iBlank].word];
 	}
-	if (Settings.language == 'D') lst = lst.map(x => translateToGerman(x));
-	return lst.join(' ');
+	if (Settings.language == 'D') lstSpoken = lstSpoken.map(x => translateToGerman(x));
+	if (nundef(lstWritten)) lstWritten = lstSpoken;
+	return [lstSpoken.join(' '), lstWritten.join(' ')];
 }
+function getOperator(op) {
+	switch (op) {
+		case 'add': return '+';
+		case 'subtract': return '-';
+		case 'divide': return ':';
+		case 'multiply': return 'x';
+		case 'equals': return '=';
+		case '?': return '_';
+		default: return op;
+	}
+}
+function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
 function getNextIndexOfMissingNumber(iStart = 0) {
 	//console.log('HAAAAAA', G.numMissing, iStart, Goal)
 	for (let i = iStart; i < G.seq.length; i++) {
@@ -358,69 +372,19 @@ function getNextIndexOfMissingNumber(iStart = 0) {
 	}
 	return null;
 }
-
-function recShowHints(ilist,rc,delay=3000,fProgression=d=>d*1.5){
+function recShowHints(ilist, rc, delay = 3000, fProgression = d => d * 1.5) {
 	if (isEmpty(ilist) || QuestionCounter != rc) return;
-	let i=ilist.shift();
+	let i = ilist.shift();
 	// console.log('enlisting hint',i,ilist);
-	TOTrial = setTimeout(()=>recShowHintsNext(i,ilist,rc,fProgression(delay),fProgression),delay);
+	TOTrial = setTimeout(() => recShowHintsNext(i, ilist, rc, fProgression(delay), fProgression), delay);
 }
-function recShowHintsNext(i,ilist,rc,delay,fProgression) {
-	console.log('showing hint #',i, 'trial#',G.trialNumber);
-	let spoken = getNumSeqHintString(i);
-	let written = spoken;
+function recShowHintsNext(i, ilist, rc, delay, fProgression) {
+	console.log('showing hint #', i, 'trial#', G.trialNumber);
+	let [spoken, written] = getNumSeqHintString(i);
 	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
 	if (written) showFleetingMessage(written, 0, { fz: 40 });
-	if (QuestionCounter == rc) recShowHints(ilist,rc,delay,fProgression);
+	if (QuestionCounter == rc) recShowHints(ilist, rc, delay, fProgression);
 	//if (i==0){setTimeout(()=>showNumSeqHint(10),6000);}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function showNumSeqHint(i,ms=0) {
-	let spoken = getNumSeqHintString(i);
-	let written = spoken;
-	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
-	if (written) showFleetingMessage(written, 0, { fz: 40 });
-
-	//if (i==0){setTimeout(()=>showNumSeqHint(10),6000);}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-function shortNumSeqHint(written = true, spoken = true, ms = 2400) {
-	let msg = getShortNumSeqHint();
-	if (spoken) setTimeout(() => sayRandomVoice(msg), ms);
-	if (written) showFleetingMessage(msg, 300, { fz: 40 });
-}
-function mediumNumSeqHint(written = true, spoken = true, ms = 2400) {
-	if (spoken) setTimeout(() => sayRandomVoice(getShortNumSeqHint()), ms);
-	if (written) showFleetingMessage(getNumSeqHint(), 300, { fz: 32 });
-}
-function longNumSeqHint(written = true, spoken = true, ms = 2400) {
-	let msg = getNumSeqHint();
-	if (spoken) setTimeout(() => sayRandomVoice(msg), ms);
-	if (written) showFleetingMessage(msg, 300, { fz: 32 });
 }
 function numberSequenceCorrectionAnimation() {
 	//da brauch ich eine chain!!!!!!
@@ -442,16 +406,6 @@ function translateToGerman(w) {
 	if (isNumber(w)) return w;
 	else if (isdef(DD[w])) return DD[w];
 	else return w;
-}
-function missingNumbersMessage() {
-	//console.log('this', this)
-	let lst = Goal.blankWords.map(x => x.word);
-	//console.log(this.inputs)
-	let msg = lst.join(',');
-	let edecl = lst.length > 1 ? 's are ' : ' is ';
-	let ddecl = lst.length > 1 ? 'en ' : 't ';
-	let s = (Settings.language == 'E' ? 'the missing number' + edecl : 'es fehl' + ddecl);
-	return s + msg;
 }
 
 //#endregion number sequence (is a wordInput!)
@@ -757,7 +711,7 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	return [written, spoken];
 }
 function resetRound() {
-	clearTimeout(TOMain);clearTimeout(TOTrial);
+	clearTimeout(TOMain); clearTimeout(TOTrial);
 	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
 	clearFleetingMessage();
 	clearTable();

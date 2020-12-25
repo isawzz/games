@@ -4567,8 +4567,12 @@ function chooseRandomDictKey(dict, condFunc = null) {
 	let idx = Math.floor(Math.random() * len);
 	return arr[idx];
 }
-function getRandomNumberSequence(n, minStart, maxStart, fBuild) { //{op,step,fBuild}) {
+function getRandomNumberSequence(n, minStart, maxStart, fBuild, exceptStart) { //{op,step,fBuild}) {
 	let nStart = randomNumber(minStart, maxStart - n + 1);
+	if (exceptStart) {
+		let att=10;
+		while(att>=0 && nStart == exceptStart) {att-=1;nStart = randomNumber(minStart, maxStart - n + 1);}
+	}
 	if (isNumber(fBuild)) return range(nStart, nStart + (n - 1) * fBuild, fBuild);
 	else {
 		let res = [], x = nStart;
@@ -4585,13 +4589,15 @@ function nRandomNumbers(n, from, to, step) {
 	let arr = range(from, to, step);
 	return choose(arr, n);
 }
-function choose(arr, n) {
-
-
+function choose(arr, n, exceptIndices) {
 	//console.log(arr, n);
 	var result = [];//new Array(n);
 	var len = arr.length;
 	var taken = new Array(len);
+	if (isdef(exceptIndices) && exceptIndices.length < len-n){
+		for(const i of exceptIndices) if (i>=0 && i<=len) taken[i]=true;
+	}
+	console.log('taken',jsCopy(taken));
 	//console.log('len', len);
 	if (n > len) n = len - 1; // throw new RangeError('getRandom: more elements taken than available');
 	while (result.length < n) {
