@@ -106,7 +106,9 @@ function evaluate() {
 
 		if (unitTimeUp()) {
 			//end of unit!
+			console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
 			gameOver('Great job! Time for a break!');
+			playSound('goodBye')
 		} else {
 			TOMain = setTimeout(startGame, DELAY);
 		}

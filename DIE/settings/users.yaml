@@ -5,15 +5,15 @@ nil:
   lastLevel: 0
   settings:
     # settings common to all games
-    samplesPerLevel: 25
-    minutesPerUnit: 1
+    samplesPerLevel: 2
+    minutesPerUnit: .1
     incrementLevelOnPositiveStreak: 12
     decrementLevelOnNegativeStreak: 3
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
     vocab: best100
     showTime: true
-    spokenFeedback: false
+    spokenFeedback: true
     silentMode: false
     switchGame: true
     #indiv game settings default

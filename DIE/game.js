@@ -470,6 +470,18 @@ function slowlyTurnFaceDown(pic, secs = 5, removeBg = false) {
 //#endregion cards: turn face up or down
 
 //#region fail, hint, success
+function failElim(withComment = false) {
+	if (withComment && Settings.spokenFeedback) {
+		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
+		sayRandomVoice(chooseRandom(comments));
+	}
+	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
+		let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
+		let sz = getBounds(uilist[0]).height;
+		for (const ui of uilist) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
+	}
+}
+
 function successThumbsUp(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
@@ -491,7 +503,6 @@ function failThumbsDown(withComment = false) {
 	let p2 = firstCond(Pictures, x => x.key == 'thumbs up');
 	p2.div.style.display = 'none';
 }
-
 function successPictureGoal(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);

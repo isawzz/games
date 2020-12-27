@@ -5,15 +5,15 @@ function logicSetSelector() {
 	if (G.numColors > 1) props.colorKey = { vals: getDistinctVals(Pictures, 'colorKey'), friendly: 'color' };
 	if (G.numRepeat > 1) props.iRepeat = { vals: getDistinctVals(Pictures, 'iRepeat'), friendly: 'number' };
 
-	console.log('props', props)
+	//console.log('props', props)
 
 	//level 0: eliminate all backpacks | eliminate all with color=blue | elim all w/ number=2
 	let lstSpoken, lstWritten, piclist=[];
 	if (G.level >= 0) {
 		let prop = chooseRandom(Object.keys(props));
-		console.log('prop is', prop, 'vals', props[prop].vals)
+		//console.log('prop is', prop, 'vals', props[prop].vals)
 		let val = chooseRandom(props[prop].vals);
-		console.log('val chosen', val)
+		//console.log('val chosen', val)
 		//val = chooseRandom(myProps[prop])
 		let lst = ['eliminate', 'all'];
 		if (prop == 'label') {
@@ -24,7 +24,7 @@ function logicSetSelector() {
 			piclist = Pictures.filter(x=>x[prop] == val);
 		}
 		lstSpoken = lst;
-		console.log(lstSpoken)
+		//console.log(lstSpoken)
 	}
 	if (nundef(lstWritten)) lstWritten = lstSpoken;
 

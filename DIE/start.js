@@ -35,7 +35,7 @@ function startUnit() {
 	restartTime();
 	if (nundef(U.session)) U.session = {};
 	//console.log('---_startUnit: session', U.session);
-
+	
 	// console.log('ha'); return;
 	//onClickTemple(); return;
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();

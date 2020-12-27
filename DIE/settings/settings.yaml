@@ -166,8 +166,8 @@ games:
     colors: [blue, violet, lightgreen, pink, red, yellow]
     levels:
       0: 
-        numPics: 3
-        numColors: 4
+        numPics: 2
+        numColors: 2
         numRepeat: 2
       1: 
         numPics: 4

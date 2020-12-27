@@ -83,17 +83,42 @@ var _audioSources = {
 	hit: "../assets/sounds/hit.wav",
 };
 // var _SND = null;
-var _sndPlayer;
-function playSound(key) {
-	if (isdef(_sndPlayer)) {
-		_sndPlayer.pause();
-		//_sndPlayer.src = 'hallo';
-		_sndPlayer = null;
-		setTimeout(() => playSound(key), 0);
-	} else {
-		_sndPlayer = new Audio(_audioSources[key]);
-		_sndPlayer.play();
+var _sndPlayer, _sndPlayerIdle = true,_loaded=false;
+function whenSoundPaused() { _sndPlayer = null; _sndPlayerIdle = true; _loaded = false; console.log('done Idle=true loaded=false'); }
+function playSound(key, wait = false) {
+	console.log('playSound','_sndPlayer',_sndPlayer,'\nIdle',_sndPlayerIdle,'loaded',_loaded);
+	if (_sndPlayerIdle) {
+		_sndPlayerIdle = false;
+		let url = _audioSources[key];
+		_sndPlayer = new Audio(url);
+		//_sndPlayer.onpause = whenSoundPaused;
+		_sndPlayer.onended = whenSoundPaused;
+		_sndPlayer.onloadeddata =()=>{_loaded = true;_sndPlayer.play();};
+		_sndPlayer.load();
+		
+		//fetchAndPlay(_audioSources[key]);
+	// } else if (wait) {
+	// 	setTimeout(()=>playSound(key, wait), 500);
+	} else if (_loaded){
+		_loaded = false;
+		//_sndPlayer.pause();
+		setTimeout(()=>playSound(key, wait), 2000);
 	}
+}
+function fetchAndPlay(url) {
+	fetch(url)
+	.then(response => response.blob())
+	.then(blob => {
+		_sndPlayer.srcObject = blob;
+		return _sndPlayer.play();
+	})
+	.then(_ => {
+		_loaded=true;	// Video playback started ;)
+	})
+	.catch(e => {
+		// Video playback failed ;(
+			console.log('FAILED TO PLAY SOUND ',url);
+	})
 }
 //#endregion audio
 

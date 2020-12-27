@@ -34,13 +34,10 @@ class Game {
 
 class GElim extends Game {
 	constructor(name) { super(name); }
-	startGame() { G.correctionFunc = showCorrectWords; }
+	startGame() { G.correctionFunc = ()=>playSound('incorrect1'); }
 	startLevel() {
 		G.keys = G.keys.filter(x => containsColorWord(x));
 	}
-
-
-
 	prompt() {
 		this.piclist = [];
 		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
@@ -91,9 +88,9 @@ class GElim extends Game {
 
 	}
 	eval(isCorrect) {
-		console.log('eval', isCorrect);
+	//	console.log('eval', isCorrect);
 		// console.log('piclist', this.piclist)
-		Selected = { piclist: this.piclist, feedbackUI: this.piclist.map(x => x.div), sz: getBounds(this.piclist[0].div).height };
+		Selected = { piclist: this.piclist, feedbackUI: dTable };
 		return isCorrect;
 	}
 }
