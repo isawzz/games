@@ -672,7 +672,14 @@ function getGameOrLevelInfo(k, defval) {
 	if (!val) val = lookupSet(GS, [G.key, k], defval);
 	return val;
 }
-
+function getDistinctVals(list, prop) {
+	let res = [];
+	for (const item of list) {
+		let val = item[prop];
+		addIf(res, val);
+	}
+	return res;
+}
 function getGlobalColors() { return Object.keys(ColorDict).map(x => x.E); }
 function getOrdinal(i) { return G.numRepeat == 1 ? '' : Settings.language == 'E' ? ordinal_suffix_of(i) : '' + i + '. '; }
 function getColorLabelInstruction(cmd, color, label) {

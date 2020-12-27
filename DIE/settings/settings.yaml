@@ -168,7 +168,7 @@ games:
       0: 
         numPics: 3
         numColors: 4
-        numRepeat: 3
+        numRepeat: 2
       1: 
         numPics: 4
         numColors: 1
