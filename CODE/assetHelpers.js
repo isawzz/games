@@ -1,4 +1,90 @@
+
+
 //#region november 2020
+function maLayout(pics, dParent) {
+	mClass(dParent, 'flexWrap');
+	let numPics = pics.length;
+	let rows = Math.sqrt(numPics);
+	rows = Math.floor(rows);
+	let cols = Math.ceil(numPics / rows);
+	let [pictureSize, picsPerLine] = calcDimsAndSize(cols, rows);
+	clearElement(dParent);
+
+	let i = 0;
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			maResizePic(pics[i],dParent,pictureSize)
+			i += 1;
+			if (i >= pics.length) return;
+		}
+		mLinebreak(dParent);
+	}
+}
+function maResizePic(p, dParent, pictureSize) {
+
+	let d = p.div;
+
+	mAppend(dParent, d);
+	let oldSize = p.sz;
+	if (oldSize >= 200) return;
+
+	let x = pictureSize / oldSize;
+	if (Math.abs(x - 1) <= .1) return;
+
+	// console.log('old size',oldSize,'new size',pictureSize,'x',x);
+
+	let dpic = d.children[0];
+	let bpic = getBounds(dpic);
+	let wPicOld = bpic.width;
+	let wPicNew = bpic.width * x;
+	let hPicOld = bpic.height;
+	let hPicNew = bpic.height * x;
+
+	// console.log('pic will be resized from',wPicOld,hPicOld,'to',wPicNew,hPicNew)
+
+	mSize(d, pictureSize, pictureSize);
+	mStyleX(dpic, { w: wPicNew, h: hPicNew });
+
+	let dsym = dpic.children[0];
+	let bsym = getBounds(dsym);
+	let fzPicOld = firstNumber(dsym.style.fontSize);
+	let fzPicNew = fzPicOld * x;
+
+	// console.log('resizing font of symbol from',fzPicOld,'to',fzPicNew);
+
+	mStyleX(dsym, { fz: fzPicNew });
+
+	let dtext = d.children[1];
+	//let bsym = getBounds(dsym);
+	let fzTextOld = firstNumber(dtext.style.fontSize);
+	let fzTextNew = Math.round(fzTextOld * x);
+	mStyleX(dtext, { fz: fzTextNew, w: 'auto', h: 'auto' });
+
+	//console.log('resizing font of text from',fzTextOld,'to',fzTextNew);
+
+	d.style.padding = '0px';
+
+	p.sz = pictureSize;
+
+	let htext = getBounds(dtext).height;
+	let hpic = getBounds(dpic).height;
+	//console.log(htext,hpic,getBounds(dsym).height)
+	d.style.paddingTop = '' + ((pictureSize - (htext + hpic)) / 2) + 'px';
+
+	//adjust font for ordinal, row, col info!
+	for (let i = 2; i < d.children.length; i++) {
+		let dOrdinal = d.children[i];
+		//console.log(dOrdinal)
+		let fzOld = firstNumber(dOrdinal.style.fontSize);
+		let fzNew = fzOld * x;
+		let leftOld = firstNumber(dOrdinal.style.left);
+		let leftNew = Math.floor(leftOld * x);
+		let topOld = firstNumber(dOrdinal.style.top);
+		let topNew = Math.floor(topOld * x);
+		mStyleX(dOrdinal, { fz: fzNew, left: leftNew, top: topNew });
+	}
+
+}
 function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
 		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
@@ -51,6 +137,7 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 
 	//console.log('after shuffling items',jsCopy(items))
 
+	//#endregion prelim
 
 	let lines = isdef(colorKeys) ? colorKeys.length : 1;
 	let [pictureSize, picsPerLine] = calcDimsAndSize(numPics, lines, container);
@@ -67,9 +154,9 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 	let labelRepeat = {};
 
 	for (let line = 0; line < lines; line++) {
-		let textShadowColor,colorKey;
+		let textShadowColor, colorKey;
 
-		if (isdef(colorKeys)) { colorKey=colorKeys[line];textShadowColor = ColorDict[colorKey].c; labelRepeat = {}; }
+		if (isdef(colorKeys)) { colorKey = colorKeys[line]; textShadowColor = ColorDict[colorKey].c; labelRepeat = {}; }
 
 		for (let i = 0; i < numPics; i++) {
 			let item = items[i];
@@ -83,16 +170,18 @@ function maShowPictures(keys, labels, dParent, onClickPictureHandler,
 			// if (ipic % picsPerLine == 0 && ipic > 0) {console.log('linebreak!',ipic,line,keys.length); mLinebreak(dParent);}
 			if (ipic % picsPerLine == 0 && ipic > 0) { mLinebreak(dParent); }
 			let id = 'pic' + ipic; // (line * keys.length + i);
-			//#endregion prelim
-
 			let d1 = maPicLabelButtonFitText(info, label,
 				{ w: pictureSize, h: pictureSize, bgPic: bg, textShadowColor: textShadowColor, contrast: contrast, sPic: sPic },
 				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
+
+			// console.log('---->',d1.children[0].children[0].style.fontSize)
 			//addRowColInfo(d1,line,i,pictureSize);
 			if (showRepeat) addRepeatInfo(d1, iRepeat, pictureSize);
+			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
 			pics.push({
-				textShadowColor: textShadowColor, color:ColorDict[colorKey], colorKey:colorKey, key: info.key, info: info, bg: bg, div: d1, id: id,
+				textShadowColor: textShadowColor, color: ColorDict[colorKey], colorKey: colorKey, key: info.key, info: info,
+				bg: bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
 				index: ipic, row: line, col: i, iRepeat: iRepeat, label: label, isLabelVisible: true, isSelected: false
 			});
 		}
@@ -150,6 +239,7 @@ function maPicLabelFitX(info, label, { wmax, hmax, textShadowColor, contrast = .
 		picStyles.fg = anyColorToStandardString('black', contrast); //'#00000080' '#00000030' 
 	}
 
+	//console.log(picStyles)
 	let dPic = maPic(info, d, picStyles, isText, isOmoji);
 	// mText(info.annotation, d, textStyles, ['truncate']);
 	let maxchars = 15; let maxlines = 1;
@@ -211,7 +301,7 @@ function maPicLabelFitX(info, label, { wmax, hmax, textShadowColor, contrast = .
 	return d;
 }
 
-//#endregion 
+//#=========endregion 
 
 function addRowColInfo(dPic, row, col, szPic) {
 	let szi = Math.max(Math.floor(szPic / 12), 8);
@@ -229,7 +319,7 @@ function addRepeatInfo(dPic, iRepeat, szPic) {
 	// let d3 = mText('col:' + col, dPic, { fz: szi, color: 'black', position: 'absolute', left: szi, top: (szi / 2 + szi + 2) })
 	return d2;
 }
-function calcDimsAndSize(numPics, lines, dParent, wmax, hmax) {
+function calcDimsAndSize(cols, lines, dParent, wmax, hmax) {
 
 	let ww, wh, hpercent, wpercent;
 	if (isdef(dParent)) {
@@ -252,11 +342,12 @@ function calcDimsAndSize(numPics, lines, dParent, wmax, hmax) {
 	let sz, picsPerLine;
 	if (lines > 1) {
 		let hpic = wh * hpercent / lines;
-		let wpic = ww * wpercent / numPics;
+		let wpic = ww * wpercent / cols;
 		sz = Math.min(hpic, wpic);
-		picsPerLine = numPics; //keys.length;
+		//console.log('sz', sz)
+		picsPerLine = cols; //keys.length;
 	} else {
-		let dims = calcRowsColsX(numPics);
+		let dims = calcRowsColsX(cols);
 		let hpic = wh * hpercent / dims.rows;
 		let wpic = ww * wpercent / dims.cols;
 		sz = Math.min(hpic, wpic);

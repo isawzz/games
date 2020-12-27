@@ -39,8 +39,8 @@ class GMem extends Game {
 		showPictures(this.interact.bind(this), { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
 		setGoal();
 
-		if (G.level > 2) { showInstruction('', Settings.language == 'E'?'remember all':'merke dir alle', dTitle, true); }
-		else { showInstruction(Goal.label, Settings.language == 'E'?'remember':'merke dir', dTitle, true); }
+		if (G.level > 2) { showInstruction('', Settings.language == 'E' ? 'remember all' : 'merke dir alle', dTitle, true); }
+		else { showInstruction(Goal.label, Settings.language == 'E' ? 'remember' : 'merke dir', dTitle, true); }
 
 		let secs = calcMemorizingTime(G.numPics, G.level > 2);
 
@@ -282,17 +282,16 @@ class GSayPic extends Game {
 	}
 }
 class GPremem extends Game {
-	constructor() { super(); this.picList = []; }
+	constructor() { super(); this.piclist = []; }
 	prompt() {
-		this.picList = [];
-		//console.log(this.picList)
+		this.piclist = [];
 		showPictures(this.interact.bind(this), { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
 		showInstruction('', 'click any picture', dTitle, true);
 		activateUi();
 	}
 	trialPrompt() {
-		for (const p of this.picList) { toggleSelectionOfPicture(p); }
-		this.picList = [];
+		for (const p of this.piclist) { toggleSelectionOfPicture(p); }
+		this.piclist = [];
 		showInstruction('', 'try again: click any picture', dTitle, true);
 		return 10;
 	}
@@ -304,23 +303,23 @@ class GPremem extends Game {
 		let i = firstNumber(id);
 		let pic = Pictures[i];
 		let div = pic.div;
-		if (!isEmpty(this.picList) && this.picList.length < G.numRepeat - 1 && this.picList[0].label != pic.label) return;
-		toggleSelectionOfPicture(pic, this.picList);
-		//console.log('clicked', pic.key, this.picList);//,picList, GPremem.PicList);
-		if (isEmpty(this.picList)) {
+		if (!isEmpty(this.piclist) && this.piclist.length < G.numRepeat - 1 && this.piclist[0].label != pic.label) return;
+		toggleSelectionOfPicture(pic, this.piclist);
+		//console.log('clicked', pic.key, this.piclist);//,piclist, GPremem.PicList);
+		if (isEmpty(this.piclist)) {
 			showInstruction('', 'click any picture', dTitle, true);
-		} else if (this.picList.length < G.numRepeat - 1) {
+		} else if (this.piclist.length < G.numRepeat - 1) {
 			//set incomplete: more steps are needed!
 			//frame the picture
 			showInstruction(pic.label, 'click another', dTitle, true);
-		} else if (this.picList.length == G.numRepeat - 1) {
+		} else if (this.piclist.length == G.numRepeat - 1) {
 			// look for last picture with x that is not in the set
 			let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
 			setGoal(picGoal.index);
 			showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
 		} else {
 			//set is complete: eval
-			evaluate(this.picList);
+			evaluate(this.piclist);
 		}
 	}
 	eval(piclist) {
@@ -338,7 +337,7 @@ class GSteps extends Game {
 	}
 
 	prompt() {
-		this.picList = [];
+		this.piclist = [];
 		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
 		let showRepeat = G.numRepeat > 1;
 
@@ -361,8 +360,8 @@ class GSteps extends Game {
 		activateUi();
 	}
 	trialPrompt() {
-		for (const p of this.picList) { toggleSelectionOfPicture(p); }
-		this.picList = [];
+		for (const p of this.piclist) { toggleSelectionOfPicture(p); }
+		this.piclist = [];
 		sayTryAgain();
 		return 10;
 	}
@@ -374,20 +373,20 @@ class GSteps extends Game {
 		let i = firstNumber(id);
 		let pic = Pictures[i];
 		let div = pic.div;
-		//if (!isEmpty(this.picList) && this.picList.length < G.numSteps - 1 && this.picList[0].label != pic.label) return;
-		toggleSelectionOfPicture(pic, this.picList);
-		console.log('clicked pic', pic.index, this.picList);//,picList, GPremem.PicList);
-		if (isEmpty(this.picList)) return;
+		//if (!isEmpty(this.piclist) && this.piclist.length < G.numSteps - 1 && this.piclist[0].label != pic.label) return;
+		toggleSelectionOfPicture(pic, this.piclist);
+		console.log('clicked pic', pic.index, this.piclist);//,piclist, GPremem.PicList);
+		if (isEmpty(this.piclist)) return;
 		//return;
-		let iGoal = this.picList.length - 1;
+		let iGoal = this.piclist.length - 1;
 		console.log('iGoal', iGoal, Goal.pics[iGoal], 'i', i, pic)
-		if (pic != Goal.pics[iGoal]) { Selected = { pics: this.picList, wrong: pic, correct: Goal[iGoal] }; evaluate(false); }
-		else if (this.picList.length == Goal.pics.length) { Selected = { picList: this.picList }; evaluate(true); }
+		if (pic != Goal.pics[iGoal]) { Selected = { pics: this.piclist, wrong: pic, correct: Goal[iGoal] }; evaluate(false); }
+		else if (this.piclist.length == Goal.pics.length) { Selected = { piclist: this.piclist }; evaluate(true); }
 	}
 	eval(isCorrect) {
 		console.log('eval', isCorrect);
-		console.log('picList', this.picList)
-		Selected = { picList: this.picList, feedbackUI: this.picList.map(x => x.div), sz: getBounds(this.picList[0].div).height };
+		console.log('piclist', this.piclist)
+		Selected = { piclist: this.piclist, feedbackUI: this.piclist.map(x => x.div), sz: getBounds(this.piclist[0].div).height };
 		return isCorrect;
 	}
 }
@@ -400,18 +399,10 @@ class GMissingNumber extends Game {
 	}
 	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
 	startLevel() {
-		//G.numMissingLetters = getGameOrLevelInfo('numMissing', 1);
-		//G.minNum = getGameOrLevelInfo('min', 0);
-		//G.maxNum = getGameOrLevelInfo('max', 20);
-		//G.posMissing = getGameOrLevelInfo('posMissing', 'consec');
-		//G.steps = getGameOrLevelInfo('steps', 1);
 		if (!isList(G.steps)) G.steps = [G.steps];
-		//G.ops = getGameOrLevelInfo('ops', ['add']);
-		//G.seqLen = getGameOrLevelInfo('seqLen', 5);
 		G.numPics = 2;
 		G.numLabels = 0;
-
-		console.log(G)
+		// console.log(G)
 	}
 	prompt() {
 		mLinebreak(dTable, 12);
@@ -430,18 +421,16 @@ class GMissingNumber extends Game {
 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
 		showInstruction('', instr1, dTitle, true);
 
-		let initialDelay = 3000+G.level*1000;
-		if (Settings.showHint && !calibrating()) recShowHints([0,1,2,3,4],QuestionCounter,initialDelay,d=>initialDelay+2000); //showNumSeqHint(G.trialNumber);
+		let initialDelay = 3000 + G.level * 1000;
+		if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 
 		activateUi();
 	}
 	trialPrompt() {
-		let hintlist=G.trialNumber >= 4?[G.trialNumber]:range(G.trialNumber,4);
-		let initialDelay = 3000+G.level*1000;
-		if (Settings.showHint && !calibrating()) recShowHints(hintlist,QuestionCounter,initialDelay,d=>initialDelay+2000); //showNumSeqHint(G.trialNumber);
-		// sayTryAgain();
+		let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
+		let initialDelay = 3000 + G.level * 1000;
+		if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
-		// if (!calibrating() && Settings.showHint) showFleetingMessage(getNumSeqHint(), 2200, { fz: 22 });
 		return 10;
 	}
 	activate() { onkeypress = this.interact; }
@@ -528,6 +517,9 @@ const GAME = {
 	gWritePic: { friendly: 'Type it!', logo: 'keyboard', color: 'orange', cl: GWritePic, }, //LIGHTGREEN, //'#bfef45',
 	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GSayPic, }, //'#4363d8',
 	gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GSteps, }, //'#911eb4',
+	gSet: { friendly: 'Set!', logo: 'abacus', color: TEAL, cl: GSet, }, //'#911eb4',
+	gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
+	gElim: { friendly: 'Elim!', logo: 'collision', color: TEAL, cl: GElim, }, //'#911eb4',
 };
 
 

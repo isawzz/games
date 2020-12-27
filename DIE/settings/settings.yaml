@@ -142,6 +142,41 @@ games:
         numColors: 4
         numRepeat: 3
         numSteps: 2
+  gSet:
+    contrast: 0.22
+    colors: [blue, violet, lightgreen, pink, red, yellow]
+    levels:
+      0: 
+        numPics: 3
+        numColors: 4
+        numRepeat: 2
+        numSteps: 2
+      1: 
+        numPics: 4
+        numColors: 1
+        numRepeat: 4
+        numSteps: 2
+      2: 
+        numPics: 2
+        numColors: 4
+        numRepeat: 3
+        numSteps: 2
+  gElim:
+    contrast: 0.22
+    colors: [blue, violet, lightgreen, pink, red, yellow]
+    levels:
+      0: 
+        numPics: 3
+        numColors: 4
+        numRepeat: 3
+      1: 
+        numPics: 4
+        numColors: 1
+        numRepeat: 4
+      2: 
+        numPics: 2
+        numColors: 4
+        numRepeat: 3
   gTouchColors:
     contrast: 0.32
     colors:

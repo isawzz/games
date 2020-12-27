@@ -80,6 +80,7 @@ var _audioSources = {
 	down: "../assets/sounds/down.mp3",
 	levelComplete: "../assets/sounds/sound1.wav",
 	rubberBand: "../assets/sounds/sound2.wav",
+	hit: "../assets/sounds/hit.wav",
 };
 // var _SND = null;
 var _sndPlayer;

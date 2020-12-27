@@ -653,7 +653,7 @@ function containsColorWord(s) {
 	return true;
 }
 function getGameValues(user, game, level) {
-	console.log(user,game,level)
+	//console.log(user,game,level)
 	let di = { numColors: 1, numRepeat: 1, numPics: 1, numSteps: 1, trials: Settings.trials, colors: ColorList }; // general defaults
 	let oGame = lookup(GS, [game]);
 	if (isDict(oGame)) {
@@ -700,7 +700,7 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	let colorWord = '', colorSpan = '';
 	if (isdef(color)) {
 		colorWord = isdef(color) ? color[Settings.language] : '';
-		if (!isEmpty(ordinal) && !['lila', 'rosa'].includes(colorWord)) colorWord += 'e';
+		if (Settings.language == 'D' && !isEmpty(ordinal) && !['lila', 'rosa'].includes(colorWord)) colorWord += 'e';
 		colorSpan = `<span style='color:${color.c}'>${colorWord.toUpperCase()}</span>`;
 	}
 
@@ -718,6 +718,10 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	let written = spoken.replace(colorWord, colorSpan).replace(label, labelSpan);
 	//console.log('spoken', spoken, 'written', written);
 	return [written, spoken];
+}
+function removePicture(pic){
+	removeInPlace(Pictures,pic);
+	pic.div.remove();
 }
 function resetRound() {
 	clearTimeouts();
