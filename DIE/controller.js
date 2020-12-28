@@ -6,7 +6,7 @@ function stopGame() { resetState(); }
 function startGame() {
 	//console.log('___________startGame_', G);
 
-	resetState();
+	resetState();pauseSound();
 
 	G.successFunc = successPictureGoal;
 	G.failFunc = failPictureGoal;
@@ -65,7 +65,8 @@ function activateUi() {
 function evaluate() {
 	//console.log('evaluate!!!',arguments)
 	if (!canAct()) return;
-	uiActivated = false;
+	uiActivated = false;clearTimeouts();
+
 	IsAnswerCorrect = G.instance.eval(...arguments);
 	//console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
@@ -106,9 +107,7 @@ function evaluate() {
 
 		if (unitTimeUp()) {
 			//end of unit!
-			console.log('HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-			gameOver('Great job! Time for a break!');
-			playSound('goodBye')
+			setTimeout(()=>gameOver('Great job! Time for a break!'), DELAY);
 		} else {
 			TOMain = setTimeout(startGame, DELAY);
 		}

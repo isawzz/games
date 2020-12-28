@@ -25,7 +25,7 @@ class GSet extends Game {
 			cmd = 'then';
 		}
 		// console.log('written', written, '\nspoken', spoken);
-		showInstructionX(written.join('; '), dTitle, spoken.join('. '), 20);
+		showInstructionX(written.join('; '), dTitle, spoken.join('. '), {fz:20});
 
 		activateUi();
 	}
@@ -87,7 +87,7 @@ class GSudo extends Game {
 			cmd = 'then';
 		}
 		// console.log('written', written, '\nspoken', spoken);
-		showInstructionX(written.join('; '), dTitle, spoken.join('. '), 20);
+		showInstructionX(written.join('; '), dTitle, spoken.join('. '), {fz:20});
 
 		activateUi();
 	}

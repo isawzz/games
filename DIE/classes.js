@@ -355,7 +355,7 @@ class GSteps extends Game {
 			cmd = 'then';
 		}
 		// console.log('written', written, '\nspoken', spoken);
-		showInstructionX(written.join('; '), dTitle, spoken.join('. '), 20);
+		showInstructionX(written.join('; '), dTitle, spoken.join('. '), {fz:20});
 
 		activateUi();
 	}
@@ -421,7 +421,7 @@ class GMissingNumber extends Game {
 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
 		showInstruction('', instr1, dTitle, true);
 
-		let initialDelay = 3000 + G.level * 1000;
+		let initialDelay = 5000 + G.level * 1000;
 		if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 
 		activateUi();
@@ -486,7 +486,7 @@ class GMissingNumber extends Game {
 			//user entered last missing letter but it is wrong!
 			//can there be multiple errors in string?
 		} else {
-			if (!Settings.silentMode) playSound('incorrect1');
+			if (!Settings.silentMode) {writeSound();playSound('incorrect1');}
 			deactivateFocusGroup();
 			//unfillCharInput(Selected.target);
 			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });

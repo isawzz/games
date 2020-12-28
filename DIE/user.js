@@ -100,8 +100,6 @@ function loadUser(newUser) {
 	// GS = Settings.games;
 	// delete Settings.games;
 
-	//console.log('load user',USERNAME,U.lastGame,U.lastLevel);
-
 	let uiName = 'spUser';
 	let dUser = mBy(uiName);
 	if (nundef(dUser)) { dUser = editableUsernameUi(dLineTopLeft); dUser.id = uiName; }
@@ -148,6 +146,8 @@ function setGame(game, level) {
 
 	if (isdef(level)) G.level = level;
 	else { G.level = getUserStartLevel(game); }
+
+	if (G.level > G.maxLevel) G.level = G.maxLevel;
 
 	if (nundef(U.games[game])) {
 		U.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };

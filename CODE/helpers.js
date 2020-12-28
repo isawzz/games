@@ -3021,7 +3021,11 @@ function getFunctionCallerName() {
 	return new Error().stack.match(/at (\S+)/g)[1].slice(3);
 }
 function getFunctionsNameThatCalledThisFunction() {
-	return getFunctionsNameThatCalledThisFunction.caller.caller.name;
+	let c1 = getFunctionsNameThatCalledThisFunction.caller;
+	if (nundef(c1)) return 'no caller!';
+	let c2 = c1.caller;
+	if (nundef(c2)) return 'no caller!';
+	return c2.name;
 }
 //#endregion
 
@@ -3642,6 +3646,7 @@ function arrLast(arr) { return arr.length > 0 ? arr[arr.length - 1] : null; }
 function arrTail(arr) { return arr.slice(1); }
 function arrFromIndex(arr, i) { return arr.slice(i); }
 function arrMinus(a, b) { let res = a.filter(x => !b.includes(x)); return res; }
+function arrWithout(a, b) { return arrMinus(a,b); }
 function arrRange(from = 1, to = 10, step = 1) { let res = []; for (let i = from; i <= to; i += step)res.push(i); return res; }
 function arrReplace(arr, oldval, newval) { let i = arr.indexOf(oldval); if (i >= 0) arr[i] = newval; return oldval; }
 

@@ -470,18 +470,6 @@ function slowlyTurnFaceDown(pic, secs = 5, removeBg = false) {
 //#endregion cards: turn face up or down
 
 //#region fail, hint, success
-function failElim(withComment = false) {
-	if (withComment && Settings.spokenFeedback) {
-		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
-		sayRandomVoice(chooseRandom(comments));
-	}
-	if (isdef(Selected) && isdef(Selected.feedbackUI)) {
-		let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
-		let sz = getBounds(uilist[0]).height;
-		for (const ui of uilist) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
-	}
-}
-
 function successThumbsUp(withComment = true) {
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
@@ -532,7 +520,7 @@ function showCorrectWord(sayit = true) {
 	let div = mBy(Goal.id);
 	mClass(div, anim);
 
-	if (!sayit || !Settings.spokenFeedback) return;
+	if (!sayit || !Settings.spokenFeedback) Settings.spokenFeedback ? 3000 : 300;
 
 	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
 	sayRandomVoice(correctionPhrase);
@@ -598,9 +586,10 @@ function fleetingMessage(msg, styles, fade = false) {
 //#endregion fleetingMessage
 
 //#region game over
+function writeSound(){return; console.log('calling playSound');}
 function gameOver(msg, silent = false) { TOMain = setTimeout(aniGameOver(msg, silent), DELAY); }
 function aniGameOver(msg, silent = false) {
-	if (!silent && !Settings.silentMode) playSound('goodBye');
+	if (!silent && !Settings.silentMode) {writeSound();playSound('goodBye');} 
 	enterInterruptState();
 	show('freezer2');
 
@@ -761,10 +750,11 @@ function resetState() {
 
 }
 function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
-function sayRandomVoice(e, g) {
+function sayRandomVoice(e, g, voice='random') {
 
 	let [r, p, v] = [.8, .9, 1];
-	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, r, p, v, 'random');
+	//let voice = Settings.language == 'E' && (e.includes('<') || (e.includes('>')) ?'zira':'random';
+	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, r, p, v, voice);
 }
 function setBadgeLevel(ev) {
 	let i = 0;
@@ -835,7 +825,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	sayRandomVoice(isdef(spoken) ? spoken : (cmd + " " + text));
 
 }
-function showInstructionX(written, dParent, spoken, fz) {
+function showInstructionX(written, dParent, spoken, {fz,voice}={}) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
 	//console.log('G.key is', G.key)
 	clearElement(dParent);
@@ -854,7 +844,7 @@ function showInstructionX(written, dParent, spoken, fz) {
 	dFeedback = dInstruction = d;
 
 	dInstruction.addEventListener('click', () => aniInstruction(spoken));
-	if (isdef(spoken)) sayRandomVoice(spoken);
+	if (isdef(spoken)) sayRandomVoice(spoken,spoken,voice);
 
 }
 function showHiddenThumbsUpDown(styles) {

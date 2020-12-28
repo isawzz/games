@@ -166,15 +166,23 @@ games:
     colors: [blue, violet, lightgreen, pink, red, yellow]
     levels:
       0: 
-        numPics: 2
-        numColors: 2
-        numRepeat: 2
+        numPics: 3
+        numColors: 3
+        numRepeat: 1
       1: 
-        numPics: 4
+        numPics: 3
         numColors: 1
-        numRepeat: 4
+        numRepeat: 3
       2: 
         numPics: 2
+        numColors: 3
+        numRepeat: 2
+      3: 
+        numPics: 3
+        numColors: 4
+        numRepeat: 2
+      4: 
+        numPics: 3
         numColors: 4
         numRepeat: 3
   gTouchColors:

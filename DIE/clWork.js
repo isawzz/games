@@ -34,7 +34,7 @@ class Game {
 
 class GElim extends Game {
 	constructor(name) { super(name); }
-	startGame() { G.correctionFunc = ()=>playSound('incorrect1'); }
+	startGame() { G.correctionFunc = () => { writeSound(); playSound('incorrect1'); return Settings.spokenFeedback ? 1800 : 300; } }
 	startLevel() {
 		G.keys = G.keys.filter(x => containsColorWord(x));
 	}
@@ -43,24 +43,12 @@ class GElim extends Game {
 		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
 		let showRepeat = G.numRepeat > 1;
 		showPictures(this.interact.bind(this), { showRepeat: showRepeat, colorKeys: colorKeys, contrast: G.contrast, repeat: G.numRepeat });
-		
-		let [sSpoken,sWritten,piclist] = logicSetSelector(Pictures);
+
+		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); //logicSetSelector(Pictures);
 		this.piclist = piclist;
-		Goal={pics:this.piclist, sammler:[]};
-		showInstructionX(sWritten,dTitle,sSpoken,14);
-		// // this.keys = Pictures.filter(x => x.iRepeat == 1 && x.row == 0).map(x => x.key);
-		// // console.log('=========>>>keys:', this.keys)
+		Goal = { pics: this.piclist, sammler: [] };
 
-		// //am leichtesten ist eliminate all 
-		// //goal muss exakt definiert sein
-		// //habe: all, one of each, every second, all except ..., content== or !=,number <.<=,==,>,=> 
-		// //color blue and/or not
-		// //comprehension: x|x.color== or != && x.label== or != and 
-		// Goal = chooseRandom(Pictures);
-		// let [sSpoken,sWritten] = logicSelector(5);
-		// // let sWritten = 'Mission: eliminate all except';
-		// showInstruction('', sWritten, dTitle, true);
-
+		showInstructionX(sWritten, dTitle, sSpoken, { fz: 22, voice: 'zira' });
 		activateUi();
 	}
 	trialPrompt() {
@@ -75,22 +63,26 @@ class GElim extends Game {
 
 		let id = evToClosestId(ev);
 		let pic = firstCond(Pictures, x => x.div.id == id);
-		playSound('hit')
-		removePicture(pic);
-		maLayout(Pictures, dTable);
+		writeSound(); playSound('hit');
 
-		if (Goal.pics.includes(pic)){console.log('YES!!!!'); Goal.sammler.push(pic);}
+		if (Goal.pics.includes(pic)) {
+			removePicture(pic);
+			maLayout(Pictures, dTable);
+			//console.log('YES!!!!'); 
+			Goal.sammler.push(pic);
+		}
+
 
 		if (Goal.pics.length == Goal.sammler.length) evaluate(true);
-		else if (!Goal.pics.includes(pic)) evaluate(false);
+		else if (!Goal.pics.includes(pic)) {this.lastPic = pic; evaluate(false);}
 		// if (pic.label == Goal.label) evaluate(false);
 		// else { removePicture(pic);maLayout(Pictures,dTable) }
 
 	}
 	eval(isCorrect) {
-	//	console.log('eval', isCorrect);
+		//	console.log('eval', isCorrect);
 		// console.log('piclist', this.piclist)
-		Selected = { piclist: this.piclist, feedbackUI: dTable };
+		Selected = { piclist: this.piclist, feedbackUI: isCorrect?dTable:this.lastPic.div };
 		return isCorrect;
 	}
 }
