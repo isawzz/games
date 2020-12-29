@@ -2586,7 +2586,7 @@ function makeDroppable(target) {
 	target.ondrop = drop;
 }
 // X 
-function allowDrop(ev) { ev.preventDefault(); }
+//function allowDrop(ev) { ev.preventDefault(); }
 function dragX(ev) {
 	let elem = ev.target;
 	dragStartOffset = getRelCoordsX(ev, elem);
@@ -2595,10 +2595,12 @@ function dragX(ev) {
 function dropX(ev) {
 	ev.preventDefault();
 	let targetElem = findDragTarget(ev); //drop on target, not a child of it!!!
-	targetElem.appendChild(draggedElement);
+	//console.log(draggedElement.dropPosition);
+	if (nundef(draggedElement.dropPosition) || typeof(draggedElement.dropPosition) != 'function') targetElem.appendChild(draggedElement);
 	setDropPosition(ev, draggedElement, targetElem, isdef(draggedElement.dropPosition) ? draggedElement.dropPosition : dropPosition);
 }
 function makeDraggableX(elem, dropPos) {
+	//dropPos can be func(ev, dragElem, dropElem)
 	elem.draggable = true;
 	elem.ondragstart = dragX;
 	if (isdef(dropPos)) elem.dropPosition = dropPos;

@@ -153,7 +153,7 @@ class GMissingLetter extends Game {
 		activateUi();
 
 	}
-	trialPromptML() {
+	trialPrompt() {
 		let selinp = Selected.inp;
 		sayTryAgain();
 		setTimeout(() => {
@@ -212,14 +212,17 @@ class GMissingLetter extends Game {
 
 	}
 	eval(word) {
+		//console.log('word',word,Goal)
 		let answer = normalize(word, Settings.language);
 		let reqAnswer = normalize(Goal.label, Settings.language);
 
 		Selected.reqAnswer = reqAnswer;
 		Selected.answer = answer;
 
+		//console.log(answer, reqAnswer)
 		if (answer == reqAnswer) return true;
-		else if (Settings.language == 'D' && isEnglishKeyboardGermanEquivalent(reqAnswer, answer)) {
+		else if (Settings.language == 'D' && fromUmlaut(answer) == fromUmlaut(reqAnswer)) {
+			//console.log('hhhhhhhhhhhhhhhhhhh')
 			return true;
 		} else {
 			return false;
@@ -347,7 +350,7 @@ class GSteps extends Game {
 		// console.log(Goal)
 
 		let cmd = 'click';
-		let spoken = [], written = [], corr = []; 
+		let spoken = [], written = [], corr = [];
 		for (let i = 0; i < G.numSteps; i++) {
 			let goal = Goal.pics[i];
 			let sOrdinal = getOrdinal(goal.iRepeat);
@@ -356,7 +359,7 @@ class GSteps extends Game {
 			cmd = 'then';
 		}
 		// console.log('written', written, '\nspoken', spoken);
-		showInstructionX(written.join('; '), dTitle, spoken.join('. '), {fz:20});
+		showInstructionX(written.join('; '), dTitle, spoken.join('. '), { fz: 20 });
 
 		activateUi();
 	}
@@ -487,7 +490,7 @@ class GMissingNumber extends Game {
 			//user entered last missing letter but it is wrong!
 			//can there be multiple errors in string?
 		} else {
-			if (!Settings.silentMode) {writeSound();playSound('incorrect1');}
+			if (!Settings.silentMode) { writeSound(); playSound('incorrect1'); }
 			deactivateFocusGroup();
 			//unfillCharInput(Selected.target);
 			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });
@@ -540,7 +543,7 @@ class GElim extends Game {
 
 
 		if (Goal.pics.length == Goal.sammler.length) evaluate(true);
-		else if (!Goal.pics.includes(pic)) {this.lastPic = pic; evaluate(false);}
+		else if (!Goal.pics.includes(pic)) { this.lastPic = pic; evaluate(false); }
 		// if (pic.label == Goal.label) evaluate(false);
 		// else { removePicture(pic);maLayout(Pictures,dTable) }
 
@@ -548,7 +551,7 @@ class GElim extends Game {
 	eval(isCorrect) {
 		//	console.log('eval', isCorrect);
 		// console.log('piclist', this.piclist)
-		Selected = { piclist: this.piclist, feedbackUI: isCorrect?dTable:this.lastPic.div };
+		Selected = { piclist: this.piclist, feedbackUI: isCorrect ? dTable : this.lastPic.div };
 		return isCorrect;
 	}
 }
