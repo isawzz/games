@@ -115,9 +115,9 @@ class GWritePic extends Game {
 class GMissingLetter extends Game {
 	constructor(name) { super(name); }
 	startLevel() {
-		G.numMissing = getGameOrLevelInfo('numMissing', 1);
-		let pos = getGameOrLevelInfo('posMissing', 'random');
-		G.maxPosMissing = pos == 'start' ? G.numMissing - 1 : 100;
+		// G.numMissing = getGameOrLevelInfo('numMissing', 1);
+		// let pos = getGameOrLevelInfo('posMissing', 'random');
+		G.maxPosMissing = G.posMissing == 'start' ? G.numMissing - 1 : 100;
 	}
 	prompt() {
 		showPictures(() => fleetingMessage('just enter the missing letter!'));
@@ -499,6 +499,59 @@ class GMissingNumber extends Game {
 	eval(isCorrect) { return isCorrect; }
 
 }
+class GElim extends Game {
+	constructor(name) { super(name); }
+	startGame() { G.correctionFunc = () => { writeSound(); playSound('incorrect1'); return Settings.spokenFeedback ? 1800 : 300; } }
+	startLevel() {
+		G.keys = G.keys.filter(x => containsColorWord(x));
+	}
+	prompt() {
+		this.piclist = [];
+		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
+		let showRepeat = G.numRepeat > 1;
+		showPictures(this.interact.bind(this), { showRepeat: showRepeat, colorKeys: colorKeys, contrast: G.contrast, repeat: G.numRepeat });
+
+		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); //logicSetSelector(Pictures);
+		this.piclist = piclist;
+		Goal = { pics: this.piclist, sammler: [] };
+
+		showInstructionX(sWritten, dTitle, sSpoken, { fz: 22, voice: 'zira' });
+		activateUi();
+	}
+	trialPrompt() {
+		for (const p of this.piclist) { toggleSelectionOfPicture(p); }
+		this.piclist = [];
+		sayTryAgain();
+		return 10;
+	}
+	interact(ev) {
+		ev.cancelBubble = true;
+		if (!canAct()) return;
+
+		let id = evToClosestId(ev);
+		let pic = firstCond(Pictures, x => x.div.id == id);
+		writeSound(); playSound('hit');
+
+		if (Goal.pics.includes(pic)) {
+			removePicture(pic, true);
+			//console.log('YES!!!!'); 
+			Goal.sammler.push(pic);
+		}
+
+
+		if (Goal.pics.length == Goal.sammler.length) evaluate(true);
+		else if (!Goal.pics.includes(pic)) {this.lastPic = pic; evaluate(false);}
+		// if (pic.label == Goal.label) evaluate(false);
+		// else { removePicture(pic);maLayout(Pictures,dTable) }
+
+	}
+	eval(isCorrect) {
+		//	console.log('eval', isCorrect);
+		// console.log('piclist', this.piclist)
+		Selected = { piclist: this.piclist, feedbackUI: isCorrect?dTable:this.lastPic.div };
+		return isCorrect;
+	}
+}
 
 
 
@@ -518,9 +571,10 @@ const GAME = {
 	gWritePic: { friendly: 'Type it!', logo: 'keyboard', color: 'orange', cl: GWritePic, }, //LIGHTGREEN, //'#bfef45',
 	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GSayPic, }, //'#4363d8',
 	gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GSteps, }, //'#911eb4',
-	gSet: { friendly: 'Set!', logo: 'abacus', color: TEAL, cl: GSet, }, //'#911eb4',
-	gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
+	// gSet: { friendly: 'Set!', logo: 'abacus', color: TEAL, cl: GSet, }, //'#911eb4',
+	// gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
 	gElim: { friendly: 'Elim!', logo: 'collision', color: TEAL, cl: GElim, }, //'#911eb4',
+	gAnagram: { friendly: 'Anagram!', logo: 'ram', color: 'dimgray', cl: GAnagram, }, //'#911eb4',
 };
 
 

@@ -57,8 +57,9 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 		let info = symbolDict[k];
 		let klang = 'best' + lang;
 		//console.log(k,lang,klang)
-		if (nundef(info[klang])) info.klang = lastOfLanguage(k, lang);
+		if (nundef(info[klang])) info[klang] = lastOfLanguage(k, lang);
 		info.best = info[klang];
+		//console.log(k,lang,lastOfLanguage(k,lang),info.best,info)
 		let isMatch = true;
 		if (isdef(filterFunc)) isMatch = isMatch && filterFunc(k, info.best);
 		if (isdef(confidence)) isMatch = info[klang + 'Conf'] >= confidence;

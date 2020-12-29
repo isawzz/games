@@ -263,5 +263,19 @@ games:
         maxWordLength: 8
       3: 
         maxWordLength: 100
+  gAnagram:
+    levels:
+      0:
+        maxWordLength: 3
+      1:
+        maxWordLength: 4
+      2:
+        maxWordLength: 5
+      3:
+        maxWordLength: 6
+      4:
+        maxWordLength: 7
+      5:
+        maxWordLength: 8
 
       

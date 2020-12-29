@@ -62,6 +62,27 @@ function createLetterInputs(s, dParent, style, idForContainerDiv, colorWhiteSpac
 	}
 	return d;
 }
+function createLetterInputsX(s, dParent, style, idForContainerDiv) {
+	let d = mDiv(dParent);
+	if (isdef(idForContainerDiv)) d.id = idForContainerDiv;
+	inputs = [];
+	for (let i = 0; i < s.length; i++) {
+		let d1 = mDiv(d);
+		d1.innerHTML = s[i];
+		mStyleX(d1, style);
+	}
+	return d;
+}
+function blankInputs(d,ilist,blink=true){
+	let inputs = [];
+	for (const idx of ilist) {
+		let inp = d.children[idx];
+		inp.innerHTML = '_';
+		if (blink) mClass(inp, 'blink');
+		inputs.push({ letter: Goal.label[idx].toUpperCase(), div: inp, index: idx });
+	}
+	return inputs;
+}
 //#endregion createLetterInputs
 
 //#region createWordInputs
@@ -537,7 +558,7 @@ function showCorrectWords(sayit = true) {
 		TOList.correctWords.push(setTimeout(() => {
 			let div = mBy(goal.id);
 			mClass(div, anim);
-			if (speaking) sayRandomVoice((Settings.language == 'E'?'the ':' ') + goal.correctionPhrase);
+			if (speaking) sayRandomVoice((Settings.language == 'E' ? 'the ' : ' ') + goal.correctionPhrase);
 		}, to));
 		to += ms;
 	}
@@ -665,6 +686,7 @@ function getGameValues(user, game, level) {
 	delete di.levels;
 	copyKeys(di, G);
 	//console.log('di', di, '\nlevelInfo', levelInfo, '\nG', G);
+	//console.log(di,G)
 
 }
 function getGameOrLevelInfo(k, defval) {
@@ -730,9 +752,14 @@ function getOrdinalColorLabelInstruction(cmd, ordinal, color, label) {
 	//console.log('spoken', spoken, 'written', written);
 	return [written, spoken, corr];
 }
-function removePicture(pic) {
+function removePicture(pic, reorder = false) {
 	removeInPlace(Pictures, pic);
-	pic.div.remove();
+	if (reorder) {
+		pic.div.remove();
+		maLayout(Pictures, dTable);
+	} else {
+		pic.div.style.opacity = 0;
+	}
 }
 function resetRound() {
 	clearTimeouts();

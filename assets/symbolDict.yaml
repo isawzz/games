@@ -35873,7 +35873,7 @@ dragon:
   group: animals-nature
   subgroups: animal-reptile
   E: dragon
-  D: drachen|drache
+  D: drachen
   hex: 1F409
   family: emoNoto
   text: '&#128009;'
@@ -35897,16 +35897,16 @@ dragon:
     - 133
     - 133
     - 133
-  bestD: drache
+  bestD: drachen
   bestDConf: 83
   bestE: dragon
   bestEConf: 87
   best100:
     E: dragon
-    D: drache
+    D: drachen
   best50:
     E: dragon
-    D: drache
+    D: drachen
 dragon face:
   key: dragon face
   type: emo
@@ -35917,7 +35917,7 @@ dragon face:
   group: animals-nature
   subgroups: animal-reptile
   E: dragon
-  D: drachen|drache
+  D: drachen
   hex: 1F432
   family: emoNoto
   text: '&#128050;'
@@ -35943,7 +35943,7 @@ dragon face:
     - 133
     - 133
     - 133
-  bestD: drache
+  bestD: drachen
   bestDConf: 83
   bestE: dragon
   bestEConf: 84
@@ -72819,7 +72819,7 @@ mahjong red dragon:
   group: activities
   subgroups: game
   E: red dragon|mahjong
-  D: roter drache|mahjong
+  D: roter drachen|drachen|mahjong
   hex: 1F004
   family: emoNoto
   text: '&#126980;'

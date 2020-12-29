@@ -23,7 +23,7 @@ const DD = {
 	'divide the previous number by':'dividiere die vorhergehende zahl durch',
 	'the previous number':'die vorhergehende zahl',is:'ist',what:'was',equals:'ist gleich',enter:"tippe",
 	'to the power of':'hoch',or:'oder',less:'kleiner',greater:'grösser',than:'als',equal:'gleich',and:'und',not:'nicht',
-	say:'sage',write:'schreibe',complete:'ergänze','not equal':'ungleich',except:'ausser',EXCEPT:'AUSSER',
+	say:'sage',write:'schreibe',complete:'ergänze','unequal':'ungleich',except:'ausser',EXCEPT:'AUSSER',
 	number:'Zahl',color:'farbe',eliminate:'eliminiere',all:'alle',with:'mit',
 };
 const OPS = {
@@ -40,7 +40,7 @@ const OPS = {
 	'<=':{sp:'less or equal',f:(a,b)=>(a<=b)},
 	'>=':{sp:'greater or equal',f:(a,b)=>(a>=b)},
 	'=':{sp:'equal',f:(a,b)=>(a==b)},
-	'!=':{sp:'not equal',f:(a,b)=>(a!=b)},
+	'!=':{sp:'unequal',f:(a,b)=>(a!=b)},
 	'and':{sp:'and',f:(a,b)=>(a&&b)},
 	'or':{sp:'or',f:(a,b)=>(a||b)},
 	'nand':{sp:'nand',f:(a,b)=>(!(a&&b))},

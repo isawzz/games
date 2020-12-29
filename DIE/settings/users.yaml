@@ -1,8 +1,8 @@
 nil:
   id: nil
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gElim]
-  lastGame: gElim
-  lastLevel: 4
+  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gElim, gAnagram]
+  lastGame: gAnagram
+  lastLevel: 0
   settings:
     # settings common to all games
     samplesPerLevel: 2
