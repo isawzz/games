@@ -4190,7 +4190,7 @@ aerial tramway:
   group: travel-places
   subgroups: transport-air
   E: tram|cable car
-  D: strassenbahn
+  D: gondel|seilbahn
   hex: 1F6A1
   family: emoNoto
   text: '&#128673;'
