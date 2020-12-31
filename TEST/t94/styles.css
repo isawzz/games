@@ -1,3 +1,28 @@
+.dragelem {
+	position:fixed;
+	z-index: 100;
+	cursor:grabbing;
+}
+#dInputs>div {
+	display:inline-block;
+	background: green;
+	width: 50px;
+	height: 50px;
+	font-size: 40px;
+	text-align: center;
+}
+#dLetters>div, .letter {
+	display:inline-block;
+	background: white;
+	width: 25px;
+	height: 25px;
+	font-size:20px;
+	text-align: center;
+}
+#dLetters{
+	margin:12px;
+}
+
 body{
 	overflow:hidden;
 	background:blue;
