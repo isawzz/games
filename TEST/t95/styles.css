@@ -1,0 +1,25 @@
+.dropzone {
+  width: 500px;
+  height: 200px;
+  background-color: silver;
+}
+
+.block {
+  position: fixed;
+  background-color: pink;
+  margin: 10px;
+  border: 20px solid pink;
+}
+
+.draggable {
+  position: fixed;
+  cursor: pointer; /* IE */
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.dragging {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+  background-color: red;
+}

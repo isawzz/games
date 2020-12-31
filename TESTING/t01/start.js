@@ -19,6 +19,11 @@ async function loadSIMA_local(callback) {
 		if (isdef(callback)) callback();
 	});
 }
+function _start() {
+	console.log('DONE!', symbolDict);
+	//test01();test02();	test03();
+	test01a();
+}
 function test01(){
 	let dropzones = document.querySelectorAll('.dropzone');
 
@@ -26,6 +31,24 @@ function test01(){
 		dropzones,
 		{
 			draggable: '.draggable',
+			dropzone: '.dropzone',
+			mirror: { constrainDimensions: true }
+		}
+	);
+}
+function test01b(){
+
+}
+function test01a(){
+	let dropzones = document.querySelectorAll('.dropzone');
+
+	dropzones = Array.from(dropzones);
+	draggable = mBy('o1');
+
+	let droppable = new Draggable.Droppable(
+		dropzones,
+		{
+			draggable: '#o1', // geht nur mit selector!!!! //draggable, //'.draggable',
 			dropzone: '.dropzone',
 			mirror: { constrainDimensions: true }
 		}
@@ -51,11 +74,6 @@ function test02(){
 }
 function test03(){
 	let doppable = UniqueDropzone();
-}
-function _start() {
-	console.log('DONE!', symbolDict);
-	//test01();test02();
-	test03();
 }
 
 function UniqueDropzone() {

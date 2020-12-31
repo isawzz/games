@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="styles.css" />
+		<script src="../../CODE/helpers.js"></script>
+		<script src="../../CODE/helpersX.js"></script>
+		<script src="script.js"></script>
+		<script src="dd.js"></script>
+		<script src="start.js"></script>
+		<title>das</title>
+	</head>
+	<body>
+		<div id='d0' style='background:yellow' onmousedown="console.log('d0',event.offsetY,event.target.id);">
+			Grab and drag block around
+			<div id="d1" style='background:orange' onmousedown="console.log('d1',event.offsetY,event.target.id,event);">I'm draggable
+				<div id="d2" style='background:red' onmousedown="console.log('d2',event.offsetY,event.target.id,event);">nested</div>
+
+			</div>
+		</div>
+		<!-- <div class="dropzone" onmouseover="onDragOver(event);">
+			Grab and drag block around
+			<div
+				class="draggable block"
+				onmousedown="onDragStart(event);"
+				onmousemove="onDragMove(event);"
+				onmouseup="onDragEnd(event);"
+				onmouseout="event.out = true; onDragEnd(event);"
+			>
+				I'm draggable
+			</div>
+		</div> -->
+	</body>
+</html>

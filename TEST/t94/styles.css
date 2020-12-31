@@ -1,0 +1,33 @@
+body{
+	overflow:hidden;
+	background:blue;
+	height: 100vh;
+	width: 100vw;
+}
+.dropzone {
+  width: 500px;
+  height: 200px;
+  background-color: silver;
+}
+
+.block {
+  position: absolute;
+  background-color: pink;
+  margin: 10px;
+  border: 1px solid pink;
+}
+
+.draggable {
+  position: absolute;
+  cursor: pointer; /* IE */
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.dragging {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+	background-color: red;
+	z-index: 100;
+	position: fixed;
+}
