@@ -2,6 +2,9 @@
 	position:fixed;
 	z-index: 100;
 	cursor:grabbing;
+  color: rgb(60, 0, 248);  /* change [input cursor color] by this*/
+  text-shadow: 0px 0px 0px #D60B0B; /* change [input font] by this*/
+  -webkit-text-fill-color: transparent;
 }
 #dInputs>div {
 	display:inline-block;

@@ -4986,6 +4986,9 @@ function firstWord(s) {
 	return res;
 }
 function hasWhiteSpace(s) { return /\s/g.test(s); }
+function isLetter(s){return /^[a-zA-Z]$/i.test(s);}
+function isCapitalLetter(s){return /^[A-Z]$/i.test(s);}
+function isSingleDigit(s){return /^[0-9]$/i.test(s);}
 function isAlphaNum(s) {
 	//regex version: Here 
 	// ^ means beginning of string and 
