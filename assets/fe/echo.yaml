@@ -1,0 +1,18 @@
+# Age 1
+
+Tools:
+  age: 1
+  color: blue
+  type: bulb
+  resources: [None, bulb, bulb, tower]
+  dogmas:
+    - You may recycle three cards from your Hand. If you do, draw and put into play a [3]
+    - You may recycle a [3] from your Hand. If you do, draw three [1].
+
+Dice:
+  age: 1
+  color: blue
+  type: crown
+  resources: [None, 1, crown, crown]
+  dogmas: 
+    - Draw and reveal a 1. If it has an influence Bonus
