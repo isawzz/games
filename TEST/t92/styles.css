@@ -1,0 +1,58 @@
+.dragelem {
+	position:fixed;
+	z-index: 100;
+	cursor:grabbing;
+}
+#dInputs>div {
+	display:inline-block;
+	background: green;
+	width: 50px;
+	height: 50px;
+	font-size: 40px;
+	text-align: center;
+}
+#dLetters>div, .letter {
+	display:inline-block;
+	background: white;
+	width: 25px;
+	height: 25px;
+	font-size:20px;
+	text-align: center;
+}
+#dLetters{
+	margin:12px;
+}
+
+body{
+	overflow:hidden;
+	background:blue;
+	height: 100vh;
+	width: 100vw;
+}
+.dropzone {
+  width: 500px;
+  height: 200px;
+  background-color: silver;
+}
+
+.block {
+  position: absolute;
+  background-color: pink;
+  margin: 10px;
+  border: 1px solid pink;
+}
+
+.draggable {
+  position: absolute;
+  cursor: pointer; /* IE */
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.dragging {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+	background-color: red;
+	z-index: 100;
+	position: fixed;
+}
