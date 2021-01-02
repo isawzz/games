@@ -151,7 +151,7 @@ Plumbing:
     
 # Age 2
 
-lever:
+Lever:
   age: 2
   color: blue
   type: bulb
