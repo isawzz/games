@@ -252,6 +252,20 @@ games:
         numPics: 6
         numRepeat: 1
   gSayPic:
+  gInno:
+    levels:
+      0:
+        maxWordLength: 3
+      1:
+        maxWordLength: 4
+      2:
+        maxWordLength: 5
+      3:
+        maxWordLength: 6
+      4:
+        maxWordLength: 7
+      5:
+        maxWordLength: 8
   gWritePic:
     levels:
       0: 

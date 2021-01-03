@@ -30,8 +30,8 @@ function startLevel() {
 	G.instance.startLevel();
 	//keys are supposedly set in each game!
 	if (G.keys.length < G.numPics) {
-		//console.log('extending key set!!!!');
 		updateKeySettings(G.numPics + 5);
+		//console.log('===>extending key set to',G.keys);
 	}
 	startRound();
 }

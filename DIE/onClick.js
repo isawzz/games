@@ -32,7 +32,7 @@ function closeAux() {
 	show('dTemple');
 	if (SettingsChanged) {
 		updateSettings();
-		console.log('...saving because closeAux SettingsChanged!!!!')
+		//console.log('...saving because closeAux SettingsChanged!!!!')
 		saveSIMA();
 	}
 	SettingsChanged = false;

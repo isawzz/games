@@ -11,7 +11,10 @@ function createUi(n, R, area) {
 
 	calcIdUiParent(n, R, area);
 
+	// if (n.type == 'panel') n.type = 'hand';
+	// if (n.type == 'info') n.type = 'card52';
 	//console.log('create ui for',n.uid,n.type,n.content,n.uidParent,n.idUiParent)
+
 	let ui;
 	if (nundef(RCREATE[n.type])) ui=mDefault(n,area,R);
 	else ui = RCREATE[n.type](n, R, area);

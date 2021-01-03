@@ -568,7 +568,7 @@ class GAnagram extends Game {
 		});
 	}
 	prompt() {
-		showPictures(() => fleetingMessage('just enter the missing letter!'));
+		showPictures(() => fleetingMessage('just enter the missing letters!'));
 		setGoal();
 		showInstruction(Goal.label, Settings.language == 'E' ? 'drag letters to form' : "forme", dTitle, true);
 		mLinebreak(dTable);
@@ -619,6 +619,7 @@ const GAME = {
 	// gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
 	gElim: { friendly: 'Elim!', logo: 'collision', color: 'orangered', cl: GElim, }, //'#911eb4',
 	gAnagram: { friendly: 'Anagram!', logo: 'ram', color: 'rgb(0,152,105)', cl: GAnagram, }, //'#911eb4',
+	gInno: { friendly: 'Innovate!', logo: 'horse', color: YELLOW, cl: GInno, }, //'#911eb4',
 };
 
 

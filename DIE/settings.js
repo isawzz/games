@@ -153,7 +153,7 @@ function setSettingsKeysSelect(elem) {
 	//let val = elem.type == 'number' ? Number(elem.value) : elem.value;
 	SettingsChanged = true;
 	lookupSetOverride(Settings, elem.keyList, val);
-	console.log('result', lookup(Settings, elem.keyList));
+	//console.log('result', lookup(Settings, elem.keyList));
 }
 
 

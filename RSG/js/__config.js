@@ -9,10 +9,10 @@ var RSG_SOURCE = 'main'; // test | main | direct (muss auf main sein fuer _A, _B
 
 // main: hier kann man einstellen welche assetsTEST (=main) er starten soll
 var DIR_TESTS = '_A'; // _A/ _B/
-var DIR_SERIES = '01_huge'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08 09_speech
+var DIR_SERIES = '10card'; // b0 // 00 01 01_huge 01_NODElist 02 03 04 05hand 06 06catan 07card 08 09_speech
 var TEST_SERIES = DIR_TESTS + '/' + DIR_SERIES;
 var SERVERDATA_PATH = '/assetsTEST/' + TEST_SERIES + '/server'; // 00
-var TEST_INDEX = null;//2; //when != null, should override localStorage!
+var TEST_INDEX = 2;//2; //when != null, should override localStorage!
 
 //test (andere art von test generierung)
 var iTESTSERIES = 7;

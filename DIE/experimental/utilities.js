@@ -57,4 +57,3 @@ function cardFace({ rank, suit, key } = {}, w, h) {
 
 
 
-

@@ -1,4 +1,4 @@
-//#region NEW
+//#region logic selectors (game: Elim!)
 function logicMulti(n) {
 	let allPics = Pictures;
 	let maxPics = 4;
@@ -179,7 +179,7 @@ function logicCheck(pic) {
 function logicReset() {
 	//resets piclist;
 }
-
+//#endregion
 
 
 

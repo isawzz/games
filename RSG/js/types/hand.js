@@ -24,6 +24,11 @@ function handLayout(n, R) {
 
 	let ch0=R.uiNodes[n.children[0]];
 	let size = ch0.params.size;
+	console.log('I am in handLayout!!!!!!!!!!!!!!')
+
+	if (nundef(size)) size={w:70,h:110};
+	//size={w:70,h:110};
+
 	let [w, h, gap] = [size.w,size.h, 4];
 
 	if (isEmpty(uis)) return [0, 0];
@@ -31,12 +36,14 @@ function handLayout(n, R) {
 	let ov = n.params.overlap;
 	ov /= 100; // / 100;
 	//console.log('ov',ov,typeof ov);
-	if (nundef(ov)) ov=.20;
+	if (nundef(ov) || isNaN(ov)) ov=.20;
 	//console.log('overlap',ov,n.params);
 	let overlap = ov * w;
 	//console.log(uis);
 	let dParent = mBy(area);
 	dParent.style.position = 'relative';
+
+	console.log('_______________',x,y,gap,w,ov)
 
 	uis.map(d => {
 		//console.log('parent',dParent,'child',d)
@@ -52,7 +59,7 @@ function handLayout(n, R) {
 	//let h=getBounds(uis[0]).height; //getBounds kann erst NACH appendChild benuetzt werden!!!!!!!!!!!!!!!!!!!
 	//console.log('h',h)
 	let sz = { w: x - overlap + w + gap, h: y + h + gap };
-	//console.log('x', x, 'w', w, 'y', y, 'h', h, 'gap', gap, 'sz', sz)
+	console.log('x', x, 'w', w, 'y', y, 'h', h, 'gap', gap, 'sz', sz)
 	dParent.style.minHeight = (sz.h) + 'px';
 	dParent.style.minWidth = (sz.w) + 'px';
 

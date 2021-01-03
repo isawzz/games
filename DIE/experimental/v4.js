@@ -1,5 +1,26 @@
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function showPicturesX4(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
 	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];

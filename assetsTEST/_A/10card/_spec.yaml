@@ -1,0 +1,28 @@
+2:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+      overlap: 50
+  sa:
+    cond: 
+      name: amanda
+    data: .hand
+1:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      name: amanda
+    data: .hand
+0:
+  ROOT:
+    _NODE: sa
+    params:
+      bg: red
+  sa:
+    cond: 
+      obj_type: card
+    data: .short_name

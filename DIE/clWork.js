@@ -32,3 +32,22 @@ class Game {
 	}
 }
 
+class GInno extends Game {
+	constructor(name) { super(name); }
+	startLevel() {
+		//console.log(G)
+	}
+	prompt() {
+		maShowCards([],[],dTable);//showPictures();
+	}
+	trialPrompt() {
+		sayTryAgain();
+		return 10;
+	}
+	eval(w, word) {
+		Selected = { answer: w, reqAnswer: word, feedbackUI: Goal.div }; //this.inputs.map(x => x.div) };
+		//console.log(Selected);
+		return w == word;
+	}
+
+}

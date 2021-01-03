@@ -2,6 +2,7 @@
 function mCard52(n, R, uidParent) {
 	let dParent = mBy(n.idUiParent);
 
+	console.log('...MCARD52')
 	// let uiWrapper = mDiv(dParent);
 	// addClass(uiWrapper, 'cardWrapper');
 

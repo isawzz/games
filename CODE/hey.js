@@ -11,7 +11,7 @@ async function broadcastSIMA(usersPath = './settings/users.yaml', settingsPath =
 		settings: settings
 	};
 
-	console.log('...saving from BROADCASTING')
+	//console.log('...saving from BROADCASTING')
 	saveSIMA();
 
 	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
@@ -52,6 +52,9 @@ async function localOrRoute(key, url) {
 }
 async function loadAssetsSIMA(assetsPath) {
 	c52 = await localOrRoute('c52', assetsPath + 'c52_blackBorder.yaml');
+	//testCards = await localOrRoute('testCards', assetsPath + 'testCards.yaml');
+	cinno = await localOrRoute('cinno', assetsPath + 'fe/inno.yaml');
+
 	//return;
 	symbolDict = await localOrRoute('symbolDict', assetsPath + 'symbolDict.yaml');
 	symbolKeys = Object.keys(symbolDict);
@@ -64,16 +67,11 @@ async function loadAssetsSIMA(assetsPath) {
 }
 
 async function saveSIMA() {
-	// if (USERNAME == 'test') {
-	// 	//console.log('trying to save USERNAME test!!!!!!!',_getFunctionsNameThatCalledThisFunction());
-	// 	return; //localStorage.setItem('user',USERNAME);
-	// }
-	// localStorage.setItem('user', USERNAME);
 	if (BlockServerSend) {
 		//console.log('...wait for unblocked...');
 		setTimeout(saveSIMA, 1000);
 	} else {
-		console.log('posting DB: startLevel Pictures!', DB.users[USERNAME].games.gTouchPic.startLevel);
+		//console.log('posting DB: startLevel Pictures!', lookupSet(DB.users,[USERNAME,'games','gTouchPic','startLevel'],0)); //DB.users[USERNAME].games.gTouchPic.startLevel);
 		//console.log(DB);
 
 		let url = SERVERURL + 'speechGames';

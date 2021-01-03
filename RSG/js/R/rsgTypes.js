@@ -968,6 +968,7 @@ function mixinChannel(n, rParent, R) {
 //#region uitree generation
 function recUi(n, R, area, oid, key) {
 
+	//console.log('recUI!!!!!!!!!!!!!!!!!!!!!!!')
 	let n1 = R.uiNodes[n.uid] = jsCopy(n);// ONLY DONE HERE!!!!!!!
 	let o = isdef(oid) ? R.getO(oid) : null;
 	if (isdef(n1.data)) { n1.content = calcContentFromData(oid, o, n1.data, R, n1.default_data); }
