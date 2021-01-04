@@ -4,13 +4,46 @@ function getRandomCard({ rank, suit, type } = {}) {
 	else if (type == 'inno') return cardInno();
 }
 function mSymbol(key,dParent, sz, styles={}){
+
+	if (key == 'clock') key='watch';
 	let info = symbolDict[key];
 
+	//ich brauche einen size der macht dass das symbol in sz passt
+	fzStandard=info.fz;
+	hStandard = info.h[0];
+	wStandard = info.w[0];
+
+	//fzStandard/fz = hStandard/sz= wStandard/wz;
+	//fzStandard = fz*hStandard/sz= fz*wStandard/wz;
+	//fzStandard = fz*hStandard/sz= fz*wStandard/wz;
+
+	let fzMax=fzStandard*sz / Math.max(hStandard,wStandard);
+	fzMax *= .9;
+
+
+	let fz=isdef(styles.fz)&& styles.fz<fzMax?styles.fz:fzMax;
+
+	let wi=wStandard*fz/100;
+	let hi=hStandard*fz/100;
+	let vpadding=2+Math.ceil((sz-hi)/2); console.log('***vpadding',vpadding)
+	let hpadding=Math.ceil((sz-wi)/2);
+
+	let margin=''+vpadding+ 'px '+hpadding+ 'px'; //''+vpadding+'px '+hpadding+' ';
+
+	styles=deepmergeOverride(styles,{fz:fz,align:'center',w:sz,h:sz,bg:'white'});
+	let d=mDiv(dParent,styles);
 	
-	if (isdef(styles.h)) styles.fz=info.h[0]*
-	mText(info.text,dParent,{fz:fz,family:info.family});
+	console.log(key,info)
+	//let fz=sz;
+	//if (isdef(styles.h)) styles.fz=info.h[0]*
+	let txt=mText(info.text,d,{family:info.family});
+
+	console.log('-----------',margin,hpadding,vpadding)
+	mStyleX(txt,{margin:margin, 'box-sizing':'border-box'})
+
+	return d;
 }
-function cardInno(key, w = 300, h = 150) {
+function cardInno(key, w = 320, h = 180) {
 	if (nundef(key)) key = chooseRandom(Object.keys(cinno));
 
 	key = 'Flight';
@@ -21,26 +54,47 @@ function cardInno(key, w = 300, h = 150) {
 	//make empty card with dogmas on it
 	let d = mDiv();
 	mSize(d, w, h);
-	szSym = 50;
+	let szSym = 50; let fz=szSym*.8;
 	mStyleX(d, { align: 'left', bg: info.color, rounding: 10, patop: 10, paright: 10, pabottom: szSym, paleft: szSym, position: 'relative' })
-	mText(info.key, d, { fz: 24, weight: 'bold' });
+	mText(info.key, d, { fz: 24, weight: 'bold', margin:'auto'});
+	mLinebreak(d);
 	for (const dog of info.dogmas) {
 		console.log(dog);
 		mText(dog, d);
 		mLinebreak(d);
 	}
 
-	let syms = [];
+	let syms = [];let d1;
+
+	szSym -= 6;
+
 	for (const sym of info.resources) {
-		let d1 = mText(sym, d, { fz: 14, bg: 'green', rounding:'50%', display: 'inline' });
-		let d1 = mSymbol(sym, d, { fz: 14, bg: 'green', rounding:'50%', display: 'inline' });
+		console.log(sym)
+		if (sym == 'None'){
+			//einfach nur das age als text
+			console.log('age of card:', info.age)
+			//mTextFit(text, { wmax, hmax }, dParent, styles, classes)
+			d1 = mDiv(d,{ fz:fz, fg:'black', bg: 'white', rounding:'50%', display: 'inline' });
+			let d2=mText(''+info.age, d1, {});
+			console.log('vvvvvvvvvvvvvvv',d1);
+
+			mClass(d2,'centerCentered')
+
+		}else if (sym == 'echo'){
+
+		}else{
+			d1 = mSymbol(sym, d, szSym, { fz:fz, bg: 'white', rounding:'50%', display: 'inline' });
+		}
+		
 		syms.push(d1);
 	}
+
+	console.log(syms[0])
 	//let 
 	mStyleX(syms[0], { position: 'absolute', w: szSym, h: szSym, left: 0, top: 0, margin:4 });
 	mStyleX(syms[1], { position: 'absolute', w: szSym, h: szSym, left: 0, bottom: 0, margin:4 });
 	mStyleX(syms[2], { position: 'absolute', w: szSym, h: szSym, left: w/2, bottom: 0, margin:4 });
-	mStyleX(syms[3], { position: 'absolute', w: szSym, h: szSym, left: w, bottom: 0, margin:4 });
+	mStyleX(syms[3], { position: 'absolute', w: szSym, h: szSym, right: 0, bottom: 0, margin:4 });
 
 	// let d=mText(info.dogmas.join('\n'));
 	info.div = d;
