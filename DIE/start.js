@@ -39,6 +39,9 @@ async function _start() {
 	console.assert(isdef(G))
 
 	//test03_maShowPictures(); return;
+	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
+
+	//return;
 	if (ALLOW_CALIBRATION) show('dCalibrate');
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 

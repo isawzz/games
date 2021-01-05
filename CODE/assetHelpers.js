@@ -410,12 +410,13 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
-	let dOuter = mDiv(dParent);
+	let dOuter = isdef(dParent)?mDiv(dParent):mDiv();
 	let d = mDiv(dOuter);
 	d.innerHTML = info.text;
 
 	let wdes, hdes, fzdes, wreal, hreal, fzreal, f;
 
+	//console.log(info);
 	if (isdef(styles.w) && isdef(styles.h) && isdef(styles.fz)) {
 		[wdes, hdes, fzdes] = [styles.w, styles.h, styles.fz];
 		let fw = wdes / wInfo;
