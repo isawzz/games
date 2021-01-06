@@ -14,10 +14,11 @@ function zInno(key, dParent) {
 	//each symbol make pic for 
 	let d = item.div = mDiv(null, { position: 'relative' });
 
-	let title = item.title = zText(key.toUpperCase(), d, { weight: 'bold' });
+	let title = item.title = zText(key.toUpperCase(), d, { weight: 'bold', margin:5 });
 
 	let dogmas = [];
-	for (const dog of info.dogmas) { dogmas.push(zText(dog, d, { fz: 20 })); }
+	let dMain = item.dMain=mDiv(d,{align:'left'});
+	for (const dog of info.dogmas) { dogmas.push(zText(dog, dMain, { fz: 20 })); }
 	item.dogmas = dogmas;
 
 	let resources = [];
@@ -25,9 +26,9 @@ function zInno(key, dParent) {
 	//info.resources[2]='tree';
 	for (const sym of info.resources) {
 		let t =
-			sym == 'None' ? zText(info.age.toString(), d, { w: 40, fz: 20, align: 'center', fg: 'black', bg: 'white', rounding: '50%', display: 'inline-block' }, 40, true)
+			sym == 'None' ? zText(info.age.toString(), d, {margin:5, w: 40, fz: 20, align: 'center', fg: 'black', bg: 'white', rounding: '50%', display: 'inline-block' }, 40, true)
 				: sym == 'echo' ? zText(info.echo[0], d, { fz: 20, fg: 'white', bg: 'black' })
-					: zPic(InnoDict[sym].k, d, { padding: 4, w: 40, h: 40, bg: InnoDict[sym].bg, rounding: '10%' });
+					: zPic(InnoDict[sym].k, d, { margin:5, padding: 4, w: 40, h: 40, bg: InnoDict[sym].bg, rounding: '10%' });
 		resources.push(t);
 	}
 	item.resources = resources;
@@ -43,7 +44,7 @@ function zInno(key, dParent) {
 	posBC(resources[2].div);
 	posBR(resources[3].div);
 
-	mStyleX(d, { w: 420, h: 200, padding: 50, 'box-sizing': 'border-box', align: 'left', bg: 'red' });
+	mStyleX(d, { w: 420, h: 200, padding: 50, 'box-sizing': 'border-box', bg: 'firebrick' });
 
 }
 

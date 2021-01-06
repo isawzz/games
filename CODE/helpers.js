@@ -505,7 +505,13 @@ function mStyleS(elem, styles, unit = 'px') { elem = mEnsure(elem); for (const k
 //#region 1 liners positioning_...
 function posTL(d) { mPos(d, 0, 0) }
 function posTC(d) { mStyleX(d, { right: '50%', top: 0, position: 'absolute' }); }
-function posBC(d) { mStyleX(d, { right: '50%', bottom: 0, position: 'absolute' }); }
+function posBC(d) { 
+	let dParent= d.parentNode;
+	console.log(dParent);
+	let dNew=mDiv(dParent,{w:'100%',h:d.style.height,position:'absolute',bottom:0,left:0,bg:'null',align:'center'});
+	mAppend(dNew,d);
+	//mStyleX(d, { bottom: 0, position: 'absolute' }); 
+}
 function posTR(d) { mStyleX(d, { right: 0, top: 0, position: 'absolute' }); }
 function posBL(d) { mStyleX(d, { left: 0, bottom: 0, position: 'absolute' }); }
 function posBLR(d) { mStyleX(d, { left: 0, bottom: 0, position: 'absolute' }); mRot(d, 180); }
