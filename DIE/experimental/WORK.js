@@ -1,10 +1,11 @@
 
 function maShowCards(keys, labels, dParent, onClickPictureHandler, { showRepeat, containerForLayoutSizing, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
-
-	test09_zViewer(); return
-	test08_towerAndOtherSymbols(dParent); return;
 	Pictures=[];
-	test07_showDeck(dParent);
+
+	let c1=zInno('Electricity',dParent);
+	//test09_zViewer(); return;;
+	//test08_towerAndOtherSymbols(dParent); return;
+	//test07_showDeck(dParent);
 	//test06_showCards(dParent); 
 	//test05_ElectricitySuburbia(dParent);
 	//test04_Electricity(dParent); return;

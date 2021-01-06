@@ -1,3 +1,40 @@
+//#region january 2021
+function idealFontsize(txt, wmax, hmax, fz, fzmin) {
+	let tStyles = { w: wmax, fz: fz, family: 'arial' };
+	while (true) {
+		//console.log('trying fz', tStyles, txt);
+		let tSize = getSizeWithStyles(txt, tStyles);
+		//if (tStyles.fz <= fzmin && tSize.h > hmax) return { w: tSize.w, h: tSize.h, fz: tStyles.fz };
+		if (tSize.h <= hmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz };
+		else tStyles.fz -= 1;
+	}
+
+}
+function idealFontsize1(keys, wmax, hmax, labelFunc, fz, fzmin) {
+
+	let infos = [];
+	let maxlen = 0, longestText = '';
+	for (const k of keys) {
+		let info = symbolDict[k];
+		let label = labelFunc(k, info);
+		let tlen = label.length;
+		if (tlen > maxlen) { maxlen = tlen; longestText = label; }
+		infos.push({ info: info, label: label, key: k, tlen: tlen });
+	}
+
+
+	let tStyles = { w: wmax, fz: fz, family: 'arial' };
+	let txt = longestText;
+	let done = false;
+	while (!done) {
+		//console.log('trying fz', tStyles, txt);
+		let tSize = getSizeWithStyles(txt, tStyles);
+		if (tSize.h <= hmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz, infos: infos };
+		else tStyles.fz -= 1;
+	}
+
+}
+
 
 
 //#region november 2020
@@ -13,7 +50,7 @@ function maLayout(pics, dParent) {
 	let i = 0;
 	for (let r = 0; r < rows; r++) {
 		for (let c = 0; c < cols; c++) {
-			maResizePic(pics[i],dParent,pictureSize)
+			maResizePic(pics[i], dParent, pictureSize)
 			i += 1;
 			if (i >= pics.length) return;
 		}
@@ -40,9 +77,9 @@ function maResizePic(p, dParent, pictureSize) {
 	let hPicOld = bpic.height;
 	let hPicNew = bpic.height * x;
 
-	console.log('pic will be resized from',wPicOld,hPicOld,'to',wPicNew,hPicNew)
-	console.log('info.hOrig',p.info.hOrig)
-	console.log('info',p.info)
+	console.log('pic will be resized from', wPicOld, hPicOld, 'to', wPicNew, hPicNew)
+	console.log('info.hOrig', p.info.hOrig)
+	console.log('info', p.info)
 
 	mSize(d, pictureSize, pictureSize);
 
@@ -51,9 +88,9 @@ function maResizePic(p, dParent, pictureSize) {
 	let fzPicOld = firstNumber(dsym.style.fontSize);
 	let fzPicNew = fzPicOld * x;
 
-	let hNew = fzPicNew*p.info.h[0]/100;
+	let hNew = fzPicNew * p.info.h[0] / 100;
 
-	console.log('new h should be',hNew,'but is',hPicNew)
+	console.log('new h should be', hNew, 'but is', hPicNew)
 
 	//old font = fzPicOld ... hOrig
 	// new font = fzPicNew
@@ -79,7 +116,7 @@ function maResizePic(p, dParent, pictureSize) {
 
 	p.sz = pictureSize;
 
-	let htext = p.isLabelVisible?getBounds(dtext).height:0;
+	let htext = p.isLabelVisible ? getBounds(dtext).height : 0;
 	let hpic = getBounds(dpic).height;
 	//console.log(htext,hpic,getBounds(dsym).height)
 	d.style.paddingTop = '' + ((pictureSize - (htext + hpic)) / 2) + 'px';
@@ -410,7 +447,7 @@ function maPic(infokey, dParent, styles, isText = true, isOmoji = false) {
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];
 
-	let dOuter = isdef(dParent)?mDiv(dParent):mDiv();
+	let dOuter = isdef(dParent) ? mDiv(dParent) : mDiv();
 	let d = mDiv(dOuter);
 	d.innerHTML = info.text;
 

@@ -1,3 +1,9 @@
+function compose(itop,ichild,x,y){
+	mPosAbs()
+}
+
+
+
 function cardInnoz(key, wCard = 420) {
 	if (nundef(key)) key = chooseRandom(Object.keys(cinno));
 

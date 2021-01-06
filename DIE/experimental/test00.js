@@ -12,8 +12,9 @@ function test08_towerAndOtherSymbols(dParent) {
 
 	for (const sym of ['tower', 'clock', 'crown', 'tree', 'bulb', 'factory']) {
 		let key = sdict[sym].k;
-		d1 = zPic(key, dParent, { sz: 40, bg: sdict[sym].bg, rounding: '10%' });
-		console.log(d1.outerDims, d1.innerDims, d1.info)
+		let pic = zPic(key, dParent, { sz: 40, bg: sdict[sym].bg, rounding: '10%', margin:10 });
+		//console.log(pic.outerDims, pic.innerDims, pic.info);
+		console.log(pic);
 
 	}
 }

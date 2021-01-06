@@ -504,11 +504,13 @@ function mStyleS(elem, styles, unit = 'px') { elem = mEnsure(elem); for (const k
 
 //#region 1 liners positioning_...
 function posTL(d) { mPos(d, 0, 0) }
-function posTR(d) { mStyle(d, { right: 0, top: 0, position: 'absolute' }); }
-function posBL(d) { mStyle(d, { left: 0, bottom: 0, position: 'absolute' }); }
-function posBLR(d) { mStyle(d, { left: 0, bottom: 0, position: 'absolute' }); mRot(d, 180); }
-function posBR(d) { mStyle(d, { right: 0, bottom: 0, position: 'absolute' }); }
-function posBRR(d) { mStyle(d, { right: 0, bottom: 0, position: 'absolute' }); mRot(d, 180); }
+function posTC(d) { mStyleX(d, { right: '50%', top: 0, position: 'absolute' }); }
+function posBC(d) { mStyleX(d, { right: '50%', bottom: 0, position: 'absolute' }); }
+function posTR(d) { mStyleX(d, { right: 0, top: 0, position: 'absolute' }); }
+function posBL(d) { mStyleX(d, { left: 0, bottom: 0, position: 'absolute' }); }
+function posBLR(d) { mStyleX(d, { left: 0, bottom: 0, position: 'absolute' }); mRot(d, 180); }
+function posBR(d) { mStyleX(d, { right: 0, bottom: 0, position: 'absolute' }); }
+function posBRR(d) { mStyleX(d, { right: 0, bottom: 0, position: 'absolute' }); mRot(d, 180); }
 function posCIC(d) { d = mEnsure(d); d.classList.add('centerCentered'); }
 function posCICT(d) { d = mEnsure(d); d.classList.add('centerCenteredTopHalf'); }
 function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'); }

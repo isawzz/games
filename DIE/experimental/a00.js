@@ -1,26 +1,51 @@
-function zPic(key, dParent, styles = {}, isText = true, isOmoji = false) {
-	let w=styles.w,h=styles.h,padding=styles.padding,hpadding=styles.hpadding,wpadding=styles.wpadding;
-	if (isdef(styles.sz)){
-		if (nundef(w)) w=styles.sz;
-		if (nundef(h)) h=styles.sz;
+const InnoDict = {
+	red: 'red1', blue: 'blue1', green: 'green1', yellow: 'yellow1', purple: 'purple',
+	tower: { k: 'white-tower', bg: 'dimgray' }, clock: { k: 'watch', bg: 'navy' },
+	crown: { k: 'crown', bg: 'black' }, tree: { k: 'tree', bg: GREEN },
+	bulb: { k: 'lightbulb', bg: 'purple' }, factory: { k: 'factory', bg: 'red' }
+};
+
+function zInno(key, dParent) {
+	let info = cinno[key]; info.key = key;
+	info.c = colorDarker(ColorDict[InnoDict[info.color]].c, .6);
+
+	//make prefabs
+	let item = { key: key, info: info };
+	//each symbol make pic for 
+	let d = item.div = mDiv(null, { position: 'relative' });
+
+	let title = item.title = zText(key.toUpperCase(), d, { weight: 'bold' });
+
+	let dogmas = [];
+	for (const dog of info.dogmas) { dogmas.push(zText(dog, d, { fz: 20 })); }
+	item.dogmas = dogmas;
+
+	let resources = [];
+	console.log(info.resources)
+	//info.resources[2]='tree';
+	for (const sym of info.resources) {
+		let t =
+			sym == 'None' ? zText(info.age.toString(), d, { w: 40, fz: 20, align: 'center', fg: 'black', bg: 'white', rounding: '50%', display: 'inline-block' }, 40, true)
+				: sym == 'echo' ? zText(info.echo[0], d, { fz: 20, fg: 'white', bg: 'black' })
+					: zPic(InnoDict[sym].k, d, { padding: 4, w: 40, h: 40, bg: InnoDict[sym].bg, rounding: '10%' });
+		resources.push(t);
 	}
-	let stylesNew = jsCopy(styles);
-	if (isdef(w)){
-		if (isdef(padding)) {w-=2*padding;}//stylesNew.padding=0;}
-		else if (isdef(wpadding)) {w-=2*wpadding;}//stylesNew.wpadding=0;}
-		stylesNew.w=w;
-	}
-	if (isdef(h)){
-		if (isdef(padding)) {h-=2*padding;}//stylesNew.padding=0;}
-		else if (isdef(hpadding))  {h-=2*hpadding;}//stylesNew.hpadding=0;}
-		stylesNew.h=h;
-	}
-	// console.log('old',styles)
-	// console.log('new:',stylesNew)
-	return _zPicPaddingAddedToSize(key,dParent,stylesNew,isText,isOmoji);
+	item.resources = resources;
+
+	console.log(item);
+	mAppend(dParent, d)
+	//return item;
+
+	//compose items w/ abs positioning
+	posTR(title.div);
+	posTL(resources[0].div);
+	posBL(resources[1].div);
+	posBC(resources[2].div);
+	posBR(resources[3].div);
+
+	mStyleX(d, { w: 420, h: 200, padding: 50, 'box-sizing': 'border-box', align: 'left', bg: 'red' });
+
 }
-
-
 
 
 //#region helpers
@@ -133,14 +158,27 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
 	outerStyles.w = wreal; //das ist groesse von inner!
 	outerStyles.h = hreal;
+	// let [bg,fg] = getExtendedColors(outerStyles.bg,outerStyles.fg);
+	// outerStyles.bg = bg;
+	// outerStyles.bg = fg;
 	//console.log(outerStyles)
 	mStyleX(dOuter, outerStyles);
 
 	return {
 		info: info, key: info.key, div: dOuter, outerDims: { w: wdes, h: hdes, hpadding: padh, wpadding: padw },
-		innerDims: { w: wreal, h: hreal, fz: fzreal }
+		innerDims: { w: wreal, h: hreal, fz: fzreal }, bg: dOuter.style.backgroundColor, fg: dOuter.style.color
 	};
 
+}
+function parseDims(w, h, padding) {
+	let allpads = allIntegers(padding);
+	let len = allpads.length;
+	let patop = allpads[0];
+	let paright = len == 1 ? patop : allpads[1];
+	let pabot = len <= 2 ? patop : allpads[2];
+	let paleft = len == 1 ? patop : len < 4 ? paright : allpads[3];
+
+	return { w: w, h: h, patop: patop, paright: paright, pabot: pabot, paleft: paleft };
 }
 
 

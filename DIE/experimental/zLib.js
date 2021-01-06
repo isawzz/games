@@ -1,3 +1,135 @@
+
+function zGrid(elems, dParent) {
+
+	let dGrid = mDiv(dParent);
+	elems.map(x => mAppend(dGrid, x.div));
+
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
+	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
+	return size;
+}
+function zItems(keys, labelFunc, { sz, padding = 4 }, iStart = 0) {
+	//an item is a div with a pic and possibly a label underneath
+	sz = isdef(sz) ? sz : 100;
+	szNet = sz - 2 * padding;
+	let labeled = isdef(labelFunc);
+
+	//als erstes items machen
+	let items = [];
+	let longestLabel = '';
+	let maxlen = 0;
+	let label;
+	for (let i = 0; i < keys.length; i++) {
+		let k = keys[i];
+		let item = { key: k, info: symbolDict[k], index: i, iGroup: iStart };
+		if (isList(labelFunc)) label = labelFunc[i % labelFunc.length];
+		else if (typeof (labelFunc) == 'function') label = labelFunc(k, item.info);
+		else label = null;
+
+		if (isdef(label)) {
+			let tlen = label.length;
+			if (tlen > maxlen) { maxlen = tlen; longestLabel = label; }
+			item.label = label;
+		}
+		items.push(item);
+	}
+
+	//jedes item hat jetzt ein label,info,index,key
+
+	//als erstes das label produzieren und checken wieviel platz es braucht
+	//console.log(longestLabel)
+	let textStyles = idealFontsize(longestLabel, szNet, szNet / 2, 20, 4);
+
+	let hText = textStyles.h;
+	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
+	let pictureSize = hPic;
+	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
+
+	textStyles.fg = 'gray';
+	delete textStyles.h;
+
+	let outerStyles = { w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+
+		let text = zText(item.label, null, textStyles, hText);
+
+		let pic = zPic(k, null, picStyles, true, false);
+		delete pic.info;
+
+		let d = mDiv();
+		mAppend(d, pic.div);
+		mAppend(d, text.div);
+		mStyleX(d, outerStyles);
+
+		// set padding according to text size, truncate text if not enough space
+		if (text.extra < -padding && text.lines >= 3) {
+			mClass(text.div, 'maxLines2');
+		} else {
+			d.style.padding = text.extra == 0 ? padding + 'px' : ('' + (padding + text.extra / 2) + 'px ' + padding + 'px ');
+		}
+
+		d.id = 'pic' + (i + iStart);
+
+		//complete item info
+		item.div = d;
+		item.pic = pic;
+		if (labeled) item.text = text;
+		item.isSelected = false;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		item.bg = d.style.backgroundColor;
+		item.fg = text.div.style.color;
+
+	}
+	return items;
+}
+function zPic(key, dParent, styles = {}, isText = true, isOmoji = false) {
+	let w = styles.w, h = styles.h, padding = styles.padding, hpadding = styles.hpadding, wpadding = styles.wpadding;
+	if (isdef(styles.sz)) {
+		if (nundef(w)) w = styles.sz;
+		if (nundef(h)) h = styles.sz;
+	}
+	let stylesNew = jsCopy(styles);
+	if (isdef(w)) {
+		if (isdef(padding)) { w -= 2 * padding; }//stylesNew.padding=0;}
+		else if (isdef(wpadding)) { w -= 2 * wpadding; }//stylesNew.wpadding=0;}
+		stylesNew.w = w;
+	}
+	if (isdef(h)) {
+		if (isdef(padding)) { h -= 2 * padding; }//stylesNew.padding=0;}
+		else if (isdef(hpadding)) { h -= 2 * hpadding; }//stylesNew.hpadding=0;}
+		stylesNew.h = h;
+	}
+	// console.log('old',styles)
+	// console.log('new:',stylesNew)
+	return _zPicPaddingAddedToSize(key, dParent, stylesNew, isText, isOmoji);
+}
+function zText(text, dParent, textStyles, hText, vCenter = false) {
+	let tSize = getSizeWithStyles(text, textStyles);
+
+
+	let extra = 0, lines = 1;
+	if (isdef(hText)) {
+		extra = hText - tSize.h;
+		if (textStyles.fz) lines = Math.floor(tSize.h / textStyles.fz);
+	}
+	// if (extra > 0 && vCenter) {
+	// 	textStyles.paddingTop = extra / 2;
+	// 	textStyles.h = hText;
+	// 	// dText.style.paddingTop = (extra/2) +'px';
+	// }
+	console.log('', text, extra, 'lines:' + lines, textStyles);
+	let dText = isdef(text) ? mText(text, dParent, textStyles) : mDiv(dParent);
+	if (extra > 0 && vCenter) {
+		dText.style.paddingTop = (extra / 2)+'px';
+		dText.style.paddingBottom = (extra / 2)+'px';
+		// dText.style.paddingTop = (extra/2) +'px';
+	}
+	console.log(dText);
+	return { text: text, div: dText, extra: extra, lines: lines, h: tSize.h, w: tSize.w, fz: textStyles.fz };
+	//return mText(text, dParent, styles); 
+}
 function zViewer(keys) {
 	onclick = zView100;
 	IconSet = isdef(keys) ? keys : symKeysBySet['nosymbols'];
@@ -7,165 +139,31 @@ function zViewer(keys) {
 	zView100();
 }
 function zView100() {	//assumes a div id='table'
+
+	let N = 100;
+	if (lastIndex >= IconSet.length) {
+		console.log('NO MORE KEYS!!!!!');
+		return;
+	}
+
 	let table = mBy('table');
 	clearElement(table);
 	// mButton('download key set', downloadKeySet, table, { fz: 30 });
 
-	let keys = takeFromTo(IconSet, lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
+	console.log('pics', lastIndex, 'to', lastIndex + N)
+	let keys = takeFromTo(IconSet, lastIndex, lastIndex + N);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 	//console.log(keys);
-	Pictures = zItems(keys, 100, (k, info) => k + ' ' + info.h[0]);
+	Pictures = zItems(keys, (k, info) => (k + ' ' + info.h[0]), { sz: 50 }, lastIndex);//, (k, info) => k + ' ' + info.h[0]);
+	//Pictures = zItems00(keys,  (k, info) => (k + ' ' + info.h[0]), { sz: 50 });//, (k, info) => k + ' ' + info.h[0]);
+	// Pictures = zItems01(keys,  { sz: 50 }, (k, info) => k + ' ' + info.h[0]);
 	//console.log(Pictures);
-	zGrid(Pictures, table);
+	let szFinal = zGrid(Pictures, table);
+	lastIndex += N;
+
+	console.log('sizeOfGrid:', szFinal);
+	console.log('pic0', Pictures[0]);
 
 }
-function zText(text, styles) { return mText(text, null, styles); }
-function idealFontsize(keys, wmax, hmax, labelFunc, fz, fzmin) {
-
-	let infos = [];
-	let maxlen = 0, longestText = '';
-	for (const k of keys) {
-		let info = symbolDict[k];
-		let label = labelFunc(k, info);
-		let tlen = label.length;
-		if (tlen > maxlen) { maxlen = tlen; longestText = label; }
-		infos.push({ info: info, label: label, key: k, tlen: tlen });
-	}
-
-
-	let tStyles = { w: wmax, fz: fz, family: 'arial' };
-	let txt = longestText;
-	let done = false;
-	while (!done) {
-		console.log('trying fz', tStyles, txt);
-		let tSize = getSizeWithStyles(txt, tStyles);
-		if (tSize.h <= hmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz, infos: infos };
-		else tStyles.fz -= 1;
-	}
-
-}
-function zItems(keys, sz, labelFunc) {
-	// let styles = labeled ? getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true)
-	// 	: getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
-
-	sz = isdef(sz) ? sz : 100;
-	let labeled = isdef(labelFunc);
-
-	//als erstes das label produzieren und checken wieviel platz es braucht
-	let res = { w: 0, h: 0, fz: 0, infos: keys.map(x => ({ info: symbolDict[x], label: '', key: x, tlen: 0 })) };
-	if (labeled) {
-		res = idealFontsize(keys, sz, sz / 2, labelFunc, 20, 10);
-		console.log(res);
-	}
-
-	//res.h is size needed for text
-	let hText=res.h;
-	let hPic = sz-hText;
-
-	let pictureSize = hPic;
-	let isText = true;
-	let isOmoji = false;
-	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
-
-	let textSize = { fz: res.fz, w: sz };
-	let textStyles = deepmergeOverride(textSize, { bg: 'white', fg: 'random' });
-
-	let outerStyles = { w: sz, h: sz, bg: 'white', align: 'center' };
-
-
-	let elems = [];
-	// let stylesForLabelButton = { rounding: 10, margin: totalSize / 8 };
-
-	for (const k of keys) {
-		let info = symbolDict[k];
-		let label = info.type == 'emo' ? (isdef(info.bestE) ? info.bestE : lastOfLanguage(k, 'E')) + ' ' + lastIndex : k;
-		let pic = zPic(k, null, picStyles, true, false);
-
-		//wenn es labeled ist, mach den text auch noch: restHeight,font should fit
-		let dText = labeled ? zText(labelFunc(k, info), textStyles) : mDiv();
-
-		let el = mDiv();
-		mAppend(el, pic.div);
-		mAppend(el, dText);
-
-		//add height of pic + height of text
-
-		mStyleX(el, outerStyles);
-
-		let res = pic;
-		res.div = el;
-
-		// let el = labeled ? maPicLabelButtonFitText(info, label,
-		// 	{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, contrast: null },
-		// 	onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji)
-		// 	: pic;
-		// let res = labeled ? { div: el } : el;
-		let div = res.div;
-		div.id = 'pic' + lastIndex;
-		elems.push(res);
-		res.info = info; res.label = label; res.isSelected = false;
-		// Pictures.push(res);
-		lastIndex += 1;
-	}
-	return elems;
-}
-function zGrid(elems, dParent) {
-
-	let dGrid = mDiv(dParent);
-	elems.map(x => mAppend(dGrid, x.div));
-
-	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
-}
 
 
 
-function zItems00(keys, labelFunc) {
-	// let styles = labeled ? getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true)
-	// 	: getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
-
-	let labeled = isdef(labelFunc);
-	let totalSize = 100;
-	let pictureSize = Math.round(labeled ? totalSize * .65 : totalSize * .35);
-	let isText = true;
-	let isOmoji = false;
-	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
-
-	let textSize = { w: totalSize, h: totalSize - pictureSize };
-	let textStyles = deepmergeOverride(textSize, { bg: 'white', fg: 'random' });
-
-	let outerStyles = { w: totalSize, h: totalSize, bg: 'white', align: 'center' };
-
-
-	let elems = [];
-	// let stylesForLabelButton = { rounding: 10, margin: totalSize / 8 };
-
-	for (const k of keys) {
-		let info = symbolDict[k];
-		let label = info.type == 'emo' ? (isdef(info.bestE) ? info.bestE : lastOfLanguage(k, 'E')) + ' ' + lastIndex : k;
-		let pic = zPic(k, null, picStyles, true, false);
-
-		//wenn es labeled ist, mach den text auch noch: restHeight,font should fit
-		let dText = labeled ? zText(labelFunc(k, info), textStyles) : mDiv();
-
-		let el = mDiv();
-		mAppend(el, pic.div);
-		mAppend(el, dText);
-		mStyleX(el, outerStyles);
-
-		let res = pic;
-		res.div = el;
-
-		// let el = labeled ? maPicLabelButtonFitText(info, label,
-		// 	{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, contrast: null },
-		// 	onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji)
-		// 	: pic;
-		// let res = labeled ? { div: el } : el;
-		let div = res.div;
-		div.id = 'pic' + lastIndex;
-		elems.push(res);
-		res.info = info; res.label = label; res.isSelected = false;
-		// Pictures.push(res);
-		lastIndex += 1;
-	}
-	return elems;
-}
