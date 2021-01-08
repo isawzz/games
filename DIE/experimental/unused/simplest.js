@@ -11,7 +11,7 @@ function loadUserdata(game) {
 	if (nundef(game.levels)) {
 		console.log('game info for', game.key, 'missing!!!');
 	}
-	game.level = lookupSet(U.games, [game.key, 'lastLevel'], 0);
+	game.level = lookupSet(U.games, [game.key, 'startLevel'], 0);
 	// console.log(G)
 }
 

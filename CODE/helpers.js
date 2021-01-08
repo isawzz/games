@@ -507,8 +507,9 @@ function posTL(d) { mPos(d, 0, 0) }
 function posTC(d) { mStyleX(d, { right: '50%', top: 0, position: 'absolute' }); }
 function posBC(d) { 
 	let dParent= d.parentNode;
-	console.log(dParent);
-	let dNew=mDiv(dParent,{w:'100%',h:d.style.height,position:'absolute',bottom:0,left:0,bg:'null',align:'center'});
+	//console.log(dParent);
+	//console.log('height',d.style.height);
+	let dNew=mDiv(dParent,{w:'100%',h:50,position:'absolute',bottom:0,left:0,bg:'null',align:'center'});
 	mAppend(dNew,d);
 	//mStyleX(d, { bottom: 0, position: 'absolute' }); 
 }
@@ -2357,6 +2358,21 @@ function getRelCoordsX(ev, elem) {
 	let y = ev.pageY - elem.getBoundingClientRect().top;
 	//console.log('coords rel to',elm,':',x,y);
 	return { x: x, y: y };
+}
+function getElemSize(elem) {
+	var d = document.createElement("div");
+	document.body.appendChild(d);
+	//console.log(styles);
+	let cStyles = {position : 'fixed',opacity: 0,top: '-9999px'};
+	mStyleX(d, cStyles);
+	mAppend(d,elem);
+	//d.innerHTML = text;
+	height = d.clientHeight;
+	width = d.clientWidth;
+	//console.log(d)
+	d.parentNode.removeChild(d);
+	//elem.remove();
+	return { w: width, h: height };
 }
 function getSizeWithStyles(text, styles) {
 	var d = document.createElement("div");

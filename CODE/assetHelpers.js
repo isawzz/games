@@ -1,4 +1,19 @@
 //#region january 2021
+function idealFontsizeX(elem, wmax, hmax, fz, fzmin) {
+	let tStyles = { w: wmax, fz: fz, family: 'arial' };
+	let i=0;
+	while (i<100) {
+		i+=1;
+		//console.log('trying fz', tStyles);
+		mStyleX(elem,tStyles);
+		let tSize = getElemSize(elem);
+		if (tSize.h <= hmax || tStyles.fz <= fzmin) { 
+			//console.log(elem)
+			return { w: tSize.w, h: tSize.h, fz: tStyles.fz };
+		}	else tStyles.fz -= 1;
+	}
+
+}
 function idealFontsize(txt, wmax, hmax, fz, fzmin) {
 	let tStyles = { w: wmax, fz: fz, family: 'arial' };
 	while (true) {
@@ -10,6 +25,7 @@ function idealFontsize(txt, wmax, hmax, fz, fzmin) {
 	}
 
 }
+
 function idealFontsize1(keys, wmax, hmax, labelFunc, fz, fzmin) {
 
 	let infos = [];

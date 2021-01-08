@@ -39,7 +39,7 @@ function onMouseDownOnLetter(ev) {
 		//d wird gecloned
 
 		var clone = DragElem = source.cloneNode(true);
-		clone.id=DragElem.id+'_'+clone;
+		clone.id = DragElem.id + '_' + clone;
 		DragSource = source;
 
 		//clone muss an body attached werden
@@ -79,7 +79,7 @@ function onRelease(ev) {
 			inp.innerHTML = DragElem.innerHTML;
 
 			//achtung: if clone is a input clone, clear original element!!!!
-			if (startsWith(DragElem.id,'input')) DragSource.innerHTML = '_';
+			if (startsWith(DragElem.id, 'input')) DragSource.innerHTML = '_';
 			// t.innerHTML = s.innerHTML;
 
 			//check if word complete!
@@ -203,7 +203,40 @@ function scrambleInputs(d) {
 }
 //#endregion createLetterInputs
 
-//#region createWordInputs
+//#region createWordInputs_
+function getColorWheel(n, bgContrast, isUp = true) {
+
+}
+function getStyledItems(words, bgFunc, fgFunc = 'contrast', fzFunc) {
+	let items = [];
+	if (isString(bgFunc)) { bgFunc = () => bgFunc; }
+	if (isLiteral(fzFunc)) { fzFunc = () => fzFunc; }
+	if (isString(fgFunc)) { fgFunc = () => fgFunc; }
+	else if (nundef(fgFunc)) fgFunc = (i, w, bg) => colorIdealText(bg);
+	for (let i = 0; i < words.length; i++) {
+		let w = words[i];
+		let bg = bgFunc(i, w);
+		let fg = fgFunc(i, w, bg);
+		let item = { w: w, bg: bg, fg: fg, i: i, fz: fzFunc(i, w) };
+		items.push(item)
+	}
+	return items;
+}
+function getStyledItems1(words, bgFunc, fgFunc = 'contrast', fzFunc) {
+	let items = [];
+	if (isString(bgFunc)) { bgFunc = () => bgFunc; }
+	if (isLiteral(fzFunc)) { fzFunc = () => fzFunc; }
+	if (isString(fgFunc)) { fgFunc = () => fgFunc; }
+	else if (nundef(fgFunc)) fgFunc = (i, w, bg) => colorIdealText(bg);
+	for (let i = 0; i < words.length; i++) {
+		let w = words[i];
+		let bg = bgFunc(i, w);
+		let fg = fgFunc(i, w, bg);
+		let item = { w: w, bg: bg, fg: fg, i: i, fz: fzFunc(i, w) };
+		items.push(item)
+	}
+	return items;
+}
 function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
 	if (isEmpty(styleWord)) {
@@ -293,8 +326,94 @@ function createNumberSequence(n, min, max, step, op = 'add') {
 	if (min >= (max - 10)) max = min + 10;
 	let seq = getRandomNumberSequence(n, min, max, fBuild, lastPosition);
 	lastPosition = seq[0];
-	let wi = createWordInputs(seq, dTable, 'dNums');
-	return [wi.words, wi.letters, seq];
+
+	return seq;
+}
+function showNumberSequence(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+	//words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true
+	// let wi = createWordInputs_(seq, dParent, 'dNums');
+
+	if (isEmpty(styleWord)) {
+		let sz = 80;
+		styleWord = {
+			margin: 10, padding: 4, rounding: '50%', w: sz, h: sz, display: 'flex', fg: 'lime', bg: 'yellow', 'align-items': 'center',
+			border: 'transparent', outline: 'none', fz: sz - 25, 'justify-content': 'center',
+		};
+
+	}
+
+	let dContainer = mDiv(dParent);
+	if (!isEmpty(styleContainer)) mStyleX(dContainer, styleContainer); else mClass(dContainer, 'flexWrap');
+	dContainer.id = idForContainerDiv;
+
+	let inputGroups = [];
+	let charInputs = [];
+
+	//charInputs sollen info: {iGroup,iPhrase,iWord,char,word,phrase,div,dGroup,dContainer,ofg,obg,ostyle,oclass}
+	//groups sollen haben: [{div,ofg,obg,ostyle,oclass,[charInputs]},...]
+	let iWord = 0;
+	let idx = 0;
+	let numWords = words.length;
+
+	//pure color wheel
+	let wheel = getHueWheel(G.color, 40, numWords <= 4 ? 60 : numWords <= 10 ? 30 : 15, 0);
+	wheel = wheel.map(x => colorHSLBuild(x, 100, 50));
+	wheel = shuffle(wheel);
+
+	//shaded color wheel
+	let wheel1 = colorPalShadeX(anyColorToStandardString(wheel[0]), numWords);
+	wheel = jsCopy(wheel1);
+	//reverse the wheel if subtract
+	if (G.op == 'add') wheel.reverse();
+
+
+	//console.log('wheel',wheel1, wheel)
+	for (const w of words) {
+		let dGroup = mDiv(dContainer);
+		// let dGroup = mCreate('div');
+		// mAppend(dContainer, dGroup);
+		mStyleX(dGroup, styleWord);
+
+		let bg = wheel[iWord]; // dGroup.style.backgroundColor=randomColorX(G.color,40,60,0,50,50);//'yellow';//randomColorX(G.color,70,80);
+		//console.log('bg', bg);
+		dGroup.style.backgroundColor = bg;
+		dGroup.style.color = colorIdealText(bg);// randomColorX(bg,20,30);
+
+		dGroup.id = idForContainerDiv + '_' + iWord;
+		//mClass(dGroup,'flex')
+		let g = { dParent: dContainer, word: w, iWord: iWord, div: dGroup, oStyle: styleWord, ofg: dGroup.style.color, obg: dGroup.style.backgroundColor };
+		inputGroups.push(g);
+
+		//here have to add inputs into group for word w
+		let inputs = [];
+		let iLetter = 0;
+		let wString = w.toString();
+		for (const l of wString) {
+			let dLetter = mDiv(dGroup);
+			// let dLetter = mCreate('div');
+			// mAppend(dGroup, dLetter);
+			if (!isEmpty(styleLetter)) mStyleX(dLetter, styleLetter);
+			dLetter.innerHTML = l;
+			let inp = { group: g, div: dLetter, letter: l, iLetter: iLetter, index: idx, oStyle: styleLetter, ofg: dLetter.style.color, obg: dLetter.style.backgroundColor };
+			charInputs.push(inp);
+			inputs.push(inp);
+			iLetter += 1; idx += 1;
+		}
+		g.charInputs = inputs;
+
+		//here have to add separator! if this is not the last wor of group!
+		if (iWord < words.length - 1 && isdef(sep)) {
+			let dSep = mDiv(dContainer);
+			dSep.innerHTML = sep;
+			if (isdef(styleSep)) mStyleX(dSep, styleSep);
+		}
+
+		iWord += 1;
+	}
+
+	return [inputGroups, charInputs];
+	return { words: inputGroups, letters: charInputs };
+	return [wi.words, wi.letters];
 }
 function setNumberSequenceGoal() {
 	let blank = blankWordInputs(G.words, G.numMissing, G.posMissing);
@@ -309,16 +428,75 @@ function setNumberSequenceGoal() {
 	console.assert(yes == true);
 
 }
-function setGoalWordInputs(n, min, max, step, op = 'add') {
+function showEquation(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
-	let fBuild = x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; };
-	if (op == 'subtract') min += step * (n - 1);
-	if (min >= (max - 10)) max = min + 10;
-	let seq = getRandomNumberSequence(n, min, max, fBuild);
-	let wi = createWordInputs(seq, dTable, 'dNums');
-	let blank = blankWordInputs(wi.words, G.numMissing, G.posMissing);
+	if (isEmpty(styleWord)) {
+		let sz = 80;
+		styleWord = {
+			margin: 10, padding: 4, rounding: '50%', w: sz, h: sz, display: 'flex', fg: 'lime', bg: 'transparent', 
+			'align-items': 'center',	border: 'transparent', outline: 'none', fz: sz - 25, 'justify-content': 'center',
+		};
 
-	Goal = { seq: seq, words: wi.words, chars: wi.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
+	}
+
+	let dContainer = mDiv(dParent);
+	if (!isEmpty(styleContainer)) mStyleX(dContainer, styleContainer); else mClass(dContainer, 'flexWrap');
+	dContainer.id = idForContainerDiv;
+
+	let inputGroups = [];
+	let charInputs = [];
+
+	//charInputs sollen info: {iGroup,iPhrase,iWord,char,word,phrase,div,dGroup,dContainer,ofg,obg,ostyle,oclass}
+	//groups sollen haben: [{div,ofg,obg,ostyle,oclass,[charInputs]},...]
+	let iWord = 0;
+	let idx = 0;
+	let numWords = words.length;
+
+	//console.log('wheel',wheel1, wheel)
+	for (const w of words) {
+		let dGroup = mDiv(dContainer);
+		// let dGroup = mCreate('div');
+		// mAppend(dContainer, dGroup);
+		mStyleX(dGroup, styleWord);
+
+		//dGroup.style.backgroundColor = bg;
+		//dGroup.style.color = colorIdealText(bg);// randomColorX(bg,20,30);
+		dGroup.id = idForContainerDiv + '_' + iWord;
+		//mClass(dGroup,'flex')
+		let g = { dParent: dContainer, word: w, iWord: iWord, div: dGroup, oStyle: styleWord, ofg: dGroup.style.color, obg: dGroup.style.backgroundColor };
+		inputGroups.push(g);
+
+		//here have to add inputs into group for word w
+		let inputs = [];
+		let iLetter = 0;
+		let wString = w.toString();
+		for (const l of wString) {
+			let dLetter = mDiv(dGroup);
+			if (!isEmpty(styleLetter)) mStyleX(dLetter, styleLetter);
+			dLetter.innerHTML = l;
+			let inp = { group: g, div: dLetter, letter: l, iLetter: iLetter, index: idx, oStyle: styleLetter, ofg: dLetter.style.color, obg: dLetter.style.backgroundColor };
+			charInputs.push(inp);
+			inputs.push(inp);
+			iLetter += 1; idx += 1;
+		}
+		g.charInputs = inputs;
+
+		//here have to add separator! if this is not the last wor of group!
+		if (iWord < words.length - 1 && isdef(sep)) {
+			let dSep = mDiv(dContainer);
+			dSep.innerHTML = sep;
+			if (isdef(styleSep)) mStyleX(dSep, styleSep);
+		}
+
+		iWord += 1;
+	}
+
+	return [inputGroups,charInputs];// { words: inputGroups, letters: charInputs };
+}
+function setEquationGoal() {
+	let blank = blankWordInputs(G.words, G.numMissing, G.posMissing);
+
+	Goal = { seq: G.seq, words: G.words, chars: G.letters, blankWords: blank.words, blankChars: blank.letters, iFocus: blank.iFocus };
 	Goal.qCharIndices = Goal.blankChars.map(x => x.index);
 
 	Goal.qWordIndices = Goal.blankWords.map(x => x.iWord);
@@ -326,7 +504,6 @@ function setGoalWordInputs(n, min, max, step, op = 'add') {
 	let yes = true;
 	for (let i = 0; i < Goal.chars.length; i++) if (Goal.chars[i].index != i) yes = false;
 	console.assert(yes == true);
-	//console.log('Goal', Goal);
 
 }
 function blankWordInputs(wi, n, pos = 'random') {
@@ -453,7 +630,7 @@ function getCorrectWords() { return Goal.seq; }
 function getCorrectWordString(sep = ' ') { return getCorrectWords().join(sep); }
 function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 
-//#endregion createWordInputs
+//#endregion createWordInputs_
 
 //#region number sequence hints
 function getNumSeqHintString(i) {

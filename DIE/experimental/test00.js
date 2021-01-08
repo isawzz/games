@@ -1,3 +1,9 @@
+function test10_zViewerClockCrownFactory(){
+	ensureSymByType();
+	let keys = symKeysByType.icon;
+	keys=keys.filter(x=>x.includes('indus')||x.includes('clock')||x.includes('tim')||x.includes('watch')||x.includes('crown')||x.includes('factory'));
+	zViewer(keys);
+}
 function test09_zViewer(){
 	ensureSymByType();
 	let keys = symKeysByType.icon;

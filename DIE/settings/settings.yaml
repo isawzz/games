@@ -290,5 +290,48 @@ games:
         maxWordLength: 7
       5:
         maxWordLength: 8
+  gAbacus:
+    numMissing: 1
+    minNum: 0
+    maxNum: 99
+    steps: 1
+    posMissing: end
+    ops: [add]
+    seqLen: 5
+    levels:
+      0:
+        maxNum: 10
+      1:
+        maxNum: 10
+        ops: [subtract]
+      2:
+        maxNum: 10
+        ops: [add,subtract]
+      3:
+        maxNum: 25
+        ops: [add,subtract]
+      4:
+        maxNum: 50
+        steps: [1,2,3]
+        ops: [add]
+      5:
+        maxNum: 50
+        steps: [1,2]
+        ops: [add,subtract]
+      6:
+        posMissing: notStart
+        maxNum: 99
+        steps: [1,2]
+        ops: [add,subtract]
+      7:
+        posMissing: notStart
+        maxNum: 99
+        steps: [1,2,3,4,5]
+        ops: [add,subtract]
+      8:
+        posMissing: notStart
+        maxNum: 99
+        steps: [3,4,5,6,7,8,9,10]
+        ops: [add,subtract]
 
       

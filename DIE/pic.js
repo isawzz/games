@@ -188,7 +188,7 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	//keys=['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
 	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 		{

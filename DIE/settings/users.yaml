@@ -1,20 +1,19 @@
 nil:
   id: nil
-  seq: [gInno, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gInno
-  lastLevel: 0
+  seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
+  lastGame: gAbacus
   settings:
     # settings common to all games
-    samplesPerGame: 3
-    minutesPerUnit: .1
-    incrementLevelOnPositiveStreak: 1
-    decrementLevelOnNegativeStreak: 1
+    samplesPerGame: 13
+    minutesPerUnit: 13
+    incrementLevelOnPositiveStreak: 10
+    decrementLevelOnNegativeStreak: 10
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
     vocab: best100
     showTime: true
-    spokenFeedback: true
-    silentMode: false
+    spokenFeedback: false
+    silentMode: true
     switchGame: true
     #indiv game settings default
     trials:  2
@@ -31,7 +30,6 @@ guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
   lastGame: gTouchPic
-  lastLevel: 0
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -55,7 +53,6 @@ test0:
   id: test0
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
   lastGame: gTouchPic
-  lastLevel: 0
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -78,8 +75,7 @@ test0:
 gul:
   id: gul
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gMissingNumber
-  lastLevel: 0
+  lastGame: gSayPic
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -88,8 +84,8 @@ gul:
     decrementLevelOnNegativeStreak: 5
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
-    vocab: best100
-    showTime: false
+    vocab: best50
+    showTime: true
     spokenFeedback: true
     silentMode: false
     switchGame: true
@@ -101,6 +97,22 @@ gul:
       startLevel: 3
     gPremem:
       startLevel: 3
+    gTouchColors: 
+      startLevel: 2
+    gMissingLetter: 
+      startLevel: 2
+    gSteps: 
+      startLevel: 0
+    gSayPic: 
+      startLevel: 0
     gMem:
+      startLevel: 1
+    gMissingNumber: 
+      startLevel: 2
+    gWritePic: 
+      startLevel: 2
+    gAnagram: 
+      startLevel: 0
+    gElim: 
       startLevel: 1
 

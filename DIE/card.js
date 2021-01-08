@@ -388,7 +388,7 @@ function showDeck(keys, dParent, splay, w, h) {
 	let x = y = gap;
 	for (let i = 0; i < keys.length; i++) {
 		let k = keys[i];
-		let c = cardInnoz(k, w);
+		let c = zInno(k, d);
 		mAppend(d, c.div);
 		mStyleX(c.div, { position: 'absolute', left: x, top: y });
 		c.row = 0;

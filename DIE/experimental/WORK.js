@@ -1,9 +1,25 @@
+function zMeasure(item){
+	console.log(item)
+
+}
 
 function maShowCards(keys, labels, dParent, onClickPictureHandler, { showRepeat, containerForLayoutSizing, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	Pictures=[];
 
-	let c1=zInno('Electricity',dParent);
+	//zInno('Steam Engine',dParent); return;
+
+	keys = zInnoRandom(10); // ['Gunpowder']; //zInnoRandom(10); 
+	keys.map(x=>zInno(x,dParent)); //console.log(keys); 	
+	
+	let cards = [];
+	for(const k of keys){
+		let card = zInno(k,dParent);
+		cards.push(card);
+		zMeasure(card);
+	}
+	
 	//test09_zViewer(); return;;
+	//test10_zViewerClockCrownFactory(); return;
 	//test08_towerAndOtherSymbols(dParent); return;
 	//test07_showDeck(dParent);
 	//test06_showCards(dParent); 

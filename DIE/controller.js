@@ -2,7 +2,10 @@ var pictureSize, TOMain, TOTrial;
 var uiActivated, auxOpen;
 function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
-function stopGame() { resetState(); }
+function stopGame() { 
+	
+	resetState(); 
+}
 function startGame() {
 	//console.log('___________startGame_', G);
 
@@ -68,6 +71,7 @@ function evaluate() {
 	uiActivated = false; clearTimeouts();
 
 	IsAnswerCorrect = G.instance.eval(...arguments);
+	if (IsAnswerCorrect === undefined) { promptNextTrial(); return; }
 	//console.log('answer is', IsAnswerCorrect ? 'correct' : 'WRONG!!!')
 
 	G.trialNumber += 1;

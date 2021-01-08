@@ -242,10 +242,10 @@ class GMissingLetter extends Game {
 }
 class GSayPic extends Game {
 	constructor(name) { super(name); }
-	clear(){ Speech.stopRecording(); }
+	clear() { Speech.stopRecording(); }
 	prompt() {
 
-		showPictures(() => mBy(defaultFocusElement).focus());
+		showPictures();
 		setGoal();
 
 		showInstruction(Goal.label, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
@@ -273,15 +273,20 @@ class GSayPic extends Game {
 		}
 
 	}
-	eval(isfinal, speechResult, confidence) {
+	eval(isfinal, speechResult, confidence, sessionId) {
 
+		//console.log(Goal);
+		//console.log('===>',sessionId,SessionId);
+		if (sessionId != SessionId) {
+			alert('NOT THIS BROWSER!!!!!!'); return undefined;
+		}
 		let answer = Goal.answer = normalize(speechResult, Settings.language);
 		let reqAnswer = Goal.reqAnswer = normalize(Goal.label, Settings.language);
 
 		Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
 
 		if (isEmpty(answer)) return false;
-		else return isSimilar(answer, reqAnswer);
+		else return isSimilar(answer, reqAnswer) || isList(Goal.info.valid) && firstCond(Goal.info.valid, x => x.toUpperCase() == answer.toUpperCase());
 
 	}
 }
@@ -417,7 +422,8 @@ class GMissingNumber extends Game {
 
 		G.step = chooseRandom(G.steps);
 		G.op = chooseRandom(G.ops);
-		[G.words, G.letters, G.seq] = createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
+		G.seq = createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
+		[G.words, G.letters] = showNumberSequence(G.seq, dTable);
 		setNumberSequenceGoal();
 		//console.log(G)
 
@@ -505,9 +511,9 @@ class GMissingNumber extends Game {
 }
 class GElim extends Game {
 	constructor(name) { super(name); }
-	startGame() { 
+	startGame() {
 		G.correctionFunc = () => { writeSound(); playSound('incorrect1'); return Settings.spokenFeedback ? 1800 : 300; };
-		G.successFunc = () => { Goal.pics.map(x=>x.div.style.opacity = .3); successPictureGoal();}
+		G.successFunc = () => { Goal.pics.map(x => x.div.style.opacity = .3); successPictureGoal(); }
 	}
 	startLevel() {
 		G.keys = G.keys.filter(x => containsColorWord(x));
@@ -555,7 +561,7 @@ class GElim extends Game {
 	eval(isCorrect) {
 		//	console.log('eval', isCorrect);
 		// console.log('piclist', this.piclist)
-		Selected = { piclist: this.piclist, feedbackUI: isCorrect ? Goal.pics.map(x=>x.div) : this.lastPic.div };
+		Selected = { piclist: this.piclist, feedbackUI: isCorrect ? Goal.pics.map(x => x.div) : this.lastPic.div };
 		return isCorrect;
 	}
 }
@@ -619,7 +625,8 @@ const GAME = {
 	// gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
 	gElim: { friendly: 'Elim!', logo: 'collision', color: 'orangered', cl: GElim, }, //'#911eb4',
 	gAnagram: { friendly: 'Anagram!', logo: 'ram', color: 'rgb(0,152,105)', cl: GAnagram, }, //'#911eb4',
-	gInno: { friendly: 'Innovate!', logo: 'horse', color: YELLOW, cl: GInno, }, //'#911eb4',
+	gInno: { friendly: 'Innovate!', logo: 'horse', color: 'silver', cl: GInno, }, //'#911eb4',
+	gAbacus: { friendly: 'Abacus', logo: 'abacus', color: 'mediumslateblue', cl: GAbacus, },
 };
 
 
