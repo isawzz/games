@@ -294,19 +294,20 @@ games:
     numMissing: 1
     minNum: 0
     maxNum: 99
-    steps: 1
+    minFactor: 1
+    maxFactor: 10
     posMissing: end
-    ops: [add]
-    seqLen: 5
+    ops: [add,subtract,multiply]
     levels:
       0:
         maxNum: 10
+        ops: [add,subtract,multiply]
       1:
         maxNum: 10
-        ops: [subtract]
+        ops: [add,subtract,multiply]
       2:
         maxNum: 10
-        ops: [add,subtract]
+        ops: [add,subtract,multiply]
       3:
         maxNum: 25
         ops: [add,subtract]

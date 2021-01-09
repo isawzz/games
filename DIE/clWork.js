@@ -74,8 +74,9 @@ class GAbacus extends Game {
 		mLinebreak(dTable);
 
 		G.operand = randomNumber(G.minNum,G.maxNum);
-		G.step = randomNumber(G.minNum,G.maxNum); // chooseRandom(G.steps);
-		G.op = chooseRandom(['+','-','*']); //G.ops);
+		G.step = randomNumber(G.minFactor,G.maxFactor); // chooseRandom(G.steps);
+		G.op = getOperator(chooseRandom(G.ops));
+		console.log(G.op);
 		if (G.op == '-' && G.operand < G.step){ let h=G.operand;G.operand=G.step;G.step=h;}
 		
 		G.seq = [G.operand,G.op,G.step];//,'=',13]; // createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
@@ -86,6 +87,8 @@ class GAbacus extends Game {
 		G.seq = G.seq.concat(['=',result]);
 		
 		let panel=mDiv(dTable,{bg:'#00000080',padding:40,rounding:12});
+		//replace op in seq by wr
+		arrReplace(G.seq,G.op,OPS[G.op].wr);
 		[G.words, G.letters] = showEquation(G.seq, panel);
 		setNumberSequenceGoal();
 		//console.log(G)
