@@ -632,6 +632,35 @@ function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 
 //#endregion createWordInputs_
 
+//#region math exp
+function makeExpSequence(){
+
+}
+function readExp(){
+
+}
+function writeExp(){
+
+}
+function blankExpResult(){
+
+}
+function evalExp(){
+
+}
+function blankOperand2(){
+
+}
+function blankOperator(){
+
+}
+function generateExpAnswers(){
+
+}
+function setExpGoal(){
+	
+}
+
 //#region number sequence hints
 function getNumSeqHintString(i) {
 	console.log('i', i, 'trial#', G.trialNumber)
