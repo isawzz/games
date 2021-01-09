@@ -73,22 +73,13 @@ class GAbacus extends Game {
 		showHiddenThumbsUpDown({ sz: 140 });
 		mLinebreak(dTable);
 
-		G.operand = randomNumber(G.minNum,G.maxNum);
-		G.step = randomNumber(G.minFactor,G.maxFactor); // chooseRandom(G.steps);
-		G.op = getOperator(chooseRandom(G.ops));
-		console.log(G.op);
-		if (G.op == '-' && G.operand < G.step){ let h=G.operand;G.operand=G.step;G.step=h;}
+		G.seq = makeExpSequence();
 		
-		G.seq = [G.operand,G.op,G.step];//,'=',13]; // createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
-		let exp = G.seq.join(' ');
-		console.log(exp);
-		let result = eval(exp);
-		console.log('RESULT',result);
-		G.seq = G.seq.concat(['=',result]);
-		
+		console.log('G.seq',G.seq); 
+
 		let panel=mDiv(dTable,{bg:'#00000080',padding:40,rounding:12});
 		//replace op in seq by wr
-		arrReplace(G.seq,G.op,OPS[G.op].wr);
+		//arrReplace(G.seq,G.op,OPS[G.op].wr);
 		[G.words, G.letters] = showEquation(G.seq, panel);
 		setNumberSequenceGoal();
 		//console.log(G)
@@ -98,15 +89,15 @@ class GAbacus extends Game {
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		showInstruction('', instr1, dTitle, true);
 
-		let initialDelay = 5000 + G.level * 1000;
+		//let initialDelay = 5000 + G.level * 1000;
 		//if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 
 		activateUi();
 	}
 	trialPrompt() {
-		let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
-		let initialDelay = 3000 + G.level * 1000;
-		if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+		//let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
+		//let initialDelay = 3000 + G.level * 1000;
+		//if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
 		return 10;
 	}

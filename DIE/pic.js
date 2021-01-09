@@ -81,12 +81,13 @@ function logicFilter(allPics, exceptProps) {
 		lstWritten = ['with', props[prop].friendly, colorPrepper(val)];
 		piclist = allPics.filter(x => x[prop] == val);
 	} else if (prop == 'iRepeat') {
-		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['<=', '>=', '=']) : chooseRandom(['=', '!=']);
+		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq', 'neq']);
 		//op = '!=';
-		lstSpoken = lstSpoken.concat(['with', props[prop].friendly, OPS[op].sp, val]);
-		lstWritten = ['with', props[prop].friendly, op, val];
+		let oop=OPS[op];
+		lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
+		lstWritten = ['with', props[prop].friendly, oop.wr, val];
 
-		piclist = allPics.filter(x => OPS[op].f(x[prop], val));
+		piclist = allPics.filter(x => oop.f(x[prop], val));
 
 	}
 	//console.log(lstSpoken)
@@ -136,12 +137,13 @@ function logicSetSelector(allPics) {
 			lstWritten = ['eliminate', 'all', 'with', props[prop].friendly, colorPrepper(val)];
 			piclist = allPics.filter(x => x[prop] == val);
 		} else if (prop == 'iRepeat') {
-			let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['<=', '>=', '=']) : chooseRandom(['=', '!=']);
+			let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq', 'neq']);
 			//op = '!=';
-			lstSpoken = lstSpoken.concat(['with', props[prop].friendly, OPS[op].sp, val]);
-			lstWritten = ['eliminate', 'all', 'with', props[prop].friendly, op, val];
+			let oop = OPS[op];
+			lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
+			lstWritten = ['eliminate', 'all', 'with', props[prop].friendly, oop.wr, val];
 
-			piclist = allPics.filter(x => OPS[op].f(x[prop], val));
+			piclist = allPics.filter(x => oop.f(x[prop], val));
 
 		}
 		//console.log(lstSpoken)

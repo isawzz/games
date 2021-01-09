@@ -237,7 +237,7 @@ function getStyledItems1(words, bgFunc, fgFunc = 'contrast', fzFunc) {
 	}
 	return items;
 }
-function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+function createWordInputs(words, dParent, idForContainerDiv='seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
 	if (isEmpty(styleWord)) {
 		let sz = 80;
@@ -270,7 +270,7 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 	let wheel1 = colorPalShadeX(anyColorToStandardString(wheel[0]), numWords);
 	wheel = jsCopy(wheel1);
 	//reverse the wheel if subtract
-	if (G.op == 'add') wheel.reverse();
+	if (G.op == 'plus') wheel.reverse();
 
 
 	//console.log('wheel',wheel1, wheel)
@@ -319,17 +319,17 @@ function createWordInputs(words, dParent, idForContainerDiv, sep = null, styleCo
 
 	return { words: inputGroups, letters: charInputs };
 }
-function createNumberSequence(n, min, max, step, op = 'add') {
+function createNumberSequence(n, min, max, step, op = 'plus') {
 
-	let fBuild = x => { return op == 'add' ? (x + step) : op == 'subtract' ? (x - step) : x; };
-	if (op == 'subtract') min += step * (n - 1);
+	let fBuild = x => { return op == 'plus' ? (x + step) : op == 'minus' ? (x - step) : x; };
+	if (op == 'minus') min += step * (n - 1);
 	if (min >= (max - 10)) max = min + 10;
 	let seq = getRandomNumberSequence(n, min, max, fBuild, lastPosition);
 	lastPosition = seq[0];
 
 	return seq;
 }
-function showNumberSequence(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+function showNumberSequence(words, dParent, idForContainerDiv='seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 	//words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true
 	// let wi = createWordInputs_(seq, dParent, 'dNums');
 
@@ -364,7 +364,7 @@ function showNumberSequence(words, dParent, idForContainerDiv, sep = null, style
 	let wheel1 = colorPalShadeX(anyColorToStandardString(wheel[0]), numWords);
 	wheel = jsCopy(wheel1);
 	//reverse the wheel if subtract
-	if (G.op == 'add') wheel.reverse();
+	if (G.op == 'plus') wheel.reverse();
 
 
 	//console.log('wheel',wheel1, wheel)
@@ -423,18 +423,19 @@ function setNumberSequenceGoal() {
 
 	Goal.qWordIndices = Goal.blankWords.map(x => x.iWord);
 
-	let yes = true;
-	for (let i = 0; i < Goal.chars.length; i++) if (Goal.chars[i].index != i) yes = false;
-	console.assert(yes == true);
+	// let yes = true;
+	// for (let i = 0; i < Goal.chars.length; i++) if (Goal.chars[i].index != i) yes = false;
+	// console.assert(yes == true);
 
 }
 function showEquation(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
 	if (isEmpty(styleWord)) {
-		let sz = 80;
+		let sz = 100;
+		let fg = helleFarbe(G.color);
 		styleWord = {
-			margin: 10, padding: 4, rounding: '50%', w: sz, h: sz, display: 'flex', fg: 'lime', bg: 'transparent', 
-			'align-items': 'center',	border: 'transparent', outline: 'none', fz: sz - 25, 'justify-content': 'center',
+			margin:8, padding: 4, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
+			'align-items': 'center', border: 'transparent', outline: 'none', fz: sz, 'justify-content': 'center',
 		};
 
 	}
@@ -491,7 +492,7 @@ function showEquation(words, dParent, idForContainerDiv, sep = null, styleContai
 		iWord += 1;
 	}
 
-	return [inputGroups,charInputs];// { words: inputGroups, letters: charInputs };
+	return [inputGroups, charInputs];// { words: inputGroups, letters: charInputs };
 }
 function setEquationGoal() {
 	let blank = blankWordInputs(G.words, G.numMissing, G.posMissing);
@@ -633,32 +634,54 @@ function getInputWordString(sep = ' ') { return getInputWords().join(sep); }
 //#endregion createWordInputs_
 
 //#region math exp
-function makeExpSequence(){
+function makeExpSequence() {
+	G.operand = randomNumber(G.minNum, G.maxNum);
+	G.op = chooseRandom(G.ops); //G.op ist jetzt ein key in OPS
+
+	let upper = G.op == 'minus' ? G.operand : G.maxFactor;
+
+	console.assert(upper >= G.minFactor || upper == 0);
+
+	G.step = G.minFactor > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
+	G.oop = OPS[G.op];
+	console.log(G.op, G.oop);
+
+	G.result = G.oop.f(G.operand, G.step);
+
+	G.seq = [G.operand, G.oop.wr, G.step, '=', G.result];//,'=',13]; // createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
+
+	//G.exp =  [G.operand, G.oop.op, G.step];
+	//let exp = G.seq.join(' ');
+	//console.log(exp);
+	//let result = eval(exp);
+	// G.seq = G.seq.concat(['=', result]);
+
+	// console.log('RESULT', G.result);
+	return G.seq;
+}
+function readExp() {
 
 }
-function readExp(){
+function writeExp() {
 
 }
-function writeExp(){
+function blankExpResult() {
 
 }
-function blankExpResult(){
+function evalExp() {
 
 }
-function evalExp(){
+function blankOperand2() {
 
 }
-function blankOperand2(){
+function blankOperator() {
 
 }
-function blankOperator(){
+function generateExpAnswers() {
 
 }
-function generateExpAnswers(){
+function setExpGoal() {
 
-}
-function setExpGoal(){
-	
 }
 
 //#region number sequence hints
@@ -668,11 +691,11 @@ function getNumSeqHintString(i) {
 	let m = G.step;
 	let lstSpoken, lstWritten;
 	if (i == 0) {
-		lstSpoken = [cmd, m];
+		lstSpoken = [G.oop.cmd, m];
 	} else if (i == 1) {
-		let decl = G.op == 'add' ? 'to' : G.op == 'subtract' ? 'from' : 'by';
+		let decl = G.op == 'plus' ? 'to' : G.op == 'minus' ? 'from' : 'by';
 		let phrase = decl + ' the previous number';
-		lstSpoken = [cmd, m, phrase];
+		lstSpoken = [G.oop.cmd, m, G.oop.link, ' the previous number'];
 	} else if (i == 2) {
 		//console.log('YYYYYYYYYYYYYYYY')
 		let iBlank = getNextIndexOfMissingNumber();
@@ -684,10 +707,10 @@ function getNumSeqHintString(i) {
 		let iBlank = getNextIndexOfMissingNumber();
 		let iPrevious = iBlank - 1;
 		let n = G.seq[iPrevious];
-		let op = cmd == 'add' ? 'plus' : cmd == 'subtract' ? 'minus' : cmd == 'multiply' ? 'times' : 'divided by';
+		let oop = OPS[cmd];//let op = cmd;// == 'plus' ? 'plus' : cmd == 'minus' ? 'minus' : cmd == 'mult' ? 'times' : 'divided by';
 		let erg = i >= 4 ? Goal.words[iBlank].word : '?';
-		lstSpoken = ['', n, op, m, 'equals', erg];
-		lstWritten = [n, getOperator(cmd), m, getOperator('equals'), getOperator(erg)]
+		lstSpoken = ['', n, oop.sp, m, 'equals', erg];
+		lstWritten = [n, oop.wr, m, '=', erg]; //erg == '?' ? '?' : erg]
 	} else {
 		//lst = [cmd, m];
 		let iBlank = getNextIndexOfMissingNumber();
@@ -697,18 +720,12 @@ function getNumSeqHintString(i) {
 	if (nundef(lstWritten)) lstWritten = lstSpoken;
 	return [lstSpoken.join(' '), lstWritten.join(' ')];
 }
-function getOperator(op) {
-	switch (op) {
-		case 'add': return '+';
-		case 'subtract': return '-';
-		case 'divide': return ':';
-		case 'multiply': return 'x';
-		case 'equals': return '=';
-		case '?': return '_';
-		default: return op;
-	}
+function getNumSeqHint() {
+	let l = G.op == 'plus' ? 'to' : 'from';
+	let msg = `${G.op} ${G.step} ${l} the previous number`;
+	msg = `${G.oop.cmd} ${G.step} ${G.oop.link} the previous number`;
+	return msg;
 }
-function getNumSeqHint() { let l = G.op == 'add' ? 'to' : 'from'; let msg = `${G.op} ${G.step} ${l} the previous number`; return msg; }
 function getNextIndexOfMissingNumber(iStart = 0) {
 	//console.log('HAAAAAA', G.numMissing, iStart, Goal)
 	for (let i = iStart; i < G.seq.length; i++) {

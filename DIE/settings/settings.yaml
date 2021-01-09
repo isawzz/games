@@ -60,43 +60,43 @@ games:
     maxNum: 99
     steps: 1
     posMissing: end
-    ops: [add]
+    ops: [plus]
     seqLen: 5
     levels:
       0:
         maxNum: 10
       1:
         maxNum: 10
-        ops: [subtract]
+        ops: [minus]
       2:
         maxNum: 10
-        ops: [add,subtract]
+        ops: [plus,minus]
       3:
         maxNum: 25
-        ops: [add,subtract]
+        ops: [plus,minus]
       4:
         maxNum: 50
         steps: [1,2,3]
-        ops: [add]
+        ops: [plus]
       5:
         maxNum: 50
         steps: [1,2]
-        ops: [add,subtract]
+        ops: [plus,minus]
       6:
         posMissing: notStart
         maxNum: 99
         steps: [1,2]
-        ops: [add,subtract]
+        ops: [plus,minus]
       7:
         posMissing: notStart
         maxNum: 99
         steps: [1,2,3,4,5]
-        ops: [add,subtract]
+        ops: [plus,minus]
       8:
         posMissing: notStart
         maxNum: 99
         steps: [3,4,5,6,7,8,9,10]
-        ops: [add,subtract]
+        ops: [plus,minus]
   gSteps:
     contrast: 0.22
     colors: [blue1, violet, lightgreen, pink, red, yellow]
@@ -297,42 +297,31 @@ games:
     minFactor: 1
     maxFactor: 10
     posMissing: end
-    ops: [add,subtract,multiply]
+    ops: [plus,minus,mult]
     levels:
       0:
         maxNum: 10
-        ops: [add,subtract,multiply]
+        ops: [plus,minus,mult]
       1:
-        maxNum: 10
-        ops: [add,subtract,multiply]
+        maxNum: 20
+        ops: [plus,minus,mult]
       2:
-        maxNum: 10
-        ops: [add,subtract,multiply]
+        maxNum: 50
+        ops: [plus,minus,mult]
       3:
-        maxNum: 25
-        ops: [add,subtract]
+        maxNum: 99
+        ops: [plus,minus,mult]
       4:
-        maxNum: 50
-        steps: [1,2,3]
-        ops: [add]
+        maxNum: 99
+        ops: [plus,minus,mult]
       5:
-        maxNum: 50
-        steps: [1,2]
-        ops: [add,subtract]
+        maxNum: 99
+        ops: [plus,minus,mult]
       6:
-        posMissing: notStart
-        maxNum: 99
-        steps: [1,2]
-        ops: [add,subtract]
+        maxNum: 50
+        ops: [plus,minus,mult]
       7:
-        posMissing: notStart
-        maxNum: 99
-        steps: [1,2,3,4,5]
-        ops: [add,subtract]
-      8:
-        posMissing: notStart
-        maxNum: 99
-        steps: [3,4,5,6,7,8,9,10]
-        ops: [add,subtract]
+        maxNum: 50
+        ops: [plus,minus,mult]
 
       

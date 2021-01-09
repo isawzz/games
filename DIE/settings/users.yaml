@@ -12,7 +12,7 @@ nil:
     language: E
     vocab: best100
     showTime: true
-    spokenFeedback: false
+    spokenFeedback: true
     silentMode: true
     switchGame: true
     #indiv game settings default

@@ -422,6 +422,7 @@ class GMissingNumber extends Game {
 
 		G.step = chooseRandom(G.steps);
 		G.op = chooseRandom(G.ops);
+		G.oop = OPS[G.op];
 		G.seq = createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
 		[G.words, G.letters] = showNumberSequence(G.seq, dTable);
 		setNumberSequenceGoal();
