@@ -4,16 +4,24 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
-	
+	let ifs = arguments.length>1?jsCopy(arguments[1]):{};
+	if (isdef(labels)) ifs.label = labels; else ifs.label = (i, info) => info.best; // : k
 
 
-	//let func=zShowPictures1;
-	//let func=maShowPictures;
-	Pictures = zShowPictures1(keys, labels, dTable, onClickPictureHandler,
-		{
-			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
-			lang: Settings.language, colorKeys: colorKeys, contrast: contrast
-		});
+	let options =arguments.length>1?jsCopy(arguments[1]):{}; options.onclick = onClickPictureHandler; //, lang: Settings.language });
+	//console.log('dTable is',dTable)
+	Pictures = zShowPictures(keys, dTable, ifs, options);
+
+	// Pictures = zShowPictures1(keys, labels, dTable, onClickPictureHandler,
+	// 	{
+	// 		showRepeat: showRepeat, picSize: sz, bg: bg, repeat: repeat, sameBackground: sameBackground, border: border,
+	// 		lang: Settings.language, colorKeys: colorKeys, contrast: contrast
+	// 	});
+	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+	// 	{
+	// 		showRepeat: showRepeat, picSize: sz, bg: bg, repeat: repeat, sameBackground: sameBackground, border: border,
+	// 		lang: Settings.language, colorKeys: colorKeys, contrast: contrast
+	// 	});
 
 	// label hiding
 	let totalPics = Pictures.length;

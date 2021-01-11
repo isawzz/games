@@ -1,10 +1,10 @@
 nil:
   id: nil
   seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gTouchColors
+  lastGame: gMissingNumber
   settings:
     # settings common to all games
-    samplesPerGame: 2
+    samplesPerGame: 1
     minutesPerUnit: 13
     incrementLevelOnPositiveStreak: 10
     decrementLevelOnNegativeStreak: 10
@@ -29,7 +29,7 @@ nil:
     gPremem:
       startLevel: 3
     gTouchColors: 
-      startLevel: 4
+      startLevel: 0
     gMissingLetter: 
       startLevel: 2
     gSteps: 

@@ -58,7 +58,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(USERNAME); else loadUser();
 	console.assert(isdef(G))
 
-	test11_zItemsX(); return;
+	//test11_zItemsX(); return;
 	//test03_maShowPictures(); return;
 	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
 

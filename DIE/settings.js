@@ -61,6 +61,8 @@ function createMenuUi(dParent) {
 	let bgs = games.map(g => GAME[g].color);
 
 	MenuItems = {};
+	//so sollte das dann spaeter ausschauen:
+	//let pics = zShowPictures(keys, d, {labels:labels, bgs:bgs, fgs:'blue'}, {onclick:onClickGo, shufflePositions: false });
 	let pics = maShowPictures(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { fg: 'blue' });
 	//let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
 	for (let i = 0; i < pics.length; i++) {

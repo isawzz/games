@@ -1,15 +1,26 @@
-function zShowPictures(keys, labels, dParent, onClickPictureHandler,
-	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
-		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
+function zShowPictures(keys, dParent, { label, sz, bg, fg, border }, { onclick,
+	showRepeat, container, lang, colorKeys, contrast, repeat = 1,
+	sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	let pics = [];
 
-			
+	let infos = keys.map(k => (isdef(lang) ? getRandomSetItem(lang, k) : symbolDict[k]));
 
-	let items = zItemsFromPictures(keys, labels, {
-		showRepeat: showRepeat, container: container, lang: lang, border: border,
-		picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
-		sameBackground: sameBackground, shufflePositions: shufflePositions
-	});
+	let ifs = arguments[2];
+	console.log('', bg, ifs.bg, 'ifs.bg is', ifs.bg, '!!!!!!!!!!!!!!!!!!!!!');
+	if (nundef(ifs.bg)) ifs.bg = isList(ifs.bg) ? ifs.bg : isdef(colorKeys) ? 'white'
+		: () => sameBackground ? computeColor('random') : 'random';
+
+	console.log('', ifs.bg, 'ifs.bg is', ifs.bg, '!!!!!!!!!!!!!!!!!!!!!');
+	//TODO: container muss weg, das sollte bei sz dabei sein! oder options:containerDims
+	//console.log(arguments[2],arguments[3])
+	let items = zItems(infos, ifs, arguments[3]);
+	console.log('items', items);
+
+	// let items = zItemsFromPictures(keys, labels, {
+	// 	showRepeat: showRepeat, container: container, lang: lang, border: border,
+	// 	picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
+	// 	sameBackground: sameBackground, shufflePositions: shufflePositions
+	// });
 
 	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
 
@@ -27,7 +38,7 @@ function zShowPictures(keys, labels, dParent, onClickPictureHandler,
 
 	if (isdef(border)) stylesForLabelButton.border = border;
 
-	if (isdef(picSize)) pictureSize = picSize;
+	if (isdef(sz)) pictureSize = sz;
 
 	// console.log('dims', rows, cols, items.length)
 
@@ -41,7 +52,7 @@ function zShowPictures(keys, labels, dParent, onClickPictureHandler,
 					w: pictureSize, h: pictureSize, bgPic: item.bg, textShadowColor: item.textShadowColor, contrast: contrast,
 					sPic: sPic
 				},
-				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+				onclick, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
 			d1.id = id;
 			if (showRepeat) addRepeatInfo(d1, item.iRepeat, pictureSize);
 			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
@@ -51,7 +62,7 @@ function zShowPictures(keys, labels, dParent, onClickPictureHandler,
 				bg: item.bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
 				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
 			});
-			i+=1;
+			i += 1;
 		}
 		mLinebreak(dParent);
 	}
@@ -234,7 +245,7 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	let pics = [];
 
-			
+
 
 	let items = zItemsFromPictures(keys, labels, {
 		showRepeat: showRepeat, container: container, lang: lang, border: border,
@@ -282,7 +293,7 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 				bg: item.bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
 				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
 			});
-			i+=1;
+			i += 1;
 		}
 		mLinebreak(dParent);
 	}
@@ -427,7 +438,7 @@ function parseDims(w, h, padding) {
 
 //#endregion
 
-function calcDimsAndSize1(n,lines,cols, dParent, wmax, hmax) {
+function calcDimsAndSize1(n, lines, cols, dParent, wmax, hmax) {
 
 	//berechne outer dims
 	let ww, wh, hpercent, wpercent;
@@ -448,16 +459,16 @@ function calcDimsAndSize1(n,lines,cols, dParent, wmax, hmax) {
 		hpercent = .56;
 		wpercent = .64;
 	}
-	
+
 	let sz;//, picsPerLine;
 	//if (lines <= 1) lines = undefined;
-	let dims = calcRowsColsX(n,lines);
+	let dims = calcRowsColsX(n, lines);
 	let hpic = wh * hpercent / dims.rows;
 	let wpic = ww * wpercent / dims.cols;
 	sz = Math.min(hpic, wpic);
 	//picsPerLine = dims.cols;
 	sz = Math.max(50, Math.min(sz, 200));
-	return [sz,dims.rows,dims.cols]; //pictureSize, picsPerLine];
+	return [sz, dims.rows, dims.cols]; //pictureSize, picsPerLine];
 }
 
 
