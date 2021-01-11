@@ -38,7 +38,7 @@ class GInno extends Game {
 		//console.log(G)
 	}
 	prompt() {
-		maShowCards([],[],dTable);//showPictures();
+		maShowCards([], [], dTable);//_showPictures();
 	}
 	trialPrompt() {
 		sayTryAgain();
@@ -74,10 +74,10 @@ class GAbacus extends Game {
 		mLinebreak(dTable);
 
 		G.seq = makeExpSequence();
-		
-		console.log('G.seq',G.seq); 
 
-		let panel=mDiv(dTable,{bg:'#00000080',padding:40,rounding:12});
+		console.log('G.seq', G.seq);
+
+		let panel = mDiv(dTable, { bg: '#00000080', padding: 40, rounding: 12 });
 		//replace op in seq by wr
 		//arrReplace(G.seq,G.op,OPS[G.op].wr);
 		[G.words, G.letters] = showEquation(G.seq, panel);
@@ -88,6 +88,7 @@ class GAbacus extends Game {
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		showInstruction('', instr1, dTitle, true);
+
 
 		//let initialDelay = 5000 + G.level * 1000;
 		//if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);

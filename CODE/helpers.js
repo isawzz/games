@@ -3472,14 +3472,16 @@ function wlog() {
 //#endregion
 
 //#region layout helpers
-function calcRowsColsX(num) {
+function calcRowsColsX(num,rows,cols) {
 	const table = {
 		2: { rows: 1, cols: 2 },
 		5: { rows: 2, cols: 3 },
 		7: { rows: 2, cols: 4 },
 		11: { rows: 3, cols: 4 },
 	};
-	if (isdef(table[num])) return table[num]; else return calcRowsCols(num);
+	if (isdef(rows) || isdef(cols)) return calcRowsCols(num,rows,cols);
+	else if (isdef(table[num])) return table[num]; 
+	else return calcRowsCols(num,rows,cols);
 }
 function calcRowsCols(num, rows, cols) {
 	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
@@ -5036,6 +5038,7 @@ function firstWord(s) {
 	while (i < s.length && !isWhiteSpace(s[i])) { res += s[i]; i += 1; }
 	return res;
 }
+function lastWord(s){	return stringAfterLast(s,' ');}
 function hasWhiteSpace(s) { return /\s/g.test(s); }
 function isLetter(s){return /^[a-zA-Z]$/i.test(s);}
 function isCapitalLetter(s){return /^[A-Z]$/i.test(s);}

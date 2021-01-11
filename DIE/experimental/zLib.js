@@ -1,3 +1,63 @@
+function zShowPictures(keys, labels, dParent, onClickPictureHandler,
+	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
+		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
+	let pics = [];
+
+			
+
+	let items = zItemsFromPictures(keys, labels, {
+		showRepeat: showRepeat, container: container, lang: lang, border: border,
+		picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
+		sameBackground: sameBackground, shufflePositions: shufflePositions
+	});
+
+	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
+
+	console.log('....pictureSize', pictureSize, 'dims', rows, cols)
+	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+
+	//if (isdef(myStyles)) stylesForLabelButton = deepmergeOverride(stylesForLabelButton, myStyles);
+	let isText = true;
+	let isOmoji = false;
+	if (isdef(lang)) {
+		let textStyle = getParamsForMaPicStyle('twitterText');
+		isText = textStyle.isText;
+		isOmoji = textStyle.isOmoji;
+	}
+
+	if (isdef(border)) stylesForLabelButton.border = border;
+
+	if (isdef(picSize)) pictureSize = picSize;
+
+	// console.log('dims', rows, cols, items.length)
+
+	let i = 0;
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			let item = items[i];
+			let id = 'pic' + i;
+			let d1 = maPicLabelButtonFitText(item.info, item.label,
+				{
+					w: pictureSize, h: pictureSize, bgPic: item.bg, textShadowColor: item.textShadowColor, contrast: contrast,
+					sPic: sPic
+				},
+				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+			if (showRepeat) addRepeatInfo(d1, item.iRepeat, pictureSize);
+			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
+			//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
+			pics.push({
+				textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
+				bg: item.bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
+				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+			});
+			i+=1;
+		}
+		mLinebreak(dParent);
+	}
+
+	return pics;
+}
 
 function zGrid(elems, dParent) {
 
@@ -8,7 +68,7 @@ function zGrid(elems, dParent) {
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	return size;
 }
-function zItems(keys, labelFunc, { sz, padding = 4 }, iStart = 0) {
+function zItemsForViewer(keys, labelFunc, { sz, padding = 4 }, iStart = 0) {
 	//an item is a div with a pic and possibly a label underneath
 	sz = isdef(sz) ? sz : 100;
 	szNet = sz - 2 * padding;
@@ -119,11 +179,11 @@ function zText(text, dParent, textStyles, hText, vCenter = false) {
 	// 	textStyles.h = hText;
 	// 	// dText.style.paddingTop = (extra/2) +'px';
 	// }
-//	console.log('', text, extra, 'lines:' + lines, textStyles);
+	//	console.log('', text, extra, 'lines:' + lines, textStyles);
 	let dText = isdef(text) ? mText(text, dParent, textStyles) : mDiv(dParent);
 	if (extra > 0 && vCenter) {
-		dText.style.paddingTop = (extra / 2)+'px';
-		dText.style.paddingBottom = (extra / 2)+'px';
+		dText.style.paddingTop = (extra / 2) + 'px';
+		dText.style.paddingBottom = (extra / 2) + 'px';
 		// dText.style.paddingTop = (extra/2) +'px';
 	}
 	//console.log(dText);
@@ -138,6 +198,11 @@ function zViewer(keys) {
 
 	zView100();
 }
+
+function zView(keys, dParent, { repeat = 1, labels }) {
+	//
+}
+
 function zView100() {	//assumes a div id='table'
 
 	let N = 100;
@@ -153,7 +218,7 @@ function zView100() {	//assumes a div id='table'
 	console.log('pics', lastIndex, 'to', lastIndex + N)
 	let keys = takeFromTo(IconSet, lastIndex, lastIndex + N);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 	//console.log(keys);
-	Pictures = zItems(keys, (k, info) => (k + ' ' + info.h[0]), { sz: 50 }, lastIndex);//, (k, info) => k + ' ' + info.h[0]);
+	Pictures = zItemsForViewer(keys, (k, info) => (k + ' ' + info.h[0]), { sz: 50 }, lastIndex);//, (k, info) => k + ' ' + info.h[0]);
 	//Pictures = zItems00(keys,  (k, info) => (k + ' ' + info.h[0]), { sz: 50 });//, (k, info) => k + ' ' + info.h[0]);
 	// Pictures = zItems01(keys,  { sz: 50 }, (k, info) => k + ' ' + info.h[0]);
 	//console.log(Pictures);
@@ -164,6 +229,67 @@ function zView100() {	//assumes a div id='table'
 	console.log('pic0', Pictures[0]);
 
 }
+function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
+	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
+		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
+	let pics = [];
+
+			
+
+	let items = zItemsFromPictures(keys, labels, {
+		showRepeat: showRepeat, container: container, lang: lang, border: border,
+		picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
+		sameBackground: sameBackground, shufflePositions: shufflePositions
+	});
+
+	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
+
+	console.log('....pictureSize', pictureSize, 'dims', rows, cols)
+	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
+
+	//if (isdef(myStyles)) stylesForLabelButton = deepmergeOverride(stylesForLabelButton, myStyles);
+	let isText = true;
+	let isOmoji = false;
+	if (isdef(lang)) {
+		let textStyle = getParamsForMaPicStyle('twitterText');
+		isText = textStyle.isText;
+		isOmoji = textStyle.isOmoji;
+	}
+
+	if (isdef(border)) stylesForLabelButton.border = border;
+
+	if (isdef(picSize)) pictureSize = picSize;
+
+	// console.log('dims', rows, cols, items.length)
+
+	let i = 0;
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			let item = items[i];
+			let id = 'pic' + i;
+			let d1 = maPicLabelButtonFitText(item.info, item.label,
+				{
+					w: pictureSize, h: pictureSize, bgPic: item.bg, textShadowColor: item.textShadowColor, contrast: contrast,
+					sPic: sPic
+				},
+				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+			if (showRepeat) addRepeatInfo(d1, item.iRepeat, pictureSize);
+			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
+			//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
+			pics.push({
+				textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
+				bg: item.bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
+				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+			});
+			i+=1;
+		}
+		mLinebreak(dParent);
+	}
+
+	return pics;
+}
+
 
 //#region helpers
 function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, isOmoji = false) {
@@ -300,6 +426,40 @@ function parseDims(w, h, padding) {
 
 
 //#endregion
+
+function calcDimsAndSize1(n,lines,cols, dParent, wmax, hmax) {
+
+	//berechne outer dims
+	let ww, wh, hpercent, wpercent;
+	if (isdef(dParent)) {
+		let b = getBounds(dParent);
+		ww = b.width;
+		wh = b.height;
+		hpercent = .9;
+		wpercent = .9;
+	} else if (isdef(wmax) && isdef(hmax)) {
+		ww = wmax;
+		wh = hmax;
+		hpercent = .6;
+		wpercent = .6;
+	} else {
+		ww = window.innerWidth;
+		wh = window.innerHeight;
+		hpercent = .56;
+		wpercent = .64;
+	}
+	
+	let sz;//, picsPerLine;
+	//if (lines <= 1) lines = undefined;
+	let dims = calcRowsColsX(n,lines);
+	let hpic = wh * hpercent / dims.rows;
+	let wpic = ww * wpercent / dims.cols;
+	sz = Math.min(hpic, wpic);
+	//picsPerLine = dims.cols;
+	sz = Math.max(50, Math.min(sz, 200));
+	return [sz,dims.rows,dims.cols]; //pictureSize, picsPerLine];
+}
+
 
 
 

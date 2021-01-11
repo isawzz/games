@@ -1,4 +1,4 @@
-function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
+function showPictures_(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
 	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
@@ -159,7 +159,7 @@ function makeItemForEachKeyX3(keys, labels, { lang, bgs, colors, textColor, same
 		let bg = isList(bgs) ? bgs[i] : isdef(colors) ? 'white' : sameBackground ? computeColor('random') : 'random';
 		let fg = isList(fgText) ? fgText[i] : colorIdealText(bg);
 		let label = isList(labels) ? labels[i] : isdef(lang) ? info.best : k;
-		itKeys.push({ key: k, info: info, label: label, bg: bg, fg: fg, iRepeat: 1 });
+		itKeys.push({ key: k, info: info, label: label, bg: bg, fg: fg}); //, iRepeat: 1 }); // not necessary! done in next step!
 	}
 	//repeat items
 	let itRepeat = [];
@@ -168,6 +168,8 @@ function makeItemForEachKeyX3(keys, labels, { lang, bgs, colors, textColor, same
 		itRepeat = itRepeat.concat(items);
 	}
 	if (shufflePositions) { shuffle(itRepeat); }
+
+	//weil die items schon geshuffled wurden muss ich iRepeat neu setzen in den reihenfolge in der sie in itRepeat vorkommen!
 	let labelRepeat = {};
 	for (const item of itRepeat) {
 		let iRepeat = labelRepeat[item.label];

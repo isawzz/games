@@ -1,23 +1,124 @@
-function zMeasure(item){
+
+function getPropValue(){}
+
+function zItemsX(keys, dParent = null, ifs = {}, { sz, padding = 4, labels, bgs, fgs, repeat = 1, iStart = 0 } = {}, containerStyles = {}, itemStyles = {}) {
+
+	//phase out!
+	if (isEmpty(ifs)) {
+		ifs = {};
+		if (isdef(labels)) ifs.labels = labels; else ifs.labels = (i, info) => lastWord(info.key);
+		if (isdef(bgs)) ifs.bgs = bgs; else ifs.bgs='blue';// = (i, info) => 'blue';
+		if (isdef(fgs)) ifs.fgs = fgs; else ifs.fgs = ['red','green']; //(i, info) => 'yellow';
+	}
+
+	//an item is a div with a pic and possibly a label underneath
+	sz = isdef(sz) ? sz : 100;
+	szNet = sz - 2 * padding;
+	let labeled = isdef(labels);
+
+	//als erstes items machen
+	let items = [];
+	let longestLabel = '';
+	let maxlen = 0;
+	let label;
+	for (let i = 0; i < keys.length; i++) {
+		let k = keys[i];
+		let item = { key: k, info: symbolDict[k], index: i, iGroup: iStart };
+		let val;
+		for (const propName in ifs) {
+			let prop = ifs[propName];
+			let k1 = propName.substring(0, propName.length - 1);
+			//console.log(k1, prop)
+			console.log('TYPE OF',propName, 'IS',typeof prop)
+			if (isList(prop)) val = prop[i % prop.length];
+			else if (typeof (prop) == 'function') val = prop(i, item.info);
+			else val = null;
+
+			if (isdef(val)) item[k1] = val;
+		}
+
+		if (isdef(item.label)) {
+			let tlen = item.label.length;
+			if (tlen > maxlen) { maxlen = tlen; longestLabel = item.label; }
+		}
+		items.push(item);
+	}
+
+	return items;
+
+	//jedes item hat jetzt ein label,info,index,key
+
+	//als erstes das label produzieren und checken wieviel platz es braucht
+	//console.log(longestLabel)
+	let textStyles = idealFontsize(longestLabel, szNet, szNet / 2, 20, 4);
+
+	let hText = textStyles.h;
+	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
+	let pictureSize = hPic;
+	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
+
+	textStyles.fg = 'gray';
+	delete textStyles.h;
+
+	let outerStyles = { w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+
+		let text = zText(item.label, null, textStyles, hText);
+
+		let pic = zPic(k, null, picStyles, true, false);
+		delete pic.info;
+
+		let d = mDiv();
+		mAppend(d, pic.div);
+		mAppend(d, text.div);
+		mStyleX(d, outerStyles);
+
+		// set padding according to text size, truncate text if not enough space
+		if (text.extra < -padding && text.lines >= 3) {
+			mClass(text.div, 'maxLines2');
+		} else {
+			d.style.padding = text.extra == 0 ? padding + 'px' : ('' + (padding + text.extra / 2) + 'px ' + padding + 'px ');
+		}
+
+		d.id = 'pic' + (i + iStart);
+
+		//complete item info
+		item.div = d;
+		item.pic = pic;
+		if (labeled) item.text = text;
+		item.isSelected = false;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		item.bg = d.style.backgroundColor;
+		item.fg = text.div.style.color;
+
+	}
+	return items;
+}
+
+
+
+function zMeasure(item) {
 	console.log(item)
 
 }
 
 function maShowCards(keys, labels, dParent, onClickPictureHandler, { showRepeat, containerForLayoutSizing, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
-	Pictures=[];
+	Pictures = [];
 
 	//zInno('Steam Engine',dParent); return;
 
 	keys = zInnoRandom(10); // ['Gunpowder']; //zInnoRandom(10); 
-	keys.map(x=>zInno(x,dParent)); //console.log(keys); 	
-	
+	keys.map(x => zInno(x, dParent)); //console.log(keys); 	
+
 	let cards = [];
-	for(const k of keys){
-		let card = zInno(k,dParent);
+	for (const k of keys) {
+		let card = zInno(k, dParent);
 		cards.push(card);
 		zMeasure(card);
 	}
-	
+
 	//test09_zViewer(); return;;
 	//test10_zViewerClockCrownFactory(); return;
 	//test08_towerAndOtherSymbols(dParent); return;

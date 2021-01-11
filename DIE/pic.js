@@ -1,3 +1,41 @@
+function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
+	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
+	Pictures = [];
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+
+	
+
+
+	//let func=zShowPictures1;
+	//let func=maShowPictures;
+	Pictures = zShowPictures1(keys, labels, dTable, onClickPictureHandler,
+		{
+			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
+			lang: Settings.language, colorKeys: colorKeys, contrast: contrast
+		});
+
+	// label hiding
+	let totalPics = Pictures.length;
+	if (nundef(Settings.labels) || Settings.labels) {
+		if (G.numLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
+		for (const p of remlabelPic) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	} else {
+		for (const p of Pictures) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+
+	}
+
+}
+
+
+
 //#region logic selectors (game: Elim!)
 function logicMulti(n) {
 	let allPics = Pictures;
@@ -27,7 +65,7 @@ function logicMulti(n) {
 			if (prop1 == 'label') {
 				s = s1 + ' ' + s;
 				w = w1 + ' ' + w;
-			}else if (arrLast(propsUsed) == 'label'){
+			} else if (arrLast(propsUsed) == 'label') {
 				let conn = Settings.language == 'E' ? ' with ' : ' mit ';
 				s1 = s1.substring(s1.indexOf(' '));
 				w1 = w1.substring(w1.indexOf(' '));
@@ -83,7 +121,7 @@ function logicFilter(allPics, exceptProps) {
 	} else if (prop == 'iRepeat') {
 		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq', 'neq']);
 		//op = '!=';
-		let oop=OPS[op];
+		let oop = OPS[op];
 		lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
 		lstWritten = ['with', props[prop].friendly, oop.wr, val];
 
@@ -183,16 +221,22 @@ function logicReset() {
 }
 //#endregion
 
-
-
-
-function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
+function showPictures00(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
 	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 
-	Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+	//let func=zShowPictures1;
+	//let func=maShowPictures;
+	let options = arguments[1];
+	console.log('options', options);
+
+	//ok wenn hier bin habe keys,dParent,options,ifs
+	//muss unterscheiden bei allen options params ob es eigentlich options oder ifs ist!
+
+
+	Pictures = zShowPictures1(keys, labels, dTable, onClickPictureHandler,
 		{
 			showRepeat: showRepeat, picSize: sz, bgs: bgs, repeat: repeat, sameBackground: sameBackground, border: border,
 			lang: Settings.language, colorKeys: colorKeys, contrast: contrast
@@ -216,6 +260,9 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 	}
 
 }
+
+
+
 
 //#region card face up or down
 function turnFaceDown(pic) {

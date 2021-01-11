@@ -1,10 +1,10 @@
 nil:
   id: nil
   seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gAbacus
+  lastGame: gTouchColors
   settings:
     # settings common to all games
-    samplesPerGame: 13
+    samplesPerGame: 2
     minutesPerUnit: 13
     incrementLevelOnPositiveStreak: 10
     decrementLevelOnNegativeStreak: 10
@@ -24,8 +24,28 @@ nil:
     reducedAnimations: true
     levelBadges: false
   games:
-    gSteps:
+    gTouchPic:
+      startLevel: 3
+    gPremem:
+      startLevel: 3
+    gTouchColors: 
+      startLevel: 4
+    gMissingLetter: 
+      startLevel: 2
+    gSteps: 
       startLevel: 0
+    gSayPic: 
+      startLevel: 0
+    gMem:
+      startLevel: 1
+    gMissingNumber: 
+      startLevel: 2
+    gWritePic: 
+      startLevel: 2
+    gAnagram: 
+      startLevel: 0
+    gElim: 
+      startLevel: 1
 guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
