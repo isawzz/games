@@ -95,7 +95,7 @@ test0:
 gul:
   id: gul
   seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gAbacus
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 25
