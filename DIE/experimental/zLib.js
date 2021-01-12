@@ -243,7 +243,7 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 		mStyleX(dOuter, outerStyles);
 		return dOuter;
 	}
-	fzreal = f * info.fz;
+	fzreal = Math.floor(f * info.fz);
 	wreal = Math.round(f * wInfo);
 	hreal = Math.round(f * hInfo);
 	wdes = Math.round(wdes);
@@ -259,6 +259,7 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 		console.log('\nstyles.w', styles.w, '\nstyles.h', styles.h, '\nstyles.fz', styles.fz, '\nstyles.padding', styles.padding, '\nwInfo', wInfo, '\nhInfo', hInfo, '\nfzreal', fzreal, '\nwreal', wreal, '\nhreal', hreal, '\npadw', padw, '\npadh', padh);
 	}
 	//console.assert(padw >= 0 && padh >= 0, 'BERECHNUNG FALSCH!!!!', padw, padh, info, '\ninfokey', infokey);
+
 
 	innerStyles.fz = fzreal;
 	innerStyles.weight = 900;

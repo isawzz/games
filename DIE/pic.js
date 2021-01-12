@@ -1,9 +1,6 @@
 function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-
 	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
-
 	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
-
 	//keys and infos
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
@@ -88,6 +85,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 		item.dims = parseDims(sz, sz, d.style.padding);
 		// item.bg = d.style.backgroundColor;
 		// item.fg = text.div.style.color;
+		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
 
 	}
 
@@ -102,15 +100,16 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
 	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
 
+	// console.log(items[2]);
+	let fzPic =firstNumber(items[0].div.children[0].children[0].style.fontSize);
+	let docfz = items[0].pic.innerDims.fz;
+	console.assert( docfz == fzPic,'fzPic is '+fzPic+', docfz is '+docfz);
+
 	//#endregion
 
 	console.log('*** THE END ***')
 
-	// 	d1.id = id;
 
-	// 	console.log('padding', d1)
-
-	// 	if (showRepeat) addRepeatInfo(d1, item.iRepeat, sz);
 	// 	let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
 	// 	//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
 	// 	pics.push({
@@ -570,7 +569,9 @@ function logicSetSelector(allPics) {
 	return [s, w, piclist];
 
 }
-function colorPrepper(val) { return `<span style="color:${val}">${ColorDict[val][Settings.language].toUpperCase()}</span>`; }
+function colorPrepper(val) { 
+
+	return `<span style="color:${ColorDict[val].c}">${ColorDict[val][Settings.language].toUpperCase()}</span>`; }
 function labelPrepper(val) { return `<b>${val.toUpperCase()}</b>`; }
 function logicCheck(pic) {
 	//should return true if pic is part of set to be clicked and remove that pic
