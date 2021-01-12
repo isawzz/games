@@ -644,7 +644,7 @@ function makeExpSequence() {
 
 	G.step = G.minFactor > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
 	G.oop = OPS[G.op];
-	console.log(G.op, G.oop);
+	//console.log(G.op, G.oop);
 
 	G.result = G.oop.f(G.operand, G.step);
 

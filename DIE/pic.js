@@ -1,28 +1,326 @@
 function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 
-	if (!EXPERIMENTAL) {return showPicturesSpeechTherapyGamesWORKING(...arguments);}
+	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
 
+	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
+
+	//keys and infos
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
-	//console.log('dTable is',dTable)
-	console.log(keys, ifs, '\n', options);
+
 	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
 
-	let defIfs = { contrast: .32, fz: 20, label: isdef(labels) ? labels : (i, info) => info.best };
-	let defOptions = { showRepeat: false, repeat: 1, sameBackground: true, onclick: onClickPictureHandler };
-
+	//ifs and options: defaults
+	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
+	let fg = (i, info, item) => colorIdealText(item.bg);
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, };
+	let defOptions = { shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
+
+	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
 
 	//phase1: make items: hier jetzt mix and match
 	let items = zItems(infos, ifs, options);
 	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
 	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
-	items.map(x=>console.log(x));
+	items.map(x => x.label = x.label.toUpperCase());
+	Pictures = items;
+
+	//console.log('items', items);
+	//items.map(x=>console.log(x));
+
+	//phase2: prepare items for container
+	let longestLabel = findLongestLabel(items);
+	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
+	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
+
+	let padding = 8;
+	let szNet = sz - 2 * padding;
+	let oneWord = longestLabel.label.replace(' ', '_');
+	let textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 4); //, 'bold');	textStyles.weight='bold'
+	let hText = textStyles.h;
+	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
+
+	let pictureSize = hPic;
+	let picStyles = { w: pictureSize, h: pictureSize };
+
+	delete textStyles.h;
+	delete textStyles.w;
+
+	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+
+		textStyles.fg = item.fg;
+		let text = zText1Line(item.label, null, textStyles, hText);
+
+		if (isdef(item.textShadowColor)) {
+			let sShade = '0 0 0 ' + item.textShadowColor;
+			picStyles['text-shadow'] = sShade;
+			picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+		}
+
+		let pic = zPic(k, null, picStyles, true, false);
+		delete pic.info;
+
+		let d = mDiv();
+		mAppend(d, pic.div);
+		mAppend(d, text.div);
+
+		outerStyles.bg = item.bg;
+		outerStyles.fg = item.fg;
+
+		mStyleX(d, outerStyles);
+
+		d.id = 'pic' + (i + item.iGroup);
+		d.onclick = options.onclick;
+
+		//complete item info
+		item.div = d;
+		item.pic = pic;
+		let labeled = true;
+		if (labeled) item.text = text;
+		item.isSelected = false;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		// item.bg = d.style.backgroundColor;
+		// item.fg = text.div.style.color;
+
+	}
+
+	//phase3: prep container for items
+	mClass(dTable, 'flexWrap');
+
+	//phase4: add items to container!
+	// let szFinal = zGrid(Pictures, dTable);
+	let dParent = dTable;
+	let dGrid = mDiv(dParent);
+	items.map(x => mAppend(dGrid, x.div));
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
+	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
+
+	//#endregion
 
 	console.log('*** THE END ***')
 
+	// 	d1.id = id;
+
+	// 	console.log('padding', d1)
+
+	// 	if (showRepeat) addRepeatInfo(d1, item.iRepeat, sz);
+	// 	let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
+	// 	//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
+	// 	pics.push({
+	// 		textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
+	// 		bg: item.bg, div: d1, id: id, sz: sz, fzPic: fzPic,
+	// 		index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+	// 	});
+	// 	i += 1;
+	// }
+	// mLinebreak(dParent);
+	// 	}
+
+	// label hiding
+	let totalPics = Pictures.length;
+	if (nundef(Settings.labels) || Settings.labels) {
+		if (G.numLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
+		for (const p of remlabelPic) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	} else {
+		for (const p of Pictures) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	}
+
+}
+function showPicturesSpeechTherapyGames1(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+
+	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
+
+	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
+
+	//keys and infos
+	Pictures = [];
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+
+	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
+
+	//ifs and options: defaults
+	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
+	let fg = (i, info, item) => colorIdealText(item.bg);
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, };
+	let defOptions = { shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	ifs = deepmergeOverride(defIfs, ifs);
+	options = deepmergeOverride(defOptions, options);
+
+	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
+
+	//phase1: make items: hier jetzt mix and match
+	let items = zItems(infos, ifs, options);
+	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
+	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
+
+	items.map(x => x.label = x.label.toUpperCase());
+
+	//console.log('items', items);
+	//items.map(x=>console.log(x));
+
+	//phase2: prepare items for container
+	let longestLabel = findLongestLabel(items);
+	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
+	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
+
+	let padding = 8;
+	let szNet = sz - 2 * padding;
+	let oneWord = longestLabel.label.replace(' ', '_');
+	let textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 4); //, 'bold');	textStyles.weight='bold'
+	let hText = textStyles.h;
+	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
+	//let picStyles = { w: hPic, h: hPic };
+
+	//#region test this code
+	TEST_THIS_CODE = true;
+	if (TEST_THIS_CODE) {
+		Pictures = items;
+		let pictureSize = hPic;
+		let picStyles = { w: pictureSize, h: pictureSize };
+
+		delete textStyles.h;
+		delete textStyles.w;
+
+		let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+
+		for (let i = 0; i < items.length; i++) {
+			let item = items[i];
+			let k = item.key;
+
+			textStyles.fg = item.fg;
+			let text = zText1Line(item.label, null, textStyles, hText);
+
+			if (isdef(item.textShadowColor)) {
+				let sShade = '0 0 0 ' + item.textShadowColor;
+				picStyles['text-shadow'] = sShade;
+				picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+			}
+
+			let pic = zPic(k, null, picStyles, true, false);
+			delete pic.info;
+
+			let d = mDiv();
+			mAppend(d, pic.div);
+			mAppend(d, text.div);
+
+			outerStyles.bg = item.bg;
+			outerStyles.fg = item.fg;
+
+			mStyleX(d, outerStyles);
+
+			d.id = 'pic' + (i + item.iGroup);
+			d.onclick = options.onclick;
+
+			//complete item info
+			item.div = d;
+			item.pic = pic;
+			let labeled = true;
+			if (labeled) item.text = text;
+			item.isSelected = false;
+			item.dims = parseDims(sz, sz, d.style.padding);
+			// item.bg = d.style.backgroundColor;
+			// item.fg = text.div.style.color;
+
+		}
+
+		//phase3: prep container for items
+		mClass(dTable, 'flexWrap');
+
+		//phase4: add items to container!
+		// let szFinal = zGrid(Pictures, dTable);
+		let dParent = dTable;
+		let dGrid = mDiv(dParent);
+		items.map(x => mAppend(dGrid, x.div));
+		let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
+		let size = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
+		return size;
+
+
+		return items;
+	}
+	return Pictures;
+
+	//#endregion
+
+	console.log('*** THE END ***')
+
+	//#region REST CODE
+	let colorKeys = ifs.colorKeys;
+	let container = undefined;
+	let lang = Settings.language;
+	let border = ifs.border;
+	let picSize = ifs.sz;
+	let contrast = ifs.contrast;
+	let sPic = {};
+	let dParent = dTable;
+	let showRepeat = options.showRepeat;
+	let pics = [];
+	let numPics = keys.length * options.repeat;
+	//let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
+
+	console.log('....sz', sz, 'rows', rows, 'cols', cols)
+	let stylesForLabelButton = { rounding: 10, margin: sz / 8 };
+
+	//if (isdef(myStyles)) stylesForLabelButton = deepmergeOverride(stylesForLabelButton, myStyles);
+	let isText = true;
+	let isOmoji = false;
+	if (isdef(lang)) {
+		let textStyle = getParamsForMaPicStyle('twitterText');
+		isText = textStyle.isText;
+		isOmoji = textStyle.isOmoji;
+	}
+
+	if (isdef(border)) stylesForLabelButton.border = border;
+
+	if (isdef(picSize)) sz = picSize;
+
+	let i = 0;
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			let item = items[i];
+			let id = 'pic' + i;
+			let d1 = maPicLabelButtonFitText(item.info, item.label,
+				{
+					w: sz, h: sz, bgPic: item.bg, textShadowColor: item.textShadowColor, contrast: contrast,
+					sPic: sPic
+				},
+				onClickPictureHandler, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
+			d1.id = id;
+
+			console.log('padding', d1)
+
+			if (showRepeat) addRepeatInfo(d1, item.iRepeat, sz);
+			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
+			//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
+			pics.push({
+				textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
+				bg: item.bg, div: d1, id: id, sz: sz, fzPic: fzPic,
+				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+			});
+			i += 1;
+		}
+		mLinebreak(dParent);
+	}
+
+	Pictures = pics;
+	return pics;
+
+	//#endregion
 	//Pictures = zShowPictures(keys, dTable, ifs, options);
 
 	// Pictures = zShowPictures1(keys, ifs.label, dTable, onClickPictureHandler,
@@ -63,18 +361,9 @@ function showPicturesSpeechTherapyGamesWORKING(onClickPictureHandler, ifs = {}, 
 
 	let defIfs = { contrast: .32, fz: 20, label: isdef(labels) ? labels : (i, info) => info.best };
 	let defOptions = { showRepeat: false, repeat: 1, sameBackground: true, onclick: onClickPictureHandler };
-
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
-
-	//console.log('dTable is',dTable)
-	console.log(keys, ifs, '\n', options);
-
-
-
-	console.log('*** THE END ***')
-
-	//Pictures = zShowPictures(keys, dTable, ifs, options);
+	console.log('.')
 
 	Pictures = zShowPictures1(keys, ifs.label, dTable, onClickPictureHandler,
 		{

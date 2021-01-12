@@ -866,7 +866,7 @@ function randomColorLight(contrastTo) { return randomColorX(contrastTo); }
 function randomColorDark(contrastTo) { return randomColorX(contrastTo, 10, 30); }
 function helleFarbe(contrastTo, minDiff = 25, mod = 30, start = 0){
 	let wheel = getHueWheel(contrastTo, minDiff, mod, start);
-	console.log('wheel',wheel)
+	//console.log('wheel',wheel)
 	let hue = chooseRandom(wheel);
 	let hsl = colorHSLBuild(hue,100,50);
 	return hsl;
@@ -2393,6 +2393,8 @@ function getSizeWithStyles(text, styles) {
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
+	let b=getBounds(d);
+	//console.log('b',b.width,b.height,'=?',width,height,'\ntextStyles',styles)
 	//console.log(d)
 	d.parentNode.removeChild(d);
 	return { w: width, h: height };

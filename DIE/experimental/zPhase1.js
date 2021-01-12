@@ -6,7 +6,7 @@ function zItems(infos, ifs, options) {
 		let k = info.key;
 		let item = { key: k, info: info, index: i };
 		//console.log(item)
-		if (options.iStart) item.iGroup = iStart; //starting index of items in this same group
+		if (isdef(options.iStart)) item.iGroup = options.iStart; //starting index of items in this same group
 		let val;
 		for (const propName in ifs) {
 			let prop = ifs[propName];
@@ -30,10 +30,12 @@ function zRepeatEachItem(items, repeat, shufflePositions = false) {
 	if (shufflePositions) { shuffle(itRepeat); }
 	//weil die items schon geshuffled wurden muss ich iRepeat neu setzen in den reihenfolge in der sie in itRepeat vorkommen!
 	let labelRepeat = {};
+	let idx=0;
 	for (const item of itRepeat) {
 		let iRepeat = labelRepeat[item.label];
 		if (nundef(iRepeat)) iRepeat = 1; else iRepeat += 1;
 		item.iRepeat = iRepeat;
+		item.index=idx; idx+=1;
 		labelRepeat[item.label] = iRepeat;
 	}
 	return itRepeat;
@@ -48,6 +50,7 @@ function zRepeatInColorEachItem(items, colorKeys) {
 		newItems.map(x => { x.textShadowColor = textShadowColor; x.color = ColorDict[colorKey]; x.colorKey = colorKey; });
 		itColors = itColors.concat(newItems);
 	}
+	for(let i=0;i<itColors.length;i++) itColors[i].index=i;
 	return itColors;
 }
 

@@ -75,7 +75,7 @@ class GAbacus extends Game {
 
 		G.seq = makeExpSequence();
 
-		console.log('G.seq', G.seq);
+		//console.log('G.seq', G.seq);
 
 		let panel = mDiv(dTable, { bg: '#00000080', padding: 40, rounding: 12 });
 		//replace op in seq by wr

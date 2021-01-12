@@ -29,6 +29,10 @@ function zPic(key, dParent, styles = {}, isText = true, isOmoji = false) {
 	// console.log('new:',stylesNew)
 	return _zPicPaddingAddedToSize(key, dParent, stylesNew, isText, isOmoji);
 }
+function zText1Line(text, dParent, textStyles, hText, vCenter = false) {
+	let dText = isdef(text) ? mText(text, dParent, textStyles) : mDiv(dParent);
+	return { text: text, div: dText, extra: 0, lines: 1, h: hText, w: 0, fz: textStyles.fz };
+}
 function zText(text, dParent, textStyles, hText, vCenter = false) {
 	let tSize = getSizeWithStyles(text, textStyles);
 
@@ -108,7 +112,7 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 
 	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
 
-	console.log('....pictureSize', pictureSize, 'dims', rows, cols)
+	//console.log('....pictureSize', pictureSize, 'dims', rows, cols)
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 
 	//if (isdef(myStyles)) stylesForLabelButton = deepmergeOverride(stylesForLabelButton, myStyles);
@@ -313,6 +317,7 @@ function calcDimsAndSize1(n, lines, cols, dParent, wmax, hmax) {
 		wpercent = .64;
 	}
 
+	console.log(ww,wh)
 	let sz;//, picsPerLine;
 	//if (lines <= 1) lines = undefined;
 	let dims = calcRowsColsX(n, lines);

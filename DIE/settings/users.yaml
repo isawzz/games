@@ -1,7 +1,7 @@
 nil:
   id: nil
   seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gAbacus
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 1
@@ -43,9 +43,9 @@ nil:
     gWritePic: 
       startLevel: 2
     gAnagram: 
-      startLevel: 0
+      startLevel: 3
     gElim: 
-      startLevel: 1
+      startLevel: 2
 guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]

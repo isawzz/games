@@ -14,13 +14,17 @@ function idealFontsizeX(elem, wmax, hmax, fz, fzmin) {
 	}
 
 }
-function idealFontsize(txt, wmax, hmax, fz, fzmin) {
-	let tStyles = { w: wmax, fz: fz, family: 'arial' };
+function idealFontsize(txt, wmax, hmax, fz, fzmin, weight) {
+	let tStyles = { fz: fz, family: 'arial' };
+	if (isdef(weight)) tStyles.weight=weight;
 	while (true) {
 		//console.log('trying fz', tStyles, txt);
 		let tSize = getSizeWithStyles(txt, tStyles);
+
+		console.log('text size of',txt, 'mit font', tStyles.fz, tSize)
+
 		//if (tStyles.fz <= fzmin && tSize.h > hmax) return { w: tSize.w, h: tSize.h, fz: tStyles.fz };
-		if (tSize.h <= hmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz };
+		if (tSize.h <= hmax && tSize.w <= wmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz, family: 'arial' };
 		else tStyles.fz -= 1;
 	}
 
