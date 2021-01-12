@@ -1,7 +1,7 @@
 nil:
   id: nil
   seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gMissingNumber
+  lastGame: gAbacus
   settings:
     # settings common to all games
     samplesPerGame: 1
@@ -27,7 +27,7 @@ nil:
     gTouchPic:
       startLevel: 3
     gPremem:
-      startLevel: 3
+      startLevel: 0
     gTouchColors: 
       startLevel: 0
     gMissingLetter: 
@@ -94,8 +94,8 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gSayPic
+  seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
+  lastGame: gAbacus
   settings:
     # settings common to all games
     samplesPerGame: 25

@@ -1,21 +1,34 @@
-function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colorKeys, contrast, repeat = 1,
-	sameBackground = true, border, textColor, fz = 20 } = {}, keys, labels) {
+function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+
+	if (!EXPERIMENTAL) {return showPicturesSpeechTherapyGamesWORKING(...arguments);}
+
 	Pictures = [];
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
-
-	let ifs = arguments.length>1?jsCopy(arguments[1]):{};
-	if (isdef(labels)) ifs.label = labels; else ifs.label = (i, info) => info.best; // : k
-
-
-	let options =arguments.length>1?jsCopy(arguments[1]):{}; options.onclick = onClickPictureHandler; //, lang: Settings.language });
 	//console.log('dTable is',dTable)
-	Pictures = zShowPictures(keys, dTable, ifs, options);
+	console.log(keys, ifs, '\n', options);
+	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
 
-	// Pictures = zShowPictures1(keys, labels, dTable, onClickPictureHandler,
+	let defIfs = { contrast: .32, fz: 20, label: isdef(labels) ? labels : (i, info) => info.best };
+	let defOptions = { showRepeat: false, repeat: 1, sameBackground: true, onclick: onClickPictureHandler };
+
+	ifs = deepmergeOverride(defIfs, ifs);
+	options = deepmergeOverride(defOptions, options);
+
+	//phase1: make items: hier jetzt mix and match
+	let items = zItems(infos, ifs, options);
+	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
+	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
+	items.map(x=>console.log(x));
+
+	console.log('*** THE END ***')
+
+	//Pictures = zShowPictures(keys, dTable, ifs, options);
+
+	// Pictures = zShowPictures1(keys, ifs.label, dTable, onClickPictureHandler,
 	// 	{
-	// 		showRepeat: showRepeat, picSize: sz, bg: bg, repeat: repeat, sameBackground: sameBackground, border: border,
-	// 		lang: Settings.language, colorKeys: colorKeys, contrast: contrast
+	// 		showRepeat: options.showRepeat, picSize: ifs.sz, bg: ifs.bg, repeat: options.repeat, sameBackground: options.sameBackground, border: ifs.border,
+	// 		lang: Settings.language, colorKeys: options.colorKeys, contrast: ifs.contrast
 	// 	});
 	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
 	// 	{
@@ -42,6 +55,56 @@ function showPictures(onClickPictureHandler, { showRepeat = false, sz, bgs, colo
 
 }
 
+function showPicturesSpeechTherapyGamesWORKING(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+
+	Pictures = [];
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+
+	let defIfs = { contrast: .32, fz: 20, label: isdef(labels) ? labels : (i, info) => info.best };
+	let defOptions = { showRepeat: false, repeat: 1, sameBackground: true, onclick: onClickPictureHandler };
+
+	ifs = deepmergeOverride(defIfs, ifs);
+	options = deepmergeOverride(defOptions, options);
+
+	//console.log('dTable is',dTable)
+	console.log(keys, ifs, '\n', options);
+
+
+
+	console.log('*** THE END ***')
+
+	//Pictures = zShowPictures(keys, dTable, ifs, options);
+
+	Pictures = zShowPictures1(keys, ifs.label, dTable, onClickPictureHandler,
+		{
+			showRepeat: options.showRepeat, picSize: ifs.sz, bg: ifs.bg, repeat: options.repeat, sameBackground: options.sameBackground, border: ifs.border,
+			lang: Settings.language, colorKeys: options.colorKeys, contrast: ifs.contrast
+		});
+	// Pictures = maShowPictures(keys, labels, dTable, onClickPictureHandler,
+	// 	{
+	// 		showRepeat: showRepeat, picSize: sz, bg: bg, repeat: repeat, sameBackground: sameBackground, border: border,
+	// 		lang: Settings.language, colorKeys: colorKeys, contrast: contrast
+	// 	});
+
+	// label hiding
+	let totalPics = Pictures.length;
+	if (nundef(Settings.labels) || Settings.labels) {
+		if (G.numLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
+		for (const p of remlabelPic) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	} else {
+		for (const p of Pictures) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+
+	}
+
+}
 
 
 //#region logic selectors (game: Elim!)

@@ -1212,8 +1212,8 @@ function showInstructionX(written, dParent, spoken, { fz, voice } = {}) {
 
 }
 function showHiddenThumbsUpDown(styles) {
-	styles.bgs = ['transparent', 'transparent'];
-	showPictures(null, styles, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
+	styles.bg = ['transparent', 'transparent'];
+	showPicturesSpeechTherapyGames(null, styles,undefined, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
 	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
 
 }

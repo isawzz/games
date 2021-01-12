@@ -1,3 +1,82 @@
+function zItemsForViewer(keys, labelFunc, { sz, padding = 4 }, iStart = 0) {
+	//an item is a div with a pic and possibly a label underneath
+	sz = isdef(sz) ? sz : 100;
+	szNet = sz - 2 * padding;
+	let labeled = isdef(labelFunc);
+
+	//als erstes items machen
+	let items = [];
+	let longestLabel = '';
+	let maxlen = 0;
+	let label;
+	for (let i = 0; i < keys.length; i++) {
+		let k = keys[i];
+		let item = { key: k, info: symbolDict[k], index: i, iGroup: iStart };
+		if (isList(labelFunc)) label = labelFunc[i % labelFunc.length];
+		else if (typeof (labelFunc) == 'function') label = labelFunc(k, item.info);
+		else label = null;
+
+		if (isdef(label)) {
+			let tlen = label.length;
+			if (tlen > maxlen) { maxlen = tlen; longestLabel = label; }
+			item.label = label;
+		}
+		items.push(item);
+	}
+
+	//jedes item hat jetzt ein label,info,index,key
+
+	//als erstes das label produzieren und checken wieviel platz es braucht
+	//console.log(longestLabel)
+	let textStyles = idealFontsize(longestLabel, szNet, szNet / 2, 20, 4);
+
+	let hText = textStyles.h;
+	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
+	let pictureSize = hPic;
+	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
+
+	textStyles.fg = 'gray';
+	delete textStyles.h;
+
+	let outerStyles = { w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+
+		let text = zText(item.label, null, textStyles, hText);
+
+		let pic = zPic(k, null, picStyles, true, false);
+		delete pic.info;
+
+		let d = mDiv();
+		mAppend(d, pic.div);
+		mAppend(d, text.div);
+		mStyleX(d, outerStyles);
+
+		// set padding according to text size, truncate text if not enough space
+		if (text.extra < -padding && text.lines >= 3) {
+			mClass(text.div, 'maxLines2');
+		} else {
+			d.style.padding = text.extra == 0 ? padding + 'px' : ('' + (padding + text.extra / 2) + 'px ' + padding + 'px ');
+		}
+
+		d.id = 'pic' + (i + iStart);
+
+		//complete item info
+		item.div = d;
+		item.pic = pic;
+		if (labeled) item.text = text;
+		item.isSelected = false;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		item.bg = d.style.backgroundColor;
+		item.fg = text.div.style.color;
+
+	}
+	return items;
+}
+
+
+
 function zItemsFromPictures(keys, labels, { lang, bgs, colorKeys, textColor, sameBackground, repeat = 1, shufflePositions = true }) {
 	//console.log('HALLO!!!!')
 	//transform textColor param into list of fg, one for each key

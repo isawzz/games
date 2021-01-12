@@ -9,7 +9,7 @@ class GTouchColors extends Game {
 	}
 	prompt() {
 		let colorKeys = choose(G.colors, G.numColors);
-		showPictures(evaluate, { colorKeys: colorKeys, contrast: G.contrast });
+		showPicturesSpeechTherapyGames(evaluate, { contrast: G.contrast }, { colorKeys: colorKeys });
 		//Pictures.map(x => x.color = ColorDict[x.textShadowColor]);
 
 		setGoal(randomNumber(0, Pictures.length - 1));
@@ -36,7 +36,9 @@ class GMem extends Game {
 	constructor(name) { super(name); }
 	clear() { clearTimeout(this.TO); showMouse(); }
 	prompt() {
-		showPictures(this.interact.bind(this), { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
+		showPicturesSpeechTherapyGames(this.interact.bind(this),
+		{ border: '3px solid #ffffff80' },
+		 { repeat: G.numRepeat, sameBackground: true });
 		setGoal();
 
 		if (G.level > 2) { showInstruction('', Settings.language == 'E' ? 'remember all' : 'merke dir alle', dTitle, true); }
@@ -73,7 +75,7 @@ class GWritePic extends Game {
 		}
 	}
 	prompt() {
-		showPictures(() => mBy(this.defaultFocusElement).focus());
+		showPicturesSpeechTherapyGames(() => mBy(this.defaultFocusElement).focus());
 		setGoal();
 
 		showInstruction(Goal.label, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
@@ -120,7 +122,7 @@ class GMissingLetter extends Game {
 		G.maxPosMissing = G.posMissing == 'start' ? G.numMissing - 1 : 100;
 	}
 	prompt() {
-		showPictures(() => fleetingMessage('just enter the missing letter!'));
+		showPicturesSpeechTherapyGames(() => fleetingMessage('just enter the missing letter!'));
 		setGoal();
 
 		showInstruction(Goal.label, Settings.language == 'E' ? 'complete' : "ergänze", dTitle, true);
@@ -245,7 +247,7 @@ class GSayPic extends Game {
 	clear() { Speech.stopRecording(); }
 	prompt() {
 
-		showPictures();
+		showPicturesSpeechTherapyGames();
 		setGoal();
 
 		showInstruction(Goal.label, Settings.language == 'E' ? 'say:' : "sage: ", dTitle);
@@ -294,7 +296,9 @@ class GPremem extends Game {
 	constructor() { super(); this.piclist = []; }
 	prompt() {
 		this.piclist = [];
-		showPictures(this.interact.bind(this), { repeat: G.numRepeat, sameBackground: true, border: '3px solid #ffffff80' });
+		showPicturesSpeechTherapyGames(this.interact.bind(this), 
+		{ border: '3px solid #ffffff80' },
+		{ repeat: G.numRepeat, sameBackground: true });
 		showInstruction('', 'click any picture', dTitle, true);
 		activateUi();
 	}
@@ -350,7 +354,8 @@ class GSteps extends Game {
 		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
 		let showRepeat = G.numRepeat > 1;
 
-		showPictures(this.interact.bind(this), { showRepeat: showRepeat, colorKeys: colorKeys, contrast: G.contrast, repeat: G.numRepeat });
+		showPicturesSpeechTherapyGames(this.interact.bind(this), {contrast: G.contrast, },
+		{ showRepeat: showRepeat, colorKeys: colorKeys, repeat: G.numRepeat });
 
 		setMultiGoal(G.numSteps);
 		// console.log(Goal)
@@ -523,7 +528,8 @@ class GElim extends Game {
 		this.piclist = [];
 		let colorKeys = G.numColors > 1 ? choose(G.colors, G.numColors) : null;
 		let showRepeat = G.numRepeat > 1;
-		showPictures(this.interact.bind(this), { showRepeat: showRepeat, colorKeys: colorKeys, contrast: G.contrast, repeat: G.numRepeat });
+		showPicturesSpeechTherapyGames(this.interact.bind(this), {contrast: G.contrast, },
+		{ showRepeat: showRepeat, colorKeys: colorKeys, repeat: G.numRepeat });
 
 		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); //logicSetSelector(Pictures);
 		this.piclist = piclist;
@@ -575,7 +581,7 @@ class GAnagram extends Game {
 		});
 	}
 	prompt() {
-		showPictures(() => fleetingMessage('just enter the missing letters!'));
+		showPicturesSpeechTherapyGames(() => fleetingMessage('just enter the missing letters!'));
 		setGoal();
 		showInstruction(Goal.label, Settings.language == 'E' ? 'drag letters to form' : "forme", dTitle, true);
 		mLinebreak(dTable);

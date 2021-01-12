@@ -1,74 +1,3 @@
-function zShowPictures(keys, dParent, { label, sz, bg, fg, border }, { onclick,
-	showRepeat, container, lang, colorKeys, contrast, repeat = 1,
-	sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
-	let pics = [];
-
-	let infos = keys.map(k => (isdef(lang) ? getRandomSetItem(lang, k) : symbolDict[k]));
-
-	let ifs = arguments[2];
-	console.log('', bg, ifs.bg, 'ifs.bg is', ifs.bg, '!!!!!!!!!!!!!!!!!!!!!');
-	if (nundef(ifs.bg)) ifs.bg = isList(ifs.bg) ? ifs.bg : isdef(colorKeys) ? 'white'
-		: () => sameBackground ? computeColor('random') : 'random';
-
-	console.log('', ifs.bg, 'ifs.bg is', ifs.bg, '!!!!!!!!!!!!!!!!!!!!!');
-	//TODO: container muss weg, das sollte bei sz dabei sein! oder options:containerDims
-	//console.log(arguments[2],arguments[3])
-	let items = zItems(infos, ifs, arguments[3]);
-	console.log('items', items);
-
-	// let items = zItemsFromPictures(keys, labels, {
-	// 	showRepeat: showRepeat, container: container, lang: lang, border: border,
-	// 	picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
-	// 	sameBackground: sameBackground, shufflePositions: shufflePositions
-	// });
-
-	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, isdef(colorKeys) ? colorKeys.length : undefined, undefined, container);
-
-	console.log('....pictureSize', pictureSize, 'dims', rows, cols)
-	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
-
-	//if (isdef(myStyles)) stylesForLabelButton = deepmergeOverride(stylesForLabelButton, myStyles);
-	let isText = true;
-	let isOmoji = false;
-	if (isdef(lang)) {
-		let textStyle = getParamsForMaPicStyle('twitterText');
-		isText = textStyle.isText;
-		isOmoji = textStyle.isOmoji;
-	}
-
-	if (isdef(border)) stylesForLabelButton.border = border;
-
-	if (isdef(sz)) pictureSize = sz;
-
-	// console.log('dims', rows, cols, items.length)
-
-	let i = 0;
-	for (let r = 0; r < rows; r++) {
-		for (let c = 0; c < cols; c++) {
-			let item = items[i];
-			let id = 'pic' + i;
-			let d1 = maPicLabelButtonFitText(item.info, item.label,
-				{
-					w: pictureSize, h: pictureSize, bgPic: item.bg, textShadowColor: item.textShadowColor, contrast: contrast,
-					sPic: sPic
-				},
-				onclick, dParent, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
-			d1.id = id;
-			if (showRepeat) addRepeatInfo(d1, item.iRepeat, pictureSize);
-			let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
-			//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
-			pics.push({
-				textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
-				bg: item.bg, div: d1, id: id, sz: pictureSize, fzPic: fzPic,
-				index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
-			});
-			i += 1;
-		}
-		mLinebreak(dParent);
-	}
-
-	return pics;
-}
 
 function zGrid(elems, dParent) {
 
@@ -78,82 +7,6 @@ function zGrid(elems, dParent) {
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	return size;
-}
-function zItemsForViewer(keys, labelFunc, { sz, padding = 4 }, iStart = 0) {
-	//an item is a div with a pic and possibly a label underneath
-	sz = isdef(sz) ? sz : 100;
-	szNet = sz - 2 * padding;
-	let labeled = isdef(labelFunc);
-
-	//als erstes items machen
-	let items = [];
-	let longestLabel = '';
-	let maxlen = 0;
-	let label;
-	for (let i = 0; i < keys.length; i++) {
-		let k = keys[i];
-		let item = { key: k, info: symbolDict[k], index: i, iGroup: iStart };
-		if (isList(labelFunc)) label = labelFunc[i % labelFunc.length];
-		else if (typeof (labelFunc) == 'function') label = labelFunc(k, item.info);
-		else label = null;
-
-		if (isdef(label)) {
-			let tlen = label.length;
-			if (tlen > maxlen) { maxlen = tlen; longestLabel = label; }
-			item.label = label;
-		}
-		items.push(item);
-	}
-
-	//jedes item hat jetzt ein label,info,index,key
-
-	//als erstes das label produzieren und checken wieviel platz es braucht
-	//console.log(longestLabel)
-	let textStyles = idealFontsize(longestLabel, szNet, szNet / 2, 20, 4);
-
-	let hText = textStyles.h;
-	let hPic = szNet - hText; //Math.max(sz - hText,sz/4);
-	let pictureSize = hPic;
-	let picStyles = { w: pictureSize, h: pictureSize, bg: 'white', fg: 'random' };
-
-	textStyles.fg = 'gray';
-	delete textStyles.h;
-
-	let outerStyles = { w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
-	for (let i = 0; i < items.length; i++) {
-		let item = items[i];
-		let k = item.key;
-
-		let text = zText(item.label, null, textStyles, hText);
-
-		let pic = zPic(k, null, picStyles, true, false);
-		delete pic.info;
-
-		let d = mDiv();
-		mAppend(d, pic.div);
-		mAppend(d, text.div);
-		mStyleX(d, outerStyles);
-
-		// set padding according to text size, truncate text if not enough space
-		if (text.extra < -padding && text.lines >= 3) {
-			mClass(text.div, 'maxLines2');
-		} else {
-			d.style.padding = text.extra == 0 ? padding + 'px' : ('' + (padding + text.extra / 2) + 'px ' + padding + 'px ');
-		}
-
-		d.id = 'pic' + (i + iStart);
-
-		//complete item info
-		item.div = d;
-		item.pic = pic;
-		if (labeled) item.text = text;
-		item.isSelected = false;
-		item.dims = parseDims(sz, sz, d.style.padding);
-		item.bg = d.style.backgroundColor;
-		item.fg = text.div.style.color;
-
-	}
-	return items;
 }
 function zPic(key, dParent, styles = {}, isText = true, isOmoji = false) {
 	let w = styles.w, h = styles.h, padding = styles.padding, hpadding = styles.hpadding, wpadding = styles.wpadding;
@@ -241,7 +94,7 @@ function zView100() {	//assumes a div id='table'
 
 }
 function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
-	{ showRepeat, container, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1,
+	{ showRepeat, container, lang, border, picSize, bg, colorKeys, contrast, repeat = 1,
 		sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	let pics = [];
 
@@ -249,7 +102,7 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 
 	let items = zItemsFromPictures(keys, labels, {
 		showRepeat: showRepeat, container: container, lang: lang, border: border,
-		picSize: picSize, bgs: bgs, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
+		picSize: picSize, bgs: bg, colorKeys: colorKeys, contrast: contrast, repeat: repeat,
 		sameBackground: sameBackground, shufflePositions: shufflePositions
 	});
 

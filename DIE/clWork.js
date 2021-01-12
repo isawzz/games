@@ -5,7 +5,7 @@ class Game {
 	startLevel() { }
 	startRound() { }
 	prompt() {
-		showPictures(evaluate);
+		showPicturesSpeechTherapyGames(evaluate);
 		setGoal();
 		showInstruction(Goal.label, 'click', dTitle, true);
 		activateUi();
