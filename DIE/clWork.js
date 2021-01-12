@@ -49,9 +49,7 @@ class GInno extends Game {
 		//console.log(Selected);
 		return w == word;
 	}
-
 }
-
 
 class GAbacus extends Game {
 	constructor(name) { super(name); }

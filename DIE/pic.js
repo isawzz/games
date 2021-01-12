@@ -33,6 +33,24 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
 	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
 
+	//randomly attribute labels or no labels or all labels
+	let totalPics = items.length;
+	if (nundef(Settings.labels) || Settings.labels) {
+		if (G.numLabels == totalPics) return;
+		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
+		for (const p of remlabelPic) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	} else {
+		for (const p of Pictures) {
+			//console.log('hi1');
+			maHideLabel(p.id, p.info); p.isLabelVisible = false;
+		}
+	}
+
+
+
 	let padding = 8;
 	let szNet = sz - 2 * padding;
 	let oneWord = longestLabel.label.replace(' ', '_');
@@ -47,6 +65,8 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	delete textStyles.w;
 
 	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+
+
 
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
@@ -123,7 +143,6 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	// 	}
 
 	// label hiding
-	let totalPics = Pictures.length;
 	if (nundef(Settings.labels) || Settings.labels) {
 		if (G.numLabels == totalPics) return;
 		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
