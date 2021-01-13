@@ -1,10 +1,10 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  lastGame: gAbacus
   settings:
     # settings common to all games
-    samplesPerGame: 2
+    samplesPerGame: 20
     minutesPerUnit: 13
     incrementLevelOnPositiveStreak: 10
     decrementLevelOnNegativeStreak: 10
@@ -13,7 +13,7 @@ nil:
     vocab: lifePlus
     showTime: true
     spokenFeedback: true
-    silentMode: true
+    silentMode: false
     switchGame: true
     #indiv game settings default
     trials:  2

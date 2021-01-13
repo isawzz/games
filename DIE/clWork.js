@@ -83,6 +83,10 @@ class GAbacus extends Game {
 		mLinebreak(dTable);
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
+		//let s=G.seq;
+		instr1 = G.operand+' '+G.oop.sp+' '+G.step+' ?';
+		console.log(G);
+		//instr1 = arrTake(G.seq,3).join(' ');
 		showInstruction('', instr1, dTitle, true);
 
 
