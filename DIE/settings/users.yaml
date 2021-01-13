@@ -4,7 +4,7 @@ nil:
   lastGame: gElim
   settings:
     # settings common to all games
-    samplesPerGame: 1
+    samplesPerGame: 2
     minutesPerUnit: 13
     incrementLevelOnPositiveStreak: 10
     decrementLevelOnNegativeStreak: 10

@@ -1,4 +1,5 @@
 function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	//#region prelim
 	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
 	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
 	//keys and infos
@@ -17,8 +18,9 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	options = deepmergeOverride(defOptions, options);
 
 	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
+	//#endregion
 
-	//phase1: make items: hier jetzt mix and match
+	//#region phase1: make items: hier jetzt mix and match
 	let items = zItems(infos, ifs, options);
 	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
 	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
@@ -34,23 +36,14 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
 
 	//randomly attribute labels or no labels or all labels
-	let totalPics = items.length;
 	if (nundef(Settings.labels) || Settings.labels) {
-		if (G.numLabels == totalPics) return;
-		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
-		for (const p of remlabelPic) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
-	} else {
-		for (const p of Pictures) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
+		let n = Math.min(items.length, G.numLabels);
+		let chosen = items.length == G.numLabels ? items : choose(items, n);
+		chosen.map(x => x.hasLabel = true);
 	}
+	//#endregion phase1
 
-
-
+	//#region phase2: sizing, composing item
 	let padding = 8;
 	let szNet = sz - 2 * padding;
 	let oneWord = longestLabel.label.replace(' ', '_');
@@ -65,28 +58,42 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	delete textStyles.w;
 
 	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
-
-
-
+	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
 		let k = item.key;
 
-		textStyles.fg = item.fg;
-		let text = zText1Line(item.label, null, textStyles, hText);
-
-		if (isdef(item.textShadowColor)) {
-			let sShade = '0 0 0 ' + item.textShadowColor;
-			picStyles['text-shadow'] = sShade;
-			picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
-		}
-
-		let pic = zPic(k, null, picStyles, true, false);
-		delete pic.info;
-
 		let d = mDiv();
-		mAppend(d, pic.div);
-		mAppend(d, text.div);
+		if (item.hasLabel == true) {
+
+			picStyles = { w: pictureSize, h: pictureSize };
+			textStyles.fg = item.fg;
+			text = zText1Line(item.label, null, textStyles, hText);
+
+			if (isdef(item.textShadowColor)) {
+				let sShade = '0 0 0 ' + item.textShadowColor;
+				picStyles['text-shadow'] = sShade;
+				picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+			}
+
+			pic = zPic(k, null, picStyles, true, false);
+			delete pic.info;
+
+			mAppend(d, pic.div);
+			mAppend(d, text.div);
+
+		} else {
+			picStyles = { w: szNet, h: szNet };
+
+			if (isdef(item.textShadowColor)) {
+				let sShade = '0 0 0 ' + item.textShadowColor;
+				picStyles['text-shadow'] = sShade;
+				picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+			}
+			pic = zPic(k, null, picStyles, true, false);
+			mAppend(d, pic.div);
+
+		}
 
 		outerStyles.bg = item.bg;
 		outerStyles.fg = item.fg;
@@ -107,55 +114,44 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 		// item.fg = text.div.style.color;
 		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
 
+		// console.log(items[2]);
+		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
+		let docfz = items[0].pic.innerDims.fz;
+		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz);
+		item.fzPic = fzPic;
+		console.log('font size of pic is',fzPic);
+
+
 	}
+	//#endregion
 
-	//phase3: prep container for items
+	//#region phase3: prep container for items
 	mClass(dTable, 'flexWrap');
+	//#endregion
 
-	//phase4: add items to container!
+	//#region phase4: add items to container!
 	// let szFinal = zGrid(Pictures, dTable);
-	let dParent = dTable;
-	let dGrid = mDiv(dParent);
+	let dGrid = mDiv(dTable);
 	items.map(x => mAppend(dGrid, x.div));
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, rounding: 5 };
 	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
-
-	// console.log(items[2]);
-	let fzPic =firstNumber(items[0].div.children[0].children[0].style.fontSize);
-	let docfz = items[0].pic.innerDims.fz;
-	console.assert( docfz == fzPic,'fzPic is '+fzPic+', docfz is '+docfz);
 
 	//#endregion
 
 	console.log('*** THE END ***')
 
-
-	// 	let fzPic = firstNumber(d1.children[0].children[0].style.fontSize);
-	// 	//item hat bereits: fg,bg,iRepeat,info,key,label,textShadowColor
 	// 	pics.push({
-	// 		textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, key: item.info.key, info: item.info,
+	// 		textShadowColor: item.textShadowColor, color: item.color, colorKey: item.colorKey, 
+	// key: item.info.key, info: item.info,
 	// 		bg: item.bg, div: d1, id: id, sz: sz, fzPic: fzPic,
-	// 		index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, isLabelVisible: true, isSelected: false
+	// 		index: i, row: r, col: c, iRepeat: item.iRepeat, label: item.label, 
+	// isLabelVisible: true, isSelected: false
 	// 	});
 	// 	i += 1;
 	// }
 	// mLinebreak(dParent);
 	// 	}
 
-	// label hiding
-	if (nundef(Settings.labels) || Settings.labels) {
-		if (G.numLabels == totalPics) return;
-		let remlabelPic = choose(Pictures, totalPics - G.numLabels);
-		for (const p of remlabelPic) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
-	} else {
-		for (const p of Pictures) {
-			//console.log('hi1');
-			maHideLabel(p.id, p.info); p.isLabelVisible = false;
-		}
-	}
 
 }
 function showPicturesSpeechTherapyGames1(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
@@ -588,9 +584,10 @@ function logicSetSelector(allPics) {
 	return [s, w, piclist];
 
 }
-function colorPrepper(val) { 
+function colorPrepper(val) {
 
-	return `<span style="color:${ColorDict[val].c}">${ColorDict[val][Settings.language].toUpperCase()}</span>`; }
+	return `<span style="color:${ColorDict[val].c}">${ColorDict[val][Settings.language].toUpperCase()}</span>`;
+}
 function labelPrepper(val) { return `<b>${val.toUpperCase()}</b>`; }
 function logicCheck(pic) {
 	//should return true if pic is part of set to be clicked and remove that pic
