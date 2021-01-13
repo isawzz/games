@@ -37,7 +37,7 @@ function prep1(items, ifs, options) {
 		delete pic.info;
 		mAppend(d, pic.div);
 		//add text if needed
-		console.log('============>>showLabels',options.showLabels)
+		//console.log('============>>showLabels',options.showLabels)
 		if (options.showLabels) {
 			textStyles.fg = item.fg;
 			text = zText1Line(item.label, null, textStyles, hText);
@@ -58,11 +58,14 @@ function prep1(items, ifs, options) {
 		item.isSelected = false;
 		item.isLabelVisible = options.showLabels;
 		item.dims = parseDims(sz, sz, d.style.padding);
-		console.log('index', item.index, 'row', item.row, 'col', item.col)
+		//console.log('index', item.index, 'row', item.row, 'col', item.col)
 		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
 		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
-		let docfz = items[0].pic.innerDims.fz;
-		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz);
+		let docfz = item.pic.innerDims.fz;
+		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz );
+		if (docfz != fzPic){
+			console.log('item',item)
+		}
 		item.fzPic = fzPic;
 	}
 	//#endregion

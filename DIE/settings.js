@@ -77,7 +77,7 @@ function createMenuUi(dParent) {
 	for (let i = 0; i < games.length; i++) { 
 		let item = items[i];
 		item.div.id = 'menu_' + item.label.substring(0, 3);
-		console.log('game', games[i]); 
+		//console.log('game', games[i]); 
 		let key = item.div.key = games[i];
 		MenuItems[key] = item;
 	}
@@ -94,12 +94,12 @@ function createMenuUi(dParent) {
 	items.map(x => mAppend(dGrid, x.div));
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
 	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
-	console.log('size of grid', gridSize, 'table', getBounds(dTable))
+	//console.log('size of grid', gridSize, 'table', getBounds(dTable))
 	//#endregion
 
-	console.log('*** THE END ***');
+	//console.log('*** THE END ***');
 
-	console.log('MenuItems', MenuItems)
+	//console.log('MenuItems', MenuItems)
 
 	if (nundef(G)) return;
 	//select the current game

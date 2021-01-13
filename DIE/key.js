@@ -32,6 +32,11 @@ function getKeySets() {
 	for (const o of [res1, res2, res3, res4, res5]) {
 		for (const k in o) res[k] = o[k];
 	}
+
+	res['objectPlus']=union(res.object,res.best100);
+	res['lifePlus']=union(res.life,res.best100);
+	res['actionPlus']=union(res.action,res.best100);
+
 	localStorage.setItem('KeySets', JSON.stringify(res));
 	return res;
 

@@ -51,7 +51,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 	//#endregion
 
-	console.log('*** THE END ***', Pictures[0]);
+	//console.log('*** THE END ***', Pictures[0]);
 }
 function showPicturesSpeechTherapyGamesWORKS(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
@@ -424,7 +424,7 @@ function toggleFace(pic) { if (pic.isFaceUp) turnFaceDown(pic); else turnFaceUp(
 //#region selection of picture
 function toggleSelectionOfPicture(pic, selectedPics) {
 
-	console.log(pic)
+//	console.log(pic)
 
 	let ui = pic.div;
 	//if (pic.isSelected){pic.isSelected=false;mRemoveClass(ui,)}

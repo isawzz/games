@@ -1,7 +1,7 @@
 nil:
   id: nil
-  seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
-  lastGame: gElim
+  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 2
@@ -10,7 +10,7 @@ nil:
     decrementLevelOnNegativeStreak: 10
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
-    vocab: best100
+    vocab: lifePlus
     showTime: true
     spokenFeedback: true
     silentMode: true
@@ -25,6 +25,7 @@ nil:
     levelBadges: false
   games:
     gTouchPic:
+      #vocab: 
       startLevel: 3
     gPremem:
       startLevel: 0
@@ -48,7 +49,7 @@ nil:
       startLevel: 2
 guest0:
   id: guest
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
+  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gTouchPic
   settings:
     # settings common to all games
@@ -71,7 +72,7 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
+  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gTouchPic
   settings:
     # settings common to all games
@@ -94,7 +95,7 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  seq: [gAbacus, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim]
+  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gTouchPic
   settings:
     # settings common to all games
@@ -104,7 +105,7 @@ gul:
     decrementLevelOnNegativeStreak: 5
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
-    vocab: best50
+    vocab: best100
     showTime: true
     spokenFeedback: true
     silentMode: false
