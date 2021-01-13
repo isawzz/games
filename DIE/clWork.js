@@ -84,10 +84,10 @@ class GAbacus extends Game {
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		//let s=G.seq;
-		instr1 = G.operand+' '+G.oop.sp+' '+G.step+' ?';
+		let instr2 = G.operand+' '+G.oop.sp+' '+G.step+' ?';
 		console.log(G);
 		//instr1 = arrTake(G.seq,3).join(' ');
-		showInstruction('', instr1, dTitle, true);
+		showInstruction('', instr1, dTitle, true, instr2);
 
 
 		//let initialDelay = 5000 + G.level * 1000;

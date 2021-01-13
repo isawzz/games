@@ -105,27 +105,6 @@ function createMenuUi(dParent) {
 	//select the current game
 	SelectedMenuKey = G.key;
 	toggleSelectionOfPicture(MenuItems[G.key]);
-	return;
-
-	//so sollte das dann spaeter ausschauen:
-	//let pics = zShowPictures(keys, d, {labels:labels, bgs:bgs, fgs:'blue'}, {onclick:onClickGo, shufflePositions: false });
-	let pics = maShowPictures(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { fg: 'blue' });
-	//let pics = maShowPicturesX(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { sPic: { fg: 'white' }}); //, sText:{family:'AlgerianRegular'} });
-	for (let i = 0; i < pics.length; i++) {
-		let p = pics[i];
-		//console.log(p)
-		p.div.id = 'menu_' + p.label.substring(0, 3);
-		p.div.children[0].style.color = 'white';//TODO!!!!!!
-		let key = p.div.key = games[i];
-		MenuItems[key] = p;
-	}
-
-	if (nundef(G)) return;
-
-	//select the current game
-	SelectedMenuKey = G.key;
-	toggleSelectionOfPicture(MenuItems[G.key]);
-	//console.log(SelectedMenuKey)
 }
 
 function initSettings(game) {

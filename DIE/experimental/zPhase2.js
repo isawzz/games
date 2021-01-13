@@ -3,9 +3,11 @@ function prep1(items, ifs, options) {
 	//#region phase2: prepare items for container
 
 	let sz = options.sz;
-	let szNet = sz - 2 * ifs.padding;
+	let padding = (isdef(ifs.padding)?ifs.padding:2);
+	let szNet = sz - 2 * padding;
+
 	let pictureSize = szNet;
-	let picStyles = { w: szNet, h: szNet + ifs.padding }; //if no labels!
+	let picStyles = { w: szNet, h: szNet + padding }; //if no labels!
 	let textStyles, hText;
 	if (options.showLabels) {
 		let longestLabel = findLongestLabel(items);
@@ -21,7 +23,7 @@ function prep1(items, ifs, options) {
 		delete textStyles.w;
 	}
 
-	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: ifs.padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
 	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
@@ -33,6 +35,8 @@ function prep1(items, ifs, options) {
 			picStyles['text-shadow'] = sShade;
 			picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
 		}
+
+		//console.log('::::::::::::::',picStyles)
 		pic = zPic(k, null, picStyles, true, false);
 		delete pic.info;
 		mAppend(d, pic.div);
@@ -77,9 +81,10 @@ function prepItemsForContainer(items, ifs, options) {
 	let [sz, rows, cols] = calcRowsColsSize(items.length);
 	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
 
-	let szNet = sz - 2 * ifs.padding;
+	let padding = isdef(ifs.padding)?ifs.padding:2;
+	let szNet = sz - 2 * padding;
 	let pictureSize = szNet;
-	let picStyles = { w: szNet, h: szNet + ifs.padding }; //if no labels!
+	let picStyles = { w: szNet, h: szNet + padding }; //if no labels!
 	let textStyles, hText;
 	if (showLabels) {
 		let longestLabel = findLongestLabel(items);
@@ -95,7 +100,7 @@ function prepItemsForContainer(items, ifs, options) {
 		delete textStyles.w;
 	}
 
-	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: ifs.padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
 	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];

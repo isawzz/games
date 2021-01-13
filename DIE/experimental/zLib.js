@@ -208,6 +208,7 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 	let wdes, hdes, fzdes, wreal, hreal, fzreal, f;
 
 	//console.log(info);
+	//console.log('________styles',styles)
 	if (isdef(styles.w) && isdef(styles.h) && isdef(styles.fz)) {
 		[wdes, hdes, fzdes] = [styles.w, styles.h, styles.fz];
 		let fw = wdes / wInfo;

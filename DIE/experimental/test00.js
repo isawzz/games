@@ -136,7 +136,46 @@ function zItemsFromPictures(keys, labels, { lang, bgs, colorKeys, textColor, sam
 	return itColors;
 }
 
+function test12_number7(){
+	for(let i=0;i<4;i++){
+		visualizeAddition(randomNumber(0,10),randomNumber(0,10));
+		mLinebreak(dTable,40);
+	}
+}
+function visualizeAddition(a,b){
+	d1=visualizeNumber(a,'blue');
+	dop=zText('+',dTable,{fg:'white',fz:64});
+	d1=visualizeNumber(b,'green');
+	deq=zText('=',dTable,{fg:'white',fz:64});
+	d2=visualizeNumber(a+b,'red');
 
+	//dop und deq muessen size adjusted werden!!!
+	//brauch das extra!!!!
+	//d3=joinDivs(d1,d2);
+	//console.log('res',d3)
+}
+function joinDivs(d1,d2){
+	let d=mDiv(dTable);
+	mStyleX(d,{bg:'white',rounding:10,padding:20});
+	mAppend(d,d1);
+	mAppend(d,d2);
+	return d;
+
+	console.log(d1)
+	let parent = d1.parentNode;
+	let dSum=mDiv(parent);
+	let d1New = d1.cloneNode();
+	let d2New = d2.cloneNode();
+	mAppend(dSum,d1New);
+	mAppend(dSum,d2New);
+	dSum.style.backgroundColor = d1.style.backgroundColor;
+}
+function test11_zViewerCircleIcon() {
+	ensureSymByType();
+	let keys = symKeysByType.icon;
+	keys = keys.filter(x => x.includes('circle'));
+	zViewer(keys);
+}
 function test10_zViewerClockCrownFactory() {
 	ensureSymByType();
 	let keys = symKeysByType.icon;
