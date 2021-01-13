@@ -62,8 +62,6 @@ class GAbacus extends Game {
 	startLevel() {
 		if (!isList(G.steps)) G.steps = [G.steps];
 		G.numPics = 2;
-		G.numLabels = 0;
-		// console.log(G)
 	}
 	prompt() {
 		mLinebreak(dTable, 12);

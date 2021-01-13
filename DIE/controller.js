@@ -2,9 +2,9 @@ var pictureSize, TOMain, TOTrial;
 var uiActivated, auxOpen;
 function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
-function stopGame() { 
-	
-	resetState(); 
+function stopGame() {
+
+	resetState();
 }
 function startGame() {
 	//console.log('___________startGame_', G);
@@ -26,16 +26,9 @@ function startLevel() {
 	Speech.setLanguage(Settings.language);
 
 	getGameValues(USERNAME, G.key, G.level);
-	// let defvals = { numPics: 1, numRepeat: 1, numColors: 1, numSteps: 1, numLabels: -1, trials: Settings.trials };
-	// for (const k in defvals) { G[k] = getGameOrLevelInfo(k, defvals[k]); }
-	// if (G.numLabels < 0) G.numLabels = G.numPics * G.numRepeat * G.numColors;
 
 	G.instance.startLevel();
-	//keys are supposedly set in each game!
-	if (G.keys.length < G.numPics) {
-		updateKeySettings(G.numPics + 5);
-		//console.log('===>extending key set to',G.keys);
-	}
+	if (G.keys.length < G.numPics) { updateKeySettings(G.numPics + 5); }
 	startRound();
 }
 function startRound() {

@@ -137,18 +137,6 @@ function zItemsFromPictures(keys, labels, { lang, bgs, colorKeys, textColor, sam
 }
 
 
-function test11_zItemsX() {
-	let keys = ['horse', 'ant', 'green apple'];
-	let items = zItemsX(keys);//, null, {labels:});console.log(x)
-	//x.map(x=>console.log(x));
-
-	items = zItemsFromPictures(keys, null, { lang: 'D', repeat: 2, shufflePositions: true });
-	items.map(x => console.log(x)); console.log('dTable', dTable)
-
-	let [pictureSize, rows, cols] = calcDimsAndSize1(items.length, undefined, undefined, dTable);
-
-
-}
 function test10_zViewerClockCrownFactory() {
 	ensureSymByType();
 	let keys = symKeysByType.icon;

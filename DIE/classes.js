@@ -416,8 +416,7 @@ class GMissingNumber extends Game {
 	startLevel() {
 		if (!isList(G.steps)) G.steps = [G.steps];
 		G.numPics = 2;
-		G.numLabels = 0;
-		// console.log(G)
+		Settings.labels = false; // do not show labels for the thumbs up/down: TODO: should really do this in game/showThumbsUpDown
 	}
 	prompt() {
 		mLinebreak(dTable, 12);
