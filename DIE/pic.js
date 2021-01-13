@@ -8,13 +8,13 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 	// keys=['house','socks','hammer'];
 
-	let showLabels = Settings.labels == true;
+	// let showLabels = Settings.labels == true;
 	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
 	//ifs and options: defaults
 	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
 	let fg = (i, info, item) => colorIdealText(item.bg);
 	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding:10 };
-	let defOptions = { shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	let defOptions = { showLabels:Settings.labels==true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
 	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
@@ -31,13 +31,69 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 	//#region phase2: prepare items for container
 	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
+	if (nundef(options.sz)) options.sz=sz;
+	if (nundef(options.rows)) options.rows=rows;
+	if (nundef(options.cols)) options.cols=cols;
+	items.map(x => x.sz = sz);
+	prep1(items,ifs,options);
+	//#endregion
+
+	//#region phase3: prep container for items
+	mClass(dTable, 'flexWrap');
+	//#endregion
+
+	//#region phase4: add items to container!
+	let dGrid = mDiv(dTable);
+	items.map(x => mAppend(dGrid, x.div));
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
+	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
+	// console.log('size of grid',gridSize,'table',getBounds(dTable))
+
+	//#endregion
+
+	console.log('*** THE END ***', Pictures[0]);
+}
+function showPicturesSpeechTherapyGamesWORKS(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
+	Pictures = [];
+	//#region prelim: default ifs and options, keys & infos
+	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
+
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+	// keys=['house','socks','hammer'];
+
+	// let showLabels = Settings.labels == true;
+	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
+	//ifs and options: defaults
+	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
+	let fg = (i, info, item) => colorIdealText(item.bg);
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding:10 };
+	let defOptions = { showLabels:Settings.labels==true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	ifs = deepmergeOverride(defIfs, ifs);
+	options = deepmergeOverride(defOptions, options);
+	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
+	//#endregion
+
+	//#region phase1: make items: hier jetzt mix and match
+	let items = zItems(infos, ifs, options);
+	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
+	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
+	items.map(x => x.label = x.label.toUpperCase());
+	Pictures = items;
+	//items.map(x=>console.log(x));
+	//#endregion phase1
+
+	//#region phase2: prepare items for container
+	
+	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
 	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
 
 	let szNet = sz - 2 * ifs.padding;
 	let pictureSize = szNet;
 	let picStyles = { w: szNet, h: szNet + ifs.padding }; //if no labels!
 	let textStyles, hText;
-	if (showLabels) {
+	if (options.showLabels) {
 		let longestLabel = findLongestLabel(items);
 		let oneWord = longestLabel.label.replace(' ', '_');
 
@@ -67,7 +123,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 		delete pic.info;
 		mAppend(d, pic.div);
 		//add text if needed
-		if (showLabels) {
+		if (options.showLabels) {
 			textStyles.fg = item.fg;
 			text = zText1Line(item.label, null, textStyles, hText);
 			mAppend(d, text.div);
@@ -85,7 +141,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 		item.div = d;
 		item.pic = pic;
 		item.isSelected = false;
-		item.isLabelVisible = showLabels;
+		item.isLabelVisible = options.showLabels;
 		item.dims = parseDims(sz, sz, d.style.padding);
 		console.log('index',item.index,'row',item.row,'col',item.col)
 		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
@@ -367,6 +423,9 @@ function toggleFace(pic) { if (pic.isFaceUp) turnFaceDown(pic); else turnFaceUp(
 
 //#region selection of picture
 function toggleSelectionOfPicture(pic, selectedPics) {
+
+	console.log(pic)
+
 	let ui = pic.div;
 	//if (pic.isSelected){pic.isSelected=false;mRemoveClass(ui,)}
 	pic.isSelected = !pic.isSelected;

@@ -1,7 +1,76 @@
 // phase 2: prep items for container: determine size and position of items, set a min(fit content) and a max(limited by container & layout)
+function prep1(items, ifs, options) {
+	//#region phase2: prepare items for container
 
-function prepItemsForContainer(items,ifs,options){
-	
+	let sz = options.sz;
+	let szNet = sz - 2 * ifs.padding;
+	let pictureSize = szNet;
+	let picStyles = { w: szNet, h: szNet + ifs.padding }; //if no labels!
+	let textStyles, hText;
+	if (options.showLabels) {
+		let longestLabel = findLongestLabel(items);
+		let oneWord = longestLabel.label.replace(' ', '_');
+
+		textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 4); //, 'bold');	textStyles.weight='bold'
+		hText = textStyles.h;
+
+		pictureSize = szNet - hText;
+		picStyles = { w: pictureSize, h: pictureSize };
+
+		delete textStyles.h;
+		delete textStyles.w;
+	}
+
+	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: ifs.padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	let pic, text;
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+		let d = mDiv();
+		//add pic
+		if (isdef(item.textShadowColor)) {
+			let sShade = '0 0 0 ' + item.textShadowColor;
+			picStyles['text-shadow'] = sShade;
+			picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+		}
+		pic = zPic(k, null, picStyles, true, false);
+		delete pic.info;
+		mAppend(d, pic.div);
+		//add text if needed
+		console.log('============>>showLabels',options.showLabels)
+		if (options.showLabels) {
+			textStyles.fg = item.fg;
+			text = zText1Line(item.label, null, textStyles, hText);
+			mAppend(d, text.div);
+		}
+		//style container div
+		outerStyles.bg = item.bg;
+		outerStyles.fg = item.fg;
+		mStyleX(d, outerStyles);
+		d.id = 'pic' + (i + item.iGroup);
+		d.onclick = options.onclick;
+		//complete item info
+		item.id = d.id;
+		item.row = Math.floor(item.index / options.cols);
+		item.col = item.index % options.cols;
+		item.div = d;
+		item.pic = pic;
+		item.isSelected = false;
+		item.isLabelVisible = options.showLabels;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		console.log('index', item.index, 'row', item.row, 'col', item.col)
+		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
+		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
+		let docfz = items[0].pic.innerDims.fz;
+		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz);
+		item.fzPic = fzPic;
+	}
+	//#endregion
+
+}
+
+function prepItemsForContainer(items, ifs, options) {
+
 	let [sz, rows, cols] = calcRowsColsSize(items.length);
 	if (nundef(ifs.sz)) items.map(x => x.sz = sz);
 
@@ -52,14 +121,14 @@ function prepItemsForContainer(items,ifs,options){
 		d.onclick = options.onclick;
 		//complete item info
 		item.id = d.id;
-		item.row = Math.floor(item.index/cols);
-		item.col = item.index%cols;
+		item.row = Math.floor(item.index / cols);
+		item.col = item.index % cols;
 		item.div = d;
 		item.pic = pic;
 		item.isSelected = false;
 		item.isLabelVisible = showLabels;
 		item.dims = parseDims(sz, sz, d.style.padding);
-		console.log('index',item.index,'row',item.row,'col',item.col)
+		console.log('index', item.index, 'row', item.row, 'col', item.col)
 		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
 		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
 		let docfz = items[0].pic.innerDims.fz;
@@ -69,7 +138,7 @@ function prepItemsForContainer(items,ifs,options){
 
 }
 
-function findLongestLabel(items){
+function findLongestLabel(items) {
 	let longestLabel = '';
 	let maxlen = 0;
 	let iLongest = -1;
@@ -82,7 +151,7 @@ function findLongestLabel(items){
 		}
 	}
 
-	return {label:longestLabel,len:maxlen,i:iLongest};
+	return { label: longestLabel, len: maxlen, i: iLongest };
 
 }
 
