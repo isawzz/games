@@ -46,21 +46,40 @@ function createSettingsUi(dParent) {
 }
 function createMenuUi(dParent) {
 	clearElement(dParent);
-
 	mAppend(dParent, createElementFromHTML(`<h1>Choose Game:</h1>`));
+	MenuItems = {};
+
+	//#region prelim: keys,labels,ifs,options
+	let games = U.seq;
+	//console.log(games, games.map(g => GAME[g]));
+	let labels = games.map(g => GAME[g].friendly);
+	let keys = games.map(g => GAME[g].logo);
+	let infos = keys.map(x => symbolDict[x]);
+	let bgs = games.map(g => GAME[g].color);
+	let ifs = { label: labels, bg: bgs, fg: 'white', padding:4 };
+	let options = { onclick: onClickGo };
+	let showLabels = true;
+	//#endregion
+
+	//#region phase1: make items: hier jetzt mix and match
+	let items = zItems(infos, ifs, options);
+	items.map(x => x.label = x.label.toUpperCase());
+	for(const item of items){MenuItems[item.key]=item;}
+	//items.map(x=>console.log(x));
+	//#endregion phase1
+
+	//#region phase2: prepare items for container
+	
+	//#endregion
+
+
 
 	let d = mDiv(dParent);
 
 	mClass(d, 'flexWrap');
 	d.style.height = '100%';
 
-	let games = U.seq;
-	//console.log(games, games.map(g => GAME[g]));
-	let labels = games.map(g => GAME[g].friendly);
-	let keys = games.map(g => GAME[g].logo);
-	let bgs = games.map(g => GAME[g].color);
 
-	MenuItems = {};
 	//so sollte das dann spaeter ausschauen:
 	//let pics = zShowPictures(keys, d, {labels:labels, bgs:bgs, fgs:'blue'}, {onclick:onClickGo, shufflePositions: false });
 	let pics = maShowPictures(keys, labels, d, onClickGo, { bgs: bgs, shufflePositions: false }, { fg: 'blue' });
@@ -106,10 +125,10 @@ function updateSettings() {
 		if (SettingTypesCommon[k]) {
 			//console.log('should be set for all games:',k,Settings[k]);
 
-			lookupSetOverride(U,['settings',k],Settings[k]);
+			lookupSetOverride(U, ['settings', k], Settings[k]);
 
 		} else {
-			if (isdef(G.key)) lookupSetOverride(U,['games',G.key,'settings',k],Settings[k]);
+			if (isdef(G.key)) lookupSetOverride(U, ['games', G.key, 'settings', k], Settings[k]);
 
 		}
 	}

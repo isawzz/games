@@ -1,7 +1,7 @@
 var BlockServerSend = false;
 var SERVER_DATA = null;
 
-async function broadcastSIMA(usersPath = './settings/users.yaml', settingsPath = './settings/settings.yaml') {
+async function broadcastSIMA(usersPath = './_users.yaml', settingsPath = './_settings.yaml') {
 	let users = await loadYamlDict(usersPath);
 	let settings = await loadYamlDict(settingsPath);
 
