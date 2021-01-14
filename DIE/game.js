@@ -237,7 +237,7 @@ function getStyledItems1(words, bgFunc, fgFunc = 'contrast', fzFunc) {
 	}
 	return items;
 }
-function createWordInputs(words, dParent, idForContainerDiv='seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+function createWordInputs(words, dParent, idForContainerDiv = 'seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
 	if (isEmpty(styleWord)) {
 		let sz = 80;
@@ -329,7 +329,7 @@ function createNumberSequence(n, min, max, step, op = 'plus') {
 
 	return seq;
 }
-function showNumberSequence(words, dParent, idForContainerDiv='seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
+function showNumberSequence(words, dParent, idForContainerDiv = 'seqContainer', sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 	//words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true
 	// let wi = createWordInputs_(seq, dParent, 'dNums');
 
@@ -434,7 +434,7 @@ function showEquation(words, dParent, idForContainerDiv, sep = null, styleContai
 		let sz = 100;
 		let fg = helleFarbe(G.color);
 		styleWord = {
-			margin:8, padding: 4, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
+			margin: 8, padding: 4, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
 			'align-items': 'center', border: 'transparent', outline: 'none', fz: sz, 'justify-content': 'center',
 		};
 
@@ -685,6 +685,24 @@ function setExpGoal() {
 }
 
 //#region number sequence hints
+function hintEngineStart(hintFunc, hintlist, initialDelay) {
+	G.hintFunc = hintFunc;
+	recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+
+}
+function getOperationHintString(i) {
+	//return sSpoken,sWritten
+	console.log('i', i, 'trial#', G.trialNumber);
+	if (i == 0) {
+		let sSpoken = 'visualize like so:';
+		let sWritten = visOperation(G.op,G.operand,G.step, null,'?');
+		return [sSpoken,sWritten];
+	}else{
+		let sSpoken = 'look at this:';
+		let sWritten = visOperation(G.op,G.operand,G.step, null);
+		return [sSpoken,sWritten];
+	}
+}
 function getNumSeqHintString(i) {
 	console.log('i', i, 'trial#', G.trialNumber)
 	let cmd = G.op;
@@ -742,7 +760,7 @@ function recShowHints(ilist, rc, delay = 3000, fProgression = d => d * 1.5) {
 }
 function recShowHintsNext(i, ilist, rc, delay, fProgression) {
 	console.log('showing hint #', i, 'trial#', G.trialNumber);
-	let [spoken, written] = getNumSeqHintString(i);
+	let [spoken, written] = G.hintFunc(i);
 	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
 	if (written) showFleetingMessage(written, 0, { fz: 40 });
 	if (QuestionCounter == rc) recShowHints(ilist, rc, delay, fProgression);
@@ -941,8 +959,13 @@ function showFleetingMessage(msg, msDelay, styles, fade = false) {
 	}
 }
 function fleetingMessage(msg, styles, fade = false) {
-	dLineBottomMiddle.innerHTML = msg;
-	mStyleX(dLineBottomMiddle, styles)
+	if (isString(msg)) {
+		dLineBottomMiddle.innerHTML = msg;
+		mStyleX(dLineBottomMiddle, styles)
+	} else {
+		clearElement(dLineBottomMiddle);
+		mAppend(dLineBottomMiddle, msg);
+	}
 	if (fade) TOMain = aniFadeInOut(dLineBottomMiddle, 1);
 }
 //#endregion fleetingMessage
@@ -1213,7 +1236,7 @@ function showInstructionX(written, dParent, spoken, { fz, voice } = {}) {
 }
 function showHiddenThumbsUpDown(styles) {
 	styles.bg = ['transparent', 'transparent'];
-	showPicturesSpeechTherapyGames(null, styles,undefined, ['thumbs up', 'thumbs down'], ['bravo!', 'nope']);
+	showPicturesSpeechTherapyGames(null, styles, {showLabels:false}, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
 	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
 
 }

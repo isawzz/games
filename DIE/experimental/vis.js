@@ -10,8 +10,8 @@ function visOperator(s, dParent, styles = { fg: 'white', fz: 64 }) {
 function visOperation(op, a, b, dParent, symResult) {
 	switch (op) {
 		case 'plus':
-		case 'minus': _visualizeAritOp(op, a, b, dParent,symResult); break;
-		case 'mult': _visualizeMult(a, b, dParent,symResult); break;
+		case 'minus': return _visualizeAritOp(op, a, b, dParent,symResult); break;
+		case 'mult': return _visualizeMult(a, b, dParent,symResult); break;
 	}
 }
 
@@ -29,6 +29,7 @@ function _visualizeMult(a, b, dParent, symResult) {
 	let d4 = visOperator('=', dx);
 	let result = isdef(symResult)?symResult:op.f(a, b);
 	let d5 = visNumber(result, dx, 'red');
+	return dx;
 }
 function _visualizeAritOp(op, a, b, dParent, symResult) {
 	//opKey is one of the keys in OPS (plus, minus,mult,) or the object OPS[key]
@@ -42,6 +43,8 @@ function _visualizeAritOp(op, a, b, dParent, symResult) {
 	// let result = op.f(a, b);
 	let result = isdef(symResult)?symResult:op.f(a, b);
 	let d5 = visNumber(result, dx, 'red');
+	return dx;
+
 }
 function _visualizeNumber(n, dParent, color,or='h') {
 

@@ -1,4 +1,13 @@
-
+function test12_vizOperationOhneParentDiv(){
+	let elem =  visOperation('plus',5,2, null);
+	console.log('elem',elem);
+	mAppend(dTable,elem);
+}
+function test12_vizNumberOhneParentDiv(){
+	let elem =  visNumber(5, null, 'black');
+	console.log('elem',elem);
+	mAppend(dTable,elem);
+}
 function test12_vizArithop(){
 	for(let i=0;i<4;i++){
 		let a=randomNumber(0,10);

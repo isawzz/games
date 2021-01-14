@@ -2,7 +2,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	if (!EXPERIMENTAL) { return showPicturesSpeechTherapyGamesWORKING(...arguments); }
 	Pictures = [];
 	//#region prelim: default ifs and options, keys & infos
-	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
+	console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
@@ -17,7 +17,8 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	let defOptions = { showLabels:Settings.labels==true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
-	//console.log('keys', keys); console.log('ifs', ifs); console.log('options', options);
+	//console.log('keys', keys); console.log('ifs', ifs); 
+	console.log('options', options);
 	//#endregion
 
 	//#region phase1: make items: hier jetzt mix and match

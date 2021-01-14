@@ -437,15 +437,15 @@ class GMissingNumber extends Game {
 		let instr1 = (Settings.language == 'E' ? 'complete the sequence' : "ergänze die reihe");
 		showInstruction('', instr1, dTitle, true);
 
-		let initialDelay = 5000 + G.level * 1000;
-		if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+		if (Settings.showHint) hintEngineStart(getNumSeqHintString,[0,1,2,3,4],5000 + G.level * 1000);
 
 		activateUi();
 	}
 	trialPrompt() {
 		let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
-		let initialDelay = 3000 + G.level * 1000;
-		if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+		if (Settings.showHint) hintEngineStart(getNumSeqHintString,hintlist,3000 + G.level * 1000);
+		// let initialDelay = 3000 + G.level * 1000;
+		// if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
 		return 10;
 	}

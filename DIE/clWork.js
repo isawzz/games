@@ -90,8 +90,7 @@ class GAbacus extends Game {
 		showInstruction('', instr1, dTitle, true, instr2);
 
 
-		//let initialDelay = 5000 + G.level * 1000;
-		//if (Settings.showHint && !calibrating()) recShowHints([0, 1, 2, 3, 4], QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+		if (Settings.showHint) hintEngineStart(getOperationHintString,[0,1],5000 + G.level * 1000);
 
 		activateUi();
 	}
