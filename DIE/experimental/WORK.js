@@ -1,4 +1,4 @@
-function visualizeNumber(n, color) {
+function visualizeNumber(n,dParent, color) {
 
 	//moecht ein kleines grid mit inside n dots in random colors
 
@@ -26,13 +26,15 @@ function visualizeNumber(n, color) {
 	items.map(x => x.sz = options.sz);
 	prep1(items, ifs, options);
 
+
 	//#endregion
 
 	//#region phase3: prep container for items
+
 	//#endregion
 
 	//#region phase4: add items to container!
-	let dGrid = mDiv(dTable);
+	let dGrid = mDiv(dParent);
 	items.map(x => mAppend(dGrid, x.div));
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg:'white', rounding:10 };
 	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: options.rows, isInline: true });

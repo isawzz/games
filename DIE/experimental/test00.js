@@ -138,17 +138,22 @@ function zItemsFromPictures(keys, labels, { lang, bgs, colorKeys, textColor, sam
 
 function test12_number7(){
 	for(let i=0;i<4;i++){
-		visualizeAddition(randomNumber(0,10),randomNumber(0,10));
+		visualizeAddition(9,randomNumber(0,10));
 		mLinebreak(dTable,40);
+		break;
 	}
 }
 function visualizeAddition(a,b){
-	d1=visualizeNumber(a,'blue');
-	dop=zText('+',dTable,{fg:'white',fz:64});
-	d1=visualizeNumber(b,'green');
-	deq=zText('=',dTable,{fg:'white',fz:64});
-	d2=visualizeNumber(a+b,'red');
+	let dx=mDiv(dTable);
+	mFlex(dx);
+	mStyleX(dx,{'align-items':'center',gap:25});
+	d1=visualizeNumber(a,dx,'blue');
+	dop=zText('+',dx,{fg:'white',fz:64});
+	d1=visualizeNumber(b,dx,'green');
+	deq=zText('=',dx,{fg:'white',fz:64});
+	d2=visualizeNumber(a+b,dx,'red');
 
+	console.log('_________',getBounds(d2));
 	//dop und deq muessen size adjusted werden!!!
 	//brauch das extra!!!!
 	//d3=joinDivs(d1,d2);
