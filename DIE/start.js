@@ -60,7 +60,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(USERNAME); else loadUser();
 	console.assert(isdef(G))
 
-	test12_number7(); return;
+	test12_vizArithop(); return;
 	//test11_zViewerCircleIcon(); return;
 	//test11_zItemsX(); return;
 	//test03_maShowPictures(); return;
