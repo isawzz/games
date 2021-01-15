@@ -112,13 +112,6 @@ function loadUser(newUser) {
 	let gInfo = U.games[game];
 	let level= isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 
-	//if (isdef(game)) { level = U._lastLevel; }
-	// else {
-	// 	game = U.seq[0];
-	// 	gInfo = U.games[game];
-	// 	level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
-	// }
-
 	setGame(game, level);
 }
 function saveUnit() { saveUser(); }

@@ -15,14 +15,7 @@ function initTable() {
 function initSidebar() {
 	let dParent = mBy('sidebar');
 	clearElement(dParent);
-	
-	// let user = mText(USERNAME, dParent);
-	//editableUsernameUi(dParent);
-
-
-	//let title = mText('history:', dParent);
 	dLeiste = mDiv(dParent);
-	//dLeiste = mBy('sidebar')
 	mStyleX(dLeiste, { 'min-width':70, 'max-height': '100vh', display: 'flex', 'flex-flow': 'column wrap' });
 }
 function initAux() {

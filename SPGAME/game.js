@@ -1405,6 +1405,7 @@ function resetRound() {
 function resetScore() {
 	if (nundef(Score)) Score = {};
 	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
+	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
 }
 function resetState() {
 	clearTimeouts();
@@ -1535,6 +1536,7 @@ function showScore() {
 }
 function showStats() {
 
+	if (nundef(Score)) initScore();
 	// if (Score.levelChange) {
 	// 	Score.nTotal = 0;
 	// 	Score.nCorrect = 0;

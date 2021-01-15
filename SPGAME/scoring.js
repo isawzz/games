@@ -23,6 +23,7 @@ function lastStreakCorrect(items) {
 }
 function scoring(isCorrect) {
 
+	//console.log(Score)
 	// update Score incl. streaks
 	Score.nTotal += 1;
 	if (isCorrect) { Score.nCorrect += 1; if (G.trialNumber == 1) Score.nCorrect1 += 1; }
