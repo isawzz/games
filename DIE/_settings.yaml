@@ -293,35 +293,27 @@ games:
   gAbacus:
     numMissing: 1
     minNum: 0
-    maxNum: 99
-    minFactor: 1
-    maxFactor: 10
+    maxNum: 10
+    minFactor: 2
+    maxFactor: 3
     posMissing: end
     ops: [plus,minus,mult]
     levels:
       0:
-        maxNum: 10
         ops: [plus,minus,mult]
       1:
-        maxNum: 20
-        ops: [plus,minus,mult]
+        maxNum: 10
+        maxFactor: 4
+        ops: [mult]
       2:
-        maxNum: 50
-        ops: [plus,minus,mult]
+        maxNum: 9
+        maxFactor: 9
+        ops: [mult]
       3:
         maxNum: 99
         ops: [plus,minus,mult]
       4:
         maxNum: 99
-        ops: [plus,minus,mult]
-      5:
-        maxNum: 99
-        ops: [plus,minus,mult]
-      6:
-        maxNum: 50
-        ops: [plus,minus,mult]
-      7:
-        maxNum: 50
         ops: [plus,minus,mult]
 
       

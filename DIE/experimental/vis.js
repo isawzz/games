@@ -19,7 +19,7 @@ function visOperation(op, a, b, dParent, symResult) {
 function _visualizeMult(a, b, dParent, symResult) {
 	//opKey is one of the keys in OPS (plus, minus,mult,) or the object OPS[key]
 	op = OPS.mult;
-	console.log('op', op)
+	//console.log('op', op)
 	let dx = mDiv(dParent); mFlex(dx); mStyleX(dx, { 'align-items': 'center', gap: 16 });
 	visNumber(a, dx, 'blue', 'v');
 	for (let i = 1; i < b; i++) {
@@ -34,7 +34,7 @@ function _visualizeMult(a, b, dParent, symResult) {
 function _visualizeAritOp(op, a, b, dParent, symResult) {
 	//opKey is one of the keys in OPS (plus, minus,mult,) or the object OPS[key]
 	op = isString(op) ? OPS[op] : op;
-	console.log('op', op)
+	//console.log('op', op)
 	let dx = mDiv(dParent); mFlex(dx); mStyleX(dx, { 'align-items': 'center', gap: 16 });
 	let d1 = visNumber(a, dx, 'blue');
 	let d2 = visOperator(op.wr, dx);
@@ -52,7 +52,7 @@ function _visualizeNumber(n, dParent, color,or='h') {
 
 	//#region prelim: keys,labels,ifs,options
 	let keys = new Array(n).fill('plain-circle');
-	let options = { repeat: n, showLabels: false };
+	let options = { repeat: n, showLabels: false, center:true };
 	let infos = keys.map(x => symbolDict[x]);
 	let ifs = { fg: color }
 
@@ -71,7 +71,7 @@ function _visualizeNumber(n, dParent, color,or='h') {
 	let cols = Math.ceil(root);
 	if (or == 'v') { let h = rows; rows = cols; cols = h; }
 
-	console.log('orientation',or,rows,cols)
+	//console.log('orientation',or,rows,cols)
 
 	//let [sz, rows, cols] = calcRowsColsSize(items.length);
 	sz = 25;
@@ -80,7 +80,6 @@ function _visualizeNumber(n, dParent, color,or='h') {
 	if (nundef(options.cols)) options.cols = cols;
 	items.map(x => x.sz = options.sz);
 	prep1(items, ifs, options);
-
 
 	//#endregion
 

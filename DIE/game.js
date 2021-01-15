@@ -692,7 +692,7 @@ function hintEngineStart(hintFunc, hintlist, initialDelay) {
 }
 function getOperationHintString(i) {
 	//return sSpoken,sWritten
-	console.log('i', i, 'trial#', G.trialNumber);
+	//console.log('i', i, 'trial#', G.trialNumber);
 	if (i == 0) {
 		let sSpoken = 'visualize like so:';
 		let sWritten = visOperation(G.op,G.operand,G.step, null,'?');
@@ -759,7 +759,7 @@ function recShowHints(ilist, rc, delay = 3000, fProgression = d => d * 1.5) {
 	TOTrial = setTimeout(() => recShowHintsNext(i, ilist, rc, fProgression(delay), fProgression), delay);
 }
 function recShowHintsNext(i, ilist, rc, delay, fProgression) {
-	console.log('showing hint #', i, 'trial#', G.trialNumber);
+	//console.log('showing hint #', i, 'trial#', G.trialNumber);
 	let [spoken, written] = G.hintFunc(i);
 	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
 	if (written) showFleetingMessage(written, 0, { fz: 40 });
@@ -1135,6 +1135,7 @@ function resetScore() {
 	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
 }
 function resetState() {
+	GroupCounter = 0;
 	clearTimeouts();
 	onkeydown = null; onkeypress = null; onkeyup = null;
 	lastPosition = 0;

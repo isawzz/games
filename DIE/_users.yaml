@@ -47,6 +47,8 @@ nil:
       startLevel: 3
     gElim: 
       startLevel: 2
+    gAbacus:
+      startLevel: 0
 guest0:
   id: guest
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
@@ -136,4 +138,5 @@ gul:
       startLevel: 0
     gElim: 
       startLevel: 1
-
+    gAbacus:
+      startLevel: 0

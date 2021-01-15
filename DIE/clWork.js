@@ -64,9 +64,9 @@ class GAbacus extends Game {
 		G.numPics = 2;
 	}
 	prompt() {
-		mLinebreak(dTable, 12);
+		mLinebreak(dTable, 2);
 
-		showHiddenThumbsUpDown({ sz: 140 });
+		showHiddenThumbsUpDown({ sz: 50 });
 		mLinebreak(dTable);
 
 		G.seq = makeExpSequence();
@@ -80,17 +80,17 @@ class GAbacus extends Game {
 		setNumberSequenceGoal();
 		//console.log(G)
 
-		mLinebreak(dTable);
+		mLinebreak(dTable,30);
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		//let s=G.seq;
 		let instr2 = G.operand+' '+G.oop.sp+' '+G.step+' ?';
-		console.log(G);
+		//console.log(G);
 		//instr1 = arrTake(G.seq,3).join(' ');
 		showInstruction('', instr1, dTitle, true, instr2);
 
 
-		if (Settings.showHint) hintEngineStart(getOperationHintString,[0,1],5000 + G.level * 1000);
+		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString,[0,1],5000 + G.level * 1000);
 
 		activateUi();
 	}
