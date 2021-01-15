@@ -1,8 +1,3 @@
-function animateVerschmelzung(d1,d2){
-
-}
-
-
 
 function maShowCards(keys, labels, dParent, onClickPictureHandler, { showRepeat, containerForLayoutSizing, lang, border, picSize, bgs, colorKeys, contrast, repeat = 1, sameBackground, shufflePositions = true } = {}, { sCont, sPic, sText } = {}) {
 	Pictures = [];

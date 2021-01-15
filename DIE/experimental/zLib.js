@@ -8,6 +8,7 @@ function zGrid(elems, dParent) {
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
 	return size;
 }
+function zMeasure(){}
 function zPic(key, dParent, styles = {}, isText = true, isOmoji = false) {
 	let w = styles.w, h = styles.h, padding = styles.padding, hpadding = styles.hpadding, wpadding = styles.wpadding;
 	if (isdef(styles.sz)) {

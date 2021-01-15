@@ -1,22 +1,3 @@
-function updateUserScore() {
-	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
-	let g = G.key;
-
-	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
-	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
-	//let recNew = U.session[g];
-
-	addByKey(sc, recSession);
-	recSession.percentage = Math.round(100 * recSession.nCorrect / recSession.nTotal);
-
-	addByKey(sc, recOld);
-	recOld.percentage = Math.round(100 * recOld.nCorrect / recOld.nTotal);
-
-	//console.log('updated user score for', g, sc, recOld);
-	//console.log('updated user score session', recSession);
-	Score.nTotal = Score.nCorrect = Score.nCorrect1 = 0;
-	saveUser();
-}
 function addScoreToUserSession() {
 	//at end of level
 	//adds Score to session
@@ -140,7 +121,7 @@ function loadUser(newUser) {
 
 	setGame(game, level);
 }
-function saveUnit() { saveUser(); } // _addSessionToUserGames(); saveUser(); }
+function saveUnit() { saveUser(); }
 function saveUser() {
 	//console.log('saveUser:', USERNAME,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
 	U.lastGame = G.key;
@@ -197,5 +178,24 @@ function setNextGame() {
 function updateStartLevelForUser(game, level, msg) {
 	//console.log('updating startLevel for', USERNAME, game, level, '(' + msg + ')')
 	lookupSetOverride(U.games, [game, 'startLevel'], level);
+	saveUser();
+}
+function updateUserScore() {
+	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
+	let g = G.key;
+
+	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
+	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
+	//let recNew = U.session[g];
+
+	addByKey(sc, recSession);
+	recSession.percentage = Math.round(100 * recSession.nCorrect / recSession.nTotal);
+
+	addByKey(sc, recOld);
+	recOld.percentage = Math.round(100 * recOld.nCorrect / recOld.nTotal);
+
+	//console.log('updated user score for', g, sc, recOld);
+	//console.log('updated user score session', recSession);
+	Score.nTotal = Score.nCorrect = Score.nCorrect1 = 0;
 	saveUser();
 }

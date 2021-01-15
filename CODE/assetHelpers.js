@@ -30,34 +30,7 @@ function idealFontsize(txt, wmax, hmax, fz, fzmin, weight) {
 
 }
 
-function idealFontsize1(keys, wmax, hmax, labelFunc, fz, fzmin) {
-
-	let infos = [];
-	let maxlen = 0, longestText = '';
-	for (const k of keys) {
-		let info = symbolDict[k];
-		let label = labelFunc(k, info);
-		let tlen = label.length;
-		if (tlen > maxlen) { maxlen = tlen; longestText = label; }
-		infos.push({ info: info, label: label, key: k, tlen: tlen });
-	}
-
-
-	let tStyles = { w: wmax, fz: fz, family: 'arial' };
-	let txt = longestText;
-	let done = false;
-	while (!done) {
-		//console.log('trying fz', tStyles, txt);
-		let tSize = getSizeWithStyles(txt, tStyles);
-		if (tSize.h <= hmax || tStyles.fz <= fzmin) return { w: tSize.w, h: tSize.h, fz: tStyles.fz, infos: infos };
-		else tStyles.fz -= 1;
-	}
-
-}
-
-
-
-//#region november 2020
+//#region november 2020: deprecated
 function maLayout(pics, dParent) {
 	mClass(dParent, 'flexWrap');
 	let numPics = pics.length;
@@ -1265,7 +1238,6 @@ function getHarmoniousStylesPlus(sContainer, sPic, sText, w, h, padding, family,
 	for (const k in sText) { if (k != 'w' && nundef(textStyles[k])) textStyles[k] = sText[k]; }
 	return [styles, picStyles, textStyles];
 }
-
 function getHarmoniousStylesXX(w, h, padding, family, bg = 'blue', fg = 'random', hasText = true) {
 	let numbers = hasText ? [15, 55, 0, 20, 10] : [15, 70, 0, 0, 15];
 	numbers = numbers.map(x => h * x / 100);

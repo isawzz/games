@@ -80,24 +80,21 @@ class GAbacus extends Game {
 		setNumberSequenceGoal();
 		//console.log(G)
 
-		mLinebreak(dTable,30);
+		mLinebreak(dTable, 30);
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		//let s=G.seq;
-		let instr2 = G.operand+' '+G.oop.sp+' '+G.step+' ?';
+		let instr2 = G.operand + ' ' + G.oop.sp + ' ' + G.step + ' ?';
 		//console.log(G);
 		//instr1 = arrTake(G.seq,3).join(' ');
 		showInstruction('', instr1, dTitle, true, instr2);
 
-
-		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString,[0,1],5000 + G.level * 1000);
+		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
 
 		activateUi();
 	}
 	trialPrompt() {
-		//let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
-		//let initialDelay = 3000 + G.level * 1000;
-		//if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
+		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
 		return 10;
 	}
