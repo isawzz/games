@@ -48,13 +48,13 @@ async function _start() {
 	console.assert(isdef(DB)); //user db is loaded
 
 	//init features:
-
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
 
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
 	initSidebar(); //dLeiste
 
+	initUser(USERNAME);
 	//sollte hier haben: initUser, initGame, initSettings
 	//game ohne user U macht keinen sinn,
 	//settings und menu ohne game G macht keinen sinn!

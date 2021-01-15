@@ -109,7 +109,6 @@ function createSettingsUi(dParent) {
 }
 function initSettings(game) {
 	Settings = deepmergeOverride(DB.settings, U.settings);
-	GS = Settings.games;
 	delete Settings.games;
 	let gsSettings = lookup(U, ['games', game, 'settings']);
 	if (isdef(gsSettings)) Settings = deepmergeOverride(Settings, gsSettings);

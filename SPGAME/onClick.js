@@ -12,7 +12,6 @@ function enterInterruptState() {
 	clearTimeouts();
 	if (isdef(G.instance)) G.instance.clear();
 	auxOpen = true;
-	STOPAUS = true;
 }
 
 //#region control open and close of aux
