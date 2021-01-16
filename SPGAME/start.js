@@ -69,6 +69,7 @@ async function _start() {
 	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
 
 	//return;
+	//onClickTemple(); return;
 	if (ALLOW_CALIBRATION) show('dCalibrate');
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 

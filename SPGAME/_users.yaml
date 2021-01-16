@@ -75,7 +75,7 @@ guest0:
 test0:
   id: test0
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gAbacus
+  lastGame: gElim
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -94,6 +94,29 @@ test0:
     showHint: true
   games:
     gTouchPic:
+      #vocab: 
+      startLevel: 3
+    gPremem:
+      startLevel: 0
+    gTouchColors: 
+      startLevel: 0
+    gMissingLetter: 
+      startLevel: 2
+    gSteps: 
+      startLevel: 0
+    gSayPic: 
+      startLevel: 0
+    gMem:
+      startLevel: 1
+    gMissingNumber: 
+      startLevel: 2
+    gWritePic: 
+      startLevel: 2
+    gAnagram: 
+      startLevel: 3
+    gElim: 
+      startLevel: 0
+    gAbacus:
       startLevel: 0
 gul:
   id: gul

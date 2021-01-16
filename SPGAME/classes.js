@@ -629,7 +629,7 @@ const GAME = {
 	gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GSteps, }, //'#911eb4',
 	// gSet: { friendly: 'Set!', logo: 'abacus', color: TEAL, cl: GSet, }, //'#911eb4',
 	// gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
-	gElim: { friendly: 'Elim!', logo: 'collision', color: 'orangered', cl: GElim, }, //'#911eb4',
+	gElim: { friendly: 'Elim!', logo: 'collision', color: colorDarker('crimson',.25), cl: GElim, }, //'#911eb4',
 	gAnagram: { friendly: 'Anagram!', logo: 'ram', color: 'rgb(0,152,105)', cl: GAnagram, }, //'#911eb4',
 	gInno: { friendly: 'Innovate!', logo: 'horse', color: 'silver', cl: GInno, }, //'#911eb4',
 	gAbacus: { friendly: 'Abacus', logo: 'abacus', color: 'mediumslateblue', cl: GAbacus, },

@@ -807,7 +807,7 @@ function logicFilter(allPics, exceptProps) {
 		lstWritten = ['with', props[prop].friendly, colorPrepper(val)];
 		piclist = allPics.filter(x => x[prop] == val);
 	} else if (prop == 'iRepeat') {
-		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq', 'neq']);
+		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq']); //, 'neq']);
 		//op = '!=';
 		let oop = OPS[op];
 		lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
@@ -846,7 +846,7 @@ function logicSetSelector(allPics) {
 	//level 0: eliminate all backpacks | eliminate all with color=blue | elim all w/ number=2
 	let lstSpoken, lstWritten, piclist = [];
 	if (G.level >= 0) {
-		let prop = chooseRandom(Object.keys(props));
+		let prop = 'color';// chooseRandom(Object.keys(props));
 		//console.log('prop is', prop, 'vals', props[prop].vals)
 		let val = chooseRandom(props[prop].vals);
 		//console.log('val chosen', val)
@@ -875,12 +875,12 @@ function logicSetSelector(allPics) {
 		//console.log(lstSpoken)
 	}
 
-	if (G.level > 0 && piclist.length > allPics.length / 2) {
-		//lstSpoken.insert('except',2)
-		lstSpoken.splice(2, 0, 'except');
-		lstWritten.splice(2, 0, 'EXCEPT');
-		piclist = allPics.filter(x => !(piclist.includes(x)));
-	}
+	// if (G.level > 0 && piclist.length > allPics.length / 2) {
+	// 	//lstSpoken.insert('except',2)
+	// 	lstSpoken.splice(2, 0, 'except');
+	// 	lstWritten.splice(2, 0, 'EXCEPT');
+	// 	piclist = allPics.filter(x => !(piclist.includes(x)));
+	// }
 
 	if (nundef(lstWritten)) lstWritten = lstSpoken;
 	let s = lstSpoken.join(' ');
