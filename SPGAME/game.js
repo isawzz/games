@@ -694,11 +694,10 @@ function makeExpSequence() {
 	G.operand = randomNumber(G.minNum, G.maxNum);
 	G.op = chooseRandom(G.ops); //G.op ist jetzt ein key in OPS
 
-	let upper = G.op == 'minus' ? G.operand : G.maxFactor;
+	//let upper = G.op == 'minus' ? G.operand : G.maxFactor;
+	//console.assert(upper >= G.minFactor || upper == 0);
 
-	console.assert(upper >= G.minFactor || upper == 0);
-
-	G.step = G.minFactor > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
+	G.step = G.op =='minus'? randomNumber(0,G.operand): randomNumber(G.minFactor,G.maxFactor); // > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
 	G.oop = OPS[G.op];
 	//console.log(G.op, G.oop);
 
