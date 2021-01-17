@@ -58,7 +58,7 @@ class GAbacus extends Game {
 		G.failFunc = failThumbsDown;
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
-	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
+	showCorrectSequence() { let t=correctBlanks(); showSayHint(3); return t+1000; }
 	startLevel() {
 		if (!isList(G.steps)) G.steps = [G.steps];
 		G.numPics = 2;

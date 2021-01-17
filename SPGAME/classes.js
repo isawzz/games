@@ -412,7 +412,7 @@ class GMissingNumber extends Game {
 		G.failFunc = failThumbsDown;
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
-	showCorrectSequence() { return numberSequenceCorrectionAnimation(); }
+	showCorrectSequence() { return numberSequenceCorrectionAnimation(getNumSeqHint); }
 	startLevel() {
 		if (!isList(G.steps)) G.steps = [G.steps];
 		G.numPics = 2;

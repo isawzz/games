@@ -14,8 +14,8 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	//ifs and options: defaults
 	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
 	let fg = (i, info, item) => colorIdealText(item.bg);
-	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding:10 };
-	let defOptions = { showLabels:Settings.labels==true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding: 10 };
+	let defOptions = { showLabels: Settings.labels == true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
 	//console.log('keys', keys); console.log('ifs', ifs); 
@@ -33,11 +33,11 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 	//#region phase2: prepare items for container
 	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
-	if (nundef(options.sz)) options.sz=sz;
-	if (nundef(options.rows)) options.rows=rows;
-	if (nundef(options.cols)) options.cols=cols;
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
 	items.map(x => x.sz = sz);
-	prep1(items,ifs,options);
+	prep1(items, ifs, options);
 	//#endregion
 
 	//#region phase3: prep container for items
@@ -697,7 +697,7 @@ function makeExpSequence() {
 	//let upper = G.op == 'minus' ? G.operand : G.maxFactor;
 	//console.assert(upper >= G.minFactor || upper == 0);
 
-	G.step = G.op =='minus'? randomNumber(0,G.operand): randomNumber(G.minFactor,G.maxFactor); // > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
+	G.step = G.op == 'minus' ? randomNumber(0, G.operand) : randomNumber(G.minFactor, G.maxFactor); // > upper ? 0 : randomNumber(G.minFactor, upper); // chooseRandom(G.steps);
 	G.oop = OPS[G.op];
 	//console.log(G.op, G.oop);
 
@@ -714,14 +714,14 @@ function makeExpSequence() {
 	// console.log('RESULT', G.result);
 	return G.seq;
 }
-function readExp() {}
-function writeExp() {}
-function blankExpResult() {}
-function evalExp() {}
-function blankOperand2() {}
-function blankOperator() {}
-function generateExpAnswers() {}
-function setExpGoal() {}
+function readExp() { }
+function writeExp() { }
+function blankExpResult() { }
+function evalExp() { }
+function blankOperand2() { }
+function blankOperator() { }
+function generateExpAnswers() { }
+function setExpGoal() { }
 //#endregion
 
 //#region logic selectors (game: Elim!)
@@ -926,7 +926,10 @@ function getOperationHintString(i) {
 		let sWritten = visOperation(G.op, G.operand, G.step, null, '?');
 		return [sSpoken, sWritten];
 	} else {
-		let sSpoken = 'count the red dots';
+		let result = G.oop.f(G.operand, G.step);
+		let lstSpoken = i == 1 ? ['count', 'the red dots'] : [G.operand, G.oop.sp, G.step, 'equals', result];
+		if (Settings.language == 'D') lstSpoken = lstSpoken.map(x => translateToGerman(x));
+		let sSpoken = lstSpoken.join(' ');
 		let sWritten = visOperation(G.op, G.operand, G.step, null);
 		return [sSpoken, sWritten];
 	}
@@ -986,19 +989,32 @@ function recShowHints(ilist, rc, delay = 3000, fProgression = d => d * 1.5) {
 	// console.log('enlisting hint',i,ilist);
 	TOTrial = setTimeout(() => recShowHintsNext(i, ilist, rc, fProgression(delay), fProgression), delay);
 }
-function recShowHintsNext(i, ilist, rc, delay, fProgression) {
-	//console.log('showing hint #', i, 'trial#', G.trialNumber);
+function showSayHint(i) {
 	let [spoken, written] = G.hintFunc(i);
 	if (spoken) sayRandomVoice(spoken); //setTimeout(() => sayRandomVoice(spoken), 300+ms);
 	if (written) showFleetingMessage(written, 0, { fz: 40 });
+}
+function recShowHintsNext(i, ilist, rc, delay, fProgression) {
+	//console.log('showing hint #', i, 'trial#', G.trialNumber);
+	showSayHint(i);
 	if (QuestionCounter == rc) recShowHints(ilist, rc, delay, fProgression);
 	//if (i==0){setTimeout(()=>showNumSeqHint(10),6000);}
 }
-function numberSequenceCorrectionAnimation() {
+function correctBlanks(){
+	let wrong = getWrongWords();
+	if (nundef(TOList)) TOList = {};
+	Selected.feedbackUI = wrong.map(x => x.div);
+	failPictureGoal();
+	let t1 = setTimeout(removeMarkers, 1000);
+	let t2 = setTimeout(() => wrong.map(x => { correctWordInput(x); animate(x.div, 'komisch', 1300); }), 1000);
+	TOList.correction = [t1, t2];
+	return 2500;
+}
+function numberSequenceCorrectionAnimation(stringFunc) {
 	//da brauch ich eine chain!!!!!!
 	let wrong = getWrongWords();
 	if (nundef(TOList)) TOList = {};
-	let msg = getNumSeqHint();
+	let msg = stringFunc();
 	showFleetingMessage(msg, 0, { fz: 32 }); //return;
 	Selected.feedbackUI = wrong.map(x => x.div);
 	failPictureGoal();
@@ -1170,29 +1186,28 @@ function clearFleetingMessage() {
 	clearTimeout(TOFleetingMessage);
 	clearElement(dLineBottomMiddle);
 }
-function showFleetingMessage(msg, msDelay, styles, fade = false) {
+function showFleetingMessage(msg, msDelay, styles = {}, fade = false) {
 
 	let defStyles = { fz: 22, rounding: 10, padding: '2px 12px', matop: 50 };
-	if (nundef(styles)) { styles = defStyles; }
-	else styles = deepmergeOverride(defStyles, styles);
+	styles = deepmergeOverride(defStyles, styles);
 
 	//console.log('bg is', G.color, '\n', styles, arguments)
 	if (nundef(styles.fg)) styles.fg = colorIdealText(G.color);
 
+	clearFleetingMessage();
 	if (msDelay) {
-		clearTimeout(TOFleetingMessage);
 		TOFleetingMessage = setTimeout(() => fleetingMessage(msg, styles, fade), msDelay);
 	} else {
 		fleetingMessage(msg, styles, fade);
 	}
 }
 function fleetingMessage(msg, styles, fade = false) {
+	let d = mDiv(dLineBottomMiddle);
 	if (isString(msg)) {
-		dLineBottomMiddle.innerHTML = msg;
-		mStyleX(dLineBottomMiddle, styles)
+		d.innerHTML = msg;
+		mStyleX(d, styles)
 	} else {
-		clearElement(dLineBottomMiddle);
-		mAppend(dLineBottomMiddle, msg);
+		mAppend(d, msg);
 	}
 	if (fade) TOMain = aniFadeInOut(dLineBottomMiddle, 1);
 }
@@ -1551,8 +1566,8 @@ function showStats() {
 	Score.gameChange = false;
 }
 
-function translate(s) {}
-function buildSentence(ecmd, ecolor, elabel) {}
+function translate(s) { }
+function buildSentence(ecmd, ecolor, elabel) { }
 
 
 
