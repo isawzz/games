@@ -1,7 +1,7 @@
 nil:
   id: nil
   seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gSteps
+  lastGame: gAbacus
   settings:
     # settings common to all games
     samplesPerGame: 20

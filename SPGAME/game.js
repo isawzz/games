@@ -490,7 +490,7 @@ function showEquation(words, dParent, idForContainerDiv, sep = null, styleContai
 		let sz = 100;
 		let fg = helleFarbe(G.color);
 		styleWord = {
-			margin: 8, padding: 4, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
+			margin: 8, padding: 8, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
 			'align-items': 'center', border: 'transparent', outline: 'none', fz: sz, 'justify-content': 'center',
 		};
 
@@ -703,7 +703,7 @@ function makeExpSequence() {
 
 	G.result = G.oop.f(G.operand, G.step);
 
-	G.seq = [G.operand, G.oop.wr, G.step, '=', G.result];//,'=',13]; // createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
+	G.seq = [G.operand, G.oop.wr, G.step, '=', G.result];//,'=',13]; // _createNumberSequence(G.seqLen, G.minNum, G.maxNum, G.step, G.op);
 
 	//G.exp =  [G.operand, G.oop.op, G.step];
 	//let exp = G.seq.join(' ');
