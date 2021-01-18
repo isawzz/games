@@ -1,4 +1,4 @@
-var USERNAME;
+var Username;
 
 var DB, G, U, Settings, SettingsChanged; //, G...Game, U...User
 
@@ -7,5 +7,6 @@ var Speech;
 var Pictures, Goal, Selected, Score;
 
 var UIS = {};
+
 
 

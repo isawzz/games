@@ -81,7 +81,7 @@ var SettingTypesCommon = {
 function createSettingsUi(dParent) {
 	clearElement(dParent);
 	let ttag = 'h2';
-	mAppend(dParent, createElementFromHTML(`<${ttag}>Common Settings for ${USERNAME}:</${ttag}>`));
+	mAppend(dParent, createElementFromHTML(`<${ttag}>Common Settings for ${Username}:</${ttag}>`));
 
 	let nGroupNumCommonAllGames = mInputGroup(dParent);
 	setzeEineZahl(nGroupNumCommonAllGames, 'samples', 25, ['samplesPerGame']);

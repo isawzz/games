@@ -29,7 +29,7 @@ function enterCalibrationMode(all1) {
 
 	calGame = calGames[0];
 
-	calStartLevels = getStartLevels(USERNAME); 
+	calStartLevels = getStartLevels(Username); 
 	setGame(calGame);
 	setBadgeLevel(G.level);
 	startUnit();
@@ -39,11 +39,11 @@ function enterCalibrationMode(all1) {
 function getCalBoundary(){return 4;} // calGames.length == 1? 4: 2;}
 function isLastCalGame(){return !calGames.includes(G.key) || G.key == calGames[0]; }
 
-function calibrating(){return isCal==true;}// USERNAME == 'test';}
+function calibrating(){return isCal==true;}// Username == 'test';}
 
 function calibrateUser(){
 	let sBefore=calStartLevels; //getStartLevels(uname);
-	let sAfter = getStartLevels(USERNAME);
+	let sAfter = getStartLevels(Username);
 	//console.log(sBefore,sAfter);
 
 	for (const gname of calGames) {

@@ -57,7 +57,7 @@ async function _start() {
 	KeySets = getKeySets();
 	//console.log(KeySets)
 
-	if (IS_TESTING) loadUser(USERNAME); else loadUser();
+	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G))
 
 	// test12_vizOperationOhneParentDiv(); return;

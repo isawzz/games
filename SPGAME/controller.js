@@ -25,7 +25,7 @@ function startLevel() {
 
 	Speech.setLanguage(Settings.language);
 
-	getGameValues(USERNAME, G.key, G.level);
+	getGameValues(Username, G.key, G.level);
 
 	G.instance.startLevel();
 	if (G.keys.length < G.numPics) { updateKeySettings(G.numPics + 5); }

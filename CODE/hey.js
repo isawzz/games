@@ -71,7 +71,7 @@ async function saveSIMA() {
 		//console.log('...wait for unblocked...');
 		setTimeout(saveSIMA, 1000);
 	} else {
-		//console.log('posting DB: startLevel Pictures!', lookupSet(DB.users,[USERNAME,'games','gTouchPic','startLevel'],0)); //DB.users[USERNAME].games.gTouchPic.startLevel);
+		//console.log('posting DB: startLevel Pictures!', lookupSet(DB.users,[Username,'games','gTouchPic','startLevel'],0)); //DB.users[Username].games.gTouchPic.startLevel);
 		//console.log(DB);
 
 		let url = SERVERURL + 'speechGames';

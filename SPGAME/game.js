@@ -1566,8 +1566,6 @@ function showStats() {
 	Score.gameChange = false;
 }
 
-function translate(s) { }
-function buildSentence(ecmd, ecolor, elabel) { }
 
 
 

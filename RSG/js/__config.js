@@ -1,5 +1,5 @@
 
-var USERNAME = 'felix';
+var Username = 'felix';
 var GAME = 'ttt'; // catan | aristocracy | ttt | game01
 var PLAYMODE = 'hotseat'; // multiplayer | hotseat | solo | passplay
 var SEED = 1;
@@ -144,7 +144,7 @@ const NGROK = null;// 'http://ee91c9fa.ngrok.io/'; // null;//'http://f3629de0.ng
 //achtung!!! NO / at end!!!!!!!
 const SERVER = IS_MIRROR ? 'http://localhost:5555' : FLASK ? (NGROK ? NGROK : 'http://localhost:' + PORT) : 'http://localhost:5005';
 const PLAYER_CONFIG_FOR_MULTIPLAYER = ['me', 'human', 'human'];
-const USERNAME_ORIG = USERNAME;
+const USERNAME_ORIG = Username;
 
 
 

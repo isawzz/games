@@ -62,7 +62,7 @@ async function loadAll(user, settingsDir, callback,) {
 		// console.log('userData',sData.users);
 		// console.log("Gunter",sData.users.Gunter)
 		//console.log('SERVER_DATA', SERVER_DATA);
-		UserHistory = sData.users[user]; //SERVER_DATA.users[USERNAME];
+		UserHistory = sData.users[user]; //SERVER_DATA.users[Username];
 		if (nundef(UserHistory)) {
 			sData.users[user] = UserHistory = await route_path_yaml_dict(settingsDir + 'user.yaml');
 			console.log('user history');
@@ -85,10 +85,10 @@ async function loadAll(user, settingsDir, callback,) {
 async function saveServerData() {
 	console.log('posting server data (UserHistory,Settings,DefaultSettings)...');
 	let sData = SERVER_DATA[0]; //firstCond(SERVER_DATA,x=>x.id=='speechGames');
-	sData.users[USERNAME] = UserHistory; //SERVER_DATA.users[USERNAME];
+	sData.users[Username] = UserHistory; //SERVER_DATA.users[Username];
 	sData[SETTINGS_KEY].defaults = DefaultSettings;
 	sData[SETTINGS_KEY].current = Settings;
-	localStorage.setItem('user', USERNAME);
+	localStorage.setItem('user', Username);
 	//return;
 	if (BlockServerSend) {
 		//console.log('...wait for unblocked...');
@@ -130,7 +130,7 @@ async function loadServerDataAndAssets() {
 		// console.log('userData',sData.users);
 		// console.log("Gunter",sData.users.Gunter)
 		//console.log('SERVER_DATA', SERVER_DATA);
-		UserHistory = sData.users[USERNAME]; //SERVER_DATA.users[USERNAME];
+		UserHistory = sData.users[Username]; //SERVER_DATA.users[Username];
 		DefaultSettings = sData[SETTINGS_KEY].defaults;
 		Settings = sData[SETTINGS_KEY].current;
 

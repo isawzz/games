@@ -53,14 +53,14 @@ function addSessionToUserGames() {
 	U.session = {};
 }
 function changeUserTo(name) {
-	if (name != USERNAME) { saveUser(); }
+	if (name != Username) { saveUser(); }
 	mBy('spUser').innerHTML = name;
 	loadUser(name);
 	startUnit();
 }
 function editableUsernameUi(dParent) {
-	//console.log('creating input elem for user', USERNAME)
-	let inp = mEditableInput(dParent, 'user: ', USERNAME);
+	//console.log('creating input elem for user', Username)
+	let inp = mEditableInput(dParent, 'user: ', Username);
 	inp.id = 'spUser';
 	inp.addEventListener('focusout', () => { changeUserTo(inp.innerHTML.toLowerCase()); });
 	return inp;
@@ -87,17 +87,17 @@ function loadUser(newUser) {
 	//console.log('newUser',newUser)
 	if (isdef(Score) && Score.nTotal > 0) updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 
-	USERNAME = isdef(newUser) ? newUser : localStorage.getItem('user');
+	Username = isdef(newUser) ? newUser : localStorage.getItem('user');
 
-	if (nundef(USERNAME)) USERNAME = DEFAULTUSERNAME;
+	if (nundef(Username)) Username = DEFAULTUSERNAME;
 
-	//console.log('U anfang von loadUser', U, '\nDB', DB.users[USERNAME]);
+	//console.log('U anfang von loadUser', U, '\nDB', DB.users[Username]);
 
-	let uData = lookupSet(DB, ['users', USERNAME]);
-	if (newUser == 'test') { uData = DB.users[USERNAME] = jsCopy(DB.users.test0); uData.id = USERNAME; }
-	if (!uData) { uData = DB.users[USERNAME] = jsCopy(DB.users.guest0); uData.id = USERNAME; }
+	let uData = lookupSet(DB, ['users', Username]);
+	if (newUser == 'test') { uData = DB.users[Username] = jsCopy(DB.users.test0); uData.id = Username; }
+	if (!uData) { uData = DB.users[Username] = jsCopy(DB.users.guest0); uData.id = Username; }
 
-	U = DB.users[USERNAME];
+	U = DB.users[Username];
 	// Settings = U.settings = deepmergeOverride(DB.settings, U.settings);
 	// DB.settings.games = Settings.games;
 	// delete Settings.games;
@@ -116,12 +116,12 @@ function loadUser(newUser) {
 }
 function saveUnit() { saveUser(); }
 function saveUser() {
-	//console.log('saveUser:', USERNAME,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
+	//console.log('saveUser:', Username,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
 	U.lastGame = G.key;
 	//U._lastLevel = G.level;
-	if (USERNAME != 'test') localStorage.setItem('user', USERNAME);
+	if (Username != 'test') localStorage.setItem('user', Username);
 	//console.log(U);
-	DB.users[USERNAME] = U;
+	DB.users[Username] = U;
 	//console.log('...saving from saveUser called by', getFunctionsNameThatCalledThisFunction())
 	saveSIMA();
 }
@@ -150,7 +150,7 @@ function setGame(game, level) {
 	if (isdef(level)) G.level = level;
 	else { G.level = getUserStartLevel(game); }
 
-	//console.log('setGame:', game, USERNAME, getUserStartLevel(game));
+	//console.log('setGame:', game, Username, getUserStartLevel(game));
 
 	if (G.level > G.maxLevel) G.level = G.maxLevel;
 
@@ -169,7 +169,7 @@ function setNextGame() {
 	setGame(U.seq[iNew]);
 }
 function updateStartLevelForUser(game, level, msg) {
-	//console.log('updating startLevel for', USERNAME, game, level, '(' + msg + ')')
+	//console.log('updating startLevel for', Username, game, level, '(' + msg + ')')
 	lookupSetOverride(U.games, [game, 'startLevel'], level);
 	saveUser();
 }

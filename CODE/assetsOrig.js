@@ -436,7 +436,7 @@ async function loadInitialServerData(unameStarts) {
 		let url = SERVERDATA_PATH + '.yaml'; //console.log('loading',url)
 		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_path_yaml_dict(url), true, false); // last 2 params: reload, useLocal
 	} else {
-		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_initGame(GAME, playerConfig[GAME], USERNAME), !CACHE_INITDATA, CACHE_INITDATA); // last 2 params: reload, useLocal 
+		serverDataC = initialDataC[GAME] = await vidCache.load('_initial_' + initialPath, async () => await route_initGame(GAME, playerConfig[GAME], Username), !CACHE_INITDATA, CACHE_INITDATA); // last 2 params: reload, useLocal 
 	}
 
 	serverData = vidCache.asDict('_initial_' + initialPath);
@@ -444,12 +444,12 @@ async function loadInitialServerData(unameStarts) {
 }
 async function sendStatus(username) {
 	_syncUsernameOfSender(username);
-	if (!TESTING) serverData = await route_status(USERNAME);
+	if (!TESTING) serverData = await route_status(Username);
 }
 async function sendRestart(username) {
 	_syncUsernameOfSender(username);
-	if (TESTING) serverData = await loadInitialServerData(USERNAME);
-	else serverData = await route_begin_status(USERNAME);
+	if (TESTING) serverData = await loadInitialServerData(Username);
+	else serverData = await route_begin_status(Username);
 }
 async function sendAction(boat, username) {
 	if (TESTING) {
@@ -457,7 +457,7 @@ async function sendAction(boat, username) {
 	} else {
 		_syncUsernameOfSender(username);
 		if (nundef(boat)) boat = chooseRandom(boats);
-		let route = '/action/' + USERNAME + '/' + serverData.key + '/' + boat.desc + '/';
+		let route = '/action/' + Username + '/' + serverData.key + '/' + boat.desc + '/';
 		let t = boat.tuple;
 		//console.log('tuple is:', t);
 		route += t.map(x => _pickStringForAction(x)).join('+');// /action/felix/91b7584a2265b1f5/loc-settlement/96
@@ -634,16 +634,16 @@ function showPackages(data, domid = 'CODE') {
 //#region _internal
 // serverData / server helpers
 function _syncUsernameOfSender(username) {
-	if (nundef(username)) username = USERNAME; else USERNAME = username;
+	if (nundef(username)) username = Username; else Username = username;
 	plidSentStatus = getPlidForUsername(username);
-	//console.log('------------------', username, USERNAME, plidSentStatus);
+	//console.log('------------------', username, Username, plidSentStatus);
 
 }
 
 
 // playerConfig (stub)
 function setGamePlayer(username) {
-	USERNAME = username;
+	Username = username;
 	GAMEPLID = firstCondDict(playerConfig[GAME].players, p => p.username == username);
 
 }
@@ -658,7 +658,7 @@ function stubPlayerConfig(gameInfo) {
 		let pls = {};
 		for (let i = 0; i < nPlayers; i++) {
 			let id = info.player_names[i];
-			pls[id] = { id: id, playerType: 'me', agentType: null, username: USERNAME + (i > 0 ? i : ''), index: i };
+			pls[id] = { id: id, playerType: 'me', agentType: null, username: Username + (i > 0 ? i : ''), index: i };
 			////console.log('player:', pl)
 			// pls.push(pl);
 		}

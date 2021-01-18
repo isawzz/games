@@ -1,8 +1,8 @@
 window.onload = _loader;
-window.onunload = saveUser;
+window.onunload = ()=>dbSave('boardGames');
 
 async function _loader() {
-
+	//#region deactivate when page left, serviceWorker commented, timit
 	if (!IS_TESTING) {
 		ifPageVisible.on('blur', function () {
 			// example code here..
@@ -37,18 +37,17 @@ async function _loader() {
 	// }
 
 	//timit = new TimeIt('start');
+	//#endregion
 	if (BROADCAST_SETTINGS) {
 		console.log('...broadcasting ...')
-		await broadcastSIMA();
+		await dbInit('boardGames');
 		_start();
-	} else { loadSIMA(_start); }
+	} else { dbLoad('boardGames',SERVERURL,_start); }
 
 }
 async function _start() {
 	console.assert(isdef(DB)); //user db is loaded
 
-	//init features:
-	
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
 
@@ -56,16 +55,14 @@ async function _start() {
 	initSidebar(); //dLeiste
 	initAux(); // TODO: dAux das ist eigentlich settings!
 
-	loadUser(USERNAME);
+	userInit(Username);
+
 	//sollte hier haben: initUser, initGame, initSettings
 	//game ohne user U macht keinen sinn,
 	//settings und menu ohne game G macht keinen sinn!
-
-
-	console.log('U',U,'Settings',Settings)
 	return;
 
-	if (IS_TESTING) loadUser(USERNAME); else loadUser(); //macht setGame
+	if (IS_TESTING) loadUser(Username); else loadUser(); //macht setGame
 	console.assert(isdef(G))
 
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
