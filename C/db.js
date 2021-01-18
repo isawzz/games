@@ -42,7 +42,7 @@ async function dbSave(appName) {
 		//console.log('...wait for unblocked...');
 		setTimeout(()=>dbSave(appName), 1000);
 	} else {
-		//console.log('saving DB:',DB);
+		console.log('saving DB:',DB);
 		let url = SERVERURL + appName;
 		BlockServerSend = true;
 		//console.log('blocked...');

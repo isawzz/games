@@ -1,4 +1,5 @@
 //#region globals
+var USE_LOCAL_STORAGE = false; // true | false //localStorage is cleared when false!!!!!
 const SHOW_SERVER_ROUTE = false; // true | false
 const SHOW_SERVER_RETURN = false; // true | false
 const EMOFONTLIST = ['emoOpen', 'openmoBlack', 'segoe ui emoji', 'segoe ui symbol'];
@@ -82,38 +83,27 @@ var _audioSources = {
 	hit: "../assets/sounds/hit.wav",
 };
 // var _SND = null;
-var TOSound, _sndPlayer, _loaded = false, _qSound, _idleSound = true, _sndCounter = 0;
-function playSound(key, wait = true) {
-	//console.log(getFunctionsNameThatCalledThisFunction(),'=> playSound');
-	//console.log('_______playSound', 'key', key, '_sndPlayer', _sndPlayer, '\nIdle', _idleSound, 'loaded', _loaded, 'count:' + _sndCounter);
-	if (!wait) _qSound = [];
-	_enqSound(key);
-	if (_idleSound) { _idleSound = false; _deqSound(); }
-}
-function pauseSound() {
-	_qSound = [];
-	if (_loaded && isdef(_sndPlayer)) {
-		clearTimeout(TOSound);
-		_sndPlayer.onended = null;
-		_sndPlayer.onpause = whenSoundPaused;
-		_sndPlayer.pause();
-	}
-}
+var TOSound, _sndPlayer, _sndPlayerIdle = true, _loaded = false;
 function whenSoundPaused() {
 	_sndPlayer = null;
 	_sndPlayerIdle = true;
 	_loaded = false;
-	//console.log('ENDED!!! Idle=true loaded=false');
-	if (!isEmpty(_qSound)) { _deqSound(); } else { _idleSound = true; }
+	console.log('done Idle=true loaded=false');
 }
-function _enqSound(key) { if (nundef(_qSound)) _qSound = []; _qSound.push(key); }
-function _deqSound() {
-	let key = _qSound.shift();
-	let url = _audioSources[key];
-	_sndPlayer = new Audio(url);
-	_sndPlayer.onended = whenSoundPaused;
-	_sndPlayer.onloadeddata = () => { _loaded = true; _sndPlayer.play(); };
-	_sndPlayer.load();
+function playSound(key, wait = false) {
+	console.log('playSound', '_sndPlayer', _sndPlayer, '\nIdle', _sndPlayerIdle, 'loaded', _loaded);
+	if (_sndPlayerIdle) {
+		_sndPlayerIdle = false;
+		let url = _audioSources[key];
+		_sndPlayer = new Audio(url);
+		_sndPlayer.onended = whenSoundPaused;
+		_sndPlayer.onloadeddata = () => { _loaded = true; _sndPlayer.play(); };
+		_sndPlayer.load();
+	} else if (_loaded) {
+		_loaded = false;
+		clearTimeout(TOSound);
+		TOSound = setTimeout(() => playSound(key, wait), 2000);
+	}
 }
 //#endregion audio
 
@@ -425,9 +415,9 @@ async function loadCode() {
 	userCode = vidCache.asDict('userCode');
 
 	// document.getElementById('code').innerHTML = '<pre>"' + userCode.asText + '"</pre>'; //PERFECT!!!!!!!!!!
-	let d = mBy('CODE');
+	let d = mBy('OLDCODE');
 	if (d && SHOW_CODE) { d.innerHTML = '<pre>' + userCode.asText + '</pre>'; }
-	//else //console.log('CODE',userCode.asText);
+	//else //console.log('OLDCODE',userCode.asText);
 
 	//testingHallo('hallo das geht wirklich!!!!!');
 }
@@ -635,7 +625,7 @@ function showServerData(data, domid = 'SERVERDATA') {
 	if (d && SHOW_SERVERDATA) { d.innerHTML = '<pre>' + jsonToYaml(data) + '</pre>'; }
 	//else consOutput('serverData',data);
 }
-function showPackages(data, domid = 'CODE') {
+function showPackages(data, domid = 'OLDCODE') {
 	let d = mBy(domid);
 	if (d) { d.innerHTML = '<pre>' + jsonToYaml(data) + '</pre>'; }
 	//else consOutput('serverData',data);
@@ -1035,7 +1025,6 @@ function _pickStringForAction(x) {
 
 
 //#endregion
-
 
 
 

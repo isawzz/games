@@ -697,7 +697,7 @@ async function testDocumentVault(){
 		"/RSG/js/testing/testData.js",
 		"/RSG/js/testing/testing.js",
 		"/RSG/js/done/activator.js",
-		"/CODE/assets.js",
+		"/OLDCODE/assets.js",
 		"/RSG/js/done/index.js",
 		"/RSG/js/done/utils.js",
 	];

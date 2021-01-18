@@ -25,7 +25,7 @@ function enterCalibrationMode(all1) {
 	let b = mBy('dCalibrate');
 	b.style.backgroundColor = 'red';
 	if (all1 == 1) { calGames = [G.key]; }
-	else { calGames = jsCopy(U.seq); }
+	else { calGames = jsCopy(U.avGames); }
 
 	calGame = calGames[0];
 

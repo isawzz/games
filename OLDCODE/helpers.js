@@ -55,6 +55,12 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
+function mEditableOnEdited(id,dParent,label,initialVal,onEdited){
+	let inp=mEditableInput(dParent,label,initialVal);
+	inp.id = id;
+	inp.addEventListener('focusout', ev=>onEdited(inp.innerHTML,ev)); //(ev) => { onChange(ev,isCaseSensitive?inp.innerHTML:inp.innerHTML.toLowerCase()); });
+	return inp;
+}
 function mEditableInput(dParent, label, val) {
 	let labelElem = createElementFromHTML(`<span>${label}</span>	`)
 	let elem = createElementFromHTML(`<span contenteditable="true" spellcheck="false">${val}</span>	`)

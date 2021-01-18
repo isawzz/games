@@ -1,6 +1,6 @@
 nil:
   id: nil
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gAbacus
   settings:
     # settings common to all games
@@ -51,7 +51,7 @@ nil:
       startLevel: 0
 guest0:
   id: guest
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gTouchPic
   settings:
     # settings common to all games
@@ -74,7 +74,7 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gAbacus
   settings:
     # settings common to all games
@@ -120,7 +120,7 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gTouchPic
   settings:
     # settings common to all games

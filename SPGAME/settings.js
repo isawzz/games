@@ -7,7 +7,7 @@ function createMenuUi(dParent) {
 	MenuItems = {};
 
 	//#region prelim: keys,labels,ifs,options
-	let games = U.seq;
+	let games = U.avGames;
 	//console.log(games, games.map(g => GAME[g]));
 	let labels = games.map(g => GAME[g].friendly);
 	let keys = games.map(g => GAME[g].logo);

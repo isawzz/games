@@ -787,3 +787,8 @@ data = {
 	}
 };
 
+function test01_modifyU(){
+	lookupAddToList(U,['games','gAristocracy','running'],2);
+	changeUserTo('mia');
+
+}

@@ -1,6 +1,6 @@
 nil:
   id: nil
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gElim, gAnagram]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gElim, gAnagram]
   lastGame: gAnagram
   lastLevel: 1
   settings:
@@ -31,7 +31,7 @@ nil:
         trials: 2
 guest0:
   id: guest
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
   lastGame: gTouchPic
   lastLevel: 0
   settings:
@@ -55,7 +55,7 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
   lastGame: gTouchPic
   lastLevel: 0
   settings:
@@ -79,7 +79,7 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  seq: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
+  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic]
   lastGame: gTouchPic
   lastLevel: 4
   settings:

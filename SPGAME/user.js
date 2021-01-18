@@ -107,7 +107,7 @@ function loadUser(newUser) {
 	if (nundef(dUser)) { dUser = editableUsernameUi(dLineTopLeft); dUser.id = uiName; }
 
 	let game = U.lastGame;
-	if (nundef(game)) game = U.seq[0]; //chooseRandom(U.seq);
+	if (nundef(game)) game = U.avGames[0]; //chooseRandom(U.avGames);
 
 	let gInfo = U.games[game];
 	let level= isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
@@ -164,9 +164,9 @@ function setGame(game, level) {
 }
 function setNextGame() {
 	let game = G.key;
-	let i = U.seq.indexOf(game);
-	let iNew = (i + 1) % U.seq.length;
-	setGame(U.seq[iNew]);
+	let i = U.avGames.indexOf(game);
+	let iNew = (i + 1) % U.avGames.length;
+	setGame(U.avGames[iNew]);
 }
 function updateStartLevelForUser(game, level, msg) {
 	//console.log('updating startLevel for', Username, game, level, '(' + msg + ')')
