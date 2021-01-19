@@ -1,4 +1,8 @@
 gTouchPic:
+  friendly: 'Pictures!'
+  logo: 'computer mouse'
+  color: deepskyblue
+  cl: GTouchPic
   levels:
     0: 
       numPics: 2
@@ -13,6 +17,10 @@ gTouchPic:
     5: 
       numPics: 36
 gMissingLetter:
+  friendly: 'Letters!'
+  logo: 'black nib'
+  color: gold
+  cl: GMissingLetter
   levels:
     0:
       numMissing: 1
@@ -33,6 +41,10 @@ gMissingLetter:
       numMissing: 5
       posMissing: random
 gMissingNumber:
+  friendly: 'Sequence!'
+  logo: 'fleur-de-lis'
+  color: deeppink
+  cl: GMissingNumber
   numMissing: 1
   minNum: 0
   maxNum: 99
@@ -76,6 +88,10 @@ gMissingNumber:
       steps: [3,4,5,6,7,8,9,10]
       ops: [plus,minus]
 gSteps:
+  friendly: 'Steps!'
+  logo: 'stairs'
+  color: PURPLE
+  cl: GSteps
   contrast: 0.22
   colors: [blue1, violet, lightgreen, pink, red, yellow]
   levels:
@@ -120,6 +136,10 @@ gSteps:
       numRepeat: 3
       numSteps: 3
 gSet:
+  friendly: 'Set!'
+  logo: 'stairs'
+  color: PURPLE
+  cl: GSet
   contrast: 0.22
   colors: [blue, violet, lightgreen, pink, red, yellow]
   levels:
@@ -139,6 +159,10 @@ gSet:
       numRepeat: 3
       numSteps: 2
 gElim:
+  friendly: 'Elim!'
+  logo: 'collision'
+  color: CRIMSON
+  cl: GElim
   contrast: 0.22
   colors: [blue, violet, lightgreen, pink, red, yellow]
   levels:
@@ -163,6 +187,10 @@ gElim:
       numColors: 4
       numRepeat: 3
 gTouchColors:
+  friendly: 'Colors!'
+  logo: 'artist palette'
+  color: LIGHTGREEN
+  cl: GTouchColors
   contrast: 0.32
   colors:
     - red
@@ -186,6 +214,10 @@ gTouchColors:
       numPics: 5
       numColors: 4
 gPremem:
+  friendly: 'Premem!'
+  logo: 'hammer and wrench'
+  color: RED
+  cl: GPremem
   trials: 1
   levels:
     0: 
@@ -207,6 +239,10 @@ gPremem:
       numPics: 18
       numRepeat: 2
 gMem:
+  friendly: 'Memory!'
+  logo: 'memory'
+  color: GREEN
+  cl: GMem
   levels:
     0: 
       numPics: 2
@@ -230,7 +266,15 @@ gMem:
       numPics: 6
       numRepeat: 1
 gSayPic:
+  friendly: 'Speak up!'
+  logo: 'microphone'
+  color: BLUE
+  cl: GSayPic
 gInno:
+  friendly: 'Innovate!'
+  logo: 'horse'
+  color: silver
+  cl: GInno
   levels:
     0:
       maxWordLength: 3
@@ -245,6 +289,10 @@ gInno:
     5:
       maxWordLength: 8
 gWritePic:
+  friendly: 'Type it!'
+  logo: 'keyboard'
+  color: orange
+  cl: GWritePic
   levels:
     0: 
       maxWordLength: 4
@@ -255,6 +303,10 @@ gWritePic:
     3: 
       maxWordLength: 100
 gAnagram:
+  friendly: 'Anagram!'
+  logo: 'ram'
+  color: rgb(0,152,105)
+  cl: GAnagram
   levels:
     0:
       maxWordLength: 3
@@ -269,6 +321,10 @@ gAnagram:
     5:
       maxWordLength: 8
 gAbacus:
+  friendly: 'Abacus'
+  logo: 'abacus'
+  color: mediumslateblue
+  cl: GAbacus
   numMissing: 1
   minNum: 0
   maxNum: 10

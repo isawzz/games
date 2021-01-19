@@ -39,6 +39,7 @@ const TEAL = '#469990';
 const ORANGE = '#f58231';
 const FIREBRICK = '#800000';
 const OLIVE = '#808000';
+const CRIMSON = colorDarker('crimson',.25);
 
 const ColorList = ['lightgreen', 'lightblue', 'yellow', 'red', 'green', 'blue', 'purple', 'violet', 'lightyellow',
 	'teal', 'orange', 'brown', 'olive', 'deepskyblue', 'deeppink', 'gold', 'black', 'white', 'grey'];

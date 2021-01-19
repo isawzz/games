@@ -136,7 +136,7 @@ function setGame(game, level) {
 	//console.log('set game to', game)
 	if (isdef(G) && G.key != game) Score.gameChange = true;
 
-	G = jsCopy(GAME[game]);
+	G = jsCopy(DB.games[game]); //jsCopy(GAME[game]);
 	//console.log('_________setGame: color',G.color);
 
 	initSettings(game);

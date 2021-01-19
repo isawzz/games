@@ -647,7 +647,9 @@ class GAnagram extends Game {
 
 function getInstance(G) { return new (GAME[G.key].cl)(G.key); }
 
+// function getInstance(G) { return eval(`new (DB.games[${G.key}].cl)(${G.key})`); }
 
+//function getInstance(G) { return eval(`new ${DB.games[G.key].cl}(${G.friendly})`); }
 
 
 
