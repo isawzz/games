@@ -11,8 +11,6 @@ class SpeechAPI {
 		this.recorder = new Recorder(lang);
 		this.speaker = new Speaker(lang);
 		SessionId = Date.now();
-
-		//this.startRecording('E');
 	}
 	testRecorder() {
 		this.st
@@ -54,7 +52,7 @@ class SpeechAPI {
 class Recorder {
 	constructor(lang) {
 		let rec = this.rec = new webkitSpeechRecognition();
-		console.log('speech recognition', rec)
+		//console.log('speech recognition', rec)
 		rec.continuous = true;
 		rec.interimResults = true;
 		rec.maxAlternatives = 5;

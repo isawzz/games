@@ -1,14 +1,16 @@
 var BlockServerSend = false;
-async function dbInit(appName, usersPath = './_users.yaml', settingsPath = './_settings.yaml', gamesPath = './_games.yaml') {
+async function dbInit(appName, {usersPath = './_users.yaml', settingsPath = './_settings.yaml', gamesPath = './_games.yaml', tablesPath = './_tables.yaml'}={}) {
 	let users = await loadYamlDict(usersPath);
 	let settings = await loadYamlDict(settingsPath);
 	let games = await loadYamlDict(gamesPath);
+	let tables = isdef(tablesPath)? await loadYamlDict(tablesPath):null;
 
 	DB = {
 		id: appName,
 		users: users,
 		settings: settings,
-		games: games
+		games: games,
+		tables: tables
 	};
 
 	//console.log('...saving from BROADCASTING')
