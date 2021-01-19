@@ -99,7 +99,7 @@ function loadUser(newUser) {
 
 	U = DB.users[Username];
 	// Settings = U.settings = deepmergeOverride(DB.settings, U.settings);
-	// DB.settings.games = Settings.games;
+	// DB.games = Settings.games;
 	// delete Settings.games;
 
 	let uiName = 'spUser';
@@ -140,7 +140,7 @@ function setGame(game, level) {
 
 	initSettings(game);
 
-	let levels = lookup(DB.settings.games, [game, 'levels']);
+	let levels = lookup(DB.games, [game, 'levels']);
 	G.maxLevel = isdef(levels) ? Object.keys(levels).length - 1 : 0;
 
 	G.key = game;

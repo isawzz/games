@@ -1326,7 +1326,7 @@ function containsColorWord(s) {
 function getGameValues(user, game, level) {
 	//console.log(user,game,level)
 	let di = { numColors: 1, numRepeat: 1, numPics: 1, numSteps: 1, trials: Settings.trials, colors: ColorList }; // general defaults
-	let oGame = lookup(DB.settings.games, [game]);
+	let oGame = lookup(DB.games, [game]);
 	if (isDict(oGame)) {
 		di = deepmergeOverride(di, oGame); //das ist die entry in settings.yaml
 		let levelInfo = lookup(di, ['levels', level]); //das sind specific values for this level
@@ -1340,8 +1340,8 @@ function getGameValues(user, game, level) {
 
 }
 function getGameOrLevelInfo(k, defval) {
-	let val = lookup(DB.settings.games, [G.key, 'levels', G.level, k]);
-	if (!val) val = lookupSet(DB.settings.games, [G.key, k], defval);
+	let val = lookup(DB.games, [G.key, 'levels', G.level, k]);
+	if (!val) val = lookupSet(DB.games, [G.key, k], defval);
 	return val;
 }
 function getDistinctVals(list, prop) {

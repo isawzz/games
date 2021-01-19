@@ -6,6 +6,8 @@ var Speech;
 
 var Pictures, Goal, Selected, Score;
 
+var TO;
+
 var UIS = {};
 
 

@@ -4,7 +4,8 @@ async function _start() {
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();
-
+	TO = new TimeoutManager();
+	
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
 	initSidebar(); //dLeiste
 	listUsers();
@@ -12,7 +13,7 @@ async function _start() {
 	initAux(); // TODO: dAux das ist eigentlich settings+menu
 
 	console.log('last game was:', U.lastGame);
-	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
+	//if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 }
 
 window.onload = _loader;

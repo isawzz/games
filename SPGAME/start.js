@@ -54,6 +54,7 @@ async function _start() {
 	initScore();
 
 	Speech = new SpeechAPI('E');
+	
 	KeySets = getKeySets();
 	//console.log(KeySets)
 

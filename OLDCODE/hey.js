@@ -1,14 +1,16 @@
 var BlockServerSend = false;
 var SERVER_DATA = null;
 
-async function broadcastSIMA(usersPath = './_users.yaml', settingsPath = './_settings.yaml') {
+async function broadcastSIMA(usersPath = './_users.yaml', settingsPath = './_settings.yaml', gamesPath = './_games.yaml') {
 	let users = await loadYamlDict(usersPath);
 	let settings = await loadYamlDict(settingsPath);
+	let games = await loadYamlDict(gamesPath);
 
 	DB = {
 		id: 'speechGames',
 		users: users,
-		settings: settings
+		settings: settings,
+		games: games,
 	};
 
 	//console.log('...saving from BROADCASTING')

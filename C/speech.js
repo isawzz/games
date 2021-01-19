@@ -1,15 +1,22 @@
 var RecogOutput = false;
-var RecogOutputError = false;
+var RecogOutputError = true;
 var RecogHighPriorityOutput = true;
 var SpeakerOutput = false;
 var MicrophoneUi;
 var SessionId;
+var RecognitionAvailable=false;
 
 class SpeechAPI {
 	constructor(lang) {
 		this.recorder = new Recorder(lang);
 		this.speaker = new Speaker(lang);
 		SessionId = Date.now();
+
+		this.startRecording('E',()=>console.log())
+	}
+	testRecorder(){
+		this.st
+		this.recorder.start();
 	}
 	train() {
 
@@ -47,6 +54,7 @@ class SpeechAPI {
 class Recorder {
 	constructor(lang) {
 		let rec = this.rec = new webkitSpeechRecognition();
+		console.log('speech recognition',rec)
 		rec.continuous = true;
 		rec.interimResults = true;
 		rec.maxAlternatives = 5;
@@ -67,6 +75,7 @@ class Recorder {
 		rec.onerror = ev => {
 			genHandler(ev, 'error');
 			if (RecogOutputError) console.error(ev);
+			RecognitionAvailable = false;
 			this.stop();
 		};
 		rec.onstart = ev => {
