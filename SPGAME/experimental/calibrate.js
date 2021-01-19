@@ -62,7 +62,7 @@ function showCalibrationResults(d){
 		if (nundef(before[g])) before[g] = 0;
 		let b = before[g]; let a = after[g];
 		let exp = b < a ? (' been upgraded to ' + a) : b > a ? (' been downgraded to ' + a) : ' remained at ' + a;
-		mText(`game "${GAME[g].friendly}" startlevel has ${exp}`, d, { fz: 22 });
+		mText(`game "${DB.games[g].friendly}" startlevel has ${exp}`, d, { fz: 22 });
 	}
 
 }

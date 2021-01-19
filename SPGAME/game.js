@@ -1242,7 +1242,7 @@ function aniGameOver(msg, silent = false) {
 		for (const gname in U.session) {
 			let sc = U.session[gname];
 			if (sc.nTotal == 0) continue;
-			mText(`${GAME[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
+			mText(`${DB.games[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
 
 		}
 	}
@@ -1541,7 +1541,7 @@ function showHiddenThumbsUpDown(styles) {
 function showLevel() {
 	dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel;
 }
-function showGameTitle() { dGameTitle.innerHTML = GAME[G.key].friendly; }
+function showGameTitle() { dGameTitle.innerHTML = DB.games[G.key].friendly; }
 function showScore() {
 
 	//console.log('===>_showScore!!!', Score);
