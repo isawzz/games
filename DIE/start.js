@@ -1,6 +1,7 @@
 async function _start() {
 	//onclick = _saveAll;
 	console.assert(isdef(DB)); //user db is loaded
+	console.log('DB',DB)
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySets();

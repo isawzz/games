@@ -10,3 +10,24 @@ function initSettings(game) {
 
 }
 
+function updateSettings() {
+
+	updateLabelSettings();
+	updateTimeSettings();
+	updateKeySettings();
+	updateSpeakmodeSettings();
+
+	//welche settings kommen wohin?
+	for (const k in SettingTypesCommon) {
+		if (SettingTypesCommon[k]) {
+			//console.log('should be set for all games:',k,Settings[k]);
+
+			lookupSetOverride(U, ['settings', k], Settings[k]);
+
+		} else {
+			if (isdef(G.key)) lookupSetOverride(U, ['games', G.key, 'settings', k], Settings[k]);
+
+		}
+	}
+
+}
