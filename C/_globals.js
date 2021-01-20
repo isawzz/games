@@ -1,6 +1,7 @@
 var Username;
 
-//statt GAME verwende ab jetzt DB.games
+//TODO: Users,User und U ist bisschen viel!!!
+
 var Users = {};
 
 var DB, G, U, User, Settings, SettingsChanged; //, G...Game, U...Userdata
@@ -13,5 +14,5 @@ var TO;
 
 var UIS = {};
 
-
+var App; //not sure!
 

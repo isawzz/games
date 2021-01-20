@@ -10,17 +10,17 @@ function loadUser(id) {
 	if (nundef(id)) id = localStorage.getItem('user');
 	if (nundef(id)) id = DEFAULTUSERNAME;
 	if (nundef(Users[id])) Users[id] = new UserManager(id);
-	User = Users[id];
+	U = Users[id];
+	Username = id;
 
-	User.load();
 	console.log(Username, U);
 
 	updateUsernameUi();
 
-	setGame(User.getLastGame());
+	setGame(U.getLastGame());
 }
 function saveUsers() { for (const id in Users) Users[id].save(); }
-function saveUser() { User.save(true); }
+function saveUser() { U.save(true); }
 function updateUsernameUi() {
 	let uiName = 'spUser';
 	let ui = mBy(uiName);
@@ -29,7 +29,7 @@ function updateUsernameUi() {
 		ui = mEditableOnEdited(uiName, dLineTopLeft, 'user: ', '', changeUserTo);
 	}
 	ui.innerHTML = Username;
-	mStyleX(ui, { fg: U.settings.color });
+	mStyleX(ui, { fg: U.data.settings.color });
 }
 
 class UserManager {
@@ -45,7 +45,7 @@ class UserManager {
 		this.data = data;
 		this.data.session={};
 	}
-	load(){U=this.data;Username = this.id;}
+	load(){}
 	save(sendToDB = false) { lookupSet(DB, ['users', this.id], this.data); if (sendToDB) dbSave('boardGames'); }
 	getLastGame(){if (nundef(this.data.lastGame)) this.data.lastGame = this.getAvailableGames[0]; return this.data.lastGame; }
 	getAvailableGames() { return this.data.avGames; }

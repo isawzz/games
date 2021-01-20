@@ -65,6 +65,8 @@ function onClickTemple() {
 	createMenuUi(dAux);
 }
 
+function onClickMenuItem(ev){ onClickGo(ev);}
+
 function onClickGo(ev) {
 
 	if (isVisible2('dTemple')) {
@@ -83,7 +85,7 @@ function onClickGo(ev) {
 			toggleSelectionOfPicture(MenuItems[gKey]);
 		} else {
 			closeAux();
-			updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+			//updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 			setGame(gKey);
 			startGame();
 

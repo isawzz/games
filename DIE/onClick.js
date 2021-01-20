@@ -36,7 +36,7 @@ function onClickTemple() {
 function onClickMenuItem(ev) {
 	let gKey = nundef(ev) ? SelectedMenuKey : isString(ev) ? ev : divKeyFromEv(ev);
 
-	console.log('==>gKey', gKey, SelectedMenuKey);
+	//console.log('==>gKey', gKey, SelectedMenuKey);
 
 	if (gKey != SelectedMenuKey) {
 		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
@@ -45,9 +45,9 @@ function onClickMenuItem(ev) {
 		toggleSelectionOfPicture(MenuItems[gKey]);
 	} else {
 		closeAux();
-		updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 		setGame(gKey);
-		startGame();
+		console.log('starting game',gKey);
+		//startGame();
 
 	}
 

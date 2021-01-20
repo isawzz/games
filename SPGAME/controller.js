@@ -81,7 +81,7 @@ function evaluate() {
 	let nextLevel = scoring(IsAnswerCorrect);
 	//console.log('cscoring result:', Score)
 	if (Score.gameChange) {
-		updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+		//updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 		setNextGame();
 		if (unitTimeUp()) {
 			setTimeout(() => gameOver('Great job! Time for a break!'), DELAY);

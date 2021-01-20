@@ -15,7 +15,7 @@ async function _loader() {
 			// resume all animations
 			// animations.resume();
 			if (isdef(G.instance)) {
-				updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+				//cleanupOldGame();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 				setGame(G.key);
 			}
 			closeAux();
@@ -59,7 +59,7 @@ async function _start() {
 	//console.log(KeySets)
 
 	if (IS_TESTING) loadUser(Username); else loadUser();
-	console.assert(isdef(G))
+	console.assert(isdef(G));
 
 	// test12_vizOperationOhneParentDiv(); return;
 	//test12_vizNumberOhneParentDiv();return;
@@ -78,11 +78,7 @@ async function _start() {
 function startUnit() {
 
 	restartTime();
-	//if (nundef(U.session)) U.session = {};
-	U.session = {};
-	//console.log('---_startUnit: session', U.session);
-
-	// console.log('ha'); return;
+	U.data.session = {};
 	//onClickTemple(); return;
 
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();

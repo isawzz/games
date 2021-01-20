@@ -1,3 +1,5 @@
+class UserManager{}
+
 function addScoreToUserSession() {
 	//at end of level
 	//adds Score to session
@@ -6,10 +8,10 @@ function addScoreToUserSession() {
 	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
 	let game = G.key;
 	let level = G.level;
-	let session = U.session;
+	let session = U.data.session;
 	if (nundef(session)) {
 		console.log('THERE WAS NO USER SESSION IN _addScoreToUserSession!!!!!!!!!!!!!!!!!!!!!')
-		U.session = {};
+		U.data.session = {};
 	}
 
 	let sGame = session[game];
@@ -24,20 +26,16 @@ function addScoreToUserSession() {
 	}
 	sGame.percentage = Math.round(100 * sGame.nCorrect / sGame.nTotal);
 
-	//console.log('updated session:', U.session)
-
 	saveUser();
 
-	//console.log('+ _addScoreToUserSession +++++++++++++++++++saved user:', U.lastGame, U.lastLevel_)
-	//console.log(jsCopy(Score), jsCopy(U.session))
 }
 function addSessionToUserGames() {
-	// adds session to U.games and deletes session
+	// adds session to U.data.games and deletes session
 
-	if (!isEmpty(U.session)) {
-		for (const g in U.session) {
+	if (!isEmpty(U.data.session)) {
+		for (const g in U.data.session) {
 			let recOld = lookup(U, ['games', g]);
-			let recNew = U.session[g];
+			let recNew = U.data.session[g];
 
 			//console.assert(isdef(recOld));
 
@@ -50,7 +48,7 @@ function addSessionToUserGames() {
 			}
 		}
 	}
-	U.session = {};
+	U.data.session = {};
 }
 function changeUserTo(name) {
 	if (name != Username) { saveUser(); }
@@ -78,14 +76,25 @@ function getStartLevels(user) {
 
 }
 function getUserStartLevel(game) {
-	gInfo = U.games[game];
+	gInfo = U.data.games[game];
 	level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 	return level;
 }
+function cleanupOldGame(){
+	updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+
+	//clear previous game (timeouts...)
+	if (isdef(G) && isdef(G.instance)) {
+		G.instance.clear();
+	}
+
+}
 function loadUser(newUser) {
 
+	//if (Username == newUser) return;
 	//console.log('newUser', newUser)
-	if (isdef(Score) && Score.nTotal > 0) updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+
+	cleanupOldGame();
 
 	Username = isdef(newUser) ? newUser : localStorage.getItem('user');
 
@@ -97,20 +106,17 @@ function loadUser(newUser) {
 	if (newUser == 'test') { uData = DB.users[Username] = jsCopy(DB.users.test0); uData.id = Username; }
 	if (!uData) { uData = DB.users[Username] = jsCopy(DB.users.guest0); uData.id = Username; }
 
-	U = DB.users[Username];
-	//console.log('U', Username, U)
-	// Settings = U.settings = deepmergeOverride(DB.settings, U.settings);
-	// DB.games = Settings.games;
-	// delete Settings.games;
+	U = new UserManager(Username);
+	U.data = DB.users[Username];
 
 	let uiName = 'spUser';
 	let dUser = mBy(uiName);
 	if (nundef(dUser)) { dUser = editableUsernameUi(dLineTopLeft); dUser.id = uiName; }
 
-	let game = !window.navigator.onLine && U.lastGame == 'gSayPic' ? 'gTouchPic' : U.lastGame; //do NOT start in gSayPic if no internet!!!
-	if (nundef(game)) game = U.avGames[0]; //chooseRandom(U.avGames);
+	let game = !window.navigator.onLine && U.data.lastGame == 'gSayPic' ? 'gTouchPic' : U.data.lastGame; //do NOT start in gSayPic if no internet!!!
+	if (nundef(game)) game = U.data.avGames[0]; //chooseRandom(U.data.avGames);
 
-	let gInfo = U.games[game];
+	let gInfo = U.data.games[game];
 	let level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 
 	setGame(game, level);
@@ -118,20 +124,15 @@ function loadUser(newUser) {
 function saveUnit() { saveUser(); }
 function saveUser() {
 	//console.log('saveUser:', Username,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
-	U.lastGame = G.key;
-	//U._lastLevel = G.level;
+	U.data.lastGame = G.key;
 	if (Username != 'test') localStorage.setItem('user', Username);
-	//console.log(U);
-	DB.users[Username] = U;
+	DB.users[Username] = U.data;
 	//console.log('...saving from saveUser called by', getFunctionsNameThatCalledThisFunction())
 	saveSIMA();
 }
 function setGame(game, level) {
-	//clear previous game (timeouts...)
-	if (isdef(G) && isdef(G.instance)) {
-		G.instance.clear();
-	}
 
+	cleanupOldGame();
 	//set new game: friendly,logo,color,key,maxLevel,level 
 	//console.log('set game to', game)
 	if (isdef(G) && G.key != game) Score.gameChange = true;
@@ -160,8 +161,8 @@ function setGame(game, level) {
 
 	if (G.level > G.maxLevel) G.level = G.maxLevel;
 
-	if (nundef(U.games[game])) {
-		U.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };
+	if (nundef(U.data.games[game])) {
+		U.data.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };
 	}
 
 	saveUser();
@@ -170,22 +171,24 @@ function setGame(game, level) {
 }
 function setNextGame() {
 	let game = G.key;
-	let i = U.avGames.indexOf(game);
-	let iNew = (i + 1) % U.avGames.length;
-	setGame(U.avGames[iNew]);
+	let i = U.data.avGames.indexOf(game);
+	let iNew = (i + 1) % U.data.avGames.length;
+	setGame(U.data.avGames[iNew]);
 }
 function updateStartLevelForUser(game, level, msg) {
 	//console.log('updating startLevel for', Username, game, level, '(' + msg + ')')
-	lookupSetOverride(U.games, [game, 'startLevel'], level);
+	lookupSetOverride(U.data.games, [game, 'startLevel'], level);
 	saveUser();
 }
 function updateUserScore() {
+	if (nundef(Score.nTotal) || Score.nTotal <= 0) return;
+
 	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
 	let g = G.key;
 
 	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
 	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
-	//let recNew = U.session[g];
+	//let recNew = U.data.session[g];
 
 	addByKey(sc, recSession);
 	recSession.percentage = Math.round(100 * recSession.nCorrect / recSession.nTotal);
