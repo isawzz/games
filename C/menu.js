@@ -15,7 +15,7 @@ function createMenuUi(dParent) {
 	let infos = keys.map(x => symbolDict[x]);
 	let bgs = games.map(g => getGameColor(DB.games[g].color));
 	let ifs = { label: labels, bg: bgs, fg: 'white', padding: 10 };
-	let options = { onclick: onClickGo, showLabels: true };
+	let options = { onclick: onClickMenuItem, showLabels: true };
 	//#endregion
 
 	//#region phase1: make items: hier jetzt mix and match

@@ -33,6 +33,25 @@ function onClickTemple() {
 	show('dGear');
 	createMenuUi(dAux);
 }
+function onClickMenuItem(ev) {
+	let gKey = nundef(ev) ? SelectedMenuKey : isString(ev) ? ev : divKeyFromEv(ev);
+
+	console.log('==>gKey', gKey, SelectedMenuKey);
+
+	if (gKey != SelectedMenuKey) {
+		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
+		SelectedMenuKey = gKey;
+		//console.log('ONCLICK:',MenuItems,gKey,MenuItems[gKey])
+		toggleSelectionOfPicture(MenuItems[gKey]);
+	} else {
+		closeAux();
+		updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+		setGame(gKey);
+		startGame();
+
+	}
+
+}
 
 //#endregion
 

@@ -17,8 +17,9 @@ async function _start() {
 	//initMenu();
 	//initSettings();
 
+	onClickTemple();
 	//console.log('last game was:', User.getLastGame());
-	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
+	//if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 }
 
 window.onload = _loader;
