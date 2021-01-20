@@ -137,7 +137,7 @@ function setGame(game, level) {
 	if (isdef(G) && G.key != game) Score.gameChange = true;
 
 	G = jsCopy(DB.games[game]); //jsCopy(DB.games[game]);
-	console.log('color', G.color, ColorDict[G.color], window[G.color])
+	//console.log('color', G.color, ColorDict[G.color], window[G.color])
 
 	//let c = firstCondDict(ColorDict,x=>x.c == )
 	G.color = getGameColor(G.color); //isdef(ColorDict[G.color]) ? ColorDict[G.color].c : G.color;

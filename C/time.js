@@ -55,7 +55,7 @@ class TimeoutManager {
 		if (nundef(key)) key=Object.keys(this.TO);
 		else if (isString(key)) key=[];
 
-		for(const k of keys){
+		for(const k of key){
 			clearTimeout(this.TO[k]);
 			delete this.TO[k];
 		}

@@ -1,8 +1,9 @@
 var Username;
 
 //statt GAME verwende ab jetzt DB.games
+var Users = {};
 
-var DB, G, U, Settings, SettingsChanged; //, G...Game, U...User
+var DB, G, U, User, Settings, SettingsChanged; //, G...Game, U...Userdata
 
 var Speech;
 

@@ -1,13 +1,13 @@
 nil:
   id: nil
   avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gSteps
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 20
     minutesPerUnit: 13
-    incrementLevelOnPositiveStreak: 10
-    decrementLevelOnNegativeStreak: 10
+    incrementLevelOnPositiveStreak: 4
+    decrementLevelOnNegativeStreak: 4
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: E
     vocab: lifePlus
@@ -16,7 +16,7 @@ nil:
     silentMode: true
     switchGame: true
     #indiv game settings default
-    trials:  2
+    trials:  1
     showHint: true
     # activity animal body drink emotion food fruit game gesture kitchen object person place plant role sport time transport vegetable nosymemo nosymbols
     categories: [nosymemo]
@@ -26,7 +26,7 @@ nil:
   games:
     gTouchPic:
       #vocab: 
-      startLevel: 3
+      startLevel: 1
     gPremem:
       startLevel: 0
     gTouchColors: 

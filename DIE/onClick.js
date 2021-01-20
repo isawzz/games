@@ -1,6 +1,6 @@
 function enterInterruptState() {
 	TO.clear();
-	if (isdef(G.instance)) G.instance.clear();
+	if (isdef(G) && isdef(G.instance)) G.instance.clear();
 	auxOpen = true;
 }
 
@@ -24,6 +24,19 @@ function closeAux() {
 	SettingsChanged = false;
 	auxOpen = false;
 }
+//#endregion
+
+//#region buttons NEW!
+function onClickTemple() {
+	openAux();
+	hide('dTemple');
+	show('dGear');
+	createMenuUi(dAux);
+}
+
+//#endregion
+
+//#region  old code!!!
 
 //#region aux buttons: computer, gear, temple
 function onClickComputer() { }
@@ -35,12 +48,6 @@ function onClickGear() {
 	hide('dGear');
 	hide('dCalibrate');
 	createSettingsUi(dAux);
-}
-function onClickTemple() {
-	openAux();
-	hide('dTemple');
-	show('dGear');
-	createMenuUi(dAux);
 }
 
 function onClickGo(ev) {
@@ -84,13 +91,15 @@ function onClickBadgeX(ev) {
 	auxOpen = false;
 	TOMain = setTimeout(startGame, 100);
 }
+//#endregion
 
-//# region divControls
+//#region divControls
 function onClickStartButton() { startGame(); }
 function onClickNextButton() { startRound(); }
 function onClickRunStopButton(b) { if (StepByStepMode) { onClickRunButton(b); } else { onClickStopButton(b); } }
 function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
 function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
+//#endregion
 
 //#region freezers
 function onClickFreezer() { hide('freezer'); startUnit(); }
@@ -101,7 +110,7 @@ function onClickFreezer2(ev) {
 	//else _startUnit();
 	startUnit();
 }
-
+//#endregion
 
 //#region helpers
 function divKeyFromEv(ev) {
@@ -111,9 +120,9 @@ function divKeyFromEv(ev) {
 	let div = mBy(id);
 	return div.key;
 }
+//#endregion
 
-
-
+//#endregion
 
 
 

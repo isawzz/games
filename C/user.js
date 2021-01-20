@@ -1,4 +1,3 @@
-var Users = {};
 function changeUserTo(id) {
 	id = id.toLowerCase();
 	if (id != Username && isdef(Users[Username])) { Users[Username].save(true); }
@@ -10,29 +9,30 @@ function loadUser(id) {
 	//console.log('________ id', id, 'Username', Username, 'DEF', DEFAULTUSERNAME)
 	if (nundef(id)) id = localStorage.getItem('user');
 	if (nundef(id)) id = DEFAULTUSERNAME;
-	if (nundef(Users[id])) Users[id] = new User(id);
+	if (nundef(Users[id])) Users[id] = new UserManager(id);
+	User = Users[id];
 
-	Username = id;
-	U = Users[id].load();
-	U.session = {};
+	User.load();
 	console.log(Username, U);
 
 	updateUsernameUi();
+
+	setGame(User.getLastGame());
 }
 function saveUsers() { for (const id in Users) Users[id].save(); }
-function saveUser() { Users[Username].save(true); }
+function saveUser() { User.save(true); }
 function updateUsernameUi() {
 	let uiName = 'spUser';
 	let ui = mBy(uiName);
 	if (nundef(ui)) {
-		console.log('creating ui for username');
+		//console.log('creating ui for username');
 		ui = mEditableOnEdited(uiName, dLineTopLeft, 'user: ', '', changeUserTo);
 	}
 	ui.innerHTML = Username;
 	mStyleX(ui, { fg: U.settings.color });
 }
 
-class User {
+class UserManager {
 	constructor(id) {
 		this.id = id;
 		let data = lookup(DB, ['users', id]);
@@ -43,10 +43,12 @@ class User {
 			data.settings.color = randomColor();
 		}
 		this.data = data;
+		this.data.session={};
 	}
-	load() { return this.data; }
+	load(){U=this.data;Username = this.id;}
 	save(sendToDB = false) { lookupSet(DB, ['users', this.id], this.data); if (sendToDB) dbSave('boardGames'); }
-	getAvailableGames() { }
+	getLastGame(){if (nundef(this.data.lastGame)) this.data.lastGame = this.getAvailableGames[0]; return this.data.lastGame; }
+	getAvailableGames() { return this.data.avGames; }
 	getRunningGames() { }
 	getData() { }
 	getState(idGame) { }

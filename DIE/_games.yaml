@@ -2,13 +2,11 @@ gKrieg:
   friendly: 'Krieg'
   logo: 'fencing'
   color: BLUE
-  cl: GKrieg
   type: c52
   players: 2
 gAristo:
   friendly: 'Aristocracy'
   logo: 'crown'
   color: CRIMSON
-  cl: GAristo
   type: c52
   players: [2,3,4,5]

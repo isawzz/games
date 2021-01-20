@@ -1335,6 +1335,7 @@ function getGameValues(user, game, level) {
 	}
 	if (nundef(di.numLabels)) di.numLabels = di.numPics * di.numRepeat * di.numColors;
 	delete di.levels;
+	delete di.color;
 	copyKeys(di, G);
 	//console.log('di', di, '\nlevelInfo', levelInfo, '\nG', G);
 	//console.log(di,G)
@@ -1417,19 +1418,19 @@ function resetRound() {
 	clearTimeouts();
 	clearFleetingMessage();
 	clearTable();
+	updateLabelSettings();
 }
 function resetScore() {
-	if (nundef(Score)) Score = {};
-	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
-	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 };
+	//if (nundef(Score)) Score = {};
+	Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0, labels: true };
+	// Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0, labels: true };
 }
 function resetState() {
 	clearTimeouts();
 	onkeydown = null; onkeypress = null; onkeyup = null;
 	lastPosition = 0;
 	DELAY = 1000;
-
-	updateLabelSettings();
+	// console.log(G)
 	setBackgroundColor();
 
 }
@@ -1542,7 +1543,7 @@ function showHiddenThumbsUpDown(styles) {
 function showLevel() {
 	dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel;
 }
-function showGameTitle() { dGameTitle.innerHTML = DB.games[G.key].friendly; }
+function showGameTitle() { dGameTitle.innerHTML = G.friendly; }
 function showScore() {
 
 	//console.log('===>_showScore!!!', Score);

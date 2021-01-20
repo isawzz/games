@@ -2,7 +2,6 @@ gTouchPic:
   friendly: 'Pictures!'
   logo: 'computer mouse'
   color: deepskyblue
-  cl: GTouchPic
   levels:
     0: 
       numPics: 2
@@ -20,7 +19,6 @@ gMissingLetter:
   friendly: 'Letters!'
   logo: 'black nib'
   color: gold
-  cl: GMissingLetter
   levels:
     0:
       numMissing: 1
@@ -44,7 +42,6 @@ gMissingNumber:
   friendly: 'Sequence!'
   logo: 'fleur-de-lis'
   color: deeppink
-  cl: GMissingNumber
   numMissing: 1
   minNum: 0
   maxNum: 99
@@ -91,7 +88,6 @@ gSteps:
   friendly: 'Steps!'
   logo: 'stairs'
   color: PURPLE
-  cl: GSteps
   contrast: 0.22
   colors: [blue1, violet, lightgreen, pink, red, yellow]
   levels:
@@ -139,7 +135,6 @@ gSet:
   friendly: 'Set!'
   logo: 'stairs'
   color: PURPLE
-  cl: GSet
   contrast: 0.22
   colors: [blue, violet, lightgreen, pink, red, yellow]
   levels:
@@ -162,7 +157,6 @@ gElim:
   friendly: 'Elim!'
   logo: 'collision'
   color: CRIMSON
-  cl: GElim
   contrast: 0.22
   colors: [blue, violet, lightgreen, pink, red, yellow]
   levels:
@@ -190,7 +184,6 @@ gTouchColors:
   friendly: 'Colors!'
   logo: 'artist palette'
   color: LIGHTGREEN
-  cl: GTouchColors
   contrast: 0.32
   colors:
     - red
@@ -217,7 +210,6 @@ gPremem:
   friendly: 'Premem!'
   logo: 'hammer and wrench'
   color: RED
-  cl: GPremem
   trials: 1
   levels:
     0: 
@@ -242,7 +234,6 @@ gMem:
   friendly: 'Memory!'
   logo: 'memory'
   color: GREEN
-  cl: GMem
   levels:
     0: 
       numPics: 2
@@ -269,12 +260,10 @@ gSayPic:
   friendly: 'Speak up!'
   logo: 'microphone'
   color: BLUE
-  cl: GSayPic
 gInno:
   friendly: 'Innovate!'
   logo: 'horse'
   color: silver
-  cl: GInno
   levels:
     0:
       maxWordLength: 3
@@ -292,7 +281,6 @@ gWritePic:
   friendly: 'Type it!'
   logo: 'keyboard'
   color: orange
-  cl: GWritePic
   levels:
     0: 
       maxWordLength: 4
@@ -306,7 +294,6 @@ gAnagram:
   friendly: 'Anagram!'
   logo: 'ram'
   color: rgb(0,152,105)
-  cl: GAnagram
   levels:
     0:
       maxWordLength: 3
@@ -324,7 +311,6 @@ gAbacus:
   friendly: 'Abacus'
   logo: 'abacus'
   color: mediumslateblue
-  cl: GAbacus
   numMissing: 1
   minNum: 0
   maxNum: 10

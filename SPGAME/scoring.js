@@ -1,4 +1,4 @@
-function initScore() { Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 }; }
+function initScore() { resetScore();}//Score = { gameChange: true, levelChange: true, nTotal: 0, nCorrect: 0, nCorrect1: 0, nPos: 0, nNeg: 0 }; }
 function lastStreakFalse(items) {
 	let n = Settings.decrementLevelOnNegativeStreak;
 	let iFrom = items.length - 1;
@@ -34,20 +34,23 @@ function scoring(isCorrect) {
 	let gameChange = false;
 	let nextLevel = G.level;
 	let toggle = Settings.showLabels == 'toggle';
-	let hasLabels = Settings.labels == true;
+	let hasLabels = Settings.labels == true; //currently has labels
 	let boundary = Settings.samplesPerGame;
 
 	//level change will occur iff streak (- or +). on streak: updateStartLevelForUser!
 	//check streaks
 	let pos = Settings.incrementLevelOnPositiveStreak;
 	let posSeq = pos > 0 && Score.nPos >= pos;
+	let halfposSeq = pos > 0 && Score.nPos >= pos/2;
 	let neg = Settings.decrementLevelOnNegativeStreak;
 	let negSeq = neg > 0 && Score.nNeg >= neg;
+	let halfnegSeq = neg > 0 && Score.nNeg >= neg/2;
 	// console.log('_________pos',pos,'posSeq',posSeq,'neg',neg,'negSeq',negSeq);
 	//console.log('_________posSeq', posSeq, 'negSeq', negSeq);
-	if (posSeq && hasLabels && toggle) { Score.nPos = 0; Settings.labels = false; }
+	Score.labels = Settings.labels;
+	if (halfposSeq && hasLabels && toggle) { Score.labels = false; }
 	else if (posSeq) { levelChange = 1; nextLevel += 1; Score.nPos = 0; }
-	if (negSeq && !hasLabels && toggle) { Score.nNeg = 0; Settings.labels = true; }
+	if (halfnegSeq && !hasLabels && toggle) { Score.labels = true; }
 	else if (negSeq) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; Score.nNeg = 0; }
 	if (nextLevel != G.Level && nextLevel > 0 && nextLevel <= G.maxLevel) {
 		updateStartLevelForUser(G.key, nextLevel, 'cscoring');
@@ -59,9 +62,9 @@ function scoring(isCorrect) {
 	}
 
 	if (levelChange || gameChange) {
-		if (toggle) Settings.labels = true;
-	} else if (toggle && hasLabels && Score.nTotal >= Settings.samplesPerGame / 2) {
-		Settings.labels = false;
+		if (toggle) Score.labels = true;
+	} else if (!halfnegSeq && toggle && hasLabels && Score.nTotal >= Settings.samplesPerGame / 2) {
+		Score.labels = false;
 	}
 
 	Score.gameChange = gameChange;

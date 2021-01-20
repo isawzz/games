@@ -6,14 +6,14 @@ function createMenuUi(dParent) {
 	MenuItems = {};
 
 	//#region prelim: keys,labels,ifs,options
-	let games = U.avGames;
-	console.log('navi',window.navigator.onLine);
+	let games = isdef(User)?User.getAvailableGames() : U.avGames;
+	//console.log('navi',window.navigator.onLine);
 	if (!navigator.onLine){removeInPlace(games,'gSayPic');}
-	//console.log(games, games.map(g => GAME[g]));
-	let labels = games.map(g => GAME[g].friendly);
-	let keys = games.map(g => GAME[g].logo);
+	//console.log(games, games.map(g => DB.games[g]));
+	let labels = games.map(g => DB.games[g].friendly);
+	let keys = games.map(g => DB.games[g].logo);
 	let infos = keys.map(x => symbolDict[x]);
-	let bgs = games.map(g => GAME[g].color);
+	let bgs = games.map(g => getGameColor(DB.games[g].color));
 	let ifs = { label: labels, bg: bgs, fg: 'white', padding: 10 };
 	let options = { onclick: onClickGo, showLabels: true };
 	//#endregion
@@ -60,7 +60,6 @@ function createMenuUi(dParent) {
 	SelectedMenuKey = G.key;
 	toggleSelectionOfPicture(MenuItems[G.key]);
 }
-
 
 
 

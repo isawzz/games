@@ -9,12 +9,16 @@ async function _start() {
 	
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
 	initSidebar(); //dLeiste
-	listUsers();
-	loadUser(); //changeUserTo('nil');  //test01_modifyU(); 
 	initAux(); // TODO: dAux das ist eigentlich settings+menu
+	//listUsers();
+	loadUser(); //changeUserTo('nil');  //test01_modifyU(); 
 
-	console.log('last game was:', U.lastGame);
-	//if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
+	//initGame();
+	//initMenu();
+	//initSettings();
+
+	//console.log('last game was:', User.getLastGame());
+	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 }
 
 window.onload = _loader;

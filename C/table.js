@@ -20,6 +20,9 @@ function initSidebar() {
 }
 function initAux() {
 	dAux = mBy('dAux');
+	show('dTemple');
+	show('dGear');
+
 }
 function initLineTop() {
 	dLineTopOuter = mDiv(table); dLineTopOuter.id = 'lineTopOuter';
