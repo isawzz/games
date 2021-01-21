@@ -1,23 +1,21 @@
 
-function getC52Key(i) {
-	if (i > 52) return 'card_J1';
-	let rank = getC52Rank(i);
-	let suit = getC52Suit(i);
-	return 'card_'+rank+suit;
-}
-function getC52Rank(i){
-	let rank = 1 + (i % 13); 
-	if (rank == 1) rank='A'; 
-	else if (rank>=10) rank=['T','J','Q','K'][rank-10];
-	
-	return rank;
-}
-function getC52Suit(i){
-	return ['S', 'H', 'D', 'C'][divInt(i,13)];
-}
 function getColorDictColor(c) { return isdef(ColorDict[c]) ? ColorDict[c].c : c; }
 
+function showCards52(arr){
+	let items = arr.map(x=>Card52.getItem(x));
 
+	console.log(items)
+}
+function splayout(items,dParent,containerStyles={bg:GREEN,rounding:12,padding:10},overlap='20%',orientation='h'){
+	//phase 1: schon gemacht!
+	//phase 2: items are sized and row,col (das ist aber nur fuer grid layout!)
+	//supposedly, items should have div,w,h
+	//phase 3: prep container for items!
+	let d=mDiv(dParent,containerStyles);
+	
+
+
+}
 
 
 

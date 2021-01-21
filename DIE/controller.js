@@ -19,5 +19,13 @@ function startGame(){
 	//console.log(G.key)
 	G.instance = new getInstance(G.key);
 	G.instance.startGame();
+	startPhase();
+}
+function startPhase(){
+	if (isdef(G.instance.startPhase)) G.instance.startPhase();
+	startRound();
+}
+function startRound(){
+	G.instance.startRound();
 }
 

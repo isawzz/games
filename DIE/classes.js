@@ -23,7 +23,19 @@ class GKrieg extends CardGame {
 		shuffle(this.players);
 		console.log(this.players);
 	}
-	startRound(){}
+	startRound(){
+		//show player hand closed & as a pack: card layout functions
+		//erster player spielt top card of his pile
+		
+		//test01:
+		//this.players[0].hand.map(x=>Card52.show(x,dTable));
+		//mLinebreak(dTable,25);
+		//this.players[1].hand.map(x=>Card52.show(x,dTable));
+
+		//test02:
+		let hand = this.players[0].hand;
+		showCards52(hand)
+	}
 	prompt(){
 
 	}

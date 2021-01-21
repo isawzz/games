@@ -298,25 +298,25 @@ function cardInnoSZ(key, wCard = 420) {
 	return info;
 	return 'hallo';
 }
-function card52(rankey, suit, w, h) {
+function card52(irankey, suit, w, h) {
 	//console.log('cardFace',rank,suit,w,h)
 
 	//#region set rank and suit from inputs
-	let rank = rankey;
-	if (nundef(rankey) && nundef(suit)) {
-		rankey = chooseRandom(Object.keys(c52));
-		rank = rankey[5];
-		suit = rankey[6];
-	} else if (nundef(rankey)) {
+	let rank = irankey;
+	if (nundef(irankey) && nundef(suit)) {
+		irankey = chooseRandom(Object.keys(c52));
+		rank = irankey[5];
+		suit = irankey[6];
+	} else if (nundef(irankey)) {
 		//face down card!
-		rankey = '2';
+		irankey = '2';
 		suit = 'B';
 	} else if (nundef(suit)) {
-		rank = rankey[5];
-		suit = rankey[6];
+		if (isNumber(irankey)) irankey=getC52Key(iramkey);
+		rank = irankey[5];
+		suit = irankey[6];
 	}
-	//
-	console.log('rank', rank, 'suit', suit);
+	console.log('rank', rank, 'suit', suit); // should have those now!
 
 	if (rank == '10') rank = 'T';
 	if (rank == '1') rank = 'A';
@@ -376,6 +376,7 @@ function showInnoCards(keys, dParent, wCard = 200) {
 		}
 	}
 }
+
 function showDeck(keys, dParent, splay, w, h) {
 	//splay in 'left','right','up','down','diag','diag2','diagup','diag2up','none'
 
@@ -405,6 +406,22 @@ function showDeck(keys, dParent, splay, w, h) {
 }
 
 
+function getC52Key(i) {
+	if (i > 52) return 'card_J1';
+	let rank = getC52Rank(i);
+	let suit = getC52Suit(i);
+	return 'card_'+rank+suit;
+}
+function getC52Rank(i){
+	let rank = 1 + (i % 13); 
+	if (rank == 1) rank='A'; 
+	else if (rank>=10) rank=['T','J','Q','K'][rank-10];
+	
+	return rank;
+}
+function getC52Suit(i){
+	return ['S', 'H', 'D', 'C'][divInt(i,13)];
+}
 
 
 
