@@ -60,7 +60,7 @@ class Card52 {
 		//console.log('__________ERGEBNIS:',w,h)
 		//#endregion
 
-		return { rank: rank, suit: suit, key: cardKey, div: el };
+		return { rank: rank, suit: suit, key: cardKey, div: el, w:w, h:h };
 	}
 	static getItem(i,h=110){
 		let w = h * .7;
