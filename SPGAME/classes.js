@@ -3,7 +3,7 @@ function getInstance(G) {
 	const GameClass = {
 		gTouchPic: GTouchPic, gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
-		gAnagram: GAnagram, gAbacus: GAbacus
+		gAnagram: GAnagram, gAbacus: GAbacus,
 	};
 	return new (GameClass[G.key])(G.key);
 }

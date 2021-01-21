@@ -1,5 +1,4 @@
 var pictureSize, TOMain, TOTrial;
-var uiActivated, auxOpen;
 function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
 function stopGame() {

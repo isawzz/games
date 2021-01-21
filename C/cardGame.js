@@ -2,40 +2,33 @@
 
 
 
-class cardGame{
-	constructor(){
+class CardGame {
+	constructor() {
 
 	}
-	setup(){ }
-	deal(){	}
+	setup() { }
+	deal() { }
 
 }
-class Deck52{
-	constructor(){
-		this.cards = range(1,52);
-		this.log();
+class Deck52 extends Array{
+	init(shuffled=true,jokers=0) {
+		
+		range(1, 52+jokers).map(x=>this.push(x));
+		//this.log();
+		if (shuffled) this.shuffle();
+
+		//this.shuffle();
 	}
-	log(){console.log(this.cards.join(','));}
-	shuffle(){
-		this.shuffle(this.cards);
-		console.log(this.cards);
+	log() { console.log(this); }//this.join(',')); }
+	shuffle() {
+		shuffle(this);
+		//this.log();
 	}
+	deal(n) { return this.splice(0, n); }
+	putUnderPile(x) { this.push(x); }
+	putOnTop(x){this.unshift(x);}
 
 }
-class GKrieg{
-	constructor(p1,p2){
-		this.player1=p1;
-		this.player2=p2;
-
-		//playing with 1 deck of 52 cards
-		let cards = new Deck52();
-		//each player should get half of the cards,
-
-		//in the middle of the table there is an empty trick
-		//each player's warzone is empty
-	}
-}
-
 
 
 

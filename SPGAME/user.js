@@ -141,7 +141,7 @@ function setGame(game, level) {
 	//console.log('color', G.color, ColorDict[G.color], window[G.color])
 
 	//let c = firstCondDict(ColorDict,x=>x.c == )
-	G.color = getGameColor(G.color); //isdef(ColorDict[G.color]) ? ColorDict[G.color].c : G.color;
+	G.color = getColorDictColor(G.color); //isdef(ColorDict[G.color]) ? ColorDict[G.color].c : G.color;
 	// G.color = isdef(ColorDict[G.color])?ColorDict[G.color]:isdef(window[G.color])?window[G.color]:G.color;
 	//console.log('_________setGame: color',G.color);
 

@@ -13,7 +13,7 @@ function loadUser(id) {
 	U = Users[id];
 	Username = id;
 
-	console.log(Username, U);
+	//console.log(Username, U);
 
 	updateUsernameUi();
 

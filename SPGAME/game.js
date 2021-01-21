@@ -1354,7 +1354,6 @@ function getDistinctVals(list, prop) {
 	}
 	return res;
 }
-function getGameColor(c){	return isdef(ColorDict[c]) ? ColorDict[c].c : c;}
 function getGlobalColors() { return Object.keys(ColorDict).map(x => x.E); }
 function getOrdinal(i) { return G.numRepeat == 1 ? '' : Settings.language == 'E' ? ordinal_suffix_of(i) : '' + i + '. '; }
 function getColorLabelInstruction(cmd, color, label) {

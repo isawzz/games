@@ -529,6 +529,10 @@ function posCICT(d) { d = mEnsure(d); d.classList.add('centerCenteredTopHalf'); 
 function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'); }
 //#endregion
 
+//#region arithmetic
+function divInt(a,b){return Math.trunc(a/b);}
+//#endregion
+
 //#region cache
 class LazyCache {
 	constructor(resetStorage = false) {
@@ -2729,11 +2733,6 @@ function makeDroppableX2(target) {
 }
 
 //#endregion x2
-
-
-
-
-
 
 //#region rest DD
 function makeDragDrop(objElems, dropzoneElems) {

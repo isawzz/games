@@ -47,7 +47,7 @@ function onClickMenuItem(ev) {
 		closeAux();
 		setGame(gKey);
 		console.log('starting game',gKey);
-		//startGame();
+		startGame();
 
 	}
 

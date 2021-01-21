@@ -12,6 +12,8 @@ var Pictures, Goal, Selected, Score;
 
 var TO;
 
+var uiActivated, auxOpen;
+
 var UIS = {};
 
 var App; //not sure!
