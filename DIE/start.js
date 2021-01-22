@@ -10,9 +10,16 @@ async function _start() {
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
 	initSidebar(); //dLeiste
 	initAux(); // TODO: dAux das ist eigentlich settings+menu
-	//listUsers();
-	loadUser(); //changeUserTo('nil');  //test01_modifyUser(); 
+	console.log(DB);
 
+	// *** hier hab einfach nur einen empty screen!!! ***
+	//koennt jetzt oben pro user einen button haben fuer login
+	listUsers();
+
+	
+
+	loadUser(); //changeUserTo('nil');  //test01_modifyUser(); 
+	return;
 	//initGame();
 	//initMenu();
 	//initSettings();

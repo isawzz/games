@@ -1,9 +1,10 @@
 class GKrieg extends CardGame {
-	constructor(p1, color1, p2, color2) {
-		super();
-		this.players = [new Player(p1, color1), new Player(p2, color2)];
+	constructor() {		super();}
+	addPlayer(){
+		lookupAddIfToList(this,['players'],new Player(p2, color2));
 	}
 	startGame() {
+		console.log('krieg startGame',this);
 		this.cards = new Deck52(); this.cards.init(true); //playing with 1 deck of 52 cards
 
 		//each player should get half of the cards,

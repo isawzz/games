@@ -31,7 +31,7 @@ async function dbLoad(appName, callback) {
 		let sData = await data.json();
 
 		DB = firstCond(sData, x => x.id == appName);
-		console.log('DB', DB);
+		//console.log('DB', DB);
 
 		if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 		await loadBasicAssets('../assets/');

@@ -4,20 +4,34 @@ function changeUserTo(id) {
 
 	loadUser(id);
 }
-function listUsers() { console.log(Object.keys(DB.users)); }
+function addUserButton(id){let b = mButton(id, () => changeUserTo(id), dLineNaviMiddle, { maright: 4 });}
+function listUsers(showButtons = false) {
+	let keys = Object.keys(DB.users);
+	console.log(keys);
+	if (showButtons) {
+		//brauch ein dNavi
+		for (const k of keys) {
+			if (k == 'guest0' || k == 'test0') continue;
+			addUserButton(k)
+			
+		}
+	}
+}
 function loadUser(id) {
 	//console.log('________ id', id, 'Username', Username, 'DEF', DEFAULTUSERNAME)
 	if (nundef(id)) id = localStorage.getItem('user');
 	if (nundef(id)) id = DEFAULTUSERNAME;
-	if (nundef(Users[id])) Users[id] = new UserManager(id);
+	if (nundef(Users[id])) {Users[id] = new UserManager(id);}
 	U = Users[id];
 	Username = id;
 
 	//console.log(Username, U);
-
 	updateUsernameUi();
 
-	setGame(U.getLastGame());
+	let lastGame = U.getLastGame();
+	if (nundef(lastGame)) lastGame = U.getAvailableGames()[0];
+	console.log('lastGame =', lastGame)
+	if (isdef(lastGame)) setGame(lastGame);
 }
 function saveUsers() { for (const id in Users) Users[id].save(); }
 function saveUser() { U.save(true); }
@@ -43,11 +57,11 @@ class UserManager {
 			data.settings.color = randomColor();
 		}
 		this.data = data;
-		this.data.session={};
+		this.data.session = {};
 	}
-	load(){}
+	load() { }
 	save(sendToDB = false) { lookupSet(DB, ['users', this.id], this.data); if (sendToDB) dbSave('boardGames'); }
-	getLastGame(){if (nundef(this.data.lastGame)) this.data.lastGame = this.getAvailableGames[0]; return this.data.lastGame; }
+	getLastGame() { if (nundef(this.data.lastGame)) this.data.lastGame = this.getAvailableGames[0]; return this.data.lastGame; }
 	getAvailableGames() { return this.data.avGames; }
 	getRunningGames() { }
 	getData() { }

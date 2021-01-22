@@ -5,7 +5,8 @@ amanda:
   settings:
     color: blue
   games:
-  tables:
+    gKrieg:
+      running: [2]
 felix:
   id: felix
   avGames: [gKrieg, gAristo]
@@ -13,7 +14,8 @@ felix:
   settings:
     color: red
   games:
-  tables:
+    gKrieg:
+      running: [1]
 nil:
   id: nil
   avGames: [gKrieg, gAristo]
@@ -21,18 +23,17 @@ nil:
   settings:
     color: green
   games:
-  tables:
+    gKrieg:
+      running: [1, 2]
 guest0:
   id: guest
   avGames: [gKrieg, gAristo]
   settings:
     color: random
   games:
-  tables:
 test0:
   id: test
   avGames: [gKrieg, gAristo]
   settings:
     color: random
   games:
-  tables:

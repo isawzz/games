@@ -3,6 +3,7 @@ function initTable() {
 	let table = mBy('table');
 	clearElement(table);
 
+	initLineNavi();
 	initLineTop();
 	initLineTitle();
 	initLineTable();
@@ -23,6 +24,18 @@ function initAux() {
 	show('dTemple');
 	show('dGear');
 
+}
+function initLineNavi() {
+	dNavi = mBy('freezer');
+	mStyleX(dNavi,{bg:'navy',margin:0,padding:0,pabottom:4,paleft:4})
+	dLineNaviOuter = mDiv(dNavi); dLineNaviOuter.id = 'lineNaviOuter';
+
+	dLineNavi = mDiv(dLineNaviOuter); dLineNavi.id = 'lineNavi';
+	dLineNaviLeft = mDiv(dLineNavi); dLineNaviLeft.id = 'lineNaviLeft';
+	dLineNaviRight = mDiv(dLineNavi); dLineNaviRight.id = 'lineNaviRight';
+	dLineNaviMiddle = mDiv(dLineNavi); dLineNaviMiddle.id = 'lineNaviMiddle';
+
+	mLinebreak(table);
 }
 function initLineTop() {
 	dLineTopOuter = mDiv(table); dLineTopOuter.id = 'lineTopOuter';
