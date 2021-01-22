@@ -1,29 +1,14 @@
 
 function getColorDictColor(c) { return isdef(ColorDict[c]) ? ColorDict[c].c : c; }
 
-function showCards52(arr) {
+function showCards52(arr, splay = 'right') {
 	let items = arr.map(x => Card52.getItem(x));
-	splayout(items, dTable, {bg:'transparent'});
-	console.log(items)
+	szHand=splayout(items, dTable, { bg: 'transparent' }, 20, splay);
+	console.log(items);
 }
-function splayout(items, dParent, containerStyles, ovPercent = 20, orientation = 'h', isFaceUp) {
-	//phase 1: schon gemacht!
-	//phase 2: items are sized and row,col (das ist aber nur fuer grid layout!)
-	//supposedly, items should have div,w,h
-	//phase 3: prep container for items!
-
-	if (isEmpty(items)) return { w: 0, h: 0 };
-	let [w, h] = [items[0].w, items[0].h];
-
-	if (nundef(containerStyles)) containerStyles = {};
-	containerStyles = deepmergeOverride({ display: 'block', position: 'relative', bg: GREEN, rounding: 12, padding: 10 }, containerStyles);
-	let d = mDiv(dParent, containerStyles);
-
-
-	//phase 4: add items to container
-	let gap = 10;
-	let overlap = w * ovPercent / 100;
-	let x = y = gap;
+function splayRight(items, d, x, y, overlap) {
+	console.log('right: topmost should be', items[items.length - 1])
+	let zIndex = 0;
 	for (let i = 0; i < items.length; i++) {
 		let c = items[i];
 		mAppend(d, c.div);
@@ -31,14 +16,61 @@ function splayout(items, dParent, containerStyles, ovPercent = 20, orientation =
 		c.row = 0;
 		c.col = i;
 		c.index = i;
+		c.div.style.zIndex = zIndex; zIndex += 1;
 		x += overlap;
 	}
-	d.style.width = (x - 1.5 * overlap + w) + 'px';
-	//console.log(Pictures[0])
-	//console.log(Pictures[0].div)
-	d.style.height = firstNumber(items[0].div.style.height) + 'px';
-
-
+	return [x, y];
+}
+function splayLeft(items, d, x, y, overlap) {
+	console.log('left: topmost should be', items[items.length - 1])
+	let zIndex = 0;//items.length;
+	x += (items.length - 2) * overlap;
+	let xLast = x;
+	// for (let i = items.length-1; i >= 0; i--) {
+	for (let i = 0; i < items.length; i++) {
+		let c = items[i];
+		mAppend(d, c.div);
+		mStyleX(c.div, { position: 'absolute', left: x, top: y });
+		c.div.style.zIndex = zIndex; zIndex += 1;
+		c.row = 0;
+		c.col = i;
+		c.index = i;
+		x -= overlap;
+	}
+	return [xLast, y];
+}
+function splayDown(items, d, x, y, overlap) {
+	console.log('down: topmost should be', items[items.length - 1])
+	let zIndex = 0;
+	for (let i = 0; i < items.length; i++) {
+		let c = items[i];
+		mAppend(d, c.div);
+		mStyleX(c.div, { position: 'absolute', left: x, top: y });
+		c.row = i;
+		c.col = 0;
+		c.index = i;
+		c.div.style.zIndex = zIndex; zIndex += 1;
+		y += overlap;
+	}
+	return [x, y];
+}
+function splayUp(items, d, x, y, overlap) {
+	console.log('left: topmost should be', items[items.length - 1])
+	let zIndex = 0;//items.length;
+	y += (items.length - 1) * overlap;
+	let yLast = y;
+	// for (let i = items.length-1; i >= 0; i--) {
+	for (let i = 0; i < items.length; i++) {
+		let c = items[i];
+		mAppend(d, c.div);
+		mStyleX(c.div, { position: 'absolute', left: x, top: y });
+		c.div.style.zIndex = zIndex; zIndex += 1;
+		c.row = i;
+		c.col = 0;
+		c.index = i;
+		y -= overlap;
+	}
+	return [x, yLast];
 }
 
 

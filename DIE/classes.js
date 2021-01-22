@@ -34,7 +34,11 @@ class GKrieg extends CardGame {
 
 		//test02:
 		let hand = this.players[0].hand;
-		showCards52(hand)
+		showCards52(hand,'down');
+		showCards52(hand);
+		showCards52(hand,'up');
+		showCards52(hand,'left');
+		mLinebreak(dTable);
 	}
 	prompt(){
 
