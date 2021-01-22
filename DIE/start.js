@@ -11,7 +11,7 @@ async function _start() {
 	initSidebar(); //dLeiste
 	initAux(); // TODO: dAux das ist eigentlich settings+menu
 	//listUsers();
-	loadUser(); //changeUserTo('nil');  //test01_modifyU(); 
+	loadUser(); //changeUserTo('nil');  //test01_modifyUser(); 
 
 	//initGame();
 	//initMenu();

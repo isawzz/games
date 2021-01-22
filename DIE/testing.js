@@ -1,3 +1,44 @@
+function test02_showDeckFaceDown() {
+	let hand = G.instance.players[0].hand; 
+	hand.showDeck(dTable); //,'right',0,false);
+	console.log(hand[0].faceUp)
+	hand.turnFaceDown();
+}
+function test02_turnDeckFaceDown() {
+	let hand = G.instance.players[0].hand; 
+	showCards52(hand, 'down');
+	console.log(hand[0].faceUp)
+	hand.turnFaceDown();
+}
+function test02_turnCard() {
+	let pl = G.instance.players[0];
+	//console.log(pl.hand)
+	let card = pl.hand.topCard();
+	console.log(card);
+	Card52.show(card, dTable);
+	setTimeout(() => Card52.turnFaceDown(card), 1000)
+	setTimeout(() => Card52.turnFaceUp(card), 2000)
+}
+function test02_show4Decks() {
+	let hand = G.instance.players[0].hand.getIndices(); 
+	console.log(hand)
+	showCards52(hand, 'down');
+	showCards52(hand);
+	showCards52(hand, 'up');
+	showCards52(hand, 'left');
+	mLinebreak(dTable);
+}
+function test02_showCard() {
+	G.instance.players[0].hand.map(x => Card52.show(x, dTable));
+	mLinebreak(dTable, 25);
+	G.instance.players[1].hand.map(x => Card52.show(x, dTable));
+}
+
+function test01_modifyUser() {
+	lookupAddToList(U, ['games', 'gAristocracy', 'running'], 2);
+	changeUserTo('mia');
+
+}
 data = {
 	"id": "boardGames",
 	"users": {
@@ -786,9 +827,3 @@ data = {
 		}
 	}
 };
-
-function test01_modifyU(){
-	lookupAddToList(U,['games','gAristocracy','running'],2);
-	changeUserTo('mia');
-
-}
