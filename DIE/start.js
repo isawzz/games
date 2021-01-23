@@ -16,9 +16,8 @@ async function _start() {
 	//koennt jetzt oben pro user einen button haben fuer login
 	listUsers();
 
-	
-
 	loadUser(); //changeUserTo('nil');  //test01_modifyUser(); 
+	loadGame();
 	return;
 	//initGame();
 	//initMenu();

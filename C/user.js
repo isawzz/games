@@ -28,10 +28,6 @@ function loadUser(id) {
 	//console.log(Username, U);
 	updateUsernameUi();
 
-	let lastGame = U.getLastGame();
-	if (nundef(lastGame)) lastGame = U.getAvailableGames()[0];
-	console.log('lastGame =', lastGame)
-	if (isdef(lastGame)) setGame(lastGame);
 }
 function saveUsers() { for (const id in Users) Users[id].save(); }
 function saveUser() { U.save(true); }
