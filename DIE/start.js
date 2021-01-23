@@ -1,11 +1,11 @@
 async function _start() {
 	//DB has {users,games,tables,settings} set
-	loadUser(); // Username===U.id, U has {} 
-	//loadGame(); // G set hat status,
-	//loadTable(); // T set
+	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
+	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
+	loadTable(); // T set hat {}
+	startGame();
 	return;
 	//initGame();
-	//initMenu();
 	//initSettings();
 
 	//onClickTemple();
@@ -30,7 +30,7 @@ async function _loader() {
 	if (!IS_TESTING) {
 		ifPageVisible.on('blur', function () {
 			//enterInterruptState();
-			// console.log('stopping game', G.key)
+			// console.log('stopping game', G.id)
 			_saveAll();
 			return 'hallo'
 		});
@@ -38,11 +38,11 @@ async function _loader() {
 		ifPageVisible.on('focus', function () {
 			// if (isdef(G.instance)) {
 			// 	updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
-			// 	setGame(G.key);
+			// 	setGame(G.id);
 			// }
 			// closeAux();
 			// startGame();
-			// console.log('restarting game', G.key)
+			// console.log('restarting game', G.id)
 		});
 	}
 	// if ('serviceWorker' in navigator) {

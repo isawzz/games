@@ -8,7 +8,7 @@ async function _loader() {
 			// example code here..
 			//animations.pause();
 			enterInterruptState();
-			console.log('stopping game', G.key)
+			console.log('stopping game', G.id)
 		});
 
 		ifPageVisible.on('focus', function () {
@@ -16,13 +16,13 @@ async function _loader() {
 			// animations.resume();
 			if (isdef(G.instance)) {
 				//cleanupOldGame();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
-				setGame(G.key);
+				setGame(G.id);
 			}
 			closeAux();
 			startGame();
 			// auxOpen = false;
 			// startGame();
-			console.log('restarting game', G.key)
+			console.log('restarting game', G.id)
 		});
 	}
 	// if ('serviceWorker' in navigator) {

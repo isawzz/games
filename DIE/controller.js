@@ -1,65 +1,36 @@
-function cleanupOldGame() {
-	if (nundef(G)) return;
+function createInstance(gid, players, state) {
+	const ClassDict = { gKrieg: GKrieg, gAristo: GAristo };
+	let creator = ClassDict[gid];
+	let inst = new creator(players, state);
+	return inst;
+}
+function startGame() {
+	T = createInstance(T.game, T.players, T.state);
 
-	//bei den alten games wird updateUserScore aufgerufen
-	//sollte eine app class haben
-	//die soll implementieren: app.cleanupGame
-	if (isdef(G.clear)) G.clear();
-	G = null;
-}
-function setGame(gname) {
-	cleanupOldGame();
-	//console.log('the current user game is', gname);
-	G=jsCopy(DB.games[gname]);
-	G.key = gname;
-	G.status = 'waitingForPlayers';
+	T.turnPlayerId=T.players[T.index].id;
+	console.log('player is',T.turnPlayerId)
 
+	if (T.turnPlayerId == Username) present(); else passAndPlayScreen(T.turnPlayerId);
 }
-function instantiateGame(){
-	G.instance = new getInstance(G);
-	//console.log(G.players)
-	//throw new Error();
-	copyKeys(G,G.instance,{instance:true,div:true});
-	G=G.instance;
-	console.log('G',G)
-}
-function startGame(){
-	instantiateGame();
-	G.addPlayer
-	G.startGame();
-
-	if (nundef(G.numPhases)) G.lastPhaseIndex=0; else G.lastPhaseIndex=G.numPhases-1;
-	G.phaseIndex = -1;
-	selectPhase();
-}
-function selectPhase(){
-	G.phaseIndex+=1;
-	if (G.phaseIndex > G.lastPhaseIndex) endGame();
-	else startPhase();
-}
-function startPhase(){
-	G.playerIndex=-1;
-	if (isdef(G.startPhase)) G.startPhase();
-	selectPlayerOnTurn();
-}
-function passAndPlayScreen(){
-	let d=mBy('freezer');
+function passAndPlayScreen(plid){
+	let d=mBy('dPassPlay');
 	show(d);
-	d.innerHTML='Player: '+G.playerOnTurn.id;
-	d.style.zIndex=20000;
+	let d1=mBy('dPP');
+	d1.innerHTML='Player: '+plid;
+	mStyleX(d,{z:20000,fz:64});
+	//d.style.zIndex=20000;
 }
-function selectPlayerOnTurn(){
-	G.playerIndex+=1;
-	if (G.playerIndex >= G.players.length) endRound();
-	G.playerOnTurn = G.players[G.playerIndex];
-	console.log(G.players,G.playerIndex,G.playerOnTurn)
-	passAndPlayScreen();
-	startRound();
+function onClickPassPlay(){
+	changeUserTo(T.turnPlayerId);
+	hide('dPassPlay');
+	present();
 }
-function startRound(){
+function present() {
+	console.log('presenting for player',T.turnPlayerId);
+	T.present();
 	
-	G.startRound();
 }
-function endRound(){console.log('round over!')}
-function endGame(){console.log('game over!')}
+
+
+
 

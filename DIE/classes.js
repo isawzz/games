@@ -1,10 +1,11 @@
 class GKrieg extends CardGame {
-	constructor() {		super();}
-	addPlayer(){
-		lookupAddIfToList(this,['players'],new Player(p2, color2));
+	constructor(players,state) { 
+		super(); 
+		this.players = players; //should be a list of players which will be set in correct order in init
+		if (isdef(state)) copyKeys(state,this); else this.init();
 	}
-	startGame() {
-		console.log('krieg startGame',this);
+	init(){
+		console.log('krieg init', this);
 		this.cards = new Deck52(); this.cards.init(true); //playing with 1 deck of 52 cards
 
 		//each player should get half of the cards,
@@ -14,27 +15,30 @@ class GKrieg extends CardGame {
 		}
 		this.trick = []; //in the middle of the table there is an empty trick
 		shuffle(this.players); //player order is random
-		//console.log(this.players);
+		this.index=0;
 	}
-	startRound() {
+	resume(){
+		console.log('krieg is setup',this);
+	}
+	
+	present() {
 
 		//show whose turn it is (das kommt schon aussen)
+		let me = this.players[this.index];
+		let others = arrWithout(this.players,[me]);
 
-		//divide table into ones: 
-		//each zone should be of hight 200
+		//present other players hands
+		for(const pl of others){
+			pl.hand.showDeck(dTable, 'right', 0, false);
 
-		//show player hand closed & as a pack: card layout functions
-		let hand = this.players[0].hand;
-		this.players[0].hand.showDeck(dTable, 'right', 0, false);
+		}
 
-		mLinebreak(dTable,400);
+		mLinebreak(dTable, 300);
 
-		this.players[1].hand.showDeck(dTable, 'right', 0, false);
+		//present my hand
+		me.hand.showDeck(dTable, 'right', 0, false);
 
-		// START
-		//test02_showDeckFaceDown();
-		//erster player spielt top card of his pile
-
+		showFleetingMessage('click to play a card!');
 
 	}
 	prompt() {
@@ -42,7 +46,7 @@ class GKrieg extends CardGame {
 	}
 }
 
-class GAristocracy extends CardGame {
+class GAristo extends CardGame {
 	constructor(p1, p2) {
 		super();
 		this.player1 = p1;
@@ -56,7 +60,7 @@ function getInstance(G) {
 	const GameClass1 = {
 		gKrieg: GKrieg, gAristocracy: GAristocracy,
 	};
-	return new (GameClass1[G.key])(G.key);
+	return new (GameClass1[G.id])(G.id);
 }
 
 

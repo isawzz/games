@@ -1,11 +1,6 @@
 //sagen wir das ist ein krieg spiel
 class CardGame {
-	constructor() {
-
-	}
-	setup() { }
-	deal() { }
-
+	constructor(){console.log('CardGame constructor!!!')}
 }
 class Card52 {
 	static getKey(i) {

@@ -21,8 +21,8 @@ function initSidebar() {
 }
 function initAux() {
 	dAux = mBy('dAux');
-	show('dTemple');
-	show('dGear');
+	//show('dTemple');
+	//show('dGear');
 
 }
 function initLineNavi() {

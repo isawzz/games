@@ -35,7 +35,7 @@ function createSettingsUi(dParent) {
 
 
 	mLinebreak(dParent);
-	let g = DB.games[G.key];
+	let g = DB.games[G.id];
 	if (nundef(g)) return;
 	mAppend(dParent, createElementFromHTML(`<${ttag}>Settings for <span style='color:${g.color}'>${g.friendly}</span></${ttag}>`));
 

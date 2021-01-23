@@ -6,7 +6,7 @@ function addScoreToUserSession() {
 	//console.log('Score', Score)
 	//console.assert(isdef(Score.nTotal) && Score.nTotal > 0)
 	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
-	let game = G.key;
+	let game = G.id;
 	let level = G.level;
 	let session = U.session;
 	if (nundef(session)) {
@@ -123,8 +123,8 @@ function loadUser(newUser) {
 }
 function saveUnit() { saveUser(); }
 function saveUser() {
-	//console.log('saveUser:', Username,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
-	U.lastGame = G.key;
+	//console.log('saveUser:', Username,G.id,G.level); //_getFunctionsNameThatCalledThisFunction()); 
+	U.lastGame = G.id;
 	if (Username != 'test') localStorage.setItem('user', Username);
 	DB.users[Username] = U;
 	//console.log('...saving from saveUser called by', getFunctionsNameThatCalledThisFunction())
@@ -135,7 +135,7 @@ function setGame(game, level) {
 	cleanupOldGame();
 	//set new game: friendly,logo,color,key,maxLevel,level 
 	//console.log('set game to', game)
-	if (isdef(G) && G.key != game) Score.gameChange = true;
+	if (isdef(G) && G.id != game) Score.gameChange = true;
 
 	G = jsCopy(DB.games[game]); //jsCopy(DB.games[game]);
 	//console.log('color', G.color, ColorDict[G.color], window[G.color])
@@ -150,7 +150,7 @@ function setGame(game, level) {
 	let levels = lookup(DB.games, [game, 'levels']);
 	G.maxLevel = isdef(levels) ? Object.keys(levels).length - 1 : 0;
 
-	G.key = game;
+	G.id = game;
 
 	//if (isCal) supdateStartLevelForUser(game, 0);
 
@@ -170,7 +170,7 @@ function setGame(game, level) {
 
 }
 function setNextGame() {
-	let game = G.key;
+	let game = G.id;
 	let i = U.avGames.indexOf(game);
 	let iNew = (i + 1) % U.avGames.length;
 	setGame(U.avGames[iNew]);
@@ -184,7 +184,7 @@ function updateUserScore() {
 	if (nundef(Score.nTotal) || Score.nTotal <= 0) return;
 
 	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
-	let g = G.key;
+	let g = G.id;
 
 	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
 	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });

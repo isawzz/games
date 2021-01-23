@@ -24,7 +24,7 @@ function enterCalibrationMode(all1) {
 	isCal = true;
 	let b = mBy('dCalibrate');
 	b.style.backgroundColor = 'red';
-	if (all1 == 1) { calGames = [G.key]; }
+	if (all1 == 1) { calGames = [G.id]; }
 	else { calGames = jsCopy(U.avGames); }
 
 	calGame = calGames[0];
@@ -37,7 +37,7 @@ function enterCalibrationMode(all1) {
 }
 
 function getCalBoundary(){return 4;} // calGames.length == 1? 4: 2;}
-function isLastCalGame(){return !calGames.includes(G.key) || G.key == calGames[0]; }
+function isLastCalGame(){return !calGames.includes(G.id) || G.id == calGames[0]; }
 
 function calibrating(){return isCal==true;}// Username == 'test';}
 

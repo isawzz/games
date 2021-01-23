@@ -55,10 +55,26 @@ function mAppend(d, child) { d.appendChild(child); }
 // 	dParent.style.height='auto';
 // 	mText(text,dParent,styles);
 // }
-function mEditableOnEdited(id,dParent,label,initialVal,onEdited){
-	let inp=mEditableInput(dParent,label,initialVal);
+// function mEditableSelector(id, dParent, label, initialVal, onEdited, onOpening) {
+// 	let inp = mEditableInput(dParent, label, initialVal);
+// 	inp.id = id;
+// 	if (isdef(onOpening)) { inp.addEventListener('focus', ev => onOpening(ev)); }
+// 	inp.addEventListener('focusout', ev => {
+// 		//unselect text in span
+// 		window.getSelection().removeAllRanges();
+// 		if (isdef(onEdited)) onEdited(inp.innerHTML, ev);
+// 	}); //(ev) => { onChange(ev,isCaseSensitive?inp.innerHTML:inp.innerHTML.toLowerCase()); });
+// 	return inp;
+// }
+function mEditableOnEdited(id, dParent, label, initialVal, onEdited, onOpening) {
+	let inp = mEditableInput(dParent, label, initialVal);
 	inp.id = id;
-	inp.addEventListener('focusout', ev=>onEdited(inp.innerHTML,ev)); //(ev) => { onChange(ev,isCaseSensitive?inp.innerHTML:inp.innerHTML.toLowerCase()); });
+	if (isdef(onOpening)) { inp.addEventListener('focus', ev => onOpening(ev)); }
+	inp.addEventListener('focusout', ev => {
+		//unselect text in span
+		window.getSelection().removeAllRanges();
+		if (isdef(onEdited)) onEdited(inp.innerHTML, ev);
+	}); //(ev) => { onChange(ev,isCaseSensitive?inp.innerHTML:inp.innerHTML.toLowerCase()); });
 	return inp;
 }
 function mEditableInput(dParent, label, val) {
@@ -82,7 +98,7 @@ function mInput(label, value, dParent, styles) {
 	if (isdef(styles)) mStyleX(labelui, styles)
 	return inp;
 }
-function mFlexWrap(d){mFlex(d,'w');}
+function mFlexWrap(d) { mFlex(d, 'w'); }
 function mFlex(d, or = 'h') {
 	d.style.display = 'flex';
 	d.style.flexFlow = (or == 'v' ? 'column' : 'row') + ' ' + (or == 'w' ? 'wrap' : 'nowrap');
@@ -511,12 +527,12 @@ function mStyleS(elem, styles, unit = 'px') { elem = mEnsure(elem); for (const k
 //#region 1 liners positioning_...
 function posTL(d) { mPos(d, 0, 0) }
 function posTC(d) { mStyleX(d, { right: '50%', top: 0, position: 'absolute' }); }
-function posBC(d) { 
-	let dParent= d.parentNode;
+function posBC(d) {
+	let dParent = d.parentNode;
 	//console.log(dParent);
 	//console.log('height',d.style.height);
-	let dNew=mDiv(dParent,{w:'100%',h:50,position:'absolute',bottom:0,left:0,bg:'null',align:'center'});
-	mAppend(dNew,d);
+	let dNew = mDiv(dParent, { w: '100%', h: 50, position: 'absolute', bottom: 0, left: 0, bg: 'null', align: 'center' });
+	mAppend(dNew, d);
 	//mStyleX(d, { bottom: 0, position: 'absolute' }); 
 }
 function posTR(d) { mStyleX(d, { right: 0, top: 0, position: 'absolute' }); }
@@ -530,7 +546,7 @@ function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'
 //#endregion
 
 //#region arithmetic
-function divInt(a,b){return Math.trunc(a/b);}
+function divInt(a, b) { return Math.trunc(a / b); }
 //#endregion
 
 //#region cache
@@ -874,11 +890,11 @@ function getContrastingHue(contrastColor, minDiff = 25, mod = 30) {
 }
 function randomColorLight(contrastTo) { return randomColorX(contrastTo); }
 function randomColorDark(contrastTo) { return randomColorX(contrastTo, 10, 30); }
-function helleFarbe(contrastTo, minDiff = 25, mod = 30, start = 0){
+function helleFarbe(contrastTo, minDiff = 25, mod = 30, start = 0) {
 	let wheel = getHueWheel(contrastTo, minDiff, mod, start);
 	//console.log('wheel',wheel)
 	let hue = chooseRandom(wheel);
-	let hsl = colorHSLBuild(hue,100,50);
+	let hsl = colorHSLBuild(hue, 100, 50);
 	return hsl;
 }
 function getHueWheel(contrastTo, minDiff = 25, mod = 30, start = 0) {
@@ -2380,9 +2396,9 @@ function getElemSize(elem) {
 	var d = document.createElement("div");
 	document.body.appendChild(d);
 	//console.log(styles);
-	let cStyles = {position : 'fixed',opacity: 0,top: '-9999px'};
+	let cStyles = { position: 'fixed', opacity: 0, top: '-9999px' };
 	mStyleX(d, cStyles);
-	mAppend(d,elem);
+	mAppend(d, elem);
 	//d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
@@ -2403,7 +2419,7 @@ function getSizeWithStyles(text, styles) {
 	d.innerHTML = text;
 	height = d.clientHeight;
 	width = d.clientWidth;
-	let b=getBounds(d);
+	let b = getBounds(d);
 	//console.log('b',b.width,b.height,'=?',width,height,'\ntextStyles',styles)
 	//console.log(d)
 	d.parentNode.removeChild(d);
@@ -3479,16 +3495,16 @@ function wlog() {
 //#endregion
 
 //#region layout helpers
-function calcRowsColsX(num,rows,cols) {
+function calcRowsColsX(num, rows, cols) {
 	const table = {
 		2: { rows: 1, cols: 2 },
 		5: { rows: 2, cols: 3 },
 		7: { rows: 2, cols: 4 },
 		11: { rows: 3, cols: 4 },
 	};
-	if (isdef(rows) || isdef(cols)) return calcRowsCols(num,rows,cols);
-	else if (isdef(table[num])) return table[num]; 
-	else return calcRowsCols(num,rows,cols);
+	if (isdef(rows) || isdef(cols)) return calcRowsCols(num, rows, cols);
+	else if (isdef(table[num])) return table[num];
+	else return calcRowsCols(num, rows, cols);
 }
 function calcRowsCols(num, rows, cols) {
 	//=> code from RSG testFactory arrangeChildrenAsQuad(n, R);
@@ -3786,11 +3802,11 @@ function allWordsContainedInKeysAsWord(dict, keywords) {
 //#endregion
 
 //#region ARRAY objects, dictionaries, lists, arrays
-function copyKeys(ofrom, oto, except={}) { 
+function copyKeys(ofrom, oto, except = {}) {
 
 	for (const k in ofrom) {
 		if (isdef(except[k])) continue;
-		oto[k] = ofrom[k]; 
+		oto[k] = ofrom[k];
 	}
 }
 function addByKey(oNew, oOld, except) {
@@ -3801,10 +3817,10 @@ function addByKey(oNew, oOld, except) {
 	}
 }
 function range(f, t, st = 1) {
-	if (nundef(t)){
+	if (nundef(t)) {
 		//if only 1 arg, will return numbers 0..f-1 
-		t=f-1;
-		f=0;
+		t = f - 1;
+		f = 0;
 	}
 	let arr = [];
 	//console.log(f,t)
@@ -4811,6 +4827,7 @@ function nRandomNumbers(n, from, to, step) {
 	let arr = range(from, to, step);
 	return choose(arr, n);
 }
+function chooseKeys(dict, n, except) { let keys = Object.keys(dict); let ind = except.map(x => keys.indexOf(x)); return choose(keys, n, ind); }
 function choose(arr, n, exceptIndices) {
 	//console.log(arr, n);
 	var result = [];//new Array(n);
@@ -5051,11 +5068,11 @@ function firstWord(s) {
 	while (i < s.length && !isWhiteSpace(s[i])) { res += s[i]; i += 1; }
 	return res;
 }
-function lastWord(s){	return stringAfterLast(s,' ');}
+function lastWord(s) { return stringAfterLast(s, ' '); }
 function hasWhiteSpace(s) { return /\s/g.test(s); }
-function isLetter(s){return /^[a-zA-Z]$/i.test(s);}
-function isCapitalLetter(s){return /^[A-Z]$/i.test(s);}
-function isSingleDigit(s){return /^[0-9]$/i.test(s);}
+function isLetter(s) { return /^[a-zA-Z]$/i.test(s); }
+function isCapitalLetter(s) { return /^[A-Z]$/i.test(s); }
+function isSingleDigit(s) { return /^[0-9]$/i.test(s); }
 function isAlphaNum(s) {
 	//regex version: Here 
 	// ^ means beginning of string and 

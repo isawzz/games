@@ -1342,8 +1342,8 @@ function getGameValues(user, game, level) {
 
 }
 function getGameOrLevelInfo(k, defval) {
-	let val = lookup(DB.games, [G.key, 'levels', G.level, k]);
-	if (!val) val = lookupSet(DB.games, [G.key, k], defval);
+	let val = lookup(DB.games, [G.id, 'levels', G.level, k]);
+	if (!val) val = lookupSet(DB.games, [G.id, k], defval);
 	return val;
 }
 function getDistinctVals(list, prop) {
@@ -1442,8 +1442,8 @@ function sayRandomVoice(e, g, voice = 'random') {
 }
 function setBadgeLevel(i) {
 	//i is now correct level
-	//let userStartLevel = getUserStartLevel(G.key);
-	//if (userStartLevel > i) _updateStartLevelForUser(G.key, i);
+	//let userStartLevel = getUserStartLevel(G.id);
+	//if (userStartLevel > i) _updateStartLevelForUser(G.id, i);
 	G.level = i;
 	Score.levelChange = true;
 
@@ -1487,7 +1487,7 @@ function setMultiGoal(n, indices) {
 }
 function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
-	//console.log('G.key is', G.key)
+	//console.log('G.id is', G.id)
 	clearElement(title);
 	let d = mDiv(title);
 	mStyleX(d, { margin: 15 })
@@ -1513,7 +1513,7 @@ function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 }
 function showInstructionX(written, dParent, spoken, { fz, voice } = {}) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
-	//console.log('G.key is', G.key)
+	//console.log('G.id is', G.id)
 	clearElement(dParent);
 	let d = mDiv(dParent);
 	mStyleX(d, { margin: 15 })

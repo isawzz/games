@@ -22,7 +22,7 @@ function updateSettings() {
 			lookupSetOverride(U, ['settings', k], Settings[k]);
 
 		} else {
-			if (isdef(G.key)) lookupSetOverride(U, ['games', G.key, 'settings', k], Settings[k]);
+			if (isdef(G.id)) lookupSetOverride(U, ['games', G.id, 'settings', k], Settings[k]);
 
 		}
 	}

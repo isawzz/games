@@ -57,8 +57,8 @@ function createMenuUi(dParent) {
 
 	if (nundef(G)) return; else console.log('G',G);
 	//select the current game
-	SelectedMenuKey = G.key;
-	toggleSelectionOfPicture(MenuItems[G.key]);
+	SelectedMenuKey = G.id;
+	toggleSelectionOfPicture(MenuItems[G.id]);
 }
 
 

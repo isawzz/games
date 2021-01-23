@@ -53,7 +53,7 @@ function scoring(isCorrect) {
 	if (halfnegSeq && !hasLabels && toggle) { Score.labels = true; }
 	else if (negSeq) { levelChange = -1; if (nextLevel > 0) nextLevel -= 1; Score.nNeg = 0; }
 	if (nextLevel != G.Level && nextLevel > 0 && nextLevel <= G.maxLevel) {
-		updateStartLevelForUser(G.key, nextLevel, 'cscoring');
+		updateStartLevelForUser(G.id, nextLevel, 'cscoring');
 	}
 
 	// if boundary reached: change game, 

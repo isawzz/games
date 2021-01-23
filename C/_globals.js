@@ -1,10 +1,6 @@
-var Username;
+var Username,Gamename,Tablename;
 
-//TODO: Users,User und U ist bisschen viel!!!
-
-var Users = {};
-
-var DB, G, U, User, Settings, SettingsChanged; //, G...Game, U...Userdata
+var DB, G, T, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
 
 var Speech;
 

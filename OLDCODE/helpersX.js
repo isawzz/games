@@ -23,6 +23,7 @@ function mStyleX(elem, styles, unit = 'px') {
 		fz: 'font-size',
 		family: 'font-family',
 		weight: 'font-weight',
+		z: 'z-index'
 	};
 	//console.log(':::::::::styles',styles)
 	let bg, fg;

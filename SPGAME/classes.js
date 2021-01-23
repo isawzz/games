@@ -5,7 +5,7 @@ function getInstance(G) {
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
 		gAnagram: GAnagram, gAbacus: GAbacus,
 	};
-	return new (GameClass[G.key])(G.key);
+	return new (GameClass[G.id])(G.id);
 }
 
 class Game {
@@ -706,9 +706,9 @@ class GAnagram extends Game {
 
 
 
-// function getInstance(G) { return eval(`new (DB.games[${G.key}].cl)(${G.key})`); }
+// function getInstance(G) { return eval(`new (DB.games[${G.id}].cl)(${G.id})`); }
 
-//function getInstance(G) { return eval(`new ${DB.games[G.key].cl}(${G.friendly})`); }
+//function getInstance(G) { return eval(`new ${DB.games[G.id].cl}(${G.friendly})`); }
 
 
 

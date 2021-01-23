@@ -1,15 +1,6 @@
-function clearTimeouts() {
-	clearTimeout(TOMain);
-	clearTimeout(TOFleetingMessage);
-	clearTimeout(TOTrial);
-	if (isdef(TOList)) { for (const k in TOList) { TOList[k].map(x => clearTimeout(x)); } }
-}
 function enterInterruptState() {
-	//haTO true; //when using TaskChain
-	//chainCancel();
-	//restartQ();
-	clearTimeouts();
-	if (isdef(G.instance)) G.instance.clear();
+	TO.clear();
+	if (isdef(G) && isdef(G.instance)) G.instance.clear();
 	auxOpen = true;
 }
 
@@ -19,13 +10,10 @@ function openAux() {
 
 	show(dAux);
 	show('dGo');
-
-
 }
 function closeAux() {
 	hide(dAux);
 	hide('dGo');
-	if (ALLOW_CALIBRATION) show('dCalibrate');
 	show('dGear');
 	show('dTemple');
 	if (SettingsChanged) {
@@ -36,19 +24,43 @@ function closeAux() {
 	SettingsChanged = false;
 	auxOpen = false;
 }
+//#endregion
+
+//#region buttons NEW!
+function onClickTemple() {
+	openAux();
+	hide('dTemple');
+	show('dGear');
+	createMenuUi(dAux);
+}
+function onClickMenuItem(ev) {
+	let gKey = nundef(ev) ? SelectedMenuKey : isString(ev) ? ev : divKeyFromEv(ev);
+
+	//console.log('==>gKey', gKey, SelectedMenuKey);
+
+	if (gKey != SelectedMenuKey) {
+		if (isdef(SelectedMenuKey)) toggleSelectionOfPicture(MenuItems[SelectedMenuKey]);
+		SelectedMenuKey = gKey;
+		//console.log('ONCLICK:',MenuItems,gKey,MenuItems[gKey])
+		toggleSelectionOfPicture(MenuItems[gKey]);
+	} else {
+		closeAux();
+		setGame(gKey);
+		console.log('starting game',gKey);
+		startGame();
+
+	}
+
+}
+
+
+//#endregion
+
+//#region  old code!!!
 
 //#region aux buttons: computer, gear, temple
 function onClickComputer() { }
-function onClickCalibrate() {
-	if (isCal) {
-		if (auxOpen) { closeAux(); }
-		exitCalibrationMode();
-	} else {
-		if (auxOpen) { closeAux(); enterCalibrationMode('all'); }
-		else { enterCalibrationMode(1); }
-	}
-}
-
+function onClickCalibrate() { }
 
 function onClickGear() {
 	//console.log('opening settings: ui will be interrupted!!!')
@@ -57,15 +69,6 @@ function onClickGear() {
 	hide('dCalibrate');
 	createSettingsUi(dAux);
 }
-function onClickTemple() {
-	//console.log('opening menu: ui will be interrupted!!!')
-	openAux();
-	hide('dTemple');
-	if (ALLOW_CALIBRATION) show('dCalibrate');
-	createMenuUi(dAux);
-}
-
-function onClickMenuItem(ev){ onClickGo(ev);}
 
 function onClickGo(ev) {
 
@@ -85,7 +88,7 @@ function onClickGo(ev) {
 			toggleSelectionOfPicture(MenuItems[gKey]);
 		} else {
 			closeAux();
-			//updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
+			updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 			setGame(gKey);
 			startGame();
 
@@ -108,13 +111,15 @@ function onClickBadgeX(ev) {
 	auxOpen = false;
 	TOMain = setTimeout(startGame, 100);
 }
+//#endregion
 
-//# region divControls
+//#region divControls
 function onClickStartButton() { startGame(); }
 function onClickNextButton() { startRound(); }
 function onClickRunStopButton(b) { if (StepByStepMode) { onClickRunButton(b); } else { onClickStopButton(b); } }
 function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 'red' }); StepByStepMode = false; startRound(); }
 function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
+//#endregion
 
 //#region freezers
 function onClickFreezer() { hide('freezer'); startUnit(); }
@@ -125,7 +130,7 @@ function onClickFreezer2(ev) {
 	//else _startUnit();
 	startUnit();
 }
-
+//#endregion
 
 //#region helpers
 function divKeyFromEv(ev) {
@@ -135,9 +140,9 @@ function divKeyFromEv(ev) {
 	let div = mBy(id);
 	return div.key;
 }
+//#endregion
 
-
-
+//#endregion
 
 
 

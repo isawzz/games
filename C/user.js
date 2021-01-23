@@ -1,5 +1,10 @@
+function getUsers(){return Object.keys(DB.users);}
+function getGames(){return U.avGames;}
+function getTables(){return U.tables;}
+function getUsers(){return Object.keys(DB.users);}
 function changeUserTo(id) {
 	id = id.toLowerCase();
+	if (isdef(id) && id == Username) return;
 	if (id != Username && isdef(U)) { saveUser(); }
 	loadUser(id);
 }
@@ -30,7 +35,9 @@ function updateUsernameUi(id,color) {
 	let ui = mBy(uiName);
 	if (nundef(ui)) {
 		//console.log('creating ui for username');
-		ui = mEditableOnEdited(uiName, dLineTopLeft, 'user: ', '', changeUserTo);
+		ui = mEditableOnEdited(uiName, dLineTopLeft, 'user: ', '', changeUserTo, ()=>{
+			console.log('Users',getUsers());
+		});
 	}
 	ui.innerHTML = id;
 	mStyleX(ui, { fg:color });
