@@ -78,7 +78,7 @@ async function _start() {
 function startUnit() {
 
 	restartTime();
-	U.data.session = {};
+	U.session = {};
 	//onClickTemple(); return;
 
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();

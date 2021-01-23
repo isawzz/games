@@ -8,10 +8,10 @@ function addScoreToUserSession() {
 	let sc = { nTotal: Score.nTotal, nCorrect: Score.nCorrect, nCorrect1: Score.nCorrect1 };
 	let game = G.key;
 	let level = G.level;
-	let session = U.data.session;
+	let session = U.session;
 	if (nundef(session)) {
 		console.log('THERE WAS NO USER SESSION IN _addScoreToUserSession!!!!!!!!!!!!!!!!!!!!!')
-		U.data.session = {};
+		U.session = {};
 	}
 
 	let sGame = session[game];
@@ -30,12 +30,12 @@ function addScoreToUserSession() {
 
 }
 function addSessionToUserGames() {
-	// adds session to U.data.games and deletes session
+	// adds session to U.games and deletes session
 
-	if (!isEmpty(U.data.session)) {
-		for (const g in U.data.session) {
+	if (!isEmpty(U.session)) {
+		for (const g in U.session) {
 			let recOld = lookup(U, ['games', g]);
-			let recNew = U.data.session[g];
+			let recNew = U.session[g];
 
 			//console.assert(isdef(recOld));
 
@@ -48,7 +48,7 @@ function addSessionToUserGames() {
 			}
 		}
 	}
-	U.data.session = {};
+	U.session = {};
 }
 function changeUserTo(name) {
 	if (name != Username) { saveUser(); }
@@ -76,7 +76,7 @@ function getStartLevels(user) {
 
 }
 function getUserStartLevel(game) {
-	gInfo = U.data.games[game];
+	gInfo = U.games[game];
 	level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 	return level;
 }
@@ -107,16 +107,16 @@ function loadUser(newUser) {
 	if (!uData) { uData = DB.users[Username] = jsCopy(DB.users.guest0); uData.id = Username; }
 
 	U = new UserManager(Username);
-	U.data = DB.users[Username];
+	U = DB.users[Username];
 
 	let uiName = 'spUser';
 	let dUser = mBy(uiName);
 	if (nundef(dUser)) { dUser = editableUsernameUi(dLineTopLeft); dUser.id = uiName; }
 
-	let game = !window.navigator.onLine && U.data.lastGame == 'gSayPic' ? 'gTouchPic' : U.data.lastGame; //do NOT start in gSayPic if no internet!!!
-	if (nundef(game)) game = U.data.avGames[0]; //chooseRandom(U.data.avGames);
+	let game = !window.navigator.onLine && U.lastGame == 'gSayPic' ? 'gTouchPic' : U.lastGame; //do NOT start in gSayPic if no internet!!!
+	if (nundef(game)) game = U.avGames[0]; //chooseRandom(U.avGames);
 
-	let gInfo = U.data.games[game];
+	let gInfo = U.games[game];
 	let level = isdef(gInfo) && isdef(gInfo.startLevel) ? gInfo.startLevel : 0;
 
 	setGame(game, level);
@@ -124,9 +124,9 @@ function loadUser(newUser) {
 function saveUnit() { saveUser(); }
 function saveUser() {
 	//console.log('saveUser:', Username,G.key,G.level); //_getFunctionsNameThatCalledThisFunction()); 
-	U.data.lastGame = G.key;
+	U.lastGame = G.key;
 	if (Username != 'test') localStorage.setItem('user', Username);
-	DB.users[Username] = U.data;
+	DB.users[Username] = U;
 	//console.log('...saving from saveUser called by', getFunctionsNameThatCalledThisFunction())
 	saveSIMA();
 }
@@ -161,8 +161,8 @@ function setGame(game, level) {
 
 	if (G.level > G.maxLevel) G.level = G.maxLevel;
 
-	if (nundef(U.data.games[game])) {
-		U.data.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };
+	if (nundef(U.games[game])) {
+		U.games[game] = { nTotal: 0, nCorrect: 0, nCorrect1: 0, startLevel: 0, byLevel: {} };
 	}
 
 	saveUser();
@@ -171,13 +171,13 @@ function setGame(game, level) {
 }
 function setNextGame() {
 	let game = G.key;
-	let i = U.data.avGames.indexOf(game);
-	let iNew = (i + 1) % U.data.avGames.length;
-	setGame(U.data.avGames[iNew]);
+	let i = U.avGames.indexOf(game);
+	let iNew = (i + 1) % U.avGames.length;
+	setGame(U.avGames[iNew]);
 }
 function updateStartLevelForUser(game, level, msg) {
 	//console.log('updating startLevel for', Username, game, level, '(' + msg + ')')
-	lookupSetOverride(U.data.games, [game, 'startLevel'], level);
+	lookupSetOverride(U.games, [game, 'startLevel'], level);
 	saveUser();
 }
 function updateUserScore() {
@@ -188,7 +188,7 @@ function updateUserScore() {
 
 	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
 	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
-	//let recNew = U.data.session[g];
+	//let recNew = U.session[g];
 
 	addByKey(sc, recSession);
 	recSession.percentage = Math.round(100 * recSession.nCorrect / recSession.nTotal);

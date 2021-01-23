@@ -1,23 +1,8 @@
 async function _start() {
-	//onclick = _saveAll;
-	console.assert(isdef(DB)); //user db is loaded
-	//console.log('DB',DB)
-
-	Speech = new SpeechAPI('E');
-	KeySets = getKeySets();
-	TO = new TimeoutManager();
-	
-	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
-	initSidebar(); //dLeiste
-	initAux(); // TODO: dAux das ist eigentlich settings+menu
-	console.log(DB);
-
-	// *** hier hab einfach nur einen empty screen!!! ***
-	//koennt jetzt oben pro user einen button haben fuer login
-	listUsers();
-
-	loadUser(); //changeUserTo('nil');  //test01_modifyUser(); 
-	loadGame();
+	//DB has {users,games,tables,settings} set
+	loadUser(); // Username===U.id, U has {} 
+	//loadGame(); // G set hat status,
+	//loadTable(); // T set
 	return;
 	//initGame();
 	//initMenu();
@@ -76,7 +61,26 @@ async function _loader() {
 	if (BROADCAST_SETTINGS) {
 		console.log('...broadcasting ...')
 		await dbInit('boardGames');
-		_start();
-	} else { dbLoad('boardGames', _start); }
+		prelim();
+	} else { dbLoad('boardGames', prelim); }
+
+}
+function prelim() {
+	//onclick = _saveAll;
+	console.assert(isdef(DB)); //user db is loaded
+	//console.log('DB',DB)
+
+	Speech = new SpeechAPI('E');
+	KeySets = getKeySets();
+	TO = new TimeoutManager();
+
+	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
+	initSidebar(); //dLeiste
+	initAux(); // TODO: dAux das ist eigentlich settings+menu
+
+	// *** hier hab einfach nur einen empty screen!!! ***
+	//listUsers();//koennt jetzt oben pro user einen button haben fuer login
+	
+	_start();
 
 }

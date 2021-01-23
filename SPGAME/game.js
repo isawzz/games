@@ -1239,8 +1239,8 @@ function aniGameOver(msg, silent = false) {
 		d.style.textAlign = 'center';
 		mText('Unit Score:', d, { fz: 22 });
 
-		for (const gname in U.data.session) {
-			let sc = U.data.session[gname];
+		for (const gname in U.session) {
+			let sc = U.session[gname];
 			if (sc.nTotal == 0) continue;
 			mText(`${DB.games[gname].friendly}: ${sc.nCorrect}/${sc.nTotal} correct answers (${sc.percentage}%) `, d, style);
 

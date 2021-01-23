@@ -6,7 +6,7 @@ function createMenuUi(dParent) {
 	MenuItems = {};
 
 	//#region prelim: keys,labels,ifs,options
-	let games = isdef(User)?User.getAvailableGames() : U.data.avGames;
+	let games = isdef(User)?User.getAvailableGames() : U.avGames;
 	//console.log('navi',window.navigator.onLine);
 	if (!navigator.onLine){removeInPlace(games,'gSayPic');}
 	//console.log(games, games.map(g => DB.games[g]));
