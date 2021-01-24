@@ -90,20 +90,17 @@ class Card52 {
 	// }
 }
 class Deck extends Array {
-	initTest(n,shuffled = true){range(0, n).map(x => this.push(Card52.getItem(x)));if (shuffled) this.shuffle();}
-	initEmpty(){}
+	initTest(n, shuffled = true) { range(0, n).map(x => this.push(Card52.getItem(x))); if (shuffled) this.shuffle(); }
+	initEmpty() { }
 	init52(shuffled = true, jokers = 0) {
 		range(0, 51 + jokers).map(x => this.push(Card52.getItem(x)));
 		//this.__proto__.faceUp = true;
 		//console.log(this.__proto__)
 		if (shuffled) this.shuffle();
 	}
-	count(){return this.length;}
-	static transferTopFromTo(d1,d2){
-		let c=d1.pop();
-		d2.putUnderPile(c);
-		return c;
-	}
+	add(otherDeck) { while (otherDeck.length > 0) { this.unshift(otherDeck.pop()); } return this; }
+	count() { return this.length; }
+	static transferTopFromToBottom(d1, d2) { let c = d1.pop(); d2.putUnderPile(c); return c; }
 	deal(n) { return this.splice(0, n); }
 	getIndices() { return this.map(x => x.i); }
 	log() { console.log(this); }
