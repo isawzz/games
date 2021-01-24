@@ -1,0 +1,9 @@
+type: c52(52)
+numPlayers: 2
+player:
+  hand: deal(26)
+  tricks: []
+  warzone: []
+table:
+  trick: []
+plOrder: random

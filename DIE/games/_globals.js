@@ -1,6 +1,6 @@
 var Username,Gamename,Tablename;
 
-var DB, G, T,X,P, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
+var DB, G, T, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
 
 var Speech;
 

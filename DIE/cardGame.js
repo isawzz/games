@@ -1,8 +1,9 @@
 //sagen wir das ist ein krieg spiel
 class CardGame {
-	constructor(){console.log('CardGame constructor!!!')}
+	constructor() { }//console.log('CardGame constructor!!!')}
 }
 class Card52 {
+	static toString(c) { return c.rank + ' of ' + c.suit; }
 	static getKey(i) {
 		if (i > 52) return 'card_J1';
 		let rank = Card52.getRank(i);
@@ -58,7 +59,7 @@ class Card52 {
 		return { rank: rank, suit: suit, key: cardKey, div: el, w: w, h: h, faceUp: true };
 	}
 	static turnFaceDown(c) {
-		console.log(c.faceUp)
+		//console.log(c.faceUp)
 		if (!c.faceUp) return;
 		let svgCode = c52.card_2B; //c52 is cached asset loaded in _start
 		c.div.innerHTML = svgCode;
@@ -88,21 +89,29 @@ class Card52 {
 	// 	mAppend(dParent, c.div);
 	// }
 }
-class Deck52 extends Array {
-	init(shuffled = true, jokers = 0) {
+class Deck extends Array {
+	initTest(n){range(0, n).map(x => this.push(Card52.getItem(x)));}
+	initEmpty(){}
+	init52(shuffled = true, jokers = 0) {
 		range(0, 51 + jokers).map(x => this.push(Card52.getItem(x)));
 		//this.__proto__.faceUp = true;
 		//console.log(this.__proto__)
 		if (shuffled) this.shuffle();
+	}
+	count(){return this.length;}
+	static transferTopFromTo(d1,d2){
+		let c=d1.pop();
+		d2.putUnderPile(c);
+		return c;
 	}
 	deal(n) { return this.splice(0, n); }
 	getIndices() { return this.map(x => x.i); }
 	log() { console.log(this); }
 	putUnderPile(x) { this.push(x); }
 	putOnTop(x) { this.unshift(x); }
-	showDeck(dParent, splay, ovPercent=0, faceUp) {
+	showDeck(dParent, splay, ovPercent = 0, faceUp) {
 		if (isdef(faceUp)) { if (faceUp == true) this.turnFaceUp(); else this.turnFaceDown(); }
-		splayout(this,dParent,{},ovPercent,splay);
+		splayout(this, dParent, {}, ovPercent, splay);
 	}
 	shuffle() { shuffle(this); }
 	topCard() { return this[this.length - 1]; }
@@ -115,7 +124,7 @@ class Deck52 extends Array {
 	turnFaceDown() {
 		if (isEmpty(this) || !this[0].faceUp) return;
 		//if (!this.__proto__.faceUp) return;
-		console.log(this[0])
+		//console.log(this[0])
 		this.map(x => Card52.turnFaceDown(x));
 		//this.__proto__.faceUp = false;
 	}

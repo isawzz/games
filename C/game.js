@@ -17,6 +17,8 @@ function loadGame(id) {
 	//console.log(Gamename, U);
 	updateGamenameUi(id, G.color);
 
+	Settings = DB.settings; //TODO: add to that user and game settings
+
 }
 function updateGamenameUi(id, color) {
 	let uiName = 'spGame';

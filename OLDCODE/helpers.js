@@ -50,22 +50,7 @@ function applyCssStyles(ui, params) {
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
-// function mAddLabel(text,dParent,styles){
-// 	//if dParent has a height set, need to set to auto!
-// 	dParent.style.height='auto';
-// 	mText(text,dParent,styles);
-// }
-// function mEditableSelector(id, dParent, label, initialVal, onEdited, onOpening) {
-// 	let inp = mEditableInput(dParent, label, initialVal);
-// 	inp.id = id;
-// 	if (isdef(onOpening)) { inp.addEventListener('focus', ev => onOpening(ev)); }
-// 	inp.addEventListener('focusout', ev => {
-// 		//unselect text in span
-// 		window.getSelection().removeAllRanges();
-// 		if (isdef(onEdited)) onEdited(inp.innerHTML, ev);
-// 	}); //(ev) => { onChange(ev,isCaseSensitive?inp.innerHTML:inp.innerHTML.toLowerCase()); });
-// 	return inp;
-// }
+function mRemoveStyle(d,styles){for(const k of styles)d.style[k] = null;}
 function mEditableOnEdited(id, dParent, label, initialVal, onEdited, onOpening) {
 	let inp = mEditableInput(dParent, label, initialVal);
 	inp.id = id;
