@@ -99,7 +99,11 @@ function evaluate() {
 }
 function endTurn(){
 	//look which card is higher in rank
-	let res = indexOfMax(T.trick,);
+	present();
+	let res = indexOfMax(T.trick,'rank');
+	console.log('res',res);
+	let winnerOfTrick = T.players[res.i];
+	console.log('wins trick',winnerOfTrick.id);
 	for(let i=0;i<T.trick.length;i++){
 		
 	}

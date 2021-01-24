@@ -90,7 +90,7 @@ class Card52 {
 	// }
 }
 class Deck extends Array {
-	initTest(n){range(0, n).map(x => this.push(Card52.getItem(x)));}
+	initTest(n,shuffled = true){range(0, n).map(x => this.push(Card52.getItem(x)));if (shuffled) this.shuffle();}
 	initEmpty(){}
 	init52(shuffled = true, jokers = 0) {
 		range(0, 51 + jokers).map(x => this.push(Card52.getItem(x)));
