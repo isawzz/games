@@ -1,6 +1,5 @@
-class GKrieg extends CardGame {
+class GKrieg {
 	constructor(players, state) {
-		super();
 		this.players = players; //should be a list of players which will be set in correct order in init
 		if (isdef(state)) copyKeys(state, this); else this.init();
 	}
@@ -50,7 +49,7 @@ class GKrieg extends CardGame {
 	}
 	activate() {
 		let options = [
-			{play: {event:'click',obj:this.me.hand}},//,handler:o=>}}
+			{ play: { event: 'click', obj: this.me.hand } },//,handler:o=>}}
 		];
 		activateOptions(options);
 		let hand = this.me.hand;
@@ -78,14 +77,7 @@ class GKrieg extends CardGame {
 	}
 }
 
-class GAristo extends CardGame {
-	constructor(p1, p2) {
-		super();
-		this.player1 = p1;
-		this.player2 = p2;
-		let cards = new Deck(); //playing with 1 deck of 52 cards
-	}
-}
+class GAristo { }
 
 function getInstance(G) {
 	//console.log(G)

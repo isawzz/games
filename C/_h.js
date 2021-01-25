@@ -78,20 +78,23 @@ function splayout(items, dParent, containerStyles, ovPercent = 20, splay = 'righ
 		return [x, yLast];
 	}
 	
+	//console.log('hhhhhhhhhhhhhhhhh')
 	if (isEmpty(items)) return { w: 0, h: 0 };
 	let [w, h] = [items[0].w, items[0].h];
+	//console.log('w',w,'h',h)
 	let isHorizontal = splay == 'right' || splay == 'left';
 
 	if (nundef(containerStyles)) containerStyles = {};
-	containerStyles = deepmergeOverride({ display: 'block', position: 'relative', bg: 'transparent', rounding: 12, padding: 10 }, containerStyles);
+	let defStyles = { display: 'block', position: 'relative'};//, bg: 'transparent', rounding: 12, padding: 10 };
+	containerStyles = deepmergeOverride(defStyles, containerStyles);
 	let d = mDiv(dParent, containerStyles);
 
 	//phase 4: add items to container
-	let gap = 10;
+	let gap = isdef(containerStyles.padding)?containerStyles.padding:0;//10;
 	let overlap = ovPercent == 0? .5 : (isHorizontal ? w : h) * ovPercent / 100;
 	let x = y = gap;
 	[x, y] = (eval('splay' + capitalize(splay)))(items, d, x, y, overlap);
-	let sz = { w: (isHorizontal ? (x - 1.5 * overlap + w) : w), h: (isHorizontal ? (y - 1.5 * overlap + h) : h) };
+	let sz = { w: (isHorizontal ? (x - overlap + w) : w), h: (isHorizontal ? (y - overlap + h) : h) };
 	d.style.width = '' + sz.w + 'px';
 	d.style.height = '' + sz.h + 'px';
 	return sz;

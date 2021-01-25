@@ -1,10 +1,12 @@
-//sagen wir das ist ein krieg spiel
-class CardGame {
-	constructor() { }//console.log('CardGame constructor!!!')}
-}
+
+//convert from number to different kinds of decks
+function get52(i){return Card52.getItem(i);}
+
+
+
 class Card52 {
 	static toString(c) { return c.rank + ' of ' + c.suit; }
-	static getKey(i) {
+	static _getKey(i) {
 		if (i > 52) return 'card_J1';
 		let rank = Card52.getRank(i);
 		let suit = Card52.getSuit(i);
@@ -21,7 +23,25 @@ class Card52 {
 	static getSuit(i) {
 		return ['S', 'H', 'D', 'C'][divInt(i, 13)];
 	}
-	static createUi(irankey, suit, w, h) {
+	static turnFaceDown(c) {
+		//console.log(c.faceUp)
+		if (!c.faceUp) return;
+		let svgCode = c52.card_2B; //c52 is cached asset loaded in _start
+		c.div.innerHTML = svgCode;
+		c.faceUp = false;
+	}
+	static turnFaceUp(c) {
+		if (c.faceUp) return;
+		c.div.innerHTML = c52[c.key];
+		c.faceUp = true;
+	}
+	static getItem(i, h = 110, w) {
+		if (nundef(w)) w = h * .7;
+		let c = Card52._createUi(i, undefined, w, h);
+		c.i = i;
+		return c;
+	}
+	static _createUi(irankey, suit, w, h) {
 		//console.log('cardFace',rank,suit,w,h)
 
 		//#region set rank and suit from inputs
@@ -35,7 +55,7 @@ class Card52 {
 			irankey = '2';
 			suit = 'B';
 		} else if (nundef(suit)) {
-			if (isNumber(irankey)) irankey = Card52.getKey(irankey);
+			if (isNumber(irankey)) irankey = Card52._getKey(irankey);
 			rank = irankey[5];
 			suit = irankey[6];
 		}
@@ -56,40 +76,56 @@ class Card52 {
 		//console.log('__________ERGEBNIS:',w,h)
 		//#endregion
 
+		//el.style.transition = 'all 1s ease-in-out';
+
 		return { rank: rank, suit: suit, key: cardKey, div: el, w: w, h: h, faceUp: true };
 	}
-	static turnFaceDown(c) {
-		//console.log(c.faceUp)
-		if (!c.faceUp) return;
-		let svgCode = c52.card_2B; //c52 is cached asset loaded in _start
-		c.div.innerHTML = svgCode;
-		c.faceUp = false;
-	}
-	static turnFaceUp(c) {
-		if (c.faceUp) return;
-		c.div.innerHTML = c52[c.key];
-		c.faceUp = true;
-	}
-	static getItem(i, h = 110) {
-		let w = h * .7;
-		let c = Card52.createUi(i, undefined, w, h);
-		c.i = i;
-		return c;
-	}
+
 	static show(icard, dParent, h = 110, w = undefined) {
 		if (isNumber(icard)) {
 			if (nundef(w)) w = h * .7;
-			icard = Card52.createUi(icard, undefined, w, h);
+			icard = Card52.getItem(icard, h, w);
 		}
 		mAppend(dParent, icard.div);
 	}
-	// static show1(i, dParent, h = 110, w = undefined) {
-	// 	if (nundef(w)) w = h * .7;
-	// 	let c = Card52.createUi(i, undefined, w, h);
-	// 	mAppend(dParent, c.div);
-	// }
 }
-class Deck extends Array {
+
+class Deck {
+	constructor() { this.data = []; }
+	init(arr) { this.data = arr; }
+	initEmpty() { this.data = []; }
+	initTest(n, shuffled = true) { this.data = range(0, n); if (shuffled) this.shuffle(); }
+	init52(shuffled = true, jokers = 0) { this.data = range(0, 51 + jokers); if (shuffled) this.shuffle(); }
+	addTop(i) { this.data.push(i); return this; }
+	addBottom(i) { this.data.unshift(i); return this; }
+	bottom() { return this.data[0]; }
+	cards() { return this.data; }
+	count() { return this.data.length; }
+	clear() { this.data = []; }
+	deal(n) { return this.data.splice(0, n); }
+	dealDeck(n) { let d1 = new Deck(); d1.init(this.data.splice(0, n)); return d1; }
+	popTop() { return this.data.pop(); }
+	popBottom() { return this.data.shift(); }
+	remTop() { this.data.pop(); return this; }
+	remBottom() { this.data.shift(); return this; }
+	remove(i) { removeInPlace(this.data, i); return this; }
+	removeAtIndex(i) { return this.data.splice(i, 1)[0]; }
+	removeFromIndex(i, n) { return this.data.splice(i, n); }
+	sort() { this.data.sort(); return this; }
+	shuffle() { shuffle(this.data); return this; }
+	top() { return arrLast(this.data); }
+}
+
+
+
+
+
+
+
+
+
+
+class Deck1 extends Array {
 	initTest(n, shuffled = true) { range(0, n).map(x => this.push(Card52.getItem(x))); if (shuffled) this.shuffle(); }
 	initEmpty() { }
 	init52(shuffled = true, jokers = 0) {
@@ -106,9 +142,11 @@ class Deck extends Array {
 	log() { console.log(this); }
 	putUnderPile(x) { this.push(x); }
 	putOnTop(x) { this.unshift(x); }
-	showDeck(dParent, splay, ovPercent = 0, faceUp) {
+	showDeck(dParent, splay, ovPercent = 0, faceUp = undefined, contStyles = {}) {
+		//console.log('aaaaaaaaaaaaaaaaaaaaaaaaa')
 		if (isdef(faceUp)) { if (faceUp == true) this.turnFaceUp(); else this.turnFaceDown(); }
-		splayout(this, dParent, {}, ovPercent, splay);
+		// splayout(this, dParent, {bg:'random',padding:0}, ovPercent, splay);
+		splayout(this, dParent, contStyles, ovPercent, splay);
 	}
 	shuffle() { shuffle(this); }
 	topCard() { return this[this.length - 1]; }
@@ -125,27 +163,6 @@ class Deck extends Array {
 		this.map(x => Card52.turnFaceDown(x));
 		//this.__proto__.faceUp = false;
 	}
-}
-
-class Deck52_dep extends Array {
-	init(shuffled = true, jokers = 0) {
-
-		range(0, 51 + jokers).map(x => this.push(x));
-		//range(0, 51 + jokers).map(x => this.push(Card52.getItem(x)));
-		//this.log();
-		if (shuffled) this.shuffle();
-
-		//this.shuffle();
-	}
-	log() { console.log(this); }//this.join(',')); }
-	shuffle() {
-		shuffle(this);
-		//this.log();
-	}
-	deal(n) { return this.splice(0, n); }
-	putUnderPile(x) { this.push(x); }
-	putOnTop(x) { this.unshift(x); }
-	topCard() { return Card52.getItem(this[this.length - 1]); }
 }
 
 
