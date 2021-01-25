@@ -1,0 +1,86 @@
+/* breath behaves based on the
+CSS variables values that are inherited */
+@-webkit-keyframes breath {
+  0% {
+    background: var(--colorStart);
+    transform: scale(var(--scaleStart));
+  }
+  100% {
+    background: var(--colorEnd);
+    transform: scale(var(--scaleEnd));
+  }
+}
+@keyframes breath {
+  0% {
+    background: var(--colorStart);
+    transform: scale(var(--scaleStart));
+  }
+  100% {
+    background: var(--colorEnd);
+    transform: scale(var(--scaleEnd));
+  }
+}
+.container {
+  background: black;
+  /* all "breath" animations inside */
+  /* will start grey... */
+  --colorStart: #222;
+  /* and end white'ish (until you start to move the cursor around) */
+  --colorEnd: #eee;
+  color: var(--colorEnd);
+}
+
+.bubble {
+  /* each bubble starts with these common specs: */
+  --scaleStart: 0.3;
+  background: var(--colorStart);
+  transform: scale(var(--scaleStart));
+  -webkit-animation: breath 2s alternate infinite ease-in-out;
+          animation: breath 2s alternate infinite ease-in-out;
+}
+
+/* customize each bubble specs... */
+.bubble:nth-child(1),
+.bubble:nth-child(5) {
+  --scaleEnd: 1;
+}
+
+.bubble:nth-child(2),
+.bubble:nth-child(4) {
+  --scaleEnd: 1.2;
+  -webkit-animation-delay: -250ms;
+          animation-delay: -250ms;
+}
+
+.bubble:nth-child(3) {
+  --scaleEnd: 1.6;
+  -webkit-animation-delay: -500ms;
+          animation-delay: -500ms;
+}
+
+/* styles not related to the animation */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: 100vw;
+}
+
+.bubble {
+  margin: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.intructions {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 2rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  text-align: center;
+}

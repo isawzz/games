@@ -358,6 +358,7 @@ div{
 	/* background-color: yellow; */
 }
 #lineTableMiddle{
+	position: relative;
 	text-align: center;
 	min-width: 20px;
 	/* background-color:orange; */
@@ -379,6 +380,7 @@ div{
 	100%{ transform: scale(1); background-color: yellow; }
 }
 .pulse{animation: pulse_animation 800ms ease-in-out 0s 6 alternate;}
+.transPos{	transition: left 500 ease-in-out;}
 .transColor{	transition: color 500 ease-in-out;}
 .aniGrow800{ animation: growcp5 800ms ease-in-out 0s 1 forwards; }
 .aniGrow2{ animation: growcp5 800ms ease-in-out; }

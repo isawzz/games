@@ -1,8 +1,39 @@
 
-//convert from number to different kinds of decks
-function get52(i){return Card52.getItem(i);}
+//convert from number to different kinds of decks: i stands for item
+function i52(i) { return isList(i) ? i.map(x => Card52.getItem(x)) : Card52.getItem(i); }
+function iFaceUp(item) { Card52.turnFaceUp(item); }
+function iFaceDown(item) { Card52.turnFaceDown(item); }
+function iFace(item, faceUp) { if (isdef(faceUp)) faceUp ? iFaceUp(item) : iFaceDown(item); }
+function iResize(i, w, h) { return isList(i) ? i.map(x => iSize(x, w, h)) : iSize(i, w, h); }
+function iResize52(i, h) { let w = h * .7; return iResize(i, w, h); }
+function iSize(i, w, h) { i.w = w; i.h = h; mSize(i.div, w, h); }
 
 
+//presentation of items or item groups(=layouts)
+function show52(i, dParent, faceUp) {
+	let item = i52(i);
+	iFace(item, faceUp);
+	mAppend(dParent, item.div);
+	return item;
+}
+
+
+
+//animations of items or item groups(=layouts)
+function anim1(elem, prop, from, to, ms) {
+	if (prop == 'left') elem.style.position = 'absolute';
+	if (isNumber(from)) from = '' + from + 'px';
+	if (isNumber(to)) to = '' + to + 'px';
+	// let kfStart={};
+	// kfStart[prop]=from;
+	// let kfEnd={};
+	// kfEnd[prop]={};
+	// elem.animate([{left: '5px'},{left: '200px'}], {
+	// 	// timing options
+	// 	duration: ms,
+	// 	iterations: Infinity
+	// });
+}
 
 class Card52 {
 	static toString(c) { return c.rank + ' of ' + c.suit; }
@@ -23,11 +54,12 @@ class Card52 {
 	static getSuit(i) {
 		return ['S', 'H', 'D', 'C'][divInt(i, 13)];
 	}
-	static turnFaceDown(c) {
+	static turnFaceDown(c, color) {
 		//console.log(c.faceUp)
 		if (!c.faceUp) return;
 		let svgCode = c52.card_2B; //c52 is cached asset loaded in _start
 		c.div.innerHTML = svgCode;
+		if (isdef(color)) c.div.children[0].children[1].setAttribute('fill', color);
 		c.faceUp = false;
 	}
 	static turnFaceUp(c) {
@@ -75,8 +107,6 @@ class Card52 {
 		if (isdef(h) || isdef(w)) { mSize(el, w, h); }
 		//console.log('__________ERGEBNIS:',w,h)
 		//#endregion
-
-		//el.style.transition = 'all 1s ease-in-out';
 
 		return { rank: rank, suit: suit, key: cardKey, div: el, w: w, h: h, faceUp: true };
 	}

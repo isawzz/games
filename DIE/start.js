@@ -1,9 +1,13 @@
+var container;
 async function _start() {
 	//DB has {users,games,tables,settings} set
 	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
 	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
 	loadTable(); // T set hat {}
-	startGame();
+	//startGame();
+
+	test03_richtungCenter();
+
 	return;
 	//initGame();
 	//initSettings();
@@ -11,6 +15,19 @@ async function _start() {
 	//onClickTemple();
 	//console.log('last game was:', User.getLastGame());
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
+}
+
+function updateBubbleColors(e) {
+	const w = window.innerWidth / 255;
+	const h = window.innerHeight / 255;
+	const x = parseInt(e.pageX / w, 10);
+	const y = parseInt(e.pageY / h, 10);
+
+	const r = x;
+	const g = (y - 255) * -1;
+	const b = x <= y ? y - x : 0;
+
+	container.style.setProperty('--colorEnd', `rgb(${r},${g},${b})`);
 }
 
 window.onload = _loader;
@@ -80,7 +97,7 @@ function prelim() {
 
 	// *** hier hab einfach nur einen empty screen!!! ***
 	//listUsers();//koennt jetzt oben pro user einen button haben fuer login
-	
+
 	_start();
 
 }

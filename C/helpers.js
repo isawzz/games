@@ -35,6 +35,179 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 
 //#endregion
 
+//#region helpersX
+//#region doc
+/*
+	helpersX.js contains super special helper library! (version iii)
+*/
+//#endregion
+function mStyleX(elem, styles, unit = 'px') {
+	const paramDict = {
+		bg: 'background-color',
+		fg: 'color',
+		align: 'text-align',
+		matop: 'margin-top',
+		maleft: 'margin-left',
+		mabottom: 'margin-bottom',
+		maright: 'margin-right',
+		patop: 'padding-top',
+		paleft: 'padding-left',
+		pabottom: 'padding-bottom',
+		paright: 'padding-right',
+		rounding: 'border-radius',
+		w: 'width',
+		h: 'height',
+		wmin: 'min-width',
+		hmin: 'min-height',
+		wmax: 'max-width',
+		hmax: 'max-height',
+		fontSize: 'font-size',
+		fz: 'font-size',
+		family: 'font-family',
+		weight: 'font-weight',
+		z: 'z-index'
+	};
+	//console.log(':::::::::styles',styles)
+	let bg, fg;
+	if (isdef(styles.bg) || isdef(styles.fg)) {
+		[bg, fg] = getExtendedColors(styles.bg, styles.fg);
+	}
+	
+	if (isdef(styles.vmargin) && isdef(styles.hmargin)) {
+		styles.margin = styles.vmargin + unit + ' ' + styles.hmargin + unit;
+		console.log('::::::::::::::',styles.margin)
+	}
+	if (isdef(styles.vpadding) && isdef(styles.hpadding)) {
+
+		styles.padding = styles.vpadding + unit + ' ' + styles.hpadding + unit;
+		console.log('::::::::::::::',styles.vpadding,styles.hpadding)
+	}
+
+	//console.log(styles.bg,styles.fg);
+
+	for (const k in styles) {
+		//if (k=='textShadowColor' || k=='contrast') continue; //meaningless styles => TBD
+		let val = styles[k];
+		let key = k;
+		if (isdef(paramDict[k])) key = paramDict[k];
+		else if (k == 'font' && !isString(val)) {
+			//font would be specified as an object w/ size,family,variant,bold,italic
+			// NOTE: size and family MUST be present!!!!!!! in order to use font param!!!!
+			let fz = f.size; if (isNumber(fz)) fz = '' + fz + 'px';
+			let ff = f.family;
+			let fv = f.variant;
+			let fw = isdef(f.bold) ? 'bold' : isdef(f.light) ? 'light' : f.weight;
+			let fs = isdef(f.italic) ? 'italic' : f.style;
+			if (nundef(fz) || nundef(ff)) return null;
+			let s = fz + ' ' + ff;
+			if (isdef(fw)) s = fw + ' ' + s;
+			if (isdef(fv)) s = fv + ' ' + s;
+			if (isdef(fs)) s = fs + ' ' + s;
+			elem.style.setProperty(k, s);
+			continue;
+		} else if (k == 'border') {
+			//console.log('________________________YES!')
+			
+			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
+		}
+
+		//console.log(key,val,isNaN(val));if (isNaN(val) && key!='font-size') continue;
+
+		if (key == 'font-weight') { elem.style.setProperty(key, val); continue; }
+		else if (key == 'background-color') elem.style.background = bg;
+		else if (key == 'color') elem.style.color = fg;
+		else {
+			//console.log('set property',key,makeUnitString(val,unit),val,isNaN(val));
+			//if ()
+			elem.style.setProperty(key, makeUnitString(val, unit));
+		}
+	}
+}
+function allCondX(ad, func) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+=>list of elements (with key:key in case of dictionary, unless this prop already exists?)
+	*/
+	//#endregion 
+	//console.log('ad',ad,'func',func)
+	let res = [];
+	if (nundef(ad)) return res;
+	else if (isDict(ad)) {
+		for (const k in ad) {
+			let v = ad[k];
+			if (func(v)) { if (nundef(v.key)) v.key = k; res.push(v); }
+		}
+	} else {
+		for (const a of ad) { if (func(a)) res.push(a) }
+	}
+
+	return res;
+
+}
+function firstCondX(ad, func, keysSorted) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
+=>first value that fullfills func or null (key added to value in case of dict!)
+	*/
+	//#endregion 
+	if (nundef(ad)) return null;
+	else if (isDict(ad)) {
+		if (isdef(keysSorted)) {
+			for (const k of keysSorted) {
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		} else {
+			for (const k in ad) {
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		}
+	} else {
+		for (const a of ad) { if (func(a)) return a; }
+	}
+
+	return null;
+
+}
+function lastCondX(ad, func, keysSorted) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
+=>last value that fullfills func or null (key added to value in case of dict!)
+	*/
+	//#endregion 
+	if (nundef(ad)) return null;
+	else if (isDict(ad)) {
+		if (isdef(keysSorted)) {
+			for (let i = keysSorted.length - 1; i >= 0; i--) {
+				let k = keysSorted[i];
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		} else {
+			for (const k in ad) { //no difference to firstCondDict really because keys are not sorted!
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		}
+	} else {
+		for (let i = ad.length - 1; i >= 0; i--) { if (func(ad[i])) return ad[i]; }
+	}
+
+	return null;
+
+}
+
+//#endregion
+
 //#region _DOM 1 liners A list divs
 function applyCssStyles(ui, params) {
 	let domType = getTypeOf(ui);
@@ -50,7 +223,7 @@ function applyCssStyles(ui, params) {
 function asElem(x) { return isString(x) ? mBy(x) : x; }
 function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
-function mRemoveStyle(d,styles){for(const k of styles)d.style[k] = null;}
+function mRemoveStyle(d, styles) { for (const k of styles) d.style[k] = null; }
 function mEditableOnEdited(id, dParent, label, initialVal, onEdited, onOpening) {
 	let inp = mEditableInput(dParent, label, initialVal);
 	inp.id = id;
@@ -167,10 +340,12 @@ function mRemoveClass(d) { for (let i = 1; i < arguments.length; i++) d.classLis
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
+
+function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d;}
+function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d,{position:'absolute',w:'100%',h:'100%'}); return d;}
+function mDover(dParent) { let d = mDiv(dParent); mStyleX(d,{position:'absolute',w:'100%',h:'100%'}); return d;}
 function mDiv(dParent = null, styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d, styles); return d; }
 function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
-function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
-function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
 function mFg(d, color) { d.style.color = color; }
 function mInstruction(msg, dParent, hasExclamation = true) {
 	let p = mCreate('h2');
@@ -456,6 +631,9 @@ function aSvgg(dParent, originInCenter = true) {
 //endregion
 
 //#region 1 liners B list
+function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
+function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
+
 function mEnsure(d) { return isString(d) ? mById(d) : d; }
 function mAppendS(d, child) { d = mEnsure(d); if (d) d.appendChild(child); return child; }
 function mAppendText(d, text) { let dText = mCreate('div'); dText.innerHTML = text; d.appendChild(dText); return dText; }
@@ -2656,7 +2834,7 @@ function makeDroppableX(target) {
 }
 //#endregion
 
-//#region X2
+//#region dragX2
 // var onDragStart = function (event) {
 //   event.preventDefault();
 //   var clone = event.target.cloneNode(true);

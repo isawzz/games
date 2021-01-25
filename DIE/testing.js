@@ -1,11 +1,206 @@
+function mZone(dParent, sz = { w: 200, h: 200 }, pos) {
+	let d = mDiv(dParent, { w: sz.w, h: sz.h, bg: 'random' });
+	if (isdef(pos)) { mPosAbs(dParent, pos.x, pos.y); }
+}
+function test03_centerToCenter() {
+
+	//make ein xbliebiges div mit irgendeiner groesse
+	let z1 = mDiv(dTable, { w: 200, h: 200, bg: 'random' });
+
+
+	let d = mDover(dTable);
+	let item = show52(13, d);
+
+	let di = item.div;
+	di.style.position = 'absolute';
+	let parent = d;
+	let tablePos = getBounds(di, false, dTable);
+	console.log('tablePos', tablePos.x, tablePos.y);
+
+	mLinebreak(dTable, 100)
+	let dParent = mDiv(dTable, { w: 200, h: 200, bg: 'yellow' });
+	let center = actualCenter(dParent, false, dTable);
+	let b = getBounds(dParent, false, dTable);
+	console.log('center of yellow', center.x, center.y, b)
+	let offset = { w: 35, h: 55 };
+	center.x -= offset.w;
+	center.y -= offset.h;
+
+	item.div.animate([
+		// keyframes
+		{ position: 'absolute', left: '0px', top: '0px' },
+		{ position: 'absolute', left: '' + center.x + 'px', top: center.y + 'px' },
+	], {
+		// timing options
+		duration: 500,
+		fill: 'forwards',
+
+		// iterations: Infinity,
+		// direction: 'alternate'		
+	});
+
+
+
+
+}
+function test03_richtungCenter() {
+	let d = mDover(dTable);
+	let item = show52(13, d);
+
+	let di = item.div;
+	di.style.position = 'absolute';
+	let parent = d;
+	let tablePos = getBounds(di, false, dTable);
+	console.log('tablePos', tablePos.x, tablePos.y);
+
+	mLinebreak(dTable, 100)
+	let dParent = mDiv(dTable, { w: 200, h: 200, bg: 'yellow' });
+	let center = actualCenter(dParent, false, dTable);
+	let b = getBounds(dParent, false, dTable);
+	console.log('center of yellow', center.x, center.y, b)
+	let offset = { w: 35, h: 55 };
+	center.x -= offset.w;
+	center.y -= offset.h;
+
+	item.div.animate([
+		// keyframes
+		{ position: 'absolute', left: '0px', top: '0px' },
+		{ position: 'absolute', left: '' + center.x + 'px', top: center.y + 'px' },
+	], {
+		// timing options
+		duration: 500,
+		fill: 'forwards',
+
+		// iterations: Infinity,
+		// direction: 'alternate'		
+	});
+
+
+
+
+}
+function test03_left() {
+	let d = mDover(dTable);
+	let item = show52(13, d);
+	item.div.animate([
+		// keyframes
+		{ position: 'absolute', left: '0px', top: '0px' },
+		{ position: 'absolute', left: '220px', top: '110px' },
+	], {
+		// timing options
+		duration: 500,
+		fill: 'forwards',
+
+		// iterations: Infinity,
+		// direction: 'alternate'		
+	});
+}
+function test03_rotate() {
+	let d = mCanvas(dTable);
+	let item = show52(13, d);
+	item.div.animate([
+		// keyframes
+		// { transform: 'rotate(-60deg)' },
+		{ transform: 'rotate(90deg)' },
+	], {
+		// timing options
+		duration: 500,
+
+		// iterations: Infinity,
+		// direction: 'alternate'		
+	});
+}
+function test03_translate() {
+	let d = mCanvas(dTable);
+	let item = show52(13, d);
+	item.div.animate([
+		// keyframes
+		{ transform: 'translate(0px,0px)' },
+		{ transform: 'translate(300px,200px)' }
+	], {
+		// timing options
+		duration: 500,
+		iterations: Infinity,
+		direction: 'alternate'
+	});
+}
+
+function test03_trash() {
+	//mDover is same as mCanvas100
+	//d is now covered by dover
+	let dover = mDover(dTable); mStyleX(dover, { bg: 'pink' }); // table size wurde durch dou NICHT veraendert! dover only covers upper part of table!
+	b = getBounds(dover); console.log('dover', b.width, b.height);
+
+	//mStyleX(dover,{bg:'transparent'}); //now can see d again
+	//alternatively:
+	mRemoveStyle(dover, ['background-color']); //=>TODO: mRemoveStyleX mit bg,fg,...
+
+	item = i52(35);
+	mAppend(item.div, dover);
+	anim1(item.div, 'left', 0, 200, 1000);
+
+	// item=i52(25);
+	// item.div=mText('hallo',dover,{padding:25});
+	// container = dover;
+	// mClass(container,'container');
+	// //item = show52(15, dover);
+	// mClass(item.div,'bubble2')
+	// item.div.style.setProperty('--xStart', '0px'); //`rgb(${r},${g},${b})`);
+	// item.div.style.setProperty('--xEnd', '400px'); //`rgb(${r},${g},${b})`);
+	// item.div.style.setProperty('--yStart', '0px'); //`rgb(${r},${g},${b})`);
+	// item.div.style.setProperty('--yEnd', '-100px'); //`rgb(${r},${g},${b})`);
+	// //dTable.addEventListener("mousemove", updateBubbleColors);
+
+
+
+	//	item=show52(14,d);
+	// mPos(item.div,0,0);
+
+
+}
+
+function test03_basics() {
+
+	// show52(24,dTable);
+
+	// mLinebreak(dTable);
+
+	// let i=10;while(i--){let x=randomNumber(0,51);console.log(x);show52(x,dTable,coin());}
+
+	// mLinebreak(dTable);
+
+
+	let b = getBounds(dTable); console.log(b.width, b.height); mStyleX(dTable, { bg: 'red' }); //height=0
+
+	//let i = 10; while (i--) { show52(24, dTable); mLinebreak(dTable); } //ja, zones gehen!
+
+	let deck = range(0, 51).map(x => i52(x));
+	iResize52(deck, 40);
+	splayout(deck, dTable)
+
+	mLinebreak(dTable, 10);
+
+	let d = mCanvas(dTable);
+	let item = show52(13, d);
+	mRot(item.div, 45); //rotates around center!
+
+	//wie kann ich das animaten?
+	mLinebreak(dTable, 10);
+
+	// let dou = mDiv100(dTable); mStyleX(dou, { bg: 'yellow' }); // der wird unter den anderen table plaziert!
+	// b = getBounds(dou); console.log('dou',b.width, b.height);
+
+
+}
+
 function test02_showDeckFaceDown() {
-	let hand = G.instance.players[0].hand; 
+	let hand = G.instance.players[0].hand;
 	hand.showDeck(dTable); //,'right',0,false);
 	console.log(hand[0].faceUp)
 	hand.turnFaceDown();
 }
 function test02_turnDeckFaceDown() {
-	let hand = G.instance.players[0].hand; 
+	let hand = G.instance.players[0].hand;
 	showCards52(hand, 'down');
 	console.log(hand[0].faceUp)
 	hand.turnFaceDown();
@@ -20,7 +215,7 @@ function test02_turnCard() {
 	setTimeout(() => Card52.turnFaceUp(card), 2000)
 }
 function test02_show4Decks() {
-	let hand = G.instance.players[0].hand.getIndices(); 
+	let hand = G.instance.players[0].hand.getIndices();
 	console.log(hand)
 	showCards52(hand, 'down');
 	showCards52(hand);
