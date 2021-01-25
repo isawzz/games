@@ -1,47 +1,15 @@
 function mZone(dParent, sz = { w: 200, h: 200 }, pos) {
 	let d = mDiv(dParent, { w: sz.w, h: sz.h, bg: 'random' });
-	if (isdef(pos)) { mPosAbs(dParent, pos.x, pos.y); }
+	if (isdef(pos)) { mPos(dParent, pos.x, pos.y); }
 }
 function test03_centerToCenter() {
+	let z1=mZone(dTable);
+	mLinebreak(dTable,10)
+	let z2=mZone(dTable);
 
-	//make ein xbliebiges div mit irgendeiner groesse
-	let z1 = mDiv(dTable, { w: 200, h: 200, bg: 'random' });
-
-
-	let d = mDover(dTable);
-	let item = show52(13, d);
-
-	let di = item.div;
-	di.style.position = 'absolute';
-	let parent = d;
-	let tablePos = getBounds(di, false, dTable);
-	console.log('tablePos', tablePos.x, tablePos.y);
-
-	mLinebreak(dTable, 100)
-	let dParent = mDiv(dTable, { w: 200, h: 200, bg: 'yellow' });
-	let center = actualCenter(dParent, false, dTable);
-	let b = getBounds(dParent, false, dTable);
-	console.log('center of yellow', center.x, center.y, b)
-	let offset = { w: 35, h: 55 };
-	center.x -= offset.w;
-	center.y -= offset.h;
-
-	item.div.animate([
-		// keyframes
-		{ position: 'absolute', left: '0px', top: '0px' },
-		{ position: 'absolute', left: '' + center.x + 'px', top: center.y + 'px' },
-	], {
-		// timing options
-		duration: 500,
-		fill: 'forwards',
-
-		// iterations: Infinity,
-		// direction: 'alternate'		
-	});
-
-
-
-
+	let item=i52(24);
+	let di=item.div;
+	mCenter(di)
 }
 function test03_richtungCenter() {
 	let d = mDover(dTable);

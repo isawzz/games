@@ -6,7 +6,7 @@ async function _start() {
 	loadTable(); // T set hat {}
 	//startGame();
 
-	test03_richtungCenter();
+	test03_centerToCenter();
 
 	return;
 	//initGame();
