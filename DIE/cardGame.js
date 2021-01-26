@@ -7,7 +7,14 @@ function iFace(item, faceUp) { if (isdef(faceUp)) faceUp ? iFaceUp(item) : iFace
 function iResize(i, w, h) { return isList(i) ? i.map(x => iSize(x, w, h)) : iSize(i, w, h); }
 function iResize52(i, h) { let w = h * .7; return iResize(i, w, h); }
 function iSize(i, w, h) { i.w = w; i.h = h; mSize(i.div, w, h); }
+function iTableBounds(i) {
+	if (isdef(i.div)) i=i.div;
+	let b = getBounds(i, false, dTable);
+	let [x, y, w, h] = [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)];
 
+	//console.log('bounds', b);
+	return { x: x, y: y, w: w, h: h };
+}
 
 //presentation of items or item groups(=layouts)
 function show52(i, dParent, faceUp) {

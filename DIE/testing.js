@@ -1,16 +1,48 @@
 function mZone(dParent, sz = { w: 200, h: 200 }, pos) {
 	let d = mDiv(dParent, { w: sz.w, h: sz.h, bg: 'random' });
 	if (isdef(pos)) { mPos(dParent, pos.x, pos.y); }
+	return d;
 }
-function test03_centerToCenter() {
-	let z1=mZone(dTable);
-	mLinebreak(dTable,10)
-	let z2=mZone(dTable);
 
-	let item=i52(24);
-	let di=item.div;
-	mCenter(di)
+function test03_centerToCenter() {
+	//create zones
+	let z1 = mZone(dTable);
+	mLinebreak(dTable, 10);
+	let z2 = mZone(dTable);
+
+	//layout
+	let item = show52(24, z1);
+	let di = item.div;
+	mCenter(di);
+
+	//make an overlay
+	//let dover = mDover(dTable); mStyleX(dover, { bg: '#00000080' });
+	//where should the item be placed?
+	// let b = iTableBounds(item);
+	// console.log('bounds', b);
+
+	// dTable.style.position = 'relative';
+	// di.style.position = 'absolute';
+	// di.style.left = 0 + 'px';
+	// di.style.top = 0 + 'px';
+	// di.style.padding = '25px';
+	// di.style.background='violet';
+
+	//di.style.left=b.x+'px';
+	//di.style.top=b.y+'px';
+
+	//next the item should be placed in abs pos onto dover
+	// mAppend(dover,di);
+
+
+	// mStyleX(di, { z: 100 });
+
+	//item should be moved to z2 center w/ animation
+	// mAppend(z2, di);
+	// mCenter(di);
+
 }
+
 function test03_richtungCenter() {
 	let d = mDover(dTable);
 	let item = show52(13, d);
