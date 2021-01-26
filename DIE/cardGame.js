@@ -4,24 +4,20 @@ function i52(i) { return isList(i) ? i.map(x => Card52.getItem(x)) : Card52.getI
 function iFaceUp(item) { Card52.turnFaceUp(item); }
 function iFaceDown(item) { Card52.turnFaceDown(item); }
 function iFace(item, faceUp) { if (isdef(faceUp)) faceUp ? iFaceUp(item) : iFaceDown(item); }
-function iResize(i, w, h) { return isList(i) ? i.map(x => iSize(x, w, h)) : iSize(i, w, h); }
 function iResize52(i, h) { let w = h * .7; return iResize(i, w, h); }
-function iSize(i, w, h) { i.w = w; i.h = h; mSize(i.div, w, h); }
-function iTableBounds(i) {
-	if (isdef(i.div)) i=i.div;
-	let b = getBounds(i, false, dTable);
-	let [x, y, w, h] = [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)];
-
-	//console.log('bounds', b);
-	return { x: x, y: y, w: w, h: h };
-}
+function iTableBounds(i) { return iBounds(i, dTable); }
 
 //presentation of items or item groups(=layouts)
-function show52(i, dParent, faceUp) {
+function iAppend52(i, dParent, faceUp) {
 	let item = i52(i);
 	iFace(item, faceUp);
 	mAppend(dParent, item.div);
 	return item;
+}
+function iSplay52(i, iContainer, splay = 'right', ov = 20, ovUnit = '%', createiHand = true, rememberFunc = true) {
+	if (!isList(i)) i = [i];
+	if (isNumber(i[0])) i = i.map(x => i52(x));
+	//if (createHand) 
 }
 
 

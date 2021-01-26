@@ -1,10 +1,13 @@
-//#region _DOM constants, shape functions
+//#region _DOM constants, shape functions, ZMax and iZMax to control max zIndex
 const MSCATS = { rect: 'g', g: 'g', circle: 'g', text: 'g', polygon: 'g', line: 'g', body: 'd', svg: 'd', div: 'd', p: 'd', table: 'd', button: 'd', a: 'd', span: 'd', image: 'd', paragraph: 'd', anchor: 'd' };
 const SHAPEFUNCS = {
 	'circle': agCircle,
 	'hex': agHex,
 	'rect': agRect,
 }
+var ZMax = 0;
+function iZMax(n) { if (isdef(n)) ZMax = n; ZMax += 1; return ZMax; }
+
 function agColoredShape(g, shape, w, h, color) {
 	//console.log(shape)
 	SHAPEFUNCS[shape](g, w, h);
@@ -32,6 +35,93 @@ function gShape(shape, w = 20, h = 20, color = 'green', rounding) {
 
 	return el;
 }
+function applyCssStyles(ui, params) {
+	let domType = getTypeOf(ui);
+	if (domType == 'g') {
+		//must apply styles differently or not at all!!!!!
+		mStyle(ui, params); //geht ja eh!!!!!!!!!!
+
+	} else {
+		//console.log('apply NOW',ui,params)
+		mStyle(ui, params); //NEEDS TO STAY THAT WAY!!!!!!!!!!!!! TODO: replace by _mStyleX, but needs work
+	}
+}
+function asElem(x) { return isString(x) ? mBy(x) : x; }
+function asList(x) { return isList(x) ? x : [x]; }
+
+//#endregion
+
+//#region item
+function iAppend(dParent,i) {	mAppend(iDiv(dParent),iDiv(i));}
+function iBounds(i, irel) {
+	if (isdef(i.div)) i = i.div;
+	if (isdef(irel) && isdef(irel.div)) irel = irel.div;
+	isParent = (i.parentNode == irel);
+	let b = getBounds(i, isParent, irel);
+	let [x, y, w, h] = [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)];
+
+	//console.log('bounds', b);
+	return { x: x, y: y, w: w, h: h };
+}
+function iParentBounds(i) {
+	if (isdef(i.div)) i = i.div;
+	let b = getBounds(i);
+	let [x, y, w, h] = [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)];
+
+	//console.log('bounds', b);
+	return { x: x, y: y, w: w, h: h };
+}
+function iResize(i, w, h) { return isList(i) ? i.map(x => iSize(x, w, h)) : iSize(i, w, h); }
+function iSize(i, w, h) { i.w = w; i.h = h; mSize(i.div, w, h); }
+function isItem(i) { return isdef(i.div); }
+function iDiv(i) { return isItem(i) ? i.div : i; }
+function iDivs(ilist) { return isEmpty(ilist) ? [] : isItem(ilist[0]) ? ilist.map(x => iDiv(x)) : ilist; }
+function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ovUnit = '%', createHand = true, rememberFunc = true) {
+
+	if (!isList(items)) items = [items];
+	if (isEmpty(items)) return { w: 0, h: 0 };
+
+	let [w, h] = [items[0].w, items[0].h];
+
+	let isHorizontal = splay == 'right' || splay == 'left';
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		item.col = isHorizontal ? i : 0;
+		item.row = isHorizontal ? 0 : i;
+		item.index = item.z = i;
+	}
+
+	//phase 3: prep container for items
+	if (nundef(containerStyles)) containerStyles = {};
+	let dContainer = iDiv(iContainer);
+	let dParent, iParent;
+
+	if (createHand) {
+		dParent = mDiv(dContainer);
+		iParent = { div: dParent };
+	} else if (isItem(iContainer)) {
+		dParent = iContainer.div;
+		iParent = iContainer;
+
+	} else dParent = iContainer;
+	mStyleX(dParent, containerStyles);
+
+	//phase 4: add items to container
+	let gap = isdef(containerStyles.padding) ? containerStyles.padding : 0;
+	let overlap = ov;
+	if (ovUnit == '%') overlap = ov == 0 ? .5 : (isHorizontal ? w : h) * ov / 100;
+	let x = y = gap;
+
+	// call splayout primitive!!!
+	let sz = splayout(items.map(x => x.div), dParent, w, h, x, y, overlap, splay);
+
+	dParent.style.width = '' + sz.w + 'px';
+	dParent.style.height = '' + sz.h + 'px';
+	if (isdef(iParent)) { iParent.w = sz.w; iParent.h = sz.h; }
+	return isdef(iParent) ? iParent : dParent;
+
+}
+function iStyle(i,styles){mStyleX(iDiv(i),styles);}
 
 //#endregion
 
@@ -72,15 +162,15 @@ function mStyleX(elem, styles, unit = 'px') {
 	if (isdef(styles.bg) || isdef(styles.fg)) {
 		[bg, fg] = getExtendedColors(styles.bg, styles.fg);
 	}
-	
+
 	if (isdef(styles.vmargin) && isdef(styles.hmargin)) {
 		styles.margin = styles.vmargin + unit + ' ' + styles.hmargin + unit;
-		console.log('::::::::::::::',styles.margin)
+		console.log('::::::::::::::', styles.margin)
 	}
 	if (isdef(styles.vpadding) && isdef(styles.hpadding)) {
 
 		styles.padding = styles.vpadding + unit + ' ' + styles.hpadding + unit;
-		console.log('::::::::::::::',styles.vpadding,styles.hpadding)
+		console.log('::::::::::::::', styles.vpadding, styles.hpadding)
 	}
 
 	//console.log(styles.bg,styles.fg);
@@ -107,7 +197,7 @@ function mStyleX(elem, styles, unit = 'px') {
 			continue;
 		} else if (k == 'border') {
 			//console.log('________________________YES!')
-			
+
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		}
 
@@ -209,20 +299,27 @@ keysSorted ... in case of a dictionary, if want keys sorted in some order, provi
 //#endregion
 
 //#region _DOM 1 liners A list divs
-function applyCssStyles(ui, params) {
-	let domType = getTypeOf(ui);
-	if (domType == 'g') {
-		//must apply styles differently or not at all!!!!!
-		mStyle(ui, params); //geht ja eh!!!!!!!!!!
+function aTranslateBy(d, x, y, ms) { return d.animate({ transform: `translate(${x}px,${y}px)` }, ms); }
 
-	} else {
-		//console.log('apply NOW',ui,params)
-		mStyle(ui, params); //NEEDS TO STAY THAT WAY!!!!!!!!!!!!! TODO: replace by _mStyleX, but needs work
-	}
-}
-function asElem(x) { return isString(x) ? mBy(x) : x; }
-function asList(x) { return isList(x) ? x : [x]; }
 function mAppend(d, child) { d.appendChild(child); }
+function mBg(d, color) { d.style.backgroundColor = color; }
+function mBy(id) { return document.getElementById(id); }
+function mCenterAbs(d,offsetX=0,offsetY=0) {
+	let dParent = d.parentNode;
+	if (nundef(dParent)) return;
+	let b = getBounds(dParent);
+	let b1 = getBounds(d);
+	let h = b.height;
+	let h1 = b1.height;
+	let hdiff = h - h1;
+	d.style.top = (offsetY + hdiff / 2) + 'px';
+	let w = b.width;
+	let w1 = b1.width;
+	let wdiff = w - w1;
+	d.style.left = (offsetX + wdiff / 2) + 'px';
+	d.style.position = 'absolute';
+	if (isEmpty(dParent.style.position)) dParent.style.position = 'relative';
+}
 function mRemoveStyle(d, styles) { for (const k of styles) d.style[k] = null; }
 function mEditableOnEdited(id, dParent, label, initialVal, onEdited, onOpening) {
 	let inp = mEditableInput(dParent, label, initialVal);
@@ -290,43 +387,6 @@ function mLink(content, href, dParent, styles, classes) {
 	}
 	return x;
 }
-function mBg(d, color) { d.style.backgroundColor = color; }
-function mBy(id) { return document.getElementById(id); }
-function mCenterV(d) {
-	let dParent = d.parentNode;
-	let b = getBounds(dParent);
-	let h = b.height;
-	let b1 = getBounds(d);
-	let h1 = b1.height;
-	let diff = h - h1;
-	d.style.marginTop = (diff / 2) + 'px';
-
-}
-function mCenterH(d) {
-	let dParent = d.parentNode;
-	let b = getBounds(dParent);
-	let h = b.width;
-	let b1 = getBounds(d);
-	let h1 = b1.width;
-	let diff = h - h1;
-	d.style.marginleft = (diff / 2) + 'px';
-
-}
-function mCenter(d) {
-	let dParent = d.parentNode;
-	let b = getBounds(dParent);
-	let b1 = getBounds(d);
-	let h = b.height;
-	let h1 = b1.height;
-	let hdiff = h - h1;
-	d.style.marginTop = (hdiff / 2) + 'px';
-	let w = b.width;
-	let w1 = b1.width;
-	let wdiff = w - w1;
-	d.style.marginLeft = (wdiff / 2) + 'px';
-
-}
-function mCenterText(d) { d.style.textAlign = 'center'; }
 function mNull(d, attr) { d.removeAttribute(attr); }
 function mHasClass(el, className) {
 	if (el.classList) return el.classList.contains(className);
@@ -341,9 +401,9 @@ function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classLis
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
 
-function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d;}
-function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d,{position:'absolute',w:'100%',h:'100%'}); return d;}
-function mDover(dParent) { let d = mDiv(dParent); mStyleX(d,{position:'absolute',w:'100%',h:'100%'}); return d;}
+function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d; }
+function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
+function mDover(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
 function mDiv(dParent = null, styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d, styles); return d; }
 function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
 function mFg(d, color) { d.style.color = color; }
@@ -631,6 +691,42 @@ function aSvgg(dParent, originInCenter = true) {
 //endregion
 
 //#region 1 liners B list
+function mCenterV(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let h = b.height;
+	let b1 = getBounds(d);
+	let h1 = b1.height;
+	let diff = h - h1;
+	d.style.marginTop = (diff / 2) + 'px';
+
+}
+function mCenterH(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let h = b.width;
+	let b1 = getBounds(d);
+	let h1 = b1.width;
+	let diff = h - h1;
+	d.style.marginleft = (diff / 2) + 'px';
+
+}
+function mCenter(d) {
+	let dParent = d.parentNode;
+	let b = getBounds(dParent);
+	let b1 = getBounds(d);
+	let h = b.height;
+	let h1 = b1.height;
+	let hdiff = h - h1;
+	d.style.marginTop = (hdiff / 2) + 'px';
+	let w = b.width;
+	let w1 = b1.width;
+	let wdiff = w - w1;
+	d.style.marginLeft = (wdiff / 2) + 'px';
+
+}
+function mCenterText(d) { d.style.textAlign = 'center'; }
+
 function mDivPosAbs(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPos(d, x, y); return d; }
 function mDivPosRel(x = 0, y = 0, dParent = null) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); mPosRel(d, x, y); return d; }
 
@@ -3235,6 +3331,62 @@ function loadCode0(text, codeToRunWhenScriptLoaded = null, callback = null) {
 	//scriptTag.innerHTML = text;
 	document.getElementsByTagName("body")[0].appendChild(scriptTag);
 }
+//#endregion
+
+//#region DOM: layout functions
+function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
+	function splayRight(elems, d, x, y, overlap) {
+		console.log('splayRight', elems, d)
+		for (const c of elems) {
+			mAppend(d, c);
+			mStyleX(c, { position: 'absolute', left: x, top: y });
+			x += overlap;
+		}
+		return [x, y];
+	}
+	function splayLeft(elems, d, x, y, overlap) {
+		x += (elems.length - 2) * overlap;
+		let xLast = x;
+		for (const c of elems) {
+			mAppend(d, c);
+			mStyleX(c, { position: 'absolute', left: x, top: y });
+			x -= overlap;
+		}
+		return [xLast, y];
+	}
+	function splayDown(elems, d, x, y, overlap) {
+		for (const c of elems) {
+			mAppend(d, c);
+			mStyleX(c, { position: 'absolute', left: x, top: y });
+			y += overlap;
+		}
+		return [x, y];
+	}
+	function splayUp(elems, d, x, y, overlap) {
+		y += (elems.length - 1) * overlap;
+		let yLast = y;
+		for (const c of elems) {
+			mAppend(d, c);
+			mStyleX(c, { position: 'absolute', left: x, top: y });
+			y -= overlap;
+		}
+		return [x, yLast];
+	}
+
+	if (isEmpty(elems)) return { w: 0, h: 0 };
+
+	mStyleX(dParent, { display: 'block', position: 'relative' });
+
+	//phase 4: add items to container
+	[x, y] = (eval('splay' + capitalize(splay)))(elems, dParent, x, y, overlap);
+
+	let isHorizontal = splay == 'right' || splay == 'left';
+	let sz = { w: (isHorizontal ? (x - overlap + w) : w), h: (isHorizontal ? (y - overlap + h) : h) };
+
+	return sz;
+
+}
+
 //#endregion
 
 //#region fire

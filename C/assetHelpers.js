@@ -1,4 +1,5 @@
 //#region january 2021
+function getColorDictColor(c) { return isdef(ColorDict[c]) ? ColorDict[c].c : c; }
 function idealFontsizeX(elem, wmax, hmax, fz, fzmin) {
 	let tStyles = { w: wmax, fz: fz, family: 'arial' };
 	let i=0;

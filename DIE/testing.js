@@ -1,19 +1,137 @@
+
 function mZone(dParent, sz = { w: 200, h: 200 }, pos) {
 	let d = mDiv(dParent, { w: sz.w, h: sz.h, bg: 'random' });
 	if (isdef(pos)) { mPos(dParent, pos.x, pos.y); }
 	return d;
 }
+function moveFromTo(item, d1, d2) {
+	let bi = iTableBounds(item);
+	let b1 = iTableBounds(d1);
+	let b2 = iTableBounds(d2);
+	console.log('item', bi);
+	console.log('d1', b1);
+	console.log('d2', b2);
+	mStyleX(dTable, { bg: 'yellow' });
 
+	//animate item to go translateY by d2.y-d1.y
+	let dist = { x: b2.x - b1.x, y: b2.y - b1.y };
+
+	item.div.style.zIndex = 100;
+	let a = aTranslateBy(item.div, dist.x, dist.y, 500);
+	a.onfinish = () => { mAppend(d2, item.div); item.div.style.zIndex = item.z = iZMax(); };
+}
+function iCenter(item, offsetX, offsetY) {
+	let d = iDiv(item);
+	mCenterAbs(d, offsetX, offsetY);
+}
+
+function test03_splayHand() {
+	let h = new Deck();
+	h.init([3, 13, 23]);
+
+	console.log(h); let cards = h.cards(); console.log(cards);
+
+	let items = i52(h.cards())
+	iSplay(items, dTable);
+
+	h.addBottom(18);
+
+}
+
+function test03_addToZone() {
+	let items = i52([3, 13, 23]);
+	let z1 = mZone(dTable);
+	iAppend(z1, items[0]);
+	iStyle(z1, { padding: 20, box: true });
+	let item2 = i52(20);
+	iAppend(z1, item2)
+	iCenter(item2, -25, 0);
+
+
+	return;
+	let iHand = iSplay(items, z1.div, null, 'right', 20, '%', false, false);
+	console.log(iHand);
+	mStyleX(iHand.div, { padding: 20, rounding: 10, bg: 'pink' });
+
+}
+
+function test03_habenItemsEinZNachSplay() {
+	let items = i52([3, 13, 23]);
+	console.log(items)
+	console.log(items[0].z); //undefined!
+	iSplay(items, dTable);
+	console.log(items[0].z); //undefined!
+
+}
 function test03_centerToCenter() {
 	//create zones
-	let z1 = mZone(dTable);
+	let z1 = mZone(dTable); z1.id = 'z1';
 	mLinebreak(dTable, 10);
-	let z2 = mZone(dTable);
+	let z2 = mZone(dTable); z2.id = 'z2';
 
 	//layout
-	let item = show52(24, z1);
+	let item1 = iAppend52(24, z1);
+	let di1 = item1.div;
+	mCenterAbs(di1);
+
+	let item2 = iAppend52(28, z2);
+	let di2 = item2.div;
+	mCenterAbs(di2);
+
+	console.log(di1.parentNode)
+	//return;
+	moveFromTo(item2, z2, z1);
+	setTimeout(() => moveFromTo(item1, z1, z2), 1000);
+	setTimeout(() => moveFromTo(item2, z1, z2), 2000);
+
+	//make an overlay
+	//let dover = mDover(dTable); mStyleX(dover, { bg: '#00000080' });
+	//where should the item be placed?
+	// let b = iTableBounds(item);
+	// console.log('bounds', b);
+
+	// dTable.style.position = 'relative';
+	// di.style.position = 'absolute';
+	// di.style.left = 0 + 'px';
+	// di.style.top = 0 + 'px';
+	// di.style.padding = '25px';
+	// di.style.background='violet';
+
+	//di.style.left=b.x+'px';
+	//di.style.top=b.y+'px';
+
+	//next the item should be placed in abs pos onto dover
+	// mAppend(dover,di);
+
+
+	// mStyleX(di, { z: 100 });
+
+	//item should be moved to z2 center w/ animation
+	// mAppend(z2, di);
+	// mCenter(di);
+
+}
+
+function test03_centerToCenter_trial1() {
+	//create zones
+	let z1 = mZone(dTable); z1.id = 'z1';
+	mLinebreak(dTable, 10);
+
+	//layout
+	let item = iAppend52(24, z1);
 	let di = item.div;
-	mCenter(di);
+	mCenterAbs(di);
+
+	return;
+
+	let z2 = mZone(dTable); z2.id = 'z2';
+	let item2 = iAppend52(28, z2);
+	let di2 = item2.div;
+	mCenter(di2);
+
+	console.log(di.parentNode)
+	//return;
+	di.onclick = moveFromTo(item2, z2, z1);
 
 	//make an overlay
 	//let dover = mDover(dTable); mStyleX(dover, { bg: '#00000080' });
@@ -45,7 +163,7 @@ function test03_centerToCenter() {
 
 function test03_richtungCenter() {
 	let d = mDover(dTable);
-	let item = show52(13, d);
+	let item = iAppend52(13, d);
 
 	let di = item.div;
 	di.style.position = 'absolute';
@@ -81,7 +199,7 @@ function test03_richtungCenter() {
 }
 function test03_left() {
 	let d = mDover(dTable);
-	let item = show52(13, d);
+	let item = iAppend52(13, d);
 	item.div.animate([
 		// keyframes
 		{ position: 'absolute', left: '0px', top: '0px' },
@@ -97,7 +215,7 @@ function test03_left() {
 }
 function test03_rotate() {
 	let d = mCanvas(dTable);
-	let item = show52(13, d);
+	let item = iAppend52(13, d);
 	item.div.animate([
 		// keyframes
 		// { transform: 'rotate(-60deg)' },
@@ -112,7 +230,7 @@ function test03_rotate() {
 }
 function test03_translate() {
 	let d = mCanvas(dTable);
-	let item = show52(13, d);
+	let item = iAppend52(13, d);
 	item.div.animate([
 		// keyframes
 		{ transform: 'translate(0px,0px)' },
@@ -143,7 +261,7 @@ function test03_trash() {
 	// item.div=mText('hallo',dover,{padding:25});
 	// container = dover;
 	// mClass(container,'container');
-	// //item = show52(15, dover);
+	// //item = iAppend52(15, dover);
 	// mClass(item.div,'bubble2')
 	// item.div.style.setProperty('--xStart', '0px'); //`rgb(${r},${g},${b})`);
 	// item.div.style.setProperty('--xEnd', '400px'); //`rgb(${r},${g},${b})`);
@@ -153,7 +271,7 @@ function test03_trash() {
 
 
 
-	//	item=show52(14,d);
+	//	item=iAppend52(14,d);
 	// mPos(item.div,0,0);
 
 
@@ -161,27 +279,27 @@ function test03_trash() {
 
 function test03_basics() {
 
-	// show52(24,dTable);
+	// iAppend52(24,dTable);
 
 	// mLinebreak(dTable);
 
-	// let i=10;while(i--){let x=randomNumber(0,51);console.log(x);show52(x,dTable,coin());}
+	// let i=10;while(i--){let x=randomNumber(0,51);console.log(x);iAppend52(x,dTable,coin());}
 
 	// mLinebreak(dTable);
 
 
 	let b = getBounds(dTable); console.log(b.width, b.height); mStyleX(dTable, { bg: 'red' }); //height=0
 
-	//let i = 10; while (i--) { show52(24, dTable); mLinebreak(dTable); } //ja, zones gehen!
+	//let i = 10; while (i--) { iAppend52(24, dTable); mLinebreak(dTable); } //ja, zones gehen!
 
 	let deck = range(0, 51).map(x => i52(x));
 	iResize52(deck, 40);
-	splayout(deck, dTable)
+	iSplay(deck, dTable)
 
 	mLinebreak(dTable, 10);
 
 	let d = mCanvas(dTable);
-	let item = show52(13, d);
+	let item = iAppend52(13, d);
 	mRot(item.div, 45); //rotates around center!
 
 	//wie kann ich das animaten?
@@ -1022,3 +1140,106 @@ data = {
 		}
 	}
 };
+
+function mCenterAbs_v0(d) {
+	let dParent = d.parentNode;
+	if (nundef(dParent)) return;
+	let b = getBounds(dParent);
+	let b1 = getBounds(d);
+	let h = b.height;
+	let h1 = b1.height;
+	let hdiff = h - h1;
+	d.style.top = (hdiff / 2) + 'px';
+	let w = b.width;
+	let w1 = b1.width;
+	console.log('zone w:', w, 'item w:', w1);
+	let wdiff = w - w1;
+	d.style.left = (wdiff / 2) + 'px';
+	d.style.position = 'absolute';
+	console.log('parent position', dParent.style.position)
+	if (isEmpty(dParent.style.position)) dParent.style.position = 'relative';
+	console.log('d', d)
+
+}
+function aTranslateBy_v0(d, x, y, ms) {
+	// d.addEventListener('animationend', () => {
+	// 	console.log('Animation ended');
+	// });
+	let a = d.animate([
+		{ transform: `translate(${x}px,${y}px)` }
+	], {
+		duration: ms,
+		//endDelay: 100,
+		// fill: 'forwards'
+	});
+	return a;
+}
+function aTranslateBy_v1(d, x, y, ms) {
+	let a = d.animate({ transform: `translate(${x}px,${y}px)` }, ms);
+	// let a = d.animate([{ transform: `translate(${x}px,${y}px)` }], ms);
+	//{		duration: ms,	});
+	return a;
+}
+function aMoveTo(d, dTarget, x, y, ms) {
+	let bi = iTableBounds(d);
+	let b1 = iTableBounds(d.parentNode);
+	let b2 = iTableBounds(dTarget);
+	d.animate([
+
+		//das ergibt dasselbe wie das mit pos abs!!!
+		// { position: 'relative', left: `${0}px`, top: `${0}px`}, 
+		// { position: 'relative', left: `${-10}px`, top: `${b2.y}px`}, 
+
+		// { transform: `translate(${x+b2.x}px,${y+b2.y}px)` }
+
+		{ position: 'absolute', left: `${bi.x}px`, top: `${bi.y}px` },
+		// { position: 'absolute', left: `${0}px`, top: `${0}px`}, 
+		{ position: 'absolute', left: `${x + b2.x}px`, top: `${y + b2.y}px` },
+
+		// { position: 'absolute', left: '220px', top: '110px' },
+	], {
+		duration: ms,
+		fill: 'forwards'
+	});
+
+
+
+}
+function moveFromTo_v0(item, d1, d2) {
+	let bi = iTableBounds(item);
+	let b1 = iTableBounds(d1);
+	let b2 = iTableBounds(d2);
+	console.log('item', bi);
+	console.log('d1', b1);
+	console.log('d2', b2);
+	mStyleX(dTable, { bg: 'yellow' });
+
+	//animate item to go translateY by d2.y-d1.y
+	let dist = { x: b2.x - b1.x, y: b2.y - b1.y };
+
+	item.div.style.zIndex = 100;
+	let a = aTranslateBy(item.div, dist.x, dist.y, 500);
+	a.onfinish = () => { mAppend(d2, item.div); item.div.style.zIndex = item.z = iZMax(); };
+	//setTimeout(()=>{mAppend(d2,item.div);item.div.style.zIndex=item.z=iZMax();},600);
+	return;
+
+	//nach einer zeit remove translation and change parent
+	setTimeout(() => {
+		console.log(item.div);
+		let d = item.div;
+		mRemove(d);
+	}, 1500);
+	setTimeout(() => {
+		let item = iAppend52(28, d2);
+		mCenterAbs(item.div);
+		// mAppend(d2,item.div);
+		// aTranslateBy(item.div,-dist.x,-dist.y,500);
+		// mRemoveStyle(d,['transform','left','position','top','margin','margin-top','margin-left'])
+		//mCenter(d)
+	}, 1500);
+
+	// let t=1000;
+	// III=d1;
+	// aMoveTo(item.div,d2,-10,0,t);
+	// setTimeout(()=>console.log(item.div.parentNode),t+500);
+}
