@@ -51,8 +51,8 @@ function asList(x) { return isList(x) ? x : [x]; }
 
 //#endregion
 
-//#region item
-function iAppend(dParent,i) {	mAppend(iDiv(dParent),iDiv(i));}
+//#region **** _DOM 1 liners A list divs + item ****
+function iAppend(dParent, i) { mAppend(iDiv(dParent), iDiv(i)); }
 function iBounds(i, irel) {
 	if (isdef(i.div)) i = i.div;
 	if (isdef(irel) && isdef(irel.div)) irel = irel.div;
@@ -62,6 +62,22 @@ function iBounds(i, irel) {
 
 	//console.log('bounds', b);
 	return { x: x, y: y, w: w, h: h };
+}
+function iCenter(item, offsetX, offsetY) { let d = iDiv(item); mCenterAbs(d, offsetX, offsetY); }
+function iMoveFromTo(item, d1, d2, callback) {
+	let bi = iBounds(item);
+	let b1 = iBounds(d1);
+	let b2 = iBounds(d2);
+	console.log('item', bi);
+	console.log('d1', b1);
+	console.log('d2', b2);
+
+	//animate item to go translateY by d2.y-d1.y
+	let dist = { x: b2.x - b1.x, y: b2.y - b1.y };
+
+	item.div.style.zIndex = 100;
+	let a = aTranslateBy(item.div, dist.x, dist.y, 500);
+	a.onfinish = () => { mAppend(d2, item.div); item.div.style.zIndex = item.z = iZMax(); if (isdef(callback)) callback(); };
 }
 function iParentBounds(i) {
 	if (isdef(i.div)) i = i.div;
@@ -121,21 +137,35 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 	return isdef(iParent) ? iParent : dParent;
 
 }
-function iStyle(i,styles){mStyleX(iDiv(i),styles);}
-
-//#endregion
-
-//#region helpersX
-//#region doc
-/*
-	helpersX.js contains super special helper library! (version iii)
-*/
-//#endregion
+function iStyle(i, styles) { mStyleX(iDiv(i), styles); }
+//animations
+function aTranslateBy(d, x, y, ms) { return d.animate({ transform: `translate(${x}px,${y}px)` }, ms); }
+//m
+function mAppend(d, child) { d.appendChild(child); }
+function mBg(d, color) { d.style.backgroundColor = color; }
+function mBy(id) { return document.getElementById(id); }
+function mCenterAbs(d, offsetX = 0, offsetY = 0) {
+	let dParent = d.parentNode;
+	if (nundef(dParent)) return;
+	let b = getBounds(dParent);
+	let b1 = getBounds(d);
+	let h = b.height;
+	let h1 = b1.height;
+	let hdiff = h - h1;
+	d.style.top = (offsetY + hdiff / 2) + 'px';
+	let w = b.width;
+	let w1 = b1.width;
+	let wdiff = w - w1;
+	d.style.left = (offsetX + wdiff / 2) + 'px';
+	d.style.position = 'absolute';
+	if (isEmpty(dParent.style.position)) dParent.style.position = 'relative';
+}
+function mRemoveStyle(d, styles) { for (const k of styles) d.style[k] = null; }
 function mStyleX(elem, styles, unit = 'px') {
 	const paramDict = {
+		align: 'text-align',
 		bg: 'background-color',
 		fg: 'color',
-		align: 'text-align',
 		matop: 'margin-top',
 		maleft: 'margin-left',
 		mabottom: 'margin-bottom',
@@ -162,7 +192,6 @@ function mStyleX(elem, styles, unit = 'px') {
 	if (isdef(styles.bg) || isdef(styles.fg)) {
 		[bg, fg] = getExtendedColors(styles.bg, styles.fg);
 	}
-
 	if (isdef(styles.vmargin) && isdef(styles.hmargin)) {
 		styles.margin = styles.vmargin + unit + ' ' + styles.hmargin + unit;
 		console.log('::::::::::::::', styles.margin)
@@ -172,7 +201,7 @@ function mStyleX(elem, styles, unit = 'px') {
 		styles.padding = styles.vpadding + unit + ' ' + styles.hpadding + unit;
 		console.log('::::::::::::::', styles.vpadding, styles.hpadding)
 	}
-
+	if (isdef(styles.box)) styles['box-sizing'] = 'border-box';
 	//console.log(styles.bg,styles.fg);
 
 	for (const k in styles) {
@@ -213,114 +242,6 @@ function mStyleX(elem, styles, unit = 'px') {
 		}
 	}
 }
-function allCondX(ad, func) {
-	//#region doc 
-	/*	
-ad ... array or dictionary
-func ... takes array elem or dict key and returns true or false
-=>list of elements (with key:key in case of dictionary, unless this prop already exists?)
-	*/
-	//#endregion 
-	//console.log('ad',ad,'func',func)
-	let res = [];
-	if (nundef(ad)) return res;
-	else if (isDict(ad)) {
-		for (const k in ad) {
-			let v = ad[k];
-			if (func(v)) { if (nundef(v.key)) v.key = k; res.push(v); }
-		}
-	} else {
-		for (const a of ad) { if (func(a)) res.push(a) }
-	}
-
-	return res;
-
-}
-function firstCondX(ad, func, keysSorted) {
-	//#region doc 
-	/*	
-ad ... array or dictionary
-func ... takes array elem or dict key and returns true or false
-keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
-=>first value that fullfills func or null (key added to value in case of dict!)
-	*/
-	//#endregion 
-	if (nundef(ad)) return null;
-	else if (isDict(ad)) {
-		if (isdef(keysSorted)) {
-			for (const k of keysSorted) {
-				let v = ad[k];
-				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
-			}
-		} else {
-			for (const k in ad) {
-				let v = ad[k];
-				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
-			}
-		}
-	} else {
-		for (const a of ad) { if (func(a)) return a; }
-	}
-
-	return null;
-
-}
-function lastCondX(ad, func, keysSorted) {
-	//#region doc 
-	/*	
-ad ... array or dictionary
-func ... takes array elem or dict key and returns true or false
-keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
-=>last value that fullfills func or null (key added to value in case of dict!)
-	*/
-	//#endregion 
-	if (nundef(ad)) return null;
-	else if (isDict(ad)) {
-		if (isdef(keysSorted)) {
-			for (let i = keysSorted.length - 1; i >= 0; i--) {
-				let k = keysSorted[i];
-				let v = ad[k];
-				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
-			}
-		} else {
-			for (const k in ad) { //no difference to firstCondDict really because keys are not sorted!
-				let v = ad[k];
-				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
-			}
-		}
-	} else {
-		for (let i = ad.length - 1; i >= 0; i--) { if (func(ad[i])) return ad[i]; }
-	}
-
-	return null;
-
-}
-
-//#endregion
-
-//#region _DOM 1 liners A list divs
-function aTranslateBy(d, x, y, ms) { return d.animate({ transform: `translate(${x}px,${y}px)` }, ms); }
-
-function mAppend(d, child) { d.appendChild(child); }
-function mBg(d, color) { d.style.backgroundColor = color; }
-function mBy(id) { return document.getElementById(id); }
-function mCenterAbs(d,offsetX=0,offsetY=0) {
-	let dParent = d.parentNode;
-	if (nundef(dParent)) return;
-	let b = getBounds(dParent);
-	let b1 = getBounds(d);
-	let h = b.height;
-	let h1 = b1.height;
-	let hdiff = h - h1;
-	d.style.top = (offsetY + hdiff / 2) + 'px';
-	let w = b.width;
-	let w1 = b1.width;
-	let wdiff = w - w1;
-	d.style.left = (offsetX + wdiff / 2) + 'px';
-	d.style.position = 'absolute';
-	if (isEmpty(dParent.style.position)) dParent.style.position = 'relative';
-}
-function mRemoveStyle(d, styles) { for (const k of styles) d.style[k] = null; }
 function mEditableOnEdited(id, dParent, label, initialVal, onEdited, onOpening) {
 	let inp = mEditableInput(dParent, label, initialVal);
 	inp.id = id;
@@ -400,6 +321,15 @@ function mRemoveClass(d) { for (let i = 1; i < arguments.length; i++) d.classLis
 function mClassRemove(d) { for (let i = 1; i < arguments.length; i++) d.classList.remove(arguments[i]); }
 function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
+function mZone(dParent, styles, pos) {
+	let d = mDiv(dParent);
+	if (isdef(styles)) mStyleX(d, styles)
+	if (isdef(pos)) {
+		if (nundef(dParent.style.position)) dParent.style.position = 'relative';
+		mPos(d, pos.x, pos.y);
+	}
+	return d;
+}
 
 function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d; }
 function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
@@ -802,6 +732,97 @@ function posBRR(d) { mStyleX(d, { right: 0, bottom: 0, position: 'absolute' }); 
 function posCIC(d) { d = mEnsure(d); d.classList.add('centerCentered'); }
 function posCICT(d) { d = mEnsure(d); d.classList.add('centerCenteredTopHalf'); }
 function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'); }
+//#endregion
+
+//#region helpersX
+//#region doc
+/*
+	helpersX.js contains super special helper library! (version iii)
+*/
+//#endregion
+function allCondX(ad, func) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+=>list of elements (with key:key in case of dictionary, unless this prop already exists?)
+	*/
+	//#endregion 
+	//console.log('ad',ad,'func',func)
+	let res = [];
+	if (nundef(ad)) return res;
+	else if (isDict(ad)) {
+		for (const k in ad) {
+			let v = ad[k];
+			if (func(v)) { if (nundef(v.key)) v.key = k; res.push(v); }
+		}
+	} else {
+		for (const a of ad) { if (func(a)) res.push(a) }
+	}
+
+	return res;
+
+}
+function firstCondX(ad, func, keysSorted) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
+=>first value that fullfills func or null (key added to value in case of dict!)
+	*/
+	//#endregion 
+	if (nundef(ad)) return null;
+	else if (isDict(ad)) {
+		if (isdef(keysSorted)) {
+			for (const k of keysSorted) {
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		} else {
+			for (const k in ad) {
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		}
+	} else {
+		for (const a of ad) { if (func(a)) return a; }
+	}
+
+	return null;
+
+}
+function lastCondX(ad, func, keysSorted) {
+	//#region doc 
+	/*	
+ad ... array or dictionary
+func ... takes array elem or dict key and returns true or false
+keysSorted ... in case of a dictionary, if want keys sorted in some order, provide param keysSorted
+=>last value that fullfills func or null (key added to value in case of dict!)
+	*/
+	//#endregion 
+	if (nundef(ad)) return null;
+	else if (isDict(ad)) {
+		if (isdef(keysSorted)) {
+			for (let i = keysSorted.length - 1; i >= 0; i--) {
+				let k = keysSorted[i];
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		} else {
+			for (const k in ad) { //no difference to firstCondDict really because keys are not sorted!
+				let v = ad[k];
+				if (func(v)) { if (nundef(v.key)) v.key = k; return v; }
+			}
+		}
+	} else {
+		for (let i = ad.length - 1; i >= 0; i--) { if (func(ad[i])) return ad[i]; }
+	}
+
+	return null;
+
+}
+
 //#endregion
 
 //#region arithmetic

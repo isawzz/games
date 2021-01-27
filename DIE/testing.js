@@ -1,40 +1,46 @@
-
-function mZone(dParent, sz = { w: 200, h: 200 }, pos) {
-	let d = mDiv(dParent, { w: sz.w, h: sz.h, bg: 'random' });
-	if (isdef(pos)) { mPos(dParent, pos.x, pos.y); }
-	return d;
+var Data = {};
+function iZone120() {
+	return mZone(dTable, { w: 120, h: 120, bg: 'random', padding: 10, rounding: 10 });
 }
-function moveFromTo(item, d1, d2) {
-	let bi = iTableBounds(item);
-	let b1 = iTableBounds(d1);
-	let b2 = iTableBounds(d2);
-	console.log('item', bi);
-	console.log('d1', b1);
-	console.log('d2', b2);
-	mStyleX(dTable, { bg: 'yellow' });
-
-	//animate item to go translateY by d2.y-d1.y
-	let dist = { x: b2.x - b1.x, y: b2.y - b1.y };
-
-	item.div.style.zIndex = 100;
-	let a = aTranslateBy(item.div, dist.x, dist.y, 500);
-	a.onfinish = () => { mAppend(d2, item.div); item.div.style.zIndex = item.z = iZMax(); };
-}
-function iCenter(item, offsetX, offsetY) {
-	let d = iDiv(item);
-	mCenterAbs(d, offsetX, offsetY);
-}
-
 function test03_splayHand() {
-	let h = new Deck();
+	let h = Data.hand = new Deck();
 	h.init([3, 13, 23]);
 
 	console.log(h); let cards = h.cards(); console.log(cards);
+	let zHand = Data.zHand = iZone120();
+	let items = i52(h.cards());
+	let handItem = Data.iHand = iSplay(items, zHand);
 
-	let items = i52(h.cards())
-	iSplay(items, dTable);
+	let z = iZone120();
+	let item = Data.item = iAppend52(18, z);
+	console.log('Data', Data)
 
-	h.addBottom(18);
+	setTimeout(test03_addCard,1000);
+}
+function transferElement() {
+	//modify the deck object
+	let h = Data.hand;
+	let item = Data.item;
+	h.addTop(item.val);
+
+	//resplay in same zone:
+	let zHand = Data.zHand;
+	clearElement(zHand);
+	let items = i52(h.cards());
+	let handItem = Data.iHand = iSplay(items, zHand);
+
+
+}
+function test03_addCard() {
+
+	//how to move the card to the hand?????
+	iMoveFromTo(Data.item, Data.item.div.parentNode, Data.zHand, transferElement);
+
+	// clearElement(dTable);
+	// console.log(h); cards = h.cards(); console.log(cards);
+	// items = i52(h.cards())
+	// iSplay(items, dTable);
+
 
 }
 
@@ -65,9 +71,11 @@ function test03_habenItemsEinZNachSplay() {
 }
 function test03_centerToCenter() {
 	//create zones
-	let z1 = mZone(dTable); z1.id = 'z1';
+	let styles = { w: 200, h: 200, bg: 'random' };
+	mStyleX(dTable, { bg: 'yellow' });
+	let z1 = mZone(dTable, styles); z1.id = 'z1';
 	mLinebreak(dTable, 10);
-	let z2 = mZone(dTable); z2.id = 'z2';
+	let z2 = mZone(dTable, styles); z2.id = 'z2';
 
 	//layout
 	let item1 = iAppend52(24, z1);
@@ -80,9 +88,9 @@ function test03_centerToCenter() {
 
 	console.log(di1.parentNode)
 	//return;
-	moveFromTo(item2, z2, z1);
-	setTimeout(() => moveFromTo(item1, z1, z2), 1000);
-	setTimeout(() => moveFromTo(item2, z1, z2), 2000);
+	iMoveFromTo(item2, z2, z1);
+	setTimeout(() => iMoveFromTo(item1, z1, z2), 1000);
+	setTimeout(() => iMoveFromTo(item2, z1, z2), 2000);
 
 	//make an overlay
 	//let dover = mDover(dTable); mStyleX(dover, { bg: '#00000080' });

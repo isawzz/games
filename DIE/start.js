@@ -6,8 +6,8 @@ async function _start() {
 	loadTable(); // T set hat {}
 	//startGame();
 
-	test03_splayHand();//	test03_addToSplayed();
-	// test03_habenItemsEinZNachSplay();
+	
+	test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
 	//test03_centerToCenter();
 
 	return;

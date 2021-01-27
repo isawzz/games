@@ -14,10 +14,17 @@ function iAppend52(i, dParent, faceUp) {
 	mAppend(dParent, item.div);
 	return item;
 }
+
+function iHand52(i){
+	let hand=iSplay(i,dTable);
+
+}
+
 function iSplay52(i, iContainer, splay = 'right', ov = 20, ovUnit = '%', createiHand = true, rememberFunc = true) {
-	if (!isList(i)) i = [i];
-	if (isNumber(i[0])) i = i.map(x => i52(x));
-	//if (createHand) 
+	let ilist=!isList(i)? i : [i];
+	let items = isNumber(i[0])?i52(ilist):ilist;
+	let res = iSplay(items,iContainer,null,'right',20,'%',true);
+	return res;
 }
 
 
@@ -73,7 +80,7 @@ class Card52 {
 	static getItem(i, h = 110, w) {
 		if (nundef(w)) w = h * .7;
 		let c = Card52._createUi(i, undefined, w, h);
-		c.i = i;
+		c.i = c.val = i;
 		return c;
 	}
 	static _createUi(irankey, suit, w, h) {
