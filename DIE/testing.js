@@ -1,13 +1,13 @@
 var Data = {};
-function iZone120() {
-	return mZone(dTable, { w: 120, h: 120, bg: 'random', padding: 10, rounding: 10 });
+function iZone120(w=120) {
+	return mZone(dTable, { w: w, h: 120, bg: 'random', padding: 10, rounding: 10 });
 }
 function test03_splayHand() {
 	let h = Data.hand = new Deck();
-	h.init([3, 13, 23]);
+	h.init([3, 4, 5, 6, 13, 23]);
 
 	console.log(h); let cards = h.cards(); console.log(cards);
-	let zHand = Data.zHand = iZone120();
+	let zHand = Data.zHand = iZone120(200);
 	let items = i52(h.cards());
 	let handItem = Data.iHand = iSplay(items, zHand);
 
@@ -15,7 +15,7 @@ function test03_splayHand() {
 	let item = Data.item = iAppend52(18, z);
 	console.log('Data', Data)
 
-	setTimeout(test03_addCard,1000);
+	setTimeout(test03_addCard, 1000);
 }
 function transferElement() {
 	//modify the deck object
@@ -33,8 +33,16 @@ function transferElement() {
 }
 function test03_addCard() {
 
+	let h = Data.hand;
+	let n = h.count();
+	console.log('hand has', n, 'cards');
+	let c = Data.item;
+	let w = c.w;
+	let ov = w / 4;
+	let xOffset = n * ov;
+
 	//how to move the card to the hand?????
-	iMoveFromTo(Data.item, Data.item.div.parentNode, Data.zHand, transferElement);
+	iMoveFromTo(Data.item, Data.item.div.parentNode, Data.zHand, transferElement, { x: xOffset, y: 0 });
 
 	// clearElement(dTable);
 	// console.log(h); cards = h.cards(); console.log(cards);

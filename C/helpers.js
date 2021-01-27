@@ -64,7 +64,7 @@ function iBounds(i, irel) {
 	return { x: x, y: y, w: w, h: h };
 }
 function iCenter(item, offsetX, offsetY) { let d = iDiv(item); mCenterAbs(d, offsetX, offsetY); }
-function iMoveFromTo(item, d1, d2, callback) {
+function iMoveFromTo(item, d1, d2, callback,offset) {
 	let bi = iBounds(item);
 	let b1 = iBounds(d1);
 	let b2 = iBounds(d2);
@@ -73,7 +73,8 @@ function iMoveFromTo(item, d1, d2, callback) {
 	console.log('d2', b2);
 
 	//animate item to go translateY by d2.y-d1.y
-	let dist = { x: b2.x - b1.x, y: b2.y - b1.y };
+	if (nundef(offset))offset={x:0,y:0};
+	let dist = { x: b2.x - b1.x + offset.x, y: b2.y - b1.y + offset.y };
 
 	item.div.style.zIndex = 100;
 	let a = aTranslateBy(item.div, dist.x, dist.y, 500);
