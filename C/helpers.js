@@ -141,6 +141,8 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 function iStyle(i, styles) { mStyleX(iDiv(i), styles); }
 //animations
 function aTranslateBy(d, x, y, ms) { return d.animate({ transform: `translate(${x}px,${y}px)` }, ms); }
+function aRotate(d, ms) { return d.animate({ transform: `rotate(360deg)` },ms); }
+function aRotateAccel(d, ms) { return d.animate({ transform: `rotate(1200deg)` },{easing:'cubic-bezier(.72, 0, 1, 1)',duration:ms}); }
 //m
 function mAppend(d, child) { d.appendChild(child); }
 function mBg(d, color) { d.style.backgroundColor = color; }

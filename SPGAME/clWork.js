@@ -1,3 +1,24 @@
+class GPasscode extends Game {
+	constructor(name) { super(name); }
+	clear() { clearTimeout(this.TO); }
+	prompt() {
+		showPicturesSpeechTherapyGames(null,
+			{ border: '3px solid #ffffff80' },
+			{ repeat: G.numRepeat, sameBackground: true });
+		setGoal();
+
+		this.wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
+		showInstruction(Goal.label, this.wort + (Settings.language == 'E' ? ' is' : ' ist'), dTitle, true);
+
+		let secs = calcMemorizingTime(G.numPics, G.level > 2);
+
+		//console.log(Goal)
+		TOMain = setTimeout(anim1, 300, Goal, 2000, showGotItButton);
+
+	}
+}
+
+
 
 function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	Pictures = [];
@@ -54,4 +75,6 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 	//console.log('*** THE END ***', Pictures[0]);
 }
+
+
 

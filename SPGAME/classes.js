@@ -3,7 +3,7 @@ function getInstance(G) {
 	const GameClass = {
 		gTouchPic: GTouchPic, gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
-		gAnagram: GAnagram, gAbacus: GAbacus,
+		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
 	};
 	return new (GameClass[G.id])(G.id);
 }
@@ -622,7 +622,7 @@ class GElim extends Game {
 		showPicturesSpeechTherapyGames(this.interact.bind(this), { contrast: G.contrast, },
 			{ showRepeat: showRepeat, colorKeys: colorKeys, repeat: G.numRepeat });
 
-		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); //logicSetSelector(Pictures);
+		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); 
 		this.piclist = piclist;
 		Goal = { pics: this.piclist, sammler: [] };
 
@@ -631,7 +631,8 @@ class GElim extends Game {
 	}
 	trialPrompt() {
 		sayTryAgain();
-		showFleetingMessage('try again!', 0, { fz: 60 }, true);
+		let msg = Settings.language == 'D' ? 'noch einmal!' : 'try again!'
+		showFleetingMessage(msg, 0, { margin:-8, fz: 22 }, true);
 		return 1000;
 	}
 	activate() {
@@ -703,7 +704,6 @@ class GAnagram extends Game {
 	}
 
 }
-
 class GAbacus extends Game {
 	constructor(name) { super(name); }
 	startGame() {

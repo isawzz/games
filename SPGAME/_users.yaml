@@ -1,7 +1,7 @@
 nil:
   id: nil
-  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gPasscode
   settings:
     # settings common to all games
     samplesPerGame: 20
@@ -49,10 +49,12 @@ nil:
       startLevel: 2
     gAbacus:
       startLevel: 0
+    gPasscode:
+      startLevel: 0
 guest0:
   id: guest
-  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gPasscode
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -74,8 +76,8 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gAbacus
+  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gPasscode
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -118,10 +120,12 @@ test0:
       startLevel: 0
     gAbacus:
       startLevel: 0
+    gPasscode:
+      startLevel: 0
 gul:
   id: gul
-  avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gAbacus
+  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gPasscode, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gPasscode
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -130,7 +134,7 @@ gul:
     decrementLevelOnNegativeStreak: 5
     showLabels: toggle #always never toggle (=remove labels after half level)
     language: D
-    vocab: best50
+    vocab: lifePlus
     showTime: true
     spokenFeedback: true
     silentMode: false
@@ -160,6 +164,8 @@ gul:
     gAnagram: 
       startLevel: 0
     gElim: 
-      startLevel: 1
+      startLevel: 2
     gAbacus:
+      startLevel: 0
+    gPasscode:
       startLevel: 0

@@ -13,7 +13,7 @@ function prep1(items, ifs, options) {
 		let longestLabel = findLongestLabel(items);
 		let oneWord = longestLabel.label.replace(' ', '_');
 
-		textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 4); //, 'bold');	textStyles.weight='bold'
+		textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 8); //, 'bold');	textStyles.weight='bold'
 		hText = textStyles.h;
 
 		pictureSize = szNet - hText;

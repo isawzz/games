@@ -72,7 +72,7 @@ const ColorDict = {
 	FIREBRICK: { c: '#800000', E: 'darkred', D: 'rotbraun' },
 	ORANGE: { c: '#f58231', E: 'orange', D: 'orange' },
 	TEAL: { c: '#469990', E: 'teal', D: 'blaugrün' },
-	YELLOW2: { c: '#ffa0a0', E: 'yellow', D: 'gelb' },
+	YELLOW2: { c: '#ffff33', E: 'yellow', D: 'gelb' },
 	PURPLE: { c: '#911eb4', E: 'purple', D: 'lila' },
 	BLUE: { c: '#4363d8', E: 'blue', D: 'blau' },
 	GREEN: { c: '#3cb44b', E: 'green', D: 'grün' },

@@ -1,7 +1,13 @@
 var TOList;
-
-
 //#region animations
+function animationCallback(secs, callback, removeBg = false) {
+	for (const p of Pictures) { slowlyTurnFaceDown(p, secs - 1, removeBg); }
+	TOMain = setTimeout(() => {
+		callback();
+	}, secs * 1000);
+
+}
+
 function animateColor(elem, from, to, classes, ms) {
 	elem.style.backgroundColor = from;
 	setTimeout(() => animate(elem, classes, ms), 10);
@@ -752,7 +758,7 @@ function logicFilter(allPics, exceptProps) {
 		lstWritten = ['with', props[prop].friendly, colorPrepper(val)];
 		piclist = allPics.filter(x => x[prop] == val);
 	} else if (prop == 'iRepeat') {
-		let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq']); //, 'neq']);
+		let op = (G.level > 2 && G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : 'eq';
 		//op = '!=';
 		let oop = OPS[op];
 		lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
@@ -780,69 +786,6 @@ function logicFilter(allPics, exceptProps) {
 
 }
 
-function logicSetSelector(allPics) {
-	//should return sSpoken,sWritten,piclist and set Goal
-	let props = { label: { vals: getDistinctVals(allPics, 'label'), friendly: '' } };
-	if (G.numColors > 1) props.colorKey = { vals: getDistinctVals(allPics, 'colorKey'), friendly: 'color' };
-	if (G.numRepeat > 1) props.iRepeat = { vals: getDistinctVals(allPics, 'iRepeat'), friendly: 'number' };
-
-	//console.log('props', props)
-
-	//level 0: eliminate all backpacks | eliminate all with color=blue | elim all w/ number=2
-	let lstSpoken, lstWritten, piclist = [];
-	if (G.level >= 0) {
-		let prop = 'color';// chooseRandom(Object.keys(props));
-		//console.log('prop is', prop, 'vals', props[prop].vals)
-		let val = chooseRandom(props[prop].vals);
-		//console.log('val chosen', val)
-		//val = chooseRandom(myProps[prop])
-		prop = 'iRepeat'; val = 2;
-
-		lstSpoken = ['eliminate', 'all'];
-		if (prop == 'label') {
-			lstSpoken.push(val);// + (Settings.language == 'E' ? 's' : ''));
-			lstWritten = ['eliminate', 'all', labelPrepper(val)];
-			piclist = allPics.filter(x => x.label == val);
-		} else if (prop == 'colorKey') {
-			lstSpoken = lstSpoken.concat(['with', props[prop].friendly, val]);
-			lstWritten = ['eliminate', 'all', 'with', props[prop].friendly, colorPrepper(val)];
-			piclist = allPics.filter(x => x[prop] == val);
-		} else if (prop == 'iRepeat') {
-			let op = (G.numRepeat > 2 && val > 1 && val < G.numRepeat) ? chooseRandom(['leq', 'geq', 'eq']) : chooseRandom(['eq', 'neq']);
-			//op = '!=';
-			let oop = OPS[op];
-			lstSpoken = lstSpoken.concat(['with', props[prop].friendly, oop.sp, val]);
-			lstWritten = ['eliminate', 'all', 'with', props[prop].friendly, oop.wr, val];
-
-			piclist = allPics.filter(x => oop.f(x[prop], val));
-
-		}
-		//console.log(lstSpoken)
-	}
-
-	// if (G.level > 0 && piclist.length > allPics.length / 2) {
-	// 	//lstSpoken.insert('except',2)
-	// 	lstSpoken.splice(2, 0, 'except');
-	// 	lstWritten.splice(2, 0, 'EXCEPT');
-	// 	piclist = allPics.filter(x => !(piclist.includes(x)));
-	// }
-
-	if (nundef(lstWritten)) lstWritten = lstSpoken;
-	let s = lstSpoken.join(' ');
-	let w = lstWritten.join(' ');
-	// console.log('w',w)
-	if (Settings.language == 'D') {
-		// let x=s.split(' ');
-		// console.log(x)
-		s = s.split(' ').map(x => translateToGerman(x)).join(' ');
-		w = w.split(' ').map(x => translateToGerman(x)).join(' ');
-		// lstSpoken = lstSpoken.map(x => DD[x]);
-		// lstWritten = lstWritten.map(x => DD[x]);
-	}
-	console.log('s', s, '\nw', w)
-	return [s, w, piclist];
-
-}
 function colorPrepper(val) {
 
 	return `<span style="color:${ColorDict[val].c}">${ColorDict[val][Settings.language].toUpperCase()}</span>`;
@@ -1020,6 +963,7 @@ function turnCardsAfter(secs, removeBg = false) {
 	}, secs * 1000);
 
 }
+
 function slowlyTurnFaceDown(pic, secs = 5, removeBg = false) {
 	let ui = pic.div;
 	for (const p1 of ui.children) {
@@ -1409,7 +1353,7 @@ function setBadgeLevel(i) {
 	for (let iBadge = G.level + 1; iBadge < badges.length; iBadge++) {
 		badges[iBadge].div.style.border = 'transparent';
 		badges[iBadge].div.style.opacity = .25;
-		badges[iBadge].div.children[1].innerHTML = 'LEVEL ' + iBadge; //style.color = 'white';
+		badges[iBadge].div.children[1].innerHTML = 'Level ' + iBadge; //style.color = 'white';
 		badges[iBadge].div.children[0].style.color = 'black';
 	}
 }
@@ -1526,7 +1470,25 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
+function showGotItButton(){
+	mLinebreak(dTable)
+	mButton('Got it!',doOtherStuff,dTable,{fz:42});
+}
 
+
+function doOtherStuff(){
+	//play one of the other games with special settings
+	Data={settings:jsCopy(Settings),user:jsCopy(U)};
+
+	U.avGames = ['gTouchPic','gAbacus'];
+	console.log('Settings',Settings,'\nU',U);
+	U.lastGame = 'gTouchPic';
+	setGame(U.lastGame);
+	Settings.samplesPerGame=1;
+	Settings.minutesPerUnit = .05;
+	startGame();
+
+}
 
 
 

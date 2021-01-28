@@ -10,7 +10,7 @@ gTouchPic:
     2: 
       numPics: 9
     3: 
-      numPics: 16
+      numPics: 15
     4: 
       numPics: 24
     5: 
@@ -335,3 +335,16 @@ gAbacus:
     4:
       maxNum: 99
       ops: [plus,minus,mult]
+gPasscode:
+  friendly: 'Passcode!'
+  logo: 'lock'
+  color: indigo
+  levels:
+    0: 
+      numPics: 1
+    1: 
+      numPics: 2
+    2: 
+      numPics: 3
+    3: 
+      numPics: 4
