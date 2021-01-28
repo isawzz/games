@@ -7,7 +7,7 @@ async function _start() {
 	//startGame();
 
 	
-	test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
+	test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
 	//test03_centerToCenter();
 
 	return;

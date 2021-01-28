@@ -121,7 +121,7 @@ test0:
 gul:
   id: gul
   avGames: [gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  lastGame: gAbacus
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -129,8 +129,8 @@ gul:
     incrementLevelOnPositiveStreak: 10
     decrementLevelOnNegativeStreak: 5
     showLabels: toggle #always never toggle (=remove labels after half level)
-    language: E
-    vocab: best100
+    language: D
+    vocab: best50
     showTime: true
     spokenFeedback: true
     silentMode: false

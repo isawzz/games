@@ -13,4 +13,5 @@ var uiActivated, auxOpen;
 var UIS = {};
 
 var App; //not sure!
+var Data = {}; //some kind of global object for testing ...
 

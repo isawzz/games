@@ -1,114 +1,57 @@
 
-class GAbacus extends Game {
-	constructor(name) { super(name); }
-	startGame() {
-		G.successFunc = successThumbsUp;
-		G.failFunc = failThumbsDown;
-		G.correctionFunc = this.showCorrectSequence.bind(this);
-	}
-	showCorrectSequence() { let t=correctBlanks(); showSayHint(3); return t+1000; }
-	startLevel() {
-		if (!isList(G.steps)) G.steps = [G.steps];
-		G.numPics = 2;
-	}
-	prompt() {
-		mLinebreak(dTable, 2);
+function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	Pictures = [];
+	//#region prelim: default ifs and options, keys & infos
+	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
 
-		showHiddenThumbsUpDown({ sz: 50 });
-		mLinebreak(dTable);
+	if (nundef(keys)) keys = choose(G.keys, G.numPics);
+	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
+	// keys=['house','socks','hammer'];
 
-		G.seq = makeExpSequence();
+	// let showLabels = Settings.labels == true;
+	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
+	//ifs and options: defaults
+	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
+	let fg = (i, info, item) => colorIdealText(item.bg);
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding: 10 };
+	let defOptions = { showLabels: Settings.labels == true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	ifs = deepmergeOverride(defIfs, ifs);
+	options = deepmergeOverride(defOptions, options);
+	//console.log('keys', keys); console.log('ifs', ifs); 
+	//console.log('options', options);
+	//#endregion
 
-		//console.log('G.seq', G.seq);
+	//#region phase1: make items: hier jetzt mix and match
+	let items = zItems(infos, ifs, options);
+	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
+	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
+	items.map(x => x.label = x.label.toUpperCase());
+	Pictures = items;
+	//items.map(x=>console.log(x));
+	//#endregion phase1
 
-		let panel = mDiv(dTable, { bg: '#00000080', padding: 40, rounding: 12 });
-		//replace op in seq by wr
-		//arrReplace(G.seq,G.op,OPS[G.op].wr);
-		[G.words, G.letters] = showEquation(G.seq, panel);
-		setNumberSequenceGoal();
-		//console.log(G)
+	//#region phase2: prepare items for container
+	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
+	items.map(x => x.sz = sz);
+	prep1(items, ifs, options);
+	//#endregion
 
-		mLinebreak(dTable, 30);
+	//#region phase3: prep container for items
+	mClass(dTable, 'flexWrap');
+	//#endregion
 
-		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
-		//let s=G.seq;
-		let instr2 = G.operand + ' ' + G.oop.sp + ' ' + G.step + ' ?';
-		//console.log(G);
-		//instr1 = arrTake(G.seq,3).join(' ');
-		showInstruction('', instr1, dTitle, true, instr2);
+	//#region phase4: add items to container!
+	let dGrid = mDiv(dTable);
+	items.map(x => mAppend(dGrid, x.div));
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
+	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
+	// console.log('size of grid',gridSize,'table',getBounds(dTable))
 
-		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
+	//#endregion
 
-		activateUi();
-	}
-	trialPrompt() {
-		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
-		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
-		return 10;
-	}
-	activate() { onkeypress = this.interact; }
-	interact(ev) {
-		//console.log('key!');
-		clearFleetingMessage();
-		if (!canAct()) return;
-
-		let sel = Selected = onKeyWordInput(ev);
-		if (nundef(sel)) return;
-		//console.log('===>', sel);
-
-		//target,isMatch,isLastOfGroup,isVeryLast,ch
-		let lastInputCharFilled = sel.target;
-		console.assert(sel.isMatch == (lastInputCharFilled.letter == sel.ch), lastInputCharFilled, sel.ch);
-
-		//all cases aufschreiben und ueberlegen was passieren soll!
-		//TODO: multiple groups does NOT work!!!
-		if (sel.isMatch && sel.isVeryLast) {
-			deactivateFocusGroup();
-			evaluate(true);
-		} else if (sel.isMatch && sel.isLastOfGroup) {
-			//it has been filled
-			//remove this group from Goal.blankWords
-			sel.target.isBlank = false;
-			sel.target.group.hasBlanks = false;
-			removeInPlace(Goal.blankWords, sel.target.group);
-			removeInPlace(Goal.blankChars, sel.target);
-			deactivateFocusGroup();
-			console.log('haaaaaaaaaaaalo', Goal.isFocus)
-			//console.log('=>', Goal)
-		} else if (sel.isMatch) {
-			//a partial match
-			removeInPlace(Goal.blankChars, sel.target);
-			sel.target.isBlank = false;
-		} else if (sel.isVeryLast) {
-			Selected.words = getInputWords();
-			Selected.answer = getInputWordString();
-			Selected.req = getCorrectWordString();
-			deactivateFocusGroup();
-			//console.log('LAST ONE WRONG!!!')
-			evaluate(false);
-			//user entered last missing letter but it is wrong!
-			//can there be multiple errors in string?
-		} else if (sel.isLastOfGroup) {
-			//unfill last group
-
-			Selected.words = getInputWords();
-			Selected.answer = getInputWordString();
-			Selected.req = getCorrectWordString();
-			deactivateFocusGroup();
-			evaluate(false);
-			//user entered last missing letter but it is wrong!
-			//can there be multiple errors in string?
-		} else {
-			if (!Settings.silentMode) { writeSound(); playSound('incorrect1'); }
-			deactivateFocusGroup();
-			//unfillCharInput(Selected.target);
-			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });
-			setTimeout(() => unfillCharInput(Selected.target), 500);
-		}
-		//
-	}
-
-	eval(isCorrect) { return isCorrect; }
-
+	//console.log('*** THE END ***', Pictures[0]);
 }
 

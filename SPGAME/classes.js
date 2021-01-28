@@ -704,31 +704,118 @@ class GAnagram extends Game {
 
 }
 
+class GAbacus extends Game {
+	constructor(name) { super(name); }
+	startGame() {
+		G.successFunc = successThumbsUp;
+		G.failFunc = failThumbsDown;
+		G.correctionFunc = this.showCorrectSequence.bind(this);
+	}
+	showCorrectSequence() { let t=correctBlanks(); showSayHint(3); return t+1000; }
+	startLevel() {
+		if (!isList(G.steps)) G.steps = [G.steps];
+		G.numPics = 2;
+	}
+	prompt() {
+		mLinebreak(dTable, 2);
 
+		showHiddenThumbsUpDown({ sz: 110 });
+		mLinebreak(dTable);
 
-// function getInstance(G) { return eval(`new (DB.games[${G.id}].cl)(${G.id})`); }
+		G.seq = makeExpSequence();
 
-//function getInstance(G) { return eval(`new ${DB.games[G.id].cl}(${G.friendly})`); }
+		//console.log('G.seq', G.seq);
 
+		let panel = mDiv(dTable, { bg: '#00000080', padding: 20, rounding: 10 });
+		//replace op in seq by wr
+		//arrReplace(G.seq,G.op,OPS[G.op].wr);
+		[G.words, G.letters] = showEquation(G.seq, panel);
+		setNumberSequenceGoal();
+		//console.log(G)
 
+		mLinebreak(dTable, 30);
 
-// const GAME = {
-// 	gTouchPic: { friendly: 'Pictures!', logo: 'computer mouse', color: 'deepskyblue', cl: GTouchPic, },
-// 	gTouchColors: { friendly: 'Colors!', logo: 'artist palette', color: LIGHTGREEN, cl: GTouchColors, }, //'orange', //LIGHTBLUE, //'#bfef45',
-// 	gPremem: { friendly: 'Premem!', logo: 'hammer and wrench', color: RED, cl: GPremem, }, //'deeppink',
-// 	gMem: { friendly: 'Memory!', logo: 'memory', color: GREEN, cl: GMem, }, //'#3cb44b'
-// 	gMissingLetter: { friendly: 'Letters!', logo: 'black nib', color: 'gold', cl: GMissingLetter, },
-// 	gMissingNumber: { friendly: 'Sequence!', logo: 'fleur-de-lis', color: 'deeppink', cl: GMissingNumber, },
-// 	gWritePic: { friendly: 'Type it!', logo: 'keyboard', color: 'orange', cl: GWritePic, }, //LIGHTGREEN, //'#bfef45',
-// 	gSayPic: { friendly: 'Speak up!', logo: 'microphone', color: BLUE, cl: GSayPic, }, //'#4363d8',
-// 	gSteps: { friendly: 'Steps!', logo: 'stairs', color: PURPLE, cl: GSteps, }, //'#911eb4',
-// 	// gSet: { friendly: 'Set!', logo: 'abacus', color: TEAL, cl: GSet, }, //'#911eb4',
-// 	// gSudo: { friendly: 'Sudo!', logo: 'abacus', color: TEAL, cl: GSudo, }, //'#911eb4',
-// 	gElim: { friendly: 'Elim!', logo: 'collision', color: colorDarker('crimson', .25), cl: GElim, }, //'#911eb4',
-// 	gAnagram: { friendly: 'Anagram!', logo: 'ram', color: 'rgb(0,152,105)', cl: GAnagram, }, //'#911eb4',
-// 	gInno: { friendly: 'Innovate!', logo: 'horse', color: 'silver', cl: GInno, }, //'#911eb4',
-// 	gAbacus: { friendly: 'Abacus', logo: 'abacus', color: 'mediumslateblue', cl: GAbacus, },
-// };
+		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
+		//let s=G.seq;
+		let spOp = G.oop.sp; if (Settings.language == 'D') spOp=DD[spOp];
+		let instr2 = G.operand + ' ' + spOp + ' ' + G.step + ' ?';
+		//console.log(G);
+		//instr1 = arrTake(G.seq,3).join(' ');
+		showInstruction('', instr1, dTitle, true, instr2);
 
+		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
+
+		activateUi();
+	}
+	trialPrompt() {
+		if (G.level <= 1 && Settings.showHint) hintEngineStart(getOperationHintString, [0, 1], 5000 + G.level * 1000);
+		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
+		return 10;
+	}
+	activate() { onkeypress = this.interact; }
+	interact(ev) {
+		//console.log('key!');
+		clearFleetingMessage();
+		if (!canAct()) return;
+
+		let sel = Selected = onKeyWordInput(ev);
+		if (nundef(sel)) return;
+		//console.log('===>', sel);
+
+		//target,isMatch,isLastOfGroup,isVeryLast,ch
+		let lastInputCharFilled = sel.target;
+		console.assert(sel.isMatch == (lastInputCharFilled.letter == sel.ch), lastInputCharFilled, sel.ch);
+
+		//all cases aufschreiben und ueberlegen was passieren soll!
+		//TODO: multiple groups does NOT work!!!
+		if (sel.isMatch && sel.isVeryLast) {
+			deactivateFocusGroup();
+			evaluate(true);
+		} else if (sel.isMatch && sel.isLastOfGroup) {
+			//it has been filled
+			//remove this group from Goal.blankWords
+			sel.target.isBlank = false;
+			sel.target.group.hasBlanks = false;
+			removeInPlace(Goal.blankWords, sel.target.group);
+			removeInPlace(Goal.blankChars, sel.target);
+			deactivateFocusGroup();
+			console.log('haaaaaaaaaaaalo', Goal.isFocus)
+			//console.log('=>', Goal)
+		} else if (sel.isMatch) {
+			//a partial match
+			removeInPlace(Goal.blankChars, sel.target);
+			sel.target.isBlank = false;
+		} else if (sel.isVeryLast) {
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			//console.log('LAST ONE WRONG!!!')
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else if (sel.isLastOfGroup) {
+			//unfill last group
+
+			Selected.words = getInputWords();
+			Selected.answer = getInputWordString();
+			Selected.req = getCorrectWordString();
+			deactivateFocusGroup();
+			evaluate(false);
+			//user entered last missing letter but it is wrong!
+			//can there be multiple errors in string?
+		} else {
+			if (!Settings.silentMode) { writeSound(); playSound('incorrect1'); }
+			deactivateFocusGroup();
+			//unfillCharInput(Selected.target);
+			showFleetingMessage('does NOT fit: ' + Selected.ch, 0, { fz: 24 });
+			setTimeout(() => unfillCharInput(Selected.target), 500);
+		}
+		//
+	}
+
+	eval(isCorrect) { return isCorrect; }
+
+}
 
 

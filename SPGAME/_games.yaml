@@ -12,9 +12,9 @@ gTouchPic:
     3: 
       numPics: 16
     4: 
-      numPics: 25
+      numPics: 24
     5: 
-      numPics: 36
+      numPics: 35
 gMissingLetter:
   friendly: 'Letters!'
   logo: 'black nib'

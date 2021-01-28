@@ -1,60 +1,5 @@
 var TOList;
 
-function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-	Pictures = [];
-	//#region prelim: default ifs and options, keys & infos
-	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
-
-	if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
-	// keys=['house','socks','hammer'];
-
-	// let showLabels = Settings.labels == true;
-	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
-	//ifs and options: defaults
-	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
-	let fg = (i, info, item) => colorIdealText(item.bg);
-	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding: 10 };
-	let defOptions = { showLabels: Settings.labels == true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
-	ifs = deepmergeOverride(defIfs, ifs);
-	options = deepmergeOverride(defOptions, options);
-	//console.log('keys', keys); console.log('ifs', ifs); 
-	//console.log('options', options);
-	//#endregion
-
-	//#region phase1: make items: hier jetzt mix and match
-	let items = zItems(infos, ifs, options);
-	if (options.repeat > 1) items = zRepeatEachItem(items, options.repeat, options.shufflePositions);
-	if (isdef(options.colorKeys)) items = zRepeatInColorEachItem(items, options.colorKeys);
-	items.map(x => x.label = x.label.toUpperCase());
-	Pictures = items;
-	//items.map(x=>console.log(x));
-	//#endregion phase1
-
-	//#region phase2: prepare items for container
-	let [sz, rows, cols] = calcRowsColsSize(items.length, isdef(options.colorKeys) ? options.colorKeys.length : undefined);
-	if (nundef(options.sz)) options.sz = sz;
-	if (nundef(options.rows)) options.rows = rows;
-	if (nundef(options.cols)) options.cols = cols;
-	items.map(x => x.sz = sz);
-	prep1(items, ifs, options);
-	//#endregion
-
-	//#region phase3: prep container for items
-	mClass(dTable, 'flexWrap');
-	//#endregion
-
-	//#region phase4: add items to container!
-	let dGrid = mDiv(dTable);
-	items.map(x => mAppend(dGrid, x.div));
-	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
-	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
-	// console.log('size of grid',gridSize,'table',getBounds(dTable))
-
-	//#endregion
-
-	//console.log('*** THE END ***', Pictures[0]);
-}
 
 //#region animations
 function animateColor(elem, from, to, classes, ms) {
@@ -487,7 +432,7 @@ function setNumberSequenceGoal() {
 function showEquation(words, dParent, idForContainerDiv, sep = null, styleContainer = {}, styleWord = {}, styleLetter = {}, styleSep = {}, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 
 	if (isEmpty(styleWord)) {
-		let sz = 100;
+		let sz = 80;
 		let fg = helleFarbe(G.color);
 		styleWord = {
 			margin: 8, padding: 8, rounding: '50%', w: 'auto', h: sz, display: 'flex', fg: fg, bg: 'transparent',
@@ -922,12 +867,13 @@ function getOperationHintString(i) {
 	//return sSpoken,sWritten
 	//console.log('i', i, 'trial#', G.trialNumber);
 	if (i == 0) {
-		let sSpoken = [G.operand, G.oop.sp, G.step].join(' ');
+		let spOp = G.oop.sp; if (Settings.language == 'D') spOp=DD[spOp];
+		let sSpoken = [G.operand, spOp, G.step].join(' ');
 		let sWritten = visOperation(G.op, G.operand, G.step, null, '?');
 		return [sSpoken, sWritten];
 	} else {
 		let result = G.oop.f(G.operand, G.step);
-		let lstSpoken = i == 1 ? ['count', 'the red dots'] : [G.operand, G.oop.sp, G.step, 'equals', result];
+		let lstSpoken = i == 1 ? result==0?[result]:['count', 'the red dots'] : [G.operand, G.oop.sp, G.step, 'equals', result];
 		if (Settings.language == 'D') lstSpoken = lstSpoken.map(x => translateToGerman(x));
 		let sSpoken = lstSpoken.join(' ');
 		let sWritten = visOperation(G.op, G.operand, G.step, null);
@@ -1456,9 +1402,9 @@ function setBadgeLevel(i) {
 		badges[iBadge].div.children[1].innerHTML = '* ' + iBadge + ' *'; //style.color = 'white';
 		badges[iBadge].div.children[0].style.color = 'white';
 	}
-	badges[G.level].div.style.border = '2px solid #00000080';
+	badges[G.level].div.style.border = '1px solid #00000080';
 	badges[G.level].div.style.opacity = 1;
-	badges[G.level].div.children[1].innerHTML = 'LEVEL ' + G.level; //style.color = 'white';
+	badges[G.level].div.children[1].innerHTML = 'Level ' + G.level; //style.color = 'white';
 	badges[G.level].div.children[0].style.color = 'white';
 	for (let iBadge = G.level + 1; iBadge < badges.length; iBadge++) {
 		badges[iBadge].div.style.border = 'transparent';
@@ -1484,6 +1430,15 @@ function setMultiGoal(n, indices) {
 	} else {
 		for (const i of indices) Goal.pics.push(Pictures[i]);
 	}
+}
+function showHiddenThumbsUpDown(styles) {
+	styles.bg = ['transparent', 'transparent'];
+
+	console.log('styles',jsCopy(styles))
+	showPicturesSpeechTherapyGames(null, styles, { sz:styles.sz,showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
+	console.log('hallo',Pictures[0])
+	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '6px 0px 0px 0px'; p.div.style.opacity = 0; }
+
 }
 function showInstruction(text, cmd, title, isSpoken, spoken, fz) {
 	//console.assert(title.children.length == 0,'TITLE NON_EMPTY IN SHOWINSTRUCTION!!!!!!!!!!!!!!!!!')
@@ -1533,12 +1488,6 @@ function showInstructionX(written, dParent, spoken, { fz, voice } = {}) {
 	if (isdef(spoken)) sayRandomVoice(spoken, spoken, voice);
 
 }
-function showHiddenThumbsUpDown(styles) {
-	styles.bg = ['transparent', 'transparent'];
-	showPicturesSpeechTherapyGames(null, styles, { showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
-	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '10px 0px 0px 0px'; p.div.style.opacity = 0; }
-
-}
 function showLevel() {
 	dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel;
 }
@@ -1577,6 +1526,7 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
+
 
 
 

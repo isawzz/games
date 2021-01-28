@@ -571,7 +571,7 @@ function removeBadges(dParent, level) {
 function addBadge(dParent, level, clickHandler, animateRubberband = false) {
 	let fg = '#00000080';
 	let textColor = 'white';
-	let stylesForLabelButton = { rounding: 10, margin: 4 };
+	let stylesForLabelButton = { rounding: 8, margin: 4 };
 	//const picStyles = ['twitterText', 'twitterImage', 'openMojiText', 'openMojiImage', 'segoe', 'openMojiBlackText', 'segoeBlack'];
 	let isText = true; let isOmoji = false;
 	let i = level - 1;
@@ -691,7 +691,7 @@ function mpButton(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, st
 function mpBadge(info, label, { w, h, bg, fgPic, fgText }, handler, dParent, styles, classes = 'picButton', isText, isOmoji) {
 	//maPicLabelButtonFitText_
 	if (nundef(handler)) handler = (ev) => { let id = evToClosestId(ev); let info = symbolDict[id.substring(1)]; if (isLabelVisible(id)) maHideLabel(id, info); else maShowLabel(id, info); mBy('dummy').focus(); }
-	let picLabelStyles = getBadgeStyles(styles, {}, {}, w, h, 64, 4, 2, 'arial', bg, 'transparent', fgPic, fgText, true);
+	let picLabelStyles = getBadgeStyles(styles, {}, {}, w, h, 60, 2, 4, 'arial', bg, 'transparent', fgPic, fgText, true);
 	let x = maPicLabelFitX(info, label.toUpperCase(), { wmax: w }, dParent, picLabelStyles[0], picLabelStyles[1], picLabelStyles[2], true, false);
 	x.id = 'd' + info.key;
 	//x.onclick = handler;
@@ -717,10 +717,11 @@ function getBadgeStyles(sContainer, sPic, sText, w, h, picPercent, paddingTop, p
 	let [patop, szPic, zwischen, szText, pabot] = numbers;
 	patop = Math.max(patop, paddingTop);
 	pabot = Math.max(pabot, paddingBot);
+	fzText=fact*(100-picPercent-pabot-patop)*h*3/400;
 
 	// console.log(patop, szPic, zwischen, szText, pabot);
 	let styles = { h: h, bg: bg, fg: isdef(fgText) ? fgText : 'contrast', patop: patop, pabottom: pabot, align: 'center', 'box-sizing': 'border-box' };
-	let textStyles = { family: family, fz: Math.floor(szText * 3 / 4) };
+	let textStyles = { family: family, fz: fzText }; //Math.floor(szText * 3 / 4) };
 	let picStyles = { h: szPic, bg: bgPic, fg: isdef(fgPic) ? fgPic : 'contrast' };
 	if (w > 0) styles.w = w; else styles.paleft = styles.paright = Math.max(padding, 4);
 	for (const k in sContainer) { if (k != 'w' && nundef(styles[k])) styles[k] = sContainer[k]; }

@@ -68,9 +68,9 @@ function iMoveFromTo(item, d1, d2, callback,offset) {
 	let bi = iBounds(item);
 	let b1 = iBounds(d1);
 	let b2 = iBounds(d2);
-	console.log('item', bi);
-	console.log('d1', b1);
-	console.log('d2', b2);
+	//console.log('item', bi);
+	//console.log('d1', b1);
+	//console.log('d2', b2);
 
 	//animate item to go translateY by d2.y-d1.y
 	if (nundef(offset))offset={x:0,y:0};
@@ -134,7 +134,7 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 
 	dParent.style.width = '' + sz.w + 'px';
 	dParent.style.height = '' + sz.h + 'px';
-	if (isdef(iParent)) { iParent.w = sz.w; iParent.h = sz.h; }
+	if (isdef(iParent)) { iParent.w = sz.w; iParent.h = sz.h; iParent.items=items; }
 	return isdef(iParent) ? iParent : dParent;
 
 }
@@ -3358,7 +3358,7 @@ function loadCode0(text, codeToRunWhenScriptLoaded = null, callback = null) {
 //#region DOM: layout functions
 function splayout(elems, dParent, w, h, x, y, overlap = 20, splay = 'right') {
 	function splayRight(elems, d, x, y, overlap) {
-		console.log('splayRight', elems, d)
+		//console.log('splayRight', elems, d)
 		for (const c of elems) {
 			mAppend(d, c);
 			mStyleX(c, { position: 'absolute', left: x, top: y });

@@ -3,7 +3,7 @@ function prep1(items, ifs, options) {
 	//#region phase2: prepare items for container
 
 	let sz = options.sz;
-	let padding = (isdef(ifs.padding)?ifs.padding:2);
+	let padding = (isdef(ifs.padding)?ifs.padding:1);
 	let szNet = sz - 2 * padding;
 
 	let pictureSize = szNet;
@@ -72,6 +72,8 @@ function prep1(items, ifs, options) {
 			console.log('item',item)
 		}
 		item.fzPic = fzPic;
+
+		//console.log('picSize',sz)
 	}
 	//#endregion
 

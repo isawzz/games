@@ -118197,7 +118197,7 @@ toolbox:
   group: objects
   subgroups: tool
   E: suitcase|tool box|toolbox
-  D: koffer|werkzeugkoffer
+  D: koffer|werkzeug
   hex: 1F9F0
   family: emoNoto
   text: '&#129520;'

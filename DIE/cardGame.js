@@ -14,20 +14,64 @@ function iAppend52(i, dParent, faceUp) {
 	mAppend(dParent, item.div);
 	return item;
 }
-
-function iHand52(i){
-	let hand=iSplay(i,dTable);
+function iHand52(i) {
+	let hand = iSplay(i, dTable);
 
 }
-
 function iSplay52(i, iContainer, splay = 'right', ov = 20, ovUnit = '%', createiHand = true, rememberFunc = true) {
-	let ilist=!isList(i)? i : [i];
-	let items = isNumber(i[0])?i52(ilist):ilist;
-	let res = iSplay(items,iContainer,null,'right',20,'%',true);
+	let ilist = !isList(i) ? i : [i];
+	let items = isNumber(i[0]) ? i52(ilist) : ilist;
+	let res = iSplay(items, iContainer, null, 'right', 20, '%', true);
 	return res;
 }
+function netHandSize(nmax, hCard, wCard, ovPercent = 20, splay = 'right') {
 
+	let isHorizontal = splay == 'right' || splay == 'left';
+	if (nundef(hCard)) hCard = 110;
+	if (nundef(wCard)) wCard = Math.round(hCard * .7);
+	return isHorizontal ? { w: wCard + (nmax - 1) * wCard * ovPercent / 100, h: hCard } : { w: wCard, h: hCard + (nmax - 1) * hCard * ovPercent / 100 };
+}
+function iHandZone(nmax = 10, padding = 10) {
+	let sz = netHandSize(nmax);
+	//console.log('________________', sz)
+	return mZone(dTable, { w: sz.w, h: sz.h, bg: 'random', padding: padding, rounding: 10 });
+}
+function iSortHand(h) {
+	let d = h.deck;
+	//console.log(d.cards());
+	d.sort();
+	//console.log(d.cards());
 
+	iPresentHand(h);
+}
+function iPresentHand(h, redo = true) {
+	if (nundef(h.zone)) h.zone = iHandZone(); else clearElement(h.zone);
+	if (nundef(h.iHand)) {
+		let items = i52(h.deck.cards());
+		h.iHand = iSplay(items, h.zone);
+	} else if (redo) {
+		clearElement(h.zone);
+		let items = i52(h.deck.cards());
+		h.iHand = iSplay(items, h.zone);
+	}
+	return h;
+}
+function iMakeHand(iarr, id) {
+	let data = Data[id] = {};
+	let h = data.deck = new Deck();
+	h.init(iarr);
+	iPresentHand(data);
+	return data;
+}
+function iRemakeHand(data) {
+	let zone = data.zone;
+	let deck = data.deck;
+
+	let items = i52(deck.cards());
+	clearElement(zone);
+	data.iHand = iSplay(items, zone);
+	return data;
+}
 
 //animations of items or item groups(=layouts)
 function anim1(elem, prop, from, to, ms) {
@@ -131,11 +175,12 @@ class Card52 {
 }
 
 class Deck {
-	constructor() { this.data = []; }
+	constructor(f) { this.data = []; if (isdef(f)) this['init' + f](); }
 	init(arr) { this.data = arr; }
 	initEmpty() { this.data = []; }
 	initTest(n, shuffled = true) { this.data = range(0, n); if (shuffled) this.shuffle(); }
 	init52(shuffled = true, jokers = 0) { this.data = range(0, 51 + jokers); if (shuffled) this.shuffle(); }
+	initRandomHand52(n) { this.data = choose(range(0, 51), n); }
 	addTop(i) { this.data.push(i); return this; }
 	addBottom(i) { this.data.unshift(i); return this; }
 	bottom() { return this.data[0]; }
@@ -151,7 +196,12 @@ class Deck {
 	remove(i) { removeInPlace(this.data, i); return this; }
 	removeAtIndex(i) { return this.data.splice(i, 1)[0]; }
 	removeFromIndex(i, n) { return this.data.splice(i, n); }
-	sort() { this.data.sort(); return this; }
+	sort() {
+		//console.log('cards:', this.data.join(','));
+		this.data.sort((a, b) => Number(a) - Number(b));
+		//console.log('cards:', this.data.join(','));
+		return this;
+	}
 	shuffle() { shuffle(this.data); return this; }
 	top() { return arrLast(this.data); }
 }
