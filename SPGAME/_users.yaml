@@ -124,8 +124,8 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gPasscode, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gPasscode
+  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 25
