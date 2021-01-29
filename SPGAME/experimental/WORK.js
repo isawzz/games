@@ -8,32 +8,28 @@ function doOtherStuff() {
 	test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
 }
 
-var AUDIOCONTEXT;// browsers limit the number of concurrent audio contexts, so you better re-use'em
-
-function beep(vol, freq, duration) {
-	console.log('sollte beepen!!!')
-	if (nundef(AUDIOCONTEXT)) AUDIOCONTEXT = new AudioContext();
-	let a = AUDIOCONTEXT;
-	v = a.createOscillator()
-	u = a.createGain()
-	v.connect(u)
-	v.frequency.value = freq
-	v.type = "square"
-	u.connect(a.destination)
-	u.gain.value = vol * 0.01
-	v.start(a.currentTime)
-	v.stop(a.currentTime + duration * 0.001);
-}
 function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
 	show(mBy('dExperiment')); //show a freezer
 	let d = mBy('dExpContent');
 	clearElement(d);
-	mText(msg, d, { family: 'AlgerianRegular', fz: 36, fg: 'indigo' });
-	mLinebreak(d);
-	let d1 = mDiv(d, { fg: 'black', bg: 'red', align: 'center' });
-	//let cd = new CountdownTimer(G.timeout, d1, backToPasscode);
-	if (nundef(TOList)) TOList = {};
-	startTimeCD(d1, G.timeout, () => { beep(900, 440, 800); backToPasscode(); });
+
+	let d1=mDiv(d,{w:'100%',background:'red'});d1.innerHTML='hallo 111';
+	
+	let d2=mDiv(d,{w:'100%',background:'red'});d2.innerHTML='hallo 222222';
+	let d3=mDiv(d,{w:'100%',background:'red'});d3.innerHTML='hallo 3333333';
+	// mText(msg, d, { family: 'AlgerianRegular', w:'80%', fz: 22, fg: 'indigo' });
+	// mLinebreak(d);
+	// mText(msg, d, { family: 'AlgerianRegular', fz: 22, fg: 'indigo' });
+	// mLinebreak(d);
+	// let d1 = mDiv(d, { fg: 'black', align: 'center', h:30 });
+	// //mFlex(d1);
+	// // let d2 = mDiv(d1, { fz: 24, w: 100, display: 'inline-block' });
+	// d1.innerHTML = '00:00:00';
+	// //let cd = new CountdownTimer(G.timeout, d1, backToPasscode);
+	// if (nundef(TOList)) TOList = {};
+
+	return;
+	startTimeCD(d2, G.timeout, () => { beep(900, 440, 800); backToPasscode(); });
 	//show countdown timer!
 	// setTimeout(backToPasscode, G.timeout);
 }
@@ -85,7 +81,7 @@ function backToPasscode() {
 	//console.log('Goal',Goal)
 	let wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
 	showInstruction('', 'click ' + wort + '!!!', dTitle, true);
-	Pictures.map(x => x.div.style.cursor = 'pointer')
+	Pictures.map(x => x.div.style.cursor = 'pointer');
 	activateUi();
 
 }

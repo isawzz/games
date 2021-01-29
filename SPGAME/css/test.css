@@ -350,7 +350,7 @@ div{
 	padding: 4px 12px;
 	box-sizing: border-box;
 }
-#lineTable{
+#lineTable,#dExpContent{
 	display: flex;
 	box-sizing: border-box;
 	justify-content: space-between;
@@ -360,7 +360,7 @@ div{
 	min-width: 20px;
 	/* background-color: yellow; */
 }
-#lineTableMiddle{
+#lineTableMiddle,#dExpContent{
 	position: relative;
 	text-align: center;
 	min-width: 20px;
