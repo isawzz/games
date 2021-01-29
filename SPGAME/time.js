@@ -29,7 +29,7 @@ function startTimeClock(elem) {
 		s = format2Digits(today.getSeconds());
 
 	if (isString(elem)) elem = mBy(elem); elem.innerHTML = h + ":" + m + ":" + s;
-	setTimeout(() => startTimeClock(elem), 500);
+	TOList.clock = setTimeout(() => startTimeClock(elem), 500);
 
 }
 function format2Digits(i) { return (i < 10) ? "0" + i : i; }
@@ -45,4 +45,56 @@ function msToTime(ms) {
 }
 function msElapsedSince(msStart) { return Date.now() - msStart; }
 function timeToMs(h, m, s) { return ((((h * 60) + m) * 60) + s) * 1000; }
+
+class CountdownTimer {
+	static TO;
+	static cancel(){clearTimeout(CountdownTimer.TO);}
+	constructor(ms, elem,callback) {
+		CountdownTimer.cancel();
+		console.log('haloooooooooooooo')
+		this.timeLeft = ms;
+		this.msStart = Date.now();
+		this.elem = elem;
+		this.tick();
+		this.callback = callback;
+	}
+	msElapsed() { return Date.now() - this.msStart; }
+	tick() {
+		console.log('tick')
+		this.timeLeft -= this.msElapsed();
+		let t = msToTime(this.timeLeft);
+		let s = format2Digits(t.h) + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
+		this.elem.innerHTML = s; //this.timeLeft;
+		if (this.timeLeft > 1000) {
+			TO=setTimeout(this.tick.bind(this), 500);
+		} else {
+			this.elem.innerHTML = 'timeover';
+			this.callback();
+		}
+	}
+}
+
+var MSTimeClock,MSTimeDiff,MSTimeStart,MSTimeCallback,MSTimeTO;
+function clearTimeCD(){clearTimeout(MSTimeTo);MSTimeClock=MSTimeDiff=MSTimeStart=MSTimeCallback=MSTimeTO=null; }
+function startTimeCD(elem,ms,callback) {
+	if (isdef(ms)) {MSTimeClock=ms;MSTimeDiff=0;MSTimeStart=Date.now();MSTimeCallback=callback;}
+	else {MSTimeDiff=(Date.now()-MSTimeStart);}
+	
+	console.log('elapsed',MSTimeDiff);
+	if (MSTimeDiff > MSTimeClock){
+		console.log('time is OVER................');
+		MSTimeCallback();
+		return;
+	}
+
+	var today = new Date(),
+		h = format2Digits(today.getHours()),
+		m = format2Digits(today.getMinutes()),
+		s = format2Digits(today.getSeconds());
+
+	if (isString(elem)) elem = mBy(elem); elem.innerHTML = h + ":" + m + ":" + s;
+	MSTimeTO = setTimeout(() => startTimeCD(elem), 500);
+
+}
+
 

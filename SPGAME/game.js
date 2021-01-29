@@ -1454,15 +1454,7 @@ function showScore() {
 	}
 }
 function showStats() {
-
 	if (nundef(Score)) initScore();
-	// if (Score.levelChange) {
-	// 	Score.nTotal = 0;
-	// 	Score.nCorrect = 0;
-	// 	Score.nCorrect1 = 0;
-	// 	Score.nPos = 0;
-	// 	Score.nNeg = 0;
-	// }
 	showGameTitle();
 	showLevel();
 	if (calibrating()) { dScore.innerHTML = 'calibrating...'; } else showScore();
@@ -1470,28 +1462,6 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
-function showGotItButton(){
-	mLinebreak(dTable)
-	mButton('Got it!',doOtherStuff,dTable,{fz:42});
-}
-
-
-function doOtherStuff(){
-	//play one of the other games with special settings
-	Data={settings:jsCopy(Settings),user:jsCopy(U)};
-
-	U.avGames = ['gTouchPic','gAbacus'];
-	console.log('Settings',Settings,'\nU',U);
-	U.lastGame = 'gTouchPic';
-	setGame(U.lastGame);
-	Settings.samplesPerGame=1;
-	Settings.minutesPerUnit = .05;
-	startGame();
-
-}
-
-
-
 
 
 

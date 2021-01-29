@@ -35,6 +35,8 @@ class Game {
 		let item = Pictures[i];
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
+		console.log('Selected',Selected.pic.key,'id',id)
+
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
 
@@ -536,8 +538,6 @@ class GMissingNumber extends Game {
 	trialPrompt() {
 		let hintlist = G.trialNumber >= 4 ? [G.trialNumber] : range(G.trialNumber, 4);
 		if (Settings.showHint) hintEngineStart(getNumSeqHintString, hintlist, 3000 + G.level * 1000);
-		// let initialDelay = 3000 + G.level * 1000;
-		// if (Settings.showHint && !calibrating()) recShowHints(hintlist, QuestionCounter, initialDelay, d => initialDelay + 2000); //showNumSeqHint(G.trialNumber);
 		setTimeout(() => getWrongChars().map(x => unfillChar(x)), 500);
 		return 10;
 	}

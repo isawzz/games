@@ -341,10 +341,23 @@ gPasscode:
   color: indigo
   levels:
     0: 
-      numPics: 1
-    1: 
-      numPics: 2
-    2: 
+      passcodeLength: 1
       numPics: 3
-    3: 
+    1: 
+      passcodeLength: 1
       numPics: 4
+    2: 
+      passcodeLength: 1
+      numPics: 9
+    3: 
+      passcodeLength: 1
+      numPics: 15
+    4: 
+      passcodeLength: 1
+      numPics: 15
+    5: 
+      passcodeLength: 1
+      numPics: 15
+    6: 
+      passcodeLength: 1
+      numPics: 15

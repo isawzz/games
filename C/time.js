@@ -51,11 +51,11 @@ class TimeoutManager {
 	constructor() {
 		this.TO = {};
 	}
-	clear(key){
-		if (nundef(key)) key=Object.keys(this.TO);
-		else if (isString(key)) key=[];
+	clear(key) {
+		if (nundef(key)) key = Object.keys(this.TO);
+		else if (isString(key)) key = [];
 
-		for(const k of key){
+		for (const k of key) {
 			clearTimeout(this.TO[k]);
 			delete this.TO[k];
 		}
@@ -67,3 +67,19 @@ class TimeoutManager {
 }
 
 
+class CountdownTimer {
+	constructor(ms, elem) {
+		this.timeLeft = ms;
+		this.msStart = Data.now();
+		this.elem = elem;
+		this.tick();
+	}
+	msElapsed() { return Date.now() - this.msStart; }
+	tick() {
+		this.timeLeft -= this.msElapsed;
+		this.elem.innerHTML = this.timeLeft;
+		if (this.timeLeft > 1000) {
+			setTimeout(this.tick.bind(this), 500);
+		} else this.elem.innerHTML = 'timeover';
+	}
+}

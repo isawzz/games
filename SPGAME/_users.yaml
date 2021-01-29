@@ -53,8 +53,8 @@ nil:
       startLevel: 0
 guest0:
   id: guest
-  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gPasscode
+  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -76,8 +76,8 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gPasscode
+  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 10

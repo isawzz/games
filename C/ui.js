@@ -3,7 +3,7 @@ function initTable() {
 	let table = mBy('table');
 	clearElement(table);
 
-	initLineNavi();
+	//initLineNavi();
 	initLineTop();
 	initLineTitle();
 	initLineTable();
