@@ -5,22 +5,39 @@ function showGotItButton() {
 function doOtherStuff() {
 	// test04_subGame();	
 	//test04_justABlankPage();
-	test04_blankPageWithMessageAndCountdown('think about the passcode!');
+	test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
 }
 
-var AUTIOCONTEXT=new AudioContext() // browsers limit the number of concurrent audio contexts, so you better re-use'em
+var AUDIOCONTEXT;// browsers limit the number of concurrent audio contexts, so you better re-use'em
 
-function beep(vol, freq, duration){
-  v=a.createOscillator()
-  u=a.createGain()
-  v.connect(u)
-  v.frequency.value=freq
-  v.type="square"
-  u.connect(a.destination)
-  u.gain.value=vol*0.01
-  v.start(a.currentTime)
-  v.stop(a.currentTime+duration*0.001)
+function beep(vol, freq, duration) {
+	console.log('sollte beepen!!!')
+	if (nundef(AUDIOCONTEXT)) AUDIOCONTEXT = new AudioContext();
+	let a = AUDIOCONTEXT;
+	v = a.createOscillator()
+	u = a.createGain()
+	v.connect(u)
+	v.frequency.value = freq
+	v.type = "square"
+	u.connect(a.destination)
+	u.gain.value = vol * 0.01
+	v.start(a.currentTime)
+	v.stop(a.currentTime + duration * 0.001);
 }
+function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
+	show(mBy('dExperiment')); //show a freezer
+	let d = mBy('dExpContent');
+	clearElement(d);
+	mText(msg, d, { family: 'AlgerianRegular', fz: 36, fg: 'indigo' });
+	mLinebreak(d);
+	let d1 = mDiv(d, { fg: 'black', bg: 'red', align: 'center' });
+	//let cd = new CountdownTimer(G.timeout, d1, backToPasscode);
+	if (nundef(TOList)) TOList = {};
+	startTimeCD(d1, G.timeout, () => { beep(900, 440, 800); backToPasscode(); });
+	//show countdown timer!
+	// setTimeout(backToPasscode, G.timeout);
+}
+
 function test04_blankPageWithMessageAndCountdown(msg) {
 	show(mBy('dExperiment')); //show a freezer
 	let d = mBy('dExpContent');
@@ -30,7 +47,7 @@ function test04_blankPageWithMessageAndCountdown(msg) {
 	let d1 = mDiv(d, { fg: 'black', bg: 'red', align: 'center' });
 	//let cd = new CountdownTimer(G.timeout, d1, backToPasscode);
 	if (nundef(TOList)) TOList = {};
-	startTimeCD(d1,G.timeout,backToPasscode);
+	startTimeCD(d1, G.timeout, backToPasscode);
 	//show countdown timer!
 	// setTimeout(backToPasscode, G.timeout);
 }
