@@ -4,16 +4,16 @@ class GPasscode extends Game {
 
 	prompt() {
 		G.trials = 1;
-		G.timeout = 3000;
+		G.timeout = 1000;
 		let keys = getRandomKeys(G.passcodeLength);
-		console.log('keys',keys)
+		//console.log('keys',keys)
 		showPicturesSpeechTherapyGames(null,
 			{ border: '3px solid #ffffff80' },
 			{ repeat: G.numRepeat, sameBackground: true }, keys);
 
-		console.log(Pictures)
+		//console.log(Pictures)
 		Goal = Pictures[0];
-		console.log('===>Goal',Goal);
+		//console.log('===>Goal',Goal);
 
 		this.wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
 		showInstruction(Goal.label, this.wort + (Settings.language == 'E' ? ' is' : ' ist'), dTitle, true);

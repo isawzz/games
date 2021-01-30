@@ -5,7 +5,7 @@ function startTime(elem) {
 	if (nundef(Settings.showTime) || !Settings.showTime) return;
 	if (nundef(TimestampStarted)) { TimestampStarted = msNow(); TimeElapsed = 0; }
 	if (nundef(elem) && isdef(TimeElem)) { elem = TimeElem; }
-	else  {if (isString(elem)) elem = mBy(elem); TimeElem = elem; }
+	else { if (isString(elem)) elem = mBy(elem); TimeElem = elem; }
 
 	// console.log(TimestampStarted, _getFunctionsNameThatCalledThisFunction())
 	var timeLeft = TimeLeft = Settings.minutesPerUnit * 60000 - getTimeElapsed();
@@ -48,8 +48,8 @@ function timeToMs(h, m, s) { return ((((h * 60) + m) * 60) + s) * 1000; }
 
 class CountdownTimer {
 	static TO;
-	static cancel(){clearTimeout(CountdownTimer.TO);}
-	constructor(ms, elem,callback) {
+	static cancel() { clearTimeout(CountdownTimer.TO); }
+	constructor(ms, elem, callback) {
 		CountdownTimer.cancel();
 		console.log('haloooooooooooooo')
 		this.timeLeft = ms;
@@ -66,7 +66,7 @@ class CountdownTimer {
 		let s = format2Digits(t.h) + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
 		this.elem.innerHTML = s; //this.timeLeft;
 		if (this.timeLeft > 1000) {
-			TO=setTimeout(this.tick.bind(this), 500);
+			TO = setTimeout(this.tick.bind(this), 500);
 		} else {
 			this.elem.innerHTML = 'timeover';
 			this.callback();
@@ -74,25 +74,31 @@ class CountdownTimer {
 	}
 }
 
-var MSTimeClock,MSTimeDiff,MSTimeStart,MSTimeCallback,MSTimeTO;
-function clearTimeCD(){clearTimeout(MSTimeTo);MSTimeClock=MSTimeDiff=MSTimeStart=MSTimeCallback=MSTimeTO=null; }
-function startTimeCD(elem,ms,callback) {
-	if (isdef(ms)) {MSTimeClock=ms;MSTimeDiff=0;MSTimeStart=Date.now();MSTimeCallback=callback;}
-	else {MSTimeDiff=(Date.now()-MSTimeStart);}
-	
-	console.log('elapsed',MSTimeDiff);
-	if (MSTimeDiff > MSTimeClock){
-		console.log('time is OVER................');
+var MSTimeClock, MSTimeDiff, MSTimeStart, MSTimeCallback, MSTimeTO;
+function clearTimeCD() {
+	if (nundef(MSTimeTO)) return;
+	clearTimeout(MSTimeTO); MSTimeClock = MSTimeDiff = MSTimeStart = MSTimeCallback = MSTimeTO = null;
+}
+function startTimeCD(elem, ms, callback) {
+	if (isdef(ms)) { MSTimeClock = ms; MSTimeDiff = 0; MSTimeStart = Date.now(); MSTimeCallback = callback; }
+	else { MSTimeDiff = (Date.now() - MSTimeStart); }
+
+	//console.log('elapsed',MSTimeDiff);
+	if (MSTimeDiff > MSTimeClock) {
+		//console.log('time is OVER................');
 		MSTimeCallback();
 		return;
 	}
 
-	var today = new Date(),
-		h = format2Digits(today.getHours()),
-		m = format2Digits(today.getMinutes()),
-		s = format2Digits(today.getSeconds());
+	let t = msToTime(MSTimeClock - MSTimeDiff);
+	if (isString(elem)) elem = mBy(elem); elem.innerHTML = t.h + ":" + format2Digits(t.m) + ":" + format2Digits(t.s);
 
-	if (isString(elem)) elem = mBy(elem); elem.innerHTML = h + ":" + m + ":" + s;
+	// var today = new Date(),
+	// 	h = format2Digits(today.getHours()),
+	// 	m = format2Digits(today.getMinutes()),
+	// 	s = format2Digits(today.getSeconds());
+	// if (isString(elem)) elem = mBy(elem); elem.innerHTML = h + ":" + m + ":" + s;
+
 	MSTimeTO = setTimeout(() => startTimeCD(elem), 500);
 
 }

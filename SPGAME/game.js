@@ -925,18 +925,13 @@ function translateToGerman(w) {
 
 //#region cards turn face up or down
 function hideMouse() {
-	//document.body.style.cursor = 'none';
 	var x = dTable.getElementsByTagName("DIV");
-	for (const el of x) { el.prevCursor = el.style.cursor; } //.style.cursor = 'none';
+	for (const el of x) { el.prevCursor = el.style.cursor; } 
 	for (const p of Pictures) {
 		mRemoveClass(p.div, 'frameOnHover'); p.div.style.cursor = 'none';
 		for (const ch of p.div.children) ch.style.cursor = 'none';
-	} //p.divmClass.style.cursor = 'none';}
-	for (const el of x) { mClass(el, 'noCursor'); } //.style.cursor = 'none';
-	// let elems = document.getElementsByTagName('div');
-	// for(const el in elems) el.style.cursor = 'none';
-	// document.getElementById("demo").innerHTML = el.innerHTML;	
-	// show(mBy('noMouseScreen')	);
+	}
+	for (const el of x) { mClass(el, 'noCursor'); } 
 }
 function showMouse() {
 	var x = dTable.getElementsByTagName("DIV");

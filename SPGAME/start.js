@@ -56,11 +56,12 @@ async function _start() {
 	Speech = new SpeechAPI('E');
 	
 	KeySets = getKeySets();
-	//console.log(KeySets)
 
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
+	//test05_popup('think about the passcode!'); return;
+	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
 	// test12_vizOperationOhneParentDiv(); return;
 	//test12_vizNumberOhneParentDiv();return;
 	//test12_vizArithop(); return;
@@ -69,7 +70,6 @@ async function _start() {
 	//test03_maShowPictures(); return;
 	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
 
-	//return;
 	//onClickTemple(); return;
 	if (ALLOW_CALIBRATION) show('dCalibrate');
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
@@ -79,12 +79,7 @@ function startUnit() {
 
 	restartTime();
 	U.session = {};
-	//onClickTemple(); return;
-
 	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
-	//show('freezer2')
-	//onClickCalibrate();
-	//onClickTemple();
 
 }
 

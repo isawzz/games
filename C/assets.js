@@ -100,7 +100,7 @@ var TOSound, _sndPlayer, _loaded = false, _qSound, _idleSound = true, _sndCounte
 var _AUDIOCONTEXT;// browsers limit the number of concurrent audio contexts, so you better re-use'em
 
 function beep(vol, freq, duration) {
-	console.log('sollte beepen!!!'); return;
+	console.log('sollte beepen!!!'); //return;
 	if (nundef(_AUDIOCONTEXT)) _AUDIOCONTEXT = new AudioContext();
 	let a = _AUDIOCONTEXT;
 	v = a.createOscillator()

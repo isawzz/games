@@ -5,18 +5,46 @@ function showGotItButton() {
 function doOtherStuff() {
 	// test04_subGame();	
 	//test04_justABlankPage();
-	test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
+	// test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
+	test05_popup('think about the passcode!');
 }
 
-function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
-	show(mBy('dExperiment')); //show a freezer
-	let d = mBy('dExpContent');
-	clearElement(d);
+function test05_popup(msg) {
+	let dPopup = mBy('dPopup');
+	show(dPopup);
+	clearElement(dPopup);
+	let dOuter = mDiv(dPopup);
 
-	let d1=mDiv(d,{w:'100%',background:'red'});d1.innerHTML='hallo 111';
-	
-	let d2=mDiv(d,{w:'100%',background:'red'});d2.innerHTML='hallo 222222';
-	let d3=mDiv(d,{w:'100%',background:'red'});d3.innerHTML='hallo 3333333';
+	let long = 4000;
+	//G.timeout=long+1;
+	if (G.timeout > long) {
+		sayRandomVoice(Settings.language == 'E' ? 'move or exercise until the beep!' : 'turne oder bewege dich bis zum signal!');
+		let dpics = mDiv(dOuter, { layout: 'h' });
+		let imgs = ['tae', 'posture'];
+		let nums = ['01', '02', '03', '04'];
+		mImg(`../assets/images/postures/${chooseRandom(imgs)}${chooseRandom(nums)}.jpg`, dpics);
+		mLinebreak(dOuter, 25);
+	}
+
+	mText(msg, dOuter, { family: 'AlgerianRegular', fz: 32, fg: 'indigo', align: 'center' });
+
+	mLinebreak(dOuter, 25);
+
+	let dt = mDiv(dOuter, { fg: 'red', fz: 44 });
+	if (nundef(G) || nundef(G.timeout)) { G = { timeout: 3000 } };
+	startTimeCD(dt, G.timeout, () => { if (G.timeout > long) beep(900, 330, 800); setTimeout(backToPasscode, 1000); });
+	mLinebreak(dOuter, 100);
+
+	mStyleX(dOuter, { layout: 'v', bg: 'white', w: '100%', h: '100%' });//das muss am ende sein sonst geht es nicht!!!!!!!!!!!!!!!!!!
+}
+function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
+	show(dTable); //show a freezer
+	let d = mDiv(dTable);
+
+	let d1 = mDiv(d, { w: '100%', background: 'red' }); d1.innerHTML = 'hallo 111';
+	mLinebreak(d, 20);
+	let d2 = mDiv(d, { w: '100%', background: 'red' }); d2.innerHTML = 'hallo 222222';
+	let d3 = mDiv(d, { w: '100%', background: 'red' }); d3.innerHTML = 'hallo 3333333';
 	// mText(msg, d, { family: 'AlgerianRegular', w:'80%', fz: 22, fg: 'indigo' });
 	// mLinebreak(d);
 	// mText(msg, d, { family: 'AlgerianRegular', fz: 22, fg: 'indigo' });
@@ -35,7 +63,7 @@ function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
 }
 
 function test04_blankPageWithMessageAndCountdown(msg) {
-	show(mBy('dExperiment')); //show a freezer
+	show(mBy('dPopup')); //show a freezer
 	let d = mBy('dExpContent');
 	clearElement(d);
 	mText(msg, d, { family: 'AlgerianRegular', fz: 36, fg: 'indigo' });
@@ -48,7 +76,7 @@ function test04_blankPageWithMessageAndCountdown(msg) {
 	// setTimeout(backToPasscode, G.timeout);
 }
 function test04_blankPageWithMessage(msg) {
-	show(mBy('dExperiment')); //show a freezer
+	show(mBy('dPopup')); //show a freezer
 	let d = mBy('dExpContent');
 	clearElement(d);
 	mText(msg, d, { family: 'AlgerianRegular', fz: 36, fg: 'indigo' });
@@ -56,7 +84,7 @@ function test04_blankPageWithMessage(msg) {
 	setTimeout(backToPasscode, G.timeout);
 }
 function test04_justABlankPage() {
-	show(mBy('dExperiment')); //show a freezer
+	show(mBy('dPopup')); //show a freezer
 	let d = mBy('dExpContent');
 	clearElement(d);
 	mText('think about the passcode!', d, { family: 'AlgerianRegular', fz: 36, fg: 'indigo' });
@@ -65,7 +93,7 @@ function test04_justABlankPage() {
 }
 function getRandomKeys(n) { return choose(G.keys, n); }
 function backToPasscode() {
-	hide('dExperiment')
+	hide('dPopup')
 	console.log('enter the passcode now!!!');
 	//need to add more pictures
 	//need to remove the button! 

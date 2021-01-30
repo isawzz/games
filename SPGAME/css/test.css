@@ -311,7 +311,7 @@ div{
 #divControls > div:active{
 	background-color: red;
 }
-#freezer,#dPassPlay,#dExperiment{
+#freezer,#dPassPlay{
 	background-color: #000000C0;
 	position:fixed;
 	top:0px;
@@ -320,9 +320,6 @@ div{
 	height:100%;
 	font-size:100pt;
 
-}
-#dExperiment{
-	background:white;
 }
 #freezer2{
 	background-color: indigo;

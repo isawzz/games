@@ -231,6 +231,15 @@ function mStyleX(elem, styles, unit = 'px') {
 			//console.log('________________________YES!')
 
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
+		} else if (k == 'layout'){
+			elem.style.setProperty('display', 'flex');
+			elem.style.setProperty('flex-wrap', 'wrap');
+			elem.style.setProperty('justify-content', 'center');
+			elem.style.setProperty('align-items', 'center');
+			switch(val[0]){
+				case 'v':elem.style.setProperty('flex-direction','column');break;
+				case 'h':elem.style.setProperty('flex-direction','row');break;
+			}
 		}
 
 		//console.log(key,val,isNaN(val));if (isNaN(val) && key!='font-size') continue;
