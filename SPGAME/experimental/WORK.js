@@ -9,7 +9,7 @@ function doOtherStuff() {
 	test05_popup('think about the passcode!');
 }
 
-function test05_popup(msg,ms) {
+function test05_popup(msg, ms) {
 	let dPopup = mBy('dPopup');
 	show(dPopup);
 	clearElement(dPopup);
@@ -17,16 +17,25 @@ function test05_popup(msg,ms) {
 
 	let long = 4000;
 	let superlong = 20000;
-	if (isdef(ms)) {G={timeout:ms};}//G.timeout=long+1;
+	if (isdef(ms)) { G = { timeout: ms }; }//G.timeout=long+1;
 	if (G.timeout > long) {
-		if (G.timeout < superlong) sayRandomVoice(Settings.language == 'E' ? 'walk around until the beep!' : "geh' herum bis zum signal!");
-		else sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
+		let dpics = mDiv(dOuter, { layout: 'h' });
+
+		if (G.timeout < superlong) {
+			sayRandomVoice(Settings.language == 'E' ? 'walk around until the beep!' : "geh' herum bis zum signal!");
+			//loadRandomTaeOrPosturePic(dpics);
+			loadWalker(dpics);
+		} else {
+			sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
+			loadRandomExerciser(dpics);
+		}
 		// sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
 		//sayRandomVoice(Settings.language == 'E' ? 'move or exercise until the beep!' : 'turne oder bewege dich bis zum signal!');
-		let dpics = mDiv(dOuter, { layout: 'h' });
-		let imgs = ['tae', 'posture'];
-		let nums = ['01', '02', '03', '04'];
-		mImage(`../assets/images/postures/${chooseRandom(imgs)}0${randomNumber(1,8)}.jpg`, dpics,200,200);
+
+
+		// let imgs = ['tae', 'posture'];
+		// let nums = ['01', '02', '03', '04'];
+		// mImage(`../assets/images/postures/${chooseRandom(imgs)}0${randomNumber(1,8)}.jpg`, dpics,200,200);
 		mLinebreak(dOuter, 25);
 	}
 
@@ -102,7 +111,7 @@ function backToPasscode() {
 	//need to add more pictures
 	//need to remove the button! 
 	clearElement(dTable);
-	let keys = [Goal.key].concat(getRandomKeys(G.numPics-1));
+	let keys = [Goal.key].concat(getRandomKeys(G.numPics - 1));
 	shuffle(keys);
 	let iGoal = keys.indexOf(Goal.key);
 	GroupCounter = 0;
