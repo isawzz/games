@@ -31,6 +31,11 @@ function startLevel() {
 	startRound();
 }
 function startRound() {
+
+	if (isTimeForAddon()){
+		exitToAddon(startRound);
+	}
+
 	resetRound();
 	uiActivated = false;
 
