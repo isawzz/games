@@ -12,7 +12,7 @@ function loadPic(filename, w, h, dParent, { x, y, row, col, scale } = {}, ext = 
 	dPic.style.background = `url(${dir}${filename}.${ext}) -${col}px -${row}px`;
 	if (isdef(scale)) dPic.style.transform = `scale(${scale})`;
 }
-function loadRandomExerciser2(dParent, i = 0) {
+function loadRandomExerciser2(dParent, i) {
 	let w = 280;
 	let h = 240;
 	let filename = 'exercises2';
@@ -20,9 +20,10 @@ function loadRandomExerciser2(dParent, i = 0) {
 	[350, 30], [350, 245], [350, 450], [350, 650], [330, 890],
 	[620, 0], [620, 245], [620, 460], [620, 700], [560, 920],
 	[880, 0], [900, 245], [890, 460], [860, 700], [870, 920],
-	[1150, 0], [1170, 320], [1150,620], [1150, 900], [1150, 940],
-	[330, 0], [330, 245], [330, 460], [330, 700], [330, 940],
+	[1150, 0], [1170, 320], [1150,620], [1120, 900], 
+	[1350, 30], [1400, 330], [1380, 630], [1350, 890]
 	];
+	if (nundef(i)) i=randomNumber(0,table.length-1);
 	i=i%table.length;
 	// let i=0; //10;
 	let x = table[i][0]; //300;//0;//randomNumber(0,4);
@@ -31,6 +32,10 @@ function loadRandomExerciser2(dParent, i = 0) {
 	else if (i == 13) { w = 240; h = 200; }
 	else if (i == 14) { w = 260; h = 260; }
 	else if (i == 20 || i == 21 || i == 22) { w = 240; h = 260; }
+	else if (i == 24) { w = 280; h = 280; }
+	else if (i == 25) { w = 200; h = 290; }
+	else if (i == 26) { w = 230; h = 260; }
+	else if (i == 27) { w = 240; h = 250; }
 	console.log('i' + i, x, y)
 	//console.log(dParent,row,col)
 	loadPic(filename, w, h, dParent, { x: x, y: y }, 'gif');
