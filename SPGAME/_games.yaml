@@ -342,22 +342,19 @@ gPasscode:
   levels:
     0: 
       passcodeLength: 1
-      numPics: 2
+      numPics: 4
     1: 
       passcodeLength: 1
-      numPics: 4
+      numPics: 9
     2: 
       passcodeLength: 1
-      numPics: 9
+      numPics: 15
     3: 
-      passcodeLength: 1
-      numPics: 15
+      passcodeLength: 2
+      numPics: 4
     4: 
-      passcodeLength: 1
-      numPics: 15
+      passcodeLength: 2
+      numPics: 9
     5: 
-      passcodeLength: 1
-      numPics: 15
-    6: 
-      passcodeLength: 1
+      passcodeLength: 2
       numPics: 15

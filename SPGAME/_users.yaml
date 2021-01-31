@@ -4,8 +4,8 @@ nil:
   lastGame: gPasscode
   settings:
     # settings common to all games
-    samplesPerGame: 20
-    minutesPerUnit: 13
+    samplesPerGame: 2
+    minutesPerUnit: 0
     incrementLevelOnPositiveStreak: 4
     decrementLevelOnNegativeStreak: 4
     showLabels: toggle #always never toggle (=remove labels after half level)

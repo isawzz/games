@@ -83,7 +83,7 @@ function evaluate() {
 	setTimeout(removeMarkers, 1500);
 
 	let nextLevel = scoring(IsAnswerCorrect);
-	//console.log('cscoring result:', Score)
+	console.log('cscoring result:', Score)
 	if (Score.gameChange) {
 		//updateUserScore();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
 		setNextGame();
