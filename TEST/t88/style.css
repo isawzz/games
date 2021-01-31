@@ -1,0 +1,36 @@
+.thumb {
+  position:relative;width:100px;height:100px;border:solid red 1px;
+}
+
+#imgLogo {
+	/* clip:rect(0px,60px,20px,0px); */
+	/* object-position: 100px 100px; */
+	/* object-fit: scale-down; */
+	width: 100px;
+	height: 100px;
+}
+#home {
+  width: 46px;
+  height: 44px;
+  background: url('../../assets/images/postures/exercises.gif') 0 0;
+}
+
+#anim {
+	/* background-image: url('https://i.stack.imgur.com/J5drY.png'); */
+	background-image: url('../../assets/images/postures/exercises.gif');
+	width: 100px;
+	height: 100px;
+	/* animation: anim 1.0s steps(10) infinite; */
+}
+#anim1 {
+	/* background-image: url('https://i.stack.imgur.com/J5drY.png'); */
+	background-image: url('../../assets/images/postures/bat.png');
+	width: 250px;
+	height: 188px;
+	animation: anim 1s steps(10) infinite;
+}
+@keyframes anim {
+	100% {
+		background-position: -2500px;
+	}
+}

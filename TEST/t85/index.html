@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="../../C/helpers.js"></script>
+
+<style>
+#navlist {
+  position: relative;
+}
+
+#navlist li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  top: 0;
+}
+
+#navlist li, #navlist a {
+  height: 100px;
+  display: block;
+}
+
+#home {
+  left: 0px;
+  width: 100px;
+  /* background: url('img_navsprites_hover.gif') 0 0; */
+  background: url('../../assets/images/postures/exercises.gif') 0 0;
+}
+
+#prev {
+  left: 100px;
+  width: 100px;
+  /* background: url('img_navsprites_hover.gif') -47px 0; */
+  background: url('../../assets/images/postures/exercises.gif') -100px 0;
+}
+#other {
+  left: 200px;
+  width: 100px;
+  /* background: url('img_navsprites_hover.gif') -47px 0; */
+  background: url('../../assets/images/postures/exercises.gif') -200px -200px;
+}
+.ball {
+  left: 600px;
+  width: 100px;
+  /* background: url('img_navsprites_hover.gif') 0 0; */
+  background: url('../../assets/images/postures/exercises.gif') 0 0;
+}
+#nav11 {
+  width: 100px;
+  height: 100px;
+  /* background: url('img_navsprites_hover.gif') -47px 0; */
+  background: url('../../assets/images/postures/exercises.gif') -200px -200px;
+}
+#div11 {
+  width: 100px;
+  height: 100px;
+  /* background: url('img_navsprites_hover.gif') -47px 0; */
+  background: url('../../assets/images/postures/exercises.gif') -200px -300px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- <ul id="navlist">
+  <li id="home"><a href="default.asp"></a></li>
+  <li id="prev"><a href="css_intro.asp"></a></li>
+  <li class='ball'><a href="default.asp"></a></li>
+</ul> -->
+<div id='div11'></div>
+<div id='div12'></div>
+<!-- <ul id="navlist1">
+	<li id='nav11'><a href="default.asp"></a></li>
+</ul> -->
+	
+</div>
+
+<script>
+	onload=getExerciser;
+	function getExerciser(key){
+		let row=randomNumber(0,5)*100; //Math.round(Math.random()*10); //200;
+		let col=randomNumber(0,7)*100; //Math.random()*500;
+		let dPic = document.getElementById('div12');
+		dPic.style.width='100px';
+		dPic.style.height='100px';
+		dPic.style.background=`url('../../assets/images/postures/exercises.gif') -${col}px -${row}px`;
+	}
+</script>
+
+</body>
+</html>

@@ -391,6 +391,17 @@ function mMinBounds(d) {
 	let b = getBounds(d);
 	mStyle(d, { 'min-width': b.width, 'min-height': b.height }, 'px');
 }
+function mImage(path, dParent, w, h, styles, classes) {
+	let d = mCreate('img');
+	d.src = path;
+	if (isdef(w)) d.width = w;
+	if (isdef(h)) d.width = h;
+	mAppend(dParent, d);
+	if (isdef(styles)) mStyleX(d, styles);
+	if (isdef(classes)) mClass(d, classes);
+	return d;
+	//<img src="kiwi.svg" alt="Kiwi standing on oval"></img>
+}
 function mImg(path, dParent, styles, classes) {
 	let d = mCreate('img');
 	d.src = path;
