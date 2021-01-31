@@ -31,7 +31,7 @@ function test05_popup(msg, ms) {
 			loadWalker(dpics);
 		} else {
 			sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
-			loadRandomExerciser2(dpics); //,imageCounter);
+			if (coin()) loadRandomExerciser2(dpics); else loadRandomExerciser(dpics); //,imageCounter);
 		}
 		// sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
 		//sayRandomVoice(Settings.language == 'E' ? 'move or exercise until the beep!' : 'turne oder bewege dich bis zum signal!');
@@ -41,13 +41,16 @@ function test05_popup(msg, ms) {
 		// let nums = ['01', '02', '03', '04'];
 		// mImage(`../assets/images/postures/${chooseRandom(imgs)}0${randomNumber(1,8)}.jpg`, dpics,200,200);
 		mLinebreak(dOuter, 25);
+	}else{
+		mLinebreak(dOuter, 35);
+
 	}
 
 	mText(msg, dOuter, { family: 'AlgerianRegular', fz: 32, fg: 'indigo', align: 'center' });
 
 	mLinebreak(dOuter, 25);
 
-	return;
+	//return;
 
 	let dt = mDiv(dOuter, { fg: 'red', fz: 44 });
 	if (nundef(G) || nundef(G.timeout)) { G = { timeout: 3000 } };

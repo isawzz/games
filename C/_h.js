@@ -61,7 +61,12 @@ function loadExerciser(dParent, row, col) {
 	// dPic.style.transform = 'scale(1.5)';
 	// //dPic.style.marginTop = '-100px';
 }
-function loadRandomExerciser(dParent) { loadExerciser(dParent, randomNumber(0, 5), randomNumber(0, 7)); }
+function loadRandomExerciser(dParent) { 
+	mLinebreak(dParent,75);
+	loadExerciser(dParent, randomNumber(0, 5), randomNumber(0, 7)); 
+	mLinebreak(dParent,25);
+
+}
 function loadWalker(dParent) { loadExerciser(dParent, 3, 2); }
 function loadRandomTaeOrPosturePic(dpics) {
 	let imgs = ['tae', 'posture'];
