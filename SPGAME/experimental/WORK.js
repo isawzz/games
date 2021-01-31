@@ -8,7 +8,7 @@ function doOtherStuff() {
 	// test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
 	test05_popup('think about the passcode!');
 }
-
+var imageCounter = 19;
 function test05_popup(msg, ms) {
 	let dPopup = mBy('dPopup');
 	show(dPopup);
@@ -18,6 +18,9 @@ function test05_popup(msg, ms) {
 	let long = 4000;
 	let superlong = 20000;
 	if (isdef(ms)) { G = { timeout: ms }; }//G.timeout=long+1;
+
+	imageCounter+=1;
+
 	if (G.timeout > long) {
 		let dpics = mDiv(dOuter, { layout: 'h' });
 
@@ -27,7 +30,7 @@ function test05_popup(msg, ms) {
 			loadWalker(dpics);
 		} else {
 			sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
-			loadRandomExerciser(dpics);
+			loadRandomExerciser2(dpics,imageCounter);
 		}
 		// sayRandomVoice(Settings.language == 'E' ? 'exercise until the beep!' : 'mach bewegung bis zum signal!');
 		//sayRandomVoice(Settings.language == 'E' ? 'move or exercise until the beep!' : 'turne oder bewege dich bis zum signal!');
@@ -42,6 +45,8 @@ function test05_popup(msg, ms) {
 	mText(msg, dOuter, { family: 'AlgerianRegular', fz: 32, fg: 'indigo', align: 'center' });
 
 	mLinebreak(dOuter, 25);
+
+	return;
 
 	let dt = mDiv(dOuter, { fg: 'red', fz: 44 });
 	if (nundef(G) || nundef(G.timeout)) { G = { timeout: 3000 } };
