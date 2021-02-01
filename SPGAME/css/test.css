@@ -311,7 +311,7 @@ div{
 #divControls > div:active{
 	background-color: red;
 }
-#freezer,#dPassPlay{
+#freezer,#dPassPlay,#dAddons{
 	background-color: #000000C0;
 	position:fixed;
 	top:0px;

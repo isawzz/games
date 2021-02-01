@@ -118,7 +118,7 @@ function onClickRunButton(b) { b.innerHTML = 'Stop'; mStyleX(bRunStop, { bg: 're
 function onClickStopButton(b) { b.innerHTML = 'Run'; mStyleX(bRunStop, { bg: 'green' }); StepByStepMode = true; }
 
 //#region freezers
-function onClickFreezer() { hide('freezer'); startUnit(); }
+function onClickFreezer() { console.log('YEP! onClickFreezer!!!!!!!'); hide('freezer'); startUnit(); }
 function onClickFreezer2(ev) {
 	//if (Settings.flags.pressControlToUnfreeze && !ev.ctrlKey) { console.log('*** press control!!!!'); return; }
 	clearTable(); mRemoveClass(mBy('freezer2'), 'aniSlowlyAppear'); hide('freezer2'); auxOpen = false;

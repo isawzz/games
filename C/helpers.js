@@ -234,8 +234,18 @@ function mStyleX(elem, styles, unit = 'px') {
 		} else if (k == 'layout') {
 			elem.style.setProperty('display', 'flex');
 			elem.style.setProperty('flex-wrap', 'wrap');
-			elem.style.setProperty('justify-content', 'center');
-			elem.style.setProperty('align-items', 'center');
+			let hor, vert;
+			if (val.length == 1) hor = vert = 'center';
+			else {
+				let di = { c: 'center', s: 'start', e: 'end' };
+				hor = di[val[1]];
+				vert = di[val[2]];
+
+			}
+			let justStyle = val[0] == 'v' ? vert : hor;
+			let alignStyle = val[0] == 'v' ? hor : vert;
+			elem.style.setProperty('justify-content', justStyle);
+			elem.style.setProperty('align-items', alignStyle);
 			switch (val[0]) {
 				case 'v': elem.style.setProperty('flex-direction', 'column'); break;
 				case 'h': elem.style.setProperty('flex-direction', 'row'); break;
@@ -342,13 +352,13 @@ function mZone(dParent, styles, pos) {
 	}
 	return d;
 }
-function mIfNotRelative(d){if (nundef(d.style.position)) d.style.position = 'relative';}
+function mIfNotRelative(d) { if (nundef(d.style.position)) d.style.position = 'relative'; }
 function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d; }
 function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
 function mDover(dParent) { let d = mDiv(dParent); mIfNotRelative(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
 function mDiv(dParent = null, styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d, styles); return d; }
 function mDiv100(dParent, styles) { let d = mDiv(dParent, styles); mSize(d, 100, 100, '%'); return d; }
-function mScreen(dParent, styles) { let d=mDover(dParent);if (isdef(styles)) mStyleX(d,styles); return d;}
+function mScreen(dParent, styles) { let d = mDover(dParent); if (isdef(styles)) mStyleX(d, styles); return d; }
 function mFg(d, color) { d.style.color = color; }
 function mInstruction(msg, dParent, hasExclamation = true) {
 	let p = mCreate('h2');
@@ -368,7 +378,7 @@ function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mText(label); }
 
-function mGap(d,gap){	mText('_',d,{fg:'transparent',h:gap}); }
+function mGap(d, gap) { mText('_', d, { fg: 'transparent', h: gap }); }
 function mLinebreak(dParent, gap) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
@@ -5434,6 +5444,7 @@ function lastWord(s) { return stringAfterLast(s, ' '); }
 function hasWhiteSpace(s) { return /\s/g.test(s); }
 function isLetter(s) { return /^[a-zA-Z]$/i.test(s); }
 function isCapitalLetter(s) { return /^[A-Z]$/i.test(s); }
+function isCapitalLetterOrDigit(s) { return /^[A-Z0-9ÖÄÜ]$/i.test(s); }
 function isSingleDigit(s) { return /^[0-9]$/i.test(s); }
 function isAlphaNum(s) {
 	//regex version: Here 

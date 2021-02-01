@@ -63,7 +63,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
-	// keys=['house','socks','hammer'];
+	//keys=['hundred points']; //house','socks','hammer'];
 
 	// let showLabels = Settings.labels == true;
 	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));

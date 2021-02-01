@@ -52,15 +52,16 @@ async function _start() {
 	initSidebar();
 	initAux();
 	initScore();
+	initSymbolTableForGamesAddons();
 
 	Speech = new SpeechAPI('E');
-	
+
 	KeySets = getKeySets();
 
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	addonScreen(); return;
+	//addonScreen(); return;
 	//onclick=()=>test05_popup('think about the passcode!',24001); return;
 	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
 	// test12_vizOperationOhneParentDiv(); return;
@@ -84,4 +85,19 @@ function startUnit() {
 
 }
 
+function initSymbolTableForGamesAddons() {
+	//console.log('Daat', Daat);//yes this is an empty dict!
+	Daat.GameClasses = {
+		gTouchPic: GTouchPic,
+		gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
+		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
+		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
 
+	}
+	Daat.AddonClasses = {
+		aPasscode:APasscode, 
+		aExercise:APasscode, 
+		aMeditation:APasscode, 
+	
+	}
+}

@@ -1,7 +1,7 @@
 nil:
   id: nil
   avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  lastGame: gAnagram
   settings:
     # settings common to all games
     samplesPerGame: 2
@@ -9,7 +9,7 @@ nil:
     incrementLevelOnPositiveStreak: 4
     decrementLevelOnNegativeStreak: 4
     showLabels: toggle #always never toggle (=remove labels after half level)
-    language: E
+    language: D
     vocab: lifePlus
     showTime: true
     spokenFeedback: true
@@ -44,7 +44,7 @@ nil:
     gWritePic: 
       startLevel: 2
     gAnagram: 
-      startLevel: 3
+      startLevel: 0
     gElim: 
       startLevel: 2
     gAbacus:
@@ -125,7 +125,7 @@ test0:
 gul:
   id: gul
   avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gPasscode
+  lastGame: gSteps
   # avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   # lastGame: gTouchPic
   settings:
@@ -164,10 +164,10 @@ gul:
     gWritePic: 
       startLevel: 2
     gAnagram: 
-      startLevel: 0
+      startLevel: 1
     gElim: 
       startLevel: 2
     gAbacus:
-      startLevel: 0
+      startLevel: 2
     gPasscode:
       startLevel: 0

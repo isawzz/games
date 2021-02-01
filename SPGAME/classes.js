@@ -1,11 +1,11 @@
 
 function getInstance(G) {
-	const GameClass = {
-		gTouchPic: GTouchPic, gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
-		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
-		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
-	};
-	return new (GameClass[G.id])(G.id);
+	// const GameClass = {
+	// 	gTouchPic: GTouchPic, gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
+	// 	gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
+	// 	gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
+	// };
+	return new (Daat.GameClasses[G.id])(G.id);
 }
 
 class Game {
@@ -35,7 +35,7 @@ class Game {
 		let item = Pictures[i];
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
-		console.log('Selected',Selected.pic.key,'id',id)
+		console.log('Selected', Selected.pic.key, 'id', id)
 
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
@@ -362,7 +362,7 @@ class GPremem extends Game {
 		showPicturesSpeechTherapyGames(this.interact.bind(this),
 			{ border: '3px solid #ffffff80' },
 			{ repeat: G.numRepeat, sameBackground: true });
-		showInstruction('', 'click any picture', dTitle, true);
+		showInstruction('', Settings.language == 'E'?'click any picture':'click irgendein Bild', dTitle, true);
 		activateUi();
 	}
 	trialPrompt() {
@@ -378,21 +378,22 @@ class GPremem extends Game {
 		let id = evToClosestId(ev);
 		let i = firstNumber(id);
 		let pic = Pictures[i];
-		let div = pic.div;
+		//let div = pic.div;
 		if (!isEmpty(this.piclist) && this.piclist.length < G.numRepeat - 1 && this.piclist[0].label != pic.label) return;
 		toggleSelectionOfPicture(pic, this.piclist);
 		//console.log('clicked', pic.key, this.piclist);//,piclist, GPremem.PicList);
 		if (isEmpty(this.piclist)) {
-			showInstruction('', 'click any picture', dTitle, true);
+			showInstruction('', Settings.language == 'E'?'click any picture':'click irgendein Bild', dTitle, true);
 		} else if (this.piclist.length < G.numRepeat - 1) {
 			//set incomplete: more steps are needed!
 			//frame the picture
-			showInstruction(pic.label, 'click another', dTitle, true);
+			showInstruction(pic.label, Settings.language == 'E'?'click another':'click ein andres Bild mit', dTitle, true);
 		} else if (this.piclist.length == G.numRepeat - 1) {
 			// look for last picture with x that is not in the set
 			let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
 			setGoal(picGoal.index);
-			showInstruction(picGoal.label, 'click the ' + (G.numRepeat == 2 ? 'other' : 'last'), dTitle, true);
+			showInstruction(picGoal.label, Settings.language == 'E'?'click the ' + (G.numRepeat == 2 ? 'other' : 'last')
+			:'click das ' + (G.numRepeat == 2 ? 'andere' : 'letzte') + ' Bild mit', dTitle, true);
 		} else {
 			//set is complete: eval
 			evaluate(this.piclist);
@@ -622,7 +623,7 @@ class GElim extends Game {
 		showPicturesSpeechTherapyGames(this.interact.bind(this), { contrast: G.contrast, },
 			{ showRepeat: showRepeat, colorKeys: colorKeys, repeat: G.numRepeat });
 
-		let [sSpoken, sWritten, piclist] = logicMulti(Pictures); 
+		let [sSpoken, sWritten, piclist] = logicMulti(Pictures);
 		this.piclist = piclist;
 		Goal = { pics: this.piclist, sammler: [] };
 
@@ -632,7 +633,7 @@ class GElim extends Game {
 	trialPrompt() {
 		sayTryAgain();
 		let msg = Settings.language == 'D' ? 'noch einmal!' : 'try again!'
-		showFleetingMessage(msg, 0, { margin:-8, fz: 22 }, true);
+		showFleetingMessage(msg, 0, { margin: -8, fz: 22 }, true);
 		return 1000;
 	}
 	activate() {
@@ -711,7 +712,7 @@ class GAbacus extends Game {
 		G.failFunc = failThumbsDown;
 		G.correctionFunc = this.showCorrectSequence.bind(this);
 	}
-	showCorrectSequence() { let t=correctBlanks(); showSayHint(3); return t+1000; }
+	showCorrectSequence() { let t = correctBlanks(); showSayHint(3); return t + 1000; }
 	startLevel() {
 		if (!isList(G.steps)) G.steps = [G.steps];
 		G.numPics = 2;
@@ -737,7 +738,7 @@ class GAbacus extends Game {
 
 		let instr1 = (Settings.language == 'E' ? 'calculate' : "rechne");
 		//let s=G.seq;
-		let spOp = G.oop.sp; if (Settings.language == 'D') spOp=DD[spOp];
+		let spOp = G.oop.sp; if (Settings.language == 'D') spOp = DD[spOp];
 		let instr2 = G.operand + ' ' + spOp + ' ' + G.step + ' ?';
 		//console.log(G);
 		//instr1 = arrTake(G.seq,3).join(' ');

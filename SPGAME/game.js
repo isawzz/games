@@ -140,7 +140,7 @@ function createDropInputs() {
 	return inputs;
 }
 function createDragLetters() {
-	fz = 60; let word = Goal.label.toUpperCase(); let wlen = word.length;
+	fz = 60; let word = Goal.label.toUpperCase(); //let wlen = word.length;
 	let dp = createLetterInputsX(word, dTable, { bg: 'silver', display: 'inline-block', fz: fz, w: fz, h: fz * 1.1, margin: 4 }); //,w:40,h:80,margin:10});
 	scrambleInputs(dp);
 	let letters = Array.from(dp.children);
@@ -193,7 +193,7 @@ function createLetterInputsX(s, dParent, style, idForContainerDiv) {
 	}
 	return d;
 }
-function isLetterElement(elem) { return isCapitalLetter(elem.innerHTML); }
+function isLetterElement(elem) { return isCapitalLetterOrDigit(elem.innerHTML); }
 function isVariableColor(c) { return c == 'random' || c == 'randPastel' || c == 'randDark' || c == 'randLight' || isList(c); }
 function scrambleInputs(d) {
 	let children = Array.from(d.children);

@@ -70,7 +70,7 @@ class TimeoutManager {
 class CountdownTimer {
 	constructor(ms, elem) {
 		this.timeLeft = ms;
-		this.msStart = Data.now();
+		this.msStart = Daat.now();
 		this.elem = elem;
 		this.tick();
 	}

@@ -143,7 +143,7 @@ function onClickExperiment() {
 
 function test04_subGame() {
 	//play one of the other games with special settings
-	Data = { settings: jsCopy(Settings), user: jsCopy(U) };
+	Daat = { settings: jsCopy(Settings), user: jsCopy(U) };
 
 	setRandomGameRound()
 
