@@ -33,7 +33,7 @@ function startLevel() {
 function startRound() {
 
 	if (isTimeForAddon()){
-		exitToAddon(startRound);
+		exitToAddon(startRound); return;
 	}
 
 	resetRound();
