@@ -124,7 +124,7 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gPasscode, gTouchPic, gPremem, gTouchColors, gMissingLetter, gSteps, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gSteps
   # avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   # lastGame: gTouchPic
