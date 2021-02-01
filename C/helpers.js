@@ -64,7 +64,7 @@ function iBounds(i, irel) {
 	return { x: x, y: y, w: w, h: h };
 }
 function iCenter(item, offsetX, offsetY) { let d = iDiv(item); mCenterAbs(d, offsetX, offsetY); }
-function iMoveFromTo(item, d1, d2, callback,offset) {
+function iMoveFromTo(item, d1, d2, callback, offset) {
 	let bi = iBounds(item);
 	let b1 = iBounds(d1);
 	let b2 = iBounds(d2);
@@ -73,7 +73,7 @@ function iMoveFromTo(item, d1, d2, callback,offset) {
 	//console.log('d2', b2);
 
 	//animate item to go translateY by d2.y-d1.y
-	if (nundef(offset))offset={x:0,y:0};
+	if (nundef(offset)) offset = { x: 0, y: 0 };
 	let dist = { x: b2.x - b1.x + offset.x, y: b2.y - b1.y + offset.y };
 
 	item.div.style.zIndex = 100;
@@ -134,15 +134,15 @@ function iSplay(items, iContainer, containerStyles, splay = 'right', ov = 20, ov
 
 	dParent.style.width = '' + sz.w + 'px';
 	dParent.style.height = '' + sz.h + 'px';
-	if (isdef(iParent)) { iParent.w = sz.w; iParent.h = sz.h; iParent.items=items; }
+	if (isdef(iParent)) { iParent.w = sz.w; iParent.h = sz.h; iParent.items = items; }
 	return isdef(iParent) ? iParent : dParent;
 
 }
 function iStyle(i, styles) { mStyleX(iDiv(i), styles); }
 //animations
 function aTranslateBy(d, x, y, ms) { return d.animate({ transform: `translate(${x}px,${y}px)` }, ms); }
-function aRotate(d, ms) { return d.animate({ transform: `rotate(360deg)` },ms); }
-function aRotateAccel(d, ms) { return d.animate({ transform: `rotate(1200deg)` },{easing:'cubic-bezier(.72, 0, 1, 1)',duration:ms}); }
+function aRotate(d, ms) { return d.animate({ transform: `rotate(360deg)` }, ms); }
+function aRotateAccel(d, ms) { return d.animate({ transform: `rotate(1200deg)` }, { easing: 'cubic-bezier(.72, 0, 1, 1)', duration: ms }); }
 //m
 function mAppend(d, child) { d.appendChild(child); }
 function mBg(d, color) { d.style.backgroundColor = color; }
@@ -231,14 +231,14 @@ function mStyleX(elem, styles, unit = 'px') {
 			//console.log('________________________YES!')
 
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
-		} else if (k == 'layout'){
+		} else if (k == 'layout') {
 			elem.style.setProperty('display', 'flex');
 			elem.style.setProperty('flex-wrap', 'wrap');
 			elem.style.setProperty('justify-content', 'center');
 			elem.style.setProperty('align-items', 'center');
-			switch(val[0]){
-				case 'v':elem.style.setProperty('flex-direction','column');break;
-				case 'h':elem.style.setProperty('flex-direction','row');break;
+			switch (val[0]) {
+				case 'v': elem.style.setProperty('flex-direction', 'column'); break;
+				case 'h': elem.style.setProperty('flex-direction', 'row'); break;
 			}
 		}
 
@@ -335,19 +335,20 @@ function mCreate(tag) { return document.createElement(tag); }
 function mDestroy(elem) { if (isString(elem)) elem = mById(elem); purge(elem); } // elem.parentNode.removeChild(elem); }
 function mZone(dParent, styles, pos) {
 	let d = mDiv(dParent);
-	if (isdef(styles)) mStyleX(d, styles)
+	if (isdef(styles)) mStyleX(d, styles);
 	if (isdef(pos)) {
-		if (nundef(dParent.style.position)) dParent.style.position = 'relative';
+		mIfNotRelative(dParent);
 		mPos(d, pos.x, pos.y);
 	}
 	return d;
 }
-
+function mIfNotRelative(d){if (nundef(d.style.position)) d.style.position = 'relative';}
 function mCanvas(dParent) { let d = mDiv(dParent); d.style.position = 'relative'; return d; }
 function mCanvas100(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
-function mDover(dParent) { let d = mDiv(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
+function mDover(dParent) { let d = mDiv(dParent); mIfNotRelative(dParent); mStyleX(d, { position: 'absolute', w: '100%', h: '100%' }); return d; }
 function mDiv(dParent = null, styles) { let d = mCreate('div'); if (dParent) mAppend(dParent, d); if (isdef(styles)) mStyleX(d, styles); return d; }
-function mDiv100(dParent = null) { let d = mDiv(dParent); mSize(d, 100, 100, '%'); return d; }
+function mDiv100(dParent, styles) { let d = mDiv(dParent, styles); mSize(d, 100, 100, '%'); return d; }
+function mScreen(dParent, styles) { let d=mDover(dParent);if (isdef(styles)) mStyleX(d,styles); return d;}
 function mFg(d, color) { d.style.color = color; }
 function mInstruction(msg, dParent, hasExclamation = true) {
 	let p = mCreate('h2');
@@ -366,6 +367,8 @@ function mHigh(ui) { mClass(ui, 'high'); }
 function mUnhigh(ui) { mClassRemove(ui, 'high'); }
 function mInsert(dParent, el) { dParent.insertBefore(el, dParent.childNodes[0]); }
 function mLabel(label) { return mText(label); }
+
+function mGap(d,gap){	mText('_',d,{fg:'transparent',h:gap}); }
 function mLinebreak(dParent, gap) {
 	if (isString(dParent)) dParent = mBy(dParent);
 	let d = mDiv(dParent);
@@ -730,7 +733,7 @@ function mColor(d, bg, fg) { return mStyleX(d, { 'background-color': bg, 'color'
 function mRemove(elem) { mDestroy(elem); }
 //function onMouseEnter(d, handler = null) { d3.on('mouse') }
 function mFont(d, fz) { d.style.setProperty('font-size', makeUnitString(fz, 'px')); }
-function mGap(d, gap) { d.style.setProperty('margin', gap + 'px'); }
+//function mGap(d, gap) { d.style.setProperty('margin', gap + 'px'); }
 //function mPosAbs(d) { return mStyle(d, { position: 'absolute' }); }
 function mSzPic(d, sz, unit = 'px') { return mSizePic(d, sz, sz, unit); }
 function mStyleS(elem, styles, unit = 'px') { elem = mEnsure(elem); for (const k in styles) { elem.style.setProperty(k, makeUnitString(styles[k], unit)); } return elem; }
