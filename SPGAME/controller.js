@@ -1,5 +1,7 @@
 var pictureSize, TOMain, TOTrial;
-function canAct() { return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
+function canAct() { 
+	console.log('uiActivated',uiActivated,'auxOpen',auxOpen)
+	return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
 
 function stopGame() {
 

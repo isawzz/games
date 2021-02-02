@@ -1,9 +1,10 @@
-var addonActive = true;
+var addonActive = false;
 var dAddon;
 var Password;
 var CallbackAfterAddon;
 var ActiveAddons = ['aPasscode'];
 var Adinst;
+var Ad;
 
 function isTimeForAddon() {
 	if (Username != 'nil' || isEmpty(ActiveAddons)) return false;
@@ -14,7 +15,6 @@ function isTimeForAddon() {
 function exitToAddon(callback) {
 	CallbackAfterAddon = callback;
 	enterInterruptState();
-
 	let aKey = chooseRandom(ActiveAddons);
 	Adinst = new Daat.AddonClasses[aKey]();
 
@@ -29,43 +29,45 @@ function addonScreen() {
 
 }
 function promptAddon() {
-	
-	console.log('hhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaallllllllllllllloooooooooooooooo'); 
+	//hier wird schon user gefragt um das password!!!	
+	//console.log('hhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaallllllllllllllloooooooooooooooo'); 
 
 	clearElement(dAddon);
 	let dContent = mDiv(dAddon, { matop: 50, display: 'flex', layout: 'vcs' });
 	Adinst.prompt(dContent);
-	return;
-
-	console.log('enter the passcode now!!!');
-	clearElement('dAddons');
-	let keys = [Goal.key].concat(getRandomKeys(3));
-	shuffle(keys);
-	let iGoal = keys.indexOf(Goal.key);
-	GroupCounter = 0;
-
-	showPicturesSpeechTherapyGames(addonEvaluate, undefined, undefined, keys);
-	//console.log('Pictures',Pictures);
-	setGoal(iGoal);
-	//console.log('Goal',Goal)
-	let wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
-	showInstruction('', 'click ' + wort + '!!!', dTitle, true);
-	Pictures.map(x => x.div.style.cursor = 'pointer');
-	addonActivateUi();
-
 
 }
 function addonActivateUi() {
 	Selected = null;
 	uiActivated = true;
 	Adinst.activate();
+	console.log('ui should be activated!!!')
 }
 function addonEvaluate(){
-	if (!canAct()) return;
+	//console.log('addonEvaluate');
+	if (!uiActivated) return;
 	uiActivated = false;
+	console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah',arguments)
 	let isCorrect = Adinst.eval(...arguments);
-	if (isCorrect) Adinst.positive(); else Adinst.negative();
+	if (isCorrect) {
+		Adinst.positive(); 
+		resumeGame();
+		//CallbackAfterAddon();
+	} else {
+		Adinst.negative();
+		addonTrialPrompt(0);
+	}
 
+}
+function resumeGame() {
+	console.log('*** CLICK! *** ...resuming');
+	auxOpen = false;
+	hide('dAddons')
+	CallbackAfterAddon();
+}
+function addonHint(i,dParent){
+	let pwd=Goal.label;
+  
 }
 
 
@@ -94,12 +96,6 @@ function showTest00() {
 	//mLinebreak(dAddon,10);
 	mText('hallo1', dAddon);
 
-}
-function resumeGame(callback) {
-	console.log('*** CLICK! *** ...resuming');
-	auxOpen = false;
-	hide('dAddons')
-	callback();
 }
 
 
