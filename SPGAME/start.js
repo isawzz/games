@@ -94,10 +94,12 @@ function initSymbolTableForGamesAddons() {
 		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
 
 	}
-	Daat.AddonClasses = {
-		aPasscode:APasscode, 
-		aExercise:APasscode, 
-		aMeditation:APasscode, 
-	
+	if (USE_ADDONS) {
+		AD = { activeList: ['aPasscode'] };
+		AD.cl = {
+			aPasscode: APasscode,
+			aExercise: APasscode,
+			aMeditation: APasscode,
+		}
 	}
 }

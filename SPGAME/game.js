@@ -1318,13 +1318,17 @@ function resetState() {
 	setBackgroundColor();
 
 }
-function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
 function sayRandomVoice(e, g, voice = 'random') {
+
+	//console.log('sayRandomVoice_________\ne',e,'\ng',g,'\nvoice',voice)
+
+	if (arguments.length == 1) voice = 'random';
 
 	let [r, p, v] = [.8, .9, 1];
 	//let voice = Settings.language == 'E' && (e.includes('<') || (e.includes('>')) ?'zira':'random';
 	if (!Settings.silentMode) Speech.say(Settings.language == 'E' || nundef(g) ? e : g, r, p, v, voice);
 }
+function sayTryAgain() { sayRandomVoice('try again!', 'nochmal'); }
 function setBadgeLevel(i) {
 	//i is now correct level
 	//let userStartLevel = getUserStartLevel(G.id);

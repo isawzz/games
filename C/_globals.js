@@ -10,6 +10,8 @@ var TO;
 
 var uiActivated, auxOpen;
 
+var AD; //addons
+
 var UIS = {};
 
 var App; //not sure!

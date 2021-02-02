@@ -20,6 +20,7 @@ class SpeechAPI {
 
 	}
 	setLanguage(lang) {
+		//console.log('settings the language to:',lang)
 		this.speaker.setLanguage(lang);
 		this.recorder.setLanguage(lang);
 	}
@@ -162,7 +163,10 @@ class Speaker {
 	setLanguage(lang) { this.lang = lang; }
 	enq(args) { this.q.push(args); }
 	deq() {
-		if (!isEmpty(this.q)) {
+		if (nundef(this.voices)){
+			setTimeout(this.deq.bind(this),500);
+		}
+		else if (!isEmpty(this.q)) {
 			let args = this.q.pop();
 			this.utter(...args);
 		} else {
@@ -181,7 +185,7 @@ class Speaker {
 		var u = new SpeechSynthesisUtterance();
 		//u.text = text;
 		let [vkey, voice] = this.findSuitableVoice(text, voicekey);
-		//console.log(vkey)
+		//console.log(this.voices,vkey)
 		u.text = sepWords(text, vkey);// 'Hi <silence msec="2000" /> Flash!'; //text.toLowerCase();
 		u.rate = r;
 		u.pitch = p;
@@ -198,6 +202,7 @@ class Speaker {
 		speechSynthesis.speak(u);
 	}
 	findSuitableVoice(text, voicekey) {
+		//console.log('findSuitableVoice',text,voicekey,this.lang);
 		// voicekey ... random | key in voiceNames | starting phrase of voices.name
 		//console.log(typeof voices, voices)
 		let voicenames = Speaker.VOICES;
