@@ -1,3 +1,15 @@
+function deactivateAddon() { AD.instance.clear(); AD.instance = null; }
+function initAddons(){
+	if (USE_ADDONS) {
+		AD = { activeList: ['aPasscode','aAddress'] };
+		AD.cl = {
+			aPasscode: APasscode,
+			aAddress: AAddress,
+			aExercise: APasscode,
+			aMeditation: APasscode,
+		}
+	}
+}
 function isTimeForAddon() {
 	if (nundef(AD)) return false; //Username != 'nil' 
 	if (nundef(AD.isActive)) AD.isActive = true; //starts with this setting!
@@ -6,21 +18,31 @@ function isTimeForAddon() {
 	console.log('isTimeForAddon returns', AD.isActive);
 	return AD.isActive;
 }
-function deactivateAddon() { AD.instance.clear(); AD.instance = null; }
-
+function loadAddon(aKey){ copyKeys(DB.addons[aKey],AD);}
+function selectAddon(){return 'aPasscode';}// aPasscode | aAddress
 function exitToAddon(callback) {
 	AD.callback = callback;
 	enterInterruptState();
 	if (nundef(AD.instance)) {
-		let aKey = 'aAddressTraining'; //chooseRandom(AD.activeList);
+		let aKey = selectAddon();//'aAddress'; //chooseRandom(AD.activeList);
+		loadAddon(aKey);
 		AD.instance = new AD.cl[aKey]();
 	}
 	addonScreen();
+	console.log('Addon is',AD)
 }
+function addonContentDiv(hPercent=80){
+	return mDiv(AD.div, { h:''+hPercent+'vh', matop:''+(100-hPercent)/3+'vh', display: 'flex', 
+	layout: 'vcs', fg: 'contrast', fz: 24, bg:'silver', padding:25, w:'100vw' });
+}
+function getContentDiv(){return AD.div.children[0];}
+
+//addon ablauf:
 function addonScreen() {
 	show(mBy('dAddons'));
-	if (nundef(AD.div)) AD.div = mScreen(mBy('dAddons'), { bg: 'silver', fg: 'dimgray', fz: 24, display: 'flex', layout: 'vcs' });
-	let dContent = mDiv(AD.div, { matop: 150, display: 'flex', layout: 'vcs' });
+	let bg = colorTrans('silver',.25);
+	if (nundef(AD.div)) AD.div = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcs' });
+	let dContent = addonContentDiv(60); // mDiv(AD.div, { matop: 150, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw' });
 	AD.instance.present(dContent);
 }
 function promptAddon() {
@@ -28,13 +50,13 @@ function promptAddon() {
 	//console.log('hhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaallllllllllllllloooooooooooooooo'); 
 
 	clearElement(AD.div);
-	let dContent = mDiv(AD.div, { matop: 50, display: 'flex', layout: 'vcs' });
+	let dContent = addonContentDiv(80); // mDiv(AD.div, { matop: 50, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw'  });
 	AD.instance.prompt(dContent);
 
 }
 function addonShowHint(written, spoken) {
 
-	if (nundef(AD.dHint)) AD.dHint = mDiv(AD.div, { fz: 24 });
+	if (nundef(AD.dHint)) AD.dHint = mDiv(getContentDiv(), { fz: 24 });
 	AD.dHint.innerHTML = written;
 	if (isdef(spoken)) sayRandomVoice(spoken);
 }
@@ -66,6 +88,8 @@ function resumeGame() {
 	hide('dAddons')
 	AD.callback();
 }
+
+
 function removeNonAlphanum(s) {
 	let res = '';
 	for (const l of s) {
@@ -83,6 +107,24 @@ function findCommonPrefix(s1, s2) {
 	return res;
 }
 
+function testmultiply() {
+  var x = document.getElementById("first").value;
+  var y = document.getElementById("second").value;
+  var z = x * y;
+  document.getElementById("answer").innerHTML = z;
+  return (false);
+}
+function showSubmitForm(dParent) {
+	let html = `<form id="calculator" onSubmit="return testmultiply()" method="post">
+<input type="number" id="first"> *
+<input type="number" id="second">
+<input type="submit"> = <span id="answer"></span>
+</form>`;
+	let elem = createElementFromHTML(html);
+	mAppend(dParent, elem);
+
+}
+
 function showPasscodeAddress(dParent) {
 	Goal = { label: '17448 NE 98th Way Redmond 98052' };
 	Speech.setLanguage('E')
@@ -96,7 +138,7 @@ function showPasscodeAddress(dParent) {
 }
 function showPasscode(dParent) {
 	//console.log('KeySets',KeySets,KeySets.nemo);
-	let keys = getRandomKeys(1); // choose(KeySets.nemo, 1);
+	let keys = getRandomKeysFromGKeys(1); // choose(KeySets.nemo, 1);
 	let res = getPictureItems(null, { border: '3px solid pink' }, { rows: 1 }, keys);
 	Pictures = res.items;
 	Goal = Pictures[0];

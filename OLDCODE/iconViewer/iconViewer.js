@@ -94,10 +94,9 @@ function gridLabeled(list, picLabelStyles) {
 
 function onClickIVPicture(ev) {
 	ev.cancelBubble = true;
-	let id = evToClosestId(ev);
-	console.log(id, Pictures, Pictures[10])
-	let i = firstNumber(id);
-	let pic = Pictures[i];
+	//let id = evToClosestId(ev);	console.log(id, Pictures, Pictures[10]);//let i = firstNumber(id);	let pic = Pictures[i];
+	let pic = findItemFromEvent(Pictures,ev);
+	
 	toggleSelectionOfPicture(pic);
 
 }

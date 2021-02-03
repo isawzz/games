@@ -28,14 +28,13 @@ class Game {
 	activate() { }
 	interact() { }
 	eval(ev) {
-		let id = evToClosestId(ev);
 		ev.cancelBubble = true;
+		// let id = evToClosestId(ev);		let i = firstNumber(id);		let item = Pictures[i];
+		let item = findItemFromEvent(Pictures,ev);
 
-		let i = firstNumber(id);
-		let item = Pictures[i];
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
-		console.log('Selected', Selected.pic.key, 'id', id)
+		//console.log('Selected', Selected.pic.key, 'id', id)
 
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
@@ -83,11 +82,9 @@ class GTouchColors extends Game {
 		activateUi();
 	}
 	eval(ev) {
-		let id = evToClosestId(ev);
 		ev.cancelBubble = true;
-
-		let i = firstNumber(id);
-		let item = Pictures[i];
+		// let id = evToClosestId(ev);		let i = firstNumber(id);		let item = Pictures[i];
+		let item = findItemFromEvent(Pictures,ev);
 		Selected = { pic: item, feedbackUI: item.div };
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
@@ -117,10 +114,7 @@ class GMem extends Game {
 		//console.log('interact!', ev);
 		ev.cancelBubble = true;
 		if (!canAct()) return;
-
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
+		let pic = findItemFromEvent(Pictures,ev);
 		toggleFace(pic);
 
 		if (G.trialNumber == G.trials - 1) {
@@ -375,9 +369,10 @@ class GPremem extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) return;
 
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
+		let pic = findItemFromEvent(Pictures,ev);
+		// let id = evToClosestId(ev);
+		// let i = firstNumber(id);
+		// let pic = Pictures[i];
 		//let div = pic.div;
 		if (!isEmpty(this.piclist) && this.piclist.length < G.numRepeat - 1 && this.piclist[0].label != pic.label) return;
 		toggleSelectionOfPicture(pic, this.piclist);
@@ -452,9 +447,7 @@ class GSteps extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) { console.log('no act'); return; }
 
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
+		let pic = findItemFromEvent(Pictures,ev);
 
 		toggleSelectionOfPicture(pic, this.piclist);
 		if (this.piclist.length == Goal.pics.length) {
@@ -466,17 +459,14 @@ class GSteps extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) { console.log('no act'); return; }
 
-		let id = evToClosestId(ev);
-		let i = firstNumber(id);
-		let pic = Pictures[i];
-		let div = pic.div;
-		//if (!isEmpty(this.piclist) && this.piclist.length < G.numSteps - 1 && this.piclist[0].label != pic.label) return;
+		let pic = findItemFromEvent(Pictures,ev);
+
 		toggleSelectionOfPicture(pic, this.piclist);
-		//console.log('clicked pic', pic.index, this.piclist);//,piclist, GPremem.PicList);
+
 		if (isEmpty(this.piclist)) return;
-		//return;
+
 		let iGoal = this.piclist.length - 1;
-		//console.log('iGoal', iGoal, Goal.pics[iGoal], 'i', i, pic)
+
 		if (pic != Goal.pics[iGoal]) { Selected = { pics: this.piclist, wrong: pic, correct: Goal[iGoal] }; evaluate(false); }
 		else if (this.piclist.length == Goal.pics.length) { Selected = { piclist: this.piclist }; evaluate(true); }
 	}
@@ -644,8 +634,9 @@ class GElim extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) return;
 
-		let id = evToClosestId(ev);
-		let pic = firstCond(Pictures, x => x.div.id == id);
+		let pic = findItemFromEvent(Pictures,ev);
+		// let id = evToClosestId(ev);
+		// let pic = firstCond(Pictures, x => x.div.id == id);
 		writeSound(); playSound('hit');
 
 		if (Goal.pics.includes(pic)) {

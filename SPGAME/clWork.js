@@ -12,7 +12,7 @@ class GPasscode extends Game {
 		if (this.needNewPasscode) {
 			G.timeout = 1000;
 			this.needNewPasscode = false;
-			let keys = getRandomKeys(G.passcodeLength);
+			let keys = getRandomKeysFromGKeys(G.passcodeLength);
 			showPicturesSpeechTherapyGames(null,
 				{ border: '3px solid #ffffff80' },
 				{ repeat: G.numRepeat, sameBackground: true }, keys);

@@ -1,0 +1,10 @@
+aPasscode:
+  friendly: 'Passcode'
+  logo: 'key'
+  color: indigo
+  numPics: 4
+aAddress:
+  friendly: 'Address'
+  logo: 'home'
+  color: orange
+

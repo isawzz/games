@@ -53,6 +53,7 @@ async function _start() {
 	initAux();
 	initScore();
 	initSymbolTableForGamesAddons();
+	initAddons();
 
 	Speech = new SpeechAPI('E');
 
@@ -61,6 +62,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
+	// test06_submit(); return;
 	//addonScreen(); return;
 	//onclick=()=>test05_popup('think about the passcode!',24001); return;
 	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
@@ -93,14 +95,5 @@ function initSymbolTableForGamesAddons() {
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
 		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
 
-	}
-	if (USE_ADDONS) {
-		AD = { activeList: ['aPasscode','aAddressTraining'] };
-		AD.cl = {
-			aPasscode: APasscode,
-			aAddressTraining: AAddressTraining,
-			aExercise: APasscode,
-			aMeditation: APasscode,
-		}
 	}
 }

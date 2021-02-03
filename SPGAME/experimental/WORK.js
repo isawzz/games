@@ -10,6 +10,11 @@ function doOtherStuff() {
 	// test04_blankPageWithMessageAndCountdownAndBeep('think about the passcode!');
 	test05_popup('think about the passcode!');
 }
+
+function test06_submit() {
+	showSubmitForm(dTable);
+}
+
 var imageCounter = -1;
 function test05_popup(msg, ms) {
 	let dPopup = mBy('dPopup');
@@ -21,7 +26,7 @@ function test05_popup(msg, ms) {
 	let superlong = 20000;
 	if (isdef(ms)) { G = { timeout: ms }; }//G.timeout=long+1;
 
-	imageCounter+=1;
+	imageCounter += 1;
 
 	mLinebreak(dOuter, 25);
 	if (G.timeout > long) {
@@ -43,7 +48,7 @@ function test05_popup(msg, ms) {
 		// let nums = ['01', '02', '03', '04'];
 		// mImage(`../assets/images/postures/${chooseRandom(imgs)}0${randomNumber(1,8)}.jpg`, dpics,200,200);
 		mLinebreak(dOuter, 25);
-	}else{
+	} else {
 		mLinebreak(dOuter, 35);
 
 	}
@@ -115,17 +120,23 @@ function test04_justABlankPage() {
 	//show countdown timer!
 	setTimeout(backToPasscode, G.timeout);
 }
-function getRandomKeys(n) { return choose(G.keys, n); }
+function findItemFromEvent(items,ev){
+	let id = evToClosestId(ev);
+	let item = firstCond(items, x => x.div.id == id);
+	return item;
+
+}
+function getRandomKeysFromGKeys(n) { return getRandomKeys(n, G.keys); }
 function backToPasscode() {
 	hide('dPopup')
 	console.log('enter the passcode now!!!');
 	//need to add more pictures
 	//need to remove the button! 
 	clearElement(dTable);
-	let keys = [Goal.key].concat(getRandomKeys(G.numPics - 1));
+	let keys = [Goal.key].concat(getRandomKeysFromGKeys(G.numPics - 1));
 	shuffle(keys);
 	let iGoal = keys.indexOf(Goal.key);
-	GroupCounter = 0;
+	//GroupCounter = 0;
 
 	showPicturesSpeechTherapyGames(evaluate, undefined, undefined, keys);
 	//console.log('Pictures',Pictures);

@@ -2,7 +2,7 @@
 class APasscode {
 	constructor() {
 		this.needNewPasscode = true;
-		this.presenter = showPasscode;
+		this.fPresent = showPasscode;
 	}
 	clear() { clearTimeout(this.TO); }
 
@@ -18,7 +18,7 @@ class APasscode {
 			this.time = 5000;
 			this.startTime = Date.now();
 			this.needNewPasscode = false;
-			this.presenter(dParent);//showTest00();
+			this.fPresent(dParent);//showTest00();
 
 			this.goal = Goal;
 			this.passcode = this.goal.label;
@@ -33,19 +33,11 @@ class APasscode {
 		}
 	}
 	prompt(dParent) {
-		let keys = getRandomKeys(4);
-		if (!keys.includes(this.goal.key)) {
-			//randomly replace one of the keys by this one!
-			let i = randomNumber(0, 3);
-			keys.splice(i, 1, this.goal.key);
-		}
-		shuffle(keys);
-
+		let keys = getRandomKeysIncluding(AD.numPics,this.goal.key,'all');
 		console.log('keys', keys);
 
 		let iGoal = keys.indexOf(this.goal.key);
-		GroupCounter = 0;
-		let res = getPictureItems(addonEvaluate, { border: '3px solid pink' }, { rows: 2, showLabels: true }, keys);
+		let res = getPictureItems(addonEvaluate, { border: '3px solid yellow' }, { rows: 2, showLabels: true }, keys);
 		Pictures = res.items;
 		Goal = Pictures[iGoal];
 
@@ -86,15 +78,10 @@ class APasscode {
 	}
 	activate() { }
 	eval(ev) {
-		let id = evToClosestId(ev);
 		ev.cancelBubble = true;
+		let item = findItemFromEvent(Pictures,ev);
 
-		let i = firstNumber(id);
-		let item = Pictures[i];
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
-
-		console.log('Selected', Selected.pic.key, 'id', id)
-
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
 
@@ -119,19 +106,29 @@ class APasscode {
 	}
 }
 
-class AAddressTraining extends APasscode {
+class AAddress extends APasscode {
 	constructor() {
 		super();
-		this.presenter = showPasscodeAddress;
+		this.fPresent = showPasscodeAddress;
 
 	}
 	prompt(dParent) {
+
+		let html = `<form id="calculator" onSubmit="return multiply()" method="post">
+			<input type="number" id="first"> *
+			<input type="number" id="second">
+			<input type="submit"> = <span id="answer"></span>
+		</form>`;
+		let elem = createElementFromHTML(html);
+		mAppend(dParent, elem);
+
 		//hier soll ein input zeigen und sagen enter the passcode!
 		let d_title = mDiv(dParent);
 		showInstruction('', 'enter your address', d_title, true);
 
 		let d = this.input = mInput('', '', dParent, { align: 'center' });
-		mStyleX(d, { w: 600, fz: 16 });
+		d.type = 'submit';
+		mStyleX(d, { w: 600, fz: 22 });
 		d.focus();
 
 		mButton('Submit!', () => addonEvaluate(this.input.value), dParent, { fz: 42, matop: 10 });
@@ -173,9 +170,9 @@ class AAddressTraining extends APasscode {
 		let req1 = removeNonAlphanum(req);
 		let answer1 = removeNonAlphanum(answer);
 
-		let common = findCommonPrefix(req1,answer1);
+		let common = findCommonPrefix(req1, answer1);
 		//now find common prefix
-		console.log(req1,answer1,common);
+		console.log(req1, answer1, common);
 		//return true;
 
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };

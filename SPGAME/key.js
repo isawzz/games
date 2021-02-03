@@ -1,3 +1,4 @@
+// action,actionPlus,all,best25,best50,best75,best100,emo,life,life50,lifePlus,nemo,nemo100,obejct,object50,objectPlus
 var KeySets;
 function catFiltered(cats, name, best) {
 	//console.log(cats, name)
@@ -33,15 +34,14 @@ function getKeySets() {
 		for (const k in o) res[k] = o[k];
 	}
 
-	res['objectPlus']=union(res.object,res.best100);
-	res['lifePlus']=union(res.life,res.best100);
-	res['actionPlus']=union(res.action,res.best100);
+	res['objectPlus'] = union(res.object, res.best100);
+	res['lifePlus'] = union(res.life, res.best100);
+	res['actionPlus'] = union(res.action, res.best100);
 
 	localStorage.setItem('KeySets', JSON.stringify(res));
 	return res;
 
 }
-
 function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc } = {}) {
 
 
@@ -51,9 +51,9 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 	if (isdef(nMin)) {
 		let diff = nMin - keys.length;
 		let additionalSet = diff > 0 ? firstCondDictKeys(keysets, k => k != key && keysets[k].length > diff) : null;
-		
+
 		//console.log('diff',diff,additionalSet, keys)
-		if (additionalSet) KeySets[additionalSet].map(x=>addIf(keys,x)); //
+		if (additionalSet) KeySets[additionalSet].map(x => addIf(keys, x)); //
 		//if (additionalSet) keys = keys.concat(keysets[additionalSet]);
 		//console.log(keys)
 	}
@@ -79,7 +79,7 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 		//if result does not have enough elements, take randomly from other
 		let len = primary.length;
 		let nMissing = nMin - len;
-		if (nMissing > 0) { let list = choose(spare, nMissing); spare = arrMinus(arr,list); primary = primary.concat(list); }
+		if (nMissing > 0) { let list = choose(spare, nMissing); spare = arrMinus(arr, list); primary = primary.concat(list); }
 	}
 
 	if (isdef(sortByFunc)) { sortBy(primary, sortByFunc); }
@@ -89,7 +89,17 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 	return primary;
 }
 
-
+function getRandomKeys(n, kSetOrList) { return choose(isList(kSetOrList) ? kSetOrList : KeySets[kSetOrList], n); }
+function getRandomKeysIncluding(n,k,kSetOrList){
+	let keys = getRandomKeys(n,kSetOrList);
+	if (!keys.includes(k)) {
+		//randomly replace one of the keys by this one!
+		let i = randomNumber(0, keys.length-1);
+		keys.splice(i, 1, k);
+	}
+	shuffle(keys);
+	return keys;
+}
 
 
 

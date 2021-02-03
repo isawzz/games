@@ -51,7 +51,7 @@ function prep1(items, ifs, options) {
 		outerStyles.fg = item.fg;
 		mStyleX(d, outerStyles);
 		//console.log('===>iGroup',item.iGroup,i)
-		d.id = 'pic' + (i + item.iGroup);
+		d.id = getUID(); // 'pic' + (i + item.iGroup); //$$$$$
 		d.onclick = options.onclick;
 		//complete item info
 		item.id = d.id;
