@@ -95,9 +95,10 @@ function initSymbolTableForGamesAddons() {
 
 	}
 	if (USE_ADDONS) {
-		AD = { activeList: ['aPasscode'] };
+		AD = { activeList: ['aPasscode','aAddressTraining'] };
 		AD.cl = {
 			aPasscode: APasscode,
+			aAddressTraining: AAddressTraining,
 			aExercise: APasscode,
 			aMeditation: APasscode,
 		}

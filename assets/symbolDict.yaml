@@ -25026,8 +25026,8 @@ cityscape at dusk:
   hexcode: 1F306
   group: travel-places
   subgroups: place-other
-  E: city
-  D: dusk
+  E: dusk|city
+  D: zwielicht|stadt
   E_valid_sound: stadt
   D_valid_sound: sonnenuntergang
   hex: 1F306

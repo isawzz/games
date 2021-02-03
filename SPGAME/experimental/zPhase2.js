@@ -41,7 +41,6 @@ function prep1(items, ifs, options) {
 		delete pic.info;
 		mAppend(d, pic.div);
 		//add text if needed
-		//console.log('============>>showLabels',options.showLabels)
 		if (options.showLabels) {
 			textStyles.fg = item.fg;
 			text = zText1Line(item.label, null, textStyles, hText);

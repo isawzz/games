@@ -3,7 +3,7 @@ function isTimeForAddon() {
 	if (nundef(AD.isActive)) AD.isActive = true; //starts with this setting!
 	else if (AD.isActive == true) AD.isActive = false;
 	else if (isdef(AD.instance)) AD.isActive = AD.instance.isTimeForAddon();
-	console.log('isTimeForAddon returns',AD.isActive);
+	console.log('isTimeForAddon returns', AD.isActive);
 	return AD.isActive;
 }
 function deactivateAddon() { AD.instance.clear(); AD.instance = null; }
@@ -12,14 +12,14 @@ function exitToAddon(callback) {
 	AD.callback = callback;
 	enterInterruptState();
 	if (nundef(AD.instance)) {
-		let aKey = chooseRandom(AD.activeList);
+		let aKey = 'aAddressTraining'; //chooseRandom(AD.activeList);
 		AD.instance = new AD.cl[aKey]();
 	}
 	addonScreen();
 }
 function addonScreen() {
 	show(mBy('dAddons'));
-	AD.div = mScreen(mBy('dAddons'), { bg: 'silver', fg: 'dimgray', fz: 24, display: 'flex', layout: 'vcs' });
+	if (nundef(AD.div)) AD.div = mScreen(mBy('dAddons'), { bg: 'silver', fg: 'dimgray', fz: 24, display: 'flex', layout: 'vcs' });
 	let dContent = mDiv(AD.div, { matop: 150, display: 'flex', layout: 'vcs' });
 	AD.instance.present(dContent);
 }
@@ -32,6 +32,12 @@ function promptAddon() {
 	AD.instance.prompt(dContent);
 
 }
+function addonShowHint(written, spoken) {
+
+	if (nundef(AD.dHint)) AD.dHint = mDiv(AD.div, { fz: 24 });
+	AD.dHint.innerHTML = written;
+	if (isdef(spoken)) sayRandomVoice(spoken);
+}
 function addonActivateUi() {
 	Selected = null;
 	uiActivated = true;
@@ -42,7 +48,7 @@ function addonEvaluate() {
 	//console.log('addonEvaluate');
 	if (!uiActivated) return;
 	uiActivated = false;
-	console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah', arguments)
+	//console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah', arguments)
 	let isCorrect = AD.instance.eval(...arguments);
 	if (isCorrect) {
 		AD.instance.positive();
@@ -50,7 +56,7 @@ function addonEvaluate() {
 		//AD.callback();
 	} else {
 		AD.instance.negative();
-		addonTrialPrompt(0);
+		AD.instance.trialPrompt();
 	}
 
 }
@@ -60,19 +66,42 @@ function resumeGame() {
 	hide('dAddons')
 	AD.callback();
 }
-function addonHint(i, dParent) {
-	let pwd = Goal.label;
-
+function removeNonAlphanum(s) {
+	let res = '';
+	for (const l of s) {
+		if (isAlphaNumeric(l)) res += l;
+	}
+	return res;
+}
+function findCommonPrefix(s1, s2) {
+	let i = 0;
+	let res = '';
+	while (i < s1.length && i < s2.length) {
+		if (s1[i] != s2[i]) break; else res += s1[i];
+		i += 1;
+	}
+	return res;
 }
 
-
+function showPasscodeAddress(dParent) {
+	Goal = { label: '17448 NE 98th Way Redmond 98052' };
+	Speech.setLanguage('E')
+	let wr = 'your address is:';
+	let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
+	let d_title = mDiv(dParent, { fz: 12 });
+	showInstruction(Goal.label, wr, d_title, true, sp, 12);
+	let d_pics = mDiv(dParent);
+	Goal.div = mText(Goal.label, d_pics, { fz: 40 });
+	return d_pics;
+}
 function showPasscode(dParent) {
 	//console.log('KeySets',KeySets,KeySets.nemo);
-	let keys = choose(KeySets.nemo, 1);
+	let keys = getRandomKeys(1); // choose(KeySets.nemo, 1);
 	let res = getPictureItems(null, { border: '3px solid pink' }, { rows: 1 }, keys);
 	Pictures = res.items;
 	Goal = Pictures[0];
 
+	console.log('Goal', Goal)
 
 	let w = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
 	let d_title = mDiv(dParent);
