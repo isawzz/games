@@ -35,7 +35,7 @@ function getPictureItems(onClickPictureHandler, ifs = {}, options = {}, keys, la
 	prep1(items, ifs, options);
 	//#endregion
 
-	return {items:items,rows:rows};
+	return [items,rows];
 }
 function presentItems(items,dParent,rows){
 	//#region phase3: prep container for items

@@ -1,7 +1,8 @@
 var pictureSize, TOMain, TOTrial;
-function canAct() { 
-	console.log('uiActivated',uiActivated,'auxOpen',auxOpen)
-	return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2'); }
+function canAct() {
+	//console.log('uiActivated',uiActivated,'auxOpen',auxOpen)
+	return uiActivated && !auxOpen && document.activeElement.id != 'spUser' && !isVisible2('freezer2');
+}
 
 function stopGame() {
 
@@ -33,16 +34,15 @@ function startLevel() {
 	startRound();
 }
 function startRound() {
-
-	if (isTimeForAddon()){
-		exitToAddon(startRound); return;
-	}
+	if (G.addonActive != true && isTimeForAddon()) { 
+		G.addonActive=true;
+		//console.log('time for addon!!!')
+		exitToAddon(startRound); return; 
+	}else G.addonActive = false;
 
 	resetRound();
 	uiActivated = false;
-
 	G.instance.startRound();
-
 	TOMain = setTimeout(() => prompt(), 300);
 }
 function prompt() {

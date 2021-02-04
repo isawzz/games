@@ -1,4 +1,4 @@
-function deactivateAddon() { AD.instance.clear(); AD.instance = null; }
+//#region addon funcs
 function initAddons(){
 	if (USE_ADDONS) {
 		AD = { activeList: ['aPasscode','aAddress'] };
@@ -13,9 +13,9 @@ function initAddons(){
 function isTimeForAddon() {
 	if (nundef(AD)) return false; //Username != 'nil' 
 	if (nundef(AD.isActive)) AD.isActive = true; //starts with this setting!
-	else if (AD.isActive == true) AD.isActive = false;
-	else if (isdef(AD.instance)) AD.isActive = AD.instance.isTimeForAddon();
-	console.log('isTimeForAddon returns', AD.isActive);
+	else if (AD.isActive == true) AD.isActive = false; //min 1 Q between addon runs
+	else if (isdef(AD.instance)) AD.isActive = AD.instance.isTimeForAddon(); //once an addon has startet, it will set next time!
+	//console.log('isTimeForAddon returns', AD.isActive);
 	return AD.isActive;
 }
 function loadAddon(aKey){ copyKeys(DB.addons[aKey],AD);}
@@ -29,45 +29,42 @@ function exitToAddon(callback) {
 		AD.instance = new AD.cl[aKey]();
 	}
 	addonScreen();
-	console.log('Addon is',AD)
+	//console.log('Addon is',AD)
 }
-function addonContentDiv(hPercent=80){
-	return mDiv(AD.div, { h:''+hPercent+'vh', matop:''+(100-hPercent)/3+'vh', display: 'flex', 
-	layout: 'vcs', fg: 'contrast', fz: 24, bg:'silver', padding:25, w:'100vw' });
-}
-function getContentDiv(){return AD.div.children[0];}
+function deactivateAddon() { AD.instance.clear(); AD.instance = null; }
+//#endregion
 
 //addon ablauf:
 function addonScreen() {
 	show(mBy('dAddons'));
 	let bg = colorTrans('silver',.25);
-	if (nundef(AD.div)) AD.div = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcs' });
-	let dContent = addonContentDiv(60); // mDiv(AD.div, { matop: 150, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw' });
-	AD.instance.present(dContent);
+	if (nundef(AD.div)) AD.div = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcc' });
+	let dContent = addonContentDiv(AD.hIntro); // mDiv(AD.div, { matop: 150, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw' });
+	AD.instance.present(dContent); // AD.instance.present(dContent);
 }
 function promptAddon() {
 	//hier wird schon user gefragt um das password!!!	
-	//console.log('hhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaallllllllllllllloooooooooooooooo'); 
-
 	clearElement(AD.div);
-	let dContent = addonContentDiv(80); // mDiv(AD.div, { matop: 50, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw'  });
+	let dContent = addonContentDiv(AD.hPrompt); // mDiv(AD.div, { matop: 50, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw'  });
 	AD.instance.prompt(dContent);
 
 }
 function addonShowHint(written, spoken) {
 
-	if (nundef(AD.dHint)) AD.dHint = mDiv(getContentDiv(), { fz: 24 });
+	if (nundef(AD.dHint)) AD.dHint = mDiv(getContentDiv(), { fz: 24, h:28, bg:'green' });
 	AD.dHint.innerHTML = written;
 	if (isdef(spoken)) sayRandomVoice(spoken);
+	//console.log(AD.dHint)
+	return AD.dHint;
 }
 function addonActivateUi() {
 	Selected = null;
 	uiActivated = true;
 	AD.instance.activate();
-	console.log('ui should be activated!!!')
+	//console.log('ui should be activated!!!')
 }
 function addonEvaluate() {
-	//console.log('addonEvaluate');
+	//console.log('addonEvaluateddddddddddddddddddddddddddddddddddddddddddd');
 	if (!uiActivated) return;
 	uiActivated = false;
 	//console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah', arguments)
@@ -83,49 +80,29 @@ function addonEvaluate() {
 
 }
 function resumeGame() {
-	console.log('*** CLICK! *** ...resuming');
+	//console.log('*** CLICK! *** ...resuming');
 	auxOpen = false;
-	hide('dAddons')
+	//clearElement(AD.div)
+	hide('dAddons');
+	AD.instance.clear();
 	AD.callback();
 }
 
 
-function removeNonAlphanum(s) {
-	let res = '';
-	for (const l of s) {
-		if (isAlphaNumeric(l)) res += l;
-	}
-	return res;
-}
-function findCommonPrefix(s1, s2) {
-	let i = 0;
-	let res = '';
-	while (i < s1.length && i < s2.length) {
-		if (s1[i] != s2[i]) break; else res += s1[i];
-		i += 1;
-	}
-	return res;
-}
-
-function testmultiply() {
-  var x = document.getElementById("first").value;
-  var y = document.getElementById("second").value;
-  var z = x * y;
-  document.getElementById("answer").innerHTML = z;
-  return (false);
-}
-function showSubmitForm(dParent) {
-	let html = `<form id="calculator" onSubmit="return testmultiply()" method="post">
-<input type="number" id="first"> *
-<input type="number" id="second">
-<input type="submit"> = <span id="answer"></span>
-</form>`;
-	let elem = createElementFromHTML(html);
-	mAppend(dParent, elem);
-
+function substringOfMinLength(s,minStartIndex,minLength){
+	let res = s.substring(minStartIndex).trim();
+	let i=0;
+	let res1='';
+	while(res1.trim().length<minLength && i<res.length){res1+=res[i];i+=1;}
+	return res1.trim();
 }
 
 function showPasscodeAddress(dParent) {
+
+	//brauche eine buchstbier function
+	//brauche eine finction die nur die zahlen in einem satz buchstabiert
+	//
+
 	Goal = { label: '17448 NE 98th Way Redmond 98052' };
 	Speech.setLanguage('E')
 	let wr = 'your address is:';
@@ -136,10 +113,73 @@ function showPasscodeAddress(dParent) {
 	Goal.div = mText(Goal.label, d_pics, { fz: 40 });
 	return d_pics;
 }
+
+
+
+
+
+
+
+//#region addon helpers
+function removeNonAlphanum(s) {
+	let res = '';
+	let nonalphas = '';
+	for (const l of s) {
+		if (isAlphaNumeric(l)) res += l; else nonalphas += l;
+	}
+	return {alphas:res,whites:nonalphas};
+}
+function findCommonPrefix(s1, s2) {
+	let i = 0;
+	let res = '';
+	while (i < s1.length && i < s2.length) {
+		if (s1[i] != s2[i]) break; else res += s1[i];
+		i += 1;
+	}
+	return res;
+}
+function getCorrectPrefix(label,text){
+
+	// let txt = this.input.value;
+	// console.log('input value',txt);
+
+	let req = label.toLowerCase();
+	let answer = text.toLowerCase();
+
+	let res1 = removeNonAlphanum(req);
+	let res2 = removeNonAlphanum(answer);
+	let req1 = res1.alphas;// removeNonAlphanum(req);
+	let answer1 = res2.alphas; //removeNonAlphanum(answer);
+	let whites = res1.whites;
+
+	let common = findCommonPrefix(req1, answer1);
+	//now find common prefix
+	//console.log(req1, answer1, 'common prefix is',common);
+
+	//the real address is Goal.label
+	//let aReal = Goal.label;
+	//whites
+	let nletters = common.length;
+	let ireal=0;
+	let icompact=0;
+	let iwhites=0;
+	let correctPrefix = '';
+	while(icompact<nletters){
+		if (req[ireal]==common[icompact]) {correctPrefix+=Goal.label[ireal];icompact+=1;}
+		else if (whites[iwhites]==req[ireal]){correctPrefix+=Goal.label[ireal];iwhites+=1;}
+		else break;
+		ireal+=1;
+	}
+	//console.log('__________result:',correctPrefix);
+
+	return correctPrefix;
+}
+
+
 function showPasscode(dParent) {
 	//console.log('KeySets',KeySets,KeySets.nemo);
 	let keys = getRandomKeysFromGKeys(1); // choose(KeySets.nemo, 1);
-	let res = getPictureItems(null, { border: '3px solid pink' }, { rows: 1 }, keys);
+	let res = getPictureItems(null, {}, { rows: 1 }, keys);
 	Pictures = res.items;
 	Goal = Pictures[0];
 
@@ -154,23 +194,14 @@ function showPasscode(dParent) {
 	mRemoveClass(d_pics, 'flexWrap')
 	return d_pics;
 }
-
-
-function showTest00() {
-	mText('hallo1', AD.div);
-	mText('hallo1', AD.div);
-	mGap(AD.div, 100);
-	// mText('_',AD.div,{fg:'transparent',h:100})
-	//mLinebreak(AD.div,10);
-	mText('hallo1', AD.div);
-
+function addonContentDiv(hPercent=80){
+	return mDiv(AD.div, { display: 'flex', 
+	layout: 'vcs', fg: 'contrast', fz: 24, bg:'silver', patop:50, pabottom:50,matop:-50, w:'100vw' });
+	// return mDiv(AD.div, { h:''+hPercent+'vh', matop:''+(100-hPercent)/3+'vh', display: 'flex', 
+	// layout: 'vcs', fg: 'contrast', fz: 24, bg:'silver', patop:50, w:'100vw' });
 }
-
-
-
-
-
-
+function getContentDiv(){return AD.div.children[0];}
+//#endregion
 
 
 

@@ -155,6 +155,7 @@ function onClickExperiment() {
 
 
 function test04_subGame() {
+	//FAILED ATTEMPT!!!!!!!!!!!!!!
 	//play one of the other games with special settings
 	Daat = { settings: jsCopy(Settings), user: jsCopy(U) };
 

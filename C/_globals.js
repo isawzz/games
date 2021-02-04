@@ -1,18 +1,18 @@
 var Username,Gamename,Tablename;
 
-var DB, G, T,X,P, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
+var Live, DB, G, T,X,P, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
 
 var Speech;
 
 var Pictures, Goal, Selected, Score;
 
-var TO;
+var TO; //timeout dictionary
 
 var uiActivated, auxOpen;
 
-var AD; //addons
+var AD, ADS; //addons: current instance and dict of all existing addons (form DB)
 
-var UIS = {};
+var UIS = {}; 
 
 var App; //not sure!
 var Daat = {}; //some kind of global object for testing ...

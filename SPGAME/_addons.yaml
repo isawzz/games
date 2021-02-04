@@ -3,8 +3,13 @@ aPasscode:
   logo: 'key'
   color: indigo
   numPics: 4
+  tStart: 5000
+  tFactor: 2
+  immediateStart: true
 aAddress:
   friendly: 'Address'
   logo: 'home'
   color: orange
-
+  tStart: 30000
+  tFactor: 3
+  immediateStart: false

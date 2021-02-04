@@ -257,6 +257,7 @@ function mStyleX(elem, styles, unit = 'px') {
 		if (key == 'font-weight') { elem.style.setProperty(key, val); continue; }
 		else if (key == 'background-color') elem.style.background = bg;
 		else if (key == 'color') elem.style.color = fg;
+		else if (key == 'opacity') elem.style.opacity = val;
 		else {
 			//console.log('set property',key,makeUnitString(val,unit),val,isNaN(val));
 			//if ()

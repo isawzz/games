@@ -48,12 +48,15 @@ async function _start() {
 	//timit.show('DONE');
 	console.assert(isdef(DB));
 
+	initLive();
 	initTable();
 	initSidebar();
 	initAux();
 	initScore();
-	initSymbolTableForGamesAddons();
-	initAddons();
+	initSymbolTableForGamesAddons(); //creates Daat
+	
+	//initAddons(); //old API ==>deprecate
+	addonFeatureInit(); //new API!
 
 	Speech = new SpeechAPI('E');
 
@@ -62,6 +65,9 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
+	addonUserInit(Username);
+
+	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
 	// test06_submit(); return;
 	//addonScreen(); return;
 	//onclick=()=>test05_popup('think about the passcode!',24001); return;

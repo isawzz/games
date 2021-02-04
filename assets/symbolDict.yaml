@@ -76817,7 +76817,7 @@ microscope:
   group: objects
   subgroups: science
   E: microscope
-  D: mikroscop
+  D: mikroskop
   hex: 1F52C
   family: emoNoto
   text: '&#128300;'
@@ -76842,16 +76842,16 @@ microscope:
     - 133
   bestE: microscope
   bestEConf: 96
-  bestD: mikroscop
+  bestD: mikroskop
   best100:
     E: microscope
-    D: mikroscop
+    D: mikroskop
   best50:
     E: microscope
-    D: mikroscop
+    D: mikroskop
   best25:
     E: microscope
-    D: mikroscop
+    D: mikroskop
 microscope-lens:
   key: microscope-lens
   type: icon

@@ -2,6 +2,8 @@
 function prep1(items, ifs, options) {
 	//#region phase2: prepare items for container
 
+	//console.log('prep1',ifs,items[0]); return;
+
 	let sz = options.sz;
 	let padding = (isdef(ifs.padding)?ifs.padding:1);
 	let szNet = sz - 2 * padding;
@@ -24,6 +26,7 @@ function prep1(items, ifs, options) {
 	}
 
 	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	outerStyles = deepmergeOverride(outerStyles,ifs);
 	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];

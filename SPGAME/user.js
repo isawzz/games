@@ -189,7 +189,6 @@ function updateUserScore() {
 
 	let recOld = lookupSet(U, ['games', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
 	let recSession = lookupSet(U, ['session', g], { startLevel: 0, nTotal: 0, nCorrect: 0, nCorrect1: 0 });
-	//let recNew = U.session[g];
 
 	addByKey(sc, recSession);
 	recSession.percentage = Math.round(100 * recSession.nCorrect / recSession.nTotal);
