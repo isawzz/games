@@ -331,10 +331,16 @@ gAbacus:
       ops: [mult]
     3:
       maxNum: 99
-      ops: [plus,minus,mult]
+      maxFactor: 10
+      ops: [plus,minus]
     4:
-      maxNum: 99
+      minNum: 8
+      maxNum: 25
       ops: [plus,minus,mult]
+    5:
+      maxNum: 12
+      maxFactor: 12
+      ops: [mult]
 gPasscode:
   friendly: 'Passcode!'
   logo: 'lock'
