@@ -8,11 +8,20 @@ class AddonClass extends LiveObject {
 		this.startTime = Date.now();
 		this.callback = this.dScreen = this.dContent = null;
 	}
+	//#region internal
 	_createDivs(){
 		this.dInstruction = mDiv(this.dContent);
 		this.dMain = mDiv(this.dContent);
 		this.dHint = mDiv(this.dContent); this.dHint.innerHTML = 'hallo'; this.dHint.style.opacity=0;
 	}
+	_createScreen() {
+		show(mBy('dAddons'));
+		let bg = colorTrans('silver', .25);
+		let dScreen = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcc' });
+		let dContent = mDiv(dScreen, { display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
+		return [dScreen, dContent];
+	}
+	//#endregion
 	exit(){
 		hide('dAddons');
 		this.tNext *= this.tFactor;
@@ -23,7 +32,7 @@ class AddonClass extends LiveObject {
 	}
 	init() {
 		//console.log('addon init!!!!');
-		[this.dScreen, this.dContent] = addonCreateScreen();
+		[this.dScreen, this.dContent] = this._createScreen();
 		this._createDivs();
 		this.running = true;
 		this.presentInit();
