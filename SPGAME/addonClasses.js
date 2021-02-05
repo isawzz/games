@@ -8,19 +8,25 @@ class AddonClass extends LiveObject {
 		this.startTime = Date.now();
 		this.callback = this.dScreen = this.dContent = null;
 	}
+	_createDivs(){
+		this.dInstruction = mDiv(this.dContent);
+		this.dMain = mDiv(this.dContent);
+		this.dHint = mDiv(this.dContent); this.dHint.innerHTML = 'hallo'; this.dHint.style.opacity=0;
+	}
 	exit(){
 		hide('dAddons');
 		this.tNext *= this.tFactor;
 		this.startTime = Date.now();
-		console.log('tNext for addon',this.tNext);
+		//console.log('tNext for addon',this.tNext);
 		this.clear();
 		this.callback();
 	}
 	init() {
 		//console.log('addon init!!!!');
 		[this.dScreen, this.dContent] = addonCreateScreen();
+		this._createDivs();
 		this.running = true;
-		this.present();
+		this.presentInit();
 		mButton('Got it!', this.prompt.bind(this), this.dContent, { fz: 42, matop: 10 });
 		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
 	}
@@ -31,9 +37,15 @@ class AddonClass extends LiveObject {
 		//console.log('elapsed', elapsed, 'total', waitingTime);
 		return elapsed >= waitingTime;
 	}
-	present() { console.log('presenting initial information'); }
-	prompt() { console.log('prompting user to do something') }
-	processUI(){
+	presentInit() { console.log('presenting initial information'); }
+	presentPrompt() { console.log('prompting user to do something') }
+	prompt() {
+		clearElement(this.dContent);
+		this._createDivs();
+		this.presentPrompt();
+		this.activate();
+	}
+	processInput(){
 		if (!this.uiActivated) return;
 		this.uiActivated = false;
 		//console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah', arguments)
@@ -61,24 +73,30 @@ class AddonClass extends LiveObject {
 		//console.log('running:',this.running);
 		if (this.running) { this.prompt(); } else this.init();  
 	}
+	trialPrompt() {
+		let [wr,sp] = this.getHint();
+		this.hintLength = wr.length;
+
+		if (isdef(sp))	sayRandomVoice(sp);
+
+		this.dHint.innerHTML = 'Hint: '+wr;  this.dHint.style.opacity=1;
+
+		this.activate();
+	}
 
 }
+
 class APasscode extends AddonClass {
 	constructor(dbInfo, userInfo) {
 		super(dbInfo, userInfo);
 		this.needNewPasscode = true;
 	}
-
-	present() {
-		//console.log('presentation div',dParent)
+	presentInit() {
 		let keys = getRandomKeysFromGKeys(1); // choose(KeySets.nemo, 1);
 		[this.pictures, this.rows] = getPictureItems(null, {}, { rows: 1 }, keys);
 
 		this.goal = this.pictures[0];
 		this.passcode = this.goal.label;
-
-		//console.log('pics', this.pictures)
-		//console.log('this.goal', this.goal);
 
 		let dParent = this.dContent;
 		let d_title = mDiv(dParent);
@@ -89,27 +107,32 @@ class APasscode extends AddonClass {
 
 		return d_pics;
 	}
-	prompt() {
+	presentPrompt() {
 		let keys = getRandomKeysIncluding(this.numPics, this.goal.key, 'all');
 		//console.log('keys', keys);
 
 		let iGoal = keys.indexOf(this.goal.key);
-		[this.pictures, this.rows] = getPictureItems(this.processUI.bind(this), undefined, { rows: 2, showLabels: true }, keys);
+		[this.pictures, this.rows] = getPictureItems(this.processInput.bind(this), undefined, { rows: 2, showLabels: true }, keys);
 		this.goal = this.pictures[iGoal];
 
-		let dParent = this.dContent;
-		clearElement(dParent);
-		//let dContent = addonContentDiv(this.hPrompt); // mDiv(this.div, { matop: 50, display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg:'navy', padding:25, w:'100vw'  });
-		let d_title = mDiv(dParent);
-		showInstruction('', 'click ' + (Settings.language == 'E' ? 'the passcode' : 'das Codewort'), d_title, true);
+		showInstruction('', 'click ' + (Settings.language == 'E' ? 'the passcode' : 'das Codewort'), this.dInstruction, true);
 
-		let d_pics = mDiv(dParent);
-		presentItems(this.pictures, d_pics, this.rows);
-
-		this.activate();
+		presentItems(this.pictures, this.dMain, this.rows);
 
 	}
-	trialPrompt() {
+	eval(ev) {
+		ev.cancelBubble = true;
+		let item = findItemFromEvent(this.pictures, ev);
+
+		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
+		Selected.reqAnswer = this.goal.label;
+		Selected.answer = item.label;
+
+		//console.log('eval addon:', item.label, this.goal.label)
+		if (item.label == this.goal.label) { return true; } else { return false; }
+
+	}
+	getHint() {
 		// if (nundef(this.trialNumber)) this.trialNumber = 1; else this.trialNumber += 1;
 		let hintLength, spoken;
 		if (this.trialNumber > this.passcode.length * 2) {
@@ -130,56 +153,61 @@ class APasscode extends AddonClass {
 			hintLength = this.trialNumber;
 			spoken = null;// Settings.language == 'E' ? 'look at the hint!' : 'hier ein Tipp!'
 		}
-		addonShowHint('Hint: ' + this.passcode.substring(0, hintLength), spoken);
-		addonActivateUi();
-	}
-	eval(ev) {
-		ev.cancelBubble = true;
-		let item = findItemFromEvent(this.pictures, ev);
-
-		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
-		Selected.reqAnswer = this.goal.label;
-		Selected.answer = item.label;
-
-		//console.log('eval addon:', item.label, this.goal.label)
-		if (item.label == this.goal.label) { return true; } else { return false; }
-
+		return [this.passcode.substring(0, hintLength),spoken];
 	}
 }
 
 class AAddress extends APasscode {
-	constructor() {
-		super();
-		this.fPresent = showPasscodeAddress;
+	constructor(dbInfo, userInfo) {
+		super(dbInfo, userInfo);
 	}
-	clear() { clearTimeout(this.TO); Speech.setLanguage(Settings.language); }
-	prompt(dParent) {
+	clear() { super.clear(); Speech.setLanguage(Settings.language); }
+	presentInit() {
+		this.goal = { label: '17448 NE 98th Way Redmond 98052' };
+		Speech.setLanguage('E')
+		let wr = 'your address is:';
+		let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
 
+		showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
+
+		this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
+
+	}
+	presentPrompt() {
 		Speech.setLanguage('E');
-		let d_title = mDiv(dParent);
-		showInstruction('', 'enter your address', d_title, true);
+		showInstruction('', 'enter your address', this.dInstruction, true);
 
-		let d_inp = mDiv(dParent, { padding: 25 });
-		//let d = this.input = mInput('', '1 7   44,8n e3', d_inp, { align: 'center' });
-		// let d = this.input = mInput('', '17448 ne 98th way Redmond 9805sss', d_inp, { align: 'center' });
-		let d = this.input = mInput('', '', d_inp, { align: 'center' });
-		//let d = this.input = mInput('', this.goal.label, d_inp, { align: 'center' });
+		let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
+		let d_inp = mDiv(this.dMain, { padding: 25 });
+		let d = this.input = mInput('', val, d_inp, { align: 'center' });
 		d.id = 'inputAddress';
 		mStyleX(d, { w: 600, fz: 24 });
 		this.defaultFocusElement = d.id;
-
-		let dHint = addonShowHint('w ');
-		//console.log('dHint',dHint)
-		mStyleX(dHint, { opacity: 0 });
-
 		this.nCorrect = 0;
-		addonActivateUi();
 	}
-	trialPrompt() {
+	activate() {
+
+		window.onclick = () => mBy(this.defaultFocusElement).focus();
+		this.input.onkeyup = ev => {
+			//console.log('hallo!!!!')
+			if (ev.key === "Enter") {
+				ev.cancelBubble = true;
+				//console.log('clicked enter!!!');
+				this.processInput(ev);
+			}
+		};
+		this.input.focus();
+		super.activate();
+	}
+	eval() {
+		let correctPrefix = this.correctPrefix = getCorrectPrefix(this.goal.label, this.input.value);
+		return correctPrefix == this.goal.label;
+	}
+	getHint(){
 		let oldHintLength = isdef(this.hintLength) ? this.hintLength : 0;
 		if (nundef(this.hintLength)) this.hintLength = 1;
-		this.input.value = this.correctPrefix;
 
+		this.input.value = this.correctPrefix;
 		let progress = this.correctPrefix.length > this.nCorrect;
 		if (this.correctPrefix.length > this.nCorrect) {
 			//user got more good letters. hint length will be reduced to 1
@@ -188,82 +216,10 @@ class AAddress extends APasscode {
 		} else if (this.hintLength < this.goal.label.length) this.hintLength += 1;
 
 		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
-		this.hintLength = wr.length;
-		//console.log('old hintLength',oldHintLength,'new hintLength is:',this.hintLength);
-
-		if (oldHintLength == this.hintLength && !progress) {
-			//Speech.setLanguage(Settings.language)
-			sayRandomVoice('complete the address!')
-		}
-
-		addonShowHint('Hint: ' + wr);
-		addonActivateUi();
-	}
-	activate() {
-		window.onclick = () => mBy(this.defaultFocusElement).focus();
-		this.input.onkeyup = ev => {
-			//if (!canAct()) return;
-			if (ev.key === "Enter") {
-				ev.cancelBubble = true;
-				//console.log('clicked enter!!!');
-				addonEvaluate(ev);
-			}
-		};
-		this.input.focus();
-	}
-	eval(ev) {
-		let correctPrefix = this.correctPrefix = getCorrectPrefix(this.goal.label, this.input.value);
-		return correctPrefix == this.goal.label;
-	}
-	positive() {
-		//console.log('positive: should go back to callback!');
-		this.trialNumber = null;
-		delete this.dHint;
-	}
-	negative() {
-		//console.log('negative: should start a lesson in memory!!!!!!!', this.trialNumber);
-		if (nundef(this.trialNumber)) this.trialNumber = 1; else this.trialNumber += 1;
-		//console.log('nach negative', this.trialNumber)
-		// if (nundef(this.trialNumber)) this.trialNumber = 1;
-		//or maybe just give hints over hints over hints......
+		let sp = oldHintLength == this.hintLength && !progress? 'complete the address':null;
+		return [wr,sp];
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

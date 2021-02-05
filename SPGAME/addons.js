@@ -89,13 +89,6 @@ function resumeGame() {
 }
 
 
-function substringOfMinLength(s,minStartIndex,minLength){
-	let res = s.substring(minStartIndex).trim();
-	let i=0;
-	let res1='';
-	while(res1.trim().length<minLength && i<res.length){res1+=res[i];i+=1;}
-	return res1.trim();
-}
 
 function showPasscodeAddress(dParent) {
 
@@ -121,59 +114,6 @@ function showPasscodeAddress(dParent) {
 
 
 //#region addon helpers
-function removeNonAlphanum(s) {
-	let res = '';
-	let nonalphas = '';
-	for (const l of s) {
-		if (isAlphaNumeric(l)) res += l; else nonalphas += l;
-	}
-	return {alphas:res,whites:nonalphas};
-}
-function findCommonPrefix(s1, s2) {
-	let i = 0;
-	let res = '';
-	while (i < s1.length && i < s2.length) {
-		if (s1[i] != s2[i]) break; else res += s1[i];
-		i += 1;
-	}
-	return res;
-}
-function getCorrectPrefix(label,text){
-
-	// let txt = this.input.value;
-	// console.log('input value',txt);
-
-	let req = label.toLowerCase();
-	let answer = text.toLowerCase();
-
-	let res1 = removeNonAlphanum(req);
-	let res2 = removeNonAlphanum(answer);
-	let req1 = res1.alphas;// removeNonAlphanum(req);
-	let answer1 = res2.alphas; //removeNonAlphanum(answer);
-	let whites = res1.whites;
-
-	let common = findCommonPrefix(req1, answer1);
-	//now find common prefix
-	//console.log(req1, answer1, 'common prefix is',common);
-
-	//the real address is Goal.label
-	//let aReal = Goal.label;
-	//whites
-	let nletters = common.length;
-	let ireal=0;
-	let icompact=0;
-	let iwhites=0;
-	let correctPrefix = '';
-	while(icompact<nletters){
-		if (req[ireal]==common[icompact]) {correctPrefix+=Goal.label[ireal];icompact+=1;}
-		else if (whites[iwhites]==req[ireal]){correctPrefix+=Goal.label[ireal];iwhites+=1;}
-		else break;
-		ireal+=1;
-	}
-	//console.log('__________result:',correctPrefix);
-
-	return correctPrefix;
-}
 
 
 function showPasscode(dParent) {

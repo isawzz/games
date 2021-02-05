@@ -55,9 +55,9 @@ nil:
   addons:
     aPasscode:
       open: true
-      tNext: 2000 #next time this should be running is in 20 seconds!
+      #tNext: 2000 #next time this should be running is in 20 seconds!
     aAddress:
-      open: false
+      open: true
 guest0:
   id: guest
   avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]

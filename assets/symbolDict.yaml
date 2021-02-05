@@ -83434,7 +83434,7 @@ orangutan:
   group: animals-nature
   subgroups: animal-mammal
   E: ape|orangutan
-  D: affe|menschenaffe|orangutan|orang utan
+  D: affe|menschenaffe|orangutan
   hex: 1F9A7
   family: emoNoto
   text: '&#129447;'
