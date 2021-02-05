@@ -1,13 +1,14 @@
 class AddonClass extends LiveObject {
-	constructor(dbInfo, userInfo) {
-		super();
+	constructor(k, dbInfo, userInfo) {
+		//console.log('______________WARUM??????',k)
+		super(k);
 		copyKeys(dbInfo, this);
 		copyKeys(userInfo, this);
 		if (nundef(this.tNext)) this.tNext = this.tStart;
 		this.running = false;
 		this.state = this.immediateStart ? LiveObject.States.ready : LiveObject.States.none;
 		this.startTime = Date.now();
-		this.callback = this.dScreen = this.dContent = null;
+		this.callback = this.div = this.dContent = null;
 	}
 	//#region internal
 	_createDivs() {
@@ -18,11 +19,16 @@ class AddonClass extends LiveObject {
 	_createScreen() {
 		show(mBy('dAddons'));
 		let bg = colorTrans('silver', .25);
-		let dScreen = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcc' });
-		let dContent = mDiv(dScreen, { display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
-		return [dScreen, dContent];
+		let d = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcc' });
+		let dContent = mDiv(d, { display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
+		return [d, dContent];
 	}
 	//#endregion
+	checkEndCondition(){
+		return true;
+		let c=this.endsWhen;
+		if (isdef(c) && AD[c.prop] == AD[c.value]) return true; else return false;
+	}
 	exit() {
 		hide('dAddons');
 		this.tNext *= this.tFactor;
@@ -33,7 +39,7 @@ class AddonClass extends LiveObject {
 	}
 	init() {
 		//console.log('addon init!!!!');
-		[this.dScreen, this.dContent] = this._createScreen();
+		[this.div, this.dContent] = this._createScreen();
 		this._createDivs();
 		this.setRunning();
 		this.presentInit();
@@ -52,6 +58,8 @@ class AddonClass extends LiveObject {
 	presentPrompt() { console.log('prompting user to do something') }
 	prompt() {
 		clearElement(this.dContent);
+		this.trialsNeeded=0;
+
 		this._createDivs();
 		this.presentPrompt();
 		this.activate();
@@ -85,6 +93,7 @@ class AddonClass extends LiveObject {
 		if (this.running) { this.prompt(); } else this.init();
 	}
 	trialPrompt() {
+		this.trialsNeeded += 1;
 		let [wr, sp] = this.getHint();
 		this.hintLength = wr.length;
 
@@ -97,8 +106,10 @@ class AddonClass extends LiveObject {
 
 }
 class APasscode extends AddonClass {
-	constructor(dbInfo, userInfo) {
-		super(dbInfo, userInfo);
+	constructor(k,dbInfo, userInfo) {
+		//console.log('______________',k)
+
+		super(k,dbInfo, userInfo);
 		this.needNewPasscode = true;
 	}
 	presentInit() {
@@ -167,8 +178,9 @@ class APasscode extends AddonClass {
 	}
 }
 class AAddress extends APasscode {
-	constructor(dbInfo, userInfo) {
-		super(dbInfo, userInfo);
+	constructor(k,dbInfo, userInfo) {
+		//console.log('______________',k)
+		super(k,dbInfo, userInfo);
 	}
 	clear() { super.clear(); Speech.setLanguage(Settings.language); }
 	presentInit() {
@@ -189,7 +201,7 @@ class AAddress extends APasscode {
 		let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
 		let d_inp = mDiv(this.dMain, { padding: 25 });
 		let d = this.input = mInput('', val, d_inp, { align: 'center' });
-		d.id = 'inputAddress';
+		d.id = 'inputAddon';
 		d.autocomplete = 'off';
 		mStyleX(d, { w: 600, fz: 24 });
 		this.defaultFocusElement = d.id;
@@ -231,6 +243,78 @@ class AAddress extends APasscode {
 	}
 }
 
+class APassword extends AAddress {
+	constructor(k,dbInfo, userInfo) {
+		// console.log('______________',k)
+		super(k,dbInfo, userInfo);
+	}
+	presentInit() {
+		this.goal = { label: '17448 NE 98th Way Redmond 98052' };
+		Speech.setLanguage('E')
+		let wr = 'your address is:';
+		let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
 
+		showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
 
+		this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
 
+	}
+	presentPrompt() {
+		Speech.setLanguage('E');
+		showInstruction('', 'enter your address', this.dInstruction, true);
+
+		let d=this.input=createInput(this.dMain,'inputAddon');
+		this.defaultFocusElement = d.id;
+		this.nCorrect = 0;
+	}
+	activate() {
+
+		window.onclick = () => mBy(this.defaultFocusElement).focus();
+		this.input.onkeyup = ev => {
+			//console.log('hallo!!!!')
+			if (ev.key === "Enter") {
+				ev.cancelBubble = true;
+				//console.log('clicked enter!!!');
+				this.processInput(ev);
+			}
+		};
+		this.input.focus();
+		super.activate();
+	}
+	eval() {
+		let correctPrefix = this.correctPrefix = getCorrectPrefix(this.goal.label, this.input.value);
+		return correctPrefix == this.goal.label;
+	}
+	getHint() {
+		let oldHintLength = isdef(this.hintLength) ? this.hintLength : 0;
+		if (nundef(this.hintLength)) this.hintLength = 1;
+
+		this.input.value = this.correctPrefix;
+		let progress = this.correctPrefix.length > this.nCorrect;
+		if (this.correctPrefix.length > this.nCorrect) {
+			//user got more good letters. hint length will be reduced to 1
+			this.hintLength = 1;
+			this.nCorrect = this.correctPrefix.length;
+		} else if (this.hintLength < this.goal.label.length) this.hintLength += 1;
+
+		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
+		let sp = oldHintLength == this.hintLength && !progress ? 'complete the address' : null;
+		return [wr, sp];
+	}
+}
+
+function addonInputInstruction(instruction,addon){
+	
+}
+function createInstruction(dParent,msg,spoken){
+
+}
+function createInput(dParent,id){
+	let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
+	let d_inp = mDiv(dParent, { padding: 25 });
+	let d = mInput('', val, d_inp, { align: 'center' });
+	d.id = id;
+	d.autocomplete = 'off';
+	mStyleX(d, { w: 600, fz: 24 });
+	return d;
+}

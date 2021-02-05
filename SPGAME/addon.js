@@ -34,6 +34,13 @@ function isTimeForAddon() {
 
 	if (isEmpty(U.avAddons)) return false; //this user doesn't have available addons!
 
+	if (isdef(AD) && AD.running && AD.checkEndCondition()){
+		AD.die();
+		console.log(U,U.addons,AD,AD.key,U.addons[AD.key]);
+		U.addons[AD.key].open = false;
+		AD = null;
+	}
+
 	if (isdef(AD)) return AD.isTimeForAddon(); //if addon already activated, just check if it says time to run
 
 	//if addons are available to that user but none is instantiated yet, look for open addons!
@@ -44,17 +51,17 @@ function isTimeForAddon() {
 		//============================================================= HERE ==================================
 		//randomly select an available addon and open it!
 		let k = chooseRandom(U.avAddons);
-		AD = new ADS[k].cl(ADS[k], {});
+		AD = new ADS[k].cl(k, ADS[k], {});
 
 	} else if (open.length == 1) {
 		//instantiate this addon and run its timerFunction to see if it is time
 		let k = open[0];
-		AD = new ADS[k].cl(ADS[k], U.addons[k]);
+		AD = new ADS[k].cl(k, ADS[k], U.addons[k]);
 	} else {
 		//choose easliest time in open addons or a random one if no time info available!!!
 		//ne leichter: mach einfach random
 		let k = chooseRandom(open); // firstCond(open,x=>U.addons[x].)
-		AD = new ADS[k].cl(ADS[k], U.addons[k]);
+		AD = new ADS[k].cl(k, ADS[k], U.addons[k]);
 
 	}
 

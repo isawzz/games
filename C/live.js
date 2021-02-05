@@ -6,7 +6,9 @@ function initLive() { Live = {}; }
 
 class LiveObject {
 	static States = { none: 0, gettingReady: 1, ready: 2, running: 3, on: 3, off: 4 }
-	constructor() { //a live object gets an id at birth
+	constructor(k) { //a live object gets an id at birth
+		//console.log('__________________k',k)
+		this.key = k;
 		let id = this.id = getUID();
 		Live[id] = this;
 		this.TOList = [];
@@ -21,7 +23,7 @@ class LiveObject {
 	activate() { this.uiActivated = true; }
 	clear() { this._clearTO(); } //just hide its UI???
 	deactivate() { this.uiActivated = false; }
-	die() { this._clearTO(); Live[this.id] = null; }
+	die() { this._clearTO(); console.assert(isdef(this.div)); this.div.remove(); Live[this.id] = null; }
 	run() { console.log('object', this.id, 'is running...') }
 
 	setGettingReady() { this.running = false; this.state = LiveObject.States.gettingReady; console.log('...getting ready!'); }

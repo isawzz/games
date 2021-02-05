@@ -6,10 +6,16 @@ aPasscode:
   tStart: 2000
   tFactor: 2
   immediateStart: true
+  endsWhen:
+    tNext: tNext
+    value: 60000000 #1 day interval (1000 minutes)
 aAddress:
   friendly: 'Address'
   logo: 'home'
   color: orange
-  tStart: 60000
+  tStart: 2000 #1 minute
   tFactor: 3
   immediateStart: false
+  endsWhen:
+    prop: trialsNeeded
+    value: 0
