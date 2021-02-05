@@ -16,7 +16,7 @@ function _prep1(items, ifs, options) {
 
 	let bo=ifs.border;
 	bo = isdef(bo)?isString(bo)?firstNumber(bo):bo:0;
-	console.log('ifs.border',ifs.border,2*bo)
+	//console.log('ifs.border',ifs.border,2*bo)
 
 	let szNet = sz - 2 * padding - 2*bo;
 

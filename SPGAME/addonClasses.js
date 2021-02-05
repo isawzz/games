@@ -5,14 +5,15 @@ class AddonClass extends LiveObject {
 		copyKeys(userInfo, this);
 		if (nundef(this.tNext)) this.tNext = this.tStart;
 		this.running = false;
+		this.state = this.immediateStart ? LiveObject.States.ready : LiveObject.States.none;
 		this.startTime = Date.now();
 		this.callback = this.dScreen = this.dContent = null;
 	}
 	//#region internal
-	_createDivs(){
+	_createDivs() {
 		this.dInstruction = mDiv(this.dContent);
 		this.dMain = mDiv(this.dContent);
-		this.dHint = mDiv(this.dContent); this.dHint.innerHTML = 'hallo'; this.dHint.style.opacity=0;
+		this.dHint = mDiv(this.dContent); this.dHint.innerHTML = 'hallo'; this.dHint.style.opacity = 0;
 	}
 	_createScreen() {
 		show(mBy('dAddons'));
@@ -22,7 +23,7 @@ class AddonClass extends LiveObject {
 		return [dScreen, dContent];
 	}
 	//#endregion
-	exit(){
+	exit() {
 		hide('dAddons');
 		this.tNext *= this.tFactor;
 		this.startTime = Date.now();
@@ -34,17 +35,18 @@ class AddonClass extends LiveObject {
 		//console.log('addon init!!!!');
 		[this.dScreen, this.dContent] = this._createScreen();
 		this._createDivs();
-		this.running = true;
+		this.setRunning();
 		this.presentInit();
 		mButton('Got it!', this.prompt.bind(this), this.dContent, { fz: 42, matop: 10 });
 		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
 	}
 	isTimeForAddon() {
-		if (!this.running) { return this.immediateStart; }
-		let elapsed = Date.now() - this.startTime;
-		let waitingTime = this.tNext;
-		//console.log('elapsed', elapsed, 'total', waitingTime);
-		return elapsed >= waitingTime;
+		switch (this.state) {
+			case LiveObject.States.none: this.getReady(this.tNext); return false;
+			case LiveObject.States.gettingReady: return false;
+			case LiveObject.States.ready: return true;
+			case LiveObject.States.running: return Date.now() - this.startTime >= this.tNext;
+		}
 	}
 	presentInit() { console.log('presenting initial information'); }
 	presentPrompt() { console.log('prompting user to do something') }
@@ -54,7 +56,7 @@ class AddonClass extends LiveObject {
 		this.presentPrompt();
 		this.activate();
 	}
-	processInput(){
+	processInput() {
 		if (!this.uiActivated) return;
 		this.uiActivated = false;
 		//console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyeah', arguments)
@@ -77,18 +79,18 @@ class AddonClass extends LiveObject {
 		if (nundef(this.trialNumber)) this.trialNumber = 1; else this.trialNumber += 1;
 		//console.log('nach negative', this.trialNumber)
 	}
-	run() { 
+	run() {
 		show('dAddons');
 		//console.log('running:',this.running);
-		if (this.running) { this.prompt(); } else this.init();  
+		if (this.running) { this.prompt(); } else this.init();
 	}
 	trialPrompt() {
-		let [wr,sp] = this.getHint();
+		let [wr, sp] = this.getHint();
 		this.hintLength = wr.length;
 
-		if (isdef(sp))	sayRandomVoice(sp);
+		if (isdef(sp)) sayRandomVoice(sp);
 
-		this.dHint.innerHTML = 'Hint: '+wr;  this.dHint.style.opacity=1;
+		this.dHint.innerHTML = 'Hint: ' + wr; this.dHint.style.opacity = 1;
 
 		this.activate();
 	}
@@ -161,7 +163,7 @@ class APasscode extends AddonClass {
 			hintLength = this.trialNumber;
 			spoken = null;// Settings.language == 'E' ? 'look at the hint!' : 'hier ein Tipp!'
 		}
-		return [this.passcode.substring(0, hintLength),spoken];
+		return [this.passcode.substring(0, hintLength), spoken];
 	}
 }
 class AAddress extends APasscode {
@@ -188,6 +190,7 @@ class AAddress extends APasscode {
 		let d_inp = mDiv(this.dMain, { padding: 25 });
 		let d = this.input = mInput('', val, d_inp, { align: 'center' });
 		d.id = 'inputAddress';
+		d.autocomplete = 'off';
 		mStyleX(d, { w: 600, fz: 24 });
 		this.defaultFocusElement = d.id;
 		this.nCorrect = 0;
@@ -210,7 +213,7 @@ class AAddress extends APasscode {
 		let correctPrefix = this.correctPrefix = getCorrectPrefix(this.goal.label, this.input.value);
 		return correctPrefix == this.goal.label;
 	}
-	getHint(){
+	getHint() {
 		let oldHintLength = isdef(this.hintLength) ? this.hintLength : 0;
 		if (nundef(this.hintLength)) this.hintLength = 1;
 
@@ -223,8 +226,8 @@ class AAddress extends APasscode {
 		} else if (this.hintLength < this.goal.label.length) this.hintLength += 1;
 
 		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
-		let sp = oldHintLength == this.hintLength && !progress? 'complete the address':null;
-		return [wr,sp];
+		let sp = oldHintLength == this.hintLength && !progress ? 'complete the address' : null;
+		return [wr, sp];
 	}
 }
 

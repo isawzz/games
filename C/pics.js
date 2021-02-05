@@ -34,7 +34,7 @@ function getPictureItems(onClickPictureHandler, ifs = {}, options = {}, keys, la
 }
 function presentItems(items,dParent,rows){
 	//#region phase3: prep container for items
-	mClass(dParent, 'flexWrap');
+	//mClass(dParent, 'flexWrap'); //frage ob das brauche????
 	//#endregion
 
 	//#region phase4: add items to container!
@@ -71,7 +71,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
 	//console.log('keys', keys); console.log('ifs', ifs); 
-	console.log('options', options);
+	//console.log('options', options);
 	//#endregion
 
 	//#region phase1: make items: hier jetzt mix and match
@@ -88,7 +88,7 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 	//#endregion
 
 	//#region phase3: prep container for items
-	mClass(dTable, 'flexWrap');
+	//mClass(dTable, 'flexWrap');
 	//#endregion
 
 	//#region phase4: add items to container!
