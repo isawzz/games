@@ -35,8 +35,9 @@ function isTimeForAddon() {
 	if (isEmpty(U.avAddons)) return false; //this user doesn't have available addons!
 
 	if (isdef(AD) && AD.running && AD.checkEndCondition()){
+		console.log('END!')
 		AD.die();
-		console.log(U,U.addons,AD,AD.key,U.addons[AD.key]);
+		//console.log(U,U.addons,AD,AD.key,U.addons[AD.key]);
 		U.addons[AD.key].open = false;
 		AD = null;
 	}
@@ -47,6 +48,7 @@ function isTimeForAddon() {
 	let open = allCondDict(U.addons, x => x.open == true);
 	//console.log('user', U.id, 'open addons', open);
 	if (isEmpty(open)) {
+		console.log('open is empty! choosing a random addon!')
 		//no addon is open, choose random addon among the available ones???
 		//============================================================= HERE ==================================
 		//randomly select an available addon and open it!

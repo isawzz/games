@@ -1,7 +1,7 @@
 nil:
   id: nil
   avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gPremem
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 20
@@ -57,7 +57,7 @@ nil:
       open: true
       #tNext: 2000 #next time this should be running is in 20 seconds!
     aAddress:
-      open: true
+      open: false
 guest0:
   id: guest
   avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]

@@ -7,8 +7,8 @@ aPasscode:
   tFactor: 2
   immediateStart: true
   endsWhen:
-    tNext: tNext
-    value: 60000000 #1 day interval (1000 minutes)
+    prop: tNext
+    value: 8000 #1 day interval (1000 minutes)
 aAddress:
   friendly: 'Address'
   logo: 'home'

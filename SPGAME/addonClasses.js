@@ -25,9 +25,13 @@ class AddonClass extends LiveObject {
 	}
 	//#endregion
 	checkEndCondition(){
-		return true;
+		//return true;
 		let c=this.endsWhen;
-		if (isdef(c) && AD[c.prop] == AD[c.value]) return true; else return false;
+		//console.log('c',c,c.prop,c.value,this[c.prop])
+		let res = false;
+		if (isdef(c) && this[c.prop] == c.value) res = true; 
+		console.log('condition:',res,'tNext',this.tNext)
+		return res;
 	}
 	exit() {
 		hide('dAddons');
@@ -303,6 +307,10 @@ class APassword extends AAddress {
 	}
 }
 
+
+function mInputDialog(dParent,msg,spoken,styles,lang){
+if (isdef(lang)){}
+}
 function addonInputInstruction(instruction,addon){
 	
 }
