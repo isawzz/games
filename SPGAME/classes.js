@@ -353,9 +353,10 @@ class GPremem extends Game {
 	constructor() { super(); this.piclist = []; }
 	prompt() {
 		this.piclist = [];
+		console.log(G)
 		showPicturesSpeechTherapyGames(this.interact.bind(this),
-			{ border: '3px solid #ffffff80' },
-			{ repeat: G.numRepeat, sameBackground: true });
+			{border: '3px solid #ffffff80'}, // border: '3px solid #ffffff80'
+			{ repeat: G.numRepeat, sameBackground: G.sameBackground}), //, showLabels: false });
 		showInstruction('', Settings.language == 'E'?'click any picture':'click irgendein Bild', dTitle, true);
 		activateUi();
 	}

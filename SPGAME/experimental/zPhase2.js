@@ -1,12 +1,24 @@
 // phase 2: prep items for container: determine size and position of items, set a min(fit content) and a max(limited by container & layout)
-function prep1(items, ifs, options) {
-	//#region phase2: prepare items for container
+function prepareItemsForContainerRegularGrid(items,ifs,options,desRows,desCols){
+	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
+	items.map(x => x.sz = sz);
+	_prep1(items, ifs, options);
+}
 
-	//console.log('prep1',ifs,items[0]); return;
+function _prep1(items, ifs, options) {
+	//#region phase2: prepare items for container
 
 	let sz = options.sz;
 	let padding = (isdef(ifs.padding)?ifs.padding:1);
-	let szNet = sz - 2 * padding;
+
+	let bo=ifs.border;
+	bo = isdef(bo)?isString(bo)?firstNumber(bo):bo:0;
+	console.log('ifs.border',ifs.border,2*bo)
+
+	let szNet = sz - 2 * padding - 2*bo;
 
 	let pictureSize = szNet;
 	let picStyles = { w: szNet, h: isdef(options.center)?szNet : szNet + padding }; //if no labels!
@@ -99,7 +111,7 @@ function findLongestLabel(items) {
 
 }
 
-function calcRowsColsSize(n, lines, cols, dParent, wmax, hmax) {
+function calcRowsColsSize(n, rows, cols, dParent, wmax, hmax, minsz=50,maxsz=200) {
 
 	//berechne outer dims
 	let ww, wh, hpercent, wpercent;
@@ -124,12 +136,12 @@ function calcRowsColsSize(n, lines, cols, dParent, wmax, hmax) {
 	//console.log(ww,wh)
 	let sz;//, picsPerLine;
 	//if (lines <= 1) lines = undefined;
-	let dims = calcRowsColsX(n, lines);
+	let dims = calcRowsColsX(n, rows, cols);
 	let hpic = wh * hpercent / dims.rows;
 	let wpic = ww * wpercent / dims.cols;
 	sz = Math.min(hpic, wpic);
 	//picsPerLine = dims.cols;
-	sz = Math.max(50, Math.min(sz, 200));
+	sz = Math.max(minsz, Math.min(sz, maxsz)); //Math.max(50, Math.min(sz, 200));
 	return [sz, dims.rows, dims.cols]; //pictureSize, picsPerLine];
 }
 

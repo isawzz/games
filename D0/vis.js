@@ -73,6 +73,17 @@ function _visualizeNumber(n, dParent, color,or='h') {
 	if (or == 'v') { let h = rows; rows = cols; cols = h; }
 
 	prepareItemsForContainerRegularGrid(items,ifs,options,rows,cols);
+	// let root = Math.sqrt(n);
+	// let rows = Math.floor(root);
+	// let cols = Math.ceil(root);
+	// if (or == 'v') { let h = rows; rows = cols; cols = h; }
+	// sz = 25;
+	// if (nundef(options.sz)) options.sz = sz;
+	// if (nundef(options.rows)) options.rows = rows;
+	// if (nundef(options.cols)) options.cols = cols;
+	// items.map(x => x.sz = options.sz);
+	// prep1(items, ifs, options);
+
 	//console.log('orientation',or,rows,cols)
 
 	//#endregion

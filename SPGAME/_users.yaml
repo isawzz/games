@@ -1,7 +1,7 @@
 nil:
   id: nil
   avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gWritePic
+  lastGame: gPremem
   settings:
     # settings common to all games
     samplesPerGame: 20

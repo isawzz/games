@@ -94,7 +94,6 @@ class AddonClass extends LiveObject {
 	}
 
 }
-
 class APasscode extends AddonClass {
 	constructor(dbInfo, userInfo) {
 		super(dbInfo, userInfo);
@@ -165,7 +164,6 @@ class APasscode extends AddonClass {
 		return [this.passcode.substring(0, hintLength),spoken];
 	}
 }
-
 class AAddress extends APasscode {
 	constructor(dbInfo, userInfo) {
 		super(dbInfo, userInfo);

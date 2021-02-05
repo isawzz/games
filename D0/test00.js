@@ -289,6 +289,13 @@ function visualizeNumber(n,dParent, color) {
 	// let [options.sz,options.rows,options.cols] = calcRowsColsSize(n,null,null,null,200,200);//(n, lines, cols, dParent, wmax, hmax)
 	// console.log(options)
 	prepareItemsForContainerRegularGrid(items,ifs,options);
+	// let [sz, rows, cols] = calcRowsColsSize(items.length);
+	// sz=25;
+	// if (nundef(options.sz)) options.sz = sz;
+	// if (nundef(options.rows)) options.rows = rows;
+	// if (nundef(options.cols)) options.cols = cols;
+	// items.map(x => x.sz = options.sz);
+	// prep1(items, ifs, options);
 
 
 	//#endregion

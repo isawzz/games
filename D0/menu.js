@@ -26,6 +26,12 @@ function createMenuUi(dParent) {
 
 	//#region phase2: prepare items for container
 	prepareItemsForContainerRegularGrid(items,ifs,options,Math.floor(Math.sqrt(items.length)));
+	// let [sz, rows, cols] = calcRowsColsSize(items.length, Math.floor(Math.sqrt(items.length)));
+	// if (nundef(options.sz)) options.sz = sz;
+	// if (nundef(options.rows)) options.rows = rows;
+	// if (nundef(options.cols)) options.cols = cols;
+	// items.map(x => x.sz = sz);
+	// prep1(items, ifs, options);
 
 	for (let i = 0; i < games.length; i++) {
 		let item = items[i];
