@@ -1,6 +1,6 @@
 class AddonClass extends LiveObject {
 	constructor(dbInfo, userInfo) {
-		console.log('haaaaaaaaaaaaaaaaalllllllllllllooooooooooooooo', dbInfo, userInfo)
+		//console.log('haaaaaaaaaaaaaaaaalllllllllllllooooooooooooooo', dbInfo, userInfo)
 		super();
 		copyKeys(dbInfo, this);
 		copyKeys(userInfo, this);
