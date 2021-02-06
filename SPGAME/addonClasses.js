@@ -24,13 +24,13 @@ class AddonClass extends LiveObject {
 		return [d, dContent];
 	}
 	//#endregion
-	checkEndCondition(){
+	checkEndCondition() {
 		//return true;
-		let c=this.endsWhen;
+		let c = this.endsWhen;
 		//console.log('c',c,c.prop,c.value,this[c.prop])
 		let res = false;
-		if (isdef(c) && this[c.prop] == c.value) res = true; 
-		console.log('condition:',res,'tNext',this.tNext)
+		if (isdef(c) && this[c.prop] == c.value) res = true;
+		console.log('condition:', res, 'tNext', this.tNext)
 		return res;
 	}
 	exit() {
@@ -62,7 +62,7 @@ class AddonClass extends LiveObject {
 	presentPrompt() { console.log('prompting user to do something') }
 	prompt() {
 		clearElement(this.dContent);
-		this.trialsNeeded=0;
+		this.trialsNeeded = 0;
 
 		this._createDivs();
 		this.presentPrompt();
@@ -110,10 +110,10 @@ class AddonClass extends LiveObject {
 
 }
 class APasscode extends AddonClass {
-	constructor(k,dbInfo, userInfo) {
+	constructor(k, dbInfo, userInfo) {
 		//console.log('______________',k)
 
-		super(k,dbInfo, userInfo);
+		super(k, dbInfo, userInfo);
 		this.needNewPasscode = true;
 	}
 	presentInit() {
@@ -182,9 +182,9 @@ class APasscode extends AddonClass {
 	}
 }
 class AAddress extends APasscode {
-	constructor(k,dbInfo, userInfo) {
+	constructor(k, dbInfo, userInfo) {
 		//console.log('______________',k)
-		super(k,dbInfo, userInfo);
+		super(k, dbInfo, userInfo);
 	}
 	clear() { super.clear(); Speech.setLanguage(Settings.language); }
 	presentInit() {
@@ -248,26 +248,43 @@ class AAddress extends APasscode {
 }
 
 class APassword extends AAddress {
-	constructor(k,dbInfo, userInfo) {
+	constructor(k, dbInfo, userInfo) {
 		// console.log('______________',k)
-		super(k,dbInfo, userInfo);
+		super(k, dbInfo, userInfo);
+	}
+	init() {
+		//console.log('addon init!!!!');
+		[this.div, this.dContent] = this._createScreen();
+		this._createDivs();
+		this.setRunning();
+		this.presentPrompt('create a new password!');
+		mButton('set password', this.setPassword.bind(this), this.dContent, { fz: 42, matop: 10 });
+		//this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
+	}
+	setPassword() {
+		this.goal = { label: this.input.value };
+		console.log('password has been zet to:',this.input.value);
+		this.prompt();
 	}
 	presentInit() {
-		this.goal = { label: '17448 NE 98th Way Redmond 98052' };
-		Speech.setLanguage('E')
-		let wr = 'your address is:';
-		let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
+		this.presentPrompt();
+		// this.goal = { label: '17448 NE 98th Way Redmond 98052' };
+		// Speech.setLanguage('E')
+		// let wr = 'your address is:';
+		// let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
 
-		showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
+		// showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
 
-		this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
+		// this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
 
 	}
-	presentPrompt() {
+	presentPrompt(msg) {
 		Speech.setLanguage('E');
-		showInstruction('', 'enter your address', this.dInstruction, true);
+		if (nundef(msg)) msg = 'enter your password';
+		mInstruction(msg,this.dInstruction,msg,{voice:'zira'});
+		//showInstruction('', msg, this.dInstruction, true);
 
-		let d=this.input=createInput(this.dMain,'inputAddon');
+		let d = this.input = createInput(this.dMain, 'inputAddon');
 		this.defaultFocusElement = d.id;
 		this.nCorrect = 0;
 	}
@@ -308,16 +325,29 @@ class APassword extends AAddress {
 }
 
 
-function mInputDialog(dParent,msg,spoken,styles,lang){
-if (isdef(lang)){}
-}
-function addonInputInstruction(instruction,addon){
-	
-}
-function createInstruction(dParent,msg,spoken){
+function mInputDialog(dParent, dInput, wr, sp, val, styles, lang) {
+	if (isdef(lang)) { Speech.setLanguage(lang); }
+
+	mPrompt(dParent, wr, sp, '', 'enter your address', this.dInstruction, true);
+
+
+	val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
+	let styles1 = isdef(styles) ? deepmergeOverride({ padding: 25 }, styles) : { padding: 25 };
+	let d_inp = mDiv(dParent, styles1);//{ padding: 25 });
+	let d = mInput('', val, d_inp, { align: 'center' });
+	d.id = id;
+	d.autocomplete = 'off';
+	mStyleX(d, { w: 600, fz: 24 });
+	return d;
 
 }
-function createInput(dParent,id){
+function addonInputInstruction(instruction, addon) {
+
+}
+function createInstruction(dParent, msg, spoken) {
+
+}
+function createInput(dParent, id) {
 	let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
 	let d_inp = mDiv(dParent, { padding: 25 });
 	let d = mInput('', val, d_inp, { align: 'center' });

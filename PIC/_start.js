@@ -12,8 +12,12 @@ async function start() {
 	if (nundef(mBy('dummy'))) { let d = mDiv(table); d.id = 'dummy'; d.style.width = '0px'; }
 
 
-	await symbols01('object');
-
+	//await symbols01('object');
+	ensureSymByType();
+	let keys = allCondDict(symbolDict,x=>x.key.includes('lock')||x.key.includes('key')||x.key.includes('code')||x.key.includes('word'));
+	console.log(keys);
+	iconViewer(keys);//['unlock','unlock-alt','unlocked','lock','locked']);//symKeysByType.icon);
+	//test34_emoImages();
 	//#region past test calls
 	//await makeExtraSvgFiles();
 
@@ -198,8 +202,9 @@ function test34_emoImages() {
 	let elems = [];
 	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
 
+	console.log(symKeysByType['emo'])
 	for (const k of symKeysByType['emo'].slice(100, 1000)) {
-		break;
+		//break;
 		let info = symByType['emo'][k];
 		//console.log(info);
 		for (const x of [{ isText: false, isOmoji: true }, { isText: false, isOmoji: false }, { isText: true, isOmoji: true }]) {

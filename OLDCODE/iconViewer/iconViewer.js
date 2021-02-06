@@ -29,15 +29,20 @@ function show100() {
 	let table = mBy('table');
 	clearElement(table);
 
-	mButton('download key set', downloadKeySet, table, { fz: 30 });
-
 	let picLabelStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', true);
 	let picStyles = getHarmoniousStylesXX(100, 100, 10, 'arial', 'random', 'random', false);
 	ensureSymByType();
+
+	mButton('download key set', downloadKeySet, table, { fz: 30 });
+	mButton('next 100', ()=>show100(), table, { fz: 30 });
+	mLinebreak(table);
+
 	let keys = takeFromTo(IconSet, lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 
-	//console.log('JAJAJAJAJ')
+	lastIndex += 100;
+	console.log('JAJAJAJAJ lastIndex',lastIndex);
 	gridLabeled(keys, picLabelStyles);
+
 }
 function gridLabeledX(keyList,labelList, dParent,{rows,layout}={}, clickHandler) {
 	//cont,pic,text
@@ -90,6 +95,7 @@ function gridLabeled(list, picLabelStyles) {
 	}
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
+	console.log('lastIndex',lastIndex)
 }
 
 function onClickIVPicture(ev) {

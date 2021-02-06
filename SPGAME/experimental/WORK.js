@@ -1,3 +1,43 @@
+function mInstruction(written, dParent, spoken, { fz, voice, lang } = {}) {
+	//spoken = 'hallo ich bin der pumukl';
+	if (isdef(lang) && lang == 'D' && nundef(voice)) voice = 'deutsch';
+	else if (isdef(lang) && lang == 'E' && nundef(voice)) voice = 'random';
+	//else if (isdef(voice) && voice == 'deutsch') 
+	if (nundef(voice)) voice = 'random';
+
+	console.log(Settings.language,lang,voice)
+
+	let d;
+	if (isdef(dParent)) clearElement(dParent);
+	dInstruction = d = mDiv(dParent);
+	mStyleX(d, { margin: 15 })
+	mClass(d, 'flexWrap');
+
+	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
+	if (nundef(fz)) fz = 36;
+	let d1 = mText(written, d, { fz: fz, display: 'inline-block' });
+
+	if (isdef(spoken)) {
+		let sym = symbolDict.speaker;
+		let d2 = mText(sym.text, d, {
+			fz: fz + 2, weight: 900, display: 'inline-block',
+			family: sym.family, 'padding-left': 14
+		});
+		sayRandomVoice(spoken, spoken, voice);
+	}
+
+	dInstruction.addEventListener('click', () => aniInstruction(spoken));
+
+	return d;
+}
+
+
+
+
+
+
+
+
 
 
 function showGotItButton() {
@@ -120,7 +160,7 @@ function test04_justABlankPage() {
 	//show countdown timer!
 	setTimeout(backToPasscode, G.timeout);
 }
-function findItemFromEvent(items,ev){
+function findItemFromEvent(items, ev) {
 	let id = evToClosestId(ev);
 	let item = firstCond(items, x => x.div.id == id);
 	return item;

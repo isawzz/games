@@ -15,13 +15,14 @@ function addonFeatureInit() {
 		//console.assert(isdef(DB.addons));
 		ADS = jsCopy(lookup(DB, ['addons'])); //get readonly copy! 
 		//hier die classes ...
-		let di = { aPasscode: APasscode, aAddress: AAddress, aExercise: APasscode, aMeditation: APasscode, }
+		let di = { aPasscode: APasscode, aAddress: AAddress, aPassword: APassword, 
+			aExercise: APasscode, aMeditation: APasscode, };
 		for (const k in ADS) { ADS[k].cl = di[k]; }
 
 		//console.log('...addons loaded...');//, ADS);
 	}
 }
-function addonUserInit() { 
+function addonUserInit() {
 	//console.log('loading addons for user:', '\naddons available', U.avAddons, '\naddons data', U.addons); 
 }
 function isTimeForAddon() {
@@ -34,7 +35,7 @@ function isTimeForAddon() {
 
 	if (isEmpty(U.avAddons)) return false; //this user doesn't have available addons!
 
-	if (isdef(AD) && AD.running && AD.checkEndCondition()){
+	if (isdef(AD) && AD.running && AD.checkEndCondition()) {
 		console.log('END!')
 		AD.die();
 		//console.log(U,U.addons,AD,AD.key,U.addons[AD.key]);
@@ -75,7 +76,7 @@ function isTimeForAddon() {
 }
 function exitToAddon(callback) {
 	AD.callback = callback;
-	enterInterruptState();auxOpen = false;
+	enterInterruptState(); auxOpen = false;
 	AD.run();
 	//addonScreen();
 	//console.log('Addon is',AD)

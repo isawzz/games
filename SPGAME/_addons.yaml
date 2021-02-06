@@ -19,3 +19,13 @@ aAddress:
   endsWhen:
     prop: trialsNeeded
     value: 0
+aPassword:
+  friendly: 'Password'
+  logo: 'old key'
+  color: gold
+  tStart: 60000 #1 minute
+  tFactor: 2
+  immediateStart: true
+  endsWhen:
+    prop: tNext
+    value: 60000000 #1 day interval (1000 minutes)
