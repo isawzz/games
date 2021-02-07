@@ -3,19 +3,19 @@ aPasscode:
   logo: 'key'
   color: indigo
   numPics: 4
-  tStart: 2000
+  tNext: 2000
   tFactor: 2
   immediateStart: true
   endsWhen:
     prop: tNext
-    value: 8000 #1 day interval (1000 minutes)
+    value: 60000000 #1 day interval (1000 minutes)
 aAddress:
   friendly: 'Address'
   logo: 'home'
   color: orange
-  tStart: 2000 #1 minute
+  tNext: 2000 #1 minute
   tFactor: 3
-  immediateStart: false
+  immediateStart: true
   endsWhen:
     prop: trialsNeeded
     value: 0
@@ -23,7 +23,7 @@ aPassword:
   friendly: 'Password'
   logo: 'old key'
   color: gold
-  tStart: 60000 #1 minute
+  tNext: 3000 #1 minute
   tFactor: 2
   immediateStart: true
   endsWhen:

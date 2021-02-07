@@ -1,6 +1,7 @@
 var Username,Gamename,Tablename;
 
-var Live, DB, G, T,X,P, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
+var I; //running instance
+var Live, DB, G, T, P, U, User, Settings, SettingsChanged; //, G...Game, T...Table, U...Userdata
 
 var Speech;
 

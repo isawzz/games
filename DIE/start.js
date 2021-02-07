@@ -1,13 +1,15 @@
 var container;
 async function _start() {
 	//DB has {users,games,tables,settings} set
+	initLive();
 	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
 	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
 	loadTable(); // T set hat {}
+	I = new IClass(T.id,U,G,T);
 	//startGame();
 
 	
-	test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
+	//test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
 	//test03_centerToCenter();
 
 	return;

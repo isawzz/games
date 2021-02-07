@@ -4,7 +4,6 @@ class AddonClass extends LiveObject {
 		super(k);
 		copyKeys(dbInfo, this);
 		copyKeys(userInfo, this);
-		if (nundef(this.tNext)) this.tNext = this.tStart;
 		this.running = false;
 		this.state = this.immediateStart ? LiveObject.States.ready : LiveObject.States.none;
 		this.startTime = Date.now();
@@ -46,9 +45,8 @@ class AddonClass extends LiveObject {
 		[this.div, this.dContent] = this._createScreen();
 		this._createDivs();
 		this.setRunning();
-		this.presentInit();
-		mButton('Got it!', this.prompt.bind(this), this.dContent, { fz: 42, matop: 10 });
-		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
+		let caption = this.presentInit();
+		mButton(isdef(caption)?caption:'Got it!', this.prompt.bind(this), this.dContent, { fz: 32, matop: 10 });
 	}
 	isTimeForAddon() {
 		switch (this.state) {
@@ -130,7 +128,7 @@ class APasscode extends AddonClass {
 		let d_pics = mDiv(dParent);
 		presentItems(this.pictures, d_pics, this.rows);
 
-		return d_pics;
+		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
 	}
 	presentPrompt() {
 		let keys = getRandomKeysIncluding(this.numPics, this.goal.key, 'all');
@@ -186,8 +184,10 @@ class AAddress extends APasscode {
 		//console.log('______________',k)
 		super(k, dbInfo, userInfo);
 	}
-	clear() { super.clear(); Speech.setLanguage(Settings.language); }
+	clear() { super.clear(); Speech.setLanguage(Settings.language); window.onclick = null; }
 	presentInit() {
+		this.msgPrompt='enter your address';
+		this.lastHintPrompt = 'please complete entering address!';
 		this.goal = { label: '17448 NE 98th Way Redmond 98052' };
 		Speech.setLanguage('E')
 		let wr = 'your address is:';
@@ -196,23 +196,31 @@ class AAddress extends APasscode {
 		showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
 
 		this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
+		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
 
 	}
 	presentPrompt() {
 		Speech.setLanguage('E');
-		showInstruction('', 'enter your address', this.dInstruction, true);
-
-		let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
-		let d_inp = mDiv(this.dMain, { padding: 25 });
-		let d = this.input = mInput('', val, d_inp, { align: 'center' });
-		d.id = 'inputAddon';
-		d.autocomplete = 'off';
-		mStyleX(d, { w: 600, fz: 24 });
-		this.defaultFocusElement = d.id;
+		stdInstruction(this.msgPrompt, this.dInstruction, this.msgPrompt, { voice: 'zira' });
+		this.input = stdInput(this.dMain, { w: 600, fz: 24 });
+		this.input.id = this.defaultFocusElement = 'inputAddon';
 		this.nCorrect = 0;
+
+
+
+		// Speech.setLanguage('E');
+		// showInstruction('', 'enter your address', this.dInstruction, true);
+
+		// let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
+		// let d_inp = mDiv(this.dMain, { padding: 25 });
+		// let d = this.input = mInput('', val, d_inp, { align: 'center' });
+		// d.id = 'inputAddon';
+		// d.autocomplete = 'off';
+		// mStyleX(d, { w: 600, fz: 24 });
+		// this.defaultFocusElement = d.id;
+		// this.nCorrect = 0;
 	}
 	activate() {
-
 		window.onclick = () => mBy(this.defaultFocusElement).focus();
 		this.input.onkeyup = ev => {
 			//console.log('hallo!!!!')
@@ -231,7 +239,7 @@ class AAddress extends APasscode {
 	}
 	getHint() {
 		let oldHintLength = isdef(this.hintLength) ? this.hintLength : 0;
-		if (nundef(this.hintLength)) this.hintLength = 1;
+		if (nundef(this.hintLength)) this.hintLength = 0;
 
 		this.input.value = this.correctPrefix;
 		let progress = this.correctPrefix.length > this.nCorrect;
@@ -239,120 +247,52 @@ class AAddress extends APasscode {
 			//user got more good letters. hint length will be reduced to 1
 			this.hintLength = 1;
 			this.nCorrect = this.correctPrefix.length;
-		} else if (this.hintLength < this.goal.label.length) this.hintLength += 1;
+		} else if (this.hintLength < this.goal.label.length-this.nCorrect) this.hintLength += 1;
 
+		if (this.hintLength==0) this.hintLength = 1;
 		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
-		let sp = oldHintLength == this.hintLength && !progress ? 'complete the address' : null;
+		let sp = oldHintLength == this.hintLength && !progress ? this.lastHintPrompt : null;
+		//console.log('oldHintLength',oldHintLength,'this.hintLength',this.hintLength,'progress',progress)
 		return [wr, sp];
 	}
 }
 
 class APassword extends AAddress {
-	constructor(k, dbInfo, userInfo) {
-		// console.log('______________',k)
-		super(k, dbInfo, userInfo);
-	}
-	init() {
-		//console.log('addon init!!!!');
-		[this.div, this.dContent] = this._createScreen();
-		this._createDivs();
-		this.setRunning();
-		this.presentPrompt('create a new password!');
-		mButton('set password', this.setPassword.bind(this), this.dContent, { fz: 42, matop: 10 });
-		//this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
-	}
-	setPassword() {
-		this.goal = { label: this.input.value };
-		console.log('password has been zet to:',this.input.value);
-		this.prompt();
-	}
 	presentInit() {
-		this.presentPrompt();
-		// this.goal = { label: '17448 NE 98th Way Redmond 98052' };
-		// Speech.setLanguage('E')
-		// let wr = 'your address is:';
-		// let sp = 'your address is 1 7 4 4 8 - North-East 98th Way - Redmond, 9 8 0 5 2';
-
-		// showInstruction(this.goal.label, wr, this.dInstruction, true, sp, 12);
-
-		// this.goal.div = mText(this.goal.label, this.dMain, { fz: 40 });
-
-	}
-	presentPrompt(msg) {
+		this.goal = null;
 		Speech.setLanguage('E');
-		if (nundef(msg)) msg = 'enter your password';
-		mInstruction(msg,this.dInstruction,msg,{voice:'zira'});
-		//showInstruction('', msg, this.dInstruction, true);
-
-		let d = this.input = createInput(this.dMain, 'inputAddon');
-		this.defaultFocusElement = d.id;
-		this.nCorrect = 0;
-	}
-	activate() {
-
+		let msg = 'create a new password!';
+		this.msgPrompt='enter your password';
+		this.lastHintPrompt = 'please complete entering password!';
+		stdInstruction(msg, this.dInstruction, msg, { voice: 'zira' });
+		this.input = stdInputVal(this.dMain, { w: 600, fz: 24 }, 'hallo');
+		this.input.id = this.defaultFocusElement = 'inputAddon';
 		window.onclick = () => mBy(this.defaultFocusElement).focus();
-		this.input.onkeyup = ev => {
-			//console.log('hallo!!!!')
-			if (ev.key === "Enter") {
-				ev.cancelBubble = true;
-				//console.log('clicked enter!!!');
-				this.processInput(ev);
-			}
-		};
-		this.input.focus();
-		super.activate();
-	}
-	eval() {
-		let correctPrefix = this.correctPrefix = getCorrectPrefix(this.goal.label, this.input.value);
-		return correctPrefix == this.goal.label;
-	}
-	getHint() {
-		let oldHintLength = isdef(this.hintLength) ? this.hintLength : 0;
-		if (nundef(this.hintLength)) this.hintLength = 1;
 
-		this.input.value = this.correctPrefix;
-		let progress = this.correctPrefix.length > this.nCorrect;
-		if (this.correctPrefix.length > this.nCorrect) {
-			//user got more good letters. hint length will be reduced to 1
-			this.hintLength = 1;
-			this.nCorrect = this.correctPrefix.length;
-		} else if (this.hintLength < this.goal.label.length) this.hintLength += 1;
-
-		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
-		let sp = oldHintLength == this.hintLength && !progress ? 'complete the address' : null;
-		return [wr, sp];
+		return 'set password';
+	}
+	presentPrompt() {
+		if (nundef(this.goal)) this.goal = { label: this.input.value.trim() };
+		super.presentPrompt();
 	}
 }
 
+// class ATodoList extends AAddress {
+// 	presentInit() {
+// 		this.goal = null;
+// 		Speech.setLanguage('E');
+// 		let msg = 'create a new password!';
+// 		this.msgPrompt='enter your password';
+// 		this.lastHintPrompt = 'please complete entering password!';
+// 		stdInstruction(msg, this.dInstruction, msg, { voice: 'zira' });
+// 		this.input = stdInputVal(this.dMain, { w: 600, fz: 24 }, 'hallo');
+// 		this.input.id = this.defaultFocusElement = 'inputAddon';
+// 		window.onclick = () => mBy(this.defaultFocusElement).focus();
+// 		return 'set password';
+// 	}
+// 	presentPrompt() {
+// 		if (nundef(this.goal)) this.goal = { label: this.input.value.trim() };
+// 		super.presentPrompt();
+// 	}
+// }
 
-function mInputDialog(dParent, dInput, wr, sp, val, styles, lang) {
-	if (isdef(lang)) { Speech.setLanguage(lang); }
-
-	mPrompt(dParent, wr, sp, '', 'enter your address', this.dInstruction, true);
-
-
-	val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
-	let styles1 = isdef(styles) ? deepmergeOverride({ padding: 25 }, styles) : { padding: 25 };
-	let d_inp = mDiv(dParent, styles1);//{ padding: 25 });
-	let d = mInput('', val, d_inp, { align: 'center' });
-	d.id = id;
-	d.autocomplete = 'off';
-	mStyleX(d, { w: 600, fz: 24 });
-	return d;
-
-}
-function addonInputInstruction(instruction, addon) {
-
-}
-function createInstruction(dParent, msg, spoken) {
-
-}
-function createInput(dParent, id) {
-	let val = ''; // '1 7   44,8n e3' | '17448 ne 98th way Redmond 9805sss' | this.goal.label
-	let d_inp = mDiv(dParent, { padding: 25 });
-	let d = mInput('', val, d_inp, { align: 'center' });
-	d.id = id;
-	d.autocomplete = 'off';
-	mStyleX(d, { w: 600, fz: 24 });
-	return d;
-}

@@ -51,13 +51,13 @@ nil:
       startLevel: 0
     gPasscode:
       startLevel: 0
-  avAddons: [aPasscode, aAddress]
+  avAddons: [aPasscode, aAddress, aPassword]
   addons:
     aPasscode:
-      open: false
+      open: true
       #tNext: 2000 #next time this should be running is in 20 seconds!
     aAddress:
-      open: false
+      open: true
     aPassword:
       open: true
 guest0:
@@ -180,9 +180,12 @@ gul:
       startLevel: 2
     gPasscode:
       startLevel: 0
-  avAddons: [aPasscode, aAddress]
+  avAddons: [aPasscode, aAddress, aPassword]
   addons:
     aPasscode:
-      open: false
+      open: true
+      #tNext: 2000 #next time this should be running is in 20 seconds!
     aAddress:
-      open: false
+      open: true
+    aPassword:
+      open: true

@@ -10,7 +10,7 @@ function loadTable(id) {
 
 	T = lookup(DB, ['tables', id]);
 	Tablename = id;
-	//logTable();
+	logTable();
 
 	//console.log(Tablename, U);
 	updateTablenameUi(id, G.color);
@@ -54,7 +54,7 @@ function getNextTableId() {
 function findTable(createNew = false) {
 	let idTables = U.tables;
 	if (isdef(idTables)) {
-		//look if 
+
 		for (const id of idTables) {
 			let t = DB.tables[id];
 			if (t.game == Gamename) return id;

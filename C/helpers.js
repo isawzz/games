@@ -289,6 +289,44 @@ function mEditableInput(dParent, label, val) {
 	mAppend(dParent, elem);
 	return elem;
 }
+function mInputX(dParent, styles, { textPadding, label, value, submitOnEnter, autoComplete, autoFocus, autoSelect, handler, createContainer } = {}) {
+	//console.log('mInputX', 'label', label, 'submitOnEnter', submitOnEnter, 'autoComplete', autoComplete, 'autoFocus', autoFocus, 'handler', handler, 'createContainer', createContainer);
+
+	let d;
+	if (createContainer) {
+		d = mDiv(dParent, { align: 'center' });
+		mAppend(dParent, d);
+	} else if (isdef(label)) {
+		d = createElementFromHTML(`<label>${isdef(label) ? label : ''}</label>`);
+		mAppend(dParent, d);
+	} else d = dParent;
+
+	let inp = createElementFromHTML(`<input type="text" class="input" value="${isdef(value) ? value : ''}" />`);
+	mAppend(d, inp);
+
+
+	if (isdef(autoComplete)) inp.autoComplete = autoComplete ? 'on' : 'off';
+
+	if (isdef(submitOnEnter))
+		inp.onkeydown = (ev) => {
+			if (ev.key === 'Enter') {
+				ev.preventDefault();
+				mBy('dummy').focus();
+				if (isdef(handler)) handler(inp.value);
+			}
+		};
+
+	if (isdef(styles)) { mStyleX(d, styles); }
+	let inpStyles = isdef(styles) ? jsCopy(styles) : {};
+	delete inpStyles.padding;
+	if (isdef(textPadding)) inpStyles.padding = textPadding;
+	if (isdef(inpStyles.w)) inpStyles.w='100%';
+	mStyleX(inp,inpStyles);
+
+	if (isdef(autoFocus)) inp.focus();
+	if (autoSelect == true) inp.select();
+	return inp;
+}
 function mInput(label, value, dParent, styles) {
 	let inp = createElementFromHTML(`<input type="text" class="input" value="${value}" />`);
 	let labelui = createElementFromHTML(`<label>${label}</label>`);
@@ -556,6 +594,66 @@ function mYaml(d, js) {
 	d.innerHTML = '<pre>' + jsonToYaml(js) + '</pre>';
 	// d.innerHTML = '<pre class="info">' + jsonToYaml(js) + '</pre>'; 
 }
+//#endregion
+
+//#region _DOM standard functions
+function stdInput(dParent,styles){
+	let defStyles = { fz: 20, padding: 12 };
+	if (nundef(styles)) styles = {};
+	let newStyles = deepmergeOverride(defStyles, styles);
+	//console.log('newStyles',newStyles)
+	return mInputX(dParent, newStyles,
+		{ textPadding:4, autoComplete: 'off', autoFocus: true, autoSelect:false })
+}
+function stdInputSubmit(dParent, styles, handler) {
+	let defStyles = { fz: 20, padding: 12 };
+	if (nundef(styles)) styles = {};
+	let newStyles = deepmergeOverride(defStyles, styles);
+	//console.log('newStyles',newStyles)
+	return mInputX(dParent, newStyles,
+		{ textPadding:4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect:false, handler: handler })
+}
+function stdInputVal(dParent, styles, val, autoSelect=true) {
+	let defStyles = { fz: 20, padding: 12 };
+	if (nundef(styles)) styles = {};
+	let newStyles = deepmergeOverride(defStyles, styles);
+	//console.log('newStyles',newStyles)
+	return mInputX(dParent, newStyles,
+		{ value:val, textPadding:4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect:autoSelect})
+}
+function stdInstruction(written, dParent, spoken, { fz, voice, lang } = {}) {
+	//spoken = 'hallo ich bin der pumukl';
+	if (isdef(lang) && lang == 'D' && nundef(voice)) voice = 'deutsch';
+	else if (isdef(lang) && lang == 'E' && nundef(voice)) voice = 'random';
+	//else if (isdef(voice) && voice == 'deutsch') 
+	if (nundef(voice)) voice = 'random';
+
+	//console.log('Settings language',Settings.language,'lang',lang,'voice',voice)
+
+	let d;
+	if (isdef(dParent)) clearElement(dParent);
+	dInstruction = d = mDiv(dParent);
+	mStyleX(d, { margin: 15 })
+	mClass(d, 'flexWrap');
+
+	// let msg = cmd + " " + `<b>${text.toUpperCase()}</b>`;
+	if (nundef(fz)) fz = 36;
+	let d1 = mText(written, d, { fz: fz, display: 'inline-block' });
+
+	if (isdef(spoken)) {
+		let sym = symbolDict.speaker;
+		let d2 = mText(sym.text, d, {
+			fz: fz + 2, weight: 900, display: 'inline-block',
+			family: sym.family, 'padding-left': 14
+		});
+		sayRandomVoice(spoken, spoken, voice);
+	}
+
+	dInstruction.onclick = () => aniInstruction(spoken);
+
+	return d;
+}
+
 //#endregion
 
 //#region _SVG/g 1 liners A list shapes
@@ -2921,7 +3019,7 @@ function setDropPosition(ev, elem, targetElem, dropPos) {
 		//position same as in previous container
 		return;
 	} else if (dropPos == 'center') {
-		// do I need to remove all pos info from element??? YES!!!
+		// need to remove all pos info from element??? YES!!!
 		elem.style.position = elem.style.left = elem.style.top = '';
 		elem.classList.add('centeredTL');
 	} else if (dropPos == 'centerCentered') {
@@ -5273,11 +5371,11 @@ function yesNo() { return tossCoin(50); }
 //#endregion
 
 //#region string functions
-function substringOfMinLength(s,minStartIndex,minLength){
+function substringOfMinLength(s, minStartIndex, minLength) {
 	let res = s.substring(minStartIndex).trim();
-	let i=0;
-	let res1='';
-	while(res1.trim().length<minLength && i<res.length){res1+=res[i];i+=1;}
+	let i = 0;
+	let res1 = '';
+	while (res1.trim().length < minLength && i < res.length) { res1 += res[i]; i += 1; }
 	return res1.trim();
 }
 function removeNonAlphanum(s) {
@@ -5286,7 +5384,7 @@ function removeNonAlphanum(s) {
 	for (const l of s) {
 		if (isAlphaNumeric(l)) res += l; else nonalphas += l;
 	}
-	return {alphas:res,whites:nonalphas};
+	return { alphas: res, whites: nonalphas };
 }
 function findCommonPrefix(s1, s2) {
 	let i = 0;
@@ -5297,7 +5395,7 @@ function findCommonPrefix(s1, s2) {
 	}
 	return res;
 }
-function getCorrectPrefix(label,text){
+function getCorrectPrefix(label, text) {
 
 	// let txt = this.input.value;
 	// console.log('input value',txt);
@@ -5319,15 +5417,15 @@ function getCorrectPrefix(label,text){
 	//let aReal = label;
 	//whites
 	let nletters = common.length;
-	let ireal=0;
-	let icompact=0;
-	let iwhites=0;
+	let ireal = 0;
+	let icompact = 0;
+	let iwhites = 0;
 	let correctPrefix = '';
-	while(icompact<nletters){
-		if (req[ireal]==common[icompact]) {correctPrefix+=label[ireal];icompact+=1;}
-		else if (whites[iwhites]==req[ireal]){correctPrefix+=label[ireal];iwhites+=1;}
+	while (icompact < nletters) {
+		if (req[ireal] == common[icompact]) { correctPrefix += label[ireal]; icompact += 1; }
+		else if (whites[iwhites] == req[ireal]) { correctPrefix += label[ireal]; iwhites += 1; }
 		else break;
-		ireal+=1;
+		ireal += 1;
 	}
 	//console.log('__________result:',correctPrefix);
 
