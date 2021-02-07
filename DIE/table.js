@@ -10,7 +10,7 @@ function loadTable(id) {
 
 	T = lookup(DB, ['tables', id]);
 	Tablename = id;
-	logTable();
+	//logTable();
 
 	//console.log(Tablename, U);
 	updateTablenameUi(id, G.color);
@@ -44,7 +44,7 @@ function getPlayersIncludingU() {
 	//console.log(T)
 
 }
-function logTable(){console.log('T: game',T.game,'\nplayers',T.players.map(x=>x.id), '\nstate',T.state)}
+function logTable(){console.log('T: game',T.game,'\nplayers',T.players.map(x=>x.id), '\nstate',T.uiState)}
 function getNextTableId() {
 	let ids = nundef(DB.tables) ? [] : Object.keys(DB.tables);
 	ids = ids.map(x => Number(x));

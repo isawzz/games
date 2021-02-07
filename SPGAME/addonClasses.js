@@ -5,7 +5,7 @@ class AddonClass extends LiveObject {
 		copyKeys(dbInfo, this);
 		copyKeys(userInfo, this);
 		this.running = false;
-		this.state = this.immediateStart ? LiveObject.States.ready : LiveObject.States.none;
+		this.uiState = this.immediateStart ? LiveObject.States.ready : LiveObject.States.none;
 		this.startTime = Date.now();
 		this.callback = this.div = this.dContent = null;
 	}
@@ -49,7 +49,7 @@ class AddonClass extends LiveObject {
 		mButton(isdef(caption)?caption:'Got it!', this.prompt.bind(this), this.dContent, { fz: 32, matop: 10 });
 	}
 	isTimeForAddon() {
-		switch (this.state) {
+		switch (this.uiState) {
 			case LiveObject.States.none: this.getReady(this.tNext); return false;
 			case LiveObject.States.gettingReady: return false;
 			case LiveObject.States.ready: return true;

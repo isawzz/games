@@ -1,20 +1,30 @@
-function playsCard(pl,card,dHand,dTarget,faceUp){
-	pl.cardPlayed=card;
-	removeCard(card,dHand);
-	addCard(card,dTarget);
-	if (faceUp == true) Card52.turnFaceUp(card);
-	mRemoveStyle(card.div, ['cursor', 'position']);
+class GGuess extends IClass{
+	updatePlayer(pl){
+
+		let key = getRandomKeys(1,'all');
+		pl.item = getRandomSetItem(Settings.language, key);
+		pl.word = pl.item.best;
+		//console.log(pl.item)
+	}
 }
 
-function removeCard(c,deck){removeInPlace(deck,c);}
-function addCard(c,deck,top=true){top?deck.push(c):deck.unshift(c);}
 
 
 
 
 
-function showState(){
-	console.log('______________',G.friendly);
-	console.log(T.players)
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

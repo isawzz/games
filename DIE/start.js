@@ -5,7 +5,8 @@ async function _start() {
 	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
 	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
 	loadTable(); // T set hat {}
-	I = new IClass(T.id,U,G,T);
+	I = new GGuess(T.id,U,G,T);
+	I.loop();
 	//startGame();
 
 	

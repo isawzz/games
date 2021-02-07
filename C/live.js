@@ -14,7 +14,7 @@ class LiveObject {
 		this.TOList = [];
 		this.UIS = [];
 		this.uiActivated = false;
-		this.state = LiveObject.States.none;
+		this.uiState = LiveObject.States.none;
 	}
 	//#region hidden API
 	_clearTO() { this.TOList.map(x => clearTimeout(x)); this.TOList = []; }
@@ -26,9 +26,9 @@ class LiveObject {
 	die() { this._clearTO(); console.assert(isdef(this.div)); this.div.remove(); Live[this.id] = null; }
 	run() { console.log('object', this.id, 'is running...') }
 
-	setGettingReady() { this.running = false; this.state = LiveObject.States.gettingReady; console.log('...getting ready!'); }
-	setRunning() { this.running = true; this.state = LiveObject.States.running; }
-	setReady() { this.running = false; this.state = LiveObject.States.ready; console.log('ready!'); }
+	setGettingReady() { this.running = false; this.uiState = LiveObject.States.gettingReady; console.log('...getting ready!'); }
+	setRunning() { this.running = true; this.uiState = LiveObject.States.running; }
+	setReady() { this.running = false; this.uiState = LiveObject.States.ready; console.log('ready!'); }
 	getReady(ms) {
 		if (isdef(ms)) { this.setGettingReady(); setTimeout(this.setReady.bind(this), ms); }
 		else this.setReady();

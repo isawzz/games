@@ -1,8 +1,8 @@
-gKrieg:
-  friendly: 'Krieg'
-  logo: 'fencing'
-  color: BLUE
-  type: c52
+gGuess:
+  friendly: 'Guess'
+  logo: 'word'
+  color: GREEN
+  type: word
   numPlayers: 2
 gAristo:
   friendly: 'Aristocracy'
@@ -10,3 +10,9 @@ gAristo:
   color: CRIMSON
   type: c52
   numPlayers: [2,3,4,5]
+gKrieg:
+  friendly: 'Krieg'
+  logo: 'fencing'
+  color: BLUE
+  type: c52
+  numPlayers: 2
