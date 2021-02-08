@@ -19,6 +19,25 @@ function doOtherStuff() {
 	test05_popup('think about the passcode!');
 }
 
+
+
+
+function test04_textItems(){
+	clearElement(dTable);
+	let keys = getRandomKeysIncluding(12, 'bee', 'all');
+	//console.log('keys', keys);
+
+	// let iGoal = keys.indexOf(this.goal.key);
+	let [items,rows] = getPictureItems(null, undefined, { rows: 2, showLabels: true }, keys);
+
+
+
+	// let items = getRandomItems(12,'life',true,true);
+	console.log('items',items)
+	presentItems(items, dTable, 3);
+}
+
+
 function test06_submit() {
 	showSubmitForm(dTable);
 }
@@ -128,13 +147,6 @@ function test04_justABlankPage() {
 	//show countdown timer!
 	setTimeout(backToPasscode, G.timeout);
 }
-function findItemFromEvent(items, ev) {
-	let id = evToClosestId(ev);
-	let item = firstCond(items, x => x.div.id == id);
-	return item;
-
-}
-function getRandomKeysFromGKeys(n) { return getRandomKeys(n, G.keys); }
 function backToPasscode() {
 	hide('dPopup')
 	console.log('enter the passcode now!!!');

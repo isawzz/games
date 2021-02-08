@@ -1,14 +1,48 @@
 var container;
+
+function _spgameStart(){
+	console.assert(isdef(DB));
+
+	initLive();
+	initTable();
+	initSidebar();
+	initAux();
+	initScore();
+	//initSymbolTableForGamesAddons(); //creates Daat
+	
+	//initAddons(); //old API ==>deprecate
+	//addonFeatureInit(); //new API!
+
+	Speech = new SpeechAPI('E');
+
+	KeySets = getKeySets();
+
+	Settings={language:'E'}
+
+	test04_textItems();
+
+}
+
 async function _start() {
+
+	_spgameStart(); return;
+
+
+
+
+
+
+
+
 	//DB has {users,games,tables,settings} set
 	initLive();
 	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
 	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
 	loadTable(); // T set hat {}
 	I = new GGuess(T.id,U,G,T);
-	I.loop();
-	//startGame();
+	//I.loop();	//startGame();
 
+	test04_textItems();
 	
 	//test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
 	//test03_centerToCenter();

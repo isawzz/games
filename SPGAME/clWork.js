@@ -1,46 +1,59 @@
-class GPasscode extends Game {
-	constructor(name) { super(name); this.needNewPasscode = true; }
-	clear() { clearTimeout(this.TO); clearTimeCD(); }
-	startGame(){
-		Settings.incrementLevelOnPositiveStreak = Settings.samplesPerGame;
-		Settings.decrementLevelOnNegativeStreak = Settings.samplesPerGame;
-
-	}
-	startLevel() { this.needNewPasscode = true; }
+class GNamit extends Game {
+	constructor(name) { super(name); }
+	startGame(){	G.correctionFunc = showCorrectPictureLabels;	}
 	prompt() {
-		G.trials = 1;
-		if (this.needNewPasscode) {
-			G.timeout = 1000;
-			this.needNewPasscode = false;
-			let keys = getRandomKeysFromGKeys(G.passcodeLength);
-			showPicturesSpeechTherapyGames(null,
-				{ border: '3px solid #ffffff80' },
-				{ repeat: G.numRepeat, sameBackground: true }, keys);
+		showPicturesSpeechTherapyGames(() => fleetingMessage('just enter the missing letters!'), {}, { showLabels: false });
 
-			//console.log(Pictures)
-			Goal = Pictures[0];
-			//console.log('===>Goal',Goal);
+		Goal = {pics:Pictures};
 
-			this.wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
-			showInstruction(Goal.label, this.wort + (Settings.language == 'E' ? ' is' : ' ist'), dTitle, true);
+		//setGoal();
+		showInstruction('', Settings.language == 'E' ? 'drag labels to pictures' : "ordne die texte den bildern zu", dTitle, true);
+		mLinebreak(dTable);
 
-			TOMain = setTimeout(anim1, 300, Goal, 500, showGotItButton);
-		}else{
-			G.timeout *= 2;
-			doOtherStuff();
+		setDropZones(Pictures, (pic) => console.log('clicked', pic));
+
+		mLinebreak(dTable, 50);
+
+		this.letters = createDragWords(Pictures, evaluate);
+		mLinebreak(dTable, 50);
+
+		mButton('Done!', evaluate, dTable, { fz: 32, matop: 10, rounding:10, padding:12 });
+
+		activateUi();
+
+	}
+	trialPrompt() {
+		sayTryAgain();
+		setTimeout(() => {
+			this.inputs.map(x => x.div.innerHTML = '_')
+			// mClass(d, 'blink');
+		}, 1500);
+
+		return 10;
+	}
+	eval() {
+		this.piclist = Pictures;
+		Selected = { piclist: this.piclist, feedbackUI: this.piclist.map(x => x.div), sz: getBounds(this.piclist[0].div).height };
+		for (const p of Pictures) {
+			let label = p.label;
+			console.log(label)
+			if (nundef(p.div.children[1])) {
+				console.log('you did not finish!!!!!!!');
+				return false;
+			} else {
+				let text = p.div.children[1].innerHTML;
+				console.log('label', label, 'text', text);
+				//Selected.feedbackUI = p.div;
+				if (text != label) {Goal=p;Selected.feedbackUI = p.div;return false;}
+			}
 		}
-
+		// Selected.feebackUI=Pictures.map(x=>x.div);
+		return true;
+		//Selected = { answer: w, reqAnswer: word, feedbackUI: Goal.div }; //this.inputs.map(x => x.div) };
+		//console.log(Selected);
+		//return w == word;
 	}
-	eval(x) {
-		CountdownTimer.cancel();
-		// return super.eval(x);
-		let isCorrect = super.eval(x);
-		if (!isCorrect) this.needNewPasscode=true;
-		return isCorrect;
-		// //return the opposite, but no feedback!
-		// if (isCorrect) return undefined; else return false;
 
-	}
 }
 
 

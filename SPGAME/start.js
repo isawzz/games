@@ -54,7 +54,7 @@ async function _start() {
 	initAux();
 	initScore();
 	initSymbolTableForGamesAddons(); //creates Daat
-	
+
 	//initAddons(); //old API ==>deprecate
 	addonFeatureInit(); //new API!
 
@@ -65,8 +65,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	addonUserInit(Username);
-
+	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
 	// test06_submit(); return;
 	//addonScreen(); return;
@@ -96,10 +95,12 @@ function startUnit() {
 function initSymbolTableForGamesAddons() {
 	//console.log('Daat', Daat);//yes this is an empty dict!
 	Daat.GameClasses = {
-		gTouchPic: GTouchPic,
+		gTouchPic: GTouchPic, gNamit: GNamit,
 		gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
 		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
 
 	}
 }
+
+

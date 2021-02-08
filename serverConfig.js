@@ -3,12 +3,12 @@ const SERVERURL = OFFLINE ? 'http://localhost:3000/app/' : 'https://speech-games
 
 const IS_TESTING = true; // *** only set this one! ***
 
-DEFAULTUSERNAME = 'gul'; // IS_TESTING ? 'nil' : 'gul';
+DEFAULTUSERNAME = 'nil'; // IS_TESTING ? 'nil' : 'gul';
 
 //**************************************************************** */
 const BROADCAST_SETTINGS = true; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;
 
-var USE_ADDONS = true;
+var USE_ADDONS = false;
 
 
 

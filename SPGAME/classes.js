@@ -810,5 +810,49 @@ class GAbacus extends Game {
 	eval(isCorrect) { return isCorrect; }
 
 }
+class GPasscode extends Game {
+	constructor(name) { super(name); this.needNewPasscode = true; }
+	clear() { clearTimeout(this.TO); clearTimeCD(); }
+	startGame(){
+		Settings.incrementLevelOnPositiveStreak = Settings.samplesPerGame;
+		Settings.decrementLevelOnNegativeStreak = Settings.samplesPerGame;
+
+	}
+	startLevel() { this.needNewPasscode = true; }
+	prompt() {
+		G.trials = 1;
+		if (this.needNewPasscode) {
+			G.timeout = 1000;
+			this.needNewPasscode = false;
+			let keys = getRandomKeysFromGKeys(G.passcodeLength);
+			showPicturesSpeechTherapyGames(null,
+				{ border: '3px solid #ffffff80' },
+				{ repeat: G.numRepeat, sameBackground: true }, keys);
+
+			//console.log(Pictures)
+			Goal = Pictures[0];
+			//console.log('===>Goal',Goal);
+
+			this.wort = (Settings.language == 'E' ? 'the passcode' : 'das Codewort');
+			showInstruction(Goal.label, this.wort + (Settings.language == 'E' ? ' is' : ' ist'), dTitle, true);
+
+			TOMain = setTimeout(anim1, 300, Goal, 500, showGotItButton);
+		}else{
+			G.timeout *= 2;
+			doOtherStuff();
+		}
+
+	}
+	eval(x) {
+		CountdownTimer.cancel();
+		// return super.eval(x);
+		let isCorrect = super.eval(x);
+		if (!isCorrect) this.needNewPasscode=true;
+		return isCorrect;
+		// //return the opposite, but no feedback!
+		// if (isCorrect) return undefined; else return false;
+
+	}
+}
 
 

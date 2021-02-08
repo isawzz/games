@@ -32,7 +32,13 @@ function aniPulse(elem, ms) { animate(elem, 'onPulse', ms); }
 //#endregion
 
 //#region drag drop example mit letters und inputs: TODO: generalize!
-var DragElem = null; var DropZones = []; var DragSource = null;
+var DragElem = null; //is the clone of element from which drag started
+var DropZones = []; //all possible drop elements
+var DropZoneItem = null;
+var DropZoneItems = [];
+var DragSource = null; //original element
+var DragSourceItem = null;
+var DragSourceItems = [];
 function onMouseDownOnLetter(ev) {
 	if (!canAct()) return;
 
@@ -63,7 +69,7 @@ function onMouseDownOnLetter(ev) {
 
 		// von jetzt an un solange DragElem != null ist muss der clone sich mit der maus mitbewegen
 		document.body.onmousemove = onMovingCloneAround;
-		document.body.onmouseup = onRelease;// ev=>console.log('mouse up')
+		document.body.onmouseup = onReleaseLetter;// ev=>console.log('mouse up')
 	}
 }
 function onMovingCloneAround(ev) {
@@ -76,7 +82,7 @@ function onMovingCloneAround(ev) {
 	let dy = my - DragElem.drag.offsetY;
 	mStyleX(DragElem, { left: dx, top: dy });
 }
-function onRelease(ev) {
+function onReleaseLetter(ev) {
 	let els = allElementsFromPoint(ev.clientX, ev.clientY);
 	//console.log('_________',els);
 	let inputs = DropZones; //Array.from(mBy('dInputs').children);
@@ -119,6 +125,17 @@ function buildWordFromLetters(dParent) {
 	s = s.join('');
 	return s;
 }
+function setDropZones(items, handler) {
+	DropZones = [];
+	DropZoneItems = [];
+	for (let i = 0; i < items.length; i++) {
+		let d = items[i].div;
+		d.onmouseup = () => handler(items[i]);
+		mClass(d, 'dropzone');
+		DropZones.push(d);
+		DropZoneItems.push(items[i]);
+	}
+}
 function createDropInputs() {
 	let fz = 120; let word = Goal.label.toUpperCase(); let wlen = word.length;
 	let dpEmpty = createLetterInputsX(word, dTable, { pabottom: 5, bg: 'grey', display: 'inline-block', fz: fz, w: fz, h: fz * 1.1, margin: 4 }); //,w:40,h:80,margin:10});
@@ -151,6 +168,69 @@ function createDragLetters() {
 		l.id = 'letter' + i;
 	}
 	return letters;
+}
+function createDragClone(ev, items, onRelease) {
+	DragSourceItems = items;
+	DragSourceItem = findItemFromEvent(items, ev);
+	let elem = DragSource = DragSourceItem.div;
+	var clone = DragElem = elem.cloneNode(true);
+	clone.id = DragElem.id + '_' + clone;
+	DragSource = elem;
+
+	//clone muss an body attached werden
+	mAppend(document.body, clone);
+	//mClass(clone, 'letter')
+
+	//der clone muss class 'dragelem' sein
+	mClass(clone, 'dragelem');
+
+	//der clone wird richtig plaziert
+	mStyleX(clone, { left: ev.clientX - ev.offsetX, top: ev.clientY - ev.offsetY });
+
+	clone.drag = { offsetX: ev.offsetX, offsetY: ev.offsetY };
+
+	// von jetzt an un solange DragElem != null ist muss der clone sich mit der maus mitbewegen
+	document.body.onmousemove = onMovingCloneAround;
+	document.body.onmouseup = onRelease;// ev=>console.log('mouse up')
+
+}
+function dropAndEval(ev) {
+	let els = allElementsFromPoint(ev.clientX, ev.clientY);
+	let targetItem = DropZoneItem = firstCond(DropZoneItems, x => els.includes(x.div));//DropZones.includes(x));
+	//let targetItem = findItemFromElem(Pictures,targetElem);
+
+
+	let droppedItem = DragSourceItem;
+	replacePicAndLabel(targetItem, targetItem.key, droppedItem.label);
+	//console.log('__________DragSource', DragSource); return7//;
+
+	DragElem.remove();
+	DragElem = DragSource = DragSourceItem = DropZoneItem = null;
+	document.body.onmousemove = document.body.onmouseup = null;
+	return;
+
+	//trial#2 WORKS!
+	// let [items,rows] = getPictureItems(null, undefined, { rows: 2, showLabels: true }, [key]);
+	// presentItems(items, dTable, 3);
+	// return;
+
+
+	//trial#1 WORKS!
+	// clearElement(dTable);
+	// showPicturesSpeechTherapyGames(null,{},{},[key]);
+	// return;
+}
+function createDragWords(items, handler) {
+	let keys = items.map(x => x.key);
+	let [titems, rows] = getTextItems(null, undefined, { rows: 2, showLabels: true }, keys);
+	titems.map(x => x.div.style.cursor = 'pointer');//mClass(x.div, 'draggable'));
+	presentItems(titems, dTable, 1);
+	titems.map(x => x.div.onmousedown = (ev) => {
+		// let source = findItemFromEvent(titems, ev);
+		// let target = findItemFromKey(Pictures, source.key);
+		createDragClone(ev, titems, dropAndEval);
+	});
+	return titems;
 }
 function createLetterInputs(s, dParent, style, idForContainerDiv, colorWhiteSpaceChars = true, preserveColorsBetweenWhiteSpace = true) {
 	let d = mDiv(dParent);
@@ -810,13 +890,13 @@ function getOperationHintString(i) {
 	//return sSpoken,sWritten
 	//console.log('i', i, 'trial#', G.trialNumber);
 	if (i == 0) {
-		let spOp = G.oop.sp; if (Settings.language == 'D') spOp=DD[spOp];
+		let spOp = G.oop.sp; if (Settings.language == 'D') spOp = DD[spOp];
 		let sSpoken = [G.operand, spOp, G.step].join(' ');
 		let sWritten = visOperation(G.op, G.operand, G.step, null, '?');
 		return [sSpoken, sWritten];
 	} else {
 		let result = G.oop.f(G.operand, G.step);
-		let lstSpoken = i == 1 ? result==0?[result]:['count', 'the red dots'] : [G.operand, G.oop.sp, G.step, 'equals', result];
+		let lstSpoken = i == 1 ? result == 0 ? [result] : ['count', 'the red dots'] : [G.operand, G.oop.sp, G.step, 'equals', result];
 		if (Settings.language == 'D') lstSpoken = lstSpoken.map(x => translateToGerman(x));
 		let sSpoken = lstSpoken.join(' ');
 		let sWritten = visOperation(G.op, G.operand, G.step, null);
@@ -926,12 +1006,12 @@ function translateToGerman(w) {
 //#region cards turn face up or down
 function hideMouse() {
 	var x = dTable.getElementsByTagName("DIV");
-	for (const el of x) { el.prevCursor = el.style.cursor; } 
+	for (const el of x) { el.prevCursor = el.style.cursor; }
 	for (const p of Pictures) {
 		mRemoveClass(p.div, 'frameOnHover'); p.div.style.cursor = 'none';
 		for (const ch of p.div.children) ch.style.cursor = 'none';
 	}
-	for (const el of x) { mClass(el, 'noCursor'); } 
+	for (const el of x) { mClass(el, 'noCursor'); }
 }
 function showMouse() {
 	var x = dTable.getElementsByTagName("DIV");
@@ -1001,6 +1081,9 @@ function failThumbsDown(withComment = false) {
 	p2.div.style.display = 'none';
 }
 function successPictureGoal(withComment = true) {
+
+	console.log(Selected)
+
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
 		sayRandomVoice(chooseRandom(comments));
@@ -1010,6 +1093,7 @@ function successPictureGoal(withComment = true) {
 		if (isdef(Selected.positiveFeedbackUI)) uilist = [Selected.positiveFeedbackUI];
 		else uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
 		let sz = getBounds(uilist[0]).height;
+		console.log('in der succesfunc!!!!!!!', uilist)
 		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
 	}
 }
@@ -1054,6 +1138,20 @@ function showCorrectWords(sayit = true) {
 	if (!sayit || !Settings.spokenFeedback) return to;
 
 	return to + ms;
+}
+function showCorrectPictureLabels(sayit = true) {
+	for (const p of Pictures) { replacePicAndLabel(p, p.key); }
+	Goal = { pics: Pictures };
+
+	let anim = Settings.spokenFeedback ? 'onPulse' : 'onPulse1';
+	let div = Selected.feedbackUI;
+	mClass(div, anim);
+
+	if (!sayit || !Settings.spokenFeedback) Settings.spokenFeedback ? 3000 : 300;
+
+	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
+	sayRandomVoice(correctionPhrase);
+	return Settings.spokenFeedback ? 3000 : 300;
 }
 function shortHintPicRemove() {
 	mRemoveClass(mBy(Goal.id), 'onPulse1');
@@ -1209,6 +1307,19 @@ function containsColorWord(s) {
 	}
 	return true;
 }
+function findItemFromEvent(items, ev) {
+	let id = evToClosestId(ev);
+	let item = firstCond(items, x => x.div.id == id);
+	return item;
+
+}
+function findItemFromElem(items, elem) {
+	let item = firstCond(items, x => x.div == elem);
+	return item;
+
+}
+function findItemFromKey(items, key) { return firstCond(items, x => x.key == key); }
+function getRandomKeysFromGKeys(n) { return getRandomKeys(n, G.keys); }
 function getGameValues(user, game, level) {
 	//console.log(user,game,level)
 	let di = { numColors: 1, numRepeat: 1, numPics: 1, numSteps: 1, trials: Settings.trials, colors: ColorList }; // general defaults
@@ -1377,9 +1488,9 @@ function setMultiGoal(n, indices) {
 function showHiddenThumbsUpDown(styles) {
 	styles.bg = ['transparent', 'transparent'];
 
-	console.log('styles',jsCopy(styles))
-	showPicturesSpeechTherapyGames(null, styles, { sz:styles.sz,showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
-	console.log('hallo',Pictures[0])
+	console.log('styles', jsCopy(styles))
+	showPicturesSpeechTherapyGames(null, styles, { sz: styles.sz, showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
+	console.log('hallo', Pictures[0])
 	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '6px 0px 0px 0px'; p.div.style.opacity = 0; }
 
 }

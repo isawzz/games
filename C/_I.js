@@ -34,9 +34,9 @@ class IClass extends LiveObject {
 	update() {
 		//state is updated
 		for (const pl of this.players) this.updatePlayer(pl);
-		this.updateTable();
-		this.updateTurn();
-		this.updateOptions();
+		this.updateTable(); //table is empty
+		this.updateTurn();  // random player turn
+		this.updateOptions(this.player);
 
 	}
 	updateOptions() { this.options = {}; }

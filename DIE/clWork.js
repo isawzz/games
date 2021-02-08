@@ -1,10 +1,15 @@
 class GGuess extends IClass{
+	setup(){
+
+	}
 	updatePlayer(pl){
 
-		let key = getRandomKeys(1,'all');
-		pl.item = getRandomSetItem(Settings.language, key);
-		pl.word = pl.item.best;
 		//console.log(pl.item)
+	}
+	updateOptions(pl){
+		//the player has basically 26 letters as options
+		this.options = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+		console.log(this.options);
 	}
 
 }

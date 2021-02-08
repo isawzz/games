@@ -1,19 +1,33 @@
+function test04_textItems() {
+	clearElement(dTable);
+
+
+
+	// let keys = getRandomKeysIncluding(12, 'bee', 'all');
+	// let [items,rows] = getPictureItems(null, undefined, { rows: 2, showLabels: true }, keys);
+
+	let items = getRandomItems(12, 'life', true, false);
+	console.log('items', items)
+	presentItems(items, dTable, 3);
+}
+
+
 function test03_2HandsRandom() {
-	let h1 = iMakeHand([0,1,2,3,4], 'h1');
+	let h1 = iMakeHand([0, 1, 2, 3, 4], 'h1');
 	let h2 = iMakeHand([13, 14, 15, 16, 17], 'h2');
 	//console.log('Daat', Daat)
 
 	setTimeout(test03_2Hands_transferStarts, 1000);
 }
 
-function test03_sortDeck(){
-	let h1 = iMakeHand([7,10,21,2,43,4], 'h1');
+function test03_sortDeck() {
+	let h1 = iMakeHand([7, 10, 21, 2, 43, 4], 'h1');
 	iSortHand(h1);
 	//setTimeout(()=>iSortHand(h1),2000);
 }
 
 function test03_2Hands() {
-	let h1 = iMakeHand([0,1,2,3,4], 'h1');
+	let h1 = iMakeHand([0, 1, 2, 3, 4], 'h1');
 	let h2 = iMakeHand([13, 14, 15, 16, 17], 'h2');
 	//console.log('Daat', Daat)
 
@@ -29,7 +43,7 @@ function test03_2Hands_transferStarts() {
 	//console.log('hand h2 has', n2, 'cards');
 	//console.assert(n2 == Daat.h2.deck.count());
 
-	let c=chooseRandom(h2.items);
+	let c = chooseRandom(h2.items);
 	Daat.item = c;
 
 	let w = c.w;

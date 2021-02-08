@@ -1,3 +1,25 @@
+
+function getRandomItems(n, keyOrSet, text = true, pic = true) {
+	let keys = getRandomKeys(n, keyOrSet);
+	//console.log(keys)
+	if (pic) {
+		let [pics, rows] = getPictureItems(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
+		console.log(pics)
+		return pics;
+	} else {
+		let [pics, rows] = getTextItems(() => console.log('click'), undefined, { rows: 2, showLabels: true }, keys);
+		return pics;
+	}
+}
+
+
+
+
+
+
+
+
+//#region loading images cropped
 function loadPic(filename, w, h, dParent, { x, y, row, col, scale } = {}, ext = 'jpg', dir = '../assets/images/postures/') {
 	let dPic = mDiv(dParent);
 	dPic.style.width = '' + w + 'px';
@@ -20,11 +42,11 @@ function loadRandomExerciser2(dParent, i) {
 	[350, 30], [350, 245], [350, 450], [350, 650], [330, 890],
 	[620, 0], [620, 245], [620, 460], [620, 700], [560, 920],
 	[880, 0], [900, 245], [890, 460], [860, 700], [870, 920],
-	[1150, 0], [1170, 320], [1150,620], [1120, 900], 
+	[1150, 0], [1170, 320], [1150, 620], [1120, 900],
 	[1350, 30], [1400, 330], [1380, 630], [1350, 890]
 	];
-	if (nundef(i)) i=randomNumber(0,table.length-1);
-	i=i%table.length;
+	if (nundef(i)) i = randomNumber(0, table.length - 1);
+	i = i % table.length;
 	// let i=0; //10;
 	let x = table[i][0]; //300;//0;//randomNumber(0,4);
 	let y = table[i][1];//230;//randomNumber(0,5);
@@ -61,10 +83,10 @@ function loadExerciser(dParent, row, col) {
 	// dPic.style.transform = 'scale(1.5)';
 	// //dPic.style.marginTop = '-100px';
 }
-function loadRandomExerciser(dParent) { 
-	mLinebreak(dParent,75);
-	loadExerciser(dParent, randomNumber(0, 5), randomNumber(0, 7)); 
-	mLinebreak(dParent,25);
+function loadRandomExerciser(dParent) {
+	mLinebreak(dParent, 75);
+	loadExerciser(dParent, randomNumber(0, 5), randomNumber(0, 7));
+	mLinebreak(dParent, 25);
 
 }
 function loadWalker(dParent) { loadExerciser(dParent, 3, 2); }
@@ -73,7 +95,7 @@ function loadRandomTaeOrPosturePic(dpics) {
 	mImage(`../assets/images/postures/${chooseRandom(imgs)}0${randomNumber(1, 8)}.jpg`, dpics, 200, 200);
 
 }
-
+//#endregion
 
 
 

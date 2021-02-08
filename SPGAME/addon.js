@@ -22,9 +22,7 @@ function addonFeatureInit() {
 		//console.log('...addons loaded...');//, ADS);
 	}
 }
-function addonUserInit() {
-	//console.log('loading addons for user:', '\naddons available', U.avAddons, '\naddons data', U.addons); 
-}
+
 function isTimeForAddon() {
 	//console.log('WAS IST DA LOOOOOOOOOOOOOOOOOOOOOOS>>>?')
 	//return true if addon feature initialized and there are available addons and any of them is ready to run

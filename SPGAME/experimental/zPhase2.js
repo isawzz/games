@@ -7,6 +7,14 @@ function prepareItemsForContainerRegularGrid(items,ifs,options,desRows,desCols){
 	items.map(x => x.sz = sz);
 	_prep1(items, ifs, options);
 }
+function prepareTextItemsForContainerRegularGrid(items,ifs,options,desRows,desCols){
+	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
+	items.map(x => x.sz = sz);
+	_prepText1(items, ifs, options);
+}
 
 function _prep1(items, ifs, options) {
 	//#region phase2: prepare items for container
@@ -27,7 +35,7 @@ function _prep1(items, ifs, options) {
 		let longestLabel = findLongestLabel(items);
 		let oneWord = longestLabel.label.replace(' ', '_');
 
-		textStyles = idealFontsize(oneWord, szNet, szNet / 2, 20, 8); //, 'bold');	textStyles.weight='bold'
+		textStyles = idealFontsize(oneWord, szNet, szNet / 2, 22, 8); //, 'bold');	textStyles.weight='bold'
 		hText = textStyles.h;
 
 		pictureSize = szNet - hText;
@@ -92,7 +100,90 @@ function _prep1(items, ifs, options) {
 	//#endregion
 
 }
+function _prepText1(items, ifs, options) {
+	//#region phase2: prepare items for container
+	options.showLabels = true;
 
+	let sz = options.sz;
+	let padding = (isdef(ifs.padding)?ifs.padding:1);
+
+	let bo=ifs.border;
+	bo = isdef(bo)?isString(bo)?firstNumber(bo):bo:0;
+
+	let szNet = sz - 2 * padding - 2*bo;
+
+	// let pictureSize = 0;
+	// let picStyles = { w: szNet, h: isdef(options.center)?szNet : szNet + padding }; //if no labels!
+	let textStyles, hText;
+	if (options.showLabels) {
+		let longestLabel = findLongestLabel(items);
+		let oneWord = longestLabel.label.replace(' ', '_');
+
+		textStyles = idealFontsize(oneWord, szNet, szNet, 22, 8); //, 'bold');	textStyles.weight='bold'
+		hText = textStyles.h;
+
+		// pictureSize = szNet - hText;
+		// picStyles = { w: pictureSize, h: pictureSize };
+
+		delete textStyles.h;
+		delete textStyles.w;
+	}
+
+	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	outerStyles = deepmergeOverride(outerStyles,ifs);
+	let pic, text;
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+		let d = mDiv();
+		//add pic
+		if (isdef(item.textShadowColor)) {
+			let sShade = '0 0 0 ' + item.textShadowColor;
+			textStyles['text-shadow'] = sShade;
+			textStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+		}
+
+		//console.log('::::::::::::::',picStyles)
+		// pic = zPic(k, null, picStyles, true, false);
+		// delete pic.info;
+		// mAppend(d, pic.div);
+		//add text if needed
+		if (options.showLabels) {
+			textStyles.fg = item.fg;
+			text = zText1Line(item.label, null, textStyles, hText);
+			mAppend(d, text.div);
+		}
+		//style container div
+		outerStyles.bg = item.bg;
+		outerStyles.fg = item.fg;
+		mStyleX(d, outerStyles);
+		//console.log('===>iGroup',item.iGroup,i)
+		d.id = getUID(); // 'pic' + (i + item.iGroup); //$$$$$
+		d.onclick = options.onclick;
+		//complete item info
+		item.id = d.id;
+		item.row = Math.floor(item.index / options.cols);
+		item.col = item.index % options.cols;
+		item.div = d;
+		item.pic = null; //pic;
+		item.isSelected = false;
+		item.isLabelVisible = options.showLabels;
+		item.dims = parseDims(sz, sz, d.style.padding);
+		//console.log('index', item.index, 'row', item.row, 'col', item.col)
+		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
+		// let fzPic = 0;//firstNumber(item.div.children[0].children[0].style.fontSize);
+		// let docfz = item.pic.innerDims.fz;
+		// console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz );
+		// if (docfz != fzPic){
+		// 	console.log('item',item)
+		// }
+		item.fzPic = 0;//fzPic;
+
+		//console.log('picSize',sz)
+	}
+	//#endregion
+
+}
 
 function findLongestLabel(items) {
 	let longestLabel = '';

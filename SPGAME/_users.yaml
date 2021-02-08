@@ -1,7 +1,7 @@
 nil:
   id: nil
-  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gNamit
   settings:
     # settings common to all games
     samplesPerGame: 20
@@ -24,6 +24,9 @@ nil:
     reducedAnimations: true
     levelBadges: false
   games:
+    gNamit:
+      #vocab: 
+      startLevel: 0
     gTouchPic:
       #vocab: 
       startLevel: 1
