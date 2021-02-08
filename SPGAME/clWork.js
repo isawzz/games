@@ -17,7 +17,7 @@ class GNamit extends Game {
 		this.letters = createDragWords(Pictures, evaluate);
 		mLinebreak(dTable, 50);
 
-		mButton('Done!', evaluate, dTable, { fz: 32, matop: 10, rounding:10, padding:12 });
+		mButton('Done!', evaluate, dTable, { fz: 32, matop: 10, rounding:10, padding:16, border:8 },['buttonClass']);
 
 		activateUi();
 

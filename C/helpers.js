@@ -229,7 +229,7 @@ function mStyleX(elem, styles, unit = 'px') {
 			continue;
 		} else if (k == 'border') {
 			//console.log('________________________YES!')
-
+			if (isNumber(val)) val=`solid ${val}px ${isdef(styles.fg)?styles.fg:'#ffffff80'}`;
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		} else if (k == 'layout') {
 			elem.style.setProperty('display', 'flex');
