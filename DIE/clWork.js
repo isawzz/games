@@ -6,6 +6,7 @@ class GGuess extends IClass{
 		pl.word = pl.item.best;
 		//console.log(pl.item)
 	}
+
 }
 
 
