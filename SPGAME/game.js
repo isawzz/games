@@ -194,19 +194,25 @@ function createDragClone(ev, items, onRelease) {
 	document.body.onmouseup = onRelease;// ev=>console.log('mouse up')
 
 }
+function cancelDD(){
+	DragElem.remove();
+	DragElem = DragSource = DragSourceItem = DropZoneItem = null;
+	//document.body.onmousemove = document.body.onmouseup = null;
+}
 function dropAndEval(ev) {
+	cancelBubble=true;
 	let els = allElementsFromPoint(ev.clientX, ev.clientY);
+	if (nundef(DragElem)) return;
 	let targetItem = DropZoneItem = firstCond(DropZoneItems, x => els.includes(x.div));//DropZones.includes(x));
 	//let targetItem = findItemFromElem(Pictures,targetElem);
 
+	if (nundef(targetItem)) {cancelDD(); return;}
 
 	let droppedItem = DragSourceItem;
 	replacePicAndLabel(targetItem, targetItem.key, droppedItem.label);
 	//console.log('__________DragSource', DragSource); return7//;
 
-	DragElem.remove();
-	DragElem = DragSource = DragSourceItem = DropZoneItem = null;
-	document.body.onmousemove = document.body.onmouseup = null;
+	cancelDD();
 	return;
 
 	//trial#2 WORKS!
@@ -223,9 +229,11 @@ function dropAndEval(ev) {
 function createDragWords(items, handler) {
 	let keys = items.map(x => x.key);
 	shuffle(keys);
-	let [titems, rows] = getTextItems(null, undefined, { rows: 2, showLabels: true }, keys);
+
+	titems = showLbls(null, undefined, { rows: 1, showLabels: true }, keys);
+	//let [titems, rows] = getTextItems(null, undefined, { rows: 2, showLabels: true }, keys);
 	titems.map(x => x.div.style.cursor = 'pointer');//mClass(x.div, 'draggable'));
-	presentItems(titems, dTable, 1);
+	//presentItems(titems, dTable, 1);
 	titems.map(x => x.div.onmousedown = (ev) => {
 		// let source = findItemFromEvent(titems, ev);
 		// let target = findItemFromKey(Pictures, source.key);
@@ -1109,6 +1117,23 @@ function failPictureGoal(withComment = false) {
 		for (const ui of uilist) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
 	}
 }
+function failSomePictures(withComment = false) {
+	if (withComment && Settings.spokenFeedback) {
+		const comments = (Settings.language == 'E' ? ['too bad'] : ["aber geh'"]);
+		sayRandomVoice(chooseRandom(comments));
+	}
+	for (const p of Pictures) {
+		let ui=p.div;
+		let sz=p.sz;
+		if (p.isCorrect==false) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
+		else mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
+	}
+	// if (isdef(Selected) && isdef(Selected.feedbackUI)) {
+	// 	let uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
+	// 	let sz = getBounds(uilist[0]).height;
+	// 	for (const ui of uilist) mpOver(markerFail(), ui, sz * (1 / 2), 'red', 'openMojiTextBlack');
+	// }
+}
 function showCorrectWord(sayit = true) {
 	let anim = Settings.spokenFeedback ? 'onPulse' : 'onPulse1';
 	let div = mBy(Goal.id);
@@ -1141,6 +1166,7 @@ function showCorrectWords(sayit = true) {
 	return to + ms;
 }
 function showCorrectPictureLabels(sayit = true) {
+	return 1000;
 	for (const p of Pictures) { replacePicAndLabel(p, p.key); }
 	Goal = { pics: Pictures };
 
@@ -1320,6 +1346,11 @@ function findItemFromElem(items, elem) {
 
 }
 function findItemFromKey(items, key) { return firstCond(items, x => x.key == key); }
+function getActualText(item){
+	//console.log(item)
+	if (isdef(item.text)) return item.text.div.innerHTML;
+	//if (isdef(item.pic)){return item.div.children[1].innerHTML;} else {return item.div.children[0].innerHTML;}
+}
 function getRandomKeysFromGKeys(n) { return getRandomKeys(n, G.keys); }
 function getGameValues(user, game, level) {
 	//console.log(user,game,level)

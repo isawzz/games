@@ -1,7 +1,33 @@
 // phase 2: prep items for container: determine size and position of items, set a min(fit content) and a max(limited by container & layout)
+function prepDims(items, options) {
+	//console.log('rows',options.rows,'n',items.length)
+	let [sz, rows, cols] = calcRowsColsSize(items.length, options.rows, options.cols);
+	//console.log('picSz=' + sz, 'options.sz', options.sz,'rows',rows,'cols',cols)
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
+	items.map(x => x.sz = sz);
+}
+function prepPics(items,ifs,options){
+	_prep1(items, ifs, options);
+}
+function prepLbls(items,ifs,options){
+	_prepText1(items, ifs, options);
+}
+function prepX(items, ifs, options) {
+	//console.log('rows',options.rows,'n',items.length)
+	let [sz, rows, cols] = calcRowsColsSize(items.length, options.rows, options.cols);
+	//console.log('picSz=' + sz, 'options.sz', options.sz,'rows',rows,'cols',cols)
+	if (nundef(options.sz)) options.sz = sz;
+	if (nundef(options.rows)) options.rows = rows;
+	if (nundef(options.cols)) options.cols = cols;
+	items.map(x => x.sz = sz);
+	_prep1(items, ifs, options);
+}
 function prepareItemsForContainerRegularGrid(items, ifs, options, desRows, desCols) {
+	//console.log('desRows',desRows,'n',items.length)
 	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
-	console.log('picSz=' + sz, 'options.sz', options.sz)
+	//console.log('picSz=' + sz, 'options.sz', options.sz,'rows',rows,'cols',cols)
 	if (nundef(options.sz)) options.sz = sz;
 	if (nundef(options.rows)) options.rows = rows;
 	if (nundef(options.cols)) options.cols = cols;
@@ -10,7 +36,7 @@ function prepareItemsForContainerRegularGrid(items, ifs, options, desRows, desCo
 }
 function prepareTextItemsForContainerRegularGrid(items, ifs, options, desRows, desCols) {
 	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
-	console.log('textSz=' + sz, 'options.sz', options.sz)
+//console.log('textSz=' + sz, 'options.sz', options.sz)
 	if (nundef(options.sz)) options.sz = sz;
 	if (nundef(options.rows)) options.rows = rows;
 	if (nundef(options.cols)) options.cols = cols;
@@ -84,6 +110,7 @@ function _prep1(items, ifs, options) {
 		item.col = item.index % options.cols;
 		item.div = d;
 		item.pic = pic;
+		if (isdef(text)) item.text=text;
 		item.isSelected = false;
 		item.isLabelVisible = options.showLabels;
 		item.dims = parseDims(sz, sz, d.style.padding);
@@ -229,12 +256,15 @@ function calcRowsColsSize(n, rows, cols, dParent, wmax, hmax, minsz = 50, maxsz 
 	//console.log(ww,wh)
 	let sz;//, picsPerLine;
 	//if (lines <= 1) lines = undefined;
+
+	//console.log('===>vor calcRowsColsX: rows='+rows,'cols'+cols);
 	let dims = calcRowsColsX(n, rows, cols);
+	//console.log('===>nach calcRowsColsX: rows='+rows,'cols'+cols);
 
 	let hpic = wh * hpercent / dims.rows;
 	let wpic = ww * wpercent / dims.cols;
 
-	console.log('hpic', hpic, 'wpic', wpic, ww, window.innerWidth, wh, window.innerHeight);
+	//console.log('hpic', hpic, 'wpic', wpic, ww, window.innerWidth, wh, window.innerHeight);
 	sz = Math.min(hpic, wpic);
 	//picsPerLine = dims.cols;
 	sz = Math.max(minsz, Math.min(sz, maxsz)); //Math.max(50, Math.min(sz, 200));

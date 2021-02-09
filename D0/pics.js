@@ -16,9 +16,9 @@ function showPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	presentItems(items, dTable, 1);
 	return items;
 }
-function getPic(key, sz, bg, label) {
-	let items, ifs = { bg: bg }, options = { sz: sz };
-	if (isdef(label)) options.showLabels = true; else options.showLabels = false;
+function getPic(key, sz,bg, label) { //onClickPictureHandler, ifs = {}, options = {}, keys, labels){
+	let items, ifs = {bg:bg}, options = { sz: sz };
+	if (isdef(label)) options.showLabels = true;
 	[items, ifs, options] = createStandardItems(null, ifs, options, [key], isdef(label) ? [label] : undefined);
 	// prepX(Pictures, ifs, options);
 	prepDims(items, options);
@@ -100,26 +100,28 @@ function replacePicAndLabel(item, key, label) {
 	//if label param is missing, use default label param from key
 	//console.log('item',item,'key',key,'label',label)
 	let div = item.div;
-	console.log(item);
-	let newItem = getPic(key, item.sz, item.bg, label);
+
+	let newItem = getPic(key, item.sz,item.bg, label);
+	//console.log('newItem', newItem);
+
+	//let [items, rows] = getPictureItems(null, {fg:'contrast'}, { sz:item.sz, showLabels: true }, [key], isdef(label) ? [label] : undefined);
+	//let i=items[0];
 	clearElement(div);
+
+	// console.log('das neue item ist',items[0])
+
+
+	// mAppend(div, items[0].div.children[0]);
+	// mAppend(div, items[0].div.children[0]);
+	// item.pic = items[0].pic;
+	// item.text= items[0].text;
 	mAppend(div, newItem.div.children[0]);
 	mAppend(div, newItem.div.children[0]);
 	item.pic = newItem.pic;
 	item.text = newItem.text;
 }
 function addLabel(item, label) { }
-function removeLabel(item) {
-	console.log('old item',item);
-	let div = item.div;
-	let newItem = getPic(item.key, item.sz, item.bg);
-	console.log('newItem',newItem);
-	clearElement(div);
-	mAppend(div, newItem.div.children[0]);
-	item.pic = newItem.pic;
-
-	delete item.text;
-}
+function removeLabel(item) { }
 function addPic(item, key) { }
 function removePic(item) {
 	//if item does not have a label, add the label for its key
