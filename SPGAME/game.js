@@ -1091,7 +1091,7 @@ function failThumbsDown(withComment = false) {
 }
 function successPictureGoal(withComment = true) {
 
-	console.log(Selected)
+	//console.log(Selected)
 
 	if (withComment && Settings.spokenFeedback) {
 		const comments = (Settings.language == 'E' ? ['YEAH!', 'Excellent!!!', 'CORRECT!', 'Great!!!'] : ['gut', 'Sehr Gut!!!', 'richtig!!', 'Bravo!!!']);
@@ -1102,7 +1102,7 @@ function successPictureGoal(withComment = true) {
 		if (isdef(Selected.positiveFeedbackUI)) uilist = [Selected.positiveFeedbackUI];
 		else uilist = isList(Selected.feedbackUI) ? Selected.feedbackUI : [Selected.feedbackUI];
 		let sz = getBounds(uilist[0]).height;
-		console.log('in der succesfunc!!!!!!!', uilist)
+		//console.log('in der succesfunc!!!!!!!', uilist)
 		for (const ui of uilist) mpOver(markerSuccess(), ui, sz * (4 / 5), 'limegreen', 'segoeBlack');
 	}
 }

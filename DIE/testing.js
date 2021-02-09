@@ -1,11 +1,6 @@
 function test04_textItems() {
 	clearElement(dTable);
 
-
-
-	// let keys = getRandomKeysIncluding(12, 'bee', 'all');
-	// let [items,rows] = getPictureItems(null, undefined, { rows: 2, showLabels: true }, keys);
-
 	let items = getRandomItems(12, 'life', true, false);
 	console.log('items', items)
 	presentItems(items, dTable, 3);

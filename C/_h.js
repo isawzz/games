@@ -1,18 +1,4 @@
 
-function getRandomItems(n, keyOrSet, text = true, pic = true) {
-	let keys = getRandomKeys(n, keyOrSet);
-	//console.log(keys)
-	if (pic) {
-		let [pics, rows] = getPictureItems(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
-		console.log(pics)
-		return pics;
-	} else {
-		let [pics, rows] = getTextItems(() => console.log('click'), undefined, { rows: 2, showLabels: true }, keys);
-		return pics;
-	}
-}
-
-
 
 
 

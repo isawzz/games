@@ -1,43 +1,4 @@
-function showLbls(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-	let items;
-	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
-	// prepX(Pictures, ifs, options);
-	prepDims(items, options);
-	prepLbls(items, ifs, options)
-	presentItems(items, dTable, 1);
-	return items;
-}
-function showPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-	let items;
-	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
-	// prepX(Pictures, ifs, options);
-	prepDims(items, options);
-	prepPics(items, ifs, options)
-	presentItems(items, dTable, 1);
-	return items;
-}
-function getPic(key, sz, bg, label) {
-	let items, ifs = { bg: bg }, options = { sz: sz };
-	if (isdef(label)) options.showLabels = true; else options.showLabels = false;
-	[items, ifs, options] = createStandardItems(null, ifs, options, [key], isdef(label) ? [label] : undefined);
-	// prepX(Pictures, ifs, options);
-	prepDims(items, options);
-	prepPics(items, ifs, options);
-	return items[0];
-}
-function sps3(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-	[Pictures, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
-	// prepX(Pictures, ifs, options);
-	prepDims(Pictures, options);
-	prepPics(Pictures, ifs, options)
-	presentItems(Pictures, dTable, 1);
-}
-function spsp(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
-	[Pictures, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
-	prepareItemsForContainerRegularGrid(Pictures, ifs, options, isdef(options.colorKeys) ? options.colorKeys.length : undefined)
-	presentItems(Pictures, dTable, 1);
-}
-
+//#region new API
 function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	//#region prelim: default ifs and options, keys & infos
 	//console.log('ifs', jsCopy(ifs)); console.log('options', jsCopy(options));
@@ -69,7 +30,99 @@ function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys
 
 	return [items, ifs, options];
 }
+function getRandomItems(n, keyOrSet, text = true, pic = true) {
+	let keys = getRandomKeys(n, keyOrSet);
+	//console.log(keys)
+	if (pic == true) return getPics(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
+	else return getLbls(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
+}
+function getPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items;
+	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepPics(items, ifs, options);
+	return items;
+}
+function getLbls(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items;
+	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepLbls(items, ifs, options);
+	return items;
+}
+function getPic(key, sz, bg, label) {
+	let items, ifs = { bg: bg }, options = { sz: sz };
+	if (isdef(label)) options.showLabels = true; else options.showLabels = false;
+	[items, ifs, options] = createStandardItems(null, ifs, options, [key], isdef(label) ? [label] : undefined);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepPics(items, ifs, options);
+	return items[0];
+}
+function presentItems(items, dParent, rows) {
+	//#region phase3: prep container for items
+	//mClass(dParent, 'flexWrap'); //frage ob das brauche????
+	//#endregion
 
+	//#region phase4: add items to container!
+	let dGrid = mDiv(dParent);
+	items.map(x => mAppend(dGrid, x.div));
+	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
+	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
+	// console.log('size of grid',gridSize,'table',getBounds(dTable))
+
+	//#endregion
+
+
+	//console.log('*** THE END ***', Pictures[0]);
+	return { dGrid: dGrid, sz: gridSize };
+}
+function replaceLabel(item, label) { }
+function replacePic(item, key) { }
+function replacePicAndLabel(item, key, label) {
+	//if item has both pic and label, replace them
+	//if item has only pic, replace it and add label from new key
+	//if item has onlt text, resize it and add both pic and label
+	//if label param is missing, use default label param from key
+	//console.log('item',item,'key',key,'label',label)
+	let div = item.div;
+	//console.log(item);
+	let newItem = getPic(key, item.sz, item.bg, label);
+	clearElement(div);
+	mAppend(div, newItem.div.children[0]);
+	mAppend(div, newItem.div.children[0]);
+	item.pic = newItem.pic;
+	item.text = newItem.text;
+}
+function addLabel(item, label) { }
+function removeLabel(item) {
+	//console.log('old item',item);
+	let div = item.div;
+	let newItem = getPic(item.key, item.sz, item.bg);
+	//console.log('newItem',newItem);
+	clearElement(div);
+	mAppend(div, newItem.div.children[0]);
+	item.pic = newItem.pic;
+	delete item.text;
+}
+function addPic(item, key) { }
+function removePic(item) {
+	//if item does not have a label, add the label for its key
+}
+function showLbls(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items = getLbls(onClickPictureHandler, ifs, options, keys, labels);
+	presentItems(items, dTable, 1);
+	return items;
+}
+function showPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items = getPics(onClickPictureHandler, ifs, options, keys, labels);
+	presentItems(items, dTable, 1);
+	return items;
+}
+
+//#region old APIs
 function getPictureItems(onClickPictureHandler, ifs1 = {}, options1 = {}, keys, labels) {
 
 	let [items, ifs, options] = createStandardItems(onClickPictureHandler, ifs1, options1, keys, labels);
@@ -91,63 +144,12 @@ function getTextItems(onClickPictureHandler, ifs1 = {}, options1 = {}, keys, lab
 }
 
 
-function replaceLabel(item, label) { }
-function replacePic(item, key) { }
-function replacePicAndLabel(item, key, label) {
-	//if item has both pic and label, replace them
-	//if item has only pic, replace it and add label from new key
-	//if item has onlt text, resize it and add both pic and label
-	//if label param is missing, use default label param from key
-	//console.log('item',item,'key',key,'label',label)
-	let div = item.div;
-	console.log(item);
-	let newItem = getPic(key, item.sz, item.bg, label);
-	clearElement(div);
-	mAppend(div, newItem.div.children[0]);
-	mAppend(div, newItem.div.children[0]);
-	item.pic = newItem.pic;
-	item.text = newItem.text;
-}
-function addLabel(item, label) { }
-function removeLabel(item) {
-	console.log('old item',item);
-	let div = item.div;
-	let newItem = getPic(item.key, item.sz, item.bg);
-	console.log('newItem',newItem);
-	clearElement(div);
-	mAppend(div, newItem.div.children[0]);
-	item.pic = newItem.pic;
-
-	delete item.text;
-}
-function addPic(item, key) { }
-function removePic(item) {
-	//if item does not have a label, add the label for its key
-}
 
 
 
 
 
 
-function presentItems(items, dParent, rows) {
-	//#region phase3: prep container for items
-	//mClass(dParent, 'flexWrap'); //frage ob das brauche????
-	//#endregion
-
-	//#region phase4: add items to container!
-	let dGrid = mDiv(dParent);
-	items.map(x => mAppend(dGrid, x.div));
-	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4 };
-	let gridSize = layoutGrid(items, dGrid, gridStyles, { rows: rows, isInline: true });
-	// console.log('size of grid',gridSize,'table',getBounds(dTable))
-
-	//#endregion
-
-
-	//console.log('*** THE END ***', Pictures[0]);
-	return { dGrid: dGrid, sz: gridSize };
-}
 
 function sps2(onClickPictureHandler, ifs1 = {}, options1 = {}, keys, labels) {
 	let [items, ifs, options] = createStandardItems(onClickPictureHandler, ifs1, options1, keys, labels);
@@ -215,3 +217,35 @@ function showPicturesSpeechTherapyGames(onClickPictureHandler, ifs = {}, options
 
 
 
+function showLbls1(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items;
+	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepLbls(items, ifs, options)
+	presentItems(items, dTable, 1);
+	return items;
+}
+function showPics1(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	let items;
+	[items, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepPics(items, ifs, options);
+	presentItems(items, dTable, 1);
+	return items;
+}
+function sps3(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	[Pictures, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	// prepX(Pictures, ifs, options);
+	prepDims(Pictures, options);
+	prepPics(Pictures, ifs, options)
+	presentItems(Pictures, dTable, 1);
+}
+function spsp(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
+	[Pictures, ifs, options] = createStandardItems(onClickPictureHandler, ifs, options, keys, labels);
+	prepareItemsForContainerRegularGrid(Pictures, ifs, options, isdef(options.colorKeys) ? options.colorKeys.length : undefined)
+	presentItems(Pictures, dTable, 1);
+}
+
+//#endregion
