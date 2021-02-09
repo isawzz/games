@@ -1,9 +1,10 @@
 function test04_textItems() {
 	clearElement(dTable);
 
-	let items = getRandomItems(12, 'life', true, false);
+	//mStyleX(dTable,{w:1000,h:800})
+	let items = getRandomItems(24, 'object', false, true);
 	console.log('items', items)
-	presentItems(items, dTable, 3);
+	presentItems(items, dTable, 4);
 }
 
 

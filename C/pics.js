@@ -30,11 +30,11 @@ function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys
 
 	return [items, ifs, options];
 }
-function getRandomItems(n, keyOrSet, text = true, pic = true) {
+function getRandomItems(n, keyOrSet, text = true, pic = true, styles={}) {
 	let keys = getRandomKeys(n, keyOrSet);
 	//console.log(keys)
-	if (pic == true) return getPics(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
-	else return getLbls(() => console.log('click'), undefined, { rows: 2, showLabels: text }, keys);
+	if (pic == true) return getPics(() => console.log('click'), styles, { showLabels: text }, keys);
+	else return getLbls(() => console.log('click'), styles, { showLabels: text }, keys);
 }
 function getPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	let items;
