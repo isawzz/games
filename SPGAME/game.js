@@ -222,6 +222,7 @@ function dropAndEval(ev) {
 }
 function createDragWords(items, handler) {
 	let keys = items.map(x => x.key);
+	shuffle(keys);
 	let [titems, rows] = getTextItems(null, undefined, { rows: 2, showLabels: true }, keys);
 	titems.map(x => x.div.style.cursor = 'pointer');//mClass(x.div, 'draggable'));
 	presentItems(titems, dTable, 1);

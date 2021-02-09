@@ -2,7 +2,7 @@ class GNamit extends Game {
 	constructor(name) { super(name); }
 	startGame(){	G.correctionFunc = showCorrectPictureLabels;	}
 	prompt() {
-		showPicturesSpeechTherapyGames(() => fleetingMessage('just enter the missing letters!'), {}, { showLabels: false });
+		showPicturesSpeechTherapyGames(() => fleetingMessage('just enter the missing letters!'), {}, { rows: 1, showLabels: false });
 
 		Goal = {pics:Pictures};
 

@@ -1,14 +1,16 @@
 // phase 2: prep items for container: determine size and position of items, set a min(fit content) and a max(limited by container & layout)
-function prepareItemsForContainerRegularGrid(items,ifs,options,desRows,desCols){
+function prepareItemsForContainerRegularGrid(items, ifs, options, desRows, desCols) {
 	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
+	console.log('picSz=' + sz, 'options.sz', options.sz)
 	if (nundef(options.sz)) options.sz = sz;
 	if (nundef(options.rows)) options.rows = rows;
 	if (nundef(options.cols)) options.cols = cols;
 	items.map(x => x.sz = sz);
 	_prep1(items, ifs, options);
 }
-function prepareTextItemsForContainerRegularGrid(items,ifs,options,desRows,desCols){
+function prepareTextItemsForContainerRegularGrid(items, ifs, options, desRows, desCols) {
 	let [sz, rows, cols] = calcRowsColsSize(items.length, desRows, desCols);
+	console.log('textSz=' + sz, 'options.sz', options.sz)
 	if (nundef(options.sz)) options.sz = sz;
 	if (nundef(options.rows)) options.rows = rows;
 	if (nundef(options.cols)) options.cols = cols;
@@ -20,16 +22,16 @@ function _prep1(items, ifs, options) {
 	//#region phase2: prepare items for container
 
 	let sz = options.sz;
-	let padding = (isdef(ifs.padding)?ifs.padding:1);
+	let padding = (isdef(ifs.padding) ? ifs.padding : 1);
 
-	let bo=ifs.border;
-	bo = isdef(bo)?isString(bo)?firstNumber(bo):bo:0;
+	let bo = ifs.border;
+	bo = isdef(bo) ? isString(bo) ? firstNumber(bo) : bo : 0;
 	//console.log('ifs.border',ifs.border,2*bo)
 
-	let szNet = sz - 2 * padding - 2*bo;
+	let szNet = sz - 2 * padding - 2 * bo;
 
 	let pictureSize = szNet;
-	let picStyles = { w: szNet, h: isdef(options.center)?szNet : szNet + padding }; //if no labels!
+	let picStyles = { w: szNet, h: isdef(options.center) ? szNet : szNet + padding }; //if no labels!
 	let textStyles, hText;
 	if (options.showLabels) {
 		let longestLabel = findLongestLabel(items);
@@ -46,7 +48,7 @@ function _prep1(items, ifs, options) {
 	}
 
 	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, h: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
-	outerStyles = deepmergeOverride(outerStyles,ifs);
+	outerStyles = deepmergeOverride(outerStyles, ifs);
 	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
@@ -89,9 +91,9 @@ function _prep1(items, ifs, options) {
 		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, sz);
 		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
 		let docfz = item.pic.innerDims.fz;
-		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz );
-		if (docfz != fzPic){
-			console.log('item',item)
+		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz);
+		if (docfz != fzPic) {
+			console.log('item', item)
 		}
 		item.fzPic = fzPic;
 
@@ -105,12 +107,12 @@ function _prepText1(items, ifs, options) {
 	options.showLabels = true;
 
 	let sz = options.sz;
-	let padding = (isdef(ifs.padding)?ifs.padding:1);
+	let padding = (isdef(ifs.padding) ? ifs.padding : 1);
 
-	let bo=ifs.border;
-	bo = isdef(bo)?isString(bo)?firstNumber(bo):bo:0;
+	let bo = ifs.border;
+	bo = isdef(bo) ? isString(bo) ? firstNumber(bo) : bo : 0;
 
-	let szNet = sz - 2 * padding - 2*bo;
+	let szNet = sz - 2 * padding - 2 * bo;
 
 	// let pictureSize = 0;
 	// let picStyles = { w: szNet, h: isdef(options.center)?szNet : szNet + padding }; //if no labels!
@@ -130,7 +132,7 @@ function _prepText1(items, ifs, options) {
 	}
 
 	let outerStyles = { rounding: 10, margin: sz / 12, display: 'inline-block', w: sz, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
-	outerStyles = deepmergeOverride(outerStyles,ifs);
+	outerStyles = deepmergeOverride(outerStyles, ifs);
 	let pic, text;
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
@@ -202,7 +204,7 @@ function findLongestLabel(items) {
 
 }
 
-function calcRowsColsSize(n, rows, cols, dParent, wmax, hmax, minsz=50,maxsz=200) {
+function calcRowsColsSize(n, rows, cols, dParent, wmax, hmax, minsz = 50, maxsz = 200) {
 
 	//berechne outer dims
 	let ww, wh, hpercent, wpercent;
@@ -228,8 +230,11 @@ function calcRowsColsSize(n, rows, cols, dParent, wmax, hmax, minsz=50,maxsz=200
 	let sz;//, picsPerLine;
 	//if (lines <= 1) lines = undefined;
 	let dims = calcRowsColsX(n, rows, cols);
+
 	let hpic = wh * hpercent / dims.rows;
 	let wpic = ww * wpercent / dims.cols;
+
+	console.log('hpic', hpic, 'wpic', wpic, ww, window.innerWidth, wh, window.innerHeight);
 	sz = Math.min(hpic, wpic);
 	//picsPerLine = dims.cols;
 	sz = Math.max(minsz, Math.min(sz, maxsz)); //Math.max(50, Math.min(sz, 200));

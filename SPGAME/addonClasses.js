@@ -124,7 +124,7 @@ class APasscode extends AddonClass {
 		let dParent = this.dContent;
 		let d_title = mDiv(dParent);
 		showInstruction(this.goal.label, Settings.language == 'E' ? 'the passcode is' : 'das Codewort ist', d_title, true);
-
+																																																
 		let d_pics = mDiv(dParent);
 		presentItems(this.pictures, d_pics, this.rows);
 
