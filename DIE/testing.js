@@ -1,13 +1,25 @@
+function registerItems(items) {
+	for (const i of items) UIS[i.div.id] = i;
+}
 function test04_textItems() {
 	clearElement(dTable);
 
 	//mStyleX(dTable,{w:1000,h:800})
-	let items = getRandomItems(24, 'object', false, true);
+	let items = getRandomItems(24, 'object', true, false);
+	registerItems(items); //=>schreibt zu UIS uid=>item
+	items.map(x => x.div.onclick = togglePic)
 	console.log('items', items)
 	presentItems(items, dTable, 4);
 }
 
-
+function togglePic(ev) {
+	//finde item
+	let id = evToClosestId(ev);
+	console.log(id)
+	let item=UIS[id];
+	console.log(item)
+	if (isdef(item.pic)) removePic(item); else addPic(item,item.key);
+}
 function test03_2HandsRandom() {
 	let h1 = iMakeHand([0, 1, 2, 3, 4], 'h1');
 	let h2 = iMakeHand([13, 14, 15, 16, 17], 'h2');

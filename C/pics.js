@@ -30,7 +30,7 @@ function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys
 
 	return [items, ifs, options];
 }
-function getRandomItems(n, keyOrSet, text = true, pic = true, styles={}) {
+function getRandomItems(n, keyOrSet, text = true, pic = true, styles = {}) {
 	let keys = getRandomKeys(n, keyOrSet);
 	//console.log(keys)
 	if (pic == true) return getPics(() => console.log('click'), styles, { showLabels: text }, keys);
@@ -59,6 +59,15 @@ function getPic(key, sz, bg, label) {
 	// prepX(Pictures, ifs, options);
 	prepDims(items, options);
 	prepPics(items, ifs, options);
+	return items[0];
+}
+function getLbl(key, sz, bg, label) {
+	let items, ifs = { bg: bg }, options = { sz: sz };
+	if (isdef(label)) options.showLabels = true; else options.showLabels = false;
+	[items, ifs, options] = createStandardItems(null, ifs, options, [key], isdef(label) ? [label] : undefined);
+	// prepX(Pictures, ifs, options);
+	prepDims(items, options);
+	prepLbls(items, ifs, options);
 	return items[0];
 }
 function presentItems(items, dParent, rows) {
@@ -107,9 +116,26 @@ function removeLabel(item) {
 	item.pic = newItem.pic;
 	delete item.text;
 }
-function addPic(item, key) { }
+function addPic(item, key) {
+	let div = item.div;
+	//console.log(item);
+	let newItem = getPic(key, item.sz, item.bg, item.label);
+	clearElement(div);
+	mAppend(div, newItem.div.children[0]);
+	mAppend(div, newItem.div.children[0]);
+	item.pic = newItem.pic;
+	item.text = newItem.text;
+
+}
 function removePic(item) {
 	//if item does not have a label, add the label for its key
+	let div = item.div;
+	//console.log(item);
+	let newItem = getLbl(item.key, item.sz, item.bg, item.label);
+	clearElement(div);
+	mAppend(div, newItem.div.children[0]);
+	delete item.pic;
+	item.text = newItem.text;
 }
 function showLbls(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	let items = getLbls(onClickPictureHandler, ifs, options, keys, labels);
