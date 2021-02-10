@@ -1,3 +1,111 @@
+function _createDivs(items, ifs, options) {
+	//options needs to have showPics,showLabels
+	//#region phase2: prepare items for container
+	if (nundef(options.textPos)) options.textPos = 'none';
+
+	let w = isdef(options.w) ? options.w : options.sz;
+	let h = isdef(options.h) ? options.h : options.sz;
+
+	let padding = (isdef(ifs.padding) ? ifs.padding : 1);
+
+	let bo = ifs.border;
+	bo = isdef(bo) ? isString(bo) ? firstNumber(bo) : bo : 0;
+	//console.log('ifs.border',ifs.border,2*bo)
+
+	let wNet = w - 2 * padding - 2 * bo;
+	let hNet = h - 2 * padding - 2 * bo;
+
+	let pictureSize = wNet;
+	let picStyles = { w: wNet, h: isdef(options.center) ? hNet : hNet + padding }; //if no labels!
+
+	let textStyles, hText;
+	if (options.showLabels) {
+		let longestLabel = findLongestLabel(items);
+		let oneWord = longestLabel.label.replace(' ', '_');
+
+		let maxTextHeight = options.showPics ? hNet / 2 : hNet;
+		textStyles = idealFontsize(oneWord, hNet, maxTextHeight, 22, 8); //, 'bold');	textStyles.weight='bold'
+		hText = textStyles.h;
+
+		pictureSize = hNet - hText;
+		picStyles = { w: pictureSize, h: pictureSize };
+
+		delete textStyles.h;
+		delete textStyles.w;
+	}
+
+	let outerStyles = { rounding: 10, margin: w / 12, display: 'inline-block', w: w, h: h, padding: padding, bg: 'white', align: 'center', 'box-sizing': 'border-box' };
+	if (options.showLabels == true && options.textPos == 'none' && nundef(options.h)) delete outerStyles.h;
+	outerStyles = deepmergeOverride(outerStyles, ifs);
+	let pic, text;
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		let k = item.key;
+		let d = mDiv();
+		//add pic
+		if (isdef(item.textShadowColor)) {
+			let sShade = '0 0 0 ' + item.textShadowColor;
+			if (options.showPics) {
+				picStyles['text-shadow'] = sShade;
+				picStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+			} else {
+				textStyles['text-shadow'] = sShade;
+				textStyles.fg = anyColorToStandardString('black', item.contrast); //'#00000080' '#00000030' 
+			}
+		}
+
+		//console.log('::::::::::::::',picStyles)
+		//====================================================================================== HERE ===============
+		if (options.showPics) {
+			pic = zPic(k, null, picStyles, true, false);
+			delete pic.info;
+			mAppend(d, pic.div);
+		}
+		//add text if needed
+		if (options.showLabels) {
+			textStyles.fg = item.fg;
+			text = zText1Line(item.label, null, textStyles, hText);
+			mAppend(d, text.div);
+		}
+		//style container div
+		outerStyles.bg = item.bg;
+		outerStyles.fg = item.fg;
+		mStyleX(d, outerStyles);
+		//console.log('===>iGroup',item.iGroup,i)
+		d.id = getUID(); // 'pic' + (i + item.iGroup); //$$$$$
+		d.onclick = options.onclick;
+		//complete item info
+		item.id = d.id;
+		item.row = Math.floor(item.index / options.cols);
+		item.col = item.index % options.cols;
+		item.div = d;
+		if (isdef(pic)) item.pic = pic;
+		if (isdef(text)) item.text = text;
+		item.isSelected = false;
+		item.isLabelVisible = options.showLabels;
+		item.dims = parseDims(w, w, d.style.padding);
+		//console.log('index', item.index, 'row', item.row, 'col', item.col)
+		if (options.showRepeat) addRepeatInfo(d, item.iRepeat, w);
+		let fzPic = firstNumber(item.div.children[0].children[0].style.fontSize);
+		let docfz = item.pic.innerDims.fz;
+		console.assert(docfz == fzPic, 'fzPic is ' + fzPic + ', docfz is ' + docfz);
+		if (docfz != fzPic) {
+			console.log('item', item)
+		}
+		item.fzPic = fzPic;
+
+		//console.log('picSize',sz)
+	}
+	//#endregion
+
+}
+
+
+
+
+
+
+
 //#region new API
 function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	//#region prelim: default ifs and options, keys & infos
