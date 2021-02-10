@@ -1521,7 +1521,7 @@ function showHiddenThumbsUpDown(styles) {
 	styles.bg = ['transparent', 'transparent'];
 
 	console.log('styles', jsCopy(styles))
-	showPicturesSpeechTherapyGames(null, styles, { sz: styles.sz, showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
+	Pictures = showPics(null, styles, { sz: styles.sz, showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
 	console.log('hallo', Pictures[0])
 	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '6px 0px 0px 0px'; p.div.style.opacity = 0; }
 
@@ -1604,7 +1604,6 @@ function showStats() {
 	Score.levelChange = false;
 	Score.gameChange = false;
 }
-
 
 
 

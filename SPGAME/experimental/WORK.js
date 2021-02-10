@@ -28,13 +28,14 @@ function test04_textItems(){
 	//console.log('keys', keys);
 
 	// let iGoal = keys.indexOf(this.goal.key);
-	let [items,rows] = getPictureItems(null, undefined, { rows: 2, showLabels: true }, keys);
+	let rows=3;
+	let items = getLbls(null, undefined, { rows: rows, showLabels: true }, keys);
 
 
 
 	// let items = getRandomItems(12,'life',true,true);
 	console.log('items',items)
-	presentItems(items, dTable, 3);
+	presentItems(items, dTable, rows);
 }
 
 
@@ -158,7 +159,7 @@ function backToPasscode() {
 	let iGoal = keys.indexOf(Goal.key);
 	//GroupCounter = 0;
 
-	showPicturesSpeechTherapyGames(evaluate, undefined, undefined, keys);
+	Pictures = showPics(evaluate, undefined, undefined, keys);
 	//console.log('Pictures',Pictures);
 	setGoal(iGoal);
 	//console.log('Goal',Goal)

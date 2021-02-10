@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+<!-- main translate.js library -->
+<script type="text/javascript" src="./lib/translate.js"></script>
+
+<!-- load up the languages definition file -->
+<script type="text/javascript" src="./lib/languages.js"></script>
+
+<!-- jquery not required, just used in the demo page -->
+<script type="text/javascript" src="./vendor/jquery.js"></script>
+
+<script type="text/javascript">
+	var languages;
+
+	$(document).ready(function(){
+
+		languages = getLangs();
+
+		// populate the select box
+		for(var lang in languages){
+			$('#langInput').append('<option value = "'+lang+'">' + lang + '</option>');
+		}
+
+		for(var lang in languages){
+			$('#langOutput').append('<option value = "'+lang+'">' + lang + '</option>');
+		}
+
+		/***** NAMED EVENTS *****/
+
+			$(document).bind('##TRANSLATE_TEXT##', function(e){
+
+				$('#run').attr('disabled','disabled');
+				$('#run').val('translating...');     
+				var input = $('#langInput').val(), output = $('#langOutput').val();
+
+				translate.text({input:input,output:output}, $('#theCode').val(), function(result){
+					$('#run').attr('disabled','');
+					$('#run').val('<== translate ==>');
+					$('#output').val( result );
+				});
+			});
+
+		/**** END NAMED EVENTS ****/
+
+		/**** BIND UI EVENTS ****/
+
+			// select box change
+			$('#langSelector').change(function(){
+				$(document).trigger('##CHANGE_LANGUAGE##', {"fontName":$(this).val()})
+			});
+
+			$('#run').click(function(e){
+				$(document).trigger('##TRANSLATE_TEXT##');
+			});
+
+		/**** END UI BIND EVENTS ****/
+
+		// little bit of a onReady hack. i'll fix the API a bit so this can be done better
+		$(document).trigger('##CHANGE_LANGUAGE##', {"fontName":'Doh'});
+		$('#langInput').val('English');
+		$('#langOutput').val('Spanish');
+
+	});
+</script>	
+</body>
+</html>

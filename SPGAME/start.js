@@ -44,6 +44,47 @@ async function _loader() {
 	} else { loadSIMA(_start); }
 
 }
+async function makeDictionaries(){
+	// let ddd = await route_path_yaml_dict('../assets/ddAlles.yaml');
+	// console.log(ddd)
+	let ddd = await route_path_text('../assets/ddAlles.txt');
+	console.log(ddd)
+	let lines = ddd.split('\n');
+	console.log(lines);
+	let newLines = [];
+	let deDict={};
+	let edDict={};
+	for(let i=0;i<lines.length;i++){
+		let l=lines[i];
+		if (startsWith(l,'German')) console.log(l);
+		else if (startsWith(l,'A ')) console.log(l);
+		else {
+			newLines.push(l);
+			let d=stringBefore(l,' :');
+			let info={isNoun:false};
+			if (d.includes('{')) {
+				let parts = d.split('{');
+				d=parts[0].trim();
+				gen=stringBefore(parts[1],'}').trim();
+				// d=stringBefore(d,'{').trim();
+				// let gen = stringBefore(stringAfter(d,'{'),'}');
+				info = {isNoun:true,gen:gen};
+			}
+			let elist=stringAfter(l,': ').split(',').map(x=>x.trim());
+			for(const e of elist) {
+				lookupAddIfToList(deDict,[d,'e'],e);
+				lookupAddIfToList(edDict,[e,'d'],d);
+			}
+			deDict[d].info=info;
+		}
+		if (i>100) break;
+	}
+	console.log(deDict);
+	console.log(edDict);
+	downloadTextFile(newLines.join('\n'), 'ddText', ext = 'txt')
+	downloadAsYaml(deDict, 'deDict');
+	downloadAsYaml(edDict,'edDict');
+}
 async function _start() {
 	//timit.show('DONE');
 	console.assert(isdef(DB));
@@ -64,6 +105,8 @@ async function _start() {
 
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
+
+	await makeDictionaries();
 
 	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;

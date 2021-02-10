@@ -101,6 +101,35 @@ function getRandomKeysIncluding(n,k,kSetOrList){
 	return keys;
 }
 
+function getSym(key,lang = 'E') {
+
+	let info = jsCopy(picInfo(key));
+	if (info.type != 'emo') {
+		
+		return info;
+	}
+	let valid, words;
+	let oValid = info[lang + '_valid_sound'];
+	if (isEmpty(oValid)) valid = []; else valid = sepWordListFromString(oValid, ['|']);
+	let oWords = info[lang];
+	if (isEmpty(oWords)) words = []; else words = sepWordListFromString(oWords, ['|']);
+
+	let dWords = info.D;
+	if (isEmpty(dWords)) dWords = []; else dWords = sepWordListFromString(dWords, ['|']);
+	let eWords = info.E;
+	if (isEmpty(eWords)) eWords = []; else eWords = sepWordListFromString(eWords, ['|']);
+
+	words = isEnglish(lang) ? eWords : dWords;
+	info.eWords = eWords;
+	info.dWords = dWords;
+	info.words = words;
+	info.best = arrLast(words);
+	info.valid = valid;
+
+	currentLanguage = lang;
+
+	return info;
+}
 
 
 

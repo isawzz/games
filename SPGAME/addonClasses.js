@@ -116,7 +116,9 @@ class APasscode extends AddonClass {
 	}
 	presentInit() {
 		let keys = getRandomKeysFromGKeys(1); // choose(KeySets.nemo, 1);
-		[this.pictures, this.rows] = getPictureItems(null, {}, { rows: 1 }, keys);
+		let options = {rows:1};
+		//[this.pictures, this.rows] = getPictureItems(null, {}, options, keys);
+		this.pictures = getPics(null, {}, options, keys);
 
 		this.goal = this.pictures[0];
 		this.passcode = this.goal.label;
@@ -126,7 +128,7 @@ class APasscode extends AddonClass {
 		showInstruction(this.goal.label, Settings.language == 'E' ? 'the passcode is' : 'das Codewort ist', d_title, true);
 																																																
 		let d_pics = mDiv(dParent);
-		presentItems(this.pictures, d_pics, this.rows);
+		presentItems(this.pictures, d_pics, options.rows);
 
 		this.TOList.push(setTimeout(anim1, 300, this.goal, 500));
 	}
@@ -135,12 +137,14 @@ class APasscode extends AddonClass {
 		//console.log('keys', keys);
 
 		let iGoal = keys.indexOf(this.goal.key);
-		[this.pictures, this.rows] = getPictureItems(this.processInput.bind(this), undefined, { rows: 2, showLabels: true }, keys);
+		let options = { rows: 2, showLabels: true };
+		this.pictures = getPics(this.processInput.bind(this), undefined, { rows: 2, showLabels: true }, keys);
+		//[this.pictures, this.rows] = getPictureItems(this.processInput.bind(this), undefined, { rows: 2, showLabels: true }, keys);
 		this.goal = this.pictures[iGoal];
 
 		showInstruction('', 'click ' + (Settings.language == 'E' ? 'the passcode' : 'das Codewort'), this.dInstruction, true);
 
-		presentItems(this.pictures, this.dMain, this.rows);
+		presentItems(this.pictures, this.dMain, options.rows);
 
 	}
 	eval(ev) {

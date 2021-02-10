@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="https://unpkg.com/@andreasremdt/simple-translator@latest/dist/umd/translator.min.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<h1 data-i18n="header.title">Translate me</h1>
+			<p data-i18n="header.subtitle">This subtitle is getting translated as well</p>
+		</header>
+		
+		<!-- Load the translator either from a CDN or locally -->
+		<script
+			src="https://unpkg.com/@andreasremdt/simple-translator@latest/dist/umd/translator.min.js"
+			defer
+		></script>
+		<script defer>
+			// Provide your translations as JSON / JS objects
+			var germanTranslation = {
+				header: {
+					title: 'Eine Überschrift',
+					subtitle: 'Dieser Untertitel ist nur für Demozwecke',
+				},
+			};
+		
+			// Create a new instance of the translator
+			// You can optionally pass options
+			var translator = new Translator();
+		
+			// Add the language to the translator and translate the page
+			translator.add('de', germanTranslation).translatePageTo('de');
+		</script>
+	</body>
+</html>

@@ -6,16 +6,6 @@ function anim1(item, ms, callback) {
 	let a = aRotateAccel(item.div, ms);
 	a.onfinish = callback;
 }
-function repDone(){console.log('DONE!!!');}
-
-function presentAlternatives(){
-	console.log('DONE!!!');
-	showPicturesSpeechTherapyGames(null,
-	{ border: '3px solid #ffffff80' },
-	{ repeat: G.numRepeat, sameBackground: true });
-}
-
-
 
 
 

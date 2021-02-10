@@ -8,14 +8,6 @@ function _prepText1(items, ifs, options) {
 	return _createDivs(items, ifs, options);
 }
 
-
-
-
-
-
-
-
-
 // phase 2: prep items for container: determine size and position of items, set a min(fit content) and a max(limited by container & layout)
 function prepDims(items, options) {
 	//console.log('rows',options.rows,'n',items.length)
@@ -27,10 +19,15 @@ function prepDims(items, options) {
 	items.map(x => x.sz = sz);
 }
 function prepPics(items,ifs,options){
-	_prep1(items, ifs, options);
+	options.showPics = true;
+	return _createDivs(items, ifs, options);
+	// _prep1(items, ifs, options);
 }
 function prepLbls(items,ifs,options){
-	_prepText1(items, ifs, options);
+	options.showLabels = true;
+	options.showPics = false;
+	return _createDivs(items, ifs, options);
+	// _prepText1(items, ifs, options);
 }
 function prepX(items, ifs, options) {
 	//console.log('rows',options.rows,'n',items.length)

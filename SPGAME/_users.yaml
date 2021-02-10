@@ -137,7 +137,7 @@ test0:
 gul:
   id: gul
   avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gNamit
+  lastGame: gTouchPic
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -182,13 +182,13 @@ gul:
     gPasscode:
       startLevel: 0
     gNamit:
-      startLevel: 0
+      startLevel: 3
   avAddons: [aPasscode, aAddress, aPassword]
   addons:
     aPasscode:
       open: true
       #tNext: 2000 #next time this should be running is in 20 seconds!
     aAddress:
-      open: true
+      open: false
     aPassword:
-      open: true
+      open: false
