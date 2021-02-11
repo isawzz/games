@@ -134,6 +134,33 @@ async function loadGerman(justNouns = false) {
 	return [ed, de];
 
 }
+function recomputeBestED(){
+	for (const k in symbolDict) {
+		let info = symbolDict[k];
+		if (info.type == 'emo' && isString(info.D) && isString(info.E)) {
+			info.bestD = stringAfterLast(info.D, '|').trim().toLowerCase();
+			info.bestE = stringAfterLast(info.E, '|').trim().toLowerCase();
+		} else if (nundef(info.E) || isNumber(info.E) || isdef(info.bestE)) continue;
+
+		// console.log('info.E', info.E, k);
+
+		if (info.type == 'emo') continue;
+
+		if (info.E.includes('|')) {
+			console.log('he das gibt es doch nicht!!!', k, info);
+		} else {
+			info.bestE = info.E;
+		}
+		if (nundef(info.D)) {
+			console.log('he das gibt es doch nicht!!! KEIN DEUTSCH!', k, info);
+		} else {
+			info.bestD = stringBefore(info.D, '|').trim().toLowerCase();
+		}
+	}
+
+	downloadAsYaml(symbolDict, 'sym');
+
+}
 async function _start() {
 	//timit.show('DONE');
 	console.assert(isdef(DB));
@@ -144,7 +171,8 @@ async function _start() {
 	initAux();
 	initScore();
 	initSymbolTableForGamesAddons(); //creates Daat
-	console.log('English to German Nouns:', EdDict);
+
+	//console.log('English to German Nouns:', EdDict);
 
 	//initAddons(); //old API ==>deprecate
 	addonFeatureInit(); //new API!
@@ -156,21 +184,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	for (const k in symbolDict) {
-		let info = symbolDict[k];
-		if (nundef(info.E) || isNumber(info.E) || isdef(info.bestE)) continue;
-		console.log('info.E', info.E, k);
-		if (info.E.includes('|')) {
-			console.log('he das gibt es doch nicht!!!', k, info);
-		} else {
-			info.bestE = info.E;
-			if (nundef(info.D)) {
-				console.log('he das gibt es doch nicht!!! KEIN DEUTSCH!', k, info);
-			} else info.bestD = stringBefore(info.D, '|').trim().toLowerCase();
-		}
-
-	}
-	downloadAsYaml(symbolDict, 'sym');
+	//recomputeBestED();
 
 	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;

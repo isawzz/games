@@ -31,6 +31,8 @@
     - 133
     - 133
     - 133
+  bestD: medaille
+  bestE: medal
 2nd place medal:
   key: 2nd place medal
   type: emo
@@ -64,6 +66,8 @@
     - 133
     - 133
     - 133
+  bestD: medaille
+  bestE: medal
 3d-hammer:
   key: 3d-hammer
   type: icon
@@ -154,6 +158,8 @@
     - 133
     - 133
     - 133
+  bestD: medaille
+  bestE: medal
 A button (blood type):
   key: A button (blood type)
   type: emo
@@ -186,7 +192,7 @@ A button (blood type):
     - 133
     - 133
     - 133
-  bestE: A
+  bestE: a
   bestD: a
 AB button (blood type):
   key: AB button (blood type)
@@ -221,7 +227,7 @@ AB button (blood type):
     - 133
     - 133
     - 133
-  bestE: AB
+  bestE: ab
   bestD: ab
 ATM sign:
   key: ATM sign
@@ -258,6 +264,8 @@ ATM sign:
     - 133
     - 133
     - 133
+  bestD: atm
+  bestE: atm
 Aquarius:
   key: Aquarius
   type: emo
@@ -292,8 +300,8 @@ Aquarius:
     - 133
     - 133
     - 133
-  bestE: Aquarius
-  bestD: aquarius
+  bestE: aquarius
+  bestD: wassermann
 Aries:
   key: Aries
   type: emo
@@ -327,8 +335,8 @@ Aries:
     - 133
     - 133
     - 133
-  bestE: Aries
-  bestD: aries
+  bestE: aries
+  bestD: widder
 B button (blood type):
   key: B button (blood type)
   type: emo
@@ -361,7 +369,7 @@ B button (blood type):
     - 133
     - 133
     - 133
-  bestE: B
+  bestE: b
   bestD: b
 BACK arrow:
   key: BACK arrow
@@ -396,6 +404,8 @@ BACK arrow:
     - 133
     - 133
     - 133
+  bestD: links
+  bestE: left
 CL button:
   key: CL button
   type: emo
@@ -428,7 +438,7 @@ CL button:
     - 133
     - 133
     - 133
-  bestE: CL
+  bestE: cl
   bestD: cl
 COOL button:
   key: COOL button
@@ -464,7 +474,7 @@ COOL button:
     - 133
     - 133
     - 133
-  bestE: COOL
+  bestE: cool
   bestD: cool
 Cancer:
   key: Cancer
@@ -500,7 +510,7 @@ Cancer:
     - 133
     - 133
   bestE: cancer
-  bestD: cancer
+  bestD: krebs
 Capricorn:
   key: Capricorn
   type: emo
@@ -534,7 +544,7 @@ Capricorn:
     - 133
     - 133
     - 133
-  bestE: Capricorn
+  bestE: capricorn
   bestD: steinbock
 Christmas tree:
   key: Christmas tree
@@ -606,6 +616,8 @@ END arrow:
     - 133
     - 133
     - 133
+  bestD: pfeil ende
+  bestE: end arrow
 FREE button:
   key: FREE button
   type: emo
@@ -673,7 +685,7 @@ Gemini:
     - 133
     - 133
     - 133
-  bestE: Gemini
+  bestE: gemini
   bestD: zwillinge
 ID button:
   key: ID button
@@ -1033,6 +1045,8 @@ OK hand:
     - 133
     - 133
     - 133
+  bestD: okay
+  bestE: ok
 ON! arrow:
   key: ON! arrow
   type: emo
@@ -1104,6 +1118,8 @@ Ophiuchus:
     - 133
     - 133
     - 133
+  bestD: schlange
+  bestE: snake
 P button:
   key: P button
   type: emo
@@ -1359,7 +1375,7 @@ Scorpio:
     - 133
     - 133
     - 133
-  bestE: Scorpio
+  bestE: scorpio
   bestD: skorpion
 Statue of Liberty:
   key: Statue of Liberty
@@ -1469,6 +1485,8 @@ TOP arrow:
     - 133
     - 133
     - 133
+  bestD: pfeil hinauf
+  bestE: up
 Taurus:
   key: Taurus
   type: emo
@@ -1574,7 +1592,7 @@ VS button:
     - 133
     - 133
     - 133
-  bestE: VS
+  bestE: vs
   bestD: vs
 Virgo:
   key: Virgo
@@ -1644,6 +1662,7 @@ abacus:
     - 133
   bestE: abacus
   bestEConf: 90
+  bestD: abacus
 abbot-meeple:
   key: abbot-meeple
   type: icon
@@ -4307,11 +4326,11 @@ aerial tramway:
     - 133
   bestE: cable car
   bestEConf: 80
-  bestD: strassenbahn
+  bestD: seilbahn
   best100:
     E: cable car
     D: strassenbahn
-  best: strassenbahn
+  best: seilbahn
 aerial-signal:
   key: aerial-signal
   type: icon
@@ -4661,6 +4680,8 @@ airplane departure:
     - 133
     - 133
     - 133
+  bestD: abflug
+  bestE: departure
 airtight-hatch:
   key: airtight-hatch
   type: icon
@@ -4769,6 +4790,7 @@ alarm clock:
     - 133
   bestE: alarm clock
   bestEConf: 98
+  bestD: wecker
 alarm-clock:
   key: alarm-clock
   type: icon
@@ -4899,6 +4921,8 @@ alien:
     - 133
     - 133
     - 133
+  bestD: alien
+  bestE: alien
 alien monster:
   key: alien monster
   type: emo
@@ -4936,6 +4960,8 @@ alien monster:
     - 133
     - 133
     - 133
+  bestD: alien
+  bestE: alien
 alien-bug:
   key: alien-bug
   type: icon
@@ -5298,7 +5324,7 @@ ambulance:
   best25:
     E: ambulance
     D: rettung
-  best: rettung
+  best: rettungswagen|rettung
 american football:
   key: american football
   type: emo
@@ -5339,6 +5365,7 @@ american football:
     - 133
   bestE: american football
   bestEConf: 96
+  bestD: american football
 american-football-ball:
   key: american-football-ball
   type: icon
@@ -5728,6 +5755,7 @@ anchor:
     - 133
   bestE: anchor
   bestEConf: 89
+  bestD: anker
 ancient-ruins:
   key: ancient-ruins
   type: icon
@@ -5897,6 +5925,7 @@ anger symbol:
     - 133
   bestE: mad
   bestEConf: 94
+  bestD: wütend
 angle-double-down:
   key: angle-double-down
   type: icon
@@ -6148,6 +6177,7 @@ angry face:
     - 133
   bestE: angry
   bestEConf: 92
+  bestD: wütend
 angry face with horns:
   key: angry face with horns
   type: emo
@@ -6241,6 +6271,8 @@ anguished face:
     - 133
     - 133
     - 133
+  bestD: ängstlich
+  bestE: anguished
 angular-spider:
   key: angular-spider
   type: icon
@@ -6429,6 +6461,8 @@ antenna bars:
     - 133
     - 133
     - 133
+  bestD: lan
+  bestE: wireless
 anthem:
   key: anthem
   type: icon
@@ -6612,6 +6646,8 @@ anxious face with sweat:
     - 133
     - 133
     - 133
+  bestD: traurig
+  bestE: sad
 apc:
   key: apc
   type: icon
@@ -8120,6 +8156,7 @@ astonished face:
     - 133
   bestE: astonished
   bestEConf: 95
+  bestD: ueberrascht
 astronaut-helmet:
   key: astronaut-helmet
   type: icon
@@ -8509,7 +8546,7 @@ automobile:
   best100:
     E: car
     D: auto
-  best: auto
+  best: automobil|auto
 avocado:
   key: avocado
   type: emo
@@ -8607,6 +8644,8 @@ award:
     - 133
     - 133
     - 133
+  bestD: preis
+  bestE: medal
 awareness:
   key: awareness
   type: icon
@@ -8665,7 +8704,7 @@ axe:
     - 133
     - 133
   bestE: axe
-  bestD: hacke
+  bestD: axt
 axe-in-log:
   key: axe-in-log
   type: icon
@@ -8861,6 +8900,7 @@ baby bottle:
     - 133
   bestE: milk
   bestEConf: 97
+  bestD: milch
 baby chick:
   key: baby chick
   type: emo
@@ -9117,6 +9157,7 @@ backhand index pointing down:
     - 133
   bestE: down
   bestEConf: 87
+  bestD: hinunter
 backhand index pointing left:
   key: backhand index pointing left
   type: emo
@@ -9155,6 +9196,7 @@ backhand index pointing left:
     - 133
   bestE: left
   bestEConf: 91
+  bestD: links
 backhand index pointing right:
   key: backhand index pointing right
   type: emo
@@ -9193,6 +9235,7 @@ backhand index pointing right:
     - 133
   bestE: right
   bestEConf: 79
+  bestD: rechts
 backhand index pointing up:
   key: backhand index pointing up
   type: emo
@@ -9231,7 +9274,7 @@ backhand index pointing up:
     - 133
     - 133
   bestE: up
-  bestD: hinauf
+  bestD: oben
 backpack:
   key: backpack
   type: emo
@@ -9577,7 +9620,7 @@ bagel:
     - 133
     - 133
   bestE: bagel
-  bestD: brot
+  bestD: bagel
 baggage claim:
   key: baggage claim
   type: emo
@@ -9648,6 +9691,8 @@ baguette bread:
     - 133
     - 133
     - 133
+  bestD: baguette
+  bestE: baguette
 balaclava:
   key: balaclava
   type: icon
@@ -9703,6 +9748,8 @@ balance scale:
     - 133
     - 133
     - 133
+  bestD: waage
+  bestE: scale
 balance-scale:
   key: balance-scale
   type: icon
@@ -10397,6 +10444,8 @@ bar chart:
     - 133
     - 133
     - 133
+  bestD: diagramm
+  bestE: graph
 barbarian:
   key: barbarian
   type: icon
@@ -10980,6 +11029,7 @@ basketball:
     - 133
   bestE: basketball
   bestEConf: 96
+  bestD: basketball
 basketball-ball:
   key: basketball-ball
   type: icon
@@ -11782,6 +11832,7 @@ beach with umbrella:
     - 133
   bestE: umbrella
   bestEConf: 96
+  bestD: strand
 beach-ball:
   key: beach-ball
   type: icon
@@ -11897,6 +11948,8 @@ beaming face with smiling eyes:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 beams-aura:
   key: beams-aura
   type: icon
@@ -12087,6 +12140,8 @@ beating heart:
     - 133
     - 133
     - 133
+  bestD: herz
+  bestE: pulse
 bed:
   key: bed
   type: emo
@@ -12285,6 +12340,8 @@ beer mug:
     - 133
     - 133
     - 133
+  bestD: bier
+  bestE: mug
 beer-bottle:
   key: beer-bottle
   type: icon
@@ -12442,6 +12499,7 @@ bell:
     - 133
   bestE: bell
   bestEConf: 92
+  bestD: glocke
 bell with slash:
   key: bell with slash
   type: emo
@@ -12478,6 +12536,8 @@ bell with slash:
     - 133
     - 133
     - 133
+  bestD: lautlos
+  bestE: mute
 bell-shield:
   key: bell-shield
   type: icon
@@ -12550,6 +12610,7 @@ bellhop bell:
     - 133
   bestE: bell
   bestEConf: 84
+  bestD: bellhop
 belt:
   key: belt
   type: icon
@@ -12645,6 +12706,7 @@ bento box:
     - 133
   bestE: bento box
   bestEConf: 93
+  bestD: bento box
 berries-bowl:
   key: berries-bowl
   type: icon
@@ -12818,8 +12880,9 @@ bicycle:
     - 133
     - 133
     - 133
-  bestE: bike
+  bestE: bicycle
   bestEConf: 93
+  bestD: fahrrad
 big-diamond-ring:
   key: big-diamond-ring
   type: icon
@@ -12970,6 +13033,7 @@ bikini:
     - 133
   bestE: bikini
   bestEConf: 89
+  bestD: bikini
 billed cap:
   key: billed cap
   type: emo
@@ -13298,6 +13362,7 @@ birthday cake:
     - 133
   bestE: cake
   bestEConf: 97
+  bestD: torte
 birthday-cake:
   key: birthday-cake
   type: icon
@@ -13406,6 +13471,7 @@ black heart:
     - 133
   bestE: heart
   bestEConf: 87
+  bestD: herz
 black large square:
   key: black large square
   type: emo
@@ -13532,6 +13598,8 @@ black nib:
     - 133
     - 133
     - 133
+  bestD: füllfeder
+  bestE: pen
 black small square:
   key: black small square
   type: emo
@@ -14283,6 +14351,7 @@ blue book:
     - 133
   bestE: book
   bestEConf: 78
+  bestD: buch
 blue circle:
   key: blue circle
   type: emo
@@ -14349,6 +14418,7 @@ blue heart:
     - 133
   bestE: heart
   bestEConf: 87
+  bestD: herz
 blue square:
   key: blue square
   type: emo
@@ -14857,6 +14927,8 @@ bomb:
     - 133
     - 133
     - 133
+  bestD: bombe
+  bestE: bomb
 bomber:
   key: bomber
   type: icon
@@ -15271,6 +15343,7 @@ bookmark:
     - 133
   bestE: mark
   bestEConf: 85
+  bestD: memo
 bookmark tabs:
   key: bookmark tabs
   type: emo
@@ -15308,6 +15381,7 @@ bookmark tabs:
     - 133
   bestE: tabs
   bestEConf: 81
+  bestD: lesezeichen
 bookmarklet:
   key: bookmarklet
   type: icon
@@ -15361,6 +15435,8 @@ books:
     - 133
     - 133
     - 133
+  bestD: bücher
+  bestE: books
 bookshelf:
   key: bookshelf
   type: icon
@@ -15678,6 +15754,8 @@ bottle with popping cork:
     - 133
     - 133
     - 133
+  bestD: champagner
+  bestE: champaign
 bottle-cap:
   key: bottle-cap
   type: icon
@@ -15829,6 +15907,8 @@ bouncing ball:
     - 133
     - 133
     - 133
+  bestD: ball
+  bestE: ball
 bouncing-spring:
   key: bouncing-spring
   type: icon
@@ -15904,7 +15984,7 @@ bouquet:
   bestE: flowers
   bestEConf: 93
   bestD: blumenstrauss
-  best: blumenstrauss
+  best: tulpen|blumen|blumenstrauss
 bow and arrow:
   key: bow and arrow
   type: emo
@@ -15941,6 +16021,8 @@ bow and arrow:
     - 133
     - 133
     - 133
+  bestD: pfeil und bogen
+  bestE: bow and arrow
 bow-arrow:
   key: bow-arrow
   type: icon
@@ -16115,6 +16197,8 @@ bowl with spoon:
     - 133
     - 133
     - 133
+  bestD: schüsserl
+  bestE: bowl
 bowl-spiral:
   key: bowl-spiral
   type: icon
@@ -16405,6 +16489,7 @@ boxing glove:
     - 133
   bestE: boxing
   bestEConf: 96
+  bestD: boxen
 boxing-glove:
   key: boxing-glove
   type: icon
@@ -16500,6 +16585,7 @@ boy:
     - 133
   bestE: boy
   bestEConf: 89
+  bestD: bub
 bracer:
   key: bracer
   type: icon
@@ -16868,6 +16954,7 @@ bread:
     - 133
   bestE: bread
   bestEConf: 88
+  bestD: brot
 bread-slice:
   key: bread-slice
   type: icon
@@ -17000,6 +17087,7 @@ brick:
     - 133
   bestE: wall
   bestEConf: 92
+  bestD: mauer
 brick-pile:
   key: brick-pile
   type: icon
@@ -17131,6 +17219,7 @@ briefcase:
     - 133
   bestE: briefcase
   bestEConf: 95
+  bestD: tasche
 briefcase-medical:
   key: briefcase-medical
   type: icon
@@ -17185,6 +17274,8 @@ briefs:
     - 133
     - 133
     - 133
+  bestD: unterhose
+  bestE: briefs
 bright button:
   key: bright button
   type: emo
@@ -17404,6 +17495,7 @@ broken heart:
     - 133
   bestE: broken heart
   bestEConf: 98
+  bestD: gebrochenes herz
 broken-arrow:
   key: broken-arrow
   type: icon
@@ -17739,6 +17831,7 @@ brown heart:
     - 133
   bestE: heart
   bestEConf: 77
+  bestD: herz
 brown square:
   key: brown square
   type: emo
@@ -18709,7 +18802,7 @@ bus:
     - 133
     - 133
   bestE: bus
-  bestD: bus
+  bestD: autobus
 bus stop:
   key: bus stop
   type: emo
@@ -18750,6 +18843,7 @@ bus stop:
     - 133
   bestE: station
   bestEConf: 90
+  bestD: busstation
 bus-alt:
   key: bus-alt
   type: icon
@@ -18823,6 +18917,8 @@ bust in silhouette:
     - 133
     - 133
     - 133
+  bestD: figur
+  bestE: bust
 busts in silhouette:
   key: busts in silhouette
   type: emo
@@ -18858,6 +18954,8 @@ busts in silhouette:
     - 133
     - 133
     - 133
+  bestD: figur
+  bestE: bust
 butter:
   key: butter
   type: emo
@@ -19364,6 +19462,8 @@ calendar:
     - 133
     - 133
     - 133
+  bestD: datum
+  bestE: date
 calendar-alt:
   key: calendar-alt
   type: icon
@@ -20142,6 +20242,7 @@ candy:
     - 133
   bestE: candy
   bestEConf: 95
+  bestD: zuckerl
 candy-cane:
   key: candy-cane
   type: icon
@@ -20344,6 +20445,7 @@ canoe:
     - 133
   bestE: canoe
   bestEConf: 89
+  bestD: kanu
 cape:
   key: cape
   type: icon
@@ -20720,6 +20822,7 @@ card file box:
     - 133
   bestE: file
   bestEConf: 76
+  bestD: datei
 card index:
   key: card index
   type: emo
@@ -20791,7 +20894,7 @@ card index dividers:
     - 133
     - 133
   bestE: index
-  bestD: indexkarten
+  bestD: index
 card-10-clubs:
   key: card-10-clubs
   type: icon
@@ -22367,6 +22470,7 @@ carousel horse:
     - 133
   bestE: carousel
   bestEConf: 91
+  bestD: karussel
 carpet-bombing:
   key: carpet-bombing
   type: icon
@@ -22564,6 +22668,8 @@ cartwheeling:
     - 133
     - 133
     - 133
+  bestD: radschlag
+  bestE: cartwheel
 cash:
   key: cash
   type: icon
@@ -22661,7 +22767,7 @@ castle:
     - 133
     - 133
   bestE: castle
-  bestD: schloss
+  bestD: burg
 castle-2:
   key: castle-2
   type: icon
@@ -22777,6 +22883,8 @@ cat with tears of joy:
     - 133
     - 133
     - 133
+  bestD: lachende katze
+  bestE: tear
 cat with wry smile:
   key: cat with wry smile
   type: emo
@@ -23292,6 +23400,8 @@ chains:
     - 133
     - 133
     - 133
+  bestD: ketten
+  bestE: chains
 chainsaw:
   key: chainsaw
   type: icon
@@ -23662,6 +23772,8 @@ chart decreasing:
     - 133
     - 133
     - 133
+  bestD: diagramm
+  bestE: graph
 chart increasing:
   key: chart increasing
   type: emo
@@ -23700,6 +23812,8 @@ chart increasing:
     - 133
     - 133
     - 133
+  bestD: diagramm
+  bestE: graph
 chart increasing with yen:
   key: chart increasing with yen
   type: emo
@@ -24495,6 +24609,7 @@ cherry blossom:
     - 133
   bestD: blüte
   best: blüte
+  bestE: blossom
 chess:
   key: chess
   type: icon
@@ -24551,6 +24666,8 @@ chess pawn:
     - 133
     - 133
     - 133
+  bestD: bauer
+  bestE: pawn
 chess-bishop:
   key: chess-bishop
   type: icon
@@ -24757,7 +24874,7 @@ chestnut:
     - 133
     - 133
     - 133
-  bestD: kastanie
+  bestD: maroni
   best: maroni
   bestE: chestnut
 chestnut-leaf:
@@ -25088,6 +25205,7 @@ child:
     - 133
   bestE: child
   bestEConf: 94
+  bestD: kind
 children crossing:
   key: children crossing
   type: emo
@@ -25760,6 +25878,8 @@ circus tent:
     - 133
     - 133
     - 133
+  bestD: zirkus
+  bestE: circus
 city:
   key: city
   type: icon
@@ -25875,6 +25995,7 @@ cityscape at dusk:
     - 133
   bestE: city
   bestEConf: 89
+  bestD: stadt
 clamp:
   key: clamp
   type: emo
@@ -25947,6 +26068,8 @@ clapper board:
     - 133
     - 133
     - 133
+  bestD: cut
+  bestE: cut
 clapperboard:
   key: clapperboard
   type: icon
@@ -25998,6 +26121,8 @@ clapping hands:
     - 133
     - 133
     - 133
+  bestD: klatschen
+  bestE: clap
 classical building:
   key: classical building
   type: emo
@@ -26318,6 +26443,8 @@ clinking beer mugs:
     - 133
     - 133
     - 133
+  bestD: feiern
+  bestE: clink
 clinking glasses:
   key: clinking glasses
   type: emo
@@ -26355,6 +26482,8 @@ clinking glasses:
     - 133
     - 133
     - 133
+  bestD: champagner
+  bestE: clink
 clipboard:
   key: clipboard
   type: emo
@@ -26393,6 +26522,7 @@ clipboard:
     - 133
   bestE: clipboard
   bestEConf: 88
+  bestD: clipboard
 clipboard-check:
   key: clipboard-check
   type: icon
@@ -26956,6 +27086,7 @@ cloud with rain:
     - 133
   bestE: rain
   bestEConf: 91
+  bestD: regen
 cloud with snow:
   key: cloud with snow
   type: emo
@@ -27513,6 +27644,8 @@ clutch bag:
     - 133
     - 133
     - 133
+  bestD: tasche
+  bestE: purse
 coal-wagon:
   key: coal-wagon
   type: icon
@@ -27699,6 +27832,8 @@ cocktail glass:
     - 133
     - 133
     - 133
+  bestD: glas
+  bestE: glass
 coconut:
   key: coconut
   type: emo
@@ -28108,6 +28243,8 @@ cold face:
     - 133
     - 133
     - 133
+  bestD: kalt
+  bestE: cold
 cold-heart:
   key: cold-heart
   type: icon
@@ -28185,6 +28322,7 @@ collision:
     - 133
   bestE: explosion
   bestEConf: 97
+  bestD: explosion
 colombia:
   key: colombia
   type: icon
@@ -29136,6 +29274,8 @@ construction worker:
     - 133
     - 133
     - 133
+  bestD: bauarbeiter
+  bestE: worker
 contortionist:
   key: contortionist
   type: icon
@@ -29354,6 +29494,7 @@ cooked rice:
     - 133
   bestE: rice
   bestEConf: 83
+  bestD: reis
 cookie:
   key: cookie
   type: emo
@@ -29389,6 +29530,7 @@ cookie:
     - 133
   bestE: cookie
   bestEConf: 94
+  bestD: keks
 cookie-bite:
   key: cookie-bite
   type: icon
@@ -29443,6 +29585,8 @@ cooking:
     - 133
     - 133
     - 133
+  bestD: pfanne
+  bestE: pan
 cooking-glove:
   key: cooking-glove
   type: icon
@@ -29857,6 +30001,8 @@ couch and lamp:
     - 133
     - 133
     - 133
+  bestD: couch
+  bestE: couch
 counterclockwise arrows button:
   key: counterclockwise arrows button
   type: emo
@@ -30437,7 +30583,7 @@ crayon:
     - 133
     - 133
   bestE: crayon
-  bestD: stift
+  bestD: ölkreide
 credit card:
   key: credit card
   type: emo
@@ -30474,6 +30620,7 @@ credit card:
     - 133
   bestE: credit card
   bestEConf: 100
+  bestD: kreditkarte
 credit-card:
   key: credit-card
   type: icon
@@ -30686,7 +30833,7 @@ cricket:
   bestDConf: 72
   bestE: cricket
   bestEConf: 88
-  best: heuschreck
+  best: grashupfer|grille|heuschreck
 cricket game:
   key: cricket game
   type: emo
@@ -30727,6 +30874,7 @@ cricket game:
     - 133
   bestE: cricket
   bestEConf: 85
+  bestD: cricket
 cricket-bat:
   key: cricket-bat
   type: icon
@@ -30877,6 +31025,8 @@ croissant:
     - 133
     - 133
     - 133
+  bestD: croissant
+  bestE: croissant
 croissants-pupil:
   key: croissants-pupil
   type: icon
@@ -31847,6 +31997,8 @@ crying face:
     - 133
     - 133
     - 133
+  bestD: traurig
+  bestE: sad
 cryo-chamber:
   key: cryo-chamber
   type: icon
@@ -32324,6 +32476,7 @@ cupcake:
     - 133
   bestE: muffin
   bestEConf: 88
+  bestD: muffin
 cupidon-arrow:
   key: cupidon-arrow
   type: icon
@@ -32414,6 +32567,8 @@ curling stone:
     - 133
     - 133
     - 133
+  bestD: curling
+  bestE: curling
 curling-stone:
   key: curling-stone
   type: icon
@@ -32589,6 +32744,7 @@ curry rice:
     - 133
   bestE: rice
   bestEConf: 84
+  bestD: reis
 cursed-star:
   key: cursed-star
   type: icon
@@ -32772,6 +32928,7 @@ cut of meat:
     - 133
   bestE: steak
   bestEConf: 88
+  bestD: steak
 cut-diamond:
   key: cut-diamond
   type: icon
@@ -32954,6 +33111,7 @@ cyclone:
     - 133
   bestE: cyclone
   bestEConf: 93
+  bestD: zyklon
 cyclops:
   key: cyclops
   type: icon
@@ -33121,6 +33279,8 @@ dagger:
     - 133
     - 133
     - 133
+  bestD: schwert
+  bestE: dagger
 dagger-rose:
   key: dagger-rose
   type: icon
@@ -33333,6 +33493,8 @@ dashing away:
     - 133
     - 133
     - 133
+  bestD: schnell
+  bestE: fast
 database:
   key: database
   type: icon
@@ -33489,6 +33651,8 @@ deaf person:
     - 133
     - 133
     - 133
+  bestD: taub
+  bestE: deaf
 death-juice:
   key: death-juice
   type: icon
@@ -33685,6 +33849,7 @@ deer:
     - 133
   bestD: hirsch
   best: hirsch
+  bestE: deer
 defense-satellite:
   key: defense-satellite
   type: icon
@@ -33813,7 +33978,7 @@ delivery truck:
   best25:
     E: truck
     D: lastwagen
-  best: lastwagen
+  best: laster|lastwagen
 delivery-drone:
   key: delivery-drone
   type: icon
@@ -33916,6 +34081,7 @@ department store:
     - 133
   bestE: department store
   bestEConf: 97
+  bestD: store
 derelict house:
   key: derelict house
   type: emo
@@ -33953,6 +34119,8 @@ derelict house:
     - 133
     - 133
     - 133
+  bestD: haus
+  bestE: house
 dervish-swords:
   key: dervish-swords
   type: icon
@@ -34010,6 +34178,7 @@ desert:
     - 133
   bestE: desert
   bestEConf: 94
+  bestD: wüste
 desert island:
   key: desert island
   type: emo
@@ -34461,6 +34630,7 @@ diamond suit:
     - 133
   bestE: diamond
   bestEConf: 96
+  bestD: karo
 diamond with a dot:
   key: diamond with a dot
   type: emo
@@ -35275,6 +35445,8 @@ direct hit:
     - 133
     - 133
     - 133
+  bestD: pfeilschiessen
+  bestE: darts
 direction-sign:
   key: direction-sign
   type: icon
@@ -36150,6 +36322,8 @@ dollar banknote:
     - 133
     - 133
     - 133
+  bestD: dollar
+  bestE: dollar
 dollar-sign:
   key: dollar-sign
   type: icon
@@ -36264,7 +36438,7 @@ dolphin:
     - 133
     - 133
     - 133
-  bestD: delphin
+  bestD: delfin
   best: delfin
   bestE: dolphin
 domino-mask:
@@ -36872,6 +37046,7 @@ dove:
     - 133
   bestD: taube
   best: taube
+  bestE: dove
 down arrow:
   key: down arrow
   type: emo
@@ -37013,6 +37188,7 @@ downcast face with sweat:
     - 133
   bestE: sweating
   bestEConf: 81
+  bestD: schwitzen
 download:
   key: download
   type: icon
@@ -39532,6 +39708,8 @@ eight o'clock:
     - 133
     - 133
     - 133
+  bestD: acht
+  bestE: eight o'clock
 eight-ball:
   key: eight-ball
   type: icon
@@ -39643,6 +39821,8 @@ eight-thirty:
     - 133
     - 133
     - 133
+  bestD: halb neun
+  bestE: eight thirty
 eject:
   key: eject
   type: icon
@@ -39989,6 +40169,8 @@ eleven o'clock:
     - 133
     - 133
     - 133
+  bestD: elf
+  bestE: eleven o'clock
 eleven-thirty:
   key: eleven-thirty
   type: emo
@@ -40021,6 +40203,8 @@ eleven-thirty:
     - 133
     - 133
     - 133
+  bestD: halb zwölf
+  bestE: eleven thirty
 elf:
   key: elf
   type: emo
@@ -40702,6 +40886,8 @@ envelope with arrow:
     - 133
     - 133
     - 133
+  bestD: senden
+  bestE: outbox
 envelope-open:
   key: envelope-open
   type: icon
@@ -40976,6 +41162,8 @@ euro banknote:
     - 133
     - 133
     - 133
+  bestD: euro
+  bestE: euro
 euro-sign:
   key: euro-sign
   type: icon
@@ -41072,7 +41260,8 @@ evergreen tree:
     - 133
     - 133
   bestD: tanne
-  best: tanne
+  best: tannenbaum|tanne
+  bestE: fir
 evil-bat:
   key: evil-bat
   type: icon
@@ -41621,6 +41810,8 @@ exploding head:
     - 133
     - 133
     - 133
+  bestD: verblüfft
+  bestE: shocked
 exploding-planet:
   key: exploding-planet
   type: icon
@@ -41911,7 +42102,7 @@ eye in speech bubble:
     - 133
     - 133
   bestE: speech balloon
-  bestD: bubble
+  bestD: dialog
 eye-dropper:
   key: eye-dropper
   type: icon
@@ -42217,6 +42408,7 @@ face blowing a kiss:
     - 133
   bestE: kiss
   bestEConf: 87
+  bestD: kuss
 face screaming in fear:
   key: face screaming in fear
   type: emo
@@ -42256,6 +42448,7 @@ face screaming in fear:
     - 133
   bestE: anguished
   bestEConf: 93
+  bestD: panik
 face vomiting:
   key: face vomiting
   type: emo
@@ -42289,6 +42482,8 @@ face vomiting:
     - 133
     - 133
     - 133
+  bestD: ekel
+  bestE: nausea
 face with hand over mouth:
   key: face with hand over mouth
   type: emo
@@ -42325,6 +42520,7 @@ face with hand over mouth:
     - 133
   bestE: oh my god
   bestEConf: 96
+  bestD: pardon
 face with head-bandage:
   key: face with head-bandage
   type: emo
@@ -42361,6 +42557,8 @@ face with head-bandage:
     - 133
     - 133
     - 133
+  bestD: verband
+  bestE: bandage
 face with medical mask:
   key: face with medical mask
   type: emo
@@ -42398,6 +42596,8 @@ face with medical mask:
     - 133
     - 133
     - 133
+  bestD: maske
+  bestE: mask
 face with monocle:
   key: face with monocle
   type: emo
@@ -42469,6 +42669,8 @@ face with open mouth:
     - 133
     - 133
     - 133
+  bestD: ueberrascht
+  bestE: surprised
 face with raised eyebrow:
   key: face with raised eyebrow
   type: emo
@@ -42503,6 +42705,8 @@ face with raised eyebrow:
     - 133
     - 133
     - 133
+  bestD: skeptisch
+  bestE: skeptic
 face with rolling eyes:
   key: face with rolling eyes
   type: emo
@@ -42539,6 +42743,8 @@ face with rolling eyes:
     - 133
     - 133
     - 133
+  bestD: augenrollen
+  bestE: eyeroll
 face with steam from nose:
   key: face with steam from nose
   type: emo
@@ -42575,6 +42781,7 @@ face with steam from nose:
     - 133
   bestE: steaming
   bestEConf: 86
+  bestD: stäubend
 face with symbols on mouth:
   key: face with symbols on mouth
   type: emo
@@ -42648,6 +42855,8 @@ face with tears of joy:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 face with thermometer:
   key: face with thermometer
   type: emo
@@ -42684,6 +42893,8 @@ face with thermometer:
     - 133
     - 133
     - 133
+  bestD: fieber
+  bestE: fever
 face with tongue:
   key: face with tongue
   type: emo
@@ -42717,6 +42928,8 @@ face with tongue:
     - 133
     - 133
     - 133
+  bestD: zunge
+  bestE: tongue
 face without mouth:
   key: face without mouth
   type: emo
@@ -42753,6 +42966,8 @@ face without mouth:
     - 133
     - 133
     - 133
+  bestD: mundlos
+  bestE: no mouth
 face-to-face:
   key: face-to-face
   type: icon
@@ -43036,7 +43251,8 @@ fallen leaf:
     - 133
     - 133
   bestD: blatt
-  best: blatt
+  best: blätter|blatt
+  bestE: autumn
 falling:
   key: falling
   type: icon
@@ -43779,6 +43995,8 @@ fax machine:
     - 133
     - 133
     - 133
+  bestD: fax
+  bestE: fax
 fearful face:
   key: fearful face
   type: emo
@@ -44202,6 +44420,8 @@ ferry:
     - 133
     - 133
     - 133
+  bestD: schiff
+  bestE: ferry
 fertilizer-bag:
   key: fertilizer-bag
   type: icon
@@ -44320,6 +44540,7 @@ field hockey:
     - 133
   bestE: hockey
   bestEConf: 82
+  bestD: hokey
 field-gun:
   key: field-gun
   type: icon
@@ -44440,6 +44661,7 @@ file cabinet:
     - 133
   bestE: cabinet
   bestEConf: 84
+  bestD: box
 file folder:
   key: file folder
   type: emo
@@ -45026,6 +45248,8 @@ film frames:
     - 133
     - 133
     - 133
+  bestD: film
+  bestE: film
 film projector:
   key: film projector
   type: emo
@@ -45959,6 +46183,8 @@ first quarter moon:
     - 133
     - 133
     - 133
+  bestD: mond
+  bestE: moon
 first quarter moon face:
   key: first quarter moon face
   type: emo
@@ -46594,6 +46820,8 @@ five o'clock:
     - 133
     - 133
     - 133
+  bestD: fünf
+  bestE: five o'clock
 five-thirty:
   key: five-thirty
   type: emo
@@ -46626,6 +46854,8 @@ five-thirty:
     - 133
     - 133
     - 133
+  bestD: halb sechs
+  bestE: five thirty
 fizzing-flask:
   key: fizzing-flask
   type: icon
@@ -46706,6 +46936,8 @@ flag in hole:
     - 133
     - 133
     - 133
+  bestD: golf
+  bestE: golf
 flag-checkered:
   key: flag-checkered
   type: icon
@@ -47232,6 +47464,7 @@ flat shoe:
     - 133
   bestE: slipper
   bestEConf: 81
+  bestD: schuh
 flat-hammer:
   key: flat-hammer
   type: icon
@@ -47473,6 +47706,7 @@ flexed biceps:
     - 133
   bestE: biceps
   bestEConf: 82
+  bestD: bizeps
 flexible-star:
   key: flexible-star
   type: icon
@@ -47704,6 +47938,7 @@ floppy disk:
     - 133
   bestE: floppy disk
   bestEConf: 77
+  bestD: floppy disk
 flower playing cards:
   key: flower playing cards
   type: emo
@@ -47742,6 +47977,7 @@ flower playing cards:
     - 133
   bestE: cards
   bestEConf: 88
+  bestD: karten
 flower-emblem:
   key: flower-emblem
   type: icon
@@ -48011,6 +48247,8 @@ flushed face:
     - 133
     - 133
     - 133
+  bestD: verlegen
+  bestE: flushed
 flute:
   key: flute
   type: icon
@@ -48087,6 +48325,8 @@ flying disc:
     - 133
     - 133
     - 133
+  bestD: discus
+  bestE: disc
 flying saucer:
   key: flying saucer
   type: emo
@@ -48410,6 +48650,8 @@ folded hands:
     - 133
     - 133
     - 133
+  bestD: beten
+  bestE: pray
 folded-paper:
   key: folded-paper
   type: icon
@@ -48910,6 +49152,7 @@ fork and knife:
     - 133
   bestE: knife
   bestEConf: 88
+  bestD: besteck
 fork and knife with plate:
   key: fork and knife with plate
   type: emo
@@ -48946,6 +49189,8 @@ fork and knife with plate:
     - 133
     - 133
     - 133
+  bestD: gedeck
+  bestE: tableware
 forklift:
   key: forklift
   type: icon
@@ -48998,6 +49243,7 @@ fortune cookie:
     - 133
   bestE: fortune cookie
   bestEConf: 87
+  bestD: glückskeks
 forward:
   key: forward
   type: icon
@@ -49229,8 +49475,8 @@ four leaf clover:
     - 133
     - 133
     - 133
-  bestD: blatt
-  best: klee
+  bestD: klee
+  best: kleeblatt|klee
   bestE: clover
 four o'clock:
   key: four o'clock
@@ -49264,6 +49510,8 @@ four o'clock:
     - 133
     - 133
     - 133
+  bestD: vier
+  bestE: four o'clock
 four-thirty:
   key: four-thirty
   type: emo
@@ -49296,6 +49544,8 @@ four-thirty:
     - 133
     - 133
     - 133
+  bestD: halb fünf
+  bestE: four thirty
 fox-head:
   key: fox-head
   type: icon
@@ -49576,6 +49826,7 @@ french fries:
     - 133
   bestE: fries
   bestEConf: 84
+  bestD: pommes frites
 french-fries:
   key: french-fries
   type: icon
@@ -49954,7 +50205,7 @@ frowning face with open mouth:
     - 133
     - 133
   bestE: frowning
-  bestD: stirn runzeln
+  bestD: skeptisch
 frozen-arrow:
   key: frozen-arrow
   type: icon
@@ -50143,6 +50394,8 @@ fuel pump:
     - 133
     - 133
     - 133
+  bestD: tankstelle
+  bestE: fuel
 fuel-tank:
   key: fuel-tank
   type: icon
@@ -50392,6 +50645,8 @@ funeral urn:
     - 133
     - 133
     - 133
+  bestD: urne
+  bestE: urn
 funnel:
   key: funnel
   type: icon
@@ -51238,6 +51493,7 @@ genie:
     - 133
   bestE: genie
   bestEConf: 78
+  bestD: geist
 ghost:
   key: ghost
   type: emo
@@ -51631,6 +51887,7 @@ glass of milk:
     - 133
   bestE: milk
   bestEConf: 97
+  bestD: milch
 glass-ball:
   key: glass-ball
   type: icon
@@ -51909,6 +52166,8 @@ globe showing Americas:
     - 133
     - 133
     - 133
+  bestD: erde
+  bestE: world
 globe showing Asia-Australia:
   key: globe showing Asia-Australia
   type: emo
@@ -51949,6 +52208,8 @@ globe showing Asia-Australia:
     - 133
     - 133
     - 133
+  bestD: erde
+  bestE: world
 globe showing Europe-Africa:
   key: globe showing Europe-Africa
   type: emo
@@ -51989,6 +52250,8 @@ globe showing Europe-Africa:
     - 133
     - 133
     - 133
+  bestD: erde
+  bestE: world
 globe-africa:
   key: globe-africa
   type: icon
@@ -52206,6 +52469,7 @@ glowing star:
     - 133
   bestE: star
   bestEConf: 73
+  bestD: stern
 glowing-hands:
   key: glowing-hands
   type: icon
@@ -52299,6 +52563,8 @@ goal net:
     - 133
     - 133
     - 133
+  bestD: tor
+  bestE: goal
 goat:
   key: goat
   type: emo
@@ -53826,6 +54092,7 @@ grimacing face:
     - 133
   bestE: grimacing
   bestEConf: 92
+  bestD: grimasse
 grin:
   key: grin
   type: icon
@@ -54117,6 +54384,8 @@ grinning cat:
     - 133
     - 133
     - 133
+  bestD: katze
+  bestE: chesshire
 grinning cat with smiling eyes:
   key: grinning cat with smiling eyes
   type: emo
@@ -54154,6 +54423,8 @@ grinning cat with smiling eyes:
     - 133
     - 133
     - 133
+  bestD: katze
+  bestE: chesshire
 grinning face:
   key: grinning face
   type: emo
@@ -54190,6 +54461,8 @@ grinning face:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 grinning face with big eyes:
   key: grinning face with big eyes
   type: emo
@@ -54228,6 +54501,8 @@ grinning face with big eyes:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 grinning face with smiling eyes:
   key: grinning face with smiling eyes
   type: emo
@@ -54267,6 +54542,8 @@ grinning face with smiling eyes:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 grinning face with sweat:
   key: grinning face with sweat
   type: emo
@@ -54305,6 +54582,8 @@ grinning face with sweat:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 grinning squinting face:
   key: grinning squinting face
   type: emo
@@ -54342,6 +54621,8 @@ grinning squinting face:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 grip-horizontal:
   key: grip-horizontal
   type: icon
@@ -54512,6 +54793,8 @@ growing heart:
     - 133
     - 133
     - 133
+  bestD: herz
+  bestE: pulse
 growth:
   key: growth
   type: icon
@@ -54573,7 +54856,7 @@ guard:
     - 133
     - 133
   bestE: guard
-  bestD: wächter
+  bestD: wache
 guarded-tower:
   key: guarded-tower
   type: icon
@@ -54870,6 +55153,7 @@ haircut:
     - 133
   bestE: haircut
   bestEConf: 86
+  bestD: haareschneiden
 halberd:
   key: halberd
   type: icon
@@ -55412,6 +55696,8 @@ hand with fingers splayed:
     - 133
     - 133
     - 133
+  bestD: finger
+  bestE: splay
 hand-2:
   key: hand-2
   type: icon
@@ -56479,6 +56765,7 @@ hatching chick:
     - 133
   bestD: küken
   best: küken
+  bestE: chick
 haunting:
   key: haunting
   type: icon
@@ -57018,6 +57305,8 @@ heart decoration:
     - 133
     - 133
     - 133
+  bestD: herz
+  bestE: card
 heart exclamation:
   key: heart exclamation
   type: emo
@@ -57137,6 +57426,7 @@ heart with arrow:
     - 133
   bestE: cupid
   bestEConf: 86
+  bestD: cupid
 heart with ribbon:
   key: heart with ribbon
   type: emo
@@ -58064,7 +58354,7 @@ herb:
   bestE: leaf
   bestEConf: 91
   bestD: kraut
-  best: kraut
+  best: pflanze|kraut
 herbs-bundle:
   key: herbs-bundle
   type: icon
@@ -58244,6 +58534,7 @@ high voltage:
     - 133
   bestE: lightning
   bestEConf: 97
+  bestD: blitz
 high-five:
   key: high-five
   type: icon
@@ -58336,6 +58627,8 @@ high-heeled shoe:
     - 133
     - 133
     - 133
+  bestD: schuh
+  bestE: shoe
 high-kick:
   key: high-kick
   type: icon
@@ -58411,6 +58704,7 @@ high-speed train:
     - 133
   bestE: train
   bestEConf: 95
+  bestD: bahn
 high-tide:
   key: high-tide
   type: icon
@@ -58505,6 +58799,8 @@ hiking boot:
     - 133
     - 133
     - 133
+  bestD: schuh
+  bestE: shoe
 hill-conquest:
   key: hill-conquest
   type: icon
@@ -58659,7 +58955,7 @@ hippopotamus:
   bestE: hippo
   bestEConf: 89
   bestD: nilpferd
-  best: nilpferd
+  best: hippo|nilpferd
 histogram:
   key: histogram
   type: icon
@@ -58855,6 +59151,8 @@ hole:
     - 133
     - 133
     - 133
+  bestD: loch
+  bestE: hole
 hole-ladder:
   key: hole-ladder
   type: icon
@@ -59134,6 +59432,8 @@ honey pot:
     - 133
     - 133
     - 133
+  bestD: honig
+  bestE: pot
 honey-jar:
   key: honey-jar
   type: icon
@@ -59685,6 +59985,8 @@ hot beverage:
     - 133
     - 133
     - 133
+  bestD: tasse
+  bestE: tea
 hot face:
   key: hot face
   type: emo
@@ -59721,6 +60023,8 @@ hot face:
     - 133
     - 133
     - 133
+  bestD: heiss
+  bestE: hot
 hot pepper:
   key: hot pepper
   type: emo
@@ -59756,6 +60060,7 @@ hot pepper:
     - 133
   bestD: paprika
   best: paprika
+  bestE: pepper
 hot-meal:
   key: hot-meal
   type: icon
@@ -59867,6 +60172,7 @@ hotdog:
     - 133
   bestE: sausage
   bestEConf: 91
+  bestD: hotdog
 hotel:
   key: hotel
   type: icon
@@ -60148,6 +60454,7 @@ house with garden:
     - 133
   bestE: house
   bestEConf: 88
+  bestD: haus
 house-damage:
   key: house-damage
   type: icon
@@ -60221,7 +60528,7 @@ houses:
     - 133
     - 133
   bestE: houses
-  bestD: houses
+  bestD: neighborhood
 hryvnia:
   key: hryvnia
   type: icon
@@ -60275,6 +60582,8 @@ hugging face:
     - 133
     - 133
     - 133
+  bestD: aufstützen
+  bestE: hugging
 human-cannonball:
   key: human-cannonball
   type: icon
@@ -60504,6 +60813,8 @@ hushed face:
     - 133
     - 133
     - 133
+  bestD: ueberrascht
+  bestE: surprised
 hut:
   key: hut
   type: icon
@@ -64905,6 +65216,8 @@ ice:
     - 133
     - 133
     - 133
+  bestD: eis
+  bestE: ice
 ice cream:
   key: ice cream
   type: emo
@@ -64940,6 +65253,7 @@ ice cream:
     - 133
   bestE: ice cream
   bestEConf: 95
+  bestD: eis
 ice hockey:
   key: ice hockey
   type: emo
@@ -65014,6 +65328,8 @@ ice skate:
     - 133
     - 133
     - 133
+  bestD: eislaufen
+  bestE: skating
 ice-bolt:
   key: ice-bolt
   type: icon
@@ -65750,6 +66066,8 @@ inbox tray:
     - 133
     - 133
     - 133
+  bestD: empfangen
+  bestE: mail
 incense:
   key: incense
   type: icon
@@ -65831,6 +66149,8 @@ incoming envelope:
     - 133
     - 133
     - 133
+  bestD: empfangen
+  bestE: inbox
 incoming-rocket:
   key: incoming-rocket
   type: icon
@@ -65930,6 +66250,8 @@ index pointing up:
     - 133
     - 133
     - 133
+  bestD: hinauf
+  bestE: up
 indian-palace:
   key: indian-palace
   type: icon
@@ -66900,6 +67222,7 @@ jack-o-lantern:
     - 133
   bestE: pumpkin
   bestEConf: 96
+  bestD: kürbis
 jack-plug:
   key: jack-plug
   type: icon
@@ -67519,6 +67842,7 @@ joystick:
     - 133
   bestE: joystick
   bestEConf: 93
+  bestD: joystick
 jug:
   key: jug
   type: icon
@@ -68133,7 +68457,7 @@ keyboard:
     - 133
     - 133
   bestE: number sign
-  bestD: anzahl
+  bestD: kanaldeckel
 'keycap: *':
   key: 'keycap: *'
   type: emo
@@ -68200,6 +68524,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: 'null'
+  bestE: zero
 'keycap: 1':
   key: 'keycap: 1'
   type: emo
@@ -68231,6 +68557,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: eins
+  bestE: one
 'keycap: 10':
   key: 'keycap: 10'
   type: emo
@@ -68262,6 +68590,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: zehn
+  bestE: ten
 'keycap: 2':
   key: 'keycap: 2'
   type: emo
@@ -68293,6 +68623,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: zwei
+  bestE: two
 'keycap: 3':
   key: 'keycap: 3'
   type: emo
@@ -68324,6 +68656,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: drei
+  bestE: three
 'keycap: 4':
   key: 'keycap: 4'
   type: emo
@@ -68355,6 +68689,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: vier
+  bestE: four
 'keycap: 5':
   key: 'keycap: 5'
   type: emo
@@ -68386,6 +68722,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: fünf
+  bestE: five
 'keycap: 6':
   key: 'keycap: 6'
   type: emo
@@ -68417,6 +68755,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: sechs
+  bestE: six
 'keycap: 7':
   key: 'keycap: 7'
   type: emo
@@ -68448,6 +68788,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: sieben
+  bestE: seven
 'keycap: 8':
   key: 'keycap: 8'
   type: emo
@@ -68479,6 +68821,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: acht
+  bestE: eight
 'keycap: 9':
   key: 'keycap: 9'
   type: emo
@@ -68510,6 +68854,8 @@ keyboard:
     - 133
     - 133
     - 133
+  bestD: neun
+  bestE: nine
 keyring:
   key: keyring
   type: icon
@@ -68760,6 +69106,7 @@ kiss:
     - 133
   bestE: kiss
   bestEConf: 90
+  bestD: kuss
 kiss mark:
   key: kiss mark
   type: emo
@@ -68795,6 +69142,8 @@ kiss mark:
     - 133
     - 133
     - 133
+  bestD: lippen
+  bestE: lips
 kiss-beam:
   key: kiss-beam
   type: icon
@@ -68870,6 +69219,8 @@ kissing cat:
     - 133
     - 133
     - 133
+  bestD: katzenkuss
+  bestE: kissing cat
 kissing face:
   key: kissing face
   type: emo
@@ -68905,6 +69256,7 @@ kissing face:
     - 133
   bestE: kiss
   bestEConf: 89
+  bestD: kuss
 kissing face with closed eyes:
   key: kissing face with closed eyes
   type: emo
@@ -68943,6 +69295,8 @@ kissing face with closed eyes:
     - 133
     - 133
     - 133
+  bestD: kuss
+  bestE: kiss
 kissing face with smiling eyes:
   key: kissing face with smiling eyes
   type: emo
@@ -68978,6 +69332,8 @@ kissing face with smiling eyes:
     - 133
     - 133
     - 133
+  bestD: kuss
+  bestE: kiss
 kitchen knife:
   key: kitchen knife
   type: emo
@@ -69092,7 +69448,7 @@ kite:
     - 133
     - 133
   bestE: kite
-  bestD: drachen
+  bestD: drachensteigen
 kiwi fruit:
   key: kiwi fruit
   type: emo
@@ -69283,6 +69639,7 @@ kneeling:
     - 133
   bestE: kneeling
   bestEConf: 76
+  bestD: knien
 knife-fork:
   key: knife-fork
   type: icon
@@ -69484,6 +69841,8 @@ lab coat:
     - 133
     - 133
     - 133
+  bestD: mantel
+  bestE: coat
 lab-coat:
   key: lab-coat
   type: icon
@@ -69575,6 +69934,7 @@ lacrosse:
     - 133
   bestE: lacrosse
   bestEConf: 84
+  bestD: lacrosse
 ladder:
   key: ladder
   type: icon
@@ -70622,7 +70982,7 @@ leaf fluttering in wind:
   bestE: wind
   bestEConf: 89
   bestD: wind
-  best: wind
+  best: blatt|wind
 leaf-skeleton:
   key: leaf-skeleton
   type: icon
@@ -71014,7 +71374,7 @@ left speech bubble:
     - 133
     - 133
   bestE: speech balloon
-  bestD: bubble
+  bestD: dialog
 left-facing fist:
   key: left-facing fist
   type: emo
@@ -71051,6 +71411,7 @@ left-facing fist:
     - 133
   bestE: fist
   bestEConf: 76
+  bestD: faust
 left-right arrow:
   key: left-right arrow
   type: emo
@@ -72564,7 +72925,7 @@ link:
     - 133
     - 133
   bestE: link
-  bestD: kettenring
+  bestD: kette
 linked paperclips:
   key: linked paperclips
   type: emo
@@ -73201,6 +73562,7 @@ locked:
     - 133
   bestE: lock
   bestEConf: 80
+  bestD: schloss
 locked with key:
   key: locked with key
   type: emo
@@ -73238,6 +73600,7 @@ locked with key:
     - 133
   bestE: lock
   bestEConf: 86
+  bestD: schloss
 locked with pen:
   key: locked with pen
   type: emo
@@ -73276,6 +73639,7 @@ locked with pen:
     - 133
   bestE: lock
   bestEConf: 86
+  bestD: schloss
 locked-box:
   key: locked-box
   type: icon
@@ -74005,6 +74369,8 @@ loudly crying face:
     - 133
     - 133
     - 133
+  bestD: traurig
+  bestE: sad
 loudspeaker:
   key: loudspeaker
   type: emo
@@ -74397,6 +74763,8 @@ luggage:
     - 133
     - 133
     - 133
+  bestD: gepäck
+  bestE: suitcase
 luggage-cart:
   key: luggage-cart
   type: icon
@@ -74533,6 +74901,8 @@ lying face:
     - 133
     - 133
     - 133
+  bestD: pinocchio
+  bestE: pinocchio
 lynx-head:
   key: lynx-head
   type: icon
@@ -75042,6 +75412,8 @@ magnifying glass tilted left:
     - 133
     - 133
     - 133
+  bestD: lupe
+  bestE: magnifier
 magnifying glass tilted right:
   key: magnifying glass tilted right
   type: emo
@@ -75081,6 +75453,8 @@ magnifying glass tilted right:
     - 133
     - 133
     - 133
+  bestD: lupe
+  bestE: magnifier
 magnifying-glass:
   key: magnifying-glass
   type: icon
@@ -75136,6 +75510,7 @@ mahjong red dragon:
     - 133
   bestE: mahjong
   bestEConf: 87
+  bestD: mahjong
 mail-bulk:
   key: mail-bulk
   type: icon
@@ -75641,7 +76016,7 @@ man farmer:
     - 133
     - 133
   bestE: farmer
-  bestD: landwirt
+  bestD: bauer
 man firefighter:
   key: man firefighter
   type: emo
@@ -75715,6 +76090,8 @@ man golfing:
     - 133
     - 133
     - 133
+  bestD: golf
+  bestE: golf
 man health worker:
   key: man health worker
   type: emo
@@ -75752,6 +76129,8 @@ man health worker:
     - 133
     - 133
     - 133
+  bestD: arzt
+  bestE: doctor
 man in manual wheelchair:
   key: man in manual wheelchair
   type: emo
@@ -75992,6 +76371,8 @@ man office worker:
     - 133
     - 133
     - 133
+  bestD: beamter
+  bestE: office worker
 man pilot:
   key: man pilot
   type: emo
@@ -76226,6 +76607,8 @@ man student:
     - 133
     - 133
     - 133
+  bestD: student
+  bestE: student
 man surfing:
   key: man surfing
   type: emo
@@ -76383,6 +76766,7 @@ man walking:
     - 133
   bestE: walking
   bestEConf: 95
+  bestD: gehen
 'man: bald':
   key: 'man: bald'
   type: emo
@@ -76419,7 +76803,7 @@ man walking:
     - 133
     - 133
   bestE: bald
-  bestD: glatzkopf
+  bestD: glatze
 'man: beard':
   key: 'man: beard'
   type: emo
@@ -76456,6 +76840,8 @@ man walking:
     - 133
     - 133
     - 133
+  bestD: bart
+  bestE: beard
 'man: blond hair':
   key: 'man: blond hair'
   type: emo
@@ -76492,6 +76878,8 @@ man walking:
     - 133
     - 133
     - 133
+  bestD: blond
+  bestE: blond
 'man: curly hair':
   key: 'man: curly hair'
   type: emo
@@ -76527,6 +76915,8 @@ man walking:
     - 133
     - 133
     - 133
+  bestD: junge
+  bestE: man
 'man: red hair':
   key: 'man: red hair'
   type: emo
@@ -76562,6 +76952,8 @@ man walking:
     - 133
     - 133
     - 133
+  bestD: rothaarig
+  bestE: red hair
 'man: white hair':
   key: 'man: white hair'
   type: emo
@@ -76597,6 +76989,8 @@ man walking:
     - 133
     - 133
     - 133
+  bestD: weisshärig
+  bestE: white-haired man
 manacles:
   key: manacles
   type: icon
@@ -76671,7 +77065,7 @@ mango:
   bestDConf: 89
   bestE: mango
   bestEConf: 93
-  best: mango
+  best: tropisch|mango
 manta-ray:
   key: manta-ray
   type: icon
@@ -76723,6 +77117,8 @@ mantelpiece clock:
     - 133
     - 133
     - 133
+  bestD: uhr
+  bestE: clock
 mantrap:
   key: mantrap
   type: icon
@@ -77076,7 +77472,7 @@ maple leaf:
   bestDConf: 91
   bestE: maple leaf
   bestEConf: 95
-  best: ahornblatt
+  best: blatt|ahornblatt
 maple-leaf:
   key: maple-leaf
   type: icon
@@ -77792,6 +78188,7 @@ meat on bone:
     - 133
   bestE: meat
   bestEConf: 91
+  bestD: keule
 meat-cleaver:
   key: meat-cleaver
   type: icon
@@ -77920,6 +78317,8 @@ mechanical arm:
     - 133
     - 133
     - 133
+  bestD: arm
+  bestE: arm
 mechanical leg:
   key: mechanical leg
   type: emo
@@ -77953,6 +78352,8 @@ mechanical leg:
     - 133
     - 133
     - 133
+  bestD: bein
+  bestE: leg
 mechanical-arm:
   key: mechanical-arm
   type: icon
@@ -78004,6 +78405,8 @@ medal:
     - 133
     - 133
     - 133
+  bestD: medaille
+  bestE: medal
 medal-skull:
   key: medal-skull
   type: icon
@@ -78551,6 +78954,7 @@ memo:
     - 133
   bestE: notice
   bestEConf: 83
+  bestD: notiz
 memory:
   key: memory
   type: icon
@@ -79148,7 +79552,7 @@ microphone:
     - 133
   bestE: microphone
   bestEConf: 96
-  bestD: microphon
+  bestD: mikrophon
   best100:
     E: microphone
     D: microphon
@@ -79736,6 +80140,8 @@ minibus:
     - 133
     - 133
     - 133
+  bestD: bus
+  bestE: bus
 minigun:
   key: minigun
   type: icon
@@ -80646,6 +81052,8 @@ money-mouth face:
     - 133
     - 133
     - 133
+  bestD: zunge
+  bestE: tongue
 money-stack:
   key: money-stack
   type: icon
@@ -81359,6 +81767,8 @@ motorway:
     - 133
     - 133
     - 133
+  bestD: strasse
+  bestE: road
 mountain:
   key: mountain
   type: emo
@@ -81398,6 +81808,7 @@ mountain:
     - 133
   bestE: mountain
   bestEConf: 88
+  bestD: berg
 mountain biking:
   key: mountain biking
   type: emo
@@ -81670,6 +82081,8 @@ mouth:
     - 133
     - 133
     - 133
+  bestD: mund
+  bestE: mouth
 mouth-watering:
   key: mouth-watering
   type: icon
@@ -82073,7 +82486,7 @@ mushroom:
   best50:
     E: mushroom
     D: pilz
-  best: pilz
+  best: champignon|fliegenpilz|pilz
 mushroom-cloud:
   key: mushroom-cloud
   type: icon
@@ -82250,6 +82663,8 @@ musical keyboard:
     - 133
     - 133
     - 133
+  bestD: klavier
+  bestE: piano
 musical note:
   key: musical note
   type: emo
@@ -82289,6 +82704,7 @@ musical note:
     - 133
   bestE: music
   bestEConf: 96
+  bestD: noten
 musical notes:
   key: musical notes
   type: emo
@@ -82366,6 +82782,8 @@ musical score:
     - 133
     - 133
     - 133
+  bestD: violinschluessel
+  bestE: treble
 musical-keyboard:
   key: musical-keyboard
   type: icon
@@ -82522,6 +82940,8 @@ muted speaker:
     - 133
     - 133
     - 133
+  bestD: lautlos
+  bestE: mute
 nachos:
   key: nachos
   type: icon
@@ -82745,6 +83165,8 @@ nauseated face:
     - 133
     - 133
     - 133
+  bestD: ekel
+  bestE: nausea
 nautilus-shell:
   key: nautilus-shell
   type: icon
@@ -82859,6 +83281,8 @@ necktie:
     - 133
     - 133
     - 133
+  bestD: kravatte
+  bestE: tie
 needle-drill:
   key: needle-drill
   type: icon
@@ -82951,6 +83375,8 @@ nerd face:
     - 133
     - 133
     - 133
+  bestD: nerd
+  bestE: nerdy
 nest-birds:
   key: nest-birds
   type: icon
@@ -83363,6 +83789,8 @@ nine o'clock:
     - 133
     - 133
     - 133
+  bestD: neun
+  bestE: nine o'clock
 nine-thirty:
   key: nine-thirty
   type: emo
@@ -83395,6 +83823,8 @@ nine-thirty:
     - 133
     - 133
     - 133
+  bestD: halb zehn
+  bestE: nine thirty
 ninja-armor:
   key: ninja-armor
   type: icon
@@ -83994,6 +84424,7 @@ notebook:
     - 133
   bestE: notebook
   bestEConf: 94
+  bestD: heft
 notebook with decorative cover:
   key: notebook with decorative cover
   type: emo
@@ -84031,6 +84462,7 @@ notebook with decorative cover:
     - 133
   bestE: notebook
   bestEConf: 94
+  bestD: heft
 notes-medical:
   key: notes-medical
   type: icon
@@ -84239,6 +84671,8 @@ nut and bolt:
     - 133
     - 133
     - 133
+  bestD: schraubenmutter
+  bestE: bolt
 o-brick:
   key: o-brick
   type: icon
@@ -84568,6 +85002,8 @@ oden:
     - 133
     - 133
     - 133
+  bestD: spiess
+  bestE: kebab
 office building:
   key: office building
   type: emo
@@ -84682,6 +85118,8 @@ ogre:
     - 133
     - 133
     - 133
+  bestD: oger
+  bestE: ogre
 oil drum:
   key: oil drum
   type: emo
@@ -84892,6 +85330,8 @@ old man:
     - 133
     - 133
     - 133
+  bestD: weisshaarig
+  bestE: white hair
 old woman:
   key: old woman
   type: emo
@@ -84929,6 +85369,8 @@ old woman:
     - 133
     - 133
     - 133
+  bestD: weisshaarig
+  bestE: white hair
 old-king:
   key: old-king
   type: icon
@@ -85042,6 +85484,8 @@ older person:
     - 133
     - 133
     - 133
+  bestD: weisshaarig
+  bestE: white hair
 olive:
   key: olive
   type: icon
@@ -85185,6 +85629,8 @@ oncoming automobile:
     - 133
     - 133
     - 133
+  bestD: auto
+  bestE: car
 oncoming fist:
   key: oncoming fist
   type: emo
@@ -85222,6 +85668,7 @@ oncoming fist:
     - 133
   bestE: fist
   bestEConf: 76
+  bestD: faust
 one o'clock:
   key: one o'clock
   type: emo
@@ -85254,6 +85701,8 @@ one o'clock:
     - 133
     - 133
     - 133
+  bestD: eins
+  bestE: one o'clock
 one-eyed:
   key: one-eyed
   type: icon
@@ -85305,6 +85754,8 @@ one-piece swimsuit:
     - 133
     - 133
     - 133
+  bestD: badeanzug
+  bestE: swimsuit
 one-thirty:
   key: one-thirty
   type: emo
@@ -85337,6 +85788,8 @@ one-thirty:
     - 133
     - 133
     - 133
+  bestD: halb zwei
+  bestE: one thirty
 oni:
   key: oni
   type: icon
@@ -85519,6 +85972,8 @@ open hands:
     - 133
     - 133
     - 133
+  bestD: hände
+  bestE: hands
 open-book:
   key: open-book
   type: icon
@@ -86020,7 +86475,7 @@ orangutan:
   bestE: orangutan
   bestEConf: 87
   bestD: orangutan
-  best: orangutan
+  best: menschenaffe|orangutan
 orb-direction:
   key: orb-direction
   type: icon
@@ -86347,6 +86802,8 @@ outbox tray:
     - 133
     - 133
     - 133
+  bestD: senden
+  bestE: mail
 outdent:
   key: outdent
   type: icon
@@ -86581,7 +87038,8 @@ ox:
     - 133
     - 133
   bestD: stier
-  best: stier
+  best: ochs|stier
+  bestE: bull
 oyster:
   key: oyster
   type: emo
@@ -86617,6 +87075,7 @@ oyster:
     - 133
   bestE: oyster
   bestEConf: 93
+  bestD: auster
 oyster-pearl:
   key: oyster-pearl
   type: icon
@@ -86691,6 +87150,7 @@ package:
     - 133
   bestE: package
   bestEConf: 77
+  bestD: packet
 packed-planks:
   key: packed-planks
   type: icon
@@ -87231,6 +87691,7 @@ pancakes:
     - 133
   bestE: pancakes
   bestEConf: 89
+  bestD: crepes
 panda:
   key: panda
   type: emo
@@ -87984,6 +88445,8 @@ passenger ship:
     - 133
     - 133
     - 133
+  bestD: schiff
+  bestE: ship
 passport:
   key: passport
   type: icon
@@ -88382,7 +88845,8 @@ paws:
     - 133
     - 133
   bestD: pfoten
-  best: pfoten
+  best: fussabdruck|tatzen|pfoten
+  bestE: paws
 pay-money:
   key: pay-money
   type: icon
@@ -88527,6 +88991,7 @@ peach:
     - 133
   bestD: pfirsich
   best: pfirsich
+  bestE: peach
 peacock:
   key: peacock
   type: emo
@@ -88655,7 +89120,7 @@ peanuts:
   best50:
     E: peanut
     D: erdnüsse
-  best: erdnüsse
+  best: nuss |erdnuss|aschantinuss|erdnüsse
 pear:
   key: pear
   type: emo
@@ -88829,7 +89294,7 @@ pen:
   best100:
     E: pen
     D: kugelschreiber
-  best: kugelschreiber
+  best: stift|kugelschreiber
 pen-alt:
   key: pen-alt
   type: icon
@@ -89096,6 +89561,8 @@ pensive face:
     - 133
     - 133
     - 133
+  bestD: nachdenklich
+  bestE: pensive
 pentacle:
   key: pentacle
   type: icon
@@ -89315,6 +89782,8 @@ performing arts:
     - 133
     - 133
     - 133
+  bestD: masken
+  bestE: masks
 perfume-bottle:
   key: perfume-bottle
   type: icon
@@ -89408,6 +89877,8 @@ persevering face:
     - 133
     - 133
     - 133
+  bestD: stur
+  bestE: stubborn
 person:
   key: person
   type: emo
@@ -89489,6 +89960,7 @@ person bowing:
     - 133
   bestE: sorry
   bestEConf: 89
+  bestD: denken
 person facepalming:
   key: person facepalming
   type: emo
@@ -89527,6 +89999,8 @@ person facepalming:
     - 133
     - 133
     - 133
+  bestD: oh gott
+  bestE: facepalm
 person frowning:
   key: person frowning
   type: emo
@@ -89609,6 +90083,7 @@ person gesturing NO:
     - 133
   bestE: stop
   bestEConf: 86
+  bestD: stop
 person gesturing OK:
   key: person gesturing OK
   type: emo
@@ -89648,6 +90123,8 @@ person gesturing OK:
     - 133
     - 133
     - 133
+  bestD: ok
+  bestE: ok
 person golfing:
   key: person golfing
   type: emo
@@ -89763,6 +90240,8 @@ person pouting:
     - 133
     - 133
     - 133
+  bestD: beleidigt
+  bestE: pouting
 person raising hand:
   key: person raising hand
   type: emo
@@ -89847,6 +90326,8 @@ person shrugging:
     - 133
     - 133
     - 133
+  bestD: ratlos
+  bestE: shrugging
 person tipping hand:
   key: person tipping hand
   type: emo
@@ -89890,6 +90371,8 @@ person tipping hand:
     - 133
     - 133
     - 133
+  bestD: handgelenk
+  bestE: sassy
 person wearing turban:
   key: person wearing turban
   type: emo
@@ -90080,6 +90563,8 @@ person-in-bed:
     - 133
     - 133
     - 133
+  bestD: bub
+  bestE: blond
 perspective-dice-five:
   key: perspective-dice-five
   type: icon
@@ -90428,7 +90913,7 @@ petri dish:
     - 133
     - 133
   bestE: petri dish
-  bestD: kultur
+  bestD: petrischale
 pharoah:
   key: pharoah
   type: icon
@@ -90997,6 +91482,8 @@ pile of poo:
     - 133
     - 133
     - 133
+  bestD: exkrement
+  bestE: poo
 pilgrim-hat:
   key: pilgrim-hat
   type: icon
@@ -91053,6 +91540,7 @@ pill:
     - 133
   bestE: pill
   bestEConf: 80
+  bestD: pille
 pill-drop:
   key: pill-drop
   type: icon
@@ -91248,6 +91736,8 @@ pinching hand:
     - 133
     - 133
     - 133
+  bestD: wenig
+  bestE: pinch
 pine-tree:
   key: pine-tree
   type: icon
@@ -91345,6 +91835,8 @@ ping pong:
     - 133
     - 133
     - 133
+  bestD: ping pong
+  bestE: ping pong
 ping-pong-bat:
   key: ping-pong-bat
   type: icon
@@ -91634,6 +92126,8 @@ pistol:
     - 133
     - 133
     - 133
+  bestD: pistole
+  bestE: gun
 pistol-gun:
   key: pistol-gun
   type: icon
@@ -91710,6 +92204,7 @@ pizza:
     - 133
   bestE: pizza
   bestEConf: 98
+  bestD: pizza
 pizza-cutter:
   key: pizza-cutter
   type: icon
@@ -92408,6 +92903,8 @@ pleading face:
     - 133
     - 133
     - 133
+  bestD: flehend
+  bestE: pleading
 plesiosaurus:
   key: plesiosaurus
   type: icon
@@ -92943,6 +93440,8 @@ police car:
     - 133
     - 133
     - 133
+  bestD: polizei
+  bestE: police
 police officer:
   key: police officer
   type: emo
@@ -92980,6 +93479,8 @@ police officer:
     - 133
     - 133
     - 133
+  bestD: polizei
+  bestE: police
 police-badge:
   key: police-badge
   type: icon
@@ -93231,7 +93732,7 @@ poodle:
   bestDConf: 88
   bestE: dog
   bestEConf: 97
-  best: hund
+  best: pudel|hund
 pool 8 ball:
   key: pool 8 ball
   type: emo
@@ -93270,6 +93771,8 @@ pool 8 ball:
     - 133
     - 133
     - 133
+  bestD: billiard
+  bestE: billiard
 pool-dive:
   key: pool-dive
   type: icon
@@ -93538,6 +94041,7 @@ postal horn:
     - 133
   bestE: postal horn
   bestEConf: 93
+  bestD: horn
 postbox:
   key: postbox
   type: emo
@@ -93574,6 +94078,7 @@ postbox:
     - 133
   bestE: mailbox
   bestEConf: 92
+  bestD: postkasten
 pot of food:
   key: pot of food
   type: emo
@@ -93820,6 +94325,8 @@ pound banknote:
     - 133
     - 133
     - 133
+  bestD: pfund
+  bestE: pound
 pound-sign:
   key: pound-sign
   type: icon
@@ -93935,6 +94442,7 @@ pouting face:
     - 133
   bestE: angry
   bestEConf: 95
+  bestD: trotzig
 powder:
   key: powder
   type: icon
@@ -94153,6 +94661,8 @@ prayer beads:
     - 133
     - 133
     - 133
+  bestD: kette
+  bestE: beads
 prayer-beads:
   key: prayer-beads
   type: icon
@@ -94249,6 +94759,8 @@ pregnant woman:
     - 133
     - 133
     - 133
+  bestD: schwanger
+  bestE: pregnant
 prescription:
   key: prescription
   type: icon
@@ -94538,6 +95050,7 @@ princess:
     - 133
   bestE: princess
   bestEConf: 85
+  bestD: prizessin
 print:
   key: print
   type: icon
@@ -95285,7 +95798,7 @@ purse:
     - 133
     - 133
   bestE: purse
-  bestD: geldtasche
+  bestD: tasche
 push:
   key: push
   type: icon
@@ -96318,6 +96831,8 @@ railway car:
     - 133
     - 133
     - 133
+  bestD: strassenbahn
+  bestE: trolley
 railway track:
   key: railway track
   type: emo
@@ -96351,6 +96866,8 @@ railway track:
     - 133
     - 133
     - 133
+  bestD: schienen
+  bestE: tracks
 rainbow:
   key: rainbow
   type: emo
@@ -96508,6 +97025,8 @@ raised back of hand:
     - 133
     - 133
     - 133
+  bestD: handrücken
+  bestE: backhand
 raised fist:
   key: raised fist
   type: emo
@@ -96545,6 +97064,7 @@ raised fist:
     - 133
   bestE: fist
   bestEConf: 78
+  bestD: faust
 raised hand:
   key: raised hand
   type: emo
@@ -96581,6 +97101,8 @@ raised hand:
     - 133
     - 133
     - 133
+  bestD: hand
+  bestE: hand
 raising hands:
   key: raising hands
   type: emo
@@ -96618,6 +97140,8 @@ raising hands:
     - 133
     - 133
     - 133
+  bestD: feiern
+  bestE: raising hands
 rake:
   key: rake
   type: icon
@@ -97461,7 +97985,7 @@ red paper lantern:
     - 133
     - 133
   bestE: lantern
-  bestD: lampion
+  bestD: lanterne
 red square:
   key: red square
   type: emo
@@ -98034,6 +98558,7 @@ rescue worker’s helmet:
     - 133
   bestE: helmet
   bestEConf: 91
+  bestD: helm
 resize:
   key: resize
   type: icon
@@ -98392,6 +98917,8 @@ revolving hearts:
     - 133
     - 133
     - 133
+  bestD: zwei herzen
+  bestE: two hearts
 rhinoceros:
   key: rhinoceros
   type: emo
@@ -98509,6 +99036,8 @@ ribbon:
     - 133
     - 133
     - 133
+  bestD: masche
+  bestE: ribbon
 ribbon-medal:
   key: ribbon-medal
   type: icon
@@ -98599,6 +99128,7 @@ rice cracker:
     - 133
   bestE: cracker
   bestEConf: 86
+  bestD: cracker
 rickshaw:
   key: rickshaw
   type: emo
@@ -98632,7 +99162,7 @@ rickshaw:
     - 133
     - 133
   bestE: tuk tuk
-  bestD: rickshaw
+  bestD: tuk tuk
 rifle:
   key: rifle
   type: icon
@@ -98692,7 +99222,7 @@ right anger bubble:
     - 133
     - 133
   bestE: speech balloon
-  bestD: bubble
+  bestD: dialog
 right arrow:
   key: right arrow
   type: emo
@@ -98896,6 +99426,8 @@ ring:
     - 133
     - 133
     - 133
+  bestD: ring
+  bestE: ring
 ring-mould:
   key: ring-mould
   type: icon
@@ -99721,6 +100253,8 @@ roller coaster:
     - 133
     - 133
     - 133
+  bestD: hochschaubahn
+  bestE: roller coaster
 rolling on the floor laughing:
   key: rolling on the floor laughing
   type: emo
@@ -100168,6 +100702,8 @@ round pushpin:
     - 133
     - 133
     - 133
+  bestD: reissnagel
+  bestE: pin
 round-bottom-flask:
   key: round-bottom-flask
   type: icon
@@ -100791,6 +101327,8 @@ running shirt:
     - 133
     - 133
     - 133
+  bestD: leiberl
+  bestE: shirt
 running shoe:
   key: running shoe
   type: emo
@@ -100828,6 +101366,7 @@ running shoe:
     - 133
   bestE: sneaker
   bestEConf: 93
+  bestD: schuh
 running-ninja:
   key: running-ninja
   type: icon
@@ -101253,6 +101792,8 @@ safety vest:
     - 133
     - 133
     - 133
+  bestD: schwimmweste
+  bestE: safety vest
 safety-pin:
   key: safety-pin
   type: icon
@@ -102390,6 +102931,7 @@ scarf:
     - 133
   bestE: scarf
   bestEConf: 90
+  bestD: schal
 school:
   key: school
   type: emo
@@ -102428,6 +102970,7 @@ school:
     - 133
   bestE: school
   bestEConf: 88
+  bestD: schule
 school-bag:
   key: school-bag
   type: icon
@@ -103145,6 +103688,8 @@ seat:
     - 133
     - 133
     - 133
+  bestD: sessel
+  bestE: chair
 seated-mouse:
   key: seated-mouse
   type: icon
@@ -103257,6 +103802,8 @@ see-no-evil monkey:
     - 133
     - 133
     - 133
+  bestD: wegschauen
+  bestE: hide
 seedling:
   key: seedling
   type: emo
@@ -103293,7 +103840,8 @@ seedling:
     - 133
     - 133
   bestD: spross
-  best: spross
+  best: sprosse|spross
+  bestE: seedling
 select:
   key: select
   type: icon
@@ -103609,6 +104157,8 @@ seven o'clock:
     - 133
     - 133
     - 133
+  bestD: sieben
+  bestE: seven o'clock
 seven-pointed-star:
   key: seven-pointed-star
   type: icon
@@ -103661,6 +104211,8 @@ seven-thirty:
     - 133
     - 133
     - 133
+  bestD: halb acht
+  bestE: seven thirty
 severed-hand:
   key: severed-hand
   type: icon
@@ -103852,6 +104404,8 @@ shallow pan of food:
     - 133
     - 133
     - 133
+  bestD: topf
+  bestE: pan
 shambling-mound:
   key: shambling-mound
   type: icon
@@ -103926,7 +104480,7 @@ shamrock:
   bestE: shamrock
   bestEConf: 85
   bestD: klee
-  best: klee
+  best: kleeblatt|klee
 shapes:
   key: shapes
   type: icon
@@ -104086,7 +104640,7 @@ shark:
   bestE: shark
   bestEConf: 81
   bestD: hai
-  best: hai
+  best: haifisch|hai
 shark-bite:
   key: shark-bite
   type: icon
@@ -104392,6 +104946,8 @@ shaved ice:
     - 133
     - 133
     - 133
+  bestD: eis
+  bestE: ice cream cone
 sheaf of rice:
   key: sheaf of rice
   type: emo
@@ -104431,7 +104987,7 @@ sheaf of rice:
   best100:
     E: grain
     D: getreide
-  best: getreide
+  best: ähre|getreide
 sheep:
   key: sheep
   type: emo
@@ -104471,6 +105027,7 @@ sheep:
     - 133
   bestD: schaf
   best: schaf
+  bestE: sheep
 sheikah-eye:
   key: sheikah-eye
   type: icon
@@ -104816,6 +105373,8 @@ shinto shrine:
     - 133
     - 133
     - 133
+  bestD: tempel
+  bestE: temple
 shinto-shrine:
   key: shinto-shrine
   type: icon
@@ -105381,7 +105940,7 @@ shorts:
     - 133
     - 133
   bestE: shorts
-  bestD: short
+  bestD: shorts
 shotgun:
   key: shotgun
   type: icon
@@ -106339,6 +106898,8 @@ six o'clock:
     - 133
     - 133
     - 133
+  bestD: sechs
+  bestE: six o'clock
 six-eyes:
   key: six-eyes
   type: icon
@@ -106390,6 +106951,8 @@ six-thirty:
     - 133
     - 133
     - 133
+  bestD: halb sieben
+  bestE: six thirty
 skateboard:
   key: skateboard
   type: emo
@@ -106602,6 +107165,7 @@ skier:
     - 133
   bestE: skiing
   bestEConf: 88
+  bestD: schi
 skiing:
   key: skiing
   type: icon
@@ -106725,6 +107289,7 @@ skis:
     - 133
   bestE: skiing
   bestEConf: 93
+  bestD: schifahren
 skull:
   key: skull
   type: emo
@@ -106760,6 +107325,8 @@ skull:
     - 133
     - 133
     - 133
+  bestD: tod
+  bestE: skull
 skull and crossbones:
   key: skull and crossbones
   type: emo
@@ -106796,6 +107363,8 @@ skull and crossbones:
     - 133
     - 133
     - 133
+  bestD: tod
+  bestE: skull
 skull-bolt:
   key: skull-bolt
   type: icon
@@ -107219,6 +107788,8 @@ sled:
     - 133
     - 133
     - 133
+  bestD: rodeln
+  bestE: sleigh
 sleeping face:
   key: sleeping face
   type: emo
@@ -107256,6 +107827,7 @@ sleeping face:
     - 133
   bestE: sleepy
   bestEConf: 87
+  bestD: schläfrig
 sleepy:
   key: sleepy
   type: icon
@@ -107313,6 +107885,8 @@ sleepy face:
     - 133
     - 133
     - 133
+  bestD: müde
+  bestE: sleepy
 sleeveless-jacket:
   key: sleeveless-jacket
   type: icon
@@ -107538,6 +108112,8 @@ slightly smiling face:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 slime:
   key: slime
   type: icon
@@ -108074,6 +108650,8 @@ smiling face with halo:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 smiling face with heart-eyes:
   key: smiling face with heart-eyes
   type: emo
@@ -108152,6 +108730,8 @@ smiling face with hearts:
     - 133
     - 133
     - 133
+  bestD: verliebt
+  bestE: crush
 smiling face with horns:
   key: smiling face with horns
   type: emo
@@ -108231,6 +108811,8 @@ smiling face with smiling eyes:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 smiling face with sunglasses:
   key: smiling face with sunglasses
   type: emo
@@ -108304,6 +108886,8 @@ smirking face:
     - 133
     - 133
     - 133
+  bestD: mund verziehen
+  bestE: smirking
 smitten:
   key: smitten
   type: icon
@@ -108754,6 +109338,7 @@ sneezing face:
     - 133
   bestE: sneezing
   bestEConf: 89
+  bestD: niessen
 sniffing-dog:
   key: sniffing-dog
   type: icon
@@ -108937,6 +109522,7 @@ snowboarder:
     - 133
   bestE: snowboard
   bestEConf: 88
+  bestD: snowboard
 snowboarding:
   key: snowboarding
   type: icon
@@ -109262,6 +109848,7 @@ soccer ball:
     - 133
   bestE: soccer
   bestEConf: 92
+  bestD: ball
 soccer-ball:
   key: soccer-ball
   type: icon
@@ -110542,6 +111129,7 @@ sparkling heart:
     - 133
   bestE: heart
   bestEConf: 90
+  bestD: liebe
 sparkling-sabre:
   key: sparkling-sabre
   type: icon
@@ -110907,6 +111495,8 @@ speaking head:
     - 133
     - 133
     - 133
+  bestD: sprechen
+  bestE: speak
 spear-feather:
   key: spear-feather
   type: icon
@@ -111104,6 +111694,8 @@ speech balloon:
     - 133
     - 133
     - 133
+  bestD: sprechblase
+  bestE: dialog
 speed-boat:
   key: speed-boat
   type: icon
@@ -111162,6 +111754,8 @@ speedboat:
     - 133
     - 133
     - 133
+  bestD: boot
+  bestE: boat
 speedometer:
   key: speedometer
   type: icon
@@ -112082,6 +112676,8 @@ spiral calendar:
     - 133
     - 133
     - 133
+  bestD: datum
+  bestE: date
 spiral notepad:
   key: spiral notepad
   type: emo
@@ -113111,6 +113707,8 @@ squinting face with tongue:
     - 133
     - 133
     - 133
+  bestD: zunge
+  bestE: tongue
 squirrel:
   key: squirrel
   type: icon
@@ -113230,6 +113828,7 @@ stadium:
     - 133
   bestE: stadium
   bestEConf: 98
+  bestD: stadium
 stag-head:
   key: stag-head
   type: icon
@@ -113941,6 +114540,8 @@ star-struck:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 star-swirl:
   key: star-swirl
   type: icon
@@ -114253,6 +114854,7 @@ steaming bowl:
     - 133
   bestE: ramen
   bestEConf: 88
+  bestD: ramen
 steampunk-goggles:
   key: steampunk-goggles
   type: icon
@@ -114308,6 +114910,7 @@ steamy room:
     - 133
   bestE: steam
   bestEConf: 86
+  bestD: dampf
 steel-claws:
   key: steel-claws
   type: icon
@@ -114516,7 +115119,7 @@ stethoscope:
     - 133
   bestE: stethoscope
   bestEConf: 82
-  bestD: stethoscop
+  bestD: stethoskop
   best100:
     E: stethoscope
     D: stethoscop
@@ -115215,6 +115818,7 @@ stop sign:
     - 133
   bestE: stop
   bestEConf: 88
+  bestD: stop
 stop-circle:
   key: stop-circle
   type: icon
@@ -115798,6 +116402,7 @@ studio microphone:
     - 133
   bestE: microphone
   bestEConf: 96
+  bestD: mikrophon
 stuffed flatbread:
   key: stuffed flatbread
   type: emo
@@ -115835,6 +116440,8 @@ stuffed flatbread:
     - 133
     - 133
     - 133
+  bestD: wrap
+  bestE: wrap
 stump-regrowth:
   key: stump-regrowth
   type: icon
@@ -116183,6 +116790,8 @@ sun behind cloud:
     - 133
     - 133
     - 133
+  bestD: wolke
+  bestE: cloud
 sun behind large cloud:
   key: sun behind large cloud
   type: emo
@@ -116222,6 +116831,8 @@ sun behind large cloud:
     - 133
     - 133
     - 133
+  bestD: wolke
+  bestE: cloud
 sun behind rain cloud:
   key: sun behind rain cloud
   type: emo
@@ -116260,6 +116871,8 @@ sun behind rain cloud:
     - 133
     - 133
     - 133
+  bestD: wolke
+  bestE: cloud
 sun behind small cloud:
   key: sun behind small cloud
   type: emo
@@ -116299,6 +116912,8 @@ sun behind small cloud:
     - 133
     - 133
     - 133
+  bestD: wolke
+  bestE: cloud
 sun with face:
   key: sun with face
   type: emo
@@ -117282,6 +117897,8 @@ sweat droplets:
     - 133
     - 133
     - 133
+  bestD: tropfen
+  bestE: drops
 swimfins:
   key: swimfins
   type: icon
@@ -118261,6 +118878,7 @@ taco:
     - 133
   bestE: taco
   bestEConf: 95
+  bestD: taco
 tacos:
   key: tacos
   type: icon
@@ -118400,7 +119018,7 @@ taking bath:
     - 133
     - 133
   bestE: bathtub
-  bestD: badewanne
+  bestD: bad
 talk:
   key: talk
   type: icon
@@ -118838,6 +119456,8 @@ teacup without handle:
     - 133
     - 133
     - 133
+  bestD: tasse
+  bestE: tea
 team-downgrade:
   key: team-downgrade
   type: icon
@@ -118969,6 +119589,8 @@ tear-off calendar:
     - 133
     - 133
     - 133
+  bestD: datum
+  bestE: date
 tear-tracks:
   key: tear-tracks
   type: icon
@@ -119085,7 +119707,7 @@ teddy bear:
     - 133
     - 133
   bestE: teddy bear
-  bestD: bär
+  bestD: stofftiemahjong
 tee-pipe:
   key: tee-pipe
   type: icon
@@ -119221,6 +119843,8 @@ telephone:
     - 133
     - 133
     - 133
+  bestD: telefon
+  bestE: phone
 telephone receiver:
   key: telephone receiver
   type: emo
@@ -119258,6 +119882,8 @@ telephone receiver:
     - 133
     - 133
     - 133
+  bestD: telefon
+  bestE: phone
 teleport:
   key: teleport
   type: icon
@@ -119580,6 +120206,8 @@ ten o'clock:
     - 133
     - 133
     - 133
+  bestD: zehn
+  bestE: ten o'clock
 ten-thirty:
   key: ten-thirty
   type: emo
@@ -119612,6 +120240,8 @@ ten-thirty:
     - 133
     - 133
     - 133
+  bestD: halb elf
+  bestE: ten thirty
 tenge:
   key: tenge
   type: icon
@@ -119668,6 +120298,8 @@ tennis:
     - 133
     - 133
     - 133
+  bestD: tennis
+  bestE: tennis
 tennis-ball:
   key: tennis-ball
   type: icon
@@ -119780,6 +120412,8 @@ tent:
     - 133
     - 133
     - 133
+  bestD: zelt
+  bestE: tent
 tentacle-heart:
   key: tentacle-heart
   type: icon
@@ -119991,6 +120625,8 @@ test tube:
     - 133
     - 133
     - 133
+  bestD: reagenzglas
+  bestE: test tube
 test-tubes:
   key: test-tubes
   type: icon
@@ -120414,7 +121050,7 @@ thinking face:
     - 133
     - 133
   bestE: thinking
-  bestD: hmmm
+  bestD: nachdenklich
 third-eye:
   key: third-eye
   type: icon
@@ -120622,6 +121258,8 @@ thought balloon:
     - 133
     - 133
     - 133
+  bestD: denken
+  bestE: thinking
 thread:
   key: thread
   type: emo
@@ -120663,7 +121301,7 @@ thread:
   best100:
     E: thread
     D: zwirn
-  best: zwirn
+  best: zwirnrolle|zwirn
 three o'clock:
   key: three o'clock
   type: emo
@@ -120696,6 +121334,8 @@ three o'clock:
     - 133
     - 133
     - 133
+  bestD: drei
+  bestE: three o'clock
 three-burning-balls:
   key: three-burning-balls
   type: icon
@@ -120825,6 +121465,8 @@ three-thirty:
     - 133
     - 133
     - 133
+  bestD: halb vier
+  bestE: three thirty
 throne-king:
   key: throne-king
   type: icon
@@ -121052,6 +121694,8 @@ thumbs down:
     - 133
     - 133
     - 133
+  bestD: daumen hinunter
+  bestE: down
 thumbs up:
   key: thumbs up
   type: emo
@@ -121559,6 +122203,7 @@ timer clock:
     - 133
   bestE: timer
   bestEConf: 89
+  bestD: timer
 times:
   key: times
   type: icon
@@ -121756,6 +122401,8 @@ tired face:
     - 133
     - 133
     - 133
+  bestD: müde
+  bestE: weary
 toad-teeth:
   key: toad-teeth
   type: icon
@@ -122106,7 +122753,7 @@ toolbox:
     - 133
     - 133
     - 133
-  bestD: werkzeugkoffer
+  bestD: werkzeug
   bestDConf: 87
   bestE: toolbox
   bestEConf: 90
@@ -122119,7 +122766,7 @@ toolbox:
   best25:
     E: toolbox
     D: werkzeugkoffer
-  best: werkzeugkoffer
+  best: werkzeug
 tools:
   key: tools
   type: icon
@@ -123002,6 +123649,7 @@ tram:
     - 133
   bestE: railway
   bestEConf: 98
+  bestD: trolley
 tram car:
   key: tram car
   type: emo
@@ -123036,6 +123684,8 @@ tram car:
     - 133
     - 133
     - 133
+  bestD: strassenbahn
+  bestE: trolley
 trample:
   key: trample
   type: icon
@@ -123739,6 +124389,8 @@ triangular ruler:
     - 133
     - 133
     - 133
+  bestD: lineal
+  bestE: ruler
 tribal-mask:
   key: tribal-mask
   type: icon
@@ -124327,6 +124979,8 @@ trolleybus:
     - 133
     - 133
     - 133
+  bestD: trolley
+  bestE: trolley
 tron-arrow:
   key: tron-arrow
   type: icon
@@ -124438,6 +125092,8 @@ tropical drink:
     - 133
     - 133
     - 133
+  bestD: glas
+  bestE: glass
 tropical fish:
   key: tropical fish
   type: emo
@@ -124809,6 +125465,7 @@ tulip:
     - 133
   bestD: tulpe
   best: tulpe
+  bestE: tulip
 tumbleweed:
   key: tumbleweed
   type: icon
@@ -125041,6 +125698,7 @@ turtle:
     - 133
   bestD: schildkröte
   best: schildkröte
+  bestE: turtle
 turtle-shell:
   key: turtle-shell
   type: icon
@@ -125174,6 +125832,8 @@ twelve o'clock:
     - 133
     - 133
     - 133
+  bestD: zwölf
+  bestE: twelve o'clock
 twelve-thirty:
   key: twelve-thirty
   type: emo
@@ -125206,6 +125866,8 @@ twelve-thirty:
     - 133
     - 133
     - 133
+  bestD: halb eins
+  bestE: twelve thirty
 twin-shell:
   key: twin-shell
   type: icon
@@ -125347,6 +126009,8 @@ two o'clock:
     - 133
     - 133
     - 133
+  bestD: zwei
+  bestE: two o'clock
 two-coins:
   key: two-coins
   type: icon
@@ -125456,6 +126120,8 @@ two-thirty:
     - 133
     - 133
     - 133
+  bestD: halb drei
+  bestE: two thirty
 tyre:
   key: tyre
   type: icon
@@ -125785,6 +126451,8 @@ unamused face:
     - 133
     - 133
     - 133
+  bestD: traurig
+  bestE: unhappy
 unbalanced:
   key: unbalanced
   type: icon
@@ -126553,6 +127221,8 @@ upside-down face:
     - 133
     - 133
     - 133
+  bestD: fröhlich
+  bestE: grin
 upwards button:
   key: upwards button
   type: emo
@@ -127650,6 +128320,8 @@ vertical traffic light:
     - 133
     - 133
     - 133
+  bestD: ampel
+  bestE: traffic light
 vertical-banner:
   key: vertical-banner
   type: icon
@@ -127861,6 +128533,7 @@ victory hand:
     - 133
   bestE: victory
   bestEConf: 96
+  bestD: sieg
 video:
   key: video
   type: icon
@@ -127920,6 +128593,8 @@ video camera:
     - 133
     - 133
     - 133
+  bestD: kamera
+  bestE: camcorder
 video game:
   key: video game
   type: emo
@@ -128346,6 +129021,8 @@ violin:
     - 133
     - 133
     - 133
+  bestD: geige
+  bestE: violin
 virgo:
   key: virgo
   type: icon
@@ -128824,6 +129501,7 @@ vulcan salute:
     - 133
   bestE: vulcan salute
   bestEConf: 95
+  bestD: vulkan gruss
 vulture:
   key: vulture
   type: icon
@@ -128900,6 +129578,7 @@ waffle:
     - 133
   bestE: waffle
   bestEConf: 87
+  bestD: waffel
 walk:
   key: walk
   type: icon
@@ -128979,6 +129658,7 @@ walking:
     - 133
   bestE: walking
   bestEConf: 95
+  bestD: gehen
 walking-boot:
   key: walking-boot
   type: icon
@@ -129187,6 +129867,8 @@ waning gibbous moon:
     - 133
     - 133
     - 133
+  bestD: mond
+  bestE: moon
 wanted-reward:
   key: wanted-reward
   type: icon
@@ -129426,6 +130108,7 @@ wastebasket:
     - 133
   bestE: wastebasket
   bestEConf: 76
+  bestD: papierkork
 watch:
   key: watch
   type: emo
@@ -129584,6 +130267,8 @@ water polo:
     - 133
     - 133
     - 133
+  bestD: polo
+  bestE: polo
 water wave:
   key: water wave
   type: emo
@@ -130048,6 +130733,8 @@ waving hand:
     - 133
     - 133
     - 133
+  bestD: winken
+  bestE: wave
 wavy dash:
   key: wavy dash
   type: emo
@@ -130190,6 +130877,8 @@ waxing crescent moon:
     - 133
     - 133
     - 133
+  bestD: mond
+  bestE: moon
 waxing gibbous moon:
   key: waxing gibbous moon
   type: emo
@@ -130224,6 +130913,8 @@ waxing gibbous moon:
     - 133
     - 133
     - 133
+  bestD: mond
+  bestE: moon
 weary cat:
   key: weary cat
   type: emo
@@ -130261,6 +130952,8 @@ weary cat:
     - 133
     - 133
     - 133
+  bestD: müde katze
+  bestE: tired
 weary face:
   key: weary face
   type: emo
@@ -130296,6 +130989,8 @@ weary face:
     - 133
     - 133
     - 133
+  bestD: weinen
+  bestE: weary
 web-spit:
   key: web-spit
   type: icon
@@ -130833,7 +131528,7 @@ white cane:
     - 133
     - 133
   bestE: cane
-  bestD: blindenstab
+  bestD: stab
 white circle:
   key: white circle
   type: emo
@@ -130970,6 +131665,8 @@ white heart:
     - 133
     - 133
     - 133
+  bestD: herz
+  bestE: heart
 white large square:
   key: white large square
   type: emo
@@ -131340,7 +132037,7 @@ wilted flower:
   bestDConf: 91
   bestE: flower
   bestEConf: 94
-  best: blume
+  best: verwelkt|tulpe|blume
 winchester-rifle:
   key: winchester-rifle
   type: icon
@@ -131421,6 +132118,8 @@ wind face:
     - 133
     - 133
     - 133
+  bestD: blasen
+  bestE: blow
 wind-hole:
   key: wind-hole
   type: icon
@@ -131709,7 +132408,7 @@ wine glass:
     - 133
   bestD: wein
   bestDConf: 76
-  bestE: glass
+  bestE: wine
   bestEConf: 93
 wine-bottle:
   key: wine-bottle
@@ -131995,6 +132694,8 @@ winking face with tongue:
     - 133
     - 133
     - 133
+  bestD: zunge
+  bestE: tongue
 winter-gloves:
   key: winter-gloves
   type: icon
@@ -132163,6 +132864,8 @@ with:
     - 133
     - 133
     - 133
+  bestD: fee
+  bestE: witch
 wizard:
   key: wizard
   type: emo
@@ -132472,6 +133175,7 @@ woman blind:
     - 133
   bestE: blind
   bestEConf: 81
+  bestD: blind
 woman cook:
   key: woman cook
   type: emo
@@ -132662,7 +133366,7 @@ woman farmer:
     - 133
     - 133
   bestE: farmer
-  bestD: landwirt
+  bestD: bauer
 woman golfing:
   key: woman golfing
   type: emo
@@ -133137,6 +133841,7 @@ woman singer:
     - 133
   bestE: singer
   bestEConf: 96
+  bestD: sänger
 woman standing:
   key: woman standing
   type: emo
@@ -133212,6 +133917,8 @@ woman student:
     - 133
     - 133
     - 133
+  bestD: student
+  bestE: student
 woman surfing:
   key: woman surfing
   type: emo
@@ -133367,6 +134074,7 @@ woman walking:
     - 133
   bestE: walking
   bestEConf: 93
+  bestD: gehen
 woman with headscarf:
   key: woman with headscarf
   type: emo
@@ -133462,6 +134170,8 @@ woman-elf-face:
     - 133
     - 133
     - 133
+  bestD: blondhaarig
+  bestE: blond hair
 'woman: curly hair':
   key: 'woman: curly hair'
   type: emo
@@ -133497,6 +134207,8 @@ woman-elf-face:
     - 133
     - 133
     - 133
+  bestD: lockig
+  bestE: curls
 'woman: red hair':
   key: 'woman: red hair'
   type: emo
@@ -133570,6 +134282,8 @@ woman-elf-face:
     - 133
     - 133
     - 133
+  bestD: weisshaarig
+  bestE: white hair
 woman’s boot:
   key: woman’s boot
   type: emo
@@ -133714,6 +134428,8 @@ woman’s sandal:
     - 133
     - 133
     - 133
+  bestD: schuh
+  bestE: shoe
 women holding hands:
   key: women holding hands
   type: emo
@@ -134236,6 +134952,8 @@ world map:
     - 133
     - 133
     - 133
+  bestD: weltkarte
+  bestE: world
 worm-mouth:
   key: worm-mouth
   type: icon
@@ -134563,6 +135281,8 @@ writing hand:
     - 133
     - 133
     - 133
+  bestD: schreiben
+  bestE: write
 wyvern:
   key: wyvern
   type: icon
@@ -134696,6 +135416,8 @@ yawning face:
     - 133
     - 133
     - 133
+  bestD: gelangweilt
+  bestE: yawn
 yellow circle:
   key: yellow circle
   type: emo
@@ -134833,6 +135555,7 @@ yen banknote:
     - 133
   bestE: yen
   bestEConf: 80
+  bestD: yen
 yen-sign:
   key: yen-sign
   type: icon
@@ -135038,6 +135761,8 @@ zany face:
     - 133
     - 133
     - 133
+  bestD: betrunken
+  bestE: drunk
 zat-gun:
   key: zat-gun
   type: icon
@@ -135264,6 +135989,8 @@ zipper-mouth face:
     - 133
     - 133
     - 133
+  bestD: still
+  bestE: sealed
 zombie:
   key: zombie
   type: emo
@@ -135337,3 +136064,5 @@ zzz:
     - 133
     - 133
     - 133
+  bestD: schlaf
+  bestE: sleep
