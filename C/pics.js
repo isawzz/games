@@ -16,6 +16,8 @@ function _createDivs(items, ifs, options) {
 	let hNet = h - 2 * padding - 2 * bo;
 
 	let pictureSize = wNet;
+	options.center=true;
+	//options.showLabels=false;
 	let picStyles = { w: wNet, h: isdef(options.center) ? hNet : hNet + padding }; //if no labels!
 
 	let textStyles, hText;
