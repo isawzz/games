@@ -162,7 +162,7 @@ function recomputeBestED(){
 
 }
 function generateWordFiles(){
-	let i=0;let n=300;let len=symbolKeys.length;
+	let i=0;let n=13000;let len=symbolKeys.length;
 	while(i<len){
 		wordsFromToText(i,n);
 		i+=n;
@@ -183,6 +183,32 @@ function wordsFromToText(i,n=300){
 	downloadTextFile(s,'words_'+i);
 	// downloadTextFile(s1.join('\n'),'words1');
 	// downloadTextFile(srest.join('\n'),'words2');
+
+}
+async function makeNewSyms(){
+	let etext=await route_path_text('../assets/speech/di/_wE.txt');
+	// console.log(etext);
+	let ew=etext.split('\n');
+	console.log('eng',ew);
+	let dtext=await route_path_text('../assets/speech/di/_wD.txt');
+	let ftext=await route_path_text('../assets/speech/di/_wF.txt');
+	let stext=await route_path_text('../assets/speech/di/_wS.txt');
+	let ctext=await route_path_text('../assets/speech/di/_wC.txt');
+	let dw=dtext.split('\n');
+	let fw=ftext.split('\n');
+	let sw=stext.split('\n');
+	let cw=ctext.split('\n');
+	let edict={};
+	for(let i=0;i<ew.length;i++){
+		edict[ew[i]]={E:ew[i],D:dw[i],F:fw[i],S:sw[i],C:cw[i]};
+	}
+	for(const k in symbolDict){
+		let info = symbolDict[k];
+		if (nundef())
+	}
+	
+	return;
+	let di={};
 
 }
 async function _start() {
@@ -210,7 +236,7 @@ async function _start() {
 	//console.log('English to German Nouns:', EdDict);
 	//recomputeBestED();
 	//generateWordFiles(); //step 1 works!!!
-
+	makeNewSyms(); return;
 
 	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;

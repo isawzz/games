@@ -1,0 +1,1997 @@
+award|medal
+silver|2|award|medal
+bronze|3|award|medal
+A
+AB
+money|bank|ATM machine|ATM
+Aquarius
+Aries
+B
+back arrow|back|arrow|left
+CL
+COOL
+cancer
+Capricorn
+Christmas tree|Christmas
+to the end|end arrow
+free
+Gemini
+id
+Japanese castle|castle|japanese house
+beginner
+leo
+libra
+new
+ng
+0
+ok
+excellent|great|okay|perfect|ok
+on
+serpent|snake
+p
+pisces
+soon
+s o s
+sagittarius
+Santa Claus
+Scorpio
+Statue of Liberty|statue
+tyrannosaurus rex|dinosaur
+top arrow|up
+taurus
+up arrow
+VS
+virgo
+calculator|abacus
+ace
+achievement
+acid
+acorn
+acrobatic
+ad
+bandage
+adjust
+tram|cable car
+aerosol
+africa
+ages
+airplane
+airplane|arrival
+airplane|departure
+alarm|clock|timer|alarm clock
+experiment|chemistry
+algae
+extraterrestrial|alien
+monster|extraterrestrial|alien
+allergies
+almond
+ambulance
+american football
+amethyst
+amphora|jug
+amplitude
+anarchy
+organ|heart
+anatomy
+ship|tool|anchor
+angry|mad
+angry
+mad|pouting|rage|anger|red|angry
+demon|horns|malicious|sardonic|devil
+scared|worried|anguished
+annexation
+ant
+antenna|wireless
+anthem
+antibody
+ants
+anvil
+anguished|anxious|crying|sad
+aquarium
+aqueduct
+archer
+archive
+archway
+arena
+aries
+arm
+armadillo
+arrest
+arrowhead
+arson
+lorry|delivery truck|delivery|truck
+painting|paint|colors|palette
+asparagus
+asterisk
+asteroid
+hushed|stunned|surprised|astonished
+at
+atlas
+atom
+atom
+aura
+automobile|vehicle|car
+avocado
+avoidance
+award|medal
+awareness
+axe
+baby
+angel
+baby bottle|baby|bottle|milk
+chick
+baby
+stroller
+backgammon
+down
+left
+right
+up
+backpack
+backspace
+backup
+backward
+bacon
+gnome
+badger
+badminton
+bagel
+baggage
+bread|baguette
+balance|scale
+ballet shoes
+balloon
+balloons
+ballot
+bamboo
+ban
+banana
+bandaged
+bandit
+banjo
+bank
+chart|bar chart|graph
+barbarian
+barbecue
+barefoot
+barn
+barracks
+barrel
+barricade
+barrier|warning|stop|attention|traffic
+bars
+ball|baseball
+laundry basket|laundry|basket
+ball|basketball
+bat
+bath
+bathtub
+baton
+batteries
+battery
+battleship
+bayonet
+beach|umbrella
+teeth|smile|laugh|happy|grin
+bear
+beard
+beating heart|pulse
+bed
+bee
+beech
+beehive
+beer
+beer|mug
+beet
+behold
+belgium
+bell
+silent|mute
+bell
+belt
+bento box
+bible
+biceps
+bike|bicycle
+biking
+bikini
+baseball cap|cap
+binoculars
+biplane
+bird
+birthday|celebration|dessert|pastry|cake
+bison
+black heart|black|cold|evil|heartless|heart
+nib|fountain pen|pen
+blackball
+blacksmith
+blast
+blaster
+blender
+blind
+blindfold
+blood
+blossom|flower
+fish|blowfish
+book
+blue heart|blue|heart
+blunderbuss
+bold
+bolt
+explosion|bomb
+bone
+book
+bookmark|reminder|mark
+bookmark|tabs
+pile of books|books
+bookshelf
+boomerang
+boots
+booze
+popping|bottle|champaign
+bouncing ball|ball
+bouquet|tulip|flowers
+bow|arrow|bow and arrow
+bowels
+breakfast|cereal|bowl
+bowling
+box
+boxes
+boxing glove|glove|boxing
+boy
+bracer
+bracers
+braille
+brain
+brainstorm
+bread
+breast-feeding
+bricks|clay|mortar|wall
+bridge
+bridge
+bag|briefcase
+underwear|briefs
+broccoli
+broken heart
+broom
+brown heart|brown|heart
+brush
+brute
+bubbles
+bud
+water buffalo|bison|buffalo
+caterpillar
+building
+bulb
+bull
+bulldozer
+bullets
+bunker
+bunny ears
+buoy
+burn
+burrito
+bus
+bus|busstop|station
+silhouette|bust
+silhouette|bust
+butter
+butterfly
+cactus
+cage
+calculator
+caldera
+calendar|date
+call me|call
+camel
+camera
+camera
+campfire
+campground
+camping
+cancel
+cancer
+candle
+candles
+candy
+can
+cannon
+canoe
+cape
+capsules
+car
+caravan
+caravel
+card file box|box|cards|file
+card index
+index
+carillon
+carousel horse|horse|carousel
+carrier
+carrion
+carrot
+cartwheel
+cartwheeling|cartwheel
+cash
+castle
+cat
+cat|tear
+ironic|wry|smile
+catapult
+catch
+caterpillar
+cauldron
+cavalry
+centaur
+centipede
+certificate
+chain|chains
+chair
+charging
+chariot
+charm
+chart
+chart|function|graph
+chart|function|graph
+yen|chart|graph|function
+check
+checklist
+cheerful
+cheese
+cheese
+cherish
+cherries
+cherry
+cherry blossom|flower|blossom
+chess
+meeple|chess|pawn
+chest
+chestnut
+hen|chicken
+child
+chimney
+squirrel
+chisel
+chocolate
+choice
+sticks|chopsticks
+church
+cigar
+cigarette
+circle
+circuitry
+circus tent|tent|circus
+skyline|cityscape|city
+dusk|city
+clamp
+clapper|cut
+clapping hands|clapping|clap
+temple
+claw
+claws
+cleaver
+click
+climbing
+glasses|beer|celebrate|clink
+glasses|champaign|clink
+clipboard
+cloak
+clock
+clockwork
+clone
+book
+umbrella
+clothes
+clothespin
+cloud
+cloud|lightning
+cloud|rain|lightning
+cloud|rain
+cloud|snow
+clout
+clover
+clown
+clown
+club
+clutch bag|pouch|purse
+coat|jacket
+cobra
+cobweb
+cocktail
+cocktail|glass
+coconut
+code
+coffee
+coffin
+cog
+cogs
+coins
+freezing|frostbite|blue-faced|cold
+coliseum
+collision|explosion
+columns
+comb
+comet
+comment
+comments
+magnetic|navigation|orienteering|compass
+compress
+computer mouse|mouse
+confetti
+zig-zag|confounded|confused
+confrontation
+confused
+congress
+conqueror
+construction site|construction
+construction|hat|worker
+contortionist
+conversation
+convict
+convince
+rice
+cookie
+egg|pan
+copy
+coral
+corkscrew
+corn
+cornucopia
+coronation
+corporal
+corset
+couch
+lamp|couch
+couple|in love|love
+cow
+cowboy|cowboy hat|howdy|hat
+crab
+crafting
+crags
+crane
+crayon
+credit card
+crescent moon|moon
+bug|insect|grasshopper|cricket
+cricket
+crocodile
+pastry|croissant
+crop
+cross
+crossbow
+crossed fingers
+crossed swords|swords|war|fight
+crow
+crowbar
+crown
+cruiser
+crush
+crutch
+crying cat
+crying|disappointed|sad
+crystal ball
+cube
+cubes
+cucumber
+juice|soda
+cupcake|muffin
+teapot|curling
+plate|food|curry|rice
+dessert|custard|pudding
+cut
+chop|lambchop|porkchop|steak
+cycle
+cycling
+cyclone
+cyclops
+sword|knife|dagger
+daggers
+dam
+dart
+dashing away|fast
+database
+deaf
+thinking|say again|deaf
+decapitation
+tree
+elk|deer
+delighted
+lorry|delivery truck|delivery|truck
+democrat
+demolish
+department store
+derelict house|derelict|house
+cactus|desert
+palm tree|island
+desk
+desktop
+desktop computer|screen|computer
+despair
+detective
+detour
+dew
+diagnoses
+diagram
+diamond
+comic
+diamonds
+dice
+diploma
+bullseye|target|darts
+directions
+disappointed
+disc
+discussion
+disintegrate
+distraction
+divergence
+divert
+scuba diving|scuba|goggles|diving
+diya lamp|oil lamp
+dizzy
+dizzy
+dna
+dodge
+dodging
+dog
+banknote|money|dollar
+dolly
+dolphin
+donate
+donkey
+door
+doorway
+doubled
+doughnut
+bird|dove
+sweat|sweating
+download
+dozen
+dragon
+dragon
+dragonfly
+drawbridge
+dread
+dreadnought
+dress
+drill
+drinking
+drooling
+drop
+drop of blood|blood
+droplet|drop
+droplets
+drowning
+drum
+duality
+duck
+duel
+dumbbell
+dungeon
+duration
+blu-ray|cd|dvd
+dynamite
+e-mail|email|message
+bird|eagle
+ear
+maize|corn
+hearing aid
+earwig
+eating
+eclipse
+ecology
+edit
+eel
+egg
+eggplant
+8|8:00|eight|eight o'clock
+8:30|eight thirty
+eject
+electric
+electric plug|plug|current|electricity
+elephant
+elevator
+11|11:00|eleven|eleven o'clock
+11:30|eleven thirty
+elf
+emerald
+encirclement
+enlightenment
+enrage
+envelope
+outgoing|mail|send|outbox
+equals
+eraser
+eruption
+escalator
+banknote|money|euro
+evasion
+tree|fir
+exclamation
+expand
+expense
+exploding head|mind blown|exploding|shocked
+deadpan|stoic|neutral
+eye
+speech balloon
+eyeball
+eyelashes
+eyes
+crush|love|happy|kiss
+screaming|fear|panic|anguished
+nauseated|ill|vomit|vomiting|nausea
+oops|whoops|omg|oh my god
+head|hurt|injury|injured|bandage
+masked|mask
+monocle
+open mouth|surprised
+raised eyebrow|disbelief|distrust|skeptic
+rolling eyes|eyeroll
+steaming
+mad|pouting|rage|anger|red|swearing|screaming|angry
+lol|smile|laugh|happy|grin
+thermometer|ill|sick|fever
+showing tongue|tongue
+face without mouth|no mouth
+factory
+fairy
+chickpea|pita|meatball|falafel
+fallen leaf|leaf|leaves|autumn
+falling
+family
+family
+fan
+farmer
+fat
+fax machine|fax
+anguished
+feather
+feline
+female
+fencer
+fencing
+fern
+amusement park|fair|ferris wheel
+ship|ferry
+field
+hockey
+figurehead
+file
+filer|file|file cabinet|cabinet
+file folder|folder
+files
+fill
+film
+frames|film frames|film
+projector
+filter
+finch
+fingernail
+fingerprint
+flame|fire
+fire engine
+fire extinguisher
+fireball
+firecracker|dynamite|explosive|fireworks
+fireplace
+sparkle|fireworks
+first quarter moon|moon
+moon
+fish
+fishbone
+fishing
+fishing
+fission
+fist
+5|5:00|five|five o'clock
+5:30|five thirty
+flag
+hole|golf flag|flag|golf
+flail
+flake
+flame
+flamethrower
+flamingo
+flashlight
+flask
+flat shoe|shoe|ballet flat|slipper
+flax
+biceps
+flood
+floppy disk
+card|sunset|sunrise|picture|deck|playing cards|cards
+flowers
+flushed
+dazed|embarrassed|flushed
+flute
+fly
+flying disc|disc
+ufo
+foam
+fog
+folded hands|please|thanks|bow|praying|namaste|pray
+folder
+font
+foot
+footprint
+footprints
+footsteps
+forearm
+forest
+cutlery|fork|knife
+fork|knife|plate|table setting|dinner|lunch|meal|tableware
+fortune cookie
+forward
+fossil
+fountain
+fountain pen
+clover
+4|4:00|four|four o'clock
+4:30|four thirty
+fragrance
+art|picture
+freemasonry
+french fries|fries
+fried|prawn|tempura|shrimp
+frog
+chick
+frown
+frowning
+frowning
+fuel pump|gas station|fuel
+full moon|moon
+funeral urn|urn
+funnel
+furnace
+galley
+board game|dice|die
+gargoyle
+garlic
+gate
+gavel
+gaze
+wheel|gear
+gears
+gem
+gem stone|gem|diamond
+gems
+genderless
+genie
+ghost
+giant
+gibbet
+gift
+gifts
+giraffe
+girl
+glass|milk
+glasses
+glider
+globe
+map|earth|globe|america|americas|world
+map|earth|globe|asia|australia|world
+map|earth|globe|europe|africa|world
+gloves
+star
+gluttony
+soccer goal|soccer|goal
+goat
+goblin
+goggles
+goose
+gorilla
+grab
+graduation cap
+grain
+granary
+grapes
+grapple
+grass
+graveyard
+fruit|apple
+book
+green heart|green|heart
+lettuce|salad
+greenhouse
+grenade
+grimace
+teeth|grimacing
+grin
+chessshire cat|evil cat|grinning cat|chesshire
+chessshire cat|evil cat|grinning cat|chesshire
+smile|laugh|happy|grin
+smile|laugh|happy|grin
+smile|laugh|happy|grin
+tears|sweat|sweating|smile|laugh|happy|grin
+squint|smile|laugh|happy|grin
+beating heart|pulse
+growth
+guard
+guards
+guillotine
+electric guitar|guitar
+gunshot
+haircut
+halberd
+halt
+burger|hamburger
+hammer
+tools
+tools
+hamster
+hand
+splayed fingers|fingers|splaying|splay
+purse|handbag
+handball
+handcuffed
+hands
+handshake
+hanger
+hatchet
+hatchets
+egg|hatching|chick
+haunting
+heading
+headphone
+headphones
+healing
+hear-no-evil
+heart
+heart|heart card|card
+exclamation|heart exclamation|heart
+heart
+in love|love|falling in love|cupid
+love|heart|valentine|valentine's|valentine's day
+heartbeat
+heartburn
+hearts
+hedgehog
+helicopter
+helmet
+help
+hemp
+herb|leaf
+hexes
+flower|hibiscus
+hidden
+danger|lightning
+high-heeled shoe|shoe
+high-speed train|train
+hiking
+hiking boot|boot|shoe
+hills
+hindu temple|temple
+hippo
+hippo
+histogram
+history
+hive
+hockey
+void|hole
+home
+honey|honeypot|pot
+honeycomb
+hood
+hoof
+hops
+horse
+jockey
+horseshoe
+hospital
+cup|coffee|tea
+feverish|heat stroke|red-faced|sweating|hot
+hot|pepper
+frankfurter|hotdog|sausage
+hotel
+hound
+hourglass
+hourglass
+house
+garden|home|house
+houses
+hugging face|face|hug|hugging
+hummingbird
+hundred points|100|hundred
+hushed|stunned|surprised
+cold|ice cube|ice
+ice cream
+ice hockey
+scating shoe|ice skating|skating
+iceberg
+icebergs
+icicles
+icons
+idea
+igloo
+image
+images
+imp
+implosion
+imprisoned
+inbox tray|inbox|mail
+incense
+incisors
+incoming|mail|receive|inbox
+incubator
+indent
+finger|index finger|index|up
+industry
+info
+inspiration
+interdiction
+invisible
+island
+italic
+jack-o-lantern|halloween|pumpkin
+jawbone
+jeans|pants
+jellyfish
+jerrycan
+join
+joint
+joker
+journey
+joystick
+jug
+juggler
+juggling
+jungle
+kangaroo
+key
+keyboard
+number sign
+star
+0|zero
+1|one
+10|ten
+2|two
+3|three
+4|four
+5|five
+6|six
+7|seven
+8|eight
+9|nine
+scooter
+kimono
+kindle
+king
+love|kiss
+kiss mark|love|kiss|lips
+kissing|kiss|kissing cat
+crush|love|happy|kiss
+crush|love|happy|kiss
+crush|love|happy|kiss
+kitchen knife|knife
+kite
+kiwi
+knapsack
+kneeling
+lab coat|doctor|coat
+label
+lacrosse
+ladder
+ladle
+ladybug
+landmark
+lantern
+notebook|pc|computer|laptop
+blue
+diamond
+waning moon|moon
+moon
+laugh
+leaf
+blow|flutter|leaf|wind
+leak
+led
+notebook
+leek
+speech balloon
+fist
+leg
+lemon
+leo
+leopard
+slider
+lever
+levitating
+liar
+libra
+weight lifting
+light|light bulb|bulb
+metro|subway|train|railway
+lighter
+lighthouse
+link
+paperclips
+lion
+lips
+lipstick
+list
+liver
+lizard
+llama
+load
+lobster
+lock
+lock
+lock
+lock
+steam engine|train|locomotive
+log
+logging
+loincloth
+lollipop
+lotion
+lotus position|meditating|yoga
+crying|disappointed|sad
+loudspeaker
+love letter
+i love you|love
+luggage|baggage|suitcase
+lungs
+lie|nose|pinocchio
+lyre
+machete
+maggot
+magic
+magnet
+magnifying glass|magnifier
+magnifying glass|magnifier
+red dragon|mahjong
+mailbox
+male
+mammoth
+man|human|person
+artist
+astronaut
+blind
+cook
+dancing
+factory worker
+fairy
+farmer
+firefighter
+golfing|golf
+nurse|doctor
+wheelchair
+wheelchair
+judge
+kneeling
+mechanic
+office|job|employee|office worker
+pilot
+running
+scientist
+singer
+man
+graduation|student
+surfing
+teacher
+engineer|coder|developer
+walking
+bald
+beard|man with beard|beard
+blond-haired woman|woman with blond hair|blond-haired|blond hair|blond
+curly hair|boy|man
+man|man with red hair|red haired man|red hair
+white hair|old man|old|white-haired man
+fruit|tropical|mango
+mantelpiece clock|clock
+mantrap
+wheelchair
+shoe
+map
+map|map of japan|japan
+maple|leaf|maple leaf
+marbles
+marker
+mars
+marshmallows
+uniform|martial arts|taekwondo|judo|karate
+mask
+massage
+matchbox
+maze
+meal
+meat
+bone|meat
+mechanical arm|robot arm|arm
+mechanical leg|robot leg|leg
+award|medal
+medicines
+meditation
+megaphone
+melon
+memo|paper|pencil|notice
+memory
+holding hands
+mercury
+mermaid
+meteor
+metro|subway|train|railway
+metronome
+amoeba|bacteria|virus|microbe
+microchip
+microphone
+microscope
+middle finger
+milky way|galaxy
+miner
+minerals
+minibus|bus
+mining
+minions
+mite
+mitten
+moai|statue
+mobile
+mobile phone|cellphone|phone
+molecule
+money bag|bag|money
+money eyes|money|greedy|showing tongue|tongue
+monkey
+railway|train|monorail
+monument
+moon
+mortar
+mosque
+mosquito
+motorboat
+motor scooter
+motorcycle
+motorized wheelchair|electric wheelchair|wheelchair
+highway|road
+mountain
+biking
+suspension railway
+mountains
+mountaintop
+mouse
+lips|mouth
+move
+camera
+muscle
+toadstool|mushroom
+mushrooms
+music
+keyboard|piano
+musical note|music
+musical notes|music
+musical score|violin clef|treble clef|treble
+musket
+mustache
+mute
+sound off|mute
+nail polish|cosmetics|manicure
+nails
+namaste|prayer|please
+nauseated|ill|vomit|vomiting|nausea
+necklace
+necktie|cravatte|tie
+nerd|geek|glasses|learning|nerdy
+neuter
+deadpan|stoic|neutral
+newspaper
+9|9:00|nine|nine o'clock
+9:30|nine thirty
+nodular
+noodles
+nose
+notebook
+book|notebook
+nuclear
+nut|bolt
+oak
+oasis
+oat
+observatory
+occupy
+octopus
+stick|seafood|skewer|kebab
+office building|building
+monster|ogre
+oil drum|drum|oil
+key
+man with white hair|white-haired man|old man|white hair
+woman with white hair|white-haired woman|old woman|white hair
+woman with white hair|white-haired woman|old woman|white hair
+olive
+automobile|vehicle|car
+punch|fist
+1|1:00|one|one o'clock
+bathing suit|swimsuit
+1:30|one thirty
+onion
+book
+file folder|folder
+open hands|two hands|hands
+oppression
+cd|dvd
+orange
+book
+orange heart|orange|heart
+ape|orangutan
+orbit
+orbital
+ore
+ostrich
+otter
+outbox tray|outbox|mail
+overdose
+overdrive
+owl
+taurus|ox|bull
+oyster
+parcel|box|package
+paddles
+padlock
+paper|page
+scroll|roll|paper|document
+pager
+pagoda
+paint|brush|paintbrush
+palette
+palisade
+pallet
+palm
+palm tree
+pancakes
+panda
+paper
+paperclip
+papers
+parachute
+paragraph
+paranoia
+parking
+parrot
+party
+celebration|party
+passenger ship|cruise ship|ship
+passport
+paste
+pause
+paw
+pawn
+feet|paw|paw prints|footprints|print|paws
+peace
+fruit|peach
+peacock
+peaks
+peanut
+food|nut|peanut
+fruit|pear
+peas
+ballpoint|pen
+pencil
+penguin
+dejected|pensive
+pentacle
+holding hands
+percent
+percentage
+theatre|masks
+periscope
+persevering|persevere|insisting|stubborn
+person|man
+devout|subdued|thinking|bowing|sorry
+omg|oh my god|oh no|facepalm
+frustrated|upset|frowning|disappointed
+nope|forbidden|person gesturing no|no|prohibited|stop
+big|tall|raising hands|hands on head|ok
+golfing|golf
+elegant|tuxedo
+oh no|disappointed|upset|pouting
+raising hand|peace|I come in peace|hold on|bye bye|good bye|hi|bye|stop|hello
+no idea|don't know|omg|oh my god|oh god|shrugging
+holding something|holding|waiter|waitress|horizontal hand|hold something|hold|tipping hand|no idea|tip hand|help|sassy
+turban
+cap
+bride
+boy|blond-haired|blond hair|blond
+petri dish
+phone
+pick
+pie
+pig
+pile of poo|poop|dung|poo
+medicine|pill
+pillow
+pills
+pin
+pincers
+small amount|small|tiny|pinch
+pineapple
+table tennis|ping pong
+piranha
+pisces
+pistol|gun
+pitchfork
+pizza slice|pizza
+plane
+planks
+platform
+play
+begging|pleading
+plow
+plug
+plunger
+pointing
+poison
+police car|car|patrol|police
+police officer|police
+poll
+poncho
+dog|poodle|dog
+pool|billiard
+poop
+snack|popcorn
+poppy
+portrait
+postal horn
+postbox|mailbox
+pot
+potato
+bone|chicken|drumstick|leg|poultry
+pounce
+banknote|money|pound
+pouting cat
+mad|pouting|rage|anger|red|angry
+powder
+pray
+prayer
+chain|necklace|prayer beads|beads
+pregnant woman|pregnant
+prescription
+present
+pretzel
+prince
+princess
+print
+printer
+prisoner
+private
+procedures
+processor
+profit
+pull
+pulse
+pumpkin
+punch
+puppet
+purple heart|purple|heart
+purse
+push
+pushpin|pin
+puzzle
+puzzle
+pylon
+pyre
+pyromaniac
+question
+quicksand
+quill
+quiver
+hare|bunny|rabbit
+racing car|car
+radiations
+radio
+button
+raft
+railway
+railway|train|tram|trolley
+railway|tracks
+rainbow
+raining
+back of hand|backhand
+fist
+raised hand|palm|hand palm|hand
+party|celebration|celebrating|raising hands
+rake
+ram
+random
+raspberry
+rat
+rattlesnake
+raven
+knife|razor
+reactor
+read
+bill|receipt
+recycle
+fruit|apple
+red heart|red|heart
+lantern
+redo
+reed
+refinery
+regeneration
+relieved|sleepy
+remedy
+reply
+republican
+helmet
+resonance
+bed
+reticule
+revolt
+revolving hearts|two hearts
+rhinoceros
+bow|ribbon
+rice cracker|cracker
+tuk tuk
+rifle
+speech balloon
+fist
+diamond ring|ring
+saturn
+ringmaster
+river
+road
+sweet potato|potato
+robber
+robe
+robot
+rock
+rocket
+rogue
+toilet paper
+newspaper
+amusement park|roller coaster
+lol|smile|laugh|happy|grin
+chicken|rooster
+ropeway
+flower|rose
+flower
+pushpin|pin
+route
+rowing
+rugby football|rugby
+ruler
+run
+running
+running shirt|sport shirt|shirt
+running shoe|sneaker
+rupee
+disappointed|sad
+saddle
+safety pin
+safety|safety vest
+sagittarius
+sail
+boat|resort|sea|yacht|sailboat
+salmon
+saloon
+salt
+sandstorm
+bread|sandwich
+sarcophagus
+sari
+satellite
+satellite antenna|dish|satellite
+sattelite
+dinosaur
+sausage
+save
+saxophone
+scabbard
+scales
+scallop
+scalpel
+scarecrow
+scarf
+building|school
+scissors
+scooter
+scorpion
+screaming
+screw
+screwdriver
+scroll|roll|paper|papyrus|document
+scythe
+search
+seat|chair
+see-no-evil|hide
+plant|seed|seedling
+select
+selfie
+sensuousness
+sergeant
+server
+sesame
+settlement
+7|7:00|seven|seven o'clock
+7:30|seven thirty
+sextant
+casserole|food|paella|pan
+clover|plant|shamrock
+shapes
+share
+fish|shark
+shatter
+sorbet|dessert|ice cream|cone|ice cream cone
+rice|wheat|grain
+ewe| sheep
+shield
+shinto shrine|temple
+ship
+shirt
+shooting star
+shop
+bags
+cart|shopping cart
+dessert|cake
+shorts
+shotgun
+shouting
+shower
+shrimp
+shrug
+quiet|shush|hand|silent
+shuttlecock
+sickle
+sideswipe
+sign
+horns
+signal
+silence
+silenced
+silex
+sing
+siren
+6|6:00|six|six o'clock
+6:30|six thirty
+skateboard
+skating
+skeleton
+skiing
+skiing
+skills
+skirt
+ski|skiing
+zombie|death|monster|skull
+zombie|death|monster|skull and bones|crossbones|pirate|skull
+skunk
+slalom
+slap
+slash
+sled|sledding|sleigh
+sleep|sleeping|sleepy
+sleepy
+sad|sleepy
+sleigh
+frowning
+smile|laugh|happy|grin
+slime
+sling
+slingshot
+slot machine
+sloth
+sly
+airplane
+smart
+smile
+heart eyes
+angel|halo|smile|laugh|happy|grin
+crush|love|smile|laugh|happy|grin
+love|smile|laugh|happy|crush
+demon|horns|malicious|sardonic|devil
+blush|smile|laugh|happy|grin
+bright|cool|face|sun|sunglasses
+smirk|smirking
+smitten
+smog
+smoking
+snail
+snake
+snatch
+sneeze|coughing|cough|sneezing
+snorkel
+snout
+mountain
+snowboarding|snowboard
+snowflake
+snowing
+snowman
+snowman
+snowplow
+soap
+soccer ball|football|ball|soccer
+socks
+sofa
+ice cream
+ball|softball
+sombrero
+sort
+spa
+spaceship
+spade
+spade
+spades
+pasta
+spain
+spanner
+sparkle|fireworks
+stars|sparkles
+sparkling|heart
+sparrow
+spatter
+speak-no-evil
+speaker
+speaker
+speaker
+speaker
+speaking|speak
+spears
+spectacles
+spectre
+bubble|speech balloon|dialog
+speedboat|boat
+spider
+spider web
+spikes
+spill
+spinner
+calendar|date
+spiral notepad|notes|paper|notepad
+shell
+splash
+splotch
+sponge
+spoon
+humpack whale|whale
+spray
+spring
+sprint
+sprout
+spy
+spyglass
+square
+squib
+squid
+showing tongue|tongue
+squirrel
+stack
+building|stadium
+stairs
+stalactites
+stamp
+stamper
+standing
+star
+crush|love|smile|laugh|happy|grin
+static
+train|subway|station
+steak
+steam
+bowl|noodle|ramen
+steamroom|steam
+stethoscope
+stiletto
+stockpiles
+stomach
+stomp
+stop
+stop sign|stop
+stopwatch
+store
+ruler
+strawberry
+stream
+strong
+microphone
+falafel|flatbread|kebab|wrap
+submarine
+subscript
+subway
+suicide
+suitcase
+suits
+summits
+sun
+sun behind cloud|cloud
+sun behind cloud|cloud
+sun behind cloud|rain|cloud
+sun behind cloud|cloud
+sun
+sunbeams
+sundial
+flower|sunflower
+glasses|sunglasses
+sunrise
+sunset
+superhero
+superscript
+supervillain
+surfing
+surprise
+surprised
+sushi
+suspension railway
+suspicious
+swallow
+swamp
+swan
+sweat|sweat droplets|splashing|water|drops
+swimmer
+swim|swimming
+switchblade
+switzerland
+synagogue|church
+sync
+syringe
+t-shirt
+tablet
+tablets
+taco
+tadpole
+tag
+tags
+bathtub
+talk
+fruit|orange
+tank
+tap
+tape
+targeted
+targeting
+tasks
+taxi
+teacup|cup|tea
+teapot
+calendar|date
+tearing
+teddy bear
+teeth
+telepathy
+red telephone|phone
+telephone receiver|telephone|phone
+telescope
+television|tv
+temptation
+10|10:00|ten|ten o'clock
+10:30|ten thirty
+racquet|tennis
+camping|tent
+terminal
+terror
+tube|lab|chemistry|test tube
+thermometer
+think
+thinking
+thought balloon|thought|thinking
+thread
+3|3:00|three|three o'clock
+3:30|three thirty
+thrust
+thumbs down|bad|down
+up|good|thumbs up
+thumbtack
+tiara
+tick
+ticket
+tie
+tiger
+tightrope
+clock |timer
+times
+tinker
+tint
+tired
+tired|weary
+toggles
+toilet
+token
+tomahawk
+tomato
+tombstone
+tongue
+suitcase|tool box|toolbox
+tools
+tooth
+hat
+topaz
+torch
+cloud|tornado
+torpedo
+tortoise
+trackball
+tractor
+trade
+trademark
+trail
+metro|subway|train|railway
+railway
+railway|train|tram|trolley
+trample
+transform
+transfuse
+trash
+tread
+triangle|ruler
+trident
+trireme
+troglodyte
+troll
+bus|tram|trolley
+trophy
+cocktail|glass
+fish
+trousers
+trowel
+truck
+trumpet
+tty
+flower|tulip
+tumor
+turbine
+turkey
+turret
+tortoise|turtle
+tv
+12|12:00|twelve|twelve o'clock
+12:30|twelve thirty
+two hearts
+2|2:00|two|two o'clock
+2:30|two thirty
+tyre
+udder
+ufo
+ultrasound
+umbrella
+umbrella
+rain|umbrella
+unamused|unhappy
+unbalanced
+uncertainty
+underhand
+underline
+underwear
+undo
+unicorn
+unicycle
+university
+unlock
+lock
+unlocking
+unplugged
+upgrade
+uprising
+upside-down|smile|laugh|happy|grin
+usable
+user
+users
+utensils
+valley
+valve
+vampire
+velocipede
+light|signal|traffic light
+vial
+vials
+victory
+video
+camera|camcorder
+video game|game controller|controller
+videocassette|tape
+village
+viola
+fiddle|violin
+virgo
+virus
+volcano
+ball|volleyball
+vomiting
+vortex
+vote
+vulcan salute
+vulture
+waffle
+walk
+walking
+wallet
+waning moon|crescent moon|moon
+waning moon|moon
+warehouse
+wastebasket
+watch|clock
+watchtower
+water
+water polo|polo
+wave
+waterfall
+watermelon
+waves
+waving|waving hand|wave
+waxing crescent moon|moon
+| moon
+weary|tired
+tired|cry|crying|scream|screaming|weary
+weight
+well
+werewolf
+whale
+wheat
+wheelbarrow
+wheelchair
+whip
+whiplash
+whirlwind
+whisk
+whistle
+cane
+flower
+white heart|white|heart
+wildfires
+wilted|tulip|flower
+wind
+wind|blow
+windmill
+window
+glass|wine
+upside-down|smile|laugh|happy|grin|wink
+showing tongue|tongue
+wisdom
+sorceress|witch
+mage|wizard
+woman
+holding hands
+artist
+blind
+cook
+dancing
+factory worker
+fairy
+farmer
+golfing|golf
+nurse|doctor
+wheelchair
+wheelchair
+judge
+kneeling
+mechanic
+office worker
+pilot
+running
+scientist
+singer
+woman
+graduation|student
+surfing
+teacher
+engineer|coder|developer
+walking
+headscarf
+woman with blond hair|blond-haired woman|old woman|blond hair
+curly hair|woman with curly hair|curly-haired woman|woman|curls
+red hair|woman with red hair|red-haired woman|woman
+woman with white hair|white-haired woman|old woman|white hair
+boot
+blouse
+hat
+woman’s sandal|sandal|slipper|shoe
+holding hands
+wool
+dizzy|drunk|intoxicated|wavy mouth|tipsy
+world
+magnetic|navigation|orienteering|map|world
+worms
+worried
+present|gift
+wrench
+wrestling
+writing|write
+xylophone
+yarn
+bored|yawning|yawn
+yellow heart|yellow|heart
+banknote|money|yen
+yo-yo
+tongue|delicious|savouring|yum|yummy|smile
+showing tongue|tongue|zany|crazy|drunk
+zipper
+mouth|zipper|zipper-mouth|keep quiet|lips sealed|sealed
+zombie
+sleepy|sleeping|night|sleep
