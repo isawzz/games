@@ -19,6 +19,11 @@ function getKeySets() {
 	let ks = localStorage.getItem('KeySets');
 	if (isdef(ks)) return JSON.parse(ks);
 
+	let huge = [];
+	for(const k in symbolDict){
+		let info=symbolDict[k];
+		//if (isdef(info.D)) {info.bestD=stringBefore(info.D,'|');huge.push(k);
+	}
 	let allKeys = symKeysBySet.nosymbols;
 	let keys = allKeys.filter(x => isdef(symbolDict[x].best100));
 	let keys1 = allKeys.filter(x => isdef(symbolDict[x].best100) && isdef(symbolDict[x].bestE));

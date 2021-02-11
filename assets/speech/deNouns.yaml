@@ -1,0 +1,14192 @@
+Aal:
+  gen: m
+  e:
+    - eel
+    - moray
+Aas:
+  gen: 'n'
+  e:
+    - carrion
+Aasfresser:
+  gen: m
+  e:
+    - scavenger
+Abänderung:
+  gen: f
+  e:
+    - modification
+    - alteration
+Abarbeiten:
+  gen: 'n'
+  e:
+    - attention handling
+Abarbeitungszeit:
+  gen: f
+  e:
+    - processing time
+Abartigkeit:
+  gen: f
+  e:
+    - kinkiness
+Abbild:
+  gen: 'n'
+  e:
+    - image
+    - copy
+Abbildung:
+  gen: f
+  e:
+    - illustration
+    - mapping
+Abbildungsfehler:
+  gen: m
+  e:
+    - aberration
+Abblendlicht:
+  gen: 'n'
+  e:
+    - dim light
+    - dimmed headlight
+Abblendschalter:
+  gen: m
+  e:
+    - dip switch
+Abbrechung:
+  gen: f
+  e:
+    - abruption
+Abbremsung:
+  gen: f
+  e:
+    - retardation
+Abbruch:
+  gen: m
+  e:
+    - dropout
+    - severance
+    - truncation
+    - demolition
+Abbruchcode:
+  gen: m
+  e:
+    - abort code
+Abbruchmakro:
+  gen: 'n'
+  e:
+    - abort macro
+Abdanker:
+  gen: m
+  e:
+    - abdicator
+Abdankung:
+  gen: f
+  e:
+    - abdication
+Abdankungen:
+  gen: pl
+  e:
+    - resignations
+Abdeckung:
+  gen: f
+  e:
+    - access cover
+Abdichter:
+  gen: m
+  e:
+    - caulker
+    - caulkers
+Abdichtung:
+  gen: f
+  e:
+    - sealing
+Abdichtungen:
+  gen: pl
+  e:
+    - sealings
+Abdruck:
+  gen: m
+  e:
+    - imprint
+Abdrücke:
+  gen: pl
+  e:
+    - imprints
+Abdunkelungsvorrichtung:
+  gen: f
+  e:
+    - dimmer
+Abdunklung:
+  gen: f
+  e:
+    - dimout
+Abend:
+  gen: m
+  e:
+    - evening
+Abendandacht:
+  gen: f
+  e:
+    - evensong
+Abenddämmerung:
+  gen: f
+  e:
+    - dusk
+Abenddämmerungen:
+  gen: pl
+  e:
+    - dusks
+Abende:
+  gen: pl
+  e:
+    - evenings
+Abendessen:
+  gen: 'n'
+  e:
+    - supper
+    - dinner
+    - suppers
+Abendgarderobe:
+  gen: f
+  e:
+    - evening dress
+Abendgesellschaften:
+  gen: pl
+  e:
+    - soirees
+Abendglocke:
+  gen: f
+  e:
+    - curfew
+Abendglocken:
+  gen: pl
+  e:
+    - curfews
+Abendkleid:
+  gen: 'n'
+  e:
+    - evening dress
+    - gown
+Abendkleider:
+  gen: pl
+  e:
+    - evening dresses
+Abendkurs:
+  gen: m
+  e:
+    - evening class
+Abendkurse:
+  gen: pl
+  e:
+    - evening classes
+Abendland:
+  gen: 'n'
+  e:
+    - occident
+Abendrot:
+  gen: 'n'
+  e:
+    - sunset
+Abendröte:
+  gen: f
+  e:
+    - afterglows
+Abendsonne:
+  gen: f
+  e:
+    - setting sun
+Abendstern:
+  gen: m
+  e:
+    - evening star
+Abendvorstellung:
+  gen: f
+  e:
+    - evening performance
+Abendzeitung:
+  gen: f
+  e:
+    - evening paper
+Abenteuer:
+  gen: 'n'
+  e:
+    - adventure
+    - adventures
+Abenteurer:
+  gen: m
+  e:
+    - adventurer
+Abenteurerin:
+  gen: f
+  e:
+    - adventuress
+Abenteürgeschichte:
+  gen: f
+  e:
+    - adventure story
+Abenteürleben:
+  gen: 'n'
+  e:
+    - adventurous life
+Abenteürlichkeit:
+  gen: f
+  e:
+    - adventurousness
+Abenteürlust:
+  gen: f
+  e:
+    - spirit of adventure
+Aberglaube:
+  gen: m
+  e:
+    - superstitiousness
+    - superstition
+Aberkennung:
+  gen: f
+  e:
+    - denial
+Abfahrt:
+  gen: f
+  e:
+    - departure
+Abfahrten:
+  gen: pl
+  e:
+    - departures
+Abfall:
+  gen: m
+  e:
+    - offall
+    - declension
+    - litter
+    - garbage
+    - apostasy
+Abfalleimer:
+  gen: m
+  e:
+    - trash can
+    - dustbin
+    - dust bin
+Abfälligkeit:
+  gen: f
+  e:
+    - snideness
+Abfallpapier:
+  gen: 'n'
+  e:
+    - wastepaper
+Abfallprodukt:
+  gen: 'n'
+  e:
+    - waste product
+    - by−product
+Abfallprodukte:
+  gen: pl
+  e:
+    - waste products
+Abfallzeit:
+  gen: f
+  e:
+    - connection timeout
+    - fall time
+Abfassung:
+  gen: f
+  e:
+    - composition
+Abfertigungen:
+  gen: pl
+  e:
+    - dispatches
+Abfertigungsstelle:
+  gen: f
+  e:
+    - dispatch office
+Abfindung:
+  gen: f
+  e:
+    - forisfamiliation
+    - compensation
+    - gratuity
+Abfindungen:
+  gen: pl
+  e:
+    - gratuities
+Abfindungsvertrag:
+  gen: m
+  e:
+    - termination agreement
+Abflachung:
+  gen: f
+  e:
+    - flattening
+    - flat portion
+Abflachungen:
+  gen: pl
+  e:
+    - flattenings
+Abflüge:
+  gen: pl
+  e:
+    - takeoffs
+Abflußrohr:
+  gen: m
+  e:
+    - spout
+Abforstung:
+  gen: f
+  e:
+    - deforestation
+Abforstungen:
+  gen: pl
+  e:
+    - deforestations
+Abfrage:
+  gen: f
+  e:
+    - recitation
+    - interrogation
+    - inquiry
+Abfrageeinrichtung:
+  gen: f
+  e:
+    - interrogator
+Abfragekriterium:
+  gen: 'n'
+  e:
+    - qualifier
+Abfragestation:
+  gen: f
+  e:
+    - query station
+    - retrieval terminal
+Abfühlstift:
+  gen: m
+  e:
+    - pecker
+Abfuhr:
+  gen: f
+  e:
+    - removal
+Abführmittel:
+  gen: 'n'
+  e:
+    - physic
+    - laxative
+Abfüllerfirma:
+  gen: f
+  e:
+    - bottler
+Abfüllerfirmen:
+  gen: pl
+  e:
+    - bottlers
+Abgabe:
+  gen: f
+  e:
+    - tribute
+    - tax
+Abgaben:
+  gen: pl
+  e:
+    - tributes
+    - taxes
+Abgangsflughafen:
+  gen: m
+  e:
+    - airport of depature
+Abgangskontrolle:
+  gen: f
+  e:
+    - removal control
+    - physical exit control
+Abgangszeugnis:
+  gen: 'n'
+  e:
+    - leaving certificate
+Abgas:
+  gen: 'n'
+  e:
+    - flue gas
+    - waste gas
+Abgaskühler:
+  gen: m
+  e:
+    - exhaust gas cooler
+Abgasverlust:
+  gen: m
+  e:
+    - exhaust gas losses
+Abgeneigtheit:
+  gen: f
+  e:
+    - averseness
+Abgeordnete:
+  gen: m
+  e:
+    - representative
+    - deputy
+    - delegate
+Abgesandte:
+  gen: m
+  e:
+    - delegate
+Abgeschiedenheit:
+  gen: f
+  e:
+    - seclusion
+Abgeschlossenheit:
+  gen: f
+  e:
+    - insularity
+    - seclusion
+Abgeschlossenheiten:
+  gen: pl
+  e:
+    - seclusiveness
+Abgott:
+  gen: m
+  e:
+    - idol
+Abgötter:
+  gen: pl
+  e:
+    - idols
+Abgötterei:
+  gen: pl
+  e:
+    - idolization
+    - idolatrousness
+Abgrenzer:
+  gen: m
+  e:
+    - delimiter
+Abgrenzung:
+  gen: f
+  e:
+    - delimitation
+    - demarcation
+Abgrenzungen:
+  gen: pl
+  e:
+    - demarcations
+    - delimitations
+Abgrund:
+  gen: m
+  e:
+    - abyss
+    - precipice
+    - abysm
+    - fovea
+Abgründe:
+  gen: pl
+  e:
+    - abysms
+    - precipices
+    - abysses
+    - foveae
+Abgüsse:
+  gen: pl
+  e:
+    - castings
+Abhaltung:
+  gen: f
+  e:
+    - disincentive
+Abhandlung:
+  gen: f
+  e:
+    - disquisition
+    - treatise
+Abhandlungen:
+  gen: pl
+  e:
+    - treatises
+Abhang:
+  gen: m
+  e:
+    - declivity
+Abhänge:
+  gen: pl
+  e:
+    - declivities
+Abhängige:
+  gen: pl
+  e:
+    - dependents
+Abhängigkeit:
+  gen: f
+  e:
+    - dependence
+    - interdepend
+Abhebung:
+  gen: f
+  e:
+    - withdrawal
+Abhilfe:
+  gen: f
+  e:
+    - remedy
+Abhilfen:
+  gen: pl
+  e:
+    - correctives
+Abhören:
+  gen: 'n'
+  e:
+    - wiretapping
+Abirrung:
+  gen: f
+  e:
+    - aberrance
+Abisolieren:
+  gen: f
+  e:
+    - skinning
+Abisolierzange:
+  gen: f
+  e:
+    - stripper
+Abitur:
+  gen: 'n'
+  e:
+    - school leaving examination
+Abkehr:
+  gen: f
+  e:
+    - turning away
+Abklärung:
+  gen: f
+  e:
+    - clarification
+Abkommen:
+  gen: 'n'
+  e:
+    - agreement
+Abkühlung:
+  gen: f
+  e:
+    - cooling
+Abkürzer:
+  gen: m
+  e:
+    - abbreviator
+Abkürzung:
+  gen: f
+  e:
+    - abbreviation
+    - shortcut
+Abkürzungen:
+  gen: pl
+  e:
+    - shortcuts
+    - abbreviations
+Abkürzungi:
+  gen: f
+  e:
+    - acronym
+Abladeplatz:
+  gen: m
+  e:
+    - unloading point
+Abladeplätze:
+  gen: pl
+  e:
+    - unloading points
+Ablader:
+  gen: m
+  e:
+    - unloader
+    - unloaders
+Ablage:
+  gen: f
+  e:
+    - deposit
+    - tray
+    - deposition
+    - clipboard
+    - filing
+Ablagefach:
+  gen: 'n'
+  e:
+    - pocket
+Ablagekasten:
+  gen: m
+  e:
+    - tray
+Ablagemagazin:
+  gen: 'n'
+  e:
+    - stacker
+Ablagen:
+  gen: pl
+  e:
+    - depositions
+Ablagerung:
+  gen: f
+  e:
+    - deposit
+    - sediment
+Ablagerungen:
+  gen: pl
+  e:
+    - sediments
+Ablagesystem:
+  gen: m
+  e:
+    - filing system
+Ablagetische:
+  gen: pl
+  e:
+    - deposit tables
+Ablasshahn:
+  gen: m
+  e:
+    - drain cock
+'Ablauf [zeitl.]':
+  gen: m
+  e:
+    - cycle
+Ablauf:
+  gen: m
+  e:
+    - sequence
+    - flowing off
+Ablaufanweisung:
+  gen: f
+  e:
+    - run chart
+Ablaufdiagramm:
+  gen: 'n'
+  e:
+    - flowchart
+Abläufe:
+  gen: pl
+  e:
+    - drains
+Ablaufglied:
+  gen: 'n'
+  e:
+    - step logic element
+Ablaufkette:
+  gen: f
+  e:
+    - sequence cascade
+Ablaufrechner:
+  gen: f
+  e:
+    - object computer
+Ablaufrohr:
+  gen: 'n'
+  e:
+    - drain pipe
+Ablaufschaltwerk:
+  gen: 'n'
+  e:
+    - sequence processor
+Ablaufsteürung:
+  gen: f
+  e:
+    - sequentiel control
+    - sequential control
+Ablaufverfolger:
+  gen: m
+  e:
+    - tracer
+Ablaufverfolgung:
+  gen: f
+  e:
+    - backtrace
+    - tracing
+Ablaut:
+  gen: m
+  e:
+    - vowel gradation
+Ablaute:
+  gen: pl
+  e:
+    - vowel gradations
+Ableger:
+  gen: m
+  e:
+    - scion
+    - scions
+Ablehnung:
+  gen: f
+  e:
+    - refusals
+    - refusal
+    - disaffirmation
+Ablehnungen:
+  gen: pl
+  e:
+    - disaffirmations
+Ablehnungshinweis:
+  gen: m
+  e:
+    - disclaimer
+Ableiter:
+  gen: m
+  e:
+    - deflector
+Ableitkondensator:
+  gen: m
+  e:
+    - bypass capacitor
+Ableitung:
+  gen: f
+  e:
+    - derivation
+    - deduction
+    - derivative
+    - revulsion
+Ableitungen:
+  gen: pl
+  e:
+    - derivatives
+    - derivations
+Ableitungskanal:
+  gen: m
+  e:
+    - drainage
+Ablenkspule:
+  gen: f
+  e:
+    - deflector
+Ablenkung:
+  gen: f
+  e:
+    - distraction
+    - distaction
+    - deflection
+Ablenkungen:
+  gen: pl
+  e:
+    - distractions
+    - deflections
+Ablesung:
+  gen: f
+  e:
+    - reading
+Abluft:
+  gen: f
+  e:
+    - extracted air
+Abmachung:
+  gen: f
+  e:
+    - arrangement
+    - settlement
+Abmagerung:
+  gen: f
+  e:
+    - emaciation
+Abmahnung:
+  gen: f
+  e:
+    - dissuasiveness
+Abmarsch:
+  gen: m
+  e:
+    - decampment
+Abmeldung:
+  gen: f
+  e:
+    - notice of departure
+Abmessung:
+  gen: f
+  e:
+    - dimension
+Abnahme:
+  gen: f
+  e:
+    - acceptance
+    - certification
+Abnahmebedingungen:
+  gen: pl
+  e:
+    - acceptance terms
+    - acceptability standards
+Abnahmebereich:
+  gen: m
+  e:
+    - acceptance region
+Abnahmebescheinigung:
+  gen: f
+  e:
+    - acceptance certificate
+Abnahmekonfiguration:
+  gen: f
+  e:
+    - acceptance configuration
+Abnahmekontrolle:
+  gen: f
+  e:
+    - acceptance sampling
+    - acceptance inspection
+Abnahmelinie:
+  gen: f
+  e:
+    - acceptance line
+Abnahmeprotokoll:
+  gen: 'n'
+  e:
+    - test certificate
+    - acceptance certificate
+Abnahmeprüfung:
+  gen: f
+  e:
+    - specification test
+    - proof test
+    - acceptance test
+Abnahmequittung:
+  gen: f
+  e:
+    - acceptor handshake
+Abnahmetest:
+  gen: m
+  e:
+    - acceptance trial
+Abnahmevorschrift:
+  gen: f
+  e:
+    - acceptance test procedure
+Abnahmevorschriften:
+  gen: pl
+  e:
+    - acceptance standards
+Abnahmezahl:
+  gen: f
+  e:
+    - acceptance number
+Abnehmer:
+  gen: m
+  e:
+    - accepter
+    - taker
+    - account debtor
+Abneigung:
+  gen: f
+  e:
+    - repugnance
+    - aversion
+    - disinclination
+Abneigungen:
+  gen: pl
+  e:
+    - aversenesses
+    - disinclinations
+    - aversions
+Abnormität:
+  gen: f
+  e:
+    - anomalousness
+Abnormitäten:
+  gen: pl
+  e:
+    - anomalousnesses
+Abnutzung:
+  gen: f
+  e:
+    - fading
+    - wastage
+    - wearout
+Abnützung:
+  gen: f
+  e:
+    - abrasion
+Abonnement:
+  gen: 'n'
+  e:
+    - subscription
+Abonnements:
+  gen: pl
+  e:
+    - subscriptions
+Abonnementvorstellung:
+  gen: f
+  e:
+    - subscription performance
+Abonnementvorstellungen:
+  gen: pl
+  e:
+    - subscription performances
+Abonnenten:
+  gen: pl
+  e:
+    - subscribers
+Abordnung:
+  gen: f
+  e:
+    - delegation
+    - delegacy
+Abordnungen:
+  gen: pl
+  e:
+    - delegations
+Aborte:
+  gen: pl
+  e:
+    - toilets
+Abprall:
+  gen: m
+  e:
+    - rebound
+Abraten:
+  gen: 'n'
+  e:
+    - dissuasion
+Abrechnung:
+  gen: f
+  e:
+    - deduction
+    - statement
+    - payoff
+    - accounting
+Abrechnungscomputer:
+  gen: m
+  e:
+    - accounting computer
+Abrechnungsdatei:
+  gen: f
+  e:
+    - accounting file
+Abrechnungsperiode:
+  gen: f
+  e:
+    - account period
+    - accounting period
+Abrechnungsprotokolldatei:
+  gen: f
+  e:
+    - accounting log file
+Abrechnungsroutine:
+  gen: f
+  e:
+    - accounting routine
+Abrechnungszeitraum:
+  gen: m
+  e:
+    - accounting period
+Abrede:
+  gen: f
+  e:
+    - understanding
+Abreiben:
+  gen: 'n'
+  e:
+    - abrasiveness
+Abreibung:
+  gen: f
+  e:
+    - abrasion
+    - attrition
+    - rubdown
+Abreisen:
+  gen: 'n'
+  e:
+    - depart
+Abreisszettel:
+  gen: m
+  e:
+    - stub
+Abrieb:
+  gen: m
+  e:
+    - attrition
+Abriß:
+  gen: m
+  e:
+    - talon
+    - stub
+Abrisskante:
+  gen: f
+  e:
+    - tear−off edge
+Abrisskarte:
+  gen: f
+  e:
+    - scored card
+Abruf:
+  gen: m
+  e:
+    - fetch
+Abrundung:
+  gen: f
+  e:
+    - rounding
+Abrüstung:
+  gen: f
+  e:
+    - disarmament
+Abrüstungskonferenz:
+  gen: f
+  e:
+    - disarmament conference
+Absage:
+  gen: f
+  e:
+    - cancellation
+Absatz:
+  gen: m
+  e:
+    - heel
+    - paragraph
+Absätze:
+  gen: pl
+  e:
+    - heels
+Absatzförderung:
+  gen: f
+  e:
+    - sales promotion
+Absatzgebiet:
+  gen: 'n'
+  e:
+    - trading area
+Absatzgebiete:
+  gen: pl
+  e:
+    - markets
+Absatzkrise:
+  gen: f
+  e:
+    - sales crisis
+Absatzkrisen:
+  gen: pl
+  e:
+    - sales crises
+Absatzlage:
+  gen: f
+  e:
+    - sales situation
+Absatzmagnet:
+  gen: 'n'
+  e:
+    - anchor tenant
+Absatzmöglichkeit:
+  gen: f
+  e:
+    - sales potential
+Absatzstockung:
+  gen: f
+  e:
+    - stagnation of the market
+Absatzwesen:
+  gen: 'n'
+  e:
+    - marketing
+Abschaffung:
+  gen: f
+  e:
+    - abolishment
+    - abolition
+Abschaffungen:
+  gen: pl
+  e:
+    - abolitionisms
+Abschaltautomatik:
+  gen: f
+  e:
+    - automatic switchoff
+Abschaltung:
+  gen: f
+  e:
+    - cutout
+    - cutoff
+    - passivation
+    - deactivation
+Abschaltverzögerung:
+  gen: f
+  e:
+    - turn−off delay
+Abschaltzeit:
+  gen: f
+  e:
+    - disconnecting time
+Abschätzung:
+  gen: f
+  e:
+    - estimation
+    - appraisal
+Abschaum:
+  gen: m
+  e:
+    - dregs
+    - scum
+Abscheu:
+  gen: f
+  e:
+    - horror
+    - detestation
+    - abomination
+    - abhorrence
+Abscheulichkeit:
+  gen: f
+  e:
+    - heinousness
+    - hellishness
+    - hideousness
+Abscheulichkeiten:
+  gen: pl
+  e:
+    - hideousnesses
+Abschied:
+  gen: m
+  e:
+    - parting
+    - valediction
+Abschiede:
+  gen: pl
+  e:
+    - valedictions
+Abschiedsbrief:
+  gen: m
+  e:
+    - farewell letter
+Abschiedsfeier:
+  gen: f
+  e:
+    - farewell party
+Abschiedsfeiern:
+  gen: pl
+  e:
+    - farewell parties
+Abschiedsgesuch:
+  gen: 'n'
+  e:
+    - resignation
+Abschiedskuß:
+  gen: m
+  e:
+    - parting kiss
+Abschiedsrede:
+  gen: f
+  e:
+    - valedictory
+    - farewell speech
+Abschiedsreden:
+  gen: pl
+  e:
+    - farewell speeches
+    - valedictories
+Abschiedsredner:
+  gen: m
+  e:
+    - valedictorian
+    - valedictorians
+Abschiedsschmerz:
+  gen: m
+  e:
+    - wrench
+Abschirmung:
+  gen: f
+  e:
+    - screening
+Abschlag:
+  gen: m
+  e:
+    - discount
+    - anticipated payment
+Abschlagzahlung:
+  gen: f
+  e:
+    - installment
+Abschleppdienst:
+  gen: m
+  e:
+    - wrecking service
+Abschleppdienste:
+  gen: pl
+  e:
+    - wrecking services
+Abschleppseil:
+  gen: 'n'
+  e:
+    - towrope
+    - tow rope
+Abschleppseile:
+  gen: pl
+  e:
+    - tow ropes
+Abschleppwagen:
+  gen: m
+  e:
+    - breakdown van
+    - breakdown lorry
+Abschlussbuchungen:
+  gen: pl
+  e:
+    - annual closing entries
+Abschlußgebühr:
+  gen: f
+  e:
+    - acquisition fee
+Abschlußkosten:
+  gen: pl
+  e:
+    - acquisition cost
+Abschlussprogramm:
+  gen: 'n'
+  e:
+    - terminator
+Abschlußprovision:
+  gen: f
+  e:
+    - acquisition commission
+Abschlußprüfer:
+  gen: m
+  e:
+    - auditor of annual accounts
+    - annual auditor
+Abschlußprüfung:
+  gen: f
+  e:
+    - audit of annual accounts
+    - final examination
+Abschlussprüfungen:
+  gen: pl
+  e:
+    - final examinations
+Abschlusszyklus:
+  gen: m
+  e:
+    - termination cycle
+Abschmatzen:
+  gen: 'n'
+  e:
+    - slobbation
+Abschmelzdaür:
+  gen: f
+  e:
+    - fusing time
+Abschmiernippel:
+  gen: 'n'
+  e:
+    - grease nippel
+Abschminkwatte:
+  gen: f
+  e:
+    - make−up remover pad
+Abschnitt:
+  gen: m
+  e:
+    - chapter
+    - segment
+    - section
+    - episode
+    - paragraph
+Abschnitte:
+  gen: pl
+  e:
+    - segments
+    - sections
+Abschnürung:
+  gen: f
+  e:
+    - pinch−off
+Abschrägen:
+  gen: 'n'
+  e:
+    - chamfering
+Abschreckung:
+  gen: f
+  e:
+    - determent
+    - deterrence
+Abschreckungen:
+  gen: pl
+  e:
+    - determents
+Abschreckungsmittel:
+  gen: 'n'
+  e:
+    - deterrent
+    - deterrant
+Abschreckwirkung:
+  gen: f
+  e:
+    - chilling effect
+Abschreiber:
+  gen: m
+  e:
+    - copyist
+    - cribber
+Abschreibung:
+  gen: f
+  e:
+    - write off
+Abschreibungen:
+  gen: pl
+  e:
+    - write offs
+Abschreibungsart:
+  gen: f
+  e:
+    - amortization type
+Abschreibungsbetrag:
+  gen: m
+  e:
+    - amount of depreciation
+    - amortization amount
+Abschreibungsbuchung:
+  gen: f
+  e:
+    - amortization posting
+Abschreibungsdaür:
+  gen: f
+  e:
+    - amortization period
+Abschreibungsfeld:
+  gen: 'n'
+  e:
+    - amortization field
+Abschreibungskorrektur:
+  gen: f
+  e:
+    - amortization adjustment
+Abschreibungskosten:
+  gen: pl
+  e:
+    - amortization costs
+Abschreibungsliste:
+  gen: f
+  e:
+    - amortization list
+Abschreibungsmethode:
+  gen: f
+  e:
+    - amortization method
+Abschreibungsmode:
+  gen: f
+  e:
+    - amortization mode
+Abschreibungsparameter:
+  gen: m
+  e:
+    - amortization parameter
+Abschreibungsperiode:
+  gen: f
+  e:
+    - amortization period
+Abschreibungsprognose:
+  gen: f
+  e:
+    - amortization forecast
+Abschreibungsrate:
+  gen: f
+  e:
+    - amortization rate
+Abschreibungsrechnung:
+  gen: f
+  e:
+    - amortization calculation
+Abschreibungsregel:
+  gen: f
+  e:
+    - amortization rule
+Abschreibungssatz:
+  gen: m
+  e:
+    - amortization record
+Abschreibungsschlüssel:
+  gen: m
+  e:
+    - amortization code
+Abschreibungsstornierung:
+  gen: f
+  e:
+    - amortization cancellation
+Abschreibungsüberwachung:
+  gen: f
+  e:
+    - amortization control
+Abschreibungswert:
+  gen: m
+  e:
+    - amortization value
+Abschrift:
+  gen: f
+  e:
+    - transcription
+    - transcript
+Abschriften:
+  gen: pl
+  e:
+    - transcriptions
+    - transcripts
+Abschrifti:
+  gen: f
+  e:
+    - transcription
+Abschüsse:
+  gen: pl
+  e:
+    - firings
+Abschussrampen:
+  gen: pl
+  e:
+    - launching platforms
+Abschwächer:
+  gen: m
+  e:
+    - reducer
+Abschwächung:
+  gen: f
+  e:
+    - attenuation
+Abschweifung:
+  gen: f
+  e:
+    - digression
+Abschweifungen:
+  gen: pl
+  e:
+    - digressions
+Abseits:
+  gen: 'n'
+  e:
+    - aside
+Abseitsstellungen:
+  gen: pl
+  e:
+    - offsides
+Absender:
+  gen: m
+  e:
+    - despatcher
+    - originator
+    - forwarder
+    - consignor
+    - forwarders
+Absenderkennung:
+  gen: f
+  e:
+    - source identifier
+Absetzung:
+  gen: f
+  e:
+    - degradation
+Absetzungen:
+  gen: pl
+  e:
+    - discharges
+    - degradations
+Absicherung:
+  gen: f
+  e:
+    - safeguarding
+Absicht:
+  gen: f
+  e:
+    - purpose
+    - tendency
+    - intention
+    - intent
+    - mind
+Absichten:
+  gen: pl
+  e:
+    - purposes
+    - intentions
+    - intents
+Absolutadreßbereich:
+  gen: m
+  e:
+    - absolute address area
+Absolutaktenzeichen:
+  gen: 'n'
+  e:
+    - absolute file reference
+Absolutauswahl:
+  gen: f
+  e:
+    - absolute selction
+Absolutdatei:
+  gen: f
+  e:
+    - absolute file
+Absolute:
+  gen: f
+  e:
+    - absoluteness
+Absolute Zahl:
+  gen: f
+  e:
+    - absolute number
+Absoluteintragung:
+  gen: f
+  e:
+    - absolute entry
+absoluter Wert:
+  gen: m
+  e:
+    - absolute value
+Absolutismus:
+  gen: m
+  e:
+    - absolutism
+Absolutlader:
+  gen: m
+  e:
+    - absolute loader
+Absolutname:
+  gen: m
+  e:
+    - absolute name
+Absolutsteürblock:
+  gen: m
+  e:
+    - absolute control block
+Absoluttext:
+  gen: m
+  e:
+    - absolute text
+Absolutwertübertrager:
+  gen: m
+  e:
+    - transducer
+Absonderung:
+  gen: f
+  e:
+    - secretion
+    - dissociation
+    - reject
+    - isolation
+Absonderungen:
+  gen: pl
+  e:
+    - dissociations
+Absorber:
+  gen: m
+  e:
+    - absorber
+Absorption:
+  gen: f
+  e:
+    - absorption
+Absorptionsfähigkeit:
+  gen: f
+  e:
+    - absorbability
+Absorptionstheorie:
+  gen: f
+  e:
+    - absorption approach
+Absorptionsvermögen:
+  gen: 'n'
+  e:
+    - absorbencies
+Abspeicherungen:
+  gen: pl
+  e:
+    - savings
+Absperrung:
+  gen: f
+  e:
+    - barrier
+Absperrungen:
+  gen: pl
+  e:
+    - barriers
+Absperrvorrichtung:
+  gen: f
+  e:
+    - faucet
+Absperrvorrichtungen:
+  gen: pl
+  e:
+    - cutoffs
+Absprünge:
+  gen: pl
+  e:
+    - jumps
+Abstammung:
+  gen: f
+  e:
+    - ancestory
+    - lineage
+    - parentage
+    - ancestry
+Abstammungen:
+  gen: pl
+  e:
+    - ancestries
+    - lineages
+Abstammungslehre:
+  gen: f
+  e:
+    - theory of evolution
+Abstammungslehren:
+  gen: pl
+  e:
+    - theories of evolution
+Abstand:
+  gen: m
+  e:
+    - distance
+    - spacing
+    - desistance
+    - displacement
+Abstände:
+  gen: pl
+  e:
+    - distances
+Abstandprüfung:
+  gen: f
+  e:
+    - bias test
+Abstandsstück:
+  gen: 'n'
+  e:
+    - spacer
+Absteigen:
+  gen: 'n'
+  e:
+    - downswing
+Abstellgleis:
+  gen: 'n'
+  e:
+    - siding
+Abstieg:
+  gen: m
+  e:
+    - descent
+    - descend
+Abstiege:
+  gen: pl
+  e:
+    - descents
+Abstimmen:
+  gen: 'n'
+  e:
+    - voting
+Abstimmung:
+  gen: f
+  e:
+    - poll
+    - vote
+    - tuning
+    - ballot
+Abstimmungen:
+  gen: pl
+  e:
+    - votes
+Abstinenz:
+  gen: f
+  e:
+    - abstinence
+    - teetotalism
+Abstinenzler:
+  gen: m
+  e:
+    - teetotaller
+    - teetotaler
+    - teetotalers
+    - teetotallers
+Abstoß:
+  gen: f
+  e:
+    - repellency
+    - disgust
+Abstoßung:
+  gen: f
+  e:
+    - repulsion
+Abstrahlung:
+  gen: f
+  e:
+    - irradiation
+Abstraktion:
+  gen: 'f]'
+  e:
+    - abstraction
+Abstreifer:
+  gen: m
+  e:
+    - wiper
+Abstreifring:
+  gen: m
+  e:
+    - scraper ring
+Abstufung:
+  gen: f
+  e:
+    - gradation
+    - nuance
+Abstufungen:
+  gen: pl
+  e:
+    - gradations
+    - nuances
+Absturz:
+  gen: m
+  e:
+    - washout
+Abstürze:
+  gen: pl
+  e:
+    - falls
+    - crashes
+    - washouts
+Absuchen einer Datei:
+  gen: 'n'
+  e:
+    - file searching
+Absurdität:
+  gen: f
+  e:
+    - absurdity
+Absurditäten:
+  gen: pl
+  e:
+    - absurdities
+Abszeß:
+  gen: m
+  e:
+    - abscess
+Abszisse:
+  gen: f
+  e:
+    - x−coordinate
+    - axis of abscissas
+    - abscissa
+Abszissenachse:
+  gen: f
+  e:
+    - x−axis
+Abszissenwert:
+  gen: m
+  e:
+    - x−coordinate
+Abt:
+  gen: m
+  e:
+    - abbot
+Abtaster:
+  gen: m
+  e:
+    - scanner
+Abtastimpuls:
+  gen: m
+  e:
+    - strobe pulse
+Abtastung:
+  gen: f
+  e:
+    - scanning
+    - sensing
+Abtei:
+  gen: f
+  e:
+    - abbey
+Abteil:
+  gen: 'n'
+  e:
+    - compartment
+Abteilung:
+  gen: 'f]'
+  e:
+    - department
+    - division
+    - compartment
+    - departmental
+    - detachment
+Abteilungen:
+  gen: pl
+  e:
+    - compartments
+    - departments
+Abteilungs−:
+  gen: ''
+  e:
+    - departmentally
+Abteilungserfolgsrechnung:
+  gen: f
+  e:
+    - activity accounting
+Abteilungsleiter:
+  gen: m
+  e:
+    - head of the department
+    - floorwalker
+    - floorwalkers
+    - heads of the department
+Abtreiber:
+  gen: m
+  e:
+    - abortionist
+Abtreibung:
+  gen: f
+  e:
+    - abortion
+Abtreibungen:
+  gen: pl
+  e:
+    - abortions
+Abtrennung:
+  gen: f
+  e:
+    - separation
+Abtretbarkeit:
+  gen: f
+  e:
+    - assignability
+Abtretende:
+  gen: m
+  e:
+    - assigner
+    - assignor
+Abtreter:
+  gen: m
+  e:
+    - assignor
+Abtretung:
+  gen: f
+  e:
+    - cession
+    - surrender
+Abtretungen:
+  gen: pl
+  e:
+    - cessions
+    - surrenders
+    - assignments
+Abtretungsformular:
+  gen: 'n'
+  e:
+    - assignment form
+Abtrieb:
+  gen: m
+  e:
+    - output
+Abtritt:
+  gen: m
+  e:
+    - leeway
+    - toilet
+Abtropfbrett:
+  gen: 'n'
+  e:
+    - dishrack
+Abtropfgefäss:
+  gen: 'n'
+  e:
+    - drainer
+Abtrünnige:
+  gen: m
+  e:
+    - apostate
+    - renegade
+    - turncoat
+    - defector
+    - renegades
+    - turncoats
+    - secessionists
+Abtrünnigkeit:
+  gen: f
+  e:
+    - aposta
+Abwärme:
+  gen: f
+  e:
+    - waste heat
+Abwaschlappen:
+  gen: m
+  e:
+    - dishrag
+    - washcloth
+Abwaschtuch:
+  gen: 'n'
+  e:
+    - dishcloth
+Abwasser:
+  gen: 'n'
+  e:
+    - sewage
+    - waste water
+Abwässer:
+  gen: pl
+  e:
+    - sewages
+Abwechslungen:
+  gen: pl
+  e:
+    - changes
+Abweg:
+  gen: m
+  e:
+    - wrong way
+Abwege:
+  gen: pl
+  e:
+    - wrong ways
+Abwegigkeit:
+  gen: f
+  e:
+    - deviousness
+    - digressiveness
+Abwehr:
+  gen: f
+  e:
+    - defense
+Abwehrstoff:
+  gen: ''
+  e:
+    - antibody
+    - antigen
+Abwehrstoffe:
+  gen: pl
+  e:
+    - antibodies
+Abweichung:
+  gen: f
+  e:
+    - abnormality
+    - divergence
+    - excursion
+    - deviant
+Abweichungen:
+  gen: pl
+  e:
+    - deviants
+    - azimuths
+    - abnormalities
+    - deviations
+Abweichungsverteilung:
+  gen: f
+  e:
+    - allocation of variances
+Abwendung:
+  gen: f
+  e:
+    - prevention
+Abwendung des Konkurses:
+  gen: f
+  e:
+    - avoidance of bankruptcy
+Abwerten:
+  gen: 'n'
+  e:
+    - devaluate
+Abwertung:
+  gen: f
+  e:
+    - devaluation
+Abwertungen:
+  gen: pl
+  e:
+    - devaluations
+Abwesende:
+  gen: m
+  e:
+    - absentee
+    - absentees
+Abwesenheit:
+  gen: f
+  e:
+    - absence
+Abwesenheiten:
+  gen: pl
+  e:
+    - absences
+Abwesenheitszeit:
+  gen: f
+  e:
+    - absence of time
+Abwickeleinrichtung:
+  gen: f
+  e:
+    - unwinder
+Abwickeln:
+  gen: 'n'
+  e:
+    - phaseout
+Abwickelspule:
+  gen: f
+  e:
+    - take−off reel
+Abwicklung:
+  gen: f
+  e:
+    - liquidation
+Abwicklungen:
+  gen: pl
+  e:
+    - executions
+Abwürfe:
+  gen: pl
+  e:
+    - profits
+Abzahlungsgeschäft:
+  gen: 'n'
+  e:
+    - hire purchase business
+Abzahlungskauf:
+  gen: m
+  e:
+    - purchase on account
+Abzahlungskäufe:
+  gen: pl
+  e:
+    - purchases on account
+Abzehrung:
+  gen: f
+  e:
+    - emaciation
+Abzehrungen:
+  gen: pl
+  e:
+    - emaciations
+Abzeichen:
+  gen: 'n'
+  e:
+    - insignia
+    - badge
+Abziehbild:
+  gen: 'n'
+  e:
+    - transfer picture
+    - decal
+Abziehbilder:
+  gen: pl
+  e:
+    - transfer pictures
+    - decals
+Abziehstein:
+  gen: m
+  e:
+    - sharpening stone
+Abziehung:
+  gen: f
+  e:
+    - abstraction
+Abzisse:
+  gen: f
+  e:
+    - abscissae
+Abzug:
+  gen: m
+  e:
+    - subtraction
+    - deduction
+    - discount
+Abzüge:
+  gen: pl
+  e:
+    - deductions
+    - discounts
+    - subtractions
+Abzugsbügel:
+  gen: pl
+  e:
+    - triggers
+Abzugsrohr:
+  gen: 'n'
+  e:
+    - drainpipe
+Abzweigdose:
+  gen: f
+  e:
+    - distribution box
+Abzweigung:
+  gen: f
+  e:
+    - divergency
+    - arm
+Acajoubaum:
+  gen: m
+  e:
+    - cashew
+Acetat:
+  gen: 'n'
+  e:
+    - acetate
+Aceton:
+  gen: 'n'
+  e:
+    - acetone
+Acetylen:
+  gen: 'n'
+  e:
+    - acetylene
+Achillessehne:
+  gen: f
+  e:
+    - hamstring
+Achillessehnen:
+  gen: pl
+  e:
+    - hamstrings
+Achsabstand:
+  gen: m
+  e:
+    - centre distance
+Achse:
+  gen: f
+  e:
+    - axle
+    - center line
+    - arbor
+    - axis
+Achsel:
+  gen: f
+  e:
+    - shoulder
+Achselhöhle:
+  gen: f
+  e:
+    - armpit
+    - axillary
+Achselhöhlen:
+  gen: pl
+  e:
+    - armpits
+Achselstück:
+  gen: 'n'
+  e:
+    - epaulet
+Achselstücke:
+  gen: pl
+  e:
+    - epaulets
+Achselzucken:
+  gen: 'n'
+  e:
+    - shrug of the shoulders
+Achsen:
+  gen: pl
+  e:
+    - Axes
+    - arbors
+Achtbarkeit:
+  gen: f
+  e:
+    - respectability
+Achtbitzeichen:
+  gen: 'n'
+  e:
+    - octet
+Achteck:
+  gen: 'n'
+  e:
+    - octagon
+Achtelmeile:
+  gen: f
+  e:
+    - furlong
+Achterbahn:
+  gen: f
+  e:
+    - switchback
+Achterbahnen:
+  gen: pl
+  e:
+    - switchbacks
+Achterdeck:
+  gen: m
+  e:
+    - afterdeck
+Achtlosigkeit:
+  gen: f
+  e:
+    - carelessness
+Achtsamkeit:
+  gen: f
+  e:
+    - attentiveness
+    - regardfulness
+Achtspurlochstreifen:
+  gen: m
+  e:
+    - eight−channel tape
+Achtstundentag:
+  gen: m
+  e:
+    - eight hour day
+Achtung:
+  gen: f
+  e:
+    - attention
+Achtzehntel:
+  gen: 'n'
+  e:
+    - eighteenths
+Achtzigstel:
+  gen: 'n'
+  e:
+    - eightieth
+Acker:
+  gen: m
+  e:
+    - acre
+Ackerbau:
+  gen: m
+  e:
+    - agriculture
+    - tilth
+    - husbandry
+    - tillage
+Ackergaul:
+  gen: m
+  e:
+    - farm horse
+Ackerland:
+  gen: 'n'
+  e:
+    - infield
+    - arable farm Land
+Acryl:
+  gen: 'n'
+  e:
+    - acrylic
+Adagio:
+  gen: 'n'
+  e:
+    - adagios
+Adapter:
+  gen: m
+  e:
+    - adapter
+    - adapters
+Adaptierung:
+  gen: f
+  e:
+    - adaption
+Addierer:
+  gen: m
+  e:
+    - adder
+Addiergeschwindigkeit:
+  gen: f
+  e:
+    - accumulation speed
+Addiermaschine:
+  gen: f
+  e:
+    - adding machine
+Addiermodus:
+  gen: m
+  e:
+    - add mode
+Addierschaltung:
+  gen: f
+  e:
+    - adding circuit
+Addierwerk:
+  gen: 'n'
+  e:
+    - adder
+Addition:
+  gen: f
+  e:
+    - addition
+Additionen:
+  gen: pl
+  e:
+    - additions
+Additionsbefehl:
+  gen: m
+  e:
+    - add instruction
+Additionsübertrag:
+  gen: m
+  e:
+    - add carry
+Additionswert:
+  gen: m
+  e:
+    - addend
+Adel:
+  gen: m
+  e:
+    - aristocracy
+    - nobleness
+    - nobility
+Adelsstand:
+  gen: m
+  e:
+    - nobility
+Adelsstände:
+  gen: pl
+  e:
+    - nobilities
+Ader:
+  gen: f
+  e:
+    - vein
+Aderlaß:
+  gen: m
+  e:
+    - phlebotomy
+äderung:
+  gen: f
+  e:
+    - veining
+Adjektiv:
+  gen: 'n'
+  e:
+    - adjective
+Adler:
+  gen: m
+  e:
+    - eagle
+    - eagels
+Adlernase:
+  gen: f
+  e:
+    - aquiline nose
+Adlige:
+  gen: m
+  e:
+    - noblemen
+    - nobleman
+    - aristocracies
+Administrationsbefehl:
+  gen: m
+  e:
+    - administration command
+Administrationsprogramm:
+  gen: 'n'
+  e:
+    - administrative program
+Admiral:
+  gen: m
+  e:
+    - admiral
+Admiralstab:
+  gen: m
+  e:
+    - naval staff
+Adoptierende:
+  gen: m
+  e:
+    - adopter
+Adoption:
+  gen: f
+  e:
+    - adoption
+Adressanhängung:
+  gen: f
+  e:
+    - address enable
+Adressatennummer:
+  gen: f
+  e:
+    - address number
+Adressaufbau:
+  gen: m
+  e:
+    - address structure
+Adreßaufruf:
+  gen: m
+  e:
+    - address call
+adreßauswahl:
+  gen: f
+  e:
+    - address selection
+Adreßbereich:
+  gen: m
+  e:
+    - address range
+    - address space
+Adreßbit:
+  gen: 'n'
+  e:
+    - address bit
+Adreßbuch:
+  gen: 'n'
+  e:
+    - table of addresses
+    - address book
+    - address table
+Adreßbus:
+  gen: m
+  e:
+    - address bus
+Adreßcodeformat:
+  gen: 'n'
+  e:
+    - address code format
+Adreßdatei:
+  gen: f
+  e:
+    - address file
+Adreßdaten:
+  gen: f
+  e:
+    - address data
+Adreßdatenverarbeitung:
+  gen: f
+  e:
+    - address data processing
+Adreßdekodierung:
+  gen: f
+  e:
+    - address decode logic
+Adresse:
+  gen: f
+  e:
+    - address
+Adressen:
+  gen: pl
+  e:
+    - addresses
+Adressenänderung:
+  gen: f
+  e:
+    - address modification
+Adressenansteürungsystem:
+  gen: 'n'
+  e:
+    - address selecting system
+Adressenaufkleber:
+  gen: m
+  e:
+    - address label
+Adressenauswahleinrichtung:
+  gen: f
+  e:
+    - address selection unit
+Adressendefinition:
+  gen: f
+  e:
+    - address definition
+Adresseneingabe:
+  gen: f
+  e:
+    - address input
+Adressenerzeugung:
+  gen: f
+  e:
+    - address generation
+Adressenfeld:
+  gen: 'n'
+  e:
+    - address field
+Adressenkapazität:
+  gen: f
+  e:
+    - address capacity
+Adressenkarte:
+  gen: f
+  e:
+    - address card
+Adressenleerstelle:
+  gen: f
+  e:
+    - address blank
+Adressenmodifikation:
+  gen: f
+  e:
+    - address modification
+Adressennummer:
+  gen: f
+  e:
+    - address number
+Adressenschreibung:
+  gen: f
+  e:
+    - address printing
+Adressensystem:
+  gen: 'n'
+  e:
+    - address system
+Adressenteil:
+  gen: m
+  e:
+    - address part
+Adressentext:
+  gen: m
+  e:
+    - address text
+Adressentschlüsselung:
+  gen: f
+  e:
+    - address decoding
+Adressenübersetzung:
+  gen: f
+  e:
+    - address translation
+Adressenumwandlung:
+  gen: f
+  e:
+    - address conversion
+adreßerhöhung:
+  gen: f
+  e:
+    - address increment
+Adreßfehler:
+  gen: f
+  e:
+    - address error
+Adreßfeld:
+  gen: in
+  e:
+    - address array
+    - address field
+Adreßfolge:
+  gen: f
+  e:
+    - address sequence
+Adreßformat:
+  gen: 'n'
+  e:
+    - address format
+    - address code format
+Adressierbarkeit:
+  gen: f
+  e:
+    - addressability
+Adressiermaschine:
+  gen: f
+  e:
+    - addressing machine
+    - mailing machine
+Adressiermethode:
+  gen: f
+  e:
+    - address technique
+    - address mode
+Adressierung:
+  gen: f
+  e:
+    - addressing
+Adressierungsart:
+  gen: f
+  e:
+    - addressing mode
+Adreßimpulseingang:
+  gen: m
+  e:
+    - address strobe input
+Adressindex:
+  gen: m
+  e:
+    - address index
+Adreßkennsatz:
+  gen: m
+  e:
+    - address header
+Adreßkennzeichen:
+  gen: 'n'
+  e:
+    - address identification
+Adreßkonstante:
+  gen: f
+  e:
+    - address constant
+adreßkopf:
+  gen: m
+  e:
+    - address header
+Adressleitung:
+  gen: f
+  e:
+    - address line
+Adreßliste:
+  gen: f
+  e:
+    - address list
+Adreßmarke:
+  gen: f
+  e:
+    - address marker
+Adressmarkierung:
+  gen: f
+  e:
+    - address mark
+Adressmodifikator:
+  gen: m
+  e:
+    - label modifier
+adreßobergrenze:
+  gen: f
+  e:
+    - upper−bound address
+Adreßpegel:
+  gen: m
+  e:
+    - address level
+Adreßpegelzähler:
+  gen: m
+  e:
+    - location counter
+adreßrechnung:
+  gen: f
+  e:
+    - randomizing
+    - address computation
+Adreßregister:
+  gen: 'n'
+  e:
+    - address register
+Adreßsatz:
+  gen: m
+  e:
+    - address record
+Adreßschlüssel:
+  gen: m
+  e:
+    - address code
+Adreßspeicher:
+  gen: m
+  e:
+    - address storage
+Adreßspur:
+  gen: f
+  e:
+    - address track
+Adreßteil:
+  gen: m
+  e:
+    - address part
+Adreßteil des Befehls:
+  gen: m
+  e:
+    - address section
+Adreßüberschreitung:
+  gen: f
+  e:
+    - address owerflow
+Adreßübersetzung:
+  gen: f
+  e:
+    - address translation
+Adressuntergrenze:
+  gen: f
+  e:
+    - lower−bound address
+Adreßverkettung:
+  gen: f
+  e:
+    - address chaining
+Adressverriegelung:
+  gen: f
+  e:
+    - address latch enable
+Adreßzähler:
+  gen: m
+  e:
+    - address counter
+Adreßzuordnung:
+  gen: f
+  e:
+    - address assignment
+Adriane:
+  gen: f
+  e:
+    - adrienne
+Adsorbent:
+  gen: m
+  e:
+    - adsorbent
+Adsorption:
+  gen: f
+  e:
+    - adsorption
+Adstringens:
+  gen: m
+  e:
+    - astringents
+Advent:
+  gen: m
+  e:
+    - advent
+Adventszeit:
+  gen: f
+  e:
+    - advent season
+Adverb:
+  gen: 'n'
+  e:
+    - adverb
+Adverben:
+  gen: pl
+  e:
+    - adverbs
+Advokat:
+  gen: m
+  e:
+    - lawyer
+aerobic:
+  gen: f
+  e:
+    - aerobic
+aerodynamik:
+  gen: f
+  e:
+    - aerodynamics
+aerosol:
+  gen: 'n'
+  e:
+    - aerosol
+Affäre:
+  gen: f
+  e:
+    - affair
+Affe:
+  gen: m
+  e:
+    - ape
+    - monkey
+Affekthandlung:
+  gen: f
+  e:
+    - emotional act
+Affektiertheit:
+  gen: f
+  e:
+    - preciosity
+    - artificialness
+    - affectation
+Affen:
+  gen: pl
+  e:
+    - apes
+    - monkeys
+Affenbrotbaum:
+  gen: m
+  e:
+    - baobab
+Affenbrotbäume:
+  gen: pl
+  e:
+    - baobabs
+Affenliebe:
+  gen: f
+  e:
+    - doting love
+Affenschande:
+  gen: f
+  e:
+    - crying shame
+Affentheater:
+  gen: 'n'
+  e:
+    - crazy business
+Affigkeit:
+  gen: f
+  e:
+    - foppishness
+After:
+  gen: m
+  e:
+    - anus
+    - anally
+Agent:
+  gen: m
+  e:
+    - agent
+    - solicitor
+Agentur:
+  gen: f
+  e:
+    - agency
+Agenturen:
+  gen: pl
+  e:
+    - agencies
+Agenturgeschäft:
+  gen: 'n'
+  e:
+    - agency business
+Agenturvergütung:
+  gen: f
+  e:
+    - agency commission
+Agenturvertreter:
+  gen: m
+  e:
+    - agency representative
+Agenturwaren:
+  gen: pl
+  e:
+    - agency goods
+Aggregatnummer:
+  gen: f
+  e:
+    - aggregate number
+Aggregatzustand:
+  gen: m
+  e:
+    - aggregate state
+Aggression:
+  gen: f
+  e:
+    - aggression
+Agio:
+  gen: m
+  e:
+    - agio
+Agnostiker:
+  gen: m
+  e:
+    - agnostic
+Agonie:
+  gen: f
+  e:
+    - throe
+Agraindustrie:
+  gen: f
+  e:
+    - agribusiness
+Agrarerzeugnisse:
+  gen: pl
+  e:
+    - agricultural products
+Agrarexporte:
+  gen: pl
+  e:
+    - agri exports
+    - agricultural exports
+Agrargesetzgebung:
+  gen: f
+  e:
+    - agrarian legislation
+Agrarimporte:
+  gen: pl
+  e:
+    - agricultural imports
+Agrarkredit:
+  gen: m
+  e:
+    - agricultural credit
+Agrarland:
+  gen: 'n'
+  e:
+    - agrarian country
+Agrarpolitik:
+  gen: f
+  e:
+    - agricultural policy
+Agrarpreise:
+  gen: pl
+  e:
+    - agricultural prices
+Agrarproduktion:
+  gen: f
+  e:
+    - agricultural production
+Agrarreform:
+  gen: f
+  e:
+    - agrarian reform
+Agrarstaat:
+  gen: m
+  e:
+    - agrarian state
+Agrarstatistik:
+  gen: f
+  e:
+    - agricultural statistics
+Agrarstruktur:
+  gen: f
+  e:
+    - agrarian structure
+    - agricultural structure
+Agrarsubventionen:
+  gen: pl
+  e:
+    - aids to farmers
+    - agricultural aids
+Agrarüberschüsse:
+  gen: pl
+  e:
+    - agricultural surplus
+Agrarverordnung:
+  gen: f
+  e:
+    - agricultural regulation
+Agrarwissenschaft:
+  gen: f
+  e:
+    - agronomy
+    - agricultural economics
+Agrarzölle:
+  gen: pl
+  e:
+    - agricultural duties
+Ahle:
+  gen: f
+  e:
+    - pricker
+    - awl
+Ahlen:
+  gen: pl
+  e:
+    - awls
+Ahn:
+  gen: m
+  e:
+    - forefather
+Ahndung:
+  gen: f
+  e:
+    - revenge
+Ahnen:
+  gen: pl
+  e:
+    - forefathers
+Ahnenforschung:
+  gen: f
+  e:
+    - genealogical research
+Ahnentafel:
+  gen: f
+  e:
+    - pedigree
+Ahnfrau:
+  gen: f
+  e:
+    - ancestress
+    - beldam
+Ahnfraün:
+  gen: pl
+  e:
+    - ancestresses
+    - beldams
+ähnlichkeit:
+  gen: f
+  e:
+    - resemblance
+    - similitude
+    - likeness
+    - similarity
+ähnlichkeiten:
+  gen: pl
+  e:
+    - similarities
+    - similitudes
+    - resemblances
+Ahnung:
+  gen: f
+  e:
+    - intuitiveness
+Ahnungen:
+  gen: pl
+  e:
+    - intuitivenesses
+Ahorn:
+  gen: m
+  e:
+    - maple
+Ahornholz:
+  gen: 'n'
+  e:
+    - maplewood
+Akademie:
+  gen: f
+  e:
+    - academy
+Akademien:
+  gen: pl
+  e:
+    - academies
+Akademiker:
+  gen: m
+  e:
+    - academics
+    - university graduate
+    - university graduates
+Akklimatisierung:
+  gen: f
+  e:
+    - acclimatization
+Akkord:
+  gen: m
+  e:
+    - chord
+Akkordarbeit:
+  gen: f
+  e:
+    - job−work
+    - piece work
+    - piecework
+Akkordarbeiter:
+  gen: m
+  e:
+    - piece worker
+Akkorde:
+  gen: pl
+  e:
+    - chords
+Akkordeon:
+  gen: 'n'
+  e:
+    - accordion
+Akkumulator:
+  gen: m
+  e:
+    - accumulator
+Akkumulatorrechner:
+  gen: m
+  e:
+    - accumulator computer
+Akkumulierungsfeld:
+  gen: 'n'
+  e:
+    - accumulation field
+Akkusativ:
+  gen: m
+  e:
+    - accusative
+Akkusativobjekt:
+  gen: 'n'
+  e:
+    - direct object
+Akne:
+  gen: f
+  e:
+    - acne
+Akontozahlung:
+  gen: f
+  e:
+    - payment on account
+Akrobat:
+  gen: m
+  e:
+    - equilibrist
+    - acrobat
+Akrobaten:
+  gen: pl
+  e:
+    - acrobats
+Akrobatik:
+  gen: pl
+  e:
+    - acrobatics
+Akronym:
+  gen: 'n'
+  e:
+    - acronym
+Akropolis:
+  gen: f
+  e:
+    - acropolis
+Akt:
+  gen: m
+  e:
+    - act
+Akt der Gerechtigkeit:
+  gen: m
+  e:
+    - act of justice
+Akten:
+  gen: pl
+  e:
+    - documents
+Aktendeckel:
+  gen: m
+  e:
+    - folder
+    - folders
+Aktenförderbahn:
+  gen: f
+  e:
+    - telpher
+Aktenklammer:
+  gen: f
+  e:
+    - paper clip
+Aktenschrank:
+  gen: m
+  e:
+    - filing cabinet
+Aktentasche:
+  gen: f
+  e:
+    - brief case
+    - briefcase
+Aktenvernichter:
+  gen: m
+  e:
+    - shredder
+Aktenzeichen:
+  gen: 'n'
+  e:
+    - reference number
+    - record token
+Aktenzeichner:
+  gen: m
+  e:
+    - applicant for shares
+Aktien:
+  gen: pl
+  e:
+    - stock
+    - shares
+Aktienbesitz:
+  gen: m
+  e:
+    - share holdings
+Aktiengesellschaft:
+  gen: f
+  e:
+    - incorporated company
+    - stock corporation
+Aktiengesellschaften:
+  gen: pl
+  e:
+    - stock corporations
+Aktieninhaber:
+  gen: m
+  e:
+    - shareholder
+    - shareholders
+Aktienkapital:
+  gen: 'n'
+  e:
+    - share capital
+    - capital stock
+Aktienzeichnung:
+  gen: f
+  e:
+    - application for shares
+Aktienzuteilung:
+  gen: f
+  e:
+    - allotment of shares
+Aktion:
+  gen: f
+  e:
+    - action
+Aktionär:
+  gen: m
+  e:
+    - stockholder
+Aktionäre:
+  gen: pl
+  e:
+    - stockholders
+Aktionen:
+  gen: pl
+  e:
+    - actions
+Aktionsparameter:
+  gen: m
+  e:
+    - action parameter
+Aktionsprogramm:
+  gen: 'n'
+  e:
+    - action program
+Aktiva:
+  gen: pl
+  e:
+    - assets
+Aktivierung:
+  gen: f
+  e:
+    - activation
+Aktivierungsbeleg:
+  gen: m
+  e:
+    - activation voucher
+Aktivierungskennzeichen:
+  gen: 'n'
+  e:
+    - activation marker
+Aktivierungsnummer:
+  gen: f
+  e:
+    - activation number
+Aktivierungsschalter:
+  gen: m
+  e:
+    - activation switch
+Aktivismus:
+  gen: m
+  e:
+    - activism
+    - activisms
+Aktivist:
+  gen: m
+  e:
+    - activist
+Aktivitässtrahl:
+  gen: m
+  e:
+    - activity ray
+Aktivität:
+  gen: f
+  e:
+    - activity
+Aktivitäten:
+  gen: pl
+  e:
+    - activities
+    - activates
+Aktivitätensteürteil:
+  gen: m
+  e:
+    - activity request packet
+Aktivitätensteürung:
+  gen: f
+  e:
+    - activity control
+Aktivitätsanalyse:
+  gen: f
+  e:
+    - activity analysis
+Aktivitätskette:
+  gen: f
+  e:
+    - activity chain
+Aktivitätsordnung:
+  gen: f
+  e:
+    - active life table
+Aktivposten:
+  gen: m
+  e:
+    - asset item
+Aktivseite:
+  gen: f
+  e:
+    - asset side
+Aktstudie:
+  gen: f
+  e:
+    - study from the nude
+Aktstudien:
+  gen: pl
+  e:
+    - studies from the nude
+Aktualisierung:
+  gen: f
+  e:
+    - updating
+Aktualität:
+  gen: f
+  e:
+    - actuality
+Akupunktur:
+  gen: f
+  e:
+    - acupuncture
+Akupunkturen:
+  gen: pl
+  e:
+    - acupunctures
+Akustik:
+  gen: f
+  e:
+    - acoustic
+    - acoustics
+Akustikkoppler:
+  gen: m
+  e:
+    - acoustic coupler
+Akzelerationsprinzip:
+  gen: 'n'
+  e:
+    - acceleration principle
+Akzent:
+  gen: m
+  e:
+    - accent
+Akzentbuchstabe:
+  gen: m
+  e:
+    - accent character
+Akzente:
+  gen: pl
+  e:
+    - accents
+Akzentverschiebung:
+  gen: f
+  e:
+    - shift of stress
+Akzentverschiebungen:
+  gen: pl
+  e:
+    - shifts of stress
+Akzeptanz:
+  gen: f
+  e:
+    - acceptance
+Akzeptlinie:
+  gen: f
+  e:
+    - acceptance line
+Akzeptmarkt:
+  gen: m
+  e:
+    - acceptance market
+Akzidenzdruck:
+  gen: m
+  e:
+    - job printing
+Alarm:
+  gen: m
+  e:
+    - alarm
+Alarmanzeige:
+  gen: f
+  e:
+    - alarm display
+Alarme:
+  gen: pl
+  e:
+    - alarms
+Alarmeinrichtung:
+  gen: f
+  e:
+    - alarm equipment
+Alarmglocke:
+  gen: f
+  e:
+    - alarm bell
+Alarmklingel:
+  gen: f
+  e:
+    - warning bell
+Alarmsignal:
+  gen: 'n'
+  e:
+    - danger signal
+    - alarm signal
+Alarmsignale:
+  gen: pl
+  e:
+    - alerts
+Albernheit:
+  gen: f
+  e:
+    - tomfoolery
+    - silliness
+    - absurdity
+    - ineptitude
+Album:
+  gen: 'n'
+  e:
+    - album
+Alchemisten:
+  gen: pl
+  e:
+    - alchemists
+Algebra:
+  gen: f
+  e:
+    - algebra
+Algen:
+  gen: pl
+  e:
+    - algae
+    - algas
+Algorithmen:
+  gen: pl
+  e:
+    - algorithms
+Algorithmus:
+  gen: m
+  e:
+    - algorithm
+Alias:
+  gen: m
+  e:
+    - alias
+Aliasname:
+  gen: m
+  e:
+    - surrogate name
+Alibi:
+  gen: 'n'
+  e:
+    - alibi
+Alimente:
+  gen: f
+  e:
+    - alimony
+    - alimonies
+Alkalinitäten:
+  gen: pl
+  e:
+    - alkalinities
+Alkohol:
+  gen: m
+  e:
+    - booze
+    - alcohol
+alkoholfreies Getränk:
+  gen: 'n'
+  e:
+    - soft drink
+Alkoholgehalt:
+  gen: m
+  e:
+    - alcoholic content
+Alkoholiker:
+  gen: m
+  e:
+    - alcoholic
+Alkoholschmuggler:
+  gen: m
+  e:
+    - moonshiner
+Alkoholvergiftung:
+  gen: f
+  e:
+    - alcoholic poisoning
+Allbekanntheit:
+  gen: f
+  e:
+    - notoriety
+Allee:
+  gen: f
+  e:
+    - avenue
+    - alley
+Alleen:
+  gen: pl
+  e:
+    - avenues
+Alleinbesitz:
+  gen: m
+  e:
+    - exclusive possession
+Alleinerbe:
+  gen: m
+  e:
+    - sole heir
+Alleinerben:
+  gen: pl
+  e:
+    - sole heirs
+Alleinerbin:
+  gen: f
+  e:
+    - sole heiress
+Alleinherrschaft:
+  gen: f
+  e:
+    - autarchy
+Alleinherrschaften:
+  gen: pl
+  e:
+    - sole reigns
+Alleinherrscher:
+  gen: m
+  e:
+    - autocrat
+    - autocrats
+Alleinsein:
+  gen: 'n'
+  e:
+    - privateness
+    - soleness
+Alleinverkauf:
+  gen: m
+  e:
+    - monopoly
+Alleinverkaufsrecht:
+  gen: 'n'
+  e:
+    - franchise
+    - monpoly
+Alleinvertreter:
+  gen: m
+  e:
+    - sole agent
+Alleinvertretung:
+  gen: f
+  e:
+    - sole agency
+Alleinvertrieb:
+  gen: m
+  e:
+    - sole distributors
+Allergie:
+  gen: f
+  e:
+    - allergy
+Allergien:
+  gen: pl
+  e:
+    - allergies
+Allergiestoffe:
+  gen: pl
+  e:
+    - allergens
+Allerheiligstes:
+  gen: 'n'
+  e:
+    - sanctum
+Allgegenwart:
+  gen: f
+  e:
+    - ubiquity
+    - omnipresence
+Allgemeinbildung:
+  gen: f
+  e:
+    - general education
+Allgemeingültigkeit:
+  gen: f
+  e:
+    - catholicity
+    - generality
+    - universality
+Allgemeinheit:
+  gen: f
+  e:
+    - general public
+    - universality
+    - commonalty
+Allgemeinheiten:
+  gen: pl
+  e:
+    - universalities
+Allheilmittel:
+  gen: 'n'
+  e:
+    - panacea
+Alligator:
+  gen: m
+  e:
+    - alligator
+Allmacht:
+  gen: f
+  e:
+    - omnipotences
+    - omnipotence
+Allokationsabteilung:
+  gen: f
+  e:
+    - allocation branch
+Allrounder:
+  gen: m
+  e:
+    - handyman
+Alltag:
+  gen: m
+  e:
+    - everyday life
+Alltäglichkeit:
+  gen: f
+  e:
+    - everyday occurrence
+    - prosaicness
+Allwissenheit:
+  gen: f
+  e:
+    - omniscience
+Allzweckrechner:
+  gen: m
+  e:
+    - all−purpose computer
+Alm:
+  gen: f
+  e:
+    - alp
+Almosen:
+  gen: pl
+  e:
+    - alms
+Alpen:
+  gen: f
+  e:
+    - alps
+Alpenrose:
+  gen: f
+  e:
+    - alpine rose
+Alpenveilchen:
+  gen: 'n'
+  e:
+    - cyclamen
+Alphabet:
+  gen: 'n'
+  e:
+    - alphabet
+Alphabetischer Code:
+  gen: m
+  e:
+    - alphabetic code
+Alphabetisierung:
+  gen: f
+  e:
+    - alphabetization
+Alphabetprüflocher:
+  gen: m
+  e:
+    - alphabetic verifier
+Alphabetsortierung:
+  gen: f
+  e:
+    - alphabetic sort
+Alphäingabe:
+  gen: f
+  e:
+    - alpha input
+Alphaverarbeitung:
+  gen: f
+  e:
+    - alpha processing
+Alpinist:
+  gen: m
+  e:
+    - alpinist
+Alptraum:
+  gen: m
+  e:
+    - nightmare
+Alpträume:
+  gen: pl
+  e:
+    - nightmares
+Alsen:
+  gen: pl
+  e:
+    - shads
+Altar:
+  gen: m
+  e:
+    - altar
+Altarbild:
+  gen: 'n'
+  e:
+    - altarpiece
+Altare:
+  gen: pl
+  e:
+    - altars
+Altargemälde:
+  gen: 'n'
+  e:
+    - altar piece
+Altarraum:
+  gen: m
+  e:
+    - chancel
+Altarräume:
+  gen: pl
+  e:
+    - chancels
+Altbausanierung:
+  gen: f
+  e:
+    - area rehabilitation
+Altdaten:
+  gen: pl
+  e:
+    - aged data
+Alter:
+  gen: 'n'
+  e:
+    - seniority
+    - age
+Alternativ Frage:
+  gen: f
+  e:
+    - alternative question
+Alternativangebot:
+  gen: 'n'
+  e:
+    - alternative offer
+Alternative Produktion:
+  gen: f
+  e:
+    - alternative production
+Alternativen:
+  gen: pl
+  e:
+    - alternatives
+Alternativhypothese:
+  gen: f
+  e:
+    - alternative hypothesis
+Alternativlösung:
+  gen: f
+  e:
+    - alternative solution
+Alternativmodus:
+  gen: m
+  e:
+    - alternative mode
+Alternativpfad:
+  gen: m
+  e:
+    - alternative path
+Alternativplan:
+  gen: m
+  e:
+    - alternative plan
+Alternativplanung:
+  gen: f
+  e:
+    - alternative planning
+Alternativprognose:
+  gen: f
+  e:
+    - alternative forecast
+Alternativsprache:
+  gen: f
+  e:
+    - alternative language
+Alternativvorschlag:
+  gen: m
+  e:
+    - alternative suggestion
+    - alternative proposal
+Alternativweg:
+  gen: m
+  e:
+    - alternative route
+Altersaufbau:
+  gen: m
+  e:
+    - age distribution
+Alterserscheinung:
+  gen: f
+  e:
+    - symptom of old age
+Altersfreibetrag:
+  gen: m
+  e:
+    - age allowance
+Altersgenosse:
+  gen: m
+  e:
+    - contemporary
+Altersgenossen:
+  gen: pl
+  e:
+    - contemporaries
+Altersgliederung:
+  gen: f
+  e:
+    - age distribution
+Altersgrenze:
+  gen: f
+  e:
+    - age limit
+Altersgruppe:
+  gen: f
+  e:
+    - age cohort
+Altersheim:
+  gen: 'n'
+  e:
+    - almshouse
+Altersklasse:
+  gen: f
+  e:
+    - age group
+    - agegroup
+Altersprofil:
+  gen: 'n'
+  e:
+    - age profile
+Alterspyramide:
+  gen: f
+  e:
+    - age pyramid
+Altersrente:
+  gen: f
+  e:
+    - old age pension
+Altersrenten:
+  gen: pl
+  e:
+    - pensions
+Altersschwäche:
+  gen: f
+  e:
+    - senile decay
+Altersstufe:
+  gen: f
+  e:
+    - stage of life
+Altertum:
+  gen: 'n'
+  e:
+    - antiquity
+    - antiquation
+Altertümer:
+  gen: pl
+  e:
+    - antiquities
+Altertumsforscher:
+  gen: m
+  e:
+    - archaeologist
+Altertumskenner:
+  gen: m
+  e:
+    - antiquaries
+    - antiquary
+Altertumskunde:
+  gen: f
+  e:
+    - archaeology
+Alterung:
+  gen: f
+  e:
+    - aging
+    - ageing
+älteste:
+  gen: m
+  e:
+    - presbyter
+Altjungferlichkeit:
+  gen: f
+  e:
+    - spinsterhood
+Altmetall:
+  gen: 'n'
+  e:
+    - scrap metal
+Altmetalle:
+  gen: pl
+  e:
+    - scrap metals
+Altpapier:
+  gen: 'n'
+  e:
+    - waste paper
+Altpapiere:
+  gen: pl
+  e:
+    - waste papers
+    - wastepapers
+Altphilologe:
+  gen: f
+  e:
+    - classical scholar
+Altphilologie:
+  gen: f
+  e:
+    - humanities
+Altruismus:
+  gen: m
+  e:
+    - altruism
+Altstadt:
+  gen: f
+  e:
+    - old town
+Altstimme:
+  gen: f
+  e:
+    - contralto
+    - alto
+Altstimmen:
+  gen: pl
+  e:
+    - altos
+Altwarenhändler:
+  gen: m
+  e:
+    - second hand dealer
+Aluminium:
+  gen: 'n'
+  e:
+    - aluminum
+    - aluminium
+Aluminiumfolie:
+  gen: f
+  e:
+    - tinfoil
+    - tin foil
+Aluminiumfolien:
+  gen: pl
+  e:
+    - tin foils
+Aluminiumindustrie:
+  gen: f
+  e:
+    - aluminium industry
+Aluminiumkondensator:
+  gen: m
+  e:
+    - aluminium capacitor
+Amateur:
+  gen: m
+  e:
+    - amateur
+Amateure:
+  gen: pl
+  e:
+    - amateurs
+    - aficionados
+Amazonen:
+  gen: pl
+  e:
+    - amazons
+Ambivalenz:
+  gen: f
+  e:
+    - ambivalence
+Amboß:
+  gen: m
+  e:
+    - anvil
+ambulanter Patient:
+  gen: m
+  e:
+    - outpatient
+Ambulanz:
+  gen: f
+  e:
+    - ambulance
+Ameise:
+  gen: f
+  e:
+    - ant
+Ameisen:
+  gen: pl
+  e:
+    - formic
+    - ants
+Ameisenbär:
+  gen: m
+  e:
+    - aardvark
+    - ant eater
+    - anteater
+Ameisenbären:
+  gen: pl
+  e:
+    - ant eaters
+    - aardvarks
+Ameisenfresser:
+  gen: m
+  e:
+    - anteater
+Ameisenhaufen:
+  gen: m
+  e:
+    - ant hill
+Ameisenhügel:
+  gen: m
+  e:
+    - anthill
+Ameisenlaufen:
+  gen: 'n'
+  e:
+    - formication
+Ameisennest:
+  gen: 'n'
+  e:
+    - formicary
+Ameisensäure:
+  gen: f
+  e:
+    - formic acid
+Amen:
+  gen: 'n'
+  e:
+    - amen
+Amerika:
+  gen: 'n'
+  e:
+    - america
+Amerikaner:
+  gen: m
+  e:
+    - american
+Amerikanisierungen:
+  gen: pl
+  e:
+    - americanizations
+Amethyst:
+  gen: m
+  e:
+    - amethyst
+Amethysten:
+  gen: m
+  e:
+    - amethysts
+Amme:
+  gen: f
+  e:
+    - nana
+Ammoniak:
+  gen: 'n'
+  e:
+    - ammoniac
+    - ammonia
+Amnestie:
+  gen: f
+  e:
+    - amnesty
+Amnestien:
+  gen: pl
+  e:
+    - amnesties
+Amöbe:
+  gen: f
+  e:
+    - amoeba
+    - protean
+Amöben:
+  gen: pl
+  e:
+    - amoebae
+Amok:
+  gen: m
+  e:
+    - amuck
+Amokläufer:
+  gen: m
+  e:
+    - runner amok
+    - runners amok
+Amor:
+  gen: m
+  e:
+    - cupid
+Amoralität:
+  gen: f
+  e:
+    - amorality
+Amoralitäten:
+  gen: pl
+  e:
+    - amoralities
+Amortisation:
+  gen: f
+  e:
+    - amortization
+Ampel:
+  gen: f
+  e:
+    - traffic−lights
+    - traffic light
+Ampeln:
+  gen: pl
+  e:
+    - traffic lights
+Ampere (Stromstärke):
+  gen: 'n'
+  e:
+    - ampere
+Ampere:
+  gen: 'n'
+  e:
+    - amperes
+    - ampere
+    - amps
+    - amp
+Amperesekunde:
+  gen: f
+  e:
+    - coulomb
+Amphitheater:
+  gen: 'n'
+  e:
+    - amphitheatre
+Amphore:
+  gen: f
+  e:
+    - amphora
+Amphoren:
+  gen: pl
+  e:
+    - amphorae
+Amplitude:
+  gen: f
+  e:
+    - amplitude
+Amplitudengang:
+  gen: m
+  e:
+    - amplitude response
+Amplitudenmodulation (AM):
+  gen: f
+  e:
+    - amplitude modulation
+Ampulle:
+  gen: f
+  e:
+    - phial
+    - ampoule
+Amputationen:
+  gen: pl
+  e:
+    - amputations
+Amsel:
+  gen: f
+  e:
+    - blackbird
+Amseln:
+  gen: pl
+  e:
+    - blackbirds
+Amstrachten:
+  gen: pl
+  e:
+    - vestments
+Amt:
+  gen: 'n'
+  e:
+    - office
+    - trunk
+Amtsantritt:
+  gen: m
+  e:
+    - assumption of office
+Amtsantritte:
+  gen: pl
+  e:
+    - assumptions of office
+Amtsarzt:
+  gen: m
+  e:
+    - public health officer
+Amtsbefugnis:
+  gen: f
+  e:
+    - authority
+Amtsbefugnisse:
+  gen: f
+  e:
+    - competence
+    - authorities
+Amtsbereich:
+  gen: m
+  e:
+    - prelacy
+Amtsbereiche:
+  gen: pl
+  e:
+    - prelacies
+Amtsbezirk:
+  gen: m
+  e:
+    - administrative district
+    - bailiwick
+Amtsblatt:
+  gen: 'n'
+  e:
+    - official gazette
+Amtsbonus:
+  gen: m
+  e:
+    - advantage of incumbency
+Amtsbruder:
+  gen: m
+  e:
+    - colleague
+Amtsdaür:
+  gen: f
+  e:
+    - term of office
+Amtseid:
+  gen: m
+  e:
+    - oath of office
+Amtseinsetzung:
+  gen: f
+  e:
+    - chaired
+    - investiture
+    - chairing
+Amtsenthebung:
+  gen: f
+  e:
+    - dismissal
+Amtsenthebungen:
+  gen: pl
+  e:
+    - depositions
+Amtsführung:
+  gen: f
+  e:
+    - administration
+Amtsgeheimnis:
+  gen: 'n'
+  e:
+    - official secret
+Amtsgeschäfte:
+  gen: f
+  e:
+    - official duties
+Amtshandlung:
+  gen: f
+  e:
+    - official act
+Amtsinhaber:
+  gen: m
+  e:
+    - incumbent
+    - incumbents
+Amtsstil:
+  gen: m
+  e:
+    - officialese
+Amtstracht:
+  gen: f
+  e:
+    - official attire
+    - vestment
+Amtsträger:
+  gen: m
+  e:
+    - officeholder
+    - office holder
+Amtsüberschreitung:
+  gen: f
+  e:
+    - official excess
+Amtsverletzung:
+  gen: f
+  e:
+    - misconduct in office
+Amtsvorgänger:
+  gen: m
+  e:
+    - predecessor in office
+Amtsvorsteher:
+  gen: m
+  e:
+    - head official
+    - head officials
+Amtswürde:
+  gen: f
+  e:
+    - abbacies
+Amtszeit:
+  gen: f
+  e:
+    - incumbency
+Amtszeiten:
+  gen: pl
+  e:
+    - terms of office
+    - incumbencies
+Amtzeit:
+  gen: f
+  e:
+    - curatorship
+Amulett:
+  gen: 'n'
+  e:
+    - amulet
+Anachronismus:
+  gen: m
+  e:
+    - anachronism
+Analog−Ausgabeeinheit:
+  gen: f
+  e:
+    - analog output unit
+Analog−Digital−Umsetzer:
+  gen: m
+  e:
+    - analog−digital converter
+Analog−Eingabeeinheit:
+  gen: f
+  e:
+    - analog input unit
+Analog Digitalwandler:
+  gen: m
+  e:
+    - analog digital converter
+Analogausfall:
+  gen: m
+  e:
+    - analog failure
+Analogdarstellung:
+  gen: f
+  e:
+    - analog representation
+Analoge:
+  gen: f
+  e:
+    - analogously
+    - analogous
+Analoge Steuerung:
+  gen: f
+  e:
+    - anlog control
+Analoggrösse:
+  gen: f
+  e:
+    - analog quantity
+Analoghilfseingang:
+  gen: m
+  e:
+    - auxiliary analog input
+Analogie:
+  gen: f
+  e:
+    - analogy
+Analogien:
+  gen: pl
+  e:
+    - analogies
+Analogkanal:
+  gen: m
+  e:
+    - analog channel
+Analogqülle:
+  gen: f
+  e:
+    - analog supply
+Analogrechner:
+  gen: m
+  e:
+    - analog computer
+Analogschaltung:
+  gen: f
+  e:
+    - analog circuit
+Analogsichtgerät:
+  gen: 'n'
+  e:
+    - analog display unit
+Analogspeicher:
+  gen: m
+  e:
+    - analog memory
+Analogtechnik:
+  gen: f
+  e:
+    - analog instrumentation
+Analogverstärkung:
+  gen: f
+  e:
+    - analog gain
+Analogzeichengeber:
+  gen: m
+  e:
+    - analog transmitter
+Analphabet:
+  gen: m
+  e:
+    - illiterate
+Analphabeten:
+  gen: pl
+  e:
+    - illiterates
+Analphabetentum:
+  gen: 'n'
+  e:
+    - illiteracy
+Analysator:
+  gen: m
+  e:
+    - analyser
+    - analyzer
+    - analogue
+Analyse:
+  gen: f
+  e:
+    - analysis
+Analysedatei:
+  gen: f
+  e:
+    - analysis file
+Analysefunktion:
+  gen: f
+  e:
+    - analysis function
+Analysen:
+  gen: pl
+  e:
+    - analyses
+Analyseprogramm:
+  gen: 'n'
+  e:
+    - analyzer
+Analytik:
+  gen: f
+  e:
+    - analytics
+Analytiker:
+  gen: m
+  e:
+    - analyst
+Anämie:
+  gen: f
+  e:
+    - anemia
+Ananas:
+  gen: m
+  e:
+    - pineapple
+    - pine apple
+Anarchie:
+  gen: f
+  e:
+    - anarchy
+Anarchien:
+  gen: pl
+  e:
+    - anarchies
+Anarchist:
+  gen: m
+  e:
+    - anarchist
+Anarchisten:
+  gen: pl
+  e:
+    - anarchists
+Anatom:
+  gen: 'n'
+  e:
+    - anatomist
+Anatomie:
+  gen: f
+  e:
+    - anatomy
+Anatomien:
+  gen: pl
+  e:
+    - anatomies
+Anbau:
+  gen: m
+  e:
+    - cultivation
+Anbaubeschränkung:
+  gen: f
+  e:
+    - acreage restriction
+Anbaufläche:
+  gen: f
+  e:
+    - area under cultivation
+    - acreage
+Anbauflächen:
+  gen: pl
+  e:
+    - areas under cultivation
+Anbaugerät:
+  gen: 'n'
+  e:
+    - accessory equipment
+Anbauten:
+  gen: pl
+  e:
+    - penthouses
+    - cultivations
+    - cultures
+Anbeter:
+  gen: m
+  e:
+    - adorer
+    - idolater
+Anbeterin:
+  gen: f
+  e:
+    - adorer
+Anbetung:
+  gen: f
+  e:
+    - adoration
+Anbetungswürdigkeit:
+  gen: f
+  e:
+    - adorability
+Anbetungswürdigkeiten:
+  gen: pl
+  e:
+    - adorableness
+Anbieter:
+  gen: m
+  e:
+    - offerer
+Anblick:
+  gen: m
+  e:
+    - view
+    - aspect
+Anblicke:
+  gen: pl
+  e:
+    - sights
+Anbrüche:
+  gen: pl
+  e:
+    - beginnings
+Andacht:
+  gen: f
+  e:
+    - devotion
+Andachten:
+  gen: pl
+  e:
+    - devotions
+Andachtsräume:
+  gen: pl
+  e:
+    - oratories
+Andenken:
+  gen: 'n'
+  e:
+    - souvenir
+    - souvenirs
+    - memento
+    - keepsake
+    - memory
+Andenkenladen:
+  gen: m
+  e:
+    - souvenier chop
+Andersdenkende:
+  gen: m
+  e:
+    - dissenter
+änderung:
+  gen: f
+  e:
+    - revision
+    - alteration
+    - modification
+änderungen:
+  gen: pl
+  e:
+    - edits
+    - changes
+    - modifications
+änderungen pl:
+  gen: ''
+  e:
+    - alterations
+änderungsart:
+  gen: f
+  e:
+    - alteration type
+änderungsband:
+  gen: 'n'
+  e:
+    - amendment tape
+änderungscode:
+  gen: m
+  e:
+    - alteration code
+änderungsdatei:
+  gen: f
+  e:
+    - amendment file
+änderungsdatum:
+  gen: 'n'
+  e:
+    - alteration date
+    - amendment date
+änderungsdienst:
+  gen: m
+  e:
+    - change service
+    - updating
+änderungsindex:
+  gen: m
+  e:
+    - amendment index
+änderungsprotokoll:
+  gen: 'n'
+  e:
+    - activity log
+    - amendment cog
+änderungsrate:
+  gen: f
+  e:
+    - alteration rate
+änderungssatz:
+  gen: m
+  e:
+    - amendment record
+    - transaction record
+änderungszeile:
+  gen: f
+  e:
+    - alteration line
+änderungszeit:
+  gen: f
+  e:
+    - alterationtime
+Andeutung:
+  gen: f
+  e:
+    - adumbration
+    - insinuation
+    - hint
+    - intimation
+Andeutungen:
+  gen: pl
+  e:
+    - hints
+    - inklings
+    - insinuations
+    - intimations
+Andrang:
+  gen: m
+  e:
+    - boom
+    - rush
+Androgene:
+  gen: pl
+  e:
+    - androgens
+Androhungen:
+  gen: pl
+  e:
+    - menaces
+Androide:
+  gen: m
+  e:
+    - android
+Andruckrolle:
+  gen: f
+  e:
+    - pinch roller
+Aneignung:
+  gen: f
+  e:
+    - occupance
+    - annexation
+    - adoption
+    - appropriation
+Aneignungen:
+  gen: pl
+  e:
+    - annexations
+Anekdote:
+  gen: f
+  e:
+    - anecdote
+Anekdotenerzähler:
+  gen: m
+  e:
+    - anecdotist
+    - anecdotists
+Anerkenntnis:
+  gen: f
+  e:
+    - recognizance
+Anerkennung:
+  gen: f
+  e:
+    - acknowledgment
+Anerkennungen:
+  gen: pl
+  e:
+    - recognitions
+Anfall:
+  gen: m
+  e:
+    - fit
+    - attack
+Anfälle:
+  gen: pl
+  e:
+    - attacks
+Anfang:
+  gen: m
+  e:
+    - incipience
+    - Init
+    - outset
+    - entrie
+    - initial
+    - top
+Anfänge:
+  gen: pl
+  e:
+    - commencements
+    - beginnings
+    - incipiencies
+Anfänger:
+  gen: m
+  e:
+    - tenderfeet
+    - beginner
+    - tyro
+    - newcomer
+    - novice
+    - novices
+    - beginners
+Anfangsadresse:
+  gen: f
+  e:
+    - start address
+Anfangsbuchstabe:
+  gen: m
+  e:
+    - initial letter
+Anfangsetikett:
+  gen: 'n'
+  e:
+    - header label
+Anfangsfehler:
+  gen: m
+  e:
+    - inherent error
+Anfangsgehalt:
+  gen: 'n'
+  e:
+    - starting salary
+Anfangsgehälter:
+  gen: pl
+  e:
+    - starting salaries
+Anfangsgründe:
+  gen: pl
+  e:
+    - elements
+Anfangskapital:
+  gen: 'n'
+  e:
+    - opening capital
+Anfangslage:
+  gen: f
+  e:
+    - start position
+Anfangsseite:
+  gen: f
+  e:
+    - welcome page
+Anfangsspalte:
+  gen: f
+  e:
+    - begin column
+Anfangsstadium:
+  gen: 'n'
+  e:
+    - initial stage
+Anfangsunterricht:
+  gen: m
+  e:
+    - elementary instruction
+Anfechtung:
+  gen: f
+  e:
+    - contestation
+Anfechtungsklausel:
+  gen: f
+  e:
+    - avoidance clause
+Anfeindung:
+  gen: f
+  e:
+    - hostility
+Anfeindungen:
+  gen: pl
+  e:
+    - hostilities
+Anfertigungen:
+  gen: pl
+  e:
+    - makings
+Anfhäufungen:
+  gen: pl
+  e:
+    - accumulations
+Anforderung:
+  gen: f
+  e:
+    - demand
+    - requirement
+Anforderungen:
+  gen: pl
+  e:
+    - requirements
+Anforderungszeichen:
+  gen: 'n'
+  e:
+    - prompt
+Anfrage:
+  gen: f
+  e:
+    - enquiry
+    - inquiry
+Anfügung:
+  gen: 'n'
+  e:
+    - attachment
+Anführer:
+  gen: m
+  e:
+    - chief
+    - leader
+Anführungen:
+  gen: pl
+  e:
+    - quotations
+Anführungsstriche:
+  gen: pl
+  e:
+    - quotation
+Anführungszeichen:
+  gen: 'n'
+  e:
+    - quotation mark
+Angabe:
+  gen: f
+  e:
+    - specification
+Angaben:
+  gen: pl
+  e:
+    - statements
+Angeber:
+  gen: m
+  e:
+    - showoff
+    - braggart
+    - braggarts
+    - showoffs
+Angeberinnen:
+  gen: pl
+  e:
+    - braggarts
+Angeblichkeit:
+  gen: f
+  e:
+    - colorability
+Angeblichkeiten:
+  gen: pl
+  e:
+    - colorableness
+Angebot:
+  gen: 'n'
+  e:
+    - bid
+    - offer
+    - supply and demand
+Angebote:
+  gen: pl
+  e:
+    - offerings
+    - propositions
+Angehörige:
+  gen: f
+  e:
+    - kinswomen
+Angehörigen:
+  gen: pl
+  e:
+    - dependents
+    - relatives
+Angehöriger:
+  gen: m
+  e:
+    - kinsmen
+Angeklagter:
+  gen: m
+  e:
+    - accused
+Angelegenheit:
+  gen: f
+  e:
+    - affair
+    - pidgin
+Angelegenheiten:
+  gen: pl
+  e:
+    - affairs
+Angelgerät:
+  gen: 'n'
+  e:
+    - fishing gear
+Angelgeräte:
+  gen: pl
+  e:
+    - fishing gear
+Angelhaken:
+  gen: m
+  e:
+    - fishhook
+    - fish hook
+    - fishhooks
+Angelschein:
+  gen: m
+  e:
+    - fishing licence
+Angelschnur:
+  gen: f
+  e:
+    - fishing line
+Angelzeug:
+  gen: m
+  e:
+    - fishing tackle
+Angemessenheit:
+  gen: f
+  e:
+    - pertinency
+    - commensurability
+    - suitability
+Angemessenheiten:
+  gen: pl
+  e:
+    - commensuration
+    - suitableness
+Angenehmheit:
+  gen: f
+  e:
+    - palatableness
+Angerufene:
+  gen: m
+  e:
+    - telephonee
+Angestellte:
+  gen: m
+  e:
+    - staffer
+    - employee
+Angestellten:
+  gen: pl
+  e:
+    - staffers
+Angewohnheit:
+  gen: f
+  e:
+    - habit
+Angewohnheiten:
+  gen: pl
+  e:
+    - habits
+Anghänger:
+  gen: pl
+  e:
+    - followers
+Anghängerinnen:
+  gen: pl
+  e:
+    - followers
+Anghängerschaft:
+  gen: f
+  e:
+    - supporters
+Angleichung:
+  gen: f
+  e:
+    - assimilations
+    - assimilation
+Angler:
+  gen: m
+  e:
+    - angler
+Anglerute:
+  gen: f
+  e:
+    - fishing rod
+Angliederung:
+  gen: f
+  e:
+    - affiliation
+    - incorporation
+Angliederungen:
+  gen: pl
+  e:
+    - affiliations
+Angorawolle:
+  gen: f
+  e:
+    - mohair
+Angreifer:
+  gen: m
+  e:
+    - aggressor
+    - attacker
+    - assailant
+    - raider
+    - assaulter
+    - offenders
+    - assaulters
+    - aggressors
+    - assailants
+Angriff:
+  gen: m
+  e:
+    - onset
+    - onslaught
+    - aggression
+    - whammy
+    - offence
+Angriffe:
+  gen: pl
+  e:
+    - onslaughts
+    - attacks
+    - assaults
+    - offences
+Angriffslust:
+  gen: f
+  e:
+    - aggressiveness
+Angst:
+  gen: f
+  e:
+    - anxiety
+    - trepidation
+ängste:
+  gen: pl
+  e:
+    - anguishes
+    - trepidations
+    - anxiousnesses
+    - anxieties
+Angsthase:
+  gen: m
+  e:
+    - coward
+ängstlichkeit:
+  gen: f
+  e:
+    - anxiety
+    - anxiousness
+    - timidness
+Angstneurose:
+  gen: f
+  e:
+    - anxiety neurosis
+Angstneurosen:
+  gen: pl
+  e:
+    - anxiety neuroses
+Angstpsychosen:
+  gen: pl
+  e:
+    - panics
+Angstschweiss:
+  gen: m
+  e:
+    - cold sweat
+Angstzustand:
+  gen: m
+  e:
+    - anxiety state
+Anhaften:
+  gen: 'n'
+  e:
+    - inherence
+Anhaftung:
+  gen: f
+  e:
+    - adhesions
+    - adherence
+Anhaltepunkt:
+  gen: m
+  e:
+    - breakpoint
+Anhaltspunkt:
+  gen: m
+  e:
+    - clue
+Anhaltspunkte:
+  gen: pl
+  e:
+    - clues
+Anhang:
+  gen: m
+  e:
+    - subjoinder
+    - appendage
+    - appendix
+    - supplement
+Anhangbereich:
+  gen: m
+  e:
+    - append area
+Anhänge:
+  gen: pl
+  e:
+    - appendices
+    - appendixes
+Anhänger:
+  gen: m
+  e:
+    - pendant
+    - devotee
+    - henchman
+    - trailer
+    - hanger
+    - tag
+    - adherents
+    - pendants
+    - devotees
+    - trailers
+Anhängerin:
+  gen: f
+  e:
+    - follower
+Anhängerschaft:
+  gen: f
+  e:
+    - discipleship
+Anhänglichkeit:
+  gen: f
+  e:
+    - adherence
+Anhänglichkeiten:
+  gen: pl
+  e:
+    - attachments
+Anhängsel:
+  gen: 'n'
+  e:
+    - appendage
+Anhäufung:
+  gen: f
+  e:
+    - agglomeration
+    - accumulation
+    - conglomeration
+    - culmination
+Anhöhe:
+  gen: f
+  e:
+    - hill
+Anhöhen:
+  gen: pl
+  e:
+    - hills
+Animation:
+  gen: f
+  e:
+    - animation
+Anis:
+  gen: m
+  e:
+    - anise
+Anissamen:
+  gen: m
+  e:
+    - aniseed
+Ankäufe:
+  gen: pl
+  e:
+    - purchases
+Ankaufermächtigung:
+  gen: f
+  e:
+    - authority to buy
+Anker:
+  gen: m
+  e:
+    - armature
+    - anchor
+Ankergrund:
+  gen: m
+  e:
+    - anchorage
+Ankerkette:
+  gen: f
+  e:
+    - chain cable
+Ankerplatz:
+  gen: m
+  e:
+    - achorage
+    - anchorage
+    - anchorage ground
+Ankerwicklung:
+  gen: f
+  e:
+    - armature winding
+Ankerwinde:
+  gen: f
+  e:
+    - windlass
+Ankerwinden:
+  gen: 'n'
+  e:
+    - capstans
+    - windlasses
+Anklage:
+  gen: f
+  e:
+    - impeachment
+    - accusation
+    - denouncement
+    - indictment
+Anklagen:
+  gen: pl
+  e:
+    - indictments
+    - accusations
+    - denouncements
+Ankläger:
+  gen: m
+  e:
+    - accuser
+    - denouncer
+    - denouncers
+Anklageschrift:
+  gen: f
+  e:
+    - bill of indictment
+Anklageschriften:
+  gen: pl
+  e:
+    - bills of indictment
+Anklageverlesung:
+  gen: f
+  e:
+    - arraignment
+Anklagevertreter:
+  gen: m
+  e:
+    - prosecuting counsel
+Ankleider:
+  gen: m
+  e:
+    - dresser
+Ankündigung:
+  gen: f
+  e:
+    - advertisement
+    - announcement
+Ankündigungen:
+  gen: pl
+  e:
+    - announcements
+    - advertisements
+Ankunft:
+  gen: f
+  e:
+    - arrival
+Ankunftszeit:
+  gen: f
+  e:
+    - arrival time
+Anlage:
+  gen: f
+  e:
+    - processor
+    - plant
+    - construction
+Anlageanweisung:
+  gen: f
+  e:
+    - asset advice
+Anlagekapital:
+  gen: 'n'
+  e:
+    - invested capital
+Anlagekosten:
+  gen: pl
+  e:
+    - initial cost
+Anlagen:
+  gen: pl
+  e:
+    - constructions
+Anlagenabgang:
+  gen: m
+  e:
+    - asset disposal
+Anlagenabgangsbuchung:
+  gen: f
+  e:
+    - asset disposal posting
+Anlagenbeleg:
+  gen: m
+  e:
+    - asset voucher
+Anlagenberechtigung:
+  gen: f
+  e:
+    - assets authorization
+Anlagenbereich:
+  gen: m
+  e:
+    - assets area
+Anlagenbestand:
+  gen: m
+  e:
+    - asset investment
+Anlagenbestände:
+  gen: pl
+  e:
+    - asset investments
+Anlagenbestandskont:
+  gen: 'n'
+  e:
+    - asset investment account
+Anlagenbewegungssatz:
+  gen: m
+  e:
+    - asset transaction record
+Anlagenbewertung:
+  gen: f
+  e:
+    - asset valuation
+Anlagenbuch:
+  gen: 'n'
+  e:
+    - asset ledger
+Anlagenbuchhaltung:
+  gen: f
+  e:
+    - assets accounting
+Anlagenbuchhaltungsbeleg:
+  gen: m
+  e:
+    - assets accounting voucher
+Anlagenbuchhaltungssystem:
+  gen: 'n'
+  e:
+    - assets accounting system
+Anlagenbuchung:
+  gen: f
+  e:
+    - asset posting
+Anlagenbuchungszeilen:
+  gen: pl
+  e:
+    - asset posting lines
+Anlagendatei:
+  gen: f
+  e:
+    - asset file
+Anlagenentwicklung:
+  gen: f
+  e:
+    - asset development
+Anlagenfeldgröße:
+  gen: f
+  e:
+    - asset field size
+Anlagenfertigstellung:
+  gen: f
+  e:
+    - asset completion
+Anlagenjournal:
+  gen: 'n'
+  e:
+    - assets daily ledger
+Anlagenkarte:
+  gen: f
+  e:
+    - assets card
+Anlagenklasse:
+  gen: f
+  e:
+    - asset category
+Anlagenkonto:
+  gen: 'n'
+  e:
+    - assets account
+Anlagenkurztext:
+  gen: m
+  e:
+    - assets summary
+Anlagennummer:
+  gen: f
+  e:
+    - asset number
+Anlagenrechnung:
+  gen: f
+  e:
+    - asset accounting
+Anlagensatz:
+  gen: m
+  e:
+    - assets record
+Anlagenschlüssel:
+  gen: m
+  e:
+    - asset key
+    - assets code
+Anlagenspiegel:
+  gen: m
+  e:
+    - assets analysis
+Anlagenstamm:
+  gen: m
+  e:
+    - asset master
+Anlagenstammdaten:
+  gen: pl
+  e:
+    - asset master data
+Anlagenstammdatenübernahme:
+  gen: f
+  e:
+    - asset master data transfer
+Anlagenstammsatz:
+  gen: m
+  e:
+    - asset master record
+Anlagentext:
+  gen: m
+  e:
+    - asset text
+Anlagenumbuchungen:
+  gen: pl
+  e:
+    - asset re postings
+Anlagenumsetzung:
+  gen: f
+  e:
+    - asset transfer
+Anlagenverwaltung:
+  gen: f
+  e:
+    - assets management
+Anlagenwertführung:
+  gen: f
+  e:
+    - assets management
+Anlagenzugänge:
+  gen: pl
+  e:
+    - asset additions
+Anlagepapier:
+  gen: 'n'
+  e:
+    - investment security
+Anlagepapiere:
+  gen: pl
+  e:
+    - investement securities
+Anlaß:
+  gen: m
+  e:
+    - occasion
+Anlauf:
+  gen: m
+  e:
+    - inrun
+    - start−up
+    - warm−up
+Anläufe:
+  gen: pl
+  e:
+    - inruns
+Anlaufzeit:
+  gen: f
+  e:
+    - acceleration time
+    - starting time
+    - warm−up time
+Anlaut:
+  gen: m
+  e:
+    - initial sound
+Anlegeplatz:
+  gen: m
+  e:
+    - embarkation point
+Anlegeplätze:
+  gen: pl
+  e:
+    - wharves
+Anlegestelle:
+  gen: f
+  e:
+    - landing stage
+Anlegestellen:
+  gen: pl
+  e:
+    - marinas
+Anleihen:
+  gen: pl
+  e:
+    - borrowings
+Anleitung:
+  gen: f
+  e:
+    - instruction
+    - guidance
+    - tutorial
+Anleitungen:
+  gen: pl
+  e:
+    - instructions
+Anlieger:
+  gen: m
+  e:
+    - abutter
+Anmärsche:
+  gen: pl
+  e:
+    - advances
+Anmasslichkeit:
+  gen: f
+  e:
+    - pretentiousness
+Anmaßung:
+  gen: f
+  e:
+    - arrogation
+    - arrogance
+    - assertiveness
+    - pretension
+Anmaßungen:
+  gen: pl
+  e:
+    - assertivenesses
+Anmeldeformular:
+  gen: 'n'
+  e:
+    - application form
+    - registration form
+Anmeldegebühr:
+  gen: f
+  e:
+    - registration fee
+    - application fee
+Anmeldeverfahren:
+  gen: 'n'
+  e:
+    - application procedure
+Anmeldevorschriften:
+  gen: pl
+  e:
+    - application requirements
+Anmeldung:
+  gen: f
+  e:
+    - announcement
+Anmerkung:
+  gen: f
+  e:
+    - note
+    - memo
+    - annotation
+    - remark
+Anmerkungen:
+  gen: pl
+  e:
+    - notes
+Anmut:
+  gen: f
+  e:
+    - grace
+    - gracefulness
+    - graces
+    - charm
+    - comeliness
+    - amenity
+Annäherung:
+  gen: f
+  e:
+    - convergency
+    - approximation
+Annäherungen:
+  gen: pl
+  e:
+    - approaches
+Annäherungslinie:
+  gen: f
+  e:
+    - asymptote
+Annahme:
+  gen: f
+  e:
+    - fiction
+    - acceptance
+    - assumption
+Annahmen:
+  gen: pl
+  e:
+    - assumptions
+Annahmestelle:
+  gen: f
+  e:
+    - receiving office
+Annahmeverweigerung:
+  gen: f
+  e:
+    - non acceptance
+Annahmewert:
+  gen: m
+  e:
+    - assumed value
+Annehmbarkeit:
+  gen: f
+  e:
+    - acceptability
+Annehmlichkeit:
+  gen: f
+  e:
+    - convenience
+    - adoptability
+    - acceptableness
+Annehmlichkeiten:
+  gen: pl
+  e:
+    - conveniences
+    - amenities
+    - adoptabilities
+    - goodies
+Annexion:
+  gen: f
+  e:
+    - annexation
+Annoncenexpedition:
+  gen: f
+  e:
+    - advertisement representative
+Annuitätendarlehen:
+  gen: 'n'
+  e:
+    - annuity loan
+Annuitätsmethoden:
+  gen: pl
+  e:
+    - annuity method
+Annulierung:
+  gen: f
+  e:
+    - nullification
+Annullierung:
+  gen: f
+  e:
+    - defeasance
+    - cancelation
+Annullierungen:
+  gen: pl
+  e:
+    - defeasances
+Anode:
+  gen: f
+  e:
+    - anode
+Anodengitter:
+  gen: f
+  e:
+    - anode gate
+Anodenkennung:
+  gen: f
+  e:
+    - anode characteristics
+Anodenspannung:
+  gen: f
+  e:
+    - plate−supply
+Anodensperrstrom:
+  gen: m
+  e:
+    - anode cutoff current
+Anodenzündstrom:
+  gen: m
+  e:
+    - anode trigger current
+Anomalie:
+  gen: f
+  e:
+    - anomaly
+Anomalien:
+  gen: pl
+  e:
+    - anomalies
+Anomie:
+  gen: f
+  e:
+    - anomie
+Anonymität:
+  gen: f
+  e:
+    - anonymity
+    - namelessness
+Anonymitäten:
+  gen: pl
+  e:
+    - anonymities
+Anorak:
+  gen: m
+  e:
+    - anorak
+    - parka
+Anordnung:
+  gen: f
+  e:
+    - layout
+    - disposition
+    - adjustment
+    - arrangement
+Anordnungen:
+  gen: pl
+  e:
+    - dispositions
+    - orders
+Anordnungspatent:
+  gen: 'n'
+  e:
+    - arrangement patent
+Anpaßbarkeit:
+  gen: f
+  e:
+    - adaptability
+Anpassung:
+  gen: f
+  e:
+    - accomodation
+    - matching
+    - adaptation
+    - assimilation
+Anpassungen:
+  gen: pl
+  e:
+    - accomodations
+    - adaptations
+Anpassungsdarlehen:
+  gen: pl
+  e:
+    - adjustment loan
+Anpassungsfähigkeit:
+  gen: f
+  e:
+    - flexibility
+    - action flexibility
+    - adaptiveness
+Anpassungsfähigkeiten:
+  gen: pl
+  e:
+    - adaptivenesses
+Anpassungsgebühr:
+  gen: f
+  e:
+    - adaption charge
+Anpassungsgerät:
+  gen: 'n'
+  e:
+    - adaptor
+Anpassungshilfe:
+  gen: f
+  e:
+    - adjustment assistance
+Anpassungsmechanismus:
+  gen: m
+  e:
+    - adjustment mechanism
+Anpassungsmöglichkeit:
+  gen: f
+  e:
+    - adaptability
+Anpassungsprozeß:
+  gen: m
+  e:
+    - adjustment process
+Anpassungsschwierigkeiten:
+  gen: pl
+  e:
+    - adaptive difficulties
+Anproben:
+  gen: pl
+  e:
+    - fittings
+Anrainer:
+  gen: m
+  e:
+    - abutting owner
+Anrechnungen:
+  gen: pl
+  e:
+    - charges
+Anrechnungswert:
+  gen: m
+  e:
+    - accepted value
+Anrechte:
+  gen: pl
+  e:
+    - rights
+    - dues
+Anrede:
+  gen: f
+  e:
+    - salutation
+Anredeschlüssel:
+  gen: m
+  e:
+    - address code
+Anredetext:
+  gen: m
+  e:
+    - address text
+Anreger:
+  gen: m
+  e:
+    - stimulator
+    - inspirer
+    - stimulators
+Anregung:
+  gen: f
+  e:
+    - stimulus
+    - motivation
+    - viviparity
+    - incitement
+Anregungen:
+  gen: pl
+  e:
+    - incitations
+    - incitements
+    - stimulations
+    - stimuli
+Anregungsmittel:
+  gen: 'n'
+  e:
+    - stimulant
+    - stimulants
+Anreicherung:
+  gen: f
+  e:
+    - enhancement
+    - enrichment
+Anreicherungen:
+  gen: pl
+  e:
+    - enrichments
+Anreisetermin:
+  gen: m
+  e:
+    - date of arrival
+Anreisetermine:
+  gen: pl
+  e:
+    - dates of arrival
+Anreiz:
+  gen: m
+  e:
+    - incentive
+Anrichte:
+  gen: f
+  e:
+    - sideboard
+Anrichten:
+  gen: pl
+  e:
+    - sideboards
+Anrüchigkeit:
+  gen: f
+  e:
+    - ominousness
+    - fishiness
+Anruf:
+  gen: m
+  e:
+    - call
+Anrufanforderung:
+  gen: f
+  e:
+    - attention request
+Anrufbeantworter:
+  gen: m
+  e:
+    - answering equipment
+    - automatic answering set
+Anrufbestätigung:
+  gen: f
+  e:
+    - call confirmation
+Anrufe:
+  gen: pl
+  e:
+    - calls
+Anrufer:
+  gen: m
+  e:
+    - telephoner
+    - caller
+    - callers
+Anruferkennung:
+  gen: f
+  e:
+    - call detection
+    - call identification
+Anrufsignal:
+  gen: 'n'
+  e:
+    - call sign
+Anrufumleitung:
+  gen: f
+  e:
+    - call diversion
+Anrufversuch:
+  gen: m
+  e:
+    - attempted call
+Anrufwiederholung:
+  gen: f
+  e:
+    - call repetition
+Anrufzeit:
+  gen: f
+  e:
+    - call time
+Ansage:
+  gen: f
+  e:
+    - telecaster
+    - announcer
+Ansammlung:
+  gen: f
+  e:
+    - accumulativeness
+    - package
+Ansatz:
+  gen: m
+  e:
+    - basic approach
+    - rudiment
+Ansätze:
+  gen: pl
+  e:
+    - rudiments
+    - basic approaches
+Ansatzpunkt:
+  gen: m
+  e:
+    - starting point
+Ansatzpunkte:
+  gen: pl
+  e:
+    - starting points
+Ansaug...:
+  gen: m
+  e:
+    - suction
+Ansaugsystem:
+  gen: 'n'
+  e:
+    - suction system
+Ansaugung:
+  gen: f
+  e:
+    - inlet
+Anschaffung:
+  gen: f
+  e:
+    - purchase
+Anschaffungskosten:
+  gen: pl
+  e:
+    - asset cost
+    - aboriginal cost
+    - prime cost
+Anschaffungspreis:
+  gen: m
+  e:
+    - cost price
+Anschaffungswert:
+  gen: m
+  e:
+    - cost value
+Anschaltung:
+  gen: f
+  e:
+    - power−on
+Anschaltverzögerung:
+  gen: f
+  e:
+    - turn−on delay
+Anschaulichkeit:
+  gen: f
+  e:
+    - clearness
+Anschauungsmaterial:
+  gen: 'n'
+  e:
+    - illustrative material
+Anschauungsunterricht:
+  gen: m
+  e:
+    - visual instruction
+    - object−lesson
+Anschauungsweise:
+  gen: f
+  e:
+    - point of view
+Anschein:
+  gen: m
+  e:
+    - seem
+    - semblances
+    - semblance
+    - appearance
+Anschlag:
+  gen: m
+  e:
+    - strike
+Anschlagbrett:
+  gen: 'n'
+  e:
+    - notice board
+    - billboard
+Anschlagbretter:
+  gen: pl
+  e:
+    - billboards
+Anschlagdrucker:
+  gen: m
+  e:
+    - impact printer
+Anschlaghammer:
+  gen: m
+  e:
+    - striking hammer
+Anschlagsäule:
+  gen: f
+  e:
+    - advertising pillar
+Anschlagtafel:
+  gen: f
+  e:
+    - billboard
+Anschlagtafeln:
+  gen: pl
+  e:
+    - billboards
+Anschlagzettel:
+  gen: m
+  e:
+    - placard
+Anschluß:
+  gen: m
+  e:
+    - alignment
+    - connector
+    - port
+    - connection
+    - termination
+Anschlußauftrag:
+  gen: m
+  e:
+    - add on sale
+Anschlußbaugruppe:
+  gen: f
+  e:
+    - adapter board
+anschlußbelegung:
+  gen: f
+  e:
+    - terminal assignment
+Anschlußdose:
+  gen: f
+  e:
+    - junction box
+Anschlussdraht:
+  gen: m
+  e:
+    - lead
+Anschlussfeld:
+  gen: 'n'
+  e:
+    - connector panel
+Anschlußgerät:
+  gen: 'n'
+  e:
+    - attach device
+Anschlusskabel:
+  gen: 'n'
+  e:
+    - connection cable
+Anschlusskasten:
+  gen: m
+  e:
+    - terminal box
+anschlußleiste:
+  gen: f
+  e:
+    - pinboard
+Anschlußleitung:
+  gen: f
+  e:
+    - access line
+Anschlusslinie:
+  gen: f
+  e:
+    - feeder line
+Anschlussmarkt:
+  gen: m
+  e:
+    - after market
+Anschlußrahmen:
+  gen: m
+  e:
+    - adapter base
+Anschlussrohr:
+  gen: 'n'
+  e:
+    - connection pipe
+Anschlussstecker:
+  gen: m
+  e:
+    - connector socket
+    - plug
+Anschlussstück:
+  gen: 'n'
+  e:
+    - connection
+Anschlusstafel:
+  gen: f
+  e:
+    - pinboard
+Anschlusszüge:
+  gen: pl
+  e:
+    - connections
+Anschnitt:
+  gen: m
+  e:
+    - first cut
+Anschnitte:
+  gen: pl
+  e:
+    - first cuts
+Anschrift:
+  gen: m
+  e:
+    - address
+Anschriftenkennzeichen:
+  gen: 'n'
+  e:
+    - address identification
+Anschwärzung:
+  gen: f
+  e:
+    - denigration
+Anschwärzungen:
+  gen: pl
+  e:
+    - denigrations
+Ansehen:
+  gen: 'n'
+  e:
+    - credit
+    - esteem
+    - renown
+    - reputation
+Ansehnlichkeit:
+  gen: f
+  e:
+    - sightliness
+Ansichtskarte:
+  gen: f
+  e:
+    - picture postcard
+Ansichtssache:
+  gen: f
+  e:
+    - matter of opinion
+Ansichtssendung:
+  gen: f
+  e:
+    - consignment on approval
+Ansiedler:
+  gen: f
+  e:
+    - settler
+    - settlers
+Anspannung:
+  gen: f
+  e:
+    - strain
+Anspannungen:
+  gen: pl
+  e:
+    - strains
+Anspechzeit:
+  gen: f
+  e:
+    - pick time
+Anspielung:
+  gen: f
+  e:
+    - innuendo
+    - indirectness
+    - allusion
+Anspielungen:
+  gen: pl
+  e:
+    - indirectnesses
+    - allusions
+Anspitzer:
+  gen: m
+  e:
+    - sharpener
+    - sharpeners
+Ansporn:
+  gen: m
+  e:
+    - spur
+Ansprache:
+  gen: f
+  e:
+    - harangue
+    - speech
+Ansprachen:
+  gen: pl
+  e:
+    - speeches
+Ansprechbarkeit:
+  gen: f
+  e:
+    - responsiveness
+Anspruch:
+  gen: m
+  e:
+    - assert a claim
+    - pretension
+    - pretensions
+    - claim
+Ansprüche:
+  gen: m
+  e:
+    - claims
+Anspruchsniveau:
+  gen: 'n'
+  e:
+    - aspiration level
+Anspruchsregulierung:
+  gen: f
+  e:
+    - adjustment of claims
+Anspruchstellen:
+  gen: pl
+  e:
+    - claimants
+Anspruchsteller:
+  gen: m
+  e:
+    - claimant
+Anstalten:
+  gen: pl
+  e:
+    - institutions
+Anstand:
+  gen: m
+  e:
+    - decorum
+    - policy
+    - decency
+    - seemliness
+Anständigkeit:
+  gen: f
+  e:
+    - reputability
+Anstandsdame:
+  gen: f
+  e:
+    - chaperone
+Anstandsdamen:
+  gen: pl
+  e:
+    - chaperones
+Ansteckung:
+  gen: f
+  e:
+    - contagion
+    - infection
+Ansteckungen:
+  gen: pl
+  e:
+    - contagions
+    - infections
+Anstellung:
+  gen: f
+  e:
+    - appointive
+    - employment
+    - probationary employment
+Anstellungsbedingung:
+  gen: f
+  e:
+    - condition of employment
+Anstellungsbedingungen:
+  gen: pl
+  e:
+    - conditions of employment
+Anstellungsprüfung:
+  gen: f
+  e:
+    - qualifying test
+Anstellungsvertrag:
+  gen: m
+  e:
+    - employment contract
+Anstiege:
+  gen: pl
+  e:
+    - rises
+Anstifter:
+  gen: m
+  e:
+    - suborner
+    - abettor
+    - agitator
+    - fomenter
+    - instigator
+    - fomenters
+    - agitators
+    - suborners
+    - instigators
+Anstiftung:
+  gen: f
+  e:
+    - instigation
+    - subornation
+Anstiftungen:
+  gen: pl
+  e:
+    - subornations
+anstoß:
+  gen: m
+  e:
+    - impuls
+    - umbrage
+    - impulsion
+    - impulse
+    - initiation
+Anstösse:
+  gen: pl
+  e:
+    - impetuses
+    - impulsions
+    - impulses
+Anstößigkeit:
+  gen: f
+  e:
+    - obnoxiousness
+    - offensiveness
+    - objectionability
+Anstößigkeiten:
+  gen: pl
+  e:
+    - objectionableness
+Anstreicher:
+  gen: m
+  e:
+    - house painter
+Anstrengung:
+  gen: f
+  e:
+    - strenuousness
+    - effort
+Anstrengungen:
+  gen: pl
+  e:
+    - efforts
+Anstrich:
+  gen: m
+  e:
+    - coating
+Ansturm:
+  gen: m
+  e:
+    - onrush
+Anstürme:
+  gen: pl
+  e:
+    - assaults
+    - onrushes
+Antarktis:
+  gen: f
+  e:
+    - antarctic
+    - anarctica
+Anteil:
+  gen: m
+  e:
+    - interest
+    - share
+    - proportion
+    - allotment
+    - stake
+Anteilnahme:
+  gen: f
+  e:
+    - sympathy
+Anteilschein:
+  gen: m
+  e:
+    - 'share {f} certificate'
+Anteilscheine:
+  gen: f
+  e:
+    - share certificates
+Antenne:
+  gen: f
+  e:
+    - antenna
+    - aerial
+Antennen:
+  gen: pl
+  e:
+    - antennae
+    - antennas
+Antennenmast:
+  gen: m
+  e:
+    - aerial mast
+Anthropologe:
+  gen: f
+  e:
+    - anthropologist
+Anthropologie:
+  gen: f
+  e:
+    - anthropology
+Antialkoholiker:
+  gen: m
+  e:
+    - teetotaler
+Antibiotika:
+  gen: 'n'
+  e:
+    - antibiotics
+Antibiotikum:
+  gen: 'n'
+  e:
+    - i antibiotic
+Antichristen:
+  gen: pl
+  e:
+    - antichrists
+Antiheld:
+  gen: m
+  e:
+    - antihero
+Antike:
+  gen: f
+  e:
+    - antiquity
+Antilogarithmus:
+  gen: m
+  e:
+    - antilogarithm
+Antilope:
+  gen: f
+  e:
+    - antelope
+Antimaterie:
+  gen: f
+  e:
+    - antimatter
+Antimon:
+  gen: m
+  e:
+    - antimony
+Antipathie:
+  gen: f
+  e:
+    - antipathy
+Antipathien:
+  gen: pl
+  e:
+    - antipathies
+Antipoden:
+  gen: pl
+  e:
+    - antipodes
+Antiquar:
+  gen: m
+  e:
+    - antique dealer
+Antiquitäten:
+  gen: pl
+  e:
+    - antiques
+    - antquities
+    - antiquities
+Antiselektion:
+  gen: f
+  e:
+    - adverse selection
+Antiseptika:
+  gen: pl
+  e:
+    - antiseptics
+Antivalenz:
+  gen: f
+  e:
+    - anticoincidence
+Antlitz:
+  gen: 'n'
+  e:
+    - countenance
+Antlitze:
+  gen: pl
+  e:
+    - visages
+    - countenances
+Antrag:
+  gen: m
+  e:
+    - proposal
+    - motion
+Antragsannahme:
+  gen: f
+  e:
+    - acceptance proposal
+Antragsformular:
+  gen: 'n'
+  e:
+    - application form
+Antragsformulare:
+  gen: pl
+  e:
+    - applications forms
+Antragsteller:
+  gen: m
+  e:
+    - claimant
+    - proposer
+    - enrollee
+    - applicants
+Antrieb:
+  gen: m
+  e:
+    - impulsion
+    - drive
+    - impellent
+    - actuation
+    - prompting
+Antriebe:
+  gen: pl
+  e:
+    - incentives
+    - impulsions
+    - drives
+Antriebsaggregat:
+  gen: 'n'
+  e:
+    - drive assembly
+Antriebsloch:
+  gen: 'n'
+  e:
+    - drive hole
+Antriebsmaschine:
+  gen: f
+  e:
+    - main engine
+Antriebspese:
+  gen: f
+  e:
+    - spring belt
+Antriebsrad:
+  gen: 'n'
+  e:
+    - impeller
+    - drive gear
+Antriebsseite:
+  gen: f
+  e:
+    - drive end
+Antriebswelle:
+  gen: f
+  e:
+    - shaft drive
+    - drive shaft
+Antritt:
+  gen: m
+  e:
+    - entrance upon
+Antritte:
+  gen: pl
+  e:
+    - entrances upon
+Antrittsrede:
+  gen: f
+  e:
+    - inaugural address
+    - inaugural
+Antrittsreden:
+  gen: pl
+  e:
+    - inaugural addresses
+Antwort:
+  gen: f
+  e:
+    - replying
+    - response
+    - reply
+    - answer
+Antworten:
+  gen: pl
+  e:
+    - responses
+Antwortzustand:
+  gen: m
+  e:
+    - answer state
+Anwalt:
+  gen: m
+  e:
+    - advocate
+    - procurator
+    - attorney
+Anwälte:
+  gen: pl
+  e:
+    - attorneys
+    - lawyers
+Anwaltschaft:
+  gen: f
+  e:
+    - attorneyship
+Anwaltsgebühren:
+  gen: pl
+  e:
+    - attorney fees
+Anwaltskammer:
+  gen: f
+  e:
+    - bar association
+Anwaltvorschuss:
+  gen: m
+  e:
+    - retainer
+Anwärter:
+  gen: m
+  e:
+    - aspirant
+    - candidate
+    - aspirants
+    - candidates
+Anweisung:
+  gen: f
+  e:
+    - instructing
+    - directive
+    - assignation
+Anweisungen:
+  gen: pl
+  e:
+    - directives
+    - instructions
+    - assignations
+Anwendbarkeit:
+  gen: f
+  e:
+    - practicalness
+    - applicableness
+    - applicability
+Anwender:
+  gen: m
+  e:
+    - user
+    - handler
+    - operator
+    - users
+Anwenderprogramm:
+  gen: 'n'
+  e:
+    - application program
+    - user program
+Anwendersoftware:
+  gen: f
+  e:
+    - user software
+Anwendung:
+  gen: f
+  e:
+    - application
+Anwendungen:
+  gen: pl
+  e:
+    - uses
+Anwendungsdatei:
+  gen: f
+  e:
+    - application for admission
+    - application file
+Anwendungsdaten:
+  gen: pl
+  e:
+    - application data
+Anwendungsdiskette:
+  gen: f
+  e:
+    - application diskette
+Anwendungsdokumentation:
+  gen: f
+  e:
+    - application documentation
+Anwendungsentwicklung:
+  gen: f
+  e:
+    - application management
+Anwendungsfehler:
+  gen: m
+  e:
+    - application error
+Anwendungsfunktion:
+  gen: f
+  e:
+    - application function
+Anwendungsgebiet:
+  gen: 'n'
+  e:
+    - areas of application
+Anwendungsgenerator:
+  gen: m
+  e:
+    - applications generator
+Anwendungsinformation:
+  gen: f
+  e:
+    - application information
+Anwendungspaket:
+  gen: 'n'
+  e:
+    - application kit
+    - application package
+Anwendungsprogramm:
+  gen: m
+  e:
+    - application program
+    - user program
+Anwendungsprogrammierer:
+  gen: m
+  e:
+    - applications programmer
+    - application programmer
+Anwendungsprogrammierung:
+  gen: f
+  e:
+    - application programming
+Anwendungsprotokoll:
+  gen: 'n'
+  e:
+    - application log
+Anwendungsschicht:
+  gen: f
+  e:
+    - application layer
+Anwendungsschnittstelle:
+  gen: f
+  e:
+    - application interface
+Anwendungssoftware:
+  gen: f
+  e:
+    - application software
+    - application package
+Anwendungsstatistik:
+  gen: f
+  e:
+    - application statistics
+Anwendungsstudie:
+  gen: f
+  e:
+    - application study
+Anwendungssystem:
+  gen: 'n'
+  e:
+    - applications system
+    - application system
+Anwendungstechnik:
+  gen: f
+  e:
+    - applications engineering
+Anwendungstechniker:
+  gen: m
+  e:
+    - applications engineer
+    - application engineer
+Anwendungsverarbeitung:
+  gen: f
+  e:
+    - application processing
+Anwerbung:
+  gen: f
+  e:
+    - enrolment
+Anwerbungen:
+  gen: pl
+  e:
+    - enrolments
+Anwesende:
+  gen: m
+  e:
+    - attendee
+    - attendees
+Anwesenheit:
+  gen: f
+  e:
+    - attendance
+    - presence
+Anwesenheitsbeleg:
+  gen: m
+  e:
+    - attendance sheet
+Anwesenheitskarte:
+  gen: f
+  e:
+    - attendance card
+Anwesenheitsliste:
+  gen: f
+  e:
+    - attendance sheet
+    - attendance list
+Anwesenheitslisten:
+  gen: pl
+  e:
+    - attendance lists
+Anwesenheitsprämie:
+  gen: f
+  e:
+    - attendance bonus
+Anwesenheitszeit:
+  gen: f
+  e:
+    - attendance time
+Anwohner:
+  gen: pl
+  e:
+    - residents
+Anzahl:
+  gen: f
+  e:
+    - number
+Anzahlung:
+  gen: f
+  e:
+    - commission
+    - prepayment
+Anzahlungen:
+  gen: pl
+  e:
+    - deposits
+Anzahlungsgarantie:
+  gen: f
+  e:
+    - advance guaranty
+Anzeige:
+  gen: f
+  e:
+    - readout
+    - indicator
+    - indexing
+    - display
+    - dump
+Anzeigen:
+  gen: pl
+  e:
+    - notifications
+    - indexes
+Anzeigenagentur:
+  gen: f
+  e:
+    - ad agent
+    - advertising representative
+Anzeigenakquisiteur:
+  gen: m
+  e:
+    - advertisement canvasser
+    - advertising sales agency
+Anzeigenannahme:
+  gen: f
+  e:
+    - advertising office
+Anzeigenannahmebüro:
+  gen: 'n'
+  e:
+    - advertising bureau
+Anzeigenauftrag:
+  gen: m
+  e:
+    - advertisement order
+    - advertising order
+Anzeigenbeilage:
+  gen: f
+  e:
+    - ad insert
+    - advertising insert
+Anzeigenblatt:
+  gen: 'n'
+  e:
+    - advertising journal
+    - advertising paper
+Anzeigenbüro:
+  gen: 'n'
+  e:
+    - advertising agency
+Anzeigenbüros:
+  gen: pl
+  e:
+    - advertising agencies
+Anzeigengrungpreis:
+  gen: m
+  e:
+    - advertising base price
+Anzeigenkunde:
+  gen: m
+  e:
+    - advertising customer
+Anzeigenplazierungen:
+  gen: pl
+  e:
+    - advertisement positioning
+Anzeigenpreis:
+  gen: m
+  e:
+    - adrate
+Anzeigenspalte:
+  gen: f
+  e:
+    - advertisement column
+Anzeigentarif:
+  gen: m
+  e:
+    - adrate
+Anzeigentext:
+  gen: m
+  e:
+    - advertising copy
+Anzeigenvertrag:
+  gen: m
+  e:
+    - advertising contract
+Anzeigenvertreter:
+  gen: m
+  e:
+    - advertising sales agency
+    - ad agent
+Anzeiger:
+  gen: m
+  e:
+    - indicator
+    - detector
+    - indicators
+Anziehbarkeit:
+  gen: f
+  e:
+    - attractability
+Anziehungen:
+  gen: pl
+  e:
+    - attractions
+Anziehungskraft:
+  gen: f
+  e:
+    - gravity
+    - attraction
+Anziehungspunkt:
+  gen: m
+  e:
+    - cynosure
+Anziehungspunkte:
+  gen: pl
+  e:
+    - cynosures
+    - attractions
+Anzug:
+  gen: m
+  e:
+    - suit
+Anzüge:
+  gen: pl
+  e:
+    - suits
+Anzüglichkeit:
+  gen: f
+  e:
+    - offensiveness
+Aorta:
+  gen: f
+  e:
+    - aortae
+Apathie:
+  gen: f
+  e:
+    - apathy
+Aperitif:
+  gen: m
+  e:
+    - appetizer
+Aperturverzerrung:
+  gen: f
+  e:
+    - aperture distortion
+Apfel:
+  gen: m
+  e:
+    - apple
+äpfel:
+  gen: pl
+  e:
+    - apples
+Apfelbaum:
+  gen: m
+  e:
+    - apple tree
+Apfelbäume:
+  gen: pl
+  e:
+    - apple trees
+Apfelessig:
+  gen: m
+  e:
+    - cider vinegar
+Apfelkuchen:
+  gen: m
+  e:
+    - apple pie
+Apfelmus:
+  gen: m
+  e:
+    - apple puree
+    - applesauce
+Apfelpudding:
+  gen: m
+  e:
+    - pandowdy
+Apfelsaft:
+  gen: m
+  e:
+    - cider
+    - apple juice
+Apfelschimmel:
+  gen: m
+  e:
+    - dapple grey
+Apfelschnaps:
+  gen: m
+  e:
+    - applejack
+Apfelsine:
+  gen: f
+  e:
+    - orange
+Apfelwein:
+  gen: m
+  e:
+    - cider
+Aphoristiker:
+  gen: m
+  e:
+    - aphorist
+Apokalypse:
+  gen: f
+  e:
+    - apocalypse
+Apokalypsen:
+  gen: pl
+  e:
+    - apocalypses
+Apostel:
+  gen: m
+  e:
+    - apostle
+Apostroph:
+  gen: m
+  e:
+    - apostrophe
+    - single quotation mark
+Apotheke:
+  gen: f
+  e:
+    - pharmacy
+    - drugstore
+Apotheken:
+  gen: pl
+  e:
+    - dispensaries
+    - pharmacies
+Apotheker:
+  gen: m
+  e:
+    - apothecaries
+    - druggist
+Apothekerinnen:
+  gen: pl
+  e:
+    - druggists
+Apparat:
+  gen: m
+  e:
+    - apparatus
+Apparate:
+  gen: f
+  e:
+    - instruments
+    - gadgets
+Apparatur:
+  gen: f
+  e:
+    - equipment
+    - gadgetry
+Appartement:
+  gen: 'n'
+  e:
+    - apartment
+    - flatlet
+Appartements:
+  gen: pl
+  e:
+    - flatlets
+Appell:
+  gen: m
+  e:
+    - roll call
+Appetit:
+  gen: m
+  e:
+    - appetite
+Appetitanreger:
+  gen: m
+  e:
+    - appetizers
+Applaus:
+  gen: m
+  e:
+    - applause
+Applikator:
+  gen: m
+  e:
+    - applicator
+Applikatoren:
+  gen: pl
+  e:
+    - applicators
+Approximierungsrechnung:
+  gen: f
+  e:
+    - approximate computation
+Aprikose:
+  gen: f
+  e:
+    - apricot
+Aprikosen:
+  gen: pl
+  e:
+    - apricots
+April:
+  gen: m
+  e:
+    - april
+Aprilscherz:
+  gen: m
+  e:
+    - april fool hoax
+Aquädukt:
+  gen: 'n'
+  e:
+    - aqueduct
+Aquamarin:
+  gen: m
+  e:
+    - aquamarine
+Aquarell:
+  gen: 'n'
+  e:
+    - water colour
+Aquarelle:
+  gen: pl
+  e:
+    - water colours
+    - watercolors
+Aquarien:
+  gen: pl
+  e:
+    - aquaria
+Aquarium:
+  gen: 'n'
+  e:
+    - aquarium
+äquator:
+  gen: m
+  e:
+    - equator
+äquivalenz:
+  gen: f
+  e:
+    - equivalence
+Araber:
+  gen: m
+  e:
+    - arab
+    - arabs
+Aräometer:
+  gen: 'n'
+  e:
+    - hydrometer
+Arbeit:
+  gen: f
+  e:
+    - chore
+    - job
+    - labor
+    - work
+    - labour
+Arbeiten:
+  gen: pl
+  e:
+    - workings
+Arbeiter:
+  gen: m
+  e:
+    - laborer
+    - toiler
+    - workman
+    - jobber
+    - worker
+    - workers
+    - workmen
+    - jobbers
+    - labourers
+Arbeiterpartei:
+  gen: f
+  e:
+    - labour party
+Arbeiterselbstverwaltung:
+  gen: f
+  e:
+    - autogestion
+Arbeitgeber:
+  gen: m
+  e:
+    - employer
+    - taskmaster
+    - employers
+Arbeitlosenunterstützung:
+  gen: f
+  e:
+    - dole
+Arbeitsablauf:
+  gen: m
+  e:
+    - work flow
+    - operation
+Arbeitsablaufstudie:
+  gen: f
+  e:
+    - analysis of work flow
+Arbeitsamt:
+  gen: 'n'
+  e:
+    - labour exchange
+Arbeitsanzug:
+  gen: m
+  e:
+    - dungaree
+    - work clothing
+Arbeitsanzüge:
+  gen: pl
+  e:
+    - dungarees
+Arbeitsband:
+  gen: 'n'
+  e:
+    - scratch tape
+Arbeitsbedingung:
+  gen: f
+  e:
+    - working condition
+Arbeitsbedingungen:
+  gen: pl
+  e:
+    - working conditions
+Arbeitsbereich:
+  gen: m
+  e:
+    - area of operations
+    - work area
+Arbeitsbeschaffung:
+  gen: f
+  e:
+    - provision of work
+Arbeitsbescheinigung:
+  gen: f
+  e:
+    - certificate of employment
+Arbeitsbescheinigungen:
+  gen: pl
+  e:
+    - certificates of employment
+Arbeitsblatt:
+  gen: 'n'
+  e:
+    - worksheet
+Arbeitsdatei:
+  gen: f
+  e:
+    - work file
+Arbeitseinstellung:
+  gen: f
+  e:
+    - cessation of work
+Arbeitsfähigkeit:
+  gen: f
+  e:
+    - workableness
+    - employability
+Arbeitsfähigkeiten:
+  gen: pl
+  e:
+    - workablenesses
+Arbeitsfeld:
+  gen: 'n'
+  e:
+    - field of work
+Arbeitsfelder:
+  gen: pl
+  e:
+    - fields of work
+Arbeitsgang:
+  gen: m
+  e:
+    - shop operation
+    - operation
+Arbeitsgericht:
+  gen: 'n'
+  e:
+    - labour court
+Arbeitshaus:
+  gen: 'n'
+  e:
+    - workhouse
+Arbeitshäuser:
+  gen: pl
+  e:
+    - workhouses
+Arbeitsheft:
+  gen: 'n'
+  e:
+    - workbook
+Arbeitshefte:
+  gen: pl
+  e:
+    - workbooks
+Arbeitsjahr:
+  gen: m
+  e:
+    - man−year
+Arbeitskleidung:
+  gen: f
+  e:
+    - work clothes
+Arbeitskollege:
+  gen: m
+  e:
+    - teammate
+Arbeitskräfte:
+  gen: pl
+  e:
+    - manpower
+Arbeitslager:
+  gen: 'n'
+  e:
+    - labour camp
+Arbeitslauf:
+  gen: m
+  e:
+    - production run
+Arbeitsleute:
+  gen: pl
+  e:
+    - workingmen
+Arbeitslose:
+  gen: m
+  e:
+    - nonworker
+Arbeitslosenunterstützung:
+  gen: f
+  e:
+    - unemployment benefit
+Arbeitslosenversicherung:
+  gen: f
+  e:
+    - unemployment insurance
+Arbeitslosigkeit:
+  gen: f
+  e:
+    - inoccupation
+    - unemployment
+    - joblessness
+Arbeitslosigkeiten:
+  gen: pl
+  e:
+    - unemployments
+Arbeitsmann:
+  gen: m
+  e:
+    - laboring man
+    - workingman
+    - labouring man
+Arbeitsmedium:
+  gen: 'n'
+  e:
+    - working fluid
+Arbeitsmonat:
+  gen: m
+  e:
+    - man−month
+Arbeitsmoral:
+  gen: m
+  e:
+    - working morale
+Arbeitspferd:
+  gen: 'n'
+  e:
+    - workhorse
+Arbeitspferde:
+  gen: pl
+  e:
+    - workhorses
+Arbeitsplatte:
+  gen: f
+  e:
+    - work disk
+Arbeitsplatz:
+  gen: m
+  e:
+    - workstation
+    - workplace
+    - employment
+Arbeitsplatzbewertung:
+  gen: f
+  e:
+    - job evaluation
+Arbeitsplätze:
+  gen: pl
+  e:
+    - workstations
+Arbeitsplatzrechner (PC):
+  gen: m
+  e:
+    - personal computer
+Arbeitsplatzrechner:
+  gen: m
+  e:
+    - workstation computer
+Arbeitsplatzrotation:
+  gen: f
+  e:
+    - job rotation
+Arbeitspotential:
+  gen: 'n'
+  e:
+    - man−power
+Arbeitsraum:
+  gen: m
+  e:
+    - workspace
+Arbeitsräume:
+  gen: pl
+  e:
+    - group rooms
+    - workspaces
+Arbeitsrecht:
+  gen: 'n'
+  e:
+    - labour legislation
+Arbeitsregister:
+  gen: 'n'
+  e:
+    - working register
+Arbeitsschicht:
+  gen: f
+  e:
+    - tour
+Arbeitsspeicher:
+  gen: m
+  e:
+    - main storage
+    - working storage
+    - working memory
+Arbeitsstunde:
+  gen: f
+  e:
+    - working hour
+    - man−hour
+Arbeitstag:
+  gen: m
+  e:
+    - workday
+    - working day
+Arbeitstage:
+  gen: pl
+  e:
+    - workdays
+Arbeitsteilung:
+  gen: f
+  e:
+    - division of labour
+Arbeitsteilungen:
+  gen: pl
+  e:
+    - divisions of labour
+Arbeitstier:
+  gen: 'n'
+  e:
+    - plodder
+    - slogger
+Arbeitstiere:
+  gen: pl
+  e:
+    - sloggers
+Arbeitstisch:
+  gen: m
+  e:
+    - workbench
+    - worktable
+Arbeitstische:
+  gen: pl
+  e:
+    - worktables
+Arbeitsturbine:
+  gen: f
+  e:
+    - power turbine
+Arbeitsumgebung:
+  gen: f
+  e:
+    - working environment
+Arbeitsunfall:
+  gen: m
+  e:
+    - industrial accident
+Arbeitsunterbrechung:
+  gen: f
+  e:
+    - layoff
+Arbeitsunterbrechungen:
+  gen: pl
+  e:
+    - layoffs
+Arbeitsverteilung:
+  gen: f
+  e:
+    - assignment of activities
+Arbeitsvorbereitung:
+  gen: f
+  e:
+    - work scheduling
+    - operations scheduling
+Arbeitsweise:
+  gen: f
+  e:
+    - functioning
+Arbeitszeit:
+  gen: f
+  e:
+    - working time
+Arbeitszimmer:
+  gen: 'n'
+  e:
+    - workroom
+    - study
+    - workrooms
+Arbeitszuteilung:
+  gen: f
+  e:
+    - assignment of activities
+Archaismus:
+  gen: m
+  e:
+    - archaism
+Archäologe:
+  gen: m
+  e:
+    - archaeologist
+    - archeologist
+Archäologie:
+  gen: f
+  e:
+    - archeology
+Architekt:
+  gen: m
+  e:
+    - architect
+Architektengruppe:
+  gen: f
+  e:
+    - architectural firm
+Architektur:
+  gen: 'n'
+  e:
+    - architecture
+Archiv:
+  gen: 'n'
+  e:
+    - 'archives {pl}'
+Archivar:
+  gen: m
+  e:
+    - archivist
+Archivband:
+  gen: 'n'
+  e:
+    - archiv tape
+Archivdatei:
+  gen: f
+  e:
+    - archive file
+Archivnummer:
+  gen: f
+  e:
+    - archive number
+Archivnummernvergleich:
+  gen: m
+  e:
+    - archive number comparison
+Arcuscosinus:
+  gen: m
+  e:
+    - arc cosine
+Arcussinus:
+  gen: m
+  e:
+    - arc sine
+Arcustangens:
+  gen: m
+  e:
+    - arc tangent
+Arena:
+  gen: f
+  e:
+    - arena
+ärger:
+  gen: m
+  e:
+    - resentment
+    - irritation
+    - chagrin
+    - vexation
+    - dander
+ärgerlichkeit:
+  gen: f
+  e:
+    - peskiness
+ärgernisse:
+  gen: pl
+  e:
+    - nuisances
+Arglist:
+  gen: f
+  e:
+    - malice
+    - guile
+Arglosigkeit:
+  gen: f
+  e:
+    - innocence
+    - guilelessness
+    - artlessness
+Argument:
+  gen: 'n'
+  e:
+    - argument
+Argumentbyte:
+  gen: 'n'
+  e:
+    - argument byte
+Argumente:
+  gen: pl
+  e:
+    - arguments
+Argumententabelle:
+  gen: f
+  e:
+    - argument table
+Argumententeil:
+  gen: 'n'
+  e:
+    - argument section
+Argumentierende:
+  gen: m
+  e:
+    - arguer
+Argwohn:
+  gen: m
+  e:
+    - suspicion
+    - distrustfulness
+Arie:
+  gen: f
+  e:
+    - aria
+Aristokrat:
+  gen: m
+  e:
+    - aristocrat
+Aristokratie:
+  gen: f
+  e:
+    - aristocracy
+Aristophanes:
+  gen: m
+  e:
+    - aristophanes
+Arithmetik−Prozessor:
+  gen: m
+  e:
+    - arithmetic processing unit
+Arithmetik:
+  gen: f
+  e:
+    - arithmetic
+Arithmetiker:
+  gen: m
+  e:
+    - arithmetician
+Arkade:
+  gen: f
+  e:
+    - ambulatory
+Arkaden:
+  gen: pl
+  e:
+    - ambulatories
+Arktis:
+  gen: f
+  e:
+    - artic
+Arm:
+  gen: m
+  e:
+    - arm
+Armada:
+  gen: m
+  e:
+    - armada
+Armadas:
+  gen: pl
+  e:
+    - armadas
+Armatur:
+  gen: f
+  e:
+    - armature
+    - 'fittings {pl}'
+Armaturenbrett:
+  gen: 'n'
+  e:
+    - dashboard
+    - car dashboard
+Armaturenbretter:
+  gen: pl
+  e:
+    - dashboards
+Armaturentafel:
+  gen: f
+  e:
+    - instrument panel
+Armband:
+  gen: 'n'
+  e:
+    - bracelet
+    - wristband
+Armbänder:
+  gen: pl
+  e:
+    - wristbands
+    - bracelets
+Armbanduhr:
+  gen: f
+  e:
+    - wristwatch
+Armbinde:
+  gen: f
+  e:
+    - armlet
+Armbruch:
+  gen: m
+  e:
+    - fracture of the arm
+Armbrust:
+  gen: f
+  e:
+    - crossbow
+    - arbalest
+Armbrüste:
+  gen: pl
+  e:
+    - crossbows
+Arme:
+  gen: m
+  e:
+    - poor man (woman)
+    - arms
+Armee:
+  gen: f
+  e:
+    - army
+Armeen:
+  gen: pl
+  e:
+    - armies
+ärmel:
+  gen: m
+  e:
+    - sleeve
+    - sleeves
+Armen:
+  gen: pl
+  e:
+    - the poor
+Armenhaus:
+  gen: m
+  e:
+    - poorhouse
+Armlehne:
+  gen: f
+  e:
+    - armrest
+    - arm
+    - arm rest
+Armloch:
+  gen: 'n'
+  e:
+    - armhole
+Armreif:
+  gen: m
+  e:
+    - bangle
+Armschiene:
+  gen: f
+  e:
+    - bracers
+Armschutz:
+  gen: m
+  e:
+    - bracer
+Armseligkeit:
+  gen: f
+  e:
+    - paltriness
+    - beggarliness
+    - poorness
+Armut:
+  gen: f
+  e:
+    - poorness
+    - poverty
+    - impecuniousness
+Armutszeugnis:
+  gen: 'n'
+  e:
+    - evidence of incapacity
+Aroma:
+  gen: 'n'
+  e:
+    - flavour
+    - aroma
+    - flavor
+Aromen:
+  gen: pl
+  e:
+    - flavors
+Array:
+  gen: 'n'
+  e:
+    - array
+Arrest:
+  gen: m
+  e:
+    - detention
+Arrivist:
+  gen: m
+  e:
+    - aimer
+Arroganz:
+  gen: f
+  e:
+    - arrogancy
+Arsch:
+  gen: m
+  e:
+    - arse
+Arschkriecher:
+  gen: m
+  e:
+    - arse licker
+Arschloch:
+  gen: 'n'
+  e:
+    - arsehole
+Arsen:
+  gen: 'n'
+  e:
+    - arsenic
+Arsenal:
+  gen: 'n'
+  e:
+    - arsenal
+Arsenale:
+  gen: pl
+  e:
+    - arsenals
+Art:
+  gen: f
+  e:
+    - species
+    - kind
+    - sort
+    - breed
+    - fashion
+    - type
+    - fits
+Art und Weise:
+  gen: f
+  e:
+    - wise
+    - way
+Artefakt:
+  gen: m
+  e:
+    - artefact
+Arten:
+  gen: pl
+  e:
+    - types
+Arterie:
+  gen: f
+  e:
+    - artery
+Arterien:
+  gen: pl
+  e:
+    - arteries
+Arterienverkalkung:
+  gen: f
+  e:
+    - arteriosclerosis
+Arthritis:
+  gen: f
+  e:
+    - arthritis
+Artikel:
+  gen: m
+  e:
+    - article
+    - articles
+Artikelart:
+  gen: f
+  e:
+    - article type
+Artikelbezeichnung:
+  gen: f
+  e:
+    - article description
+Artikelcharakter:
+  gen: m
+  e:
+    - article character
+Artikelgruppe:
+  gen: f
+  e:
+    - article group
+Artikelkatalog:
+  gen: m
+  e:
+    - article catalog
+Artikelkonto:
+  gen: 'n'
+  e:
+    - article account
+Artikelkontodatei:
+  gen: f
+  e:
+    - article history file
+Artikelkontonummer:
+  gen: f
+  e:
+    - article account number
+Artikelnummerkriterium:
+  gen: 'n'
+  e:
+    - article number criterion
+Artikelsperre:
+  gen: f
+  e:
+    - article immobilisation
+Artikelstammdatei:
+  gen: f
+  e:
+    - article master file
+Artikelstammdaten:
+  gen: pl
+  e:
+    - article master data
+Artikelstammerweiterung:
+  gen: f
+  e:
+    - article master extension
+Artikelstammfeld:
+  gen: 'n'
+  e:
+    - article master field
+Artikelstammkonvertierung:
+  gen: f
+  e:
+    - article master conversion
+Artikelstammwartung:
+  gen: f
+  e:
+    - article master maintenance
+Artikelstatistik:
+  gen: f
+  e:
+    - article statistics
+Artikelübersicht:
+  gen: f
+  e:
+    - article report
+Artikulation:
+  gen: f
+  e:
+    - articulation
+Artillerie:
+  gen: f
+  e:
+    - ordnance
+    - artillery
+Artillerien:
+  gen: pl
+  e:
+    - artilleries
+Artillerist:
+  gen: m
+  e:
+    - artilleryman
+Artilleristen:
+  gen: pl
+  e:
+    - artillerymen
+Artischocke:
+  gen: f
+  e:
+    - artichoke
+Artischocken:
+  gen: pl
+  e:
+    - artichokes
+Artist:
+  gen: m
+  e:
+    - artist
+Artisten:
+  gen: pl
+  e:
+    - artists
+Arznei:
+  gen: f
+  e:
+    - medicine
+Arzneiausgabe:
+  gen: f
+  e:
+    - dispensary
+Arzneibuch:
+  gen: 'n'
+  e:
+    - pharmacopoeia
+Arzneischrank:
+  gen: m
+  e:
+    - medicine cabinet
+Arzt:
+  gen: m
+  e:
+    - physician
+    - doctor
+ärzte:
+  gen: pl
+  e:
+    - physicians
+As:
+  gen: 'n'
+  e:
+    - ace
+Asbest:
+  gen: m
+  e:
+    - asbestos
+Asbestdichtung:
+  gen: f
+  e:
+    - asbestos gasket
+Asche:
+  gen: f
+  e:
+    - slag
+    - ash
+    - cinder
+    - ember
+Aschenbecher:
+  gen: m
+  e:
+    - ash−tray
+    - ashtray
+    - ashtrays
+Aschenputtel:
+  gen: 'n'
+  e:
+    - cinderella
+Aschermittwoch:
+  gen: m
+  e:
+    - ash wednesday
+Asiat:
+  gen: m
+  e:
+    - asian
+Asiaten:
+  gen: pl
+  e:
+    - asians
+Askese:
+  gen: f
+  e:
+    - asceticism
+Asketen:
+  gen: pl
+  e:
+    - ascetics
+Aspekt:
+  gen: f
+  e:
+    - aspect
+Aspekte:
+  gen: pl
+  e:
+    - aspects
+Asphalt:
+  gen: m
+  e:
+    - asphalt
+Aspik:
+  gen: m
+  e:
+    - aspic
+Aspirationen:
+  gen: pl
+  e:
+    - aspirations
+Aspirin:
+  gen: 'n'
+  e:
+    - aspirin
+Asse:
+  gen: pl
+  e:
+    - aces
+Assembler−Primärprogramm:
+  gen: 'n'
+  e:
+    - assembler primary program
+Assembler−Programmierer:
+  gen: m
+  e:
+    - assembler programmer
+Assembler:
+  gen: m
+  e:
+    - assembler
+    - assembly
+Assemblerbefehl:
+  gen: m
+  e:
+    - assembly instruction
+    - assembler instruction
+Assemblerdirektive:
+  gen: f
+  e:
+    - assembler directive
+Assemblerformat:
+  gen: 'n'
+  e:
+    - assembler format
+Assemblermodul:
+  gen: 'n'
+  e:
+    - assembler module
+Assemblerprotokoll:
+  gen: 'n'
+  e:
+    - assembly listing
+    - assembler listing
+Assemblersprache:
+  gen: f
+  e:
+    - assembly language
+    - assembler language
+Assessoren:
+  gen: pl
+  e:
+    - assessors
+Assistent:
+  gen: m
+  e:
+    - assistant
+Assistenten:
+  gen: pl
+  e:
+    - assistants
+Assistentsarzt:
+  gen: m
+  e:
+    - assistant doctor
+Assistentsärzte:
+  gen: pl
+  e:
+    - assistant doctors
+Assonanz:
+  gen: f
+  e:
+    - assonance
+Assonanzen:
+  gen: pl
+  e:
+    - assonances
+Assoziationsvertrag:
+  gen: m
+  e:
+    - association treaty
+Assoziativrelation:
+  gen: f
+  e:
+    - associative storage
+Assoziativspeicher:
+  gen: m
+  e:
+    - associative memory
+Ast:
+  gen: m
+  e:
+    - bough
+äste:
+  gen: pl
+  e:
+    - boughs
+Aster:
+  gen: f
+  e:
+    - aster
+Astern:
+  gen: pl
+  e:
+    - asters
+Asteroid:
+  gen: m
+  e:
+    - asteroid
+Asteroiden:
+  gen: pl
+  e:
+    - asteroids
+ästhetik:
+  gen: f
+  e:
+    - aesthetics
+    - aesthetic
+Asthma:
+  gen: 'n'
+  e:
+    - asthma
+Astigmatismus:
+  gen: m
+  e:
+    - astigmatism
+Astloch:
+  gen: 'n'
+  e:
+    - knothole
+Astrologe:
+  gen: m
+  e:
+    - astrologer
+Astrologen:
+  gen: pl
+  e:
+    - astrologers
+Astrologie:
+  gen: f
+  e:
+    - astrology
+Astronauten:
+  gen: m
+  e:
+    - astronaut
+    - astronauts
+Astronom:
+  gen: m
+  e:
+    - astronomer
+Astronomen:
+  gen: pl
+  e:
+    - astronomers
+Astronomie:
+  gen: f
+  e:
+    - astronomy
+Astrophysik:
+  gen: m
+  e:
+    - astrophysics
+Astrophysiker:
+  gen: m
+  e:
+    - astrophysicist
+    - astrophysicists
+Aststumpf:
+  gen: m
+  e:
+    - snag
+Asyl:
+  gen: 'n'
+  e:
+    - asylum
+Asylrecht:
+  gen: 'n'
+  e:
+    - right of asylum
+Asylrechte:
+  gen: pl
+  e:
+    - rights of asylum
+Asymptote:
+  gen: f
+  e:
+    - asymptote
+Asymptoten:
+  gen: pl
+  e:
+    - asymptotes
+Asynchronbetrieb:
+  gen: m
+  e:
+    - asynchronous working
+    - asynchronous processing
+Asynchrone Steuerung:
+  gen: f
+  e:
+    - non−clocked control
+Asynchronmaschine:
+  gen: f
+  e:
+    - asynchronous machine
+Asynchronmotor:
+  gen: m
+  e:
+    - asynchronous motor
+Asynchronmultiplexer:
+  gen: m
+  e:
+    - asynchronous multiplexer
+Asynchronprogamm:
+  gen: 'n'
+  e:
+    - asynchronous program
+Asynchronrechner:
+  gen: m
+  e:
+    - asynchronous computer
+Aszendent:
+  gen: m
+  e:
+    - ascendent
+Aszendenten:
+  gen: pl
+  e:
+    - ascendents
+Ataxien:
+  gen: pl
+  e:
+    - ataxias
+Atem:
+  gen: m
+  e:
+    - breath
+Atembeschwerde:
+  gen: f
+  e:
+    - difficulty of breathing
+Atembeschwerden:
+  gen: pl
+  e:
+    - difficulties of breathing
+Atemgerät:
+  gen: 'n'
+  e:
+    - respirator
+Atemloch:
+  gen: 'n'
+  e:
+    - spiracle
+Atemlöcher:
+  gen: pl
+  e:
+    - spiracles
+Atemlosigkeit:
+  gen: f
+  e:
+    - breathlessness
+Atempause:
+  gen: f
+  e:
+    - breathing time
+Atempausen:
+  gen: pl
+  e:
+    - breathing times
+Atemübung:
+  gen: f
+  e:
+    - breathing exercises
+Atemzug:
+  gen: m
+  e:
+    - breath
+Atemzüge:
+  gen: f
+  e:
+    - breaths
+Atheist:
+  gen: m
+  e:
+    - atheist
+Atheisten:
+  gen: pl
+  e:
+    - atheists
+äther:
+  gen: 'n'
+  e:
+    - ether
+äthiologie:
+  gen: f
+  e:
+    - etiology
+Athlet:
+  gen: m
+  e:
+    - athlete
+Athleten:
+  gen: pl
+  e:
+    - athletes
+Athletik:
+  gen: f
+  e:
+    - athleticism
+äthyl:
+  gen: 'n'
+  e:
+    - ethyl
+äthyle:
+  gen: pl
+  e:
+    - ethyls
+Atiquitätengeschäft:
+  gen: 'n'
+  e:
+    - antique shop
+Atlant:
+  gen: m
+  e:
+    - atlas
+Atlanten:
+  gen: pl
+  e:
+    - atlases
+Atlas:
+  gen: m
+  e:
+    - atlas
+Atmosphäre:
+  gen: f
+  e:
+    - atmosphere
+    - ambience
+Atmosphären:
+  gen: pl
+  e:
+    - atmospheres
+Atmung:
+  gen: f
+  e:
+    - respiration
+Atmungen:
+  gen: pl
+  e:
+    - respirations
+Atmungsorgan:
+  gen: 'n'
+  e:
+    - respiratory organ
+Atoll:
+  gen: 'n'
+  e:
+    - atoll
+Atom:
+  gen: 'n'
+  e:
+    - corpuscle
+    - atom
+Atombombe:
+  gen: f
+  e:
+    - atomic bomb
+Atombomben:
+  gen: pl
+  e:
+    - atomic bombs
+Atome:
+  gen: f
+  e:
+    - atoms
+Atomenergie:
+  gen: f
+  e:
+    - atomic energy
+Atomforscher:
+  gen: m
+  e:
+    - nuclear scientist
+Atomforschung:
+  gen: f
+  e:
+    - atomic research
+Atomkraftwerk:
+  gen: 'n'
+  e:
+    - nuclear power station
+Atommüll:
+  gen: m
+  e:
+    - atomic waste
+Atomwaffe:
+  gen: f
+  e:
+    - nuclear weapon
+Atomwaffen:
+  gen: pl
+  e:
+    - weapons
+Atomzeitalter:
+  gen: 'n'
+  e:
+    - atomic age
+Atribut:
+  gen: 'n'
+  e:
+    - attribute
+Atropin:
+  gen: 'n'
+  e:
+    - atropine
+Attentäter:
+  gen: m
+  e:
+    - assassin
+    - assassins
+Attest:
+  gen: 'n'
+  e:
+    - certificate
+Atteste:
+  gen: pl
+  e:
+    - certificates
+Attraktion:
+  gen: f
+  e:
+    - attraction
+Attrappe:
+  gen: f
+  e:
+    - dummy
+Attrappen:
+  gen: pl
+  e:
+    - dummies
+Attribut:
+  gen: 'n'
+  e:
+    - attribute
+Attributaktualisierung:
+  gen: f
+  e:
+    - attribute update
+Attributbyte:
+  gen: 'n'
+  e:
+    - attribute byte
+Attribute:
+  gen: pl
+  e:
+    - attributes
+Attributenprüfung:
+  gen: f
+  e:
+    - attribute gage
+Attributive Prüfung:
+  gen: f
+  e:
+    - insoection by attributes
+Attributkennzeichen:
+  gen: 'n'
+  e:
+    - attribute identifier
+Attributmodifikation:
+  gen: f
+  e:
+    - attribute modification
+Attributverwendung:
+  gen: f
+  e:
+    - attribute use
+Attributzeichen:
+  gen: 'n'
+  e:
+    - attribute sign
+ätzkalk:
+  gen: m
+  e:
+    - quicklime
+ätzmittel:
+  gen: 'n'
+  e:
+    - caustics
+Aubergine:
+  gen: f
+  e:
+    - eggplant
+Auberginen:
+  gen: pl
+  e:
+    - eggplants
+Audienz:
+  gen: f
+  e:
+    - audience (with)
+Audiogeräte:
+  gen: pl
+  e:
+    - audio equipment
+Audiokassette:
+  gen: f
+  e:
+    - cassette
+Audioverstärker:
+  gen: m
+  e:
+    - audio amplifier
+Auerhahn:
+  gen: m
+  e:
+    - wood grouse
+Aufbau:
+  gen: m
+  e:
+    - superstruction
+    - structure
+Aufbereiten:
+  gen: 'n'
+  e:
+    - editing
+Aufbereitung:
+  gen: f
+  e:
+    - preparation
+Aufbereitungscode:
+  gen: m
+  e:
+    - edit code
+Aufbereitungsmaske:
+  gen: f
+  e:
+    - edit word
+Aufbereitungsoption:
+  gen: f
+  e:
+    - editing option
+Aufbesserung:
+  gen: f
+  e:
+    - amelioration
+Aufbewahrungsort:
+  gen: m
+  e:
+    - repository
+Aufbewahrungsorte:
+  gen: pl
+  e:
+    - repositories
+Aufbewahrungszeitraum:
+  gen: m
+  e:
+    - retention period
+Aufbietung:
+  gen: f
+  e:
+    - mobilization
+Aufblähung:
+  gen: f
+  e:
+    - puffing
+Aufbruch:
+  gen: m
+  e:
+    - decampment
+Aufdampfung:
+  gen: f
+  e:
+    - vapor deposition
+Aufdrängen:
+  gen: 'n'
+  e:
+    - obtrusion
+Aufdringlichkeit:
+  gen: f
+  e:
+    - intrusiveness
+    - pushiness
+    - importunity
+Aufdringlichkeiten:
+  gen: pl
+  e:
+    - importunities
+Aufeinanderfolge:
+  gen: f
+  e:
+    - successiveness
+    - succession
+    - consecutiveness
+Aufenhalt:
+  gen: m
+  e:
+    - abidance
+Aufenthalt:
+  gen: m
+  e:
+    - stay
+    - abode
+    - inhabitancy
+    - layover
+    - inhabitation
+Aufenthaltsgenehmigung:
+  gen: f
+  e:
+    - residence permit
+Aufenthaltsort:
+  gen: m
+  e:
+    - whereabout
+Aufenthaltsraum:
+  gen: m
+  e:
+    - lounge
+Auferlegung:
+  gen: f
+  e:
+    - imposition
+Auferlegungen:
+  gen: pl
+  e:
+    - impositions
+Auferstehung:
+  gen: f
+  e:
+    - resurrection
+Auffahrt:
+  gen: f
+  e:
+    - driveway
+Auffahrten:
+  gen: pl
+  e:
+    - driveways
+Auffassung:
+  gen: f
+  e:
+    - concept
+Auffassungsgabe:
+  gen: f
+  e:
+    - apprehension
+Auffassungsvermögen:
+  gen: 'n'
+  e:
+    - perceptivity
+    - intelligence
+Aufforderung:
+  gen: f
+  e:
+    - invitation
+Aufforderungen:
+  gen: pl
+  e:
+    - requests
+Aufforstung:
+  gen: f
+  e:
+    - reforestation
+Auffrischen:
+  gen: 'n'
+  e:
+    - refreshing
+Auffrischungsmittel:
+  gen: 'n'
+  e:
+    - reviver
+Auffüllen:
+  gen: 'n'
+  e:
+    - padding
+Auffüllung:
+  gen: f
+  e:
+    - replenishment
+Auffüllzeichen:
+  gen: 'n'
+  e:
+    - pad character
+Aufgabe:
+  gen: f
+  e:
+    - problem
+    - exercise
+    - task
+    - abandonment
+Aufgaben:
+  gen: pl
+  e:
+    - tasks
+    - jobs
+Aufgabenablauffolge:
+  gen: f
+  e:
+    - job sequence
+    - job stream
+Aufgabenbereicherung:
+  gen: f
+  e:
+    - job enrichment
+Aufgabenerweiterung:
+  gen: f
+  e:
+    - job enlargement
+Aufgabenheft:
+  gen: 'n'
+  e:
+    - copy book
+Aufgabenkreis:
+  gen: m
+  e:
+    - field of activity
+Aufgabenkreise:
+  gen: pl
+  e:
+    - fields of activity
+Aufgabenscheine:
+  gen: pl
+  e:
+    - receipts
+Aufgabenstellung:
+  gen: f
+  e:
+    - conceptual formulation
+Aufgabensteürung:
+  gen: f
+  e:
+    - task control
+Aufgebot:
+  gen: m
+  e:
+    - banns
+    - bans
+Aufgeklärtheit:
+  gen: f
+  e:
+    - enlightenment
+Aufgeld:
+  gen: 'n'
+  e:
+    - agio
+Aufgeschlossenheit:
+  gen: f
+  e:
+    - impressionableness
+    - open mindedness
+aufguß:
+  gen: m
+  e:
+    - infusion
+Aufhänger:
+  gen: m
+  e:
+    - hooker
+    - hanger
+    - hookers
+    - hangers
+Aufhängung:
+  gen: f
+  e:
+    - lynching
+    - suspension
+Aufhängungen:
+  gen: pl
+  e:
+    - suspensions
+Aufheben:
+  gen: 'n'
+  e:
+    - fuss
+Aufhebung:
+  gen: f
+  e:
+    - annulment
+    - abrogation
+    - cancelation
+    - rescission
+    - abolitions
+Aufhebungen:
+  gen: pl
+  e:
+    - abrogations
+    - annulments
+    - rescissions
+Aufheizen:
+  gen: 'n'
+  e:
+    - heating−up
+Aufheizgeschwindigkeit:
+  gen: f
+  e:
+    - heating rate
+Aufkauf:
+  gen: m
+  e:
+    - buying up
+Aufkaufen:
+  gen: 'n'
+  e:
+    - abbroachement
+Aufkäufer:
+  gen: m
+  e:
+    - wholesale buyer
+    - wholesale buyers
+Aufklärer:
+  gen: m
+  e:
+    - scout
+    - scouts
+Aufkleber:
+  gen: m
+  e:
+    - sticker
+    - adhesive label
+    - stickers
+Aufladung:
+  gen: f
+  e:
+    - charge
+    - pressure charging
+Auflage:
+  gen: f
+  e:
+    - impost
+    - edition
+Auflagefläche:
+  gen: f
+  e:
+    - seating
+Auflagen:
+  gen: pl
+  e:
+    - imposts
+    - editions
+Auflageziffern:
+  gen: pl
+  e:
+    - issues
+Auflauf:
+  gen: m
+  e:
+    - crowd
+Aufläufe:
+  gen: pl
+  e:
+    - crowds
+Auflehnung:
+  gen: f
+  e:
+    - revolution
+Auflister:
+  gen: m
+  e:
+    - lister
+Auflistung:
+  gen: f
+  e:
+    - listing
+Auflösbarkeit:
+  gen: f
+  e:
+    - dissolvability
+Auflösung:
+  gen: f
+  e:
+    - dissolution
+    - solution
+    - breakup
+    - resolution
+Auflösungen:
+  gen: pl
+  e:
+    - disbandments
+    - dissolutions
+Aufmerksamkeit:
+  gen: f
+  e:
+    - attention
+    - mindfulness
+    - heedfulness
+    - to arrest attention
+Aufmerksamkeiten:
+  gen: pl
+  e:
+    - attentions
+Aufmunterung:
+  gen: f
+  e:
+    - encouragement
+Aufnahme:
+  gen: f
+  e:
+    - absorption
+    - recording
+Aufnahmeantrag:
+  gen: m
+  e:
+    - apply for admission
+Aufnahmebedingungen:
+  gen: pl
+  e:
+    - terms of admission
+Aufnahmefähigkeit:
+  gen: f
+  e:
+    - receptivity
+    - capacitance
+    - absorbing capacity
+Aufnahmefähigkeiten:
+  gen: pl
+  e:
+    - receptivities
+Aufnahmegebühr:
+  gen: f
+  e:
+    - admission fee
+Aufnahmegebühren:
+  gen: pl
+  e:
+    - admission fees
+Aufnahmen:
+  gen: pl
+  e:
+    - recordings
+    - receptions
+Aufnahmeprüfung:
+  gen: f
+  e:
+    - entrance examination
+Aufnahmespule:
+  gen: f
+  e:
+    - take−up reel
+Aufnehmen:
+  gen: 'n'
+  e:
+    - grabbing
+Aufopferungen:
+  gen: pl
+  e:
+    - sacrifices
+Aufpasser:
+  gen: m
+  e:
+    - overseer
+Aufpasserinnen:
+  gen: pl
+  e:
+    - overseers
+Aufprall:
+  gen: m
+  e:
+    - imapct
+Aufprälle:
+  gen: pl
+  e:
+    - impacts
+Aufpreis:
+  gen: m
+  e:
+    - surcharge
+Aufpreise:
+  gen: pl
+  e:
+    - surcharges
+Aufputz:
+  gen: m
+  e:
+    - finery
+Aufregung:
+  gen: f
+  e:
+    - pother
+    - excitement
+    - discomposure
+    - commotion
+    - stir
+Aufregungen:
+  gen: pl
+  e:
+    - pothers
+    - flusters
+    - commotions
+    - takings
+Aufrichtigkeit:
+  gen: f
+  e:
+    - candour
+    - candor
+    - unaffectedness
+    - sincerity
+Aufrichtigkeiten:
+  gen: pl
+  e:
+    - sincereness
+    - sincerities
+Aufrichtung:
+  gen: f
+  e:
+    - erection
+Aufrichtungen:
+  gen: pl
+  e:
+    - erections
+Aufriß:
+  gen: m
+  e:
+    - vertical section
+Aufruf:
+  gen: m
+  e:
+    - invocation
+    - envoking
+    - cue
+    - call
+    - calling
+Aufrufadresse:
+  gen: f
+  e:
+    - call address
+Aufrufbefehl:
+  gen: m
+  e:
+    - calling instruction
+Aufrufe:
+  gen: pl
+  e:
+    - invocations
+Aufrufprogramm:
+  gen: 'n'
+  e:
+    - solicitor
+Aufruhr:
+  gen: m
+  e:
+    - seditions
+    - fracas
+    - sedition
+    - insurrection
+    - riot
+Aufrührer:
+  gen: m
+  e:
+    - insurrectionist
+    - rioter
+Aufrüstung:
+  gen: f
+  e:
+    - armament
+    - rearmament
+Aufrüttelung:
+  gen: f
+  e:
+    - shakeup
+Aufsässigkeit:
+  gen: f
+  e:
+    - rebelliousness
+Aufsaugfähigkeiten:
+  gen: pl
+  e:
+    - absorbabilities
+Aufsaugung:
+  gen: f
+  e:
+    - absorption
+Aufschlag:
+  gen: m
+  e:
+    - percussion
+    - lapel
+Aufschläge:
+  gen: pl
+  e:
+    - impacts
+    - lapels
+Aufschlüsselung:
+  gen: f
+  e:
+    - breakdown
+Aufschneider:
+  gen: m
+  e:
+    - boaster
+Aufschneiderei:
+  gen: f
+  e:
+    - bragging
+Aufschnitt:
+  gen: m
+  e:
+    - cold meat
+    - cold cuts
+Aufschnitte:
+  gen: pl
+  e:
+    - cold slices
+Aufschrei:
+  gen: m
+  e:
+    - scream
+    - outcry
+Aufschreie:
+  gen: pl
+  e:
+    - screams
+    - outcries
+Aufschrift:
+  gen: f
+  e:
+    - inscription
+Aufschriften:
+  gen: pl
+  e:
+    - superscripts
+Aufschub:
+  gen: m
+  e:
+    - delay
+    - adjurnment
+Aufschübe:
+  gen: pl
+  e:
+    - adjurnments
+Aufschwung:
+  gen: m
+  e:
+    - upswing
+Aufschwünge:
+  gen: pl
+  e:
+    - upswings
+    - booms
+Aufsehen:
+  gen: 'n'
+  e:
+    - sensation
+    - furore
+Aufseher:
+  gen: m
+  e:
+    - supervisor
+    - inspector
+    - custodian
+    - keeper
+    - checker
+    - supervisors
+    - wardens
+    - overseers
+Aufseherinnen:
+  gen: pl
+  e:
+    - supervisors
+Aufsicht:
+  gen: f
+  e:
+    - supervision
+    - supervisor
+    - custody
+    - surveillance
+Aufsichtsbehörde:
+  gen: f
+  e:
+    - surveillance authority
+Aufsichtsführende:
+  gen: m
+  e:
+    - proctor
+Aufsichtsrat:
+  gen: m
+  e:
+    - supervisory board
+Aufsichtsräte:
+  gen: pl
+  e:
+    - supervisory boards
+Aufspürer:
+  gen: m
+  e:
+    - tracker
+    - trackers
+Aufstand:
+  gen: m
+  e:
+    - revolt
+    - insurrection
+    - insurgence
+Aufstände:
+  gen: f
+  e:
+    - insurrections
+    - uproars
+    - uprisings
+    - insurgencies
+Aufständen:
+  gen: pl
+  e:
+    - uprisings
+Aufstands−:
+  gen: m
+  e:
+    - uprising
+    - insurgency
+Aufsteigen:
+  gen: 'n'
+  e:
+    - ascension
+Aufstellung:
+  gen: f
+  e:
+    - setting up
+    - nomination
+    - itemization
+    - lineup
+    - preparation of a balance sheet
+Aufstellungsort:
+  gen: m
+  e:
+    - site
+Aufstieg:
+  gen: m
+  e:
+    - ascendency
+    - ascent
+    - way up
+Aufstiege:
+  gen: f
+  e:
+    - ascents
+Aufstiegschancen:
+  gen: pl
+  e:
+    - promotion prospects
+Aufstiegsspiel:
+  gen: 'n'
+  e:
+    - promotion tie
+Aufstrich:
+  gen: m
+  e:
+    - spread
+Auftakt:
+  gen: m
+  e:
+    - upbeat
+Auftauchen:
+  gen: 'n'
+  e:
+    - emersion
+Aufteilung:
+  gen: f
+  e:
+    - partitioning
+    - segmentation
+Auftrag:
+  gen: m
+  e:
+    - order
+    - job
+    - commission
+    - mission
+Aufträge:
+  gen: pl
+  e:
+    - commissions
+    - missions
+Auftraggeber:
+  gen: m
+  e:
+    - orderer
+Auftragsabrechnung:
+  gen: f
+  e:
+    - job accounting
+Auftragsbestand:
+  gen: m
+  e:
+    - unfilled orders
+    - business backlog
+Auftragsbestätigung:
+  gen: f
+  e:
+    - acceptance of order
+    - confirmation of order
+Auftragserteilung:
+  gen: f
+  e:
+    - placing of order
+    - assignment of a mission
+Auftragsformular:
+  gen: 'n'
+  e:
+    - order form
+Auftragskontrolle:
+  gen: f
+  e:
+    - order control
+Auftragsrückstand:
+  gen: m
+  e:
+    - back orders
+Auftragssteürung:
+  gen: f
+  e:
+    - job controlling
+Auftrieb:
+  gen: m
+  e:
+    - boost
+    - impetus
+Auftriebe:
+  gen: pl
+  e:
+    - impetuses
+Aufwallung:
+  gen: f
+  e:
+    - upsurge
+Aufwallungen:
+  gen: pl
+  e:
+    - upsurges
+Aufwand:
+  gen: m
+  e:
+    - expense
+    - outlay
+    - expenditure (of)
+Aufwands−:
+  gen: m
+  e:
+    - sumptuary
+Aufwandsentschädigung:
+  gen: f
+  e:
+    - expense allowance
+Aufwandskonto:
+  gen: 'n'
+  e:
+    - activity account
+Aufwärmzeit:
+  gen: m
+  e:
+    - heating period
+Aufwartefrau:
+  gen: f
+  e:
+    - cleaning woman
+Aufwartefraün:
+  gen: pl
+  e:
+    - cleaning women
+Aufwärter:
+  gen: m
+  e:
+    - steward
+Aufwärterin:
+  gen: f
+  e:
+    - stewardess
+Aufwärtsentwicklung:
+  gen: f
+  e:
+    - upward trend
+Aufwärtshaken:
+  gen: m
+  e:
+    - uppercut
+Aufwartungen:
+  gen: pl
+  e:
+    - visits
+Aufweichung:
+  gen: f
+  e:
+    - maceration
+Aufwendung:
+  gen: f
+  e:
+    - expense
+    - expenditure
+Aufwendungen:
+  gen: pl
+  e:
+    - expenditures
+Aufwertung:
+  gen: f
+  e:
+    - upgrading
+    - valorization
+    - revaluation
+Aufwertungen:
+  gen: pl
+  e:
+    - valorizations
+Aufwickel:
+  gen: m
+  e:
+    - take−up
+Aufwickelspule:
+  gen: f
+  e:
+    - take−up reel
+Aufwiegelung:
+  gen: f
+  e:
+    - sedition
+Aufwind:
+  gen: m
+  e:
+    - up wind
+Aufwinde:
+  gen: pl
+  e:
+    - up winds
+Aufzählung:
+  gen: f
+  e:
+    - enumeration
+    - numeration
+Aufzählungen:
+  gen: pl
+  e:
+    - enumerations
+Aufzeichnung:
+  gen: f
+  e:
+    - videotaping
+    - chronicle
+    - notes
+Aufzeichnungen:
+  gen: pl
+  e:
+    - notations
+    - records
+Aufzinsungsfaktor:
+  gen: m
+  e:
+    - accumulation factor
+Aufzucht:
+  gen: f
+  e:
+    - breeding
+Aufzug:
+  gen: m
+  e:
+    - procession
+    - elevator
+Aufzüge:
+  gen: pl
+  e:
+    - elevators
+Augapfel:
+  gen: m
+  e:
+    - eyeball
+Augäpfel:
+  gen: m
+  e:
+    - eyeballs
+Auge:
+  gen: 'n'
+  e:
+    - eye
+Augen:
+  gen: pl
+  e:
+    - eyes
+Augenarzt:
+  gen: m
+  e:
+    - ophthalmologist
+    - eye specialist
+Augenblick:
+  gen: m
+  e:
+    - instant
+    - moment
+    - jiffy
+Augenblicke:
+  gen: pl
+  e:
+    - moments
+Augenbraue:
+  gen: f
+  e:
+    - eyebrow
+    - brow
+Augenbraün:
+  gen: pl
+  e:
+    - eyebrows
+Augenbraünstift:
+  gen: m
+  e:
+    - eyepencil
+    - eyebrow pencil
+Augenentzündung:
+  gen: f
+  e:
+    - ophthalmitis
+Augenfältchen:
+  gen: pl
+  e:
+    - crow's feet
+Augenfarbe:
+  gen: f
+  e:
+    - color of eyes
+Augenglas:
+  gen: 'n'
+  e:
+    - eyeglass
+Augenheilkunde:
+  gen: f
+  e:
+    - ophthalmology
+Augenhöhle:
+  gen: f
+  e:
+    - eye socket
+Augeninnendruck:
+  gen: m
+  e:
+    - intra−ocular pressure
+Augenklappe:
+  gen: f
+  e:
+    - eye patch
+Augenklinik:
+  gen: f
+  e:
+    - eye clinic
+Augenlicht:
+  gen: m
+  e:
+    - eyesight
+Augenlid:
+  gen: m
+  e:
+    - eyelid
+Augenlider:
+  gen: m
+  e:
+    - eyelids
+Augenmuskel:
+  gen: m
+  e:
+    - eye muscle
+Augennerv:
+  gen: m
+  e:
+    - optic nerve
+Augenschmerzen:
+  gen: pl
+  e:
+    - eyestrain
+Augenspiegel:
+  gen: m
+  e:
+    - ophthalmoscope
+Augentropfen:
+  gen: pl
+  e:
+    - eye drops
+Augentrost:
+  gen: m
+  e:
+    - eyebright
+Augenwasser:
+  gen: m
+  e:
+    - eyewash
+Augenweide:
+  gen: f
+  e:
+    - feast for the eyes
+Augenwimper:
+  gen: m
+  e:
+    - eyelash
+Augenwimpern:
+  gen: m
+  e:
+    - eyelashes
+Augenwischerei:
+  gen: f
+  e:
+    - eyewash
+Augenzeuge:
+  gen: f
+  e:
+    - eye witness
+    - eyewitness
+Augenzeugen:
+  gen: pl
+  e:
+    - eye witnesses
+Augenzeugenbericht:
+  gen: pl
+  e:
+    - eyewitness report
+August:
+  gen: m
+  e:
+    - august
+Auktion:
+  gen: f
+  e:
+    - auction
+Auktionen:
+  gen: pl
+  e:
+    - auctions
+Auktionshaus:
+  gen: 'n'
+  e:
+    - auctioneers
+Auktionsmarkt:
+  gen: m
+  e:
+    - auction market
+Aula:
+  gen: f
+  e:
+    - auditorium
+Aürhähne:
+  gen: pl
+  e:
+    - wood grouses
+Aus−Zustand:
+  gen: m
+  e:
+    - off state
+Ausarbeitung:
+  gen: f
+  e:
+    - draft
+    - developement
+    - elaboration
+    - working out
+Ausarbeitungen:
+  gen: pl
+  e:
+    - elaborations
+Ausbau:
+  gen: m
+  e:
+    - upgrading
+Ausbaufähigkeit:
+  gen: f
+  e:
+    - expandability
+    - upgradability
+Ausbauten:
+  gen: pl
+  e:
+    - enlargements
+Ausbesserung:
+  gen: f
+  e:
+    - reparation
+    - repair
+Ausbeute:
+  gen: f
+  e:
+    - yield
+Ausbeutung:
+  gen: f
+  e:
+    - exploitation
+Ausbeutungsbetrieb:
+  gen: m
+  e:
+    - sweatshop
+Ausbeutungsbetriebe:
+  gen: pl
+  e:
+    - sweatshops
+Ausbildung:
+  gen: f
+  e:
+    - instruction
+    - training
+    - schooling
+    - on−the−job training
+Ausbildungslehrgang:
+  gen: m
+  e:
+    - training course
+Ausbildungslehrgänge:
+  gen: pl
+  e:
+    - training courses
+Ausbildungsmethoden:
+  gen: pl
+  e:
+    - teachware
+Ausbildungsplan:
+  gen: m
+  e:
+    - training schedule
+Ausbildungsvertrag:
+  gen: m
+  e:
+    - articles of apprenticeship
+Ausbildungszentrum:
+  gen: m
+  e:
+    - training center
+Ausblick:
+  gen: m
+  e:
+    - outlook
+Ausblicke:
+  gen: pl
+  e:
+    - outlooks
+Ausbrennen:
+  gen: 'n'
+  e:
+    - burnout
+    - burnouts
+Ausbruch:
+  gen: m
+  e:
+    - outbreak
+    - outburst
+    - eruption
+    - raptures
+Ausbrüche:
+  gen: pl
+  e:
+    - outbursts
+    - eruptions
+    - outbreaks
+Ausbuchtung:
+  gen: f
+  e:
+    - convexity
+Ausbuchtungen:
+  gen: pl
+  e:
+    - convexities
+Ausdauer:
+  gen: f
+  e:
+    - enduringness
+    - persistency
+    - perseverance
+Ausdehnung:
+  gen: f
+  e:
+    - expanse
+    - dilatation
+    - expansion
+    - dimensioning
+Ausdehnungen:
+  gen: pl
+  e:
+    - expansions
+    - extents
+    - expanses
+Ausdehnungsvermögen:
+  gen: 'n'
+  e:
+    - expansibility
+Ausdeutung:
+  gen: f
+  e:
+    - interpretation
+Ausdruck:
+  gen: m
+  e:
+    - verbalism
+    - expression
+    - hard copy
+    - routine
+    - term
+Ausdrücke:
+  gen: f
+  e:
+    - verbalisms
+    - expressions
+Ausdruckskraft:
+  gen: f
+  e:
+    - expressiveness
+Ausdrucksweise:
+  gen: f
+  e:
+    - phraseology
+    - idiom
+    - parlance
+Ausdrucksweisen:
+  gen: pl
+  e:
+    - parlances
+    - styles
+Ausdünstung:
+  gen: f
+  e:
+    - evaporation
+Ausdünstungen:
+  gen: pl
+  e:
+    - evaporations
+Auseinandersetzung:
+  gen: f
+  e:
+    - contention
+Ausfahrt:
+  gen: f
+  e:
+    - gateway
+Ausfahrten:
+  gen: pl
+  e:
+    - gateways
+Ausfall:
+  gen: m
+  e:
+    - sortie
+    - loss
+    - failure
+    - blackout
+    - breakdown
+Ausfällapparat:
+  gen: m
+  e:
+    - precipitator
+Ausfälle:
+  gen: pl
+  e:
+    - sorties
+    - failures
+    - losses
+Ausfallrate:
+  gen: f
+  e:
+    - failure rate
+Ausfallsatz:
+  gen: m
+  e:
+    - fraction failure
+Ausfallzeit:
+  gen: f
+  e:
+    - downtime
+Ausfertigung:
+  gen: f
+  e:
+    - engrossment
+Ausflucht:
+  gen: f
+  e:
+    - subterfuge
+    - prevarication
+    - elusion
+Ausflüchte:
+  gen: pl
+  e:
+    - elusions
+    - subterfuges
+    - excuses
+    - tergiversations
+Ausflug:
+  gen: m
+  e:
+    - outing
+    - jaunt
+Ausflüge:
+  gen: pl
+  e:
+    - excursions
+    - outings
+    - jaunts
+    - trips
+Ausflügler:
+  gen: m
+  e:
+    - tripper
+    - trippers
+Ausfluß:
+  gen: m
+  e:
+    - outflow
+    - effluence
+    - flowing off
+Ausflüsse:
+  gen: pl
+  e:
+    - effluences
+    - fluxes
+Ausfuhr:
+  gen: f
+  e:
+    - export
+Ausführen:
+  gen: 'n'
+  e:
+    - performing
+Ausfuhren:
+  gen: pl
+  e:
+    - exports
+Ausfuhrgenehmigung:
+  gen: f
+  e:
+    - export license
+Ausfuhrsperre:
+  gen: f
+  e:
+    - embargo on export
+Ausfuhrsperren:
+  gen: pl
+  e:
+    - embargoes on export
+Ausführung:
+  gen: f
+  e:
+    - achievement
+    - executing
+    - execution
+    - accomplishment
+Ausführungen:
+  gen: pl
+  e:
+    - implementations
+    - achievements
+    - executions
+Ausführungsanzeige:
+  gen: f
+  e:
+    - advice of deal
+Ausführungsbestimmungen:
+  gen: pl
+  e:
+    - regulatory statutes
+Ausführungszyklus:
+  gen: m
+  e:
+    - execute cycle
+Ausfuhrverbot:
+  gen: m
+  e:
+    - export ban
+Ausfuhrzoll:
+  gen: m
+  e:
+    - export duty
+Ausfuhrzölle:
+  gen: pl
+  e:
+    - export duties
+Ausgabe:
+  gen: f
+  e:
+    - output
+    - disbursement
+    - issuance
+    - release
+Ausgabeeinheit:
+  gen: f
+  e:
+    - output unit
+Ausgabegerät:
+  gen: 'n'
+  e:
+    - output device
+Ausgabeglied:
+  gen: 'n'
+  e:
+    - output element
+Ausgabeliste:
+  gen: f
+  e:
+    - analysis sheet
+Ausgabemaske:
+  gen: f
+  e:
+    - edit mask
+Ausgaben:
+  gen: pl
+  e:
+    - disbursements
+    - dumps
+    - outputs
+    - issuances
+Ausgabename:
+  gen: m
+  e:
+    - outputname
+Ausgabenzuweisung:
+  gen: f
+  e:
+    - allocation of expenditure
+Ausgabesignal:
+  gen: 'n'
+  e:
+    - output signal
+Ausgabezeitpunkt:
+  gen: m
+  e:
+    - editing date
+Ausgang:
+  gen: m
+  e:
+    - output
+    - way out
+    - egression
+    - conjunction
+    - exit
+Ausgänge:
+  gen: pl
+  e:
+    - egresses
+    - exits
+    - upshots
+    - egressions
+Ausgangsadresse:
+  gen: f
+  e:
+    - home adress
+Ausgangsdaten:
+  gen: pl
+  e:
+    - raw data
+Ausgangslastfaktor:
+  gen: m
+  e:
+    - fan−out
+Ausgangsleistung:
+  gen: f
+  e:
+    - power output
+Ausgangslinie:
+  gen: f
+  e:
+    - taw
+Ausgangslinien:
+  gen: pl
+  e:
+    - taws
+Ausgangspunkt:
+  gen: m
+  e:
+    - originator
+Ausgangssprache:
+  gen: f
+  e:
+    - source language
+Ausgangsstellung:
+  gen: f
+  e:
+    - beachhead
+    - home position
+    - original position
+Ausgeber:
+  gen: m
+  e:
+    - issuer
+Ausgehverbot:
+  gen: 'n'
+  e:
+    - confinement to barracks
+Ausgelassenheit:
+  gen: f
+  e:
+    - exuberance
+Ausgestossene:
+  gen: m
+  e:
+    - pariah
+Ausgestossenen:
+  gen: pl
+  e:
+    - outcasts
+Ausgleich:
+  gen: m
+  e:
+    - compensation
+    - equation
+Ausgleicher:
+  gen: m
+  e:
+    - equalizer
+    - compensator
+Ausgleichsgetriebe:
+  gen: 'n'
+  e:
+    - differential gear
+Ausgleichsgewicht:
+  gen: 'n'
+  e:
+    - balance weight
+Ausgleichskondensator:
+  gen: m
+  e:
+    - balancing capacitor
+Ausgleichsposten:
+  gen: m
+  e:
+    - adjustment item
+Ausgleichstransaktionen:
+  gen: pl
+  e:
+    - accommodating transactions
+Ausgleichswelle:
+  gen: f
+  e:
+    - balance shaft
+Ausgleichszahlung:
+  gen: f
+  e:
+    - adjustment payment
+    - equalization payment
+Ausgleichszahlungen:
+  gen: pl
+  e:
+    - equalization payments
+Ausgleichung:
+  gen: f
+  e:
+    - equalization
+Ausgleichungen:
+  gen: pl
+  e:
+    - equalizations
+Ausgräber:
+  gen: m
+  e:
+    - excavator
+    - excavators
+Ausgrabung:
+  gen: f
+  e:
+    - excavation
+Ausgrabungen:
+  gen: pl
+  e:
+    - excavations
+Ausguß:
+  gen: m
+  e:
+    - sink
+    - outlet
+Ausgüsse:
+  gen: pl
+  e:
+    - sinks
+Aushängeschild:
+  gen: 'n'
+  e:
+    - figurehead
+Aushärtung:
+  gen: f
+  e:
+    - age hardening
+Aushebung:
+  gen: f
+  e:
+    - conscription
+    - roundup
+Aushilfen:
+  gen: pl
+  e:
+    - helps
+Aushöhlung:
+  gen: f
+  e:
+    - cavity
+Aushöhlungen:
+  gen: pl
+  e:
+    - cavities
+Auskleidung:
+  gen: f
+  e:
+    - lining
+Auskunft:
+  gen: f
+  e:
+    - information desk
+    - information
+Auskunftsbüro:
+  gen: 'n'
+  e:
+    - inquiry office
+    - information bureau
+Auskunftsschalter:
+  gen: m
+  e:
+    - information desk
+Ausladung:
+  gen: f
+  e:
+    - nosing
+Auslagen:
+  gen: pl
+  e:
+    - outlays
+Ausland:
+  gen: 'n'
+  e:
+    - 'foreign countries {pl}'
+Ausländer:
+  gen: m
+  e:
+    - foreigner
+    - foreigners
+Ausländerfeindlichkeit:
+  gen: f
+  e:
+    - anti−alien feeling
+Ausländerinnen:
+  gen: pl
+  e:
+    - foreigners
+ausländische Besucher:
+  gen: pl
+  e:
+    - visitors from abroad
+Auslandkorrespondenten:
+  gen: pl
+  e:
+    - foreign correspondents
+Auslandsaufenthalt:
+  gen: m
+  e:
+    - stay abroad
+Auslandsbeteiligung:
+  gen: f
+  e:
+    - associated company abroad
+Auslandsgespräch:
+  gen: 'n'
+  e:
+    - international call
+Auslandskorrespondent:
+  gen: m
+  e:
+    - foreign correspondent
+Auslandsreise:
+  gen: f
+  e:
+    - journey abroad
+Auslandsvertreter:
+  gen: m
+  e:
+    - agent abroad
+Auslaß:
+  gen: m
+  e:
+    - outlet
+Auslassung:
+  gen: f
+  e:
+    - omission
+Auslassungen:
+  gen: pl
+  e:
+    - omissions
+    - interleaves
+Auslaßventil:
+  gen: 'n'
+  e:
+    - outlet valve
+Ausläufer:
+  gen: m
+  e:
+    - foothills
+    - offshoots
+    - offshoot
+Auslaufzeit:
+  gen: f
+  e:
+    - flow time
+Auslaut:
+  gen: m
+  e:
+    - final sound
+Auslaute:
+  gen: pl
+  e:
+    - final sounds
+Ausleihung:
+  gen: pl
+  e:
+    - asset exposure
+Auslenkung:
+  gen: f
+  e:
+    - excursion
+Auslese:
+  gen: f
+  e:
+    - selection
+Auslieferung:
+  gen: f
+  e:
+    - delivery
+Auslieferungsvertrag:
+  gen: m
+  e:
+    - extradition treaty
+Auslieferungsverträge:
+  gen: pl
+  e:
+    - extradition treaties
+Auslistung:
+  gen: f
+  e:
+    - dump
+Auslöschung:
+  gen: f
+  e:
+    - effacement
+Auslöschungen:
+  gen: pl
+  e:
+    - effacements
+Auslösehebel:
+  gen: m
+  e:
+    - tripping lever
+Auslöseimpuls:
+  gen: m
+  e:
+    - stimulus
+    - trigger
+Auslöseknopf:
+  gen: m
+  e:
+    - cancellation button
+Auslöser:
+  gen: m
+  e:
+    - trippet
+    - triggers
+Auslöseschaltung:
+  gen: f
+  e:
+    - trigger circuit
+Auslösung:
+  gen: f
+  e:
+    - tripping
+    - cleardown
+    - accommodation allowance
+Auslösungen:
+  gen: pl
+  e:
+    - releases
+Auslösungspreis:
+  gen: m
+  e:
+    - activating price
+Ausmaß:
+  gen: 'n'
+  e:
+    - dimension
+    - extent
+Ausnahme:
+  gen: f
+  e:
+    - exception
+Ausnahmen:
+  gen: pl
+  e:
+    - exceptions
+Ausnahmezustand:
+  gen: m
+  e:
+    - state of emergency
+Ausnahmezustände:
+  gen: pl
+  e:
+    - states of emergency
+Ausnutzung:
+  gen: f
+  e:
+    - saturation
+Auspfeifen:
+  gen: 'n'
+  e:
+    - catcall
+Auspuff:
+  gen: m
+  e:
+    - exhaust
+    - exhaust pipe
+Auspuffe:
+  gen: pl
+  e:
+    - exhausts
+Auspuffgase:
+  gen: pl
+  e:
+    - exhaust fumes
+Auspufftopf:
+  gen: m
+  e:
+    - silencer
+Ausreiseerlaubnis:
+  gen: f
+  e:
+    - exit permit
+Ausreisevisum:
+  gen: 'n'
+  e:
+    - exit visa
+Ausreißer:
+  gen: m
+  e:
+    - eloper
+    - outlier
+    - bolter
+    - runaway
+    - runaways
+Ausrichtplatte:
+  gen: f
+  e:
+    - joggling plate
+Ausrichtung:
+  gen: f
+  e:
+    - bias
+Ausrichtungsfehler:
+  gen: m
+  e:
+    - misalignment
+Ausritte:
+  gen: pl
+  e:
+    - rides
+Ausrottung:
+  gen: f
+  e:
+    - eradication
+    - extermination
+Ausrottungen:
+  gen: pl
+  e:
+    - eradications
+    - extirpations
+Ausruf:
+  gen: m
+  e:
+    - exclamation
+    - interjection
+Ausrufe:
+  gen: pl
+  e:
+    - interjections
+    - cries
+Ausrufer:
+  gen: m
+  e:
+    - bellman
+Ausrufungszeichen:
+  gen: 'n'
+  e:
+    - exclamation mark
+Ausrüstung:
+  gen: f
+  e:
+    - outfit
+    - equipage
+    - apparatus
+    - equipment
+Ausrüstungen:
+  gen: pl
+  e:
+    - outfits
+    - kits
+Ausrutscher:
+  gen: m
+  e:
+    - gaffe
+Aussage:
+  gen: f
+  e:
+    - predication
+    - message
+    - testimony
+Aussagesatz:
+  gen: m
+  e:
+    - clause of statement
+Aussätzige:
+  gen: m
+  e:
+    - leper
+Aussäürung:
+  gen: f
+  e:
+    - souring
+Ausschalten:
+  gen: 'n'
+  e:
+    - power down
+Ausschalter:
+  gen: m
+  e:
+    - access standby switch
+    - breaker
+Ausschaltung:
+  gen: f
+  e:
+    - disconnection
+Ausschänke:
+  gen: pl
+  e:
+    - bars
+Ausschiffung:
+  gen: f
+  e:
+    - debarkation
+    - disembarkation
+Ausschiffungen:
+  gen: pl
+  e:
+    - debarkations
+Ausschlachtung:
+  gen: f
+  e:
+    - cannibalization
+Ausschlachtungen:
+  gen: pl
+  e:
+    - cannibalizations
+Ausschlag:
+  gen: m
+  e:
+    - rash
+Ausschließlichkeit:
+  gen: f
+  e:
+    - exclusivity
+Ausschluß:
+  gen: m
+  e:
+    - preclusion
+    - exclusion
+Ausschlüsse:
+  gen: pl
+  e:
+    - exclusions
+Ausschmückung:
+  gen: f
+  e:
+    - ornamentation
+Ausschnitt:
+  gen: m
+  e:
+    - clipping
+    - neck line
+Ausschreibung:
+  gen: f
+  e:
+    - invitation to bid
+Ausschreitung:
+  gen: f
+  e:
+    - riot
+Ausschreitungen:
+  gen: pl
+  e:
+    - riots
+Ausschuß:
+  gen: m
+  e:
+    - junk
+    - committee
+ausschußdaten:
+  gen: pl
+  e:
+    - garbage
+Ausschußware:
+  gen: f
+  e:
+    - substandard goods
+Ausschweifung:
+  gen: f
+  e:
+    - debauchery
+Ausschweifungen:
+  gen: pl
+  e:
+    - debaucheries
+Ausschwitzung:
+  gen: f
+  e:
+    - exudation
+Aussehen:
+  gen: 'n'
+  e:
+    - appearance
+    - lookout
+Aussenansicht:
+  gen: f
+  e:
+    - exterior view
+Aussenbezirke:
+  gen: f
+  e:
+    - outskirts
+Außendienst:
+  gen: m
+  e:
+    - field service
+    - agency plant
+Aussendienstleiter:
+  gen: m
+  e:
+    - agency manager
+Aussendienstorganisation:
+  gen: f
+  e:
+    - agency plant
+außendiensttechniker:
+  gen: m
+  e:
+    - field engineer
+Aussendung:
+  gen: f
+  e:
+    - emanation
+    - emission
+Außengebäude:
+  gen: 'n'
+  e:
+    - outbuilding
+Aussengewinde:
+  gen: 'n'
+  e:
+    - external thread
+Außenhandel:
+  gen: m
+  e:
+    - foreign trade
+Aussenhaut:
+  gen: f
+  e:
+    - shell
+Außenministerien:
+  gen: pl
+  e:
+    - foreign offices
+Außenministerium:
+  gen: 'n'
+  e:
+    - foreign office
+Außenpolitik:
+  gen: f
+  e:
+    - foreign policy
+Aussenring:
+  gen: m
+  e:
+    - outer race
+Aussenschicht:
+  gen: f
+  e:
+    - facing
+Außenseiten:
+  gen: pl
+  e:
+    - outsides
+Außenseiter:
+  gen: m
+  e:
+    - outsider
+    - outsiders
+Außenstände:
+  gen: pl
+  e:
+    - accounts receivable
+    - receivables
+Außenstation:
+  gen: f
+  e:
+    - outstation
+außenstelle:
+  gen: f
+  e:
+    - satellite station
+Aussenverzahnung:
+  gen: f
+  e:
+    - external teeth
+    - external tooth system
+äusserlickeit:
+  gen: f
+  e:
+    - outwardness
+äusserung:
+  gen: f
+  e:
+    - utterance
+    - expression
+    - pronouncement
+äusserungen:
+  gen: pl
+  e:
+    - utterances
+Aussetzer:
+  gen: m
+  e:
+    - dropout
+Aussetzung:
+  gen: f
+  e:
+    - exposure
+Aussicht:
+  gen: f
+  e:
+    - prospect
+    - outlook
+Aussichtspunkt:
+  gen: m
+  e:
+    - gazebo
+Aussichtspunkte:
+  gen: pl
+  e:
+    - gazebos
+    - viewpoints
+Aussparung:
+  gen: f
+  e:
+    - recess
+Aussperrung:
+  gen: f
+  e:
+    - lockout
+Aussperrungen:
+  gen: pl
+  e:
+    - lockouts
+Aussprache:
+  gen: f
+  e:
+    - pronunciation
+Aussprachen:
+  gen: pl
+  e:
+    - pronunciations
+Aussprüche:
+  gen: pl
+  e:
+    - remarks
+Ausspulen:
+  gen: 'n'
+  e:
+    - spool−out
+Ausstaffierung:
+  gen: f
+  e:
+    - accouterment
+    - outfit
+Ausstattung:
+  gen: f
+  e:
+    - furniture
+    - endowment
+    - furnishing
+    - configuration
+Ausstattungen:
+  gen: pl
+  e:
+    - trousseaux
+    - kits
+    - decors
+    - endowments
+    - dowries
+Aussteller:
+  gen: m
+  e:
+    - exhibitor
+    - issuers
+Ausstellung:
+  gen: f
+  e:
+    - show
+    - exhibition
+    - exposition
+    - issurance
+Ausstellungen:
+  gen: pl
+  e:
+    - exhibitions
+    - expositions
+Ausstellungsraum:
+  gen: m
+  e:
+    - showroom
+    - exhibition space
+Ausstellungsräume:
+  gen: pl
+  e:
+    - showrooms
+Ausstellungstücke:
+  gen: pl
+  e:
+    - exhibits
+Ausstellungswände:
+  gen: f
+  e:
+    - exhibition walls
+Aussteuer:
+  gen: f
+  e:
+    - trousseau
+aussteuern:
+  gen: pl
+  e:
+    - trousseaux
+Aussteürmagazin:
+  gen: 'n'
+  e:
+    - reject stacker
+Aussteürung:
+  gen: f
+  e:
+    - rejection
+Ausstoß:
+  gen: m
+  e:
+    - ejection
+Ausstossung:
+  gen: f
+  e:
+    - ejection
+Ausstrahlung:
+  gen: f
+  e:
+    - Radiation
+    - emanation
+    - vibes
+    - emission
+Ausstrahlungen:
+  gen: pl
+  e:
+    - vibrancies
+    - radiations
+Ausströmen:
+  gen: 'n'
+  e:
+    - outpouring
+Ausströmung:
+  gen: f
+  e:
+    - ooziness
+Ausströmungen:
+  gen: pl
+  e:
+    - oozinesses
+    - escapes
+Austattung:
+  gen: f
+  e:
+    - environment
+Austausch:
+  gen: m
+  e:
+    - commutation
+    - transposition
+    - interchange
+    - exchange
+Austauschbarkeit:
+  gen: f
+  e:
+    - commutability
+    - interchangeability
+Austauschstudent:
+  gen: m
+  e:
+    - exchange student
+Austeiler:
+  gen: m
+  e:
+    - dispenser
+Auster:
+  gen: f
+  e:
+    - oyster
+Austern:
+  gen: pl
+  e:
+    - oysters
+Austesten:
+  gen: 'n'
+  e:
+    - debugging
+    - checkout
+Austrag:
+  gen: m
+  e:
+    - discharge
+Austreibung:
+  gen: f
+  e:
+    - expulsion
+Austritt:
+  gen: m
+  e:
+    - exit
+Austrittsalter:
+  gen: m
+  e:
+    - age at withdrawal
+Ausübung:
+  gen: f
+  e:
+    - exertion
+    - exercise
+Ausübungen:
+  gen: pl
+  e:
+    - practices
+Ausverkauf:
+  gen: m
+  e:
+    - selling off
+    - clearance sale
+Ausverkäufe:
+  gen: pl
+  e:
+    - sales
+Auswahl:
+  gen: f
+  e:
+    - selection
+    - choice
+    - eligibility
+    - choosing
+Auswahlen:
+  gen: pl
+  e:
+    - selections
+    - choices
+Auswahlsendung:
+  gen: f
+  e:
+    - sampled offer
+Auswahlsendungen:
+  gen: pl
+  e:
+    - sampled offers
+Auswanderer:
+  gen: m
+  e:
+    - emigrant
+    - emigrants
+Auswanderung:
+  gen: f
+  e:
+    - transmigration
+    - emigration
+Auswanderungen:
+  gen: pl
+  e:
+    - emigrations
+    - transmigrations
+auswärts:
+  gen: m
+  e:
+    - out of town
+Auswechselungen:
+  gen: pl
+  e:
+    - exchanges
+Auswechslung:
+  gen: f
+  e:
+    - replacement
+Ausweg:
+  gen: m
+  e:
+    - way out
+Auswege:
+  gen: pl
+  e:
+    - ways out
+Ausweichen:
+  gen: 'n'
+  e:
+    - runaround
+Ausweichende:
+  gen: m
+  e:
+    - avoider
+Ausweichenden:
+  gen: pl
+  e:
+    - avoiders
+Ausweidung:
+  gen: f
+  e:
+    - evisceration
+Ausweidungen:
+  gen: pl
+  e:
+    - eviscerations
+Ausweis:
+  gen: m
+  e:
+    - identity card
+Ausweisleser:
+  gen: m
+  e:
+    - badge reader
+Ausweisungsbefehl:
+  gen: m
+  e:
+    - expulsion order
+Auswerfer:
+  gen: m
+  e:
+    - ejector
+Auswerteeinrichtung:
+  gen: f
+  e:
+    - evaluator
+Auswertformular:
+  gen: 'n'
+  e:
+    - scoring sheet
+Auswertung:
+  gen: f
+  e:
+    - analysis
+    - score
+    - evaluation
+Auswertungsprogramm:
+  gen: 'n'
+  e:
+    - analysis program
+Auswertungszweck:
+  gen: m
+  e:
+    - analysis purpose
+Auswirkung:
+  gen: f
+  e:
+    - repercussion
+Auswirkungen:
+  gen: pl
+  e:
+    - effects
+Auswuchs:
+  gen: m
+  e:
+    - hunch
+    - outgrowth
+Auswurf:
+  gen: m
+  e:
+    - throw−off
+Auswurftaste:
+  gen: f
+  e:
+    - eject button
+Auszahlungen:
+  gen: pl
+  e:
+    - payoffs
+    - pay offs
+Auszeichnung:
+  gen: f
+  e:
+    - accolade
+    - distinction
+Auszeichnungen:
+  gen: pl
+  e:
+    - awards
+Ausziehknopf:
+  gen: m
+  e:
+    - winder
+Auszubildende:
+  gen: m
+  e:
+    - trainee
+Auszubildenden:
+  gen: pl
+  e:
+    - trainees
+Auszug:
+  gen: m
+  e:
+    - excerpt
+    - epitome
+    - extract
+    - syllabus
+Auszüge:
+  gen: pl
+  e:
+    - syllabuses
+    - epitomes
+    - syllabi
+Auto:
+  gen: 'n'
+  e:
+    - automobile
+    - auto
+    - motorcar
+    - car
+Autoausstellung:
+  gen: f
+  e:
+    - motor show
+Autobahn:
+  gen: f
+  e:
+    - motorway
+    - thruway
+    - superhighway
+    - freeway
+Autobahneinfahrt:
+  gen: f
+  e:
+    - access road
+Autobahnen:
+  gen: pl
+  e:
+    - thruways
+    - superhighways
+    - freeways
+    - motorways
+Autobahngebühren:
+  gen: pl
+  e:
+    - tolls
+Autobahnzubringer:
+  gen: 'n'
+  e:
+    - feeder road
+Autobiografie:
+  gen: f
+  e:
+    - autobiography
+Autobiographie:
+  gen: f
+  e:
+    - autobiography
+Autobiographien:
+  gen: pl
+  e:
+    - autobiographies
+Autobus:
+  gen: m
+  e:
+    - bus
+Autobusbahnhof:
+  gen: m
+  e:
+    - bus terminal
+Autobusbahnhöfe:
+  gen: pl
+  e:
+    - bus terminals
+Autobushaltestelle:
+  gen: f
+  e:
+    - bus stop
+Autobushaltestellen:
+  gen: pl
+  e:
+    - bus stops
+Autobusse:
+  gen: pl
+  e:
+    - buses
+Autocode:
+  gen: m
+  e:
+    - autocode
+Autodidakt:
+  gen: m
+  e:
+    - autodidact
+Autodiebstahl:
+  gen: m
+  e:
+    - auto theft
+Autofähre:
+  gen: f
+  e:
+    - car ferry
+    - auto ferry
+Autofahren:
+  gen: pl
+  e:
+    - motoring
+Autofähren:
+  gen: pl
+  e:
+    - car ferries
+Autofahrer:
+  gen: m
+  e:
+    - driver
+    - motorist
+    - drivers
+Autogenschweissen:
+  gen: 'n'
+  e:
+    - gas welding
+Autogramm:
+  gen: 'n'
+  e:
+    - autograph
+Autogramme:
+  gen: pl
+  e:
+    - autographs
+Autohändler:
+  gen: m
+  e:
+    - car dealer
+    - auto dealer
+Autohersteller:
+  gen: m
+  e:
+    - auto maker
+Autoindustrie:
+  gen: f
+  e:
+    - automobile industrie
+    - auto industry
+Autokarte:
+  gen: f
+  e:
+    - road map
+Autokino:
+  gen: 'n'
+  e:
+    - drivein
+Autokolonne:
+  gen: f
+  e:
+    - motorcade
+Autokorrelation:
+  gen: f
+  e:
+    - autocorrelation
+Autokrankheit:
+  gen: f
+  e:
+    - carsickness
+Autokrat:
+  gen: m
+  e:
+    - autocrat
+Autokraten:
+  gen: pl
+  e:
+    - autocrats
+Autokratie:
+  gen: f
+  e:
+    - autocracy
+Autokratien:
+  gen: pl
+  e:
+    - autocracies
+Automat:
+  gen: m
+  e:
+    - automat
+    - automatic machine
+Automaten:
+  gen: pl
+  e:
+    - automats
+Automatenstahl:
+  gen: m
+  e:
+    - free cutting steel
+Automatik:
+  gen: f
+  e:
+    - automatism
+    - automatic
+Automatikwahl:
+  gen: m
+  e:
+    - autodial
+Automation:
+  gen: f
+  e:
+    - automation
+Automationen:
+  gen: pl
+  e:
+    - automations
+Automationstheorie:
+  gen: f
+  e:
+    - automatics
+Automatisierung:
+  gen: f
+  e:
+    - automation
+Automechaniker:
+  gen: m
+  e:
+    - car mechanic
+Automobilindustrie:
+  gen: f
+  e:
+    - auto industry
+    - automobile industrie
+Automobilwerte:
+  gen: pl
+  e:
+    - automotive stocks
+Autonomie:
+  gen: f
+  e:
+    - autonomy
+    - self government
+Autonomien:
+  gen: pl
+  e:
+    - autonomies
+Autonomist:
+  gen: m
+  e:
+    - autonomist
+Autonomisten:
+  gen: pl
+  e:
+    - autonomists
+Autopsie:
+  gen: f
+  e:
+    - autopsy
+Autopsien:
+  gen: pl
+  e:
+    - autopsies
+Autor:
+  gen: m
+  e:
+    - author
+    - writer
+Autoradio:
+  gen: 'n'
+  e:
+    - car radio
+Autoreifen:
+  gen: m
+  e:
+    - car tire
+Autoren:
+  gen: pl
+  e:
+    - authors
+Autorennen:
+  gen: 'n'
+  e:
+    - car racing
+Autorestaurant:
+  gen: 'n'
+  e:
+    - drive inn
+Autorität:
+  gen: f
+  e:
+    - authority
+Autoritäten:
+  gen: pl
+  e:
+    - authorities
+Autoritätsstruktur:
+  gen: f
+  e:
+    - authority structure
+Autos:
+  gen: pl
+  e:
+    - automobiles
+Autostart:
+  gen: m
+  e:
+    - auto boot
+Autostrassen:
+  gen: pl
+  e:
+    - roads
+Autosuggestion:
+  gen: f
+  e:
+    - autosuggestion
+Autoverkehr:
+  gen: m
+  e:
+    - traffic
+Autoverleih:
+  gen: m
+  e:
+    - car rental service
+    - car hire
+Autowiederholung:
+  gen: f
+  e:
+    - autorepeat
+Autozubehöre:
+  gen: pl
+  e:
+    - accessories
+Axiomatik:
+  gen: f
+  e:
+    - axiomatics
+Axiome:
+  gen: pl
+  e:
+    - axioms
+Axt:
+  gen: f
+  e:
+    - axe
+äxte:
+  gen: pl
+  e:
+    - Axes
+Azetat:
+  gen: 'n'
+  e:
+    - acetate
+Azeton:
+  gen: 'n'
+  e:
+    - acetone
+Azimut:
+  gen: m
+  e:
+    - azimuth
+Azimute:
+  gen: pl
+  e:
+    - azimuths
+Baby:
+  gen: 'n'
+  e:
+    - babe
+    - baby
+Babys:
+  gen: pl
+  e:
+    - babies
+Babysitter:
+  gen: m
+  e:
+    - babysitter
+Bacchus:
+  gen: m
+  e:
+    - bacchus
+Bach:
+  gen: m
+  e:
+    - runnel
+    - stream
+    - rivulet
+    - brook
+Bäche:
+  gen: pl
+  e:
+    - brooks
+    - rivulets
+Bachkrebs:
+  gen: m
+  e:
+    - crawfish
+Bächlein:
+  gen: 'n'
+  e:
+    - streamlet
+    - streamlets
+Bachstelze:
+  gen: f
+  e:
+    - wagtail
+Bachstelzen:
+  gen: pl
+  e:
+    - wagtails
+Bachufer:
+  gen: 'n'
+  e:
+    - brookside
+Backblech:
+  gen: 'n'
+  e:
+    - baking tin
+Backbleche:
+  gen: pl
+  e:
+    - baking tins
+Backbord:
+  gen: 'n'
+  e:
+    - larboard
+Backe:
+  gen: f
+  e:
+    - cheek
+Backen:
+  gen: pl
+  e:
+    - cheeks
+Backenbart:
+  gen: m
+  e:
+    - whisker
+    - whiskers
+Backenbärte:
+  gen: pl
+  e:
+    - whiskers
+Backenbrecher:
+  gen: m
+  e:
+    - jawcrusher
+Backenknochen:
+  gen: m
+  e:
+    - maxillary bone
+    - cheekbone
+Backenzahn:
+  gen: m
+  e:
+    - molar
+Backenzähne:
+  gen: pl
+  e:
+    - molars
+Bäcker:
+  gen: m
+  e:
+    - baker
+    - bakers
+Bäckerei:
+  gen: f
+  e:
+    - bakery
+Backfett:
+  gen: 'n'
+  e:
+    - shortening
+Backgammon:
+  gen: 'n'
+  e:
+    - backgammon
+Backofen:
+  gen: m
+  e:
+    - oven
+Backpflaume:
+  gen: f
+  e:
+    - prune
+Backpulver:
+  gen: 'n'
+  e:
+    - baking powder
+Backslash:
+  gen: m
+  e:
+    - backslash
+Backspace:
+  gen: m
+  e:
+    - backspace
+Backstein:
+  gen: m
+  e:
+    - brick
+Backware:
+  gen: f
+  e:
+    - pastries
+Backwaren:
+  gen: pl
+  e:
+    - pastries
+Bad:
+  gen: 'n'
+  e:
+    - spa
+    - bath
+Badeanstalt:
+  gen: f
+  e:
+    - public baths
+    - baths
+Badeanzug:
+  gen: m
+  e:
+    - bathing suit
+    - bathing costume
+    - swimsuit
+Badeanzüge:
+  gen: pl
+  e:
+    - swimsuits
+Badegast:
+  gen: m
+  e:
+    - bather
+Badegäste:
+  gen: pl
+  e:
+    - bathers
+Badehaus:
+  gen: 'n'
+  e:
+    - bathhouse
+Badehose:
+  gen: f
+  e:
+    - swimming trunks
+Badekabine:
+  gen: f
+  e:
+    - bathing hut
+Badekappe:
+  gen: f
+  e:
+    - bathing cap
+Badekappen:
+  gen: pl
+  e:
+    - bathing caps
+Bademantel:
+  gen: m
+  e:
+    - bathrobe
+    - bath robe
+    - dessing gown
+Bademäntel:
+  gen: pl
+  e:
+    - bath robes
+Bademeister:
+  gen: m
+  e:
+    - bath attendant
+Badeort:
+  gen: m
+  e:
+    - bathing resort
+Badesalz:
+  gen: 'n'
+  e:
+    - bath salts
+Badestrand:
+  gen: m
+  e:
+    - beach
+Badestrände:
+  gen: pl
+  e:
+    - beaches
+Badetuch:
+  gen: 'n'
+  e:
+    - bath towel
+Badetücher:
+  gen: pl
+  e:
+    - bath towels
+Badewanne:
+  gen: f
+  e:
+    - bath tub
+    - bath
+    - bathtub
+Badewannen:
+  gen: pl
+  e:
+    - bath tubs
+Badewärter:
+  gen: m
+  e:
+    - baths attendant
+Badezimmer:
+  gen: 'n'
+  e:
+    - bathroom
+    - bath room
+    - bathrooms
+    - bath rooms
+Bagatellen:
+  gen: pl
+  e:
+    - trifles
+Bagger:
+  gen: m
+  e:
+    - excavator
+Bahn:
+  gen: f
+  e:
+    - course
+    - railway
+    - web
+Bahnsteig:
+  gen: m
+  e:
+    - platform
+Bahnwärter:
+  gen: m
+  e:
+    - signalman
+Bahre:
+  gen: f
+  e:
+    - stretcher
+Bahren:
+  gen: pl
+  e:
+    - stretchers
+Bakterie:
+  gen: f
+  e:
+    - bacterium
+Balken:
+  gen: m
+  e:
+    - arbor
+Balkon:
+  gen: m
+  e:
+    - balcony
+Ball:
+  gen: m
+  e:
+    - ball
+Ballast:
+  gen: m
+  e:
+    - ballast
+Ballon:
+  gen: m
+  e:
+    - balloon
+Ballung:
+  gen: f
+  e:
+    - agglomeration
+Ballungsraum:
+  gen: m
+  e:
+    - agglomeration
+Bänder:
+  gen: pl
+  e:
+    - tapes
+Bändiger:
+  gen: m
+  e:
+    - tamer
+    - tamers
+Bänke:
+  gen: pl
+  e:
+    - benches
+Barriere:
+  gen: f
+  e:
+    - barrier
+Barrieren:
+  gen: pl
+  e:
+    - barriers
+Baud:
+  gen: 'n'
+  e:
+    - baud
+Bäuerin:
+  gen: f
+  e:
+    - countrywoman
+Baürsfrau:
+  gen: f
+  e:
+    - countrywoman
+Bauten:
+  gen: pl
+  e:
+    - constructions
+Bedienerhinweis:
+  gen: m
+  e:
+    - prompt
+Beendigung:
+  gen: f
+  e:
+    - termination
+Beendigungen:
+  gen: pl
+  e:
+    - terminations
+Befehle:
+  gen: pl
+  e:
+    - orders
+Befehlstyp:
+  gen: m
+  e:
+    - address format
+Befestigungen:
+  gen: pl
+  e:
+    - attachments
+Beginn:
+  gen: m
+  e:
+    - start
+    - beginning
+Begnadigungen:
+  gen: pl
+  e:
+    - amnesties
+Begrenzer:
+  gen: m
+  e:
+    - delimiter
+Behaglichkeiten:
+  gen: pl
+  e:
+    - comforts
+Beharrlichkeit:
+  gen: f
+  e:
+    - perseverance
+Behauptung:
+  gen: f
+  e:
+    - statement
+Behebung:
+  gen: f
+  e:
+    - removal
+Beifall:
+  gen: m
+  e:
+    - applause
+Beil:
+  gen: 'n'
+  e:
+    - axe
+Belag:
+  gen: m
+  e:
+    - coating
+Bemerkungen:
+  gen: pl
+  e:
+    - remarks
+Benachrichtigung:
+  gen: f
+  e:
+    - information
+Bereicherung:
+  gen: f
+  e:
+    - enrichment
+Bereicherungen:
+  gen: pl
+  e:
+    - enrichments
+Bescheinigungen:
+  gen: pl
+  e:
+    - certificates
+Beschichtung:
+  gen: f
+  e:
+    - coating
+Beschuldigung:
+  gen: f
+  e:
+    - accusation
+Beseitigung:
+  gen: f
+  e:
+    - removal
+Besitznahme:
+  gen: f
+  e:
+    - appropriation
+Besonderheit:
+  gen: f
+  e:
+    - anomaly
+Besteigung:
+  gen: f
+  e:
+    - ascent
+Besteigungen:
+  gen: pl
+  e:
+    - ascents
+Besteller:
+  gen: m
+  e:
+    - orderer
+Bestellungsannahme:
+  gen: f
+  e:
+    - acceptance of order
+Bestimmung:
+  gen: f
+  e:
+    - assignation
+Besuche:
+  gen: pl
+  e:
+    - visits
+Beteiligung:
+  gen: f
+  e:
+    - stake
+Betrachtung:
+  gen: f
+  e:
+    - view
+Bewegung:
+  gen: f
+  e:
+    - exercise
+    - stir
+Bewerber:
+  gen: pl
+  e:
+    - applicants
+Bewerbung:
+  gen: f
+  e:
+    - application
+Bewertung:
+  gen: f
+  e:
+    - estimation
+Bewohner:
+  gen: pl
+  e:
+    - residents
+Bit:
+  gen: 'n'
+  e:
+    - bit
+Blutarmut:
+  gen: f
+  e:
+    - anemia
+Bosheit:
+  gen: f
+  e:
+    - malice
+Brandwunde:
+  gen: f
+  e:
+    - burn
+Brautaussteür:
+  gen: f
+  e:
+    - trousseau
+Buchen:
+  gen: f
+  e:
+    - accounting
+Buchführung:
+  gen: f
+  e:
+    - accounting
+Buchse:
+  gen: f
+  e:
+    - connector
+Buchstabenverarbeitung:
+  gen: f
+  e:
+    - alpha processing
+Büffet:
+  gen: 'n'
+  e:
+    - sideboard
+Büro:
+  gen: 'n'
+  e:
+    - office
+Bus:
+  gen: m
+  e:
+    - bus
+Buße:
+  gen: pl
+  e:
+    - buses
+Charme:
+  gen: m
+  e:
+    - charm
+Co−Prozessor:
+  gen: m
+  e:
+    - arithmetic processing unit
+Darstellung:
+  gen: f
+  e:
+    - statement
+Dateianfangskennsatz:
+  gen: m
+  e:
+    - header label
+Delegation:
+  gen: f
+  e:
+    - delegation
+Delegationen:
+  gen: pl
+  e:
+    - delegations
+Depositen:
+  gen: pl
+  e:
+    - deposits
+Detektor:
+  gen: m
+  e:
+    - detector
+Deutlichkeit:
+  gen: f
+  e:
+    - clearness
+Dienst:
+  gen: m
+  e:
+    - employment
+Dinkel:
+  gen: m
+  e:
+    - spelt
+Dorn:
+  gen: m
+  e:
+    - arbor
+Durchsicht:
+  gen: f
+  e:
+    - revision
+Eigenschaftswort:
+  gen: 'n'
+  e:
+    - adjective
+Eignung:
+  gen: f
+  e:
+    - applicability
+Eile:
+  gen: f
+  e:
+    - rush
+Einfahrten:
+  gen: pl
+  e:
+    - gateways
+Einkau:
+  gen: m
+  e:
+    - purchase
+Einleitung:
+  gen: f
+  e:
+    - initiation
+Einnahme:
+  gen: f
+  e:
+    - taking
+Einrichtungsgegenstände:
+  gen: pl
+  e:
+    - furnishing
+Einstellung:
+  gen: f
+  e:
+    - modulation
+Einteilung:
+  gen: f
+  e:
+    - graduation
+Eisenbahn:
+  gen: f
+  e:
+    - railway
+Elemente:
+  gen: pl
+  e:
+    - elements
+Empfänglichkeit:
+  gen: f
+  e:
+    - receptivity
+Endezeichen:
+  gen: 'n'
+  e:
+    - terminator
+Entfernung:
+  gen: f
+  e:
+    - distance
+Entfernungen:
+  gen: pl
+  e:
+    - distances
+Entgegenkommen:
+  gen: 'n'
+  e:
+    - responsiveness
+Enthaltung:
+  gen: f
+  e:
+    - abstinence
+Entlassung:
+  gen: f
+  e:
+    - dismissal
+Entschädigung:
+  gen: f
+  e:
+    - compensation
+entwässern:
+  gen: m
+  e:
+    - drain
+Entwässerung:
+  gen: f
+  e:
+    - drainage
+Entwurf:
+  gen: m
+  e:
+    - concept
+Erfinder:
+  gen: m
+  e:
+    - originator
+Ergänzungen:
+  gen: pl
+  e:
+    - additions
+Erkundigung:
+  gen: f
+  e:
+    - enquiry
+Erleuchtung:
+  gen: f
+  e:
+    - enlightenment
+Ermunterung:
+  gen: f
+  e:
+    - encouragement
+Erregung:
+  gen: f
+  e:
+    - excitation
+Errichtung:
+  gen: f
+  e:
+    - construction
+Ersatz:
+  gen: m
+  e:
+    - reparation
+    - replacement
+Erscheinung:
+  gen: f
+  e:
+    - appearance
+Ertrag:
+  gen: m
+  e:
+    - yield
+Ertragskonto:
+  gen: 'n'
+  e:
+    - activity account
+Erwartung:
+  gen: f
+  e:
+    - prospect
+Erweiterung:
+  gen: f
+  e:
+    - dilatation
+    - expansion
+    - upgrading
+    - extension
+Etagenwohnung:
+  gen: f
+  e:
+    - apartment
+Fachausdruck:
+  gen: m
+  e:
+    - term
+Fahrer:
+  gen: m
+  e:
+    - driver
+    - drivers
+Fahrstuhl:
+  gen: m
+  e:
+    - elevator
+Fahrstühle:
+  gen: pl
+  e:
+    - elevators
+Fährtenfinder:
+  gen: m
+  e:
+    - tracker
+Fahrweg:
+  gen: m
+  e:
+    - driveway
+Fahrwege:
+  gen: pl
+  e:
+    - driveways
+Falschausrichtung:
+  gen: f
+  e:
+    - misalignment
+Faltprospekt:
+  gen: 'n'
+  e:
+    - folder
+Faltprospekte:
+  gen: pl
+  e:
+    - folders
+Fehlen:
+  gen: 'n'
+  e:
+    - absence
+fehlerbedingtes Abbrechen:
+  gen: 'n'
+  e:
+    - abortion
+Fehlerbeseitigung:
+  gen: f
+  e:
+    - debugging
+Feigling:
+  gen: m
+  e:
+    - coward
+Feindschaft:
+  gen: f
+  e:
+    - hostility
+Fernsprechamt:
+  gen: m
+  e:
+    - exchange
+Ferse:
+  gen: f
+  e:
+    - heel
+Fersen:
+  gen: pl
+  e:
+    - heels
+Feürungen:
+  gen: pl
+  e:
+    - firings
+Firma:
+  gen: m
+  e:
+    - employer
+Fläche:
+  gen: f
+  e:
+    - acreage
+Fluchtlinie:
+  gen: f
+  e:
+    - alignment
+Folge:
+  gen: f
+  e:
+    - sequence
+    - succession
+Forderung:
+  gen: f
+  e:
+    - assert a claim
+Fortschreibungsdatei:
+  gen: f
+  e:
+    - amendment file
+Frankierung:
+  gen: f
+  e:
+    - prepayment
+Führer:
+  gen: m
+  e:
+    - leader
+Fundament:
+  gen: 'n'
+  e:
+    - seating
+Garderobiere:
+  gen: f
+  e:
+    - dresser
+Gattung:
+  gen: f
+  e:
+    - sort
+Gebiet:
+  gen: 'n'
+  e:
+    - department
+Gebühr:
+  gen: f
+  e:
+    - tax
+Geduld:
+  gen: f
+  e:
+    - endurance
+Gegenauslese:
+  gen: f
+  e:
+    - adverse selection
+Gegenstation:
+  gen: f
+  e:
+    - outstation
+Gelegenheit:
+  gen: f
+  e:
+    - occasion
+Genus:
+  gen: 'n'
+  e:
+    - gender
+Gepräge:
+  gen: 'n'
+  e:
+    - imprint
+Gerät:
+  gen: 'n'
+  e:
+    - gadgetry
+Gerippe:
+  gen: 'n'
+  e:
+    - shell
+Geschäftsstelle:
+  gen: f
+  e:
+    - agency
+Geschlecht:
+  gen: 'n'
+  e:
+    - gender
+Gesellschaftsraum:
+  gen: m
+  e:
+    - lounge
+Gesichter:
+  gen: pl
+  e:
+    - faces
+Getue:
+  gen: 'n'
+  e:
+    - fuss
+Gewinne:
+  gen: pl
+  e:
+    - profits
+Gewohnheiten:
+  gen: pl
+  e:
+    - habits
+Gewöhnung:
+  gen: f
+  e:
+    - inurement
+Gleichrichter:
+  gen: m
+  e:
+    - detector
+Gleichstellung:
+  gen: f
+  e:
+    - equalization
+Gleichstellungen:
+  gen: pl
+  e:
+    - equalizations
+Gliederung:
+  gen: f
+  e:
+    - structure
+Granate:
+  gen: f
+  e:
+    - shell
+Gratifikation:
+  gen: f
+  e:
+    - gratuity
+Grenzschicht:
+  gen: f
+  e:
+    - barrier
+Greuel:
+  gen: m
+  e:
+    - aversion
+Größe:
+  gen: f
+  e:
+    - extent
+Gruppenräume:
+  gen: pl
+  e:
+    - group rooms
+Güsse:
+  gen: pl
+  e:
+    - castings
+Gutbereich:
+  gen: m
+  e:
+    - acceptance region
+Handlanger:
+  gen: m
+  e:
+    - handyman
+Handlungsprogramm:
+  gen: 'n'
+  e:
+    - action program
+handwerkliche Ausführung:
+  gen: f
+  e:
+    - workmanship
+Hauptaktionär:
+  gen: m
+  e:
+    - shareholder
+Hauptaktionäre:
+  gen: pl
+  e:
+    - shareholders
+Hautausschlag:
+  gen: m
+  e:
+    - rash
+Häutung:
+  gen: f
+  e:
+    - skinning
+Heer:
+  gen: m
+  e:
+    - army
+Heere:
+  gen: pl
+  e:
+    - armies
+Heilmittel:
+  gen: 'n'
+  e:
+    - remedy
+Heilquelle:
+  gen: f
+  e:
+    - spa
+Heim:
+  gen: 'n'
+  e:
+    - asylum
+Herleitung:
+  gen: f
+  e:
+    - derivation
+Herstellungen:
+  gen: pl
+  e:
+    - makings
+Hilfsname:
+  gen: m
+  e:
+    - surrogate name
+Himmelfahrtstag:
+  gen: m
+  e:
+    - ascension day
+Hinblick:
+  gen: m
+  e:
+    - view
+Hinweis:
+  gen: m
+  e:
+    - hint
+Hinweise:
+  gen: pl
+  e:
+    - hints
+Hinzufügemodus:
+  gen: m
+  e:
+    - add mode
+Hochkomma:
+  gen: 'n'
+  e:
+    - single quotation mark
+Hochmut:
+  gen: m
+  e:
+    - arrogance
+Höhlung:
+  gen: f
+  e:
+    - cavity
+Holm:
+  gen: 'n'
+  e:
+    - arbor
+Hügel:
+  gen: m
+  e:
+    - hill
+    - hills
+Ideen:
+  gen: pl
+  e:
+    - ideas
+Impuls:
+  gen: m
+  e:
+    - impulse
+Indizierung:
+  gen: f
+  e:
+    - subscription
+Inhaltsangabe:
+  gen: f
+  e:
+    - epitome
+Instrumente:
+  gen: f
+  e:
+    - instruments
+Intelligenz:
+  gen: f
+  e:
+    - intelligence
+Interpretierung:
+  gen: f
+  e:
+    - interpretation
+Kandidat:
+  gen: m
+  e:
+    - aspirant
+    - candidate
+Kanditaten:
+  gen: pl
+  e:
+    - candidates
+Kehricht:
+  gen: m
+  e:
+    - rubbish
+Kennzeichen:
+  gen: 'n'
+  e:
+    - tag
+Kindlein:
+  gen: 'n'
+  e:
+    - babe
+Kinnbackenknochen:
+  gen: m
+  e:
+    - maxillary bone
+Klarheit:
+  gen: f
+  e:
+    - clarification
+Klebeetikett:
+  gen: m
+  e:
+    - adhesive label
+Kleinigkeiten:
+  gen: pl
+  e:
+    - trifles
+Kommission:
+  gen: f
+  e:
+    - commission
+Kommissionen:
+  gen: pl
+  e:
+    - commissions
+Kontravalenz:
+  gen: m
+  e:
+    - anticoincidence
+Kopfende:
+  gen: 'n'
+  e:
+    - top
+Kosten:
+  gen: pl
+  e:
+    - expense
+Krankenwagen:
+  gen: m
+  e:
+    - ambulance
+Kreditbeanspruchung:
+  gen: f
+  e:
+    - borrowings
+Kreisabschnitt:
+  gen: m
+  e:
+    - segment
+Kribbelgefühl:
+  gen: 'n'
+  e:
+    - formication
+Kühlung:
+  gen: f
+  e:
+    - cooling
+Kühlwirkung:
+  gen: f
+  e:
+    - chilling effect
+Kunde:
+  gen: m
+  e:
+    - taker
+Kundendienst:
+  gen: m
+  e:
+    - field service
+Kündigung:
+  gen: f
+  e:
+    - abrogation
+Kundschafter:
+  gen: m
+  e:
+    - scout
+    - scouts
+Kurs:
+  gen: m
+  e:
+    - course
+Lager:
+  gen: m
+  e:
+    - stock
+Landwirtschaft:
+  gen: f
+  e:
+    - agriculture
+Läufer:
+  gen: m
+  e:
+    - armature
+Laufzeit:
+  gen: f
+  e:
+    - elapse time
+Lebensdauer:
+  gen: f
+  e:
+    - age
+Lehrstunde:
+  gen: f
+  e:
+    - lesson
+Leichtmetallindustrie:
+  gen: f
+  e:
+    - aluminium industry
+Lesung:
+  gen: f
+  e:
+    - reading
+Lichtleitung:
+  gen: f
+  e:
+    - branch circuit
+Lieferungen:
+  gen: pl
+  e:
+    - deliveries
+Litfaßsäule:
+  gen: f
+  e:
+    - advertising pillar
+Lob:
+  gen: 'n'
+  e:
+    - accolade
+Lösung:
+  gen: f
+  e:
+    - answer
+Lösungskonzept:
+  gen: 'n'
+  e:
+    - solution
+Mannjahr:
+  gen: m
+  e:
+    - man−year
+Mannmonat:
+  gen: m
+  e:
+    - man−month
+Marke:
+  gen: f
+  e:
+    - tag
+Märkte:
+  gen: pl
+  e:
+    - markets
+Mediziner:
+  gen: m
+  e:
+    - physician
+Meinungsäusserungen:
+  gen: pl
+  e:
+    - statements
+Meldungen:
+  gen: pl
+  e:
+    - dispatches
+Menge:
+  gen: f
+  e:
+    - crowd
+Menschenkunde:
+  gen: f
+  e:
+    - anthropology
+Menschenmassen:
+  gen: pl
+  e:
+    - crowds
+Meuchelmörder:
+  gen: pl
+  e:
+    - assassins
+Miene:
+  gen: f
+  e:
+    - countenance
+Mienen:
+  gen: pl
+  e:
+    - countenances
+Mineralquelle:
+  gen: f
+  e:
+    - spa
+Mitarbeiter:
+  gen: m
+  e:
+    - colleague
+    - assistant
+    - assistants
+Mittellinie:
+  gen: f
+  e:
+    - center line
+Möbel:
+  gen: f
+  e:
+    - furniture
+Mobilmachung:
+  gen: f
+  e:
+    - mobilization
+Modifikation:
+  gen: f
+  e:
+    - modification
+Monteur:
+  gen: m
+  e:
+    - assemblyman
+Mörder:
+  gen: m
+  e:
+    - assassin
+Motivation:
+  gen: f
+  e:
+    - motivation
+Mülltonne:
+  gen: f
+  e:
+    - dustbin
+Mülltonnen:
+  gen: pl
+  e:
+    - dustbins
+Nachlässigkeit:
+  gen: f
+  e:
+    - carelessness
+Nachtrag:
+  gen: m
+  e:
+    - addition
+Nebenerscheinung:
+  gen: f
+  e:
+    - outgrowth
+Neigung:
+  gen: f
+  e:
+    - tendency
+Neuling:
+  gen: m
+  e:
+    - novice
+Nichtprofi:
+  gen: m
+  e:
+    - amateur
+Normalstellung:
+  gen: f
+  e:
+    - home position
+Notiz:
+  gen: f
+  e:
+    - note
+Obduktion:
+  gen: f
+  e:
+    - autopsy
+Obduktionen:
+  gen: pl
+  e:
+    - autopsies
+Ofen:
+  gen: m
+  e:
+    - oven
+Papierrolle:
+  gen: f
+  e:
+    - web
+Passivierung:
+  gen: f
+  e:
+    - passivation
+Pensionen:
+  gen: pl
+  e:
+    - pensions
+Personalausweis:
+  gen: m
+  e:
+    - identity card
+photographiert:
+  gen: pl
+  e:
+    - photographs
+Plan:
+  gen: m
+  e:
+    - concept
+pneumatische Förderung:
+  gen: f
+  e:
+    - suction system
+Primärkosten:
+  gen: pl
+  e:
+    - aboriginal cost
+Problem:
+  gen: 'n'
+  e:
+    - problem
+Programmstop:
+  gen: m
+  e:
+    - breakpoint
+Proportion:
+  gen: f
+  e:
+    - proportion
+Prozeßanalyse:
+  gen: f
+  e:
+    - activity analysis
+Prozeßstrahl:
+  gen: m
+  e:
+    - activity ray
+Punktzahl:
+  gen: f
+  e:
+    - score
+Putz:
+  gen: m
+  e:
+    - finery
+Quittungen:
+  gen: pl
+  e:
+    - receipts
+Rabatt:
+  gen: m
+  e:
+    - discount
+Rache:
+  gen: f
+  e:
+    - revenge
+Rasterung:
+  gen: f
+  e:
+    - screening
+Ratschläge:
+  gen: pl
+  e:
+    - suggestions
+Raubzüge:
+  gen: pl
+  e:
+    - raids
+Reaktion:
+  gen: f
+  e:
+    - response
+Rechenregel:
+  gen: f
+  e:
+    - algorithm
+Rechte:
+  gen: pl
+  e:
+    - rights
+Rechtsanwalt:
+  gen: m
+  e:
+    - lawyer
+Rechtsberater:
+  gen: m
+  e:
+    - lawyer
+Redigieren:
+  gen: 'n'
+  e:
+    - revision
+Regelung:
+  gen: f
+  e:
+    - regulation
+Regulierung:
+  gen: f
+  e:
+    - modulation
+Reihenfolge:
+  gen: f
+  e:
+    - sequence
+Relief:
+  gen: 'n'
+  e:
+    - relief
+Repräsentativbefragung:
+  gen: f
+  e:
+    - sampling
+Ressort:
+  gen: 'n'
+  e:
+    - department
+Ritte:
+  gen: pl
+  e:
+    - rides
+Rückweisung:
+  gen: f
+  e:
+    - rejection
+Rüstung:
+  gen: f
+  e:
+    - armament
+Saite:
+  gen: f
+  e:
+    - chord
+Sättigung:
+  gen: f
+  e:
+    - saturation
+Säuglinge:
+  gen: pl
+  e:
+    - babies
+Schälmaschine:
+  gen: f
+  e:
+    - stripper
+Schau:
+  gen: f
+  e:
+    - show
+Schauspieler:
+  gen: m
+  e:
+    - actor
+Schicklichkeit:
+  gen: f
+  e:
+    - decency
+Schlacke:
+  gen: f
+  e:
+    - slag
+Schlußverkäufe:
+  gen: pl
+  e:
+    - sales
+Schmelzzeit:
+  gen: f
+  e:
+    - fusing time
+Schnaps:
+  gen: m
+  e:
+    - booze
+Schriftarten:
+  gen: pl
+  e:
+    - types
+Schularbeit:
+  gen: f
+  e:
+    - task
+Schulter:
+  gen: f
+  e:
+    - shoulder
+Schultern:
+  gen: pl
+  e:
+    - shoulders
+Schwabenstreich:
+  gen: m
+  e:
+    - tomfoolery
+Schwerkraft:
+  gen: f
+  e:
+    - gravity
+Schwierigkeit:
+  gen: f
+  e:
+    - problem
+Sehenswürdigkeiten:
+  gen: pl
+  e:
+    - sights
+Seite:
+  gen: f
+  e:
+    - aspect
+Seitengleis:
+  gen: 'n'
+  e:
+    - siding
+Seitengleise:
+  gen: pl
+  e:
+    - sidings
+Sekret:
+  gen: 'n'
+  e:
+    - secretion
+Sekundärmarkt:
+  gen: m
+  e:
+    - after market
+Selbstverwaltung:
+  gen: f
+  e:
+    - self government
+Serviceabschaltung:
+  gen: f
+  e:
+    - abandonment of service
+sichere Aufbewahrung:
+  gen: f
+  e:
+    - safekeeping
+Sicherungsautomat:
+  gen: m
+  e:
+    - cutout
+Sicht:
+  gen: f
+  e:
+    - prospect
+Siedler:
+  gen: m
+  e:
+    - settler
+    - settlers
+Skonto:
+  gen: m
+  e:
+    - discount
+Sonderfall:
+  gen: m
+  e:
+    - outlier
+Sonnenuntergang:
+  gen: m
+  e:
+    - sunset
+Sonnenuntergänge:
+  gen: pl
+  e:
+    - sunsets
+Sorte:
+  gen: f
+  e:
+    - breed
+    - kind
+Sortierung:
+  gen: f
+  e:
+    - sort
+Sortiment:
+  gen: 'n'
+  e:
+    - choice
+Späher:
+  gen: m
+  e:
+    - scout
+    - scouts
+Sperrfrist:
+  gen: f
+  e:
+    - retention period
+Spesenrechnung:
+  gen: f
+  e:
+    - bill of expenses
+Spesenrechnungen:
+  gen: pl
+  e:
+    - bills of expenses
+Spielstand:
+  gen: m
+  e:
+    - score
+Sportler:
+  gen: m
+  e:
+    - athlete
+    - athletes
+Sprache:
+  gen: f
+  e:
+    - speech
+Sprachen:
+  gen: pl
+  e:
+    - speeches
+Spuler:
+  gen: m
+  e:
+    - winder
+Spürhunde:
+  gen: pl
+  e:
+    - trackers
+Srungadresse:
+  gen: f
+  e:
+    - home adress
+Stammbaum:
+  gen: m
+  e:
+    - pedigree
+Start:
+  gen: f
+  e:
+    - departure
+    - start
+Startverbot:
+  gen: 'n'
+  e:
+    - suspension
+Startverbote:
+  gen: pl
+  e:
+    - suspensions
+Startzeit:
+  gen: f
+  e:
+    - acceleration time
+Stecker:
+  gen: m
+  e:
+    - plug
+    - connector
+Sterndeuter:
+  gen: m
+  e:
+    - astrologer
+    - astrologers
+Sterndeuterei:
+  gen: f
+  e:
+    - astrology
+Sternkunde:
+  gen: f
+  e:
+    - astronomy
+Steuer:
+  gen: f
+  e:
+    - tax
+steuern:
+  gen: pl
+  e:
+    - taxes
+Stichleitung:
+  gen: f
+  e:
+    - stub
+Stichprobenplan:
+  gen: m
+  e:
+    - acceptance sampling plan
+Stillstandszeit:
+  gen: f
+  e:
+    - downtime
+Stirn:
+  gen: m
+  e:
+    - brow
+Strafarbeit:
+  gen: f
+  e:
+    - imposition
+Strafarbeiten:
+  gen: pl
+  e:
+    - impositions
+Strand:
+  gen: m
+  e:
+    - beach
+Strände:
+  gen: pl
+  e:
+    - beaches
+straße:
+  gen: f
+  e:
+    - avenue
+Straßen:
+  gen: pl
+  e:
+    - roads
+Streichung:
+  gen: f
+  e:
+    - cancellation
+Streit:
+  gen: m
+  e:
+    - contestation
+    - contention
+Struktur:
+  gen: f
+  e:
+    - structure
+Stückarbeiter:
+  gen: m
+  e:
+    - pieceworker
+Subtraktion:
+  gen: f
+  e:
+    - subtraction
+Subtraktionen:
+  gen: pl
+  e:
+    - subtractions
+Sülze:
+  gen: f
+  e:
+    - aspic
+Sympathie:
+  gen: f
+  e:
+    - sympathy
+tafelfertig:
+  gen: m
+  e:
+    - instant
+Taktik:
+  gen: f
+  e:
+    - policy
+Tasche:
+  gen: f
+  e:
+    - pocket
+Tat:
+  gen: f
+  e:
+    - act
+Teilzahlung:
+  gen: f
+  e:
+    - installment
+Tendenz:
+  gen: f
+  e:
+    - tendency
+Tierbändiger:
+  gen: pl
+  e:
+    - tamers
+Toilette:
+  gen: f
+  e:
+    - toilet
+Toiletten:
+  gen: pl
+  e:
+    - toilets
+Tongeräte:
+  gen: pl
+  e:
+    - audio equipment
+Träger:
+  gen: pl
+  e:
+    - supporters
+Transaktionssatz:
+  gen: m
+  e:
+    - amendment record
+Treiber:
+  gen: m
+  e:
+    - driver
+Trennung:
+  gen: f
+  e:
+    - disconnection
+Trip:
+  gen: m
+  e:
+    - trip
+Trips:
+  gen: pl
+  e:
+    - trips
+Tumultant:
+  gen: m
+  e:
+    - rioter
+Tumulte:
+  gen: pl
+  e:
+    - riots
+Typ:
+  gen: m
+  e:
+    - type
+überbau:
+  gen: m
+  e:
+    - superstruction
+überfall:
+  gen: m
+  e:
+    - aggression
+übernahmeprüfung:
+  gen: f
+  e:
+    - acceptance test
+übersetzungsprotokoll:
+  gen: 'n'
+  e:
+    - assembler listing
+übertrag:
+  gen: m
+  e:
+    - add carry
+übungen:
+  gen: pl
+  e:
+    - practices
+Umfang:
+  gen: m
+  e:
+    - extent
+Umgebung:
+  gen: f
+  e:
+    - environment
+Umlauf:
+  gen: m
+  e:
+    - tour
+Umschrift:
+  gen: f
+  e:
+    - transcription
+Umschweif:
+  gen: m
+  e:
+    - digression
+Umwertung:
+  gen: f
+  e:
+    - revaluation
+unbenannte Zahl:
+  gen: f
+  e:
+    - absolute number
+ungefähr:
+  gen: m
+  e:
+    - approximately
+Universalrechner:
+  gen: m
+  e:
+    - all−purpose computer
+Unterhaltszahlung:
+  gen: f
+  e:
+    - alimony
+Unterscheidung:
+  gen: f
+  e:
+    - distinction
+Unterwerfung:
+  gen: f
+  e:
+    - subjection
+Urdaten:
+  gen: pl
+  e:
+    - raw data
+Urkunden:
+  gen: pl
+  e:
+    - documents
+Venen:
+  gen: pl
+  e:
+    - veins
+veraltete Daten:
+  gen: pl
+  e:
+    - aged data
+Veränderung:
+  gen: f
+  e:
+    - alteration
+Verbindung:
+  gen: f
+  e:
+    - connection
+Verbindungen:
+  gen: pl
+  e:
+    - connections
+Verbindungsdaür:
+  gen: f
+  e:
+    - call time
+Verbleib:
+  gen: m
+  e:
+    - whereabout
+Verbrauch:
+  gen: m
+  e:
+    - wastage
+Verdacht:
+  gen: m
+  e:
+    - suspicion
+Verdampfung:
+  gen: f
+  e:
+    - evaporation
+Verdampfungen:
+  gen: pl
+  e:
+    - evaporations
+Verehrung:
+  gen: f
+  e:
+    - adoration
+Vereinbarung:
+  gen: f
+  e:
+    - settlement
+Vereinigung:
+  gen: f
+  e:
+    - incorporation
+Vergrößerungen:
+  gen: pl
+  e:
+    - enlargements
+Verhältnis:
+  gen: 'n'
+  e:
+    - proportion
+Verhütung:
+  gen: f
+  e:
+    - prevention
+Verirrung:
+  gen: f
+  e:
+    - aberration
+Verkehr:
+  gen: m
+  e:
+    - traffic
+Verkehrsampel:
+  gen: f
+  e:
+    - traffic−lights
+Verlust:
+  gen: m
+  e:
+    - loss
+Verluste:
+  gen: pl
+  e:
+    - losses
+Vermögensübertragung:
+  gen: f
+  e:
+    - asset transfer
+Verordnung:
+  gen: f
+  e:
+    - ordinance
+Verschleiß:
+  gen: m
+  e:
+    - wearout
+Verstand:
+  gen: m
+  e:
+    - understanding
+verständig:
+  gen: m
+  e:
+    - wise
+Verständnis:
+  gen: 'n'
+  e:
+    - understanding
+Verstörtheit:
+  gen: f
+  e:
+    - distraction
+Vertreibung:
+  gen: f
+  e:
+    - ejection
+Vertreter:
+  gen: m
+  e:
+    - agent
+Verwaltung:
+  gen: f
+  e:
+    - administration
+Verweigerung:
+  gen: f
+  e:
+    - denial
+Verwendung:
+  gen: f
+  e:
+    - application
+Volksaufruhr:
+  gen: m
+  e:
+    - riot
+Vorbereitung:
+  gen: f
+  e:
+    - preparation
+Vorberge:
+  gen: f
+  e:
+    - foothills
+Voreltern:
+  gen: pl
+  e:
+    - forefathers
+Vorliebe:
+  gen: f
+  e:
+    - bias
+Vormärsche:
+  gen: pl
+  e:
+    - advances
+Vorrat:
+  gen: m
+  e:
+    - stock
+Vorschlag:
+  gen: m
+  e:
+    - suggestion
+Vorschrift:
+  gen: f
+  e:
+    - regulation
+Vorspannung:
+  gen: f
+  e:
+    - bias
+Vorstellung:
+  gen: f
+  e:
+    - show
+Waffenfabrik:
+  gen: f
+  e:
+    - arsenal
+Wahrnehmungsvermögen:
+  gen: 'n'
+  e:
+    - perceptivity
+Wandelgang:
+  gen: m
+  e:
+    - ambulatory
+Wandelgänge:
+  gen: pl
+  e:
+    - ambulatories
+Wange:
+  gen: f
+  e:
+    - cheek
+Wangen:
+  gen: pl
+  e:
+    - cheeks
+Weg:
+  gen: m
+  e:
+    - way
+Welle:
+  gen: f
+  e:
+    - axle
+Werbeabteilung:
+  gen: f
+  e:
+    - advertising department
+Werbeagent:
+  gen: m
+  e:
+    - adman
+Werbeakquisiteur:
+  gen: m
+  e:
+    - advertising canvasser
+Werbeaktion:
+  gen: f
+  e:
+    - publicity campaign
+Werbeanalyse:
+  gen: f
+  e:
+    - advertising analysis
+Werbeaufwand:
+  gen: m
+  e:
+    - advertising expense
+    - ad spending
+Werbeaufwendung:
+  gen: f
+  e:
+    - advertising expense
+Werbebeilage:
+  gen: f
+  e:
+    - advertising supplement
+Werbeberater:
+  gen: m
+  e:
+    - advertising consultant
+Werbebotschaft:
+  gen: f
+  e:
+    - advertising message
+Werbebrief:
+  gen: m
+  e:
+    - advertising letter
+Werbebudget:
+  gen: 'n'
+  e:
+    - advertising budget
+    - ad budget
+Werbedrucksache:
+  gen: f
+  e:
+    - advertising matter
+Werbeeinnahmen:
+  gen: pl
+  e:
+    - advertising revenue
+Werbeerfolg:
+  gen: m
+  e:
+    - advertising effectiveness
+Werbeerfüller:
+  gen: m
+  e:
+    - adopter
+Werbeetat:
+  gen: 'n'
+  e:
+    - advertising budget
+    - ad budget
+Werbefachfrau:
+  gen: f
+  e:
+    - advertising expert
+Werbefachmann:
+  gen: m
+  e:
+    - advertising man
+    - advertising specialist
+    - adman
+Werbefeldzug:
+  gen: f
+  e:
+    - advertising campaign
+Werbefernsehen:
+  gen: 'n'
+  e:
+    - commercial television
+Werbefilm:
+  gen: m
+  e:
+    - advertising film
+Werbeforschung:
+  gen: f
+  e:
+    - advertising research
+Werbegag:
+  gen: m
+  e:
+    - advertising stunt
+Werbegeschenk:
+  gen: 'n'
+  e:
+    - advertising gift
+    - advertising specialty
+    - giveaway
+Werbegeschenke:
+  gen: pl
+  e:
+    - giveaways
+Werbegraphiker:
+  gen: m
+  e:
+    - commercial artist
+Werbeindustrie:
+  gen: f
+  e:
+    - ad industry
+Werbekampagne:
+  gen: f
+  e:
+    - advertising campaign
+Werbekosten:
+  gen: pl
+  e:
+    - advertising costs
+Werbeleiter:
+  gen: m
+  e:
+    - publicity manager
+    - ad director
+    - press agent
+Werbemassnahmen:
+  gen: pl
+  e:
+    - advertising effort
+Werbematerial:
+  gen: 'n'
+  e:
+    - advertising material
+Werbemittel:
+  gen: 'n'
+  e:
+    - advertising medium
+Werbemittelanalyse:
+  gen: f
+  e:
+    - advertisement analysis
+Werbemuster:
+  gen: 'n'
+  e:
+    - advertising sample
+Werbeplanung:
+  gen: f
+  e:
+    - advertising planning
+Werbepsychologie:
+  gen: f
+  e:
+    - advertising psychology
+Werbepublikum:
+  gen: 'n'
+  e:
+    - advertising audience
+Werber:
+  gen: m
+  e:
+    - solicitor
+Werbeträger:
+  gen: m
+  e:
+    - advertising medium
+Werbungskosten:
+  gen: pl
+  e:
+    - advertising costs
+Werbungsmittler:
+  gen: m
+  e:
+    - advertising agency
+Werkbänke:
+  gen: pl
+  e:
+    - benches
+Werktag:
+  gen: m
+  e:
+    - workday
+Wiederverkauf:
+  gen: m
+  e:
+    - abbroachement
+Wink:
+  gen: m
+  e:
+    - suggestion
+Wirksamkeit:
+  gen: f
+  e:
+    - activity
+Wirkungen:
+  gen: pl
+  e:
+    - effects
+Wischer:
+  gen: m
+  e:
+    - wiper
+Wundermittel:
+  gen: 'n'
+  e:
+    - panacea
+x−Achse:
+  gen: f
+  e:
+    - axis of abscissas
+    - abscissa
+x−Koordinate:
+  gen: 'f]'
+  e:
+    - abscissa
+Zauber:
+  gen: m
+  e:
+    - charm
+Zeitgenosse:
+  gen: m
+  e:
+    - contemporary
+Zermürbung:
+  gen: f
+  e:
+    - attrition
+Zerstörung:
+  gen: f
+  e:
+    - demolition
+Ziehharmonika:
+  gen: f
+  e:
+    - accordion
+Zins:
+  gen: m
+  e:
+    - interest
+Zubehör:
+  gen: m
+  e:
+    - accessories
+    - fittings
+Zubringerstraße:
+  gen: f
+  e:
+    - feeder road
+Zuchtmeister:
+  gen: m
+  e:
+    - taskmaster
+Zudringlichkeit:
+  gen: f
+  e:
+    - intrusiveness
+Zugehörigkeit:
+  gen: f
+  e:
+    - affiliation
+Zündung:
+  gen: f
+  e:
+    - burn
+Zürkennungen:
+  gen: pl
+  e:
+    - awards
+Zusammenbau:
+  gen: m
+  e:
+    - erection
+Zusammensetzung:
+  gen: f
+  e:
+    - composition
+Zusatz:
+  gen: m
+  e:
+    - supplement
+    - addend
+Zuschlag:
+  gen: m
+  e:
+    - surcharge
+Zuschläge:
+  gen: pl
+  e:
+    - surcharges
+Zuständigkeit:
+  gen: f
+  e:
+    - competence
+Zustrom:
+  gen: m
+  e:
+    - inruns
+Zuweisung:
+  gen: f
+  e:
+    - assignation
+Zuweisungen:
+  gen: pl
+  e:
+    - assignments
+    - assignations
+Zuwendung:
+  gen: f
+  e:
+    - devotion
+Zweck:
+  gen: m
+  e:
+    - purpose
+Zwischenruf:
+  gen: m
+  e:
+    - interjection
+Zwischenrufe:
+  gen: pl
+  e:
+    - interjections

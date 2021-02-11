@@ -17,6 +17,7 @@ var symListByType, symListBySet;//hier sind info lists (dict by key)
 var svgDict, svgKeys, svgList; //?
 
 var BestKeysD, BestKeysE, BestKeySets;
+var DeDict,EdDict; //deutsch=>engl, engl=>deutsch
 //var CorrectKeysByLanguage,CorrectByKey;
 //var CorrectWords, CorrectWordsExact, CorrectWordsCorrect, CorrectWordsFailed; //dep!
 

@@ -44,46 +44,95 @@ async function _loader() {
 	} else { loadSIMA(_start); }
 
 }
-async function makeDictionaries(){
+async function makeDictionaries() {
 	// let ddd = await route_path_yaml_dict('../assets/ddAlles.yaml');
 	// console.log(ddd)
-	let ddd = await route_path_text('../assets/ddAlles.txt');
+	let ddd = await route_path_text('../assets/speech/ddAlles.txt');
 	console.log(ddd)
 	let lines = ddd.split('\n');
 	console.log(lines);
 	let newLines = [];
-	let deDict={};
-	let edDict={};
-	for(let i=0;i<lines.length;i++){
-		let l=lines[i];
-		if (startsWith(l,'German')) console.log(l);
-		else if (startsWith(l,'A ')) console.log(l);
+	let deDict = {};
+	let deNouns = {};
+	let edDict = {};
+	let edNouns = {};
+	for (let i = 0; i < lines.length; i++) {
+		let l = lines[i];
+		if (startsWith(l, 'German')) console.log(l);
+		else if (startsWith(l, 'A ')) console.log(l);
 		else {
 			newLines.push(l);
-			let d=stringBefore(l,' :');
-			let info={isNoun:false};
+			let d = stringBefore(l, ' :');
+			// let info={isNoun:false};
+			let gen = null;
 			if (d.includes('{')) {
 				let parts = d.split('{');
-				d=parts[0].trim();
-				gen=stringBefore(parts[1],'}').trim();
+				d = parts[0].trim();
+				gen = stringBefore(parts[1], '}').trim();
 				// d=stringBefore(d,'{').trim();
 				// let gen = stringBefore(stringAfter(d,'{'),'}');
-				info = {isNoun:true,gen:gen};
+				//info = {isNoun:true,gen:gen};
+				lookupSet(deDict, [d, 'gen'], gen);
+				lookupSet(deNouns, [d, 'gen'], gen);
 			}
-			let elist=stringAfter(l,': ').split(',').map(x=>x.trim());
-			for(const e of elist) {
-				lookupAddIfToList(deDict,[d,'e'],e);
-				lookupAddIfToList(edDict,[e,'d'],d);
+			let elist = stringAfter(l, ': ').split(',').map(x => x.trim());
+			for (const e of elist) {
+				lookupAddIfToList(deDict, [d, 'e'], e);
+				lookupAddIfToList(edDict, [e, 'd'], d);
+				if (isdef(gen)) {
+					lookupAddIfToList(edNouns, [e, 'd'], d);
+					lookupAddIfToList(deNouns, [d, 'e'], e);
+				}
 			}
-			deDict[d].info=info;
+			// deDict[d].info=info;
 		}
-		if (i>100) break;
+		//if (i>100) break;
 	}
 	console.log(deDict);
 	console.log(edDict);
 	downloadTextFile(newLines.join('\n'), 'ddText', ext = 'txt')
 	downloadAsYaml(deDict, 'deDict');
-	downloadAsYaml(edDict,'edDict');
+	downloadAsYaml(edDict, 'edDict');
+	downloadAsYaml(deNouns, 'deNouns');
+	downloadAsYaml(edNouns, 'edNouns');
+}
+async function updateSymbolDictFromDictionaries() {
+	// [EdDict,DeDict]=await loadGermanNouns();
+	[EdDict, DeDict] = await loadGerman();
+	let ekeys = Object.keys(EdDict);
+	let lowerEKeys = ekeys.map(x => x.toLowerCase());
+	console.log('dict e=>d', ekeys);
+
+	ensureSymByType();
+	let keys = symKeysByType['icon']; //symbolKeys;
+	console.log('keys', keys);
+	let inter = intersection(keys, lowerEKeys);
+	console.log('intersection:', inter);
+
+	//von denen die in der intersection sind, gibt ihnen eine translation to german und save again in symbolDict!
+
+	for (const k of inter) {
+		let entry = lookup(EdDict, [k, 'd']);
+		if (nundef(entry)) {
+			console.log('gibt es nicht!', k)
+		} else {
+			console.log('entry', entry)
+			console.log('JA!', k, entry.join('|'));
+			symbolDict[k].D = entry.join('|').toLowerCase();
+			symbolDict[k].E = k;
+		}
+	}
+	downloadAsYaml(symbolDict, 'symbolDict');
+
+}
+async function loadGerman(justNouns = false) {
+	let root = justNouns ? 'Nouns' : 'Dict';
+	let ed = await route_path_yaml_dict('../assets/speech/ed' + root + '.yaml');
+	let de = await route_path_yaml_dict('../assets/speech/de' + root + '.yaml');
+	//alle keys sollen immer lower case sein!
+
+	return [ed, de];
+
 }
 async function _start() {
 	//timit.show('DONE');
@@ -95,6 +144,7 @@ async function _start() {
 	initAux();
 	initScore();
 	initSymbolTableForGamesAddons(); //creates Daat
+	console.log('English to German Nouns:', EdDict);
 
 	//initAddons(); //old API ==>deprecate
 	addonFeatureInit(); //new API!
@@ -106,7 +156,21 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	await makeDictionaries();
+	for (const k in symbolDict) {
+		let info = symbolDict[k];
+		if (nundef(info.E) || isNumber(info.E) || isdef(info.bestE)) continue;
+		console.log('info.E', info.E, k);
+		if (info.E.includes('|')) {
+			console.log('he das gibt es doch nicht!!!', k, info);
+		} else {
+			info.bestE = info.E;
+			if (nundef(info.D)) {
+				console.log('he das gibt es doch nicht!!! KEIN DEUTSCH!', k, info);
+			} else info.bestD = stringBefore(info.D, '|').trim().toLowerCase();
+		}
+
+	}
+	downloadAsYaml(symbolDict, 'sym');
 
 	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
