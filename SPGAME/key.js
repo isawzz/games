@@ -1,4 +1,6 @@
-// action,actionPlus,all,best25,best50,best75,best100,emo,life,life50,lifePlus,nemo,nemo100,obejct,object50,objectPlus
+const KSKeys = ['action', 'actionPlus', 'all', 'best25', 'best50', 'best75', 'best100', 'emo', 'huge', 
+								'life', 'life50', 'lifePlus', 'nemo', 'nemo100', 'obejct', 'object50', 'objectPlus'];
+
 var KeySets;
 function catFiltered(cats, name, best) {
 	//console.log(cats, name)
@@ -15,6 +17,7 @@ function catFiltered(cats, name, best) {
 
 	return result;
 }
+
 function getKeySets() {
 	let ks = localStorage.getItem('KeySets');
 	if (isdef(ks)) return JSON.parse(ks);
@@ -24,6 +27,10 @@ function getKeySets() {
 		let info = symbolDict[k];
 		if (isdef(info.bestD)) huge.push(k);
 	}
+
+	//push all the keys that are in Syms but not in symbolDict!
+	for (const k of ['zebra']) huge.push(k);
+
 	let allKeys = symKeysBySet.nosymbols;
 	let keys = allKeys.filter(x => isdef(symbolDict[x].best100));
 	let keys1 = allKeys.filter(x => isdef(symbolDict[x].best100) && isdef(symbolDict[x].bestE));
@@ -133,8 +140,5 @@ function getSym(key, lang = 'E') {
 
 	return info;
 }
-
-
-
 
 

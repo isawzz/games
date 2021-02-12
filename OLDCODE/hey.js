@@ -68,6 +68,12 @@ async function loadAssetsSIMA(assetsPath) {
 	svgDict = await localOrRoute('svgDict', assetsPath + 'svgDict.yaml'); //TODO: depending on ext, treat other assts as well!
 	svgKeys = Object.keys(svgDict);
 	svgList = dict2list(svgDict);
+
+	Syms = await localOrRoute('syms', assetsPath + 'syms.yaml');
+	SymKeys = Object.keys(Syms);
+
+	//console.log('SymKeys',SymKeys)
+
 }
 
 async function saveSIMA() {

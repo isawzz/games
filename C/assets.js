@@ -8,6 +8,7 @@ var defaultSpec, userSpec, userCode, serverData, prevServerData, tupleGroups, bo
 
 var symbolDict, symbolKeys, symbolList; //gibt es immer
 var svgDict, svgKeys, svgList; //?
+var Syms,SymKeys; //new API!
 
 //the following are only produced lazily! (see ensure)
 // byType hat keys: emo, icon, eduplo, iduplo!!!

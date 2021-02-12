@@ -1,4 +1,8 @@
+function test10_syms() {
+	clearElement(dTable);
 
+	zPicS(chooseRandom(SymKeys), dTable,{sz:200,bg:'random',fg:'random'});
+}
 
 
 

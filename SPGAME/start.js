@@ -134,7 +134,7 @@ async function loadGerman(justNouns = false) {
 	return [ed, de];
 
 }
-function recomputeBestED(){
+function recomputeBestED() {
 	for (const k in symbolDict) {
 		let info = symbolDict[k];
 		if (info.type == 'emo' && isString(info.D) && isString(info.E)) {
@@ -161,55 +161,82 @@ function recomputeBestED(){
 	downloadAsYaml(symbolDict, 'sym');
 
 }
-function generateWordFiles(){
-	let i=0;let n=13000;let len=symbolKeys.length;
-	while(i<len){
-		wordsFromToText(i,n);
-		i+=n;
+function generateWordFiles() {
+	let i = 0; let n = 13000; let len = symbolKeys.length;
+	while (i < len) {
+		wordsFromToText(i, n);
+		i += n;
 	}
 }
-function wordsFromToText(i,n=300){
-	let list=[];
-	for(const k in symbolDict){
+function wordsFromToText(i, n = 300) {
+	let list = [];
+	for (const k in symbolDict) {
 		let info = symbolDict[k];
-		if (nundef(info.bestE) || !isString(info.bestE) || info.bestE.length<2) continue;
-		addIf(list,info.bestE);
+		if (nundef(info.bestE) || !isString(info.bestE) || info.bestE.length < 2) continue;
+		addIf(list, info.bestE);
 	}
 	//divide list into chunks of under 3900 characters each!
-	let sfromi=arrFromIndex(list,i);
-	s300=arrTake(sfromi,n);
-	let s=s300.join('\n');
+	let sfromi = arrFromIndex(list, i);
+	s300 = arrTake(sfromi, n);
+	let s = s300.join('\n');
 	console.log(s);
-	downloadTextFile(s,'words_'+i);
+	downloadTextFile(s, 'words_' + i);
 	// downloadTextFile(s1.join('\n'),'words1');
 	// downloadTextFile(srest.join('\n'),'words2');
 
 }
-async function makeNewSyms(){
-	let etext=await route_path_text('../assets/speech/di/_wE.txt');
-	// console.log(etext);
-	let ew=etext.split('\n');
-	console.log('eng',ew);
-	let dtext=await route_path_text('../assets/speech/di/_wD.txt');
-	let ftext=await route_path_text('../assets/speech/di/_wF.txt');
-	let stext=await route_path_text('../assets/speech/di/_wS.txt');
-	let ctext=await route_path_text('../assets/speech/di/_wC.txt');
-	let dw=dtext.split('\n');
-	let fw=ftext.split('\n');
-	let sw=stext.split('\n');
-	let cw=ctext.split('\n');
-	let edict={};
-	for(let i=0;i<ew.length;i++){
-		edict[ew[i]]={E:ew[i],D:dw[i],F:fw[i],S:sw[i],C:cw[i]};
-	}
-	for(const k in symbolDict){
-		let info = symbolDict[k];
-		if (nundef())
-	}
-	
-	return;
-	let di={};
+async function wegMitwh(){
+	let syms = await route_path_yaml_dict('../assets/syms.yaml');
+	let newSyms = {};
+	for(const k in syms){
+		let info = jsCopy(syms[k]);
+		info.w=info.w[0];
+		info.h=info.h[0];
 
+		newSyms[k]=info;
+	}
+	downloadAsYaml(newSyms,'syms');
+}
+async function makeNewSyms() {
+	let etext = await route_path_text('../assets/speech/di/_wE.txt');
+	// console.log(etext);
+	let ew = etext.split('\n');
+	console.log('eng', ew);
+	let dtext = await route_path_text('../assets/speech/di/_wD.txt');
+	let ftext = await route_path_text('../assets/speech/di/_wF.txt');
+	let stext = await route_path_text('../assets/speech/di/_wS.txt');
+	let ctext = await route_path_text('../assets/speech/di/_wC.txt');
+	let dw = dtext.split('\n');
+	let fw = ftext.split('\n');
+	let sw = stext.split('\n');
+	let cw = ctext.split('\n');
+	let edict = {};
+	for (let i = 0; i < ew.length; i++) {
+		edict[ew[i]] = { E: ew[i], D: dw[i], F: fw[i], S: sw[i], C: cw[i] };
+	}
+	let symNew = {};
+	for (const k in symbolDict) {
+		let info = symbolDict[k];
+		let inew = {};
+		for(const k1 of ['key','hexcode','hex','family','text','type','isDuplicate']){
+			if (isdef(info[k1])) inew[k1]=info[k1];
+		}
+		inew.w=info.w;
+		inew.h=info.h;
+		let wk=inew.E=isdef(info.bestE)?info.bestE:k;
+		let e=edict[wk];
+		if (isdef(e)){
+			inew.D=e.D;
+			inew.F=e.F;
+			inew.S=e.S;
+			inew.C=e.C;
+		}
+		if (nundef(inew.D) && isdef(info.bestD)) inew.D=info.bestD;
+		symNew[k]=inew;
+		console.log('key',k,inew)
+	}
+
+	return symNew;
 }
 async function _start() {
 	//timit.show('DONE');
@@ -232,11 +259,19 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
+	let keys = fromKeySet('nemo',9);
+	showPictureGrid();return;
+	//test10_syms(); return;
+
 	//show('freezer');
 	//console.log('English to German Nouns:', EdDict);
 	//recomputeBestED();
 	//generateWordFiles(); //step 1 works!!!
-	makeNewSyms(); return;
+	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
+	//return;
+
+	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
+	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
 
 	//test04_textItems(); return;
 	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;

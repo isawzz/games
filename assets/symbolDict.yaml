@@ -95021,7 +95021,7 @@ princess:
   group: people-body
   subgroups: person-role
   E: princess
-  D: prizessin
+  D: prinzessin
   D_valid_sound: fairy tale
   hex: 1F478-1F3FC
   family: emoNoto
@@ -95050,7 +95050,7 @@ princess:
     - 133
   bestE: princess
   bestEConf: 85
-  bestD: prizessin
+  bestD: prinzessin
 print:
   key: print
   type: icon
@@ -119680,7 +119680,7 @@ teddy bear:
   group: activities
   subgroups: game
   E: teddy bear
-  D: bär|stofftiemahjong
+  D: bär|stofftier
   D_valid_sound: r|plüschbär|teddybär
   hex: 1F9F8
   family: emoNoto

@@ -1,3 +1,4 @@
+
 function registerItems(items) {
 	for (const i of items) UIS[i.div.id] = i;
 }

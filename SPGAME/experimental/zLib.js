@@ -162,8 +162,10 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 
 //#region helpers
 function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, isOmoji = false) {
-
-	let info = isString(infokey) ? picInfo(infokey) : infokey;
+	let info;
+	console.log('infokey',infokey);
+	if (infokey == 'zebra') info=Syms.zebra;
+	else info = isString(infokey) ? picInfo(infokey) : infokey;
 	//console.log(infokey)
 	//console.log('isText', isText, 'isOmoji', isOmoji);
 
