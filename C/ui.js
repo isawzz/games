@@ -1,4 +1,6 @@
 
+//#region ui
+
 function initTable() {
 	let table = mBy('table');
 	clearElement(table);
@@ -85,3 +87,12 @@ function initLineBottom() {
 
 	mLinebreak(table);
 }
+
+//#endregion
+
+
+
+
+
+
+

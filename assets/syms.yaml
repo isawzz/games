@@ -14738,6 +14738,21 @@ cobweb:
   F: araignée
   S: telaraña
   C: 蛛網
+cockroach:
+  key: cockroach
+  hexcode: 1fab3
+  hex: 1fab3
+  family: noto3
+  text: '&#129715;'
+  type: emo
+  isDuplicate: false
+  w: 113
+  h: 133
+  E: cockroach
+  D: schabe
+  F: cockroche
+  S: cucaracha
+  C: 雞尾酒
 cocktail:
   key: cocktail
   hexcode: f561

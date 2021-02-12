@@ -259,8 +259,8 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	let keys = fromKeySet('nemo',9);
-	showPictureGrid();return;
+	let keys = ['fly']; //fromKeySet('nemo',9);
+	showPictureGrid(keys,dTable);return;
 	//test10_syms(); return;
 
 	//show('freezer');
