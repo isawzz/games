@@ -1,7 +1,33 @@
-const KSKeys = ['action', 'actionPlus', 'all', 'best25', 'best50', 'best75', 'best100', 'emo', 'huge', 
-								'life', 'life50', 'lifePlus', 'nemo', 'nemo100', 'obejct', 'object50', 'objectPlus'];
-
+const KSKeys = ['action', 'actionPlus', 'all', 'best25', 'best50', 'best75', 'best100', 'emo', 'huge',
+	'life', 'life50', 'lifePlus', 'nemo', 'nemo100', 'object', 'object50', 'objectPlus'];
 var KeySets;
+
+function addCatsToKeys() {
+	console.log('Syms', Syms);
+	for (const ksk in KeySets) {
+		for (const k of KeySets[ksk]) {
+			let info = Syms[k]
+			lookupAddIfToList(info, ['cats'], ksk);
+		}
+	}
+	downloadAsYaml(Syms, 'syms');
+}
+function allWordsAndKeysLowerCase() {
+	let newSyms = {};
+	for (const k in Syms) {
+		let info = Syms[k];
+		let inew = jsCopy(info);
+		for (const x of ['E', 'D', 'F', 'S']) {
+			if (isdef(info[x])) {
+				console.log(info[x])
+				inew[x] = info[x].toLowerCase();
+			}
+		}
+		newSyms[k.toLowerCase()] = inew;
+	}
+	downloadAsYaml(newSyms, 'syms1');
+}
+
 function catFiltered(cats, name, best) {
 	//console.log(cats, name)
 	let keys = setCategories(cats);

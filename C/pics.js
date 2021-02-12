@@ -479,10 +479,6 @@ function _zPicS(itemInfoKey, dParent, styles = {}) {
 	outerStyles.padding = '' + padh + 'px ' + padw + 'px';
 	outerStyles.w = wreal; //das ist groesse von inner!
 	outerStyles.h = hreal;
-	// let [bg,fg] = getExtendedColors(outerStyles.bg,outerStyles.fg);
-	// outerStyles.bg = bg;
-	// outerStyles.bg = fg;
-	//console.log(outerStyles)
 	mStyleX(dOuter, outerStyles);
 
 	return {
