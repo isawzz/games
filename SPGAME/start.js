@@ -185,17 +185,17 @@ function wordsFromToText(i, n = 300) {
 	// downloadTextFile(srest.join('\n'),'words2');
 
 }
-async function wegMitwh(){
+async function wegMitwh() {
 	let syms = await route_path_yaml_dict('../assets/syms.yaml');
 	let newSyms = {};
-	for(const k in syms){
+	for (const k in syms) {
 		let info = jsCopy(syms[k]);
-		info.w=info.w[0];
-		info.h=info.h[0];
+		info.w = info.w[0];
+		info.h = info.h[0];
 
-		newSyms[k]=info;
+		newSyms[k] = info;
 	}
-	downloadAsYaml(newSyms,'syms');
+	downloadAsYaml(newSyms, 'syms');
 }
 async function makeNewSyms() {
 	let etext = await route_path_text('../assets/speech/di/_wE.txt');
@@ -218,26 +218,64 @@ async function makeNewSyms() {
 	for (const k in symbolDict) {
 		let info = symbolDict[k];
 		let inew = {};
-		for(const k1 of ['key','hexcode','hex','family','text','type','isDuplicate']){
-			if (isdef(info[k1])) inew[k1]=info[k1];
+		for (const k1 of ['key', 'hexcode', 'hex', 'family', 'text', 'type', 'isDuplicate']) {
+			if (isdef(info[k1])) inew[k1] = info[k1];
 		}
-		inew.w=info.w;
-		inew.h=info.h;
-		let wk=inew.E=isdef(info.bestE)?info.bestE:k;
-		let e=edict[wk];
-		if (isdef(e)){
-			inew.D=e.D;
-			inew.F=e.F;
-			inew.S=e.S;
-			inew.C=e.C;
+		inew.w = info.w;
+		inew.h = info.h;
+		let wk = inew.E = isdef(info.bestE) ? info.bestE : k;
+		let e = edict[wk];
+		if (isdef(e)) {
+			inew.D = e.D;
+			inew.F = e.F;
+			inew.S = e.S;
+			inew.C = e.C;
 		}
-		if (nundef(inew.D) && isdef(info.bestD)) inew.D=info.bestD;
-		symNew[k]=inew;
-		console.log('key',k,inew)
+		if (nundef(inew.D) && isdef(info.bestD)) inew.D = info.bestD;
+		symNew[k] = inew;
+		console.log('key', k, inew)
 	}
 
 	return symNew;
 }
+async function addVocabTo2020Syms() {
+	let syms20 = await route_path_yaml_dict('../assets/syms2020.yaml');
+
+	let etext = await route_path_text('../assets/speech/w2020/w20_E.txt');
+	// console.log(etext);
+	let ew = etext.split('\n');
+	let dtext = await route_path_text('../assets/speech/w2020/w20_D.txt');
+	let ftext = await route_path_text('../assets/speech/w2020/w20_F.txt');
+	let stext = await route_path_text('../assets/speech/w2020/w20_S.txt');
+	let ctext = await route_path_text('../assets/speech/w2020/w20_C.txt');
+	let dw = dtext.split('\n');
+	let fw = ftext.split('\n');
+	let sw = stext.split('\n');
+	let cw = ctext.split('\n');
+	let edict = {};
+	for (let i = 0; i < ew.length; i++) {
+		let ek = ew[i].toLowerCase().trim();
+		if (isEmpty(ek)) continue;
+		edict[ek] = { E: ek, D: dw[i].toLowerCase().trim(), F: fw[i].toLowerCase().trim(), S: sw[i].toLowerCase().trim(), C: cw[i].trim() };
+	}
+	console.log(edict);
+	let edlist = dict2list(edict, 'key');
+	for (const k in syms20) {
+		console.log('k=' + k, edict[k]);
+		let e = firstCond(edlist, x => k.includes(x.key.toLowerCase()) || k.includes('pinch') && x.key.toLowerCase().includes('pinch'));
+		console.log('entry for', k, 'is', e);
+		if (isdef(e)) {
+			let info = syms20[k];
+			info.E = e.E;
+			info.D = e.D;
+			info.F = e.F;
+			info.S = e.S;
+			info.C = e.C;
+		}
+	}
+	downloadAsYaml(syms20, 'syms20');
+}
+
 async function _start() {
 	//timit.show('DONE');
 	console.assert(isdef(DB));
@@ -249,7 +287,6 @@ async function _start() {
 	initScore();
 	initSymbolTableForGamesAddons(); //creates Daat
 
-	//initAddons(); //old API ==>deprecate
 	addonFeatureInit(); //new API!
 
 	Speech = new SpeechAPI('E');
@@ -259,9 +296,7 @@ async function _start() {
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-
-	//addCatsToKeys();
-	//allWordsAndKeysLowerCase();
+	//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase();
 	//return;
 
 	//let keys = ['fly']; //fromKeySet('nemo',9);
