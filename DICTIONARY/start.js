@@ -1,51 +1,23 @@
 function _start(){
 	console.log('DONE!');
-	
+
+	//now I want 
 }
 
 
 window.onload = _loader;
 async function _loader() {
+	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
 
-	if (!IS_TESTING) {
-		ifPageVisible.on('blur', function () {
-			// example code here..
-			//animations.pause();
-			enterInterruptState();
-			console.log('stopping game', G.id)
-		});
+	C52 = await localOrRoute('C52', '../assets/c52.yaml');
+	Syms = await localOrRoute('Syms', '../assets/syms.yaml');
+	SymKeys = Object.keys(Syms);
 
-		ifPageVisible.on('focus', function () {
-			// resume all animations
-			// animations.resume();
-			if (isdef(G.instance)) {
-				//cleanupOldGame();//this saves user data + clears the score.nTotal,nCorrect,nCorrect1!!!!!
-				setGame(G.id);
-			}
-			closeAux();
-			startGame();
-			// auxOpen = false;
-			// startGame();
-			console.log('restarting game', G.id)
-		});
-	}
-	// if ('serviceWorker' in navigator) {
-	// 	console.log('CLIENT: service worker registration in progress.');
-	// 	navigator.serviceWorker.register('/service-worker.js').then(function() {
-	// 		console.log('CLIENT: service worker registration complete.');
-	// 	}, function() {
-	// 		console.log('CLIENT: service worker registration failure.');
-	// 	});
-	// } else {
-	// 	console.log('CLIENT: service worker is not supported.');
-	// }
-
-	//timit = new TimeIt('start');
 	if (BROADCAST_SETTINGS) {
 		console.log('...broadcasting ...')
-		await broadcastSIMA();
+		await dbInit('boardGames','../assetsTEST/DATA/');
 		_start0();
-	} else { loadSIMA(_start0); }
+	} else { dbLoad('boardGames', _start0); }
 
 }
 async function _start0() {
@@ -62,7 +34,5 @@ async function _start0() {
 
 	KeySets = getKeySetsX();
 
-	if (IS_TESTING) loadUser(Username); else loadUser();
-	console.assert(isdef(G));
 	_start();
 }
