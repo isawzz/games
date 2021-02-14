@@ -155,7 +155,6 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 		}
 		mLinebreak(dParent);
 	}
-
 	return pics;
 }
 
@@ -163,7 +162,7 @@ function zShowPictures1(keys, labels, dParent, onClickPictureHandler,
 //#region helpers
 function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, isOmoji = false) {
 	let info;
-	console.log('infokey',infokey);
+	//console.log('infokey',infokey);
 	if (infokey == 'zebra') info=Syms.zebra;
 	else info = isString(infokey) ? picInfo(infokey) : infokey;
 	//console.log(infokey)

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>speech!</title>
+	<link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/271/game-die_1f3b2.png">
+
+	<script src="../alibs/jsyaml.js"></script>
+	<script src="../alibs/ifPageVisible.js"></script>
+	<link rel="stylesheet" href="../C/helpers.css">
+	<link rel="stylesheet" href="../assets/fonts/fonts.css">
+	<script src="../C/_globals.js"></script>
+	<script src="../serverConfig.js"></script>
+	<script src="../C/helpers.js"></script>
+	<script src="../C/assets.js"></script>
+	<script src="../C/assetHelpers.js"></script>
+	<script src="../SPGAME/hey.js"></script>
+	<link rel="stylesheet" href="../SPGAME/css/test.css">
+	<link rel="stylesheet" href="../SPGAME/css/settings.css">
+	<script src="../C/_h.js"></script>
+	<script src="../C/menu.js"></script>
+	<script src="../C/settings.js"></script>
+	<script src="../C/speech.js"></script>
+	<script src="../C/pics.js"></script>
+	<script src="../C/live.js"></script>
+	<script src="../C/g1.js"></script>
+	<script src="../C/g2.js"></script>
+	<script src="../C/g3.js"></script>
+	<script src="../SPGAME/globals.js"></script>
+	<script src="../SPGAME/classes.js"></script> <!-- has GLOBALS in it that refer to class defs!!! -->
+	<script src="../SPGAME/clWork.js"></script>
+	<script src="../SPGAME/addonClasses.js"></script>
+	<script src="../SPGAME/addon.js"></script> <!-- override old API -->
+	<script src="../SPGAME/controller.js"></script>
+	<script src="../SPGAME/game.js"></script>
+	<script src="../SPGAME/scoring.js"></script>
+
+	<!-- das sollen spaeter mal features werden! -->
+	<script src="../SPGAME/experimental/calibrate.js"></script>
+	<script src="../SPGAME/key.js"></script>
+	<script src="../SPGAME/card.js"></script>
+	<script src="../SPGAME/time.js"></script>
+	<script src="../SPGAME/user.js"></script>
+	<script src="../SPGAME/settings.js"></script>
+	<script src="../SPGAME/animation.js"></script>
+	<script src="../SPGAME/ui.js"></script>
+	<script src="../SPGAME/onClick.js"></script>
+	<script src="../SPGAME/experimental/vis.js"></script>
+	<script src="../SPGAME/experimental/WORK.js"></script>
+	<script src="../SPGAME/experimental/inno.js"></script>
+	<script src="../SPGAME/experimental/test00.js"></script>
+	<script src="../SPGAME/experimental/layouts.js"></script>
+	<script src="../SPGAME/experimental/zLib.js"></script>
+
+	<script src="../SPGAME/experimental/zPhase1.js"></script>
+	<script src="../SPGAME/experimental/zPhase2.js"></script>
+	<script src="../SPGAME/experimental/zPhase3.js"></script>
+	<script src="../SPGAME/experimental/zPhase4.js"></script>
+
+	<script src="../SPGAME/experimental/usecases.js"></script>
+	<script src="../SPGAME/experimental/accessors.js"></script>
+
+	<script src="./start.js"></script>
+
+</head>
+
+<body>
+
+	<div id='md'>
+		<div id='sidebar'></div>
+		<div id='rightSide'>
+			<div id='table' class='flexWrap'></div>
+		</div>
+	</div>
+
+	<div id='divControls' style='display:none'>
+		<div id='bNext' onclick='onClickNextButton()'>Next</div>
+		<div id='bRunStop' onclick='onClickRunStopButton(this)'>Run</div>
+	</div>
+	<div id='dLevelComplete' style='display:none' class='centered'>LEVEL COMPLETE!!!</div>
+
+	<div id='dAux' style='display:none;text-align:center'></div>
+
+	<div id='dButtons'>
+		<div id='dGo' onclick='onClickGo()' style='display:none;'>PLAY!</div>
+		<div id='dComputer' onclick='onClickComputer()' style='display:none;'>🖥️</div>
+		<div id='dCalibrate' onclick='onClickCalibrate()' style='display:none;'>⚖️</div>
+		<div id='dGear' onclick='onClickGear()'>⚙️</div>
+		<div id='dTemple' onclick='onClickTemple()'>🏛️</div>
+		<button id='dummy' style='width:0px;padding:0;margin:0;border:none;outline:none;background-color:transparent;color:transparent'>dummy
+	</div>
+
+	<div id='freezer' onclick="onClickFreezer()" style='display:none'>
+		<div class='centerCentered'>Click to Start!</div>
+	</div>
+	<div id='dAddons' style='display:none'></div>
+	<div id='freezer2' onclick="onClickFreezer2(event)" style='display:none'>
+		<div class='centerCentered' style='margin-top:-5%;'>
+			<p id='dCommentFreezer2'>Great Job!</p>
+			<p id='dMessageFreezer2' style='font-size:56px'>Time for a Break...</p>
+			<div id='dContentFreezer2'></div>
+		</div>
+	</div>
+	<div id='dPopup' style='text-align:center;position:fixed;left:0;top:0;width:100vw;height:100vh;background:white;display:none'></div>
+
+	<div id="google_translate_element"></div>
+	<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement(
+				{pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL, multilanguagePage: true},
+				'google_translate_element'
+			);
+		}
+	</script>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>

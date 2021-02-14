@@ -163,7 +163,7 @@ class Speaker {
 			else if (aname == bname) return 0;
 			else return +1;
 		});
-		console.log('voices:', this.voices.map(x => x.name))
+		// console.log('voices:', this.voices.map(x => x.name))
 	}
 	setLanguage(lang) { this.lang = lang; }
 	enq(args) { this.q.push(args); }
@@ -185,12 +185,11 @@ class Speaker {
 
 	utter(text, r = .5, p = .8, v = .5, voicekey, callback = null) {
 
-		if (this.lang == 'E') {
-			if (nundef(Daat)) Daat = {};
-			let parts = text.split();
-			parts.map(x=>lookupAddIfToList(Daat,['lang'],x));
-
-		}
+		// if (this.lang == 'E') {
+		// 	if (nundef(Daat)) Daat = {};
+		// 	let parts = text.split();
+		// 	parts.map(x=>lookupAddIfToList(Daat,['lang'],x));
+		// }
 
 		speechSynthesis.cancel();
 		var u = new SpeechSynthesisUtterance();
