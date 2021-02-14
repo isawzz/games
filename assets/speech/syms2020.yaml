@@ -1,4 +1,5 @@
 smiling face with tear:
+  group: smileys-emotion
   hex: 1f972
   hexcode: 1f972
   key: smiling face with tear
@@ -13,6 +14,7 @@ smiling face with tear:
   S: lágrima
   C: 眼淚
 disguised face:
+  group: smileys-emotion
   hex: 1f978
   hexcode: 1f978
   key: disguised face
@@ -27,6 +29,7 @@ disguised face:
   S: disfraz
   C: 偽裝
 pinched fingers:
+  group: people-body
   hex: 1f90c
   hexcode: 1f90c
   key: pinched fingers
@@ -41,6 +44,7 @@ pinched fingers:
   S: ratería
   C: 捏
 anatomical heart:
+  group: people-body
   hex: 1fac0
   hexcode: 1fac0
   key: anatomical heart
@@ -55,6 +59,7 @@ anatomical heart:
   S: corazón
   C: 心
 lungs:
+  group: people-body
   hex: 1fac1
   hexcode: 1fac1
   key: lungs
@@ -69,6 +74,7 @@ lungs:
   S: livianos
   C: 肺
 ninja:
+  group: people-body
   hex: 1f977
   hexcode: 1f977
   key: ninja
@@ -83,6 +89,7 @@ ninja:
   S: ninja
   C: 忍者
 people hugging:
+  group: people-body
   hex: 1fac2
   hexcode: 1fac2
   key: people hugging
@@ -97,6 +104,7 @@ people hugging:
   S: abrazar
   C: 擁抱
 bison:
+  group: animal
   hex: 1f9ac
   hexcode: 1f9ac
   key: bison
@@ -111,6 +119,7 @@ bison:
   S: bisonte
   C: 野牛
 mammoth:
+  group: animal
   hex: 1f9a3
   hexcode: 1f9a3
   key: mammoth
@@ -125,6 +134,7 @@ mammoth:
   S: mamut
   C: 長毛象
 beaver:
+  group: animal
   hex: 1f9ab
   hexcode: 1f9ab
   key: beaver
@@ -139,6 +149,7 @@ beaver:
   S: castor
   C: 海狸
 dodo:
+  group: animal
   hex: 1f9a4
   hexcode: 1f9a4
   key: dodo
@@ -153,6 +164,8 @@ dodo:
   S: vejestorio
   C: 渡渡鳥
 feather:
+  group: object
+  ngroup: 100
   hex: 1fab6
   hexcode: 1fab6
   key: feather
@@ -167,6 +180,7 @@ feather:
   S: pluma
   C: 羽毛
 seal:
+  group: animal
   hex: 1f9ad
   hexcode: 1f9ad
   key: seal
@@ -181,6 +195,7 @@ seal:
   S: sello
   C: 海豹
 beetle:
+  group: animal
   hex: 1fab2
   hexcode: 1fab2
   key: beetle
@@ -195,6 +210,7 @@ beetle:
   S: escarabajo
   C: 甲蟲
 cockroach:
+  group: animal
   hex: 1fab3
   hexcode: 1fab3
   key: cockroach
@@ -209,6 +225,7 @@ cockroach:
   S: cucaracha
   C: 蟑螂
 fly:
+  group: animal
   hex: 1fab0
   hexcode: 1fab0
   key: fly
@@ -223,6 +240,7 @@ fly:
   S: volar
   C: 飛
 worm:
+  group: animal
   hex: 1fab1
   hexcode: 1fab1
   key: worm
@@ -237,6 +255,7 @@ worm:
   S: gusano
   C: 蟲
 potted plant:
+  group: plant
   hex: 1fab4
   hexcode: 1fab4
   key: potted plant
@@ -251,6 +270,7 @@ potted plant:
   S: planta en maceta
   C: 盆栽植物
 blueberries:
+  group: fruit
   hex: 1fad0
   hexcode: 1fad0
   key: blueberries
@@ -265,6 +285,7 @@ blueberries:
   S: arándanos
   C: 藍莓
 olive:
+  group: vegetable
   hex: 1fad2
   hexcode: 1fad2
   key: olive
@@ -279,6 +300,7 @@ olive:
   S: aceituna
   C: 橄欖
 bell pepper:
+  group: vegetable
   hex: 1fad1
   hexcode: 1fad1
   key: bell pepper
@@ -293,6 +315,7 @@ bell pepper:
   S: pimiento morrón
   C: 燈籠椒
 flatbread:
+  group: food
   hex: 1fad3
   hexcode: 1fad3
   key: flatbread
@@ -307,6 +330,7 @@ flatbread:
   S: pan plano
   C: 大餅
 tamale:
+  group: food
   hex: 1fad4
   hexcode: 1fad4
   key: tamale
@@ -321,6 +345,7 @@ tamale:
   S: tamal
   C: 玉米粉蒸肉
 fondue:
+  group: food
   hex: 1fad5
   hexcode: 1fad5
   key: fondue
@@ -335,6 +360,8 @@ fondue:
   S: fondue
   C: 火鍋
 teapot:
+  group: object
+  ngroup: 50
   hex: 1fad6
   hexcode: 1fad6
   key: teapot
@@ -349,6 +376,7 @@ teapot:
   S: tetera
   C: 茶壺
 bubble tea:
+  group: drink
   hex: 1f9cb
   hexcode: 1f9cb
   key: bubble tea
@@ -363,6 +391,7 @@ bubble tea:
   S: té de burbujas
   C: 珍珠奶茶
 rock:
+  group: object
   hex: 1faa8
   hexcode: 1faa8
   key: rock
@@ -377,6 +406,7 @@ rock:
   S: rock
   C: 岩石
 wood:
+  group: object
   hex: 1fab5
   hexcode: 1fab5
   key: wood
@@ -391,6 +421,7 @@ wood:
   S: madera
   C: 木頭
 hut:
+  group: object
   hex: 1f6d6
   hexcode: 1f6d6
   key: hut
@@ -405,6 +436,7 @@ hut:
   S: cabaña
   C: 小屋
 pickup truck:
+  group: object
   hex: 1f6fb
   hexcode: 1f6fb
   key: pickup truck
@@ -419,6 +451,7 @@ pickup truck:
   S: camioneta
   C: 皮卡車
 roller skate:
+  group: object
   hex: 1f6fc
   hexcode: 1f6fc
   key: roller skate
@@ -433,6 +466,7 @@ roller skate:
   S: patín
   C: 溜冰鞋
 magic wand:
+  group: object
   hex: 1fa84
   hexcode: 1fa84
   key: magic wand
@@ -447,6 +481,7 @@ magic wand:
   S: varita mágica
   C: 魔法棒
 piñata:
+  group: object
   hex: 1fa85
   hexcode: 1fa85
   key: piñata
@@ -461,6 +496,7 @@ piñata:
   S: piñata
   C: 皮納塔
 nesting dolls:
+  group: object
   hex: 1fa86
   hexcode: 1fa86
   key: nesting dolls
@@ -475,6 +511,7 @@ nesting dolls:
   S: muñecas de anidación
   C: 嵌套娃娃
 sewing needle:
+  group: object
   hex: 1faa1
   hexcode: 1faa1
   key: sewing needle
@@ -489,6 +526,7 @@ sewing needle:
   S: aguja de coser
   C: 縫紉針
 knot:
+  group: object
   hex: 1faa2
   hexcode: 1faa2
   key: knot
@@ -503,6 +541,7 @@ knot:
   S: nudo
   C: 結
 thong sandal:
+  group: object
   hex: 1fa74
   hexcode: 1fa74
   key: thong sandal
@@ -517,6 +556,7 @@ thong sandal:
   S: sandalia de tanga
   C: 涼鞋
 military helmet:
+  group: object
   hex: 1fa96
   hexcode: 1fa96
   key: military helmet
@@ -531,6 +571,7 @@ military helmet:
   S: casco militar
   C: 軍用頭盔
 accordion:
+  group: object
   hex: 1fa97
   hexcode: 1fa97
   key: accordion
@@ -545,6 +586,7 @@ accordion:
   S: acordeón
   C: 手風琴
 long drum:
+  group: object
   hex: 1fa98
   hexcode: 1fa98
   key: long drum
@@ -559,6 +601,8 @@ long drum:
   S: tambor largo
   C: 長鼓
 coin:
+  group: object
+  ngroup: 100
   hex: 1fa99
   hexcode: 1fa99
   key: coin
@@ -573,6 +617,7 @@ coin:
   S: moneda
   C: 硬幣
 boomerang:
+  group: object
   hex: 1fa83
   hexcode: 1fa83
   key: boomerang
@@ -587,6 +632,7 @@ boomerang:
   S: bumerang
   C: 迴旋鏢
 carpentry saw:
+  group: object
   hex: 1fa9a
   hexcode: 1fa9a
   key: carpentry saw
@@ -601,6 +647,8 @@ carpentry saw:
   S: sierra
   C: 鋸
 screwdriver:
+  group: object
+  ngroup: 50
   hex: 1fa9b
   hexcode: 1fa9b
   key: screwdriver
@@ -615,6 +663,7 @@ screwdriver:
   S: destornillador
   C: 螺絲刀
 hook:
+  group: object
   hex: 1fa9d
   hexcode: 1fa9d
   key: hook
@@ -629,6 +678,7 @@ hook:
   S: gancho
   C: 鉤
 ladder:
+  group: object
   hex: 1fa9c
   hexcode: 1fa9c
   key: ladder
@@ -643,6 +693,7 @@ ladder:
   S: escalera
   C: 階梯
 elevator:
+  group: object
   hex: 1f6d7
   hexcode: 1f6d7
   key: elevator
@@ -657,6 +708,7 @@ elevator:
   S: ascensor
   C: 電梯
 mirror:
+  group: object
   hex: 1fa9e
   hexcode: 1fa9e
   key: mirror
@@ -671,6 +723,8 @@ mirror:
   S: espejo
   C: 鏡子
 window:
+  group: object
+  ngroup: 25
   hex: 1fa9f
   hexcode: 1fa9f
   key: window
@@ -685,6 +739,7 @@ window:
   S: ventana
   C: 窗戶
 plunger:
+  group: object
   hex: 1faa0
   hexcode: 1faa0
   key: plunger
@@ -699,6 +754,7 @@ plunger:
   S: émbolo
   C: 柱塞
 mouse trap:
+  group: object
   hex: 1faa4
   hexcode: 1faa4
   key: mouse trap
@@ -713,6 +769,7 @@ mouse trap:
   S: trampa para ratones
   C: 鼠標陷阱
 bucket:
+  group: object
   hex: 1faa3
   hexcode: 1faa3
   key: bucket
@@ -727,6 +784,8 @@ bucket:
   S: cubeta
   C: 桶
 toothbrush:
+  group: object
+  ngroup: 50
   hex: 1faa5
   hexcode: 1faa5
   key: toothbrush
@@ -741,6 +800,7 @@ toothbrush:
   S: cepillo de dientes
   C: 牙刷
 headstone:
+  group: object
   hex: 1faa6
   hexcode: 1faa6
   key: headstone
@@ -755,6 +815,7 @@ headstone:
   S: lápida mortuoria
   C: 墓石
 placard:
+  group: object
   hex: 1faa7
   hexcode: 1faa7
   key: placard
@@ -769,6 +830,7 @@ placard:
   S: cartel
   C: 標語牌
 transgender symbol:
+  group: symbol
   hex: 26a7
   hexcode: 26a7
   key: transgender symbol

@@ -10,7 +10,7 @@ function addCatsToKeys() {
 			lookupAddIfToList(info, ['cats'], ksk);
 		}
 	}
-	downloadAsYaml(Syms, 'syms');
+	downloadAsYaml(Syms, 'symsWithCats');
 }
 function allWordsAndKeysLowerCase() {
 	let newSyms = {};
@@ -43,7 +43,22 @@ function catFiltered(cats, name, best) {
 
 	return result;
 }
+function getKeySetsX() {
+	let ks = localStorage.getItem('KeySets');
+	if (isdef(ks)) return JSON.parse(ks);
 
+	let res = {};
+	for (const k in Syms) {
+		let info = Syms[k];
+		if (nundef(info.cats)) continue;
+		for (const ksk of info.cats) {
+			lookupAddIfToList(res, [ksk], k);
+		}
+	}
+	localStorage.setItem('KeySets', JSON.stringify(res));
+	return res;
+
+}
 function getKeySets() {
 	let ks = localStorage.getItem('KeySets');
 	if (isdef(ks)) return JSON.parse(ks);
@@ -100,10 +115,15 @@ function setKeys({ nMin, lang, key, keysets, filterFunc, confidence, sortByFunc 
 	let spare = [];
 	for (const k of keys) {
 		let info = symbolDict[k];
-		let klang = 'best' + lang;
-		//console.log(k,lang,klang)
-		if (nundef(info[klang])) info[klang] = lastOfLanguage(k, lang);
-		info.best = info[klang];
+
+		info.best = Syms[k][lang];
+
+		if (nundef(info.best)) {
+			let ersatzLang = (lang == 'D' ? 'D' : 'E');
+			let klang = 'best' + ersatzLang;
+			//console.log(k,lang,klang)
+			if (nundef(info[klang])) info[klang] = lastOfLanguage(k, ersatzLang);
+		}
 		//console.log(k,lang,lastOfLanguage(k,lang),info.best,info)
 		let isMatch = true;
 		if (isdef(filterFunc)) isMatch = isMatch && filterFunc(k, info.best);

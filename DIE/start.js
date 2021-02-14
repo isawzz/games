@@ -15,7 +15,7 @@ function _spgameStart(){
 
 	Speech = new SpeechAPI('E');
 
-	KeySets = getKeySets();
+	KeySets = getKeySetsX();
 
 	Settings={language:'E'}
 
@@ -127,7 +127,7 @@ function prelim() {
 	//console.log('DB',DB)
 
 	Speech = new SpeechAPI('E');
-	KeySets = getKeySets();
+	KeySets = getKeySetsX();
 	TO = new TimeoutManager();
 
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]

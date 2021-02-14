@@ -16,4 +16,4 @@ var USE_ADDONS = false;
 var USE_LOCAL_STORAGE = !BROADCAST_SETTINGS; // true | false //localStorage is cleared when false!!!!!
 const CLEAR_LOCAL_STORAGE = BROADCAST_SETTINGS;
 var PROD_START = !IS_TESTING;
-
+const TIMIT_SHOW = true;

@@ -75,7 +75,7 @@ class Recorder {
 			genHandler(ev, 'error');
 			// console.log('____________', ev.error == 'no-speech', ev.error)
 			if (ev.error == 'network') {
-				alert('no internet connection: Speech Recognition is not available! (error:'+ev.error+')');
+				alert('no internet connection: Speech Recognition is not available! (error:' + ev.error + ')');
 				RecognitionAvailable = false;
 			} //else {
 			// 	alert('Great! Speech Recognition is available! '+ev.error)
@@ -140,6 +140,11 @@ class Speaker {
 			ukFemale: 'Google UK English Female',
 			ukMale: 'Google UK English Male',
 			deutsch: 'Google Deutsch',
+			D: 'Google Deutsch',
+			S: 'Google español',
+			F: 'Google français',
+			C: 'Google 普通话（中国大陆）',
+			E: 'Microsoft Zira Desktop - English',
 		};
 	}
 	constructor(lang) {
@@ -158,13 +163,13 @@ class Speaker {
 			else if (aname == bname) return 0;
 			else return +1;
 		});
-		//console.log('voices:', this.voices.map(x => x.name))
+		console.log('voices:', this.voices.map(x => x.name))
 	}
 	setLanguage(lang) { this.lang = lang; }
 	enq(args) { this.q.push(args); }
 	deq() {
-		if (nundef(this.voices)){
-			setTimeout(this.deq.bind(this),500);
+		if (nundef(this.voices)) {
+			setTimeout(this.deq.bind(this), 500);
 		}
 		else if (!isEmpty(this.q)) {
 			let args = this.q.pop();
@@ -180,6 +185,12 @@ class Speaker {
 
 	utter(text, r = .5, p = .8, v = .5, voicekey, callback = null) {
 
+		if (this.lang == 'E') {
+			if (nundef(Daat)) Daat = {};
+			let parts = text.split();
+			parts.map(x=>lookupAddIfToList(Daat,['lang'],x));
+
+		}
 
 		speechSynthesis.cancel();
 		var u = new SpeechSynthesisUtterance();
@@ -207,8 +218,8 @@ class Speaker {
 		//console.log(typeof voices, voices)
 		let voicenames = Speaker.VOICES;
 		let vkey = 'david';
-		if (this.lang == 'D') {
-			vkey = 'deutsch';
+		if (this.lang != 'E') {
+			vkey = this.lang;
 		} else if (text.includes('bad')) {
 			vkey = 'zira';
 		} else if (voicekey == 'random') {

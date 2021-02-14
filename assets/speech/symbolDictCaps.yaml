@@ -160,8 +160,8 @@
     - 133
   bestD: medaille
   bestE: medal
-a button (blood type):
-  key: a button (blood type)
+A button (blood type):
+  key: A button (blood type)
   type: emo
   isDuplicate: false
   isColored: true
@@ -194,8 +194,8 @@ a button (blood type):
     - 133
   bestE: a
   bestD: a
-ab button (blood type):
-  key: ab button (blood type)
+AB button (blood type):
+  key: AB button (blood type)
   type: emo
   isDuplicate: false
   isColored: true
@@ -229,8 +229,8 @@ ab button (blood type):
     - 133
   bestE: ab
   bestD: ab
-atm sign:
-  key: atm sign
+ATM sign:
+  key: ATM sign
   type: emo
   isDuplicate: false
   isColored: true
@@ -266,48 +266,79 @@ atm sign:
     - 133
   bestD: atm
   bestE: atm
-aquarius:
-  key: aquarius
-  type: icon
+Aquarius:
+  key: Aquarius
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E06F
-  hexcode: E06F
-  family: pictoGame
-  text: '&#57455;'
-  index: 292
+  isColored: true
+  emoji: ♒️
+  hexcode: '2652'
+  group: symbols
+  subgroups: zodiac
+  E: Aquarius
+  D: Aquarius|Wassermann
+  hex: '2652'
+  family: emoNoto
+  text: '&#9810;'
+  path: /assets/svg/twemoji/2652.svg
   tags:
     - aquarius
-  annotation: aquarius
+    - bearer
+    - water
+    - zodiac
+  annotation: Aquarius
   fz: 100
   w:
-    - 100
-  h:
+    - 125
+    - 137
+    - 137
+    - 137
     - 110
-aries:
-  key: aries
-  type: icon
+  h:
+    - 133
+    - 133
+    - 133
+    - 133
+    - 133
+  bestE: aquarius
+  bestD: wassermann
+Aries:
+  key: Aries
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E070
-  hexcode: E070
-  family: pictoGame
-  text: '&#57456;'
-  index: 304
+  isColored: true
+  emoji: ♈️
+  hexcode: '2648'
+  group: symbols
+  subgroups: zodiac
+  E: Aries
+  D: Aries|Widder
+  hex: '2648'
+  family: emoNoto
+  text: '&#9800;'
+  path: /assets/svg/twemoji/2648.svg
   tags:
     - aries
-  annotation: aries
+    - ram
+    - zodiac
+  annotation: Aries
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 97
   h:
-    - 108
-  D: widder
-  E: aries
+    - 133
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: aries
   bestD: widder
-b button (blood type):
-  key: b button (blood type)
+B button (blood type):
+  key: B button (blood type)
   type: emo
   isDuplicate: false
   isColored: true
@@ -340,8 +371,8 @@ b button (blood type):
     - 133
   bestE: b
   bestD: b
-back arrow:
-  key: back arrow
+BACK arrow:
+  key: BACK arrow
   type: emo
   isDuplicate: false
   isColored: true
@@ -375,8 +406,8 @@ back arrow:
     - 133
   bestD: links
   bestE: left
-cl button:
-  key: cl button
+CL button:
+  key: CL button
   type: emo
   isDuplicate: false
   isColored: true
@@ -409,8 +440,8 @@ cl button:
     - 133
   bestE: cl
   bestD: cl
-cool button:
-  key: cool button
+COOL button:
+  key: COOL button
   type: emo
   isDuplicate: false
   isColored: true
@@ -445,48 +476,78 @@ cool button:
     - 133
   bestE: cool
   bestD: cool
-cancer:
-  key: cancer
-  type: icon
+Cancer:
+  key: Cancer
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E075
-  hexcode: E075
-  family: pictoGame
-  text: '&#57461;'
-  index: 859
+  isColored: true
+  emoji: ♋️
+  hexcode: 264B
+  group: symbols
+  subgroups: zodiac
+  E: cancer
+  D: cancer|krebs
+  hex: 264B
+  family: emoNoto
+  text: '&#9803;'
+  path: /assets/svg/twemoji/264B.svg
   tags:
     - cancer
-  annotation: cancer
+    - crab
+    - zodiac
+  annotation: Cancer
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 97
   h:
     - 133
-  D: krebs
-  E: cancer
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: cancer
   bestD: krebs
-capricorn:
-  key: capricorn
-  type: icon
+Capricorn:
+  key: Capricorn
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E076
-  hexcode: E076
-  family: pictoGame
-  text: '&#57462;'
-  index: 880
+  isColored: true
+  emoji: ♑️
+  hexcode: '2651'
+  group: symbols
+  subgroups: zodiac
+  E: Capricorn
+  D: steinbock
+  hex: '2651'
+  family: emoNoto
+  text: '&#9809;'
+  path: /assets/svg/twemoji/2651.svg
   tags:
     - capricorn
-  annotation: capricorn
+    - goat
+    - zodiac
+  annotation: Capricorn
   fz: 100
   w:
-    - 100
-  h:
+    - 125
+    - 137
+    - 137
+    - 137
     - 110
-christmas tree:
-  key: christmas tree
+  h:
+    - 133
+    - 133
+    - 133
+    - 133
+    - 133
+  bestE: capricorn
+  bestD: steinbock
+Christmas tree:
+  key: Christmas tree
   type: emo
   isDuplicate: false
   isColored: true
@@ -522,8 +583,8 @@ christmas tree:
   bestDConf: 91
   bestE: christmas
   bestEConf: 90
-end arrow:
-  key: end arrow
+END arrow:
+  key: END arrow
   type: emo
   isDuplicate: false
   isColored: true
@@ -557,8 +618,8 @@ end arrow:
     - 133
   bestD: pfeil ende
   bestE: end arrow
-free button:
-  key: free button
+FREE button:
+  key: FREE button
   type: emo
   isDuplicate: false
   isColored: true
@@ -591,26 +652,43 @@ free button:
     - 133
   bestE: free
   bestD: free
-gemini:
-  key: gemini
-  type: icon
+Gemini:
+  key: Gemini
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E088
-  hexcode: E088
-  family: pictoGame
-  text: '&#57480;'
-  index: 2205
+  isColored: true
+  emoji: ♊️
+  hexcode: 264A
+  group: symbols
+  subgroups: zodiac
+  E: Gemini
+  D: zwillinge
+  hex: 264A
+  family: emoNoto
+  text: '&#9802;'
+  path: /assets/svg/twemoji/264A.svg
   tags:
     - gemini
-  annotation: gemini
+    - twins
+    - zodiac
+  annotation: Gemini
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 86
   h:
     - 133
-id button:
-  key: id button
+    - 133
+    - 133
+    - 133
+    - 133
+  bestE: gemini
+  bestD: zwillinge
+ID button:
+  key: ID button
   type: emo
   isDuplicate: false
   isColored: true
@@ -645,8 +723,8 @@ id button:
     - 133
   bestE: id
   bestD: id
-japanese castle:
-  key: japanese castle
+Japanese castle:
+  key: Japanese castle
   type: emo
   isDuplicate: false
   isColored: true
@@ -687,8 +765,8 @@ japanese castle:
   bestDConf: 92
   bestE: japanese house
   bestEConf: 98
-japanese symbol for beginner:
-  key: japanese symbol for beginner
+Japanese symbol for beginner:
+  key: Japanese symbol for beginner
   type: emo
   isDuplicate: false
   isColored: true
@@ -724,52 +802,80 @@ japanese symbol for beginner:
     - 133
   bestE: beginner
   bestD: anfänger
-leo:
-  key: leo
-  type: icon
+Leo:
+  key: Leo
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E090
-  hexcode: E090
-  family: pictoGame
-  text: '&#57488;'
-  index: 3116
+  isColored: true
+  emoji: ♌️
+  hexcode: 264C
+  group: symbols
+  subgroups: zodiac
+  E: leo
+  D: löwe
+  hex: 264C
+  family: emoNoto
+  text: '&#9804;'
+  path: /assets/svg/twemoji/264C.svg
   tags:
     - leo
-  annotation: leo
+    - lion
+    - zodiac
+  annotation: Leo
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 80
   h:
     - 133
-  D: löwe
-  E: leo
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: leo
   bestD: löwe
-libra:
-  key: libra
-  type: icon
+Libra:
+  key: Libra
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E092
-  hexcode: E092
-  family: pictoGame
-  text: '&#57490;'
-  index: 3135
+  isColored: true
+  emoji: ♎️
+  hexcode: 264E
+  group: symbols
+  subgroups: zodiac
+  E: libra
+  D: waage
+  hex: 264E
+  family: emoNoto
+  text: '&#9806;'
+  path: /assets/svg/twemoji/264E.svg
   tags:
+    - balance
+    - justice
     - libra
-  annotation: libra
+    - scales
+    - zodiac
+  annotation: Libra
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 90
   h:
     - 133
-  D: waage
-  E: libra
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: libra
   bestD: waage
-new button:
-  key: new button
+NEW button:
+  key: NEW button
   type: emo
   isDuplicate: false
   isColored: true
@@ -804,8 +910,8 @@ new button:
     - 133
   bestE: new
   bestD: neu
-ng button:
-  key: ng button
+NG button:
+  key: NG button
   type: emo
   isDuplicate: false
   isColored: true
@@ -838,8 +944,8 @@ ng button:
     - 133
   bestE: ng
   bestD: ng
-o button (blood type):
-  key: o button (blood type)
+O button (blood type):
+  key: O button (blood type)
   type: emo
   isDuplicate: false
   isColored: true
@@ -870,8 +976,8 @@ o button (blood type):
     - 133
     - 133
     - 133
-ok button:
-  key: ok button
+OK button:
+  key: OK button
   type: emo
   isDuplicate: false
   isColored: true
@@ -905,8 +1011,8 @@ ok button:
     - 133
   bestE: ok
   bestD: ok
-ok hand:
-  key: ok hand
+OK hand:
+  key: OK hand
   type: emo
   isDuplicate: false
   isColored: true
@@ -941,8 +1047,8 @@ ok hand:
     - 133
   bestD: okay
   bestE: ok
-on! arrow:
-  key: on! arrow
+ON! arrow:
+  key: ON! arrow
   type: emo
   isDuplicate: false
   isColored: true
@@ -977,26 +1083,45 @@ on! arrow:
     - 133
   bestE: 'on'
   bestD: 'on'
-ophiuchus:
-  key: ophiuchus
-  type: icon
+Ophiuchus:
+  key: Ophiuchus
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E09D
-  hexcode: E09D
-  family: pictoGame
-  text: '&#57501;'
-  index: 3709
+  isColored: true
+  emoji: ⛎
+  hexcode: 26CE
+  group: symbols
+  subgroups: zodiac
+  E: serpent|snake
+  D: schlange
+  hex: 26CE
+  family: emoNoto
+  text: '&#9934;'
+  path: /assets/svg/twemoji/26CE.svg
   tags:
+    - bearer
     - ophiuchus
-  annotation: ophiuchus
+    - serpent
+    - snake
+    - zodiac
+  annotation: Ophiuchus
   fz: 100
   w:
+    - 125
+    - 137
+    - 137
+    - 137
     - 100
   h:
-    - 108
-p button:
-  key: p button
+    - 133
+    - 133
+    - 133
+    - 133
+    - 133
+  bestD: schlange
+  bestE: snake
+P button:
+  key: P button
   type: emo
   isDuplicate: false
   isColored: true
@@ -1031,30 +1156,43 @@ p button:
     - 133
   bestE: p
   bestD: p
-pisces:
-  key: pisces
-  type: icon
+Pisces:
+  key: Pisces
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E09F
-  hexcode: E09F
-  family: pictoGame
-  text: '&#57503;'
-  index: 3946
+  isColored: true
+  emoji: ♓️
+  hexcode: '2653'
+  group: symbols
+  subgroups: zodiac
+  E: pisces
+  D: fische
+  hex: '2653'
+  family: emoNoto
+  text: '&#9811;'
+  path: /assets/svg/twemoji/2653.svg
   tags:
+    - fish
     - pisces
-  annotation: pisces
+    - zodiac
+  annotation: Pisces
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 71
   h:
     - 133
-  D: fische
-  E: pisces
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: pisces
   bestD: fische
-soon arrow:
-  key: soon arrow
+SOON arrow:
+  key: SOON arrow
   type: emo
   isDuplicate: false
   isColored: true
@@ -1088,8 +1226,8 @@ soon arrow:
     - 133
   bestE: soon
   bestD: soon
-sos button:
-  key: sos button
+SOS button:
+  key: SOS button
   type: emo
   isDuplicate: false
   isColored: true
@@ -1125,30 +1263,43 @@ sos button:
     - 133
   bestE: s o s
   bestD: s o s
-sagittarius:
-  key: sagittarius
-  type: icon
+Sagittarius:
+  key: Sagittarius
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E0A2
-  hexcode: E0A2
-  family: pictoGame
-  text: '&#57506;'
-  index: 4351
+  isColored: true
+  emoji: ♐️
+  hexcode: '2650'
+  group: symbols
+  subgroups: zodiac
+  E: sagittarius
+  D: schütze
+  hex: '2650'
+  family: emoNoto
+  text: '&#9808;'
+  path: /assets/svg/twemoji/2650.svg
   tags:
+    - archer
     - sagittarius
-  annotation: sagittarius
+    - zodiac
+  annotation: Sagittarius
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 84
   h:
     - 133
-  D: schütze
-  E: sagittarius
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: sagittarius
   bestD: schütze
-santa claus:
-  key: santa claus
+Santa Claus:
+  key: Santa Claus
   type: emo
   isDuplicate: false
   isColored: true
@@ -1190,26 +1341,44 @@ santa claus:
   bestDConf: 92
   bestE: santa claus
   bestEConf: 92
-scorpio:
-  key: scorpio
-  type: icon
+Scorpio:
+  key: Scorpio
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E0A3
-  hexcode: E0A3
-  family: pictoGame
-  text: '&#57507;'
-  index: 4404
+  isColored: true
+  emoji: ♏️
+  hexcode: 264F
+  group: symbols
+  subgroups: zodiac
+  E: Scorpio
+  D: Skorpion
+  hex: 264F
+  family: emoNoto
+  text: '&#9807;'
+  path: /assets/svg/twemoji/264F.svg
   tags:
     - scorpio
-  annotation: scorpio
+    - scorpion
+    - scorpius
+    - zodiac
+  annotation: Scorpio
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 96
   h:
     - 133
-statue of liberty:
-  key: statue of liberty
+    - 133
+    - 133
+    - 133
+    - 133
+  bestE: scorpio
+  bestD: skorpion
+Statue of Liberty:
+  key: Statue of Liberty
   type: emo
   isDuplicate: false
   isColored: true
@@ -1245,8 +1414,8 @@ statue of liberty:
   bestDConf: 81
   bestE: statue
   bestEConf: 82
-t-rex:
-  key: t-rex
+T-Rex:
+  key: T-Rex
   type: emo
   isDuplicate: false
   isColored: true
@@ -1282,8 +1451,8 @@ t-rex:
   bestEConf: 93
   bestD: dinosaurus
   best: dinosaurus
-top arrow:
-  key: top arrow
+TOP arrow:
+  key: TOP arrow
   type: emo
   isDuplicate: false
   isColored: true
@@ -1318,26 +1487,44 @@ top arrow:
     - 133
   bestD: pfeil hinauf
   bestE: up
-taurus:
-  key: taurus
-  type: icon
+Taurus:
+  key: Taurus
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E0A7
-  hexcode: E0A7
-  family: pictoGame
-  text: '&#57511;'
-  index: 5106
+  isColored: true
+  emoji: ♉️
+  hexcode: '2649'
+  group: symbols
+  subgroups: zodiac
+  E: taurus
+  D: stier
+  hex: '2649'
+  family: emoNoto
+  text: '&#9801;'
+  path: /assets/svg/twemoji/2649.svg
   tags:
+    - bull
+    - ox
     - taurus
-  annotation: taurus
+    - zodiac
+  annotation: Taurus
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 97
   h:
     - 133
-up! button:
-  key: up! button
+    - 133
+    - 133
+    - 133
+    - 133
+  bestE: taurus
+  bestD: stier
+UP! button:
+  key: UP! button
   type: emo
   isDuplicate: false
   isColored: true
@@ -1371,8 +1558,8 @@ up! button:
     - 133
   bestE: up arrow
   bestD: pfeil hinauf
-vs button:
-  key: vs button
+VS button:
+  key: VS button
   type: emo
   isDuplicate: false
   isColored: true
@@ -1407,26 +1594,38 @@ vs button:
     - 133
   bestE: vs
   bestD: vs
-virgo:
-  key: virgo
-  type: icon
+Virgo:
+  key: Virgo
+  type: emo
   isDuplicate: false
-  isColored: false
-  hex: E0AC
-  hexcode: E0AC
-  family: pictoGame
-  text: '&#57516;'
-  index: 5532
+  isColored: true
+  emoji: ♍️
+  hexcode: 264D
+  group: symbols
+  subgroups: zodiac
+  E: virgo
+  D: jungfrau
+  hex: 264D
+  family: emoNoto
+  text: '&#9805;'
+  path: /assets/svg/twemoji/264D.svg
   tags:
     - virgo
-  annotation: virgo
+    - zodiac
+  annotation: Virgo
   fz: 100
   w:
-    - 100
+    - 125
+    - 137
+    - 137
+    - 137
+    - 97
   h:
     - 133
-  D: jungfrau
-  E: virgo
+    - 133
+    - 133
+    - 133
+    - 133
   bestE: virgo
   bestD: jungfrau
 abacus:
@@ -6602,6 +6801,24 @@ aquarium:
   E: aquarium
   bestE: aquarium
   bestD: aquarium
+aquarius:
+  key: aquarius
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E06F
+  hexcode: E06F
+  family: pictoGame
+  text: '&#57455;'
+  index: 292
+  tags:
+    - aquarius
+  annotation: aquarius
+  fz: 100
+  w:
+    - 100
+  h:
+    - 110
 aqueduct:
   key: aqueduct
   type: icon
@@ -6826,6 +7043,28 @@ arena:
   E: arena
   bestE: arena
   bestD: arena
+aries:
+  key: aries
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E070
+  hexcode: E070
+  family: pictoGame
+  text: '&#57456;'
+  index: 304
+  tags:
+    - aries
+  annotation: aries
+  fz: 100
+  w:
+    - 100
+  h:
+    - 108
+  D: widder
+  E: aries
+  bestE: aries
+  bestD: widder
 arm:
   key: arm
   type: icon
@@ -13144,19 +13383,27 @@ birthday-cake:
   h:
     - 133
 bison:
-  hex: 1f9ac
-  hexcode: 1f9ac
   key: bison
-  text: '&#129452;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E565
+  hexcode: E565
+  family: pictoGame
+  text: '&#58725;'
+  index: 571
+  tags:
+    - bison
+  annotation: bison
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: wisent
   E: bison
-  D: bison
-  F: bison
-  S: bisonte
-  C: 野牛
+  bestE: bison
+  bestD: wisent
 black circle:
   key: black circle
   type: emo
@@ -15213,19 +15460,27 @@ bookshelf:
   bestE: bookshelf
   bestD: bücherbrett
 boomerang:
-  hex: 1fa83
-  hexcode: 1fa83
   key: boomerang
-  text: '&#129667;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E272
+  hexcode: E272
+  family: pictoGame
+  text: '&#57970;'
+  index: 663
+  tags:
+    - boomerang
+  annotation: boomerang
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: bumerang
   E: boomerang
-  D: boomerang
-  F: boomerang
-  S: bumerang
-  C: 迴旋鏢
+  bestE: boomerang
+  bestD: bumerang
 boomerang-cross:
   key: boomerang-cross
   type: icon
@@ -19746,6 +20001,28 @@ cancel:
   E: cancel
   bestE: cancel
   bestD: abbrechen
+cancer:
+  key: cancer
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E075
+  hexcode: E075
+  family: pictoGame
+  text: '&#57461;'
+  index: 859
+  tags:
+    - cancer
+  annotation: cancer
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: krebs
+  E: cancer
+  bestE: cancer
+  bestD: krebs
 candle:
   key: candle
   type: emo
@@ -20209,6 +20486,24 @@ capitol:
     - 100
   h:
     - 133
+capricorn:
+  key: capricorn
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E076
+  hexcode: E076
+  family: pictoGame
+  text: '&#57462;'
+  index: 880
+  tags:
+    - capricorn
+  annotation: capricorn
+  fz: 100
+  w:
+    - 100
+  h:
+    - 110
 capsules:
   key: capsules
   type: icon
@@ -25454,8 +25749,8 @@ circle-sparks:
     - 100
   h:
     - 118
-circled m:
-  key: circled m
+circled M:
+  key: circled M
   type: emo
   isDuplicate: false
   isColored: true
@@ -27126,7 +27421,7 @@ clover:
     - 100
   h:
     - 133
-  D: kleeblatt
+  D: klee
   E: clover
   bestE: clover
   bestD: klee
@@ -39821,19 +40116,27 @@ elephant-head:
   h:
     - 133
 elevator:
-  hex: 1f6d7
-  hexcode: 1f6d7
   key: elevator
-  text: '&#128727;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E7BA
+  hexcode: E7BA
+  family: pictoGame
+  text: '&#59322;'
+  index: 1722
+  tags:
+    - elevator
+  annotation: elevator
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: aufzug|fahrstuhl
   E: elevator
-  D: aufzug
-  F: ascenseur
-  S: ascensor
-  C: 電梯
+  bestE: elevator
+  bestD: aufzug
 eleven o'clock:
   key: eleven o'clock
   type: emo
@@ -43734,19 +44037,27 @@ fearful face:
   bestE: anguished
   bestEConf: 88
 feather:
-  hex: 1fab6
-  hexcode: 1fab6
   key: feather
-  text: '&#129718;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: feather
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E67E
+  hexcode: E67E
+  family: pictoGame
+  text: '&#59006;'
+  index: 1886
+  tags:
+    - feather
+  annotation: feather
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
   D: feder
-  F: plume
-  S: pluma
-  C: 羽毛
+  E: feather
+  bestE: feather
+  bestD: feder
 feather-alt:
   key: feather-alt
   type: icon
@@ -47961,19 +48272,27 @@ flute:
   bestE: flute
   bestD: flöte
 fly:
-  hex: 1fab0
-  hexcode: 1fab0
   key: fly
-  text: '&#129712;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E408
+  hexcode: E408
+  family: pictoGame
+  text: '&#58376;'
+  index: 2073
+  tags:
+    - fly
+  annotation: fly
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: fliege|fliegen
   E: fly
-  D: fliege
-  F: mouche
-  S: mosca
-  C: 飛
+  bestE: fly
+  bestD: fliege
 flying disc:
   key: flying disc
   type: emo
@@ -51075,6 +51394,24 @@ gem-pendant:
     - 100
   h:
     - 133
+gemini:
+  key: gemini
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E088
+  hexcode: E088
+  family: pictoGame
+  text: '&#57480;'
+  index: 2205
+  tags:
+    - gemini
+  annotation: gemini
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
 gems:
   key: gems
   type: icon
@@ -51789,8 +52126,8 @@ globe:
   E: globe
   bestE: globe
   bestD: erdball
-globe showing americas:
-  key: globe showing americas
+globe showing Americas:
+  key: globe showing Americas
   type: emo
   isDuplicate: false
   isColored: true
@@ -51831,8 +52168,8 @@ globe showing americas:
     - 133
   bestD: erde
   bestE: world
-globe showing asia-australia:
-  key: globe showing asia-australia
+globe showing Asia-Australia:
+  key: globe showing Asia-Australia
   type: emo
   isDuplicate: false
   isColored: true
@@ -51873,8 +52210,8 @@ globe showing asia-australia:
     - 133
   bestD: erde
   bestE: world
-globe showing europe-africa:
-  key: globe showing europe-africa
+globe showing Europe-Africa:
+  key: globe showing Europe-Africa
   type: emo
   isDuplicate: false
   isColored: true
@@ -60479,19 +60816,23 @@ hushed face:
   bestD: ueberrascht
   bestE: surprised
 hut:
-  hex: 1f6d6
-  hexcode: 1f6d6
   key: hut
-  text: '&#128726;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: hut
-  D: hütte
-  F: cabane
-  S: cabaña
-  C: 小屋
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E7CC
+  hexcode: E7CC
+  family: pictoGame
+  text: '&#59340;'
+  index: 2607
+  tags:
+    - hut
+  annotation: hut
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
 huts-village:
   key: huts-village
   type: icon
@@ -69375,19 +69716,23 @@ knockout:
   h:
     - 108
 knot:
-  hex: 1faa2
-  hexcode: 1faa2
   key: knot
-  text: '&#129698;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: knot
-  D: knoten
-  F: noeud
-  S: nudo
-  C: 結
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E54A
+  hexcode: E54A
+  family: pictoGame
+  text: '&#58698;'
+  index: 3040
+  tags:
+    - knot
+  annotation: knot
+  fz: 100
+  w:
+    - 100
+  h:
+    - 108
 koala:
   key: koala
   type: icon
@@ -69591,19 +69936,27 @@ lacrosse:
   bestEConf: 84
   bestD: lacrosse
 ladder:
-  hex: 1fa9c
-  hexcode: 1fa9c
   key: ladder
-  text: '&#129692;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: ladder
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E7D1
+  hexcode: E7D1
+  family: pictoGame
+  text: '&#59345;'
+  index: 3049
+  tags:
+    - ladder
+  annotation: ladder
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
   D: leiter
-  F: échelle
-  S: escalera
-  C: 階梯
+  E: ladder
+  bestE: ladder
+  bestD: leiter
 ladle:
   key: ladle
   type: icon
@@ -71192,6 +71545,28 @@ lemon:
     E: lemon
     D: zitrone
   best: zitrone
+leo:
+  key: leo
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E090
+  hexcode: E090
+  family: pictoGame
+  text: '&#57488;'
+  index: 3116
+  tags:
+    - leo
+  annotation: leo
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: löwe
+  E: leo
+  bestE: leo
+  bestD: löwe
 leopard:
   key: leopard
   type: emo
@@ -71610,6 +71985,28 @@ liberty-wing:
     - 100
   h:
     - 133
+libra:
+  key: libra
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E092
+  hexcode: E092
+  family: pictoGame
+  text: '&#57490;'
+  index: 3135
+  tags:
+    - libra
+  annotation: libra
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: waage
+  E: libra
+  bestE: libra
+  bestD: waage
 libya:
   key: libya
   type: icon
@@ -75248,19 +75645,27 @@ male sign:
     - 133
     - 133
 mammoth:
-  hex: 1f9a3
-  hexcode: 1f9a3
   key: mammoth
-  text: '&#129443;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E56B
+  hexcode: E56B
+  family: pictoGame
+  text: '&#58731;'
+  index: 3295
+  tags:
+    - mammoth
+  annotation: mammoth
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: mammut|riesig
   E: mammoth
-  D: mammut
-  F: mammouth
-  S: mamut
-  C: 長毛象
+  bestE: mammoth
+  bestD: mammut
 man:
   key: man
   type: emo
@@ -76873,8 +77278,8 @@ map:
   E: map
   bestE: map
   bestD: abbilden
-map of japan:
-  key: map of japan
+map of Japan:
+  key: map of Japan
   type: emo
   isDuplicate: false
   isColored: true
@@ -85082,19 +85487,27 @@ older person:
   bestD: weisshaarig
   bestE: white hair
 olive:
-  hex: 1fad2
-  hexcode: 1fad2
   key: olive
-  text: '&#129746;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: olive
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E5C4
+  hexcode: E5C4
+  family: pictoGame
+  text: '&#58820;'
+  index: 3684
+  tags:
+    - olive
+  annotation: olive
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
   D: olive
-  F: olive
-  S: aceituna
-  C: 橄欖
+  E: olive
+  bestE: olive
+  bestD: olive
 om:
   key: om
   type: emo
@@ -85729,6 +86142,24 @@ opening-shell:
     - opening
     - shell
   annotation: opening shell
+  fz: 100
+  w:
+    - 100
+  h:
+    - 108
+ophiuchus:
+  key: ophiuchus
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E09D
+  hexcode: E09D
+  family: pictoGame
+  text: '&#57501;'
+  index: 3709
+  tags:
+    - ophiuchus
+  annotation: ophiuchus
   fz: 100
   w:
     - 100
@@ -89611,8 +90042,8 @@ person frowning:
   bestDConf: 92
   bestE: disappointed
   bestEConf: 82
-person gesturing no:
-  key: person gesturing no
+person gesturing NO:
+  key: person gesturing NO
   type: emo
   isDuplicate: false
   isColored: true
@@ -89653,8 +90084,8 @@ person gesturing no:
   bestE: stop
   bestEConf: 86
   bestD: stop
-person gesturing ok:
-  key: person gesturing ok
+person gesturing OK:
+  key: person gesturing OK
   type: emo
   isDuplicate: false
   isColored: true
@@ -91637,6 +92068,28 @@ pisa-tower:
     - 100
   h:
     - 133
+pisces:
+  key: pisces
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E09F
+  hexcode: E09F
+  family: pictoGame
+  text: '&#57503;'
+  index: 3946
+  tags:
+    - pisces
+  annotation: pisces
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: fische
+  E: pisces
+  bestE: pisces
+  bestD: fische
 pistol:
   key: pistol
   type: emo
@@ -92515,19 +92968,27 @@ plug:
   bestE: plug
   bestD: anschlussstecker
 plunger:
-  hex: 1faa0
-  hexcode: 1faa0
   key: plunger
-  text: '&#129696;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: EB65
+  hexcode: EB65
+  family: pictoGame
+  text: '&#60261;'
+  index: 3987
+  tags:
+    - plunger
+  annotation: plunger
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: taucher|tauchkolben
   E: plunger
-  D: kolben
-  F: piston
-  S: émbolo
-  C: 柱塞
+  bestE: plunger
+  bestD: taucher
 plus:
   key: plus
   type: emo
@@ -99455,20 +99916,27 @@ robot-leg:
   h:
     - 133
 rock:
-  hex: 1faa8
-  hexcode: 1faa8
   key: rock
-  text: '&#129704;'
-  type: emo
-  family: emoNoto
-  isDuplicate: true
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E960
+  hexcode: E960
+  family: pictoGame
+  text: '&#59744;'
+  index: 4271
+  tags:
+    - rock
+  annotation: rock
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: fels|felsen
   E: rock
-  D: felsen
-  F: roche
-  S: rock
-  C: 岩石
+  bestE: rock
+  bestD: fels
 rock-2:
   key: rock-2
   type: icon
@@ -101345,6 +101813,28 @@ safety-pin:
     - 100
   h:
     - 133
+sagittarius:
+  key: sagittarius
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E0A2
+  hexcode: E0A2
+  family: pictoGame
+  text: '&#57506;'
+  index: 4351
+  tags:
+    - sagittarius
+  annotation: sagittarius
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: schütze
+  E: sagittarius
+  bestE: sagittarius
+  bestD: schütze
 sai:
   key: sai
   type: icon
@@ -102612,6 +103102,24 @@ scooter:
   E: scooter
   bestE: scooter
   bestD: roller
+scorpio:
+  key: scorpio
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E0A3
+  hexcode: E0A3
+  family: pictoGame
+  text: '&#57507;'
+  index: 4404
+  tags:
+    - scorpio
+  annotation: scorpio
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
 scorpion:
   key: scorpion
   type: emo
@@ -102777,19 +103285,27 @@ screw-2:
   h:
     - 133
 screwdriver:
-  hex: 1fa9b
-  hexcode: 1fa9b
   key: screwdriver
-  text: '&#129691;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: EB75
+  hexcode: EB75
+  family: pictoGame
+  text: '&#60277;'
+  index: 4412
+  tags:
+    - screwdriver
+  annotation: screwdriver
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: schraubendreher|schraubenzieher
   E: screwdriver
-  D: schraubenzieher
-  F: tournevis
-  S: destornillador
-  C: 螺絲刀
+  bestE: screwdriver
+  bestD: schraubendreher
 scroll:
   key: scroll
   type: emo
@@ -113663,8 +114179,8 @@ star and crescent:
     - 133
     - 133
     - 133
-star of david:
-  key: star of david
+star of David:
+  key: star of David
   type: emo
   isDuplicate: false
   isColored: true
@@ -118828,6 +119344,24 @@ tattered-banner:
     - 100
   h:
     - 133
+taurus:
+  key: taurus
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E0A7
+  hexcode: E0A7
+  family: pictoGame
+  text: '&#57511;'
+  index: 5106
+  tags:
+    - taurus
+  annotation: taurus
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
 taxi:
   key: taxi
   type: emo
@@ -118982,19 +119516,27 @@ team-upgrade:
   h:
     - 133
 teapot:
-  hex: 1fad6
-  hexcode: 1fad6
   key: teapot
-  text: '&#129750;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: teapot
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E757
+  hexcode: E757
+  family: pictoGame
+  text: '&#59223;'
+  index: 5113
+  tags:
+    - teapot
+  annotation: teapot
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
   D: teekanne
-  F: théière
-  S: tetera
-  C: 茶壺
+  E: teapot
+  bestE: teapot
+  bestD: teekanne
 teapot-leaves:
   key: teapot-leaves
   type: icon
@@ -128481,6 +129023,28 @@ violin:
     - 133
   bestD: geige
   bestE: violin
+virgo:
+  key: virgo
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E0AC
+  hexcode: E0AC
+  family: pictoGame
+  text: '&#57516;'
+  index: 5532
+  tags:
+    - virgo
+  annotation: virgo
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: jungfrau
+  E: virgo
+  bestE: virgo
+  bestD: jungfrau
 virtual-marker:
   key: virtual-marker
   type: icon
@@ -131636,19 +132200,27 @@ windmill:
   bestE: windmill
   bestD: windmühle
 window:
-  hex: 1fa9f
-  hexcode: 1fa9f
   key: window
-  text: '&#129695;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
+  type: icon
+  isDuplicate: false
+  isColored: false
+  hex: E7FD
+  hexcode: E7FD
+  family: pictoGame
+  text: '&#59389;'
+  index: 5662
+  tags:
+    - window
+  annotation: window
+  fz: 100
+  w:
+    - 100
+  h:
+    - 133
+  D: bildschirmfenster|fenster
   E: window
-  D: fenster
-  F: fenêtre
-  S: ventana
-  C: 窗戶
+  bestE: window
+  bestD: bildschirmfenster
 window-bars:
   key: window-bars
   type: icon
@@ -135494,855 +136066,3 @@ zzz:
     - 133
   bestD: schlaf
   bestE: sleep
-accordion:
-  hex: 1fa97
-  hexcode: 1fa97
-  key: accordion
-  text: '&#129687;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: accordion
-  D: akkordeon
-  F: accordéon
-  S: acordeón
-  C: 手風琴
-beaver:
-  hex: 1f9ab
-  hexcode: 1f9ab
-  key: beaver
-  text: '&#129451;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: beaver
-  D: biber
-  F: castor
-  S: castor
-  C: 海狸
-beetle:
-  hex: 1fab2
-  hexcode: 1fab2
-  key: beetle
-  text: '&#129714;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: beetle
-  D: käfer
-  F: scarabée
-  S: escarabajo
-  C: 甲蟲
-bell pepper:
-  hex: 1fad1
-  hexcode: 1fad1
-  key: bell pepper
-  text: '&#129745;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: bell pepper
-  D: paprika
-  F: poivron
-  S: pimiento morrón
-  C: 燈籠椒
-blueberries:
-  hex: 1fad0
-  hexcode: 1fad0
-  key: blueberries
-  text: '&#129744;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: blueberries
-  D: blaubeeren
-  F: myrtilles
-  S: arándanos
-  C: 藍莓
-bubble tea:
-  hex: 1f9cb
-  hexcode: 1f9cb
-  key: bubble tea
-  text: '&#129483;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: bubble tea
-  D: bubble tea
-  F: thé à bulles
-  S: té de burbujas
-  C: 珍珠奶茶
-bucket:
-  hex: 1faa3
-  hexcode: 1faa3
-  key: bucket
-  text: '&#129699;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: bucket
-  D: eimer
-  F: baquet
-  S: cubeta
-  C: 桶
-carpentry saw:
-  hex: 1fa9a
-  hexcode: 1fa9a
-  key: carpentry saw
-  text: '&#129690;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: saw
-  D: säge
-  F: scie
-  S: sierra
-  C: 鋸
-cockroach:
-  key: cockroach
-  hexcode: 1fab3
-  hex: 1fab3
-  family: noto3
-  text: '&#129715;'
-  type: emo
-  isDuplicate: false
-  w: 125
-  h: 117
-  E: cockroach
-  D: kakerlake
-  F: cockroche
-  S: cucaracha
-  C: 雞尾酒
-coin:
-  hex: 1fa99
-  hexcode: 1fa99
-  key: coin
-  text: '&#129689;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: coin
-  D: münze
-  F: pièce de monnaie
-  S: moneda
-  C: 硬幣
-disguised face:
-  hex: 1f978
-  hexcode: 1f978
-  key: disguised face
-  text: '&#129400;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: disguise
-  D: verkleidung
-  F: déguisement
-  S: disfraz
-  C: 偽裝
-dodo:
-  hex: 1f9a4
-  hexcode: 1f9a4
-  key: dodo
-  text: '&#129444;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: dodo
-  D: dodo
-  F: dodo
-  S: vejestorio
-  C: 渡渡鳥
-flatbread:
-  hex: 1fad3
-  hexcode: 1fad3
-  key: flatbread
-  text: '&#129747;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: flatbread
-  D: fladenbrot
-  F: galette
-  S: pan plano
-  C: 大餅
-fondue:
-  hex: 1fad5
-  hexcode: 1fad5
-  key: fondue
-  text: '&#129749;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: fondue
-  D: fondue
-  F: fondue
-  S: fondue
-  C: 火鍋
-headstone:
-  hex: 1faa6
-  hexcode: 1faa6
-  key: headstone
-  text: '&#129702;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: headstone
-  D: grabstein
-  F: pierre tombale
-  S: lápida mortuoria
-  C: 墓石
-hook:
-  hex: 1fa9d
-  hexcode: 1fa9d
-  key: hook
-  text: '&#129693;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: hook
-  D: haken
-  F: crochet
-  S: gancho
-  C: 鉤
-i_beam:
-  key: i_beam
-  hexcode: E7CE
-  hex: E7CE
-  family: pictoGame
-  text: '&#59342;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 110
-  E: i_beam
-i_brick:
-  key: i_brick
-  hexcode: ED93
-  hex: ED93
-  family: pictoGame
-  text: '&#60819;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 110
-  E: i_brick
-i_cursor:
-  key: i_cursor
-  hexcode: f246
-  hex: f246
-  family: pictoFa
-  text: '&#62022;'
-  type: icon
-  isDuplicate: false
-  w: 50
-  h: 110
-  E: i_cursor
-i_bison:
-  key: i_bison
-  hexcode: E565
-  hex: E565
-  family: pictoGame
-  text: '&#58725;'
-  type: icon
-  isDuplicate: true
-  w: 100
-  h: 133
-  E: bison
-  D: bison
-  F: bison
-  S: bisonte
-  C: 野牛
-i_boomerang:
-  key: i_boomerang
-  hexcode: E272
-  hex: E272
-  family: pictoGame
-  text: '&#57970;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: boomerang
-  D: boomerang
-  F: boomerang
-  S: bumerang
-  C: 迴旋鏢
-i_elevator:
-  key: i_elevator
-  hexcode: E7BA
-  hex: E7BA
-  family: pictoGame
-  text: '&#59322;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: elevator
-  D: aufzug
-  F: ascenseur
-  S: ascensor
-  C: 電梯
-i_feather:
-  key: i_feather
-  hexcode: E67E
-  hex: E67E
-  family: pictoGame
-  text: '&#59006;'
-  type: icon
-  isDuplicate: true
-  w: 100
-  h: 133
-  E: feather
-  D: feder
-  F: plume
-  S: pluma
-  C: 羽毛
-i_fly:
-  key: i_fly
-  hexcode: E408
-  hex: E408
-  family: pictoGame
-  text: '&#58376;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: fly
-  D: fliegen
-  F: mouche
-  S: mosca
-  C: 飛
-i_hut:
-  key: i_hut
-  hexcode: E7CC
-  hex: E7CC
-  family: pictoGame
-  text: '&#59340;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: hut
-  D: hütte
-  F: cabane
-  S: cabaña
-  C: 小屋
-i_knot:
-  key: i_knot
-  hexcode: E54A
-  hex: E54A
-  family: pictoGame
-  text: '&#58698;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 108
-  E: knot
-  D: knoten
-  F: noeud
-  S: nudo
-  C: 結
-i_ladder:
-  key: i_ladder
-  hexcode: E7D1
-  hex: E7D1
-  family: pictoGame
-  text: '&#59345;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: ladder
-  D: leiter
-  F: échelle
-  S: escalera
-  C: 階梯
-i_mammoth:
-  key: i_mammoth
-  hexcode: E56B
-  hex: E56B
-  family: pictoGame
-  text: '&#58731;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: mammoth
-  D: mammut-
-  F: mammouth
-  S: mamut
-  C: 長毛象
-i_olive:
-  key: i_olive
-  hexcode: E5C4
-  hex: E5C4
-  family: pictoGame
-  text: '&#58820;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: olive
-  D: olive
-  F: olive
-  S: aceituna
-  C: 橄欖
-i_pinata:
-  key: i_pinata
-  hexcode: E37F
-  hex: E37F
-  family: pictoGame
-  text: '&#58239;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: pinata
-i_plunger:
-  key: i_plunger
-  hexcode: EB65
-  hex: EB65
-  family: pictoGame
-  text: '&#60261;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: plunger
-  D: kolben
-  F: piston
-  S: émbolo
-  C: 柱塞
-i_rock:
-  key: i_rock
-  type: icon
-  isDuplicate: false
-  isColored: false
-  hex: E960
-  hexcode: E960
-  family: pictoGame
-  text: '&#59744;'
-  index: 4271
-  tags:
-    - rock
-  annotation: rock
-  fz: 100
-  w:
-    - 100
-  h:
-    - 133
-  D: fels|felsen
-  E: rock
-  bestE: rock
-  bestD: fels
-i_screwdriver:
-  key: i_screwdriver
-  hexcode: EB75
-  hex: EB75
-  family: pictoGame
-  text: '&#60277;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: screwdriver
-  D: schraubenzieher
-  F: tournevis
-  S: destornillador
-  C: 螺絲刀
-i_sewing needle:
-  key: i_sewing needle
-  hexcode: EB76
-  hex: EB76
-  family: pictoGame
-  text: '&#60278;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: sewing needle
-  D: nähnadel
-  F: aiguille à coudre
-  S: aguja de coser
-  C: 縫紉針
-i_teapot:
-  key: i_teapot
-  hexcode: E757
-  hex: E757
-  family: pictoGame
-  text: '&#59223;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: teapot
-  D: teekanne
-  F: théière
-  S: tetera
-  C: 茶壺
-i_window:
-  key: i_window
-  hexcode: E7FD
-  hex: E7FD
-  family: pictoGame
-  text: '&#59389;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 133
-  E: window
-  D: fenster
-  F: fenêtre
-  S: ventana
-  C: 窗口
-long drum:
-  hex: 1fa98
-  hexcode: 1fa98
-  key: long drum
-  text: '&#129688;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: long drum
-  D: lange trommel
-  F: tambour long
-  S: tambor largo
-  C: 長鼓
-  cats:
-    - object
-magic wand:
-  hex: 1fa84
-  hexcode: 1fa84
-  key: magic wand
-  text: '&#129668;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: magic wand
-  D: zauberstab
-  F: baguette magique
-  S: varita mágica
-  C: 魔法棒
-military helmet:
-  hex: 1fa96
-  hexcode: 1fa96
-  key: military helmet
-  text: '&#129686;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: military helmet
-  D: militärhelm
-  F: casque militaire
-  S: casco militar
-  C: 軍用頭盔
-mirror:
-  hex: 1fa9e
-  hexcode: 1fa9e
-  key: mirror
-  text: '&#129694;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: mirror
-  D: spiegel
-  F: miroir
-  S: espejo
-  C: 鏡子
-mouse trap:
-  hex: 1faa4
-  hexcode: 1faa4
-  key: mouse trap
-  text: '&#129700;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: mouse trap
-  D: mausefalle
-  F: piege a souris
-  S: trampa para ratones
-  C: 鼠標陷阱
-nesting dolls:
-  hex: 1fa86
-  hexcode: 1fa86
-  key: nesting dolls
-  text: '&#129670;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: babushka
-  D: babuschka
-  F: poupées gigognes
-  S: muñecas de anidación
-  C: 嵌套娃娃
-ninja:
-  hex: 1f977
-  hexcode: 1f977
-  key: ninja
-  text: '&#129399;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: ninja
-  D: ninja
-  F: ninja
-  S: ninja
-  C: 忍者
-people hugging:
-  hex: 1fac2
-  hexcode: 1fac2
-  key: people hugging
-  text: '&#129730;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: hugging
-  D: umarmen
-  F: étreindre
-  S: abrazar
-  C: 擁抱
-pickup truck:
-  hex: 1f6fb
-  hexcode: 1f6fb
-  key: pickup truck
-  text: '&#128763;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: pickup truck
-  D: pick-up
-  F: pick-up
-  S: camioneta
-  C: 皮卡車
-piñata:
-  hex: 1fa85
-  hexcode: 1fa85
-  key: piñata
-  text: '&#129669;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: piñata
-  D: piñata
-  F: piñata
-  S: piñata
-  C: 皮納塔
-pinched fingers:
-  hex: 1f90c
-  hexcode: 1f90c
-  key: pinched fingers
-  text: '&#129292;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: pinching
-  D: kneifen
-  F: pincement
-  S: ratería
-  C: 捏
-placard:
-  hex: 1faa7
-  hexcode: 1faa7
-  key: placard
-  text: '&#129703;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: placard
-  D: plakat
-  F: placard
-  S: cartel
-  C: 標語牌
-potted plant:
-  hex: 1fab4
-  hexcode: 1fab4
-  key: potted plant
-  text: '&#129716;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: potted plant
-  D: topfpflanze
-  F: plante en pot
-  S: planta en maceta
-  C: 盆栽植物
-roller skate:
-  hex: 1f6fc
-  hexcode: 1f6fc
-  key: roller skate
-  text: '&#128764;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: roller skate
-  D: rollschuh
-  F: patin à roulettes
-  S: patín
-  C: 溜冰鞋
-seal:
-  hex: 1f9ad
-  hexcode: 1f9ad
-  key: seal
-  text: '&#129453;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: seal
-  D: dichtung
-  F: joint
-  S: sello
-  C: 海豹
-sewing needle:
-  hex: 1faa1
-  hexcode: 1faa1
-  key: sewing needle
-  text: '&#129697;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: sewing needle
-  D: nähnadel
-  F: aiguille à coudre
-  S: aguja de coser
-  C: 縫紉針
-smiling face with tear:
-  hex: 1f972
-  hexcode: 1f972
-  key: smiling face with tear
-  text: '&#129394;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: tear
-  D: träne
-  F: larme
-  S: lágrima
-  C: 眼淚
-sverd-i_fjell:
-  key: sverd-i_fjell
-  hexcode: E7EC
-  hex: E7EC
-  family: pictoGame
-  text: '&#59372;'
-  type: icon
-  isDuplicate: false
-  w: 100
-  h: 118
-  E: sverd-i_fjell
-tamale:
-  hex: 1fad4
-  hexcode: 1fad4
-  key: tamale
-  text: '&#129748;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: tamale
-  D: tamale
-  F: tamale
-  S: tamal
-  C: 玉米粉蒸肉
-thong sandal:
-  hex: 1fa74
-  hexcode: 1fa74
-  key: thong sandal
-  text: '&#129652;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: thong sandal
-  D: tangasandale
-  F: sandale string
-  S: sandalia de tanga
-  C: 涼鞋
-toothbrush:
-  hex: 1faa5
-  hexcode: 1faa5
-  key: toothbrush
-  text: '&#129701;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: toothbrush
-  D: zahnbürste
-  F: brosse à dents
-  S: cepillo de dientes
-  C: 牙刷
-wood:
-  hex: 1fab5
-  hexcode: 1fab5
-  key: wood
-  text: '&#129717;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: wood
-  D: holz
-  F: bois
-  S: madera
-  C: 木頭
-worm:
-  hex: 1fab1
-  hexcode: 1fab1
-  key: worm
-  text: '&#129713;'
-  type: emo
-  family: emoNoto
-  w: 125
-  h: 118
-  E: worm
-  D: wurm
-  F: ver de terre
-  S: gusano
-  C: 蟲
-zebra:
-  key: zebra
-  hexcode: 1F993
-  hex: 1F993
-  family: twe
-  text: '&#129427;'
-  type: emo
-  isDuplicate: false
-  w: 125
-  h: 133
-  E: zebra
-  D: zombie
-  F: zombi
-  S: zombi
-  C: 殭屍

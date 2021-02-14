@@ -276,6 +276,77 @@ async function addVocabTo2020Syms() {
 	downloadAsYaml(syms20, 'syms20');
 }
 
+async function updateSymbolDict() {
+	let snew = await route_path_yaml_dict('../assets/syms.yaml');
+	let sold = await route_path_yaml_dict('../assets/symbolDict.yaml');
+	let soldlc = {};
+	for (const k in sold) {
+		let klc = k.toLowerCase();
+		let o = soldlc[klc] = sold[k];
+		o.key = klc;
+	}
+	//soldlc ist jetzt sold mit lower case keys!
+	for (const k in snew) {
+		if (nundef(soldlc[k])) {
+			soldlc[k] = snew[k];
+			console.log('new key added to symbolDict', k)
+		} else {
+			let onew = snew[k];
+			let oold = soldlc[k];
+			if (onew.type != oold.type) {
+				soldlc[k] = onew;
+				console.log('symbolDict key updated', k)
+			}
+		}
+	}
+	downloadAsYaml(soldlc, 'symbolDict_upd');
+
+}
+async function updateGroupInfo() {
+	//soll die neuen sym keys mittels group info zu KeySets adden
+	let syms20 = await route_path_yaml_dict('../assets/speech/syms2020.yaml');
+	console.log(syms20);
+
+	//let symb = await route_path_yaml_dict('../assets/symbolDict.yaml');
+	//let syms = await route_path_yaml_dict('../assets/syms.yaml');
+
+	console.log(KeySets);
+	for (const k in syms20) {
+		KeySets.all.push(k);
+		KeySets.huge.push(k);
+		let info = syms20[k];
+		if (isdef(info.ngroup)) {
+			for (const n of [25, 50, 100]) {
+				if (info.ngroup <= n) KeySets['best' + n].push(k);
+			}
+		}
+		if (info.group != 'smileys-emotion'){KeySets.nemo.push(k);if (isdef(info.ngroup)) KeySets.nemo100.push(k);}
+		switch (info.group) {
+			case 'object': KeySets.object.push(k);KeySets.object50.push(k);KeySets.objectPlus.push(k);break;
+			case 'animal':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
+			case 'fruit':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
+			case 'food':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
+			case 'drink':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
+			case 'vegetable': KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
+			case 'smileys-emotion':KeySets.emo.push(k);break;
+			case 'people-body':break;
+			default: console.log('forgot group',info.group); break;
+		}
+
+	}
+
+	//now update cats and save back to syms
+	addCatsToKeys();
+}
+
+function saveListOfWords(){
+	let phrases = Object.keys(DD);
+	phrases.sort();
+	let text=phrases.join('\n');
+
+	downloadAsText(text,'listOfWords');
+}
+
 async function _start() {
 	//timit.show('DONE');
 	console.assert(isdef(DB));
@@ -291,12 +362,13 @@ async function _start() {
 
 	Speech = new SpeechAPI('E');
 
-	KeySets = getKeySets();
+	KeySets = getKeySetsX();
 
 	if (IS_TESTING) loadUser(Username); else loadUser();
 	console.assert(isdef(G));
 
-	//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase();
+	saveListOfWords();
+	//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
 	//return;
 
 	//let keys = ['fly']; //fromKeySet('nemo',9);

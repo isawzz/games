@@ -94,6 +94,9 @@ function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys
 	// let showLabels = Settings.labels == true;
 	if (nundef(Settings)) Settings = {};// language: 'E' };
 	let infos = keys.map(k => (isdef(Settings.language) ? getRandomSetItem(Settings.language, k) : symbolDict[k]));
+
+	//correct for language!!!! take best from Syms[k]
+
 	//ifs and options: defaults
 	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
 	let fg = (i, info, item) => colorIdealText(item.bg);

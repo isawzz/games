@@ -195,9 +195,10 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 	if (i < 0) {
 		i = 1; console.log('iiiiiii', i, family, info.family);
 	}
-	let wInfo = info.w[i];
+	info.fz=100;
+	let wInfo = info.w[i];if (nundef(wInfo)) wInfo = info.w;
 	// let ihInfo = (family == info.family) ? 0 : info.h.indexOf(family);
-	let hInfo = info.h[i];
+	let hInfo = info.h[i];if (nundef(hInfo)) hInfo = info.h;
 	if (info.type == 'icon' && hInfo == 133) hInfo = 110;
 
 	// console.log('family', family, 'orig', info.family)

@@ -902,7 +902,7 @@ function getRandomSetItem(lang = 'E', key, keylist) {
 	info.eWords = eWords;
 	info.dWords = dWords;
 	info.words = words;
-	info.best = arrLast(words);
+	info.best = Syms[key][Settings.language]; // arrLast(words); ////!!!!!!!
 	info.valid = valid;
 
 	currentLanguage = lang;
