@@ -16383,7 +16383,7 @@ cockroach:
   key: cockroach
   hexcode: 1fab3
   hex: 1fab3
-  family: noto3
+  family: emoNoto
   text: '&#129715;'
   type: emo
   isDuplicate: false
@@ -22086,7 +22086,7 @@ dragon:
   E: dragon
   D: drachen
   F: dragon
-  S: continuar
+  S: dragon
   C: 龍
   cats:
     - huge
@@ -22114,7 +22114,7 @@ dragon face:
   E: dragon
   D: drachen
   F: dragon
-  S: continuar
+  S: dragon
   C: 龍
   cats:
     - huge
@@ -74555,7 +74555,7 @@ tropical fish:
   E: fish
   D: fisch
   F: poisson
-  S: pescado
+  S: pez
   C: 魚
   cats:
     - huge
