@@ -62,7 +62,7 @@ function test05_popup(msg, ms) {
 
 	mLinebreak(dOuter, 25);
 	if (G.timeout > long) {
-		let dpics = mDiv(dOuter, { layout: 'h' });
+		let dpics = mDiv(dOuter, { layout: 'fh' });
 
 		if (G.timeout < superlong) {
 			sayRandomVoice(Settings.language == 'E' ? 'walk around until the beep!' : "geh' herum bis zum signal!");
@@ -96,7 +96,7 @@ function test05_popup(msg, ms) {
 	startTimeCD(dt, G.timeout, () => { if (G.timeout > long) beep(900, 330, 800); setTimeout(backToPasscode, 1000); });
 	mLinebreak(dOuter, 100);
 
-	mStyleX(dOuter, { layout: 'v', bg: 'white', w: '100%', h: '100%' });//das muss am ende sein sonst geht es nicht!!!!!!!!!!!!!!!!!!
+	mStyleX(dOuter, { layout: 'fv', bg: 'white', w: '100%', h: '100%' });//das muss am ende sein sonst geht es nicht!!!!!!!!!!!!!!!!!!
 }
 function test04_blankPageWithMessageAndCountdownAndBeep(msg) {
 	show(dTable); //show a freezer

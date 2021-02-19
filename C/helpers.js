@@ -229,26 +229,30 @@ function mStyleX(elem, styles, unit = 'px') {
 			continue;
 		} else if (k == 'border') {
 			//console.log('________________________YES!')
-			if (isNumber(val)) val=`solid ${val}px ${isdef(styles.fg)?styles.fg:'#ffffff80'}`;
+			if (isNumber(val)) val = `solid ${val}px ${isdef(styles.fg) ? styles.fg : '#ffffff80'}`;
 			if (val.indexOf(' ') < 0) val = 'solid 1px ' + val;
 		} else if (k == 'layout') {
-			elem.style.setProperty('display', 'flex');
-			elem.style.setProperty('flex-wrap', 'wrap');
-			let hor, vert;
-			if (val.length == 1) hor = vert = 'center';
-			else {
-				let di = { c: 'center', s: 'start', e: 'end' };
-				hor = di[val[1]];
-				vert = di[val[2]];
+			if (val[0] == 'f') {
+				//console.log('sssssssssssssssssssssssssssssssssssssssssssss')
+				val = val.slice(1);
+				elem.style.setProperty('display', 'flex');
+				elem.style.setProperty('flex-wrap', 'wrap');
+				let hor, vert;
+				if (val.length == 1) hor = vert = 'center';
+				else {
+					let di = { c: 'center', s: 'start', e: 'end' };
+					hor = di[val[1]];
+					vert = di[val[2]];
 
-			}
-			let justStyle = val[0] == 'v' ? vert : hor;
-			let alignStyle = val[0] == 'v' ? hor : vert;
-			elem.style.setProperty('justify-content', justStyle);
-			elem.style.setProperty('align-items', alignStyle);
-			switch (val[0]) {
-				case 'v': elem.style.setProperty('flex-direction', 'column'); break;
-				case 'h': elem.style.setProperty('flex-direction', 'row'); break;
+				}
+				let justStyle = val[0] == 'v' ? vert : hor;
+				let alignStyle = val[0] == 'v' ? hor : vert;
+				elem.style.setProperty('justify-content', justStyle);
+				elem.style.setProperty('align-items', alignStyle);
+				switch (val[0]) {
+					case 'v': elem.style.setProperty('flex-direction', 'column'); break;
+					case 'h': elem.style.setProperty('flex-direction', 'row'); break;
+				}
 			}
 		}
 
@@ -320,8 +324,8 @@ function mInputX(dParent, styles, { textPadding, label, value, submitOnEnter, au
 	let inpStyles = isdef(styles) ? jsCopy(styles) : {};
 	delete inpStyles.padding;
 	if (isdef(textPadding)) inpStyles.padding = textPadding;
-	if (isdef(inpStyles.w)) inpStyles.w='100%';
-	mStyleX(inp,inpStyles);
+	if (isdef(inpStyles.w)) inpStyles.w = '100%';
+	mStyleX(inp, inpStyles);
 
 	if (isdef(autoFocus)) inp.focus();
 	if (autoSelect == true) inp.select();
@@ -597,13 +601,13 @@ function mYaml(d, js) {
 //#endregion
 
 //#region _DOM standard functions
-function stdInput(dParent,styles){
+function stdInput(dParent, styles) {
 	let defStyles = { fz: 20, padding: 12 };
 	if (nundef(styles)) styles = {};
 	let newStyles = deepmergeOverride(defStyles, styles);
 	//console.log('newStyles',newStyles)
 	return mInputX(dParent, newStyles,
-		{ textPadding:4, autoComplete: 'off', autoFocus: true, autoSelect:false })
+		{ textPadding: 4, autoComplete: 'off', autoFocus: true, autoSelect: false })
 }
 function stdInputSubmit(dParent, styles, handler) {
 	let defStyles = { fz: 20, padding: 12 };
@@ -611,15 +615,15 @@ function stdInputSubmit(dParent, styles, handler) {
 	let newStyles = deepmergeOverride(defStyles, styles);
 	//console.log('newStyles',newStyles)
 	return mInputX(dParent, newStyles,
-		{ textPadding:4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect:false, handler: handler })
+		{ textPadding: 4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect: false, handler: handler })
 }
-function stdInputVal(dParent, styles, val, autoSelect=true) {
+function stdInputVal(dParent, styles, val, autoSelect = true) {
 	let defStyles = { fz: 20, padding: 12 };
 	if (nundef(styles)) styles = {};
 	let newStyles = deepmergeOverride(defStyles, styles);
 	//console.log('newStyles',newStyles)
 	return mInputX(dParent, newStyles,
-		{ value:val, textPadding:4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect:autoSelect})
+		{ value: val, textPadding: 4, autoComplete: 'off', submitOnEnter: true, autoFocus: true, autoSelect: autoSelect })
 }
 function stdInstruction(written, dParent, spoken, { fz, voice, lang } = {}) {
 	//spoken = 'hallo ich bin der pumukl';
@@ -872,12 +876,12 @@ function posCICB(d) { d = mEnsure(d); d.classList.add('centerCenteredBottomHalf'
 //#region iconviewer
 var IconSet, lastIndex;
 
-function iconViewerTestKeysets(){
-	let allKeys=symKeysBySet.nosymbols;
-	let keys=allKeys.filter(x=>isdef(symbolDict[x].best100));
-	let keys1=allKeys.filter(x=>isdef(symbolDict[x].best100) && isdef(symbolDict[x].bestE));
-	let keys2=allKeys.filter(x=>isdef(symbolDict[x].best50));
-	let keys3=allKeys.filter(x=>isdef(symbolDict[x].best25));
+function iconViewerTestKeysets() {
+	let allKeys = symKeysBySet.nosymbols;
+	let keys = allKeys.filter(x => isdef(symbolDict[x].best100));
+	let keys1 = allKeys.filter(x => isdef(symbolDict[x].best100) && isdef(symbolDict[x].bestE));
+	let keys2 = allKeys.filter(x => isdef(symbolDict[x].best50));
+	let keys3 = allKeys.filter(x => isdef(symbolDict[x].best25));
 	console.log(keys3);
 	iconViewer(keys3);
 
@@ -906,17 +910,17 @@ function show100() {
 	ensureSymByType();
 
 	mButton('download key set', downloadKeySet, table, { fz: 30 });
-	mButton('next 100', ()=>show100(), table, { fz: 30 });
+	mButton('next 100', () => show100(), table, { fz: 30 });
 	mLinebreak(table);
 
 	let keys = takeFromTo(IconSet, lastIndex, lastIndex + 100);//chooseRandom() ['keycap: 0', 'keycap: 1', 'keycap: #', 'keycap: *'];
 
 	lastIndex += 100;
-	console.log('JAJAJAJAJ lastIndex',lastIndex);
+	console.log('JAJAJAJAJ lastIndex', lastIndex);
 	gridLabeled(keys, picLabelStyles);
 
 }
-function gridLabeledX(keyList,labelList, dParent,{rows,layout}={}, clickHandler) {
+function gridLabeledX(keyList, labelList, dParent, { rows, layout } = {}, clickHandler) {
 	//cont,pic,text
 	let dGrid = mDiv(dParent);
 	let elems = [];
@@ -926,8 +930,8 @@ function gridLabeledX(keyList,labelList, dParent,{rows,layout}={}, clickHandler)
 	let stylesForLabelButton = { rounding: 10, margin: pictureSize / 8 };
 	let pics = [];
 
-	for (let i=0;i<keyList.length;i++) {
-		let k=keyList[i];
+	for (let i = 0; i < keyList.length; i++) {
+		let k = keyList[i];
 		let info = symbolDict[k];
 		let label = labelList[i];
 		let el = maPicLabelButtonFitText(info, label,
@@ -939,7 +943,7 @@ function gridLabeledX(keyList,labelList, dParent,{rows,layout}={}, clickHandler)
 		lastIndex += 1;
 	}
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
-	let func=(layout=='flex'?layoutFlex:layoutGrid);
+	let func = (layout == 'flex' ? layoutFlex : layoutGrid);
 	let size = func(elems, dGrid, gridStyles, { rows: rows, isInline: true });
 	return pics;
 }
@@ -955,8 +959,8 @@ function gridLabeled(list, picLabelStyles) {
 
 	for (const k of list) {
 		let info = symbolDict[k];
-		let label = info.type == 'emo'? (isdef(info.bestE) ? info.bestE : lastOfLanguage(k, 'E')) + ' ' + lastIndex
-		: k;
+		let label = info.type == 'emo' ? (isdef(info.bestE) ? info.bestE : lastOfLanguage(k, 'E')) + ' ' + lastIndex
+			: k;
 		let el = maPicLabelButtonFitText(info, label,
 			{ w: pictureSize, h: pictureSize, bgPic: 'random', shade: null, contrast: null },
 			onClickIVPicture, dGrid, stylesForLabelButton, 'frameOnHover', isText, isOmoji);
@@ -967,14 +971,14 @@ function gridLabeled(list, picLabelStyles) {
 	}
 	let gridStyles = { 'place-content': 'center', gap: 4, margin: 4, padding: 4, bg: 'silver', rounding: 5 };
 	let size = layoutGrid(elems, dGrid, gridStyles, { rows: 10, isInline: true });
-	console.log('lastIndex',lastIndex)
+	console.log('lastIndex', lastIndex)
 }
 
 function onClickIVPicture(ev) {
 	ev.cancelBubble = true;
 	//let id = evToClosestId(ev);	console.log(id, Pictures, Pictures[10]);//let i = firstNumber(id);	let pic = Pictures[i];
-	let pic = findItemFromEvent(Pictures,ev);
-	
+	let pic = findItemFromEvent(Pictures, ev);
+
 	toggleSelectionOfPicture(pic);
 
 }

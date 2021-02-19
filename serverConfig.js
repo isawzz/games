@@ -8,7 +8,7 @@ DEFAULTUSERNAME = 'gul'; // IS_TESTING ? 'nil' : 'gul';
 //**************************************************************** */
 const BROADCAST_SETTINGS = true; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;
 
-var USE_ADDONS = false;
+var USE_ADDONS = true;
 
 
 

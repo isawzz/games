@@ -18,8 +18,8 @@ class AddonClass extends LiveObject {
 	_createScreen() {
 		show(mBy('dAddons'));
 		let bg = colorTrans('silver', .25);
-		let d = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'vcc' });
-		let dContent = mDiv(d, { display: 'flex', layout: 'vcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
+		let d = mScreen(mBy('dAddons'), { bg: bg, display: 'flex', layout: 'fvcc' });
+		let dContent = mDiv(d, { display: 'flex', layout: 'fvcs', fg: 'contrast', fz: 24, bg: 'silver', patop: 50, pabottom: 50, matop: -50, w: '100vw' });
 		return [d, dContent];
 	}
 	//#endregion

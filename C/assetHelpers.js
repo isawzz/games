@@ -991,21 +991,15 @@ function maShowLabel(id, info) {
 
 //#region layouts
 function layoutGrid(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
-	//console.log(elist, elist.length)
-	let dims = calcRowsCols(elist.length, rows, cols);
-	//console.log('dims', dims);
 
+	let dims = calcRowsCols(elist.length, rows, cols);
 	let parentStyle = jsCopy(containerStyles);
 	parentStyle.display = isInline ? 'inline-grid' : 'grid';
 	parentStyle['grid-template-columns'] = `repeat(${dims.cols}, auto)`;
 	parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
-
-	//console.log('parentStyle', parentStyle)
-
 	mStyleX(dGrid, parentStyle);
 	let b = getBounds(dGrid);
 	return { w: b.width, h: b.height };
-
 }
 function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = false } = {}) {
 	console.log(elist, elist.length)
@@ -1021,8 +1015,6 @@ function layoutFlex(elist, dGrid, containerStyles, { rows, cols, isInline = fals
 	parentStyle.display = 'flex';
 	parentStyle.flex = '0 0 auto';
 	parentStyle['flex-wrap'] = 'wrap';
-	// parentStyle['box-sizing'] = 'border-box'; // TODO: koennte ev problematisch sein, leave for now!
-
 	mStyleX(dGrid, parentStyle);
 	let b = getBounds(dGrid);
 	return { w: b.width, h: b.height };
