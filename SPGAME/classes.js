@@ -674,10 +674,10 @@ class GElim extends Game {
 }
 class GAnagram extends Game {
 	constructor(name) {
-		super(name); 
+		super(name);
 		if (Settings.language == 'C') {
 			this.realLanguage = Settings.language;
-			Settings.language = chooseRandom('E','S','F','D');
+			Settings.language = chooseRandom('E', 'S', 'F', 'D');
 		}
 	}
 	clear() { super.clear(); if (isdef(this.language)) Settings.language = this.language; }
@@ -686,7 +686,14 @@ class GAnagram extends Game {
 			lang: Settings.language, keysets: KeySets, key: 'all',
 			filterFunc: (k, w) => w.length <= G.maxWordLength && w.length >= G.minWordLength && !w.includes(' ')
 		});
-		console.log('keys', G.keys)
+		if (G.keys.length < 25) {
+			G.keys = setKeys({
+				lang: Settings.language, keysets: KeySets, key: 'all',
+				filterFunc: (k, w) => w.length <= (G.maxWordLength + 1) && w.length >= (G.minWordLength - 1) && !w.includes(' ')
+			});
+		}
+
+		//console.log('keys', G.keys)
 	}
 	prompt() {
 		let showLabels = G.showLabels == true && Settings.labels == true;
