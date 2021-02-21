@@ -9,6 +9,8 @@ function _createDivs(items, ifs, options) {
 
 	let padding = (isdef(ifs.padding) ? ifs.padding : 1);
 
+	//console.log('padding',padding)
+
 	let bo = ifs.border;
 	bo = isdef(bo) ? isString(bo) ? firstNumber(bo) : bo : 0;
 
@@ -100,8 +102,9 @@ function createStandardItems(onClickPictureHandler, ifs = {}, options = {}, keys
 	//ifs and options: defaults
 	let bg = isdef(options.colorKeys) ? 'white' : (i) => options.sameBackground ? computeColor('random') : 'random';
 	let fg = (i, info, item) => colorIdealText(item.bg);
-	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding: 10 };
-	let defOptions = { showLabels: Settings.labels == true, shufflePositions: true, sameBackground: true, showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
+	let defIfs = { bg: bg, fg: fg, label: isdef(labels) ? labels : (i, info) => info.best, contrast: .32, fz: 20, padding: 3 };
+	let defOptions = { showLabels: Settings.labels == true, shufflePositions: true, sameBackground: true, 
+		showRepeat: false, repeat: 1, onclick: onClickPictureHandler, iStart: 0 };
 	ifs = deepmergeOverride(defIfs, ifs);
 	options = deepmergeOverride(defOptions, options);
 	//console.log('keys', keys); console.log('ifs', ifs); 

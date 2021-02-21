@@ -14,7 +14,7 @@ function createMenuUi(dParent) {
 	let keys = games.map(g => DB.games[g].logo);
 	let infos = keys.map(x => symbolDict[x]);
 	let bgs = games.map(g => getColorDictColor(DB.games[g].color));
-	let ifs = { label: labels, bg: bgs, fg: 'white', padding: 10 };
+	let ifs = { label: labels, bg: bgs, fg: 'white', padding: 4 };
 	let options = { onclick: onClickMenuItem, showLabels: true };
 	//#endregion
 
@@ -50,7 +50,7 @@ function createMenuUi(dParent) {
 	//console.log('size of grid', gridSize, 'table', getBounds(dTable))
 	//#endregion
 
-	if (nundef(G)) return; else console.log('G',G);
+	if (nundef(G)) return; //else console.log('G',G);
 	//select the current game
 	SelectedMenuKey = G.id;
 	toggleSelectionOfPicture(MenuItems[G.id]);

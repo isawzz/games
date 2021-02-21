@@ -7,16 +7,16 @@ function getInstance(G) {
 	// };
 	return new (Daat.GameClasses[G.id])(G.id);
 }
-function myShowPics(handler,ifs={},options={},keys,labels){
-	
+function myShowPics(handler, ifs = {}, options = {}, keys, labels) {
+
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
 	//keys[0]='tamale';
 	//keys[1]='safety pin';
 	//keys[2]='beaver';
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
 	// keys=['house','socks','hammer'];
-	Pictures = showPics(handler,ifs,options,keys,labels);
-	
+	Pictures = showPics(handler, ifs, options, keys, labels);
+
 }
 
 class Game {
@@ -42,7 +42,7 @@ class Game {
 	eval(ev) {
 		ev.cancelBubble = true;
 		// let id = evToClosestId(ev);		let i = firstNumber(id);		let item = Pictures[i];
-		let item = findItemFromEvent(Pictures,ev);
+		let item = findItemFromEvent(Pictures, ev);
 
 		Selected = { pic: item, feedbackUI: item.div, sz: getBounds(item.div).height };
 
@@ -55,26 +55,24 @@ class Game {
 	}
 }
 
-class GInno extends Game {
-	constructor(name) { super(name); }
-	startLevel() {
-		//console.log(G)
-	}
-	prompt() {
-		maShowCards([], [], dTable);//_showPictures();
-	}
-	trialPrompt() {
-		sayTryAgain();
-		return 10;
-	}
-	eval(w, word) {
-		Selected = { answer: w, reqAnswer: word, feedbackUI: Goal.div }; //this.inputs.map(x => x.div) };
-		//console.log(Selected);
-		return w == word;
-	}
-}
 class GTouchPic extends Game {
 	constructor(name) { super(name); }
+	prompt() {
+		let showLabels = G.showLabels == true && Settings.labels == true;
+		//console.log(G.showLabels, Settings.labels, showLabels)
+		myShowPics(evaluate, {}, { showLabels: showLabels });
+		setGoal();
+		showInstruction(Goal.label, 'click', dTitle, true);
+		activateUi();
+	}
+}
+function shuffleChildren(dParent){
+	let arr = arrChildren(dParent);
+	console.log(arr);
+	arr.map(x=>x.remove());
+	//return;
+	shuffle(arr);
+	for(const elem of arr){mAppend(dParent,elem)}
 }
 class GTouchColors extends Game {
 	constructor(name) { super(name); }
@@ -83,7 +81,14 @@ class GTouchColors extends Game {
 	}
 	prompt() {
 		let colorKeys = choose(G.colors, G.numColors);
-		myShowPics(evaluate, { contrast: G.contrast }, { colorKeys: colorKeys });
+		let showLabels = G.showLabels == true && Settings.labels == true;
+		myShowPics(evaluate, { contrast: G.contrast }, { colorKeys: colorKeys, showLabels: showLabels });
+		if (G.shuffle == true){
+			console.log('HAAAAAAAAAAAAAAAAAAAAAAAALO')
+			//shuffle(Pictures);
+			let dParent = Pictures[0].div.parentNode;
+			shuffleChildren(dParent);
+		}
 		//showPicturesSpeechTherapyGames(evaluate, { contrast: G.contrast }, { colorKeys: colorKeys });
 		//Pictures.map(x => x.color = ColorDict[x.textShadowColor]);
 
@@ -97,7 +102,7 @@ class GTouchColors extends Game {
 	eval(ev) {
 		ev.cancelBubble = true;
 		// let id = evToClosestId(ev);		let i = firstNumber(id);		let item = Pictures[i];
-		let item = findItemFromEvent(Pictures,ev);
+		let item = findItemFromEvent(Pictures, ev);
 		Selected = { pic: item, feedbackUI: item.div };
 		Selected.reqAnswer = Goal.label;
 		Selected.answer = item.label;
@@ -109,9 +114,10 @@ class GMem extends Game {
 	constructor(name) { super(name); }
 	clear() { clearTimeout(this.TO); showMouse(); }
 	prompt() {
+		let showLabels = G.showLabels == true && Settings.labels == true;
 		myShowPics(this.interact.bind(this),
 			{ border: '3px solid #ffffff80' },
-			{ repeat: G.numRepeat, sameBackground: true });
+			{ repeat: G.numRepeat, sameBackground: true, showLabels: showLabels });
 		setGoal();
 
 		if (G.level > 2) { showInstruction('', Settings.language == 'E' ? 'remember all' : 'merke dir alle', dTitle, true); }
@@ -127,7 +133,7 @@ class GMem extends Game {
 		//console.log('interact!', ev);
 		ev.cancelBubble = true;
 		if (!canAct()) return;
-		let pic = findItemFromEvent(Pictures,ev);
+		let pic = findItemFromEvent(Pictures, ev);
 		toggleFace(pic);
 
 		if (G.trialNumber == G.trials - 1) {
@@ -367,10 +373,11 @@ class GPremem extends Game {
 	prompt() {
 		this.piclist = [];
 		//console.log(G)
+		let showLabels = G.showLabels == true && Settings.labels == true;
 		myShowPics(this.interact.bind(this),
-			{border: '3px solid #ffffff80'}, // border: '3px solid #ffffff80'
-			{ repeat: G.numRepeat, sameBackground: G.sameBackground}), //, showLabels: false });
-		showInstruction('', Settings.language == 'E'?'click any picture':'click irgendein Bild', dTitle, true);
+			{ border: '3px solid #ffffff80' }, // border: '3px solid #ffffff80'
+			{ repeat: G.numRepeat, sameBackground: G.sameBackground, showLabels: showLabels }), //, showLabels: false });
+			showInstruction('', Settings.language == 'E' ? 'click any picture' : 'click irgendein Bild', dTitle, true);
 		activateUi();
 	}
 	trialPrompt() {
@@ -383,7 +390,7 @@ class GPremem extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) return;
 
-		let pic = findItemFromEvent(Pictures,ev);
+		let pic = findItemFromEvent(Pictures, ev);
 		// let id = evToClosestId(ev);
 		// let i = firstNumber(id);
 		// let pic = Pictures[i];
@@ -392,17 +399,17 @@ class GPremem extends Game {
 		toggleSelectionOfPicture(pic, this.piclist);
 		//console.log('clicked', pic.key, this.piclist);//,piclist, GPremem.PicList);
 		if (isEmpty(this.piclist)) {
-			showInstruction('', Settings.language == 'E'?'click any picture':'click irgendein Bild', dTitle, true);
+			showInstruction('', Settings.language == 'E' ? 'click any picture' : 'click irgendein Bild', dTitle, true);
 		} else if (this.piclist.length < G.numRepeat - 1) {
 			//set incomplete: more steps are needed!
 			//frame the picture
-			showInstruction(pic.label, Settings.language == 'E'?'click another':'click ein andres Bild mit', dTitle, true);
+			showInstruction(pic.label, Settings.language == 'E' ? 'click another' : 'click ein andres Bild mit', dTitle, true);
 		} else if (this.piclist.length == G.numRepeat - 1) {
 			// look for last picture with x that is not in the set
 			let picGoal = firstCond(Pictures, x => x.label == pic.label && !x.isSelected);
 			setGoal(picGoal.index);
-			showInstruction(picGoal.label, Settings.language == 'E'?'click the ' + (G.numRepeat == 2 ? 'other' : 'last')
-			:'click das ' + (G.numRepeat == 2 ? 'andere' : 'letzte') + ' Bild mit', dTitle, true);
+			showInstruction(picGoal.label, Settings.language == 'E' ? 'click the ' + (G.numRepeat == 2 ? 'other' : 'last')
+				: 'click das ' + (G.numRepeat == 2 ? 'andere' : 'letzte') + ' Bild mit', dTitle, true);
 		} else {
 			//set is complete: eval
 			evaluate(this.piclist);
@@ -461,7 +468,7 @@ class GSteps extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) { console.log('no act'); return; }
 
-		let pic = findItemFromEvent(Pictures,ev);
+		let pic = findItemFromEvent(Pictures, ev);
 
 		toggleSelectionOfPicture(pic, this.piclist);
 		if (this.piclist.length == Goal.pics.length) {
@@ -473,7 +480,7 @@ class GSteps extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) { console.log('no act'); return; }
 
-		let pic = findItemFromEvent(Pictures,ev);
+		let pic = findItemFromEvent(Pictures, ev);
 
 		toggleSelectionOfPicture(pic, this.piclist);
 
@@ -648,7 +655,7 @@ class GElim extends Game {
 		ev.cancelBubble = true;
 		if (!canAct()) return;
 
-		let pic = findItemFromEvent(Pictures,ev);
+		let pic = findItemFromEvent(Pictures, ev);
 		// let id = evToClosestId(ev);
 		// let pic = firstCond(Pictures, x => x.div.id == id);
 		writeSound(); playSound('hit');
@@ -826,7 +833,7 @@ class GAbacus extends Game {
 class GPasscode extends Game {
 	constructor(name) { super(name); this.needNewPasscode = true; }
 	clear() { clearTimeout(this.TO); clearTimeCD(); }
-	startGame(){
+	startGame() {
 		Settings.incrementLevelOnPositiveStreak = Settings.samplesPerGame;
 		Settings.decrementLevelOnNegativeStreak = Settings.samplesPerGame;
 
@@ -850,7 +857,7 @@ class GPasscode extends Game {
 			showInstruction(Goal.label, this.wort + (Settings.language == 'E' ? ' is' : ' ist'), dTitle, true);
 
 			TOMain = setTimeout(anim1, 300, Goal, 500, showGotItButton);
-		}else{
+		} else {
 			G.timeout *= 2;
 			doOtherStuff();
 		}
@@ -860,7 +867,7 @@ class GPasscode extends Game {
 		CountdownTimer.cancel();
 		// return super.eval(x);
 		let isCorrect = super.eval(x);
-		if (!isCorrect) this.needNewPasscode=true;
+		if (!isCorrect) this.needNewPasscode = true;
 		return isCorrect;
 		// //return the opposite, but no feedback!
 		// if (isCorrect) return undefined; else return false;

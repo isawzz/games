@@ -126,6 +126,24 @@ function convertDogmaText(t) {
 
 
 
+class GInno extends Game {
+	constructor(name) { super(name); }
+	startLevel() {
+		//console.log(G)
+	}
+	prompt() {
+		maShowCards([], [], dTable);//_showPictures();
+	}
+	trialPrompt() {
+		sayTryAgain();
+		return 10;
+	}
+	eval(w, word) {
+		Selected = { answer: w, reqAnswer: word, feedbackUI: Goal.div }; //this.inputs.map(x => x.div) };
+		//console.log(Selected);
+		return w == word;
+	}
+}
 
 
 

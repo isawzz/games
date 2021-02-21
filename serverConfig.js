@@ -8,9 +8,7 @@ DEFAULTUSERNAME = 'gul'; // IS_TESTING ? 'nil' : 'gul';
 //**************************************************************** */
 const BROADCAST_SETTINGS = true; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;
 
-var USE_ADDONS = true;
-
-
+var USE_ADDONS = false;
 
 
 var USE_LOCAL_STORAGE = !BROADCAST_SETTINGS; // true | false //localStorage is cleared when false!!!!!

@@ -200,6 +200,8 @@ function _zPicPaddingAddedToSize(infokey, dParent, styles = {}, isText = true, i
 	let hInfo = info.h[i];if (nundef(hInfo)) hInfo = info.h;
 	if (info.type == 'icon' && hInfo == 133) hInfo = 110;
 
+	if (family == 'emoNoto') {wInfo=125;hInfo=118;}
+
 	// console.log('family', family, 'orig', info.family)
 	let innerStyles = { family: family };
 	let [padw, padh] = isdef(styles.padding) ? [styles.padding, styles.padding] : [0, 0];

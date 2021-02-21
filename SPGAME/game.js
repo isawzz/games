@@ -1485,17 +1485,20 @@ function setBadgeLevel(i) {
 	for (let iBadge = 0; iBadge < G.level; iBadge++) {
 		badges[iBadge].div.style.opacity = .75;
 		badges[iBadge].div.style.border = 'transparent';
-		badges[iBadge].div.children[1].innerHTML = '* ' + iBadge + ' *'; //style.color = 'white';
+		// badges[iBadge].div.children[1].innerHTML = '* ' + iBadge + ' *'; //style.color = 'white';
+		badges[iBadge].div.children[1].innerHTML = '* ' + (iBadge+1) + ' *'; //style.color = 'white';
 		badges[iBadge].div.children[0].style.color = 'white';
 	}
 	badges[G.level].div.style.border = '1px solid #00000080';
 	badges[G.level].div.style.opacity = 1;
-	badges[G.level].div.children[1].innerHTML = 'Level ' + G.level; //style.color = 'white';
+	// badges[G.level].div.children[1].innerHTML = 'Level ' + G.level; //style.color = 'white';
+	badges[G.level].div.children[1].innerHTML = 'Level ' + (G.level+1); //style.color = 'white';
 	badges[G.level].div.children[0].style.color = 'white';
 	for (let iBadge = G.level + 1; iBadge < badges.length; iBadge++) {
 		badges[iBadge].div.style.border = 'transparent';
 		badges[iBadge].div.style.opacity = .25;
-		badges[iBadge].div.children[1].innerHTML = 'Level ' + iBadge; //style.color = 'white';
+		// badges[iBadge].div.children[1].innerHTML = 'Level ' + iBadge; //style.color = 'white';
+		badges[iBadge].div.children[1].innerHTML = 'Level ' + (iBadge+1); //style.color = 'white';
 		badges[iBadge].div.children[0].style.color = 'black';
 	}
 }
@@ -1520,9 +1523,9 @@ function setMultiGoal(n, indices) {
 function showHiddenThumbsUpDown(styles) {
 	styles.bg = ['transparent', 'transparent'];
 
-	console.log('styles', jsCopy(styles))
+	//console.log('styles', jsCopy(styles))
 	Pictures = showPics(null, styles, { sz: styles.sz, showLabels: false }, ['thumbs up', 'thumbs down']); //, ['bravo!', 'nope']);
-	console.log('hallo', Pictures[0])
+	//console.log('hallo', Pictures[0])
 	for (const p of Pictures) { p.div.style.padding = p.div.style.margin = '6px 0px 0px 0px'; p.div.style.opacity = 0; }
 
 }
@@ -1575,7 +1578,8 @@ function showInstructionX(written, dParent, spoken, { fz, voice } = {}) {
 
 }
 function showLevel() {
-	dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel;
+	dLevel.innerHTML = 'level: ' + (G.level+1) + '/' + (G.maxLevel+1);
+	// dLevel.innerHTML = 'level: ' + G.level + '/' + G.maxLevel;
 }
 function showGameTitle() { dGameTitle.innerHTML = G.friendly; }
 function showScore() {
