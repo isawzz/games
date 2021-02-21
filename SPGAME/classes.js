@@ -66,14 +66,6 @@ class GTouchPic extends Game {
 		activateUi();
 	}
 }
-function shuffleChildren(dParent){
-	let arr = arrChildren(dParent);
-	console.log(arr);
-	arr.map(x=>x.remove());
-	//return;
-	shuffle(arr);
-	for(const elem of arr){mAppend(dParent,elem)}
-}
 class GTouchColors extends Game {
 	constructor(name) { super(name); }
 	startLevel() {
@@ -83,7 +75,7 @@ class GTouchColors extends Game {
 		let colorKeys = choose(G.colors, G.numColors);
 		let showLabels = G.showLabels == true && Settings.labels == true;
 		myShowPics(evaluate, { contrast: G.contrast }, { colorKeys: colorKeys, showLabels: showLabels });
-		if (G.shuffle == true){
+		if (G.shuffle == true) {
 			console.log('HAAAAAAAAAAAAAAAAAAAAAAAALO')
 			//shuffle(Pictures);
 			let dParent = Pictures[0].div.parentNode;
@@ -681,15 +673,24 @@ class GElim extends Game {
 	}
 }
 class GAnagram extends Game {
-	constructor(name) { super(name); }
+	constructor(name) {
+		super(name); 
+		if (Settings.language == 'C') {
+			this.realLanguage = Settings.language;
+			Settings.language = chooseRandom('E','S','F','D');
+		}
+	}
+	clear() { super.clear(); if (isdef(this.language)) Settings.language = this.language; }
 	startLevel() {
 		G.keys = setKeys({
 			lang: Settings.language, keysets: KeySets, key: 'all',
-			filterFunc: (k, w) => w.length <= G.maxWordLength
+			filterFunc: (k, w) => w.length <= G.maxWordLength && w.length >= G.minWordLength && !w.includes(' ')
 		});
+		console.log('keys', G.keys)
 	}
 	prompt() {
-		myShowPics(() => fleetingMessage('just enter the missing letters!'));
+		let showLabels = G.showLabels == true && Settings.labels == true;
+		myShowPics(() => fleetingMessage('drag and drop the letters to form the word!'), {}, { showLabels: showLabels });
 		setGoal();
 		showInstruction(Goal.label, Settings.language == 'E' ? 'drag letters to form' : "forme", dTitle, true);
 		mLinebreak(dTable);

@@ -331,19 +331,31 @@ gAnagram:
   friendly: 'Anagram!'
   logo: 'ram'
   color: rgb(0,152,105)
+  minWordLength: 3
+  maxWordLength: 8
+  showLabel: true
   levels:
     0:
       maxWordLength: 3
     1:
+      minWordLength: 3
       maxWordLength: 4
     2:
+      minWordLength: 4
       maxWordLength: 5
     3:
+      minWordLength: 5
       maxWordLength: 6
     4:
+      minWordLength: 6
       maxWordLength: 7
     5:
+      minWordLength: 7
       maxWordLength: 8
+    6:
+      minWordLength: 7
+      maxWordLength: 8
+      showLabel: false
 gAbacus:
   friendly: 'Abacus'
   logo: 'abacus'
@@ -376,9 +388,9 @@ gAbacus:
       maxFactor: 10
       ops: [plus,minus]
     4:
-      minNum: 8
-      maxNum: 25
-      ops: [plus,minus,mult]
+      minNum: 5
+      maxNum: 10
+      ops: [mult]
     5:
       minNum: 50
       maxNum: 100
@@ -387,16 +399,16 @@ gAbacus:
       ops: [minus]
     6:
       minNum: 50
-      maxNum: 100
-      minFactor: 1
-      maxFactor: 10
-      ops: [minus]
+      maxNum: 200
+      minFactor: 4
+      maxFactor: 20
+      ops: [minus,plus]
     7:
-      minNum: 50
+      minNum: 0
       maxNum: 100
-      minFactor: 1
+      minFactor: 2
       maxFactor: 10
-      ops: [minus]
+      ops: [plus,minus,mult]
 gPasscode:
   friendly: 'Passcode!'
   logo: 'lock'

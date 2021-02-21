@@ -5116,6 +5116,14 @@ JSON.sort = function (o) {
 	return o;
 }
 function shuffle(arr) { return fisherYates(arr); }
+function shuffleChildren(dParent){
+	let arr = arrChildren(dParent);
+	console.log(arr);
+	arr.map(x=>x.remove());
+	//return;
+	shuffle(arr);
+	for(const elem of arr){mAppend(dParent,elem)}
+}
 function sortBy(arr, key) {
 	//console.log(jsCopy(arr))
 	arr.sort((a, b) => (a[key] < b[key] ? -1 : 1));
