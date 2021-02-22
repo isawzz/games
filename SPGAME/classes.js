@@ -137,6 +137,7 @@ class GMem extends Game {
 class GWritePic extends Game {
 	constructor(name) { super(name); }
 	startGame() {
+		G.correctionFunc = showCorrectWordInTitle;
 		onkeydown = ev => {
 			if (!canAct()) return;
 			if (isdef(this.inputBox)) { this.inputBox.focus(); }
@@ -174,7 +175,9 @@ class GWritePic extends Game {
 	}
 	trialPrompt() {
 		sayTryAgain();
-		showFleetingMessage(Goal.label.substring(0,G.trialNumber));
+		let n=G.trialNumber==1?1: (G.trialNumber+ Math.floor((Goal.label.length-G.trialNumber)/2));
+		
+		showFleetingMessage(Goal.label.substring(0,n));
 		mLinebreak(dTable);
 		this.inputBox = addNthInputElement(dTable, G.trialNumber);
 		this.defaultFocusElement = this.inputBox.id;
@@ -192,11 +195,17 @@ class GWritePic extends Game {
 		this.inputBox.focus();
 	}
 	eval(ev) {
+		console.log('#',G.trialNumber,'of',G.trials)
 		let answer = normalize(this.inputBox.value, Settings.language);
 		let reqAnswer = normalize(Goal.label, Settings.language);
 
 		Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
-		if (answer == reqAnswer) return true; else { return false; }
+		if (answer == reqAnswer) {
+			showFleetingMessage(Goal.label);
+			return true; 
+		}else { 
+			//if (G.trialNumber == G.trials-1) dTitle.innerHTML = Goal.label;
+			return false; }
 	}
 
 }

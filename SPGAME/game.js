@@ -1145,6 +1145,19 @@ function showCorrectWord(sayit = true) {
 	sayRandomVoice(correctionPhrase);
 	return Settings.spokenFeedback ? 3000 : 300;
 }
+function showCorrectWordInTitle(sayit = true) {
+	let anim = Settings.spokenFeedback ? 'onPulse' : 'onPulse1';
+	clearElement(dInstruction);
+	let d1 = mText(`<b>${Goal.label}</b>`, dInstruction, { fz: 36, display: 'inline-block' });
+	//dInstruction.innerHTML = `<b>${Goal.label}</b>`;
+	mClass(dInstruction, anim);
+
+	if (!sayit || !Settings.spokenFeedback) Settings.spokenFeedback ? 3000 : 300;
+
+	let correctionPhrase = isdef(Goal.correctionPhrase) ? Goal.correctionPhrase : Goal.label;
+	sayRandomVoice(correctionPhrase);
+	return Settings.spokenFeedback ? 3000 : 300;
+}
 function showCorrectWords(sayit = true) {
 	if (nundef(TOList)) TOList = {};
 	TOList.correctWords = [];
