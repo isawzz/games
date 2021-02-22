@@ -142,11 +142,28 @@ class GWritePic extends Game {
 			if (isdef(this.inputBox)) { this.inputBox.focus(); }
 		}
 	}
+	startLevel(){
+		G.keys = setKeys({
+			lang: Settings.language, keysets: KeySets, key: G.instruction=='all'?'all':Settings.vocab,
+			filterFunc: (k, w) => w.length <= G.maxWordLength && w.length >= G.minWordLength && !w.includes(' ')
+		});
+
+	}
 	prompt() {
-		myShowPics(() => mBy(this.defaultFocusElement).focus());
+		let showLabels = G.showLabels == true && Settings.labels == true;
+		myShowPics(() => mBy(this.defaultFocusElement).focus(),{},{showLabels:showLabels});
 		setGoal();
 
-		showInstruction(Goal.label, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
+		if (G.instruction == 'all'){
+			showInstruction(Goal.label, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
+		}else if (G.instruction == 'spokenGoal'){
+			let wr=Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
+			let sp=(Settings.language == 'E' ? 'type' : "schreib'")+' '+Goal.label;
+			showInstruction('', wr, dTitle, true, sp);
+		}else{
+			let wr=Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
+			showInstruction('', wr, dTitle, true, wr);
+		}
 
 		mLinebreak(dTable);
 		this.inputBox = addNthInputElement(dTable, G.trialNumber);
@@ -157,6 +174,7 @@ class GWritePic extends Game {
 	}
 	trialPrompt() {
 		sayTryAgain();
+		showFleetingMessage(Goal.label.substring(0,G.trialNumber));
 		mLinebreak(dTable);
 		this.inputBox = addNthInputElement(dTable, G.trialNumber);
 		this.defaultFocusElement = this.inputBox.id;

@@ -318,15 +318,37 @@ gWritePic:
   friendly: 'Type it!'
   logo: 'keyboard'
   color: orange
+  showLabels: true
+  instruction: all
+  minWordLength: 3
   levels:
     0: 
       maxWordLength: 4
     1: 
+      minWordLength: 5
       maxWordLength: 6
     2: 
+      minWordLength: 6
       maxWordLength: 8
     3: 
+      minWordLength: 7
+      maxWordLength: 10
+    4: 
+      minWordLength: 7
       maxWordLength: 100
+      showLabels: false
+    5: 
+      minWordLength: 3
+      maxWordLength: 100
+      showLabels: false
+      instruction: spokenGoal
+      trials: 3
+    6: 
+      minWordLength: 3
+      maxWordLength: 100
+      showLabels: false
+      instruction: noGoal
+      trials: 3
 gAnagram:
   friendly: 'Anagram!'
   logo: 'ram'
