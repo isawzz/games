@@ -1347,7 +1347,7 @@ returns list of info
 
 	//console.log('_____________',keywords,type,dict,func)
 	//if (nundef(keywords)) return isdef(func) ? func(dict) : dict2list(dict);
-	if (set == 'role' && firstCond(dict2list(dict), x => x.id == 'rotate')) console.log('===>', symBySet[set], dict, dict2list(dict));
+	//if (set == 'role' && firstCond(dict2list(dict), x => x.id == 'rotate')) console.log('===>', symBySet[set], dict, dict2list(dict));
 
 	if (nundef(keywords)) return isdef(func) ? func(dict) : list;
 	if (!isList(keywords)) keywords = [keywords];

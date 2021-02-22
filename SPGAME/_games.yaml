@@ -55,37 +55,37 @@ gMissingNumber:
   seqLen: 5
   levels:
     0:
-      maxNum: 10
+      maxNum: 25
     1:
-      maxNum: 10
+      maxNum: 25
       ops: [minus]
     2:
-      maxNum: 10
+      maxNum: 50
       ops: [plus,minus]
     3:
-      maxNum: 25
-      ops: [plus,minus]
-    4:
-      maxNum: 50
-      steps: [1,2,3]
-      ops: [plus]
-    5:
-      maxNum: 50
+      maxNum: 100
       steps: [1,2]
+      ops: [plus]
+    4:
+      maxNum: 200
+      steps: [1,2]
+      ops: [plus,minus]
+    5:
+      maxNum: 100
+      steps: [1,2,3]
       ops: [plus,minus]
     6:
       posMissing: notStart
-      maxNum: 99
-      steps: [1,2]
+      maxNum: 200
       ops: [plus,minus]
     7:
       posMissing: notStart
-      maxNum: 99
+      maxNum: 100
       steps: [1,2,3,4,5]
       ops: [plus,minus]
     8:
       posMissing: notStart
-      maxNum: 99
+      maxNum: 100
       steps: [3,4,5,6,7,8,9,10]
       ops: [plus,minus]
 gSteps:
@@ -346,6 +346,41 @@ gWritePic:
     6: 
       minWordLength: 3
       maxWordLength: 100
+      showLabels: false
+      instruction: noGoal
+      trials: 3
+gReverse:
+  friendly: 'Reverse!'
+  logo: 'keyboard'
+  color: orange
+  showLabels: true
+  instruction: all
+  minWordLength: 3
+  levels:
+    0: 
+      maxWordLength: 3
+    1: 
+      minWordLength: 4
+      maxWordLength: 4
+    2: 
+      minWordLength: 3
+      maxWordLength: 5
+    3: 
+      minWordLength: 5
+      maxWordLength: 5
+    4: 
+      minWordLength: 3
+      maxWordLength: 4
+      showLabels: false
+    5: 
+      minWordLength: 3
+      maxWordLength: 5
+      showLabels: false
+      instruction: spokenGoal
+      trials: 3
+    6: 
+      minWordLength: 3
+      maxWordLength: 5
       showLabels: false
       instruction: noGoal
       trials: 3

@@ -15,6 +15,7 @@ function _spgameStart(){
 
 	Speech = new SpeechAPI('E');
 
+	console.log('Syms',Syms)
 	KeySets = getKeySetsX();
 
 	Settings={language:'E'}
@@ -82,6 +83,11 @@ function _saveAll() {
 	dbSave('boardGames');
 }
 async function _loader() {
+	if (CLEAR_LOCAL_STORAGE) localStorage.clear();
+
+	C52 = await localOrRoute('C52', '../assets/c52.yaml');
+	Syms = await localOrRoute('Syms', '../assets/syms.yaml');
+	SymKeys = Object.keys(Syms);
 	//#region deactivate when page left, serviceWorker commented, timit
 	if (!IS_TESTING) {
 		ifPageVisible.on('blur', function () {

@@ -6,7 +6,7 @@ const IS_TESTING = true; // *** only set this one! ***
 DEFAULTUSERNAME = 'gul'; // IS_TESTING ? 'nil' : 'gul';
 
 //**************************************************************** */
-const BROADCAST_SETTINGS = true; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;
+const BROADCAST_SETTINGS = false; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;
 
 var USE_ADDONS = false;
 

@@ -151,6 +151,7 @@ class GWritePic extends Game {
 
 	}
 	prompt() {
+		console.log('showLabels: G',G.showLabels,Settings.labels);
 		let showLabels = G.showLabels == true && Settings.labels == true;
 		myShowPics(() => mBy(this.defaultFocusElement).focus(),{},{showLabels:showLabels});
 		setGoal();

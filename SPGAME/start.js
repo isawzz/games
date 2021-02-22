@@ -1,6 +1,28 @@
-window.onload = _loader;
+window.onload = _preloader;
 window.onunload = saveUser;
 
+var FASTSTART = true;
+async function _preloader() {
+	timit = new TimeIt();
+
+	if (FASTSTART) {
+		let syms = localStorage.getItem('syms');
+		if (isdef(syms)) {
+			console.log('from local');
+			Syms = JSON.parse(syms);
+		} else {
+			Syms = await route_path_yaml_dict('../assets/syms.yaml');
+			localStorage.setItem('syms', JSON.stringify(Syms));
+		}
+		SymKeys = Object.keys(Syms);
+		dTable = mBy('table');
+		mText('hallo', dTable, { fz: 100 });
+		//test10_syms();
+		timit.show('DONE')
+		return;
+	}
+	_loader();
+}
 async function _loader() {
 
 	if (!IS_TESTING) {
@@ -42,6 +64,54 @@ async function _loader() {
 		await broadcastSIMA();
 		_start();
 	} else { loadSIMA(_start); }
+
+}
+async function _start() {
+	//timit.show('DONE');	console.assert(isdef(DB));
+
+	initLive(); initTable(); initSidebar(); initAux(); initScore(); initSymbolTableForGamesAddons(); //creates Daat
+	addonFeatureInit(); //new API!
+	Speech = new SpeechAPI('E');
+	KeySets = getKeySetsX();
+
+	if (IS_TESTING) loadUser(Username); else loadUser(); console.assert(isdef(G));
+
+	//test10_syms(); timit.show('DONE'); return;
+
+	//let x='hallo'.substring(0,100); console.log('x',x)
+	//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
+	//return;
+
+	//let keys = ['fly']; //fromKeySet('nemo',9);
+	//showPictureGrid(keys,dTable);return;
+
+	//show('freezer');
+	//console.log('English to German Nouns:', EdDict);
+	//recomputeBestED();
+	//generateWordFiles(); //step 1 works!!!
+	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
+	//return;
+
+	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
+	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
+
+	//test04_textItems(); return;
+	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
+	// test06_submit(); return;
+	//addonScreen(); return;
+	//onclick=()=>test05_popup('think about the passcode!',24001); return;
+	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
+	// test12_vizOperationOhneParentDiv(); return;
+	//test12_vizNumberOhneParentDiv();return;
+	//test12_vizArithop(); return;
+	//test11_zViewerCircleIcon(); return;
+	//test11_zItemsX(); return;
+	//test03_maShowPictures(); return;
+	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
+
+	//onClickTemple(); return;
+	if (ALLOW_CALIBRATION) show('dCalibrate');
+	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
 }
 async function makeDictionaries() {
@@ -320,17 +390,17 @@ async function updateGroupInfo() {
 				if (info.ngroup <= n) KeySets['best' + n].push(k);
 			}
 		}
-		if (info.group != 'smileys-emotion'){KeySets.nemo.push(k);if (isdef(info.ngroup)) KeySets.nemo100.push(k);}
+		if (info.group != 'smileys-emotion') { KeySets.nemo.push(k); if (isdef(info.ngroup)) KeySets.nemo100.push(k); }
 		switch (info.group) {
-			case 'object': KeySets.object.push(k);KeySets.object50.push(k);KeySets.objectPlus.push(k);break;
-			case 'animal':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
-			case 'fruit':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
-			case 'food':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
-			case 'drink':KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
-			case 'vegetable': KeySets.life.push(k);KeySets.life50.push(k);KeySets.lifePlus.push(k);break;
-			case 'smileys-emotion':KeySets.emo.push(k);break;
-			case 'people-body':break;
-			default: console.log('forgot group',info.group); break;
+			case 'object': KeySets.object.push(k); KeySets.object50.push(k); KeySets.objectPlus.push(k); break;
+			case 'animal': KeySets.life.push(k); KeySets.life50.push(k); KeySets.lifePlus.push(k); break;
+			case 'fruit': KeySets.life.push(k); KeySets.life50.push(k); KeySets.lifePlus.push(k); break;
+			case 'food': KeySets.life.push(k); KeySets.life50.push(k); KeySets.lifePlus.push(k); break;
+			case 'drink': KeySets.life.push(k); KeySets.life50.push(k); KeySets.lifePlus.push(k); break;
+			case 'vegetable': KeySets.life.push(k); KeySets.life50.push(k); KeySets.lifePlus.push(k); break;
+			case 'smileys-emotion': KeySets.emo.push(k); break;
+			case 'people-body': break;
+			default: console.log('forgot group', info.group); break;
 		}
 
 	}
@@ -339,70 +409,14 @@ async function updateGroupInfo() {
 	addCatsToKeys();
 }
 
-function saveListOfWords(){
+function saveListOfWords() {
 	let phrases = Object.keys(DD);
 	phrases.sort();
-	let text=phrases.join('\n');
+	let text = phrases.join('\n');
 
-	downloadAsText(text,'listOfWords');
+	downloadAsText(text, 'listOfWords');
 }
 
-async function _start() {
-	//timit.show('DONE');
-	console.assert(isdef(DB));
-
-	initLive();
-	initTable();
-	initSidebar();
-	initAux();
-	initScore();
-	initSymbolTableForGamesAddons(); //creates Daat
-
-	addonFeatureInit(); //new API!
-
-	Speech = new SpeechAPI('E');
-
-	KeySets = getKeySetsX();
-
-	if (IS_TESTING) loadUser(Username); else loadUser();
-	console.assert(isdef(G));
-
-	//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
-	//return;
-
-	//let keys = ['fly']; //fromKeySet('nemo',9);
-	//showPictureGrid(keys,dTable);return;
-	//test10_syms(); return;
-
-	//show('freezer');
-	//console.log('English to German Nouns:', EdDict);
-	//recomputeBestED();
-	//generateWordFiles(); //step 1 works!!!
-	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
-	//return;
-
-	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
-	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
-
-	//test04_textItems(); return;
-	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
-	// test06_submit(); return;
-	//addonScreen(); return;
-	//onclick=()=>test05_popup('think about the passcode!',24001); return;
-	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
-	// test12_vizOperationOhneParentDiv(); return;
-	//test12_vizNumberOhneParentDiv();return;
-	//test12_vizArithop(); return;
-	//test11_zViewerCircleIcon(); return;
-	//test11_zItemsX(); return;
-	//test03_maShowPictures(); return;
-	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
-
-	//onClickTemple(); return;
-	if (ALLOW_CALIBRATION) show('dCalibrate');
-	if (SHOW_FREEZER) show('freezer'); else startUnit();
-
-}
 function startUnit() {
 
 	restartTime();
