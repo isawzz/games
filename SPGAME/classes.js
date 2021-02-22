@@ -195,7 +195,7 @@ class GWritePic extends Game {
 		this.inputBox.focus();
 	}
 	eval(ev) {
-		console.log('#',G.trialNumber,'of',G.trials)
+		//console.log('#',G.trialNumber,'of',G.trials)
 		let answer = normalize(this.inputBox.value, Settings.language);
 		let reqAnswer = normalize(Goal.label, Settings.language);
 

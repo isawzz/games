@@ -1151,6 +1151,7 @@ function showCorrectWordInTitle(sayit = true) {
 	let d1 = mText(`<b>${Goal.label}</b>`, dInstruction, { fz: 36, display: 'inline-block' });
 	//dInstruction.innerHTML = `<b>${Goal.label}</b>`;
 	mClass(dInstruction, anim);
+	showFleetingMessage(Goal.label);
 
 	if (!sayit || !Settings.spokenFeedback) Settings.spokenFeedback ? 3000 : 300;
 
