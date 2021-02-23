@@ -1,7 +1,70 @@
 window.onload = _preloader;
 window.onunload = saveUser;
 
-var FASTSTART = false;
+async function _experimental() {
+	let wp = await makeWordProblemsDict();
+	//let wp = await route_path_yaml_dict('../assets/math/word1.yaml');
+	console.log('word problems:', wp);
+	let p = chooseRandom(wp.plus);
+	console.log(p);
+	//let text = p.text;
+	//replaceAll(text,
+
+
+	//test10_syms(); timit.show('DONE'); return;
+
+	//let x='hallo'.substring(0,100); console.log('x',x)
+	//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
+	//return;
+
+	//let keys = ['fly']; //fromKeySet('nemo',9);
+	//showPictureGrid(keys,dTable);return;
+
+	//show('freezer');
+	//console.log('English to German Nouns:', EdDict);
+	//recomputeBestED();
+	//generateWordFiles(); //step 1 works!!!
+	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
+	//return;
+
+	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
+	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
+
+	//test04_textItems(); return;
+	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
+	// test06_submit(); return;
+	//addonScreen(); return;
+	//onclick=()=>test05_popup('think about the passcode!',24001); return;
+	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
+	// test12_vizOperationOhneParentDiv(); return;
+	//test12_vizNumberOhneParentDiv();return;
+	//test12_vizArithop(); return;
+	//test11_zViewerCircleIcon(); return;
+	//test11_zItemsX(); return;
+	//test03_maShowPictures(); return;
+	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
+
+	//onClickTemple(); return;
+
+
+}
+async function _start() {
+	//timit.show('DONE');	console.assert(isdef(DB));
+	initLive(); initTable(); initSidebar(); initAux(); initScore(); initSymbolTableForGamesAddons(); //creates Daat
+	addonFeatureInit(); //new API!
+	Speech = new SpeechAPI('E');
+	KeySets = getKeySetsX();
+
+	if (IS_TESTING) loadUser(Username); else loadUser(); console.assert(isdef(G));
+
+	if (EXPERIMENTAL) { _experimental(); }
+	else if (ALLOW_CALIBRATION) show('dCalibrate');
+	else if (SHOW_FREEZER) show('freezer');
+	else startUnit();
+
+}
+
+var FASTSTART = false && EXPERIMENTAL;
 async function _preloader() {
 	timit = new TimeIt('timit', false);
 
@@ -19,9 +82,7 @@ async function _preloader() {
 		mText('hallo', dTable, { fz: 100 });
 		//test10_syms();
 		timit.show('DONE')
-		return;
-	}
-	_loader();
+	} else _loader();
 }
 async function _loader() {
 
@@ -84,8 +145,8 @@ async function makeWordProblemsDict() {
 		//console.log(text)
 		let nums = allNumbers(text);
 		let inum = 0;
-		let ersetzer={a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9};
-		let kers=Object.keys(ersetzer);
+		let ersetzer = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9 };
+		let kers = Object.keys(ersetzer);
 		if (nums) {
 			for (const n of nums) {
 				let s = n.toString();
@@ -99,22 +160,22 @@ async function makeWordProblemsDict() {
 		}
 		//now have to ersetz $N[ersetzerKey by] $N[ersetze[ersetzerKey]]
 		//console.log('inum is',inum)
-		for(let j=0;j<inum;j++){
-			
-			let s='$N'+kers[j];
-			let by='$N'+ersetzer[kers[j]];
+		for (let j = 0; j < inum; j++) {
+
+			let s = '$N' + kers[j];
+			let by = '$N' + ersetzer[kers[j]];
 			//console.log('text',text,'\nlooking for',s,'repl by',by);
 			//console.log(text.includes(s));
-			text=replaceAllSpecialChars(text,s,by);
+			text = replaceAllSpecialChars(text, s, by);
 			//console.log('==>',text)
 		}
 
 		//replace *** FRACTIONS ***
-		if (title.includes('Fractions')){
-			let parts=text.split('${F');
+		if (title.includes('Fractions')) {
+			let parts = text.split('${F');
 			text = parts[0];
-			console.log('parts',parts);
-		  for(let i=1;i<parts.length;i++){
+			console.log('parts', parts);
+			for (let i = 1; i < parts.length; i++) {
 				//now parts[i] starts with a a/b fraction!
 				// a soll IMMER mit 1 replaced werden!!!
 
@@ -146,67 +207,6 @@ async function makeWordProblemsDict() {
 	console.log('dict', wpDict);
 	downloadAsYaml(wpDict, 'wp');
 	return wpDict;
-}
-async function _start() {
-	//timit.show('DONE');	console.assert(isdef(DB));
-
-	initLive(); initTable(); initSidebar(); initAux(); initScore(); initSymbolTableForGamesAddons(); //creates Daat
-	addonFeatureInit(); //new API!
-	Speech = new SpeechAPI('E');
-	KeySets = getKeySetsX();
-
-	if (IS_TESTING) loadUser(Username); else loadUser(); console.assert(isdef(G));
-
-
-	if (EXPERIMENTAL){
-		let wp = await makeWordProblemsDict();
-		//let wp = await route_path_yaml_dict('../assets/math/word1.yaml');
-		console.log('word problems:', wp);
-		let p = chooseRandom(wp.plus);
-		console.log(p);
-		//let text = p.text;
-		//replaceAll(text,
-	
-	
-		//test10_syms(); timit.show('DONE'); return;
-	
-		//let x='hallo'.substring(0,100); console.log('x',x)
-		//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
-		//return;
-	
-		//let keys = ['fly']; //fromKeySet('nemo',9);
-		//showPictureGrid(keys,dTable);return;
-	
-		//show('freezer');
-		//console.log('English to German Nouns:', EdDict);
-		//recomputeBestED();
-		//generateWordFiles(); //step 1 works!!!
-		//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
-		//return;
-	
-		//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
-		//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
-	
-		//test04_textItems(); return;
-		//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
-		// test06_submit(); return;
-		//addonScreen(); return;
-		//onclick=()=>test05_popup('think about the passcode!',24001); return;
-		//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
-		// test12_vizOperationOhneParentDiv(); return;
-		//test12_vizNumberOhneParentDiv();return;
-		//test12_vizArithop(); return;
-		//test11_zViewerCircleIcon(); return;
-		//test11_zItemsX(); return;
-		//test03_maShowPictures(); return;
-		//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
-	
-		//onClickTemple(); return;
-	
-	}
-	if (ALLOW_CALIBRATION) show('dCalibrate');
-	if (SHOW_FREEZER) show('freezer'); else startUnit();
-
 }
 async function makeDictionaries() {
 	// let ddd = await route_path_yaml_dict('../assets/ddAlles.yaml');
