@@ -1,7 +1,7 @@
 window.onload = _preloader;
 window.onunload = saveUser;
 
-var FASTSTART = true;
+var FASTSTART = false;
 async function _preloader() {
 	timit = new TimeIt();
 
