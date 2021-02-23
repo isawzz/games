@@ -1,0 +1,74 @@
+plus:
+  - index: 1
+    title: Adding to 10
+    text: >-
+      $P1 was playing basketball. $N1 of her shots went in the hoop. $N2 of her
+      shots did not go in the hoop. How many shots were there in total?
+  - index: 2
+    title: Adding to 20
+    text: >-
+      $P1 has $N1 pieces of gum to share with her friends. There wasn’t enough
+      gum for all her friends, so she went to the store to get $N2 more pieces
+      of gum. How many pieces of gum does $P1 have now?
+  - index: 3
+    title: Adding to 100
+    text: >-
+      $P1 has $N1 pieces of gum to share with her friends. There wasn’t enough
+      gum for all her friends, so she went to the store and got $N2 pieces of
+      strawberry gum and $N3 pieces of bubble gum. How many pieces of gum does
+      $P1 have now?
+  - index: 4
+    title: Adding Slightly over 100
+    text: >-
+      The restaurant has $N1 normal chairs and $N2 chairs for babies. How many
+      chairs does the restaurant have in total?
+  - index: 5
+    title: 'Adding to 1,000'
+    text: >-
+      How many cookies did you sell if you sold $N1 chocolate cookies and $N2
+      vanilla cookies?
+  - index: 6
+    title: 'Adding to and over 10,000'
+    text: >-
+      The hobby store normally sells $N1 trading cards per month. In June, the
+      hobby store sold $N2 more trading cards than normal. In total, how many
+      trading cards did the hobby store sell in June?
+  - index: 7
+    title: Adding 3 Numbers
+    text: >-
+      $P1 had $N1 books at home. He went to the library to take out $N2 more
+      books. He then bought $N3 book. How many books does $P1 have now?
+  - index: 8
+    title: Adding 3 Numbers to and over 100
+    text: >-
+      $P1 bought a big bag of candy. The bag had $N1 blue candies, $N2 red
+      candies and $N3 green candies. How many candies were there in total?
+  - index: 38
+    title: Adding Fractions with Like Denominators
+    text: >-
+      Noah walks ⅓ of a kilometre to school each day. He also walks ⅓ of a
+      kilometre to get home after school. How many kilometres does he walk in
+      total?
+  - index: 47
+    title: Adding Decimals
+    text: >-
+      You have $N1 grams of yogurt in your bowl and you add another spoonful of
+      $N2 grams. How much yogurt do you have in total?
+  - index: 60
+    title: Adding Money
+    text: >-
+      $P2 and $P1 are saving up money to buy a video game together. $P2 has
+      saved $$N1. $P1 has saved $$N2. How much money have they saved up together
+      in total?
+  - index: 64
+    title: Adding Money with Decimals
+    text: >-
+      You went to the store and bought gum for $$N1 and a sucker for $$N20. How
+      much was your total?
+  - index: 74
+    title: Adding Measurements
+    text: >-
+      $P1’s dad wants to try to save money on gas, so he has been tracking how
+      much he uses. Last year, $P1’s dad used $N1 litres of gas. This year, her
+      dad used $N2 litres of gas. How much gas did he use in total for the two
+      years?

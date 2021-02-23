@@ -4,7 +4,7 @@ const ALLOW_CALIBRATION = false;
 
 var QuestionCounter = 0;
 var lastPosition;
-
+var WordProblems;
 //reserved names: dName for div with id dName (dName = mBy('dName'))
 
 const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
@@ -52,7 +52,9 @@ const OPS = { //die muessen vals in settings.games[game] sein!
 	'xor': { cmd: 'true or false?', link: 'xor', wr: 'xor', sp: 'xor', f: (a, b) => (a && !b || !a && b) },
 }
 
-
+const PersonNames=['Aaron','Ariel','Adrianna','Amanda','Ashley','Billy','Cayley','Cassandra','Charlene','Erica','Erik',
+'Felix','Gunter','Gilbert','Gudrun','Jacob','Jaime','Jenny','John','Leo','Lillian','Marshall','Matthew','Martha','Maurita',
+'Melissa','Micha','Milda','Natalie','Natasha','Nathan','Rebecca','Robert','Shad','Stacy','Thomas','Tim','William']
 
 
 

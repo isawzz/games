@@ -3,7 +3,7 @@ window.onunload = saveUser;
 
 var FASTSTART = false;
 async function _preloader() {
-	timit = new TimeIt();
+	timit = new TimeIt('timit', false);
 
 	if (FASTSTART) {
 		let syms = localStorage.getItem('syms');
@@ -66,6 +66,87 @@ async function _loader() {
 	} else { loadSIMA(_start); }
 
 }
+async function makeWordProblemsDict() {
+	let wp = WordProblems = await route_path_text('../assets/math/hallo.txt');
+	wp = wp.split('*');
+	wp.splice(0, 1);
+	//console.log('WordProblems', wp);
+	let wpDict = {}; let wpList = [];
+	for (const line of wp) {
+		let index = firstNumber(line);
+		let rest = stringAfter(line, '.');
+		let title = stringBefore(rest, ':').trim();
+		let sol = firstNumber(stringAfter(rest, '@'));
+		let text = stringBetween(rest, ':', '@').trim();
+
+
+		//replace names by $NAME replace numbers by $N 
+		//console.log(text)
+		let nums = allNumbers(text);
+		let inum = 0;
+		let ersetzer={a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9};
+		let kers=Object.keys(ersetzer);
+		if (nums) {
+			for (const n of nums) {
+				let s = n.toString();
+				//console.log('found number', s)
+				let i = s.indexOf(text);
+				let len = s.length;
+				text = text.replace(s, '$N' + kers[inum]);
+				inum += 1;
+			}
+			//console.log('in',index,stringBefore(title,' '),'found',nums,sol)
+		}
+		//now have to ersetz $N[ersetzerKey by] $N[ersetze[ersetzerKey]]
+		//console.log('inum is',inum)
+		for(let j=0;j<inum;j++){
+			
+			let s='$N'+kers[j];
+			let by='$N'+ersetzer[kers[j]];
+			//console.log('text',text,'\nlooking for',s,'repl by',by);
+			//console.log(text.includes(s));
+			text=replaceAllSpecialChars(text,s,by);
+			//console.log('==>',text)
+		}
+
+		//replace *** FRACTIONS ***
+		if (title.includes('Fractions')){
+			let parts=text.split('${F');
+			text = parts[0];
+			console.log('parts',parts);
+		  for(let i=1;i<parts.length;i++){
+				//now parts[i] starts with a a/b fraction!
+				// a soll IMMER mit 1 replaced werden!!!
+
+			}
+		}
+		//return;
+
+
+		let iname = 1;
+		for (const name of PersonNames) {
+			if (text.includes(name)) {
+				text = replaceAll(text, name, '$P' + iname);
+				iname += 1;
+			}
+		}
+
+		let p = { index: index, title: title, sol: sol, text: text };
+		wpList.push(p);
+
+		if (startsWith(title, 'Adding')) {
+			lookupAddIfToList(wpDict, ['plus'], p);
+			delete p.sol;
+		}
+
+
+
+	}
+	downloadAsYaml(wpList, 'wp');
+	console.log('dict', wpDict);
+	downloadAsYaml(wpDict, 'wp');
+	return wpDict;
+}
 async function _start() {
 	//timit.show('DONE');	console.assert(isdef(DB));
 
@@ -76,40 +157,53 @@ async function _start() {
 
 	if (IS_TESTING) loadUser(Username); else loadUser(); console.assert(isdef(G));
 
-	//test10_syms(); timit.show('DONE'); return;
 
-	//let x='hallo'.substring(0,100); console.log('x',x)
-	//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
-	//return;
-
-	//let keys = ['fly']; //fromKeySet('nemo',9);
-	//showPictureGrid(keys,dTable);return;
-
-	//show('freezer');
-	//console.log('English to German Nouns:', EdDict);
-	//recomputeBestED();
-	//generateWordFiles(); //step 1 works!!!
-	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
-	//return;
-
-	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
-	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
-
-	//test04_textItems(); return;
-	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
-	// test06_submit(); return;
-	//addonScreen(); return;
-	//onclick=()=>test05_popup('think about the passcode!',24001); return;
-	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
-	// test12_vizOperationOhneParentDiv(); return;
-	//test12_vizNumberOhneParentDiv();return;
-	//test12_vizArithop(); return;
-	//test11_zViewerCircleIcon(); return;
-	//test11_zItemsX(); return;
-	//test03_maShowPictures(); return;
-	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
-
-	//onClickTemple(); return;
+	if (EXPERIMENTAL){
+		let wp = await makeWordProblemsDict();
+		//let wp = await route_path_yaml_dict('../assets/math/word1.yaml');
+		console.log('word problems:', wp);
+		let p = chooseRandom(wp.plus);
+		console.log(p);
+		//let text = p.text;
+		//replaceAll(text,
+	
+	
+		//test10_syms(); timit.show('DONE'); return;
+	
+		//let x='hallo'.substring(0,100); console.log('x',x)
+		//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
+		//return;
+	
+		//let keys = ['fly']; //fromKeySet('nemo',9);
+		//showPictureGrid(keys,dTable);return;
+	
+		//show('freezer');
+		//console.log('English to German Nouns:', EdDict);
+		//recomputeBestED();
+		//generateWordFiles(); //step 1 works!!!
+		//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
+		//return;
+	
+		//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
+		//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
+	
+		//test04_textItems(); return;
+		//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
+		// test06_submit(); return;
+		//addonScreen(); return;
+		//onclick=()=>test05_popup('think about the passcode!',24001); return;
+		//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
+		// test12_vizOperationOhneParentDiv(); return;
+		//test12_vizNumberOhneParentDiv();return;
+		//test12_vizArithop(); return;
+		//test11_zViewerCircleIcon(); return;
+		//test11_zItemsX(); return;
+		//test03_maShowPictures(); return;
+		//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
+	
+		//onClickTemple(); return;
+	
+	}
 	if (ALLOW_CALIBRATION) show('dCalibrate');
 	if (SHOW_FREEZER) show('freezer'); else startUnit();
 
@@ -428,7 +522,7 @@ function startUnit() {
 function initSymbolTableForGamesAddons() {
 	//console.log('Daat', Daat);//yes this is an empty dict!
 	Daat.GameClasses = {
-		gTouchPic: GTouchPic, gNamit: GNamit,
+		gTouchPic: GTouchPic, gNamit: GNamit, gStory: GStory,
 		gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
 		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode

@@ -2,8 +2,9 @@ const OFFLINE = true;
 const SERVERURL = OFFLINE ? 'http://localhost:3000/app/' : 'https://speech-games.herokuapp.com/app/';
 
 const IS_TESTING = true; // *** only set this one! ***
+const EXPERIMENTAL = false; // *** only set this one! ***
 
-DEFAULTUSERNAME = 'gul'; // IS_TESTING ? 'nil' : 'gul';
+DEFAULTUSERNAME = EXPERIMENTAL?'nil':'gul'; // IS_TESTING ? 'nil' : 'gul';
 
 //**************************************************************** */
 const BROADCAST_SETTINGS = true; //***********************************IS_TESTING; // ACHTUNG!!!!!!!!!!!!! true;

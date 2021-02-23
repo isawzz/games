@@ -1,7 +1,7 @@
 nil:
   id: nil
-  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gNamit
+  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gStory
   settings:
     # settings common to all games
     samplesPerGame: 20
@@ -65,8 +65,8 @@ nil:
       open: true
 guest0:
   id: guest
-  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gNamit
+  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gStory
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -88,8 +88,8 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  avGames: [gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gTouchPic
+  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gStory
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -136,8 +136,8 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gMissingNumber
+  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gNamit
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -186,6 +186,8 @@ gul:
       startLevel: 0
     gNamit:
       startLevel: 3
+    gStory:
+      startLevel: 0
   avAddons: [aPasscode, aAddress, aPassword]
   addons:
     aPasscode:

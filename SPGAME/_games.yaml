@@ -504,3 +504,56 @@ gNamit:
       numPics: 5
     4: 
       numPics: 6
+gStory:
+  friendly: 'Story'
+  logo: 'blue book'
+  color: seagreen
+  numMissing: 1
+  minNum: 0
+  maxNum: 10
+  minFactor: 2
+  maxFactor: 3
+  posMissing: end
+  ops: [plus,minus,mult]
+  levels:
+    0:
+      ops: [plus,minus,mult]
+    1:
+      minNum: 2
+      maxNum: 5
+      minFactor: 2
+      maxFactor: 10
+      ops: [mult]
+    2:
+      minNum: 4
+      maxNum: 10
+      minFactor: 4
+      maxFactor: 10
+      ops: [mult]
+    3:
+      minNum: 20
+      maxNum: 99
+      maxFactor: 10
+      ops: [plus,minus]
+    4:
+      minNum: 5
+      maxNum: 10
+      ops: [mult]
+    5:
+      minNum: 50
+      maxNum: 100
+      minFactor: 1
+      maxFactor: 10
+      ops: [minus]
+    6:
+      minNum: 50
+      maxNum: 200
+      minFactor: 4
+      maxFactor: 20
+      ops: [minus,plus]
+    7:
+      minNum: 0
+      maxNum: 100
+      minFactor: 2
+      maxFactor: 10
+      ops: [plus,minus,mult]

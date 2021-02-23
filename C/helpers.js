@@ -5647,7 +5647,8 @@ function allIntegers(s) {
 }
 function allNumbers(s) {
 	//returns array of all numbers within string s
-	return s.match(/\-.\d+|\-\d+|\.\d+|\d+\.\d+|\d+\b|\d+(?=\w)/g).map(v => Number(v));
+	let m= s.match(/\-.\d+|\-\d+|\.\d+|\d+\.\d+|\d+\b|\d+(?=\w)/g);
+	if (m) return m.map(v => Number(v)); else return null;
 	// {console.log(v,typeof v,v[0],v[0]=='-',v[0]=='-'?-(+v):+v,Number(v));return Number(v);});
 }
 function capitalize(s) {
@@ -5804,6 +5805,7 @@ function replaceAll(str, sSub, sBy) {
 	let regex = new RegExp(sSub, 'g');
 	return str.replace(regex, sBy);
 }
+function replaceAllSpecialChars(str, sSub, sBy) { return str.split(sSub).join(sBy); }
 function reverseString(s) {
 	return toLetterList(s).reverse().join('');
 }
