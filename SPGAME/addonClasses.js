@@ -260,7 +260,6 @@ class AAddress extends APasscode {
 		return [wr, sp];
 	}
 }
-
 class APassword extends AAddress {
 	presentInit() {
 		this.goal = null;

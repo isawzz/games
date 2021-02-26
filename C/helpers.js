@@ -4465,6 +4465,7 @@ function arrLast(arr) { return arr.length > 0 ? arr[arr.length - 1] : null; }
 function arrTail(arr) { return arr.slice(1); }
 function arrFromIndex(arr, i) { return arr.slice(i); }
 function arrMinus(a, b) { let res = a.filter(x => !b.includes(x)); return res; }
+function arrPlus(a, b) { let res = a.concat(b); return res; }
 function arrWithout(a, b) { return arrMinus(a, b); }
 function arrRange(from = 1, to = 10, step = 1) { let res = []; for (let i = from; i <= to; i += step)res.push(i); return res; }
 function arrReplace(arr, oldval, newval) { let i = arr.indexOf(oldval); if (i >= 0) arr[i] = newval; return oldval; }
@@ -5477,8 +5478,11 @@ function randomHexColor() {
 	}
 	return s;
 }
-function randomNumber(min = 0, max = 100) {
-	return Math.floor(Math.random() * (max - min + 1)) + min; //min and max inclusive!
+function randomNumber(min = 0, max = 100, step) {
+	if (isdef(step)) {
+		let arr=range(min,max,step); return chooseRandom(arr);
+	}
+	else return Math.floor(Math.random() * (max - min + 1)) + min; //min and max inclusive!
 }
 function tossCoin(percent) {
 

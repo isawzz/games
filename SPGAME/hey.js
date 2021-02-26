@@ -55,6 +55,9 @@ async function localOrRoute(key, url) {
 	} else return await route_path_yaml_dict(url);
 }
 async function loadAssetsSIMA(assetsPath) {
+
+	timit.show('assets*')
+
 	c52 = await localOrRoute('c52', assetsPath + 'c52_blackBorder.yaml');
 	//testCards = await localOrRoute('testCards', assetsPath + 'testCards.yaml');
 	cinno = await localOrRoute('cinno', assetsPath + 'fe/inno.yaml');
@@ -73,6 +76,7 @@ async function loadAssetsSIMA(assetsPath) {
 	SymKeys = Object.keys(Syms);
 
 	//console.log('SymKeys',SymKeys)
+	timit.show('assets done')
 
 }
 

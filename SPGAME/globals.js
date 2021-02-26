@@ -31,14 +31,15 @@ const DD = {
 	build: 'bilde', count: 'zähle', 'the red dots': 'die roten Punkte',
 };
 const OPS = { //die muessen vals in settings.games[game] sein!
-	'plus': { cmd: 'add', link: 'to', wr: '+', sp: 'plus', f: (a, b) => (a + b) },
-	'minus': { cmd: 'subtract', link: 'from', wr: '-', sp: 'minus', f: (a, b) => (a - b) },
-	'divide': { cmd: 'divide', link: 'by', wr: ':', sp: 'divided by', f: (a, b) => (a / b) },
-	'intdiv': { cmd: 'divide', link: 'by', wr: 'div', sp: 'divided by', f: (a, b) => (Math.floor(a / b)) },
-	'mult': { cmd: 'multiply', link: 'by', wr: 'x', sp: 'times', f: (a, b) => (a * b) },
+	'first': { cmd: 'add', link: 'to', wr: '+', sp: 'plus', f: (a, b) => (a + b), min: 20, max: 100 },
+	'plus': { cmd: 'add', link: 'to', wr: '+', sp: 'plus', f: (a, b) => (a + b), min: 3, max: 30 },
+	'minus': { cmd: 'subtract', link: 'from', wr: '-', sp: 'minus', f: (a, b) => (a - b), min: 1, max: 10 },
+	'div': { cmd: 'divide', link: 'by', wr: ':', sp: 'divided by', f: (a, b) => (a / b), min: 2, max: 10 },
+	'intdiv': { cmd: 'divide', link: 'by', wr: 'div', sp: 'divided by', f: (a, b) => (Math.floor(a / b)), min: 1, max: 10 },
+	'mult': { cmd: 'multiply', link: 'by', wr: 'x', sp: 'times', f: (a, b) => (a * b), min: 2, max: 10 },
 	// '**':{wr:'^',sp:'to the power of',f:(a,b)=>(Math.pow(a,b))},
-	'pow': { cmd: 'build', link: 'to the power of', wr: '^', sp: 'to the power of', f: (a, b) => (Math.pow(a, b)) },
-	'mod': { cmd: 'build', link: 'modulo', wr: '%', sp: 'modulo', f: (a, b) => (a % b) },
+	'pow': { cmd: 'build', link: 'to the power of', wr: '^', sp: 'to the power of', f: (a, b) => (Math.pow(a, b)), min: 0, max: 20 },
+	'mod': { cmd: 'build', link: 'modulo', wr: '%', sp: 'modulo', f: (a, b) => (a % b), min: 0, max: 20 },
 	'l': { cmd: 'true or false?', link: 'less than', wr: '<', sp: 'less than', f: (a, b) => (a < b) },
 	'g': { cmd: 'true or false?', link: 'greater than', wr: '>', sp: 'greater than', f: (a, b) => (a > b) },
 	'leq': { cmd: 'true or false?', link: 'less or equal', wr: '<=', sp: 'less or equal', f: (a, b) => (a <= b) },
@@ -52,10 +53,14 @@ const OPS = { //die muessen vals in settings.games[game] sein!
 	'xor': { cmd: 'true or false?', link: 'xor', wr: 'xor', sp: 'xor', f: (a, b) => (a && !b || !a && b) },
 }
 
-const PersonNames=['Aaron','Ariel','Adrianna','Amanda','Ashley','Billy','Cayley','Cassandra','Charlene','Erica','Erik',
-'Felix','Gunter','Gilbert','Gudrun','Jacob','Jaime','Jenny','John','Leo','Lillian','Marshall','Matthew','Martha','Maurita',
-'Melissa','Micha','Milda','Natalie','Natasha','Nathan','Rebecca','Robert','Shad','Stacy','Thomas','Tim','William']
+const GirlNames=['Adrianna','Amanda','Ashley','Cassandra','Charlene','Erica','Gudrun',
+'Jenny','Lana','Lillian','Martha','Maurita','Melissa','Micha','Milda','Natalie','Natasha',
+'Rebecca','Stacy'];
 
+const BoyNames=['Aaron','Ariel','Billy','Cayley','Erik',
+'Felix','Gunter','Gilbert','Henry','Jacob','Jaime','John','Leo',
+'Marshall','Matthew','Nathan',
+'Robert','Shad','Thomas','Tim','William'];
 
 
 

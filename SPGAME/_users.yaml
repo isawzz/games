@@ -13,7 +13,7 @@ nil:
     vocab: lifePlus
     showTime: true
     spokenFeedback: true
-    silentMode: false
+    silentMode: true
     switchGame: true
     #indiv game settings default
     trials:  1
@@ -65,8 +65,8 @@ nil:
       open: true
 guest0:
   id: guest
-  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gStory
+  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gNamit
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -88,8 +88,8 @@ guest0:
       startLevel: 0
 test0:
   id: test0
-  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gStory
+  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gNamit
   settings:
     # settings common to all games
     samplesPerGame: 10
@@ -136,7 +136,7 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  avGames: [gStory, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
   lastGame: gNamit
   settings:
     # settings common to all games

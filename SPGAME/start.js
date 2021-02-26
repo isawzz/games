@@ -1,55 +1,8 @@
 window.onload = _preloader;
 window.onunload = saveUser;
 
-async function _experimental() {
-	let wp = await makeWordProblemsDict();
-	//let wp = await route_path_yaml_dict('../assets/math/word1.yaml');
-	console.log('word problems:', wp);
-	let p = chooseRandom(wp.plus);
-	console.log(p);
-	//let text = p.text;
-	//replaceAll(text,
 
-
-	//test10_syms(); timit.show('DONE'); return;
-
-	//let x='hallo'.substring(0,100); console.log('x',x)
-	//saveListOfWords();//updateGroupInfo(); //updateSymbolDict();//addVocabTo2020Syms();	//addCatsToKeys();	//allWordsAndKeysLowerCase(); updateSymbolDict();
-	//return;
-
-	//let keys = ['fly']; //fromKeySet('nemo',9);
-	//showPictureGrid(keys,dTable);return;
-
-	//show('freezer');
-	//console.log('English to German Nouns:', EdDict);
-	//recomputeBestED();
-	//generateWordFiles(); //step 1 works!!!
-	//let symNew = await makeNewSyms(); downloadAsYaml(symNew,'symNew')
-	//return;
-
-	//console.log('hallo');	mText('&#129427;',dTable,{fz:100,family:'segoe UI symbol'}); 	return;
-	//showPicsS(null, {}, {}, ['zebra'], ['zebra']); return;
-
-	//test04_textItems(); return;
-	//let x=substringOfMinLength(' ha a ll adsdsd',3,3);console.log('|'+x+'|');return;
-	// test06_submit(); return;
-	//addonScreen(); return;
-	//onclick=()=>test05_popup('think about the passcode!',24001); return;
-	//test05_popup(); return; //test04_blankPageWithMessageAndCountdownAndBeep();return;
-	// test12_vizOperationOhneParentDiv(); return;
-	//test12_vizNumberOhneParentDiv();return;
-	//test12_vizArithop(); return;
-	//test11_zViewerCircleIcon(); return;
-	//test11_zItemsX(); return;
-	//test03_maShowPictures(); return;
-	//let keys = symKeysByType.icon;	keys=keys.filter(x=>x.includes('tower'));	console.log(keys);	iconViewer(keys);	return;
-
-	//onClickTemple(); return;
-
-
-}
 async function _start() {
-	//timit.show('DONE');	console.assert(isdef(DB));
 	initLive(); initTable(); initSidebar(); initAux(); initScore(); initSymbolTableForGamesAddons(); //creates Daat
 	addonFeatureInit(); //new API!
 	Speech = new SpeechAPI('E');
@@ -64,9 +17,265 @@ async function _start() {
 
 }
 
+function getOperand(type) {
+	let x = OPS[type];
+	return randomNumber(x.min, x.max);
+}
+function all2DigitFractionsExpanded() {
+	let f = all2DigitFractions();
+	let res = [];
+	for (const i in f) {
+		for (const j of f[i]) {
+			res.push({ numer: i, denom: j });
+		}
+	}
+	return res;
+}
+function all2DigitFractionsUnder1Expanded() {
+	let f = all2DigitFractionsUnder1();
+	let res = [];
+	for (const i in f) {
+		for (const j of f[i]) {
+			res.push({ numer: i, denom: j });
+		}
+	}
+	return res;
+}
+function all2DigitFractions() {
+	let fr = {
+		1: [2, 3, 4, 5, 6, 7, 8, 9],
+		2: [3, 5, 7, 9],
+		3: [2, 4, 5, 7, 8],
+		4: [3, 5, 7, 9],
+		5: [2, 3, 4, 6, 7, 8, 9],
+		6: [5, 7],
+		7: [2, 3, 4, 5, 6, 8, 9],
+		8: [3, 5, 7, 9],
+		9: [2, 4, 5, 7, 8],
+	};
+	return fr;
+}
+function fractionsUnder1ByDenominator() {
+	let fr = {
+		2: [1],
+		3: [1,2],
+		4: [1,3],
+		5: [1,2,3,4],
+		6: [1,5],
+		7: [1,2,3,4,5,6],
+		8: [1,3,5,7],
+		9: [1,2,4,5,7,8],
+	};
+	return fr;
+}
+
+function all2DigitFractionsUnder1() {
+	let fr = {
+		1: [2, 3, 4, 5, 6, 7, 8, 9],
+		2: [3, 5, 7, 9],
+		3: [4, 5, 7, 8],
+		4: [5, 7, 9],
+		5: [6, 7, 8, 9],
+		6: [7],
+		7: [8, 9],
+		8: [9],
+	};
+	return fr;
+}
+
+function simplifyFraction(numerator, denominator) {
+	var gcd = function gcd(a, b) {
+		return b ? gcd(b, a % b) : a;
+	};
+	gcd = gcd(numerator, denominator);
+	return [numerator / gcd, denominator / gcd];
+}
+
+
+function instantiateNumbersIncludingFractions(wp) {
+	//sol = simplify({N2(3,8)}/{N1(12,24)})
+	let sol = wp.sol;
+	console.log('________________sol', sol)
+	let parts = sol.split('{');
+	let di = {};
+	let newSol = '';
+	//replacing Ni in sol
+	for (const p of parts) {
+		if (p[0] == 'N') {
+			let key = p.substring(0, 2);
+			let n;
+			console.log('p',p)
+			if (p[2] == '(') {
+				let nums = stringBetween(p, '(', ')');
+				let lst = allNumbers(nums);
+				if (lst.length <= 3 && lst[0]<=lst[1]) {
+					n = randomNumber(...lst);
+				} else {
+					n = chooseRandom(lst);
+				}
+			}else{
+				n=randomNumber(2,9);
+			}
+			//now replace {N1(3,8)} by eg. 4
+			let rest = stringAfter(p, '}');
+			newSol += '' + n + rest;
+			di[key] = n;
+
+		} else newSol += p;
+	}
+
+	console.log('newSol', newSol);
+	//all Ni are now replaced by corresponding ranges
+	let res = eval(newSol);
+
+	console.log('res of simplify', res);
+	let numResult = res[0]/res[1];
+	let textResult = numResult == Math.round(numResult)? numResult : '' + res[0] + '/' + res[1];
+	wp.result = { number: numResult, text: textResult };
+
+	//replacing Ni and {F...} in text
+	let text = wp.text;
+	for (const k in di) {
+		if (k == 'R') continue;
+		text = replaceAll(text, '{' + k + '}', di[k]);
+	}
+
+	console.log('_________ text', text);
+	parts = text.split('{');
+	let tnew = '';
+	for (const p of parts) {
+		if (p[0] == 'F') {
+			//parser numbers
+			let s = stringBefore(p, '}');
+			console.log('s',s)
+			let [n, d] = allNumbers(s);
+			tnew += getTextForFraction(n, d);
+			tnew += '; ' + stringAfter(p, '}');
+		} else tnew += p;
+	}
+	text = tnew;
+
+	wp.text = text;
+
+	mText(wp.text, dTable)
+}
+function instantiateNumbers(wp) {
+
+	let text = wp.text;
+
+	//sol = R*N2=N1
+	let sol = wp.sol;
+	let rhs = stringBefore(sol, '=');
+	let type = rhs.includes('*') ? rhs.includes('R') ? 'div' : 'mult' : rhs.includes('R') ? 'minus' : 'plus';
+	//replace R and Nx in rhs by operands
+	let i = 0;
+	let diop = {};
+	while (i < rhs.length) {
+		if (rhs[i] == 'R') { diop.R = getOperand(type); i += 1; }
+		else if (rhs[i] == 'N') {
+			i += 1;
+			let inum = Number(rhs[i]);
+			let k = 'N' + inum;
+			diop[k] = getOperand(type);
+			i += 1;
+		} else i += 1;
+
+	}
+	//replace in sol each rhs by its operand, the eval rhs
+	let eq = rhs;
+	for (const k in diop) {
+		eq = eq.replace(k, diop[k]);
+	}
+	// console.log('eq',eq);
+	let result = eval(eq);
+	// console.log('result',result);
+
+	//now, assign result to lhs
+	let lhs = stringAfter(sol, '=');
+	diop[lhs] = result;
+
+	// console.log('_______diop',diop);
+
+	//now replace each key in text by diop[key] and sett wp.result to diop.R
+	wp.result = { number: diop.R, text: '' + diop.R };
+	for (const k in diop) {
+		if (k == 'R') continue;
+		text = text.replace('{' + k + '}', diop[k]);
+	}
+	wp.text = text;
+}
+function instantiateNames(wp) {
+	let text = wp.text;
+	let parts = text.split('{');
+	console.log('parts', parts);
+	let diNames = {};
+	let tnew = '';
+	let allNames = jsCopy(arrPlus(GirlNames, BoyNames));
+	let gNames = jsCopy(GirlNames);
+	let bNames = jsCopy(BoyNames);
+
+	if (!startsWith(text, '{')) { tnew += parts[0]; parts = parts.slice(1); }
+	for (const part of parts) {
+		let textPart = stringAfter(part, '}');
+		let key = part.substring(0, 2);
+		console.log('key', key);
+
+		if (['G', 'B', 'P'].includes(part[0])) {
+			let nlist = part[0] == 'P' ? allNames : part[0] == 'B' ? bNames : gNames;
+			if (isdef(diNames[key])) {
+				tnew += ' ' + diNames[key];
+			} else {
+				diNames[key] = chooseRandom(nlist);
+				removeInPlace(nlist, diNames[key]);
+				removeInPlace(allNames, diNames[key]);
+				tnew += ' ' + diNames[key];
+			}
+		}
+		tnew += ' ' + textPart.trim();
+	}
+	wp.text = tnew.trim();
+}
+function instantiateFractions(wp) {
+	let text = wp.text;
+	let parts = text.split('{');
+	console.log('parts', parts);
+	let tnew = '';
+	if (!startsWith(text, '{')) { tnew += parts[0]; parts = parts.slice(1); }
+	let denom;
+	for (const part of parts) {
+		let textPart = stringAfter(part, '}');
+		let key = part.substring(0, 2);
+		console.log('key', key);
+		if (part[0] == 'F') { //{Fa/b}
+			let numer = part[1] == 'a' ? 1 : isdef(denom) ? denom : randomNumber(2, 8);
+			if (nundef(denom)) {
+				denom = numer <= 2 ? randomNumber(numer + 1, 9) :
+					numer < 9 ? coin() ? randomNumber(2, numer - 1) : randomNumber(numer + 1, 9) : randomNumber(2, number - 1);
+			}
+			tnew += ' ' + getTextForFraction(numer, denom);
+			operands.push(numer / denom);
+		}
+		tnew += ' ' + textPart.trim();
+	}
+	wp.text = tnew.trim();
+}
+function instantiateWP(wp) {
+
+	if (wp.title.includes('Fractions')) instantiateNumbersIncludingFractions(wp); else instantiateNumbers(wp);
+
+	instantiateNames(wp);
+
+	console.log('wp', wp.text, wp.result);
+}
+function evalWP(wp) {
+	let title = wp.title;
+	if (title.includes('Adding') && !titla.includes('Fractions')) {
+
+	}
+}
 var FASTSTART = false && EXPERIMENTAL;
 async function _preloader() {
-	timit = new TimeIt('timit', false);
+	timit = new TimeIt('timit', EXPERIMENTAL);
 
 	if (FASTSTART) {
 		let syms = localStorage.getItem('syms');
@@ -127,8 +336,10 @@ async function _loader() {
 	} else { loadSIMA(_start); }
 
 }
+function getTextForFraction(num, denom) { return '&frac' + num + denom; }
+
 async function makeWordProblemsDict() {
-	let wp = WordProblems = await route_path_text('../assets/math/hallo.txt');
+	let wp = await route_path_text('../assets/math/hallo.txt');
 	wp = wp.split('*');
 	wp.splice(0, 1);
 	//console.log('WordProblems', wp);
@@ -153,7 +364,7 @@ async function makeWordProblemsDict() {
 				//console.log('found number', s)
 				let i = s.indexOf(text);
 				let len = s.length;
-				text = text.replace(s, '$N' + kers[inum]);
+				text = text.replace(s, '{N' + kers[inum] + '}');
 				inum += 1;
 			}
 			//console.log('in',index,stringBefore(title,' '),'found',nums,sol)
@@ -162,32 +373,33 @@ async function makeWordProblemsDict() {
 		//console.log('inum is',inum)
 		for (let j = 0; j < inum; j++) {
 
-			let s = '$N' + kers[j];
-			let by = '$N' + ersetzer[kers[j]];
+			let s = '{N' + kers[j];
+			let by = '{N' + ersetzer[kers[j]];
 			//console.log('text',text,'\nlooking for',s,'repl by',by);
 			//console.log(text.includes(s));
 			text = replaceAllSpecialChars(text, s, by);
 			//console.log('==>',text)
 		}
 
-		//replace *** FRACTIONS ***
-		if (title.includes('Fractions')) {
-			let parts = text.split('${F');
-			text = parts[0];
-			console.log('parts', parts);
-			for (let i = 1; i < parts.length; i++) {
-				//now parts[i] starts with a a/b fraction!
-				// a soll IMMER mit 1 replaced werden!!!
+		//replace *** FRACTIONS *** haendisch gemacht!
+		// if (title.includes('Fractions')) {
+		// 	let parts = text.split('${F');
+		// 	text = parts[0];
+		// 	console.log('parts', parts);
+		// 	for (let i = 1; i < parts.length; i++) {
+		// 		//now parts[i] starts with a a/b fraction!
+		// 		// a soll IMMER mit 1 replaced werden!!!
+		// 		if (parts[i])
 
-			}
-		}
+		// 	}
+		// }
 		//return;
 
 
 		let iname = 1;
 		for (const name of PersonNames) {
 			if (text.includes(name)) {
-				text = replaceAll(text, name, '$P' + iname);
+				text = replaceAll(text, name, '{P' + iname + '}');
 				iname += 1;
 			}
 		}
@@ -530,4 +742,10 @@ function initSymbolTableForGamesAddons() {
 	}
 }
 
+
+
+
+function presentWordProblem() {
+
+}
 

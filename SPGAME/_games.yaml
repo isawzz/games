@@ -509,10 +509,17 @@ gStory:
   logo: 'blue book'
   color: seagreen
   numMissing: 1
-  minNum: 0
-  maxNum: 10
-  minFactor: 2
-  maxFactor: 3
+  minPlus: 0
+  maxPlus: 10
+  minMinus: 0
+  maxMinus: 10
+  minMult: 2
+  maxMult: 10
+  minDiv: 2
+  maxDiv: 10
+  exactDivisor: true
+  roundDecimalsTo: .25
+  singleDigitFractions: true
   posMissing: end
   ops: [plus,minus,mult]
   levels:
