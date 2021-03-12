@@ -57368,10 +57368,10 @@ racing car:
   isDuplicate: false
   w: 125
   h: 133
-  E: car
-  D: auto
-  F: voiture
-  S: coche
+  E: racing car
+  D: rennwagen
+  F: voiture de course
+  S: coche de carreras
   C: 汽車
   cats:
     - huge
