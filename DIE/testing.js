@@ -75,7 +75,35 @@ function test03_2Hands_transfer() {
 	iSortHand(Daat.h1)
 
 }
+function test03_komischeBubbles(){
+	let dover = mDover(dTable); mStyleX(dover, { bg: '#00000080' });
 
+	item=i52(25);
+	item.div=mText('hallo',dover,{padding:25});
+	container = dover;
+	mClass(container,'container');
+	//item = iAppend52(15, dover);
+	mClass(item.div,'bubble2')
+	item.div.style.setProperty('--xStart', '0px'); //`rgb(${r},${g},${b})`);
+	item.div.style.setProperty('--xEnd', '100px'); //`rgb(${r},${g},${b})`);
+	item.div.style.setProperty('--yStart', '0px'); //`rgb(${r},${g},${b})`);
+	item.div.style.setProperty('--yEnd', '-100px'); //`rgb(${r},${g},${b})`);
+	dTable.addEventListener("mousemove", updateBubbleColors);
+
+}
+
+function updateBubbleColors(e) {
+	const w = window.innerWidth / 255;
+	const h = window.innerHeight / 255;
+	const x = parseInt(e.pageX / w, 10);
+	const y = parseInt(e.pageY / h, 10);
+
+	const r = x;
+	const g = (y - 255) * -1;
+	const b = x <= y ? y - x : 0;
+
+	container.style.setProperty('--colorEnd', `rgb(${r},${g},${b})`);
+}
 
 function test03_splayHand() {
 	let h = Daat.hand = new Deck();

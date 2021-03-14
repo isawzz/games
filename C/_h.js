@@ -83,12 +83,6 @@ function _prepText1_dep(items, ifs, options) {
 
 }
 
-
-
-
-
-
-
 //#region loading images cropped
 function loadPic(filename, w, h, dParent, { x, y, row, col, scale } = {}, ext = 'jpg', dir = '../assets/images/postures/') {
 	let dPic = mDiv(dParent);

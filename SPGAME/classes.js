@@ -232,6 +232,7 @@ class GElim extends Game {
 		myShowPics(this.interact.bind(this), { contrast: G.contrast, },
 			{ showRepeat: showRepeat, colorKeys: colorKeys, repeat: G.numRepeat });
 
+		//console.log('G.colors', G.colors, 'colorKeys', colorKeys);
 		let [sSpoken, sWritten, piclist] = logicMulti(Pictures);
 		this.piclist = piclist;
 		Goal = { pics: this.piclist, sammler: [] };
@@ -644,27 +645,27 @@ class GWritePic extends Game {
 			if (isdef(this.inputBox)) { this.inputBox.focus(); }
 		}
 	}
-	startLevel(){
+	startLevel() {
 		G.keys = setKeys({
-			lang: Settings.language, keysets: KeySets, key: G.instruction=='all'?'all':Settings.vocab,
+			lang: Settings.language, keysets: KeySets, key: G.instruction == 'all' ? 'all' : Settings.vocab,
 			filterFunc: (k, w) => w.length <= G.maxWordLength && w.length >= G.minWordLength && !w.includes(' ')
 		});
 
 	}
 	prompt() {
-		console.log('showLabels: G',G.showLabels,Settings.labels);
+		console.log('showLabels: G', G.showLabels, Settings.labels);
 		let showLabels = G.showLabels == true && Settings.labels == true;
-		myShowPics(() => mBy(this.defaultFocusElement).focus(),{},{showLabels:showLabels});
+		myShowPics(() => mBy(this.defaultFocusElement).focus(), {}, { showLabels: showLabels });
 		setGoal();
 
-		if (G.instruction == 'all'){
+		if (G.instruction == 'all') {
 			showInstruction(Goal.label, Settings.language == 'E' ? 'type' : "schreib'", dTitle, true);
-		}else if (G.instruction == 'spokenGoal'){
-			let wr=Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
-			let sp=(Settings.language == 'E' ? 'type' : "schreib'")+' '+Goal.label;
+		} else if (G.instruction == 'spokenGoal') {
+			let wr = Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
+			let sp = (Settings.language == 'E' ? 'type' : "schreib'") + ' ' + Goal.label;
 			showInstruction('', wr, dTitle, true, sp);
-		}else{
-			let wr=Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
+		} else {
+			let wr = Settings.language == 'E' ? 'type the correct word' : "schreib' das passende wort";
 			showInstruction('', wr, dTitle, true, wr);
 		}
 
@@ -677,9 +678,9 @@ class GWritePic extends Game {
 	}
 	trialPrompt() {
 		sayTryAgain();
-		let n=G.trialNumber==1?1: (G.trialNumber+ Math.floor((Goal.label.length-G.trialNumber)/2));
-		
-		showFleetingMessage(Goal.label.substring(0,n));
+		let n = G.trialNumber == 1 ? 1 : (G.trialNumber + Math.floor((Goal.label.length - G.trialNumber) / 2));
+
+		showFleetingMessage(Goal.label.substring(0, n));
 		mLinebreak(dTable);
 		this.inputBox = addNthInputElement(dTable, G.trialNumber);
 		this.defaultFocusElement = this.inputBox.id;
@@ -704,10 +705,11 @@ class GWritePic extends Game {
 		Selected = { reqAnswer: reqAnswer, answer: answer, feedbackUI: Goal.div };
 		if (answer == reqAnswer) {
 			showFleetingMessage(Goal.label);
-			return true; 
-		}else { 
+			return true;
+		} else {
 			//if (G.trialNumber == G.trials-1) dTitle.innerHTML = Goal.label;
-			return false; }
+			return false;
+		}
 	}
 
 }

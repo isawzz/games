@@ -23,52 +23,31 @@ function _spgameStart(){
 	test04_textItems();
 
 }
+function _startTest(){
+
+	//test03_komischeBubbles();
+
+	test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
+	//test03_centerToCenter();
+
+}
 
 async function _start() {
 
-	_spgameStart(); return;
-
-
-
-
-
-
-
+	// _spgameStart(); return;
+	_startTest();	return;
 
 	//DB has {users,games,tables,settings} set
 	initLive();
 	loadUser(); // Username===U.id, U has {id,avGames,games,session,settings.color,tables} 
 	loadGame(); // G set hat {type,color,friendly,logo,numPlayers,type}
 	loadTable(); // T set hat {}
+
 	I = new GGuess(T.id,U,G,T);
-	//I.loop();	//startGame();
-
-	test04_textItems();
+	I.loop();	//startGame();
 	
-	//test03_2Hands(); //test03_splayHand();//	test03_addToSplayed();//test03_addToZone();	// test03_habenItemsEinZNachSplay();
-	//test03_centerToCenter();
-
-	return;
-	//initGame();
-	//initSettings();
-
-	//onClickTemple();
-	//console.log('last game was:', User.getLastGame());
-	if (PROD_START) { PROD_START = false; onClickTemple(); } else startGame();
 }
 
-function updateBubbleColors(e) {
-	const w = window.innerWidth / 255;
-	const h = window.innerHeight / 255;
-	const x = parseInt(e.pageX / w, 10);
-	const y = parseInt(e.pageY / h, 10);
-
-	const r = x;
-	const g = (y - 255) * -1;
-	const b = x <= y ? y - x : 0;
-
-	container.style.setProperty('--colorEnd', `rgb(${r},${g},${b})`);
-}
 
 window.onload = _loader;
 window.onbeforeunload = () => {
@@ -134,6 +113,9 @@ function prelim() {
 
 	Speech = new SpeechAPI('E');
 	KeySets = getKeySetsX();
+
+	//****************** bis hierher ist also genau gleich!!!!!!!!!!!!!!!!!!!!! *************** */
+
 	TO = new TimeoutManager();
 
 	initTable(); //table(=alles), dTable(=dLineTableMiddle), dTitle(=dLineTitleMiddle), dLine[Top,Title,Middle,Bottom][LMR]
