@@ -10,7 +10,7 @@ function loadTable(id) {
 
 	T = lookup(DB, ['tables', id]);
 	Tablename = id;
-	//logTable();
+	logTable();
 
 	//console.log(Tablename, U);
 	updateTablenameUi(id, G.color);

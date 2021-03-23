@@ -35,7 +35,7 @@ function _startTest(){
 async function _start() {
 
 	// _spgameStart(); return;
-	_startTest();	return;
+	//_startTest();	return;
 
 	//DB has {users,games,tables,settings} set
 	initLive();

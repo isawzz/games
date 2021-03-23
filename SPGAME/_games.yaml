@@ -564,3 +564,18 @@ gStory:
       minFactor: 2
       maxFactor: 10
       ops: [plus,minus,mult]
+gCats:
+  friendly: 'Categories'
+  logo: 'cat'
+  color: rgb(152,0,105)
+  levels:
+    0: 
+      numPics: 2
+    1: 
+      numPics: 3
+    2: 
+      numPics: 4
+    3: 
+      numPics: 5
+    4: 
+      numPics: 6

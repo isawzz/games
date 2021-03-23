@@ -136,8 +136,8 @@ test0:
       startLevel: 0
 gul:
   id: gul
-  avGames: [gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
-  lastGame: gNamit
+  avGames: [gCats, gNamit, gMissingLetter, gTouchPic, gPremem, gTouchColors, gSteps, gSayPic, gMem, gMissingNumber, gWritePic, gAnagram, gElim, gAbacus]
+  lastGame: gCats
   settings:
     # settings common to all games
     samplesPerGame: 25
@@ -149,7 +149,7 @@ gul:
     vocab: lifePlus
     showTime: true
     spokenFeedback: true
-    silentMode: false
+    silentMode: true
     switchGame: true
     #indiv game settings default
     trials:  2

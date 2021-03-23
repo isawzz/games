@@ -13,7 +13,6 @@ const levelColors = [LIGHTGREEN, LIGHTBLUE, YELLOW, 'orange', RED,
 var levelKeys = ['island', 'justice star', 'materials science', 'mayan pyramid', 'medieval gate',
 	'great pyramid', 'meeple', 'smart', 'stone tower', 'trophy cup', 'viking helmet',
 	'flower star', 'island', 'justice star', 'materials science', 'mayan pyramid',];
-
 const DD = {
 	yellow: 'gelb', green: 'grün', blue: 'blau', red: 'rot', pink: 'rosa', orange: 'orange', black: 'schwarz',
 	white: 'weiss', violet: 'violett', '1st': 'erste', '2nd': 'zweite', '3rd': 'dritte', '4th': 'vierte', '5th': 'fünfte',

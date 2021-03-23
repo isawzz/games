@@ -58,13 +58,13 @@ function all2DigitFractions() {
 function fractionsUnder1ByDenominator() {
 	let fr = {
 		2: [1],
-		3: [1,2],
-		4: [1,3],
-		5: [1,2,3,4],
-		6: [1,5],
-		7: [1,2,3,4,5,6],
-		8: [1,3,5,7],
-		9: [1,2,4,5,7,8],
+		3: [1, 2],
+		4: [1, 3],
+		5: [1, 2, 3, 4],
+		6: [1, 5],
+		7: [1, 2, 3, 4, 5, 6],
+		8: [1, 3, 5, 7],
+		9: [1, 2, 4, 5, 7, 8],
 	};
 	return fr;
 }
@@ -104,17 +104,17 @@ function instantiateNumbersIncludingFractions(wp) {
 		if (p[0] == 'N') {
 			let key = p.substring(0, 2);
 			let n;
-			console.log('p',p)
+			console.log('p', p)
 			if (p[2] == '(') {
 				let nums = stringBetween(p, '(', ')');
 				let lst = allNumbers(nums);
-				if (lst.length <= 3 && lst[0]<=lst[1]) {
+				if (lst.length <= 3 && lst[0] <= lst[1]) {
 					n = randomNumber(...lst);
 				} else {
 					n = chooseRandom(lst);
 				}
-			}else{
-				n=randomNumber(2,9);
+			} else {
+				n = randomNumber(2, 9);
 			}
 			//now replace {N1(3,8)} by eg. 4
 			let rest = stringAfter(p, '}');
@@ -129,8 +129,8 @@ function instantiateNumbersIncludingFractions(wp) {
 	let res = eval(newSol);
 
 	console.log('res of simplify', res);
-	let numResult = res[0]/res[1];
-	let textResult = numResult == Math.round(numResult)? numResult : '' + res[0] + '/' + res[1];
+	let numResult = res[0] / res[1];
+	let textResult = numResult == Math.round(numResult) ? numResult : '' + res[0] + '/' + res[1];
 	wp.result = { number: numResult, text: textResult };
 
 	//replacing Ni and {F...} in text
@@ -147,7 +147,7 @@ function instantiateNumbersIncludingFractions(wp) {
 		if (p[0] == 'F') {
 			//parser numbers
 			let s = stringBefore(p, '}');
-			console.log('s',s)
+			console.log('s', s)
 			let [n, d] = allNumbers(s);
 			tnew += getTextForFraction(n, d);
 			tnew += '; ' + stringAfter(p, '}');
@@ -737,7 +737,7 @@ function initSymbolTableForGamesAddons() {
 		gTouchPic: GTouchPic, gNamit: GNamit, gStory: GStory,
 		gTouchColors: GTouchColors, gPremem: GPremem, gMem: GMem, gMissingLetter: GMissingLetter,
 		gMissingNumber: GMissingNumber, gWritePic: GWritePic, gSayPic: GSayPic, gSteps: GSteps, gElim: GElim,
-		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode
+		gAnagram: GAnagram, gAbacus: GAbacus, gPasscode: GPasscode, gCats: GCats,
 
 	}
 }
