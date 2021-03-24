@@ -235,6 +235,7 @@ function showLbls(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 }
 function showPics(onClickPictureHandler, ifs = {}, options = {}, keys, labels) {
 	let items = getPics(onClickPictureHandler, ifs, options, keys, labels);
+	console.log(items);
 	presentItems(items, dTable, options.rows);
 	return items;
 }

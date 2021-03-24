@@ -5,7 +5,7 @@ function getInstance(G) {
 function myShowPics(handler, ifs = {}, options = {}, keys, labels) {
 
 	if (nundef(keys)) keys = choose(G.keys, G.numPics);
-	//keys[0]='tamale';
+	//keys[0]='cockroach';
 	//keys[1]='safety pin';
 	//keys[2]='beaver';
 	//keys=['eye'];//['toolbox','tiger']; //keys[0] = 'butterfly'; //keys[0]='man in manual wheelchair';	//keys=['sun with face'];
