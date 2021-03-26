@@ -9,7 +9,7 @@ function detectItems(n){
 }
 function showPictureGrid(n=9,dParent,ifs={},options={}){
 	//k could actually be number,key list,info list or item list
-	n=['bee','cockroach'];
+	//n=['bee','cockroach'];
 	let items = detectItems(n);
 	console.log('item',items[0]);
 

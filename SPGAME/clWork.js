@@ -45,6 +45,38 @@ class GCats extends Game {
 
 }
 
+class GMem extends Game {
+	constructor(name) { super(name); }
+	clear() { clearTimeout(this.TO); showMouse(); }
+	prompt() {
+		let showLabels = G.showLabels == true && Settings.labels == true;
+		myShowPics(this.interact.bind(this),
+			{ border: '3px solid #ffffff80' },
+			{ repeat: G.numRepeat, sameBackground: true, showLabels: showLabels });
+		setGoal();
+
+		if (G.level > 2) { showInstruction('', Settings.language == 'E' ? 'remember all' : 'merke dir alle', dTitle, true); }
+		else { showInstruction(Goal.label, Settings.language == 'E' ? 'remember' : 'merke dir', dTitle, true); }
+
+		let secs = calcMemorizingTime(G.numPics, G.level > 2);
+
+		hideMouse();
+		TOMain = setTimeout(() => turnCardsAfter(secs), 300, G.level >= 5); //needed fuer ui update! sonst verschluckt er last label
+
+	}
+	interact(ev) {
+		//console.log('interact!', ev);
+		ev.cancelBubble = true;
+		if (!canAct()) return;
+		let pic = findItemFromEvent(Pictures, ev);
+		toggleFace(pic);
+
+		if (G.trialNumber == G.trials - 1) {
+			turnFaceUp(Goal);
+			TOMain = setTimeout(() => evaluate(ev), 100);
+		} else evaluate(ev);
+	}
+}
 
 
 
