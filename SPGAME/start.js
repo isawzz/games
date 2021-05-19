@@ -91,7 +91,6 @@ function simplifyFraction(numerator, denominator) {
 	return [numerator / gcd, denominator / gcd];
 }
 
-
 function instantiateNumbersIncludingFractions(wp) {
 	//sol = simplify({N2(3,8)}/{N1(12,24)})
 	let sol = wp.sol;
@@ -273,6 +272,8 @@ function evalWP(wp) {
 
 	}
 }
+
+
 var FASTSTART = false && EXPERIMENTAL;
 async function _preloader() {
 	timit = new TimeIt('timit', EXPERIMENTAL);

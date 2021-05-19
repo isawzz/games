@@ -1,5 +1,5 @@
 
-function generalGrid(nuiBoard, R,area) {
+function generalGrid(nuiBoard, R, area) {
 
 	//console.log('gengrid')
 	// *** stage 1 create parent *** 
@@ -7,7 +7,7 @@ function generalGrid(nuiBoard, R,area) {
 
 	//console.log('area',area); mText('HALLO',mBy(area));
 
-	let ui = nuiBoard.ui = createUi(nuiBoard, R,area);
+	let ui = nuiBoard.ui = createUi(nuiBoard, R, area);
 	//console.log('board params', nuiBoard.params)
 
 	// *** stage 2 create children *** (in n.bi)
@@ -50,7 +50,8 @@ function generalGrid(nuiBoard, R,area) {
 	// *** stage 4: layout! means append & positioning_ = transforms... ***
 	//gridLayout_(nuiBoard, R);
 }
-function createBoard(nui, R,area) {
+function createBoard(nui, R, area) {
+	console.log('nui', nui, 'R', R, 'area', area);
 	let [oid, boardType, r0, c0] = detectBoardOidAndType(nui.oid, nui.boardType, R);
 	nui.oid = oid;
 	nui.boardType = boardType;
@@ -61,7 +62,7 @@ function createBoard(nui, R,area) {
 	//nui.bi.minRow=r0;
 	//nui.bi.minCol=c0;
 	//nui.bi = gridSkeleton()
-	generalGrid(nui, R,area);
+	generalGrid(nui, R, area);
 }
 function updateSizes(nuiBoard) {
 
@@ -230,11 +231,11 @@ function detectBoardOidAndType(oid, boardType, R) {
 	if (!boardType) boardType = detectBoardType(oBoard, R);
 
 	let fids = getElements(oBoard.fields);
-	let r0=1000;let c0=1000;
-	for(const fid of fids){
-		let f=R.getO(fid);
-		if (f.row<r0)r0=f.row;
-		if (f.col<c0)c0=f.col;
+	let r0 = 1000; let c0 = 1000;
+	for (const fid of fids) {
+		let f = R.getO(fid);
+		if (f.row < r0) r0 = f.row;
+		if (f.col < c0) c0 = f.col;
 	}
 	//let fid0 = getElements(oBoard.fields)[0];
 	//let f0 = R.getO(fid0);
@@ -325,11 +326,7 @@ function gridSkeleton(omap, R, gridInfoFunc, fieldInfoFunc) {
 	//now vertices
 	board.info.vertices = correctPolys(Object.values(fields).map(x => x.info.poly), 1);
 
-	//console.log('===> oBoard',omap);
 
-	// if (o.corners){
-
-	// }
 	let dhelp = {}; //remember nodes that have already been created!!!
 	let corners = {};
 	for (const fid in fields) {

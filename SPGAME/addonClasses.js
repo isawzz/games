@@ -46,7 +46,7 @@ class AddonClass extends LiveObject {
 		this._createDivs();
 		this.setRunning();
 		let caption = this.presentInit();
-		mButton(isdef(caption)?caption:'Got it!', this.prompt.bind(this), this.dContent, { fz: 32, matop: 10 });
+		mButton(isdef(caption) ? caption : 'Got it!', this.prompt.bind(this), this.dContent, { fz: 32, matop: 10 });
 	}
 	isTimeForAddon() {
 		switch (this.uiState) {
@@ -116,7 +116,7 @@ class APasscode extends AddonClass {
 	}
 	presentInit() {
 		let keys = getRandomKeysFromGKeys(1); // choose(KeySets.nemo, 1);
-		let options = {rows:1};
+		let options = { rows: 1 };
 		//[this.pictures, this.rows] = getPictureItems(null, {}, options, keys);
 		this.pictures = getPics(null, {}, options, keys);
 
@@ -126,7 +126,7 @@ class APasscode extends AddonClass {
 		let dParent = this.dContent;
 		let d_title = mDiv(dParent);
 		showInstruction(this.goal.label, Settings.language == 'E' ? 'the passcode is' : 'das Codewort ist', d_title, true);
-																																																
+
 		let d_pics = mDiv(dParent);
 		presentItems(this.pictures, d_pics, options.rows);
 
@@ -190,7 +190,7 @@ class AAddress extends APasscode {
 	}
 	clear() { super.clear(); Speech.setLanguage(Settings.language); window.onclick = null; }
 	presentInit() {
-		this.msgPrompt='enter your address';
+		this.msgPrompt = 'enter your address';
 		this.lastHintPrompt = 'please complete entering address!';
 		this.goal = { label: '17448 NE 98th Way Redmond 98052' };
 		Speech.setLanguage('E')
@@ -251,9 +251,9 @@ class AAddress extends APasscode {
 			//user got more good letters. hint length will be reduced to 1
 			this.hintLength = 1;
 			this.nCorrect = this.correctPrefix.length;
-		} else if (this.hintLength < this.goal.label.length-this.nCorrect) this.hintLength += 1;
+		} else if (this.hintLength < this.goal.label.length - this.nCorrect) this.hintLength += 1;
 
-		if (this.hintLength==0) this.hintLength = 1;
+		if (this.hintLength == 0) this.hintLength = 1;
 		let wr = substringOfMinLength(this.goal.label, this.correctPrefix.length, this.hintLength);
 		let sp = oldHintLength == this.hintLength && !progress ? this.lastHintPrompt : null;
 		//console.log('oldHintLength',oldHintLength,'this.hintLength',this.hintLength,'progress',progress)
@@ -265,7 +265,7 @@ class APassword extends AAddress {
 		this.goal = null;
 		Speech.setLanguage('E');
 		let msg = 'create a new password!';
-		this.msgPrompt='enter your password';
+		this.msgPrompt = 'enter your password';
 		this.lastHintPrompt = 'please complete entering password!';
 		stdInstruction(msg, this.dInstruction, msg, { voice: 'zira' });
 		this.input = stdInputVal(this.dMain, { w: 600, fz: 24 }, 'hallo');
@@ -280,22 +280,4 @@ class APassword extends AAddress {
 	}
 }
 
-// class ATodoList extends AAddress {
-// 	presentInit() {
-// 		this.goal = null;
-// 		Speech.setLanguage('E');
-// 		let msg = 'create a new password!';
-// 		this.msgPrompt='enter your password';
-// 		this.lastHintPrompt = 'please complete entering password!';
-// 		stdInstruction(msg, this.dInstruction, msg, { voice: 'zira' });
-// 		this.input = stdInputVal(this.dMain, { w: 600, fz: 24 }, 'hallo');
-// 		this.input.id = this.defaultFocusElement = 'inputAddon';
-// 		window.onclick = () => mBy(this.defaultFocusElement).focus();
-// 		return 'set password';
-// 	}
-// 	presentPrompt() {
-// 		if (nundef(this.goal)) this.goal = { label: this.input.value.trim() };
-// 		super.presentPrompt();
-// 	}
-// }
 
